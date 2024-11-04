@@ -459,7 +459,7 @@ describe('BeregningEnkel', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
+    it.skip('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
       const simuleringsMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'

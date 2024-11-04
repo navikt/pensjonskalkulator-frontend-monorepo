@@ -23,7 +23,7 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
           <title
             id="loader-r0"
           >
-            Venter…
+            venter...
           </title>
           <circle
             class="navds-loader__background"

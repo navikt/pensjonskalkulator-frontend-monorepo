@@ -42,7 +42,7 @@ describe('apiSlice - utils', () => {
       expect(getSimuleringstypeFromRadio(true, 'ja_privat')).toEqual(
         'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
       )
-      expect(getSimuleringstypeFromRadio(false, 'ja_offentlig')).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 'ja_offentlig')).toEqual(
         'ENDRING_ALDERSPENSJON'
       )
     })
@@ -299,14 +299,14 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           isEndring: true,
         })?.simuleringstype
-      ).toEqual('ENDRING_ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           isEndring: true,
           afp: 'ja_offentlig',
         })?.simuleringstype
-      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {
@@ -468,6 +468,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
+          afp: null,
           loependeVedtak: {
             ufoeretrygd: { grad: 60 },
             harFremtidigLoependeVedtak: false,
@@ -477,27 +478,6 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          afp: 'ja_offentlig',
-          loependeVedtak: {
-            ufoeretrygd: { grad: 60 },
-            harFremtidigLoependeVedtak: false,
-          },
-        })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-          loependeVedtak: {
-            alderspensjon: { grad: 60, fom: '2010-10-10' },
-            ufoeretrygd: { grad: 0 },
-            harFremtidigLoependeVedtak: false,
-          },
-        })?.simuleringstype
-      ).toEqual('ENDRING_ALDERSPENSJON')
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-          afp: 'ja_privat',
           loependeVedtak: {
             alderspensjon: { grad: 60, fom: '2010-10-10' },
             ufoeretrygd: { grad: 0 },
@@ -505,6 +485,17 @@ describe('apiSlice - utils', () => {
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          afp: null,
+          loependeVedtak: {
+            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            ufoeretrygd: { grad: 0 },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {

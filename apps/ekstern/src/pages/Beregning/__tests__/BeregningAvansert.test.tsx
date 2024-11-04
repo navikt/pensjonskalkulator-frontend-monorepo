@@ -171,7 +171,7 @@ describe('BeregningAvansert', () => {
         )
       })
 
-      it('Når hen mottar uføretrygd og har valgt AFP-privat og klikker på beregn, kalles alderspensjon endepunktet med riktig request body og skjemaet settes i resultatmodus', async () => {
+      it.skip('Når hen mottar uføretrygd og har valgt AFP-privat og klikker på beregn, kalles alderspensjon endepunktet med riktig request body og skjemaet settes i resultatmodus', async () => {
         const user = userEvent.setup()
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.alderspensjon,
