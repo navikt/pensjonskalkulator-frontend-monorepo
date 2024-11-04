@@ -2,18 +2,28 @@ import { parse, format, parseISO } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { formatInntektToNumber } from '@/utils/inntekt'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
-export const getAfpSimuleringstypeFromRadio = (
+export const getSimuleringstypeFromRadio = (
+  isEndring: boolean,
   afp: AfpRadio | null
-): AfpSimuleringstype => {
-  switch (afp) {
-    case 'ja_privat':
-      return 'ALDERSPENSJON_MED_AFP_PRIVAT'
-    case 'ja_offentlig':
-      return 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-    default:
-      return 'ALDERSPENSJON'
+): AlderspensjonSimuleringstype => {
+  if (isEndring) {
+    if (afp === 'ja_privat') {
+      return 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
+    } else {
+      return 'ENDRING_ALDERSPENSJON'
+    }
+  } else {
+    switch (afp) {
+      case 'ja_privat':
+        return 'ALDERSPENSJON_MED_AFP_PRIVAT'
+      case 'ja_offentlig':
+        return 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+      default:
+        return 'ALDERSPENSJON'
+    }
   }
 }
 
@@ -47,6 +57,7 @@ export const transformUtenlandsperioderArray = (
 }
 
 export const generateTidligstMuligHeltUttakRequestBody = (args: {
+  isEndring: boolean
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
@@ -55,6 +66,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   utenlandsperioder: Utenlandsperiode[]
 }): TidligstMuligHeltUttakRequestBody => {
   const {
+    isEndring,
     afp,
     sivilstand,
     harSamboer,
@@ -64,7 +76,8 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   } = args
 
   return {
-    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
+    // TODO PEK-681 - teste at brukere med UT ikke får simulert med AFP
+    simuleringstype: getSimuleringstypeFromRadio(isEndring, afp),
     harEps: harSamboer !== null ? harSamboer : undefined,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -114,9 +127,11 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: loependeVedtak.ufoeretrygd.grad
-      ? 'ALDERSPENSJON'
-      : getAfpSimuleringstypeFromRadio(afp),
+    // TODO PEK-681 - teste at brukere med UT ikke får simulert med AFP
+    simuleringstype: getSimuleringstypeFromRadio(
+      isLoependeVedtakEndring(loependeVedtak),
+      afp
+    ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -152,7 +167,7 @@ export const generateAlderspensjonRequestBody = (args: {
 }
 
 export const generateAlderspensjonEnkelRequestBody = (args: {
-  ufoeregrad: number
+  isEndring: boolean
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
@@ -162,7 +177,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   utenlandsperioder: Utenlandsperiode[]
 }): AlderspensjonRequestBody | undefined => {
   const {
-    ufoeregrad,
+    isEndring,
     afp,
     sivilstand,
     harSamboer,
@@ -177,9 +192,8 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   }
 
   return {
-    simuleringstype: ufoeregrad
-      ? 'ALDERSPENSJON'
-      : getAfpSimuleringstypeFromRadio(afp),
+    // TODO PEK-681 - teste at brukere med UT ikke får simulert med AFP
+    simuleringstype: getSimuleringstypeFromRadio(isEndring, afp),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(

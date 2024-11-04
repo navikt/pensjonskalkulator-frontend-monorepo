@@ -1,5 +1,5 @@
 import {
-  getAfpSimuleringstypeFromRadio,
+  getSimuleringstypeFromRadio,
   transformUtenlandsperioderArray,
   generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
@@ -16,18 +16,34 @@ describe('apiSlice - utils', () => {
     sluttdato: '28.01.2018',
   }
 
-  describe('getAfpSimuleringstypeFromRadio', () => {
+  describe('getSimuleringstypeFromRadio', () => {
     it('returnerer riktig simuleringstype', () => {
-      expect(getAfpSimuleringstypeFromRadio(null)).toEqual('ALDERSPENSJON')
-      expect(getAfpSimuleringstypeFromRadio('nei')).toEqual('ALDERSPENSJON')
-      expect(getAfpSimuleringstypeFromRadio('vet_ikke')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, null)).toEqual('ALDERSPENSJON')
+      expect(getSimuleringstypeFromRadio(false, 'nei')).toEqual('ALDERSPENSJON')
+      expect(getSimuleringstypeFromRadio(false, 'vet_ikke')).toEqual(
         'ALDERSPENSJON'
       )
-      expect(getAfpSimuleringstypeFromRadio('ja_privat')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, 'ja_privat')).toEqual(
         'ALDERSPENSJON_MED_AFP_PRIVAT'
       )
-      expect(getAfpSimuleringstypeFromRadio('ja_offentlig')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, 'ja_offentlig')).toEqual(
         'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+      )
+
+      expect(getSimuleringstypeFromRadio(true, null)).toEqual(
+        'ENDRING_ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(true, 'nei')).toEqual(
+        'ENDRING_ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(true, 'vet_ikke')).toEqual(
+        'ENDRING_ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(true, 'ja_privat')).toEqual(
+        'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
+      )
+      expect(getSimuleringstypeFromRadio(true, 'ja_offentlig')).toEqual(
+        'ENDRING_ALDERSPENSJON'
       )
     })
   })
@@ -74,6 +90,7 @@ describe('apiSlice - utils', () => {
 
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
+      isEndring: false,
       afp: null,
       harSamboer: null,
       aarligInntektFoerUttakBeloep: '0',
@@ -99,6 +116,21 @@ describe('apiSlice - utils', () => {
           afp: 'ja_privat',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          isEndring: true,
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          isEndring: true,
+          afp: 'ja_privat',
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
     })
 
     it('returnerer riktig harEps', () => {
@@ -202,7 +234,7 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
-      ufoeregrad: 0,
+      isEndring: false,
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -265,16 +297,16 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          ufoeregrad: 75,
+          isEndring: true,
         })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          ufoeregrad: 75,
+          isEndring: true,
           afp: 'ja_offentlig',
         })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {
@@ -436,6 +468,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
+          afp: null,
           loependeVedtak: {
             ufoeretrygd: { grad: 60 },
             harFremtidigLoependeVedtak: false,
@@ -445,13 +478,24 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          afp: 'ja_offentlig',
           loependeVedtak: {
-            ufoeretrygd: { grad: 60 },
+            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            ufoeretrygd: { grad: 0 },
             harFremtidigLoependeVedtak: false,
           },
         })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          afp: null,
+          loependeVedtak: {
+            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            ufoeretrygd: { grad: 0 },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {
