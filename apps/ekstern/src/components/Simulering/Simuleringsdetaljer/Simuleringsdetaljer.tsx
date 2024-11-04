@@ -21,7 +21,9 @@ export function Simuleringsdetaljer(props: {
         </dt>
         <dd>
           <ul>
-            <li>{detaljer.trygdetid} år</li>
+            <li>
+              {detaljer.trygdetid ? detaljer.trygdetid : 'Ingen data om '} år
+            </li>
           </ul>
         </dd>
         <dt>
@@ -37,9 +39,7 @@ export function Simuleringsdetaljer(props: {
                   {grunnlag.aar}
                   <br />
                   <strong>Pensjonsgivende Inntekt: </strong>
-                  {grunnlag.pensjonsgivendeInntektBeloep
-                    ? formatInntekt(grunnlag.pensjonsgivendeInntektBeloep)
-                    : 0}
+                  {formatInntekt(grunnlag.pensjonsgivendeInntektBeloep)}
                   {' NOK'}
                 </li>
               ))}
@@ -56,36 +56,36 @@ export function Simuleringsdetaljer(props: {
             <ul>
               {alderspensjonListe.map((alderspensjon, index) => (
                 <li key={index}>
-                  <strong>Alder: </strong> {alderspensjon.alder}
-                  {' år'}
+                  <strong>Alder: </strong>
+                  {` ${alderspensjon.alder} år`}
                   <br />
                   <strong>Beløp: </strong>{' '}
-                  {alderspensjon.beloep
-                    ? formatInntekt(alderspensjon.beloep)
-                    : 0}
-                  {' NOK'}
+                  {`${formatInntekt(alderspensjon.beloep)} NOK`}
                   <br />
                   <strong>Inntektspensjonsbeløp: </strong>
-                  {alderspensjon.inntektspensjonBeloep
-                    ? formatInntekt(alderspensjon.inntektspensjonBeloep)
-                    : 0}
-                  {' NOK'}
+                  {`${
+                    alderspensjon.inntektspensjonBeloep
+                      ? formatInntekt(alderspensjon.inntektspensjonBeloep)
+                      : '0'
+                  } NOK`}
                   <br />
                   <strong>Garantipensjonsbeløp: </strong>
-                  {alderspensjon.garantipensjonBeloep
-                    ? formatInntekt(alderspensjon.garantipensjonBeloep)
-                    : 0}
-                  {' NOK'}
+                  {`${
+                    alderspensjon.garantipensjonBeloep
+                      ? formatInntekt(alderspensjon.garantipensjonBeloep)
+                      : '0'
+                  } NOK`}
                   <br />
                   <strong>Delingstall: </strong> {alderspensjon.delingstall}
                   <br />
                   <strong>Pensjonsabeholdning før uttak: </strong>
-                  {alderspensjon.pensjonBeholdningFoerUttakBeloep
-                    ? formatInntekt(
-                        alderspensjon.pensjonBeholdningFoerUttakBeloep
-                      )
-                    : 0}
-                  {' NOK'}
+                  {`${
+                    alderspensjon.pensjonBeholdningFoerUttakBeloep
+                      ? formatInntekt(
+                          alderspensjon.pensjonBeholdningFoerUttakBeloep
+                        )
+                      : '0'
+                  } NOK`}
                 </li>
               ))}
             </ul>
