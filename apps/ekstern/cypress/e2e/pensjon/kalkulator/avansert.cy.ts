@@ -239,7 +239,7 @@ describe('Avansert', () => {
 
           cy.contains('Beregn pensjon').click()
           cy.contains('Beregning').should('exist')
-          cy.contains('Se og endre dine valg').click({ force: true })
+          cy.contains('Valgene dine').click({ force: true })
           cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
           cy.contains('Alderspensjon: 100 %').should('exist')
           cy.contains(
@@ -252,7 +252,7 @@ describe('Avansert', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
@@ -597,7 +597,7 @@ describe('Avansert', () => {
 
       it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
         cy.contains('Beregning').should('exist')
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('62 år og 3 md. (01.08.2025)').should('exist')
         cy.contains('Alderspensjon: 40 %').should('exist')
         cy.contains('Pensjonsgivende årsinntekt: 300 000 kr før skatt').should(
@@ -647,8 +647,7 @@ describe('Avansert', () => {
           '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
         ).select('0')
         cy.contains('Beregn pensjon').click()
-        cy.contains('Se og endre dine valg').click({ force: true })
-        cy.contains('Endre valg').click()
+        cy.contains('Endre valgene dine').click({ force: true })
       })
 
       it('forventer jeg at mine tidligere valg er lagret.', () => {
@@ -711,7 +710,7 @@ describe('Avansert', () => {
         ).select('6')
         cy.contains('Oppdater pensjon').click()
 
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt: 550 000 kr før skatt').should(
           'exist'
         )
@@ -766,7 +765,7 @@ describe('Avansert', () => {
 
       it('forventer jeg å kunne avbryte og komme tilbake til beregningen.', () => {
         cy.contains('Avbryt endring').click({ force: true })
-        cy.contains('Se og endre dine valg').should('exist')
+        cy.contains('Endre valgene dine').should('exist')
       })
 
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp.', () => {

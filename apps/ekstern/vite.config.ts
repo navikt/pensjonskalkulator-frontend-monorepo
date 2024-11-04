@@ -124,7 +124,6 @@ export default defineConfig(() => ({
         'src/**/index.ts',
         'src/state/hooks.ts',
         'src/components/common/ShowMore',
-        'src/components/Simulering/Simuleringsdetaljer',
         'src/types',
         'src/paths.ts',
       ],
