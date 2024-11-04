@@ -29,10 +29,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v20.9.0
+      - name: Use Node.js v22.11.0
         uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
+          node-version: '22.11.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -310,7 +310,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-magicbox.yml        
+          RESOURCE: .nais/deploy-veiledning-magicbox.yml
   deploy-dreambox:
     name: Deploy to dreambox
     needs: [build, run-unit-tests, run-integration-tests]
@@ -337,7 +337,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-dreambox.yml  
+          RESOURCE: .nais/deploy-veiledning-dreambox.yml
 
   deploy-prod:
     name: Deploy to prod-gcp
