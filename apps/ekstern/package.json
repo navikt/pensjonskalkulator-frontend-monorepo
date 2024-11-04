@@ -43,7 +43,7 @@
     "@babel/plugin-syntax-import-attributes": "^7.26.0",
     "@eslint/compat": "^1.2.2",
     "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.13.0",
+    "@eslint/js": "^9.14.0",
     "@formatjs/ecma402-abstract": "^2.2.1",
     "@formatjs/intl-datetimeformat": "^6.16.3",
     "@formatjs/intl-numberformat": "^8.14.1",
