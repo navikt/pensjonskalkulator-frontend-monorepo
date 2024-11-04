@@ -11,4 +11,4 @@ COPY node_modules/ node_modules/
 
 
 
-CMD ["/nodejs/bin/node", "server/server.js"]
+CMD ["server/server.js"]
