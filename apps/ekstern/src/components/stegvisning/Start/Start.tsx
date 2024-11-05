@@ -7,7 +7,7 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
-import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
+import { LoependeVedtakInfo } from '@/components/LoependeVedtakInfo'
 import { paths } from '@/router/constants'
 import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
@@ -48,7 +48,7 @@ export function Start({
 
   return (
     <>
-      <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} isCentered />
+      <LoependeVedtakInfo loependeVedtak={loependeVedtak} isCentered />
 
       <Card hasLargePadding hasMargin>
         <div className={styles.wrapper}>

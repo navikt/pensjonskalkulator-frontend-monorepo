@@ -6,14 +6,14 @@ import clsx from 'clsx'
 
 import { getFormatMessageValues } from '@/utils/translations'
 
-import styles from './InfoOmFremtidigVedtak.module.scss'
+import styles from './LoependeVedtakInfo.module.scss'
 
 interface Props {
   loependeVedtak?: LoependeVedtak
   isCentered?: boolean
 }
 
-export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
+export function LoependeVedtakInfo({ loependeVedtak, isCentered }: Props) {
   const intl = useIntl()
 
   if (

@@ -10,7 +10,6 @@ import {
   fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
@@ -522,67 +521,6 @@ describe('BeregningAvansert', () => {
         expect(
           screen.queryByText('savnerdunoe.ingress')
         ).not.toBeInTheDocument()
-      })
-
-      it('Når simuleringen svarer med en beregning og brukeren har loepende vedtak om alderspensjon vises det informasjon om det', async () => {
-        const user = userEvent.setup()
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.alderspensjon,
-          'initiate'
-        )
-
-        const { asFragment } = render(
-          <BeregningContext.Provider
-            value={{
-              ...contextMockedValues,
-            }}
-          >
-            <BeregningAvansert />
-          </BeregningContext.Provider>,
-          {
-            preloadedState: {
-              ...preloadedState,
-              api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
-                // @ts-ignore
-                queries: {
-                  ...fulfilledGetPerson,
-                  ...fulfilledGetInntekt,
-                  ...fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling,
-                },
-              },
-              userInput: {
-                ...userInputInitialState,
-                samtykke: false,
-                samboer: false,
-                afp: 'nei',
-                currentSimulation: {
-                  utenlandsperioder: [],
-                  formatertUttaksalderReadOnly:
-                    '67 år string.og 6 alder.maaned',
-                  uttaksalder: { aar: 67, maaneder: 6 },
-                  aarligInntektFoerUttakBeloep: null,
-                  gradertUttaksperiode: {
-                    uttaksalder: { aar: 62, maaneder: 6 },
-                    grad: 60,
-                  },
-                },
-              } as UserInputState,
-            },
-          }
-        )
-
-        await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
-        })
-        expect(
-          screen.getByText('beregning.avansert.resultatkort.tittel')
-        ).toBeVisible()
-
-        expect(screen.getByText('Du har i dag', { exact: false })).toBeVisible()
-        expect(screen.getByText('Du har i dag', { exact: false })).toBeVisible()
-        expect(screen.getByText('var dette', { exact: false })).toBeVisible()
-        expect(asFragment()).toMatchSnapshot()
       })
 
       it('Når simuleringen svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {

@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 
-import { InfoOmFremtidigVedtak } from '..'
+import { LoependeVedtakInfo } from '..'
 import {
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakFremtidig,
@@ -8,15 +8,15 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { render, screen } from '@/test-utils'
 
-describe('InfoOmFremtidigVedtak', () => {
+describe('LoependeVedtakInfo', () => {
   it('Når vedtaket ikke er oppgitt, returnerer null', () => {
-    const { asFragment } = render(<InfoOmFremtidigVedtak />)
+    const { asFragment } = render(<LoependeVedtakInfo />)
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
   it('Når vedtaket ikke gjelder frem i tid, returnerer null', () => {
     const { asFragment } = render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={
           fulfilledGetLoependeVedtakLoependeAlderspensjon[
             'getLoependeVedtak(undefined)'
@@ -29,7 +29,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Når brukeren har 100 % uføretrygd og vedtaket viser 0 % alderspensjon, returnerer null', () => {
     const { asFragment } = render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={{
           alderspensjon: {
             grad: 0,
@@ -47,7 +47,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Når vedtaket gjelder frem i tid, returnerer riktig tekst', () => {
     render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
             .data
@@ -59,7 +59,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Når vedtaket gjelder både nå og frem i tid, returnerer riktig tekst', () => {
     render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidigMedAlderspensjon[
             'getLoependeVedtak(undefined)'
@@ -74,7 +74,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Når vedtaket ikke er sentrert, returnerer riktig styling', () => {
     const { asFragment } = render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
             .data
@@ -85,7 +85,7 @@ describe('InfoOmFremtidigVedtak', () => {
       <DocumentFragment>
         <div
           aria-live="polite"
-          class="_alert_2fc705 navds-alert navds-alert--info navds-alert--medium"
+          class="_alert_e5b001 navds-alert navds-alert--info navds-alert--medium"
         >
           <svg
             aria-labelledby="title-r2"
@@ -122,7 +122,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Når vedtaket er sentrert, returnerer riktig styling', () => {
     const { asFragment } = render(
-      <InfoOmFremtidigVedtak
+      <LoependeVedtakInfo
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
             .data
@@ -134,7 +134,7 @@ describe('InfoOmFremtidigVedtak', () => {
       <DocumentFragment>
         <div
           aria-live="polite"
-          class="_alert_2fc705 _alert__centered_2fc705 navds-alert navds-alert--info navds-alert--medium"
+          class="_alert_e5b001 _alert__centered_e5b001 navds-alert navds-alert--info navds-alert--medium"
         >
           <svg
             aria-labelledby="title-r3"

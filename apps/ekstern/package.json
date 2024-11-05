@@ -40,7 +40,6 @@
     "winston": "^3.16.0"
   },
   "devDependencies": {
-    "@amplitude/analytics-browser": "^2.11.8",
     "@babel/plugin-syntax-import-attributes": "^7.26.0",
     "@eslint/compat": "^1.2.2",
     "@eslint/eslintrc": "^3.1.0",
@@ -59,6 +58,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
+    "@types/amplitude-js": "^8.16.5",
     "@types/express": "^5.0.0",
     "@types/node": "^22.8.7",
     "@types/react": "^18.3.12",
@@ -66,6 +66,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "^2.1.4",
     "@vitest/ui": "^2.1.4",
+    "amplitude-js": "^8.21.9",
     "axe-core": "^4.10.2",
     "clsx": "^2.1.1",
     "cypress": "^13.15.1",

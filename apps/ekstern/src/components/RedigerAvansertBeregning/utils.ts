@@ -448,6 +448,7 @@ export const validateAvansertBeregningSkjema = (
   // Hvis alle feltene er gyldige,
   // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
   if (isValid) {
+    console.log('>>>> isValid TRUE - sjekker resten')
     if (
       isLoependeVedtakEndring(loependeVedtak) &&
       uttaksgradFormData !== '0 %' &&
@@ -467,6 +468,8 @@ export const validateAvansertBeregningSkjema = (
     ) {
       isValid = false
     }
+  } else {
+    console.log('>>>> isValid FALSE - sjekker resten')
   }
 
   return isValid

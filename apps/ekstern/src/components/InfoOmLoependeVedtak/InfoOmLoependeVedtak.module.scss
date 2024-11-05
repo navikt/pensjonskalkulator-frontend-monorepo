@@ -1,9 +1,0 @@
-@import '../../scss/variables';
-
-.container {
-  composes: frame from '../../scss/modules/frame.module.scss';
-
-  &__hasMobilePadding {
-    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
-  }
-}
