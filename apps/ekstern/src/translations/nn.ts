@@ -337,6 +337,7 @@ const translations = {
   'beregning.tabell.lukk': 'Lukk tabell av utrekninga',
   'beregning.tabell.vis': 'Vis tabell av utrekninga',
   'beregning.tabell.sum': 'Sum',
+  'beregning.avansert.button.endre_valgene_dine': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.tittel': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',

@@ -241,27 +241,6 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
-  // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
-  if (
-    isLoependeVedtakEndring(loependeVedtak) &&
-    uttaksgradFormData !== '0 %' &&
-    uttaksgradFormData !== '100 %' &&
-    loependeVedtak.alderspensjon &&
-    !validateEndringGradertUttak(
-      loependeVedtak.alderspensjon.grad,
-      loependeVedtak.alderspensjon.fom,
-      uttaksgradFormData as string,
-      {
-        aar: parseInt(gradertUttakAarFormData as string, 10),
-        maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
-      },
-      foedselsdato,
-      updateValidationErrorMessage
-    )
-  ) {
-    isValid = false
-  }
-
   // Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
   if (
     uttaksgradFormData !== '100 %' &&
@@ -316,9 +295,11 @@ export const validateAvansertBeregningSkjema = (
           DEFAULT_UBETINGET_UTTAKSALDER.aar
       ) {
         const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
-        const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
-          (grad) => grad <= maksGrad
-        )
+        const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
+          ? [...ALLE_UTTAKSGRAD_AS_NUMBER].filter((grad) => grad <= maksGrad)
+          : [...ALLE_UTTAKSGRAD_AS_NUMBER]
+              .filter((grad) => grad <= maksGrad)
+              .slice(1)
         const valgtUttaksgradAsNumber = parseFloat(
           (uttaksgradFormData as string).replace(/\D/g, '')
         )
@@ -462,6 +443,33 @@ export const validateAvansertBeregningSkjema = (
     ) {
       isValid = false
     }
+  }
+
+  // Hvis alle feltene er gyldige,
+  // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
+  if (isValid) {
+    console.log('>>>> isValid TRUE - sjekker resten')
+    if (
+      isLoependeVedtakEndring(loependeVedtak) &&
+      uttaksgradFormData !== '0 %' &&
+      uttaksgradFormData !== '100 %' &&
+      loependeVedtak.alderspensjon &&
+      !validateEndringGradertUttak(
+        loependeVedtak.alderspensjon.grad,
+        loependeVedtak.alderspensjon.fom,
+        uttaksgradFormData as string,
+        {
+          aar: parseInt(gradertUttakAarFormData as string, 10),
+          maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
+        },
+        foedselsdato,
+        updateValidationErrorMessage
+      )
+    ) {
+      isValid = false
+    }
+  } else {
+    console.log('>>>> isValid FALSE - sjekker resten')
   }
 
   return isValid

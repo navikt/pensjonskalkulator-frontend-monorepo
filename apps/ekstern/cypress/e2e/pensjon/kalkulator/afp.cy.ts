@@ -157,7 +157,7 @@ describe('AFP', () => {
         cy.contains('AFP:').click()
         cy.contains('Privat').should('exist')
         cy.contains(
-          'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos Fellesordningen for AFP'
+          'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det.'
         ).should('exist')
         cy.contains('a', 'Fellesordningen for AFP')
           .should('have.attr', 'href')

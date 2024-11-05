@@ -2,7 +2,8 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Heading } from '@navikt/ds-react'
+import { PencilIcon } from '@navikt/aksel-icons'
+import { Button, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
@@ -200,6 +201,18 @@ export const BeregningAvansert: React.FC = () => {
               <div
                 className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
               >
+                <Button
+                  type="button"
+                  data-testid="card-button-secondary"
+                  className={styles.button}
+                  variant="secondary"
+                  icon={<PencilIcon aria-hidden />}
+                  onClick={() => {
+                    setAvansertSkjemaModus('redigering')
+                  }}
+                >
+                  <FormattedMessage id="beregning.avansert.button.endre_valgene_dine" />
+                </Button>
                 <Simulering
                   isLoading={isFetching}
                   headingLevel="2"
