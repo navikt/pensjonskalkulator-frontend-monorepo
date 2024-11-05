@@ -61,18 +61,19 @@ export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
             grad: loependeVedtak?.alderspensjon?.grad,
           }}
         />
-        {loependeVedtak.alderspensjon.sisteUtbetaling && (
-          <FormattedMessage
-            id={'beregning.endring.rediger.vedtak_betaling_status'}
-            values={{
-              ...getFormatMessageValues(intl),
-              maaned: formatertMaaned,
-              beloep: formatInntekt(
-                loependeVedtak.alderspensjon.sisteUtbetaling.beloep
-              ),
-            }}
-          />
-        )}
+        {loependeVedtak.alderspensjon.grad &&
+          loependeVedtak.alderspensjon.sisteUtbetaling && (
+            <FormattedMessage
+              id={'beregning.endring.rediger.vedtak_betaling_status'}
+              values={{
+                ...getFormatMessageValues(intl),
+                maaned: formatertMaaned,
+                beloep: formatInntekt(
+                  loependeVedtak.alderspensjon.sisteUtbetaling.beloep
+                ),
+              }}
+            />
+          )}
       </BodyLong>
       <Divider smallMargin />
     </div>
