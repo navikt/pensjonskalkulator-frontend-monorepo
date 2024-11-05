@@ -292,7 +292,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
           type="button"
         >
           <svg
-            aria-labelledby="title-r5i"
+            aria-labelledby="title-r69"
             class="navds-expansioncard__header-chevron"
             fill="none"
             focusable="false"
@@ -303,7 +303,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r5i"
+              id="title-r69"
             >
               Vis mer
             </title>
@@ -504,7 +504,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
               >
                 Om garantipensjon og satser
                 <svg
-                  aria-labelledby="title-r5l"
+                  aria-labelledby="title-r6c"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -514,7 +514,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r5l"
+                    id="title-r6c"
                   >
                     application.global.external_link
                   </title>
@@ -530,7 +530,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
           </div>
         </div>
         <dialog
-          aria-labelledby="r5m"
+          aria-labelledby="r6d"
           class="navds-modal navds-modal--polyfilled navds-modal--medium"
           role="dialog"
         >
@@ -545,7 +545,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                 class="navds-button__icon"
               >
                 <svg
-                  aria-labelledby="title-r5o"
+                  aria-labelledby="title-r6f"
                   fill="none"
                   focusable="false"
                   height="1em"
@@ -555,7 +555,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r5o"
+                    id="title-r6f"
                   >
                     Lukk
                   </title>
@@ -568,7 +568,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
             </button>
             <h1
               class="navds-heading navds-heading--medium"
-              id="r5m"
+              id="r6d"
             >
               grunnlag.opphold.avbryt_modal.title
             </h1>
@@ -732,7 +732,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
               >
                 Din pensjonsopptjening
                 <svg
-                  aria-labelledby="title-r5r"
+                  aria-labelledby="title-r6i"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -742,7 +742,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r5r"
+                    id="title-r6i"
                   >
                     application.global.external_link
                   </title>
@@ -764,7 +764,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
               >
                 Om reglene for alderspensjon
                 <svg
-                  aria-labelledby="title-r5s"
+                  aria-labelledby="title-r6j"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -774,7 +774,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r5s"
+                    id="title-r6j"
                   >
                     application.global.external_link
                   </title>
@@ -882,7 +882,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
           >
             detaljert pensjonskalkulator
             <svg
-              aria-labelledby="title-r5u"
+              aria-labelledby="title-r6l"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -892,7 +892,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r5u"
+                id="title-r6l"
               >
                 application.global.external_link
               </title>
@@ -930,7 +930,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
         >
           grunnlag.forbehold.link
           <svg
-            aria-labelledby="title-r5v"
+            aria-labelledby="title-r6m"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -940,7 +940,7 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r5v"
+              id="title-r6m"
             >
               application.global.external_link
             </title>
