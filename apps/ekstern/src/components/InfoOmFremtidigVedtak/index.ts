@@ -1,0 +1,1 @@
+export { InfoOmFremtidigVedtak } from './InfoOmFremtidigVedtak'

@@ -34,6 +34,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
+  selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
@@ -58,6 +59,7 @@ export const BeregningEnkel: React.FC = () => {
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -97,6 +99,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (!ufoeregrad) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
         harSamboer,
@@ -110,7 +113,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
-        ufoeregrad,
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,

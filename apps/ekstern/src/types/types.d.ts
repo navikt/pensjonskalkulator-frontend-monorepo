@@ -86,7 +86,7 @@ declare global {
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
     components['schemas']['IngressSimuleringSpecV6']
-  type AfpSimuleringstype =
+  type AlderspensjonSimuleringstype =
     components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
   type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
   type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
