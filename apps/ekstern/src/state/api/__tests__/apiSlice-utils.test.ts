@@ -18,31 +18,44 @@ describe('apiSlice - utils', () => {
 
   describe('getSimuleringstypeFromRadio', () => {
     it('returnerer riktig simuleringstype', () => {
-      expect(getSimuleringstypeFromRadio(false, null)).toEqual('ALDERSPENSJON')
-      expect(getSimuleringstypeFromRadio(false, 'nei')).toEqual('ALDERSPENSJON')
-      expect(getSimuleringstypeFromRadio(false, 'vet_ikke')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, 0, null)).toEqual(
         'ALDERSPENSJON'
       )
-      expect(getSimuleringstypeFromRadio(false, 'ja_privat')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, 0, 'nei')).toEqual(
+        'ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(false, 0, 'vet_ikke')).toEqual(
+        'ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(false, 0, 'ja_privat')).toEqual(
         'ALDERSPENSJON_MED_AFP_PRIVAT'
       )
-      expect(getSimuleringstypeFromRadio(false, 'ja_offentlig')).toEqual(
+      expect(getSimuleringstypeFromRadio(false, 0, 'ja_offentlig')).toEqual(
         'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
       )
+      expect(getSimuleringstypeFromRadio(false, 50, 'ja_privat')).toEqual(
+        'ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(false, 50, 'ja_offentlig')).toEqual(
+        'ALDERSPENSJON'
+      )
 
-      expect(getSimuleringstypeFromRadio(true, null)).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 0, null)).toEqual(
         'ENDRING_ALDERSPENSJON'
       )
-      expect(getSimuleringstypeFromRadio(true, 'nei')).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 0, 'nei')).toEqual(
         'ENDRING_ALDERSPENSJON'
       )
-      expect(getSimuleringstypeFromRadio(true, 'vet_ikke')).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 0, 'vet_ikke')).toEqual(
         'ENDRING_ALDERSPENSJON'
       )
-      expect(getSimuleringstypeFromRadio(true, 'ja_privat')).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 0, 'ja_privat')).toEqual(
         'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
       )
-      expect(getSimuleringstypeFromRadio(true, 'ja_offentlig')).toEqual(
+      expect(getSimuleringstypeFromRadio(true, 0, 'ja_offentlig')).toEqual(
+        'ENDRING_ALDERSPENSJON'
+      )
+      expect(getSimuleringstypeFromRadio(true, 50, 'ja_privat')).toEqual(
         'ENDRING_ALDERSPENSJON'
       )
     })
@@ -90,7 +103,12 @@ describe('apiSlice - utils', () => {
 
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
-      isEndring: false,
+      loependeVedtak: {
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: null,
       harSamboer: null,
       aarligInntektFoerUttakBeloep: '0',
@@ -120,14 +138,45 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-          isEndring: true,
+          loependeVedtak: {
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+          afp: 'ja_privat',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON')
 
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-          isEndring: true,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
           afp: 'ja_privat',
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
@@ -234,7 +283,12 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
-      isEndring: false,
+      loependeVedtak: {
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -297,14 +351,58 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          isEndring: true,
+          loependeVedtak: {
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          isEndring: true,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
           afp: 'ja_offentlig',
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON')
     })
