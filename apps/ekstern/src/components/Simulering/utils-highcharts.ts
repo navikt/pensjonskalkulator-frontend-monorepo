@@ -261,15 +261,10 @@ export const getChartOptions = (
       },
     },
     title: {
-      text: intl.formatMessage({ id: 'beregning.highcharts.title' }),
+      text: '',
       align: 'left',
       margin: 40,
-      y: 20,
-      style: {
-        fontFamily: 'var(--a-font-family)',
-        fontWeight: 'bold',
-        fontSize: '20px',
-      },
+      y: 0,
     },
     xAxis: {
       categories: [],

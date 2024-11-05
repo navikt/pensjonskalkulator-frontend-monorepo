@@ -23,6 +23,7 @@ import {
   selectUfoeregrad,
   selectSivilstand,
   selectAfp,
+  selectIsEndring,
 } from '@/state/userInput/selectors'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
@@ -84,6 +85,7 @@ export function Simulering(props: {
     gradertUttaksperiode,
     utenlandsperioder,
   } = useAppSelector(selectCurrentSimulation)
+  const { isEndring } = useAppSelector(selectIsEndring)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
@@ -365,9 +367,10 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium" visuallyHidden>
+      <Heading level={headingLevel} size="medium" className={styles.title}>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
+      {isEndring && <aside></aside>}
       <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
         <HighchartsReact
           ref={chartRef}
