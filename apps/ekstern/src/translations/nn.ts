@@ -338,6 +338,8 @@ const translations = {
   'beregning.tabell.vis': 'Vis tabell av utrekninga',
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.button.endre_valgene_dine': 'MANGLER_TEKST',
+  'beregning.avansert.endring_banner.title': 'MANGLER_TEKST',
+  'beregning.avansert.endring_banner.kr_md': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.tittel': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',

@@ -70,10 +70,47 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
       class="_section_ccee9c"
     >
       <h2
-        class="navds-heading navds-heading--medium navds-typo--visually-hidden"
+        class="_title_ccee9c navds-heading navds-heading--medium"
       >
         beregning.highcharts.title
       </h2>
+      <aside
+        class="_wrapper_d239c3"
+      >
+        <p
+          class="navds-body-long navds-body-long--medium"
+        >
+          beregning.avansert.endring_banner.title
+        </p>
+        <ul
+          class="_list_d239c3"
+        >
+          <li>
+            62 alder.aar string.og 6 alder.md 
+            <span
+              class="nowrap"
+            >
+              (60 %)
+            </span>
+            : 
+            <strong>
+              0 beregning.avansert.endring_banner.kr_md
+            </strong>
+          </li>
+          <li>
+            67 alder.aar string.og 6 alder.md 
+            <span
+              class="nowrap"
+            >
+              (100 %)
+            </span>
+            : 
+            <strong>
+              0 beregning.avansert.endring_banner.kr_md
+            </strong>
+          </li>
+        </ul>
+      </aside>
       <div
         aria-hidden="true"
         data-testid="highcharts-aria-wrapper"
@@ -152,12 +189,12 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                 <text
                   class="highcharts-title"
                   data-z-index="4"
-                  style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
+                  style="font-size: 1.2em; color: rgb(51, 51, 51); font-weight: bold; opacity: 0; fill: #333333; pointer-events: auto;"
                   text-anchor="start"
                   x="0"
-                  y="20"
+                  y="0"
                 >
-                  beregning.highcharts.title
+                  -
                 </text>
               </svg>
             </div>
@@ -171,11 +208,11 @@ exports[`BeregningAvansert > Gitt at brukeren har fylt ut stegvisningen og er ko
                 <div
                   class="highcharts-container "
                   dir="ltr"
-                  id="highcharts-187"
+                  id="highcharts-169"
                   style="position: relative; overflow: hidden; width: 750px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none; padding: 0px;"
                 >
                   <svg
-                    aria-label="beregning.highcharts.title"
+                    aria-label="-"
                     class="highcharts-root"
                     height="400"
                     role="img"

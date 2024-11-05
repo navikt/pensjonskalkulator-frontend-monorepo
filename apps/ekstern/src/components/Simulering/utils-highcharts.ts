@@ -261,10 +261,11 @@ export const getChartOptions = (
       },
     },
     title: {
-      text: '',
+      text: '-',
       align: 'left',
-      margin: 40,
+      margin: 20,
       y: 0,
+      style: { opacity: 0 },
     },
     xAxis: {
       categories: [],
