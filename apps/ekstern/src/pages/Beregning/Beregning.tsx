@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
-import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
+import { LoependeVedtakInfo } from '@/components/LoependeVedtakInfo'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -177,7 +177,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       </Modal>
       <div className={styles.beregning}>
         <div className={styles.container}>
-          <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
+          <LoependeVedtakInfo loependeVedtak={loependeVedtak} />
         </div>
         {!isEndring && (
           <div

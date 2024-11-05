@@ -485,10 +485,6 @@ const translations = {
   'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',
   'beregning.endring.rediger.vedtak_status':
     'Fra {dato} har du mottatt {grad} % alderspensjon.',
-  'beregning.endring.rediger.vedtak_grad_status':
-    'Du har i dag <strong><nowrap>{grad} %</nowrap> alderspensjon</strong>. ',
-  'beregning.endring.rediger.vedtak_betaling_status':
-    'I {maaned} var dette <strong><nowrap>{beloep} kr</nowrap></strong> før skatt.',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',

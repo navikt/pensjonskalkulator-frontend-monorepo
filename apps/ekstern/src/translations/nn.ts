@@ -401,8 +401,6 @@ const translations = {
   'beregning.endring.alert.uttaksdato': 'MANGLER_TEKST',
   'beregning.endring.rediger.title': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_status': 'MANGLER_TEKST',
-  'beregning.endring.rediger.vedtak_grad_status': 'MANGLER_TEKST',
-  'beregning.endring.rediger.vedtak_betaling_status': 'MANGLER_TEKST',
   'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',
   'beregning.vilkaarsproeving.intro.ikke_nok_opptjening': 'MANGLER_TEKST',
   'beregning.vilkaarsproeving.intro.optional': 'MANGLER_TEKST',

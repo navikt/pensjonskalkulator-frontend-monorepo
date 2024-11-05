@@ -410,9 +410,7 @@ describe('routes', () => {
       it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            queries: {
-              ...fakeApiCalls,
-            },
+            ...fakeApiCalls,
           },
           userInput: { ...userInputInitialState },
         }))
@@ -725,9 +723,7 @@ describe('routes', () => {
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            queries: {
-              ...fakeApiCalls,
-            },
+            ...fakeApiCalls,
           },
           userInput: { ...userInputInitialState },
         }))
@@ -785,10 +781,7 @@ describe('routes', () => {
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            queries: {
-              ...fakeApiCalls,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
+            ...fakeApiCalls,
           },
           userInput: { ...userInputInitialState },
         }))
@@ -798,22 +791,6 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
-          preloadedState: {
-            api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              queries: {
-                ...fakeApiCalls,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-              },
-            },
-          },
         })
 
         await waitFor(async () => {
@@ -868,10 +845,8 @@ describe('routes', () => {
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            queries: {
-              ...fakeApiCalls,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
+            ...fakeApiCalls,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
           },
           userInput: { ...userInputInitialState },
         }))

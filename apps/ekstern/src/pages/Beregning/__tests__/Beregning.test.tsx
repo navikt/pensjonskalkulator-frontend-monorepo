@@ -30,29 +30,7 @@ describe('Beregning', () => {
   }
 
   it('har riktig sidetittel', () => {
-    render(<Beregning visning="enkel" />, {
-      preloadedState: {
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetInntekt,
-            ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-          },
-        },
-        userInput: {
-          ...userInputInitialState,
-          samtykke: false,
-          currentSimulation: {
-            ...userInputInitialState.currentSimulation,
-            formatertUttaksalderReadOnly:
-              '70 alder.aar string.og 4 alder.maaned',
-            uttaksalder: { aar: 70, maaneder: 4 },
-          },
-        },
-      },
-    })
+    render(<Beregning visning="enkel" />)
     expect(document.title).toBe('application.title.beregning')
   })
 
