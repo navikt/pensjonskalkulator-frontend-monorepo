@@ -456,6 +456,8 @@ export interface components {
         | 'ALDERSPENSJON'
         | 'ALDERSPENSJON_MED_AFP_PRIVAT'
         | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        | 'ENDRING_ALDERSPENSJON'
+        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: date */
       foedselsdato: string
       epsHarInntektOver2G: boolean
@@ -642,6 +644,8 @@ export interface components {
         | 'ALDERSPENSJON'
         | 'ALDERSPENSJON_MED_AFP_PRIVAT'
         | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        | 'ENDRING_ALDERSPENSJON'
+        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -692,6 +696,8 @@ export interface components {
         | 'ALDERSPENSJON'
         | 'ALDERSPENSJON_MED_AFP_PRIVAT'
         | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        | 'ENDRING_ALDERSPENSJON'
+        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -790,7 +796,7 @@ export interface components {
       grad: number
       /** Format: date */
       fom: string
-      sisteUtbetaling?: components['schemas']['UtbetalingSisteMaanedV2']
+      sisteUtbetaling?: components['schemas']['UtbetalingV2']
     }
     LoependeFraV2: {
       /** Format: date */
@@ -807,8 +813,7 @@ export interface components {
       /** Format: int32 */
       grad: number
     }
-    UtbetalingSisteMaanedV2: {
-      /** Format: int32 */
+    UtbetalingV2: {
       beloep: number
       /** Format: date */
       utbetalingsdato: string
