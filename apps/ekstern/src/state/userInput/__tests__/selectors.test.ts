@@ -101,7 +101,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -132,7 +131,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -146,7 +144,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -159,7 +156,6 @@ describe('userInput selectors', () => {
         api: {
           queries: {
             ['getPerson(undefined)']: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               status: 'fulfilled',
               endpointName: 'getPerson',
@@ -184,7 +180,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -202,7 +197,6 @@ describe('userInput selectors', () => {
         api: {
           queries: {
             ['getPerson(undefined)']: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               status: 'fulfilled',
               endpointName: 'getPerson',
@@ -253,7 +247,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -269,7 +262,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -288,7 +280,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -368,7 +359,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetTpoMedlemskap },
         },
@@ -445,7 +435,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
@@ -471,7 +460,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
@@ -490,7 +478,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
@@ -502,7 +489,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
         },
@@ -514,7 +500,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
@@ -528,7 +513,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
         },
@@ -541,7 +525,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
         },

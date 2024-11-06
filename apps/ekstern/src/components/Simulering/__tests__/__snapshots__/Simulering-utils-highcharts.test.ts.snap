@@ -131,14 +131,12 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
   "series": [],
   "title": {
     "align": "left",
-    "margin": 40,
+    "margin": 20,
     "style": {
-      "fontFamily": "var(--a-font-family)",
-      "fontSize": "20px",
-      "fontWeight": "bold",
+      "opacity": 0,
     },
-    "text": "beregning.highcharts.title",
-    "y": 20,
+    "text": "-",
+    "y": 0,
   },
   "tooltip": {
     "animation": false,

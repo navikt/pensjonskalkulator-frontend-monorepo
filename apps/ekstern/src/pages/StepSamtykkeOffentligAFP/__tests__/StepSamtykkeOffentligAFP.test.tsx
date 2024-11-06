@@ -26,7 +26,6 @@ describe('StepSamtykkeOffentligAFP', () => {
       const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -54,7 +53,6 @@ describe('StepSamtykkeOffentligAFP', () => {
       const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,

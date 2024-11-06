@@ -393,6 +393,9 @@ const translations = {
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.button.endre_valgene_dine': 'Endre valgene dine',
+  'beregning.avansert.endring_banner.title':
+    'Alderspensjon før skatt når du er ',
+  'beregning.avansert.endring_banner.kr_md': 'kr/md.',
   'beregning.avansert.resultatkort.tittel': 'Valgene dine',
   'beregning.avansert.resultatkort.description':
     'Inntekt, uttaksgrad og pensjonsalder',

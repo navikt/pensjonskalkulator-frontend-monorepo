@@ -4,6 +4,7 @@ import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { typ
 import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
 import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { Simulering } from '../Simulering'
+import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
@@ -79,6 +80,44 @@ describe('Simulering', () => {
     )
     const heading = screen.getByRole('heading', { level: 3 })
     expect(heading).toHaveTextContent('beregning.highcharts.title')
+  })
+
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    const preloadedQueries = {
+      api: {
+        queries: {
+          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+        },
+      },
+    }
+
+    it('viser banner om info for endret alderspensjon', () => {
+      render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpPrivatListe={afpPrivatData.afpPrivat}
+          showButtonsAndTable={false}
+          aarligInntektFoerUttakBeloep="500 000"
+        />,
+        {
+          // @ts-ignore
+          preloadedState: {
+            ...preloadedQueries,
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.title', {
+          exact: false,
+        })
+      ).toBeVisible()
+    })
   })
 
   describe('Gitt at brukeren IKKE samtykker', () => {
@@ -486,7 +525,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...fakeApiCallUfoere,
@@ -560,7 +598,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...fakeApiCallUfoere,

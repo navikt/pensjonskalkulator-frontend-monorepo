@@ -59,7 +59,6 @@ describe('BeregningAvansert', () => {
         writable: true,
       })
       render(<BeregningAvansert />, {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         preloadedState: {
           ...preloadedState,
@@ -70,7 +69,6 @@ describe('BeregningAvansert', () => {
 
     it('vises avansert fanen i redigeringsmodus', async () => {
       render(<BeregningAvansert />, {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         preloadedState: {
           ...preloadedState,
@@ -103,7 +101,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -193,7 +190,6 @@ describe('BeregningAvansert', () => {
             preloadedState: {
               ...preloadedState,
               api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
                 queries: {
                   ...fulfilledGetPerson,
@@ -284,7 +280,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -376,7 +371,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -466,7 +460,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -558,7 +551,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -612,7 +604,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -677,7 +668,6 @@ describe('BeregningAvansert', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: { ...preloadedState.api },
             userInput: {

@@ -300,7 +300,6 @@ describe('Grunnlag', () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
@@ -350,7 +349,6 @@ describe('Grunnlag', () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
@@ -410,7 +408,6 @@ describe('Grunnlag', () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
@@ -452,7 +449,6 @@ describe('Grunnlag', () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },

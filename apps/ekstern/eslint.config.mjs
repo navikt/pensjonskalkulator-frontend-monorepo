@@ -38,17 +38,23 @@ const defaultEslintConfig = tseslint.config(
 export default [
   ...defaultEslintConfig,
   {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      'no-irregular-whitespace': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+    },
+  },
+  {
     ignores: [...ignoredFiles],
     plugins: {
       import: fixupPluginRules(_import),
     },
     rules: {
-      '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       'no-debugger': 'warn',
       '@typescript-eslint/no-shadow': ['error'],
-      'no-irregular-whitespace': 'warn',
+      '@typescript-eslint/naming-convention': 'off',
       'no-shadow': 'off',
       'import/order': [
         'warn',

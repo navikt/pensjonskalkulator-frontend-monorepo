@@ -28,6 +28,7 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
+import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
 import { Simuleringsdetaljer } from './Simuleringsdetaljer/Simuleringsdetaljer'
@@ -365,9 +366,15 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium" visuallyHidden>
+      <Heading level={headingLevel} size="medium" className={styles.title}>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
+
+      <SimuleringEndringBanner
+        heltUttaksalder={uttaksalder}
+        gradertUttaksperiode={gradertUttaksperiode ?? undefined}
+      />
+
       <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
         <HighchartsReact
           ref={chartRef}

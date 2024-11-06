@@ -122,14 +122,12 @@ describe('LanguageProvider-utils', () => {
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=en', () => {
-      /* eslint-disable @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       vi.spyOn(nbMessagesModule, 'getTranslation_nb').mockReturnValueOnce({
         commonKey: 'norsk tittel',
         uniqueNOKey: 'unik norsk key',
       } as Record<string, string>)
 
-      /* eslint-disable @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       vi.spyOn(enMessagesModule, 'getTranslation_en').mockReturnValueOnce({
         commonKey: 'english title',
@@ -142,14 +140,12 @@ describe('LanguageProvider-utils', () => {
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=nn', () => {
-      /* eslint-disable @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       vi.spyOn(nbMessagesModule, 'getTranslation_nb').mockReturnValueOnce({
         commonKey: 'norsk tittel',
         uniqueNOKey: 'unik norsk key',
       } as Record<string, string>)
 
-      /* eslint-disable @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       vi.spyOn(nnMessagesModule, 'getTranslation_nn').mockReturnValueOnce({
         commonKey: 'nynorsk tittel',
