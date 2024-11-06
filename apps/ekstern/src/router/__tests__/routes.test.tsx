@@ -354,7 +354,6 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetPerson,
@@ -800,7 +799,6 @@ describe('routes', () => {
           hasRouter: false,
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fakeApiCalls,
@@ -883,7 +881,6 @@ describe('routes', () => {
           hasRouter: false,
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fakeApiCalls,

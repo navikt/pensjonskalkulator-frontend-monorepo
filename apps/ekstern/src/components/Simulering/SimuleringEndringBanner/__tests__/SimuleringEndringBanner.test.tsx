@@ -24,7 +24,6 @@ describe('SimuleringEndringBanner', () => {
 
     it('Når heltUttaksalder er null, skal banneren ikke vises.', () => {
       render(<SimuleringEndringBanner heltUttaksalder={null} />, {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         preloadedState: {
           ...preloadedQueries,
@@ -42,7 +41,6 @@ describe('SimuleringEndringBanner', () => {
       const { asFragment } = render(
         <SimuleringEndringBanner heltUttaksalder={{ aar: 67, maaneder: 0 }} />,
         {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           preloadedState: {
             ...preloadedQueries,
@@ -104,7 +102,6 @@ describe('SimuleringEndringBanner', () => {
           }}
         />,
         {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           preloadedState: {
             ...preloadedQueries,

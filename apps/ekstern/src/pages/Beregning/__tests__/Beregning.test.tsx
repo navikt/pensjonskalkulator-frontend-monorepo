@@ -33,7 +33,6 @@ describe('Beregning', () => {
     render(<Beregning visning="enkel" />, {
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetPerson,
@@ -61,7 +60,6 @@ describe('Beregning', () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -91,7 +89,6 @@ describe('Beregning', () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -123,7 +120,6 @@ describe('Beregning', () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -161,7 +157,6 @@ describe('Beregning', () => {
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -198,7 +193,6 @@ describe('Beregning', () => {
       )
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -240,7 +234,6 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -290,7 +283,6 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -374,7 +366,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...preloadedQueries.api,
@@ -411,7 +402,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...preloadedQueries.api,
@@ -447,7 +437,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...preloadedQueries.api,
@@ -494,7 +483,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...preloadedQueries.api,
@@ -525,7 +513,6 @@ describe('Beregning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -549,7 +536,6 @@ describe('Beregning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             ...preloadedQueries.api,
@@ -570,7 +556,6 @@ describe('Beregning', () => {
   it('gir mulighet til å avbryte og starte ny beregning ', async () => {
     render(<Beregning visning="enkel" />, {
       preloadedState: {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         api: {
           ...preloadedQueries.api,

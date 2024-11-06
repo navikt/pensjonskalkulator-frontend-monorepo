@@ -40,7 +40,6 @@ describe('Pensjonsavtaler', () => {
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -91,7 +90,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -120,7 +118,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -184,13 +181,11 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           api: {
             queries: {
               ...fulfilledGetInntekt,
               ['getLoependeVedtak(undefined)']: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
                 status: 'fulfilled',
                 endpointName: 'getLoependeVedtak',
@@ -225,7 +220,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -246,7 +240,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -277,7 +270,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -328,7 +320,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -376,7 +367,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,
@@ -431,7 +421,6 @@ describe('Pensjonsavtaler', () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,

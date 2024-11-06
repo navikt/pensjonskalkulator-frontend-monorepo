@@ -29,7 +29,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -75,7 +74,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -118,7 +116,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -160,7 +157,6 @@ describe('BeregningEnkel', () => {
         render(<BeregningEnkel />, {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetPerson,
@@ -192,7 +188,6 @@ describe('BeregningEnkel', () => {
         render(<BeregningEnkel />, {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetPerson,
@@ -238,7 +233,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -263,7 +257,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -290,7 +283,6 @@ describe('BeregningEnkel', () => {
       const { container } = render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -336,7 +328,6 @@ describe('BeregningEnkel', () => {
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -429,7 +420,6 @@ describe('BeregningEnkel', () => {
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -523,7 +513,6 @@ describe('BeregningEnkel', () => {
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -618,7 +607,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -674,7 +662,6 @@ describe('BeregningEnkel', () => {
         hasRouter: false,
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -717,7 +704,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -765,7 +751,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
@@ -800,7 +785,6 @@ describe('BeregningEnkel', () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,

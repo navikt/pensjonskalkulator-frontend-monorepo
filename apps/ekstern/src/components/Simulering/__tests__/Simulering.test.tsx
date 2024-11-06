@@ -102,7 +102,6 @@ describe('Simulering', () => {
           aarligInntektFoerUttakBeloep="500 000"
         />,
         {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           preloadedState: {
             ...preloadedQueries,
@@ -526,7 +525,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...fakeApiCallUfoere,
@@ -600,7 +598,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: {
               ...fakeApiCallUfoere,

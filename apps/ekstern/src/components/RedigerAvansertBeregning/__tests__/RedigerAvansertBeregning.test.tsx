@@ -48,7 +48,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -77,7 +76,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -268,7 +266,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -326,7 +323,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -595,7 +591,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -686,7 +681,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -808,7 +802,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -936,7 +929,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
             },
@@ -1021,7 +1013,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
             },
@@ -1182,7 +1173,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
             },
@@ -1347,7 +1337,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
             },
@@ -1511,7 +1500,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
             },
@@ -1611,7 +1599,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -1704,7 +1691,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -1769,7 +1755,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -1831,7 +1816,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -1929,7 +1913,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -2044,7 +2027,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
             },
@@ -2134,7 +2116,6 @@ describe('RedigerAvansertBeregning', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
@@ -2339,7 +2320,6 @@ describe('RedigerAvansertBeregning', () => {
               queries: {
                 ...fulfilledGetPerson,
                 ['getLoependeVedtak(undefined)']: {
-                  /* eslint-disable @typescript-eslint/ban-ts-comment */
                   // @ts-ignore
                   status: 'fulfilled',
                   endpointName: 'getLoependeVedtak',
@@ -2477,7 +2457,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
             },
@@ -2511,7 +2490,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
             },
@@ -2546,7 +2524,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
             },
@@ -2613,7 +2590,6 @@ describe('RedigerAvansertBeregning', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
