@@ -5,6 +5,7 @@ import {
   isPensjonsavtale,
   isPensjonsberegningArray,
   isVilkaarsproeving,
+  isAlderspensjonMaanedligVedEndring,
   isAlderspensjonSimulering,
   isPerson,
   isEkskludertStatus,
@@ -406,6 +407,56 @@ describe('Typeguards', () => {
     })
   })
 
+  describe('isAlderspensjonMaanedligVedEndring', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isAlderspensjonMaanedligVedEndring({
+          heltUttakMaanedligBeloep: 100000,
+          gradertUttakMaanedligBeloep: 100000,
+        })
+      ).toBeTruthy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({ heltUttakMaanedligBeloep: 100000 })
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når typen er null eller at alderspensjonMaanedligVedEndring inneholder noe annet', () => {
+      expect(isAlderspensjonMaanedligVedEndring(null)).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({
+          heltUttakMaanedligBeloep: undefined,
+        })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({ heltUttakMaanedligBeloep: 'abc' })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({ heltUttakMaanedligBeloep: [] })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({ heltUttakMaanedligBeloep: {} })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({
+          heltUttakMaanedligBeloep: 100000,
+          gradertUttakMaanedligBeloep: 'abc',
+        })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({
+          heltUttakMaanedligBeloep: 100000,
+          gradertUttakMaanedligBeloep: [],
+        })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonMaanedligVedEndring({
+          heltUttakMaanedligBeloep: 100000,
+          gradertUttakMaanedligBeloep: {},
+        })
+      ).toBeFalsy()
+    })
+  })
+
   describe('isAlderspensjonSimulering', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
@@ -505,6 +556,20 @@ describe('Typeguards', () => {
               uttaksgrad: null,
             },
           },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når alderspensjonMaanedligVedEndring ikke er gyldig', () => {
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: undefined,
+          },
+          alderspensjonMaanedligVedEndring: { lorem: 'ipsum' },
         })
       ).toBeFalsy()
     })

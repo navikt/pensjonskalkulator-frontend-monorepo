@@ -516,15 +516,10 @@ export interface components {
       maaneder: number
     }
     AlderspensjonsMaanedligBeregningerV7: {
-      gradertUttak?: components['schemas']['AlderspensjonsMaanedligUttakBeregningV7']
-      heltUttak?: components['schemas']['AlderspensjonsMaanedligUttakBeregningV7']
-    }
-    AlderspensjonsMaanedligUttakBeregningV7: {
       /** Format: int32 */
-      maanedsbeloep: number
-      uttaksalder: components['schemas']['AlderV7']
+      gradertUttakMaanedligBeloep?: number
       /** Format: int32 */
-      uttaksgrad?: number
+      heltUttakMaanedligBeloep: number
     }
     AlderspensjonsberegningV7: {
       /** Format: int32 */

@@ -58,6 +58,17 @@ export const isVilkaarsproeving = (data?: any): data is Vilkaarsproeving => {
   }
 }
 
+export const isAlderspensjonMaanedligVedEndring = (data?: any) => {
+  if (data === null) {
+    return false
+  }
+  return (
+    typeof data.heltUttakMaanedligBeloep === 'number' &&
+    (data.gradertUttakMaanedligBeloep === undefined ||
+      typeof data.gradertUttakMaanedligBeloep === 'number')
+  )
+}
+
 export const isAlderspensjonSimulering = (
   data?: any
 ): data is AlderspensjonResponseBody => {
@@ -74,6 +85,10 @@ export const isAlderspensjonSimulering = (
 
   return (
     isVilkaarsproeving(data.vilkaarsproeving) &&
+    (data?.alderspensjonMaanedligVedEndring === undefined ||
+      isAlderspensjonMaanedligVedEndring(
+        data?.alderspensjonMaanedligVedEndring
+      )) &&
     (data.harForLiteTrygdetid === undefined ||
       typeof data.harForLiteTrygdetid === 'boolean')
   )
