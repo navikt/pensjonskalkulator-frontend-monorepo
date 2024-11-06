@@ -235,6 +235,9 @@ export const BeregningAvansert: React.FC = () => {
                       ? alderspensjon?.afpOffentlig
                       : undefined
                   }
+                  alderspensjonMaanedligVedEndring={
+                    alderspensjon?.alderspensjonMaanedligVedEndring
+                  }
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                   }

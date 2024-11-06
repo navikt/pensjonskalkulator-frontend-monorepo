@@ -93,6 +93,8 @@ declare global {
   type VilkaarsproevingAlternativ = components['schemas']['AlternativV7']
   type SimulertOpptjeningGrunnlag =
     components['schemas']['SimulertOpptjeningGrunnlagV7']
+  type AlderspensjonMaanedligVedEndring =
+    components['schemas']['AlderspensjonsMaanedligBeregningerV7']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
