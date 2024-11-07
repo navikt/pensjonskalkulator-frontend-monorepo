@@ -29,6 +29,7 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
   }
 
   return (
+    // TODO korrigere avvik på line-height
     <aside className={styles.wrapper}>
       <BodyLong>
         <FormattedMessage id="beregning.avansert.endring_banner.title" />

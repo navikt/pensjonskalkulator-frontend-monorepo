@@ -1,0 +1,1 @@
+export { GrunnlagAFP } from './GrunnlagAFP'
