@@ -10,10 +10,12 @@ import {
   selectAfp,
   selectIsEndring,
   selectUfoeregrad,
-  selectSamtykkeOffentligAFP,
+  selectFoedselsdato,
   selectLoependeVedtak,
+  selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
+import { isFoedselsdatoOverEllerLikMinUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
@@ -24,10 +26,19 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
   const intl = useIntl()
 
   const afp = useAppSelector(selectAfp)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
+
+  if (
+    loependeVedtak.ufoeretrygd.grad &&
+    foedselsdato &&
+    isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)
+  ) {
+    return null
+  }
 
   const formatertAfpHeader = React.useMemo(() => {
     const afpString = formatAfp(intl, afp ?? 'vet_ikke')
