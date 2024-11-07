@@ -66,7 +66,67 @@ describe('SimuleringEndringBanner', () => {
               </span>
               : 
               <strong>
-                0 beregning.avansert.endring_banner.kr_md
+                 beregning.avansert.endring_banner.kr_md
+              </strong>
+            </p>
+          </aside>
+        </DocumentFragment>
+      `)
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.title', {
+          exact: false,
+        })
+      ).toBeVisible()
+
+      expect(screen.getByText('67 alder.aar', { exact: false })).toBeVisible()
+      expect(screen.getByText('(100 %)', { exact: false })).toBeVisible()
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.kr_md', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(
+        screen.getAllByText('beregning.avansert.endring_banner.kr_md', {
+          exact: false,
+        })
+      ).toHaveLength(1)
+    })
+
+    it('Når heltUttaksalder er satt med alderspensjonMaanedligVedEndring, skal banneren vises med riktig tekst.', () => {
+      const { asFragment } = render(
+        <SimuleringEndringBanner
+          heltUttaksalder={{ aar: 67, maaneder: 0 }}
+          alderspensjonMaanedligVedEndring={{
+            heltUttakMaanedligBeloep: 100000,
+          }}
+        />,
+        {
+          // @ts-ignore
+          preloadedState: {
+            ...preloadedQueries,
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <aside
+            class="_wrapper_d239c3"
+          >
+            <p
+              class="navds-body-long navds-body-long--medium"
+            >
+              beregning.avansert.endring_banner.title67 alder.aar 
+              <span
+                class="nowrap"
+              >
+                (100 %)
+              </span>
+              : 
+              <strong>
+                100 000 beregning.avansert.endring_banner.kr_md
               </strong>
             </p>
           </aside>
@@ -99,6 +159,10 @@ describe('SimuleringEndringBanner', () => {
           gradertUttaksperiode={{
             uttaksalder: { aar: 62, maaneder: 0 },
             grad: 50,
+          }}
+          alderspensjonMaanedligVedEndring={{
+            heltUttakMaanedligBeloep: 100000,
+            gradertUttakMaanedligBeloep: 50000,
           }}
         />,
         {
@@ -133,7 +197,7 @@ describe('SimuleringEndringBanner', () => {
                 </span>
                 : 
                 <strong>
-                  0 beregning.avansert.endring_banner.kr_md
+                  50 000 beregning.avansert.endring_banner.kr_md
                 </strong>
               </li>
               <li>
@@ -145,7 +209,7 @@ describe('SimuleringEndringBanner', () => {
                 </span>
                 : 
                 <strong>
-                  0 beregning.avansert.endring_banner.kr_md
+                  100 000 beregning.avansert.endring_banner.kr_md
                 </strong>
               </li>
             </ul>

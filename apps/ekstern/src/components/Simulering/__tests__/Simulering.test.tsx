@@ -100,6 +100,9 @@ describe('Simulering', () => {
           afpPrivatListe={afpPrivatData.afpPrivat}
           showButtonsAndTable={false}
           aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonMaanedligVedEndring={{
+            heltUttakMaanedligBeloep: 100000,
+          }}
         />,
         {
           // @ts-ignore
@@ -114,6 +117,16 @@ describe('Simulering', () => {
       )
       expect(
         screen.getByText('beregning.avansert.endring_banner.title', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(
+        screen.getByText('100 000', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.kr_md', {
           exact: false,
         })
       ).toBeVisible()

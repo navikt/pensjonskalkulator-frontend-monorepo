@@ -50,6 +50,7 @@ export function Simulering(props: {
   alderspensjonListe?: PensjonsberegningMedDetaljer[]
   afpPrivatListe?: Pensjonsberegning[]
   afpOffentligListe?: Pensjonsberegning[]
+  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   showButtonsAndTable?: boolean
   detaljer?: {
     trygdetid?: number
@@ -64,6 +65,7 @@ export function Simulering(props: {
     alderspensjonListe,
     afpPrivatListe,
     afpOffentligListe,
+    alderspensjonMaanedligVedEndring,
     showButtonsAndTable,
     detaljer,
   } = props
@@ -373,6 +375,7 @@ export function Simulering(props: {
       <SimuleringEndringBanner
         heltUttaksalder={uttaksalder}
         gradertUttaksperiode={gradertUttaksperiode ?? undefined}
+        alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
       />
 
       <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>

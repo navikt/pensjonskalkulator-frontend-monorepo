@@ -13,11 +13,13 @@ import styles from './SimuleringEndringBanner.module.scss'
 interface Props {
   heltUttaksalder: Alder | null
   gradertUttaksperiode?: GradertUttak
+  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
 }
 
 export const SimuleringEndringBanner: React.FC<Props> = ({
   heltUttaksalder,
   gradertUttaksperiode,
+  alderspensjonMaanedligVedEndring,
 }) => {
   const intl = useIntl()
   const isEndring = useAppSelector(selectIsEndring)
@@ -26,9 +28,6 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
     return null
   }
 
-  {
-    // TODO PEK-610 mangler månedsbeløp fra backend
-  }
   return (
     <aside className={styles.wrapper}>
       <BodyLong>
@@ -40,35 +39,42 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
             {formatUttaksalder(intl, heltUttaksalder, { compact: true })}{' '}
             <span className="nowrap">(100 %)</span>:{' '}
             <strong>
-              {formatInntekt(0)}{' '}
+              {formatInntekt(
+                alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep
+              )}{' '}
               <FormattedMessage id="beregning.avansert.endring_banner.kr_md" />
             </strong>
           </>
         )}
       </BodyLong>
 
-      {gradertUttaksperiode && (
-        <ul className={styles.list}>
-          <li>
-            {formatUttaksalder(intl, gradertUttaksperiode.uttaksalder, {
-              compact: true,
-            })}{' '}
-            <span className="nowrap">({gradertUttaksperiode.grad} %)</span>:{' '}
-            <strong>
-              {formatInntekt(0)}{' '}
-              <FormattedMessage id="beregning.avansert.endring_banner.kr_md" />
-            </strong>
-          </li>
-          <li>
-            {formatUttaksalder(intl, heltUttaksalder, { compact: true })}{' '}
-            <span className="nowrap">(100 %)</span>:{' '}
-            <strong>
-              {formatInntekt(0)}{' '}
-              <FormattedMessage id="beregning.avansert.endring_banner.kr_md" />
-            </strong>
-          </li>
-        </ul>
-      )}
+      {gradertUttaksperiode &&
+        alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep && (
+          <ul className={styles.list}>
+            <li>
+              {formatUttaksalder(intl, gradertUttaksperiode.uttaksalder, {
+                compact: true,
+              })}{' '}
+              <span className="nowrap">({gradertUttaksperiode.grad} %)</span>:{' '}
+              <strong>
+                {formatInntekt(
+                  alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep
+                )}{' '}
+                <FormattedMessage id="beregning.avansert.endring_banner.kr_md" />
+              </strong>
+            </li>
+            <li>
+              {formatUttaksalder(intl, heltUttaksalder, { compact: true })}{' '}
+              <span className="nowrap">(100 %)</span>:{' '}
+              <strong>
+                {formatInntekt(
+                  alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep
+                )}{' '}
+                <FormattedMessage id="beregning.avansert.endring_banner.kr_md" />
+              </strong>
+            </li>
+          </ul>
+        )}
     </aside>
   )
 }
