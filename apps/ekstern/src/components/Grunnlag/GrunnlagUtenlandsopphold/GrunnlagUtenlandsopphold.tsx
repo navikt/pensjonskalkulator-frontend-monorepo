@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectHarUtenlandsopphold,
   selectCurrentSimulation,
+  selectIsEndring,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
@@ -35,16 +36,21 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const { formatertUttaksalderReadOnly } = useAppSelector(
     selectCurrentSimulation
   )
+  const isEndring = useAppSelector(selectIsEndring)
 
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
     | 'mer_enn_5_aar'
-    | 'for_lite_trygdetid' => {
+    | 'for_lite_trygdetid'
+    | 'endring' => {
+    if (isEndring) {
+      return 'endring'
+    }
     if (harForLiteTrygdetid) {
       return 'for_lite_trygdetid'
     }
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
-  }, [harForLiteTrygdetid, harUtenlandsopphold])
+  }, [isEndring, harForLiteTrygdetid, harUtenlandsopphold])
 
   React.useEffect(() => {
     if (oppholdUtenforNorge === 'for_lite_trygdetid') {
@@ -117,6 +123,17 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
           })}
         >
           <>
+            {oppholdUtenforNorge === 'endring' && (
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.opphold.ingress.endring"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+              </BodyLong>
+            )}
+
             {oppholdUtenforNorge === 'mindre_enn_5_aar' && (
               <BodyLong spacing>
                 <FormattedMessage
@@ -150,19 +167,21 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
               </div>
             )}
 
-            <BodyLong>
-              <FormattedMessage
-                id="grunnlag.opphold.ingress.endre_opphold"
-                values={{
-                  ...getFormatMessageValues(intl),
-                  link: (
-                    <Link href="#" onClick={goToUtenlandsoppholdStep}>
-                      <FormattedMessage id="grunnlag.opphold.ingress.endre_opphold.link" />
-                    </Link>
-                  ),
-                }}
-              />
-            </BodyLong>
+            {oppholdUtenforNorge !== 'endring' && (
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.opphold.ingress.endre_opphold"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    link: (
+                      <Link href="#" onClick={goToUtenlandsoppholdStep}>
+                        <FormattedMessage id="grunnlag.opphold.ingress.endre_opphold.link" />
+                      </Link>
+                    ),
+                  }}
+                />
+              </BodyLong>
+            )}
 
             {(harUtenlandsopphold ||
               oppholdUtenforNorge === 'for_lite_trygdetid') && (

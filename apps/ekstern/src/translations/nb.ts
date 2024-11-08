@@ -512,9 +512,11 @@ const translations = {
   'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
+  'grunnlag.opphold.title.endring': 'Opphold utenfor Norge',
   'grunnlag.opphold.value.mindre_enn_5_aar': '5 år eller mindre',
   'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
   'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
+  'grunnlag.opphold.value.endring': 'Fra vedtak',
   'grunnlag.opphold.ingress.endre_opphold':
     'Du kan endre oppholdene dine ved å gå tilbake til {link}.',
   'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
@@ -522,6 +524,8 @@ const translations = {
     'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon.',
   'grunnlag.opphold.ingress.for_lite_trygdetid':
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
+  'grunnlag.opphold.ingress.endring':
+    'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -533,7 +537,8 @@ const translations = {
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
-  'grunnlag.afp.ikke_beregnet': 'ikke beregnet',
+  'grunnlag.afp.ikke_beregnet': 'Ikke beregnet',
+  'grunnlag.afp.endring': 'Uendret',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':
     'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
@@ -553,6 +558,12 @@ const translations = {
     'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ',
   'grunnlag.afp.ingress.nei.ufoeretrygd':
     'Starter du i jobb hos en arbeidsgiver som har avtale om AFP, må du være oppmerksom på at AFP og uføretrygd ikke kan kombineres. Du må velge mellom AFP og uføretrygd før du er 62 år.',
+  'grunnlag.afp.ingress.ja_offentlig.endring':
+    'Du har AFP i offentlig sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
+  'grunnlag.afp.ingress.ja_privat.endring':
+    'Du har AFP i privat sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
+  'grunnlag.afp.ingress.nei.endring':
+    'Du har oppgitt at du ikke har rett til AFP. Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.',
   'grunnlag.afp.reset_link': 'ny beregning',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat av hva du kan forvente deg i pensjon. ',
