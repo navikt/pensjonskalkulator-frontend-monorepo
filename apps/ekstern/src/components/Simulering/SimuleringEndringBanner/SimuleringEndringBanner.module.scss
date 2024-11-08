@@ -9,6 +9,7 @@
 
   @media (min-width: $a-breakpoint-sm) {
     display: inline-block;
+    margin-bottom: var(--a-spacing-3);
   }
 }
 
