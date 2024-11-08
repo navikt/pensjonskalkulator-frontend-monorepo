@@ -34,6 +34,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
+  selectIsEndring,
   selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
@@ -45,7 +46,6 @@ import {
   isFoedtFoer1964,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
-import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -60,6 +60,7 @@ export const BeregningEnkel: React.FC = () => {
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
@@ -307,7 +308,7 @@ export const BeregningEnkel: React.FC = () => {
                     : undefined
                 }
               />
-              <Pensjonsavtaler headingLevel="3" />
+              {!isEndring && <Pensjonsavtaler headingLevel="3" />}
               <Grunnlag
                 visning="enkel"
                 headingLevel="3"
@@ -327,7 +328,7 @@ export const BeregningEnkel: React.FC = () => {
               <div className={styles.container}>
                 <SavnerDuNoe
                   headingLevel="3"
-                  isEndring={isLoependeVedtakEndring(loependeVedtak)}
+                  isEndring={isEndring}
                   showAvansert
                 />
               </div>

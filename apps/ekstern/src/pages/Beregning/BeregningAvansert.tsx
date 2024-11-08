@@ -31,6 +31,7 @@ import {
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
+  selectIsEndring,
   selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
@@ -40,7 +41,6 @@ import {
   isAlderOverMinUttaksalder,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
-import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -55,6 +55,7 @@ export const BeregningAvansert: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
+  const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
@@ -256,7 +257,7 @@ export const BeregningAvansert: React.FC = () => {
                 <ResultatkortAvansertBeregning
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
-                <Pensjonsavtaler headingLevel="2" />
+                {!isEndring && <Pensjonsavtaler headingLevel="2" />}
                 <Grunnlag
                   visning="avansert"
                   headingLevel="2"
@@ -274,10 +275,7 @@ export const BeregningAvansert: React.FC = () => {
                 )}
               >
                 <div className={styles.container}>
-                  <SavnerDuNoe
-                    headingLevel="3"
-                    isEndring={isLoependeVedtakEndring(loependeVedtak)}
-                  />
+                  <SavnerDuNoe headingLevel="3" isEndring={isEndring} />
                 </div>
               </div>
               <div className={styles.container}>
