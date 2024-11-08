@@ -394,7 +394,10 @@ describe('Hovedhistorie', () => {
           .and('include', '/pensjon/kalkulator/forbehold')
         cy.contains('a', 'detaljert pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', 'https://www.nav.no/pselv/simulering.jsf')
+          .and(
+            'include',
+            'https://www.nav.no/pselv/simulering.jsf?simpleMode=true'
+          )
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {

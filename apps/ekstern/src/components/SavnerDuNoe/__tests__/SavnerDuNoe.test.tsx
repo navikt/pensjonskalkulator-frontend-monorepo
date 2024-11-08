@@ -37,7 +37,7 @@ describe('SavnerDuNoe', () => {
       ).toBeInTheDocument()
     })
 
-    it('nullstiller input fra brukeren og redirigerer til avansert baregning når brukeren klikker på knappen', async () => {
+    it('nullstiller input fra brukeren og redirigerer til avansert beregning når brukeren klikker på knappen', async () => {
       const user = userEvent.setup()
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
