@@ -29,6 +29,10 @@
       "beloep": 293136
     }
   ],
+  "alderspensjonMaanedligVedEndring": {
+    "heltUttakMaanedligBeloep": 100000,
+    "gradertUttakMaanedligBeloep": 50000
+  },
   "vilkaarsproeving": {
     "vilkaarErOppfylt": true
   },

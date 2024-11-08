@@ -182,7 +182,7 @@ describe('AFP', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v7/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_med_afp_offentlig.json' }
         ).as('fetchAlderspensjon')

@@ -1,6 +1,7 @@
 import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly section: "section";
+  readonly title: "title";
   readonly loader: "loader";
   readonly tooltip: "tooltip";
   readonly tooltipTable: "tooltipTable";

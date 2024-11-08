@@ -159,7 +159,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v6/alderspensjon/simulering',
+        url: '/v7/alderspensjon/simulering',
         method: 'POST',
         body,
       }),

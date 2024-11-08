@@ -208,7 +208,6 @@ describe('EndreInntekt', () => {
       {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetInntekt,

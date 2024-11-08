@@ -179,7 +179,6 @@ describe('TidligstMuligUttaksalder', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
@@ -301,7 +300,6 @@ describe('TidligstMuligUttaksalder', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,

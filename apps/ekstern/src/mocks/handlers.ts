@@ -82,7 +82,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v6/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v7/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar

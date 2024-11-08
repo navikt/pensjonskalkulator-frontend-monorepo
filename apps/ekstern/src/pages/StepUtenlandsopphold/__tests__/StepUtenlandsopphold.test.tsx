@@ -27,7 +27,6 @@ describe('StepUtenlandsopphold', () => {
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -54,7 +53,6 @@ describe('StepUtenlandsopphold', () => {
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetLoependeVedtak0Ufoeregrad,

@@ -1,0 +1,1 @@
+export { InfoOmLoependeVedtak } from './InfoOmLoependeVedtak'

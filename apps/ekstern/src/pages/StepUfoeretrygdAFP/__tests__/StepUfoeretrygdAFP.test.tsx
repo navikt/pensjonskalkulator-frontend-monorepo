@@ -23,7 +23,6 @@ describe('StepUfoeretrygdAFP', () => {
     render(<StepUfoeretrygdAFP />, {
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetLoependeVedtak0Ufoeregrad,

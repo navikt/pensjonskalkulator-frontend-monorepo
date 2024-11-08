@@ -85,14 +85,16 @@ declare global {
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
-    components['schemas']['IngressSimuleringSpecV6']
-  type AfpSimuleringstype =
-    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
-  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
-  type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
-  type VilkaarsproevingAlternativ = components['schemas']['AlternativV6']
+    components['schemas']['IngressSimuleringSpecV7']
+  type AlderspensjonSimuleringstype =
+    components['schemas']['IngressSimuleringSpecV7']['simuleringstype']
+  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV7']
+  type Vilkaarsproeving = components['schemas']['VilkaarsproevingV7']
+  type VilkaarsproevingAlternativ = components['schemas']['AlternativV7']
   type SimulertOpptjeningGrunnlag =
-    components['schemas']['SimulertOpptjeningGrunnlagV6']
+    components['schemas']['SimulertOpptjeningGrunnlagV7']
+  type AlderspensjonMaanedligVedEndring =
+    components['schemas']['AlderspensjonsMaanedligBeregningerV7']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
