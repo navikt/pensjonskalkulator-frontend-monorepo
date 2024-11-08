@@ -5,6 +5,8 @@ const translations = {
     'lorem ipsum dolor <dinPensjonLink>my link</dinPensjonLink>',
   'translation.test.dinPensjonBeholdningLink':
     'lorem ipsum dolor <dinPensjonBeholdningLink>my link</dinPensjonBeholdningLink>',
+  'translation.test.dinPensjonEndreSoeknadLink':
+    'lorem ipsum dolor <dinPensjonEndreSoeknadLink>my link</dinPensjonEndreSoeknadLink>',
   'translation.test.alderspensjonsreglerLink':
     'lorem ipsum dolor <alderspensjonsreglerLink>my link</alderspensjonsreglerLink>',
   'translation.test.garantiPensjonLink':

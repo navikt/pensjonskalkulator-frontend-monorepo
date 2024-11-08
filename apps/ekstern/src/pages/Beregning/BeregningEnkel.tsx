@@ -45,6 +45,7 @@ import {
   isFoedtFoer1964,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -324,7 +325,11 @@ export const BeregningEnkel: React.FC = () => {
               className={clsx(styles.background, styles.background__lightblue)}
             >
               <div className={styles.container}>
-                <SavnerDuNoe headingLevel="3" showAvansert />
+                <SavnerDuNoe
+                  headingLevel="3"
+                  isEndring={isLoependeVedtakEndring(loependeVedtak)}
+                  showAvansert
+                />
               </div>
             </div>
             <div className={styles.container}>

@@ -40,6 +40,7 @@ import {
   isAlderOverMinUttaksalder,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -273,7 +274,10 @@ export const BeregningAvansert: React.FC = () => {
                 )}
               >
                 <div className={styles.container}>
-                  <SavnerDuNoe headingLevel="3" />
+                  <SavnerDuNoe
+                    headingLevel="3"
+                    isEndring={isLoependeVedtakEndring(loependeVedtak)}
+                  />
                 </div>
               </div>
               <div className={styles.container}>

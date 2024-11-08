@@ -3,6 +3,8 @@ export const BASE_PATH = '/pensjon/kalkulator'
 export const externalUrls = {
   dinPensjon: 'https://nav.no/pensjon',
   dinPensjonBeholdning: 'https://www.nav.no/pensjon/opptjening/nb/',
+  dinPensjonEndreSoeknad:
+    'https://www.nav.no/pensjon/selvbetjening/alderspensjon/endringssoknad',
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
