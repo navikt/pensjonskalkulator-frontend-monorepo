@@ -10,6 +10,7 @@ import {
   fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
@@ -443,7 +444,7 @@ describe('BeregningAvansert', () => {
         )
       })
 
-      it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbehold', async () => {
+      it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Pensjonsavtaler, Grunnlag og Forbehold', async () => {
         const user = userEvent.setup()
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.alderspensjon,
@@ -486,7 +487,7 @@ describe('BeregningAvansert', () => {
         expect(
           screen.getByText('beregning.avansert.resultatkort.tittel')
         ).toBeVisible()
-
+        expect(screen.getByText('pensjonsavtaler.title')).toBeVisible()
         expect(
           container.getElementsByClassName('highcharts-loading')
         ).toHaveLength(1)
@@ -687,6 +688,99 @@ describe('BeregningAvansert', () => {
           expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
         })
       })
+    })
+  })
+
+  describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
+    const preloadedState = {
+      api: {
+        queries: {
+          ...fulfilledGetPerson,
+          ...fulfilledGetInntekt,
+          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+        },
+      },
+      userInput: {
+        ...userInputInitialState,
+        samboer: false,
+        afp: 'ja_privat',
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+        },
+      } as UserInputState,
+    }
+
+    it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbehold uten Pensjonsavtaler', async () => {
+      const user = userEvent.setup()
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+
+      const { container } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <BeregningAvansert />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            // @ts-ignore
+            api: { ...preloadedState.api },
+            userInput: {
+              ...preloadedState.userInput,
+              currentSimulation: {
+                utenlandsperioder: [],
+                formatertUttaksalderReadOnly: '67 år string.og 6 alder.maaned',
+                uttaksalder: { aar: 67, maaneder: 6 },
+                aarligInntektFoerUttakBeloep: null,
+                gradertUttaksperiode: {
+                  uttaksalder: { aar: 62, maaneder: 6 },
+                  grad: 60,
+                },
+              },
+            },
+          },
+        }
+      )
+
+      await waitFor(() => {
+        expect(initiateMock).toHaveBeenCalledTimes(1)
+      })
+      expect(
+        screen.getByText('beregning.avansert.resultatkort.tittel')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('pensjonsavtaler.title')
+      ).not.toBeInTheDocument()
+
+      expect(
+        container.getElementsByClassName('highcharts-loading')
+      ).toHaveLength(1)
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      await user.click(
+        screen.getByText('beregning.avansert.resultatkort.button')
+      )
+
+      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.forbehold.title')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('savnerdunoe.title.endring')
+      ).toBeInTheDocument()
+      expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
     })
   })
 })

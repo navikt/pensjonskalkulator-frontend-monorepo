@@ -75,9 +75,9 @@ export function Simulering(props: {
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
-  const isEndring = useAppSelector(selectIsEndring)
   const sivilstand = useAppSelector(selectSivilstand)
   const foedselsdato = useAppSelector(selectFoedselsdato)
+  const isEndring = useAppSelector(selectIsEndring)
   const { data: utvidetSimuleringsresultatFeatureToggle } =
     useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
@@ -206,27 +206,39 @@ export function Simulering(props: {
   }, [alderspensjonListe, pensjonsavtaler])
 
   const pensjonsavtalerAlert = React.useMemo(():
-    | { variant: 'info' | 'warning'; text: string }
+    | { variant: 'alert-info' | 'alert-warning' | 'info'; text: string }
     | undefined => {
     const isPartialWith0Avtaler =
       pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
 
+    if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
+      return {
+        variant: 'info',
+        text: 'beregning.pensjonsavtaler.info',
+      }
+    }
+    if (isEndring) {
+      return {
+        variant: 'info',
+        text: 'beregning.tpo.info.endring',
+      }
+    }
     if (tpo) {
       if (tpo?.tpLeverandoerListe.length > 0) {
         if (isPensjonsavtalerError || isPartialWith0Avtaler) {
           return {
-            variant: 'warning',
+            variant: 'alert-warning',
             text: 'beregning.tpo.info.pensjonsavtaler.error',
           }
         } else if (isPensjonsavtalerSuccess) {
           if (pensjonsavtaler.partialResponse) {
             return {
-              variant: 'warning',
+              variant: 'alert-warning',
               text: 'beregning.tpo.info.pensjonsavtaler.partial',
             }
           } else {
             return {
-              variant: 'info',
+              variant: 'alert-info',
               text: 'beregning.tpo.info',
             }
           }
@@ -234,12 +246,12 @@ export function Simulering(props: {
       } else {
         if (isPensjonsavtalerError || isPartialWith0Avtaler) {
           return {
-            variant: 'warning',
+            variant: 'alert-warning',
             text: 'beregning.pensjonsavtaler.error',
           }
         } else if (pensjonsavtaler?.partialResponse) {
           return {
-            variant: 'warning',
+            variant: 'alert-warning',
             text: 'beregning.pensjonsavtaler.partial',
           }
         }
@@ -247,18 +259,18 @@ export function Simulering(props: {
     } else {
       if (isTpoError && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
         return {
-          variant: 'warning',
+          variant: 'alert-warning',
           text: 'beregning.tpo.error.pensjonsavtaler.error',
         }
       } else if (isTpoError && isPensjonsavtalerSuccess) {
         if (pensjonsavtaler.partialResponse) {
           return {
-            variant: 'warning',
+            variant: 'alert-warning',
             text: 'beregning.tpo.error.pensjonsavtaler.partial',
           }
         } else {
           return {
-            variant: 'warning',
+            variant: 'alert-warning',
             text: 'beregning.tpo.error',
           }
         }
@@ -267,6 +279,8 @@ export function Simulering(props: {
   }, [
     isTpoError,
     tpo,
+    isPensjonsavtaleFlagVisible,
+    isPensjonsavtalerLoading,
     isPensjonsavtalerSuccess,
     isPensjonsavtalerError,
     pensjonsavtaler,
@@ -403,8 +417,8 @@ export function Simulering(props: {
       <SimuleringPensjonsavtalerAlert
         variant={pensjonsavtalerAlert?.variant}
         text={pensjonsavtalerAlert?.text}
-        showInfo={!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible}
       />
+
       {showButtonsAndTable && (
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}

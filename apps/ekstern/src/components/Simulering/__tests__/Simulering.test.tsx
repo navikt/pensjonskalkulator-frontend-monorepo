@@ -332,6 +332,37 @@ describe('Simulering', () => {
       expect(xAxisLabels[0]).toHaveTextContent('61')
       expect(xAxisLabels[17]).toHaveTextContent('77+')
     })
+
+    it('Når brukeren har vedtak om alderspensjon, vises det riktig infomelding for tp-ordning', async () => {
+      render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="0"
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      expect(
+        await screen.findByText('beregning.tpo.info.endring')
+      ).toBeVisible()
+    })
   })
 
   describe('Gitt at brukeren samtykker', () => {
@@ -775,6 +806,12 @@ describe('Simulering', () => {
 
       await waitFor(async () => {
         expect(screen.getByTestId('pensjonsavtaler-info')).toBeVisible()
+        expect(
+          await screen.findByText(
+            'Du har pensjonsavtaler som starter før valgt alder.',
+            { exact: false }
+          )
+        ).toBeVisible()
       })
     })
 
@@ -798,6 +835,7 @@ describe('Simulering', () => {
             },
           }
         )
+
         expect(
           await screen.findByText(
             'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',

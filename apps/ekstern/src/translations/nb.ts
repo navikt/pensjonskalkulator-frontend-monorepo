@@ -358,6 +358,8 @@ const translations = {
   'beregning.button.flere_aar': 'Flere år',
   'beregning.tpo.info':
     'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.info.endring':
+    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
   'beregning.tpo.info.pensjonsavtaler.error':
     'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.tpo.info.pensjonsavtaler.partial':

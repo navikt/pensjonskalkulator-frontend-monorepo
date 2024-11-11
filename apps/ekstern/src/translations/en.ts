@@ -276,6 +276,7 @@ const translations = {
   'beregning.button.faerre_aar': 'MANGLER_TEKST',
   'beregning.button.flere_aar': 'MANGLER_TEKST',
   'beregning.tpo.info': 'MANGLER_TEKST',
+  'beregning.tpo.info.endring': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
