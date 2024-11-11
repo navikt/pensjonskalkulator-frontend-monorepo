@@ -38,7 +38,7 @@
     "express-prom-bundle": "^8.0.0",
     "http-proxy-middleware": "^3.0.3",
     "prom-client": "^15.1.3",
-    "winston": "^3.16.0"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-attributes": "^7.26.0",
