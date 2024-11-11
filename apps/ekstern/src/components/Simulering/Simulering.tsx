@@ -23,7 +23,10 @@ import {
   selectUfoeregrad,
   selectSivilstand,
   selectAfp,
+  selectIsEndring,
+  selectFoedselsdato,
 } from '@/state/userInput/selectors'
+import { transformFoedselsdatoToAlder } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -72,7 +75,9 @@ export function Simulering(props: {
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
+  const isEndring = useAppSelector(selectIsEndring)
   const sivilstand = useAppSelector(selectSivilstand)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
   const { data: utvidetSimuleringsresultatFeatureToggle } =
     useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
@@ -176,23 +181,27 @@ export function Simulering(props: {
 
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
-    const startAar = gradertUttaksperiode
-      ? gradertUttaksperiode.uttaksalder.aar
-      : uttaksalder?.aar
+    // TODO PEK-610 skrive test på startaar ved endring
+    const startAar =
+      isEndring && foedselsdato
+        ? transformFoedselsdatoToAlder(foedselsdato).aar
+        : gradertUttaksperiode
+          ? gradertUttaksperiode.uttaksalder.aar
+          : uttaksalder?.aar
 
     // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
     if (startAar && !isLoading && isPensjonsavtalerLoading) {
-      setXAxis(generateXAxis(startAar, [], setIsPensjonsavtaleFlagVisible))
+      const xAxis = generateXAxis(startAar, [], setIsPensjonsavtaleFlagVisible)
+      setXAxis(xAxis)
     }
     // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
     if (startAar && !isLoading && !isPensjonsavtalerLoading) {
-      setXAxis(
-        generateXAxis(
-          startAar,
-          pensjonsavtaler?.avtaler ?? [],
-          setIsPensjonsavtaleFlagVisible
-        )
+      const xAxis = generateXAxis(
+        startAar,
+        pensjonsavtaler?.avtaler ?? [],
+        setIsPensjonsavtaleFlagVisible
       )
+      setXAxis(xAxis)
     }
   }, [alderspensjonListe, pensjonsavtaler])
 
