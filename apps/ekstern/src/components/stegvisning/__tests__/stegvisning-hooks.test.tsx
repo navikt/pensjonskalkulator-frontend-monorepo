@@ -27,7 +27,6 @@ describe('stegvisning - hooks', () => {
 
         const mockedState = {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -76,7 +75,6 @@ describe('stegvisning - hooks', () => {
 
         const mockedState = {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtakLoepende50Alderspensjon,

@@ -48,7 +48,6 @@ describe('StepStart', () => {
       render(<RouterProvider router={router} />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -137,7 +136,6 @@ describe('StepStart', () => {
     render(<RouterProvider router={router} />, {
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
             ...fulfilledGetLoependeVedtak0Ufoeregrad,

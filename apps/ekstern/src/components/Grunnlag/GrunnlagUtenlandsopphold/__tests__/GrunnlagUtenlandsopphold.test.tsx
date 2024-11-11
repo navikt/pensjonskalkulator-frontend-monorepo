@@ -1,6 +1,7 @@
 import * as ReactRouterUtils from 'react-router'
 
 import { GrunnlagUtenlandsopphold } from '..'
+import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -120,6 +121,45 @@ describe('GrunnlagUtenlandsopphold', () => {
       expect(
         await screen.findByText('grunnlag.opphold.bunntekst')
       ).toBeVisible()
+    })
+  })
+
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
+      const user = userEvent.setup()
+      render(<GrunnlagUtenlandsopphold />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+            },
+          },
+          userInput: { ...userInputInitialState, harUtenlandsopphold: false },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.opphold.title.endring')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.opphold.value.endring')
+      ).toBeVisible()
+
+      await user.click(await screen.findByTestId('accordion-header'))
+
+      expect(
+        await screen.findByText('grunnlag.opphold.ingress.endring')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('stegvisning.utenlandsopphold.oppholdene.title')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('grunnlag.opphold.ingress.for_lite_trygdetid')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('grunnlag.opphold.bunntekst')
+      ).not.toBeInTheDocument()
     })
   })
 

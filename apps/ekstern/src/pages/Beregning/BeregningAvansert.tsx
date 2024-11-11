@@ -10,6 +10,7 @@ import clsx from 'clsx'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
+import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
@@ -182,25 +183,24 @@ export const BeregningAvansert: React.FC = () => {
 
       {avansertSkjemaModus === 'resultat' && (
         <>
-          {isError ? (
-            <div
-              className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
-            >
-              <Heading level="2" size="small">
-                <FormattedMessage id="beregning.title" />
-              </Heading>
-              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {isError && <FormattedMessage id="beregning.error" />}
-              </AlertDashBorder>
-              <ResultatkortAvansertBeregning
-                onButtonClick={() => setAvansertSkjemaModus('redigering')}
-              />
-            </div>
-          ) : (
-            <>
-              <div
-                className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
-              >
+          <InfoOmLoependeVedtak loependeVedtak={loependeVedtak} />
+          <div
+            className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
+          >
+            {isError ? (
+              <>
+                <Heading level="2" size="small">
+                  <FormattedMessage id="beregning.title" />
+                </Heading>
+                <AlertDashBorder onRetry={isError ? onRetry : undefined}>
+                  {isError && <FormattedMessage id="beregning.error" />}
+                </AlertDashBorder>
+                <ResultatkortAvansertBeregning
+                  onButtonClick={() => setAvansertSkjemaModus('redigering')}
+                />
+              </>
+            ) : (
+              <>
                 <Button
                   type="button"
                   data-testid="card-button-secondary"
@@ -235,6 +235,9 @@ export const BeregningAvansert: React.FC = () => {
                       ? alderspensjon?.afpOffentlig
                       : undefined
                   }
+                  alderspensjonMaanedligVedEndring={
+                    alderspensjon?.alderspensjonMaanedligVedEndring
+                  }
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                   }
@@ -258,22 +261,24 @@ export const BeregningAvansert: React.FC = () => {
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
                 />
-              </div>
-              <>
-                <div
-                  className={clsx(
-                    styles.background,
-                    styles.background__lightblue
-                  )}
-                >
-                  <div className={styles.container}>
-                    <SavnerDuNoe headingLevel="3" />
-                  </div>
-                </div>
-                <div className={styles.container}>
-                  <GrunnlagForbehold headingLevel="3" />
-                </div>
               </>
+            )}
+          </div>
+          {!isError && (
+            <>
+              <div
+                className={clsx(
+                  styles.background,
+                  styles.background__lightblue
+                )}
+              >
+                <div className={styles.container}>
+                  <SavnerDuNoe headingLevel="3" />
+                </div>
+              </div>
+              <div className={styles.container}>
+                <GrunnlagForbehold headingLevel="3" />
+              </div>
             </>
           )}
         </>

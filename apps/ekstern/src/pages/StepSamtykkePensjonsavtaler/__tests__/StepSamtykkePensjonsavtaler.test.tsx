@@ -33,7 +33,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -67,7 +66,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
               ...fulfilledGetTpoMedlemskap,
@@ -138,7 +136,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
             queries: {
               ...fulfilledGetLoependeVedtak75Ufoeregrad,
               ['getPerson(undefined)']: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
                 status: 'fulfilled',
                 endpointName: 'getPerson',

@@ -198,7 +198,6 @@ describe('FormButtonRow', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
@@ -237,7 +236,6 @@ describe('FormButtonRow', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjon,

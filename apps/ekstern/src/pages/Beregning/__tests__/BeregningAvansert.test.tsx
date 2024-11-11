@@ -59,7 +59,6 @@ describe('BeregningAvansert', () => {
         writable: true,
       })
       render(<BeregningAvansert />, {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         preloadedState: {
           ...preloadedState,
@@ -70,7 +69,6 @@ describe('BeregningAvansert', () => {
 
     it('vises avansert fanen i redigeringsmodus', async () => {
       render(<BeregningAvansert />, {
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         preloadedState: {
           ...preloadedState,
@@ -103,7 +101,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -193,7 +190,6 @@ describe('BeregningAvansert', () => {
             preloadedState: {
               ...preloadedState,
               api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
                 queries: {
                   ...fulfilledGetPerson,
@@ -284,7 +280,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -376,7 +371,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             preloadedState: {
               ...preloadedState,
@@ -466,7 +460,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -525,7 +518,7 @@ describe('BeregningAvansert', () => {
 
       it('Når simuleringen svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockResponse('/v6/alderspensjon/simulering', {
+        mockResponse('/v7/alderspensjon/simulering', {
           status: 200,
           method: 'post',
           json: {
@@ -558,7 +551,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -590,7 +582,7 @@ describe('BeregningAvansert', () => {
       it('Når simuleringen feiler, logges det alert og vises resultatkort med informasjon om feilen og mulighet til å prøve på nytt', async () => {
         const user = userEvent.setup()
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockErrorResponse('/v6/alderspensjon/simulering', {
+        mockErrorResponse('/v7/alderspensjon/simulering', {
           method: 'post',
         })
 
@@ -612,7 +604,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               api: { ...preloadedState.api },
               userInput: {
@@ -654,7 +645,7 @@ describe('BeregningAvansert', () => {
         )
 
         // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-        mockResponse('/v6/alderspensjon/simulering', {
+        mockResponse('/v7/alderspensjon/simulering', {
           status: 503,
           method: 'post',
         })
@@ -677,7 +668,6 @@ describe('BeregningAvansert', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             api: { ...preloadedState.api },
             userInput: {

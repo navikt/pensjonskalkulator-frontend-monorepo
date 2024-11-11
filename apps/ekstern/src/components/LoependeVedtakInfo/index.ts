@@ -1,1 +1,0 @@
-export { LoependeVedtakInfo } from './LoependeVedtakInfo'
