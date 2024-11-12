@@ -5,6 +5,7 @@ import Highcharts, { SeriesOptionsType } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { transformFoedselsdatoToAlder } from '@/utils/alder'
+import { getAlderMinus1Maaned } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -20,7 +21,6 @@ import { getChartOptions, onPointUnclick } from './utils-highcharts'
 
 import globalClassNames from './Simulering.module.scss'
 
-// TODO PEK-610 - skrive tester
 export const useSimuleringChartLocalState = (initialValues: {
   styles: Partial<typeof globalClassNames>
   chartRef: React.RefObject<HighchartsReact.RefObject>
@@ -102,7 +102,6 @@ export const useSimuleringChartLocalState = (initialValues: {
 
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
-    // TODO PEK-610 skrive test på startaar ved endring
     const startAar =
       isEndring && foedselsdato
         ? transformFoedselsdatoToAlder(foedselsdato).aar
@@ -112,13 +111,19 @@ export const useSimuleringChartLocalState = (initialValues: {
 
     // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
     if (startAar && !isLoading && pensjonsavtaler?.isLoading) {
-      const xAxis = generateXAxis(startAar, [], setIsPensjonsavtaleFlagVisible)
+      const xAxis = generateXAxis(
+        startAar,
+        isEndring,
+        [],
+        setIsPensjonsavtaleFlagVisible
+      )
       setXAxis(xAxis)
     }
-    // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
+    // recalculates correctly when alderspensjon AND pensjonsavtaler are done loading
     if (startAar && !isLoading && !pensjonsavtaler?.isLoading) {
       const xAxis = generateXAxis(
         startAar,
+        isEndring,
         pensjonsavtaler?.data?.avtaler ?? [],
         setIsPensjonsavtaleFlagVisible
       )
@@ -128,12 +133,17 @@ export const useSimuleringChartLocalState = (initialValues: {
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
-    const startAar = gradertUttaksperiode
-      ? gradertUttaksperiode.uttaksalder.aar
-      : uttaksalder?.aar
-    const startMaaned = gradertUttaksperiode
-      ? gradertUttaksperiode.uttaksalder.maaneder
-      : uttaksalder?.maaneder
+    const startAar =
+      isEndring && foedselsdato
+        ? transformFoedselsdatoToAlder(foedselsdato).aar
+        : gradertUttaksperiode
+          ? gradertUttaksperiode.uttaksalder.aar
+          : uttaksalder?.aar
+    const startMaaned = isEndring
+      ? 0
+      : gradertUttaksperiode
+        ? gradertUttaksperiode.uttaksalder.maaneder
+        : uttaksalder?.maaneder
 
     if (startAar && startMaaned !== undefined && alderspensjonListe) {
       setChartOptions({
@@ -143,6 +153,7 @@ export const useSimuleringChartLocalState = (initialValues: {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray({
+              startAar: isEndring ? startAar : startAar - 1,
               inntektFoerUttakBeloep: formatInntektToNumber(
                 aarligInntektFoerUttakBeloep
               ),
@@ -150,7 +161,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                 gradertUttaksperiode && uttaksalder
                   ? {
                       fra: gradertUttaksperiode?.uttaksalder,
-                      til: uttaksalder,
+                      til: getAlderMinus1Maaned(uttaksalder),
                       beloep: formatInntektToNumber(
                         gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
                       ),
@@ -159,7 +170,11 @@ export const useSimuleringChartLocalState = (initialValues: {
               heltUttak: uttaksalder
                 ? {
                     fra: uttaksalder,
-                    til: aarligInntektVsaHelPensjon?.sluttAlder,
+                    til: aarligInntektVsaHelPensjon?.sluttAlder
+                      ? getAlderMinus1Maaned(
+                          aarligInntektVsaHelPensjon?.sluttAlder
+                        )
+                      : undefined,
                     beloep: formatInntektToNumber(
                       aarligInntektVsaHelPensjon?.beloep
                     ),
@@ -209,7 +224,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   }),
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
-                    startAar - 1,
+                    isEndring ? startAar : startAar - 1,
                     XAxis.length,
                     pensjonsavtaler.data.avtaler
                   ),

@@ -134,7 +134,6 @@ export const getAlderMinus1Maaned = (alder: Alder) => {
     : { aar: alder.aar - 1, maaneder: 11 }
 }
 
-// TODO PEK-610 skrive tester
 export const transformFoedselsdatoToAlder = (foedselsdato: string): Alder => {
   const birtdateJs = startOfMonth(
     parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())

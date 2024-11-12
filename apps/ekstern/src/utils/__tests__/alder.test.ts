@@ -13,6 +13,7 @@ import {
   isFoedselsdatoOverEllerLikMinUttaksalder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
+  transformFoedselsdatoToAlder,
   transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
   transformMaanedToDate,
@@ -357,6 +358,61 @@ describe('alder-utils', () => {
         3,
         'agepicker.validation_error.maaneder'
       )
+    })
+  })
+
+  describe('transformFoedselsdatoToAlder', () => {
+    beforeEach(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2030-06-06'))
+    })
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('returnerer riktig alder når datoen er én måned før fødselsdatoen', () => {
+      const expectedAlder = transformFoedselsdatoToAlder('1970-07-06')
+      expect(expectedAlder).toStrictEqual({ aar: 59, maaneder: 11 })
+    })
+
+    it('returnerer riktig alder når datoen er på samme måned som fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlder('1970-06-01')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1970-06-06')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1970-06-30')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+    })
+
+    it('returnerer riktig alder når datoen er én måned etter fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlder('1970-05-01')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+      expect(transformFoedselsdatoToAlder('1970-05-06')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+      expect(transformFoedselsdatoToAlder('1970-05-31')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+    })
+
+    it('returnerer riktig alder når datoen bikker over et år', () => {
+      expect(transformFoedselsdatoToAlder('1969-06-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1969-05-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 1,
+      })
     })
   })
 
