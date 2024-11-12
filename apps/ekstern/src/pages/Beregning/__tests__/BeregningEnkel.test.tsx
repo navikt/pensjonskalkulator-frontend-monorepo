@@ -11,6 +11,7 @@ import {
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -278,7 +279,7 @@ describe('BeregningEnkel', () => {
   })
 
   describe('Når brukeren velger uttaksalder', () => {
-    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Pensjonsavtaler, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<BeregningEnkel />, {
         preloadedState: {
@@ -292,6 +293,7 @@ describe('BeregningEnkel', () => {
           },
           userInput: {
             ...userInputInitialState,
+            samtykke: true,
           },
         },
       })
@@ -307,7 +309,7 @@ describe('BeregningEnkel', () => {
         ).not.toBeInTheDocument()
       })
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
-
+      expect(screen.getByText('pensjonsavtaler.title')).toBeVisible()
       expect(
         await screen.findByText('beregning.tabell.vis')
       ).toBeInTheDocument()
@@ -807,6 +809,72 @@ describe('BeregningEnkel', () => {
       expect(alertButtonBoks).toBeInTheDocument()
       await user.click(alertButtonBoks as HTMLButtonElement)
       expect(alertBoks).not.toBeVisible()
+    })
+  })
+
+  describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
+    // const preloadedState = {
+    //   api: {
+    //     queries: {
+    //       ...fulfilledGetPerson,
+    //       ...fulfilledGetInntekt,
+    //       ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+    //     },
+    //   },
+    //   userInput: {
+    //     ...userInputInitialState,
+    //     samboer: false,
+    //     afp: 'ja_privat',
+    //     currentSimulation: {
+    //       ...userInputInitialState.currentSimulation,
+    //     },
+    //   } as UserInputState,
+    // }
+
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Pensjonsavtaler, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
+      const user = userEvent.setup()
+      const { container } = render(<BeregningEnkel />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+          },
+        },
+      })
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+      expect(
+        container.getElementsByClassName('highcharts-loading')
+      ).toHaveLength(1)
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+      expect(
+        screen.queryByText('pensjonsavtaler.title')
+      ).not.toBeInTheDocument()
+      expect(
+        await screen.findByText('beregning.tabell.vis')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.forbehold.title')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('savnerdunoe.title.endring')
+      ).toBeInTheDocument()
+      expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
     })
   })
 })

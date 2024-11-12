@@ -310,6 +310,7 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.tpo.info': 'MANGLER_TEKST',
+  'beregning.tpo.info.endring': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
