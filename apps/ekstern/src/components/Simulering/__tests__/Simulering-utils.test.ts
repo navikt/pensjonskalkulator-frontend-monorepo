@@ -1,5 +1,6 @@
 import { IntlShape } from 'react-intl'
 
+import { trackOrSetValue } from '@testing-library/user-event/dist/types/document/trackValue'
 import { Chart } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -70,20 +71,22 @@ describe('Simulering-utils', () => {
 
   describe('processInntektArray', () => {
     describe('Når ingen uttaksperiode er oppgitt', () => {
-      it('returnerer et array med én 0 verdi uten å feile', () => {
+      it('returnerer et tomt array uten å feile', () => {
         expect(
           processInntektArray({
+            startAar: 67,
             inntektFoerUttakBeloep: 0,
             gradertUttak: undefined,
             heltUttak: undefined,
             length: 0,
           })
-        ).toEqual([0])
+        ).toEqual([])
       })
 
-      it('returnerer et riktig mappet array med riktig beløp før uttak, og 0 verdi videre', () => {
+      it('returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
+            startAar: 67,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: undefined,
@@ -92,18 +95,20 @@ describe('Simulering-utils', () => {
         ).toEqual([500000])
         expect(
           processInntektArray({
+            startAar: 67,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: undefined,
             length: 4,
           })
-        ).toEqual([500000, 0, 0, 0])
+        ).toEqual([500000, 500000, 500000, 500000])
       })
     })
     describe('Når helt uttak er oppgitt', () => {
       it('uten inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -117,6 +122,7 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -131,11 +137,12 @@ describe('Simulering-utils', () => {
       it('med inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 0 },
-              til: { aar: 67, maaneder: 0 },
+              til: { aar: 66, maaneder: 11 },
               beloep: 300000,
             },
             length: 5,
@@ -144,11 +151,12 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 4 },
-              til: { aar: 67, maaneder: 3 },
+              til: { aar: 67, maaneder: 2 },
               beloep: 300000,
             },
             length: 5,
@@ -157,11 +165,12 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 67, maaneder: 0 },
-              til: { aar: 67, maaneder: 6 },
+              til: { aar: 67, maaneder: 5 },
               beloep: 300000,
             },
             length: 5,
@@ -170,11 +179,12 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 67, maaneder: 6 },
-              til: { aar: 68, maaneder: 0 },
+              til: { aar: 67, maaneder: 11 },
               beloep: 300000,
             },
             length: 5,
@@ -183,11 +193,12 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 67, maaneder: 6 },
-              til: { aar: 67, maaneder: 10 },
+              til: { aar: 67, maaneder: 9 },
               beloep: 300000,
             },
             length: 5,
@@ -199,10 +210,11 @@ describe('Simulering-utils', () => {
       it('uten inntekt vsa gradert pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
-              til: { aar: 67, maaneder: 0 },
+              til: { aar: 66, maaneder: 11 },
               beloep: undefined,
             },
             heltUttak: undefined,
@@ -212,10 +224,11 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
-              til: { aar: 67, maaneder: 3 },
+              til: { aar: 67, maaneder: 2 },
               beloep: undefined,
             },
             heltUttak: undefined,
@@ -227,10 +240,11 @@ describe('Simulering-utils', () => {
       it('med inntekt vsa gradert pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
-              til: { aar: 67, maaneder: 0 },
+              til: { aar: 66, maaneder: 11 },
               beloep: 300000,
             },
             heltUttak: undefined,
@@ -240,10 +254,11 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
-              til: { aar: 67, maaneder: 3 },
+              til: { aar: 67, maaneder: 2 },
               beloep: 300000,
             },
             heltUttak: undefined,
@@ -253,10 +268,11 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 0 },
-              til: { aar: 67, maaneder: 6 },
+              til: { aar: 67, maaneder: 5 },
               beloep: 300000,
             },
             heltUttak: undefined,
@@ -266,10 +282,11 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 6 },
-              til: { aar: 68, maaneder: 0 },
+              til: { aar: 67, maaneder: 11 },
               beloep: 300000,
             },
             heltUttak: undefined,
@@ -279,10 +296,11 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 6 },
-              til: { aar: 67, maaneder: 10 },
+              til: { aar: 67, maaneder: 9 },
               beloep: 300000,
             },
             heltUttak: undefined,
@@ -296,15 +314,16 @@ describe('Simulering-utils', () => {
       it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
-              til: { aar: 67, maaneder: 0 },
+              til: { aar: 66, maaneder: 11 },
               beloep: 300000,
             },
             heltUttak: {
               fra: { aar: 67, maaneder: 0 },
-              til: { aar: 71, maaneder: 0 },
+              til: { aar: 70, maaneder: 11 },
               beloep: 100000,
             },
             length: 8,
@@ -313,15 +332,16 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
-              til: { aar: 67, maaneder: 3 },
+              til: { aar: 67, maaneder: 2 },
               beloep: 300000,
             },
             heltUttak: {
               fra: { aar: 67, maaneder: 3 },
-              til: { aar: 71, maaneder: 8 },
+              til: { aar: 71, maaneder: 7 },
               beloep: 100000,
             },
             length: 10,
@@ -334,15 +354,16 @@ describe('Simulering-utils', () => {
         // half of inntektFoerUttak: 250000 =  250000 (half of inntektFoerUttak) + 125000 (5md av inntekt vsa gradert) + 8333,33 (1md inntekt vsa helt)
         expect(
           processInntektArray({
+            startAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 6 },
-              til: { aar: 65, maaneder: 11 },
+              til: { aar: 65, maaneder: 10 },
               beloep: 300000,
             },
             heltUttak: {
               fra: { aar: 65, maaneder: 11 },
-              til: { aar: 71, maaneder: 0 },
+              til: { aar: 70, maaneder: 11 },
               beloep: 100000,
             },
             length: 8,
@@ -653,6 +674,7 @@ describe('Simulering-utils', () => {
     it('returnerer riktig array når pensjonsavtaler-arrayet er tomt', () => {
       const alderArray = generateXAxis(
         65,
+        false,
         [],
         setIsPensjonsavtaleFlagVisibleMock
       )
@@ -675,9 +697,35 @@ describe('Simulering-utils', () => {
       ])
     })
 
+    it('returnerer riktig array når brukeren har vedtak om alderspensjon (array starter et år senere)', () => {
+      const alderArray = generateXAxis(
+        65,
+        true,
+        [],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray).toEqual([
+        '65',
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '77+',
+      ])
+    })
+
     it('returnerer et minimum array fra året før startAar til 77+ når pensjonsavtaler dekker en mindre periode eller er livsvarige', () => {
       const alderArray = generateXAxis(
         62,
+        false,
         [
           createMockedPensjonsavtale({
             startAar: 67,
@@ -691,6 +739,7 @@ describe('Simulering-utils', () => {
 
       const alderArrayUnlimited = generateXAxis(
         62,
+        false,
         [
           createMockedPensjonsavtale({
             startAar: 67,
@@ -709,6 +758,7 @@ describe('Simulering-utils', () => {
       })
       const alderArray1 = generateXAxis(
         67,
+        false,
         [
           { ...avtale1 },
           createMockedPensjonsavtale({
@@ -737,6 +787,7 @@ describe('Simulering-utils', () => {
 
       const alderArray2 = generateXAxis(
         67,
+        false,
         [
           {
             ...avtale1,
@@ -774,6 +825,7 @@ describe('Simulering-utils', () => {
     it('returnerer riktig array når pensjonsavtaler har ulike sluttAlder under 77', () => {
       const alderArray = generateXAxis(
         65,
+        false,
         [
           createMockedPensjonsavtale({
             startAar: 67,
@@ -805,9 +857,11 @@ describe('Simulering-utils', () => {
         '77+',
       ])
     })
+
     it('returnerer riktig array når sluttAlder er utenfor standardområdet, og kaller setIsPensjonsavtaleFlagVisible når en avtale begynner før startAar', () => {
       const alderArray = generateXAxis(
         62,
+        false,
         [createMockedPensjonsavtale({ startAar: 55, sluttAar: 80 })],
         setIsPensjonsavtaleFlagVisibleMock
       )

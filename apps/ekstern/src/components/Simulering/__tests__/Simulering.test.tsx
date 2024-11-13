@@ -4,7 +4,12 @@ import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { typ
 import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
 import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { Simulering } from '../Simulering'
-import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
@@ -20,6 +25,11 @@ describe('Simulering', () => {
     uttaksalder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
+  }
+
+  const preloadedQueries = {
+    ...fulfilledGetInntekt,
+    ...fulfilledGetPerson,
   }
 
   const fakeApiCallUfoere = {
@@ -83,14 +93,6 @@ describe('Simulering', () => {
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
-    const preloadedQueries = {
-      api: {
-        queries: {
-          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-        },
-      },
-    }
-
     it('viser banner om info for endret alderspensjon', () => {
       render(
         <Simulering
@@ -105,9 +107,14 @@ describe('Simulering', () => {
           }}
         />,
         {
-          // @ts-ignore
           preloadedState: {
-            ...preloadedQueries,
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: { ...currentSimulation },
@@ -149,6 +156,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -191,6 +205,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -231,6 +252,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -270,6 +298,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -344,8 +379,9 @@ describe('Simulering', () => {
         {
           preloadedState: {
             api: {
-              //@ts-ignore
+              // @ts-ignore
               queries: {
+                ...preloadedQueries,
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
               },
             },

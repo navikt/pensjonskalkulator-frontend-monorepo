@@ -2,6 +2,8 @@ import { IntlShape } from 'react-intl'
 
 import { Chart, Point, Series } from 'highcharts'
 
+import { getAlderMinus1Maaned } from '@/utils/alder'
+
 import {
   COLUMN_WIDTH,
   MAX_UTTAKSALDER,
@@ -29,6 +31,7 @@ export const getChartDefaults = (aarArray: string[]) => {
 }
 
 export const processInntektArray = (args: {
+  startAar: number
   inntektFoerUttakBeloep: number
   gradertUttak:
     | {
@@ -47,85 +50,72 @@ export const processInntektArray = (args: {
 
   length: number
 }): number[] => {
-  const { inntektFoerUttakBeloep, gradertUttak, heltUttak, length } = args
+  const { startAar, inntektFoerUttakBeloep, gradertUttak, heltUttak, length } =
+    args
 
-  const dataArray = new Array(length).fill(0)
-  dataArray[0] = inntektFoerUttakBeloep
+  const utbetalingsperioder = [
+    // før uttak
+    {
+      startAlder: { aar: startAar, maaneder: 0 },
+      sluttAlder: gradertUttak
+        ? getAlderMinus1Maaned(gradertUttak.fra)
+        : heltUttak
+          ? getAlderMinus1Maaned(heltUttak.fra)
+          : undefined,
+      aarligUtbetaling: inntektFoerUttakBeloep,
+    },
+    // gradert
+    ...(gradertUttak
+      ? [
+          {
+            startAlder: gradertUttak.fra,
+            sluttAlder: gradertUttak.til,
+            aarligUtbetaling: gradertUttak.beloep ?? 0,
+          },
+        ]
+      : []),
+    // helt
+    ...(heltUttak
+      ? [
+          {
+            startAlder: heltUttak.fra,
+            sluttAlder: heltUttak.til,
+            aarligUtbetaling: heltUttak.beloep ?? 0,
+          },
+        ]
+      : []),
+  ]
 
-  let brekkpunktIndex
+  const sluttAlder = startAar + length - 1
+  const result = new Array(sluttAlder - startAar + 1).fill(0)
 
-  if (gradertUttak) {
-    const { fra, til, beloep } = gradertUttak
-    const hasInntektVsaPensjonOnlyOneYear = beloep && fra.aar === til?.aar
-    const startAgeIndex = 1
-    const endAgeIndex = til.aar - fra.aar + 1
+  utbetalingsperioder.forEach((utbetalingsperiode) => {
+    const periodeStartYear = Math.max(
+      startAar,
+      utbetalingsperiode.startAlder.aar
+    )
+    const avtaleEndYear = utbetalingsperiode.sluttAlder
+      ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder.aar)
+      : sluttAlder
 
-    const firstYearPartialAmountFromInntektFoerUttak =
-      fra.maaneder * (inntektFoerUttakBeloep / 12)
+    for (let year = periodeStartYear; year <= avtaleEndYear; year++) {
+      if (year >= startAar) {
+        const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
+          year,
+          utbetalingsperiode.startAlder,
+          utbetalingsperiode.sluttAlder
+        )
 
-    const firstYearPartialAmountFromInntektVsaPensjon =
-      hasInntektVsaPensjonOnlyOneYear
-        ? (til?.maaneder - fra.maaneder) * (beloep / 12)
-        : (beloep ?? 0) * ((12 - fra.maaneder) / 12)
-
-    const firstYearAmount =
-      firstYearPartialAmountFromInntektFoerUttak +
-      firstYearPartialAmountFromInntektVsaPensjon
-
-    dataArray[startAgeIndex] += firstYearAmount
-
-    for (let i = startAgeIndex + 1; i < endAgeIndex; i++) {
-      dataArray[i] += beloep ? beloep : 0
+        const allocatedAmount =
+          (utbetalingsperiode.aarligUtbetaling *
+            Math.max(0, antallMaanederMedPensjon)) /
+          12
+        result[year - startAar] += allocatedAmount
+      }
     }
+  })
 
-    if (
-      !hasInntektVsaPensjonOnlyOneYear &&
-      til.maaneder > 0 &&
-      endAgeIndex + 1 < length
-    ) {
-      dataArray[endAgeIndex] += beloep ? (beloep / 12) * til.maaneder : 0
-    }
-    brekkpunktIndex = endAgeIndex
-  }
-
-  if (heltUttak) {
-    const { fra, til, beloep } = heltUttak
-    const hasInntektVsaPensjonOnlyOneYear = beloep && fra.aar === til?.aar
-    const startAgeIndex = brekkpunktIndex ? brekkpunktIndex : 1
-    const endAgeIndex = til
-      ? startAgeIndex + (til.aar - fra.aar)
-      : dataArray.length
-
-    const firstYearPartialAmountFromInntektFoerUttak =
-      brekkpunktIndex === undefined
-        ? heltUttak.fra.maaneder * (inntektFoerUttakBeloep / 12)
-        : 0
-
-    const firstYearPartialAmountFromInntektVsaPensjon =
-      hasInntektVsaPensjonOnlyOneYear
-        ? (til?.maaneder - fra.maaneder) * (beloep / 12)
-        : (beloep ?? 0) * ((12 - fra.maaneder) / 12)
-
-    const firstYearAmount =
-      firstYearPartialAmountFromInntektFoerUttak +
-      firstYearPartialAmountFromInntektVsaPensjon
-
-    dataArray[startAgeIndex] += firstYearAmount
-
-    for (let i = startAgeIndex + 1; i < endAgeIndex; i++) {
-      dataArray[i] += beloep ? beloep : 0
-    }
-
-    if (
-      !hasInntektVsaPensjonOnlyOneYear &&
-      til &&
-      til.maaneder > 0 &&
-      endAgeIndex + 1 < length
-    ) {
-      dataArray[endAgeIndex] += beloep ? (beloep / 12) * til.maaneder : 0
-    }
-  }
-  return dataArray
+  return result
 }
 
 export const processPensjonsberegningArray = (
@@ -207,6 +197,7 @@ export const processPensjonsavtalerArray = (
 
 export const generateXAxis = (
   startAar: number,
+  isEndring: boolean,
   pensjonsavtaler: Pensjonsavtale[],
   setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -227,7 +218,7 @@ export const generateXAxis = (
   })
   const alderArray: string[] = []
   for (let i = startAar; i <= sluttAar + 1; i++) {
-    if (i === startAar) {
+    if (!isEndring && i === startAar) {
       alderArray.push((i - 1).toString())
     }
 
