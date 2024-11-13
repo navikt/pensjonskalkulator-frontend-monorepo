@@ -48,7 +48,6 @@ export function Simulering(props: {
     opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
   }
 }) {
-  // const intl = useIntl()
   const {
     isLoading,
     headingLevel,

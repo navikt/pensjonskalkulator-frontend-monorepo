@@ -59,8 +59,10 @@ export const useSimuleringChartLocalState = (initialValues: {
     afpOffentligListe,
     pensjonsavtaler,
   } = initialValues
-  const intl = useIntl()
 
+  const { isLoading: isPensjonsavtalerLoading, data: pensjonsavtalerData } =
+    pensjonsavtaler
+  const intl = useIntl()
   const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
@@ -98,7 +100,7 @@ export const useSimuleringChartLocalState = (initialValues: {
         chartRef.current.chart.hideLoading()
       }
     }
-  }, [isLoading, pensjonsavtaler])
+  }, [isLoading, isPensjonsavtalerLoading])
 
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
@@ -109,27 +111,26 @@ export const useSimuleringChartLocalState = (initialValues: {
           ? gradertUttaksperiode.uttaksalder.aar
           : uttaksalder?.aar
 
-    // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
-    if (startAar && !isLoading && pensjonsavtaler?.isLoading) {
-      const xAxis = generateXAxis(
-        startAar,
-        isEndring,
-        [],
-        setIsPensjonsavtaleFlagVisible
-      )
-      setXAxis(xAxis)
+    if (startAar) {
+      // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
+      if (!isLoading && isPensjonsavtalerLoading) {
+        setXAxis(
+          generateXAxis(startAar, isEndring, [], setIsPensjonsavtaleFlagVisible)
+        )
+      }
+      // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
+      if (!isLoading && !isPensjonsavtalerLoading) {
+        setXAxis(
+          generateXAxis(
+            startAar,
+            isEndring,
+            pensjonsavtalerData?.avtaler ?? [],
+            setIsPensjonsavtaleFlagVisible
+          )
+        )
+      }
     }
-    // recalculates correctly when alderspensjon AND pensjonsavtaler are done loading
-    if (startAar && !isLoading && !pensjonsavtaler?.isLoading) {
-      const xAxis = generateXAxis(
-        startAar,
-        isEndring,
-        pensjonsavtaler?.data?.avtaler ?? [],
-        setIsPensjonsavtaleFlagVisible
-      )
-      setXAxis(xAxis)
-    }
-  }, [alderspensjonListe, pensjonsavtaler])
+  }, [alderspensjonListe, pensjonsavtalerData])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
@@ -275,6 +276,11 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
 }) => {
   const { isEndring, isPensjonsavtaleFlagVisible, pensjonsavtaler, tpo } =
     initialValues
+  const {
+    isSuccess: isPensjonsavtalerSuccess,
+    isError: isPensjonsavtalerError,
+    data: pensjonsavtalerData,
+  } = pensjonsavtaler
 
   React.useEffect(() => {
     if (tpo.isError) {
@@ -364,7 +370,13 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
         }
       }
     }
-  }, [tpo, isPensjonsavtaleFlagVisible, pensjonsavtaler])
+  }, [
+    tpo,
+    isPensjonsavtaleFlagVisible,
+    isPensjonsavtalerSuccess,
+    isPensjonsavtalerError,
+    pensjonsavtalerData,
+  ])
 
   return [pensjonsavtalerAlert] as const
 }
