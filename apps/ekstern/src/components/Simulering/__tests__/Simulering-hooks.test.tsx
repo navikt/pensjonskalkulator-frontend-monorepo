@@ -809,7 +809,7 @@ describe('Simulering-hooks', () => {
         `)
       })
 
-      it('Når brukeren har vedtak om alderspensjon, beregner riktig xAxis for grafen basert på brukerens alder og pensjonsabvtaler og series blir riktig', () => {
+      it('Når brukeren har vedtak om alderspensjon, beregner riktig xAxis for grafen basert på brukerens alder og pensjonsavtaler og series blir riktig', () => {
         const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
           years: -63,
           months: -1,
