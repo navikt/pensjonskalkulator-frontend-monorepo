@@ -18,7 +18,8 @@ describe('OffentligTjenestepensjon', () => {
       },
     })
     render(<OffentligTjenestepensjon headingLevel="3" />)
-    expect(await screen.findByTestId('tpo-loader')).toBeVisible()
+
+    expect(screen.queryByTestId('tpo-loader')).toBeInTheDocument()
 
     await waitFor(async () => {
       expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
@@ -41,6 +42,8 @@ describe('OffentligTjenestepensjon', () => {
     })
     render(<OffentligTjenestepensjon headingLevel="3" />)
 
+    expect(screen.queryByTestId('tpo-loader')).toBeInTheDocument()
+
     await waitFor(async () => {
       expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
       expect(
@@ -57,6 +60,8 @@ describe('OffentligTjenestepensjon', () => {
   it('Når kall til tp-medlemskap feiler, viser riktig heading på riktig level og riktig feilmelding', async () => {
     mockErrorResponse('/v1/tpo-medlemskap')
     render(<OffentligTjenestepensjon headingLevel="3" />)
+
+    expect(screen.queryByTestId('tpo-loader')).toBeInTheDocument()
 
     await waitFor(async () => {
       expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
