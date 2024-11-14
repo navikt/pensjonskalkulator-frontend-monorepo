@@ -194,6 +194,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   /* c8 ignore next 1 */
                   data: processPensjonsberegningArray(
                     afpPrivatListe,
+                    isEndring,
                     XAxis.length
                   ),
                 } as SeriesOptionsType,
@@ -209,6 +210,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   /* c8 ignore next 1 */
                   data: processPensjonsberegningArray(
                     afpOffentligListe,
+                    isEndring,
                     XAxis.length
                   ),
                 } as SeriesOptionsType,
@@ -239,6 +241,7 @@ export const useSimuleringChartLocalState = (initialValues: {
             }),
             data: processPensjonsberegningArray(
               alderspensjonListe,
+              isEndring,
               XAxis.length
             ),
           } as SeriesOptionsType,

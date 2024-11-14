@@ -1,6 +1,5 @@
 import { IntlShape } from 'react-intl'
 
-import { trackOrSetValue } from '@testing-library/user-event/dist/types/document/trackValue'
 import { Chart } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -377,8 +376,8 @@ describe('Simulering-utils', () => {
 
   describe('processPensjonsberegningArray', () => {
     it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
-      expect(processPensjonsberegningArray([], 0)).toEqual([0, 0])
-      expect(processPensjonsberegningArray([], 1)).toEqual([0, 0])
+      expect(processPensjonsberegningArray([], false, 0)).toEqual([0, 0])
+      expect(processPensjonsberegningArray([], false, 1)).toEqual([0, 0])
     })
 
     it('returnerer riktig mappet array med 0 verdi først, beløp, og livsvarig beløp duplisert sist, avhengig av x-axis lengden', () => {
@@ -399,6 +398,7 @@ describe('Simulering-utils', () => {
               beloep: 80000,
             },
           ],
+          false,
           2
         )
       ).toEqual([0, 20000, 80000, 80000, 80000])
@@ -419,6 +419,7 @@ describe('Simulering-utils', () => {
               beloep: 80000,
             },
           ],
+          false,
           5
         )
       ).toEqual([0, 20000, 80000, 80000, 80000])
@@ -439,10 +440,79 @@ describe('Simulering-utils', () => {
               beloep: 80000,
             },
           ],
+          false,
           10
         )
       ).toEqual([
         0, 20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
+      ])
+    })
+
+    it('Når brukeren har vedtak om alderspensjon, returnerer riktig mappet array med beløp først, og livsvarig beløp duplisert sist, avhengig av x-axis lengden', () => {
+      expect(
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          true,
+          2
+        )
+      ).toEqual([20000, 80000, 80000, 80000])
+      expect(
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          true,
+          5
+        )
+      ).toEqual([20000, 80000, 80000, 80000, 80000])
+      expect(
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          true,
+          10
+        )
+      ).toEqual([
+        20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
       ])
     })
   })

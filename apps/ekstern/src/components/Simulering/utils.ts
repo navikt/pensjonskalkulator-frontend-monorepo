@@ -120,17 +120,22 @@ export const processInntektArray = (args: {
 
 export const processPensjonsberegningArray = (
   pensjonsberegninger: Pensjonsberegning[] = [],
+  isEndring: boolean,
   length: number
 ): number[] => {
-  const arrayLength = Math.max(length, pensjonsberegninger.length + 2)
-  const dataArray = new Array(1).fill(0)
+  const arrayLength = Math.max(
+    length,
+    isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2
+  )
+  const dataArray = isEndring ? [] : new Array(1).fill(0)
 
   const livsvarigPensjonsbeloep =
     pensjonsberegninger[pensjonsberegninger.length - 1]?.beloep ?? 0
 
-  for (let index = 1; index < arrayLength; index++) {
+  for (let index = isEndring ? 0 : 1; index < arrayLength; index++) {
     dataArray.push(
-      pensjonsberegninger[index - 1]?.beloep || livsvarigPensjonsbeloep
+      pensjonsberegninger[isEndring ? index : index - 1]?.beloep ||
+        livsvarigPensjonsbeloep
     )
   }
   return dataArray
@@ -216,6 +221,7 @@ export const generateXAxis = (
       hasAvtaleBeforeStartAlder = true
     }
   })
+
   const alderArray: string[] = []
   for (let i = startAar; i <= sluttAar + 1; i++) {
     if (!isEndring && i === startAar) {
