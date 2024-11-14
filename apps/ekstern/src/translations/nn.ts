@@ -310,6 +310,7 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.tpo.info': 'MANGLER_TEKST',
+  'beregning.tpo.info.endring': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
   'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
@@ -417,11 +418,9 @@ const translations = {
   'grunnlag.uttaksgrad.avansert_link': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.ingress':
     'Denne utrekninga syner 100 % uttak av alderspensjon. I avansert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.',
-  'grunnlag.inntekt.title': 'Inntekt', // TODO utdatert tekst
-  // TODO - utdatert tekst
+  'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.ingress':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
-  // TODO - utdatert tekst
   'grunnlag.inntekt.info_om_inntekt': 'Kva er pensjonsgjevande inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',
