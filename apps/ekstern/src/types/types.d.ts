@@ -94,7 +94,7 @@ declare global {
   type SimulertOpptjeningGrunnlag =
     components['schemas']['SimulertOpptjeningGrunnlagV7']
   type AlderspensjonMaanedligVedEndring =
-    components['schemas']['AlderspensjonsMaanedligBeregningerV7']
+    components['schemas']['AlderspensjonsMaanedligV7']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
@@ -110,24 +110,24 @@ declare global {
   }
 
   type HeltUttak = Omit<
-    components['schemas']['IngressSimuleringHeltUttakV6'],
+    components['schemas']['IngressSimuleringHeltUttakV7'],
     'aarligInntektVsaPensjon'
   > & {
     aarligInntektVsaPensjon?: AarligInntektVsaPensjon
   }
 
   type GradertUttak = Omit<
-    components['schemas']['IngressSimuleringGradertUttakV6'],
+    components['schemas']['IngressSimuleringGradertUttakV7'],
     'aarligInntektVsaPensjonBeloep'
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
 
   type Simuleringstype =
-    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
-  type Pensjonsberegning = components['schemas']['PensjonsberegningV6']
+    components['schemas']['IngressSimuleringSpecV7']['simuleringstype']
+  type Pensjonsberegning = components['schemas']['PensjonsberegningV7']
   type PensjonsberegningMedDetaljer =
-    components['schemas']['AlderspensjonsberegningV6']
+    components['schemas']['AlderspensjonsberegningV7']
 
   type Ansatt = components['schemas']['AnsattV1']
 
