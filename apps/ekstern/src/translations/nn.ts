@@ -246,8 +246,8 @@ const translations = {
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
-    'i Folkeregisteret. Har du sambuar kan det påverke utrekninga.',
-  'stegvisning.sivilstand.radio_label': 'Har du sambuar?',
+    'i Folkeregisteret. Har du sambuar eller ektefelle kan det påverke utrekninga.',
+  'stegvisning.sivilstand.radio_label': 'Har du sambuar eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
