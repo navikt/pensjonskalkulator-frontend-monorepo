@@ -403,6 +403,8 @@ const translations = {
     'Inntekt, uttaksgrad og pensjonsalder',
   'beregning.avansert.resultatkort.button': 'Endre valgene dine',
   'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
+  'beregning.avansert.resultatkort.frem_til_endring':
+    'Frem til endring av pensjon',
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
