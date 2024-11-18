@@ -133,9 +133,12 @@ export const processPensjonsberegningArray = (
     pensjonsberegninger[pensjonsberegninger.length - 1]?.beloep ?? 0
 
   for (let index = isEndring ? 0 : 1; index < arrayLength; index++) {
+    const pensjonsBeregningAtIndex =
+      pensjonsberegninger[isEndring ? index : index - 1]
     dataArray.push(
-      pensjonsberegninger[isEndring ? index : index - 1]?.beloep ||
-        livsvarigPensjonsbeloep
+      pensjonsBeregningAtIndex
+        ? pensjonsBeregningAtIndex.beloep
+        : livsvarigPensjonsbeloep
     )
   }
   return dataArray

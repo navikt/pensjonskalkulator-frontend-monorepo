@@ -49,7 +49,8 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
       </BodyLong>
 
       {gradertUttaksperiode &&
-        alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep && (
+        alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep !==
+          undefined && (
           <ul className={styles.list}>
             <li>
               {formatUttaksalder(intl, gradertUttaksperiode.uttaksalder, {
