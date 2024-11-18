@@ -1,6 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
 import { ResultatkortAvansertBeregning } from '../ResultatkortAvansertBeregning'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
   userInputInitialState,
@@ -22,7 +26,20 @@ describe('ResultatkortAvansertBeregning', () => {
     const loggerSpy = vi.spyOn(loggerUtils, 'logger')
     const user = userEvent.setup()
     const { store } = render(
-      <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />
+      <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
+      {
+        preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
     expect(
@@ -49,12 +66,49 @@ describe('ResultatkortAvansertBeregning', () => {
     })
   })
 
+  it('med vedtak om alderpensjon, vises det riktig resultatkort med faste tekster og inntekt', async () => {
+    const loggerSpy = vi.spyOn(loggerUtils, 'logger')
+    const user = userEvent.setup()
+    const { store } = render(
+      <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
+      {
+        preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
+    )
+    store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+
+    expect(
+      screen.queryByText('beregning.avansert.resultatkort.frem_til_uttak')
+    ).not.toBeInTheDocument()
+    expect(
+      await screen.findByText(
+        'beregning.avansert.resultatkort.frem_til_endring'
+      )
+    ).toBeVisible()
+  })
+
   it('med uttaksalder, vises det et resultatkort med riktig dynamiske tekster', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
       {
         preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -84,6 +138,12 @@ describe('ResultatkortAvansertBeregning', () => {
       <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
       {
         preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -132,6 +192,12 @@ describe('ResultatkortAvansertBeregning', () => {
       <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
       {
         preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,

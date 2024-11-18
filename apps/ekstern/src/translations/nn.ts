@@ -345,6 +345,7 @@ const translations = {
   'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.frem_til_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.frem_til_endring': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
