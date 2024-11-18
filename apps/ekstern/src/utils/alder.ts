@@ -1,6 +1,7 @@
 import { IntlShape } from 'react-intl'
 
 import {
+  add,
   differenceInYears,
   differenceInMonths,
   endOfDay,
@@ -8,6 +9,7 @@ import {
   isBefore,
   isSameDay,
   parse,
+  startOfDay,
   startOfMonth,
 } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
@@ -159,11 +161,7 @@ export const transformUttaksalderToDate = (
   const oppdatertAar =
     foedselsdatoDate.getFullYear() + alder.aar + Math.floor(antallMaaneder / 12)
 
-  const calculatedDate = new Date(
-    oppdatertAar,
-    antallMaaneder % 12,
-    foedselsdatoDate.getDate()
-  )
+  const calculatedDate = new Date(oppdatertAar, antallMaaneder % 12, 1)
 
   return format(startOfMonth(calculatedDate), DATE_ENDUSER_FORMAT)
 }
@@ -175,14 +173,13 @@ export const transformMaanedToDate = (
 ) => {
   const foedselsdatoDate = new Date(foedselsdato)
   const antallMaaneder = foedselsdatoDate.getMonth() + maaneder + 1
-
   const calculatedDate = new Date(
     foedselsdatoDate.getFullYear(),
     antallMaaneder % 12,
-    foedselsdatoDate.getDate()
+    1
   )
 
-  return format(startOfMonth(calculatedDate), 'LLL', {
+  return format(startOfMonth(startOfDay(calculatedDate)), 'LLL', {
     locale: locale === 'en' ? enGB : locale === 'nn' ? nn : nb,
   })
 }
