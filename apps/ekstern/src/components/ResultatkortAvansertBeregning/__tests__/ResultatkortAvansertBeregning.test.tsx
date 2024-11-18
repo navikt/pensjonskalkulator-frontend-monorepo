@@ -67,8 +67,6 @@ describe('ResultatkortAvansertBeregning', () => {
   })
 
   it('med vedtak om alderpensjon, vises det riktig resultatkort med faste tekster og inntekt', async () => {
-    const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-    const user = userEvent.setup()
     const { store } = render(
       <ResultatkortAvansertBeregning onButtonClick={vi.fn()} />,
       {
