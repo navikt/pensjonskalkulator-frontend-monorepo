@@ -121,7 +121,7 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon som svarer delvis', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -412,7 +412,7 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon som svarer delvis,', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis,', () => {
         beforeEach(() => {
           cy.intercept(
             {
