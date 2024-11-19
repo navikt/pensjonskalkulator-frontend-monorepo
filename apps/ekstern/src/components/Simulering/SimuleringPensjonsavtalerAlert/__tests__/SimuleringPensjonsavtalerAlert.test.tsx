@@ -54,7 +54,53 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     ).toBeVisible()
   })
 
+  it('scroller til pensjonsavtaler-heading når lenken klikkes i info-boksen', () => {
+    const scrollToMock = vi.fn()
+    Object.defineProperty(global.window, 'scrollTo', {
+      value: scrollToMock,
+      writable: true,
+    })
+
+    const elemDiv = document.createElement('div')
+    elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
+    document.body.appendChild(elemDiv)
+
+    render(<SimuleringPensjonsavtalerAlert showInfo={true} />)
+    fireEvent.click(screen.getByTestId('pensjonsavtaler-info-link'))
+
+    expect(scrollToMock).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      top: -15,
+    })
+  })
+
   it('scroller til pensjonsavtaler-heading når lenken klikkes i alert-boksen', () => {
+    const scrollToMock = vi.fn()
+    Object.defineProperty(global.window, 'scrollTo', {
+      value: scrollToMock,
+      writable: true,
+    })
+
+    const elemDiv = document.createElement('div')
+    elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
+    document.body.appendChild(elemDiv)
+
+    render(
+      <SimuleringPensjonsavtalerAlert
+        variant="info"
+        text={'beregning.tpo.info.pensjonsavtaler.error'}
+        showInfo={false}
+      />
+    )
+    fireEvent.click(screen.getByTestId('pensjonsavtaler-alert-link'))
+
+    expect(scrollToMock).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      top: -15,
+    })
+  })
+
+  it('ShowMore visesscroller til Pensjonsavtaler når lenken klikkes i alert-boksen', () => {
     render(
       <BeregningContext.Provider value={contextMockedValues}>
         <SimuleringPensjonsavtalerAlert
@@ -73,7 +119,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     ).toHaveBeenCalledTimes(1)
   })
 
-  it('scroller til pensjonsavtaler-heading når lenken klikkes i info-boksen', () => {
+  it('ShowMore vises og scroller til Pensjonsavtaler når lenken klikkes i info-boksen', () => {
     render(
       <BeregningContext.Provider value={contextMockedValues}>
         <SimuleringPensjonsavtalerAlert showInfo={true} />

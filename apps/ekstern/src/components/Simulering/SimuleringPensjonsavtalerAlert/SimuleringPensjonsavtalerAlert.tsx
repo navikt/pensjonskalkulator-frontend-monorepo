@@ -26,6 +26,16 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     e.preventDefault()
     if (pensjonsavtalerShowMoreRef) {
       pensjonsavtalerShowMoreRef?.current?.focus()
+    } else {
+      const pensjonsavtalerHeader = document.getElementById(
+        'pensjonsavtaler-heading'
+      )
+      if (pensjonsavtalerHeader) {
+        window.scrollTo({
+          top: pensjonsavtalerHeader.offsetTop - 15,
+          behavior: 'smooth',
+        })
+      }
     }
   }
 
