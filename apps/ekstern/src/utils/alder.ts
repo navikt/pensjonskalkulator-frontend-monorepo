@@ -1,7 +1,6 @@
 import { IntlShape } from 'react-intl'
 
 import {
-  add,
   differenceInYears,
   differenceInMonths,
   endOfDay,
@@ -9,7 +8,6 @@ import {
   isBefore,
   isSameDay,
   parse,
-  startOfDay,
   startOfMonth,
 } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
@@ -179,7 +177,7 @@ export const transformMaanedToDate = (
     1
   )
 
-  return format(startOfMonth(startOfDay(calculatedDate)), 'LLL', {
+  return format(startOfMonth(calculatedDate), 'LLL', {
     locale: locale === 'en' ? enGB : locale === 'nn' ? nn : nb,
   })
 }
