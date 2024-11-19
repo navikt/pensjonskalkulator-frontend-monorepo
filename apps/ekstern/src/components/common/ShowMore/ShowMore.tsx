@@ -120,9 +120,12 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
     const [isOpen, setIsOpen] = useState(false)
     const localRef = useRef<HTMLElement>(null)
     const scrollTo = () => {
-      localRef.current?.scrollIntoView()
-      // Offset for header & dekoratør
-      window.scrollBy(0, -50)
+      const SCROLL_OFFSET = 55
+      if (!localRef?.current) return
+      window.scrollBy({
+        top: localRef.current.getBoundingClientRect().top - SCROLL_OFFSET,
+        behavior: 'smooth',
+      })
     }
     const focus = () => {
       localRef.current?.focus()
