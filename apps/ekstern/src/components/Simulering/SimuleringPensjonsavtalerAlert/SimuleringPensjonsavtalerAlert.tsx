@@ -24,7 +24,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     HTMLAnchorElement
   > = (e): void => {
     e.preventDefault()
-    if (pensjonsavtalerShowMoreRef) {
+    if (pensjonsavtalerShowMoreRef?.current) {
       pensjonsavtalerShowMoreRef?.current?.focus()
     } else {
       const pensjonsavtalerHeader = document.getElementById(
