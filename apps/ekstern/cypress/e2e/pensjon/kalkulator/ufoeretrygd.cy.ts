@@ -55,7 +55,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -84,7 +84,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -116,7 +116,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
