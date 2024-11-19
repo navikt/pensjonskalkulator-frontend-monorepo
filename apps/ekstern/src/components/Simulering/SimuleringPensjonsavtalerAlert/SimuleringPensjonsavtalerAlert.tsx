@@ -4,22 +4,22 @@ import { FormattedMessage } from 'react-intl'
 import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { Alert, Link } from '@navikt/ds-react'
 
+import { BeregningContext } from '@/pages/Beregning/context'
+
 import styles from './SimuleringPensjonsavtalerAlert.module.scss'
-import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 
 interface Props {
   variant?: 'info' | 'warning'
   text?: string
   showInfo: boolean
-  pensjonsavtalerShowMoreRef?: React.RefObject<ShowMoreRef>
 }
 
 export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   variant,
   text,
   showInfo,
-  pensjonsavtalerShowMoreRef,
 }) => {
+  const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
   const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
     HTMLAnchorElement
   > = (e): void => {

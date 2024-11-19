@@ -42,7 +42,6 @@ import {
 import { getChartOptions, onPointUnclick } from './utils-highcharts'
 
 import styles from './Simulering.module.scss'
-import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 
 export function Simulering(props: {
   isLoading: boolean
@@ -57,7 +56,6 @@ export function Simulering(props: {
     trygdetid?: number
     opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
   }
-  pensjonsavtalerShowMoreRef?: React.RefObject<ShowMoreRef>
 }) {
   const intl = useIntl()
   const {
@@ -70,7 +68,6 @@ export function Simulering(props: {
     alderspensjonMaanedligVedEndring,
     showButtonsAndTable,
     detaljer,
-    pensjonsavtalerShowMoreRef,
   } = props
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
@@ -398,7 +395,6 @@ export function Simulering(props: {
         variant={pensjonsavtalerAlert?.variant}
         text={pensjonsavtalerAlert?.text}
         showInfo={!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible}
-        pensjonsavtalerShowMoreRef={pensjonsavtalerShowMoreRef}
       />
       {showButtonsAndTable && (
         <TabellVisning

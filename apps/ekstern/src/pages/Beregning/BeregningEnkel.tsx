@@ -48,7 +48,6 @@ import {
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
-import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 
 export const BeregningEnkel: React.FC = () => {
   const intl = useIntl()
@@ -198,8 +197,6 @@ export const BeregningEnkel: React.FC = () => {
     setShowInntektAlert(false)
   }
 
-  const pensjonsavtalerShowMoreRef = React.useRef<ShowMoreRef>(null)
-
   if (isTidligstMuligUttakLoading) {
     return (
       <Loader
@@ -308,12 +305,8 @@ export const BeregningEnkel: React.FC = () => {
                       }
                     : undefined
                 }
-                pensjonsavtalerShowMoreRef={pensjonsavtalerShowMoreRef}
               />
-              <Pensjonsavtaler
-                headingLevel="3"
-                pensjonsavtalerShowMoreRef={pensjonsavtalerShowMoreRef}
-              />
+              <Pensjonsavtaler headingLevel="3" />
               <Grunnlag
                 visning="enkel"
                 headingLevel="3"

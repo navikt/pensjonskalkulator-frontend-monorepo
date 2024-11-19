@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningAvansert } from '../BeregningAvansert'
+import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import {
   fulfilledGetInntekt,
@@ -30,6 +31,9 @@ describe('BeregningAvansert', () => {
     setAvansertSkjemaModus: vi.fn(),
     harAvansertSkjemaUnsavedChanges: false,
     setHarAvansertSkjemaUnsavedChanges: () => {},
+    pensjonsavtalerShowMoreRef: {
+      current: { focus: vi.fn() },
+    } as unknown as React.RefObject<ShowMoreRef>,
   }
 
   describe('Gitt at brukeren har fylt ut stegvisningen og er kommet til beregningssiden for avansert', () => {
