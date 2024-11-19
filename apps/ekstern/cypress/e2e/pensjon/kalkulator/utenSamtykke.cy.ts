@@ -17,7 +17,7 @@ describe('Uten samtykke', () => {
           cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )
-          cy.contains('Alderspensjon (NAV)').should('exist')
+          cy.contains('Alderspensjon (Nav)').should('exist')
           cy.contains('Tusen kroner').should('exist')
           cy.contains('61').should('exist')
           cy.contains('77+').should('exist')
@@ -39,7 +39,7 @@ describe('Uten samtykke', () => {
           cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )
-          cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+          cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
         })
 
         it('forventer jeg å få informasjon om øvrig grunnlag for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
