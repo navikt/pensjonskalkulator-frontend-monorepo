@@ -20,6 +20,13 @@ export function mergeRefs<T>(refs: PossibleRef<T>[]): React.RefCallback<T> {
     })
   }
 }
+export type ShowMoreRef = {
+  isOpen: boolean
+  toggleOpen: () => void
+  scrollTo: () => void
+  focus: () => void
+}
+
 export interface ShowMoreProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onClick'> {
   /**
@@ -91,7 +98,7 @@ export interface ShowMoreProps
  *   Toads have dry, leathery skin, short legs, and large bumps covering the parotoid glands.
  * </ShowMore>
  */
-export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
+export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
   (
     {
       as: Component = 'aside',
@@ -110,25 +117,49 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
     },
     ref
   ) => {
-    const localRef = useRef<HTMLElement>(null)
-    const mergedRef = useMemo(() => mergeRefs([localRef, ref]), [ref])
     const [isOpen, setIsOpen] = useState(false)
-    const ariaLabelId = useId()
-
-    const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
-
+    const localRef = useRef<HTMLElement>(null)
+    const scrollTo = () => {
+      localRef.current?.scrollIntoView()
+      // Offset for header & dekoratør
+      window.scrollBy(0, -50)
+    }
+    const focus = () => {
+      localRef.current?.focus()
+      scrollTo()
+      if (!isOpen) {
+        toggleOpen()
+      }
+    }
     const toggleOpen = () => {
       if (isOpen) {
         logger('show more lukket', { tekst: name })
         setIsOpen(false)
         if (scrollBackOnCollapse) {
-          localRef.current?.scrollIntoView()
+          scrollTo()
         }
       } else {
         logger('show more åpnet', { tekst: name })
         setIsOpen(true)
       }
     }
+
+    const ariaLabelId = useId()
+
+    const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
+
+    // For å kunne bruke ref fra utsiden
+    React.useImperativeHandle(ref, () => ({
+      isOpen,
+      toggleOpen,
+      scrollTo,
+      focus,
+    }))
+
+    const mergedRef = useMemo(
+      () => mergeRefs<HTMLElement | ShowMoreRef>([localRef, ref]),
+      [ref]
+    )
 
     return (
       <Component

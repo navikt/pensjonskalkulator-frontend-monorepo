@@ -8,7 +8,7 @@ import {
 } from '@navikt/aksel-icons'
 import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
 
-import ShowMore from '../common/ShowMore/ShowMore'
+import ShowMore, { ShowMoreRef } from '../common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -33,8 +33,9 @@ import styles from './Pensjonsavtaler.module.scss'
 
 export const Pensjonsavtaler = (props: {
   headingLevel: HeadingProps['level']
+  pensjonsavtalerShowMoreRef?: React.RefObject<ShowMoreRef>
 }) => {
-  const { headingLevel } = props
+  const { headingLevel, pensjonsavtalerShowMoreRef } = props
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -214,6 +215,7 @@ export const Pensjonsavtaler = (props: {
               </div>
             )}
             <ShowMore
+              ref={pensjonsavtalerShowMoreRef}
               name="pensjonsavtaler"
               aria-labelledby="pensjonsavtaler-heading"
               collapsedHeight={
