@@ -1,11 +1,29 @@
 import { vi } from 'vitest'
 
 import { SimuleringPensjonsavtalerAlert } from '../SimuleringPensjonsavtalerAlert'
+import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
+import {
+  AvansertBeregningModus,
+  BeregningContext,
+} from '@/pages/Beregning/context'
 import { render, screen, fireEvent } from '@/test-utils'
 
 describe('SimuleringPensjonsavtalerAlert', () => {
   const text = 'beregning.tpo.info.pensjonsavtaler.error'
-  it('viser ikke alert når variant er undefined ', () => {
+  const contextMockedValues = {
+    avansertSkjemaModus: 'resultat' as AvansertBeregningModus,
+    setAvansertSkjemaModus: vi.fn(),
+    harAvansertSkjemaUnsavedChanges: false,
+    setHarAvansertSkjemaUnsavedChanges: () => {},
+    pensjonsavtalerShowMoreRef: {
+      current: { focus: vi.fn() },
+    } as unknown as React.RefObject<ShowMoreRef>,
+  }
+  afterEach(() => {
+    vi.resetAllMocks()
+  })
+
+  it('viser ikke alert når variant er undefined', () => {
     render(<SimuleringPensjonsavtalerAlert variant={undefined} />)
     expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeNull()
     expect(screen.queryByTestId('pensjonsavtaler-info')).toBeNull()
@@ -81,5 +99,41 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       behavior: 'smooth',
       top: -15,
     })
+  })
+
+  it('ShowMore visesscroller til Pensjonsavtaler når lenken klikkes i alert-boksen', () => {
+    render(
+      <BeregningContext.Provider value={contextMockedValues}>
+        <SimuleringPensjonsavtalerAlert
+          variant="info"
+          text={'beregning.tpo.info.pensjonsavtaler.error'}
+        />
+      </BeregningContext.Provider>
+    )
+    fireEvent.click(screen.getByTestId('pensjonsavtaler-info-link'))
+    if (!contextMockedValues.pensjonsavtalerShowMoreRef.current) {
+      throw Error('pensjonsavtalerShowMoreRef.current should not be null')
+    }
+    expect(
+      contextMockedValues.pensjonsavtalerShowMoreRef.current.focus
+    ).toHaveBeenCalledTimes(1)
+  })
+
+  it('ShowMore vises og scroller til Pensjonsavtaler når lenken klikkes i info-boksen', () => {
+    render(
+      <BeregningContext.Provider value={contextMockedValues}>
+        <SimuleringPensjonsavtalerAlert
+          variant="info"
+          text={'beregning.tpo.info.pensjonsavtaler.error'}
+        />
+      </BeregningContext.Provider>
+    )
+    fireEvent.click(screen.getByTestId('pensjonsavtaler-info-link'))
+    if (!contextMockedValues.pensjonsavtalerShowMoreRef.current) {
+      throw Error('pensjonsavtalerShowMoreRef.current should not be null')
+    }
+    expect(
+      contextMockedValues.pensjonsavtalerShowMoreRef.current.focus
+    ).toHaveBeenCalledTimes(1)
   })
 })

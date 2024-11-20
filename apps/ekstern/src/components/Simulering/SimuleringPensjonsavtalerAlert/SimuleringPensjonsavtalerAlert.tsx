@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl'
 import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { Alert, Link } from '@navikt/ds-react'
 
+import { BeregningContext } from '@/pages/Beregning/context'
+
 import styles from './SimuleringPensjonsavtalerAlert.module.scss'
 
 interface Props {
@@ -15,18 +17,23 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   variant,
   text,
 }) => {
+  const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
   const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
     HTMLAnchorElement
   > = (e): void => {
     e.preventDefault()
-    const pensjonsavtalerHeader = document.getElementById(
-      'pensjonsavtaler-heading'
-    )
-    if (pensjonsavtalerHeader) {
-      window.scrollTo({
-        top: pensjonsavtalerHeader.offsetTop - 15,
-        behavior: 'smooth',
-      })
+    if (pensjonsavtalerShowMoreRef?.current) {
+      pensjonsavtalerShowMoreRef?.current?.focus()
+    } else {
+      const pensjonsavtalerHeader = document.getElementById(
+        'pensjonsavtaler-heading'
+      )
+      if (pensjonsavtalerHeader) {
+        window.scrollTo({
+          top: pensjonsavtalerHeader.offsetTop - 15,
+          behavior: 'smooth',
+        })
+      }
     }
   }
 

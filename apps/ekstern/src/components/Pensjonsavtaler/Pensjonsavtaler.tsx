@@ -9,6 +9,7 @@ import {
 import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
 
 import ShowMore from '../common/ShowMore/ShowMore'
+import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -35,6 +36,7 @@ export const Pensjonsavtaler = (props: {
   headingLevel: HeadingProps['level']
 }) => {
   const { headingLevel } = props
+  const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -214,6 +216,7 @@ export const Pensjonsavtaler = (props: {
               </div>
             )}
             <ShowMore
+              ref={pensjonsavtalerShowMoreRef}
               name="pensjonsavtaler"
               aria-labelledby="pensjonsavtaler-heading"
               collapsedHeight={
