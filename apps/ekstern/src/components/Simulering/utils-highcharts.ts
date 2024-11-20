@@ -29,7 +29,7 @@ import {
   resetColumnColors,
 } from './utils'
 
-import globalClassNames from './Pensjonssimulering.module.scss'
+import globalClassNames from './Simulering.module.scss'
 
 export type ExtendedAxis = Axis & {
   height: number

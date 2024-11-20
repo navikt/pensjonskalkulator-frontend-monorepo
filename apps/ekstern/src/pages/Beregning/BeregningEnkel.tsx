@@ -34,6 +34,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
+  selectIsEndring,
   selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
@@ -59,6 +60,7 @@ export const BeregningEnkel: React.FC = () => {
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
@@ -281,7 +283,8 @@ export const BeregningEnkel: React.FC = () => {
                 }
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 afpPrivatListe={
-                  !ufoeregrad && afp === 'ja_privat'
+                  !ufoeregrad &&
+                  (afp === 'ja_privat' || loependeVedtak.afpPrivat)
                     ? alderspensjon?.afpPrivat
                     : undefined
                 }
@@ -306,7 +309,7 @@ export const BeregningEnkel: React.FC = () => {
                     : undefined
                 }
               />
-              <Pensjonsavtaler headingLevel="3" />
+              {!isEndring && <Pensjonsavtaler headingLevel="3" />}
               <Grunnlag
                 visning="enkel"
                 headingLevel="3"
@@ -324,7 +327,11 @@ export const BeregningEnkel: React.FC = () => {
               className={clsx(styles.background, styles.background__lightblue)}
             >
               <div className={styles.container}>
-                <SavnerDuNoe headingLevel="3" showAvansert />
+                <SavnerDuNoe
+                  headingLevel="3"
+                  isEndring={isEndring}
+                  showAvansert
+                />
               </div>
             </div>
             <div className={styles.container}>

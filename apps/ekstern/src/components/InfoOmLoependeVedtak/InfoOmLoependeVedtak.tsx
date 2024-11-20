@@ -61,7 +61,7 @@ export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
             grad: loependeVedtak?.alderspensjon?.grad,
           }}
         />
-        {loependeVedtak.alderspensjon.grad &&
+        {loependeVedtak.alderspensjon.grad > 0 &&
           loependeVedtak.alderspensjon.sisteUtbetaling && (
             <FormattedMessage
               id={'beregning.endring.rediger.vedtak_betaling_status'}
