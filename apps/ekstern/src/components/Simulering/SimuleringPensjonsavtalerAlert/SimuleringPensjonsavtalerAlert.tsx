@@ -9,15 +9,13 @@ import { BeregningContext } from '@/pages/Beregning/context'
 import styles from './SimuleringPensjonsavtalerAlert.module.scss'
 
 interface Props {
-  variant?: 'info' | 'warning'
+  variant?: 'alert-info' | 'alert-warning' | 'info'
   text?: string
-  showInfo: boolean
 }
 
 export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   variant,
   text,
-  showInfo,
 }) => {
   const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
   const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
@@ -39,15 +37,15 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     }
   }
 
-  if (variant === undefined && !showInfo) {
+  if (variant === undefined) {
     return null
   }
 
   return (
     <>
-      {variant && (
+      {(variant === 'alert-info' || variant === 'alert-warning') && (
         <Alert
-          variant={variant}
+          variant={variant?.replace('alert-', '') as 'info' | 'warning'}
           data-testid="pensjonsavtaler-alert"
           className={styles.alert}
         >
@@ -67,7 +65,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           />
         </Alert>
       )}
-      {showInfo && (
+      {variant === 'info' && (
         <div
           aria-live="assertive"
           data-testid="pensjonsavtaler-info"
@@ -80,7 +78,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           />
           <p className={styles.infoText}>
             <FormattedMessage
-              id="beregning.pensjonsavtaler.info"
+              id={text}
               values={{
                 scrollTo: (chunk) => (
                   <Link

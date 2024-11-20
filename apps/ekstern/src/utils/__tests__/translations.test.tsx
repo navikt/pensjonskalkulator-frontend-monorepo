@@ -72,6 +72,26 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
+    it('formaterer <dinPensjonEndreSoeknadLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.dinPensjonEndreSoeknadLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        'https://www.nav.no/pensjon/selvbetjening/alderspensjon/endringssoknad'
+      )
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
     it('formaterer <alderspensjonsreglerLink> med riktig url og ikon', async () => {
       render(
         <FormattedMessage

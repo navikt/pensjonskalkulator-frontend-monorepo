@@ -10,6 +10,7 @@ import { useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
+  selectIsEndring,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
@@ -27,6 +28,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const isEndring = useAppSelector(selectIsEndring)
   const { data: person } = useGetPersonQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
@@ -50,7 +52,13 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
       <ExpansionCardAksel.Content>
         <dl className={styles.list}>
           <dt className={styles.listTitle}>
-            <FormattedMessage id="beregning.avansert.resultatkort.frem_til_uttak" />
+            <FormattedMessage
+              id={
+                isEndring
+                  ? 'beregning.avansert.resultatkort.frem_til_endring'
+                  : 'beregning.avansert.resultatkort.frem_til_uttak'
+              }
+            />
           </dt>
           <dd className={styles.listDescription}>
             {intl.formatMessage({

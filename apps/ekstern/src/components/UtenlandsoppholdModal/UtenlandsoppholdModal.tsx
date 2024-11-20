@@ -23,7 +23,7 @@ import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { useFormLocalState } from './hooks'
+import { useUtenlandsoppholdLocalState } from './hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES, onUtenlandsoppholdSubmit } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
@@ -61,7 +61,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       handleArbeidetUtenlandsChange,
       onCancel,
     },
-  ] = useFormLocalState({
+  ] = useUtenlandsoppholdLocalState({
     modalRef,
     foedselsdato,
     utenlandsperiode,

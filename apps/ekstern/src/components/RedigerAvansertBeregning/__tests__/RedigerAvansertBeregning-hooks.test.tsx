@@ -897,6 +897,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "br": <br />,
                 "detaljertKalkulatorLink": [Function],
                 "dinPensjonBeholdningLink": [Function],
+                "dinPensjonEndreSoeknadLink": [Function],
                 "dinPensjonLink": [Function],
                 "garantiPensjonLink": [Function],
                 "grad": undefined,

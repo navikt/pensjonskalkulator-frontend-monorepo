@@ -29,7 +29,6 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
   }
 
   return (
-    // TODO korrigere avvik på line-height
     <aside className={styles.wrapper}>
       <BodyLong>
         <FormattedMessage id="beregning.avansert.endring_banner.title" />
@@ -50,7 +49,8 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
       </BodyLong>
 
       {gradertUttaksperiode &&
-        alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep && (
+        alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep !==
+          undefined && (
           <ul className={styles.list}>
             <li>
               {formatUttaksalder(intl, gradertUttaksperiode.uttaksalder, {

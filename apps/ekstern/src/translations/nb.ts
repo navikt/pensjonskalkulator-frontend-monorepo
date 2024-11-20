@@ -358,6 +358,8 @@ const translations = {
   'beregning.button.flere_aar': 'Flere år',
   'beregning.tpo.info':
     'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.info.endring':
+    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
   'beregning.tpo.info.pensjonsavtaler.error':
     'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.tpo.info.pensjonsavtaler.partial':
@@ -401,6 +403,8 @@ const translations = {
     'Inntekt, uttaksgrad og pensjonsalder',
   'beregning.avansert.resultatkort.button': 'Endre valgene dine',
   'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
+  'beregning.avansert.resultatkort.frem_til_endring':
+    'Frem til endring av pensjon',
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
@@ -572,11 +576,14 @@ const translations = {
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
   'savnerdunoe.title': 'Savner du noe?',
+  'savnerdunoe.title.endring': 'Klar til å søke om endring?',
   'savnerdunoe.ingress':
     'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
   'savnerdunoe.button': 'Gå til Avansert',
   'savnerdunoe.body':
     'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'savnerdunoe.body.endring':
+    'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
   'pensjonsavtaler.ingress.norsk_pensjon':
