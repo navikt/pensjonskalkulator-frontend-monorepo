@@ -5,19 +5,22 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
-export const getSimuleringstypeFromRadio = (
-  isEndring: boolean,
-  ufoeregrad: number,
+export const getSimuleringstypeFromRadioEllerVedtak = (
+  loependeVedtak: LoependeVedtak,
   afp: AfpRadio | null
 ): AlderspensjonSimuleringstype => {
+  const isEndring = isLoependeVedtakEndring(loependeVedtak)
   if (isEndring) {
-    if (!ufoeregrad && afp === 'ja_privat') {
+    if (
+      !loependeVedtak.ufoeretrygd.grad &&
+      (afp === 'ja_privat' || loependeVedtak.afpPrivat)
+    ) {
       return 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
     } else {
       return 'ENDRING_ALDERSPENSJON'
     }
   } else {
-    if (ufoeregrad) {
+    if (loependeVedtak.ufoeretrygd.grad) {
       return 'ALDERSPENSJON'
     } else {
       switch (afp) {
@@ -81,9 +84,8 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   } = args
 
   return {
-    simuleringstype: getSimuleringstypeFromRadio(
-      isLoependeVedtakEndring(loependeVedtak),
-      loependeVedtak.ufoeretrygd.grad,
+    simuleringstype: getSimuleringstypeFromRadioEllerVedtak(
+      loependeVedtak,
       afp
     ),
     harEps: harSamboer !== null ? harSamboer : undefined,
@@ -135,9 +137,8 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: getSimuleringstypeFromRadio(
-      isLoependeVedtakEndring(loependeVedtak),
-      loependeVedtak.ufoeretrygd.grad,
+    simuleringstype: getSimuleringstypeFromRadioEllerVedtak(
+      loependeVedtak,
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
@@ -200,9 +201,8 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   }
 
   return {
-    simuleringstype: getSimuleringstypeFromRadio(
-      isLoependeVedtakEndring(loependeVedtak),
-      loependeVedtak.ufoeretrygd.grad,
+    simuleringstype: getSimuleringstypeFromRadioEllerVedtak(
+      loependeVedtak,
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),

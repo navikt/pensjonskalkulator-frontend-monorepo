@@ -13,6 +13,7 @@ import {
   isFoedselsdatoOverEllerLikMinUttaksalder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
+  transformFoedselsdatoToAlder,
   transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
   transformMaanedToDate,
@@ -225,6 +226,14 @@ describe('alder-utils', () => {
   })
 
   describe('transformUttaksalderToDate', () => {
+    it('returnerer riktig dato når foedselsdato er første eller siste i måned', () => {
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-01')
+      ).toBe('01.02.2040')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-31')
+      ).toBe('01.02.2040')
+    })
     it('returnerer riktig dato', () => {
       const foedselsdato = '1970-04-15'
       expect(
@@ -236,6 +245,7 @@ describe('alder-utils', () => {
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 8 }, foedselsdato)
       ).toBe('01.01.2041')
+
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 11 }, foedselsdato)
       ).toBe('01.04.2041')
@@ -243,6 +253,11 @@ describe('alder-utils', () => {
   })
 
   describe('transformMaanedToDate', () => {
+    it('returnerer riktig måned når dagen er første eller siste i måned', () => {
+      expect(transformMaanedToDate(8, '1970-01-31', 'nb')).toBe('okt.')
+      expect(transformMaanedToDate(8, '1970-12-01', 'nb')).toBe('sep.')
+    })
+
     it('returnerer riktig måned basert på locale', () => {
       const foedselsdato = '1970-04-15'
       expect(transformMaanedToDate(0, foedselsdato, 'nb')).toBe('mai')
@@ -357,6 +372,61 @@ describe('alder-utils', () => {
         3,
         'agepicker.validation_error.maaneder'
       )
+    })
+  })
+
+  describe('transformFoedselsdatoToAlder', () => {
+    beforeEach(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2030-06-06'))
+    })
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('returnerer riktig alder når datoen er én måned før fødselsdatoen', () => {
+      const expectedAlder = transformFoedselsdatoToAlder('1970-07-06')
+      expect(expectedAlder).toStrictEqual({ aar: 59, maaneder: 11 })
+    })
+
+    it('returnerer riktig alder når datoen er på samme måned som fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlder('1970-06-01')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1970-06-06')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1970-06-30')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+    })
+
+    it('returnerer riktig alder når datoen er én måned etter fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlder('1970-05-01')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+      expect(transformFoedselsdatoToAlder('1970-05-06')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+      expect(transformFoedselsdatoToAlder('1970-05-31')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+    })
+
+    it('returnerer riktig alder når datoen bikker over et år', () => {
+      expect(transformFoedselsdatoToAlder('1969-06-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1969-05-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 1,
+      })
     })
   })
 

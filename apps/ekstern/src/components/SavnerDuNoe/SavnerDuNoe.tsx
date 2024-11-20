@@ -14,9 +14,10 @@ import styles from './SavnerDuNoe.module.scss'
 
 export function SavnerDuNoe(props: {
   headingLevel: HeadingProps['level']
+  isEndring: boolean
   showAvansert?: boolean
 }) {
-  const { headingLevel, showAvansert } = props
+  const { headingLevel, isEndring, showAvansert } = props
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -29,9 +30,11 @@ export function SavnerDuNoe(props: {
   return (
     <section className={styles.section}>
       <Heading level={headingLevel} size="medium" className={styles.heading}>
-        <FormattedMessage id="savnerdunoe.title" />
+        <FormattedMessage
+          id={isEndring ? 'savnerdunoe.title.endring' : 'savnerdunoe.title'}
+        />
       </Heading>
-      {showAvansert && (
+      {showAvansert && !isEndring && (
         <div className={styles.paragraph}>
           <BodyLong size="large">
             <FormattedMessage id="savnerdunoe.ingress" />
@@ -49,7 +52,7 @@ export function SavnerDuNoe(props: {
       )}
       <BodyLong>
         <FormattedMessage
-          id="savnerdunoe.body"
+          id={isEndring ? 'savnerdunoe.body.endring' : 'savnerdunoe.body'}
           values={{
             ...getFormatMessageValues(intl),
           }}
