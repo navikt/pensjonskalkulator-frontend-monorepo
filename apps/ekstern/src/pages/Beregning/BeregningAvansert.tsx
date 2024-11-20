@@ -224,7 +224,7 @@ export const BeregningAvansert: React.FC = () => {
                   alderspensjonListe={alderspensjon?.alderspensjon}
                   afpPrivatListe={
                     !loependeVedtak.ufoeretrygd.grad &&
-                    afp === 'ja_privat' &&
+                    (afp === 'ja_privat' || loependeVedtak.afpPrivat) &&
                     alderspensjon?.afpPrivat
                       ? alderspensjon?.afpPrivat
                       : undefined

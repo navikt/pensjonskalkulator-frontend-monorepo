@@ -206,18 +206,18 @@ describe('Hovedhistorie', () => {
           it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
             cy.contains(
               'h2',
-              'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+              'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
             ).should('exist')
-            cy.contains('Vil du at NAV skal beregne AFP for deg?').should(
+            cy.contains('Vil du at Nav skal beregne AFP for deg?').should(
               'exist'
             )
             cy.contains('button', 'Neste').click()
             cy.contains(
-              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+              'Du må svare på om du vil at Nav skal beregne AFP for deg.'
             ).should('exist')
             cy.get('[type="radio"]').last().check()
             cy.contains(
-              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+              'Du må svare på om du vil at Nav skal beregne AFP for deg.'
             ).should('not.exist')
             cy.contains('button', 'Neste').click()
           })
@@ -356,7 +356,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('be.visible')
         cy.contains('61').should('be.visible')
         cy.contains('87+').should('exist')
@@ -431,7 +431,7 @@ describe('Hovedhistorie', () => {
         cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
           'exist'
         )
-        cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+        cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
       })
     })
 

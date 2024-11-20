@@ -11,6 +11,7 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
@@ -692,24 +693,6 @@ describe('BeregningAvansert', () => {
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
-    const preloadedState = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-          ...fulfilledGetInntekt,
-          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-        },
-      },
-      userInput: {
-        ...userInputInitialState,
-        samboer: false,
-        afp: 'ja_privat',
-        currentSimulation: {
-          ...userInputInitialState.currentSimulation,
-        },
-      } as UserInputState,
-    }
-
     it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbehold uten Pensjonsavtaler', async () => {
       const user = userEvent.setup()
       const initiateMock = vi.spyOn(
@@ -727,11 +710,19 @@ describe('BeregningAvansert', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            // @ts-ignore
-            api: { ...preloadedState.api },
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
             userInput: {
-              ...preloadedState.userInput,
+              ...userInputInitialState,
+
               currentSimulation: {
+                ...userInputInitialState.currentSimulation,
                 utenlandsperioder: [],
                 formatertUttaksalderReadOnly: '67 år string.og 6 alder.maaned',
                 uttaksalder: { aar: 67, maaneder: 6 },
@@ -781,6 +772,121 @@ describe('BeregningAvansert', () => {
         await screen.findByText('savnerdunoe.title.endring')
       ).toBeInTheDocument()
       expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
+    })
+
+    it('Når brukeren har vedtak om AFP-privat vises det beregning med AFP-privat ', async () => {
+      const user = userEvent.setup()
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+
+      const { container } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <BeregningAvansert />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtakLoependeAFPprivat,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                utenlandsperioder: [],
+                formatertUttaksalderReadOnly: '67 år string.og 6 alder.maaned',
+                uttaksalder: { aar: 67, maaneder: 6 },
+                aarligInntektFoerUttakBeloep: null,
+                gradertUttaksperiode: {
+                  uttaksalder: { aar: 62, maaneder: 6 },
+                  grad: 60,
+                },
+              },
+            },
+          },
+        }
+      )
+
+      await waitFor(() => {
+        expect(initiateMock).toHaveBeenCalledTimes(1)
+      })
+      expect(
+        screen.getByText('beregning.avansert.resultatkort.tittel')
+      ).toBeVisible()
+
+      expect(
+        container.getElementsByClassName('highcharts-loading')
+      ).toHaveLength(1)
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      expect(initiateMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 521338,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          gradertUttak: {
+            aarligInntektVsaPensjonBeloep: 0,
+            grad: 60,
+            uttaksalder: {
+              aar: 62,
+              maaneder: 6,
+            },
+          },
+          heltUttak: {
+            uttaksalder: {
+              aar: 67,
+              maaneder: 6,
+            },
+          },
+          simuleringstype: 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT',
+          sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).toBeInTheDocument()
     })
   })
 })

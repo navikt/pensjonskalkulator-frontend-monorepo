@@ -1,11 +1,19 @@
 import {
-  getSimuleringstypeFromRadio,
+  getSimuleringstypeFromRadioEllerVedtak,
   transformUtenlandsperioderArray,
   generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
   generatePensjonsavtalerRequestBody,
 } from '../utils'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+} from '@/mocks/mockedRTKQueryApiCalls'
 
 describe('apiSlice - utils', () => {
   const utenlandsperiode: Utenlandsperiode = {
@@ -16,48 +24,122 @@ describe('apiSlice - utils', () => {
     sluttdato: '28.01.2018',
   }
 
-  describe('getSimuleringstypeFromRadio', () => {
+  describe('getSimuleringstypeFromRadioEllerVedtak', () => {
     it('returnerer riktig simuleringstype', () => {
-      expect(getSimuleringstypeFromRadio(false, 0, null)).toEqual(
-        'ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(false, 0, 'nei')).toEqual(
-        'ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(false, 0, 'vet_ikke')).toEqual(
-        'ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(false, 0, 'ja_privat')).toEqual(
-        'ALDERSPENSJON_MED_AFP_PRIVAT'
-      )
-      expect(getSimuleringstypeFromRadio(false, 0, 'ja_offentlig')).toEqual(
-        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      )
-      expect(getSimuleringstypeFromRadio(false, 50, 'ja_privat')).toEqual(
-        'ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(false, 50, 'ja_offentlig')).toEqual(
-        'ALDERSPENSJON'
-      )
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          null
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'nei'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'vet_ikke'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_privat'
+        )
+      ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_offentlig'
+        )
+      ).toEqual('ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_privat'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_offentlig'
+        )
+      ).toEqual('ALDERSPENSJON')
 
-      expect(getSimuleringstypeFromRadio(true, 0, null)).toEqual(
-        'ENDRING_ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(true, 0, 'nei')).toEqual(
-        'ENDRING_ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(true, 0, 'vet_ikke')).toEqual(
-        'ENDRING_ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(true, 0, 'ja_privat')).toEqual(
-        'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
-      )
-      expect(getSimuleringstypeFromRadio(true, 0, 'ja_offentlig')).toEqual(
-        'ENDRING_ALDERSPENSJON'
-      )
-      expect(getSimuleringstypeFromRadio(true, 50, 'ja_privat')).toEqual(
-        'ENDRING_ALDERSPENSJON'
-      )
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'nei'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'vet_ikke'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_privat'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_offentlig'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_privat'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAFPprivat[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAFPoffentlig[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ALDERSPENSJON')
     })
   })
 

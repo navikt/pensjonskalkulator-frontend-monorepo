@@ -12,6 +12,7 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -597,6 +598,98 @@ describe('BeregningEnkel', () => {
       ).not.toBeInTheDocument()
     })
 
+    it('beregnes med AFP privat, når brukeren har valgt det og ikke mottar uføretrygd', async () => {
+      const simuleringsMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            afp: 'ja_privat',
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
+      )
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      expect(simuleringsMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          heltUttak: {
+            uttaksalder: {
+              aar: 68,
+              maaneder: 0,
+            },
+          },
+          simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+          sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).toBeInTheDocument()
+    })
+
     it('viser feilmelding og skjuler Grunnlag og tabell og gir mulighet til å prøve på nytt, gitt at beregning av alderspensjon har feilet', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
@@ -812,25 +905,8 @@ describe('BeregningEnkel', () => {
     })
   })
 
+  // Enkel simulering er egentlig ikke tilgjengelig for brukere som har vedtak om alderspensjon. Dette er bare tester som dokumenterer logikken slik den er.
   describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
-    // const preloadedState = {
-    //   api: {
-    //     queries: {
-    //       ...fulfilledGetPerson,
-    //       ...fulfilledGetInntekt,
-    //       ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-    //     },
-    //   },
-    //   userInput: {
-    //     ...userInputInitialState,
-    //     samboer: false,
-    //     afp: 'ja_privat',
-    //     currentSimulation: {
-    //       ...userInputInitialState.currentSimulation,
-    //     },
-    //   } as UserInputState,
-    // }
-
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Pensjonsavtaler, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<BeregningEnkel />, {
@@ -875,6 +951,97 @@ describe('BeregningEnkel', () => {
         await screen.findByText('savnerdunoe.title.endring')
       ).toBeInTheDocument()
       expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
+    })
+
+    it('beregnes med AFP privat, når brukeren har vedtak om AFP-privat', async () => {
+      const simuleringsMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtakLoependeAFPprivat,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
+      )
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      expect(simuleringsMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          heltUttak: {
+            uttaksalder: {
+              aar: 68,
+              maaneder: 0,
+            },
+          },
+          simuleringstype: 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT',
+          sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).toBeInTheDocument()
     })
   })
 })

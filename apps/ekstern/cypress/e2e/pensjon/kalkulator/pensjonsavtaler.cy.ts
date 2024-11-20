@@ -33,7 +33,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -43,7 +43,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
@@ -81,7 +81,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -91,7 +91,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
           it('forventer jeg at pensjonsavtalene listes opp under «Pensjonsavtaler.', () => {
@@ -121,7 +121,7 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon som svarer delvis', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -142,7 +142,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -152,10 +152,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -215,7 +215,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -225,10 +225,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -238,7 +238,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
@@ -272,7 +272,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -282,10 +282,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -295,7 +295,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
@@ -350,7 +350,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -360,7 +360,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
           it('forventer jeg informasjon i «Pensjonsavtaler» om at det ikke er funnet private pensjonsavtaler.', () => {
@@ -385,7 +385,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -395,7 +395,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
           it('forventer jeg at pensjonsavtalene listes opp under «Pensjonsavtaler.', () => {
@@ -412,7 +412,7 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon som svarer delvis,', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis,', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -433,7 +433,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -443,10 +443,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -503,7 +503,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -513,10 +513,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -526,7 +526,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
@@ -557,7 +557,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -567,10 +567,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -580,7 +580,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
@@ -631,7 +631,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -641,10 +641,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -659,7 +659,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
           })
 
-          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -679,7 +679,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -689,10 +689,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -710,7 +710,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -740,7 +740,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -750,10 +750,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente alle private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -777,7 +777,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -813,7 +813,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -823,10 +823,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -836,13 +836,13 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -870,7 +870,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('Alderspensjon (NAV)').should('exist')
+            cy.contains('Alderspensjon (Nav)').should('exist')
             cy.contains('Vis tabell av beregningen').click({ force: true })
             cy.get('.navds-table__toggle-expand-button')
               .first()
@@ -880,10 +880,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
               'not.exist'
             )
-            cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+            cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at NAV ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -893,13 +893,13 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i pensjonsavtaler om at NAV ikke klarte å hente mine private pensjonsavtaler.', () => {
+          it('forventer jeg informasjon i pensjonsavtaler om at Nav ikke klarte å hente mine private pensjonsavtaler.', () => {
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
           })
 
-          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at NAV ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -920,7 +920,7 @@ describe('Pensjonsavtaler', () => {
           cy.contains('Pensjonsgivende inntekt').should('exist')
           cy.contains('AFP (avtalefestet pensjon)').should('exist')
           cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-          cy.contains('Alderspensjon (NAV)').should('exist')
+          cy.contains('Alderspensjon (Nav)').should('exist')
           cy.contains('Vis tabell av beregningen').click({ force: true })
           cy.get('.navds-table__toggle-expand-button')
             .first()
@@ -930,7 +930,7 @@ describe('Pensjonsavtaler', () => {
           cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'exist'
           )
-          cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+          cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
         })
 
         it('forventer jeg at pensjonsavtalene listes opp under «Pensjonsavtaler.', () => {
