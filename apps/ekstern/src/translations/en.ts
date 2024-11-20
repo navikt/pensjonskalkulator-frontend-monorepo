@@ -365,7 +365,7 @@ const translations = {
   'beregning.avansert.avbryt_modal.title': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.endring.title': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
-  'beregning.avansert.avbryt_modal.button.endring.avslutt': 'MANGLER_TEKST',
+  'beregning.avansert.avbryt_modal.endring.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato': 'MANGLER_TEKST',
   'beregning.endring.rediger.title': 'MANGLER_TEKST',
