@@ -9,7 +9,6 @@ import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { paths } from '@/router/constants'
-import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -33,8 +32,6 @@ export function Start({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-
-  const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -139,20 +136,17 @@ export function Start({
               </>
             )}
 
-            {(!loependeVedtak?.alderspensjon ||
-              (loependeVedtak?.alderspensjon &&
-                endringFeatureToggle?.enabled)) &&
-              onNext && (
-                <Button
-                  type="submit"
-                  className={styles.button}
-                  onClick={wrapLogger('button klikk', {
-                    tekst: 'Kom i gang',
-                  })(onNext)}
-                >
-                  <FormattedMessage id="stegvisning.start.button" />
-                </Button>
-              )}
+            {onNext && (
+              <Button
+                type="submit"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Kom i gang',
+                })(onNext)}
+              >
+                <FormattedMessage id="stegvisning.start.button" />
+              </Button>
+            )}
             {onCancel && (
               <Button
                 type="button"
