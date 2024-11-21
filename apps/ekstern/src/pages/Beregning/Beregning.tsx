@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
+import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
@@ -121,6 +122,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     }
   }
 
+  const pensjonsavtalerShowMoreRef = React.useRef<ShowMoreRef>(null)
+
   return (
     <BeregningContext.Provider
       value={{
@@ -128,6 +131,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         setAvansertSkjemaModus,
         harAvansertSkjemaUnsavedChanges,
         setHarAvansertSkjemaUnsavedChanges,
+        pensjonsavtalerShowMoreRef,
       }}
     >
       <Modal
