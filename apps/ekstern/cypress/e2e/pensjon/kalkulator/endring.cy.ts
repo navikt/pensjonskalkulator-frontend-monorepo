@@ -71,6 +71,9 @@ describe('Endring av alderspensjon', () => {
           cy.contains('button', 'Kom i gang').click()
           cy.get('[type="radio"]').eq(0).check()
           cy.contains('button', 'Neste').click()
+          // Huker av "ja" på samtykke steget
+          cy.get('[type="radio"]').eq(0).check()
+          cy.contains('button', 'Neste').click()
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
           ).select('65')
@@ -158,7 +161,7 @@ describe('Endring av alderspensjon', () => {
       describe('Som bruker som har svart "vet ikke" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').eq(4).check()
+          cy.get('[type="radio"]').eq(3).check()
           cy.contains('button', 'Neste').click()
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -185,7 +188,7 @@ describe('Endring av alderspensjon', () => {
           cy.contains('77+').should('exist')
         })
 
-        it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP er skjult.', () => {
+        it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP vises iht. mitt valg.', () => {
           cy.contains('Beregning').should('exist')
           cy.contains('Øvrig grunnlag for beregningen').should('exist')
           cy.contains('Sivilstand:').click({ force: true })
@@ -195,7 +198,8 @@ describe('Endring av alderspensjon', () => {
             'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
           ).should('exist')
           cy.contains('AFP:').click({ force: true })
-          cy.contains('AFP:').should('not.exist')
+          cy.contains('AFP:').should('exist')
+          cy.contains('Vet ikke').should('exist')
         })
       })
 
