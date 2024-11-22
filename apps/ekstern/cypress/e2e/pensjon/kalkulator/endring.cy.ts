@@ -66,11 +66,143 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
-      // TODO strukturere ulikt og utvide her slik at vi kan teste de 4 AFP valgene
-      describe('Som bruker som har svart på spørsmål om AFP,', () => {
+      describe('Som bruker som har svart "ja, offentlig" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
+          cy.get('[type="radio"]').eq(0).check()
+          cy.contains('button', 'Neste').click()
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('65')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).select('4')
+          cy.get('[data-testid="uttaksgrad"]').select('100 %')
+          cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+          cy.contains('Beregn ny pensjon').click()
+          cy.contains('Beregning').should('exist')
+        })
+
+        it('forventer jeg å se resultatet for alderspensjon i graf og tabell med Livsvarig AFP (offentlig).', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          // TODO denne er ikke tilgjengelig enda
+          // cy.contains('AFP (avtalefestet pensjon)').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Tusen kroner').should('exist')
+          cy.contains('65').should('exist')
+          cy.contains('77+').should('exist')
+        })
+
+        it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at Livsvarig AFP (offentlig) er med.', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
+          cy.contains('Sivilstand:').click({ force: true })
+          cy.contains('Opphold utenfor Norge:').click({ force: true })
+          cy.contains('Fra vedtak').should('exist')
+          cy.contains(
+            'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
+          ).should('exist')
+          cy.contains('AFP:').click({ force: true })
+          cy.contains('Offentlig').should('exist')
+        })
+      })
+
+      describe('Som bruker som har svart "ja, privat" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
+        beforeEach(() => {
+          cy.contains('button', 'Kom i gang').click()
+          cy.get('[type="radio"]').eq(1).check()
+          cy.contains('button', 'Neste').click()
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('65')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).select('4')
+          cy.get('[data-testid="uttaksgrad"]').select('100 %')
+          cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+          cy.contains('Beregn ny pensjon').click()
+          cy.contains('Beregning').should('exist')
+        })
+
+        it('forventer jeg å se resultatet for alderspensjon i graf og tabell med AFP privat.', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Tusen kroner').should('exist')
+          cy.contains('65').should('exist')
+          cy.contains('77+').should('exist')
+        })
+
+        it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP Privat er med.', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
+          cy.contains('Sivilstand:').click({ force: true })
+          cy.contains('Opphold utenfor Norge:').click({ force: true })
+          cy.contains('Fra vedtak').should('exist')
+          cy.contains(
+            'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
+          ).should('exist')
+          cy.contains('AFP:').click({ force: true })
+          cy.contains('Privat').should('exist')
+        })
+      })
+
+      describe('Som bruker som har svart "vet ikke" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
+        beforeEach(() => {
+          cy.contains('button', 'Kom i gang').click()
+          cy.get('[type="radio"]').eq(4).check()
+          cy.contains('button', 'Neste').click()
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('65')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).select('4')
+          cy.get('[data-testid="uttaksgrad"]').select('100 %')
+          cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+          cy.contains('Beregn ny pensjon').click()
+          cy.contains('Beregning').should('exist')
+        })
+
+        it('forventer jeg å se resultatet for alderspensjon i graf og tabell uten AFP.', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Tusen kroner').should('exist')
+          cy.contains('65').should('exist')
+          cy.contains('77+').should('exist')
+        })
+
+        it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP er skjult.', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
+          cy.contains('Sivilstand:').click({ force: true })
+          cy.contains('Opphold utenfor Norge:').click({ force: true })
+          cy.contains('Fra vedtak').should('exist')
+          cy.contains(
+            'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
+          ).should('exist')
+          cy.contains('AFP:').click({ force: true })
+          cy.contains('AFP:').should('not.exist')
+        })
+      })
+
+      describe('Som bruker som har svart "nei" på spørsmål om AFP,', () => {
+        beforeEach(() => {
+          cy.contains('button', 'Kom i gang').click()
+          cy.get('[type="radio"]').eq(2).check()
           cy.contains('button', 'Neste').click()
         })
 
@@ -267,7 +399,7 @@ describe('Endring av alderspensjon', () => {
               cy.contains('Endre valgene dine')
             })
 
-            it('forventer jeg å se resultatet for alderspensjon i graf og tabell.', () => {
+            it('forventer jeg å se resultatet for alderspensjon i graf og tabell uten AFP.', () => {
               cy.contains('Beregning').should('exist')
               cy.contains('Pensjonsgivende inntekt').should('exist')
               cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
@@ -311,7 +443,7 @@ describe('Endring av alderspensjon', () => {
                 'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
               ).should('exist')
               cy.contains('AFP:').click({ force: true })
-              cy.contains('Vet ikke').should('exist')
+              cy.contains('Nei').should('exist')
             })
 
             it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
@@ -592,7 +724,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Endre valgene dine')
           })
 
-          it('forventer jeg å se resultatet for alderspensjon i graf og tabell med min AFP Privat.', () => {
+          it('forventer jeg å se resultatet for alderspensjon i graf og tabell med AFP Privat.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Pensjonsgivende inntekt').should('exist')
             cy.contains('AFP (avtalefestet pensjon)').should('exist')
@@ -916,7 +1048,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Endre valgene dine')
           })
 
-          it('forventer jeg å se resultatet for alderspensjon i graf og tabell med min Livsvarig AFP (offentlig).', () => {
+          it('forventer jeg å se resultatet for alderspensjon i graf og tabell med Livsvarig AFP (offentlig).', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Pensjonsgivende inntekt').should('exist')
             // TODO kommentert ut for nå fordi ikke implementert enda. For nå vises ikke AFP Offentlig i resultatet.
