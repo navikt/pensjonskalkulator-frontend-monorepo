@@ -16,12 +16,7 @@ interface Props {
 export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
   const intl = useIntl()
 
-  if (
-    !loependeVedtak ||
-    !loependeVedtak?.harFremtidigLoependeVedtak ||
-    (loependeVedtak.alderspensjon?.grad === 0 &&
-      loependeVedtak.ufoeretrygd.grad === 100)
-  ) {
+  if (!loependeVedtak || !loependeVedtak?.harFremtidigLoependeVedtak) {
     return null
   }
 

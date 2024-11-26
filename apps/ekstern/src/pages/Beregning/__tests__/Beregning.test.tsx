@@ -429,7 +429,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren er på resultatside etter en Avansert simulering  og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren er på resultatside etter en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -475,7 +475,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren har gjort en Avansert simulering som hen redigerer og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren har gjort en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -506,6 +506,97 @@ describe('Beregning', () => {
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
+    })
+
+    it('når brukeren med vedtak om alderspensjon er på resultatside etter en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen og brukeren sendes til /start ved bekreftelse', async () => {
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const user = userEvent.setup()
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulationUtenomUtenlandsperioder'
+      )
+      render(
+        <NavigateWrapper>
+          <Beregning visning="avansert" />
+        </NavigateWrapper>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '0' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '100 %' },
+        }
+      )
+      const heltRadioGroup = screen.getByTestId(
+        AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
+      )
+      expect(heltRadioGroup).toBeVisible()
+      await user.click(
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+        )
+      )
+
+      await user.click(
+        screen.getByText(`beregning.avansert.button.beregn.endring`)
+      )
+
+      await user.click(await screen.findByTestId('navigate-btn'))
+
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.endring.title')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('beregning.avansert.avbryt_modal.title')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('beregning.avansert.avbryt_modal.button.avslutt')
+      ).not.toBeInTheDocument()
+      await user.click(
+        await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
+      )
+      await user.click(await screen.findByTestId('navigate-btn'))
+      await user.click(
+        await screen.findByText(
+          'beregning.avansert.avbryt_modal.endring.button.avslutt'
+        )
+      )
+      expect(navigateMock).toHaveBeenCalledWith(paths.start)
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
   })
 

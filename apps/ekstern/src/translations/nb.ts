@@ -485,7 +485,11 @@ const translations = {
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Hvis du går ut av Avansert, mister du alle valgene dine.',
+  'beregning.avansert.avbryt_modal.endring.title':
+    'Hvis du går ut av beregningen, mister du alle valgene dine og går tilbake til start.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Avansert',
+  'beregning.avansert.avbryt_modal.endring.button.avslutt':
+    'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'beregning.endring.alert.uttaksdato':
     'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
