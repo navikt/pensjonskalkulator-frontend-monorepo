@@ -1,5 +1,4 @@
 import { createMemoryRouter, RouterProvider } from 'react-router'
-import * as ReactRouterDomUtils from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 

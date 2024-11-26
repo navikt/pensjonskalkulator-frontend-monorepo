@@ -1,5 +1,3 @@
-import * as ReactRouterDomUtils from 'react-router-dom'
-
 import { describe, it, vi } from 'vitest'
 
 import { LightBlueFooter } from '..'

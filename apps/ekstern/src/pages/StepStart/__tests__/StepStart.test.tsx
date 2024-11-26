@@ -2,7 +2,12 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  rejectedGetPerson,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetPerson,
+  rejectedGetLoependeVedtak,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -68,20 +73,40 @@ describe('StepStart', () => {
       expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })
 
-    it('rendrer ikke siden når henting av personopplysninger feiler', async () => {
+    it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
       mockErrorResponse('/v2/person')
+      const mockedState = {
+        api: {
+          queries: {
+            ...rejectedGetPerson,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(screen.getByText('error.global.title')).toBeVisible()
+
+      await waitFor(async () => {
+        expect(await screen.findByText('pageframework.title')).toBeVisible()
       })
+      expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
     })
   })
+
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
@@ -116,18 +141,38 @@ describe('StepStart', () => {
       })
     })
 
-    it('rendrer ikke siden når henting av loepende-vedtak feiler', async () => {
+    it('rendrer ikke siden når henting av loepende vedtak feiler og redirigerer til /uventet-feil', async () => {
       mockErrorResponse('/v2/vedtak/loepende-vedtak')
+      const mockedState = {
+        api: {
+          queries: {
+            ...fulfilledGetPerson,
+            ...rejectedGetLoependeVedtak,
+          },
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(screen.getByText('error.global.title')).toBeVisible()
+
+      await waitFor(async () => {
+        expect(await screen.findByText('pageframework.title')).toBeVisible()
       })
+
+      expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
     })
   })
 
