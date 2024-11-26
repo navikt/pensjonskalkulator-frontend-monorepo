@@ -487,7 +487,10 @@ const translations = {
   'grunnlag.title': 'Other Basis for Calculation',
   'beregning.avansert.avbryt_modal.title':
     'If you exit Advanced, you will lose all your choices.',
+  'beregning.avansert.avbryt_modal.endring.title':
+    'If you exit the calculation, you lose all your choices and return to the start.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Exit Advanced',
+  'beregning.avansert.avbryt_modal.endring.button.avslutt': 'Exit calculation',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Cancel',
   'beregning.endring.alert.uttaksdato':
     'You can earliest change the withdrawal degree to 20, 40, 50, 60, or 80 % from {dato}.',
