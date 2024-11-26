@@ -513,53 +513,5 @@ const translations = {
   'forbehold.gjenlevende.ingress': 'MANGLER_TEKST',
   'forbehold.pensjonsavtaler.title': 'MANGLER_TEKST',
   'forbehold.pensjonsavtaler.ingress': 'MANGLER_TEKST',
-  'personopplysninger.header': 'MANGLER_TEKST',
-  'personopplysninger.section.formaal.header': 'MANGLER_TEKST',
-  'personopplysninger.section.formaal.1': 'MANGLER_TEKST',
-  'personopplysninger.section.formaal.2': 'MANGLER_TEKST',
-  'personopplysninger.section.hvordan_brukes.header': 'MANGLER_TEKST',
-  'personopplysninger.section.hvordan_brukes.1': 'MANGLER_TEKST',
-  'personopplysninger.section.hvordan_brukes.2': 'MANGLER_TEKST',
-  'personopplysninger.section.hvordan_brukes.3': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.header': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.1': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.2': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
-    'MANGLER_TEKST',
-  'personopplysninger.section.lagring.heading': 'MANGLER_TEKST',
-  'personopplysninger.section.lagring.text': 'MANGLER_TEKST',
-  'personopplysninger.section.informasjon_om_rettighetene.heading':
-    'MANGLER_TEKST',
-  'personopplysninger.section.informasjon_om_rettighetene.text':
-    'MANGLER_TEKST',
-  'personopplysninger.section.spoersmaal.heading': 'MANGLER_TEKST',
-  'personopplysninger.section.spoersmaal.text': 'MANGLER_TEKST',
 }
 export const getTranslation_en = () => translations
