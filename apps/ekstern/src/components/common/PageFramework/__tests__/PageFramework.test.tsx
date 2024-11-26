@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { PageFramework } from '..'
+import { PageFramework } from '../../TulleComponent'
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { render, screen, userEvent, waitFor } from '@/test-utils'

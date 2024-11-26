@@ -1,6 +1,7 @@
-import { RouteObject, Navigate, Outlet } from 'react-router-dom'
+import { RouteObject, Navigate, Outlet } from 'react-router'
 
 import { PageFramework } from '@/components/common/PageFramework'
+import { TulleComponent } from '@/components/common/TulleComponent'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
@@ -15,6 +16,7 @@ import { StepSivilstand } from '@/pages/StepSivilstand'
 import { StepStart } from '@/pages/StepStart'
 import { StepUfoeretrygdAFP } from '@/pages/StepUfoeretrygdAFP'
 import { StepUtenlandsopphold } from '@/pages/StepUtenlandsopphold'
+import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
 import { paths } from './constants'

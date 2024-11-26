@@ -1,5 +1,5 @@
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { Button } from '@navikt/ds-react'
 import { BodyLong, Heading, HeadingProps } from '@navikt/ds-react'

@@ -1,5 +1,5 @@
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'

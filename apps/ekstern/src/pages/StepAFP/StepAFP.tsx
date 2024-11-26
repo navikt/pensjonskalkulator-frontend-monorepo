@@ -1,12 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { Await } from 'react-router-dom'
+import { Await, useLoaderData } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { useStepAFPAccessData } from '@/router/loaders'
+import { StepAFPAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectAfp, selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -14,7 +14,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 export function StepAFP() {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const loaderData = useStepAFPAccessData()
+  const { shouldRedirectTo } = useLoaderData() as StepAFPAccessGuardLoader
   const previousAfp = useAppSelector(selectAfp)
   const isVeileder = useAppSelector(selectIsVeileder)
 
@@ -47,11 +47,11 @@ export function StepAFP() {
         </div>
       }
     >
-      <Await resolve={loaderData.shouldRedirectTo}>
-        {(shouldRedirectTo: string) => {
+      <Await resolve={shouldRedirectTo}>
+        {(resp: string) => {
           return (
             <AFP
-              shouldRedirectTo={shouldRedirectTo}
+              shouldRedirectTo={resp}
               afp={previousAfp}
               onCancel={isVeileder ? undefined : onStegvisningCancel}
               onPrevious={onStegvisningPrevious}

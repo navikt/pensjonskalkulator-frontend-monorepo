@@ -1,6 +1,6 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
+import { Link as ReactRouterLink, useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'

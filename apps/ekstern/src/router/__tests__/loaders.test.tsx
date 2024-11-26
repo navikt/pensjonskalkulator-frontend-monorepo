@@ -1,4 +1,3 @@
-import { UNSAFE_DeferredData } from '@remix-run/router'
 import { add, endOfDay, format } from 'date-fns'
 import { describe, it, vi } from 'vitest'
 
@@ -87,9 +86,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -120,9 +118,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -157,9 +154,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.start)
@@ -372,9 +368,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -392,9 +387,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
   })
@@ -458,9 +452,8 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+        const shouldRedirectToResponse =
+          await returnedFromLoader.data.shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -496,9 +489,8 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+        const shouldRedirectToResponse =
+          await returnedFromLoader.data.shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -533,9 +525,8 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+        const shouldRedirectToResponse =
+          await returnedFromLoader.data.shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -554,9 +545,8 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+        const shouldRedirectToResponse =
+          await returnedFromLoader.data.shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -575,9 +565,8 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+        const shouldRedirectToResponse =
+          await returnedFromLoader.data.shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
     })
@@ -616,9 +605,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -649,9 +637,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -688,9 +675,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -723,9 +709,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -763,9 +748,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(
         `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
@@ -805,9 +789,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -838,9 +821,8 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })

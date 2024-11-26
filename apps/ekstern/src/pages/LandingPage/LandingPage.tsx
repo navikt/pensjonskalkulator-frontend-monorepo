@@ -3,9 +3,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import {
   Await,
   Link as ReactRouterLink,
+  useLoaderData,
   useNavigate,
   useOutletContext,
-} from 'react-router-dom'
+} from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -19,7 +20,7 @@ import {
 
 import { Loader } from '@/components/common/Loader'
 import { externalUrls, paths } from '@/router/constants'
-import { LoginContext, useLandingPageAccessData } from '@/router/loaders'
+import { LoginContext, LandingPageAccessGuardLoader } from '@/router/loaders'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
@@ -28,7 +29,7 @@ export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
 
-  const loaderData = useLandingPageAccessData()
+  const { shouldRedirectTo } = useLoaderData() as LandingPageAccessGuardLoader
   const navigate = useNavigate()
 
   React.useEffect(() => {
@@ -65,16 +66,14 @@ export const LandingPage = () => {
         id: 'landingsside.button.enkel_kalkulator_utlogget',
       })
 
-  const TopSection: React.FC<{ shouldRedirectTo?: string }> = ({
-    shouldRedirectTo,
-  }) => {
+  const TopSection: React.FC<{ navigateTo?: string }> = ({ navigateTo }) => {
     React.useEffect(() => {
-      if (shouldRedirectTo) {
-        navigate(shouldRedirectTo)
+      if (navigateTo) {
+        navigate(navigateTo)
       }
-    }, [shouldRedirectTo])
+    }, [navigateTo])
 
-    if (shouldRedirectTo) {
+    if (navigateTo) {
       return null
     }
 
@@ -183,14 +182,16 @@ export const LandingPage = () => {
         />
       }
     >
-      <Await resolve={loaderData.shouldRedirectTo}>
-        {(shouldRedirectTo: string) => (
-          <div className={styles.landingPage}>
-            <VStack gap="10">
-              <TopSection shouldRedirectTo={shouldRedirectTo} />
-            </VStack>
-          </div>
-        )}
+      <Await resolve={shouldRedirectTo}>
+        {(resp: string) => {
+          return (
+            <div className={styles.landingPage}>
+              <VStack gap="10">
+                <TopSection navigateTo={resp} />
+              </VStack>
+            </div>
+          )
+        }}
       </Await>
     </React.Suspense>
   ) : (
