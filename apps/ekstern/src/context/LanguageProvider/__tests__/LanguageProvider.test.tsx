@@ -53,7 +53,7 @@ describe('LanguageProvider', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('test-component')).toHaveTextContent(
-        'MANGLER_TEKST'
+        'Pension Calculator'
       )
       expect(document.documentElement.lang).toBe('en')
     })
