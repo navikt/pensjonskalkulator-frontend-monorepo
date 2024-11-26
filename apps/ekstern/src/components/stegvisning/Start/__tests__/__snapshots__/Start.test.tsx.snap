@@ -89,6 +89,7 @@ exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig headin
     </div>
     <a
       class="navds-link _link_09901f navds-link--action navds-link--inline-text"
+      data-discover="true"
       href="/personopplysninger"
       target="_blank"
     >

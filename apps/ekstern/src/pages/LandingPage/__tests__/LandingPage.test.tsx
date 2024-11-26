@@ -1,4 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
@@ -12,6 +11,15 @@ import { store } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('LandingPage', () => {
   afterEach(() => {
@@ -112,10 +120,6 @@ describe('LandingPage', () => {
     })
 
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
 
     const open = vi.fn()
     vi.stubGlobal('open', open)

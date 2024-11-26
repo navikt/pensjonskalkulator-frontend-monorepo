@@ -1,4 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
@@ -13,6 +12,15 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepStart', () => {
   afterEach(() => {
@@ -125,10 +133,7 @@ describe('StepStart', () => {
 
   it('sender videre til neste steg når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],

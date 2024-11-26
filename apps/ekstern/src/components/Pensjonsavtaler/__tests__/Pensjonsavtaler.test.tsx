@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
@@ -12,6 +10,15 @@ import {
   Simulation,
 } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
@@ -32,10 +39,6 @@ describe('Pensjonsavtaler', () => {
   describe('Gitt at brukeren ikke har samtykket', () => {
     it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress, tabell og info om offentlig tjenestepensjon', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {

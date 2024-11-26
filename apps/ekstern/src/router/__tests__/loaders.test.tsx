@@ -7,7 +7,9 @@ import {
   landingPageAccessGuard,
   stepStartAccessGuard,
   stepSivilstandAccessGuard,
+  StepSivilstandAccessGuardLoader,
   stepAFPAccessGuard,
+  StepAFPAccessGuardLoader,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from '../loaders'
@@ -86,8 +88,7 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -118,8 +119,7 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -154,8 +154,7 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.start)
@@ -192,12 +191,10 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      const getPersonQueryResponse =
-        await returnedFromLoader.data.getPersonQuery
+      const getPersonQueryResponse = await returnedFromLoader.getPersonQuery
       const getLoependeVedtakQueryResponse =
-        await returnedFromLoader.data.getLoependeVedtakQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+        await returnedFromLoader.getLoependeVedtakQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(
@@ -239,8 +236,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      const getPersonQueryResponse = await (returnedFromLoader.data
-        .getPersonQuery as GetPersonQuery)
+      const getPersonQueryResponse =
+        await (returnedFromLoader.getPersonQuery as GetPersonQuery)
       expect(getPersonQueryResponse.data.foedselsdato).toBe('1960-04-30')
       await waitFor(() => {
         expect(open).toHaveBeenCalledWith(
@@ -261,8 +258,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
@@ -282,8 +278,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.ingenTilgang)
@@ -303,8 +298,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
@@ -326,9 +320,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      await returnedFromLoader.data.getPersonQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      await returnedFromLoader.getPersonQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(
@@ -368,8 +361,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -387,8 +381,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
   })
@@ -452,8 +447,9 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse =
-          await returnedFromLoader.data.shouldRedirectTo
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -489,8 +485,9 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse =
-          await returnedFromLoader.data.shouldRedirectTo
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -525,8 +522,9 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse =
-          await returnedFromLoader.data.shouldRedirectTo
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -545,8 +543,9 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse =
-          await returnedFromLoader.data.shouldRedirectTo
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -565,8 +564,9 @@ describe('Loaders', () => {
           return mockedState
         })
         const returnedFromLoader = await stepAFPAccessGuard()
-        const shouldRedirectToResponse =
-          await returnedFromLoader.data.shouldRedirectTo
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
     })
@@ -605,8 +605,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -637,8 +638,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -675,8 +677,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -709,8 +712,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -748,8 +752,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(
         `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
@@ -789,8 +794,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -821,8 +827,9 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })

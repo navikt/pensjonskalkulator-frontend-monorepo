@@ -141,27 +141,30 @@ Response {
 `;
 
 exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getLoependeVedtakQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
-DeferredData {
-  "abortPromise": Promise {},
-  "controller": AbortController {
-    Symbol(SameObject caches): {
-      "signal": AbortSignal {},
-    },
+{
+  "getLoependeVedtakQuery": Promise {
+    "abort": [Function],
+    "arg": undefined,
+    "queryCacheKey": "getLoependeVedtak(undefined)",
+    "refetch": [Function],
+    "requestId": "TOrZ-P_psQ3z6oTELFDkH",
+    "subscriptionOptions": undefined,
+    "unsubscribe": [Function],
+    "unwrap": [Function],
+    "updateSubscriptionOptions": [Function],
   },
-  "data": {
-    "getLoependeVedtakQuery": Promise {},
-    "getPersonQuery": Promise {},
-    "shouldRedirectTo": Promise {},
+  "getPersonQuery": Promise {
+    "abort": [Function],
+    "arg": undefined,
+    "queryCacheKey": "getPerson(undefined)",
+    "refetch": [Function],
+    "requestId": "f6O1-t7uxgdRl1_HfyyHh",
+    "subscriptionOptions": undefined,
+    "unsubscribe": [Function],
+    "unwrap": [Function],
+    "updateSubscriptionOptions": [Function],
   },
-  "deferredKeys": [
-    "getPersonQuery",
-    "getLoependeVedtakQuery",
-    "shouldRedirectTo",
-  ],
-  "init": {},
-  "pendingKeysSet": Set {},
-  "subscribers": Set {},
-  "unlistenAbortSignal": [Function],
+  "shouldRedirectTo": Promise {},
 }
 `;
 

@@ -1,4 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
@@ -14,6 +13,15 @@ import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepSivilstand', () => {
   beforeEach(() => {
@@ -71,13 +79,9 @@ describe('StepSivilstand', () => {
 
   it('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
     const setSamboerMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
       'setSamboer'
-    )
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
     )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
@@ -105,10 +109,6 @@ describe('StepSivilstand', () => {
 
   it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],

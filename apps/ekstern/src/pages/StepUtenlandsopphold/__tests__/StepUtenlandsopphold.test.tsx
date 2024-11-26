@@ -1,4 +1,4 @@
-import * as ReactRouterUtils from 'react-router'
+import * as ReactRouterDomUtils from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
@@ -10,6 +10,15 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
 describe('StepUtenlandsopphold', () => {
   it('har riktig sidetittel', () => {
     render(<StepUtenlandsopphold />)
@@ -20,10 +29,7 @@ describe('StepUtenlandsopphold', () => {
 
   it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
@@ -46,10 +52,7 @@ describe('StepUtenlandsopphold', () => {
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
@@ -95,10 +98,7 @@ describe('StepUtenlandsopphold', () => {
 
   it('Gitt at brukeren ikke har samboer, nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: null },
@@ -126,10 +126,7 @@ describe('StepUtenlandsopphold', () => {
     })
 
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: null },

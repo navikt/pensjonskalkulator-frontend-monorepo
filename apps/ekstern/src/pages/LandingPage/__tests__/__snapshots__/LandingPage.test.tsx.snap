@@ -106,12 +106,13 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               </div>
               <a
                 class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
+                data-discover="true"
                 href="/pensjon/kalkulator/personopplysninger"
                 target="_blank"
               >
                 landingsside.link.personopplysninger
                 <svg
-                  aria-labelledby="title-r1"
+                  aria-labelledby="title-r5"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -121,7 +122,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r1"
+                    id="title-r5"
                   >
                     application.global.external_link
                   </title>
@@ -272,12 +273,13 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               </div>
               <a
                 class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
+                data-discover="true"
                 href="/pensjon/kalkulator/personopplysninger"
                 target="_blank"
               >
                 landingsside.link.personopplysninger
                 <svg
-                  aria-labelledby="title-r2"
+                  aria-labelledby="title-r7"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -287,7 +289,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r2"
+                    id="title-r7"
                   >
                     application.global.external_link
                   </title>

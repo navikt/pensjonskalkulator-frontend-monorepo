@@ -4,9 +4,9 @@ import {
   Await,
   Link as ReactRouterLink,
   useLoaderData,
-  useNavigate,
   useOutletContext,
 } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
