@@ -143,22 +143,6 @@ describe('routes', () => {
         })
       })
     })
-
-    describe(`${BASE_PATH}${paths.personopplysninger}`, () => {
-      it('viser personopplysninger siden', async () => {
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.personopplysninger}`],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-        expect(router.state.location.pathname).toBe(
-          `${BASE_PATH}/personopplysninger`
-        )
-        expect(
-          await screen.findByText('personopplysninger.header')
-        ).toBeInTheDocument()
-      })
-    })
   })
 
   describe(`Gitt at siden er en del av stegvisningen`, () => {
