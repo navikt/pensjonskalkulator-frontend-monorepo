@@ -239,7 +239,8 @@ const translations = {
     'can be taken out together with occupational pension',
   'stegvisning.afp.readmore_privat_link':
     'Read about the conditions for <afpLink>AFP in the private sector at afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title': 'About AFP in the public sector',
+  'stegvisning.afp.readmore_offentlig_title':
+    'About lifelong AFP in the public sector',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP in the public sector:',
   'stegvisning.afp.readmore_offentlig_list_item1': 'is a lifelong pension',
   'stegvisning.afp.readmore_offentlig_list_item2':
@@ -247,7 +248,7 @@ const translations = {
   'stegvisning.afp.readmore_offentlig_list_item3':
     'can be taken out together with retirement pension from the National Insurance Scheme (Nav) and occupational pension',
   'stegvisning.afp.readmore_offentlig_ingress':
-    'Most state, county, and municipal employers have agreements for lifelong AFP. Check with your employer what applies to you.',
+    'Most government, county, and municipal employers have agreements for lifelong AFP. Some private sector employers may have agreements in the public sector. If you are unsure about what applies to you, check with your employer.',
   'stegvisning.afp.radio_label': 'Do you have a right to AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Yes, in the public sector',
   'stegvisning.afp.radio_ja_privat': 'Yes, in the private sector',
@@ -557,7 +558,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'You have indicated AFP in the public sector, but you have not consented to Nav calculating it. Therefore, AFP is not shown in the calculation.',
   'grunnlag.afp.ingress.ja_privat':
-    'You have indicated AFP in the private sector. Nav has not assessed whether you meet the conditions for AFP, but assumes that you do. Read more about the conditions for AFP and how to apply at <afpLink>The Common Scheme for AFP</afpLink>.',
+    'You have indicated AFP in the private sector. Nav has not assessed whether you meet the criteria for AFP but assumes that you do. Some private sector employers may have agreements in the public sector. Check with your employer to see what applies to you. Read more about the AFP conditions and how to apply at <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
     'When you receive disability benefits, you cannot calculate AFP in the calculator. AFP and disability benefits cannot be combined, and if you receive disability benefits after turning 62, you lose the right to AFP. Therefore, you must choose between AFP and disability benefits before you are 62 years old.{br}{br}You can read more about this at <afpPrivatLink>nav.no</afpPrivatLink>. If you need help determining what is most beneficial, <planleggePensjonLink>contact Nav</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
@@ -576,9 +577,7 @@ const translations = {
     'You have indicated that you do not have the right to AFP. If you are unsure whether you have AFP, you should ask your employer. AFP can affect when you can withdraw retirement pension.',
   'grunnlag.afp.reset_link': 'new calculation',
   'grunnlag.forbehold.ingress_1':
-    'The pension is calculated with the information we have about you, as well as the information you have provided. The calculation is done with current regulations. This is a preliminary estimate of what you can expect in pension.',
-  'grunnlag.forbehold.ingress_2':
-    'This calculator is under development and has limited functionality. You can do more specific calculations in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
+    'The pension has been calculated based on the information we have about you and the information you have provided. The calculation has been made in accordance with current regulations. This is a preliminary estimate of what you can expect to receive in pension. Nav is not responsible for the amounts obtained from other sources.',
   'grunnlag.forbehold.link': 'All disclaimers',
   'grunnlag.forbehold.title': 'Disclaimer',
   'savnerdunoe.title': 'Missing something?',
@@ -705,67 +704,5 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pension Agreements',
   'forbehold.pensjonsavtaler.ingress':
     'If you have consented, we will retrieve information about what you will receive from public and private pension schemes. Nav is not responsible for the amounts provided, but is intended to give a rough overview of your total pension.{br}{br}Private occupational pension and individual rights are retrieved via Norsk Pensjon.{br}{br}Nav currently has no ability to retrieve information from public occupational pension schemes. Please contact your occupational pension scheme if you need information about your occupational pension.{br}{br}If you want a closer overview of your pension agreements, you need to check directly with each pension scheme.',
-  'personopplysninger.header': 'Personal Data Used in Pension Calculator',
-  'personopplysninger.section.formaal.header':
-    'What is the purpose of the personal data?',
-  'personopplysninger.section.formaal.1':
-    'Nav retrieves personal data in the calculator so that you can plan your pension and get an estimate of your future pension.',
-  'personopplysninger.section.formaal.2':
-    'You must log in to use the calculator. To calculate retirement pension, we use information you provide in the calculator, information Nav has about you, and necessary information from other public entities. If you consent, we will retrieve pension agreements from other pension providers to give you a complete overview of your pension.',
-  'personopplysninger.section.hvordan_brukes.header':
-    'How do we process personal data?',
-  'personopplysninger.section.hvordan_brukes.1':
-    'Nav retrieves and discloses personal data only when we have legal authority to do so. If we need additional information, we will ask for your consent to retrieve or disclose the information. We will use the information only for what you consent to. The consent is voluntary. You will be informed along the way about which information we retrieve from others, such as the National Population Register and pension providers.',
-  'personopplysninger.section.hvordan_brukes.2':
-    'We do not store the calculations you make or the personal data used in the processing.',
-  'personopplysninger.section.hvordan_brukes.3':
-    'The legal basis for processing pension simulation data is Art. 6 (1) c Legal obligation, Administrative Act § 11, National Insurance Act chapter 20 retirement pension, and Art 6 (1) a, Consent. Nav is the data controller for the processing done in the pension calculator.',
-  'personopplysninger.section.hvilke_opplysninger.header':
-    'Which personal data do we use?',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
-    'Information we retrieve to fulfill Nav’s obligation under Art. 6 (1) c Legal obligation, Administrative Act § 11.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
-    'Your national ID number is retrieved from ID-porten to identify you.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
-    'Your name is retrieved from the National Population Register to clarify that the calculation applies to you.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
-    'Your birth date is retrieved from the National Population Register so that we can calculate your retirement pension.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
-    'Desired age (year and possibly month) for withdrawal of pension is provided by you so that we can calculate your retirement pension.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
-    'Your pension accrual is retrieved from the pension accrual register at Nav, which is based on reported income from the Tax Administration, and possibly accruals from unemployment benefits, Norwegian armed forces, caregiving accrual, and accrual from disability benefits.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'Your last pension-eligible annual income (and year) from the Tax Administration is used as income until withdrawal of pension. It is included in the pension balance for calculating your retirement pension. If you change future income, your future pension balance will be based on that.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
-    'Your marital status may affect the size of your pension. Information about your marital status is retrieved from the National Population Register. If you are registered as single, separated, divorced, or a widow/widower, we will ask you if you have a partner. Changes you make apply only to this calculation and are not stored at Nav or the National Population Register.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
-    'If you have disability benefits, we use your disability history, degree of disability, estimated income, and any occupational injury history. This is done so that we can calculate your retirement pension. We also use the degree of disability to show potential gradations of retirement pension that you can withdraw in combination with disability benefits. We do not retrieve medical information from your case.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'If you have a survivor’s pension or adjustment benefit, we use this information to inform you that survivor’s pension and adjustment benefit cannot be combined with retirement pension.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'We ask you about stays outside Norway. We use this information to calculate retirement pension with the correct insurance time in Norway. We inquire about the country the stay pertains to and whether you worked in that country to apply the correct social security agreement.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
-    'We ask you whether you have a right to AFP in either the public or private sector. We use this information to determine whether we should calculate your retirement pension with AFP. This information is also used to inform when you can withdraw your retirement pension. Furthermore, we use this information to calculate AFP.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
-    'Information we use if you consent (GDPR Art 6 (1) a, Consent).',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
-    'From Norsk Pensjon, we retrieve pension agreements from the private sector, such as occupational pensions from employers (defined contribution, defined benefit, or hybrid pension), free policies, and certain agreements about pension savings.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
-    'We also check if you are or have been a member of a public occupational pension scheme. If you are or have been a member, we inform you that you may have rights, but do not retrieve the agreements.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3':
-    'We calculate AFP in the public sector based on your AFP balance, if you consent.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
-    'We retrieve this information to give you an overview of your total pension.',
-  'personopplysninger.section.lagring.heading': 'Storage',
-  'personopplysninger.section.lagring.text':
-    'There is temporary storage in the pension calculator to make a calculation of your pension. When you finish the calculation or log out, the temporary storage is deleted. Your calculation is not stored or archived at Nav.',
-  'personopplysninger.section.informasjon_om_rettighetene.heading':
-    'Information about your rights',
-  'personopplysninger.section.informasjon_om_rettighetene.text':
-    'See the <navPersonvernerklaeringLink>privacy policy</navPersonvernerklaeringLink> for Nav.',
-  'personopplysninger.section.spoersmaal.heading':
-    'Questions to Nav or the Data Protection Authority about privacy',
-  'personopplysninger.section.spoersmaal.text':
-    'See contact information in the <navPersonvernerklaeringKontaktOssLink>privacy policy</navPersonvernerklaeringKontaktOssLink> for Nav.',
 }
 export const getTranslation_en = () => translations
