@@ -8,7 +8,7 @@ import HighchartsReact from 'highcharts-react-official'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
-  useGetTpoMedlemskapQuery,
+  useOffentligTpQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -92,12 +92,9 @@ export function Simulering(props: {
     }
   )
 
-  const { data: tpo, isError: isTpoError } = useGetTpoMedlemskapQuery(
-    undefined,
-    {
-      skip: !harSamtykket,
-    }
-  )
+  const { data: tpo, isError: isTpoError } = useOffentligTpQuery(undefined, {
+    skip: !harSamtykket,
+  })
 
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {

@@ -55,14 +55,13 @@ declare global {
   // LoependeVedtakDto
   type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
-  // /tpo-medlemskap
-  export type TpoMedlemskapQuery = TypedUseQueryStateResult<
-    TpoMedlemskap,
+  // /simuler-oftp
+  export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
+    SimulerOftp,
     void,
-    BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
+    BaseQueryFn<Record<string, unknown>, SimulerOftp>
   >
-  type TpoMedlemskap =
-    components['schemas']['MedlemskapITjenestepensjonsordningDto']
+  type SimulerOftp = components['schemas']['OFTPSimuleringsresultatDto']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =

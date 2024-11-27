@@ -6,7 +6,7 @@ import { BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
-import { useGetTpoMedlemskapQuery } from '@/state/api/apiSlice'
+import { useOffentligTpQuery } from '@/state/api/apiSlice'
 
 import styles from './OffentligTjenestepensjon.module.scss'
 
@@ -19,11 +19,14 @@ export const OffentligTjenestepensjon = (props: {
   const [leverandoererString, setleverandoererString] =
     React.useState<string>('')
 
-  const { data: tpo, isError, isLoading } = useGetTpoMedlemskapQuery()
+  const { data: tpo, isError, isLoading } = useOffentligTpQuery()
 
   React.useEffect(() => {
-    if (tpo?.tpLeverandoerListe && tpo.tpLeverandoerListe.length > 0) {
-      const joinedLeverandoerer = tpo?.tpLeverandoerListe.join(', ')
+    if (
+      tpo?.muligeTpLeverandoerListe &&
+      tpo.muligeTpLeverandoerListe.length > 0
+    ) {
+      const joinedLeverandoerer = tpo?.muligeTpLeverandoerListe.join(', ')
       setleverandoererString(joinedLeverandoerer)
     }
   }, [tpo])
@@ -40,7 +43,7 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
-  if (!isLoading && !isError && tpo?.tpLeverandoerListe.length === 0) {
+  if (!isLoading && !isError && tpo?.muligeTpLeverandoerListe.length === 0) {
     return
   }
 
@@ -59,8 +62,8 @@ export const OffentligTjenestepensjon = (props: {
         <BodyLong className={styles.infoText}>
           {isError && <FormattedMessage id="pensjonsavtaler.tpo.error" />}
           {!isError &&
-            tpo?.tpLeverandoerListe &&
-            tpo.tpLeverandoerListe.length > 0 && (
+            tpo?.muligeTpLeverandoerListe &&
+            tpo.muligeTpLeverandoerListe.length > 0 && (
               <FormattedMessage
                 id="pensjonsavtaler.tpo.er_medlem"
                 values={{

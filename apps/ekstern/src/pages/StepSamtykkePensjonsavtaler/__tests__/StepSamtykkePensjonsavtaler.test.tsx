@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkePensjonsavtaler } from '..'
 import {
-  fulfilledGetTpoMedlemskap,
+  fulfilledsimulerOffentligTp,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledPensjonsavtaler,
@@ -51,7 +51,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
   })
 
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
-    it('invaliderer cache for tpo-medlemskap og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukeren klikker på Neste', async () => {
+    it('invaliderer cache for offentlig-tp og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const invalidateMock = vi.spyOn(
         apiSliceUtils.apiSlice.util.invalidateTags,
         'match'
@@ -68,7 +68,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
           api: {
             // @ts-ignore
             queries: {
-              ...fulfilledGetTpoMedlemskap,
+              ...fulfilledsimulerOffentligTp,
               ...fulfilledPensjonsavtaler,
               ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
@@ -80,7 +80,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
         },
       })
       await store.dispatch(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap.initiate()
+        apiSliceUtils.apiSlice.endpoints.offentligTp.initiate()
       )
       expect(Object.keys(store.getState().api.queries).length).toEqual(3)
 

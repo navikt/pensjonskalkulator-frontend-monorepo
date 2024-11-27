@@ -25,7 +25,7 @@ import {
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
-  fulfilledGetTpoMedlemskap,
+  fulfilledsimulerOffentligTp,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
@@ -349,18 +349,18 @@ describe('userInput selectors', () => {
   })
 
   describe('selectHarHentetTpoMedlemskap', () => {
-    it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
+    it('returnerer false når /simuler-oftp har ikke blitt hentet', () => {
       const state: RootState = {
         ...initialState,
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
     })
-    it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
+    it('returnerer true når /simuler-oftp har blitt hentet', () => {
       const state: RootState = {
         ...initialState,
         api: {
           // @ts-ignore
-          queries: { ...fulfilledGetTpoMedlemskap },
+          queries: { ...fulfilledsimulerOffentligTp },
         },
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()

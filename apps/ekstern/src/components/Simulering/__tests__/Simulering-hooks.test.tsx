@@ -1027,7 +1027,7 @@ describe('Simulering-hooks', () => {
       })
     })
 
-    it('Når tpo data inneholder tpLeverandoerListe, logger riktig melding', () => {
+    it('Når tpo data inneholder muligeTpLeverandoerListe, logger riktig melding', () => {
       const loggerMock = vi.spyOn(loggerUtils, 'logger')
       renderHook(useSimuleringPensjonsavtalerLocalState, {
         wrapper,
@@ -1036,7 +1036,7 @@ describe('Simulering-hooks', () => {
           tpo: {
             isError: false,
             data: {
-              tpLeverandoerListe: [
+              muligeTpLeverandoerListe: [
                 'Statens pensjonskasse',
                 'Kommunal Landspensjonskasse',
                 'Oslo Pensjonsforsikring',
@@ -1093,7 +1093,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: ['Leverandør 1'],
+                muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
             pensjonsavtaler: {
@@ -1117,7 +1117,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: ['Leverandør 1'],
+                muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
             pensjonsavtaler: {
@@ -1145,7 +1145,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: ['Leverandør 1'],
+                muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
             pensjonsavtaler: {
@@ -1173,7 +1173,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: ['Leverandør 1'],
+                muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
             pensjonsavtaler: {
@@ -1199,7 +1199,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: [],
+                muligeTpLeverandoerListe: [],
               },
             },
             pensjonsavtaler: {
@@ -1221,7 +1221,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: [],
+                muligeTpLeverandoerListe: [],
               },
             },
             pensjonsavtaler: {
@@ -1247,7 +1247,7 @@ describe('Simulering-hooks', () => {
             tpo: {
               isError: false,
               data: {
-                tpLeverandoerListe: [],
+                muligeTpLeverandoerListe: [],
               },
             },
             pensjonsavtaler: {

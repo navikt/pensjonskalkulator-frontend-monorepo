@@ -113,7 +113,7 @@ export const selectCurrentSimulation = (state: RootState): Simulation =>
 export const selectHarHentetTpoMedlemskap = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
+    return !apiSlice.endpoints.offentligTp.select(undefined)(state)
       ?.isUninitialized
   }
 )

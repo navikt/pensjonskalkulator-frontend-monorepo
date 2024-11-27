@@ -9,7 +9,6 @@ import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { externalUrls } from '@/router/constants'
-
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'

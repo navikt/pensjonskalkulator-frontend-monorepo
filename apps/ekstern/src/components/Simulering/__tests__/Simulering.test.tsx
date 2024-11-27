@@ -1003,10 +1003,10 @@ describe('Simulering', () => {
 
     describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
       beforeEach(() => {
-        mockResponse('/v1/tpo-medlemskap', {
+        mockResponse('/v1/simuler-oftp', {
           status: 200,
           json: {
-            tpLeverandoerListe: [],
+            muligeTpLeverandoerListe: [],
           },
         })
       })
@@ -1131,7 +1131,7 @@ describe('Simulering', () => {
 
     describe('Gitt at kall til tp-medlemskap feiler', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/tpo-medlemskap')
+        mockErrorResponse('/v1/simuler-oftp')
       })
 
       it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {

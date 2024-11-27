@@ -281,7 +281,7 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
   tpo: {
     isError: boolean
     data?: {
-      tpLeverandoerListe: string[]
+      muligeTpLeverandoerListe: string[]
     }
   }
 }) => {
@@ -300,8 +300,8 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
           'TPO infoboks: Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor',
       })
     } else if (
-      tpo?.data?.tpLeverandoerListe &&
-      tpo?.data?.tpLeverandoerListe.length > 0
+      tpo?.data?.muligeTpLeverandoerListe &&
+      tpo?.data?.muligeTpLeverandoerListe.length > 0
     ) {
       logger('alert', {
         tekst: 'TPO infoboks: Du kan ha rett til offentlig tjenestepensjon',
@@ -329,7 +329,7 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
       }
     }
     if (tpo && tpo.data) {
-      if (tpo.data.tpLeverandoerListe.length > 0) {
+      if (tpo.data.muligeTpLeverandoerListe.length > 0) {
         if (pensjonsavtaler?.isError || isPartialWith0Avtaler) {
           return {
             variant: 'alert-warning',

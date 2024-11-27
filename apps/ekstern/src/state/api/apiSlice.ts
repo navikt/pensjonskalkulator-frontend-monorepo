@@ -12,7 +12,7 @@ import {
   isAlderspensjonSimulering,
   isPerson,
   isPensjonsavtale,
-  isTpoMedlemskap,
+  isOffentligTp,
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
@@ -35,7 +35,7 @@ export const apiSlice = createApi({
       }
     },
   }),
-  tagTypes: ['Person', 'TpoMedlemskap', 'Alderspensjon', 'Pensjonsavtaler'],
+  tagTypes: ['Person', 'SimulerOftp', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -87,12 +87,12 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
-      query: () => '/v1/tpo-medlemskap',
-      providesTags: ['TpoMedlemskap'],
-      transformResponse: (response: TpoMedlemskap) => {
-        if (!isTpoMedlemskap(response)) {
-          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
+    offentligTp: builder.query<SimulerOftp, void>({
+      query: () => '/v1/simuler-oftp',
+      providesTags: ['SimulerOftp'],
+      transformResponse: (response: SimulerOftp) => {
+        if (!isOffentligTp(response)) {
+          throw new Error(`Mottok ugyldig offentlig-tp:`, response)
         }
         return response
       },
@@ -223,7 +223,7 @@ export const {
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetLoependeVedtakQuery,
-  useGetTpoMedlemskapQuery,
+  useOffentligTpQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,

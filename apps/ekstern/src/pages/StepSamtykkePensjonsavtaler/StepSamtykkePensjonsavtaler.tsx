@@ -44,7 +44,7 @@ export function StepSamtykkePensjonsavtaler() {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (shouldFlush && !samtykke) {
-      apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
+      apiSlice.util.invalidateTags(['SimulerOftp', 'Pensjonsavtaler'])
     }
     if (onStegvisningNext) {
       onStegvisningNext()

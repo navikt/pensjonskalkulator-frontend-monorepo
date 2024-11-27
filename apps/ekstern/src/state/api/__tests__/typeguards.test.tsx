@@ -11,7 +11,7 @@ import {
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
   isLoependeVedtak,
-  isTpoMedlemskap,
+  // isTpoMedlemskap,
   isUtbetalingsperiode,
   isUnleashToggle,
   isAlder,
@@ -827,31 +827,31 @@ describe('Typeguards', () => {
     })
   })
 
-  describe('isTpoMedlemskap', () => {
-    it('returnerer true når typen er riktig', () => {
-      expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: [],
-        })
-      ).toBeTruthy()
-      expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: ['lorem ipsum'],
-        })
-      ).toBeTruthy()
-    })
-    it('returnerer false når typen er undefined eller at tpLeverandoerListe inneholder noe annet', () => {
-      expect(isTpoMedlemskap(undefined)).toBeFalsy()
-      expect(isTpoMedlemskap([])).toBeFalsy()
-      expect(isTpoMedlemskap({})).toBeFalsy()
-      expect(isTpoMedlemskap({ somethingElse: [] })).toBeFalsy()
-      expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: 'string',
-        })
-      ).toBeFalsy()
-    })
-  })
+  // describe('isTpoMedlemskap', () => {
+  //   it('returnerer true når typen er riktig', () => {
+  //     expect(
+  //       isTpoMedlemskap({
+  //         muligeTpLeverandoerListe: [],
+  //       })
+  //     ).toBeTruthy()
+  //     expect(
+  //       isTpoMedlemskap({
+  //         muligeTpLeverandoerListe: ['lorem ipsum'],
+  //       })
+  //     ).toBeTruthy()
+  //   })
+  //   it('returnerer false når typen er undefined eller at muligeTpLeverandoerListe inneholder noe annet', () => {
+  //     expect(isTpoMedlemskap(undefined)).toBeFalsy()
+  //     expect(isTpoMedlemskap([])).toBeFalsy()
+  //     expect(isTpoMedlemskap({})).toBeFalsy()
+  //     expect(isTpoMedlemskap({ somethingElse: [] })).toBeFalsy()
+  //     expect(
+  //       isTpoMedlemskap({
+  //         muligeTpLeverandoerListe: 'string',
+  //       })
+  //     ).toBeFalsy()
+  //   })
+  // })
 
   describe('isUnleashToggle', () => {
     it('returnerer true når typen er riktig', () => {

@@ -316,12 +316,12 @@ describe('Pensjonsavtaler', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v1/tpo-medlemskap',
+            url: '/pensjon/kalkulator/api/v1/simuler-oftp',
           },
           {
-            tpLeverandoerListe: [],
+            muligeTpLeverandoerListe: [],
           }
-        ).as('getTpoMedlemskap')
+        ).as('fetchOffentligTp')
       })
 
       describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon,', () => {
@@ -597,12 +597,12 @@ describe('Pensjonsavtaler', () => {
       beforeEach(() => {
         cy.intercept(
           'GET',
-          '/pensjon/kalkulator/api/v1/tpo-medlemskap',
+          '/pensjon/kalkulator/api/v1/simuler-oftp',
 
           {
             statusCode: 503,
           }
-        ).as('getTpoMedlemskap')
+        ).as('fetchOffentligTp')
       })
 
       describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon,', () => {
