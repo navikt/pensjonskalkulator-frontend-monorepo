@@ -111,7 +111,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               >
                 landingsside.link.personopplysninger
                 <svg
-                  aria-labelledby="title-r1"
+                  aria-labelledby="title-r2"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -121,7 +121,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r1"
+                    id="title-r2"
                   >
                     application.global.external_link
                   </title>
@@ -277,7 +277,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               >
                 landingsside.link.personopplysninger
                 <svg
-                  aria-labelledby="title-r2"
+                  aria-labelledby="title-r3"
                   fill="none"
                   focusable="false"
                   height="1.25rem"
@@ -287,7 +287,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r2"
+                    id="title-r3"
                   >
                     application.global.external_link
                   </title>

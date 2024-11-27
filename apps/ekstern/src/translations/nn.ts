@@ -473,8 +473,6 @@ const translations = {
   'grunnlag.afp.reset_link': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
-  'grunnlag.forbehold.ingress_2':
-    'Denne kalkulatoren er under utvikling og har avgrensa funksjonalitet. Du kan gjere meir spesifisert utrekning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.forbehold.link': 'Alle atterhald',
   'grunnlag.forbehold.title': 'Atterhald',
   'savnerdunoe.title': 'MANGLER_TEKST',
