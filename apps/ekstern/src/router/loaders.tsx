@@ -197,6 +197,39 @@ export const stepStartAccessGuard = async () => {
       if (getLoependeVedtakRes.isError) {
         return paths.uventetFeil
       }
+      if (getLoependeVedtakRes.isSuccess) {
+        logger('info', {
+          tekst: 'hent uføregrad',
+          data:
+            getLoependeVedtakRes.data?.ufoeretrygd.grad === 0
+              ? 'Ingen uføretrygd'
+              : getLoependeVedtakRes.data?.ufoeretrygd.grad === 100
+                ? 'Hel uføretrygd'
+                : `Gradert uføretrygd`,
+        })
+
+        if (getLoependeVedtakRes.data?.alderspensjon) {
+          logger('info', {
+            tekst: 'Vedtak alderspensjon',
+            data: getLoependeVedtakRes.data?.alderspensjon.grad,
+          })
+        }
+        if (getLoependeVedtakRes.data?.afpPrivat) {
+          logger('info', {
+            tekst: 'Vedtak AFP Offentlig',
+          })
+        }
+        if (getLoependeVedtakRes.data?.afpOffentlig) {
+          logger('info', {
+            tekst: 'Vedtak AFP Privat',
+          })
+        }
+        if (getLoependeVedtakRes.data?.harFremtidigLoependeVedtak) {
+          logger('info', {
+            tekst: 'Fremtidig vedtak',
+          })
+        }
+      }
 
       if (getPersonRes.isError) {
         if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
