@@ -1,11 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import {
-  Await,
-  Link as ReactRouterLink,
-  useNavigate,
-  useOutletContext,
-} from 'react-router-dom'
+import { Await, useNavigate, useOutletContext } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -133,8 +128,7 @@ export const LandingPage = () => {
           <Link
             onClick={logOpenLink}
             className={styles.link}
-            as={ReactRouterLink}
-            to={paths.personopplysninger}
+            href={externalUrls.personopplysninger}
             target="_blank"
             inlineText
           >

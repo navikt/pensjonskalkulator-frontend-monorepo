@@ -42,7 +42,10 @@ describe('Hovedhistorie', () => {
       it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
 
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
@@ -70,7 +73,10 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
         cy.contains('button', 'Pensjonskalkulator').click()

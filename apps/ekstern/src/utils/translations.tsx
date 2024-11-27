@@ -238,6 +238,21 @@ export const getFormatMessageValues = (
         />
       </Link>
     ),
+    personopplysningerLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.personopplysninger}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
     br: <br />,
     strong: (chunks: string) => <strong>{chunks}</strong>,
     nowrap: (chunks: string) => <span className="nowrap">{chunks}</span>,
