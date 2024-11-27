@@ -226,6 +226,14 @@ describe('alder-utils', () => {
   })
 
   describe('transformUttaksalderToDate', () => {
+    it('returnerer riktig dato når foedselsdato er første eller siste i måned', () => {
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-01')
+      ).toBe('01.02.2040')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-31')
+      ).toBe('01.02.2040')
+    })
     it('returnerer riktig dato', () => {
       const foedselsdato = '1970-04-15'
       expect(
@@ -237,6 +245,7 @@ describe('alder-utils', () => {
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 8 }, foedselsdato)
       ).toBe('01.01.2041')
+
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 11 }, foedselsdato)
       ).toBe('01.04.2041')
@@ -244,6 +253,11 @@ describe('alder-utils', () => {
   })
 
   describe('transformMaanedToDate', () => {
+    it('returnerer riktig måned når dagen er første eller siste i måned', () => {
+      expect(transformMaanedToDate(8, '1970-01-31', 'nb')).toBe('okt.')
+      expect(transformMaanedToDate(8, '1970-12-01', 'nb')).toBe('sep.')
+    })
+
     it('returnerer riktig måned basert på locale', () => {
       const foedselsdato = '1970-04-15'
       expect(transformMaanedToDate(0, foedselsdato, 'nb')).toBe('mai')

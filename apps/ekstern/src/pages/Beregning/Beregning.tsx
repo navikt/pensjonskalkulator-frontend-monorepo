@@ -138,7 +138,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         ref={avbrytModalRef}
         header={{
           heading: intl.formatMessage({
-            id: 'beregning.avansert.avbryt_modal.title',
+            id: isEndring
+              ? 'beregning.avansert.avbryt_modal.endring.title'
+              : 'beregning.avansert.avbryt_modal.title',
           }),
         }}
         width="medium"
@@ -158,12 +160,22 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <Button
             type="button"
             onClick={() => {
-              navigateToTab('enkel')
+              if (isEndring) {
+                dispatch(
+                  userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
+                )
+                navigate(paths.start)
+              } else {
+                navigateToTab('enkel')
+              }
+
               avbrytModalRef.current?.close('returnValue')
             }}
           >
             {intl.formatMessage({
-              id: 'beregning.avansert.avbryt_modal.button.avslutt',
+              id: isEndring
+                ? 'beregning.avansert.avbryt_modal.endring.button.avslutt'
+                : 'beregning.avansert.avbryt_modal.button.avslutt',
             })}
           </Button>
           <Button

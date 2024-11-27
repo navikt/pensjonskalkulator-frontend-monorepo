@@ -965,6 +965,33 @@ describe('Simulering-hooks', () => {
           ]
         `)
       })
+
+      it('Når bruker ikke har noe inntekt, så skal serien ikke lastes, og dermed ikke vise en legend', () => {
+        const { result } = renderHook(useSimuleringChartLocalState, {
+          wrapper,
+          initialProps: {
+            ...initialProps,
+            aarligInntektFoerUttakBeloep: '0',
+            gradertUttaksperiode: null,
+            aarligInntektVsaHelPensjon: undefined,
+            alderspensjonListe: [...alderspensjonData.alderspensjon],
+            afpPrivatListe: [...afpPrivatData.afpPrivat],
+            afpOffentligListe: [...afpOffentligData.afpOffentlig],
+            pensjonsavtaler,
+          },
+        })
+
+        const series = result.current[0]
+          .series as Highcharts.SeriesOptionsType[]
+        expect(series).toBeDefined()
+        expect(Array.isArray(series)).toBe(true)
+
+        expect(series).toHaveLength(4)
+        expect(series[0].name).not.toBe('Pensjonsgivende inntekt')
+        expect(series.some((s) => s.name === 'Pensjonsgivende inntekt')).toBe(
+          false
+        )
+      })
     })
   })
 

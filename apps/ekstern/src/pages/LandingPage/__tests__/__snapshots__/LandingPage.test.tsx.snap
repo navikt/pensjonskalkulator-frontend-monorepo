@@ -106,7 +106,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               </div>
               <a
                 class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
-                href="/pensjon/kalkulator/personopplysninger"
+                href="https://www.nav.no/personopplysninger-i-pensjonskalkulator"
                 target="_blank"
               >
                 landingsside.link.personopplysninger
@@ -272,7 +272,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               </div>
               <a
                 class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
-                href="/pensjon/kalkulator/personopplysninger"
+                href="https://www.nav.no/personopplysninger-i-pensjonskalkulator"
                 target="_blank"
               >
                 landingsside.link.personopplysninger

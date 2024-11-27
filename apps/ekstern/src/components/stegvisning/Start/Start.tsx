@@ -1,6 +1,6 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
@@ -8,8 +8,8 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
-import { paths } from '@/router/constants'
-import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
+import { externalUrls } from '@/router/constants'
+
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -33,8 +33,6 @@ export function Start({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-
-  const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -139,20 +137,17 @@ export function Start({
               </>
             )}
 
-            {(!loependeVedtak?.alderspensjon ||
-              (loependeVedtak?.alderspensjon &&
-                endringFeatureToggle?.enabled)) &&
-              onNext && (
-                <Button
-                  type="submit"
-                  className={styles.button}
-                  onClick={wrapLogger('button klikk', {
-                    tekst: 'Kom i gang',
-                  })(onNext)}
-                >
-                  <FormattedMessage id="stegvisning.start.button" />
-                </Button>
-              )}
+            {onNext && (
+              <Button
+                type="submit"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Kom i gang',
+                })(onNext)}
+              >
+                <FormattedMessage id="stegvisning.start.button" />
+              </Button>
+            )}
             {onCancel && (
               <Button
                 type="button"
@@ -169,8 +164,7 @@ export function Start({
         <Link
           onClick={logOpenLink}
           className={styles.link}
-          as={ReactRouterLink}
-          to={paths.personopplysninger}
+          href={externalUrls.personopplysninger}
           target="_blank"
           inlineText
         >

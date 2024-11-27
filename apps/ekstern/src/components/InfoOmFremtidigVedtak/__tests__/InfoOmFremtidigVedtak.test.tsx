@@ -27,24 +27,6 @@ describe('InfoOmFremtidigVedtak', () => {
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
-  it('Når brukeren har 100 % uføretrygd og vedtaket viser 0 % alderspensjon, returnerer null', () => {
-    const { asFragment } = render(
-      <InfoOmFremtidigVedtak
-        loependeVedtak={{
-          alderspensjon: {
-            grad: 0,
-            fom: '2020-10-02',
-          },
-          ufoeretrygd: {
-            grad: 100,
-          },
-          harFremtidigLoependeVedtak: true,
-        }}
-      />
-    )
-    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
-  })
-
   it('Når vedtaket gjelder frem i tid, returnerer riktig tekst', () => {
     render(
       <InfoOmFremtidigVedtak

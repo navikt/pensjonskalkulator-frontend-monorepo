@@ -159,11 +159,7 @@ export const transformUttaksalderToDate = (
   const oppdatertAar =
     foedselsdatoDate.getFullYear() + alder.aar + Math.floor(antallMaaneder / 12)
 
-  const calculatedDate = new Date(
-    oppdatertAar,
-    antallMaaneder % 12,
-    foedselsdatoDate.getDate()
-  )
+  const calculatedDate = new Date(oppdatertAar, antallMaaneder % 12, 1)
 
   return format(startOfMonth(calculatedDate), DATE_ENDUSER_FORMAT)
 }
@@ -175,11 +171,10 @@ export const transformMaanedToDate = (
 ) => {
   const foedselsdatoDate = new Date(foedselsdato)
   const antallMaaneder = foedselsdatoDate.getMonth() + maaneder + 1
-
   const calculatedDate = new Date(
     foedselsdatoDate.getFullYear(),
     antallMaaneder % 12,
-    foedselsdatoDate.getDate()
+    1
   )
 
   return format(startOfMonth(calculatedDate), 'LLL', {

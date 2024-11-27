@@ -150,40 +150,48 @@ export const useSimuleringChartLocalState = (initialValues: {
       setChartOptions({
         ...getChartDefaults(XAxis),
         series: [
-          {
-            ...SERIES_DEFAULT.SERIE_INNTEKT,
-            name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
-            data: processInntektArray({
-              startAar: isEndring ? startAar : startAar - 1,
-              inntektFoerUttakBeloep: formatInntektToNumber(
-                aarligInntektFoerUttakBeloep
-              ),
-              gradertUttak:
-                gradertUttaksperiode && uttaksalder
-                  ? {
-                      fra: gradertUttaksperiode?.uttaksalder,
-                      til: getAlderMinus1Maaned(uttaksalder),
-                      beloep: formatInntektToNumber(
-                        gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
-                      ),
-                    }
-                  : undefined,
-              heltUttak: uttaksalder
-                ? {
-                    fra: uttaksalder,
-                    til: aarligInntektVsaHelPensjon?.sluttAlder
-                      ? getAlderMinus1Maaned(
-                          aarligInntektVsaHelPensjon?.sluttAlder
-                        )
-                      : undefined,
-                    beloep: formatInntektToNumber(
-                      aarligInntektVsaHelPensjon?.beloep
+          ...(aarligInntektFoerUttakBeloep != '0' ||
+          gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
+          aarligInntektVsaHelPensjon?.beloep
+            ? [
+                {
+                  ...SERIES_DEFAULT.SERIE_INNTEKT,
+                  name: intl.formatMessage({
+                    id: SERIES_DEFAULT.SERIE_INNTEKT.name,
+                  }),
+                  data: processInntektArray({
+                    startAar: isEndring ? startAar : startAar - 1,
+                    inntektFoerUttakBeloep: formatInntektToNumber(
+                      aarligInntektFoerUttakBeloep
                     ),
-                  }
-                : undefined,
-              length: XAxis.length,
-            }),
-          } as SeriesOptionsType,
+                    gradertUttak:
+                      gradertUttaksperiode && uttaksalder
+                        ? {
+                            fra: gradertUttaksperiode?.uttaksalder,
+                            til: getAlderMinus1Maaned(uttaksalder),
+                            beloep: formatInntektToNumber(
+                              gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                            ),
+                          }
+                        : undefined,
+                    heltUttak: uttaksalder
+                      ? {
+                          fra: uttaksalder,
+                          til: aarligInntektVsaHelPensjon?.sluttAlder
+                            ? getAlderMinus1Maaned(
+                                aarligInntektVsaHelPensjon?.sluttAlder
+                              )
+                            : undefined,
+                          beloep: formatInntektToNumber(
+                            aarligInntektVsaHelPensjon?.beloep
+                          ),
+                        }
+                      : undefined,
+                    length: XAxis.length,
+                  }),
+                } as SeriesOptionsType,
+              ]
+            : []),
           ...(afpPrivatListe
             ? [
                 {
