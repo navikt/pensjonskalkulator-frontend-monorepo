@@ -239,7 +239,8 @@ const translations = {
     'can be taken out together with occupational pension',
   'stegvisning.afp.readmore_privat_link':
     'Read about the conditions for <afpLink>AFP in the private sector at afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title': 'About AFP in the public sector',
+  'stegvisning.afp.readmore_offentlig_title':
+    'About lifelong AFP in the public sector',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP in the public sector:',
   'stegvisning.afp.readmore_offentlig_list_item1': 'is a lifelong pension',
   'stegvisning.afp.readmore_offentlig_list_item2':
@@ -247,7 +248,7 @@ const translations = {
   'stegvisning.afp.readmore_offentlig_list_item3':
     'can be taken out together with retirement pension from the National Insurance Scheme (Nav) and occupational pension',
   'stegvisning.afp.readmore_offentlig_ingress':
-    'Most state, county, and municipal employers have agreements for lifelong AFP. Check with your employer what applies to you.',
+    'Most government, county, and municipal employers have agreements for lifelong AFP. Some private sector employers may have agreements in the public sector. If you are unsure about what applies to you, check with your employer.',
   'stegvisning.afp.radio_label': 'Do you have a right to AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Yes, in the public sector',
   'stegvisning.afp.radio_ja_privat': 'Yes, in the private sector',
@@ -557,7 +558,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'You have indicated AFP in the public sector, but you have not consented to Nav calculating it. Therefore, AFP is not shown in the calculation.',
   'grunnlag.afp.ingress.ja_privat':
-    'You have indicated AFP in the private sector. Nav has not assessed whether you meet the conditions for AFP, but assumes that you do. Read more about the conditions for AFP and how to apply at <afpLink>The Common Scheme for AFP</afpLink>.',
+    'You have indicated AFP in the private sector. Nav has not assessed whether you meet the criteria for AFP but assumes that you do. Some private sector employers may have agreements in the public sector. Check with your employer to see what applies to you. Read more about the AFP conditions and how to apply at <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
     'When you receive disability benefits, you cannot calculate AFP in the calculator. AFP and disability benefits cannot be combined, and if you receive disability benefits after turning 62, you lose the right to AFP. Therefore, you must choose between AFP and disability benefits before you are 62 years old.{br}{br}You can read more about this at <afpPrivatLink>nav.no</afpPrivatLink>. If you need help determining what is most beneficial, <planleggePensjonLink>contact Nav</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
@@ -576,7 +577,7 @@ const translations = {
     'You have indicated that you do not have the right to AFP. If you are unsure whether you have AFP, you should ask your employer. AFP can affect when you can withdraw retirement pension.',
   'grunnlag.afp.reset_link': 'new calculation',
   'grunnlag.forbehold.ingress_1':
-    'The pension is calculated with the information we have about you, as well as the information you have provided. The calculation is done with current regulations. This is a preliminary estimate of what you can expect in pension.',
+    'The pension has been calculated based on the information we have about you and the information you have provided. The calculation has been made in accordance with current regulations. This is a preliminary estimate of what you can expect to receive in pension. Nav is not responsible for the amounts obtained from other sources.',
   'grunnlag.forbehold.link': 'All disclaimers',
   'grunnlag.forbehold.title': 'Disclaimer',
   'savnerdunoe.title': 'Missing something?',
