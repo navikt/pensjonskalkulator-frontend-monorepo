@@ -577,8 +577,6 @@ const translations = {
   'grunnlag.afp.reset_link': 'new calculation',
   'grunnlag.forbehold.ingress_1':
     'The pension is calculated with the information we have about you, as well as the information you have provided. The calculation is done with current regulations. This is a preliminary estimate of what you can expect in pension.',
-  'grunnlag.forbehold.ingress_2':
-    'This calculator is under development and has limited functionality. You can do more specific calculations in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
   'grunnlag.forbehold.link': 'All disclaimers',
   'grunnlag.forbehold.title': 'Disclaimer',
   'savnerdunoe.title': 'Missing something?',
