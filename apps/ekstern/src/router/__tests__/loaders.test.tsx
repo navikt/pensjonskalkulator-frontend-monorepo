@@ -208,7 +208,13 @@ describe('Loaders', () => {
         expect(shouldRedirectToResponse).toEqual('')
       })
 
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toEqual(
+        expect.objectContaining({
+          getLoependeVedtakQuery: expect.any(Promise),
+          getPersonQuery: expect.any(Promise),
+          shouldRedirectTo: expect.any(Promise),
+        })
+      )
       expect(initiateGetPersonMock).toHaveBeenCalled()
       expect(initiateGetLoependeVedtakQueryMock).toHaveBeenCalled()
       expect(initiateGetInntektMock).toHaveBeenCalled()
@@ -344,7 +350,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSivilstandAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
@@ -428,7 +460,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     describe('Gitt at alle kallene er vellykket, ', () => {
@@ -847,7 +905,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
@@ -866,7 +950,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke-offentlig-afp",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     describe('Gitt at brukeren har uføretrygd, ', () => {
@@ -972,7 +1082,33 @@ describe('Loaders', () => {
 
         const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
         expect(returnedFromLoader).not.toBeNull()
-        expect(returnedFromLoader).toMatchSnapshot()
+        expect(returnedFromLoader).toMatchInlineSnapshot(`
+          Response {
+            Symbol(state): {
+              "aborted": false,
+              "cacheState": "",
+              "headersList": HeadersList {
+                "cookies": null,
+                Symbol(headers map): Map {
+                  "location" => {
+                    "name": "location",
+                    "value": "/samtykke-offentlig-afp",
+                  },
+                },
+                Symbol(headers map sorted): null,
+              },
+              "rangeRequested": false,
+              "requestIncludesCredentials": false,
+              "status": 302,
+              "statusText": "",
+              "timingAllowPassed": false,
+              "timingInfo": null,
+              "type": "default",
+              "urlList": [],
+            },
+            Symbol(headers): Headers {},
+          }
+        `)
       })
     })
   })
@@ -990,7 +1126,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
@@ -1049,7 +1211,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
@@ -1079,7 +1267,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
   })
 })
