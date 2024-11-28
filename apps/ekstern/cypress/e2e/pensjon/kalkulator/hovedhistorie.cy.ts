@@ -42,7 +42,10 @@ describe('Hovedhistorie', () => {
       it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
 
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
@@ -70,7 +73,10 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
@@ -159,7 +165,7 @@ describe('Hovedhistorie', () => {
         })
         it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
           cy.contains('h2', 'AFP (avtalefestet pensjon)').should('exist')
-          cy.contains('Om AFP i offentlig sektor').click()
+          cy.contains('Om livsvarig AFP i offentlig sektor').click()
           cy.contains('Om AFP i privat sektor').click()
           cy.contains('a', 'AFP i privat sektor på afp.no')
             .should('have.attr', 'href')

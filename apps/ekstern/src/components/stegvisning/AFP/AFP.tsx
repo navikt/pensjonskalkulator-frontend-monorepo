@@ -15,7 +15,6 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
-import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -39,7 +38,6 @@ export function AFP({
   const intl = useIntl()
   const navigate = useNavigate()
 
-  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
   const [validationError, setValidationError] = React.useState<string>('')
   const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
     afp === 'vet_ikke'
@@ -79,20 +77,6 @@ export function AFP({
       onNext(afpData)
     }
   }
-
-  /* c8 ignore start */
-  React.useEffect(() => {
-    logger('info', {
-      tekst: 'hent uføregrad',
-      data:
-        loependeVedtak?.ufoeretrygd.grad === 0
-          ? 'Ingen uføretrygd'
-          : loependeVedtak?.ufoeretrygd.grad === 100
-            ? 'Hel uføretrygd'
-            : `Gradert uføretrygd`,
-    })
-  }, [loependeVedtak])
-  /* c8 ignore end */
 
   const handleRadioChange = (value: AfpRadio): void => {
     setValidationError('')

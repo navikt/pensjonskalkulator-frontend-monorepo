@@ -210,6 +210,9 @@ export const BeregningAvansert: React.FC = () => {
                   variant="secondary"
                   icon={<PencilIcon aria-hidden />}
                   onClick={() => {
+                    logger('button klikk', {
+                      tekst: 'Beregning avansert: Endre valgene dine',
+                    })
                     setAvansertSkjemaModus('redigering')
                   }}
                 >

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink } from 'react-router'
 import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -9,7 +8,7 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
-import { paths } from '@/router/constants'
+import { externalUrls } from '@/router/constants'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -164,8 +163,7 @@ export function Start({
         <Link
           onClick={logOpenLink}
           className={styles.link}
-          as={ReactRouterLink}
-          to={paths.personopplysninger}
+          href={externalUrls.personopplysninger}
           target="_blank"
           inlineText
         >
