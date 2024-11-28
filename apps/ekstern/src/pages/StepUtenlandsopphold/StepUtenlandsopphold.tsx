@@ -1,6 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'

@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkePensjonsavtaler } from '..'
@@ -15,6 +13,15 @@ import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
 describe('StepSamtykkePensjonsavtaler', () => {
   it('har riktig sidetittel', async () => {
     render(<StepSamtykkePensjonsavtaler />)
@@ -24,11 +31,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
@@ -55,10 +57,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
       const invalidateMock = vi.spyOn(
         apiSliceUtils.apiSlice.util.invalidateTags,
         'match'
-      )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
       )
 
       const user = userEvent.setup()
@@ -102,11 +100,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
     it('nullstiller input fra brukeren og navigerer et hakk tilbake.', async () => {
       const user = userEvent.setup()
 
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
-
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
@@ -124,11 +117,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
 
     it('nullstiller input fra brukeren og navigerer to hakk tilbake dersom brukeren har uføretrygd og er fylt minimum uttaksalder', async () => {
       const user = userEvent.setup()
-
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {

@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux'
-import * as ReactRouterUtils from 'react-router'
 
 import { RootState, setupStore } from '../../../state/store'
 import { useStegvisningNavigation } from '../stegvisning-hooks'
@@ -12,6 +11,15 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { renderHook } from '@/test-utils'
 
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
 describe('stegvisning - hooks', () => {
   describe('useStegvisningNavigation', () => {
     describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
@@ -19,10 +27,6 @@ describe('stegvisning - hooks', () => {
         const flushMock = vi.spyOn(
           userInputReducerUtils.userInputActions,
           'flush'
-        )
-        const navigateMock = vi.fn()
-        vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-          () => navigateMock
         )
 
         const mockedState = {
@@ -67,10 +71,6 @@ describe('stegvisning - hooks', () => {
         const flushMock = vi.spyOn(
           userInputReducerUtils.userInputActions,
           'flush'
-        )
-        const navigateMock = vi.fn()
-        vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-          () => navigateMock
         )
 
         const mockedState = {
