@@ -1,4 +1,3 @@
-import { UNSAFE_DeferredData } from '@remix-run/router'
 import { add, endOfDay, format } from 'date-fns'
 import { describe, it, vi } from 'vitest'
 
@@ -8,7 +7,9 @@ import {
   landingPageAccessGuard,
   stepStartAccessGuard,
   stepSivilstandAccessGuard,
+  StepSivilstandAccessGuardLoader,
   stepAFPAccessGuard,
+  StepAFPAccessGuardLoader,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from '../loaders'
@@ -87,9 +88,7 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -120,9 +119,7 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -157,9 +154,7 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.start)
@@ -196,12 +191,10 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      const getPersonQueryResponse =
-        await returnedFromLoader.data.getPersonQuery
+      const getPersonQueryResponse = await returnedFromLoader.getPersonQuery
       const getLoependeVedtakQueryResponse =
-        await returnedFromLoader.data.getLoependeVedtakQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+        await returnedFromLoader.getLoependeVedtakQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(
@@ -215,7 +208,13 @@ describe('Loaders', () => {
         expect(shouldRedirectToResponse).toEqual('')
       })
 
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toEqual(
+        expect.objectContaining({
+          getLoependeVedtakQuery: expect.any(Promise),
+          getPersonQuery: expect.any(Promise),
+          shouldRedirectTo: expect.any(Promise),
+        })
+      )
       expect(initiateGetPersonMock).toHaveBeenCalled()
       expect(initiateGetLoependeVedtakQueryMock).toHaveBeenCalled()
       expect(initiateGetInntektMock).toHaveBeenCalled()
@@ -243,8 +242,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      const getPersonQueryResponse = await (returnedFromLoader.data
-        .getPersonQuery as GetPersonQuery)
+      const getPersonQueryResponse =
+        await (returnedFromLoader.getPersonQuery as GetPersonQuery)
       expect(getPersonQueryResponse.data.foedselsdato).toBe('1960-04-30')
       await waitFor(() => {
         expect(open).toHaveBeenCalledWith(
@@ -265,8 +264,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
@@ -286,8 +284,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.ingenTilgang)
@@ -307,8 +304,7 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepStartAccessGuard()
 
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
@@ -330,9 +326,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      await returnedFromLoader.data.getPersonQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      await returnedFromLoader.getPersonQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(
@@ -355,7 +350,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSivilstandAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
@@ -373,8 +394,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -393,8 +414,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
   })
@@ -439,7 +460,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     describe('Gitt at alle kallene er vellykket, ', () => {
@@ -459,8 +506,8 @@ describe('Loaders', () => {
         })
         const returnedFromLoader = await stepAFPAccessGuard()
         const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -497,8 +544,8 @@ describe('Loaders', () => {
         })
         const returnedFromLoader = await stepAFPAccessGuard()
         const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe('')
       })
 
@@ -534,8 +581,8 @@ describe('Loaders', () => {
         })
         const returnedFromLoader = await stepAFPAccessGuard()
         const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -555,8 +602,8 @@ describe('Loaders', () => {
         })
         const returnedFromLoader = await stepAFPAccessGuard()
         const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
@@ -576,8 +623,8 @@ describe('Loaders', () => {
         })
         const returnedFromLoader = await stepAFPAccessGuard()
         const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
         expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
     })
@@ -617,8 +664,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -650,8 +697,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -689,8 +736,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -724,8 +771,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -764,8 +811,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(
         `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
@@ -806,8 +853,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -839,8 +886,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })
@@ -858,7 +905,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
@@ -877,7 +950,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke-offentlig-afp",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     describe('Gitt at brukeren har uføretrygd, ', () => {
@@ -983,7 +1082,33 @@ describe('Loaders', () => {
 
         const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
         expect(returnedFromLoader).not.toBeNull()
-        expect(returnedFromLoader).toMatchSnapshot()
+        expect(returnedFromLoader).toMatchInlineSnapshot(`
+          Response {
+            Symbol(state): {
+              "aborted": false,
+              "cacheState": "",
+              "headersList": HeadersList {
+                "cookies": null,
+                Symbol(headers map): Map {
+                  "location" => {
+                    "name": "location",
+                    "value": "/samtykke-offentlig-afp",
+                  },
+                },
+                Symbol(headers map sorted): null,
+              },
+              "rangeRequested": false,
+              "requestIncludesCredentials": false,
+              "status": 302,
+              "statusText": "",
+              "timingAllowPassed": false,
+              "timingInfo": null,
+              "type": "default",
+              "urlList": [],
+            },
+            Symbol(headers): Headers {},
+          }
+        `)
       })
     })
   })
@@ -1001,7 +1126,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
@@ -1060,7 +1211,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
@@ -1090,7 +1267,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
   })
 })

@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
@@ -17,6 +15,15 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 const previousWindow = window
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Beregning', () => {
   const preloadedQueries = {
@@ -182,10 +189,6 @@ describe('Beregning', () => {
     })
 
     it('når brukeren begynner å fylle ut skjema på Avansert og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
@@ -509,10 +512,6 @@ describe('Beregning', () => {
     })
 
     it('når brukeren med vedtak om alderspensjon er på resultatside etter en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen og brukeren sendes til /start ved bekreftelse', async () => {
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,

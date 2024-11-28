@@ -20,7 +20,10 @@ const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
     await delay(1500)
-    return HttpResponse.json({ data: 'OK' })
+    return HttpResponse.json({
+      session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
+      tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
+    })
   }),
 
   http.get(`${baseUrl}/inntekt`, async () => {

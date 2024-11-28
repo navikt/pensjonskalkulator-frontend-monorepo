@@ -1,4 +1,4 @@
-import { RouteObject, Navigate, Outlet } from 'react-router-dom'
+import { RouteObject, Navigate, Outlet } from 'react-router'
 
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'

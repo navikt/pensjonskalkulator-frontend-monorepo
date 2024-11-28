@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 

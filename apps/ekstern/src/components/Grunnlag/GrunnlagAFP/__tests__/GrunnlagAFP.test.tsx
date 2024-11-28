@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { add, endOfDay, format } from 'date-fns'
 
 import { GrunnlagAFP } from '..'
@@ -13,6 +11,15 @@ import {
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Grunnlag - AFP', () => {
   it('Når brukeren har valgt AFP offentlig og samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
@@ -106,10 +113,6 @@ describe('Grunnlag - AFP', () => {
 
   it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
     const goToStartMock = vi.fn()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
 
     const user = userEvent.setup()
     render(<GrunnlagAFP goToStart={goToStartMock} />, {
@@ -417,10 +420,6 @@ describe('Grunnlag - AFP', () => {
 
     it('Når hen har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
       const goToStartMock = vi.fn()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const user = userEvent.setup()
       render(<GrunnlagAFP goToStart={goToStartMock} />, {
