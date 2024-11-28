@@ -48,14 +48,22 @@ export function StepStart() {
           shouldRedirectTo,
         ])}
       >
-        {(resp: [GetPersonQuery, GetLoependeVedtakQuery, string]) => {
+        {({
+          0: getPersonQueryResponse,
+          1: getLoependeVedtakQueryResponse,
+          2: shouldRedirectToResponse,
+        }: [GetPersonQuery, GetLoependeVedtakQuery, string]) => {
           return (
             <Start
-              shouldRedirectTo={resp[2]}
-              navn={resp[0].isSuccess ? (resp[0].data as Person).navn : ''}
+              shouldRedirectTo={shouldRedirectToResponse}
+              navn={
+                getPersonQueryResponse.isSuccess
+                  ? (getPersonQueryResponse.data as Person).navn
+                  : ''
+              }
               onCancel={isVeileder ? undefined : onStegvisningCancel}
               onNext={onStegvisningNext}
-              loependeVedtak={resp[1].data}
+              loependeVedtak={getLoependeVedtakQueryResponse.data}
             />
           )
         }}
