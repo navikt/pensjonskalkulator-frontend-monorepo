@@ -14,7 +14,7 @@ import {
   selectCurrentSimulationUtenlandsperioder,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
-  selectHarHentetTpoMedlemskap,
+  selectHarHentetOffentligTp,
   selectIsVeileder,
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
@@ -348,12 +348,12 @@ describe('userInput selectors', () => {
     expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
   })
 
-  describe('selectHarHentetTpoMedlemskap', () => {
+  describe('selectHarHentetOffentligTp', () => {
     it('returnerer false når /simuler-oftp har ikke blitt hentet', () => {
       const state: RootState = {
         ...initialState,
       }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
+      expect(selectHarHentetOffentligTp(state)).toBeFalsy()
     })
     it('returnerer true når /simuler-oftp har blitt hentet', () => {
       const state: RootState = {
@@ -363,7 +363,7 @@ describe('userInput selectors', () => {
           queries: { ...fulfilledsimulerOffentligTp },
         },
       }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+      expect(selectHarHentetOffentligTp(state)).toBeTruthy()
     })
   })
   describe('selectIsVeileder', () => {

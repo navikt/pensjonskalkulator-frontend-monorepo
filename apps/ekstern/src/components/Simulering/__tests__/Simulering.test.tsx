@@ -18,6 +18,7 @@ import {
 } from '@/state/userInput/userInputReducer'
 import { act, render, screen, waitFor } from '@/test-utils'
 
+// TODO fikse tester
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
     utenlandsperioder: [],

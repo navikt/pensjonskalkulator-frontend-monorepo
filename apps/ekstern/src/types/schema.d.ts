@@ -24,6 +24,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v2/simuler-oftp': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler offentlig tjenestepensjon hos tp-leverandør bruker er medlem av
+     * @description Simulerer offentlig tjenestepensjon hos tp-leverandør som har ansvar for brukers tjenestepensjon
+     */
+    post: operations['simulerOffentligTjenestepensjon']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -594,6 +614,49 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AlternativV7']
     }
+    Alder: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    IngressSimuleringOFTPSpecV2: {
+      /** Format: date */
+      foedselsdato: string
+      uttaksalder: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      /** Format: int32 */
+      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
+      epsHarPensjon: boolean
+      epsHarInntektOver2G: boolean
+      brukerBaOmAfp: boolean
+    }
+    OFTPSimuleringsresultatDto: {
+      /** @enum {string} */
+      simuleringsresultatStatus:
+        | 'OK'
+        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
+        | 'TOM_SIMULERING_FRA_TP_ORDNING'
+        | 'TEKNISK_FEIL'
+      muligeTpLeverandoerListe: string[]
+      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjon']
+    }
+    Simuleringsresultat: {
+      utbetalingsperioder: components['schemas']['UtbetalingPerAar'][]
+      betingetTjenestepensjonErInkludert: boolean
+    }
+    SimulertTjenestepensjon: {
+      tpLeverandoer: string
+      simuleringsresultat: components['schemas']['Simuleringsresultat']
+    }
+    UtbetalingPerAar: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      beloep: number
+    }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
       aar: number
@@ -641,12 +704,6 @@ export interface components {
       /** Format: int32 */
       grad: number
       aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV2']
-    }
-    Alder: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
     }
     PensjonsavtaleResultV2: {
       avtaler: components['schemas']['PensjonsavtaleV2'][]
@@ -777,31 +834,6 @@ export interface components {
       epsHarPensjon: boolean
       epsHarInntektOver2G: boolean
       brukerBaOmAfpOffentlig: boolean
-    }
-    OFTPSimuleringsresultatDto: {
-      /** @enum {string} */
-      simuleringsresultatStatus:
-        | 'OK'
-        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
-        | 'TP_ORDNING_STOETTES_IKKE'
-        | 'TOM_SIMULERING_FRA_TP_ORDNING'
-        | 'TEKNISK_FEIL'
-      muligeTpLeverandoerListe: string[]
-      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjon']
-    }
-    Simuleringsresultat: {
-      utbetalingsperioder: components['schemas']['UtbetalingPerAar'][]
-      betingetTjenestepensjonErInkludert: boolean
-    }
-    SimulertTjenestepensjon: {
-      tpLeverandoer: string
-      simuleringsresultat: components['schemas']['Simuleringsresultat']
-    }
-    UtbetalingPerAar: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      beloep: number
     }
     AnonymSimuleringAlderV1: {
       /** Format: int32 */
@@ -1056,6 +1088,30 @@ export interface operations {
         }
         content: {
           '*/*': unknown
+        }
+      }
+    }
+  }
+  simulerOffentligTjenestepensjon: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['IngressSimuleringOFTPSpecV2']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['OFTPSimuleringsresultatDto']
         }
       }
     }

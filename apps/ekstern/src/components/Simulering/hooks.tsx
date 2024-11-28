@@ -278,15 +278,17 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
       partialResponse: boolean
     }
   }
-  tpo: {
+  offentligTp: {
     isError: boolean
-    data?: {
-      muligeTpLeverandoerListe: string[]
-    }
+    data?: OffentligTp
   }
 }) => {
-  const { isEndring, isPensjonsavtaleFlagVisible, pensjonsavtaler, tpo } =
-    initialValues
+  const {
+    isEndring,
+    isPensjonsavtaleFlagVisible,
+    pensjonsavtaler,
+    offentligTp,
+  } = initialValues
   const {
     isSuccess: isPensjonsavtalerSuccess,
     isError: isPensjonsavtalerError,
@@ -294,20 +296,20 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
   } = pensjonsavtaler
 
   React.useEffect(() => {
-    if (tpo.isError) {
+    if (offentligTp.isError) {
       logger('alert', {
         tekst:
           'TPO infoboks: Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor',
       })
     } else if (
-      tpo?.data?.muligeTpLeverandoerListe &&
-      tpo?.data?.muligeTpLeverandoerListe.length > 0
+      offentligTp?.data?.muligeTpLeverandoerListe &&
+      offentligTp?.data?.muligeTpLeverandoerListe.length > 0
     ) {
       logger('alert', {
         tekst: 'TPO infoboks: Du kan ha rett til offentlig tjenestepensjon',
       })
     }
-  }, [tpo])
+  }, [offentligTp])
 
   const pensjonsavtalerAlert = React.useMemo(():
     | { variant: 'alert-info' | 'alert-warning' | 'info'; text: string }
@@ -328,8 +330,8 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
         text: 'beregning.tpo.info.endring',
       }
     }
-    if (tpo && tpo.data) {
-      if (tpo.data.muligeTpLeverandoerListe.length > 0) {
+    if (offentligTp && offentligTp.data) {
+      if (offentligTp.data.muligeTpLeverandoerListe.length > 0) {
         if (pensjonsavtaler?.isError || isPartialWith0Avtaler) {
           return {
             variant: 'alert-warning',
@@ -362,12 +364,15 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
         }
       }
     } else {
-      if (tpo.isError && (pensjonsavtaler?.isError || isPartialWith0Avtaler)) {
+      if (
+        offentligTp.isError &&
+        (pensjonsavtaler?.isError || isPartialWith0Avtaler)
+      ) {
         return {
           variant: 'alert-warning',
           text: 'beregning.tpo.error.pensjonsavtaler.error',
         }
-      } else if (tpo.isError && pensjonsavtaler?.isSuccess) {
+      } else if (offentligTp.isError && pensjonsavtaler?.isSuccess) {
         if (pensjonsavtaler.data?.partialResponse) {
           return {
             variant: 'alert-warning',
@@ -382,7 +387,7 @@ export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
       }
     }
   }, [
-    tpo,
+    offentligTp,
     isPensjonsavtaleFlagVisible,
     isPensjonsavtalerSuccess,
     isPensjonsavtalerError,

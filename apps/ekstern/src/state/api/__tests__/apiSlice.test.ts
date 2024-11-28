@@ -22,7 +22,7 @@ describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('getInntekt')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
-    expect(apiSlice.endpoints).toHaveProperty('simulerOffentligTp')
+    expect(apiSlice.endpoints).toHaveProperty('offentligTp')
     expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHeltUttak')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')

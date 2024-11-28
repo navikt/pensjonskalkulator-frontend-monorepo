@@ -35,7 +35,7 @@ export const apiSlice = createApi({
       }
     },
   }),
-  tagTypes: ['Person', 'SimulerOftp', 'Alderspensjon', 'Pensjonsavtaler'],
+  tagTypes: ['Person', 'OffentligTp', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -87,10 +87,10 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    offentligTp: builder.query<SimulerOftp, void>({
+    offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
       query: () => '/v1/simuler-oftp',
-      providesTags: ['SimulerOftp'],
-      transformResponse: (response: SimulerOftp) => {
+      providesTags: ['OffentligTp'],
+      transformResponse: (response: OffentligTp) => {
         if (!isOffentligTp(response)) {
           throw new Error(`Mottok ugyldig offentlig-tp:`, response)
         }

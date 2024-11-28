@@ -110,11 +110,16 @@ export const selectFormatertUttaksalderReadOnly = (
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation
 
-export const selectHarHentetTpoMedlemskap = createSelector(
+export const selectHarHentetOffentligTp = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return !apiSlice.endpoints.offentligTp.select(undefined)(state)
-      ?.isUninitialized
+    const offentligTpEntries = Object.keys(state.api.queries).filter((key) =>
+      key.startsWith('offentligTp')
+    )
+
+    return offentligTpEntries.some(
+      (key) => !state.api.queries[key]?.isUninitialized
+    )
   }
 )
 

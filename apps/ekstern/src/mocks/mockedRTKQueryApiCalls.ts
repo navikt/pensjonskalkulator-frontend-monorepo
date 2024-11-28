@@ -306,12 +306,13 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
 }
 
 export const fulfilledsimulerOffentligTp = {
-  ['simulerOffentligTp(undefined)']: {
+  ['offentligTp(undefined)']: {
     status: 'fulfilled',
-    endpointName: 'simulerOffentligTp',
+    endpointName: 'offentligTp',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      simuleringsresultatStatus: 'OK',
       muligeTpLeverandoerListe: [
         'Statens pensjonskasse',
         'Kommunal Landspensjonskasse',

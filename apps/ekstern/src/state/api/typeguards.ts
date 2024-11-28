@@ -170,6 +170,10 @@ export const isPerson = (data?: any): data is Person => {
 }
 
 export const isSimulertOffentligTp = (data?: any) => {
+  if (data === null || typeof data !== 'object') {
+    return false
+  }
+
   return (
     typeof data.tpLeverandoer === 'string' &&
     data.simuleringsresultat.betingetTjenestepensjonErInkludert !== undefined &&
@@ -177,7 +181,7 @@ export const isSimulertOffentligTp = (data?: any) => {
       'boolean' &&
     data.simuleringsresultat.utbetalingsperioder !== undefined &&
     Array.isArray(data.simuleringsresultat.utbetalingsperioder) &&
-    !data.simuleringsresultat.utbetalingsperioder.every(
+    data.simuleringsresultat.utbetalingsperioder.every(
       (periode: any) =>
         periode.aar !== undefined &&
         typeof periode.aar === 'number' &&
@@ -187,19 +191,25 @@ export const isSimulertOffentligTp = (data?: any) => {
   )
 }
 
-// TODO skrive tester
-export const isOffentligTp = (data?: any): data is SimulerOftp => {
+export const isOffentligTp = (data?: any): data is OffentligTp => {
   if (
+    !data ||
+    !data.simuleringsresultatStatus ||
     ![
       'OK',
       'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
       'TP_ORDNING_STOETTES_IKKE',
       'TOM_SIMULERING_FRA_TP_ORDNING',
       'TEKNISK_FEIL',
-    ].includes(data.simulertTjenestepensjon)
+    ].includes(data.simuleringsresultatStatus)
   ) {
     return false
   }
+
+  const simulertTjenestepensjonValid =
+    data.simulertTjenestepensjon !== undefined
+      ? isSimulertOffentligTp(data.simulertTjenestepensjon)
+      : true
 
   return (
     typeof data === 'object' &&
@@ -209,8 +219,7 @@ export const isOffentligTp = (data?: any): data is SimulerOftp => {
     data.muligeTpLeverandoerListe.every(
       (tpLeverandoer: string) => typeof tpLeverandoer === 'string'
     ) &&
-    (data.simulertTjenestepensjon === undefined ||
-      isSimulertOffentligTp(data.simulertTjenestepensjon))
+    simulertTjenestepensjonValid
   )
 }
 

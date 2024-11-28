@@ -9,7 +9,7 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
+import { selectHarHentetOffentligTp } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
@@ -82,7 +82,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       )
       expect(Object.keys(store.getState().api.queries).length).toEqual(3)
 
-      expect(selectHarHentetTpoMedlemskap(store.getState())).toBe(true)
+      expect(selectHarHentetOffentligTp(store.getState())).toBe(true)
 
       const radioButtons = screen.getAllByRole('radio')
 

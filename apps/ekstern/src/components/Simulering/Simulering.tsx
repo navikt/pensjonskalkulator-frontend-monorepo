@@ -11,7 +11,10 @@ import {
   useOffentligTpQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
+import {
+  generateOffentligTpRequestBody,
+  generatePensjonsavtalerRequestBody,
+} from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
@@ -77,6 +80,15 @@ export function Simulering(props: {
 
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
 
+  const [offentligTpRequestBody, setOffentligTpRequestBody] = React.useState<
+    OffentligTpRequestBody | undefined
+  >(undefined)
+
+  const { data: offentligTp, isError: isOffentligTpError } =
+    useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+      skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+    })
+
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
@@ -92,9 +104,18 @@ export function Simulering(props: {
     }
   )
 
-  const { data: tpo, isError: isTpoError } = useOffentligTpQuery(undefined, {
-    skip: !harSamtykket,
-  })
+  React.useEffect(() => {
+    if (harSamtykket && uttaksalder) {
+      const requestBody = generateOffentligTpRequestBody({
+        afp,
+        foedselsdato,
+        aarligInntektFoerUttakBeloep,
+        uttaksalder,
+        utenlandsperioder,
+      })
+      setOffentligTpRequestBody(requestBody)
+    }
+  }, [harSamtykket, uttaksalder])
 
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
@@ -149,9 +170,9 @@ export function Simulering(props: {
       isError: isPensjonsavtalerError,
       data: pensjonsavtaler,
     },
-    tpo: {
-      isError: isTpoError,
-      data: tpo,
+    offentligTp: {
+      isError: isOffentligTpError,
+      data: offentligTp,
     },
   })
 

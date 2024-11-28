@@ -142,7 +142,8 @@ export const generateAlderspensjonRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -206,7 +207,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -291,8 +292,41 @@ export const generatePensjonsavtalerRequestBody = (args: {
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
     utenlandsperioder: transformUtenlandsperioderArray(utenlandsperioder),
-    // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
-    // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
+    harEpsPensjonsgivendeInntektOver2G: true, // Fast iht. forebhold
+    harEpsPensjon: false, // Fast iht. forebhold
     sivilstand,
+  }
+}
+
+// TODO skrive tester
+export const generateOffentligTpRequestBody = (args: {
+  afp: AfpRadio | null
+  foedselsdato: string | null | undefined
+  aarligInntektFoerUttakBeloep: string
+  uttaksalder: Alder | null
+  utenlandsperioder: Utenlandsperiode[]
+}): OffentligTpRequestBody | undefined => {
+  const {
+    afp,
+    foedselsdato,
+    aarligInntektFoerUttakBeloep,
+    uttaksalder,
+    utenlandsperioder,
+  } = args
+
+  if (!foedselsdato || !uttaksalder) {
+    return undefined
+  }
+
+  return {
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
+    uttaksalder,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forebhold
+    brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
 }

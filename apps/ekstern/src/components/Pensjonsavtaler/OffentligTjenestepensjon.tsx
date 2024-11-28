@@ -6,30 +6,31 @@ import { BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
-import { useOffentligTpQuery } from '@/state/api/apiSlice'
 
 import styles from './OffentligTjenestepensjon.module.scss'
 
 export const OffentligTjenestepensjon = (props: {
+  isLoading: boolean
+  isError: boolean
+  offentligTp?: OffentligTp
   headingLevel: HeadingProps['level']
   showDivider?: boolean
 }) => {
-  const { headingLevel, showDivider } = props
+  const { isLoading, isError, offentligTp, headingLevel, showDivider } = props
   const intl = useIntl()
   const [leverandoererString, setleverandoererString] =
     React.useState<string>('')
 
-  const { data: tpo, isError, isLoading } = useOffentligTpQuery()
-
   React.useEffect(() => {
     if (
-      tpo?.muligeTpLeverandoerListe &&
-      tpo.muligeTpLeverandoerListe.length > 0
+      offentligTp?.muligeTpLeverandoerListe &&
+      offentligTp.muligeTpLeverandoerListe.length > 0
     ) {
-      const joinedLeverandoerer = tpo?.muligeTpLeverandoerListe.join(', ')
+      const joinedLeverandoerer =
+        offentligTp?.muligeTpLeverandoerListe.join(', ')
       setleverandoererString(joinedLeverandoerer)
     }
-  }, [tpo])
+  }, [offentligTp])
 
   if (isLoading) {
     return (
@@ -43,7 +44,11 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
-  if (!isLoading && !isError && tpo?.muligeTpLeverandoerListe.length === 0) {
+  if (
+    !isLoading &&
+    !isError &&
+    offentligTp?.muligeTpLeverandoerListe.length === 0
+  ) {
     return
   }
 
@@ -62,8 +67,8 @@ export const OffentligTjenestepensjon = (props: {
         <BodyLong className={styles.infoText}>
           {isError && <FormattedMessage id="pensjonsavtaler.tpo.error" />}
           {!isError &&
-            tpo?.muligeTpLeverandoerListe &&
-            tpo.muligeTpLeverandoerListe.length > 0 && (
+            offentligTp?.muligeTpLeverandoerListe &&
+            offentligTp.muligeTpLeverandoerListe.length > 0 && (
               <FormattedMessage
                 id="pensjonsavtaler.tpo.er_medlem"
                 values={{

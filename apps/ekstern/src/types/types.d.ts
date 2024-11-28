@@ -57,11 +57,13 @@ declare global {
 
   // /simuler-oftp
   export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
-    SimulerOftp,
+    OffentligTp,
     void,
-    BaseQueryFn<Record<string, unknown>, SimulerOftp>
+    BaseQueryFn<Record<string, unknown>, OffentligTp>
   >
-  type SimulerOftp = components['schemas']['OFTPSimuleringsresultatDto']
+  type OffentligTpRequestBody =
+    components['schemas']['IngressSimuleringOFTPSpecV2']
+  type OffentligTp = components['schemas']['OFTPSimuleringsresultatDto']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =

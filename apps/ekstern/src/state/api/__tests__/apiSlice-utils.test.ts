@@ -775,6 +775,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -798,6 +800,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -828,6 +832,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -866,6 +872,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -918,6 +926,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {

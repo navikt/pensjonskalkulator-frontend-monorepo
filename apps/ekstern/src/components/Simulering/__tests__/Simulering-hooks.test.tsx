@@ -1004,7 +1004,7 @@ describe('Simulering-hooks', () => {
         isSuccess: false,
         isError: false,
       },
-      tpo: {
+      offentligTp: {
         isError: false,
       },
     }
@@ -1015,7 +1015,7 @@ describe('Simulering-hooks', () => {
         wrapper,
         initialProps: {
           ...initialProps,
-          tpo: {
+          offentligTp: {
             isError: true,
           },
         },
@@ -1027,15 +1027,16 @@ describe('Simulering-hooks', () => {
       })
     })
 
-    it('Når tpo data inneholder muligeTpLeverandoerListe, logger riktig melding', () => {
+    it('Når offentligTp data inneholder muligeTpLeverandoerListe, logger riktig melding', () => {
       const loggerMock = vi.spyOn(loggerUtils, 'logger')
       renderHook(useSimuleringPensjonsavtalerLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
-          tpo: {
+          offentligTp: {
             isError: false,
             data: {
+              simuleringsresultatStatus: 'OK',
               muligeTpLeverandoerListe: [
                 'Statens pensjonskasse',
                 'Kommunal Landspensjonskasse',
@@ -1084,15 +1085,16 @@ describe('Simulering-hooks', () => {
       expect(result.current[0]?.text).toBe('beregning.tpo.info.endring')
     })
 
-    describe('Gitt at kall til tpo er vellykket', () => {
-      it('Når tpo returnerer en liste over tp-ordninger og at pensjonsavtaler har feilet, returnerer riktig pensjonsavtalerAlert', () => {
+    describe('Gitt at kall til offentligTp er vellykket', () => {
+      it('Når offentligTp returnerer en liste over tp-ordninger og at pensjonsavtaler har feilet, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
@@ -1109,14 +1111,15 @@ describe('Simulering-hooks', () => {
         )
       })
 
-      it('Når tpo returnerer en liste over tp-ordninger og at pensjonsavtaler har delvis svar med 0 avtaler, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste over tp-ordninger og at pensjonsavtaler har delvis svar med 0 avtaler, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
@@ -1137,14 +1140,15 @@ describe('Simulering-hooks', () => {
         )
       })
 
-      it('Når tpo returnerer en liste over tp-ordninger og at pensjonsavtaler har delvis svar, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste over tp-ordninger og at pensjonsavtaler har delvis svar, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
@@ -1165,14 +1169,15 @@ describe('Simulering-hooks', () => {
         )
       })
 
-      it('Når tpo returnerer en liste over tp-ordninger og at brukeren har pensjonsavtaler, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste over tp-ordninger og at brukeren har pensjonsavtaler, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: ['Leverandør 1'],
               },
             },
@@ -1191,14 +1196,15 @@ describe('Simulering-hooks', () => {
         expect(result.current[0]?.text).toBe('beregning.tpo.info')
       })
 
-      it('Når tpo returnerer en liste uten tp-ordninger og at pensjonsavtaler har feilet, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste uten tp-ordninger og at pensjonsavtaler har feilet, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: [],
               },
             },
@@ -1213,14 +1219,15 @@ describe('Simulering-hooks', () => {
         expect(result.current[0]?.text).toBe('beregning.pensjonsavtaler.error')
       })
 
-      it('Når tpo returnerer en liste uten tp-ordninger og at pensjonsavtaler har delvis svar med 0 avtaler, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste uten tp-ordninger og at pensjonsavtaler har delvis svar med 0 avtaler, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: [],
               },
             },
@@ -1239,14 +1246,15 @@ describe('Simulering-hooks', () => {
         expect(result.current[0]?.text).toBe('beregning.pensjonsavtaler.error')
       })
 
-      it('Når tpo returnerer en liste uten tp-ordninger og at pensjonsavtaler har delvis svar, returnerer riktig pensjonsavtalerAlert', () => {
+      it('Når offentligTp returnerer en liste uten tp-ordninger og at pensjonsavtaler har delvis svar, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: false,
               data: {
+                simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: [],
               },
             },
@@ -1267,13 +1275,13 @@ describe('Simulering-hooks', () => {
         )
       })
     })
-    describe('Gitt at kall til tpo har feilet', () => {
+    describe('Gitt at kall til offentligTp har feilet', () => {
       it('Når pensjonsavtaler har feilet, returnerer riktig pensjonsavtalerAlert', () => {
         const { result } = renderHook(useSimuleringPensjonsavtalerLocalState, {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: true,
             },
             pensjonsavtaler: {
@@ -1294,7 +1302,7 @@ describe('Simulering-hooks', () => {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: true,
             },
             pensjonsavtaler: {
@@ -1319,7 +1327,7 @@ describe('Simulering-hooks', () => {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: true,
             },
             pensjonsavtaler: {
@@ -1344,7 +1352,7 @@ describe('Simulering-hooks', () => {
           wrapper,
           initialProps: {
             ...initialProps,
-            tpo: {
+            offentligTp: {
               isError: true,
             },
             pensjonsavtaler: {
