@@ -1,5 +1,4 @@
 import { redirect } from 'react-router'
-import { defer, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
@@ -29,31 +28,12 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 export interface LoginContext {
   isLoggedIn: boolean
 }
-{
-  /* c8 ignore next 17 - Dette er kun for typing */
-}
-export function useDeferAuthenticationAccessData<
-  TReturnedValue extends ReturnType<typeof authenticationDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
-}
 
-export function authenticationDeferredLoader<
-  TData extends {
-    oauth2Query: Response
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
+export type AuthenticationGuardLoader = { authResponse: Promise<Response> }
 
-export const authenticationGuard = async () => {
-  const res = fetch(`${HOST_BASEURL}/oauth2/session`)
-  return defer({
-    oauth2Query: res,
-  })
+export async function authenticationGuard(): Promise<AuthenticationGuardLoader> {
+  const authResponse = fetch(`${HOST_BASEURL}/oauth2/session`)
+  return { authResponse }
 }
 
 export const directAccessGuard = async () => {
@@ -69,189 +49,151 @@ export const directAccessGuard = async () => {
 
 // ////////////////////////////////////////
 
-{
-  /* c8 ignore next 17 - Dette er kun for typing */
-}
-export function useLandingPageAccessData<
-  TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
-}
+export type LandingPageAccessGuardLoader = { shouldRedirectTo: Promise<string> }
 
-export function landingPageDeferredLoader<
-  TData extends {
-    shouldRedirectTo: string | undefined
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
+export const landingPageAccessGuard =
+  async (): Promise<LandingPageAccessGuardLoader> => {
+    const getRedirect1963FeatureToggleQuery = store.dispatch(
+      apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+    )
 
-export const landingPageAccessGuard = async () => {
-  const getRedirect1963FeatureToggleQuery = store.dispatch(
-    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
-  )
-
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  const shouldRedirectTo = Promise.all([
-    getRedirect1963FeatureToggleQuery,
-    getPersonQuery,
-  ])
-    .then(([getRedirect1963FeatureToggleRes, getPersonRes]) => {
-      if (
-        getRedirect1963FeatureToggleRes.data?.enabled &&
-        getPersonRes?.isSuccess &&
-        isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
-      ) {
-        // Håndterer når bruker kommer tilbake på siden etter redirect - bfcache - https://web.dev/articles/bfcache
-        window.addEventListener('pageshow', (event: PageTransitionEvent) => {
-          if (event.persisted) {
-            window.open(externalUrls.detaljertKalkulator, '_self')
-          }
-        })
-        window.open(externalUrls.detaljertKalkulator, '_self')
-        return ''
-      } else {
-        if (selectIsVeileder(store.getState())) {
-          return paths.start
-        } else {
-          return ''
-        }
-      }
-    })
-    .catch(() => {
-      return ''
-    })
-
-  return defer({
-    shouldRedirectTo,
-  })
-}
-
-/// ////////////////////////////////////////////////////////////////////////
-{
-  /* c8 ignore next 17 - Dette er kun for typing */
-}
-export function useStepStartAccessData<
-  TReturnedValue extends ReturnType<typeof stepStartDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
-}
-
-export function stepStartDeferredLoader<
-  TData extends {
-    getPersonQuery: GetPersonQuery
-    getLoependeVedtakQuery: GetLoependeVedtakQuery
-    shouldRedirectTo: string | undefined
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
-
-export const stepStartAccessGuard = async () => {
-  const getRedirect1963FeatureToggleQuery = store.dispatch(
-    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
-  )
-  // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
-  const getEkskludertStatusQuery = store.dispatch(
-    apiSlice.endpoints.getEkskludertStatus.initiate()
-  )
-  // Henter løpende vedtak for endring
-  const getLoependeVedtakQuery = store.dispatch(
-    apiSlice.endpoints.getLoependeVedtak.initiate()
-  )
-
-  // Henter inntekt til senere
-  store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-  // Henter omstillingsstønad-og-gjenlevende til senere
-  store.dispatch(
-    apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
-  )
-
-  const shouldRedirectTo = Promise.all([
-    getLoependeVedtakQuery,
-    getRedirect1963FeatureToggleQuery,
-    getPersonQuery,
-    getEkskludertStatusQuery,
-  ]).then(
-    ([
-      getLoependeVedtakRes,
-      getRedirect1963FeatureToggleRes,
-      getPersonRes,
-      getEkskludertStatusRes,
-    ]) => {
-      if (
-        getEkskludertStatusRes?.data?.ekskludert &&
-        getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
-      ) {
-        return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-      }
-
-      if (getLoependeVedtakRes.isError) {
-        return paths.uventetFeil
-      }
-
-      if (getPersonRes.isError) {
-        if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
-          return paths.ingenTilgang
-        } else {
-          return paths.uventetFeil
-        }
-      }
-      if (getPersonRes.isSuccess) {
+    const getPersonQuery = store.dispatch(
+      apiSlice.endpoints.getPerson.initiate()
+    )
+    const shouldRedirectTo = Promise.all([
+      getRedirect1963FeatureToggleQuery,
+      getPersonQuery,
+    ])
+      .then(([getRedirect1963FeatureToggleRes, getPersonRes]) => {
         if (
-          getRedirect1963FeatureToggleRes?.data?.enabled &&
+          getRedirect1963FeatureToggleRes.data?.enabled &&
+          getPersonRes?.isSuccess &&
           isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
         ) {
+          // Håndterer når bruker kommer tilbake på siden etter redirect - bfcache - https://web.dev/articles/bfcache
           window.addEventListener('pageshow', (event: PageTransitionEvent) => {
             if (event.persisted) {
               window.open(externalUrls.detaljertKalkulator, '_self')
             }
           })
           window.open(externalUrls.detaljertKalkulator, '_self')
+          return ''
+        } else {
+          if (selectIsVeileder(store.getState())) {
+            return paths.start
+          } else {
+            return ''
+          }
+        }
+      })
+      .catch(() => {
+        return ''
+      })
+    return { shouldRedirectTo }
+  }
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export type StepStartAccessGuardLoader = {
+  getPersonQuery: GetPersonQuery
+  getLoependeVedtakQuery: GetLoependeVedtakQuery
+  shouldRedirectTo: Promise<string>
+}
+
+export const stepStartAccessGuard =
+  async (): Promise<StepStartAccessGuardLoader> => {
+    const getRedirect1963FeatureToggleQuery = store.dispatch(
+      apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+    )
+    // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
+    const getPersonQuery = store.dispatch(
+      apiSlice.endpoints.getPerson.initiate()
+    )
+    // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
+    const getEkskludertStatusQuery = store.dispatch(
+      apiSlice.endpoints.getEkskludertStatus.initiate()
+    )
+    // Henter løpende vedtak for endring
+    const getLoependeVedtakQuery = store.dispatch(
+      apiSlice.endpoints.getLoependeVedtak.initiate()
+    )
+
+    // Henter inntekt til senere
+    store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+    // Henter omstillingsstønad-og-gjenlevende til senere
+    store.dispatch(
+      apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+    )
+
+    const shouldRedirectTo = Promise.all([
+      getLoependeVedtakQuery,
+      getRedirect1963FeatureToggleQuery,
+      getPersonQuery,
+      getEkskludertStatusQuery,
+    ]).then(
+      ([
+        getLoependeVedtakRes,
+        getRedirect1963FeatureToggleRes,
+        getPersonRes,
+        getEkskludertStatusRes,
+      ]) => {
+        if (
+          getEkskludertStatusRes?.data?.ekskludert &&
+          getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+        ) {
+          return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+        }
+
+        if (getLoependeVedtakRes.isError) {
+          return paths.uventetFeil
+        }
+
+        if (getPersonRes.isError) {
+          if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
+            return paths.ingenTilgang
+          } else {
+            return paths.uventetFeil
+          }
+        }
+        if (getPersonRes.isSuccess) {
+          if (
+            getRedirect1963FeatureToggleRes?.data?.enabled &&
+            isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
+          ) {
+            window.addEventListener(
+              'pageshow',
+              (event: PageTransitionEvent) => {
+                if (event.persisted) {
+                  window.open(externalUrls.detaljertKalkulator, '_self')
+                }
+              }
+            )
+            window.open(externalUrls.detaljertKalkulator, '_self')
+            return ''
+          }
+          return ''
         }
         return ''
       }
-    }
-  )
+    )
 
-  return defer({
-    getPersonQuery,
-    getLoependeVedtakQuery,
-    shouldRedirectTo,
-  })
-}
+    return {
+      getPersonQuery,
+      getLoependeVedtakQuery,
+      shouldRedirectTo,
+    }
+  }
 
 // ///////////////////////////////////////////
-{
-  /* c8 ignore next 17 - Dette er kun for typing */
-}
-export function useStepSivilstandAccessData<
-  TReturnedValue extends ReturnType<typeof stepSivilstandDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
+
+export type StepSivilstandAccessGuardLoader = {
+  getPersonQuery: GetPersonQuery
+  shouldRedirectTo: Promise<string>
 }
 
-export function stepSivilstandDeferredLoader<
-  TData extends {
-    getPersonQuery: GetPersonQuery
-    shouldRedirectTo: string | undefined
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
-
-export const stepSivilstandAccessGuard = async () => {
+export const stepSivilstandAccessGuard = async (): Promise<
+  Response | StepSivilstandAccessGuardLoader
+> => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -280,35 +222,21 @@ export const stepSivilstandAccessGuard = async () => {
     resolveGetPerson(getPersonResponse)
   }
 
-  return defer({
+  return {
     getPersonQuery: getPersonResponse,
     shouldRedirectTo,
-  })
+  }
 }
 
 /// ////////////////////////////////////////////////////////////////////////
 
-{
-  /* c8 ignore next 17 - Dette er kun for typing */
-}
-export function useStepAFPAccessData<
-  TReturnedValue extends ReturnType<typeof stepAFPDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
+export type StepAFPAccessGuardLoader = {
+  shouldRedirectTo: Promise<string>
 }
 
-export function stepAFPDeferredLoader<
-  TData extends {
-    shouldRedirectTo: string | undefined
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
-
-export const stepAFPAccessGuard = async () => {
+export const stepAFPAccessGuard = async (): Promise<
+  Response | StepAFPAccessGuardLoader
+> => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -449,67 +377,68 @@ export const stepAFPAccessGuard = async () => {
       })
   }
 
-  return defer({
+  return {
     shouldRedirectTo,
-  })
+  }
 }
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export const stepUfoeretrygdAFPAccessGuard = async () => {
-  if (await directAccessGuard()) {
-    return redirect(paths.start)
+export const stepUfoeretrygdAFPAccessGuard =
+  async (): Promise<Response | null> => {
+    if (await directAccessGuard()) {
+      return redirect(paths.start)
+    }
+
+    const afp = selectAfp(store.getState())
+    const foedselsdato = selectFoedselsdato(store.getState())
+    const getLoependeVedtakResponse =
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
+
+    const stepArrays = isLoependeVedtakEndring(
+      getLoependeVedtakResponse.data as LoependeVedtak
+    )
+      ? stegvisningOrderEndring
+      : stegvisningOrder
+
+    // Bruker med uføretrygd, som svarer ja til afp, og som er under 62 kan se steget
+    if (
+      (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
+      afp !== 'nei' &&
+      !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
+    ) {
+      return null
+    }
+    return redirect(stepArrays[stepArrays.indexOf(paths.ufoeretrygdAFP) + 1])
   }
-
-  const afp = selectAfp(store.getState())
-  const foedselsdato = selectFoedselsdato(store.getState())
-  const getLoependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
-    undefined
-  )(store.getState())
-
-  const stepArrays = isLoependeVedtakEndring(
-    getLoependeVedtakResponse.data as LoependeVedtak
-  )
-    ? stegvisningOrderEndring
-    : stegvisningOrder
-
-  // Bruker med uføretrygd, som svarer ja til afp, og som er under 62 kan se steget
-  if (
-    (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
-    afp !== 'nei' &&
-    !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
-  ) {
-    return null
-  }
-  return redirect(stepArrays[stepArrays.indexOf(paths.ufoeretrygdAFP) + 1])
-}
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export const stepSamtykkeOffentligAFPAccessGuard = async () => {
-  if (await directAccessGuard()) {
-    return redirect(paths.start)
-  }
+export const stepSamtykkeOffentligAFPAccessGuard =
+  async (): Promise<Response | null> => {
+    if (await directAccessGuard()) {
+      return redirect(paths.start)
+    }
 
-  const afp = selectAfp(store.getState())
-  const getLoependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
-    undefined
-  )(store.getState())
+    const afp = selectAfp(store.getState())
+    const getLoependeVedtakResponse =
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
 
-  const stepArrays = isLoependeVedtakEndring(
-    getLoependeVedtakResponse.data as LoependeVedtak
-  )
-    ? stegvisningOrderEndring
-    : stegvisningOrder
-  if (
-    (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad === 0 &&
-    afp === 'ja_offentlig'
-  ) {
-    return null
+    const stepArrays = isLoependeVedtakEndring(
+      getLoependeVedtakResponse.data as LoependeVedtak
+    )
+      ? stegvisningOrderEndring
+      : stegvisningOrder
+    if (
+      (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad ===
+        0 &&
+      afp === 'ja_offentlig'
+    ) {
+      return null
+    }
+    return redirect(
+      stepArrays[stepArrays.indexOf(paths.samtykkeOffentligAFP) + 1]
+    )
   }
-  return redirect(
-    stepArrays[stepArrays.indexOf(paths.samtykkeOffentligAFP) + 1]
-  )
-}
 
 // ////////////////////////////////////////

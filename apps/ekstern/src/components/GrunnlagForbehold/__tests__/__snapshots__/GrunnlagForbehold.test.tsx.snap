@@ -16,6 +16,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
       grunnlag.forbehold.ingress_1
       <a
         class="navds-link navds-link--action navds-link--inline-text"
+        data-discover="true"
         href="/forbehold"
         target="_blank"
       >

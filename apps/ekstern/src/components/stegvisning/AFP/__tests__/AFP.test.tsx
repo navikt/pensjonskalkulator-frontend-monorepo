@@ -1,9 +1,16 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('stegvisning - AFP', () => {
   const onCancelMock = vi.fn()
@@ -11,10 +18,6 @@ describe('stegvisning - AFP', () => {
   const onNextMock = vi.fn()
 
   it('kaller navigate når shouldRedirectTo er angitt', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     const randomPath = '/random-path'
 
     render(

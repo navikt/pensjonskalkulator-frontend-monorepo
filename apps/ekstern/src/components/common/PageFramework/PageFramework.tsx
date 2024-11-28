@@ -1,11 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation, Await } from 'react-router-dom'
+import { useLoaderData, useLocation } from 'react-router'
+import { Await } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { HOST_BASEURL } from '@/paths'
 import { LoginContext } from '@/router/loaders'
-import { useDeferAuthenticationAccessData } from '@/router/loaders'
+import { AuthenticationGuardLoader } from '@/router/loaders'
 
 import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'
@@ -46,44 +47,64 @@ export const PageFramework: React.FC<{
   const { shouldRedirectNonAuthenticated = true, children, ...rest } = props
   const intl = useIntl()
   const { pathname } = useLocation()
-  const loaderData = useDeferAuthenticationAccessData()
+
+  const { authResponse } = useLoaderData() as AuthenticationGuardLoader
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
   return (
-    <>
-      <React.Suspense
-        fallback={
-          <Loader
-            data-testid="pageframework-loader"
-            size="3xlarge"
-            title={intl.formatMessage({ id: 'pageframework.loading' })}
-          />
+    <React.Suspense
+      fallback={
+        <Loader
+          data-testid="pageframework-loader"
+          size="3xlarge"
+          title={intl.formatMessage({ id: 'pageframework.loading' })}
+        />
+      }
+    >
+      {/* Når det oppstår er en feil ved fetch: Hvis det er påkrevd å være
+      pålogget rediriger til login, hvis ikke "fails silently" og vis siden som
+      vanlig og sett isLoggedIn til false */}
+      <Await
+        resolve={authResponse}
+        errorElement={
+          shouldRedirectNonAuthenticated ? (
+            <RedirectElement />
+          ) : (
+            <FrameComponent {...rest}>
+              {children &&
+                React.cloneElement(children, {
+                  context: {
+                    isLoggedIn: false,
+                  } satisfies LoginContext,
+                })}
+            </FrameComponent>
+          )
         }
       >
-        <Await resolve={loaderData.oauth2Query}>
-          {(oauth2Query: Response) => {
-            return shouldRedirectNonAuthenticated && !oauth2Query.ok ? (
-              <RedirectElement />
-            ) : (
-              <CheckLoginOnFocus
-                shouldRedirectNonAuthenticated={shouldRedirectNonAuthenticated}
-              >
-                <FrameComponent {...rest}>
-                  {children &&
-                    React.cloneElement(children, {
-                      context: {
-                        isLoggedIn: oauth2Query.ok,
-                      } satisfies LoginContext,
-                    })}
-                </FrameComponent>
-              </CheckLoginOnFocus>
-            )
-          }}
-        </Await>
-      </React.Suspense>
-    </>
+        {(resp: Response) => {
+          return shouldRedirectNonAuthenticated && !resp.ok ? (
+            <RedirectElement />
+          ) : (
+            <CheckLoginOnFocus
+              shouldRedirectNonAuthenticated={shouldRedirectNonAuthenticated}
+            >
+              <FrameComponent {...rest}>
+                {children &&
+                  React.cloneElement(children, {
+                    context: {
+                      isLoggedIn: resp.ok,
+                    } satisfies LoginContext,
+                  })}
+              </FrameComponent>
+            </CheckLoginOnFocus>
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }
+
+export default PageFramework

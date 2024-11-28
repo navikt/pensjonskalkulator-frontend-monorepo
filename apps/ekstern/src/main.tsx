@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import ReactDOM from 'react-dom/client'
 
@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === 'development') {
 
 const router = createBrowserRouter(routes, {
   basename: BASE_PATH,
+  future: {
+    v7_fetcherPersist: true,
+    v7_normalizeFormMethod: true,
+  },
 })
 
 initializeLogs()

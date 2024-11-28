@@ -1,4 +1,4 @@
-import { useRouteError, isRouteErrorResponse } from 'react-router-dom'
+import { useRouteError, isRouteErrorResponse } from 'react-router'
 
 import { ErrorPage404 } from './ErrorPage404'
 import { ErrorPageUnexpected } from './ErrorPageUnexpected'

@@ -1,12 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { Await } from 'react-router-dom'
+import { Await, useLoaderData } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { useStepSivilstandAccessData } from '@/router/loaders'
+import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectIsVeileder,
@@ -18,7 +18,9 @@ export function StepSivilstand() {
   const intl = useIntl()
 
   const dispatch = useAppDispatch()
-  const loaderData = useStepSivilstandAccessData()
+
+  const { getPersonQuery, shouldRedirectTo } =
+    useLoaderData() as StepSivilstandAccessGuardLoader
   const isVeileder = useAppSelector(selectIsVeileder)
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
 
@@ -51,20 +53,12 @@ export function StepSivilstand() {
         </div>
       }
     >
-      <Await
-        resolve={Promise.all([
-          loaderData.getPersonQuery,
-          loaderData.shouldRedirectTo,
-        ])}
-      >
-        {(queries: [GetPersonQuery, string]) => {
-          const getPersonQuery = queries[0]
-          const shouldRedirectTo = queries[1]
-
+      <Await resolve={Promise.all([getPersonQuery, shouldRedirectTo])}>
+        {(resp: [GetPersonQuery, string]) => {
           return (
             <Sivilstand
-              shouldRedirectTo={shouldRedirectTo}
-              sivilstand={getPersonQuery.data.sivilstand}
+              shouldRedirectTo={resp[1]}
+              sivilstand={resp[0].data.sivilstand}
               harSamboer={samboerSvar}
               onCancel={isVeileder ? undefined : onStegvisningCancel}
               onPrevious={onStegvisningPrevious}

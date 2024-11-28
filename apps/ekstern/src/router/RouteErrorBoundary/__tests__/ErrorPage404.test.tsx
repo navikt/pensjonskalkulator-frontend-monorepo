@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPage404 } from '../ErrorPage404'
@@ -22,16 +20,10 @@ describe('ErrorPage404', () => {
   })
 
   it('sender brukeren til landingside når brukeren klikker på første lenke', async () => {
-    const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     render(<ErrorPage404 />)
+    const btn = screen.getByText('error.404.button.link_1')
 
-    await user.click(screen.getByText('error.404.button.link_1'))
-
-    expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
+    expect(btn).toHaveAttribute('href', paths.login)
   })
 
   it('sender brukeren til Din Pensjon når brukeren klikker på andre lenke', async () => {
