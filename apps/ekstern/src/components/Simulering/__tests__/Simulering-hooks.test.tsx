@@ -1204,7 +1204,8 @@ describe('Simulering-hooks', () => {
             offentligTp: {
               isError: false,
               data: {
-                simuleringsresultatStatus: 'OK',
+                simuleringsresultatStatus:
+                  'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
                 muligeTpLeverandoerListe: [],
               },
             },
@@ -1227,7 +1228,8 @@ describe('Simulering-hooks', () => {
             offentligTp: {
               isError: false,
               data: {
-                simuleringsresultatStatus: 'OK',
+                simuleringsresultatStatus:
+                  'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
                 muligeTpLeverandoerListe: [],
               },
             },
@@ -1254,7 +1256,8 @@ describe('Simulering-hooks', () => {
             offentligTp: {
               isError: false,
               data: {
-                simuleringsresultatStatus: 'OK',
+                simuleringsresultatStatus:
+                  'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
                 muligeTpLeverandoerListe: [],
               },
             },

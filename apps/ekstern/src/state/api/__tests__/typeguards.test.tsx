@@ -898,21 +898,21 @@ describe('Typeguards', () => {
     it('returnerer false når simulertTjenestepensjon er noe annet enn undefined eller object', () => {
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: null,
         })
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: 'somethingRandom',
         })
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: 123,
         })
@@ -922,7 +922,7 @@ describe('Typeguards', () => {
     it('returnerer false når simulertTjenestepensjon har feil tpLeverandoer', () => {
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: null,
@@ -935,7 +935,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: undefined,
@@ -948,7 +948,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 123,
@@ -964,7 +964,7 @@ describe('Typeguards', () => {
     it('returnerer false når simulertTjenestepensjon har feil utbetalingsperioder under simulertTjenestepensjon', () => {
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -977,7 +977,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -990,7 +990,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -1003,7 +1003,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -1017,7 +1017,7 @@ describe('Typeguards', () => {
 
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -1033,7 +1033,7 @@ describe('Typeguards', () => {
     it('returnerer false når simulertTjenestepensjon har feil betingetTjenestepensjonErInkludert under simulertTjenestepensjon', () => {
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: null,
@@ -1046,7 +1046,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: null,
@@ -1059,7 +1059,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isOffentligTp({
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
           simulertTjenestepensjon: {
             tpLeverandoer: null,

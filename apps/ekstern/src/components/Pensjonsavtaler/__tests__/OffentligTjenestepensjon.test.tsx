@@ -22,7 +22,7 @@ describe('OffentligTjenestepensjon', () => {
         isLoading={false}
         isError={false}
         offentligTp={{
-          simuleringsresultatStatus: 'OK',
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
         }}
         headingLevel="3"

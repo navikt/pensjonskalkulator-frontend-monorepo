@@ -627,7 +627,7 @@ export interface components {
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
       /** Format: int32 */
-      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
+      antallAarIUtlandetEtter16: number
       epsHarPensjon: boolean
       epsHarInntektOver2G: boolean
       brukerBaOmAfp: boolean
