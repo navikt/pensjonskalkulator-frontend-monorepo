@@ -852,7 +852,7 @@ describe('Typeguards', () => {
       expect(
         isOffentligTp({
           simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-          muligeTpLeverandoerListe: [],
+          muligeTpLeverandoerListe: ['Leverandør 1'],
         })
       ).toBeTruthy()
     })
