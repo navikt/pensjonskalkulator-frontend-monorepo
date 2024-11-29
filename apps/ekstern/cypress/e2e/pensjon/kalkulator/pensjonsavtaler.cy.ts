@@ -319,6 +319,7 @@ describe('Pensjonsavtaler', () => {
             url: '/pensjon/kalkulator/api/v1/simuler-oftp',
           },
           {
+            simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: [],
           }
         ).as('fetchOffentligTp')
