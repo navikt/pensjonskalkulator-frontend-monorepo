@@ -87,23 +87,29 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
-      query: () => '/v1/simuler-oftp',
-      providesTags: ['OffentligTp'],
-      transformResponse: (response: OffentligTp) => {
-        console.log('>>> offentligTp transformResponse ', response)
-        if (!isOffentligTp(response)) {
-          throw new Error(`Mottok ugyldig offentlig-tp:`, response)
-        }
-        return response
-      },
-    }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
       query: () => '/v2/vedtak/loepende-vedtak',
       transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
           throw new Error(
             `Mottok ugyldig løpende vedtak response:`,
+            response as ErrorOptions
+          )
+        }
+        return response
+      },
+    }),
+    offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
+      query: (body) => ({
+        url: '/v1/simuler-oftp',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['OffentligTp'],
+      transformResponse: (response: OffentligTp) => {
+        if (!isOffentligTp(response)) {
+          throw new Error(
+            `Mottok ugyldig offentlig-tp:`,
             response as ErrorOptions
           )
         }
@@ -137,7 +143,6 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Pensjonsavtaler'],
       transformResponse: (response: PensjonsavtalerResponseBody) => {
-        console.log('>>> pensjonsavtaler transformResponse ', response)
         if (
           !response.avtaler ||
           !Array.isArray(response.avtaler) ||
