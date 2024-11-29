@@ -6,10 +6,10 @@ import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from './data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'json' }
+import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
-import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
@@ -61,9 +61,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(ansattIdResponse)
   }),
 
-  http.get(`${baseUrl}/v1/tpo-medlemskap`, async () => {
+  http.get(`${baseUrl}/v1/simuler-oftp`, async () => {
     await delay(TEST_DELAY)
-    return HttpResponse.json(tpoMedlemskapResponse)
+    return HttpResponse.json(offentligTpResponse)
   }),
 
   http.get(`${baseUrl}/v2/vedtak/loepende-vedtak`, async () => {

@@ -1,5 +1,6 @@
 {
-  "tpLeverandoerListe": [
+  "simuleringsresultatStatus": "OK",
+  "muligeTpLeverandoerListe": [
     "Statens pensjonskasse",
     "Kommunal Landspensjonskasse",
     "Oslo Pensjonsforsikring"

@@ -11,7 +11,7 @@ import {
   selectFoedselsdato,
   selectUfoeregrad,
   selectSamtykke,
-  selectHarHentetTpoMedlemskap,
+  selectHarHentetOffentligTp,
   selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -27,7 +27,7 @@ export function StepSamtykkePensjonsavtaler() {
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const harSamtykket = useAppSelector(selectSamtykke)
-  const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
+  const shouldFlush = useAppSelector(selectHarHentetOffentligTp)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
@@ -44,7 +44,7 @@ export function StepSamtykkePensjonsavtaler() {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (shouldFlush && !samtykke) {
-      apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
+      apiSlice.util.invalidateTags(['OffentligTp', 'Pensjonsavtaler'])
     }
     if (onStegvisningNext) {
       onStegvisningNext()

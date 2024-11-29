@@ -1,0 +1,19 @@
+{
+  "simuleringsresultatStatus": "OK",
+  "muligeTpLeverandoerListe": [
+    "Statens pensjonskasse",
+    "Kommunal Landspensjonskasse",
+    "Oslo Pensjonsforsikring"
+  ],
+  "simulertTjenestepensjon": {
+    "tpLeverandoer": "Statens pensjonskasse",
+    "simuleringsresultat": {
+      "utbetalingsperioder": [
+        { "aar": 2023, "beloep": 64340 },
+        { "aar": 2022, "beloep": 53670 },
+        { "aar": 2021, "beloep": 48900 }
+      ],
+      "betingetTjenestepensjonErInkludert": true
+    }
+  }
+}

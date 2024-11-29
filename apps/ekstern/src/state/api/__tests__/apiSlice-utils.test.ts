@@ -5,6 +5,7 @@ import {
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
   generatePensjonsavtalerRequestBody,
+  generateOffentligTpRequestBody,
 } from '../utils'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
@@ -775,6 +776,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -798,6 +801,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -828,6 +833,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -866,6 +873,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -918,6 +927,8 @@ describe('apiSlice - utils', () => {
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        harEpsPensjon: false,
+        harEpsPensjonsgivendeInntektOver2G: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -940,6 +951,143 @@ describe('apiSlice - utils', () => {
             tom: '2020-02-28',
           },
         ],
+      })
+    })
+  })
+
+  describe('generateOffentligTpRequestBody', () => {
+    it('returnerer undefined når fodselsdato eller uttaksalder ikke er oppgitt', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'vet_ikke',
+          foedselsdato: null,
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: { aar: 67, maaneder: 0 },
+          utenlandsperioder: [],
+        })
+      ).toEqual(undefined)
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'vet_ikke',
+          foedselsdato: '1963-04-30',
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: null,
+          utenlandsperioder: [],
+        })
+      ).toEqual(undefined)
+    })
+    it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'ja_privat',
+          foedselsdato: '1963-04-30',
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: { aar: 67, maaneder: 0 },
+          utenlandsperioder: [],
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: true,
+        epsHarInntektOver2G: true,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [],
+        uttaksalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+      })
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'ja_offentlig',
+          foedselsdato: '1963-04-30',
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: { aar: 67, maaneder: 0 },
+          utenlandsperioder: [],
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: true,
+        epsHarInntektOver2G: true,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [],
+        uttaksalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+      })
+    })
+    it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'nei',
+          foedselsdato: '1963-04-30',
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: { aar: 62, maaneder: 4 },
+          utenlandsperioder: [],
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: false,
+        epsHarInntektOver2G: true,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [],
+        uttaksalder: {
+          aar: 62,
+          maaneder: 4,
+        },
+      })
+    })
+    it('returnerer riktig requestBody med utenlandsperioder', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          afp: 'nei',
+          foedselsdato: '1963-04-30',
+          aarligInntektFoerUttakBeloep: '500 000',
+          uttaksalder: { aar: 62, maaneder: 4 },
+          utenlandsperioder: [
+            {
+              id: '1',
+              landkode: 'URY',
+              arbeidetUtenlands: false,
+              startdato: '01.01.2018',
+              sluttdato: '28.02.2018',
+            },
+            {
+              id: '2',
+              landkode: 'BEL',
+              arbeidetUtenlands: true,
+              startdato: '01.01.1990',
+              sluttdato: '28.02.2020',
+            },
+          ],
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: false,
+        epsHarInntektOver2G: true,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [
+          {
+            arbeidetUtenlands: false,
+            fom: '2018-01-01',
+            landkode: 'URY',
+            tom: '2018-02-28',
+          },
+          {
+            arbeidetUtenlands: true,
+            fom: '1990-01-01',
+            landkode: 'BEL',
+            tom: '2020-02-28',
+          },
+        ],
+        uttaksalder: {
+          aar: 62,
+          maaneder: 4,
+        },
       })
     })
   })
