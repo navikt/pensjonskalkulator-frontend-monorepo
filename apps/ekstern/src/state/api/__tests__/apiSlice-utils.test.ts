@@ -25,7 +25,7 @@ describe('apiSlice - utils', () => {
     sluttdato: '28.01.2018',
   }
 
-  describe.skip('getSimuleringstypeFromRadioEllerVedtak', () => {
+  describe('getSimuleringstypeFromRadioEllerVedtak', () => {
     it('returnerer riktig simuleringstype', () => {
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
@@ -144,7 +144,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe.skip('transformUtenlandsperioderArray', () => {
+  describe('transformUtenlandsperioderArray', () => {
     it('returnerer riktig array', () => {
       expect(transformUtenlandsperioderArray([])).toEqual([])
       expect(
@@ -184,7 +184,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe.skip('generateTidligstMuligHeltUttakRequestBody', () => {
+  describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
       loependeVedtak: {
         ufoeretrygd: {
@@ -364,7 +364,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe.skip('generateAlderspensjonEnkelRequestBody', () => {
+  describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
       loependeVedtak: {
         ufoeretrygd: {
@@ -575,7 +575,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe.skip('generateAlderspensjonRequestBody', () => {
+  describe('generateAlderspensjonRequestBody', () => {
     const requestBody = {
       loependeVedtak: {
         ufoeretrygd: { grad: 0 },
@@ -763,7 +763,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe.skip('generatePensjonsavtalerRequestBody', () => {
+  describe('generatePensjonsavtalerRequestBody', () => {
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
         generatePensjonsavtalerRequestBody({

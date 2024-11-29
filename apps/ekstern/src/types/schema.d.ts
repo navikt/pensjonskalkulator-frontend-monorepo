@@ -626,11 +626,16 @@ export interface components {
       uttaksalder: components['schemas']['Alder']
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
-      /** Format: int32 */
-      antallAarIUtlandetEtter16: number
+      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV2'][]
       epsHarPensjon: boolean
       epsHarInntektOver2G: boolean
       brukerBaOmAfp: boolean
+    }
+    UtenlandsoppholdV2: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
     }
     OFTPSimuleringsresultatDto: {
       /** @enum {string} */
