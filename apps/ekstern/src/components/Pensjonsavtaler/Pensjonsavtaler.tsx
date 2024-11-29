@@ -83,7 +83,9 @@ export const Pensjonsavtaler = (props: {
         afp,
         foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
-        uttaksalder,
+        uttaksalder: gradertUttaksperiode
+          ? gradertUttaksperiode.uttaksalder
+          : uttaksalder,
         utenlandsperioder,
       })
       setOffentligTpRequestBody(requestBody)

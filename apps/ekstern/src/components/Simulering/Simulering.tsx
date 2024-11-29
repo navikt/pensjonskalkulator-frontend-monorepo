@@ -111,7 +111,9 @@ export function Simulering(props: {
           afp,
           foedselsdato,
           aarligInntektFoerUttakBeloep,
-          uttaksalder,
+          uttaksalder: gradertUttaksperiode
+            ? gradertUttaksperiode.uttaksalder
+            : uttaksalder,
           utenlandsperioder,
         })
       )

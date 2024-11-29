@@ -208,6 +208,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -292,13 +293,12 @@ export const generatePensjonsavtalerRequestBody = (args: {
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
     utenlandsperioder: transformUtenlandsperioderArray(utenlandsperioder),
-    harEpsPensjonsgivendeInntektOver2G: true, // Fast iht. forebhold
-    harEpsPensjon: false, // Fast iht. forebhold
+    harEpsPensjonsgivendeInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    harEpsPensjon: false, // Fast iht. forbehold
     sivilstand,
   }
 }
 
-// TODO skrive tester
 export const generateOffentligTpRequestBody = (args: {
   afp: AfpRadio | null
   foedselsdato: string | null | undefined
@@ -320,6 +320,7 @@ export const generateOffentligTpRequestBody = (args: {
 
   return {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
+    // TODO undersøke hva vi gjør med uttaksalder når brukeren har garderte perioder
     uttaksalder,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
