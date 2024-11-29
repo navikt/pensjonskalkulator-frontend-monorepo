@@ -33,7 +33,7 @@
   "dependencies": {
     "@amplitude/analytics-browser": "^2.11.9",
     "@elastic/ecs-winston-format": "^1.5.3",
-    "@navikt/oasis": "^3.4.0",
+    "@navikt/oasis": "^3.6.0",
     "express": "^4.21.0",
     "express-prom-bundle": "^8.0.0",
     "http-proxy-middleware": "^3.0.3",
