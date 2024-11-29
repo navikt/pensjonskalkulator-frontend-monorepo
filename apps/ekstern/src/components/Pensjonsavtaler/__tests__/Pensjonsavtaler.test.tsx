@@ -138,6 +138,8 @@ describe('Pensjonsavtaler', () => {
         {
           aarligInntektFoerUttakBeloep: 0,
           harAfp: true,
+          harEpsPensjon: false,
+          harEpsPensjonsgivendeInntektOver2G: true,
           sivilstand: undefined,
           uttaksperioder: [
             {

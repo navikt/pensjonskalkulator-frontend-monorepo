@@ -39,7 +39,6 @@ import { PensjonsavtalerTable } from './PensjonsavtalerTable'
 
 import styles from './Pensjonsavtaler.module.scss'
 
-// TODO utvide test med henting av OffentligTp
 export const Pensjonsavtaler = (props: {
   headingLevel: HeadingProps['level']
 }) => {

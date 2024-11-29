@@ -91,6 +91,7 @@ export const apiSlice = createApi({
       query: () => '/v1/simuler-oftp',
       providesTags: ['OffentligTp'],
       transformResponse: (response: OffentligTp) => {
+        console.log('>>> offentligTp transformResponse ', response)
         if (!isOffentligTp(response)) {
           throw new Error(`Mottok ugyldig offentlig-tp:`, response)
         }
@@ -136,6 +137,7 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Pensjonsavtaler'],
       transformResponse: (response: PensjonsavtalerResponseBody) => {
+        console.log('>>> pensjonsavtaler transformResponse ', response)
         if (
           !response.avtaler ||
           !Array.isArray(response.avtaler) ||

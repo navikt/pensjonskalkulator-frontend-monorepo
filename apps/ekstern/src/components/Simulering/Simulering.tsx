@@ -84,13 +84,13 @@ export function Simulering(props: {
     OffentligTpRequestBody | undefined
   >(undefined)
 
+  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
+    React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
+
   const { data: offentligTp, isError: isOffentligTpError } =
     useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
       skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
     })
-
-  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
-    React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
   const {
     data: pensjonsavtaler,
@@ -106,32 +106,29 @@ export function Simulering(props: {
 
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
-      const requestBody = generateOffentligTpRequestBody({
-        afp,
-        foedselsdato,
-        aarligInntektFoerUttakBeloep,
-        uttaksalder,
-        utenlandsperioder,
-      })
-      setOffentligTpRequestBody(requestBody)
-    }
-  }, [harSamtykket, uttaksalder])
-
-  React.useEffect(() => {
-    if (harSamtykket && uttaksalder) {
-      const requestBody = generatePensjonsavtalerRequestBody({
-        aarligInntektFoerUttakBeloep,
-        ufoeregrad,
-        afp,
-        sivilstand,
-        heltUttak: {
+      setOffentligTpRequestBody(
+        generateOffentligTpRequestBody({
+          afp,
+          foedselsdato,
+          aarligInntektFoerUttakBeloep,
           uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
-        },
-        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-        utenlandsperioder,
-      })
-      setPensjonsavtalerRequestBody(requestBody)
+          utenlandsperioder,
+        })
+      )
+      setPensjonsavtalerRequestBody(
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttakBeloep,
+          ufoeregrad,
+          afp,
+          sivilstand,
+          heltUttak: {
+            uttaksalder,
+            aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+          },
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+          utenlandsperioder,
+        })
+      )
     }
   }, [harSamtykket, uttaksalder])
 

@@ -12,7 +12,8 @@ describe('OffentligTjenestepensjon', () => {
         headingLevel="3"
       />
     )
-    expect(screen.findByTestId('tpo-loader')).toBeVisible()
+
+    expect(screen.getByTestId('offentligtp-loader')).toBeVisible()
   })
 
   it('Når brukeren ikke har tp-medlemskap, viser ingenting ', () => {
@@ -28,7 +29,7 @@ describe('OffentligTjenestepensjon', () => {
       />
     )
 
-    expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
 
     expect(
       screen.queryByText('pensjonsavtaler.tpo.title')
@@ -52,7 +53,7 @@ describe('OffentligTjenestepensjon', () => {
       />
     )
 
-    expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'pensjonsavtaler.tpo.title'
     )
@@ -72,7 +73,7 @@ describe('OffentligTjenestepensjon', () => {
       />
     )
 
-    expect(screen.queryByTestId('tpo-loader')).toBeInTheDocument()
+    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
 
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'pensjonsavtaler.tpo.title'

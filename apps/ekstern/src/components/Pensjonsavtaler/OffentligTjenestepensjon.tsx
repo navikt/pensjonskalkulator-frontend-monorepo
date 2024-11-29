@@ -35,7 +35,7 @@ export const OffentligTjenestepensjon = (props: {
   if (isLoading) {
     return (
       <Loader
-        data-testid="tpo-loader"
+        data-testid="offentligtp-loader"
         size="3xlarge"
         title={intl.formatMessage({
           id: 'beregning.loading',

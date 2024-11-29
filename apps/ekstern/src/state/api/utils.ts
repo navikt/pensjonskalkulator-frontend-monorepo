@@ -326,7 +326,7 @@ export const generateOffentligTpRequestBody = (args: {
     ),
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
     epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    epsHarPensjon: false, // Fast iht. forebhold
+    epsHarPensjon: false, // Fast iht. forbehold
     brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
 }
