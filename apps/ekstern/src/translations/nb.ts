@@ -238,7 +238,7 @@ const translations = {
   'stegvisning.afp.readmore_privat_list_item4':
     'kan tas ut sammen med tjenestepensjon',
   'stegvisning.afp.readmore_privat_link':
-    'Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
+    'Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
   'stegvisning.afp.readmore_offentlig_title':
     'Om livsvarig AFP i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP i offentlig sektor:',
@@ -556,7 +556,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.',
   'grunnlag.afp.ingress.ja_privat':
-    'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les mer om vilkårene for AFP og hvordan du søker hos <afpLink>Fellesordningen for AFP</afpLink>.',
+    'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP og hvordan du søker hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
     'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}Du kan lese mer om dette på <afpPrivatLink>nav.no</afpPrivatLink>. Ønsker du hjelp til å finne ut hva som lønner seg, <planleggePensjonLink>kontakt Nav</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
