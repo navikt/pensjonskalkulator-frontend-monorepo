@@ -112,6 +112,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         >
           <a
             class="navds-link navds-link--action"
+            data-discover="true"
             href="/login"
           >
             error.404.button.link_1

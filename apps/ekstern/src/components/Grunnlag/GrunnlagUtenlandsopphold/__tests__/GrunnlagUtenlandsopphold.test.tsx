@@ -1,9 +1,16 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { GrunnlagUtenlandsopphold } from '..'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet', () => {
@@ -164,11 +171,6 @@ describe('GrunnlagUtenlandsopphold', () => {
   })
 
   it('Når man klikker på lenken for å endre opphold, sendes man til Utenlandsoppholdsteget', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-
     const user = userEvent.setup()
 
     render(<GrunnlagUtenlandsopphold />, {

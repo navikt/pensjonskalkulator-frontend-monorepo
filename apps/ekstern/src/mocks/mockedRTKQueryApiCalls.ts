@@ -418,3 +418,16 @@ export const rejectedGetOmstillingsstoenadOgGjenlevende = {
     },
   },
 }
+
+export const rejectedGetLoependeVedtak = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'rejected',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+    startedTimeStamp: 1714725265404,
+    error: {
+      status: 'FETCH_ERROR',
+      error: 'TypeError: Failed to fetch',
+    },
+  },
+}

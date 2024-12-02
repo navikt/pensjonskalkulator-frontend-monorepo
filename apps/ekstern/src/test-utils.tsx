@@ -1,11 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import {
-  createBrowserRouter,
-  MemoryRouter,
-  RouterProvider,
-} from 'react-router-dom'
+import { createBrowserRouter, MemoryRouter, RouterProvider } from 'react-router'
 
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
