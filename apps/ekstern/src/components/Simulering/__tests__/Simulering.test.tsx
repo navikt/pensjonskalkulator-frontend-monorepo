@@ -1043,6 +1043,7 @@ describe('Simulering', () => {
             simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
             muligeTpLeverandoerListe: [],
           },
+          method: 'post',
         })
       })
 
@@ -1185,7 +1186,9 @@ describe('Simulering', () => {
 
     describe('Gitt at kall til offentlig-tp feiler', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/simuler-oftp')
+        mockErrorResponse('/v1/simuler-oftp', {
+          method: 'post',
+        })
       })
 
       it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {

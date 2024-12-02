@@ -61,7 +61,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(ansattIdResponse)
   }),
 
-  http.get(`${baseUrl}/v1/simuler-oftp`, async () => {
+  http.post(`${baseUrl}/v1/simuler-oftp`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(offentligTpResponse)
   }),

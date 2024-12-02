@@ -244,7 +244,9 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/simuler-oftp')
+      mockErrorResponse('/v1/simuler-oftp', {
+        method: 'post',
+      })
       return storeRef
         .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
@@ -259,6 +261,7 @@ describe('apiSlice', () => {
       mockResponse('/v1/simuler-oftp', {
         status: 200,
         json: { lorem: 'ipsum' },
+        method: 'post',
       })
       await swallowErrorsAsync(async () => {
         await storeRef

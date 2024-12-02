@@ -315,7 +315,7 @@ describe('Pensjonsavtaler', () => {
       beforeEach(() => {
         cy.intercept(
           {
-            method: 'GET',
+            method: 'POST',
             url: '/pensjon/kalkulator/api/v1/simuler-oftp',
           },
           {
@@ -597,7 +597,7 @@ describe('Pensjonsavtaler', () => {
     describe('Når kall til TPO feiler,', () => {
       beforeEach(() => {
         cy.intercept(
-          'GET',
+          'POST',
           '/pensjon/kalkulator/api/v1/simuler-oftp',
 
           {
