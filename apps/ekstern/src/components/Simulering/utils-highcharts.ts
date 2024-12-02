@@ -485,8 +485,5 @@ export const getChartOptions = (
         },
       ],
     },
-    accessibility: {
-      description: 'Interaktiv graf, tabell følger etter',
-    },
   }
 }

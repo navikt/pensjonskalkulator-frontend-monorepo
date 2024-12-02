@@ -2,9 +2,6 @@
 
 exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
 {
-  "accessibility": {
-    "description": "Interaktiv graf, tabell følger etter",
-  },
   "chart": {
     "animation": false,
     "events": {

@@ -329,6 +329,8 @@ const translations = {
     'The age limits will gradually increase from the 1964 cohort by one to two months per cohort, but this is not accounted for in the pension calculator.{br}{br}Your accrual in the National Insurance Scheme determines when you can withdraw retirement pension. By 67, your pension must at least correspond to the guarantee pension. Withdrawing before 67 means that you distribute your pension over multiple years, and thus receive less each year.{br}{br}If you have stated that you have AFP, AFP is included in the assessment of when you can withdraw retirement pension.{br}{br}If you cannot take out full <nowrap>(100 %)</nowrap> retirement pension from your desired age, you can adjust the withdrawal degree to see if you can start earlier. If you withdraw graded pension, the time you can take out <nowrap>100 %</nowrap> may be postponed.',
   'beregning.read_more.pensjonsalder.endring.body':
     'Your accrual in the National Insurance Scheme determines how much retirement pension you can withdraw. By 67, your pension must at least correspond to the guarantee pension. Withdrawing before 67 means that you distribute your pension over multiple years, and thus receive less each year.{br}{br}If you have AFP, AFP is included in the assessment of how much retirement pension you can withdraw.',
+  'beregning.alt_tekst':
+    'Annual income and pension after withdrawal in kroner.',
   'omufoeretrygd.hel.ingress':
     'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
