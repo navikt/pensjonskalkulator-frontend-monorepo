@@ -4,21 +4,21 @@ const translations = {
   'application.title.stegvisning.sivilstand':
     'Marital Status – Pension Calculator',
   'application.title.stegvisning.utenlandsopphold':
-    'Time Spent Abroad – Pension Calculator',
+    'Time lived Abroad – Pension Calculator',
   'application.title.stegvisning.afp': 'AFP – Pension Calculator',
   'application.title.stegvisning.ufoeretryg_AFP':
-    'Disability Benefits and AFP – Pension Calculator',
+    'Disability Benefit and AFP – Pension Calculator',
   'application.title.stegvisning.samtykke_offentlig_AFP':
     'Consent for Public AFP – Pension Calculator',
   'application.title.stegvisning.samtykke': 'Consent – Pension Calculator',
   'application.title.stegvisning.uventet_feil':
     'Unexpected Error – Pension Calculator',
   'application.title.beregning': 'Calculation – Pension Calculator',
-  'application.title.forbehold': 'Disclaimer – Pension Calculator',
+  'application.title.forbehold': 'Reservation – Pension Calculator',
   'application.title.henvisning.apotekerne':
     'Referral to Pharmacists – Pension Calculator',
   'application.title.personopplysninger':
-    'Personal Data in Simple Calculator – Pension Calculator',
+    'Personal Data in basic calculator – Pension Calculator',
   'application.global.external_link': 'opens in a new tab',
   'application.global.retry': 'Try Again',
   'pageframework.title': 'Pension Calculator',
@@ -26,14 +26,14 @@ const translations = {
   'error.fullmakt.title':
     'You cannot use the calculator on behalf of this user',
   'error.fullmakt.ingress':
-    'Proceed to see what you can do on behalf of this user or switch users.',
+    'Proceed to see what actions you can take on behalf of this user or switch to another user.',
   'error.fullmakt.bytt_bruker': 'Proceed to Switch User',
   'error.global.title': 'Oops! An unexpected error has occurred.',
   'error.global.ingress':
     'We are working to fix the error. Please try again later.',
   'error.global.button': 'Cancel',
   'error.du_kan_ikke_bruke_enkel_kalkulator':
-    'Unfortunately, you cannot use the simple calculator',
+    'Unfortunately, you cannot use the basic calculator',
   'error.404.title': 'Oops! The page you are looking for does not exist.',
   'error.404.list_item1':
     'If you entered the address directly in your browser, check to see if it is spelled correctly.',
@@ -58,7 +58,7 @@ const translations = {
   'landingsside.text.uinnlogget_kalkulator': 'For those who cannot log in',
   'landingsside.button.uinnlogget_kalkulator': 'Unauthenticated calculator',
   'landingsside.body.uinnlogget_kalkulator':
-    'You can use our unauthenticated calculator. It does not retrieve or store any information about you. You must find and enter all the information yourself. The calculator gives you an estimate of retirement pension from the National Insurance Scheme (Nav) and AFP (contractual pension) in the private sector.',
+    'You can use our unauthenticated calculator. It does not retrieve or store any information about you. You must find and enter all the information yourself. The calculator gives you an estimate of retirement pension from the National Insurance Scheme (Nav) and AFP (contractual early retirement pension) in the private sector.',
   'landingsside.link.personopplysninger':
     'Personal data used in the pension calculator',
   'henvisning.detaljert_kalkulator': 'Detailed Pension Calculator',
@@ -75,7 +75,7 @@ const translations = {
   'stegvisning.tilbake_start.modal.bekreft': 'Go back to start',
   'stegvisning.tilbake_start.modal.avbryt': 'Cancel',
   'stegvisning.fremtidigvedtak.alert':
-    'You have a decision about retirement pension but have not started taking it yet. You can calculate a new retirement pension here until you start withdrawing.',
+    'You have changed your retirement pension but have not yet initiated a new withdrawal. You can calculate further changes here until you start withdrawing.',
   'stegvisning.fremtidigvedtak.endring.alert':
     'You have changed your retirement pension but have not started a new withdrawal yet. You can calculate a new change here until you start withdrawing.',
   'stegvisning.start.title': 'Hello',
@@ -98,7 +98,7 @@ const translations = {
     'To get an estimate of your pension, you must answer all the following questions.',
   'stegvisning.start.button': 'Get Started',
   'stegvisning.start.link': 'Personal data used in the pension calculator',
-  'stegvisning.utenlandsopphold.title': 'Time Spent Outside Norway',
+  'stegvisning.utenlandsopphold.title': 'Time abroad',
   'stegvisning.utenlandsopphold.ingress':
     'If you have lived or worked more than 5 years outside Norway between the age of 16 and the withdrawal of your pension, it may affect the amount of your retirement pension.',
   'stegvisning.utenlandsopphold.readmore_1.title':
@@ -578,8 +578,8 @@ const translations = {
   'grunnlag.afp.reset_link': 'new calculation',
   'grunnlag.forbehold.ingress_1':
     'The pension has been calculated based on the information we have about you and the information you have provided. The calculation has been made in accordance with current regulations. This is a preliminary estimate of what you can expect to receive in pension. Nav is not responsible for the amounts obtained from other sources.',
-  'grunnlag.forbehold.link': 'All disclaimers',
-  'grunnlag.forbehold.title': 'Disclaimer',
+  'grunnlag.forbehold.link': 'All reservations',
+  'grunnlag.forbehold.title': 'Reservation',
   'savnerdunoe.title': 'Missing something?',
   'savnerdunoe.ingress':
     'More choices for withdrawal degree, pension age, and income can be found in Advanced.',
@@ -677,7 +677,7 @@ const translations = {
     'Norwegian armed forces (if started no earlier than 2010) provides accrual for retirement pension but is not Pensionable income',
   'inntekt.info_om_inntekt.ingress':
     'This list is not exhaustive.{br}{br}Pensionable income matters for the right to and the amount of retirement pension and other pension benefits.',
-  'forbehold.title': 'Disclaimer',
+  'forbehold.title': 'Reservation',
   'forbehold.intro':
     'The pension is calculated with the information we have about you, in addition to the information you have provided at the time of the calculation. This is therefore a preliminary estimate of what you can expect in pension. The pension calculation is shown in today’s currency value before tax. We have used today"s rates for calculation of the guarantee pension. The rates are adjusted annually and will not be determined until they are to be used. Future adjustments may affect when you can earliest start taking out old - age pension.{br}{br}We recommend that you do a new calculation in the pension calculator as you approach the desired retirement age if it is a long time until you take out your pension. Changes in your accrual and changes in the regulations may occur.{br} {br} Pension - eligible income is applicable in the calculation of old - age pension from January the year after it has been determined by the Tax Administration. Therefore, the old - age pension will normally increase as a result of new accrual in the two years after withdrawal. If you continue working after beginning to withdraw your state pension, you will continue accruing pension rights up to and including the year you turn 75.',
   'forbehold.inntekt.title': 'Income',
