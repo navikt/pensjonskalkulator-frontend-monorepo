@@ -77,6 +77,7 @@ export function Simulering(props: {
 
   const intl = useIntl()
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
+  const altRef = React.useRef<HTMLDivElement>(null)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
@@ -119,7 +120,7 @@ export function Simulering(props: {
   }, [harSamtykket, uttaksalder])
 
   React.useEffect(() => {
-    if (chartRef.current && chartRef.current.chart) {
+    if (altRef.current && chartRef.current && chartRef.current.chart) {
       const accessibilityDescription = intl.formatMessage({
         id: 'beregning.alt_tekst',
       })
@@ -127,7 +128,7 @@ export function Simulering(props: {
       const chartContainer = chartRef.current.chart.container
 
       if (chartContainer) {
-        chartContainer.setAttribute('alt', accessibilityDescription)
+        altRef.current.setAttribute('aria-label', accessibilityDescription)
       }
     }
   }, [intl])
@@ -185,12 +186,14 @@ export function Simulering(props: {
         alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
       />
 
-      <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
-        <HighchartsReact
-          ref={chartRef}
-          highcharts={Highcharts}
-          options={chartOptions}
-        />
+      <div ref={altRef}>
+        <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
+          <HighchartsReact
+            ref={chartRef}
+            highcharts={Highcharts}
+            options={chartOptions}
+          />
+        </div>
       </div>
       {showButtonsAndTable && (
         <SimuleringGrafNavigation
