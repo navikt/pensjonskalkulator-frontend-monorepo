@@ -179,11 +179,13 @@ export function Simulering(props: {
         <div id="alt-chart-title" hidden>
           <FormattedMessage id="beregning.alt_tekst" />
         </div>
-        <HighchartsReact
-          ref={chartRef}
-          highcharts={Highcharts}
-          options={chartOptions}
-        />
+        <div id="highcharts-aria-wrapper" aria-hidden={true}>
+          <HighchartsReact
+            ref={chartRef}
+            highcharts={Highcharts}
+            options={chartOptions}
+          />
+        </div>
       </div>
       {showButtonsAndTable && (
         <SimuleringGrafNavigation
