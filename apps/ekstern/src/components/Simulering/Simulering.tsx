@@ -179,7 +179,7 @@ export function Simulering(props: {
         <div id="alt-chart-title" hidden>
           <FormattedMessage id="beregning.alt_tekst" />
         </div>
-        <div id="highcharts-aria-wrapper" aria-hidden={true}>
+        <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
           <HighchartsReact
             ref={chartRef}
             highcharts={Highcharts}
