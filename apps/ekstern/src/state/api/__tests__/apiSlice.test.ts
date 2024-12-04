@@ -278,7 +278,9 @@ describe('apiSlice', () => {
   })
 
   describe('pensjonsavtaler', () => {
-    const dummyRequestBody = {
+    const dummyRequestBody: PensjonsavtalerRequestBody = {
+      epsHarInntektOver2G: false,
+      epsHarPensjon: false,
       aarligInntektFoerUttakBeloep: 500000,
       uttaksperioder: [
         {

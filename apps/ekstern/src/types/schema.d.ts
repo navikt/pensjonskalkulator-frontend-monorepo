@@ -630,8 +630,8 @@ export interface components {
       aarligInntektFoerUttakBeloep: number
       uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV3'][]
       harAfp?: boolean
-      epsHarPensjon?: boolean
-      epsHarInntektOver2G?: boolean
+      epsHarPensjon: boolean
+      epsHarInntektOver2G: boolean
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -922,8 +922,8 @@ export interface components {
       foedselAar: number
       /** @enum {string} */
       sivilstand?: 'UGIFT' | 'GIFT' | 'SAMBOER'
-      epsHarInntektOver2G?: boolean
-      epsHarPensjon?: boolean
+      epsHarInntektOver2G: boolean
+      epsHarPensjon: boolean
       /** Format: int32 */
       utenlandsAntallAar?: number
       /** Format: int32 */
