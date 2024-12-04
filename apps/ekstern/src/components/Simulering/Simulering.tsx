@@ -171,14 +171,19 @@ export function Simulering(props: {
         alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
       />
 
-      <div aria-label={intl.formatMessage({ id: 'beregning.alt_tekst' })}>
-        <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
-          <HighchartsReact
-            ref={chartRef}
-            highcharts={Highcharts}
-            options={chartOptions}
-          />
+      <div id="chart-description" hidden>
+        {intl.formatMessage({ id: 'beregning.alt_tekst' })}
+      </div>
+
+      <div role="img" aria-labelledby="alt-chart-title">
+        <div id="alt-chart-title" hidden>
+          <FormattedMessage id="beregning.alt_tekst" />
         </div>
+        <HighchartsReact
+          ref={chartRef}
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
       </div>
       {showButtonsAndTable && (
         <SimuleringGrafNavigation
