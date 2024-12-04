@@ -76,7 +76,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
 
-  http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {
+  http.post(`${baseUrl}/v3/pensjonsavtaler`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]

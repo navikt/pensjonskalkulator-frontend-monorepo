@@ -380,7 +380,7 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 0,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -472,7 +472,7 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 0,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -564,7 +564,7 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 0,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -656,7 +656,7 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 0,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -1005,7 +1005,7 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 0,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {

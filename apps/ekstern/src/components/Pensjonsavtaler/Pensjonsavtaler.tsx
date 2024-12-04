@@ -25,6 +25,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
   selectFoedselsdato,
+  selectSamboer,
   selectUfoeregrad,
   selectSivilstand,
   selectCurrentSimulation,
@@ -55,6 +56,7 @@ export const Pensjonsavtaler = (props: {
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
   const foedselsdato = useAppSelector(selectFoedselsdato)
+  const harSamboer = useAppSelector(selectSamboer)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -82,6 +84,7 @@ export const Pensjonsavtaler = (props: {
       const requestBody = generateOffentligTpRequestBody({
         afp,
         foedselsdato,
+        harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder: gradertUttaksperiode
           ? gradertUttaksperiode.uttaksalder
@@ -103,12 +106,12 @@ export const Pensjonsavtaler = (props: {
         ufoeregrad,
         afp,
         sivilstand,
+        harSamboer,
         heltUttak: {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-        utenlandsperioder,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }

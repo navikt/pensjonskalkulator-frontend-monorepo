@@ -323,7 +323,7 @@ describe('apiSlice', () => {
           },
         ],
       }
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [{ ...avtale }],
@@ -348,7 +348,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/pensjonsavtaler', {
+      mockErrorResponse('/v3/pensjonsavtaler', {
         method: 'post',
       })
       return storeRef
@@ -362,7 +362,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -438,7 +438,7 @@ describe('apiSlice', () => {
       simuleringstype: 'ALDERSPENSJON',
       foedselsdato: '1963-04-30',
       sivilstand: 'UGIFT',
-      epsHarInntektOver2G: true,
+      epsHarInntektOver2G: false,
       heltUttak: {
         uttaksalder: { aar: 67, maaneder: 8 },
         aarligInntektVsaPensjon: {

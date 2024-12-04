@@ -44,7 +44,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/pensjonsavtaler': {
+  '/api/v3/pensjonsavtaler': {
     parameters: {
       query?: never
       header?: never
@@ -708,7 +708,7 @@ export interface components {
       uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV2'][]
       harAfp?: boolean
       harEpsPensjon?: boolean
-      harEpsPensjonsgivendeInntektOver2G?: boolean
+      epsHarInntektOver2G?: boolean
       /** Format: int32 */
       antallAarIUtlandetEtter16?: number
       utenlandsperioder?: components['schemas']['PensjonsavtaleOppholdSpecV2'][]

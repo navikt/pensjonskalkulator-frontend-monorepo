@@ -74,17 +74,17 @@ declare global {
 
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleSpecV2']
+    components['schemas']['PensjonsavtaleSpecV3']
   type PensjonsavtalerResponseBody =
-    components['schemas']['PensjonsavtaleResultV2']
-  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV2']
+    components['schemas']['PensjonsavtaleResultV3']
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
   type UtbetalingsperiodeWithoutGrad = Omit<Utbetalingsperiode, 'grad'>
-  type Pensjonsavtale = components['schemas']['PensjonsavtaleV2'] & {
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
     key?: number
   }
   type PensjonsavtaleKategori =
-    components['schemas']['PensjonsavtaleV2']['kategori']
-  type UtilgjengeligeSelskap = components['schemas']['SelskapV2']
+    components['schemas']['PensjonsavtaleV3']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapV3']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
