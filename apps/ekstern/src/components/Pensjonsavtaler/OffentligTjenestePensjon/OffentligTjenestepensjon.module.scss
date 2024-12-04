@@ -1,0 +1,44 @@
+@import '../../../scss/variables.scss';
+
+.info {
+  display: flex;
+
+  &Icon {
+    flex-basis: 1.5rem;
+    vertical-align: top;
+    margin-right: var(--a-spacing-2);
+
+    &__orange {
+      color: var(--a-orange-600);
+    }
+
+    &__blue {
+      color: var(--a-deepblue-600);
+    }
+  }
+
+  &Text {
+    flex-basis: 100%;
+  }
+}
+
+.mobileTable {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.desktopTable {
+  &Header {
+    margin-top: var(--a-spacing-6);
+  }
+
+  &Rader {
+    &__noBottomBorder {
+      border-bottom-width: 0;
+    }
+
+    &__alignTop {
+      vertical-align: top;
+    }
+  }
+}

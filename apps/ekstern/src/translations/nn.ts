@@ -484,6 +484,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
+  'pensjonsavtaler.fra_og_med_forklaring': 'MANGLER_TEKST',
   'pensjonsavtaler.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
   'pensjonsavtaler.ingress.error.pensjonsavtaler':
@@ -496,7 +497,7 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'viss du ynskjer å få dette i utrekninga.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
-  'pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
+  'alder.livsvarig': 'Livsvarig frå og med',
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',

@@ -68,7 +68,7 @@ describe('Pensjonsavtaler', () => {
       ).toHaveLength(2)
 
       expect(
-        screen.queryByTestId('pensjonsavtaler-table')
+        screen.queryByTestId('private-pensjonsavtaler-desktop')
       ).not.toBeInTheDocument()
       expect(
         screen.queryByText('Alle avtaler i privat sektor hentes fra ', {
@@ -398,7 +398,7 @@ describe('Pensjonsavtaler', () => {
         )
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId('pensjonsavtaler-table')
+        screen.queryByTestId('private-pensjonsavtaler-desktop')
       ).not.toBeInTheDocument()
       expect(
         await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
@@ -442,7 +442,7 @@ describe('Pensjonsavtaler', () => {
         await screen.findByText('pensjonsavtaler.ingress.ingen')
       ).toBeVisible()
       expect(
-        screen.queryByTestId('pensjonsavtaler-table')
+        screen.queryByTestId('private-pensjonsavtaler-desktop')
       ).not.toBeInTheDocument()
 
       expect(

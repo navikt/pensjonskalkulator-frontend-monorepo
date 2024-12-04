@@ -601,7 +601,7 @@ const translations = {
     'if you want to include this in the calculation.',
   'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
-  'pensjonsavtaler.livsvarig': 'Lifelong from',
+  'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
   'pensjonsavtaler.tabell.title.left': 'Agreements',
   'pensjonsavtaler.tabell.title.middle': 'Periods',
