@@ -196,8 +196,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-endring',
+    getTpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-tpoffentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -236,6 +236,6 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
-  useGetEndringFeatureToggleQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

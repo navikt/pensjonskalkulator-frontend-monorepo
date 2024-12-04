@@ -11,8 +11,8 @@ import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-o
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
-import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableTpOffentligToggleResponse from './data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -147,10 +147,13 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
   ),
 
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-endring`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(enableEndringToggleResponse)
-  }),
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-tpoffentlig`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableTpOffentligToggleResponse)
+    }
+  ),
 
   http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
     await delay(TEST_DELAY)

@@ -24,7 +24,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/simuler-oftp': {
+  '/api/v3/pensjonsavtaler': {
     parameters: {
       query?: never
       header?: never
@@ -34,10 +34,10 @@ export interface paths {
     get?: never
     put?: never
     /**
-     * Simuler offentlig tjenestepensjon hos tp-leverandør bruker er medlem av
-     * @description Simulerer offentlig tjenestepensjon hos tp-leverandør som har ansvar for brukers tjenestepensjon
+     * Hent pensjonsavtaler (versjon 3)
+     * @description Henter pensjonsavtalene til den innloggede/angitte brukeren. I request må verdi av 'maaneder' være 0..11.
      */
-    post: operations['simulerOffentligTjenestepensjon']
+    post: operations['fetchAvtalerV3']
     delete?: never
     options?: never
     head?: never
@@ -614,53 +614,76 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AlternativV7']
     }
+    PensjonsavtaleAlderSpecV3: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PensjonsavtaleInntektSpecV3: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder?: components['schemas']['PensjonsavtaleAlderSpecV3']
+    }
+    PensjonsavtaleSpecV3: {
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV3'][]
+      harAfp?: boolean
+      epsHarPensjon?: boolean
+      epsHarInntektOver2G?: boolean
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+    }
+    PensjonsavtaleUttaksperiodeSpecV3: {
+      startAlder: components['schemas']['PensjonsavtaleAlderSpecV3']
+      /** Format: int32 */
+      grad: number
+      aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV3']
+    }
     Alder: {
       /** Format: int32 */
       aar: number
       /** Format: int32 */
       maaneder: number
     }
-    IngressSimuleringOFTPSpecV2: {
-      /** Format: date */
-      foedselsdato: string
-      uttaksalder: components['schemas']['Alder']
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep: number
-      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV2'][]
-      epsHarPensjon: boolean
-      epsHarInntektOver2G: boolean
-      brukerBaOmAfp: boolean
+    PensjonsavtaleResultV3: {
+      avtaler: components['schemas']['PensjonsavtaleV3'][]
+      utilgjengeligeSelskap: components['schemas']['SelskapV3'][]
     }
-    UtenlandsoppholdV2: {
-      /** Format: date */
-      fom: string
-      /** Format: date */
-      tom?: string
-    }
-    OFTPSimuleringsresultatDto: {
+    PensjonsavtaleV3: {
+      produktbetegnelse: string
       /** @enum {string} */
-      simuleringsresultatStatus:
-        | 'OK'
-        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
-        | 'TP_ORDNING_STOETTES_IKKE'
-        | 'TOM_SIMULERING_FRA_TP_ORDNING'
-        | 'TEKNISK_FEIL'
-      muligeTpLeverandoerListe: string[]
-      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjon']
-    }
-    Simuleringsresultat: {
-      utbetalingsperioder: components['schemas']['UtbetalingPerAar'][]
-      betingetTjenestepensjonErInkludert: boolean
-    }
-    SimulertTjenestepensjon: {
-      tpLeverandoer: string
-      simuleringsresultat: components['schemas']['Simuleringsresultat']
-    }
-    UtbetalingPerAar: {
+      kategori: 'UNKNOWN' | 'INDIVIDUELL_ORDNING' | 'PRIVAT_TJENESTEPENSJON'
       /** Format: int32 */
-      aar: number
+      startAar: number
       /** Format: int32 */
-      beloep: number
+      sluttAar?: number
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV3'][]
+    }
+    SelskapV3: {
+      navn: string
+      heltUtilgjengelig: boolean
+    }
+    UtbetalingsperiodeV3: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligUtbetaling: number
+      /** Format: int32 */
+      grad: number
     }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
@@ -828,17 +851,47 @@ export interface components {
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
       utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
     }
-    IngressSimuleringOFTPSpecV1: {
+    IngressSimuleringOffentligTjenestepensjonSpecV1: {
       /** Format: date */
       foedselsdato: string
       uttaksalder: components['schemas']['Alder']
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
-      /** Format: int32 */
-      antallAarIUtlandetEtter16: number
+      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV1'][]
       epsHarPensjon: boolean
       epsHarInntektOver2G: boolean
-      brukerBaOmAfpOffentlig: boolean
+      brukerBaOmAfp: boolean
+    }
+    UtenlandsoppholdV1: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+    }
+    OffentligTjenestepensjonSimuleringsresultatDtoV1: {
+      /** @enum {string} */
+      simuleringsresultatStatus:
+        | 'OK'
+        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
+        | 'TOM_SIMULERING_FRA_TP_ORDNING'
+        | 'TEKNISK_FEIL'
+      muligeTpLeverandoerListe: string[]
+      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonV1']
+    }
+    SimuleringsresultatV1: {
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV1'][]
+      betingetTjenestepensjonErInkludert: boolean
+    }
+    SimulertTjenestepensjonV1: {
+      tpLeverandoer: string
+      simuleringsresultat: components['schemas']['SimuleringsresultatV1']
+    }
+    UtbetalingsperiodeV1: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligUtbetaling: number
     }
     AnonymSimuleringAlderV1: {
       /** Format: int32 */
@@ -849,12 +902,12 @@ export interface components {
     AnonymSimuleringGradertUttakV1: {
       /** Format: int32 */
       grad: number
-      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      uttaksalder: components['schemas']['AnonymSimuleringAlderV1']
       /** Format: int32 */
       aarligInntektVsaPensjonBeloep?: number
     }
     AnonymSimuleringHeltUttakV1: {
-      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      uttaksalder: components['schemas']['AnonymSimuleringAlderV1']
       aarligInntektVsaPensjon?: components['schemas']['AnonymSimuleringInntektV1']
     }
     AnonymSimuleringInntektV1: {
@@ -863,10 +916,12 @@ export interface components {
       sluttAlder?: components['schemas']['AnonymSimuleringAlderV1']
     }
     AnonymSimuleringSpecV1: {
-      simuleringType?: string
+      /** @enum {string} */
+      simuleringstype?: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: int32 */
       foedselAar: number
-      sivilstand?: string
+      /** @enum {string} */
+      sivilstand?: 'UGIFT' | 'GIFT' | 'SAMBOER'
       epsHarInntektOver2G?: boolean
       epsHarPensjon?: boolean
       /** Format: int32 */
@@ -1097,7 +1152,7 @@ export interface operations {
       }
     }
   }
-  simulerOffentligTjenestepensjon: {
+  fetchAvtalerV3: {
     parameters: {
       query?: never
       header?: never
@@ -1106,17 +1161,26 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['IngressSimuleringOFTPSpecV2']
+        'application/json': components['schemas']['PensjonsavtaleSpecV3']
       }
     }
     responses: {
-      /** @description OK */
+      /** @description Henting av pensjonsavtaler utført. I respons er verdi av 'maaneder' 0..11. */
       200: {
         headers: {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['OFTPSimuleringsresultatDto']
+          '*/*': components['schemas']['PensjonsavtaleResultV3']
+        }
+      }
+      /** @description Henting av pensjonsavtaler kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
         }
       }
     }
@@ -1229,7 +1293,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['IngressSimuleringOFTPSpecV1']
+        'application/json': components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
       }
     }
     responses: {
@@ -1239,7 +1303,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['OFTPSimuleringsresultatDto']
+          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
         }
       }
     }

@@ -9,9 +9,20 @@
     "tpLeverandoer": "Statens pensjonskasse",
     "simuleringsresultat": {
       "utbetalingsperioder": [
-        { "aar": 2023, "beloep": 64340 },
-        { "aar": 2022, "beloep": 53670 },
-        { "aar": 2021, "beloep": 48900 }
+        {
+          "startAlder": { "aar": 67, "maaneder": 0 },
+          "sluttAlder": { "aar": 69, "maaneder": 11 },
+          "aarligUtbetaling": 64340
+        },
+        {
+          "startAlder": { "aar": 70, "maaneder": 0 },
+          "sluttAlder": { "aar": 74, "maaneder": 11 },
+          "aarligUtbetaling": 53670
+        },
+        {
+          "startAlder": { "aar": 75, "maaneder": 0 },
+          "aarligUtbetaling": 48900
+        }
       ],
       "betingetTjenestepensjonErInkludert": true
     }

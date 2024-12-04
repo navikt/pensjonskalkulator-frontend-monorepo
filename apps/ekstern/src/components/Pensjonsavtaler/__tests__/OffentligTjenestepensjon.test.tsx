@@ -1,6 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
+import { mockErrorResponse } from '@/mocks/server'
 import { render, screen } from '@/test-utils'
 
 describe('OffentligTjenestepensjon', () => {
@@ -36,48 +37,54 @@ describe('OffentligTjenestepensjon', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst med tp-leverandør', () => {
-    render(
-      <OffentligTjenestepensjon
-        isLoading={false}
-        isError={false}
-        offentligTp={{
-          simuleringsresultatStatus: 'OK',
-          muligeTpLeverandoerListe: [
-            'Statens pensjonskasse',
-            'Kommunal Landspensjonskasse',
-            'Oslo Pensjonsforsikring',
-          ],
-        }}
-        headingLevel="3"
-      />
-    )
+  describe('Gitt at feature-toggle for tp-offentlig er av, ', () => {
+    beforeEach(() => {
+      mockErrorResponse('/feature/pensjonskalkulator.enable-tpoffentlig')
+    })
 
-    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-      'pensjonsavtaler.tpo.title'
-    )
-    expect(
-      screen.getByText(
-        'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+    it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst med tp-leverandør', () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={{
+            simuleringsresultatStatus: 'OK',
+            muligeTpLeverandoerListe: [
+              'Statens pensjonskasse',
+              'Kommunal Landspensjonskasse',
+              'Oslo Pensjonsforsikring',
+            ],
+          }}
+          headingLevel="3"
+        />
       )
-    ).toBeInTheDocument()
-  })
 
-  it('Når kall til tp-medlemskap feiler, viser riktig heading på riktig level og riktig feilmelding', () => {
-    render(
-      <OffentligTjenestepensjon
-        isLoading={false}
-        isError={true}
-        headingLevel="3"
-      />
-    )
+      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'pensjonsavtaler.tpo.title'
+      )
+      expect(
+        screen.getByText(
+          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+        )
+      ).toBeInTheDocument()
+    })
 
-    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+    it('Når kall til tp-offentlig feiler, viser riktig heading på riktig level og riktig feilmelding', () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={true}
+          headingLevel="3"
+        />
+      )
 
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-      'pensjonsavtaler.tpo.title'
-    )
-    expect(screen.getByText('pensjonsavtaler.tpo.error')).toBeInTheDocument()
+      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'pensjonsavtaler.tpo.title'
+      )
+      expect(screen.getByText('pensjonsavtaler.tpo.error')).toBeInTheDocument()
+    })
   })
 })
