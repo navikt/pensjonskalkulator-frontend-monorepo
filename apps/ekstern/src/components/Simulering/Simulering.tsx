@@ -21,6 +21,7 @@ import {
   selectSamtykke,
   selectUfoeregrad,
   selectSivilstand,
+  selectSamboer,
   selectAfp,
   selectIsEndring,
   selectFoedselsdato,
@@ -69,6 +70,7 @@ export function Simulering(props: {
   const sivilstand = useAppSelector(selectSivilstand)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const isEndring = useAppSelector(selectIsEndring)
+  const harSamboer = useAppSelector(selectSamboer)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -110,6 +112,7 @@ export function Simulering(props: {
         generateOffentligTpRequestBody({
           afp,
           foedselsdato,
+          harSamboer,
           aarligInntektFoerUttakBeloep,
           uttaksalder: gradertUttaksperiode
             ? gradertUttaksperiode.uttaksalder
@@ -123,12 +126,12 @@ export function Simulering(props: {
           ufoeregrad,
           afp,
           sivilstand,
+          harSamboer,
           heltUttak: {
             uttaksalder,
             aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
           },
           gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-          utenlandsperioder,
         })
       )
     }

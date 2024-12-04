@@ -12,7 +12,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -126,7 +126,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -193,7 +193,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -255,7 +255,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler,', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })
@@ -330,7 +330,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -418,7 +418,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -482,7 +482,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -541,7 +541,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler,', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })
@@ -611,7 +611,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -725,7 +725,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -792,7 +792,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -854,7 +854,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })

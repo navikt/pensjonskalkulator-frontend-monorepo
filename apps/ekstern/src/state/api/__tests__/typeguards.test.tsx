@@ -53,66 +53,73 @@ describe('Typeguards', () => {
   describe('isUtbetalingsperiode', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 65, maaneder: 0 },
           sluttAlder: { aar: 70, maaneder: 11 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
+      expect(
+        isUtbetalingsperiode(false, {
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 70, maaneder: 11 },
+          aarligUtbetaling: 100000,
+        })
+      ).toBeTruthy()
     })
     it('returnerer false når typen er undefined eller at Utbetalingsperiode ikke inneholder alle forventet keys', () => {
-      expect(isUtbetalingsperiode(undefined)).toBeFalsy()
-      expect(isUtbetalingsperiode({})).toBeFalsy()
+      expect(isUtbetalingsperiode(true, undefined)).toBeFalsy()
+      expect(isUtbetalingsperiode(true, {})).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 'abc', maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 'abc',
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 'abc',
@@ -121,7 +128,7 @@ describe('Typeguards', () => {
     })
     it('returnerer false når Utbetalingsperiode har feil sluttAlder eller sluttMaaned', () => {
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           sluttAlder: { aar: 'abc', maaneder: 11 },
           aarligUtbetaling: 100000,
@@ -129,7 +136,7 @@ describe('Typeguards', () => {
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           sluttAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
@@ -840,9 +847,20 @@ describe('Typeguards', () => {
             tpLeverandoer: 'Statens pensjonskasse',
             simuleringsresultat: {
               utbetalingsperioder: [
-                { aar: 2023, beloep: 64340 },
-                { aar: 2022, beloep: 53670 },
-                { aar: 2021, beloep: 48900 },
+                {
+                  startAlder: { aar: 67, maaneder: 0 },
+                  sluttAlder: { aar: 69, maaneder: 11 },
+                  aarligUtbetaling: 64340,
+                },
+                {
+                  startAlder: { aar: 70, maaneder: 0 },
+                  sluttAlder: { aar: 74, maaneder: 11 },
+                  aarligUtbetaling: 53670,
+                },
+                {
+                  startAlder: { aar: 75, maaneder: 0 },
+                  aarligUtbetaling: 48900,
+                },
               ],
               betingetTjenestepensjonErInkludert: true,
             },
@@ -975,6 +993,7 @@ describe('Typeguards', () => {
           },
         })
       ).toBeFalsy()
+
       expect(
         isOffentligTp({
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',

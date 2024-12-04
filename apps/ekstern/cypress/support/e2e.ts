@@ -135,7 +135,7 @@ beforeEach(() => {
   ).as('fetchTidligsteUttaksalder')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v2/pensjonsavtaler' },
+    { method: 'POST', url: '/pensjon/kalkulator/api/v3/pensjonsavtaler' },
     { fixture: 'pensjonsavtaler.json' }
   ).as('fetchPensjonsavtaler')
 

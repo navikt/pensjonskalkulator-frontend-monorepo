@@ -431,8 +431,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          harEpsPensjon: false,
-          harEpsPensjonsgivendeInntektOver2G: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -441,7 +441,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -503,8 +502,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: true,
-          harEpsPensjon: false,
-          harEpsPensjonsgivendeInntektOver2G: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -513,7 +512,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -570,8 +568,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          harEpsPensjon: false,
-          harEpsPensjonsgivendeInntektOver2G: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -580,7 +578,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -629,8 +626,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          harEpsPensjon: false,
-          harEpsPensjonsgivendeInntektOver2G: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -639,7 +636,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -704,8 +700,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          harEpsPensjon: false,
-          harEpsPensjonsgivendeInntektOver2G: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -714,7 +710,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -747,7 +742,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -798,7 +793,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -899,7 +894,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -939,7 +934,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -994,7 +989,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],
@@ -1048,7 +1043,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -1088,7 +1083,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -1143,7 +1138,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],
@@ -1227,7 +1222,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding for tp-ordninger og pensjonsvtaler', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -1267,7 +1262,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -1322,7 +1317,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],

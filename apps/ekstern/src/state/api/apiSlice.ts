@@ -137,7 +137,7 @@ export const apiSlice = createApi({
       PensjonsavtalerRequestBody
     >({
       query: (body) => ({
-        url: '/v2/pensjonsavtaler',
+        url: '/v3/pensjonsavtaler',
         method: 'POST',
         body,
       }),

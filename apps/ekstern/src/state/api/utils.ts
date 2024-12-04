@@ -142,7 +142,7 @@ export const generateAlderspensjonRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -207,7 +207,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -230,18 +230,18 @@ export const generatePensjonsavtalerRequestBody = (args: {
   ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
+  harSamboer: boolean | null
   heltUttak: HeltUttak
   gradertUttak?: GradertUttak
-  utenlandsperioder: Utenlandsperiode[]
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
     ufoeregrad,
     afp,
     sivilstand,
+    harSamboer,
     heltUttak,
     gradertUttak,
-    utenlandsperioder,
   } = args
   return {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -292,9 +292,8 @@ export const generatePensjonsavtalerRequestBody = (args: {
       },
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
-    utenlandsperioder: transformUtenlandsperioderArray(utenlandsperioder),
-    harEpsPensjonsgivendeInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    harEpsPensjon: false, // Fast iht. forbehold
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forbehold
     sivilstand,
   }
 }
@@ -302,6 +301,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
 export const generateOffentligTpRequestBody = (args: {
   afp: AfpRadio | null
   foedselsdato: string | null | undefined
+  harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
   utenlandsperioder: Utenlandsperiode[]
@@ -309,6 +309,7 @@ export const generateOffentligTpRequestBody = (args: {
   const {
     afp,
     foedselsdato,
+    harSamboer,
     aarligInntektFoerUttakBeloep,
     uttaksalder,
     utenlandsperioder,
@@ -320,13 +321,12 @@ export const generateOffentligTpRequestBody = (args: {
 
   return {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    // TODO undersøke hva vi gjør med uttaksalder når brukeren har garderte perioder
     uttaksalder,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
-    epsHarInntektOver2G: true, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     epsHarPensjon: false, // Fast iht. forbehold
     brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
