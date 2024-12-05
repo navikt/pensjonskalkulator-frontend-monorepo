@@ -24,6 +24,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v3/pensjonsavtaler': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Hent pensjonsavtaler (versjon 3)
+     * @description Henter pensjonsavtalene til den innloggede/angitte brukeren. I request må verdi av 'maaneder' være 0..11.
+     */
+    post: operations['fetchAvtalerV3']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -84,6 +104,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/simuler-oftp': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler offentlig tjenestepensjon hos tp-leverandør bruker er medlem av
+     * @description Simulerer offentlig tjenestepensjon hos tp-leverandør som har ansvar for brukers tjenestepensjon
+     */
+    post: operations['simulerOffentligTjenestepensjonV1']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/encrypt': {
     parameters: {
       query?: never
@@ -124,6 +164,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v4/person': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hent personinformasjon
+     * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
+     */
+    get: operations['personV4']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/vedtak/loepende-vedtak': {
     parameters: {
       query?: never
@@ -153,7 +213,7 @@ export interface paths {
     }
     /**
      * Hent personinformasjon
-     * @description Henter personinformasjon om den innloggede brukeren.
+     * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
      */
     get: operations['personV2']
     put?: never
@@ -554,6 +614,77 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AlternativV7']
     }
+    PensjonsavtaleAlderSpecV3: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PensjonsavtaleInntektSpecV3: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder?: components['schemas']['PensjonsavtaleAlderSpecV3']
+    }
+    PensjonsavtaleSpecV3: {
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV3'][]
+      harAfp?: boolean
+      epsHarPensjon?: boolean
+      epsHarInntektOver2G: boolean
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+    }
+    PensjonsavtaleUttaksperiodeSpecV3: {
+      startAlder: components['schemas']['PensjonsavtaleAlderSpecV3']
+      /** Format: int32 */
+      grad: number
+      aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV3']
+    }
+    Alder: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PensjonsavtaleResultV3: {
+      avtaler: components['schemas']['PensjonsavtaleV3'][]
+      utilgjengeligeSelskap: components['schemas']['SelskapV3'][]
+    }
+    PensjonsavtaleV3: {
+      produktbetegnelse: string
+      /** @enum {string} */
+      kategori: 'UNKNOWN' | 'INDIVIDUELL_ORDNING' | 'PRIVAT_TJENESTEPENSJON'
+      /** Format: int32 */
+      startAar: number
+      /** Format: int32 */
+      sluttAar?: number
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV3'][]
+    }
+    SelskapV3: {
+      navn: string
+      heltUtilgjengelig: boolean
+    }
+    UtbetalingsperiodeV3: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligUtbetaling: number
+      /** Format: int32 */
+      grad: number
+    }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
       aar: number
@@ -601,12 +732,6 @@ export interface components {
       /** Format: int32 */
       grad: number
       aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV2']
-    }
-    Alder: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
     }
     PensjonsavtaleResultV2: {
       avtaler: components['schemas']['PensjonsavtaleV2'][]
@@ -726,6 +851,48 @@ export interface components {
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
       utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
     }
+    IngressSimuleringOffentligTjenestepensjonSpecV1: {
+      /** Format: date */
+      foedselsdato: string
+      uttaksalder: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV1'][]
+      epsHarPensjon: boolean
+      epsHarInntektOver2G: boolean
+      brukerBaOmAfp: boolean
+    }
+    UtenlandsoppholdV1: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+    }
+    OffentligTjenestepensjonSimuleringsresultatDtoV1: {
+      /** @enum {string} */
+      simuleringsresultatStatus:
+        | 'OK'
+        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
+        | 'TOM_SIMULERING_FRA_TP_ORDNING'
+        | 'TEKNISK_FEIL'
+      muligeTpLeverandoerListe: string[]
+      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonV1']
+    }
+    SimuleringsresultatV1: {
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV1'][]
+      betingetTjenestepensjonErInkludert: boolean
+    }
+    SimulertTjenestepensjonV1: {
+      tpLeverandoer: string
+      simuleringsresultat: components['schemas']['SimuleringsresultatV1']
+    }
+    UtbetalingsperiodeV1: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligUtbetaling: number
+    }
     AnonymSimuleringAlderV1: {
       /** Format: int32 */
       aar: number
@@ -735,12 +902,12 @@ export interface components {
     AnonymSimuleringGradertUttakV1: {
       /** Format: int32 */
       grad: number
-      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      uttaksalder: components['schemas']['AnonymSimuleringAlderV1']
       /** Format: int32 */
       aarligInntektVsaPensjonBeloep?: number
     }
     AnonymSimuleringHeltUttakV1: {
-      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      uttaksalder: components['schemas']['AnonymSimuleringAlderV1']
       aarligInntektVsaPensjon?: components['schemas']['AnonymSimuleringInntektV1']
     }
     AnonymSimuleringInntektV1: {
@@ -749,10 +916,12 @@ export interface components {
       sluttAlder?: components['schemas']['AnonymSimuleringAlderV1']
     }
     AnonymSimuleringSpecV1: {
-      simuleringType?: string
+      /** @enum {string} */
+      simuleringstype?: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: int32 */
       foedselAar: number
-      sivilstand?: string
+      /** @enum {string} */
+      sivilstand?: 'UGIFT' | 'GIFT' | 'SAMBOER'
       epsHarInntektOver2G?: boolean
       epsHarPensjon?: boolean
       /** Format: int32 */
@@ -763,6 +932,10 @@ export interface components {
       aarligInntektFoerUttakBeloep?: number
       gradertUttak?: components['schemas']['AnonymSimuleringGradertUttakV1']
       heltUttak: components['schemas']['AnonymSimuleringHeltUttakV1']
+    }
+    AnonymSimuleringErrorV1: {
+      status: string
+      message: string
     }
     AnonymAlderV1: {
       /** Format: int32 */
@@ -797,6 +970,35 @@ export interface components {
     AnonymVilkaarsproevingV1: {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AnonymAlternativV1']
+    }
+    PersonAlderV4: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PersonPensjoneringAldreV4: {
+      normertPensjoneringsalder: components['schemas']['PersonAlderV4']
+      nedreAldersgrense: components['schemas']['PersonAlderV4']
+    }
+    PersonResultV4: {
+      navn: string
+      /** Format: date */
+      foedselsdato: string
+      /** @enum {string} */
+      sivilstand:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+      pensjoneringAldre: components['schemas']['PersonPensjoneringAldreV4']
     }
     AlderspensjonDetaljerV2: {
       /** Format: int32 */
@@ -950,6 +1152,39 @@ export interface operations {
       }
     }
   }
+  fetchAvtalerV3: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PensjonsavtaleSpecV3']
+      }
+    }
+    responses: {
+      /** @description Henting av pensjonsavtaler utført. I respons er verdi av 'maaneder' 0..11. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['PensjonsavtaleResultV3']
+        }
+      }
+      /** @description Henting av pensjonsavtaler kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   fetchAvtalerV2: {
     parameters: {
       query?: never
@@ -1049,6 +1284,30 @@ export interface operations {
       }
     }
   }
+  simulerOffentligTjenestepensjonV1: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
+        }
+      }
+    }
+  }
   encrypt: {
     parameters: {
       query?: never
@@ -1104,7 +1363,45 @@ export interface operations {
           '*/*': components['schemas']['AnonymSimuleringResultV1']
         }
       }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
+      /** @description Simulering kunne ikke utføres pga. feil i input-data */
+      '4xx': {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['AnonymSimuleringErrorV1']
+        }
+      }
+    }
+  }
+  personV4: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av personinformasjon utført. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['PersonResultV4']
+        }
+      }
+      /** @description Personen ble ikke funnet. */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['PersonResultV4']
+        }
+      }
+      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
       503: {
         headers: {
           [name: string]: unknown

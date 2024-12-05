@@ -305,14 +305,15 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
   },
 }
 
-export const fulfilledGetTpoMedlemskap = {
-  ['getTpoMedlemskap(undefined)']: {
+export const fulfilledsimulerOffentligTp = {
+  ['offentligTp(undefined)']: {
     status: 'fulfilled',
-    endpointName: 'getTpoMedlemskap',
+    endpointName: 'offentligTp',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      tpLeverandoerListe: [
+      simuleringsresultatStatus: 'OK',
+      muligeTpLeverandoerListe: [
         'Statens pensjonskasse',
         'Kommunal Landspensjonskasse',
         'Oslo Pensjonsforsikring',

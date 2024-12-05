@@ -94,9 +94,12 @@ export const isAlderspensjonSimulering = (
   )
 }
 
-export const isUtbetalingsperiode = (
+export const isUtbetalingsperiode = <T extends boolean>(
+  checkGrad: T,
   data?: any
-): data is Utbetalingsperiode => {
+): data is T extends true
+  ? Utbetalingsperiode
+  : UtbetalingsperiodeWithoutGrad => {
   if (data === null || data === undefined) {
     return false
   }
@@ -105,10 +108,12 @@ export const isUtbetalingsperiode = (
     data.sluttAlder === undefined ||
     (data.sluttAlder !== undefined && isAlder(data.sluttAlder))
 
+  const hasCorrectGrad = checkGrad ? typeof data.grad === 'number' : true
+
   return (
     data.startAlder !== undefined &&
     isAlder(data.startAlder) &&
-    typeof data.grad === 'number' &&
+    hasCorrectGrad &&
     data.aarligUtbetaling !== undefined &&
     typeof data.aarligUtbetaling === 'number' &&
     hasCorrectSluttAlder
@@ -119,12 +124,12 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
   if (data === null || data === undefined) {
     return false
   }
-  const harFeilUtbetalingsperiode =
+
+  const hasCorrectUtbetalingsperiode: boolean =
     data.utbetalingsperioder !== undefined &&
     Array.isArray(data.utbetalingsperioder) &&
-    data.utbetalingsperioder.some(
-      (utbetalingsperiode: Utbetalingsperiode) =>
-        !isUtbetalingsperiode(utbetalingsperiode)
+    data.utbetalingsperioder.every((utbetalingsperiode: any) =>
+      isUtbetalingsperiode(true, utbetalingsperiode)
     )
 
   const harFeilStartAar =
@@ -140,7 +145,7 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     data.kategori &&
     isSomeEnumKey(pensjonsavtalerKategoriMapObj)(data.kategori) &&
     Array.isArray(data.utbetalingsperioder) &&
-    !harFeilUtbetalingsperiode &&
+    hasCorrectUtbetalingsperiode &&
     !harFeilStartAar &&
     !harFeilSluttAar
   )
@@ -169,15 +174,57 @@ export const isPerson = (data?: any): data is Person => {
   )
 }
 
-export const isTpoMedlemskap = (data?: any): data is TpoMedlemskap => {
+export const isSimulertOffentligTp = (data?: any) => {
+  if (data === null || typeof data !== 'object') {
+    return false
+  }
+
+  const hasCorrectUtbetalingsperiode: boolean =
+    data.simuleringsresultat.utbetalingsperioder !== undefined &&
+    Array.isArray(data.simuleringsresultat.utbetalingsperioder) &&
+    data.simuleringsresultat.utbetalingsperioder.every(
+      (utbetalingsperiode: any) =>
+        isUtbetalingsperiode(false, utbetalingsperiode)
+    )
+
+  return (
+    typeof data.tpLeverandoer === 'string' &&
+    data.simuleringsresultat.betingetTjenestepensjonErInkludert !== undefined &&
+    typeof data.simuleringsresultat.betingetTjenestepensjonErInkludert ===
+      'boolean' &&
+    hasCorrectUtbetalingsperiode
+  )
+}
+
+export const isOffentligTp = (data?: any): data is OffentligTp => {
+  if (
+    !data ||
+    !data.simuleringsresultatStatus ||
+    ![
+      'OK',
+      'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+      'TP_ORDNING_STOETTES_IKKE',
+      'TOM_SIMULERING_FRA_TP_ORDNING',
+      'TEKNISK_FEIL',
+    ].includes(data.simuleringsresultatStatus)
+  ) {
+    return false
+  }
+
+  const simulertTjenestepensjonValid =
+    data.simulertTjenestepensjon !== undefined
+      ? isSimulertOffentligTp(data.simulertTjenestepensjon)
+      : true
+
   return (
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    Array.isArray(data.tpLeverandoerListe) &&
-    data.tpLeverandoerListe.every(
+    Array.isArray(data.muligeTpLeverandoerListe) &&
+    data.muligeTpLeverandoerListe.every(
       (tpLeverandoer: string) => typeof tpLeverandoer === 'string'
-    )
+    ) &&
+    simulertTjenestepensjonValid
   )
 }
 

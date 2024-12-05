@@ -55,14 +55,16 @@ declare global {
   // LoependeVedtakDto
   type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
-  // /tpo-medlemskap
-  export type TpoMedlemskapQuery = TypedUseQueryStateResult<
-    TpoMedlemskap,
+  // /simuler-oftp
+  export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
+    OffentligTp,
     void,
-    BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
+    BaseQueryFn<Record<string, unknown>, OffentligTp>
   >
-  type TpoMedlemskap =
-    components['schemas']['MedlemskapITjenestepensjonsordningDto']
+  type OffentligTpRequestBody =
+    components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
+  type OffentligTp =
+    components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
@@ -72,16 +74,17 @@ declare global {
 
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleSpecV2']
+    components['schemas']['PensjonsavtaleSpecV3']
   type PensjonsavtalerResponseBody =
-    components['schemas']['PensjonsavtaleResultV2']
-  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV2']
-  type Pensjonsavtale = components['schemas']['PensjonsavtaleV2'] & {
+    components['schemas']['PensjonsavtaleResultV3']
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
+  type UtbetalingsperiodeWithoutGrad = Omit<Utbetalingsperiode, 'grad'>
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
     key?: number
   }
   type PensjonsavtaleKategori =
-    components['schemas']['PensjonsavtaleV2']['kategori']
-  type UtilgjengeligeSelskap = components['schemas']['SelskapV2']
+    components['schemas']['PensjonsavtaleV3']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapV3']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =

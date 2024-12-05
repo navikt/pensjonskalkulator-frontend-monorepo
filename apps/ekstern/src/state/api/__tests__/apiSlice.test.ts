@@ -4,11 +4,11 @@ import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' wi
 import ekskludertStatusResponse from '../../../mocks/data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from '../../../mocks/data/loepende-vedtak.json' with { type: 'json' }
+import offentligTpResponse from '../../../mocks/data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from '../../../mocks/data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import pensjonsavtalerResponse from '../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import personResponse from '../../../mocks/data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from '../../../mocks/data/tidligstMuligHeltUttak.json' with { type: 'json' }
-import tpoMedlemskapResponse from '../../../mocks/data/tpo-medlemskap.json' with { type: 'json' }
 import spraakvelgerToggleResponse from '../../../mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import endringToggleResponse from '../../../mocks/data/unleash-enable-endring.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from '../../../mocks/data/unleash-enable-redirect-1963.json' with { type: 'json' }
@@ -22,7 +22,7 @@ describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('getInntekt')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
-    expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
+    expect(apiSlice.endpoints).toHaveProperty('offentligTp')
     expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHeltUttak')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
@@ -230,23 +230,25 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getTpoMedlemskap', () => {
+  describe('simulerOffentligTp', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(tpoMedlemskapResponse)
+          expect(fetchBaseQueryResult.data).toMatchObject(offentligTpResponse)
         })
     })
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/tpo-medlemskap')
+      mockErrorResponse('/v1/simuler-oftp', {
+        method: 'post',
+      })
       return storeRef
-        .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('rejected')
@@ -256,13 +258,14 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/tpo-medlemskap', {
+      mockResponse('/v1/simuler-oftp', {
         status: 200,
         json: { lorem: 'ipsum' },
+        method: 'post',
       })
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+          .dispatch(apiSlice.endpoints.offentligTp.initiate())
           .then((result) => {
             const fetchBaseQueryResult =
               result as unknown as FetchBaseQueryError
@@ -275,7 +278,9 @@ describe('apiSlice', () => {
   })
 
   describe('pensjonsavtaler', () => {
-    const dummyRequestBody = {
+    const dummyRequestBody: PensjonsavtalerRequestBody = {
+      epsHarInntektOver2G: false,
+      epsHarPensjon: false,
       aarligInntektFoerUttakBeloep: 500000,
       uttaksperioder: [
         {
@@ -320,7 +325,7 @@ describe('apiSlice', () => {
           },
         ],
       }
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [{ ...avtale }],
@@ -345,7 +350,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/pensjonsavtaler', {
+      mockErrorResponse('/v3/pensjonsavtaler', {
         method: 'post',
       })
       return storeRef
@@ -359,7 +364,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -435,7 +440,7 @@ describe('apiSlice', () => {
       simuleringstype: 'ALDERSPENSJON',
       foedselsdato: '1963-04-30',
       sivilstand: 'UGIFT',
-      epsHarInntektOver2G: true,
+      epsHarInntektOver2G: false,
       heltUttak: {
         uttaksalder: { aar: 67, maaneder: 8 },
         aarligInntektVsaPensjon: {

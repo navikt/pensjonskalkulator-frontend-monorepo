@@ -138,6 +138,8 @@ describe('Pensjonsavtaler', () => {
         {
           aarligInntektFoerUttakBeloep: 0,
           harAfp: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -163,7 +165,6 @@ describe('Pensjonsavtaler', () => {
               },
             },
           ],
-          utenlandsperioder: [],
         },
         {
           forceRefetch: undefined,
@@ -267,7 +268,7 @@ describe('Pensjonsavtaler', () => {
       expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()
     })
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell og info om offentlig tjenestepensjon', async () => {
-      mockErrorResponse('/v2/pensjonsavtaler', {
+      mockErrorResponse('/v3/pensjonsavtaler', {
         method: 'post',
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
@@ -297,7 +298,7 @@ describe('Pensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -359,7 +360,7 @@ describe('Pensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -413,7 +414,7 @@ describe('Pensjonsavtaler', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell. Info om offentlig tjenestepensjon vises.', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],

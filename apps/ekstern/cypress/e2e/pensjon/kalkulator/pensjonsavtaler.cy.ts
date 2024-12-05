@@ -12,7 +12,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -126,7 +126,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -193,7 +193,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -255,7 +255,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler,', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })
@@ -315,13 +315,14 @@ describe('Pensjonsavtaler', () => {
       beforeEach(() => {
         cy.intercept(
           {
-            method: 'GET',
-            url: '/pensjon/kalkulator/api/v1/tpo-medlemskap',
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v1/simuler-oftp',
           },
           {
-            tpLeverandoerListe: [],
+            simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+            muligeTpLeverandoerListe: [],
           }
-        ).as('getTpoMedlemskap')
+        ).as('fetchOffentligTp')
       })
 
       describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon,', () => {
@@ -329,7 +330,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -417,7 +418,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -481,7 +482,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -540,7 +541,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler,', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })
@@ -596,13 +597,13 @@ describe('Pensjonsavtaler', () => {
     describe('Når kall til TPO feiler,', () => {
       beforeEach(() => {
         cy.intercept(
-          'GET',
-          '/pensjon/kalkulator/api/v1/tpo-medlemskap',
+          'POST',
+          '/pensjon/kalkulator/api/v1/simuler-oftp',
 
           {
             statusCode: 503,
           }
-        ).as('getTpoMedlemskap')
+        ).as('fetchOffentligTp')
       })
 
       describe('Som bruker som ikke har pensjonsavtaler hos Norsk Pensjon,', () => {
@@ -610,7 +611,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -724,7 +725,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             { fixture: 'pensjonsavtaler-delvis-svar.json' }
           ).as('fetchPensjonsavtaler')
@@ -791,7 +792,7 @@ describe('Pensjonsavtaler', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v2/pensjonsavtaler',
+              url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
             },
             {
               avtaler: [],
@@ -853,7 +854,7 @@ describe('Pensjonsavtaler', () => {
 
       describe('Når kall til Norsk pensjon feiler', () => {
         beforeEach(() => {
-          cy.intercept('POST', '/pensjon/kalkulator/api/v2/pensjonsavtaler', {
+          cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
         })

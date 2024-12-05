@@ -142,7 +142,8 @@ export const generateAlderspensjonRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -206,7 +207,8 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    // epsHarPensjon: false, // Støttes ikke i Pesys
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -228,18 +230,18 @@ export const generatePensjonsavtalerRequestBody = (args: {
   ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
+  harSamboer: boolean | null
   heltUttak: HeltUttak
   gradertUttak?: GradertUttak
-  utenlandsperioder: Utenlandsperiode[]
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
     ufoeregrad,
     afp,
     sivilstand,
+    harSamboer,
     heltUttak,
     gradertUttak,
-    utenlandsperioder,
   } = args
   return {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -290,9 +292,42 @@ export const generatePensjonsavtalerRequestBody = (args: {
       },
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
-    utenlandsperioder: transformUtenlandsperioderArray(utenlandsperioder),
-    // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
-    // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forbehold
     sivilstand,
+  }
+}
+
+export const generateOffentligTpRequestBody = (args: {
+  afp: AfpRadio | null
+  foedselsdato: string | null | undefined
+  harSamboer: boolean | null
+  aarligInntektFoerUttakBeloep: string
+  uttaksalder: Alder | null
+  utenlandsperioder: Utenlandsperiode[]
+}): OffentligTpRequestBody | undefined => {
+  const {
+    afp,
+    foedselsdato,
+    harSamboer,
+    aarligInntektFoerUttakBeloep,
+    uttaksalder,
+    utenlandsperioder,
+  } = args
+
+  if (!foedselsdato || !uttaksalder) {
+    return undefined
+  }
+
+  return {
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
+    uttaksalder,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forbehold
+    brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
 }

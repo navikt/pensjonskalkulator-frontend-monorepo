@@ -8,16 +8,20 @@ import HighchartsReact from 'highcharts-react-official'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
-  useGetTpoMedlemskapQuery,
+  useOffentligTpQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
+import {
+  generateOffentligTpRequestBody,
+  generatePensjonsavtalerRequestBody,
+} from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectSamtykke,
   selectUfoeregrad,
   selectSivilstand,
+  selectSamboer,
   selectAfp,
   selectIsEndring,
   selectFoedselsdato,
@@ -66,6 +70,7 @@ export function Simulering(props: {
   const sivilstand = useAppSelector(selectSivilstand)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const isEndring = useAppSelector(selectIsEndring)
+  const harSamboer = useAppSelector(selectSamboer)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -77,8 +82,17 @@ export function Simulering(props: {
 
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
 
+  const [offentligTpRequestBody, setOffentligTpRequestBody] = React.useState<
+    OffentligTpRequestBody | undefined
+  >(undefined)
+
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
+
+  const { data: offentligTp, isError: isOffentligTpError } =
+    useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+      skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+    })
 
   const {
     data: pensjonsavtaler,
@@ -92,28 +106,34 @@ export function Simulering(props: {
     }
   )
 
-  const { data: tpo, isError: isTpoError } = useGetTpoMedlemskapQuery(
-    undefined,
-    {
-      skip: !harSamtykket,
-    }
-  )
-
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
-      const requestBody = generatePensjonsavtalerRequestBody({
-        aarligInntektFoerUttakBeloep,
-        ufoeregrad,
-        afp,
-        sivilstand,
-        heltUttak: {
-          uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
-        },
-        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-        utenlandsperioder,
-      })
-      setPensjonsavtalerRequestBody(requestBody)
+      setOffentligTpRequestBody(
+        generateOffentligTpRequestBody({
+          afp,
+          foedselsdato,
+          harSamboer,
+          aarligInntektFoerUttakBeloep,
+          uttaksalder: gradertUttaksperiode
+            ? gradertUttaksperiode.uttaksalder
+            : uttaksalder,
+          utenlandsperioder,
+        })
+      )
+      setPensjonsavtalerRequestBody(
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttakBeloep,
+          ufoeregrad,
+          afp,
+          sivilstand,
+          harSamboer,
+          heltUttak: {
+            uttaksalder,
+            aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+          },
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+        })
+      )
     }
   }, [harSamtykket, uttaksalder])
 
@@ -152,9 +172,9 @@ export function Simulering(props: {
       isError: isPensjonsavtalerError,
       data: pensjonsavtaler,
     },
-    tpo: {
-      isError: isTpoError,
-      data: tpo,
+    offentligTp: {
+      isError: isOffentligTpError,
+      data: offentligTp,
     },
   })
 
