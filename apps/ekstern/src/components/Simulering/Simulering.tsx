@@ -89,10 +89,13 @@ export function Simulering(props: {
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
-  const { data: offentligTp, isError: isOffentligTpError } =
-    useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
-      skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
-    })
+  const {
+    data: offentligTp,
+    isFetching: isOffentligTpLoading,
+    isError: isOffentligTpError,
+  } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+    skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+  })
 
   const {
     data: pensjonsavtaler,
@@ -157,9 +160,11 @@ export function Simulering(props: {
     afpOffentligListe,
     pensjonsavtaler: {
       isLoading: isPensjonsavtalerLoading,
-      isSuccess: isPensjonsavtalerSuccess,
-      isError: isPensjonsavtalerError,
       data: pensjonsavtaler,
+    },
+    offentligTp: {
+      isLoading: isOffentligTpLoading,
+      data: offentligTp,
     },
   })
 
