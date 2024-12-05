@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Heading, HeadingProps } from '@navikt/ds-react'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
@@ -75,7 +75,6 @@ export function Simulering(props: {
   const { data: utvidetSimuleringsresultatFeatureToggle } =
     useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
-  const intl = useIntl()
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
@@ -170,10 +169,6 @@ export function Simulering(props: {
         gradertUttaksperiode={gradertUttaksperiode ?? undefined}
         alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
       />
-
-      <div id="chart-description" hidden>
-        {intl.formatMessage({ id: 'beregning.alt_tekst' })}
-      </div>
 
       <div role="img" aria-labelledby="alt-chart-title">
         <div id="alt-chart-title" hidden>
