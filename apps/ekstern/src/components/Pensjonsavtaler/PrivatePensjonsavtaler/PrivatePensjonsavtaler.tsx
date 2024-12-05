@@ -48,7 +48,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
               aria-hidden
             />
             <BodyLong className={styles.infoText}>
-              <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+              <FormattedMessage id="pensjonsavtaler.private.ingress.ingen" />
             </BodyLong>
           </div>
         )}
@@ -68,8 +68,8 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
             <FormattedMessage
               id={
                 isError
-                  ? 'pensjonsavtaler.ingress.error.pensjonsavtaler'
-                  : 'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+                  ? 'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
+                  : 'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
               }
             />
           </BodyLong>
@@ -90,7 +90,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
               aria-hidden
             />
             <BodyLong className={styles.infoText}>
-              <FormattedMessage id="pensjonsavtaler.ingress.error.pensjonsavtaler.partial" />
+              <FormattedMessage id="pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial" />
             </BodyLong>
           </div>
         )}
@@ -118,7 +118,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
 
       <BodyLong className={styles.paragraph} size="small">
         <FormattedMessage
-          id="pensjonsavtaler.ingress.norsk_pensjon"
+          id="pensjonsavtaler.private.ingress.norsk_pensjon"
           values={{
             ...getFormatMessageValues(intl),
           }}

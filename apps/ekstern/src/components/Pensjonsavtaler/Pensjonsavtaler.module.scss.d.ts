@@ -4,7 +4,6 @@ declare const classNames: typeof globalClassNames & {
   readonly "navds-accordion__item": "navds-accordion__item";
   readonly "navds-accordion__item--open": "navds-accordion__item--open";
   readonly sectionHeader: "sectionHeader";
-  readonly paragraph: "paragraph";
   readonly footnote: "footnote";
 };
 export = classNames;

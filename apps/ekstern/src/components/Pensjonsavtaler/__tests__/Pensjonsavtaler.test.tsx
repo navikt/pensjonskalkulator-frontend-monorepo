@@ -76,7 +76,7 @@ describe('Pensjonsavtaler', () => {
         })
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('pensjonsavtaler.tpo.title')
+        screen.queryByText('pensjonsavtaler.offentliptp.title')
       ).not.toBeInTheDocument()
 
       await user.click(
@@ -109,7 +109,7 @@ describe('Pensjonsavtaler', () => {
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
       expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
+        await screen.findByText('pensjonsavtaler.offentliptp.title')
       ).toBeInTheDocument()
     })
 
@@ -258,7 +258,9 @@ describe('Pensjonsavtaler', () => {
       })
       expect(await screen.findByTestId('private-pensjonsavtaler')).toBeVisible()
 
-      expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()
+      expect(
+        await screen.findByText('pensjonsavtaler.offentliptp.title')
+      ).toBeVisible()
       expect(
         await screen.findByText('pensjonsavtaler.fra_og_med_forklaring')
       ).toBeVisible()

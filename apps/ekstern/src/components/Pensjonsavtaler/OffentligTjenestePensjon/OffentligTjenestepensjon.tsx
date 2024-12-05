@@ -82,7 +82,7 @@ export const OffentligTjenestepensjon = (props: {
     <VStack gap="3">
       {showDivider && <Divider smallMargin />}
       <Heading id="tpo-heading" level={headingLevel} size="small">
-        {intl.formatMessage({ id: 'pensjonsavtaler.tpo.title' })}
+        {intl.formatMessage({ id: 'pensjonsavtaler.offentliptp.title' })}
       </Heading>
 
       {tpOffentligFeatureToggle?.enabled ? (
@@ -95,7 +95,7 @@ export const OffentligTjenestepensjon = (props: {
                 size="xsmall"
               >
                 {intl.formatMessage({
-                  id: 'pensjonsavtaler.tpo.subtitle.spk',
+                  id: 'pensjonsavtaler.offentliptp.subtitle.spk',
                 })}
               </Heading>
               <table
@@ -134,7 +134,7 @@ export const OffentligTjenestepensjon = (props: {
               </table>
             </>
           ) : (
-            <Table data-testid=" offentlig-tjenestepensjon-desktop">
+            <Table data-testid="offentlig-tjenestepensjon-desktop">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>
@@ -171,7 +171,7 @@ export const OffentligTjenestepensjon = (props: {
                             }
                           >
                             {intl.formatMessage({
-                              id: 'pensjonsavtaler.tpo.subtitle.spk',
+                              id: 'pensjonsavtaler.offentliptp.subtitle.spk',
                             })}
                           </Table.HeaderCell>
                         )}
@@ -220,7 +220,9 @@ export const OffentligTjenestepensjon = (props: {
           <BodyLong className={styles.infoText}>
             {
               //  Ved feil vis feilmelding om tp-offentlig
-              isError && <FormattedMessage id="pensjonsavtaler.tpo.error" />
+              isError && (
+                <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
+              )
             }
             {
               //  Ved success vis info om at brukeren kan ha rett på tp-offentlig
@@ -228,7 +230,7 @@ export const OffentligTjenestepensjon = (props: {
                 offentligTp?.muligeTpLeverandoerListe &&
                 offentligTp.muligeTpLeverandoerListe.length > 0 && (
                   <FormattedMessage
-                    id="pensjonsavtaler.tpo.er_medlem"
+                    id="pensjonsavtaler.offentligtp.er_medlem"
                     values={{
                       chunk: leverandoererString,
                     }}

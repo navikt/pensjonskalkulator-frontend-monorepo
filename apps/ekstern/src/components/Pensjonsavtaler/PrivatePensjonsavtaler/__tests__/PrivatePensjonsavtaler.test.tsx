@@ -73,7 +73,7 @@ describe('PrivatePensjonsavtaler', () => {
 
     expect(
       await screen.findByText(
-        'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+        'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
       )
     ).toBeVisible()
     expect(screen.queryByTestId('private-pensjonsavtaler')).toBeInTheDocument()
@@ -103,7 +103,7 @@ describe('PrivatePensjonsavtaler', () => {
     ).not.toBeInTheDocument()
     expect(
       await screen.findByText(
-        'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+        'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
       )
     ).toBeVisible()
 
@@ -129,7 +129,9 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
-      await screen.findByText('pensjonsavtaler.ingress.error.pensjonsavtaler')
+      await screen.findByText(
+        'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
+      )
     ).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler')
@@ -155,7 +157,7 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
-      await screen.findByText('pensjonsavtaler.ingress.ingen')
+      await screen.findByText('pensjonsavtaler.private.ingress.ingen')
     ).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler-desktop')
