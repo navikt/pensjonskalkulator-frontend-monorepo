@@ -87,20 +87,20 @@ export const PrivatePensjonsavtalerMobile: React.FC<Props> = ({
     return groupPensjonsavtalerByType(pensjonsavtaler)
   }, [pensjonsavtaler])
 
+  const avtaleGrupper = Object.entries(gruppertePensjonsavtaler)
+
   return (
     <VStack data-testid="private-pensjonsavtaler-mobile">
-      {Object.entries(gruppertePensjonsavtaler).map(
-        ([avtaleGruppe, gruppePensjonsavtaler]) => (
-          <div key={`${avtaleGruppe}-gruppe-mobil`}>
-            <AvtaleGruppe
-              headingLevel={headingLevel}
-              avtale={avtaleGruppe}
-              pensjonsavtaler={gruppePensjonsavtaler}
-            />
-            <Divider />
-          </div>
-        )
-      )}
+      {avtaleGrupper.map(([avtaleGruppe, gruppePensjonsavtaler], index) => (
+        <div key={`${avtaleGruppe}-gruppe-mobil`}>
+          <AvtaleGruppe
+            headingLevel={headingLevel}
+            avtale={avtaleGruppe}
+            pensjonsavtaler={gruppePensjonsavtaler}
+          />
+          {index < avtaleGrupper.length - 1 && <Divider />}
+        </div>
+      ))}
     </VStack>
   )
 }

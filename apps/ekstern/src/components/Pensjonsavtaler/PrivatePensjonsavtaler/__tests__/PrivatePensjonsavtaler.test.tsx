@@ -96,14 +96,8 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
-      screen.queryByText(
-        'pensjonsavtaler.title.error.pensjonsavtaler.partial',
-        { exact: false }
-      )
-    ).not.toBeInTheDocument()
-    expect(
       await screen.findByText(
-        'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
+        'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
       )
     ).toBeVisible()
 

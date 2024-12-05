@@ -5,6 +5,7 @@ declare const classNames: typeof globalClassNames & {
   readonly infoIcon__orange: "infoIcon__orange";
   readonly infoIcon__blue: "infoIcon__blue";
   readonly infoText: "infoText";
+  readonly info__margin: "info__margin";
   readonly paragraph: "paragraph";
 };
 export = classNames;

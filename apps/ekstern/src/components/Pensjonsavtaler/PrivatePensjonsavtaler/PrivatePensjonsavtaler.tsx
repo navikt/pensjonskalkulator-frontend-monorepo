@@ -66,24 +66,20 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
           />
           <BodyLong className={styles.infoText}>
             <FormattedMessage
-              id={
-                isError
-                  ? 'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
-                  : 'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
-              }
+              id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
             />
           </BodyLong>
         </div>
       )}
 
       {
-        // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
+        // Når private pensjonsavtaler er partial med noen avtaler
       }
       {isSuccess &&
         isPartialResponse &&
         privatePensjonsavtaler &&
         privatePensjonsavtaler?.length > 0 && (
-          <div className={styles.info}>
+          <div className={`${styles.info} ${styles.info__margin}`}>
             <ExclamationmarkTriangleFillIcon
               className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
               fontSize="1.5rem"
@@ -95,9 +91,6 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
           </div>
         )}
 
-      {
-        // Når private pensjonsavtaler er partial med noen avtaler
-      }
       {isSuccess &&
         privatePensjonsavtaler &&
         privatePensjonsavtaler.length > 0 && (

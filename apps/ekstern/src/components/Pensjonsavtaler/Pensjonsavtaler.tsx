@@ -164,9 +164,12 @@ export const Pensjonsavtaler = (props: {
               headingLevel={subHeadingLevel}
               showDivider
             />
-            <BodyLong className={styles.footnote}>
-              <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
-            </BodyLong>
+            {(isPensjonsavtalerSuccess ||
+              offentligTp?.simulertTjenestepensjon) && (
+              <BodyLong className={styles.footnote}>
+                <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+              </BodyLong>
+            )}
           </>
         </ShowMore>
       ) : (
