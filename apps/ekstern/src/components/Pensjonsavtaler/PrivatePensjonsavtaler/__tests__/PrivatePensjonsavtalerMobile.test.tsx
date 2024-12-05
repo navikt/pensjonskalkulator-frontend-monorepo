@@ -3,7 +3,7 @@ import { describe, it } from 'vitest'
 import { PrivatePensjonsavtalerMobile } from '../PrivatePensjonsavtalerMobile'
 import { render, screen } from '@/test-utils'
 
-describe('PensjonsavtalerMobile', () => {
+describe('PrivatePensjonsavtalerMobile', () => {
   const avtale: Pensjonsavtale = {
     key: 0,
     produktbetegnelse: 'DNB',

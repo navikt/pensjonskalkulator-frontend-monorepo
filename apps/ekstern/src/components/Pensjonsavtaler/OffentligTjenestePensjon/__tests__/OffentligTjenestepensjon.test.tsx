@@ -3,6 +3,7 @@ import { describe, it } from 'vitest'
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 import { mockErrorResponse } from '@/mocks/server'
 import { render, screen } from '@/test-utils'
+import * as useIsMobileUtils from '@/utils/useIsMobile'
 
 describe('OffentligTjenestepensjon', () => {
   it('viser loader mens info om tp-medlemskap hentes', () => {
@@ -85,6 +86,61 @@ describe('OffentligTjenestepensjon', () => {
         'pensjonsavtaler.tpo.title'
       )
       expect(screen.getByText('pensjonsavtaler.tpo.error')).toBeInTheDocument()
+    })
+  })
+
+  describe('Gitt at feature-toggle for tp-offentlig er på, ', () => {
+    describe('Gitt at offentlig tjenestepensjon er hentet og at brukeren er medlem med simulert tjenestepensjon fra SPK, ', async () => {
+      it('Når brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {
+        vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
+
+        render(
+          <OffentligTjenestepensjon
+            isLoading={false}
+            isError={false}
+            offentligTp={{
+              simuleringsresultatStatus: 'OK',
+              muligeTpLeverandoerListe: [
+                'Statens pensjonskasse',
+                'Kommunal Landspensjonskasse',
+                'Oslo Pensjonsforsikring',
+              ],
+            }}
+            headingLevel="3"
+          />
+        )
+        expect(
+          await screen.findByText('pensjonsavtaler.tpo.title')
+        ).toBeVisible()
+        expect(
+          await screen.findByTestId('offentlig-tjenestepensjon-desktop')
+        ).toBeVisible()
+      })
+
+      it('Når brukeren er på mobil, viser riktig informasjon og liste over private pensjonsavtaler.', async () => {
+        vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(true)
+        render(
+          <OffentligTjenestepensjon
+            isLoading={false}
+            isError={false}
+            offentligTp={{
+              simuleringsresultatStatus: 'OK',
+              muligeTpLeverandoerListe: [
+                'Statens pensjonskasse',
+                'Kommunal Landspensjonskasse',
+                'Oslo Pensjonsforsikring',
+              ],
+            }}
+            headingLevel="3"
+          />
+        )
+        expect(
+          await screen.findByText('pensjonsavtaler.tpo.title')
+        ).toBeVisible()
+        expect(
+          await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+        ).toBeVisible()
+      })
     })
   })
 })

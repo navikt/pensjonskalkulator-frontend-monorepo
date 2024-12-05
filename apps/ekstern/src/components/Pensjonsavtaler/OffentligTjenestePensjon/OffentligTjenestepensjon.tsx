@@ -33,6 +33,7 @@ export const OffentligTjenestepensjon = (props: {
   const { isLoading, isError, offentligTp, headingLevel, showDivider } = props
   const intl = useIntl()
   const isMobile = useIsMobile()
+
   const [leverandoererString, setleverandoererString] =
     React.useState<string>('')
   const { data: tpOffentligFeatureToggle } =
@@ -97,7 +98,10 @@ export const OffentligTjenestepensjon = (props: {
                   id: 'pensjonsavtaler.tpo.subtitle.spk',
                 })}
               </Heading>
-              <table className={styles.mobileTable}>
+              <table
+                className={styles.mobileTable}
+                data-testid="offentlig-tjenestepensjon-mobile"
+              >
                 <tbody>
                   {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
                     (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => (
@@ -130,7 +134,7 @@ export const OffentligTjenestepensjon = (props: {
               </table>
             </>
           ) : (
-            <Table>
+            <Table data-testid=" offentlig-tjenestepensjon-desktop">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>
