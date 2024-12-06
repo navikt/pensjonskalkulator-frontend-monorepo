@@ -27,6 +27,7 @@ export const externalUrls = {
   byttBruker: import.meta.env.VITE_BYTT_BRUKER_URL,
   personopplysninger:
     'https://www.nav.no/personopplysninger-i-pensjonskalkulator',
+  spk: 'https://www.spk.no/',
 }
 
 export const paths = {

@@ -1005,7 +1005,7 @@ describe('Loaders', () => {
               ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
-          userInput: { ...userInputInitialState, afp: 'ja' },
+          userInput: { ...userInputInitialState, afp: 'ja_privat' },
         }
         store.getState = vi.fn().mockImplementation(() => {
           return mockedState

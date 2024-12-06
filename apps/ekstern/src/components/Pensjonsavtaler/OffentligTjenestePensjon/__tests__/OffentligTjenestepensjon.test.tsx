@@ -2,6 +2,7 @@ import { describe, it } from 'vitest'
 
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 import { mockErrorResponse } from '@/mocks/server'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
 
@@ -142,6 +143,220 @@ describe('OffentligTjenestepensjon', () => {
         expect(
           await screen.findByTestId('offentlig-tjenestepensjon-mobile')
         ).toBeVisible()
+      })
+
+      describe('Gitt at brukeren har svart på spørsmålet om AFP og fått simulert tjenestepensjon, ', () => {
+        it('Når brukeren har svart AFP privat på AFP steget, viser riktig informasjon.', async () => {
+          render(
+            <OffentligTjenestepensjon
+              isLoading={false}
+              isError={false}
+              offentligTp={{
+                simuleringsresultatStatus: 'OK',
+                muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+                simulertTjenestepensjon: {
+                  tpLeverandoer: 'SPK',
+                  simuleringsresultat: {
+                    betingetTjenestepensjonErInkludert: false,
+                    utbetalingsperioder: [],
+                  },
+                },
+              }}
+              headingLevel="3"
+            />,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  samtykke: true,
+                  afp: 'ja_privat',
+                },
+              },
+            }
+          )
+
+          expect(
+            await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          ).toBeVisible()
+          expect(
+            screen.getByText('Livsvarig AFP er ikke inkludert i beløpet', {
+              exact: false,
+            })
+          ).toBeVisible()
+        })
+
+        it('Når brukeren har svart AFP offentlig på AFP steget, viser riktig informasjon.', async () => {
+          render(
+            <OffentligTjenestepensjon
+              isLoading={false}
+              isError={false}
+              offentligTp={{
+                simuleringsresultatStatus: 'OK',
+                muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+                simulertTjenestepensjon: {
+                  tpLeverandoer: 'SPK',
+                  simuleringsresultat: {
+                    betingetTjenestepensjonErInkludert: false,
+                    utbetalingsperioder: [],
+                  },
+                },
+              }}
+              headingLevel="3"
+            />,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  samtykke: true,
+                  afp: 'ja_offentlig',
+                },
+              },
+            }
+          )
+
+          expect(
+            await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          ).toBeVisible()
+          expect(
+            screen.getByText('Livsvarig AFP er ikke inkludert i beløpet', {
+              exact: false,
+            })
+          ).toBeVisible()
+        })
+
+        it('Når brukeren har svart Vet ikke på AFP steget, viser riktig informasjon.', async () => {
+          render(
+            <OffentligTjenestepensjon
+              isLoading={false}
+              isError={false}
+              offentligTp={{
+                simuleringsresultatStatus: 'OK',
+                muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+                simulertTjenestepensjon: {
+                  tpLeverandoer: 'SPK',
+                  simuleringsresultat: {
+                    betingetTjenestepensjonErInkludert: false,
+                    utbetalingsperioder: [],
+                  },
+                },
+              }}
+              headingLevel="3"
+            />,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  samtykke: true,
+                  afp: 'vet_ikke',
+                },
+              },
+            }
+          )
+
+          expect(
+            await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          ).toBeVisible()
+          expect(
+            screen.getByText(
+              'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon.',
+              {
+                exact: false,
+              }
+            )
+          ).toBeVisible()
+        })
+
+        it('Når brukeren har svart Nei på AFP steget og betingetTjenestepensjonErInkludert er false, viser riktig informasjon.', async () => {
+          render(
+            <OffentligTjenestepensjon
+              isLoading={false}
+              isError={false}
+              offentligTp={{
+                simuleringsresultatStatus: 'OK',
+                muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+                simulertTjenestepensjon: {
+                  tpLeverandoer: 'SPK',
+                  simuleringsresultat: {
+                    betingetTjenestepensjonErInkludert: false,
+                    utbetalingsperioder: [],
+                  },
+                },
+              }}
+              headingLevel="3"
+            />,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  samtykke: true,
+                  afp: 'nei',
+                },
+              },
+            }
+          )
+
+          expect(
+            await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          ).toBeVisible()
+          expect(
+            screen.queryByText(
+              'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet.',
+              {
+                exact: false,
+              }
+            )
+          ).not.toBeInTheDocument()
+          expect(
+            screen.getByText(
+              'Du har oppgitt at du ikke har rett til livsvarig AFP.',
+              {
+                exact: false,
+              }
+            )
+          ).toBeVisible()
+        })
+
+        it('Når brukeren har svart Nei på AFP steget og betingetTjenestepensjonErInkludert er true, viser riktig informasjon.', async () => {
+          render(
+            <OffentligTjenestepensjon
+              isLoading={false}
+              isError={false}
+              offentligTp={{
+                simuleringsresultatStatus: 'OK',
+                muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+                simulertTjenestepensjon: {
+                  tpLeverandoer: 'SPK',
+                  simuleringsresultat: {
+                    betingetTjenestepensjonErInkludert: true,
+                    utbetalingsperioder: [],
+                  },
+                },
+              }}
+              headingLevel="3"
+            />,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  samtykke: true,
+                  afp: 'nei',
+                },
+              },
+            }
+          )
+
+          expect(
+            await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          ).toBeVisible()
+          expect(
+            screen.getByText(
+              'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet.',
+              {
+                exact: false,
+              }
+            )
+          ).toBeVisible()
+        })
       })
     })
   })
