@@ -1,6 +1,6 @@
 module.exports = {
   extends: 'stylelint-config-standard-scss',
-  ignoreFiles: ['src/scss/designsystem.scss'],
+  ignoreFiles: ['src/scss/designsystem.scss', 'src/scss/variables.scss'],
   rules: {
     'selector-class-pattern': null,
     'scss/at-import-partial-extension': null,
