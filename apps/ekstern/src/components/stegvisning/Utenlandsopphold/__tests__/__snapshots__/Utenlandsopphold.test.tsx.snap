@@ -24,6 +24,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
+        data-state="closed"
         data-testid="readmore"
         type="button"
       >
@@ -52,6 +53,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       <div
         aria-hidden="true"
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        data-state="closed"
       >
         stegvisning.utenlandsopphold.readmore_1.opphold.subtitle
         <ul>
@@ -122,6 +124,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
+        data-state="closed"
         data-testid="readmore"
         type="button"
       >
@@ -150,6 +153,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       <div
         aria-hidden="true"
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        data-state="closed"
       >
         Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års trygdetid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. 
         <a
