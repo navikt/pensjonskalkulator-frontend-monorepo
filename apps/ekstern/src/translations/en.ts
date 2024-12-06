@@ -601,7 +601,7 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start a new calculation',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'if you want to include this in the calculation.',
-  'pensjonsavtaler.private.ingress.ingen': 'We found no pension agreements.',
+  'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
   'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
@@ -611,10 +611,12 @@ const translations = {
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
   'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
-  'pensjonsavtaler.offentligtp.er_medlem':
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.afp_ja':

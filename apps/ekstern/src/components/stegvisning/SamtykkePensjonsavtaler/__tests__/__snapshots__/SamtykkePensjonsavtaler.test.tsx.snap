@@ -22,7 +22,6 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
-          data-state="closed"
           data-testid="readmore"
           type="button"
         >
@@ -51,7 +50,6 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-          data-state="closed"
         >
           stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress
         </div>
@@ -62,7 +60,6 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
-          data-state="closed"
           data-testid="readmore"
           type="button"
         >
@@ -91,7 +88,6 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-          data-state="closed"
         >
           stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress
           <ul

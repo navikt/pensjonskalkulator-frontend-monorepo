@@ -1,8 +1,8 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import {
+  Alert,
   BodyLong,
   Heading,
   HeadingProps,
@@ -26,6 +26,7 @@ import { useIsMobile } from '@/utils/useIsMobile'
 
 import styles from './OffentligTjenestepensjon.module.scss'
 
+// TODO PEK-814 teste og utvide test
 export const OffentligTjenestepensjon = (props: {
   isLoading: boolean
   isError: boolean
@@ -76,7 +77,11 @@ export const OffentligTjenestepensjon = (props: {
         return 'pensjonsavtaler.offentligtp.afp_nei.uten_betinget'
       }
     }
-  }, [afp, offentligTp])
+  }, [
+    afp,
+    offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+      .betingetTjenestepensjonErInkludert,
+  ])
 
   if (isLoading) {
     return (
@@ -90,185 +95,206 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
-  // Når brukeren ikke har noe tp-medlemskap ikke vis noe som helst
-  if (
-    !isLoading &&
-    !isError &&
-    offentligTp?.muligeTpLeverandoerListe.length === 0
-  ) {
-    return
-  }
-
   return (
     <VStack gap="3">
       {showDivider && <Divider smallMargin />}
       <Heading id="tpo-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
       </Heading>
-
-      {tpOffentligFeatureToggle?.enabled ? (
-        <>
-          {isMobile ? (
-            <>
-              <Heading
-                id="tpo-subheading"
-                level={subHeadingLevel}
-                size="xsmall"
-              >
-                {intl.formatMessage({
-                  id: 'pensjonsavtaler.offentligtp.subtitle.spk',
-                })}
-              </Heading>
-              <table
-                className={styles.mobileTable}
-                data-testid="offentlig-tjenestepensjon-mobile"
-              >
-                <tbody>
-                  {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
-                    (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => (
-                      <tr key={`${JSON.stringify(utbetalingsperiode)}-mobile`}>
-                        <th
-                          style={{ fontWeight: 'normal' }}
-                          scope="row"
-                          align="left"
-                        >
-                          {utbetalingsperiode.sluttAlder
-                            ? formaterSluttAlderString(
-                                intl,
-                                utbetalingsperiode.startAlder,
-                                utbetalingsperiode.sluttAlder
-                              )
-                            : formaterLivsvarigString(
-                                intl,
-                                utbetalingsperiode.startAlder
-                              )}
-                          :
-                        </th>
-                        <td align="right">
-                          {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
-                          <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
-                        </td>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </table>
-            </>
-          ) : (
-            <Table data-testid="offentlig-tjenestepensjon-desktop">
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>
-                    <FormattedMessage id="pensjonsavtaler.tabell.title.left" />
-                  </Table.HeaderCell>
-                  <Table.HeaderCell style={{ width: '15em' }}>
-                    <FormattedMessage id="pensjonsavtaler.tabell.title.middle" />
-                  </Table.HeaderCell>
-                  <Table.HeaderCell align="right" style={{ width: '7em' }}>
-                    <FormattedMessage id="pensjonsavtaler.tabell.title.right" />
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
-                  (utbetalingsperiode: UtbetalingsperiodeWithoutGrad, i) => {
-                    const isLastRow =
-                      (offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-                        .utbetalingsperioder.length ?? 0) -
-                        1 >
-                      i
-                    return (
-                      <Table.Row
-                        shadeOnHover={false}
-                        key={`${JSON.stringify(utbetalingsperiode)}-row`}
-                      >
-                        {i === 0 && (
-                          <Table.HeaderCell
-                            scope="row"
-                            className={styles.desktopTableRader__alignTop}
-                            rowSpan={
-                              offentligTp?.simulertTjenestepensjon
-                                ?.simuleringsresultat.utbetalingsperioder.length
-                            }
-                          >
-                            {intl.formatMessage({
-                              id: 'pensjonsavtaler.offentligtp.subtitle.spk',
-                            })}
-                          </Table.HeaderCell>
-                        )}
-                        <Table.DataCell
-                          className={clsx({
-                            [styles.desktopTableRader__noBottomBorder]:
-                              isLastRow,
-                          })}
-                        >
-                          {utbetalingsperiode.sluttAlder
-                            ? formaterSluttAlderString(
-                                intl,
-                                utbetalingsperiode.startAlder,
-                                utbetalingsperiode.sluttAlder
-                              )
-                            : formaterLivsvarigString(
-                                intl,
-                                utbetalingsperiode.startAlder
-                              )}
-                        </Table.DataCell>
-                        <Table.DataCell
-                          align="right"
-                          className={clsx({
-                            [styles.desktopTableRader__noBottomBorder]:
-                              isLastRow,
-                          })}
-                        >
-                          {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
-                          kr
-                        </Table.DataCell>
-                      </Table.Row>
-                    )
-                  }
-                )}
-              </Table.Body>
-            </Table>
-          )}
-          <BodyLong size="small">
+      {
+        // Ved feil når /simuler-oftp kalles
+        !isLoading && isError && (
+          <Alert inline variant="warning">
+            <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
+          </Alert>
+        )
+      }
+      {
+        // Når brukeren ikke er medlem av noe offentlig ordning
+        (offentligTp?.simuleringsresultatStatus ===
+          'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' ||
+          (!isLoading &&
+            !isError &&
+            offentligTp?.muligeTpLeverandoerListe.length === 0)) && (
+          <Alert inline variant="info">
+            <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+          </Alert>
+        )
+      }
+      {
+        // Når brukeren er medlem av en annen ordning
+        (offentligTp?.simuleringsresultatStatus ===
+          'TP_ORDNING_STOETTES_IKKE' ||
+          (!isError &&
+            offentligTp?.muligeTpLeverandoerListe &&
+            offentligTp.muligeTpLeverandoerListe.length > 0)) && (
+          <Alert inline variant="warning">
             <FormattedMessage
-              id={infoOmAfpOgBetingetTjenestepensjon}
+              id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
               values={{
-                ...getFormatMessageValues(intl),
+                chunk: leverandoererString,
               }}
             />
-          </BodyLong>
-        </>
-      ) : (
-        <div className={styles.info}>
-          <ExclamationmarkTriangleFillIcon
-            className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-            fontSize="1.5rem"
-            aria-hidden
-          />
-          <BodyLong className={styles.infoText}>
-            {
-              //  Ved feil vis feilmelding om tp-offentlig
-              isError && (
-                <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
-              )
-            }
-            {
-              //  Ved success vis info om at brukeren kan ha rett på tp-offentlig
-              !isError &&
-                offentligTp?.muligeTpLeverandoerListe &&
-                offentligTp.muligeTpLeverandoerListe.length > 0 && (
-                  <FormattedMessage
-                    id="pensjonsavtaler.offentligtp.er_medlem"
-                    values={{
-                      chunk: leverandoererString,
-                    }}
-                  />
-                )
-            }
-          </BodyLong>
-        </div>
-      )}
+          </Alert>
+        )
+      }
+      {
+        // Ved feil hos SPK
+        offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
+          <Alert inline variant="warning">
+            <FormattedMessage id="pensjonsavtaler.offentligtp.spk_error" />
+          </Alert>
+        )
+      }
+      {
+        // Ved tomt svar hos SPK
+        offentligTp?.simuleringsresultatStatus ===
+          'TOM_SIMULERING_FRA_TP_ORDNING' && (
+          <Alert inline variant="warning">
+            <FormattedMessage id="pensjonsavtaler.offentligtp.spk_empty" />
+          </Alert>
+        )
+      }
+
+      {tpOffentligFeatureToggle?.enabled &&
+        offentligTp?.simuleringsresultatStatus === 'OK' && (
+          <>
+            {isMobile ? (
+              <>
+                <Heading
+                  id="tpo-subheading"
+                  level={subHeadingLevel}
+                  size="xsmall"
+                >
+                  {intl.formatMessage({
+                    id: 'pensjonsavtaler.offentligtp.subtitle.spk',
+                  })}
+                </Heading>
+                <table
+                  className={styles.mobileTable}
+                  data-testid="offentlig-tjenestepensjon-mobile"
+                >
+                  <tbody>
+                    {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
+                      (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => (
+                        <tr
+                          key={`${JSON.stringify(utbetalingsperiode)}-mobile`}
+                        >
+                          <th
+                            style={{ fontWeight: 'normal' }}
+                            scope="row"
+                            align="left"
+                          >
+                            {utbetalingsperiode.sluttAlder
+                              ? formaterSluttAlderString(
+                                  intl,
+                                  utbetalingsperiode.startAlder,
+                                  utbetalingsperiode.sluttAlder
+                                )
+                              : formaterLivsvarigString(
+                                  intl,
+                                  utbetalingsperiode.startAlder
+                                )}
+                            :
+                          </th>
+                          <td align="right">
+                            {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
+                            <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              </>
+            ) : (
+              <Table data-testid="offentlig-tjenestepensjon-desktop">
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>
+                      <FormattedMessage id="pensjonsavtaler.tabell.title.left" />
+                    </Table.HeaderCell>
+                    <Table.HeaderCell style={{ width: '15em' }}>
+                      <FormattedMessage id="pensjonsavtaler.tabell.title.middle" />
+                    </Table.HeaderCell>
+                    <Table.HeaderCell align="right" style={{ width: '7em' }}>
+                      <FormattedMessage id="pensjonsavtaler.tabell.title.right" />
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
+                    (utbetalingsperiode: UtbetalingsperiodeWithoutGrad, i) => {
+                      const isLastRow =
+                        (offentligTp?.simulertTjenestepensjon
+                          ?.simuleringsresultat.utbetalingsperioder.length ??
+                          0) -
+                          1 >
+                        i
+                      return (
+                        <Table.Row
+                          shadeOnHover={false}
+                          key={`${JSON.stringify(utbetalingsperiode)}-row`}
+                        >
+                          {i === 0 && (
+                            <Table.HeaderCell
+                              scope="row"
+                              className={styles.desktopTableRader__alignTop}
+                              rowSpan={
+                                offentligTp?.simulertTjenestepensjon
+                                  ?.simuleringsresultat.utbetalingsperioder
+                                  .length
+                              }
+                            >
+                              {intl.formatMessage({
+                                id: 'pensjonsavtaler.offentligtp.subtitle.spk',
+                              })}
+                            </Table.HeaderCell>
+                          )}
+                          <Table.DataCell
+                            className={clsx({
+                              [styles.desktopTableRader__noBottomBorder]:
+                                isLastRow,
+                            })}
+                          >
+                            {utbetalingsperiode.sluttAlder
+                              ? formaterSluttAlderString(
+                                  intl,
+                                  utbetalingsperiode.startAlder,
+                                  utbetalingsperiode.sluttAlder
+                                )
+                              : formaterLivsvarigString(
+                                  intl,
+                                  utbetalingsperiode.startAlder
+                                )}
+                          </Table.DataCell>
+                          <Table.DataCell
+                            align="right"
+                            className={clsx({
+                              [styles.desktopTableRader__noBottomBorder]:
+                                isLastRow,
+                            })}
+                          >
+                            {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
+                            kr
+                          </Table.DataCell>
+                        </Table.Row>
+                      )
+                    }
+                  )}
+                </Table.Body>
+              </Table>
+            )}
+            <BodyLong size="small">
+              <FormattedMessage
+                id={infoOmAfpOgBetingetTjenestepensjon}
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </>
+        )}
     </VStack>
   )
 }

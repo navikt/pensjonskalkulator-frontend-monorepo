@@ -45,7 +45,6 @@ describe('Simuleringsdetaljer', () => {
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
-            data-state="closed"
             name="Tabell av beregningen"
             type="button"
           >
@@ -74,7 +73,6 @@ describe('Simuleringsdetaljer', () => {
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-            data-state="closed"
           >
             <dl>
               <dt>
@@ -165,7 +163,6 @@ describe('Simuleringsdetaljer', () => {
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
-            data-state="closed"
             name="Tabell av beregningen"
             type="button"
           >
@@ -194,7 +191,6 @@ describe('Simuleringsdetaljer', () => {
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-            data-state="closed"
           >
             <dl>
               <dt>
@@ -289,7 +285,6 @@ describe('Simuleringsdetaljer', () => {
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
-            data-state="closed"
             name="Tabell av beregningen"
             type="button"
           >
@@ -318,7 +313,6 @@ describe('Simuleringsdetaljer', () => {
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-            data-state="closed"
           >
             <dl>
               <dt>

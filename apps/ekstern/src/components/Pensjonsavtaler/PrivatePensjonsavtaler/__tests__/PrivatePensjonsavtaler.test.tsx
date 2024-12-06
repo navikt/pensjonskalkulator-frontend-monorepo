@@ -32,7 +32,7 @@ describe('PrivatePensjonsavtaler', () => {
       ).toBeVisible()
 
       expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+        await screen.findByText('Avtaler fra privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -54,7 +54,7 @@ describe('PrivatePensjonsavtaler', () => {
       ).toBeVisible()
 
       expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+        await screen.findByText('Avtaler fra privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -78,7 +78,7 @@ describe('PrivatePensjonsavtaler', () => {
     ).toBeVisible()
     expect(screen.queryByTestId('private-pensjonsavtaler')).toBeInTheDocument()
     expect(
-      await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+      await screen.findByText('Avtaler fra privat sektor hentes fra ', {
         exact: false,
       })
     ).toBeVisible()
@@ -102,7 +102,7 @@ describe('PrivatePensjonsavtaler', () => {
     ).toBeVisible()
 
     expect(
-      await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+      await screen.findByText('Avtaler fra privat sektor hentes fra ', {
         exact: false,
       })
     ).toBeVisible()
@@ -131,7 +131,7 @@ describe('PrivatePensjonsavtaler', () => {
       screen.queryByTestId('private-pensjonsavtaler')
     ).not.toBeInTheDocument()
     expect(
-      await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+      await screen.findByText('Avtaler fra privat sektor hentes fra ', {
         exact: false,
       })
     ).toBeVisible()
@@ -151,13 +151,13 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
-      await screen.findByText('pensjonsavtaler.private.ingress.ingen')
+      await screen.findByText('pensjonsavtaler.ingress.ingen')
     ).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler-desktop')
     ).not.toBeInTheDocument()
     expect(
-      await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+      await screen.findByText('Avtaler fra privat sektor hentes fra ', {
         exact: false,
       })
     ).toBeVisible()
