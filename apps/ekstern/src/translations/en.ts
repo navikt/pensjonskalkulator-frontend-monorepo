@@ -616,13 +616,13 @@ const translations = {
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.afp_ja':
-    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+    'Lifelong AFP is not included in the amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
   'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
-    'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+    'You have stated that you are not entitled to lifelong AFP. Conditional occupational pension is therefore included in the amount. Check <spkLink>SPK</spkLink> for details.',
   'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
-    'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+    'You have stated that you are not entitled to lifelong AFP. Check <spkLink>SPK</spkLink> for details.',
   'pensjonsavtaler.offentligtp.afp_vet_ikke':
-    'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+    'You have stated that you are unsure if you are entitled to lifelong AFP. The amount may therefore include conditional occupational pension. Check <spkLink>SPK</spkLink> for details.',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':
