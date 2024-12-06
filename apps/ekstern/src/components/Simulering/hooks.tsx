@@ -66,6 +66,9 @@ export const useSimuleringChartLocalState = (initialValues: {
   const { isLoading: isPensjonsavtalerLoading, data: pensjonsavtalerData } =
     pensjonsavtaler
   const { isLoading: isOffentligTpLoading, data: offentligTpData } = offentligTp
+  const offentligTpUtbetalingsperioder =
+    offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+      .utbetalingsperioder
   const intl = useIntl()
   const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -114,9 +117,6 @@ export const useSimuleringChartLocalState = (initialValues: {
         : gradertUttaksperiode
           ? gradertUttaksperiode.uttaksalder.aar
           : uttaksalder?.aar
-    const offentligTpUtbetalingsperioder =
-      offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
-        .utbetalingsperioder
 
     if (startAar) {
       // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler or offentligTp
@@ -149,7 +149,7 @@ export const useSimuleringChartLocalState = (initialValues: {
         )
       }
     }
-  }, [alderspensjonListe, pensjonsavtalerData, offentligTpData])
+  }, [alderspensjonListe, pensjonsavtalerData, offentligTpUtbetalingsperioder])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
