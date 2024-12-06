@@ -9,6 +9,7 @@ import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
   useOffentligTpQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import {
@@ -89,10 +90,16 @@ export function Simulering(props: {
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
-  const { data: offentligTp, isError: isOffentligTpError } =
-    useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
-      skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
-    })
+  const { data: tpOffentligFeatureToggle } =
+    useGetTpOffentligFeatureToggleQuery()
+
+  const {
+    data: offentligTp,
+    isFetching: isOffentligTpLoading,
+    isError: isOffentligTpError,
+  } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+    skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+  })
 
   const {
     data: pensjonsavtaler,
@@ -157,9 +164,16 @@ export function Simulering(props: {
     afpOffentligListe,
     pensjonsavtaler: {
       isLoading: isPensjonsavtalerLoading,
-      isSuccess: isPensjonsavtalerSuccess,
-      isError: isPensjonsavtalerError,
       data: pensjonsavtaler,
+    },
+    offentligTp: {
+      isLoading: isOffentligTpLoading,
+      data: tpOffentligFeatureToggle?.enabled
+        ? offentligTp
+        : ({
+            ...offentligTp,
+            simulertTjenestepensjon: undefined,
+          } as OffentligTp),
     },
   })
 
