@@ -589,31 +589,33 @@ const translations = {
     'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
-  'pensjonsavtaler.ingress.norsk_pensjon':
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'hvis du ønsker å få dette i beregningen.',
-  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
+  'pensjonsavtaler.private.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
-  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
+  'alder.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'pensjonsavtaler.tpo.title': 'Offentlig tjenestepensjon',
-  'pensjonsavtaler.tpo.er_medlem':
+  'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+  'pensjonsavtaler.offentligtp.er_medlem':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
-  'pensjonsavtaler.tpo.error':
+  'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Alderspensjon fra Statens pensjonskasse (SPK)',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
