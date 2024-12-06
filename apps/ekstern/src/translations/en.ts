@@ -615,6 +615,14 @@ const translations = {
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
+  'pensjonsavtaler.offentligtp.afp_ja':
+    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+    'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':

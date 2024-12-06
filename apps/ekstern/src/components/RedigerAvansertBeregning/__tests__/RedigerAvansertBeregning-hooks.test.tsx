@@ -909,6 +909,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "nowrap": [Function],
                 "personopplysningerLink": [Function],
                 "planleggePensjonLink": [Function],
+                "spkLink": [Function],
                 "strong": [Function],
                 "trygdetidLink": [Function],
               }

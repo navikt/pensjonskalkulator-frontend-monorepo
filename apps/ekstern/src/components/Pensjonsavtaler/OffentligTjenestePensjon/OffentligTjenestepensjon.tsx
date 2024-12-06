@@ -14,11 +14,14 @@ import clsx from 'clsx'
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
 import { useGetTpOffentligFeatureToggleQuery } from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectAfp } from '@/state/userInput/selectors'
 import {
   formaterLivsvarigString,
   formaterSluttAlderString,
 } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
+import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
 import styles from './OffentligTjenestepensjon.module.scss'
@@ -33,6 +36,7 @@ export const OffentligTjenestepensjon = (props: {
   const { isLoading, isError, offentligTp, headingLevel, showDivider } = props
   const intl = useIntl()
   const isMobile = useIsMobile()
+  const afp = useAppSelector(selectAfp)
 
   const [leverandoererString, setleverandoererString] =
     React.useState<string>('')
@@ -56,6 +60,23 @@ export const OffentligTjenestepensjon = (props: {
         ).toString() as HeadingProps['level'])
       : '4'
   }, [headingLevel])
+
+  const infoOmAfpOgBetingetTjenestepensjon = React.useMemo(() => {
+    if (afp === 'ja_offentlig' || afp === 'ja_privat') {
+      return 'pensjonsavtaler.offentligtp.afp_ja'
+    } else if (afp === 'vet_ikke') {
+      return 'pensjonsavtaler.offentligtp.afp_vet_ikke'
+    } else {
+      if (
+        offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+          .betingetTjenestepensjonErInkludert
+      ) {
+        return 'pensjonsavtaler.offentligtp.afp_nei.med_betinget'
+      } else {
+        return 'pensjonsavtaler.offentligtp.afp_nei.uten_betinget'
+      }
+    }
+  }, [afp, offentligTp])
 
   if (isLoading) {
     return (
@@ -209,6 +230,14 @@ export const OffentligTjenestepensjon = (props: {
               </Table.Body>
             </Table>
           )}
+          <BodyLong size="small">
+            <FormattedMessage
+              id={infoOmAfpOgBetingetTjenestepensjon}
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          </BodyLong>
         </>
       ) : (
         <div className={styles.info}>
