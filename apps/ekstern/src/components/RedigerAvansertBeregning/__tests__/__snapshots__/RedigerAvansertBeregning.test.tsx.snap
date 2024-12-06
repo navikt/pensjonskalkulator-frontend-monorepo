@@ -250,6 +250,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
+            data-state="closed"
             data-testid="readmore"
             type="button"
           >
@@ -278,6 +279,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
           >
             <p
               class="navds-body-long navds-body-long--medium"
@@ -548,6 +550,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
+            data-state="closed"
             data-testid="readmore"
             type="button"
           >
@@ -576,6 +579,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
           >
             <p
               class="navds-body-long navds-body-long--medium"
@@ -693,6 +697,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
+            data-state="closed"
             data-testid="readmore"
             type="button"
           >
@@ -721,6 +726,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
           <div
             aria-hidden="true"
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
           >
             <p
               class="navds-body-long navds-body-long--medium"
