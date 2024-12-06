@@ -368,7 +368,7 @@ describe('translations-utils', () => {
 
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
-        externalUrls.personopplysninger
+        externalUrls.spk
       )
 
       expect(
