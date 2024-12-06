@@ -9,6 +9,7 @@ import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
   useOffentligTpQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import {
@@ -89,6 +90,9 @@ export function Simulering(props: {
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
+  const { data: tpOffentligFeatureToggle } =
+    useGetTpOffentligFeatureToggleQuery()
+
   const {
     data: offentligTp,
     isFetching: isOffentligTpLoading,
@@ -164,7 +168,12 @@ export function Simulering(props: {
     },
     offentligTp: {
       isLoading: isOffentligTpLoading,
-      data: offentligTp,
+      data: tpOffentligFeatureToggle?.enabled
+        ? offentligTp
+        : ({
+            ...offentligTp,
+            simulertTjenestepensjon: undefined,
+          } as OffentligTp),
     },
   })
 
