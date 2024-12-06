@@ -34,7 +34,7 @@ describe('OffentligTjenestepensjon', () => {
     expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
 
     expect(
-      screen.queryByText('pensjonsavtaler.offentliptp.title')
+      screen.queryByText('pensjonsavtaler.offentligtp.title')
     ).not.toBeInTheDocument()
   })
 
@@ -62,7 +62,7 @@ describe('OffentligTjenestepensjon', () => {
 
       expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-        'pensjonsavtaler.offentliptp.title'
+        'pensjonsavtaler.offentligtp.title'
       )
       expect(
         screen.getByText(
@@ -83,7 +83,7 @@ describe('OffentligTjenestepensjon', () => {
       expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
 
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-        'pensjonsavtaler.offentliptp.title'
+        'pensjonsavtaler.offentligtp.title'
       )
       expect(
         screen.getByText('pensjonsavtaler.offentligtp.error')
@@ -112,7 +112,7 @@ describe('OffentligTjenestepensjon', () => {
           />
         )
         expect(
-          await screen.findByText('pensjonsavtaler.offentliptp.title')
+          await screen.findByText('pensjonsavtaler.offentligtp.title')
         ).toBeVisible()
         expect(
           await screen.findByTestId('offentlig-tjenestepensjon-desktop')
@@ -137,7 +137,7 @@ describe('OffentligTjenestepensjon', () => {
           />
         )
         expect(
-          await screen.findByText('pensjonsavtaler.offentliptp.title')
+          await screen.findByText('pensjonsavtaler.offentligtp.title')
         ).toBeVisible()
         expect(
           await screen.findByTestId('offentlig-tjenestepensjon-mobile')

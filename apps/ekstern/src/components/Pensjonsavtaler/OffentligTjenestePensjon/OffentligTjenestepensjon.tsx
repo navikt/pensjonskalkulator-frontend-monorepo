@@ -82,7 +82,7 @@ export const OffentligTjenestepensjon = (props: {
     <VStack gap="3">
       {showDivider && <Divider smallMargin />}
       <Heading id="tpo-heading" level={headingLevel} size="small">
-        {intl.formatMessage({ id: 'pensjonsavtaler.offentliptp.title' })}
+        {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
       </Heading>
 
       {tpOffentligFeatureToggle?.enabled ? (
@@ -95,7 +95,7 @@ export const OffentligTjenestepensjon = (props: {
                 size="xsmall"
               >
                 {intl.formatMessage({
-                  id: 'pensjonsavtaler.offentliptp.subtitle.spk',
+                  id: 'pensjonsavtaler.offentligtp.subtitle.spk',
                 })}
               </Heading>
               <table
@@ -171,7 +171,7 @@ export const OffentligTjenestepensjon = (props: {
                             }
                           >
                             {intl.formatMessage({
-                              id: 'pensjonsavtaler.offentliptp.subtitle.spk',
+                              id: 'pensjonsavtaler.offentligtp.subtitle.spk',
                             })}
                           </Table.HeaderCell>
                         )}

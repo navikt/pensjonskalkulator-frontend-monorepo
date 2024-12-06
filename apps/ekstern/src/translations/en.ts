@@ -608,13 +608,13 @@ const translations = {
   'pensjonsavtaler.tabell.title.right': 'Annual Amount',
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
-  'pensjonsavtaler.offentliptp.title': 'Public Occupational Pension',
+  'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
   'pensjonsavtaler.offentligtp.er_medlem':
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentliptp.subtitle.spk':
-    'Alderspensjon fra Statens pensjonskasse (SPK)',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':
