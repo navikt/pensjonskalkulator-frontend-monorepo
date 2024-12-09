@@ -71,7 +71,7 @@
     "cypress": "^13.16.1",
     "cypress-axe": "^1.4.0",
     "date-fns": "^4.1.0",
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "globals": "^15.13.0",
