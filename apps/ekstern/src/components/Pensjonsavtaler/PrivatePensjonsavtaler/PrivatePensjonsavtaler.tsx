@@ -1,11 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  ExclamationmarkTriangleFillIcon,
-  InformationSquareFillIcon,
-} from '@navikt/aksel-icons'
-import { BodyLong, HeadingProps } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
@@ -37,59 +33,48 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
     <>
       {
         // Når brukeren har samtykket og har ingen private pensjonsavtaler
+        isSuccess &&
+          !isPartialResponse &&
+          privatePensjonsavtaler?.length === 0 && (
+            <>
+              <Heading level={headingLevel} size="small" spacing>
+                <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
+              </Heading>
+              <Alert inline variant="info">
+                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+              </Alert>
+            </>
+          )
       }
-      {isSuccess &&
-        !isPartialResponse &&
-        privatePensjonsavtaler?.length === 0 && (
-          <div className={`${styles.info}`}>
-            <InformationSquareFillIcon
-              className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
-              fontSize="1.5rem"
-              aria-hidden
-            />
-            <BodyLong className={styles.infoText}>
-              <FormattedMessage id="pensjonsavtaler.private.ingress.ingen" />
-            </BodyLong>
-          </div>
-        )}
 
       {
         // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
+        (isError ||
+          (isPartialResponse && privatePensjonsavtaler?.length === 0)) && (
+          <>
+            <Heading level={headingLevel} size="small" spacing>
+              <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
+            </Heading>
+            <Alert inline variant="warning">
+              <FormattedMessage
+                id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
+              />
+            </Alert>
+          </>
+        )
       }
-      {(isError ||
-        (isPartialResponse && privatePensjonsavtaler?.length === 0)) && (
-        <div className={styles.info}>
-          <ExclamationmarkTriangleFillIcon
-            className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-            fontSize="1.5rem"
-            aria-hidden
-          />
-          <BodyLong className={styles.infoText}>
-            <FormattedMessage
-              id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
-            />
-          </BodyLong>
-        </div>
-      )}
 
       {
         // Når private pensjonsavtaler er partial med noen avtaler
-      }
-      {isSuccess &&
-        isPartialResponse &&
-        privatePensjonsavtaler &&
-        privatePensjonsavtaler?.length > 0 && (
-          <div className={`${styles.info} ${styles.info__margin}`}>
-            <ExclamationmarkTriangleFillIcon
-              className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-              fontSize="1.5rem"
-              aria-hidden
-            />
-            <BodyLong className={styles.infoText}>
+        isSuccess &&
+          isPartialResponse &&
+          privatePensjonsavtaler &&
+          privatePensjonsavtaler?.length > 0 && (
+            <Alert inline variant="warning" className={styles.alert__margin}>
               <FormattedMessage id="pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial" />
-            </BodyLong>
-          </div>
-        )}
+            </Alert>
+          )
+      }
 
       {isSuccess &&
         privatePensjonsavtaler &&

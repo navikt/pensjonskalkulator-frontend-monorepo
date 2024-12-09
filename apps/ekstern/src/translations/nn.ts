@@ -486,6 +486,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
   'pensjonsavtaler.fra_og_med_forklaring': 'MANGLER_TEKST',
+  'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
   'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
@@ -497,14 +498,16 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start ei ny utrekning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'viss du ynskjer å få dette i utrekninga.',
-  'pensjonsavtaler.private.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
+  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
   'alder.livsvarig': 'Livsvarig frå og med',
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
   'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.er_medlem': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.afp_ja': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.afp_nei.med_betinget': 'MANGLER_TEKST',

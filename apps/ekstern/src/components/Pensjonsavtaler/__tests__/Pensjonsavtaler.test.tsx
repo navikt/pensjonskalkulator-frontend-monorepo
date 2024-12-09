@@ -70,7 +70,7 @@ describe('Pensjonsavtaler', () => {
         screen.queryByTestId('private-pensjonsavtaler-desktop')
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor hentes fra ', {
+        screen.queryByText('Avtaler fra privat sektor hentes fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()

@@ -590,8 +590,9 @@ const translations = {
     'This calculator is under development. If you need to save calculations and see more details, you can do it in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
+  'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
-    'All agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
+    'Agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
   'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'We could not retrieve your private pension agreements. Please try again later.',
   'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
@@ -601,7 +602,7 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start a new calculation',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'if you want to include this in the calculation.',
-  'pensjonsavtaler.private.ingress.ingen': 'We found no pension agreements.',
+  'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
   'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
@@ -611,10 +612,14 @@ const translations = {
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
   'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
-  'pensjonsavtaler.offentligtp.er_medlem':
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error':
+    'We were unable to retrieve your public service pension. Please try again later or contact <spkLink>SPK</spkLink>.',
+  'pensjonsavtaler.offentligtp.spk_empty':
+    'We did not receive a response regarding your public service pension.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.afp_ja':
