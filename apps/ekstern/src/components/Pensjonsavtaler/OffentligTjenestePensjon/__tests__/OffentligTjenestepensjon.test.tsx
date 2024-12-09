@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest'
 
+import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 import { mockErrorResponse } from '@/mocks/server'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -85,7 +86,7 @@ describe('OffentligTjenestepensjon', () => {
     })
 
     describe('Gitt at brukeren er medlem av SPK, ', async () => {
-      it('Når simuleringen feilet hos SPK, viser riktig heading på riktig level og riktig infomelding.', async () => {
+      it('Når simuleringen feiler hos SPK, viser riktig heading på riktig level og riktig infomelding.', async () => {
         render(
           <OffentligTjenestepensjon
             isLoading={false}
@@ -143,7 +144,7 @@ describe('OffentligTjenestepensjon', () => {
       it('Når simuleringen er vellykket og at brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {
         vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
 
-        render(
+        const { container } = render(
           <OffentligTjenestepensjon
             isLoading={false}
             isError={false}
@@ -154,21 +155,56 @@ describe('OffentligTjenestepensjon', () => {
                 'Kommunal Landspensjonskasse',
                 'Oslo Pensjonsforsikring',
               ],
+              simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
             }}
             headingLevel="3"
           />
         )
         expect(
+          await screen.findByTestId('offentlig-tjenestepensjon-desktop')
+        ).toBeVisible()
+        expect(
+          await screen.findAllByRole('heading', { level: 3 })
+        ).toHaveLength(1)
+        expect(
           await screen.findByText('pensjonsavtaler.offentligtp.title')
         ).toBeVisible()
         expect(
-          await screen.findByTestId('offentlig-tjenestepensjon-desktop')
+          await screen.findByText('pensjonsavtaler.offentligtp.subtitle.spk')
         ).toBeVisible()
+
+        expect(
+          await screen.findByText('pensjonsavtaler.tabell.title.left')
+        ).toBeVisible()
+        expect(
+          await screen.findByText('pensjonsavtaler.tabell.title.middle')
+        ).toBeVisible()
+        expect(
+          await screen.findByText('pensjonsavtaler.tabell.title.right')
+        ).toBeVisible()
+        expect(
+          await screen.findByText(
+            'String.fra 67 alder.aar string.til 69 alder.aar'
+          )
+        ).toBeVisible()
+        expect(await screen.findAllByText('64 340 kr')).toHaveLength(1)
+        expect(
+          await screen.findByText(
+            'String.fra 70 alder.aar string.til 74 alder.aar'
+          )
+        ).toBeVisible()
+        expect(await screen.findAllByText('53 670 kr')).toHaveLength(1)
+        expect(
+          await screen.findByText('alder.livsvarig 75 alder.aar')
+        ).toBeVisible()
+        expect(await screen.findAllByText('48 900 kr')).toHaveLength(1)
+        const rows = container.querySelectorAll('tr')
+        expect(rows?.length).toBe(4)
       })
 
       it('Når simuleringen er vellykket og at brukeren er på mobil, viser riktig informasjon og liste over private pensjonsavtaler.', async () => {
         vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(true)
-        render(
+        const { container } = render(
           <OffentligTjenestepensjon
             isLoading={false}
             isError={false}
@@ -179,16 +215,50 @@ describe('OffentligTjenestepensjon', () => {
                 'Kommunal Landspensjonskasse',
                 'Oslo Pensjonsforsikring',
               ],
+              simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
             }}
-            headingLevel="3"
+            headingLevel="4"
           />
         )
+        expect(
+          await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+        ).toBeVisible()
+        expect(
+          await screen.findAllByRole('heading', { level: 4 })
+        ).toHaveLength(1)
         expect(
           await screen.findByText('pensjonsavtaler.offentligtp.title')
         ).toBeVisible()
         expect(
-          await screen.findByTestId('offentlig-tjenestepensjon-mobile')
+          await screen.findAllByRole('heading', { level: 5 })
+        ).toHaveLength(1)
+        expect(
+          await screen.findByText('pensjonsavtaler.offentligtp.subtitle.spk')
         ).toBeVisible()
+        expect(
+          await screen.findByText(
+            'String.fra 67 alder.aar string.til 69 alder.aar:'
+          )
+        ).toBeVisible()
+        expect(
+          await screen.findAllByText('64 340 pensjonsavtaler.kr_pr_aar')
+        ).toHaveLength(1)
+        expect(
+          await screen.findByText(
+            'String.fra 70 alder.aar string.til 74 alder.aar:'
+          )
+        ).toBeVisible()
+        expect(
+          await screen.findAllByText('53 670 pensjonsavtaler.kr_pr_aar')
+        ).toHaveLength(1)
+        expect(
+          await screen.findByText('alder.livsvarig 75 alder.aar:')
+        ).toBeVisible()
+        expect(
+          await screen.findAllByText('48 900 pensjonsavtaler.kr_pr_aar')
+        ).toHaveLength(1)
+        const rows = container.querySelectorAll('tr')
+        expect(rows?.length).toBe(3)
       })
 
       describe('Gitt at brukeren har svart på spørsmålet om AFP og fått simulert tjenestepensjon, ', () => {
