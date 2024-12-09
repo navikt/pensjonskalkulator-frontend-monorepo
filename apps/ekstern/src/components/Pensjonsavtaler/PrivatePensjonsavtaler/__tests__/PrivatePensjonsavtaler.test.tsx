@@ -96,6 +96,9 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
+      await screen.findByText('pensjonsavtaler.private.title.ingen')
+    ).toBeVisible()
+    expect(
       await screen.findByText(
         'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
       )
@@ -123,6 +126,9 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
+      await screen.findByText('pensjonsavtaler.private.title.ingen')
+    ).toBeVisible()
+    expect(
       await screen.findByText(
         'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
       )
@@ -149,7 +155,9 @@ describe('PrivatePensjonsavtaler', () => {
         privatePensjonsavtaler={[]}
       />
     )
-
+    expect(
+      await screen.findByText('pensjonsavtaler.private.title.ingen')
+    ).toBeVisible()
     expect(
       await screen.findByText('pensjonsavtaler.ingress.ingen')
     ).toBeVisible()

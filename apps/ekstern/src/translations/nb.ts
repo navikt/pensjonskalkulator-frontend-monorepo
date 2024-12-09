@@ -590,6 +590,7 @@ const translations = {
     'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
+  'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Avtaler fra privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
   'pensjonsavtaler.private.ingress.error.pensjonsavtaler':

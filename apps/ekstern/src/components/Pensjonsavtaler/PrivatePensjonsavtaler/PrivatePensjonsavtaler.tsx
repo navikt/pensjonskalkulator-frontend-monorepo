@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, BodyLong, HeadingProps } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
@@ -32,14 +32,18 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
   return (
     <>
       {
-        // TODO PEK-814 legge til tittel "Privat tjenestepensjon"
         // Når brukeren har samtykket og har ingen private pensjonsavtaler
         isSuccess &&
           !isPartialResponse &&
           privatePensjonsavtaler?.length === 0 && (
-            <Alert inline variant="info">
-              <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
-            </Alert>
+            <>
+              <Heading level={headingLevel} size="small" spacing>
+                <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
+              </Heading>
+              <Alert inline variant="info">
+                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+              </Alert>
+            </>
           )
       }
 
@@ -47,11 +51,16 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
         // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
         (isError ||
           (isPartialResponse && privatePensjonsavtaler?.length === 0)) && (
-          <Alert inline variant="warning">
-            <FormattedMessage
-              id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
-            />
-          </Alert>
+          <>
+            <Heading level={headingLevel} size="small" spacing>
+              <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
+            </Heading>
+            <Alert inline variant="warning">
+              <FormattedMessage
+                id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
+              />
+            </Alert>
+          </>
         )
       }
 

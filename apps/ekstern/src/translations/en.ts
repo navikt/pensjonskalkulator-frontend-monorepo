@@ -590,6 +590,7 @@ const translations = {
     'This calculator is under development. If you need to save calculations and see more details, you can do it in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
+  'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'All agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
   'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
