@@ -3,11 +3,11 @@ import { describe, it } from 'vitest'
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 import { mockErrorResponse } from '@/mocks/server'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen } from '@/test-utils'
+import { render, screen, waitFor } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
 
 describe('OffentligTjenestepensjon', () => {
-  it('viser loader mens info om tp-medlemskap hentes', () => {
+  it('viser loader mens info om tp-medlemskap hentes.', () => {
     render(
       <OffentligTjenestepensjon
         isLoading={true}
@@ -19,7 +19,24 @@ describe('OffentligTjenestepensjon', () => {
     expect(screen.getByTestId('offentligtp-loader')).toBeVisible()
   })
 
-  it('Når brukeren ikke har tp-medlemskap, viser ingenting ', () => {
+  it('Når kall til tp-offentlig feiler, viser riktig heading på riktig level og riktig feilmelding.', () => {
+    render(
+      <OffentligTjenestepensjon
+        isLoading={false}
+        isError={true}
+        headingLevel="3"
+      />
+    )
+
+    expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'pensjonsavtaler.offentligtp.title'
+    )
+    expect(screen.getByText('pensjonsavtaler.offentligtp.error')).toBeVisible()
+  })
+
+  it('Når brukeren ikke er medlem av noe offentlig tp-ordning, viser riktig heading på riktig level og riktig infomelding.', () => {
     render(
       <OffentligTjenestepensjon
         isLoading={false}
@@ -33,29 +50,21 @@ describe('OffentligTjenestepensjon', () => {
     )
 
     expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
-
-    expect(
-      screen.queryByText('pensjonsavtaler.offentligtp.title')
-    ).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'pensjonsavtaler.offentligtp.title'
+    )
+    expect(screen.getByText('pensjonsavtaler.ingress.ingen')).toBeVisible()
   })
 
-  describe('Gitt at feature-toggle for tp-offentlig er av, ', () => {
-    beforeEach(() => {
-      mockErrorResponse('/feature/pensjonskalkulator.enable-tpoffentlig')
-    })
-
-    it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst med tp-leverandør', () => {
+  describe('Gitt at feature-toggle for tp-offentlig er på, ', () => {
+    it('Gitt at brukeren er medlem av en annen ordning enn SPK, viser riktig heading på riktig level og riktig infomelding.', async () => {
       render(
         <OffentligTjenestepensjon
           isLoading={false}
           isError={false}
           offentligTp={{
-            simuleringsresultatStatus: 'OK',
-            muligeTpLeverandoerListe: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
-              'Oslo Pensjonsforsikring',
-            ],
+            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
+            muligeTpLeverandoerListe: ['KLP'],
           }}
           headingLevel="3"
         />
@@ -65,36 +74,73 @@ describe('OffentligTjenestepensjon', () => {
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
         'pensjonsavtaler.offentligtp.title'
       )
-      expect(
-        screen.getByText(
-          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+      await waitFor(() => {
+        expect(
+          screen.getByText(
+            'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+    })
+
+    describe('Gitt at brukeren er medlem av SPK, ', async () => {
+      it('Når simuleringen feilet hos SPK, viser riktig heading på riktig level og riktig infomelding.', async () => {
+        render(
+          <OffentligTjenestepensjon
+            isLoading={false}
+            isError={false}
+            offentligTp={{
+              simuleringsresultatStatus: 'TEKNISK_FEIL',
+              muligeTpLeverandoerListe: ['SPK'],
+            }}
+            headingLevel="3"
+          />
         )
-      ).toBeInTheDocument()
-    })
 
-    it('Når kall til tp-offentlig feiler, viser riktig heading på riktig level og riktig feilmelding', () => {
-      render(
-        <OffentligTjenestepensjon
-          isLoading={false}
-          isError={true}
-          headingLevel="3"
-        />
-      )
+        expect(
+          screen.queryByTestId('offentligtp-loader')
+        ).not.toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+          'pensjonsavtaler.offentligtp.title'
+        )
+        await waitFor(() => {
+          expect(
+            screen.getByText(
+              'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt',
+              { exact: false }
+            )
+          ).toBeVisible()
+        })
+      })
 
-      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+      it('Når simuleringen er tom, viser riktig heading på riktig level og riktig infomelding.', async () => {
+        render(
+          <OffentligTjenestepensjon
+            isLoading={false}
+            isError={false}
+            offentligTp={{
+              simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+              muligeTpLeverandoerListe: ['SPK'],
+            }}
+            headingLevel="3"
+          />
+        )
 
-      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-        'pensjonsavtaler.offentligtp.title'
-      )
-      expect(
-        screen.getByText('pensjonsavtaler.offentligtp.error')
-      ).toBeInTheDocument()
-    })
-  })
+        expect(
+          screen.queryByTestId('offentligtp-loader')
+        ).not.toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+          'pensjonsavtaler.offentligtp.title'
+        )
+        await waitFor(() => {
+          expect(
+            screen.getByText('pensjonsavtaler.offentligtp.spk_empty')
+          ).toBeVisible()
+        })
+      })
 
-  describe('Gitt at feature-toggle for tp-offentlig er på, ', () => {
-    describe('Gitt at offentlig tjenestepensjon er hentet og at brukeren er medlem med simulert tjenestepensjon fra SPK, ', async () => {
-      it('Når brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {
+      it('Når simuleringen er vellykket og at brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {
         vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
 
         render(
@@ -120,7 +166,7 @@ describe('OffentligTjenestepensjon', () => {
         ).toBeVisible()
       })
 
-      it('Når brukeren er på mobil, viser riktig informasjon og liste over private pensjonsavtaler.', async () => {
+      it('Når simuleringen er vellykket og at brukeren er på mobil, viser riktig informasjon og liste over private pensjonsavtaler.', async () => {
         vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(true)
         render(
           <OffentligTjenestepensjon
@@ -357,6 +403,91 @@ describe('OffentligTjenestepensjon', () => {
             )
           ).toBeVisible()
         })
+      })
+    })
+  })
+
+  describe('Gitt at feature-toggle for tp-offentlig er av, ', () => {
+    beforeEach(() => {
+      mockErrorResponse('/feature/pensjonskalkulator.enable-tpoffentlig')
+    })
+
+    it('Gitt at brukeren er medlem av en hvilken som helst ordning, viser riktig heading på riktig level og riktig infotekst med tp-leverandør', () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={{
+            simuleringsresultatStatus: 'OK',
+            muligeTpLeverandoerListe: [
+              'Statens pensjonskasse',
+              'Kommunal Landspensjonskasse',
+              'Oslo Pensjonsforsikring',
+            ],
+          }}
+          headingLevel="3"
+        />
+      )
+
+      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'pensjonsavtaler.offentligtp.title'
+      )
+      expect(
+        screen.getByText(
+          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+        )
+      ).toBeInTheDocument()
+    })
+
+    it('Når simuleringen feilet hos SPK, viser ikke noe infomelding.', async () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={{
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: ['SPK'],
+          }}
+          headingLevel="3"
+        />
+      )
+
+      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'pensjonsavtaler.offentligtp.title'
+      )
+      await waitFor(() => {
+        expect(
+          screen.queryByText(
+            'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt',
+            { exact: false }
+          )
+        ).not.toBeInTheDocument()
+      })
+    })
+
+    it('Når simuleringen er tom, viser ikke noe infomelding.', async () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={{
+            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+            muligeTpLeverandoerListe: ['SPK'],
+          }}
+          headingLevel="3"
+        />
+      )
+
+      expect(screen.queryByTestId('offentligtp-loader')).not.toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'pensjonsavtaler.offentligtp.title'
+      )
+      await waitFor(() => {
+        expect(
+          screen.queryByText('pensjonsavtaler.offentligtp.spk_empty')
+        ).not.toBeInTheDocument()
       })
     })
   })

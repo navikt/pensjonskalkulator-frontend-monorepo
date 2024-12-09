@@ -26,7 +26,6 @@ import { useIsMobile } from '@/utils/useIsMobile'
 
 import styles from './OffentligTjenestepensjon.module.scss'
 
-// TODO PEK-814 teste og utvide test
 export const OffentligTjenestepensjon = (props: {
   isLoading: boolean
   isError: boolean
@@ -110,7 +109,7 @@ export const OffentligTjenestepensjon = (props: {
         )
       }
       {
-        // Når brukeren ikke er medlem av noe offentlig ordning
+        // Når brukeren ikke er medlem av noe offentlig tp-ordning
         (offentligTp?.simuleringsresultatStatus ===
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' ||
           (!isLoading &&
@@ -123,37 +122,41 @@ export const OffentligTjenestepensjon = (props: {
       }
       {
         // Når brukeren er medlem av en annen ordning
-        (offentligTp?.simuleringsresultatStatus ===
-          'TP_ORDNING_STOETTES_IKKE' ||
-          (!isError &&
+        (tpOffentligFeatureToggle?.enabled &&
+          offentligTp?.simuleringsresultatStatus ===
+            'TP_ORDNING_STOETTES_IKKE') ||
+          (!tpOffentligFeatureToggle?.enabled &&
+            !isError &&
             offentligTp?.muligeTpLeverandoerListe &&
-            offentligTp.muligeTpLeverandoerListe.length > 0)) && (
-          <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
-              values={{
-                chunk: leverandoererString,
-              }}
-            />
-          </Alert>
-        )
+            offentligTp.muligeTpLeverandoerListe.length > 0 && (
+              <Alert inline variant="warning">
+                <FormattedMessage
+                  id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
+                  values={{
+                    chunk: leverandoererString,
+                  }}
+                />
+              </Alert>
+            ))
       }
       {
         // Ved feil hos SPK
-        offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
-          <Alert inline variant="warning">
-            <FormattedMessage id="pensjonsavtaler.offentligtp.spk_error" />
-          </Alert>
-        )
+        tpOffentligFeatureToggle?.enabled &&
+          offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
+            <Alert inline variant="warning">
+              <FormattedMessage id="pensjonsavtaler.offentligtp.spk_error" />
+            </Alert>
+          )
       }
       {
         // Ved tomt svar hos SPK
-        offentligTp?.simuleringsresultatStatus ===
-          'TOM_SIMULERING_FRA_TP_ORDNING' && (
-          <Alert inline variant="warning">
-            <FormattedMessage id="pensjonsavtaler.offentligtp.spk_empty" />
-          </Alert>
-        )
+        tpOffentligFeatureToggle?.enabled &&
+          offentligTp?.simuleringsresultatStatus ===
+            'TOM_SIMULERING_FRA_TP_ORDNING' && (
+            <Alert inline variant="warning">
+              <FormattedMessage id="pensjonsavtaler.offentligtp.spk_empty" />
+            </Alert>
+          )
       }
 
       {tpOffentligFeatureToggle?.enabled &&
