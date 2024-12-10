@@ -355,7 +355,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -379,7 +379,7 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
@@ -447,7 +447,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -471,7 +471,7 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
@@ -539,7 +539,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -563,7 +563,7 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
@@ -631,7 +631,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -655,7 +655,7 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
@@ -817,7 +817,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -980,7 +980,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -1004,7 +1004,7 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
