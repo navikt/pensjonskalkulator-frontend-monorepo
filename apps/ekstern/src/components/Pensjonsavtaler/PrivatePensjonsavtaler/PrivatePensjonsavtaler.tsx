@@ -28,7 +28,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
   const isMobile = useIsMobile()
   const intl = useIntl()
 
-  // TODO Bør vi ha en håndtering av loading?
+  // TODO PEK-812 Bør vi ha en håndtering av loading?
   return (
     <>
       {
