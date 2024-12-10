@@ -642,7 +642,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. '
             ).should('exist')
           })
 
