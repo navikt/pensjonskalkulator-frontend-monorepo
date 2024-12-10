@@ -266,7 +266,7 @@ const translations = {
   'stegvisning.ufoere.readmore_1.body':
     'To qualify for AFP, you cannot have received disability benefits from Nav after the month you turn 62. This applies regardless of whether you have received full or partial disability benefits, how long you have been on disability benefits, and how much you have received in disability benefits.{br}{br}If you are under 62, you must relinquish your disability benefits by the end of the month you turn 62 in order to receive AFP. Remember that all the other conditions for qualifying for AFP must also be met.',
   'stegvisning.ufoere.ingress':
-    'You can get help determining what is most beneficial. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. Contact your occupational pension scheme if you work in the public sector. {br}{br} The calculator does not calculate AFP for those receiving disability benefits.{br}{br} Proceed to see retirement pension from Nav and pension agreements in the private sector.',
+    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements in the private sector.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Consent for Nav to Calculate AFP (contractual pension)',
   'stegvisning.samtykke_offentlig_afp.ingress':
@@ -314,20 +314,21 @@ const translations = {
   'sivilstand.med_samboer': 'with Partner',
   'sivilstand.uten_samboer': 'without Partner',
   'tidligstmuliguttak.ingress_1':
-    'Your earnings mean that you can first withdraw <nowrap>100 %</nowrap> retirement pension when you are ',
+    'Your calculation shows that you can withdraw <nowrap>100%</nowrap> of your retirement pension from the age of ',
   'tidligstmuliguttak.1963.ingress_2':
-    ' The longer you wait, the more you will receive per year.',
+    ' If you delay your withdrawal, your annual pension will increase.',
   'tidligstmuliguttak.1964.ingress_2':
     ' It may be later due to the increased retirement age.',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'retirement pension cannot be combined with a survivor´s pension or adjustment benefits. If you wish to withdraw retirement pension before 67, you must forfeit the survivor´s pension or adjustment benefit when you withdraw your retirement pension. If you have questions, you can contact us at 55 55 33 34.',
   'tidligstmuliguttak.error':
     'In Advanced, you can choose a more accurate pension age.',
-  'beregning.read_more.pensjonsalder.label': 'About Pension Age',
+  'beregning.read_more.pensjonsalder.label':
+    'About the earliest withdrawal date',
   'beregning.read_more.pensjonsalder.body.optional':
     'The stated age is an estimate. ',
   'beregning.read_more.pensjonsalder.body':
-    'The age limits will gradually increase from the 1964 cohort by one to two months per cohort, but this is not accounted for in the pension calculator.{br}{br}Your accrual in the National Insurance Scheme determines when you can withdraw retirement pension. By 67, your pension must at least correspond to the guarantee pension. Withdrawing before 67 means that you distribute your pension over multiple years, and thus receive less each year.{br}{br}If you have stated that you have AFP, AFP is included in the assessment of when you can withdraw retirement pension.{br}{br}If you cannot take out full <nowrap>(100 %)</nowrap> retirement pension from your desired age, you can adjust the withdrawal degree to see if you can start earlier. If you withdraw graded pension, the time you can take out <nowrap>100 %</nowrap> may be postponed.',
+    'Your earning record in the National Insurance Scheme determines when you can start withdrawing your retirement pension. The retirement age limits will gradually increase from the 1964 birth cohort by one to two months per year, but the pension calculator does not account for this.{br}{br}If you have provided information about AFP (contractual pension) and/or periods spent abroad, this is included in the assessment of when you can withdraw your retirement pension.{br}{br}If you cannot withdraw a full (100%) retirement pension from your desired age, you can adjust the withdrawal percentage to see if you can start earlier. If you withdraw a graded pension, the timing for when you can withdraw 100% may be delayed.',
   'beregning.read_more.pensjonsalder.endring.body':
     'Your accrual in the National Insurance Scheme determines how much retirement pension you can withdraw. By 67, your pension must at least correspond to the guarantee pension. Withdrawing before 67 means that you distribute your pension over multiple years, and thus receive less each year.{br}{br}If you have AFP, AFP is included in the assessment of how much retirement pension you can withdraw.',
   'beregning.alt_tekst':
@@ -562,7 +563,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_privat':
     'You have indicated AFP in the private sector. Nav has not assessed whether you meet the criteria for AFP but assumes that you do. Some private sector employers may have agreements in the public sector. Check with your employer to see what applies to you. Read more about the AFP conditions and how to apply at <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
-    'When you receive disability benefits, you cannot calculate AFP in the calculator. AFP and disability benefits cannot be combined, and if you receive disability benefits after turning 62, you lose the right to AFP. Therefore, you must choose between AFP and disability benefits before you are 62 years old.{br}{br}You can read more about this at <afpPrivatLink>nav.no</afpPrivatLink>. If you need help determining what is most beneficial, <planleggePensjonLink>contact Nav</planleggePensjonLink>.',
+    'When you receive disability benefits, you cannot calculate AFP in the calculator. AFP and disability benefits cannot be combined, and if you receive disability benefits after turning 62, you lose the right to AFP. Therefore, you must choose between AFP and disability benefits before you are 62 years old.{br}{br}You can read more about this at <afpPrivatLink>nav.no</afpPrivatLink>. If you need help assessing your options, <planleggePensjonLink>contact Nav</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
     'If you are unsure whether you have AFP, you should ask your employer. AFP can affect when you can withdraw retirement pension.',
   'grunnlag.afp.ingress.vet_ikke.ufoeretrygd':
@@ -706,5 +707,68 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pension Agreements',
   'forbehold.pensjonsavtaler.ingress':
     'If you have consented, we will retrieve information about what you will receive from public and private pension schemes. Nav is not responsible for the amounts provided, but is intended to give a rough overview of your total pension.{br}{br}Private occupational pension and individual rights are retrieved via Norsk Pensjon.{br}{br}Nav currently has no ability to retrieve information from public occupational pension schemes. Please contact your occupational pension scheme if you need information about your occupational pension.{br}{br}If you want a closer overview of your pension agreements, you need to check directly with each pension scheme.',
+  'personopplysninger.header':
+    'Personal information used in the pension calculator',
+  'personopplysninger.section.formaal.header':
+    'What is the purpose of the personal information?',
+  'personopplysninger.section.formaal.1':
+    'Nav collects personal information in the calculator to allow you to plan your pension and get an estimate of your future pension.',
+  'personopplysninger.section.formaal.2':
+    'You must log in to use the calculator. To calculate the retirement pension, we use the information you provide in the calculator, the information Nav has about you, and the necessary information from other public agencies. If you consent, we retrieve pension agreements from other pension providers to give you a comprehensive overview of your pension.',
+  'personopplysninger.section.hvordan_brukes.header':
+    'How do we process personal information?',
+  'personopplysninger.section.hvordan_brukes.1':
+    'Nav collects and discloses personal information only when we have a legal basis for it. If we need additional information, we request your consent to obtain or disclose the information. We use the information only for what you consent to. Consent is voluntary. You will be informed along the way about the information we collect from others, such as the Population Register and pension providers.',
+  'personopplysninger.section.hvordan_brukes.2':
+    'We do not store the calculations you make or the personal information used in the processing.',
+  'personopplysninger.section.hvordan_brukes.3':
+    'The legal basis for the processing of pension simulations is Art. 6 (1) c Legal obligation, Administration Act § 11, National Insurance Act Chapter 20 Retirement Pension, and Art. 6 (1) a Consent. Nav is the data controller for the processing performed in the pension calculator.',
+  'personopplysninger.section.hvilke_opplysninger.header':
+    'What personal information do we use?',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
+    'Information we collect to fulfil Nav’s duty to provide guidance under Art. 6 (1) c Legal obligation, Administration Act § 11.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
+    'Your national identity number is retrieved from the ID portal to identify you.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
+    'Your name is retrieved from the Population Register to clarify that the calculation applies to you.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
+    'Your date of birth is retrieved from the Population Register so we can calculate your retirement pension.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
+    'The desired age (year and possibly month) for pension withdrawal is provided by you to calculate your retirement pension.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
+    'Your pension accrual is retrieved from the pension accrual register at Nav, which is based on income reported by the Tax Administration, as well as any accrual from unemployment benefits, military service, caregiving accrual, and accrual from disability benefits.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
+    'Your latest pensionable annual income (and year) from the Tax Administration is used as income until the pension withdrawal. It is included in the pension balance for calculating your retirement pension. If you change your future income, your future pension balance will be based on that.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
+    'Your marital status can affect the size of your pension. Information about your marital status is retrieved from the Population Register. If you are registered as single, separated, divorced, or widowed, we ask if you have a cohabitant. Changes you make only apply to that calculation and are not stored by Nav or the Population Register.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
+    'If you receive disability benefits, we use your disability history, degree of disability, estimated income, and any occupational injury history to calculate your retirement pension. We also use the degree of disability to show possible graduations of retirement pension you can withdraw in combination with disability benefits. We do not retrieve medical information from your case.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
+    'If you receive a survivor’s pension or transitional benefit, we use the information to inform you that survivor’s pension and transitional benefit cannot be combined with retirement pension.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
+    'We ask if you have resided outside Norway. We use the information to calculate retirement pension with the correct insurance period in Norway. We ask which country the stay applies to and about work in the country to apply the correct insurance agreement.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
+    'We ask if you are entitled to AFP in either the public or private sector. We use the information to determine whether to calculate your retirement pension with AFP. The information is also used to inform you of when you can withdraw your retirement pension. Furthermore, we use the information to calculate AFP in the private sector.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
+    'Information we use if you consent (GDPR Art. 6 (1) a Consent).',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
+    'From Norsk Pensjon, we retrieve pension agreements from the private sector, such as occupational pensions from employers (defined contribution, defined benefit, or hybrid pensions), paid-up policies, and some pension savings agreements.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
+    'We also check if you are or have been a member of a public occupational pension scheme. If you are or have been a member, we inform you that you may have entitlements but do not retrieve the agreements.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3':
+    'We calculate AFP in the public sector based on your AFP balance if you consent.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
+    'We collect this information to give you an overview of your total pension.',
+  'personopplysninger.section.lagring.heading': 'Storage',
+  'personopplysninger.section.lagring.text':
+    'There is temporary storage in the pension calculator to perform a pension calculation. When you finish the calculation or log out, the temporary storage is deleted. Your calculation is not stored or archived by Nav.',
+  'personopplysninger.section.informasjon_om_rettighetene.heading':
+    'Information about your rights',
+  'personopplysninger.section.informasjon_om_rettighetene.text':
+    'See <navPersonvernerklaeringLink>the privacy policy</navPersonvernerklaeringLink> for Nav.',
+  'personopplysninger.section.spoersmaal.heading':
+    'Questions for Nav or the Data Protection Authority about privacy',
+  'personopplysninger.section.spoersmaal.text':
+    'See contact information in <navPersonvernerklaeringKontaktOssLink>the privacy policy</navPersonvernerklaeringKontaktOssLink> for Nav.',
 }
 export const getTranslation_en = () => translations

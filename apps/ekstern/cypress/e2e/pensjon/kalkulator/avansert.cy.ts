@@ -175,7 +175,7 @@ describe('Avansert', () => {
       it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel.', () => {
         cy.go('back')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })
@@ -264,7 +264,7 @@ describe('Avansert', () => {
         ).should('exist')
         cy.contains('Gå ut av Avansert').click()
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })
@@ -442,7 +442,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -468,7 +468,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -493,7 +493,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -775,7 +775,7 @@ describe('Avansert', () => {
         ).should('exist')
         cy.contains('Gå ut av Avansert').click()
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })

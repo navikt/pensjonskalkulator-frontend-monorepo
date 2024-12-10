@@ -63,7 +63,7 @@ describe('Pensjonskalkulator', () => {
     // Sjekker Beregning
     cy.wait('@fetchTidligsteUttaksalder')
     cy.contains(
-      'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+      'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
     )
     cy.contains('button', '70 år').click()
     cy.injectAxe()
