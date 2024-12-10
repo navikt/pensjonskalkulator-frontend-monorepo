@@ -362,8 +362,10 @@ const translations = {
     'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
-  'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.endring':
+    'Pension agreements from employers and personal savings are not included in the calculation.',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'The calculation may not show everything. You may be entitled to a public sector occupational pension. Read more under <scrollTo>pension agreements</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat.error':
     'This calculation may not show everything. We could not retrieve your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
   'beregning.pensjonsavtaler.alert.offentlig.error':
