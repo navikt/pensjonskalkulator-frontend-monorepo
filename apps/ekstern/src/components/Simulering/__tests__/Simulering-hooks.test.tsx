@@ -14,7 +14,6 @@ import { getTranslation_nb } from '../../../translations/nb'
 import { useSimuleringChartLocalState } from '../hooks'
 import { renderHook } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
-import * as loggerUtils from '@/utils/logging'
 
 import globalClassNames from './Simulering.module.scss'
 
