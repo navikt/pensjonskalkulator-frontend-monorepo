@@ -46,7 +46,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.15.0",
     "@formatjs/ecma402-abstract": "^2.2.4",
-    "@formatjs/intl-datetimeformat": "^6.16.5",
+    "@formatjs/intl-datetimeformat": "^6.17.1",
     "@formatjs/intl-numberformat": "^8.14.5",
     "@grafana/faro-web-sdk": "^1.12.2",
     "@grafana/faro-web-tracing": "^1.12.2",
