@@ -358,25 +358,17 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.tpo.info':
-    'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.endring':
+  'beregning.pensjonsavtaler.alert.endring':
     'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
-  'beregning.tpo.info.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>dine private pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':

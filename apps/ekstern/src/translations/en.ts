@@ -362,23 +362,17 @@ const translations = {
     'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
-  'beregning.tpo.info':
-    'This calculation may not show everything. You may be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.error':
+  'beregning.pensjonsavtaler.alert.endring':
+    'Pension agreements from employers and personal savings are not included in the calculation.',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'The calculation may not show everything. You may be entitled to a public sector occupational pension. Read more under <scrollTo>pension agreements</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat.error':
     'This calculation may not show everything. We could not retrieve your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not retrieve all your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.error':
-    'This calculation may not show everything. We could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not retrieve all <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.tpo.error':
+  'beregning.pensjonsavtaler.alert.offentlig.error':
     'This calculation may not show everything. We could not check whether you have pension agreements in the public sector. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.error':
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
     'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve all <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'You have pension agreements that start before the age you selected. See periods under <scrollTo>Pension Agreements</scrollTo>.',
   'beregning.title': 'Calculation',
   'beregning.alert.inntekt':
