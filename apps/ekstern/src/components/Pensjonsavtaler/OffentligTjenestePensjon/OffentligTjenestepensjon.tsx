@@ -31,9 +31,8 @@ export const OffentligTjenestepensjon = (props: {
   isError: boolean
   offentligTp?: OffentligTp
   headingLevel: HeadingProps['level']
-  showDivider?: boolean
 }) => {
-  const { isLoading, isError, offentligTp, headingLevel, showDivider } = props
+  const { isLoading, isError, offentligTp, headingLevel } = props
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
@@ -96,7 +95,7 @@ export const OffentligTjenestepensjon = (props: {
 
   return (
     <VStack gap="3">
-      {showDivider && <Divider smallMargin />}
+      <Divider smallMargin />
       <Heading id="tpo-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
       </Heading>

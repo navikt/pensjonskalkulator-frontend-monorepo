@@ -162,7 +162,6 @@ export const Pensjonsavtaler = (props: {
               isError={isOffentligTpError}
               offentligTp={offentligTp}
               headingLevel={subHeadingLevel}
-              showDivider
             />
             {(isPensjonsavtalerSuccess ||
               offentligTp?.simulertTjenestepensjon) && (
