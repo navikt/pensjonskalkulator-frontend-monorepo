@@ -55,6 +55,12 @@ declare global {
   // LoependeVedtakDto
   type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
+  // /tidligste-uttaksalder
+  type TidligstMuligHeltUttakRequestBody =
+    components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
+  type TidligstMuligGradertUttakRequestBody =
+    components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
+
   // /simuler-oftp
   export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
     OffentligTp,
@@ -65,12 +71,6 @@ declare global {
     components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
   type OffentligTp =
     components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
-
-  // /tidligste-uttaksalder
-  type TidligstMuligHeltUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
-  type TidligstMuligGradertUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
 
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =

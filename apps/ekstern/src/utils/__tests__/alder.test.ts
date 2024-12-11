@@ -18,6 +18,9 @@ import {
   transformUttaksalderToDate,
   transformMaanedToDate,
   validateAlderFromForm,
+  getMaanedString,
+  formaterSluttAlderString,
+  formaterLivsvarigString,
 } from '../alder'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
@@ -482,6 +485,66 @@ describe('alder-utils', () => {
         aar: 61,
         maaneder: 0,
       })
+    })
+  })
+
+  describe('getMaanedString', () => {
+    it('returnerer tom streng når måned er undefined eller lik 0', () => {
+      const mockFn = vi.fn()
+      expect(getMaanedString(mockFn)).toEqual('')
+      expect(getMaanedString(mockFn, 0)).toEqual('')
+      expect(mockFn).not.toHaveBeenCalled()
+    })
+    it('returnerer riktig streng når måned er større enn 0', () => {
+      const mockFn = vi.fn().mockReturnValue('string')
+      expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
+      expect(mockFn).toHaveBeenNthCalledWith(1, {
+        id: 'string.og',
+      })
+      expect(mockFn).toHaveBeenNthCalledWith(2, {
+        id: 'alder.md',
+      })
+      expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
+    })
+  })
+
+  describe('formaterSluttAlderString', () => {
+    it('returnerer riktig formatert streng', () => {
+      const intlMock = {
+        formatMessage: (s: { id: string }) => s.id,
+      } as unknown as IntlShape
+
+      expect(
+        formaterSluttAlderString(
+          intlMock,
+          { aar: 67, maaneder: 3 },
+          { aar: 67, maaneder: 6 }
+        )
+      ).toBe(
+        'String.fra 67 alder.aar string.og 3 alder.md string.til 67 alder.aar string.og 6 alder.md'
+      )
+      expect(
+        formaterSluttAlderString(
+          intlMock,
+          { aar: 67, maaneder: 0 },
+          { aar: 67, maaneder: 11 }
+        )
+      ).toBe('String.fra 67 alder.aar string.til 67 alder.aar')
+    })
+  })
+
+  describe('formaterLivsvarigString', () => {
+    it('returnerer riktig formatert streng for livsvarig', () => {
+      const intlMock = {
+        formatMessage: (s: { id: string }) => s.id,
+      } as unknown as IntlShape
+
+      expect(formaterLivsvarigString(intlMock, { aar: 67, maaneder: 3 })).toBe(
+        'alder.livsvarig 67 alder.aar string.og 3 alder.md'
+      )
+      expect(formaterLivsvarigString(intlMock, { aar: 67, maaneder: 0 })).toBe(
+        'alder.livsvarig 67 alder.aar'
+      )
     })
   })
 })

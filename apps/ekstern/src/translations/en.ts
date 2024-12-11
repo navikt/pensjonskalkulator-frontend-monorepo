@@ -590,11 +590,12 @@ const translations = {
     'This calculator is under development. If you need to save calculations and see more details, you can do it in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
-  'pensjonsavtaler.ingress.norsk_pensjon':
-    'All agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
+    'Agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'We could not retrieve your private pension agreements. Please try again later.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'We could not retrieve all your private pension agreements. Please try again later.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'You have not consented to retrieve pension agreements.',
@@ -603,18 +604,32 @@ const translations = {
     'if you want to include this in the calculation.',
   'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
-  'pensjonsavtaler.livsvarig': 'Lifelong from',
+  'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
   'pensjonsavtaler.tabell.title.left': 'Agreements',
   'pensjonsavtaler.tabell.title.middle': 'Periods',
   'pensjonsavtaler.tabell.title.right': 'Annual Amount',
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
-  'pensjonsavtaler.tpo.title': 'Public Occupational Pension',
-  'pensjonsavtaler.tpo.er_medlem':
+  'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
-  'pensjonsavtaler.tpo.error':
+  'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error':
+    'We were unable to retrieve your public service pension. Please try again later or contact <spkLink>SPK</spkLink>.',
+  'pensjonsavtaler.offentligtp.spk_empty':
+    'We did not receive a response regarding your public service pension.',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
+  'pensjonsavtaler.offentligtp.afp_ja':
+    'Lifelong AFP is not included in the amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+    'You have stated that you are not entitled to lifelong AFP. Conditional occupational pension is therefore included in the amount. Check <spkLink>SPK</spkLink> for details.',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+    'You have stated that you are not entitled to lifelong AFP. Check <spkLink>SPK</spkLink> for details.',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+    'You have stated that you are unsure if you are entitled to lifelong AFP. The amount may therefore include conditional occupational pension. Check <spkLink>SPK</spkLink> for details.',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':

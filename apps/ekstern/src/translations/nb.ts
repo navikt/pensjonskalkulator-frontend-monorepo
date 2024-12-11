@@ -590,11 +590,12 @@ const translations = {
     'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
-  'pensjonsavtaler.ingress.norsk_pensjon':
-    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
+    'Avtaler fra privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
@@ -603,18 +604,32 @@ const translations = {
     'hvis du ønsker å få dette i beregningen.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
-  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
+  'alder.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'pensjonsavtaler.tpo.title': 'Offentlig tjenestepensjon',
-  'pensjonsavtaler.tpo.er_medlem':
+  'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
-  'pensjonsavtaler.tpo.error':
+  'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error':
+    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
+  'pensjonsavtaler.offentligtp.spk_empty':
+    'Vi fikk ikke noe svar fra din offentlige tjenestepensjon.',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Alderspensjon fra Statens pensjonskasse (SPK)',
+  'pensjonsavtaler.offentligtp.afp_ja':
+    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+    'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
