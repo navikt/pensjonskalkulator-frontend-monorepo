@@ -25,6 +25,9 @@ export const externalUrls = {
     'https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden',
   kortBotid: 'https://www.nav.no/alderspensjon#kort-botid',
   byttBruker: import.meta.env.VITE_BYTT_BRUKER_URL,
+  personopplysninger:
+    'https://www.nav.no/personopplysninger-i-pensjonskalkulator',
+  spk: 'https://www.spk.no/',
 }
 
 export const paths = {
@@ -43,7 +46,6 @@ export const paths = {
   beregningEnkel: '/beregning',
   beregningAvansert: '/beregning-detaljert',
   forbehold: '/forbehold',
-  personopplysninger: '/personopplysninger',
 } as const
 
 export const henvisningUrlParams = {

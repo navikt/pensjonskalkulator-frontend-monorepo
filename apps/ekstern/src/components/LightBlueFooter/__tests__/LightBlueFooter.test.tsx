@@ -1,11 +1,18 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { LightBlueFooter } from '..'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('LightBlueFooter', () => {
   it('rendrer med riktig tekst og knapper', () => {
@@ -17,10 +24,6 @@ describe('LightBlueFooter', () => {
   describe('Gitt at brukeren klikker på knappen, åpnes det modalen og brukeren kan avbryte eller gå tilbake til start ved bekreftelse', async () => {
     it('Når brukeren bekrefter, nullstiller input fra brukeren og redirigerer til første steg av stegvisning', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<LightBlueFooter />, {
         preloadedState: {

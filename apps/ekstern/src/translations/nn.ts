@@ -286,6 +286,7 @@ const translations = {
   'beregning.read_more.pensjonsalder.body.optional': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.body': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.endring.body': 'MANGLER_TEKST',
+  'beregning.alt_tekst': 'MANGLER_TEKST',
   'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.title': 'MANGLER_TEKST',
@@ -473,8 +474,6 @@ const translations = {
   'grunnlag.afp.reset_link': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
-  'grunnlag.forbehold.ingress_2':
-    'Denne kalkulatoren er under utvikling og har avgrensa funksjonalitet. Du kan gjere meir spesifisert utrekning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.forbehold.link': 'Alle atterhald',
   'grunnlag.forbehold.title': 'Atterhald',
   'savnerdunoe.title': 'MANGLER_TEKST',
@@ -486,11 +485,13 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.ingress.norsk_pensjon':
+  'pensjonsavtaler.fra_og_med_forklaring': 'MANGLER_TEKST',
+  'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
@@ -498,13 +499,20 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'viss du ynskjer å få dette i utrekninga.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
-  'pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
+  'alder.livsvarig': 'Livsvarig frå og med',
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
-  'pensjonsavtaler.tpo.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.tpo.er_medlem': 'MANGLER_TEKST',
-  'pensjonsavtaler.tpo.error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_empty': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.subtitle.spk': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_ja': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
@@ -576,67 +584,5 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. Nav har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}Nav har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
-  'personopplysninger.header':
-    'Personopplysningar som brukast i enkel pensjonskalkulator',
-  'personopplysninger.section.formaal.header':
-    'Kva er føremålet med personopplysningane?',
-  'personopplysninger.section.formaal.1':
-    'Nav hentar inn personopplysningar i kalkulatoren for at du skal kunne planlegge pensjonen din, og få eit estimat på framtidig pensjon.',
-  'personopplysninger.section.formaal.2':
-    'Du må logge inn for å bruke kalkulatoren. For å rekne ut alderspensjon bruker vi opplysningar som du legg inn i kalkulatoren, opplysningar Nav har om deg, og nødvendige opplysningar frå andre offentlege instansar. Gjev du samtykke til det, hentar vi inn pensjonsavtalar frå andre pensjonsleverandørar, for å gje deg samla oversikt over pensjonen din.',
-  'personopplysninger.section.hvordan_brukes.header':
-    'Korleis behandlar vi personopplysningar?',
-  'personopplysninger.section.hvordan_brukes.1':
-    'Nav hentar inn og gjer ut personopplysningar kun når vi har lovhjemmel til det. Treng vi fleire opplysningar, ber vi om samtykke frå deg til å innhente eller utlevere opplysningane. Vi bruker kun opplysningane til det du samtykker til. Samtykket er frivillig. Du får informasjon undervegs om opplysningane vi henter inn frå andre, som f.eks. Folkeregisteret og pensjonsleverandørar.',
-  'personopplysninger.section.hvordan_brukes.2':
-    'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
-  'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. Nav er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.',
-  'personopplysninger.section.hvilke_opplysninger.header':
-    'Personopplysningar som vert brukt',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
-    'Opplysningar vi hentar for å oppfylle Nav si rettleiingsplikt etter Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
-    'Fødselsnummeret ditt hentar vi frå ID-porten for å identifisere deg.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
-    'Førenamnet ditt hentar vi frå Folkeregisteret for å gjera det tydeleg at utrekninga gjeld deg.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
-    'Fødselsdatoen din hentar vi frå Folkeregisteret for at vi skal kunne rekne ut alderspensjonen din.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
-    'Du oppgir den alderen (år og ev. månad) du ynskjer for uttak av pensjon for at vi skal kunne rekne ut alderspensjonen din.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
-    'Di pensjonsopptening vert henta frå pensjonsoppteningsregisteret hos Nav. Registeret er basert på innrapporterte inntekter frå Skatteetaten, og ev. opptening frå dagpengar, førstegongsteneste, omsorgsopptening og opptening frå uføretrygd.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din. Forandrar du framtidig inntekt, vert og den framtidige pensjonsbehandlinga di endra.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
-    'Din sivilstand kan verka inn på kor stor pensjonen vert. Opplysningar om sivilstanden din vert henta frå Folkeregisteret. Er du registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har sambuar. Informasjon du legg inn i her, gjeld kun for denne utrekninga og vert ikkje lagra hos Nav eller Folkeregisteret.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
-    'Har du uføretrygd eller attelevandepensjon, må du velge detaljert kalkulator når du loggar inn. Enkel kalkulator tek ikkje omsyn til uføretrygd eller attlevandepensjon.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'Vi spør deg om opphald utanfor Noreg. Har du budd eller arbeidd utanfor Noreg i meir enn 5 år, må du nytta detaljert kalkulator. Enkel kalkulator tek ikkje omsyn til lengre utanlandsopphald.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'Vi spør deg om du har rett til AFP i anten offentleg eller privat sektor. Vi nyttar opplysninga til å identifisere om vi skal rekne ut alderspensjonen din med AFP. Opplysninga vert og brukt til å informere om at AFP kan verka inn på kor tid du kan ta ut alderspensjon.',
-  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
-    'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
-    'Opplysningar som vi hentar viss du samtykker (GDPR Art 6 (1) a, Samtykke).',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
-    'Frå Norsk Pensjon hentar vi pensjonsavtalar frå privat sektor, som tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og enkelte avtalar om pensjonssparing.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
-    'Vi sjekkar og om du er eller har vore medlem i offentleg tenestepensjonsordning. Er du, eller har du vore medlem, informerer vi deg om at du kan ha rett til tenestepensjon, men hentar ikkje inn avtalane.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3': 'MANGLER_TEKST',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
-    'Vi hentar inn desse opplysningane for at du skal få oversikt over den samla pensjonen din.',
-  'personopplysninger.section.lagring.heading': 'Lagring',
-  'personopplysninger.section.lagring.text':
-    'Det er mellomlagring i pensjonskalkulatoren for å gjera utrekning av pensjonen din. Når du avsluttar utrekninga eller logger ut, vert mellomlagringa sletta. Utrekninga vert ikkje lagra eller arkivert hos Nav.',
-  'personopplysninger.section.informasjon_om_rettighetene.heading':
-    'Informasjon om rettane dine',
-  'personopplysninger.section.informasjon_om_rettighetene.text':
-    'Sjå <navPersonvernerklaeringLink>personvernerklæringa</navPersonvernerklaeringLink> for Nav.',
-  'personopplysninger.section.spoersmaal.heading':
-    'Spørsmål til Nav eller datatilsynet om personvern',
-  'personopplysninger.section.spoersmaal.text':
-    'Sjå kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringa</navPersonvernerklaeringKontaktOssLink> for Nav.',
 }
 export const getTranslation_nn = () => translations

@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkeOffentligAFP } from '..'
@@ -7,6 +5,15 @@ import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApi
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepSamtykkeOffentligAFP', () => {
   it('har riktig sidetittel', () => {
@@ -19,10 +26,7 @@ describe('StepSamtykkeOffentligAFP', () => {
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke til beregning av offentlig AFP', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
+
       const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
@@ -46,10 +50,7 @@ describe('StepSamtykkeOffentligAFP', () => {
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke til beregning av offentlig AFP', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
+
       const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
@@ -72,10 +73,7 @@ describe('StepSamtykkeOffentligAFP', () => {
 
   it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepSamtykkeOffentligAFP />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykkeOffentligAFP: null },

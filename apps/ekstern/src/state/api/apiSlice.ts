@@ -12,7 +12,7 @@ import {
   isAlderspensjonSimulering,
   isPerson,
   isPensjonsavtale,
-  isTpoMedlemskap,
+  isOffentligTp,
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
@@ -35,7 +35,7 @@ export const apiSlice = createApi({
       }
     },
   }),
-  tagTypes: ['Person', 'TpoMedlemskap', 'Alderspensjon', 'Pensjonsavtaler'],
+  tagTypes: ['Person', 'OffentligTp', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -87,22 +87,29 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
-      query: () => '/v1/tpo-medlemskap',
-      providesTags: ['TpoMedlemskap'],
-      transformResponse: (response: TpoMedlemskap) => {
-        if (!isTpoMedlemskap(response)) {
-          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
-        }
-        return response
-      },
-    }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
       query: () => '/v2/vedtak/loepende-vedtak',
       transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
           throw new Error(
             `Mottok ugyldig løpende vedtak response:`,
+            response as ErrorOptions
+          )
+        }
+        return response
+      },
+    }),
+    offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
+      query: (body) => ({
+        url: '/v1/simuler-oftp',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['OffentligTp'],
+      transformResponse: (response: OffentligTp) => {
+        if (!isOffentligTp(response)) {
+          throw new Error(
+            `Mottok ugyldig offentlig-tp:`,
             response as ErrorOptions
           )
         }
@@ -130,7 +137,7 @@ export const apiSlice = createApi({
       PensjonsavtalerRequestBody
     >({
       query: (body) => ({
-        url: '/v2/pensjonsavtaler',
+        url: '/v3/pensjonsavtaler',
         method: 'POST',
         body,
       }),
@@ -189,8 +196,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-endring',
+    getTpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-tpoffentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -223,12 +230,12 @@ export const {
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetLoependeVedtakQuery,
-  useGetTpoMedlemskapQuery,
+  useOffentligTpQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
-  useGetEndringFeatureToggleQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

@@ -28,6 +28,9 @@ const translations = {
     'lorem ipsum dolor <trygdetidLink>my link</trygdetidLink>',
   'translation.test.kortBotidLink':
     'lorem ipsum dolor <kortBotidLink>my link</kortBotidLink>',
+  'translation.test.personopplysningerLink':
+    'lorem ipsum dolor <personopplysningerLink>my link</personopplysningerLink>',
+  'translation.test.spkLink': 'lorem ipsum dolor <spkLink>my link</spkLink>',
   'translation.test.br': 'lorem{br}ipsum{br}{br}dolor',
   'translation.test.strong': 'lorem<strong>ipsum</strong>dolor',
   'translation.test.nowrap': 'lorem<nowrap>ipsum</nowrap>dolor',

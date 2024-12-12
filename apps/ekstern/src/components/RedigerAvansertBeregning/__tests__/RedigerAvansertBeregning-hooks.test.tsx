@@ -907,7 +907,9 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "navPersonvernerklaeringLink": [Function],
                 "norskPensjonLink": [Function],
                 "nowrap": [Function],
+                "personopplysningerLink": [Function],
                 "planleggePensjonLink": [Function],
+                "spkLink": [Function],
                 "strong": [Function],
                 "trygdetidLink": [Function],
               }

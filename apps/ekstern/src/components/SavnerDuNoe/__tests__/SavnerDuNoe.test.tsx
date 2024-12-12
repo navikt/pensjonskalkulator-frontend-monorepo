@@ -1,11 +1,18 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { SavnerDuNoe } from '..'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('SavnerDuNoe', () => {
   describe('Gitt at brukeren ikke har noe vedtak om alderspensjon', () => {
@@ -39,10 +46,7 @@ describe('SavnerDuNoe', () => {
 
     it('nullstiller input fra brukeren og redirigerer til avansert beregning når brukeren klikker på knappen', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
+
       const { store } = render(
         <SavnerDuNoe headingLevel="2" isEndring={false} showAvansert />,
         {

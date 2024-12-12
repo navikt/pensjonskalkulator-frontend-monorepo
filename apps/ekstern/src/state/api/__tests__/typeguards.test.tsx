@@ -11,7 +11,7 @@ import {
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
   isLoependeVedtak,
-  isTpoMedlemskap,
+  isOffentligTp,
   isUtbetalingsperiode,
   isUnleashToggle,
   isAlder,
@@ -53,66 +53,73 @@ describe('Typeguards', () => {
   describe('isUtbetalingsperiode', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 65, maaneder: 0 },
           sluttAlder: { aar: 70, maaneder: 11 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
+      expect(
+        isUtbetalingsperiode(false, {
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 70, maaneder: 11 },
+          aarligUtbetaling: 100000,
+        })
+      ).toBeTruthy()
     })
     it('returnerer false når typen er undefined eller at Utbetalingsperiode ikke inneholder alle forventet keys', () => {
-      expect(isUtbetalingsperiode(undefined)).toBeFalsy()
-      expect(isUtbetalingsperiode({})).toBeFalsy()
+      expect(isUtbetalingsperiode(true, undefined)).toBeFalsy()
+      expect(isUtbetalingsperiode(true, {})).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 'abc', maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 'abc',
           grad: 100,
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 'abc',
@@ -121,7 +128,7 @@ describe('Typeguards', () => {
     })
     it('returnerer false når Utbetalingsperiode har feil sluttAlder eller sluttMaaned', () => {
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           sluttAlder: { aar: 'abc', maaneder: 11 },
           aarligUtbetaling: 100000,
@@ -129,7 +136,7 @@ describe('Typeguards', () => {
         })
       ).toBeFalsy()
       expect(
-        isUtbetalingsperiode({
+        isUtbetalingsperiode(true, {
           startAlder: { aar: 70, maaneder: 0 },
           sluttAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
@@ -805,7 +812,6 @@ describe('Typeguards', () => {
           alderspensjon: { grad: '75' },
         })
       ).toEqual(false)
-
       expect(
         isLoependeVedtak({
           ...correctResponse,
@@ -827,27 +833,260 @@ describe('Typeguards', () => {
     })
   })
 
-  describe('isTpoMedlemskap', () => {
+  describe('isOffentligTp', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: [],
+        isOffentligTp({
+          simuleringsresultatStatus: 'OK',
+          muligeTpLeverandoerListe: [
+            'Statens pensjonskasse',
+            'Kommunal Landspensjonskasse',
+            'Oslo Pensjonsforsikring',
+          ],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: [
+                {
+                  startAlder: { aar: 67, maaneder: 0 },
+                  sluttAlder: { aar: 69, maaneder: 11 },
+                  aarligUtbetaling: 64340,
+                },
+                {
+                  startAlder: { aar: 70, maaneder: 0 },
+                  sluttAlder: { aar: 74, maaneder: 11 },
+                  aarligUtbetaling: 53670,
+                },
+                {
+                  startAlder: { aar: 75, maaneder: 0 },
+                  aarligUtbetaling: 48900,
+                },
+              ],
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
         })
       ).toBeTruthy()
       expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: ['lorem ipsum'],
+        isOffentligTp({
+          simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+          muligeTpLeverandoerListe: ['Leverandør 1'],
         })
       ).toBeTruthy()
     })
-    it('returnerer false når typen er undefined eller at tpLeverandoerListe inneholder noe annet', () => {
-      expect(isTpoMedlemskap(undefined)).toBeFalsy()
-      expect(isTpoMedlemskap([])).toBeFalsy()
-      expect(isTpoMedlemskap({})).toBeFalsy()
-      expect(isTpoMedlemskap({ somethingElse: [] })).toBeFalsy()
+
+    it('returnerer false når typen er undefined, null eller mangler påkrevde felter', () => {
+      expect(isOffentligTp(undefined)).toBeFalsy()
+      expect(isOffentligTp(null)).toBeFalsy()
+      expect(isOffentligTp([])).toBeFalsy()
+      expect(isOffentligTp({})).toBeFalsy()
+      expect(isOffentligTp({ somethingElse: [] })).toBeFalsy()
+    })
+
+    it('returnerer false når simuleringsresultatStatus inneholder noe annet', () => {
       expect(
-        isTpoMedlemskap({
-          tpLeverandoerListe: 'string',
+        isOffentligTp({
+          simuleringsresultatStatus: 'RANDOM',
+          muligeTpLeverandoerListe: [],
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 123,
+          muligeTpLeverandoerListe: [],
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når muligeTpLeverandoerListe inneholder noe annet', () => {
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'OK',
+          muligeTpLeverandoerListe: 'string',
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'OK',
+          muligeTpLeverandoerListe: [1, 2, 3],
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når simulertTjenestepensjon er noe annet enn undefined eller object', () => {
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: null,
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: 'somethingRandom',
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: 123,
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når simulertTjenestepensjon har feil tpLeverandoer', () => {
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: null,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: undefined,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 123,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når simulertTjenestepensjon har feil utbetalingsperioder under simulertTjenestepensjon', () => {
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: null,
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: undefined,
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: 123,
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: 'string',
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: 'Statens pensjonskasse',
+            simuleringsresultat: {
+              utbetalingsperioder: [{ tull: 'tull' }],
+              betingetTjenestepensjonErInkludert: true,
+            },
+          },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når simulertTjenestepensjon har feil betingetTjenestepensjonErInkludert under simulertTjenestepensjon', () => {
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: null,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: null,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: null,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: undefined,
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+          simulertTjenestepensjon: {
+            tpLeverandoer: null,
+            simuleringsresultat: {
+              utbetalingsperioder: [],
+              betingetTjenestepensjonErInkludert: 'tull',
+            },
+          },
         })
       ).toBeFalsy()
     })

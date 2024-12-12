@@ -330,6 +330,52 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
+    it('formaterer <personopplysningerLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.personopplysningerLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.personopplysninger
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <spkLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.spkLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.spk
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
     it('formaterer {br} til <br/>', async () => {
       const { asFragment } = render(
         <FormattedMessage

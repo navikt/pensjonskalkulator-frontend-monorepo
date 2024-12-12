@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { Grunnlag } from '@/components/Grunnlag'
 import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
@@ -7,6 +5,15 @@ import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Grunnlag', () => {
   const renderGrunnlagMedPreloadedState = (
@@ -103,10 +110,6 @@ describe('Grunnlag', () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulationUtenomUtenlandsperioder'
-      )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
       )
 
       const user = userEvent.setup()
@@ -265,10 +268,6 @@ describe('Grunnlag', () => {
       const flushMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
         'flush'
-      )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
       )
 
       const user = userEvent.setup()

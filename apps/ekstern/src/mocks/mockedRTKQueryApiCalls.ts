@@ -305,14 +305,15 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
   },
 }
 
-export const fulfilledGetTpoMedlemskap = {
-  ['getTpoMedlemskap(undefined)']: {
+export const fulfilledsimulerOffentligTp = {
+  ['offentligTp(undefined)']: {
     status: 'fulfilled',
-    endpointName: 'getTpoMedlemskap',
+    endpointName: 'offentligTp',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      tpLeverandoerListe: [
+      simuleringsresultatStatus: 'OK',
+      muligeTpLeverandoerListe: [
         'Statens pensjonskasse',
         'Kommunal Landspensjonskasse',
         'Oslo Pensjonsforsikring',
@@ -410,6 +411,19 @@ export const rejectedGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'rejected',
     endpointName: 'getOmstillingsstoenadOgGjenlevende',
+    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+    startedTimeStamp: 1714725265404,
+    error: {
+      status: 'FETCH_ERROR',
+      error: 'TypeError: Failed to fetch',
+    },
+  },
+}
+
+export const rejectedGetLoependeVedtak = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'rejected',
+    endpointName: 'getLoependeVedtak',
     requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
     startedTimeStamp: 1714725265404,
     error: {

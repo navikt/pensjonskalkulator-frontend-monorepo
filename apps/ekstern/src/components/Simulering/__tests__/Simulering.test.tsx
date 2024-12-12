@@ -431,6 +431,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -439,7 +441,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -501,6 +502,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -509,7 +512,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -566,6 +568,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -574,7 +578,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -623,6 +626,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -631,7 +636,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -696,6 +700,8 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -704,7 +710,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -737,7 +742,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -788,7 +793,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -852,7 +857,7 @@ describe('Simulering', () => {
     })
 
     describe('Gitt at brukeren har tp-medlemskap', () => {
-      it('Når pensjonsavtaler hentes, vises det riktig infomelding for tp-ordning', async () => {
+      it('Når private pensjonsavtaler hentes, vises det riktig infomelding for offentlig tjenestepensjon', async () => {
         render(
           <Simulering
             isLoading={false}
@@ -862,6 +867,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -883,7 +894,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -897,6 +908,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -917,7 +934,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -948,6 +965,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -966,7 +989,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],
@@ -983,6 +1006,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1001,17 +1030,20 @@ describe('Simulering', () => {
       })
     })
 
-    describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
+    describe('Gitt at brukeren ikke har noe tp-leverandør', () => {
       beforeEach(() => {
-        mockResponse('/v1/tpo-medlemskap', {
+        mockResponse('/v1/simuler-oftp', {
           status: 200,
           json: {
-            tpLeverandoerListe: [],
+            simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+            muligeTpLeverandoerListe: [],
           },
+          method: 'post',
         })
       })
+
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -1025,6 +1057,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1045,7 +1083,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -1076,6 +1114,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1094,7 +1138,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],
@@ -1111,6 +1155,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1129,9 +1179,11 @@ describe('Simulering', () => {
       })
     })
 
-    describe('Gitt at kall til tp-medlemskap feiler', () => {
+    describe('Gitt at kall til offentlig-tp feiler', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/tpo-medlemskap')
+        mockErrorResponse('/v1/simuler-oftp', {
+          method: 'post',
+        })
       })
 
       it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {
@@ -1144,6 +1196,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1164,7 +1222,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler feiler, vises det riktig feilmelding for tp-ordninger og pensjonsvtaler', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
+        mockErrorResponse('/v3/pensjonsavtaler', {
           status: 500,
           json: "Beep boop I'm an error!",
           method: 'post',
@@ -1178,6 +1236,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1198,7 +1262,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [
@@ -1229,6 +1293,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1247,7 +1317,7 @@ describe('Simulering', () => {
       })
 
       it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
+        mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
             avtaler: [],
@@ -1264,6 +1334,12 @@ describe('Simulering', () => {
           />,
           {
             preloadedState: {
+              api: {
+                /* @ts-ignore */
+                queries: {
+                  ...fulfilledGetPerson,
+                },
+              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: true,
@@ -1295,6 +1371,12 @@ describe('Simulering', () => {
       />,
       {
         preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetPerson,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

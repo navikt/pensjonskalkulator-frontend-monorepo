@@ -1,5 +1,4 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
@@ -15,12 +14,14 @@ import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 describe('Henvisning ', async () => {
-  beforeEach(() => {
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-  })
   afterEach(() => {
     navigateMock.mockReset()
   })

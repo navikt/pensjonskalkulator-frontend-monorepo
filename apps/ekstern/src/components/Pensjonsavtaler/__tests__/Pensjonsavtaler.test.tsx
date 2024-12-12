@@ -1,10 +1,7 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
@@ -12,6 +9,15 @@ import {
   Simulation,
 } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
@@ -29,13 +35,9 @@ describe('Pensjonsavtaler', () => {
       aarligInntektVsaPensjonBeloep: '300 000',
     },
   }
-  describe('Gitt at brukeren ikke har samtykket', () => {
-    it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress, tabell og info om offentlig tjenestepensjon', async () => {
+  describe('Gitt at brukeren ikke har samtykket,', () => {
+    it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress, tabell og info om offentlig tjenestepensjon.', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
@@ -65,15 +67,15 @@ describe('Pensjonsavtaler', () => {
       ).toHaveLength(2)
 
       expect(
-        screen.queryByTestId('pensjonsavtaler-table')
+        screen.queryByTestId('private-pensjonsavtaler-desktop')
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor hentes fra ', {
+        screen.queryByText('Avtaler fra privat sektor hentes fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('pensjonsavtaler.tpo.title')
+        screen.queryByText('pensjonsavtaler.offentligtp.title')
       ).not.toBeInTheDocument()
 
       await user.click(
@@ -85,8 +87,8 @@ describe('Pensjonsavtaler', () => {
     })
   })
 
-  describe('Gitt at brukeren har samtykket', () => {
-    it('Når pensjonsavtaler laster, viser riktig header og melding og info om offentlig tjenestepensjon', async () => {
+  describe('Gitt at brukeren har samtykket,', () => {
+    it('Når pensjonsavtaler laster, viser riktig header og melding og info om offentlig tjenestepensjon.', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
@@ -106,11 +108,11 @@ describe('Pensjonsavtaler', () => {
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
       expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
+        await screen.findByText('pensjonsavtaler.offentligtp.title')
       ).toBeInTheDocument()
     })
 
-    it('Når brukeren har valgt AFP privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+    it('Når brukeren har valgt AFP privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload.', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
         'initiate'
@@ -135,6 +137,8 @@ describe('Pensjonsavtaler', () => {
         {
           aarligInntektFoerUttakBeloep: 0,
           harAfp: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
@@ -160,7 +164,6 @@ describe('Pensjonsavtaler', () => {
               },
             },
           ],
-          utenlandsperioder: [],
         },
         {
           forceRefetch: undefined,
@@ -174,7 +177,7 @@ describe('Pensjonsavtaler', () => {
       )
     })
 
-    it('Når brukeren har valgt AFP privat men har uføretrygd, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+    it('Når brukeren har valgt AFP privat men har uføretrygd, kalles endepunktet for pensjonsavtaler med riktig payload.', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
         'initiate'
@@ -212,7 +215,7 @@ describe('Pensjonsavtaler', () => {
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
 
-    it('Når brukeren har valgt noe annet enn afp privat kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+    it('Når brukeren har valgt noe annet enn afp privat kalles endepunktet for pensjonsavtaler med riktig payload.', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
         'initiate'
@@ -236,7 +239,7 @@ describe('Pensjonsavtaler', () => {
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
 
-    it('Når pensjonsavtaler er hentet, viser riktig header og melding, og viser ingress og tabell og info om offentlig tjenestepensjon', async () => {
+    it('Når private pensjonsavtaler og offentlig-tp er hentet, viser både liste over private pensjonsavtaler og info om offentlig tjenestepensjon.', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
@@ -252,203 +255,14 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(await screen.findByTestId('pensjonsavtaler-list')).toBeVisible()
+      expect(await screen.findByTestId('private-pensjonsavtaler')).toBeVisible()
+
+      expect(
+        await screen.findByText('pensjonsavtaler.offentligtp.title')
+      ).toBeVisible()
       expect(
         await screen.findByText('pensjonsavtaler.fra_og_med_forklaring')
       ).toBeVisible()
-      expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()
-    })
-    it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell og info om offentlig tjenestepensjon', async () => {
-      mockErrorResponse('/v2/pensjonsavtaler', {
-        method: 'post',
-      })
-      render(<Pensjonsavtaler headingLevel="3" />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
-          },
-        },
-      })
-      expect(
-        await screen.findByText('pensjonsavtaler.ingress.error.pensjonsavtaler')
-      ).toBeVisible()
-      expect(
-        screen.queryByTestId('pensjonsavtaler-list')
-      ).not.toBeInTheDocument()
-      expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
-      ).toBeInTheDocument()
-    })
-
-    it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
-        status: 200,
-        json: {
-          avtaler: [
-            {
-              produktbetegnelse: 'IPS',
-              kategori: 'INDIVIDUELL_ORDNING',
-              startAar: 70,
-              sluttAar: 75,
-              utbetalingsperioder: [
-                {
-                  startAlder: { aar: 70, maaneder: 6 },
-                  sluttAlder: { aar: 75, maaneder: 6 },
-                  aarligUtbetaling: 41802,
-                  grad: 100,
-                },
-              ],
-            },
-          ],
-          utilgjengeligeSelskap: ['Something'],
-        },
-        method: 'post',
-      })
-      render(<Pensjonsavtaler headingLevel="3" />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
-          },
-        },
-      })
-
-      expect(
-        await screen.findByText(
-          'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-        )
-      ).toBeVisible()
-      expect(screen.queryByTestId('pensjonsavtaler-list')).toBeInTheDocument()
-      expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
-        await screen.findByRole('heading', { level: 3 })
-      ).toHaveTextContent('pensjonsavtaler.title')
-      expect(
-        (await screen.findAllByRole('heading', { level: 4 })).length
-      ).toBeGreaterThanOrEqual(1)
-      expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
-      ).toBeInTheDocument()
-    })
-
-    it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
-        status: 200,
-        json: {
-          avtaler: [],
-          utilgjengeligeSelskap: ['Something'],
-        },
-        method: 'post',
-      })
-      render(<Pensjonsavtaler headingLevel="3" />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
-          },
-        },
-      })
-      expect(
-        screen.queryByText(
-          'pensjonsavtaler.title.error.pensjonsavtaler.partial',
-          { exact: false }
-        )
-      ).not.toBeInTheDocument()
-      expect(
-        await screen.findByText('pensjonsavtaler.ingress.error.pensjonsavtaler')
-      ).toBeVisible()
-      expect(
-        screen.queryByText(
-          'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-        )
-      ).not.toBeInTheDocument()
-      expect(
-        screen.queryByTestId('pensjonsavtaler-table')
-      ).not.toBeInTheDocument()
-      expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
-        await screen.findByRole('heading', { level: 3 })
-      ).toHaveTextContent('pensjonsavtaler.title')
-      expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
-      ).toBeInTheDocument()
-    })
-
-    it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell. Info om offentlig tjenestepensjon vises.', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
-        status: 200,
-        json: {
-          avtaler: [],
-          utilgjengeligeSelskap: [],
-        },
-        method: 'post',
-      })
-      render(<Pensjonsavtaler headingLevel="3" />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
-          },
-        },
-      })
-      expect(screen.getByText('pensjonsavtaler.title')).toBeVisible()
-      expect(
-        await screen.findByText('pensjonsavtaler.ingress.ingen')
-      ).toBeVisible()
-      expect(
-        screen.queryByTestId('pensjonsavtaler-table')
-      ).not.toBeInTheDocument()
-
-      expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
-        await screen.findByText('pensjonsavtaler.tpo.title')
-      ).toBeInTheDocument()
     })
   })
 })

@@ -38,6 +38,16 @@ export function TabellVisning({ series, aarArray }: Props) {
   const tableData = useTableData(series, aarArray)
   const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
 
+  const showInntekt = React.useMemo(() => {
+    return series.some(
+      (serie) =>
+        serie.name ===
+        intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_INNTEKT.name,
+        })
+    )
+  }, [series])
+
   const showAfp = React.useMemo(() => {
     return series.some(
       (serie) =>
@@ -81,12 +91,17 @@ export function TabellVisning({ series, aarArray }: Props) {
               <FormattedMessage id="beregning.tabell.sum" />
               <span className={styles.tableMobileOnly}> (kr)</span>
             </Table.HeaderCell>
-            <Table.HeaderCell
-              scope="col"
-              className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
-            >
-              <FormattedMessage id="beregning.highcharts.serie.inntekt.name" />
-            </Table.HeaderCell>
+            {showInntekt && (
+              <Table.HeaderCell
+                scope="col"
+                className={clsx(
+                  styles.detailsItemRight,
+                  styles.tableDesktopOnly
+                )}
+              >
+                <FormattedMessage id="beregning.highcharts.serie.inntekt.name" />
+              </Table.HeaderCell>
+            )}
 
             {showAfp && (
               <Table.HeaderCell

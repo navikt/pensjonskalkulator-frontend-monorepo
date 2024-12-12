@@ -13,6 +13,7 @@ import {
 import { nb, nn, enGB } from 'date-fns/locale'
 
 import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
+import { capitalize } from '@/utils/string'
 
 export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
@@ -217,4 +218,55 @@ export const validateAlderFromForm = (
   }
 
   return isValid
+}
+
+export function getMaanedString(
+  formatFn: (a: { id: string }) => string,
+  maaned?: number
+) {
+  if (maaned !== undefined && maaned > 0) {
+    return ` ${formatFn({
+      id: 'string.og',
+    })} ${maaned} ${formatFn({
+      id: 'alder.md',
+    })}`
+  }
+  return ''
+}
+
+export const formaterSluttAlderString = (
+  intl: IntlShape,
+  startAlder: Alder,
+  sluttAlder: Alder
+) => {
+  return `${capitalize(
+    intl.formatMessage({
+      id: 'string.fra',
+    })
+  )} ${startAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${getMaanedString(
+    intl.formatMessage,
+    startAlder.maaneder
+  )} ${intl.formatMessage({
+    id: 'string.til',
+  })} ${sluttAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${
+    sluttAlder.maaneder && sluttAlder.maaneder < 11
+      ? getMaanedString(intl.formatMessage, sluttAlder.maaneder)
+      : ''
+  }`
+}
+
+export const formaterLivsvarigString = (intl: IntlShape, startAlder: Alder) => {
+  return `${intl.formatMessage({
+    id: 'alder.livsvarig',
+  })} ${startAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${
+    startAlder.maaneder
+      ? getMaanedString(intl.formatMessage, startAlder.maaneder)
+      : ''
+  }`
 }

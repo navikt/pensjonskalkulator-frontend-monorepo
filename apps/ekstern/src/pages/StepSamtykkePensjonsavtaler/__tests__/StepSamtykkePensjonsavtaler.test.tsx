@@ -1,19 +1,26 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkePensjonsavtaler } from '..'
 import {
-  fulfilledGetTpoMedlemskap,
+  fulfilledsimulerOffentligTp,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
+import { selectHarHentetOffentligTp } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepSamtykkePensjonsavtaler', () => {
   it('har riktig sidetittel', async () => {
@@ -24,11 +31,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
@@ -51,14 +53,10 @@ describe('StepSamtykkePensjonsavtaler', () => {
   })
 
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
-    it('invaliderer cache for tpo-medlemskap og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukeren klikker på Neste', async () => {
+    it('invaliderer cache for offentlig-tp og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const invalidateMock = vi.spyOn(
         apiSliceUtils.apiSlice.util.invalidateTags,
         'match'
-      )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
       )
 
       const user = userEvent.setup()
@@ -68,7 +66,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
           api: {
             // @ts-ignore
             queries: {
-              ...fulfilledGetTpoMedlemskap,
+              ...fulfilledsimulerOffentligTp,
               ...fulfilledPensjonsavtaler,
               ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
@@ -80,11 +78,11 @@ describe('StepSamtykkePensjonsavtaler', () => {
         },
       })
       await store.dispatch(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap.initiate()
+        apiSliceUtils.apiSlice.endpoints.offentligTp.initiate()
       )
       expect(Object.keys(store.getState().api.queries).length).toEqual(3)
 
-      expect(selectHarHentetTpoMedlemskap(store.getState())).toBe(true)
+      expect(selectHarHentetOffentligTp(store.getState())).toBe(true)
 
       const radioButtons = screen.getAllByRole('radio')
 
@@ -101,11 +99,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
   describe('Når brukeren klikker på Tilbake, ', async () => {
     it('nullstiller input fra brukeren og navigerer et hakk tilbake.', async () => {
       const user = userEvent.setup()
-
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
@@ -124,11 +117,6 @@ describe('StepSamtykkePensjonsavtaler', () => {
 
     it('nullstiller input fra brukeren og navigerer to hakk tilbake dersom brukeren har uføretrygd og er fylt minimum uttaksalder', async () => {
       const user = userEvent.setup()
-
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {

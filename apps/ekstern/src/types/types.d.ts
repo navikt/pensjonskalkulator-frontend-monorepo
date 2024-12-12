@@ -55,33 +55,36 @@ declare global {
   // LoependeVedtakDto
   type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
-  // /tpo-medlemskap
-  export type TpoMedlemskapQuery = TypedUseQueryStateResult<
-    TpoMedlemskap,
-    void,
-    BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
-  >
-  type TpoMedlemskap =
-    components['schemas']['MedlemskapITjenestepensjonsordningDto']
-
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
   type TidligstMuligGradertUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
 
+  // /simuler-oftp
+  export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
+    OffentligTp,
+    void,
+    BaseQueryFn<Record<string, unknown>, OffentligTp>
+  >
+  type OffentligTpRequestBody =
+    components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
+  type OffentligTp =
+    components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
+
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleSpecV2']
+    components['schemas']['PensjonsavtaleSpecV3']
   type PensjonsavtalerResponseBody =
-    components['schemas']['PensjonsavtaleResultV2']
-  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV2']
-  type Pensjonsavtale = components['schemas']['PensjonsavtaleV2'] & {
+    components['schemas']['PensjonsavtaleResultV3']
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
+  type UtbetalingsperiodeWithoutGrad = Omit<Utbetalingsperiode, 'grad'>
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
     key?: number
   }
   type PensjonsavtaleKategori =
-    components['schemas']['PensjonsavtaleV2']['kategori']
-  type UtilgjengeligeSelskap = components['schemas']['SelskapV2']
+    components['schemas']['PensjonsavtaleV3']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapV3']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =

@@ -59,7 +59,6 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
           F.nr.: 123456 78901
         </p>
         <button
-          aria-live="polite"
           class="navds-copybutton navds-copybutton--small navds-copybutton--neutral navds-copybutton--icon-only"
           type="button"
         >

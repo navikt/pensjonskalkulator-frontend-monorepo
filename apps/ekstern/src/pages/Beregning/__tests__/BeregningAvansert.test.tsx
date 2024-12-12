@@ -1,5 +1,4 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, expect, it, vi } from 'vitest'
 
@@ -26,6 +25,15 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { UserInputState } from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('BeregningAvansert', () => {
   const contextMockedValues = {
@@ -148,7 +156,7 @@ describe('BeregningAvansert', () => {
         expect(initiateMock).toHaveBeenCalledWith(
           {
             aarligInntektFoerUttakBeloep: 521338,
-            epsHarInntektOver2G: true,
+            epsHarInntektOver2G: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -241,7 +249,7 @@ describe('BeregningAvansert', () => {
         expect(initiateMock).toHaveBeenCalledWith(
           {
             aarligInntektFoerUttakBeloep: 521338,
-            epsHarInntektOver2G: true,
+            epsHarInntektOver2G: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -332,7 +340,7 @@ describe('BeregningAvansert', () => {
         expect(initiateMock).toHaveBeenCalledWith(
           {
             aarligInntektFoerUttakBeloep: 521338,
-            epsHarInntektOver2G: true,
+            epsHarInntektOver2G: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -423,7 +431,7 @@ describe('BeregningAvansert', () => {
         expect(initiateMock).toHaveBeenCalledWith(
           {
             aarligInntektFoerUttakBeloep: 521338,
-            epsHarInntektOver2G: true,
+            epsHarInntektOver2G: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -645,11 +653,6 @@ describe('BeregningAvansert', () => {
       })
 
       it('Når simulering svarer med errorcode 503, vises ErrorPageUnexpected ', async () => {
-        const navigateMock = vi.fn()
-        vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-          () => navigateMock
-        )
-
         // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
         mockResponse('/v7/alderspensjon/simulering', {
           status: 503,
@@ -843,7 +846,7 @@ describe('BeregningAvansert', () => {
       expect(initiateMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 521338,
-          epsHarInntektOver2G: true,
+          epsHarInntektOver2G: false,
           foedselsdato: '1963-04-30',
           gradertUttak: {
             aarligInntektVsaPensjonBeloep: 0,

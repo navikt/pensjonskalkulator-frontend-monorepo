@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
@@ -8,6 +6,15 @@ import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('TidligstMuligUttaksalder', () => {
   afterEach(() => {
@@ -256,10 +263,6 @@ describe('TidligstMuligUttaksalder', () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulationUtenomUtenlandsperioder'
-      )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
       )
 
       const user = userEvent.setup()

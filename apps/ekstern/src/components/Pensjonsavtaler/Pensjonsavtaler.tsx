@@ -1,34 +1,36 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
-import {
-  ExclamationmarkTriangleFillIcon,
-  InformationSquareFillIcon,
-} from '@navikt/aksel-icons'
-import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'
 
 import ShowMore from '../common/ShowMore/ShowMore'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
-import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
-import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
+import {
+  useOffentligTpQuery,
+  usePensjonsavtalerQuery,
+} from '@/state/api/apiSlice'
+import {
+  generateOffentligTpRequestBody,
+  generatePensjonsavtalerRequestBody,
+} from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
+  selectFoedselsdato,
+  selectSamboer,
   selectUfoeregrad,
   selectSivilstand,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { getFormatMessageValues } from '@/utils/translations'
-import { useIsMobile } from '@/utils/useIsMobile'
 
-import { OffentligTjenestepensjon } from './OffentligTjenestepensjon'
-import { PensjonsavtalerMobil } from './PensjonsavtalerMobile'
-import { PensjonsavtalerTable } from './PensjonsavtalerTable'
+import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
+import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
 
 import styles from './Pensjonsavtaler.module.scss'
 
@@ -47,6 +49,8 @@ export const Pensjonsavtaler = (props: {
   )
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const harSamboer = useAppSelector(selectSamboer)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -54,12 +58,39 @@ export const Pensjonsavtaler = (props: {
     utenlandsperioder,
   } = useAppSelector(selectCurrentSimulation)
 
-  const isMobile = useIsMobile()
+  const [offentligTpRequestBody, setOffentligTpRequestBody] = React.useState<
+    OffentligTpRequestBody | undefined
+  >(undefined)
+
+  const {
+    data: offentligTp,
+    isLoading: isOffentligTpLoading,
+    isError: isOffentligTpError,
+  } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+    skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+  })
+
+  // Hent Offentlig Tjenestepensjon
+  React.useEffect(() => {
+    if (harSamtykket && uttaksalder) {
+      const requestBody = generateOffentligTpRequestBody({
+        afp,
+        foedselsdato,
+        harSamboer,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+        uttaksalder: gradertUttaksperiode
+          ? gradertUttaksperiode.uttaksalder
+          : uttaksalder,
+        utenlandsperioder,
+      })
+      setOffentligTpRequestBody(requestBody)
+    }
+  }, [harSamtykket, uttaksalder])
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
-  // Hent pensjonsavtaler
+  // Hent Private Pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody({
@@ -67,16 +98,27 @@ export const Pensjonsavtaler = (props: {
         ufoeregrad,
         afp,
         sivilstand,
+        harSamboer,
         heltUttak: {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-        utenlandsperioder,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, uttaksalder])
+
+  const {
+    data: pensjonsavtaler,
+    isError: isPensjonsavtalerError,
+    isSuccess: isPensjonsavtalerSuccess,
+  } = usePensjonsavtalerQuery(
+    pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
+    {
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
+    }
+  )
 
   const subHeadingLevel = React.useMemo(() => {
     return headingLevel
@@ -86,178 +128,65 @@ export const Pensjonsavtaler = (props: {
       : '4'
   }, [headingLevel])
 
-  const {
-    data: pensjonsavtaler,
-    isError,
-    isSuccess,
-  } = usePensjonsavtalerQuery(
-    pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
-    {
-      skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
-    }
-  )
-
   const onCancel = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
     dispatch(userInputActions.flush())
     navigate(paths.start)
   }
 
-  const isPartialWith0Avtaler =
-    pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
-
   return (
     <section className={styles.section}>
       <Heading id="pensjonsavtaler-heading" level={headingLevel} size="medium">
         {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
-      <>
-        {
-          // Når brukeren ikke har samtykket
-        }
-        {!harSamtykket && (
-          <BodyLong>
-            <FormattedMessage id="pensjonsavtaler.ingress.error.samtykke_ingress" />
-            <Link href={paths.start} onClick={onCancel}>
-              {intl.formatMessage({
-                id: 'pensjonsavtaler.ingress.error.samtykke_link_1',
-              })}
-            </Link>{' '}
-            <FormattedMessage
-              id="pensjonsavtaler.ingress.error.samtykke_link_2"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
-          </BodyLong>
-        )}
 
-        {
-          // Når brukeren har samtykket og har ingen private pensjonsavtaler
-        }
-        {harSamtykket &&
-          isSuccess &&
-          !pensjonsavtaler?.partialResponse &&
-          pensjonsavtaler?.avtaler.length === 0 && (
-            <>
-              <div className={`${styles.info}`}>
-                <InformationSquareFillIcon
-                  className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
-                  fontSize="1.5rem"
-                  aria-hidden
-                />
-                <BodyLong className={styles.infoText}>
-                  <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
-                </BodyLong>
-              </div>
-              <BodyLong className={styles.paragraph} size="small">
-                <FormattedMessage
-                  id="pensjonsavtaler.ingress.norsk_pensjon"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-              <OffentligTjenestepensjon
-                headingLevel={subHeadingLevel}
-                showDivider
-              />
-            </>
-          )}
-
-        {
-          // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
-        }
-        {(isError || isPartialWith0Avtaler) && (
+      {harSamtykket ? (
+        <ShowMore
+          ref={pensjonsavtalerShowMoreRef}
+          name="pensjonsavtaler"
+          aria-labelledby="pensjonsavtaler-heading"
+          collapsedHeight={
+            (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
+          }
+        >
           <>
-            <div className={styles.info}>
-              <ExclamationmarkTriangleFillIcon
-                className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-                fontSize="1.5rem"
-                aria-hidden
-              />
-              <BodyLong className={styles.infoText}>
-                <FormattedMessage
-                  id={
-                    isError || isPartialWith0Avtaler
-                      ? 'pensjonsavtaler.ingress.error.pensjonsavtaler'
-                      : 'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-                  }
-                />
-              </BodyLong>
-            </div>
-            <BodyLong className={styles.paragraph} size="small">
-              <FormattedMessage
-                id="pensjonsavtaler.ingress.norsk_pensjon"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            </BodyLong>
-            <OffentligTjenestepensjon
+            <PrivatePensjonsavtaler
+              isPartialResponse={!!pensjonsavtaler?.partialResponse}
+              isError={isPensjonsavtalerError}
+              isSuccess={isPensjonsavtalerSuccess}
               headingLevel={subHeadingLevel}
-              showDivider
+              privatePensjonsavtaler={pensjonsavtaler?.avtaler}
             />
-          </>
-        )}
-
-        {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-          <>
-            {pensjonsavtaler?.partialResponse && (
-              <div className={styles.info}>
-                <ExclamationmarkTriangleFillIcon
-                  className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-                  fontSize="1.5rem"
-                  aria-hidden
-                />
-                <BodyLong className={styles.infoText}>
-                  <FormattedMessage id="pensjonsavtaler.ingress.error.pensjonsavtaler.partial" />
-                </BodyLong>
-              </div>
+            <OffentligTjenestepensjon
+              isLoading={isOffentligTpLoading}
+              isError={isOffentligTpError}
+              offentligTp={offentligTp}
+              headingLevel={subHeadingLevel}
+            />
+            {(isPensjonsavtalerSuccess ||
+              offentligTp?.simulertTjenestepensjon) && (
+              <BodyLong className={styles.footnote}>
+                <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+              </BodyLong>
             )}
-            <ShowMore
-              ref={pensjonsavtalerShowMoreRef}
-              name="pensjonsavtaler"
-              aria-labelledby="pensjonsavtaler-heading"
-              collapsedHeight={
-                (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
-              }
-            >
-              <VStack gap="4">
-                {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-                  <div data-testid="pensjonsavtaler-list">
-                    {isMobile ? (
-                      <div data-testid="pensjonsavtaler-mobil">
-                        <PensjonsavtalerMobil
-                          headingLevel={subHeadingLevel}
-                          pensjonsavtaler={pensjonsavtaler.avtaler}
-                        />
-                      </div>
-                    ) : (
-                      <div data-testid="pensjonsavtaler-table">
-                        <PensjonsavtalerTable
-                          headingLevel={subHeadingLevel}
-                          pensjonsavtaler={pensjonsavtaler.avtaler}
-                        />
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                <OffentligTjenestepensjon headingLevel={subHeadingLevel} />
-                <BodyLong className={styles.paragraph} size="small">
-                  <FormattedMessage
-                    id="pensjonsavtaler.ingress.norsk_pensjon"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                </BodyLong>
-              </VStack>
-            </ShowMore>
           </>
-        )}
-      </>
+        </ShowMore>
+      ) : (
+        <BodyLong>
+          <FormattedMessage id="pensjonsavtaler.ingress.error.samtykke_ingress" />
+          <Link href={paths.start} onClick={onCancel}>
+            {intl.formatMessage({
+              id: 'pensjonsavtaler.ingress.error.samtykke_link_1',
+            })}
+          </Link>{' '}
+          <FormattedMessage
+            id="pensjonsavtaler.ingress.error.samtykke_link_2"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </BodyLong>
+      )}
     </section>
   )
 }

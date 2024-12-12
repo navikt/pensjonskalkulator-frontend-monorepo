@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { PencilIcon } from '@navikt/aksel-icons'
 import { Button, Heading } from '@navikt/ds-react'
@@ -210,6 +210,9 @@ export const BeregningAvansert: React.FC = () => {
                   variant="secondary"
                   icon={<PencilIcon aria-hidden />}
                   onClick={() => {
+                    logger('button klikk', {
+                      tekst: 'Beregning avansert: Endre valgene dine',
+                    })
                     setAvansertSkjemaModus('redigering')
                   }}
                 >
