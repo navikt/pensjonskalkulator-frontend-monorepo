@@ -122,7 +122,7 @@ beforeEach(() => {
   ).as('getInntekt')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v1/simuler-oftp' },
+    { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
     { fixture: 'offentlig-tp.json' }
   ).as('fetchOffentligTp')
 

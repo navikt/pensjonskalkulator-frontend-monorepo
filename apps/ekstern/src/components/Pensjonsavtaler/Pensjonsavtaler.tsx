@@ -96,11 +96,11 @@ export const Pensjonsavtaler = (props: {
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody({
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         ufoeregrad,
         afp,
         sivilstand,
         harSamboer,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         heltUttak: {
           uttaksalder,
