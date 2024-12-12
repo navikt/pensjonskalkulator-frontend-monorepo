@@ -114,7 +114,7 @@ describe('StepUtenlandsopphold', () => {
   })
 
   it('nullstiller input fra brukeren og navigerer to steg tilbake når brukeren klikker på Tilbake', async () => {
-    mockResponse('/v2/person', {
+    mockResponse('/v4/person', {
       status: 200,
       json: {
         navn: 'Ola',

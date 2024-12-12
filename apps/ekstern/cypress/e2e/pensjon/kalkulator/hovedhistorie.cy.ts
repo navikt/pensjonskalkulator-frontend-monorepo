@@ -116,7 +116,7 @@ describe('Hovedhistorie', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+            { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
             {
               navn: 'Aprikos',
               sivilstand: 'GIFT',
@@ -314,7 +314,7 @@ describe('Hovedhistorie', () => {
       })
       it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
           {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
