@@ -23,7 +23,7 @@ describe('Henvisning', () => {
           return false
         })
         cy.contains('Kom i gang').should('not.exist')
-        cy.get('h1').contains('Velg elektronisk ID')
+        cy.get('h1').contains('Velg innloggingsmetode')
       })
     })
   })
@@ -47,7 +47,7 @@ describe('Henvisning', () => {
       )
       cy.contains('button', 'Detaljert pensjonskalkulator').click()
       cy.origin('https://login.idporten.no', () => {
-        cy.get('h1').contains('Velg elektronisk ID')
+        cy.get('h1').contains('Velg innloggingsmetode')
       })
       cy.visit('/pensjon/kalkulator/start')
       cy.contains('button', 'Avbryt').click()
