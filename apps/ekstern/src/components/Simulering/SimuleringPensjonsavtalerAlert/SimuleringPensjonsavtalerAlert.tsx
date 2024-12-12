@@ -42,7 +42,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   } = pensjonsavtaler
   const { isError: isOffentligTpError, data: offentligTpData } = offentligTp
 
-  // TODO PEK-812 revidere logging
+  // TODO PEK-861 revidere logging
   React.useEffect(() => {
     if (isOffentligTpError) {
       logger('alert', {
@@ -67,6 +67,11 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       pensjonsavtalerData?.partialResponse &&
       pensjonsavtalerData?.avtaler.length === 0
 
+    const isOffentligTpUkomplett =
+      offentligTpData?.simuleringsresultatStatus ===
+        'TOM_SIMULERING_FRA_TP_ORDNING' ||
+      offentligTpData?.simuleringsresultatStatus === 'TEKNISK_FEIL'
+
     if (isEndring) {
       return {
         variant: 'inline',
@@ -74,11 +79,40 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       }
     }
 
-    // Offentlig-TP OK + Private pensjonsavtaler FEIL
-    if (offentligTpData && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
+    // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
+    if (
+      offentligTpData &&
+      offentligTpData.simuleringsresultatStatus === 'OK' &&
+      (isPensjonsavtalerError || isPartialWith0Avtaler)
+    ) {
       return {
         variant: 'warning',
         text: 'beregning.pensjonsavtaler.alert.privat.error',
+      }
+    }
+
+    // Offentlig-TP FEIL/UKOMPLETT eller at TP_ORDNING støttes ikke + Private pensjonsavtaler FEIL/UKOMPLETT
+    if (
+      (isOffentligTpError ||
+        isOffentligTpUkomplett ||
+        offentligTpData?.simuleringsresultatStatus ===
+          'TP_ORDNING_STOETTES_IKKE') &&
+      (isPensjonsavtalerError || isPartialWith0Avtaler)
+    ) {
+      return {
+        variant: 'warning',
+        text: 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error',
+      }
+    }
+
+    // Offentlig-TP FEIL/UKOMPLETT + Private pensjonsavtaler OK
+    if (
+      (isOffentligTpError || isOffentligTpUkomplett) &&
+      isPensjonsavtalerSuccess
+    ) {
+      return {
+        variant: 'warning',
+        text: 'beregning.pensjonsavtaler.alert.offentlig.error',
       }
     }
 
@@ -90,25 +124,6 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       return {
         variant: 'warning',
         text: 'beregning.pensjonsavtaler.alert.stoettes_ikke',
-      }
-    }
-
-    // Offentlig-TP FEIL + Private pensjonsavtaler FEIL
-    if (
-      isOffentligTpError &&
-      (isPensjonsavtalerError || isPartialWith0Avtaler)
-    ) {
-      return {
-        variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error',
-      }
-    }
-
-    // Offentlig-TP FEIL + Private pensjonsavtaler OK
-    if (isOffentligTpError && isPensjonsavtalerSuccess) {
-      return {
-        variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.offentlig.error',
       }
     }
 

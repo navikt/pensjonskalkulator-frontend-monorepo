@@ -126,7 +126,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     ).toBeVisible()
   })
 
-  it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, viser riktig alert.', () => {
+  it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, og at private pensjonsavtaler er vellykket viser riktig alert.', () => {
     render(
       <SimuleringPensjonsavtalerAlert
         pensjonsavtaler={{
@@ -160,6 +160,70 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     ).toBeVisible()
   })
 
+  it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, og at private pensjonsavtaler har feilet viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: false,
+          isError: true,
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
+            muligeTpLeverandoerListe: ['KLP'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, at private pensjonsavtaler gir delvis svar med 0 avtaler viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: {
+            avtaler: [],
+            partialResponse: true,
+          },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
+            muligeTpLeverandoerListe: ['KLP'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
   it('Når kall til offentlig-tp feiler, og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
     render(
       <SimuleringPensjonsavtalerAlert
@@ -170,6 +234,66 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         }}
         offentligTp={{
           isError: true,
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at simuleringen førte til teknisk feil, og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: false,
+          isError: true,
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at simuleringen er tom, og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: false,
+          isError: true,
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
         }}
         isPensjonsavtaleFlagVisible={false}
       />
@@ -216,6 +340,74 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     ).toBeVisible()
   })
 
+  it('Når kall til offentlig-tp er vellykket men at simuleringen førte til teknisk feil, og at private pensjonsavtaler gir delvis svar med 0 avtaler, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: {
+            avtaler: [],
+            partialResponse: true,
+          },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at simuleringen er tom, og at private pensjonsavtaler gir delvis svar med 0 avtaler, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: {
+            avtaler: [],
+            partialResponse: true,
+          },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible={false}
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
   it('Når kall til offentlig-tp feiler og henting av private pensjonsavtaler er vellykket, viser riktig alert.', () => {
     render(
       <SimuleringPensjonsavtalerAlert
@@ -230,6 +422,74 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         }}
         offentligTp={{
           isError: true,
+        }}
+        isPensjonsavtaleFlagVisible
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at simuleringen førte til teknisk feil, og henting av private pensjonsavtaler er vellykket, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: {
+            avtaler: avtalerWithKeys,
+            partialResponse: false,
+          },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
+        }}
+        isPensjonsavtaleFlagVisible
+      />
+    )
+    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
+    expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
+  })
+
+  it('Når kall til offentlig-tp er vellykket men at simuleringen er tom, og henting av private pensjonsavtaler er vellykket, viser riktig alert.', () => {
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: {
+            avtaler: avtalerWithKeys,
+            partialResponse: false,
+          },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+            muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+          },
         }}
         isPensjonsavtaleFlagVisible
       />
