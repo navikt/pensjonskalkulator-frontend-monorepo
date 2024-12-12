@@ -741,7 +741,16 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har 0 pensjonsavtaler', async () => {
+    it('Når brukeren har 0 pensjonsavtaler (private og offentlige), viser inntekt og alderspensjon (uten pensjonsavtaler).', async () => {
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        json: {
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+        },
+        method: 'post',
+      })
+
       mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
@@ -792,7 +801,136 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(2)
     })
 
-    it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
+    it('Når henting av pensjonsavtaler (private og offentlige) feiler, viser inntekt og alderspensjon (uten pensjonsavtaler) og alert.', async () => {
+      mockErrorResponse('/v2/simuler-oftp', {
+        method: 'post',
+      })
+      mockErrorResponse('/v3/pensjonsavtaler', {
+        method: 'post',
+      })
+
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(2)
+      expect(screen.getByTestId('pensjonsavtaler-alert')).toBeVisible()
+    })
+
+    it('Når brukeren uten offentlig-tp har minst én privat pensjonsavtale, viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
+      mockResponse('/v3/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [
+            {
+              produktbetegnelse: 'Storebrand',
+              kategori: 'PRIVAT_TJENESTEPENSJON',
+              startAar: 62,
+              sluttAar: 71,
+              utbetalingsperioder: [
+                {
+                  startAlder: { aar: 62, maaneder: 0 },
+                  sluttAlder: { aar: 71, maaneder: 11 },
+                  aarligUtbetaling: 31298,
+                  grad: 100,
+                },
+              ],
+            },
+          ],
+          utilgjengeligeSelskap: [],
+        },
+        method: 'post',
+      })
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        json: {
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+        },
+        method: 'post',
+      })
+
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har privat pensjonsavtale før valgt alder, viser alert.', async () => {
       mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {

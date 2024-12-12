@@ -78,9 +78,11 @@ export const Pensjonsavtaler = (props: {
         foedselsdato,
         harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
-        uttaksalder: gradertUttaksperiode
-          ? gradertUttaksperiode.uttaksalder
-          : uttaksalder,
+        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+        heltUttak: {
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+        },
         utenlandsperioder,
       })
       setOffentligTpRequestBody(requestBody)
@@ -99,11 +101,11 @@ export const Pensjonsavtaler = (props: {
         afp,
         sivilstand,
         harSamboer,
+        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         heltUttak: {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
-        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }

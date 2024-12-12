@@ -121,9 +121,11 @@ export function Simulering(props: {
           foedselsdato,
           harSamboer,
           aarligInntektFoerUttakBeloep,
-          uttaksalder: gradertUttaksperiode
-            ? gradertUttaksperiode.uttaksalder
-            : uttaksalder,
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+          heltUttak: {
+            uttaksalder,
+            aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+          },
           utenlandsperioder,
         })
       )
@@ -134,11 +136,11 @@ export function Simulering(props: {
           afp,
           sivilstand,
           harSamboer,
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
             uttaksalder,
             aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
           },
-          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         })
       )
     }

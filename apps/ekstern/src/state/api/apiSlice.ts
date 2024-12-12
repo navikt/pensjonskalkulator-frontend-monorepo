@@ -101,7 +101,7 @@ export const apiSlice = createApi({
     }),
     offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
       query: (body) => ({
-        url: '/v1/simuler-oftp',
+        url: '/v2/simuler-oftp',
         method: 'POST',
         body,
       }),
