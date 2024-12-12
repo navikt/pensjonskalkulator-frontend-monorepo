@@ -69,9 +69,9 @@ declare global {
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
+    components['schemas']['UttaksalderSpecV2']
   type TidligstMuligGradertUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
+    components['schemas']['UttaksalderResultV2']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =

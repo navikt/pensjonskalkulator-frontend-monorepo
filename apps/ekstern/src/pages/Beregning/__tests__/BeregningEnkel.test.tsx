@@ -59,7 +59,8 @@ describe('BeregningEnkel', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           aarligInntektVsaPensjon: undefined,
-          harEps: false,
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',
           utenlandsperiodeListe: [],
@@ -105,7 +106,8 @@ describe('BeregningEnkel', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           aarligInntektVsaPensjon: undefined,
-          harEps: false,
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
           utenlandsperiodeListe: [],
@@ -152,7 +154,7 @@ describe('BeregningEnkel', () => {
 
     describe('Når kallet til TMU feiler,', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+        mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
           method: 'post',
         })
         mockResponse('/v8/alderspensjon/simulering', {
@@ -800,7 +802,7 @@ describe('BeregningEnkel', () => {
           harForLiteTrygdetid: false,
         },
       })
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+      mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
         method: 'post',
       })
       render(<BeregningEnkel />, {

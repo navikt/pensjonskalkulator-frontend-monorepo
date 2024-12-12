@@ -286,7 +286,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
           },
           (req) => {
             req.on('response', (res) => {
@@ -463,7 +463,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
           },
           {
             aar: 67,
