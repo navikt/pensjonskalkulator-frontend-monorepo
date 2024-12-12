@@ -27,7 +27,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
         cy.origin('https://login.idporten.no', () => {
-          cy.get('h1').contains('Velg elektronisk ID')
+          cy.get('h1').contains('Velg innloggingsmetode')
         })
         // Denne må deaktiveres foreløpig på grunn av OWASP CSRFGuard JavaScript was included from within an unauthorized domain!
         // cy.visit('/pensjon/kalkulator/')

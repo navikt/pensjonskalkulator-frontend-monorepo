@@ -8,6 +8,8 @@ on:
       - catbox
       - magicbox
       - dreambox
+      - coffeebox
+      - codebox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
@@ -311,6 +313,7 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-magicbox.yml
+  
   deploy-dreambox:
     name: Deploy to dreambox
     needs: [build, run-unit-tests, run-integration-tests]
@@ -338,6 +341,62 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-dreambox.yml
+
+  deploy-coffeebox:
+    name: Deploy to coffeebox
+    needs: [build, run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      github.ref == 'refs/heads/coffeebox'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to coffeebox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-coffeebox.yml
+
+      - name: Deploy veiledning to coffeebox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-veiledning-coffeebox.yml
+
+  deploy-codebox:
+    name: Deploy to codebox
+    needs: [build, run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      github.ref == 'refs/heads/codebox'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to codebox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-codebox.yml
+
+      - name: Deploy veiledning to codebox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-veiledning-codebox.yml
 
   deploy-prod:
     name: Deploy to prod-gcp
