@@ -101,7 +101,7 @@ describe('routes', () => {
       })
 
       it('Når brukeren er pålogget og kall til /person feiler, viser pålogget landingssiden', async () => {
-        mockErrorResponse('/v2/person')
+        mockErrorResponse('/v4/person')
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
@@ -120,12 +120,22 @@ describe('routes', () => {
       it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v2/person', {
+        mockResponse('/v4/person', {
           status: 200,
           json: {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {
@@ -171,12 +181,22 @@ describe('routes', () => {
       it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v2/person', {
+        mockResponse('/v4/person', {
           status: 200,
           json: {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {

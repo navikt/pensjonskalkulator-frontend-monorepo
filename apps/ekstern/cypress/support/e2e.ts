@@ -112,7 +112,7 @@ beforeEach(() => {
   ).as('getLoependeVedtak')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
     { fixture: 'person.json' }
   ).as('getPerson')
 

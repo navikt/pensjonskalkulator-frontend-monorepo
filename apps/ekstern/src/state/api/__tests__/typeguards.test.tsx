@@ -597,39 +597,112 @@ describe('Typeguards', () => {
   })
 
   describe('isPerson', () => {
-    it('returnerer true når input er et Person-objekt', () => {
-      expect(
-        isPerson({
-          navn: 'Ola',
-          sivilstand: 'GIFT',
-          foedselsdato: '1963-04-30',
-        })
-      ).toEqual(true)
+    const validPerson = {
+      navn: 'Ola',
+      sivilstand: 'GIFT',
+      foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+        nedreAldersgrense: { aar: 67, maaneder: 0 },
+      },
+    }
+
+    describe('valid cases', () => {
+      it('returnerer true for et gyldig Person-objekt', () => {
+        expect(isPerson(validPerson)).toEqual(true)
+      })
     })
 
-    it('returnerer false når input ikke er et Person-objekt', () => {
-      expect(isPerson(undefined)).toEqual(false)
-      expect(isPerson(null)).toEqual(false)
-      expect(isPerson({})).toEqual(false)
-      expect(isPerson({ navn: 'Ola', sivilstand: 'GIFT' })).toEqual(false)
-      expect(
-        isPerson({
-          navn: 'Ola',
-          sivilstand: 'LOREMIPSUM',
-          foedselsdato: null,
+    describe('invalid cases', () => {
+      describe('null/undefined checks', () => {
+        it('returnerer false for null/undefined verdier', () => {
+          expect(isPerson(undefined)).toEqual(false)
+          expect(isPerson(null)).toEqual(false)
+          expect(isPerson({})).toEqual(false)
         })
-      ).toEqual(false)
-      expect(
-        isPerson({
-          navn: 'Ola',
-          sivilstand: 'UGIFT',
-          foedselsdato: 'abc',
+      })
+
+      describe('navn validation', () => {
+        it('returnerer false når navn mangler', () => {
+          const { navn, ...personWithoutNavn } = validPerson
+          expect(isPerson(personWithoutNavn)).toEqual(false)
         })
-      ).toEqual(false)
-      expect(isPerson({ navn: 'Ola', foedselsdato: '1963-04-30' })).toEqual(
-        false
-      )
-      expect(isPerson({ sivilstand: 'GIFT' })).toEqual(false)
+      })
+
+      describe('sivilstand validation', () => {
+        it('returnerer false når sivilstand mangler', () => {
+          const { sivilstand, ...personWithoutSivilstand } = validPerson
+          expect(isPerson(personWithoutSivilstand)).toEqual(false)
+        })
+
+        it('returnerer false når sivilstand har ugyldig verdi', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              sivilstand: 'LOREMIPSUM',
+            })
+          ).toEqual(false)
+        })
+      })
+
+      describe('foedselsdato validation', () => {
+        it('returnerer false når foedselsdato mangler', () => {
+          const { foedselsdato, ...personWithoutFoedselsdato } = validPerson
+          expect(isPerson(personWithoutFoedselsdato)).toEqual(false)
+        })
+
+        it('returnerer false når foedselsdato har ugyldig format', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              foedselsdato: 'abc',
+            })
+          ).toEqual(false)
+        })
+
+        it('returnerer false når foedselsdato er null', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              foedselsdato: null,
+            })
+          ).toEqual(false)
+        })
+      })
+
+      describe('pensjoneringAldre validation', () => {
+        it('returnerer false når pensjoneringAldre mangler obligatoriske felt', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              pensjoneringAldre: {
+                normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+              },
+            })
+          ).toEqual(false)
+
+          expect(
+            isPerson({
+              ...validPerson,
+              pensjoneringAldre: {
+                nedreAldersgrense: { aar: 67, maaneder: 0 },
+              },
+            })
+          ).toEqual(false)
+        })
+
+        it('returnerer false når alder-objekter mangler maaneder', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              pensjoneringAldre: {
+                normertPensjoneringsalder: { aar: 67 },
+                nedreAldersgrense: { aar: 67 },
+              },
+            })
+          ).toEqual(false)
+        })
+      })
     })
   })
 

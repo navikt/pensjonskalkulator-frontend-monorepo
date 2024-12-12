@@ -170,7 +170,15 @@ export const isPerson = (data?: any): data is Person => {
     typeof data.navn === 'string' &&
     data.foedselsdato &&
     data.foedselsdato !== undefined &&
-    new Date(data.foedselsdato).toString() !== 'Invalid Date'
+    new Date(data.foedselsdato).toString() !== 'Invalid Date' &&
+    data.pensjoneringAldre &&
+    typeof data.pensjoneringAldre === 'object' &&
+    data.pensjoneringAldre.normertPensjoneringsalder &&
+    typeof data.pensjoneringAldre.normertPensjoneringsalder === 'object' &&
+    data.pensjoneringAldre.nedreAldersgrense &&
+    typeof data.pensjoneringAldre.nedreAldersgrense === 'object' &&
+    isAlder(data.pensjoneringAldre.normertPensjoneringsalder) &&
+    isAlder(data.pensjoneringAldre.nedreAldersgrense)
   )
 }
 

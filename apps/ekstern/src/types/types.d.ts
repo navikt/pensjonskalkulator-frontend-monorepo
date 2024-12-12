@@ -21,9 +21,11 @@ declare global {
     void,
     BaseQueryFn<Record<string, unknown>, Person>
   >
-  type Person = components['schemas']['PersonV2']
-  type Sivilstand = components['schemas']['PersonV2']['sivilstand']
+  type Person = components['schemas']['PersonResultV4']
+  type Sivilstand = components['schemas']['PersonResultV4']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+  type pensjoneringAldre =
+    components['schemas']['PersonResultV4']['pensjoneringAldre']
 
   // /inntekt
   export type GetInntektQuery = TypedUseQueryStateResult<
