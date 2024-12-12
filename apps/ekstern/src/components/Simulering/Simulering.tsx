@@ -120,7 +120,7 @@ export function Simulering(props: {
           afp,
           foedselsdato,
           harSamboer,
-          aarligInntektFoerUttakBeloep,
+          aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
           gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
             uttaksalder,
@@ -131,11 +131,11 @@ export function Simulering(props: {
       )
       setPensjonsavtalerRequestBody(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep,
           ufoeregrad,
           afp,
           sivilstand,
           harSamboer,
+          aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
           gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
             uttaksalder,
