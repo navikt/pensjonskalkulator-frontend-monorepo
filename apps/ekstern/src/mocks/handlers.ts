@@ -85,14 +85,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v7/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v8/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
     const data = await import(`./data/alderspensjon/${aar}.json`)
     const mergedData = JSON.parse(JSON.stringify(data.default))
-    let afpPrivat: Pensjonsberegning[] = []
-    let afpOffentlig: Pensjonsberegning[] = []
+    let afpPrivat: AfpPrivatPensjonsberegning[] = []
+    let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
       'ALDERSPENSJON_MED_AFP_PRIVAT'

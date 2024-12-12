@@ -271,7 +271,7 @@ describe('Typeguards', () => {
         ])
       ).toBeTruthy()
     })
-    it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
+    it('returnerer false når typen er undefined eller at AfpPrivatPensjonsberegning inneholder noe annet enn number', () => {
       expect(isPensjonsberegningArray(undefined)).toBeFalsy()
 
       expect(

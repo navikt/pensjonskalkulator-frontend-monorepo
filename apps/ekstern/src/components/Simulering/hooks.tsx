@@ -31,9 +31,9 @@ export const useSimuleringChartLocalState = (initialValues: {
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
   isLoading: boolean
-  alderspensjonListe?: PensjonsberegningMedDetaljer[]
-  afpPrivatListe?: Pensjonsberegning[]
-  afpOffentligListe?: Pensjonsberegning[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  afpPrivatListe?: AfpPrivatPensjonsberegning[]
+  afpOffentligListe?: AfpPrivatPensjonsberegning[]
   pensjonsavtaler: {
     isLoading: boolean
     data?: {

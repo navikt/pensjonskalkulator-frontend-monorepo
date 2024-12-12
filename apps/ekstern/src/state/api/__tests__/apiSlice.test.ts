@@ -441,6 +441,7 @@ describe('apiSlice', () => {
       foedselsdato: '1963-04-30',
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: false,
+      epsHarPensjon: false,
       heltUttak: {
         uttaksalder: { aar: 67, maaneder: 8 },
         aarligInntektVsaPensjon: {
@@ -462,7 +463,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v7/alderspensjon/simulering', {
+      mockErrorResponse('/v8/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -476,7 +477,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -495,7 +496,7 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpPrivat', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
@@ -526,7 +527,7 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpOffentlig', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
