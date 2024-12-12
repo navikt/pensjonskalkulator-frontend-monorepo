@@ -767,7 +767,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler (private og offentlige), viser inntekt og alderspensjon (uten pensjonsavtaler).', async () => {
-      mockResponse('/v1/simuler-oftp', {
+      mockResponse('/v2/simuler-oftp', {
         status: 200,
         json: {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -833,7 +833,7 @@ describe('Simulering', () => {
     })
 
     it('Når henting av pensjonsavtaler (private og offentlige) feiler, viser inntekt og alderspensjon (uten pensjonsavtaler) og alert.', async () => {
-      mockErrorResponse('/v1/simuler-oftp', {
+      mockErrorResponse('/v2/simuler-oftp', {
         method: 'post',
       })
       mockErrorResponse('/v3/pensjonsavtaler', {
@@ -907,7 +907,7 @@ describe('Simulering', () => {
         },
         method: 'post',
       })
-      mockResponse('/v1/simuler-oftp', {
+      mockResponse('/v2/simuler-oftp', {
         status: 200,
         json: {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
