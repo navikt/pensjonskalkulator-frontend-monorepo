@@ -119,7 +119,7 @@ export const processInntektArray = (args: {
 }
 
 export const processPensjonsberegningArray = (
-  pensjonsberegninger: Pensjonsberegning[] = [],
+  pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
   isEndring: boolean,
   length: number
 ): number[] => {

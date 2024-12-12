@@ -43,9 +43,9 @@ export function Simulering(props: {
   isLoading: boolean
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
-  alderspensjonListe?: PensjonsberegningMedDetaljer[]
-  afpPrivatListe?: Pensjonsberegning[]
-  afpOffentligListe?: Pensjonsberegning[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  afpPrivatListe?: AfpPrivatPensjonsberegning[]
+  afpOffentligListe?: AfpPrivatPensjonsberegning[]
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   showButtonsAndTable?: boolean
   detaljer?: {

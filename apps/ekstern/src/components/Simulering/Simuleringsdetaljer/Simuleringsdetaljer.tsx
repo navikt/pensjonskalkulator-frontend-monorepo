@@ -5,7 +5,7 @@ import { ReadMore as ReadMoreAksel } from '@navikt/ds-react'
 import { formatInntekt } from '@/utils/inntekt'
 
 export function Simuleringsdetaljer(props: {
-  alderspensjonListe?: PensjonsberegningMedDetaljer[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[]
   detaljer: {
     trygdetid?: number
     opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
