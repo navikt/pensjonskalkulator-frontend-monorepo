@@ -143,6 +143,16 @@ describe('Grunnlag', () => {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1963-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
       renderGrunnlagMedPreloadedState('2', 'avansert', {
@@ -179,6 +189,16 @@ describe('Grunnlag', () => {
           navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 

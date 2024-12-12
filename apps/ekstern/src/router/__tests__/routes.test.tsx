@@ -126,6 +126,16 @@ describe('routes', () => {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {
@@ -177,6 +187,16 @@ describe('routes', () => {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {

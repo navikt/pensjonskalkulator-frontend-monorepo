@@ -109,6 +109,16 @@ describe('Loaders', () => {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
@@ -232,6 +242,16 @@ describe('Loaders', () => {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
