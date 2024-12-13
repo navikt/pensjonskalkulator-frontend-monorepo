@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+  '/api/v8/alderspensjon/simulering': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler alderspensjon
+     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
+     */
+    post: operations['simulerAlderspensjonV8']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v7/alderspensjon/simulering': {
     parameters: {
       query?: never
@@ -44,6 +64,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v2/tidligste-hel-uttaksalder': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Tidligst mulige uttaksalder ved helt uttak
+     * @description Finn tidligst mulige uttaksalder for innlogget bruker ved helt (100 %) uttak.
+     */
+    post: operations['finnTidligsteHelUttaksalderV2']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -78,26 +118,6 @@ export interface paths {
      * @description Finn første mulige uttaksalder for innlogget bruker ved helt (100 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
     post: operations['finnTidligsteHelUttaksalderV1']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/tidligste-gradert-uttaksalder': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Første mulige uttaksalder ved gradert uttak
-     * @description Finn første mulige uttaksalder for innlogget bruker ved gradert (20–80 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
-     */
-    post: operations['finnTidligsteGradertUttaksalderV1']
     delete?: never
     options?: never
     head?: never
@@ -488,6 +508,127 @@ export interface paths {
 export type webhooks = Record<string, never>
 export interface components {
   schemas: {
+    PersonligSimuleringAlderSpecV8: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PersonligSimuleringGradertUttakSpecV8: {
+      /** Format: int32 */
+      grad: number
+      uttaksalder: components['schemas']['PersonligSimuleringAlderSpecV8']
+      /** Format: int32 */
+      aarligInntektVsaPensjonBeloep?: number
+    }
+    PersonligSimuleringHeltUttakSpecV8: {
+      uttaksalder: components['schemas']['PersonligSimuleringAlderSpecV8']
+      aarligInntektVsaPensjon?: components['schemas']['PersonligSimuleringInntektSpecV8']
+    }
+    PersonligSimuleringInntektSpecV8: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['PersonligSimuleringAlderSpecV8']
+    }
+    PersonligSimuleringSpecV8: {
+      /** @enum {string} */
+      simuleringstype:
+        | 'ALDERSPENSJON'
+        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        | 'ENDRING_ALDERSPENSJON'
+        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
+      /** Format: date */
+      foedselsdato: string
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep?: number
+      gradertUttak?: components['schemas']['PersonligSimuleringGradertUttakSpecV8']
+      heltUttak: components['schemas']['PersonligSimuleringHeltUttakSpecV8']
+      utenlandsperiodeListe?: components['schemas']['PersonligSimuleringUtenlandsperiodeSpecV8'][]
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+      epsHarInntektOver2G: boolean
+      epsHarPensjon: boolean
+    }
+    PersonligSimuleringUtenlandsperiodeSpecV8: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+      landkode: string
+      arbeidetUtenlands: boolean
+    }
+    PersonligSimuleringAarligInntektResultV8: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      pensjonsgivendeInntektBeloep: number
+    }
+    PersonligSimuleringAarligPensjonResultV8: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    PersonligSimuleringAlderResultV8: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    PersonligSimuleringAlderspensjonResultV8: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+      /** Format: int32 */
+      inntektspensjonBeloep?: number
+      /** Format: int32 */
+      garantipensjonBeloep?: number
+      /** Format: double */
+      delingstall?: number
+      /** Format: int32 */
+      pensjonBeholdningFoerUttakBeloep?: number
+    }
+    PersonligSimuleringAlternativResultV8: {
+      gradertUttaksalder?: components['schemas']['PersonligSimuleringAlderResultV8']
+      /** Format: int32 */
+      uttaksgrad?: number
+      heltUttaksalder: components['schemas']['PersonligSimuleringAlderResultV8']
+    }
+    PersonligSimuleringMaanedligPensjonResultV8: {
+      /** Format: int32 */
+      gradertUttakMaanedligBeloep?: number
+      /** Format: int32 */
+      heltUttakMaanedligBeloep: number
+    }
+    PersonligSimuleringResultV8: {
+      alderspensjon: components['schemas']['PersonligSimuleringAlderspensjonResultV8'][]
+      alderspensjonMaanedligVedEndring?: components['schemas']['PersonligSimuleringMaanedligPensjonResultV8']
+      afpPrivat?: components['schemas']['PersonligSimuleringAarligPensjonResultV8'][]
+      afpOffentlig?: components['schemas']['PersonligSimuleringAarligPensjonResultV8'][]
+      vilkaarsproeving: components['schemas']['PersonligSimuleringVilkaarsproevingResultV8']
+      harForLiteTrygdetid?: boolean
+      /** Format: int32 */
+      trygdetid?: number
+      opptjeningGrunnlagListe?: components['schemas']['PersonligSimuleringAarligInntektResultV8'][]
+    }
+    PersonligSimuleringVilkaarsproevingResultV8: {
+      vilkaarErOppfylt: boolean
+      alternativ?: components['schemas']['PersonligSimuleringAlternativResultV8']
+    }
     IngressSimuleringAlderV7: {
       /** Format: int32 */
       aar: number
@@ -630,8 +771,6 @@ export interface components {
       aarligInntektFoerUttakBeloep: number
       uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV3'][]
       harAfp?: boolean
-      epsHarPensjon?: boolean
-      epsHarInntektOver2G: boolean
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -646,6 +785,8 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
+      epsHarInntektOver2G: boolean
+      epsHarPensjon: boolean
     }
     PensjonsavtaleUttaksperiodeSpecV3: {
       startAlder: components['schemas']['PensjonsavtaleAlderSpecV3']
@@ -684,6 +825,60 @@ export interface components {
       aarligUtbetaling: number
       /** Format: int32 */
       grad: number
+    }
+    UttaksalderAlderSpecV2: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    UttaksalderInntektSpecV2: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder?: components['schemas']['UttaksalderAlderSpecV2']
+    }
+    UttaksalderSpecV2: {
+      /** @enum {string} */
+      simuleringstype?:
+        | 'ALDERSPENSJON'
+        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        | 'ENDRING_ALDERSPENSJON'
+        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep?: number
+      aarligInntektVsaPensjon?: components['schemas']['UttaksalderInntektSpecV2']
+      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV2'][]
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+      epsHarInntektOver2G: boolean
+      epsHarPensjon: boolean
+    }
+    UttaksalderUtenlandsperiodeSpecV2: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+      landkode: string
+      arbeidetUtenlands: boolean
+    }
+    UttaksalderResultV2: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
     }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
@@ -811,45 +1006,6 @@ export interface components {
       aar: number
       /** Format: int32 */
       maaneder: number
-    }
-    IngressUttaksalderGradertUttakV1: {
-      /** Format: int32 */
-      grad: number
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    IngressUttaksalderHeltUttakV1: {
-      uttaksalder: components['schemas']['IngressUttaksalderAlderV1']
-      aarligInntektVsaPensjon?: components['schemas']['IngressUttaksalderInntektV1']
-    }
-    IngressUttaksalderSpecForGradertUttakV1: {
-      /** @enum {string} */
-      simuleringstype?:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-        | 'ENDRING_ALDERSPENSJON'
-        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      harEps?: boolean
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      gradertUttak: components['schemas']['IngressUttaksalderGradertUttakV1']
-      heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
-      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
     }
     IngressSimuleringOffentligTjenestepensjonSpecV1: {
       /** Format: date */
@@ -1119,6 +1275,39 @@ export interface components {
 }
 export type $defs = Record<string, never>
 export interface operations {
+  simulerAlderspensjonV8: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PersonligSimuleringSpecV8']
+      }
+    }
+    responses: {
+      /** @description Simulering utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['PersonligSimuleringResultV8']
+        }
+      }
+      /** @description Simulering kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   simulerAlderspensjonV7: {
     parameters: {
       query?: never
@@ -1185,6 +1374,39 @@ export interface operations {
       }
     }
   }
+  finnTidligsteHelUttaksalderV2: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UttaksalderSpecV2']
+      }
+    }
+    responses: {
+      /** @description Søk etter uttaksalder utført. I resultatet er verdi av 'maaneder' 0..11. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['UttaksalderResultV2']
+        }
+      }
+      /** @description Søk etter uttaksalder kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   fetchAvtalerV2: {
     parameters: {
       query?: never
@@ -1228,39 +1450,6 @@ export interface operations {
     requestBody: {
       content: {
         'application/json': components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
-      }
-    }
-    responses: {
-      /** @description Søk etter uttaksalder utført. I resultatet er verdi av 'maaneder' 0..11. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['AlderDto']
-        }
-      }
-      /** @description Søk etter uttaksalder kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  finnTidligsteGradertUttaksalderV1: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
       }
     }
     responses: {
