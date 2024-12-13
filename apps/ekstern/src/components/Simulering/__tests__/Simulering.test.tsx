@@ -1170,7 +1170,7 @@ describe('Simulering', () => {
 
     describe('Gitt at brukeren ikke har noe tp-leverandør', () => {
       beforeEach(() => {
-        mockResponse('/v1/simuler-oftp', {
+        mockResponse('/v2/simuler-oftp', {
           status: 200,
           json: {
             simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -1275,7 +1275,7 @@ describe('Simulering', () => {
         ).toBeVisible()
       })
 
-      it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
         mockResponse('/v3/pensjonsavtaler', {
           status: 200,
           json: {
@@ -1319,7 +1319,7 @@ describe('Simulering', () => {
 
     describe('Gitt at kall til offentlig-tp feiler', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/simuler-oftp', {
+        mockErrorResponse('/v2/simuler-oftp', {
           method: 'post',
         })
       })
@@ -1448,7 +1448,7 @@ describe('Simulering', () => {
         )
         expect(
           await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle',
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
             { exact: false }
           )
         ).toBeVisible()
