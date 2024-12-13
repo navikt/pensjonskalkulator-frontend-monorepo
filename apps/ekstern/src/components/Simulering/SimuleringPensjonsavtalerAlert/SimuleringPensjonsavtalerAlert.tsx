@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, Link } from '@navikt/ds-react'
 
@@ -32,6 +32,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   offentligTp,
   isPensjonsavtaleFlagVisible,
 }) => {
+  const intl = useIntl()
   const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
   const isEndring = useAppSelector(selectIsEndring)
   const {
@@ -41,24 +42,6 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     data: pensjonsavtalerData,
   } = pensjonsavtaler
   const { isError: isOffentligTpError, data: offentligTpData } = offentligTp
-
-  // TODO PEK-861 revidere logging
-  React.useEffect(() => {
-    if (isOffentligTpError) {
-      logger('alert', {
-        tekst:
-          'TPO infoboks: Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor',
-      })
-    }
-    // else if (
-    //   offentligTp?.data?.muligeTpLeverandoerListe &&
-    //   offentligTp?.data?.muligeTpLeverandoerListe.length > 0
-    // ) {
-    //   logger('alert', {
-    //     tekst: 'TPO infoboks: Du kan ha rett til offentlig tjenestepensjon',
-    //   })
-    // }
-  }, [isOffentligTpError])
 
   const alert = React.useMemo(():
     | { variant: 'info' | 'warning' | 'inline'; text: string }
@@ -79,17 +62,25 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING')
 
     if (isEndring) {
+      const text = 'beregning.pensjonsavtaler.alert.endring'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'inline',
-        text: 'beregning.pensjonsavtaler.alert.endring',
+        text,
       }
     }
 
     // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
     if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
+      const text = 'beregning.pensjonsavtaler.alert.privat.error'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.privat.error',
+        text,
       }
     }
 
@@ -101,9 +92,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           'TP_ORDNING_STOETTES_IKKE') &&
       (isPensjonsavtalerError || isPartialWith0Avtaler)
     ) {
+      const text = 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error',
+        text,
       }
     }
 
@@ -112,9 +107,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       (isOffentligTpError || isOffentligTpUkomplett) &&
       isPensjonsavtalerSuccess
     ) {
+      const text = 'beregning.pensjonsavtaler.alert.offentlig.error'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.offentlig.error',
+        text,
       }
     }
 
@@ -123,16 +122,24 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       offentligTpData &&
       offentligTpData.simuleringsresultatStatus === 'TP_ORDNING_STOETTES_IKKE'
     ) {
+      const text = 'beregning.pensjonsavtaler.alert.stoettes_ikke'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'warning',
-        text: 'beregning.pensjonsavtaler.alert.stoettes_ikke',
+        text,
       }
     }
 
     if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
+      const text = 'beregning.pensjonsavtaler.alert.avtaler_foer_alder'
+      logger('alert', {
+        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      })
       return {
         variant: 'inline',
-        text: 'beregning.pensjonsavtaler.alert.avtaler_foer_alder',
+        text,
       }
     }
   }, [
