@@ -127,7 +127,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
       })
       return {
-        variant: 'warning',
+        variant: 'info',
         text,
       }
     }
