@@ -131,7 +131,7 @@ declare global {
     BaseQueryFn<Record<string, unknown>, OffentligTp>
   >
   type OffentligTpRequestBody =
-    components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV1']
+    components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV2']
   type OffentligTp =
-    components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV1']
+    components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV2']
 }

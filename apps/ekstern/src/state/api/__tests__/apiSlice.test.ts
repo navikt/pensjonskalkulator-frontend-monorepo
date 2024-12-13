@@ -244,7 +244,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/simuler-oftp', {
+      mockErrorResponse('/v2/simuler-oftp', {
         method: 'post',
       })
       return storeRef
@@ -258,7 +258,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/simuler-oftp', {
+      mockResponse('/v2/simuler-oftp', {
         status: 200,
         json: { lorem: 'ipsum' },
         method: 'post',
