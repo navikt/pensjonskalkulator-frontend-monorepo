@@ -88,7 +88,8 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
       loependeVedtak,
       afp
     ),
-    harEps: harSamboer !== null ? harSamboer : undefined,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -143,7 +144,7 @@ export const generateAlderspensjonRequestBody = (args: {
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // epsHarPensjon: false, // Støttes ikke i Pesys
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -208,7 +209,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // epsHarPensjon: false, // Støttes ikke i Pesys
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),

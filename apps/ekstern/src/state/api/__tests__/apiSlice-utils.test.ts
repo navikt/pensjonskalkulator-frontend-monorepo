@@ -269,13 +269,19 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-        })?.harEps
-      ).toBeUndefined()
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          harSamboer: false,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           harSamboer: true,
-        })?.harEps
+        })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
 

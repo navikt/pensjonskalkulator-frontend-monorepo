@@ -2425,7 +2425,7 @@ describe('RedigerAvansertBeregning', () => {
         },
       }
 
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {

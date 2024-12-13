@@ -121,7 +121,7 @@ export const apiSlice = createApi({
       TidligstMuligHeltUttakRequestBody | void
     >({
       query: (body) => ({
-        url: '/v1/tidligste-hel-uttaksalder',
+        url: '/v2/tidligste-hel-uttaksalder',
         method: 'POST',
         body,
       }),
@@ -166,7 +166,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v7/alderspensjon/simulering',
+        url: '/v8/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
