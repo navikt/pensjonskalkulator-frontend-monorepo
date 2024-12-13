@@ -221,6 +221,7 @@ const translations = {
     'certain pension savings agreements you have taken out yourself',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Should we retrieve your pension agreements?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Yes',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'No, continue without',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':

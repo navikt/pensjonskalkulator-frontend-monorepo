@@ -253,10 +253,10 @@ describe('Hovedhistorie', () => {
           cy.contains('h2', 'Pensjonsavtaler').should('exist')
           cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains(
-            'Dette sjekker vi om tjenestepensjon i offentlig sektor'
+            'Dette henter vi fra offentlige tjenestepensjonsordninger'
           ).should('exist')
           cy.contains(
-            'Dette henter vi om pensjonsavtaler fra privat sektor'
+            'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor'
           ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
