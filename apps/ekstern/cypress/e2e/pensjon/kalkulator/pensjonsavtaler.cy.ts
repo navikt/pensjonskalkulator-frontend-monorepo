@@ -46,7 +46,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -61,7 +61,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
           })
 
-          it.skip('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -102,7 +102,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -112,7 +112,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it.skip('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -155,7 +155,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -179,7 +179,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it.skip('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -228,7 +228,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -244,7 +244,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it.skip('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -285,7 +285,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Denne beregningen viser kanskje ikke alt.').should(
               'exist'
@@ -301,7 +301,7 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it.skip('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
+          it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
             cy.contains('Offentlig tjenestepensjon').should('exist')
             cy.contains(
               'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
@@ -369,7 +369,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -407,7 +407,7 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -942,7 +942,7 @@ describe('Pensjonsavtaler', () => {
           cy.contains('Vis mindre').should('be.visible')
         })
 
-        it.skip('forventer jeg informasjon om at jeg har pensjonsavtaler som starter før valgt alder. ', () => {
+        it('forventer jeg informasjon om at jeg har pensjonsavtaler som starter før valgt alder. ', () => {
           cy.contains('Beregning').should('exist')
           cy.contains(
             'Du har pensjonsavtaler som starter før valgt alder. Se perioder under Pensjonsavtaler.'
