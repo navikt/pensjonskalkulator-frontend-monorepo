@@ -72,6 +72,12 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
         'TOM_SIMULERING_FRA_TP_ORDNING' ||
       offentligTpData?.simuleringsresultatStatus === 'TEKNISK_FEIL'
 
+    const isOffentligTpOK =
+      offentligTpData &&
+      (offentligTpData.simuleringsresultatStatus === 'OK' ||
+        offentligTpData.simuleringsresultatStatus ===
+          'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING')
+
     if (isEndring) {
       return {
         variant: 'inline',
@@ -80,11 +86,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     }
 
     // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
-    if (
-      offentligTpData &&
-      offentligTpData.simuleringsresultatStatus === 'OK' &&
-      (isPensjonsavtalerError || isPartialWith0Avtaler)
-    ) {
+    if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
       return {
         variant: 'warning',
         text: 'beregning.pensjonsavtaler.alert.privat.error',
