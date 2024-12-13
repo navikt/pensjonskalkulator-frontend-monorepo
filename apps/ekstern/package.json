@@ -55,7 +55,7 @@
     "@navikt/ds-react": "^7.8.0",
     "@navikt/ds-tokens": "^7.8.0",
     "@navikt/nav-dekoratoren-moduler": "^3.1.1",
-    "@reduxjs/toolkit": "^2.4.0",
+    "@reduxjs/toolkit": "^2.5.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
