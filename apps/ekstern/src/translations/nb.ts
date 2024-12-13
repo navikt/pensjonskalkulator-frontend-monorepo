@@ -274,7 +274,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Vil du at Nav skal beregne AFP for deg?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'Samtykket gjelder kun beregninger i denne kalkulatoren.',
+    'Samtykket gjelder bare for beregninger i denne kalkulatoren, frem til du logger ut.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
@@ -724,7 +724,7 @@ const translations = {
     'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
-    'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}Nav har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
+    'Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger.{br}{br}Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon.{br}{br}Beregningen av offentlig tjenestepensjon fra Statens pensjonskasse (SPK) er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i SPK fra datoen du beregner pensjonen fra.{br}{br}Beregning av privat tjenestepensjon graderes likt som alderspensjon for de avtalene der det er mulig. Offentlig tjenestepensjon beregnes kun med 100 % uttaksgrad.',
   'personopplysninger.header':
     'Personopplysninger som brukes i pensjonskalkulator',
   'personopplysninger.section.formaal.header':
