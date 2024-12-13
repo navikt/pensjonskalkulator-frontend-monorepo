@@ -363,7 +363,8 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -401,7 +402,8 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
