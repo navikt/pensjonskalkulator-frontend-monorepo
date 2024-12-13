@@ -923,11 +923,11 @@ describe('apiSlice - utils', () => {
       harSamboer: null,
       foedselsdato: '1963-04-30',
       aarligInntektFoerUttakBeloep: '500 000',
-      uttaksalder: { aar: 67, maaneder: 0 },
+      heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
       utenlandsperioder: [],
     }
 
-    it('returnerer undefined når fodselsdato eller uttaksalder ikke er oppgitt', () => {
+    it('returnerer undefined når fodselsdato eller heltUttak ikke er oppgitt', () => {
       expect(
         generateOffentligTpRequestBody({
           ...requestBody,
@@ -937,11 +937,12 @@ describe('apiSlice - utils', () => {
       expect(
         generateOffentligTpRequestBody({
           ...requestBody,
-          uttaksalder: null,
+          heltUttak: undefined,
           utenlandsperioder: [],
         })
       ).toEqual(undefined)
     })
+
     it('returnerer riktig harEps', () => {
       expect(
         generateOffentligTpRequestBody({
@@ -961,6 +962,7 @@ describe('apiSlice - utils', () => {
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
+
     it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp', () => {
       expect(
         generateOffentligTpRequestBody({
@@ -974,9 +976,13 @@ describe('apiSlice - utils', () => {
         epsHarPensjon: false,
         foedselsdato: '1963-04-30',
         utenlandsperiodeListe: [],
-        uttaksalder: {
-          aar: 67,
-          maaneder: 0,
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
         },
       })
       expect(
@@ -991,38 +997,56 @@ describe('apiSlice - utils', () => {
         epsHarPensjon: false,
         foedselsdato: '1963-04-30',
         utenlandsperiodeListe: [],
-        uttaksalder: {
-          aar: 67,
-          maaneder: 0,
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
         },
       })
     })
-    it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
-      expect(
-        generateOffentligTpRequestBody({
-          ...requestBody,
-          afp: 'nei',
-        })
-      ).toEqual({
-        aarligInntektFoerUttakBeloep: 500000,
-        brukerBaOmAfp: false,
-        epsHarInntektOver2G: false,
-        epsHarPensjon: false,
-        foedselsdato: '1963-04-30',
-        utenlandsperiodeListe: [],
-        uttaksalder: {
-          aar: 67,
-          maaneder: 0,
+
+    it('returnerer riktig gradertUttak uten grad, når den er oppgitt', () => {
+      const gradertUttak = generateOffentligTpRequestBody({
+        ...requestBody,
+        gradertUttak: {
+          uttaksalder: { aar: 67, maaneder: 3 },
+          grad: 20,
+          aarligInntektVsaPensjonBeloep: '123 000',
         },
-      })
+      })?.gradertUttak
+      expect(gradertUttak?.aarligInntektVsaPensjonBeloep).toEqual(123000)
+      expect(gradertUttak).not.toHaveProperty('grad')
+      expect(gradertUttak?.uttaksalder.aar).toEqual(67)
+      expect(gradertUttak?.uttaksalder.maaneder).toEqual(3)
     })
+
+    it('returnerer riktig heltUttak', () => {
+      const heltUttak = generateOffentligTpRequestBody({
+        ...requestBody,
+        heltUttak: {
+          uttaksalder: { aar: 68, maaneder: 3 },
+          aarligInntektVsaPensjon: {
+            beloep: '99 000',
+            sluttAlder: { aar: 75, maaneder: 0 },
+          },
+        },
+      })?.heltUttak
+
+      expect(heltUttak?.uttaksalder.aar).toEqual(68)
+      expect(heltUttak?.uttaksalder.maaneder).toEqual(3)
+      expect(heltUttak?.aarligInntektVsaPensjon?.beloep).toEqual(99000)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.aar).toEqual(75)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.maaneder).toEqual(0)
+    })
+
     it('returnerer riktig requestBody med utenlandsperioder', () => {
       expect(
         generateOffentligTpRequestBody({
           ...requestBody,
           afp: 'nei',
-
-          uttaksalder: { aar: 62, maaneder: 4 },
           utenlandsperioder: [
             {
               id: '1',
@@ -1046,6 +1070,14 @@ describe('apiSlice - utils', () => {
         epsHarInntektOver2G: false,
         epsHarPensjon: false,
         foedselsdato: '1963-04-30',
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
+        },
         utenlandsperiodeListe: [
           {
             arbeidetUtenlands: false,
@@ -1060,10 +1092,6 @@ describe('apiSlice - utils', () => {
             tom: '2020-02-28',
           },
         ],
-        uttaksalder: {
-          aar: 62,
-          maaneder: 4,
-        },
       })
     })
   })
