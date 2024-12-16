@@ -262,7 +262,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',

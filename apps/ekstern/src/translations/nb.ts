@@ -367,7 +367,7 @@ const translations = {
   'beregning.pensjonsavtaler.alert.offentlig.error':
     'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>dine private pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
@@ -611,7 +611,7 @@ const translations = {
   'pensjonsavtaler.offentligtp.spk_error':
     'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
   'pensjonsavtaler.offentligtp.spk_empty':
-    'Vi fikk ikke noe svar fra din offentlige tjenestepensjon.',
+    'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.afp_ja':
