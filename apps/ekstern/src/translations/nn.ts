@@ -195,6 +195,7 @@ const translations = {
     'gjeld samtykket kun for denne utrekninga.',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente dine pensjonsavtalar?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
