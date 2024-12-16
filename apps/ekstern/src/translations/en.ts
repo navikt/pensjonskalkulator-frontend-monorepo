@@ -208,7 +208,7 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
     'We retrieve this from public occupational pension schemes.',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'IIf you consent, we will check whether you are or have been a member of a public occupational pension scheme. If you have been a member of several schemes, we will exchange information to determine where you were most recently a member.{br}{br}We will retrieve the calculation of your occupational pension from the last pension scheme you were a member of. This includes any membership time from other public occupational pension schemes.{br}{br}We can only retrieve pension agreements from certain occupational pension schemes, including the Norwegian Public Service Pension Fund (SPK).',
+    'If you consent, we will check whether you are or have been a member of a public occupational pension scheme. If you have been a member of several schemes, we will exchange information to determine where you were most recently a member.{br}{br}We will retrieve the calculation of your occupational pension from the last pension scheme you were a member of. This includes any membership time from other public occupational pension schemes.{br}{br}We can only retrieve pension agreements from certain occupational pension schemes, including the Norwegian Public Service Pension Fund (SPK).',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
     'What we retrieve from Norsk Pensjon about pension agreements from the private sector',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
