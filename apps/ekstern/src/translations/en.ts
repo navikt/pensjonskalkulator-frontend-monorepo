@@ -204,15 +204,15 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Delete Stay',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pension Agreements',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'We need your consent to retrieve occupational pension and other pension agreements from employers. If you answer no, you will calculate retirement pension (Nav) and any AFP (contractual pension).',
+    'If you want to view occupational pensions and other pension agreements, you must consent to Nav retrieving this information. Consent is voluntary. If you answer no, you will calculate retirement pension (Nav) and any AFP (contractual pension).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'What we check about occupational pension in the public sector',
+    'We retrieve this from public occupational pension schemes.',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'If you consent, we will check if you are or have been a member of a public occupational pension scheme and inform you about it. Unfortunately, we cannot retrieve public pension agreements.',
+    'If you consent, we will check whether you are or have been a member of a public occupational pension scheme. If you have been a member of several schemes, we will exchange information to determine where you were most recently a member.{br}{br}We will retrieve the calculation of your occupational pension from the last pension scheme you were a member of. This includes any membership time from other public occupational pension schemes.{br}{br}We can only retrieve pension agreements from certain occupational pension schemes, including the Norwegian Public Service Pension Fund (SPK).',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
-    'What we retrieve about pension agreements from the private sector',
+    'What we retrieve from Norsk Pensjon about pension agreements from the private sector',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'If you consent, we will retrieve information about pension agreements in the private sector from Norsk Pensjon:',
+    'If you consent, we will retrieve calculations of pension agreements in the private sector from Norsk Pensjon:',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'occupational pension from the employer (defined contribution, defined benefit, or hybrid pension)',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
@@ -221,6 +221,7 @@ const translations = {
     'certain pension savings agreements you have taken out yourself',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Should we retrieve your pension agreements?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Yes',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'No, continue without',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -274,7 +275,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Do you want Nav to calculate AFP for you?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'The consent only applies to calculations in this calculator.',
+    'The consent only applies for calculations in this calculator, until you log out.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Yes',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'No, continue without',
   'stegvisning.samtykke_offentlig_afp.validation_error':
@@ -720,6 +721,6 @@ const translations = {
     'Early withdrawal of retirement pension assumes that you have relinquished the survivor"s pension or the adjustment benefit at the time of withdrawal.',
   'forbehold.pensjonsavtaler.title': 'Pension Agreements',
   'forbehold.pensjonsavtaler.ingress':
-    'If you have consented, we will retrieve information about what you will receive from public and private pension schemes. Nav is not responsible for the amounts provided, but is intended to give a rough overview of your total pension.{br}{br}Private occupational pension and individual rights are retrieved via Norsk Pensjon.{br}{br}Nav currently has no ability to retrieve information from public occupational pension schemes. Please contact your occupational pension scheme if you need information about your occupational pension.{br}{br}If you want a closer overview of your pension agreements, you need to check directly with each pension scheme.',
+    'If you have consented to it, we will retrieve the calculation of your pension agreements from public and private pension schemes. Nav is not responsible for the amounts provided. The pension agreements are displayed to give an approximate overview of your total pension.{br}{br}Private occupational pensions and individual entitlements are retrieved via Norsk Pensjon. We can only retrieve pension agreements from certain public occupational pension schemes.{br}{br}Please contact your individual pension scheme if you need a more detailed overview of your pension agreements or additional information.{br}{br}The calculation of public occupational pensions from the Norwegian Public Service Pension Fund (SPK) is based on current regulations and the information about you. The calculation assumes that you leave the position with SPK membership from the date you calculate the pension from.{br}{br}The calculation of private occupational pensions is adjusted in the same way as retirement pensions for those agreements where this is possible. Public occupational pensions are calculated only with a 100% withdrawal rate.',
 }
 export const getTranslation_en = () => translations
