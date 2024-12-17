@@ -69,6 +69,7 @@ export const BeregningEnkel: React.FC = () => {
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
@@ -243,7 +244,7 @@ export const BeregningEnkel: React.FC = () => {
         <VelgUttaksalder
           tidligstMuligUttak={
             ufoeregrad
-              ? { ...useAppSelector(selectUbetingetUttaksalder) }
+              ? ubetingetUttaksalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
                 : brukerensAlderPlus1Maaned
@@ -265,8 +266,7 @@ export const BeregningEnkel: React.FC = () => {
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {!isError &&
                   uttaksalder &&
-                  uttaksalder.aar <
-                    useAppSelector(selectUbetingetUttaksalder).aar && (
+                  uttaksalder.aar < ubetingetUttaksalder.aar && (
                     <FormattedMessage
                       id="beregning.lav_opptjening.aar"
                       values={{ startAar: uttaksalder.aar }}
