@@ -13,7 +13,7 @@ import {
   selectFoedselsdato,
   selectLoependeVedtak,
   selectSamtykkeOffentligAFP,
-  selectUbetingetUttaksalder,
+  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
 import { isFoedselsdatoOverEllerLikAlder } from '@/utils/alder'
@@ -32,12 +32,12 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
-  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   if (
     loependeVedtak.ufoeretrygd.grad &&
     foedselsdato &&
-    isFoedselsdatoOverEllerLikAlder(foedselsdato, ubetingetUttaksalder)
+    isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense)
   ) {
     return null
   }

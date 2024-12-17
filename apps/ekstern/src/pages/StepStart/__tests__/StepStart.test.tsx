@@ -63,6 +63,7 @@ describe('StepStart', () => {
           api: {
             // @ts-ignore
             queries: {
+              ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
@@ -188,6 +189,7 @@ describe('StepStart', () => {
         api: {
           // @ts-ignore
           queries: {
+            ...fulfilledGetPerson,
             ...fulfilledGetLoependeVedtak0Ufoeregrad,
           },
         },
