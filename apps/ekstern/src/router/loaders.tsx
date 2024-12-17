@@ -284,6 +284,7 @@ export const stepAFPAccessGuard = async (): Promise<
   })
 
   const foedselsdato = selectFoedselsdato(store.getState())
+  const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
 
   const hasInntektPreviouslyFailed = apiSlice.endpoints.getInntekt.select(
     undefined
@@ -310,7 +311,6 @@ export const stepAFPAccessGuard = async (): Promise<
   )
     ? stegvisningOrderEndring
     : stegvisningOrder
-  const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
 
   // Hvis brukeren mottar AFP skal hen ikke se AFP steget
   // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget

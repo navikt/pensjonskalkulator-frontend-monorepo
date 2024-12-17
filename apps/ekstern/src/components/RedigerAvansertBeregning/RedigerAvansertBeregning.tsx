@@ -56,6 +56,7 @@ export const RedigerAvansertBeregning: React.FC<{
   const dispatch = useAppDispatch()
 
   const foedselsdato = useAppSelector(selectFoedselsdato)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
   const isEndring = useAppSelector(selectIsEndring)
   const inntektVsaHeltUttakInputRef = React.useRef<HTMLInputElement>(null)
   const inntektVsaGradertUttakInputRef = React.useRef<HTMLInputElement>(null)
@@ -72,7 +73,6 @@ export const RedigerAvansertBeregning: React.FC<{
     selectAarligInntektFoerUttakBeloep
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
-  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
