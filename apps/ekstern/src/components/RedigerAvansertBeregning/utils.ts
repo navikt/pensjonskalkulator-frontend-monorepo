@@ -179,7 +179,8 @@ export const validateAvansertBeregningSkjema = (
   loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
-  >
+  >,
+  ubetingetUttaksalder: Alder
 ) => {
   const {
     gradertUttakAarFormData,
@@ -265,17 +266,23 @@ export const validateAvansertBeregningSkjema = (
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
       // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
-      const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder({
-        aar: parseInt(heltUttakAarFormData as string, 10),
-        maaneder: parseInt(heltUttakMaanederFormData as string, 10),
-      })
+      const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder(
+        {
+          aar: parseInt(heltUttakAarFormData as string, 10),
+          maaneder: parseInt(heltUttakMaanederFormData as string, 10),
+        },
+        ubetingetUttaksalder
+      )
       const isGradertUttaksalderValid =
         uttaksgradFormData === '100 %' ||
         (uttaksgradFormData !== '100 %' &&
-          isAlderLikEllerOverUbetingetUttaksalder({
-            aar: parseInt(gradertUttakAarFormData as string, 10),
-            maaneder: parseInt(gradertUttakAarFormData as string, 10),
-          }))
+          isAlderLikEllerOverUbetingetUttaksalder(
+            {
+              aar: parseInt(gradertUttakAarFormData as string, 10),
+              maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
+            },
+            ubetingetUttaksalder
+          ))
       isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
     } else {
       // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
@@ -486,6 +493,7 @@ export const onAvansertBeregningSubmit = (
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
+    ubetingetUttaksalder: Alder
   }
 ): void => {
   const {
@@ -544,7 +552,8 @@ export const onAvansertBeregningSubmit = (
       },
       foedselsdato,
       loependeVedtak,
-      setValidationErrors
+      setValidationErrors,
+      previousData.ubetingetUttaksalder
     )
   ) {
     dispatch(

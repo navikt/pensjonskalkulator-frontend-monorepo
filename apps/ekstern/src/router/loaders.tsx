@@ -16,6 +16,7 @@ import {
   selectIsVeileder,
   selectAfp,
   selectFoedselsdato,
+  selectUbetingetUttaksalder,
 } from '@/state/userInput/selectors'
 import {
   isFoedselsdatoOverEllerLikMinUttaksalder,
@@ -309,6 +310,7 @@ export const stepAFPAccessGuard = async (): Promise<
   )
     ? stegvisningOrderEndring
     : stegvisningOrder
+  const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
 
   // Hvis brukeren mottar AFP skal hen ikke se AFP steget
   // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget
@@ -318,7 +320,10 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato))
+        isFoedselsdatoOverEllerLikMinUttaksalder(
+          foedselsdato,
+          ubetingetUttaksalder
+        ))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -427,6 +432,7 @@ export const stepUfoeretrygdAFPAccessGuard =
     const foedselsdato = selectFoedselsdato(store.getState())
     const getLoependeVedtakResponse =
       apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
+    const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
 
     const stepArrays = isLoependeVedtakEndring(
       getLoependeVedtakResponse.data as LoependeVedtak
@@ -438,7 +444,10 @@ export const stepUfoeretrygdAFPAccessGuard =
     if (
       (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
       afp !== 'nei' &&
-      !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
+      !isFoedselsdatoOverEllerLikMinUttaksalder(
+        foedselsdato as string,
+        ubetingetUttaksalder
+      )
     ) {
       return null
     }

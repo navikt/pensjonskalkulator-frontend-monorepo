@@ -61,6 +61,10 @@ describe('RedigerAvansertBeregning-utils', () => {
           localInntektFremTilUttak: null,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
+          ubetingetUttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
         }
       )
       expect(getMock).toHaveBeenCalledTimes(11)
@@ -121,6 +125,10 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: null,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
+            ubetingetUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           }
         )
 
@@ -185,6 +193,10 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
+            ubetingetUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           }
         )
 
@@ -276,6 +288,10 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
+            ubetingetUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           }
         )
 
@@ -333,6 +349,10 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
+            ubetingetUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           }
         )
 
@@ -364,6 +384,10 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
+            ubetingetUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           }
         )
 
@@ -408,6 +432,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       },
       harFremtidigLoependeVedtak: false,
     }
+    const mockedUbetingetUttaksalder = { aar: 67, maaneder: 0 }
 
     it('returnerer true uten å oppdatere feilmeldingsteksten når input er korrekt', () => {
       const updateErrorMessageMock = vi.fn()
@@ -416,7 +441,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           correctInputData,
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
@@ -433,7 +459,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, heltUttakAarFormData: 'abc' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -441,7 +468,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, heltUttakMaanederFormData: null },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -456,7 +484,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: '' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -465,7 +494,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: 'abc' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -473,7 +503,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: '400' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -481,7 +512,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: '4000' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -489,7 +521,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: '0 %' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -497,7 +530,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, uttaksgradFormData: '100 %' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
     })
@@ -524,7 +558,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtakEndring,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -537,7 +572,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtakEndring,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -550,7 +586,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtakEndring,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -562,7 +599,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtakEndring,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -583,7 +621,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             },
             harFremtidigLoependeVedtak: false,
           },
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
     })
@@ -599,7 +638,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, gradertUttakAarFormData: 'abc' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -607,7 +647,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, gradertUttakMaanederFormData: null },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -630,7 +671,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -643,7 +685,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -656,7 +699,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
 
@@ -679,7 +723,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -691,7 +736,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
 
@@ -710,7 +756,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak100,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -723,7 +770,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak100,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -736,7 +784,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak100,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
@@ -748,7 +797,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak100,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
 
@@ -769,7 +819,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak60,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -782,7 +833,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak60,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
@@ -795,7 +847,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak60,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
 
@@ -812,7 +865,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak60,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
 
@@ -826,7 +880,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, inntektVsaHeltUttakRadioFormData: null },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -839,7 +894,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, inntektVsaHeltUttakFormData: null },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -853,7 +909,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, inntektVsaHeltUttakFormData: 'abc' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(validateInntektMock).toHaveBeenCalled()
@@ -874,7 +931,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
@@ -888,7 +946,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, inntektVsaGradertUttakRadioFormData: null },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -905,7 +964,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeTruthy()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
@@ -919,7 +979,8 @@ describe('RedigerAvansertBeregning-utils', () => {
           { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
           mockedFoedselsdato,
           mockedLoependeVedtak,
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          mockedUbetingetUttaksalder
         )
       ).toBeFalsy()
       expect(validateInntektMock).toHaveBeenCalled()

@@ -72,6 +72,7 @@ export const RedigerAvansertBeregning: React.FC<{
     selectAarligInntektFoerUttakBeloep
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -348,6 +349,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   hasVilkaarIkkeOppfylt:
                     vilkaarsproeving?.vilkaarErOppfylt === false,
                   harAvansertSkjemaUnsavedChanges,
+                  ubetingetUttaksalder,
                 }
               )
             }}
