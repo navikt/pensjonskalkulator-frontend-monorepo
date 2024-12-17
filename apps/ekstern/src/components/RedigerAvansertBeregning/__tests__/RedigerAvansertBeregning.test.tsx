@@ -1162,6 +1162,10 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
+        ubetingetUttaksalder: {
+          aar: 67,
+          maaneder: 0,
+        },
       })
     })
 
@@ -1485,6 +1489,10 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 0,
           },
+        },
+        ubetingetUttaksalder: {
+          aar: 67,
+          maaneder: 0,
         },
       })
     })

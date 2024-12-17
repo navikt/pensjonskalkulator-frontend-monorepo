@@ -25,6 +25,7 @@ export const useFormLocalState = (initialValues: {
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    ubetingetUttaksalder,
   } = initialValues
 
   const { setHarAvansertSkjemaUnsavedChanges } =
