@@ -97,16 +97,16 @@ export const isAlderOverMinUttaksalder = (
   }
 }
 
-export const isFoedselsdatoOverEllerLikMinUttaksalder = (
+export const isFoedselsdatoOverEllerLikAlder = (
   foedselsdato: string,
-  nedreAldersgrense: Alder
+  alder: Alder
 ) => {
   const birtdateJs = endOfDay(
     parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
   )
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)
-  return aar >= nedreAldersgrense.aar
+  return aar >= alder.aar
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {

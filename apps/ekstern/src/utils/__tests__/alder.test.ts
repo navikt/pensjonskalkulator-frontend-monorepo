@@ -10,7 +10,7 @@ import {
   isFoedtFoer1964,
   isAlderLikEllerOverUbetingetUttaksalder,
   isAlderOverMinUttaksalder,
-  isFoedselsdatoOverEllerLikMinUttaksalder,
+  isFoedselsdatoOverEllerLikAlder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
   transformFoedselsdatoToAlder,
@@ -210,7 +210,7 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('isFoedselsdatoOverEllerLikMinUttaksalder', () => {
+  describe('isFoedselsdatoOverEllerLikAlder', () => {
     const nedreAldersgrense = { aar: 62, maaneder: 0 }
     it('returnerer true når fødselsdatoen er 62 år fra nå', () => {
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
@@ -218,10 +218,7 @@ describe('alder-utils', () => {
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
       expect(
-        isFoedselsdatoOverEllerLikMinUttaksalder(
-          foedselsdato,
-          nedreAldersgrense
-        )
+        isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense)
       ).toBeTruthy()
     })
 
@@ -232,10 +229,7 @@ describe('alder-utils', () => {
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
       expect(
-        isFoedselsdatoOverEllerLikMinUttaksalder(
-          foedselsdato,
-          nedreAldersgrense
-        )
+        isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense)
       ).toBeTruthy()
     })
 
@@ -246,10 +240,7 @@ describe('alder-utils', () => {
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
       expect(
-        isFoedselsdatoOverEllerLikMinUttaksalder(
-          foedselsdato,
-          nedreAldersgrense
-        )
+        isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense)
       ).toBeFalsy()
     })
   })

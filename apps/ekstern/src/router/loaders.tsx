@@ -16,12 +16,9 @@ import {
   selectIsVeileder,
   selectAfp,
   selectFoedselsdato,
-  selectUbetingetUttaksalder,
+  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
-import {
-  isFoedselsdatoOverEllerLikMinUttaksalder,
-  isFoedtFoer1963,
-} from '@/utils/alder'
+import { isFoedselsdatoOverEllerLikAlder, isFoedtFoer1963 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
@@ -284,7 +281,7 @@ export const stepAFPAccessGuard = async (): Promise<
   })
 
   const foedselsdato = selectFoedselsdato(store.getState())
-  const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
+  const nedreAldersgrense = selectNedreAldersgrense(store.getState())
 
   const hasInntektPreviouslyFailed = apiSlice.endpoints.getInntekt.select(
     undefined
@@ -320,10 +317,7 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikMinUttaksalder(
-          foedselsdato,
-          ubetingetUttaksalder
-        ))
+        isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -432,7 +426,7 @@ export const stepUfoeretrygdAFPAccessGuard =
     const foedselsdato = selectFoedselsdato(store.getState())
     const getLoependeVedtakResponse =
       apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
-    const ubetingetUttaksalder = selectUbetingetUttaksalder(store.getState())
+    const nedreAldersgrense = selectNedreAldersgrense(store.getState())
 
     const stepArrays = isLoependeVedtakEndring(
       getLoependeVedtakResponse.data as LoependeVedtak
@@ -444,9 +438,9 @@ export const stepUfoeretrygdAFPAccessGuard =
     if (
       (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
       afp !== 'nei' &&
-      !isFoedselsdatoOverEllerLikMinUttaksalder(
+      !isFoedselsdatoOverEllerLikAlder(
         foedselsdato as string,
-        ubetingetUttaksalder
+        nedreAldersgrense
       )
     ) {
       return null

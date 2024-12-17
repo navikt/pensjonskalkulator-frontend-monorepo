@@ -16,7 +16,7 @@ import {
   selectUbetingetUttaksalder,
 } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
-import { isFoedselsdatoOverEllerLikMinUttaksalder } from '@/utils/alder'
+import { isFoedselsdatoOverEllerLikAlder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
@@ -37,7 +37,7 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
   if (
     loependeVedtak.ufoeretrygd.grad &&
     foedselsdato &&
-    isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato, ubetingetUttaksalder)
+    isFoedselsdatoOverEllerLikAlder(foedselsdato, ubetingetUttaksalder)
   ) {
     return null
   }

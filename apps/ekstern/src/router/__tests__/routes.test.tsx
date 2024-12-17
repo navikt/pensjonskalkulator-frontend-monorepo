@@ -790,6 +790,7 @@ describe('routes', () => {
           api: {
             queries: {
               ...fakeApiCalls,
+              ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
@@ -806,6 +807,7 @@ describe('routes', () => {
               // @ts-ignore
               queries: {
                 ...fakeApiCalls,
+                ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
@@ -872,6 +874,7 @@ describe('routes', () => {
           api: {
             queries: {
               ...fakeApiCalls,
+              ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
@@ -888,6 +891,7 @@ describe('routes', () => {
               // @ts-ignore
               queries: {
                 ...fakeApiCalls,
+                ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
