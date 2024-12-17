@@ -37,6 +37,22 @@ export const selectFoedselsdato = createSelector(
   }
 )
 
+export const selectNedreAldersgrense = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
+      ?.pensjoneringAldre.nedreAldersgrense as Alder
+  }
+)
+
+export const selectUbetingetUttaksalder = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
+      ?.pensjoneringAldre.normertPensjoneringsalder as Alder
+  }
+)
+
 export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
   state.userInput.samboer
 

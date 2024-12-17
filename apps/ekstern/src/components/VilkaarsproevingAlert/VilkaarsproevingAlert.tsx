@@ -4,7 +4,8 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert } from '@navikt/ds-react'
 
-import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
+import { useAppSelector } from '@/state/hooks'
+import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
@@ -20,7 +21,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
   const harIkkeNokOpptjening = React.useMemo(() => {
     return (
       JSON.stringify(vilkaarsproeving.alternativ?.heltUttaksalder) ===
-        JSON.stringify(DEFAULT_UBETINGET_UTTAKSALDER) &&
+        JSON.stringify(useAppSelector(selectUbetingetUttaksalder)) &&
       !vilkaarsproeving.alternativ?.gradertUttaksalder
     )
   }, [vilkaarsproeving])

@@ -33,9 +33,9 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectIsEndring,
   selectLoependeVedtak,
+  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
 import {
-  DEFAULT_TIDLIGST_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
   isAlderOverMinUttaksalder,
@@ -154,11 +154,11 @@ export const BeregningAvansert: React.FC = () => {
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = person
       ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
-      : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
+      : getAlderMinus1Maaned(useAppSelector(selectNedreAldersgrense))
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
     return isAlderOverMinUttaksalder(beregnetMinAlder)
       ? beregnetMinAlder
-      : DEFAULT_TIDLIGST_UTTAKSALDER
+      : useAppSelector(selectNedreAldersgrense)
   }, [person])
 
   const onRetry = (): void => {

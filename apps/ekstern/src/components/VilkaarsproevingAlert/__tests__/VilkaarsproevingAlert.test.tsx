@@ -1,11 +1,12 @@
 import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
+import { useAppSelector } from '@/state/hooks'
+import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
 import { render, screen } from '@/test-utils'
-import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 
 describe('VilkaarsproevingAlert', () => {
-  const uttaksalder = { aar: 63, maaneder: 3 }
+  const uttaksalder = useAppSelector(selectUbetingetUttaksalder)
   const vilkaarsproeving = {
     vilkaarErOppfylt: false,
     alternativ: {
@@ -21,7 +22,9 @@ describe('VilkaarsproevingAlert', () => {
           ...vilkaarsproeving,
           alternativ: {
             ...vilkaarsproeving.alternativ,
-            heltUttaksalder: { ...DEFAULT_UBETINGET_UTTAKSALDER },
+            heltUttaksalder: {
+              ...useAppSelector(selectUbetingetUttaksalder),
+            },
           },
         }}
         uttaksalder={uttaksalder}

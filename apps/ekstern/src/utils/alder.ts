@@ -12,18 +12,13 @@ import {
 } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
 
+import { useAppSelector } from '@/state/hooks'
+import {
+  selectUbetingetUttaksalder,
+  selectNedreAldersgrense,
+} from '@/state/userInput/selectors'
 import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
 import { capitalize } from '@/utils/string'
-
-export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
-  aar: 62,
-  maaneder: 0,
-}
-
-export const DEFAULT_UBETINGET_UTTAKSALDER: Alder = {
-  aar: 67,
-  maaneder: 0,
-}
 
 export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   aar: 75,
@@ -86,20 +81,20 @@ export const isAlderLikEllerOverUbetingetUttaksalder = (
   if (!alder.aar) {
     return false
   }
-  if (alder.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar) {
+  if (alder.aar >= useAppSelector(selectUbetingetUttaksalder).aar) {
     return true
   } else {
     return false
   }
 }
 
-export const isAlderOverMinUttaksalder = (alder: Alder) => {
-  if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
+export const isAlderOverMinUttaksalder = (
+  alder: Alder,
+  nedreAldersgrense: Alder
+) => {
+  if (alder.aar > nedreAldersgrense.aar) {
     return true
-  } else if (
-    alder.aar === DEFAULT_TIDLIGST_UTTAKSALDER.aar &&
-    alder.maaneder > 0
-  ) {
+  } else if (alder.aar === nedreAldersgrense.aar && alder.maaneder > 0) {
     return true
   } else {
     return false
@@ -114,7 +109,7 @@ export const isFoedselsdatoOverEllerLikMinUttaksalder = (
   )
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)
-  return aar >= DEFAULT_TIDLIGST_UTTAKSALDER.aar
+  return aar >= useAppSelector(selectNedreAldersgrense).aar
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {

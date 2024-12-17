@@ -1,9 +1,10 @@
 import { add, endOfDay, format, isBefore, parse, startOfMonth } from 'date-fns'
 
+import { useAppSelector } from '@/state/hooks'
 import { AppDispatch } from '@/state/store'
+import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
-  DEFAULT_UBETINGET_UTTAKSALDER,
   validateAlderFromForm,
   getAlderMinus1Maaned,
   isAlderLikEllerOverUbetingetUttaksalder,
@@ -292,7 +293,7 @@ export const validateAvansertBeregningSkjema = (
         valgtAlder.aar &&
         valgtAlder.maaneder &&
         parseInt(valgtAlder.aar as string, 10) <
-          DEFAULT_UBETINGET_UTTAKSALDER.aar
+          useAppSelector(selectUbetingetUttaksalder).aar
       ) {
         const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
         const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
