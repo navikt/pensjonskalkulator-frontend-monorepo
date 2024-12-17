@@ -157,6 +157,7 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: false,
+            epsHarPensjon: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -250,6 +251,7 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: false,
+            epsHarPensjon: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -341,6 +343,7 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: false,
+            epsHarPensjon: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -432,6 +435,7 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: false,
+            epsHarPensjon: false,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -532,7 +536,7 @@ describe('BeregningAvansert', () => {
 
       it('Når simuleringen svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockResponse('/v7/alderspensjon/simulering', {
+        mockResponse('/v8/alderspensjon/simulering', {
           status: 200,
           method: 'post',
           json: {
@@ -596,7 +600,7 @@ describe('BeregningAvansert', () => {
       it('Når simuleringen feiler, logges det alert og vises resultatkort med informasjon om feilen og mulighet til å prøve på nytt', async () => {
         const user = userEvent.setup()
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockErrorResponse('/v7/alderspensjon/simulering', {
+        mockErrorResponse('/v8/alderspensjon/simulering', {
           method: 'post',
         })
 
@@ -654,7 +658,7 @@ describe('BeregningAvansert', () => {
 
       it('Når simulering svarer med errorcode 503, vises ErrorPageUnexpected ', async () => {
         // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-        mockResponse('/v7/alderspensjon/simulering', {
+        mockResponse('/v8/alderspensjon/simulering', {
           status: 503,
           method: 'post',
         })
@@ -847,6 +851,7 @@ describe('BeregningAvansert', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           gradertUttak: {
             aarligInntektVsaPensjonBeloep: 0,

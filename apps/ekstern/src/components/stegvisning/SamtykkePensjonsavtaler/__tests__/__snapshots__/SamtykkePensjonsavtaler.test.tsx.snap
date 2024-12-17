@@ -53,7 +53,13 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
           data-state="closed"
         >
-          stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress
+          Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem.
+          <br />
+          <br />
+          Vi henter beregning av tjenestepensjonen din fra den siste tjenestepensjonsordningen du var medlem i. Det inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger.
+          <br />
+          <br />
+          Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Statens pensjonskasse (SPK).
         </div>
       </div>
       <div
@@ -119,6 +125,12 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         >
           stegvisning.samtykke_pensjonsavtaler.radio_label
         </legend>
+        <div
+          class="navds-fieldset__description navds-body-short navds-body-short--medium"
+          id="fieldset-description-r3"
+        >
+          stegvisning.samtykke_pensjonsavtaler.radio_description
+        </div>
         <div
           class="navds-radio-buttons"
         >

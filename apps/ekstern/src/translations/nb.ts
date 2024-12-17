@@ -205,15 +205,15 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
+    'Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig. Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'Dette sjekker vi om tjenestepensjon i offentlig sektor',
+    'Dette henter vi fra offentlige tjenestepensjonsordninger',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'Hvis du samtykker sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning og informerer deg om det. Vi kan dessverre ikke hente inn offentlige pensjonsavtaler.',
+    'Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem.{br}{br}Vi henter beregning av tjenestepensjonen din fra den siste tjenestepensjonsordningen du var medlem i. Det inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger.{br}{br}Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Statens pensjonskasse (SPK).',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
-    'Dette henter vi om pensjonsavtaler fra privat sektor',
+    'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'Hvis du samtykker henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon:',
+    'Hvis du samtykker, henter vi beregning av pensjonsavtaler i privat sektor fra Norsk Pensjon:',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
@@ -222,6 +222,8 @@ const translations = {
     'enkelte pensjonssparingsavtaler som du har tegnet selv',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente pensjonsavtalene dine?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description':
+    'Samtykket gjelder bare for beregninger i denne kalkulatoren, frem til du logger ut.',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -272,7 +274,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Vil du at Nav skal beregne AFP for deg?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'Samtykket gjelder kun beregninger i denne kalkulatoren.',
+    'Samtykket gjelder bare for beregninger i denne kalkulatoren, frem til du logger ut.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
@@ -358,25 +360,17 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.tpo.info':
-    'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.endring':
+  'beregning.pensjonsavtaler.alert.endring':
     'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
-  'beregning.tpo.info.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
@@ -619,7 +613,7 @@ const translations = {
   'pensjonsavtaler.offentligtp.spk_error':
     'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
   'pensjonsavtaler.offentligtp.spk_empty':
-    'Vi fikk ikke noe svar fra din offentlige tjenestepensjon.',
+    'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.afp_ja':
@@ -722,7 +716,7 @@ const translations = {
     'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
-    'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}Nav har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
+    'Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger.{br}{br}Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon.{br}{br}Beregningen av offentlig tjenestepensjon fra Statens pensjonskasse (SPK) er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i SPK fra datoen du beregner pensjonen fra.{br}{br}Beregning av privat tjenestepensjon graderes likt som alderspensjon for de avtalene der det er mulig. Offentlig tjenestepensjon beregnes kun med 100 % uttaksgrad.',
   'personopplysninger.header':
     'Personopplysninger som brukes i pensjonskalkulator',
   'personopplysninger.section.formaal.header':
