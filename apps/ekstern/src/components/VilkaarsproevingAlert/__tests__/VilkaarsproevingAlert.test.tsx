@@ -23,7 +23,7 @@ describe('VilkaarsproevingAlert', () => {
           alternativ: {
             ...vilkaarsproeving.alternativ,
             heltUttaksalder: {
-              ...useAppSelector(selectUbetingetUttaksalder),
+              ...uttaksalder,
             },
           },
         }}

@@ -112,31 +112,55 @@ describe('alder-utils', () => {
   })
 
   describe('isAlderLikEllerOverUbetingetUttaksalder', () => {
-    it('returnerer true når alderen er lik eller over 67 år', () => {
+    const ubetingetUttaksalder = { aar: 67, maaneder: 0 }
+    it('returnerer true når alderen er lik eller over ubetinget uttaksalder', () => {
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 67, maaneder: 0 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 67, maaneder: 0 },
+          ubetingetUttaksalder
+        )
       ).toBeTruthy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 67, maaneder: 11 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 67, maaneder: 11 },
+          ubetingetUttaksalder
+        )
       ).toBeTruthy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 70, maaneder: 3 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 70, maaneder: 3 },
+          ubetingetUttaksalder
+        )
       ).toBeTruthy()
     })
 
     it('returnerer false når alderen er under 67 år', () => {
-      expect(isAlderLikEllerOverUbetingetUttaksalder({})).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ maaneder: 6 })
+        isAlderLikEllerOverUbetingetUttaksalder({}, ubetingetUttaksalder)
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 62, maaneder: 1 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { maaneder: 6 },
+          ubetingetUttaksalder
+        )
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 63, maaneder: 0 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 62, maaneder: 1 },
+          ubetingetUttaksalder
+        )
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({ aar: 66, maaneder: 11 })
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 63, maaneder: 0 },
+          ubetingetUttaksalder
+        )
+      ).toBeFalsy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder(
+          { aar: 66, maaneder: 11 },
+          ubetingetUttaksalder
+        )
       ).toBeFalsy()
     })
   })
@@ -161,7 +185,7 @@ describe('alder-utils', () => {
       expect(
         isAlderOverMinUttaksalder(
           { aar: 62, maaneder: 1 },
-          { aar: 63, maaneder: 0 }
+          { aar: 62, maaneder: 0 }
         )
       ).toBeTruthy()
 
@@ -187,13 +211,17 @@ describe('alder-utils', () => {
   })
 
   describe('isFoedselsdatoOverEllerLikMinUttaksalder', () => {
+    const nedreAldersgrense = { aar: 62, maaneder: 0 }
     it('returnerer true når fødselsdatoen er 62 år fra nå', () => {
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
         years: -62,
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
       expect(
-        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)
+        isFoedselsdatoOverEllerLikMinUttaksalder(
+          foedselsdato,
+          nedreAldersgrense
+        )
       ).toBeTruthy()
     })
 
@@ -204,7 +232,10 @@ describe('alder-utils', () => {
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
       expect(
-        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)
+        isFoedselsdatoOverEllerLikMinUttaksalder(
+          foedselsdato,
+          nedreAldersgrense
+        )
       ).toBeTruthy()
     })
 
@@ -214,7 +245,12 @@ describe('alder-utils', () => {
         months: -11,
       })
       const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
-      expect(isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)).toBeFalsy()
+      expect(
+        isFoedselsdatoOverEllerLikMinUttaksalder(
+          foedselsdato,
+          nedreAldersgrense
+        )
+      ).toBeFalsy()
     })
   })
 

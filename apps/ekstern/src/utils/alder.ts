@@ -12,11 +12,6 @@ import {
 } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
 
-import { useAppSelector } from '@/state/hooks'
-import {
-  selectUbetingetUttaksalder,
-  selectNedreAldersgrense,
-} from '@/state/userInput/selectors'
 import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
 import { capitalize } from '@/utils/string'
 
@@ -76,12 +71,13 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
 }
 
 export const isAlderLikEllerOverUbetingetUttaksalder = (
-  alder: Alder | Partial<Alder>
+  alder: Alder | Partial<Alder>,
+  ubetingetUttaksalder: Alder
 ) => {
   if (!alder.aar) {
     return false
   }
-  if (alder.aar >= useAppSelector(selectUbetingetUttaksalder).aar) {
+  if (alder.aar >= ubetingetUttaksalder.aar) {
     return true
   } else {
     return false
@@ -102,14 +98,15 @@ export const isAlderOverMinUttaksalder = (
 }
 
 export const isFoedselsdatoOverEllerLikMinUttaksalder = (
-  foedselsdato: string
+  foedselsdato: string,
+  nedreAldersgrense: Alder
 ) => {
   const birtdateJs = endOfDay(
     parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
   )
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)
-  return aar >= useAppSelector(selectNedreAldersgrense).aar
+  return aar >= nedreAldersgrense.aar
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {
