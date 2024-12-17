@@ -624,15 +624,15 @@ describe('Typeguards', () => {
 
       describe('navn validation', () => {
         it('returnerer false når navn mangler', () => {
-          const { navn, ...personWithoutNavn } = validPerson
-          expect(isPerson(personWithoutNavn)).toEqual(false)
+          expect(isPerson({ ...validPerson, navn: undefined })).toEqual(false)
         })
       })
 
       describe('sivilstand validation', () => {
         it('returnerer false når sivilstand mangler', () => {
-          const { sivilstand, ...personWithoutSivilstand } = validPerson
-          expect(isPerson(personWithoutSivilstand)).toEqual(false)
+          expect(isPerson({ ...validPerson, sivilstand: undefined })).toEqual(
+            false
+          )
         })
 
         it('returnerer false når sivilstand har ugyldig verdi', () => {
@@ -647,8 +647,9 @@ describe('Typeguards', () => {
 
       describe('foedselsdato validation', () => {
         it('returnerer false når foedselsdato mangler', () => {
-          const { foedselsdato, ...personWithoutFoedselsdato } = validPerson
-          expect(isPerson(personWithoutFoedselsdato)).toEqual(false)
+          expect(isPerson({ ...validPerson, foedselsdato: undefined })).toEqual(
+            false
+          )
         })
 
         it('returnerer false når foedselsdato har ugyldig format', () => {
