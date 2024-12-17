@@ -204,15 +204,15 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Delete Stay',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pension Agreements',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'We need your consent to retrieve occupational pension and other pension agreements from employers. If you answer no, you will calculate retirement pension (Nav) and any AFP (contractual pension).',
+    'If you want to view occupational pensions and other pension agreements, you must consent to Nav retrieving this information. Consent is voluntary. If you answer no, you will calculate retirement pension (Nav) and any AFP (contractual pension).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'What we check about occupational pension in the public sector',
+    'We retrieve this from public occupational pension schemes.',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'If you consent, we will check if you are or have been a member of a public occupational pension scheme and inform you about it. Unfortunately, we cannot retrieve public pension agreements.',
+    'If you consent, we will check whether you are or have been a member of a public occupational pension scheme. If you have been a member of several schemes, we will exchange information to determine where you were most recently a member.{br}{br}We will retrieve the calculation of your occupational pension from the last pension scheme you were a member of. This includes any membership time from other public occupational pension schemes.{br}{br}We can only retrieve pension agreements from certain occupational pension schemes, including the Norwegian Public Service Pension Fund (SPK).',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
-    'What we retrieve about pension agreements from the private sector',
+    'What we retrieve from Norsk Pensjon about pension agreements from the private sector',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'If you consent, we will retrieve information about pension agreements in the private sector from Norsk Pensjon:',
+    'If you consent, we will retrieve calculations of pension agreements in the private sector from Norsk Pensjon:',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'occupational pension from the employer (defined contribution, defined benefit, or hybrid pension)',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
@@ -221,6 +221,7 @@ const translations = {
     'certain pension savings agreements you have taken out yourself',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Should we retrieve your pension agreements?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Yes',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'No, continue without',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -274,7 +275,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Do you want Nav to calculate AFP for you?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'The consent only applies to calculations in this calculator.',
+    'The consent only applies for calculations in this calculator, until you log out.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Yes',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'No, continue without',
   'stegvisning.samtykke_offentlig_afp.validation_error':
@@ -363,23 +364,17 @@ const translations = {
     'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
-  'beregning.tpo.info':
-    'This calculation may not show everything. You may be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.error':
+  'beregning.pensjonsavtaler.alert.endring':
+    'Pension agreements from employers and personal savings are not included in the calculation.',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'The calculation may not show everything. You may be entitled to a public sector occupational pension. Read more under <scrollTo>pension agreements</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat.error':
     'This calculation may not show everything. We could not retrieve your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not retrieve all your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.error':
-    'This calculation may not show everything. We could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not retrieve all <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.tpo.error':
+  'beregning.pensjonsavtaler.alert.offentlig.error':
     'This calculation may not show everything. We could not check whether you have pension agreements in the public sector. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.error':
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
     'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.partial':
-    'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve all <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'You have pension agreements that start before the age you selected. See periods under <scrollTo>Pension Agreements</scrollTo>.',
   'beregning.title': 'Calculation',
   'beregning.alert.inntekt':
@@ -591,11 +586,12 @@ const translations = {
     'This calculator is under development. If you need to save calculations and see more details, you can do it in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
-  'pensjonsavtaler.ingress.norsk_pensjon':
-    'All agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
+    'Agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'We could not retrieve your private pension agreements. Please try again later.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'We could not retrieve all your private pension agreements. Please try again later.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'You have not consented to retrieve pension agreements.',
@@ -604,18 +600,32 @@ const translations = {
     'if you want to include this in the calculation.',
   'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
-  'pensjonsavtaler.livsvarig': 'Lifelong from',
+  'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
   'pensjonsavtaler.tabell.title.left': 'Agreements',
   'pensjonsavtaler.tabell.title.middle': 'Periods',
   'pensjonsavtaler.tabell.title.right': 'Annual Amount',
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
-  'pensjonsavtaler.tpo.title': 'Public Occupational Pension',
-  'pensjonsavtaler.tpo.er_medlem':
+  'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
-  'pensjonsavtaler.tpo.error':
+  'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error':
+    'We were unable to retrieve your public service pension. Please try again later or contact <spkLink>SPK</spkLink>.',
+  'pensjonsavtaler.offentligtp.spk_empty':
+    'We did not receive a response regarding your public service pension.',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
+  'pensjonsavtaler.offentligtp.afp_ja':
+    'Lifelong AFP is not included in the amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+    'You have stated that you are not entitled to lifelong AFP. Conditional occupational pension is therefore included in the amount. Check <spkLink>SPK</spkLink> for details.',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+    'You have stated that you are not entitled to lifelong AFP. Check <spkLink>SPK</spkLink> for details.',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+    'You have stated that you are unsure if you are entitled to lifelong AFP. The amount may therefore include conditional occupational pension. Check <spkLink>SPK</spkLink> for details.',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':

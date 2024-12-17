@@ -9,6 +9,7 @@ import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
   useOffentligTpQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import {
@@ -27,10 +28,7 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 
-import {
-  useSimuleringChartLocalState,
-  useSimuleringPensjonsavtalerLocalState,
-} from './hooks'
+import { useSimuleringChartLocalState } from './hooks'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
@@ -42,9 +40,9 @@ export function Simulering(props: {
   isLoading: boolean
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
-  alderspensjonListe?: PensjonsberegningMedDetaljer[]
-  afpPrivatListe?: Pensjonsberegning[]
-  afpOffentligListe?: Pensjonsberegning[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  afpPrivatListe?: AfpPrivatPensjonsberegning[]
+  afpOffentligListe?: AfpPrivatPensjonsberegning[]
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   showButtonsAndTable?: boolean
   detaljer?: {
@@ -89,13 +87,19 @@ export function Simulering(props: {
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
 
-  const { data: offentligTp, isError: isOffentligTpError } =
-    useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
-      skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
-    })
+  const { data: tpOffentligFeatureToggle } =
+    useGetTpOffentligFeatureToggleQuery()
 
   const {
-    data: pensjonsavtaler,
+    data: offentligTpData,
+    isFetching: isOffentligTpLoading,
+    isError: isOffentligTpError,
+  } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
+    skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
+  })
+
+  const {
+    data: pensjonsavtalerData,
     isFetching: isPensjonsavtalerLoading,
     isSuccess: isPensjonsavtalerSuccess,
     isError: isPensjonsavtalerError,
@@ -113,25 +117,27 @@ export function Simulering(props: {
           afp,
           foedselsdato,
           harSamboer,
-          aarligInntektFoerUttakBeloep,
-          uttaksalder: gradertUttaksperiode
-            ? gradertUttaksperiode.uttaksalder
-            : uttaksalder,
+          aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+          heltUttak: {
+            uttaksalder,
+            aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+          },
           utenlandsperioder,
         })
       )
       setPensjonsavtalerRequestBody(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep,
           ufoeregrad,
           afp,
           sivilstand,
           harSamboer,
+          aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
             uttaksalder,
             aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
           },
-          gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         })
       )
     }
@@ -157,24 +163,16 @@ export function Simulering(props: {
     afpOffentligListe,
     pensjonsavtaler: {
       isLoading: isPensjonsavtalerLoading,
-      isSuccess: isPensjonsavtalerSuccess,
-      isError: isPensjonsavtalerError,
-      data: pensjonsavtaler,
-    },
-  })
-
-  const [pensjonsavtalerAlert] = useSimuleringPensjonsavtalerLocalState({
-    isEndring,
-    isPensjonsavtaleFlagVisible,
-    pensjonsavtaler: {
-      isLoading: isPensjonsavtalerLoading,
-      isSuccess: isPensjonsavtalerSuccess,
-      isError: isPensjonsavtalerError,
-      data: pensjonsavtaler,
+      data: pensjonsavtalerData,
     },
     offentligTp: {
-      isError: isOffentligTpError,
-      data: offentligTp,
+      isLoading: isOffentligTpLoading,
+      data: tpOffentligFeatureToggle?.enabled
+        ? offentligTpData
+        : ({
+            ...offentligTpData,
+            simulertTjenestepensjon: undefined,
+          } as OffentligTp),
     },
   })
 
@@ -209,8 +207,17 @@ export function Simulering(props: {
         />
       )}
       <SimuleringPensjonsavtalerAlert
-        variant={pensjonsavtalerAlert?.variant}
-        text={pensjonsavtalerAlert?.text}
+        isPensjonsavtaleFlagVisible={isPensjonsavtaleFlagVisible}
+        pensjonsavtaler={{
+          isLoading: isPensjonsavtalerLoading,
+          isError: isPensjonsavtalerError,
+          isSuccess: isPensjonsavtalerSuccess,
+          data: pensjonsavtalerData,
+        }}
+        offentligTp={{
+          isError: isOffentligTpError,
+          data: offentligTpData,
+        }}
       />
 
       {showButtonsAndTable && (

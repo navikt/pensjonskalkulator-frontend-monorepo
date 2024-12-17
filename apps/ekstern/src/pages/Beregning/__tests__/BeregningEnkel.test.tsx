@@ -59,7 +59,8 @@ describe('BeregningEnkel', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           aarligInntektVsaPensjon: undefined,
-          harEps: false,
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',
           utenlandsperiodeListe: [],
@@ -105,7 +106,8 @@ describe('BeregningEnkel', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           aarligInntektVsaPensjon: undefined,
-          harEps: false,
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
           utenlandsperiodeListe: [],
@@ -152,10 +154,10 @@ describe('BeregningEnkel', () => {
 
     describe('Når kallet til TMU feiler,', () => {
       beforeEach(() => {
-        mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+        mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
           method: 'post',
         })
-        mockResponse('/v7/alderspensjon/simulering', {
+        mockResponse('/v8/alderspensjon/simulering', {
           status: 200,
           method: 'post',
           json: {
@@ -355,7 +357,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -379,8 +381,9 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -447,7 +450,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -471,8 +474,9 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -539,7 +543,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -563,8 +567,9 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -631,7 +636,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -655,8 +660,9 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -703,7 +709,7 @@ describe('BeregningEnkel', () => {
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/v7/alderspensjon/simulering', {
+      mockErrorResponse('/v8/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -745,7 +751,7 @@ describe('BeregningEnkel', () => {
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
@@ -781,7 +787,7 @@ describe('BeregningEnkel', () => {
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
       const user = userEvent.setup()
-      mockResponse('/v7/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
@@ -796,7 +802,7 @@ describe('BeregningEnkel', () => {
           harForLiteTrygdetid: false,
         },
       })
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+      mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
         method: 'post',
       })
       render(<BeregningEnkel />, {
@@ -817,7 +823,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -980,7 +986,7 @@ describe('BeregningEnkel', () => {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: '0',
+              aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
             },
           },
@@ -1004,8 +1010,9 @@ describe('BeregningEnkel', () => {
 
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 0,
+          aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: false,
+          epsHarPensjon: false,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {

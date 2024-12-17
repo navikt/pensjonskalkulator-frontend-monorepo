@@ -73,22 +73,28 @@ export function SamtykkePensjonsavtaler({
           />
         </BodyLong>
         <ReadMore
-          name="Dette sjekker vi om tjenestepensjon i offentlig sektor"
+          name="Dette henter vi fra offentlige tjenestepensjonsordninger"
           className={styles.readmoreOffentlig}
           header={
             <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title" />
           }
         >
-          <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress" />
+          <FormattedMessage
+            id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress"
+            values={{ ...getFormatMessageValues(intl) }}
+          />
         </ReadMore>
         <ReadMore
-          name="Dette henter vi om pensjonsavtaler fra privat sektor"
+          name="Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor"
           className={styles.readmorePrivat}
           header={
             <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_title" />
           }
         >
-          <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress" />
+          <FormattedMessage
+            id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress"
+            values={{ ...getFormatMessageValues(intl) }}
+          />
           <ul className={styles.list}>
             <li>
               <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1" />
@@ -106,6 +112,9 @@ export function SamtykkePensjonsavtaler({
           className={styles.radiogroup}
           legend={
             <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_label" />
+          }
+          description={
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_description" />
           }
           name="samtykke"
           defaultValue={

@@ -7,7 +7,6 @@ import HighchartsReact from 'highcharts-react-official'
 import { transformFoedselsdatoToAlder } from '@/utils/alder'
 import { getAlderMinus1Maaned } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { logger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -31,17 +30,19 @@ export const useSimuleringChartLocalState = (initialValues: {
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
   isLoading: boolean
-  alderspensjonListe?: PensjonsberegningMedDetaljer[]
-  afpPrivatListe?: Pensjonsberegning[]
-  afpOffentligListe?: Pensjonsberegning[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  afpPrivatListe?: AfpPrivatPensjonsberegning[]
+  afpOffentligListe?: AfpPrivatPensjonsberegning[]
   pensjonsavtaler: {
     isLoading: boolean
-    isSuccess: boolean
-    isError: boolean
     data?: {
       avtaler: Pensjonsavtale[]
       partialResponse: boolean
     }
+  }
+  offentligTp: {
+    isLoading: boolean
+    data?: OffentligTp
   }
 }) => {
   const {
@@ -58,10 +59,15 @@ export const useSimuleringChartLocalState = (initialValues: {
     afpPrivatListe,
     afpOffentligListe,
     pensjonsavtaler,
+    offentligTp,
   } = initialValues
 
   const { isLoading: isPensjonsavtalerLoading, data: pensjonsavtalerData } =
     pensjonsavtaler
+  const { isLoading: isOffentligTpLoading, data: offentligTpData } = offentligTp
+  const offentligTpUtbetalingsperioder =
+    offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+      .utbetalingsperioder
   const intl = useIntl()
   const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -92,7 +98,7 @@ export const useSimuleringChartLocalState = (initialValues: {
 
   React.useEffect(() => {
     if (chartRef.current) {
-      if (isLoading || pensjonsavtaler.isLoading) {
+      if (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) {
         chartRef.current.chart.showLoading(
           `<div class="${styles.loader}"><div></div><div></div><div></div><div></div></div>`
         )
@@ -100,7 +106,7 @@ export const useSimuleringChartLocalState = (initialValues: {
         chartRef.current.chart.hideLoading()
       }
     }
-  }, [isLoading, isPensjonsavtalerLoading])
+  }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
@@ -112,25 +118,37 @@ export const useSimuleringChartLocalState = (initialValues: {
           : uttaksalder?.aar
 
     if (startAar) {
-      // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
-      if (!isLoading && isPensjonsavtalerLoading) {
+      // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler or offentligTp
+      if (!isLoading && (isPensjonsavtalerLoading || isOffentligTpLoading)) {
         setXAxis(
-          generateXAxis(startAar, isEndring, [], setIsPensjonsavtaleFlagVisible)
+          generateXAxis(
+            startAar,
+            isEndring,
+            [],
+            offentligTpUtbetalingsperioder
+              ? [...offentligTpUtbetalingsperioder]
+              : [],
+
+            setIsPensjonsavtaleFlagVisible
+          )
         )
       }
-      // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
-      if (!isLoading && !isPensjonsavtalerLoading) {
+      // recalculates correclty when alderspensjon AND pensjonsavtaler AND offentligTp are done loading
+      if (!isLoading && !isPensjonsavtalerLoading && !isOffentligTpLoading) {
         setXAxis(
           generateXAxis(
             startAar,
             isEndring,
             pensjonsavtalerData?.avtaler ?? [],
+            offentligTpUtbetalingsperioder
+              ? [...offentligTpUtbetalingsperioder]
+              : [],
             setIsPensjonsavtaleFlagVisible
           )
         )
       }
     }
-  }, [alderspensjonListe, pensjonsavtalerData])
+  }, [alderspensjonListe, pensjonsavtalerData, offentligTpUtbetalingsperioder])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
@@ -224,9 +242,12 @@ export const useSimuleringChartLocalState = (initialValues: {
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(pensjonsavtaler?.isSuccess &&
-          pensjonsavtaler.data &&
-          pensjonsavtaler.data.avtaler.length > 0
+          ...((pensjonsavtalerData &&
+            pensjonsavtalerData?.avtaler.length > 0) ||
+          (offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+            .utbetalingsperioder &&
+            offentligTpData.simulertTjenestepensjon.simuleringsresultat
+              .utbetalingsperioder?.length > 0)
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
@@ -237,7 +258,9 @@ export const useSimuleringChartLocalState = (initialValues: {
                   data: processPensjonsavtalerArray(
                     isEndring ? startAar : startAar - 1,
                     XAxis.length,
-                    pensjonsavtaler.data.avtaler
+                    pensjonsavtalerData?.avtaler ?? [],
+                    offentligTpData?.simulertTjenestepensjon
+                      ?.simuleringsresultat.utbetalingsperioder ?? []
                   ),
                 } as SeriesOptionsType,
               ]
@@ -264,135 +287,4 @@ export const useSimuleringChartLocalState = (initialValues: {
     showVisFlereAarButton,
     isPensjonsavtaleFlagVisible,
   ] as const
-}
-
-export const useSimuleringPensjonsavtalerLocalState = (initialValues: {
-  isEndring: boolean
-  isPensjonsavtaleFlagVisible: boolean
-  pensjonsavtaler: {
-    isLoading: boolean
-    isSuccess: boolean
-    isError: boolean
-    data?: {
-      avtaler: Pensjonsavtale[]
-      partialResponse: boolean
-    }
-  }
-  offentligTp: {
-    isError: boolean
-    data?: OffentligTp
-  }
-}) => {
-  const {
-    isEndring,
-    isPensjonsavtaleFlagVisible,
-    pensjonsavtaler,
-    offentligTp,
-  } = initialValues
-  const {
-    isSuccess: isPensjonsavtalerSuccess,
-    isError: isPensjonsavtalerError,
-    data: pensjonsavtalerData,
-  } = pensjonsavtaler
-
-  React.useEffect(() => {
-    if (offentligTp.isError) {
-      logger('alert', {
-        tekst:
-          'TPO infoboks: Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor',
-      })
-    } else if (
-      offentligTp?.data?.muligeTpLeverandoerListe &&
-      offentligTp?.data?.muligeTpLeverandoerListe.length > 0
-    ) {
-      logger('alert', {
-        tekst: 'TPO infoboks: Du kan ha rett til offentlig tjenestepensjon',
-      })
-    }
-  }, [offentligTp])
-
-  const pensjonsavtalerAlert = React.useMemo(():
-    | { variant: 'alert-info' | 'alert-warning' | 'info'; text: string }
-    | undefined => {
-    const isPartialWith0Avtaler =
-      pensjonsavtaler?.data?.partialResponse &&
-      pensjonsavtaler?.data?.avtaler.length === 0
-
-    if (!pensjonsavtaler?.isLoading && isPensjonsavtaleFlagVisible) {
-      return {
-        variant: 'info',
-        text: 'beregning.pensjonsavtaler.info',
-      }
-    }
-    if (isEndring) {
-      return {
-        variant: 'info',
-        text: 'beregning.tpo.info.endring',
-      }
-    }
-    if (offentligTp && offentligTp.data) {
-      if (offentligTp.data.muligeTpLeverandoerListe.length > 0) {
-        if (pensjonsavtaler?.isError || isPartialWith0Avtaler) {
-          return {
-            variant: 'alert-warning',
-            text: 'beregning.tpo.info.pensjonsavtaler.error',
-          }
-        } else if (pensjonsavtaler?.isSuccess) {
-          if (pensjonsavtaler.data?.partialResponse) {
-            return {
-              variant: 'alert-warning',
-              text: 'beregning.tpo.info.pensjonsavtaler.partial',
-            }
-          } else {
-            return {
-              variant: 'alert-info',
-              text: 'beregning.tpo.info',
-            }
-          }
-        }
-      } else {
-        if (pensjonsavtaler?.isError || isPartialWith0Avtaler) {
-          return {
-            variant: 'alert-warning',
-            text: 'beregning.pensjonsavtaler.error',
-          }
-        } else if (pensjonsavtaler?.data?.partialResponse) {
-          return {
-            variant: 'alert-warning',
-            text: 'beregning.pensjonsavtaler.partial',
-          }
-        }
-      }
-    } else {
-      if (
-        offentligTp.isError &&
-        (pensjonsavtaler?.isError || isPartialWith0Avtaler)
-      ) {
-        return {
-          variant: 'alert-warning',
-          text: 'beregning.tpo.error.pensjonsavtaler.error',
-        }
-      } else if (offentligTp.isError && pensjonsavtaler?.isSuccess) {
-        if (pensjonsavtaler.data?.partialResponse) {
-          return {
-            variant: 'alert-warning',
-            text: 'beregning.tpo.error.pensjonsavtaler.partial',
-          }
-        } else {
-          return {
-            variant: 'alert-warning',
-            text: 'beregning.tpo.error',
-          }
-        }
-      }
-    }
-  }, [
-    offentligTp,
-    isPensjonsavtaleFlagVisible,
-    isPensjonsavtalerSuccess,
-    isPensjonsavtalerError,
-    pensjonsavtalerData,
-  ])
-
-  return [pensjonsavtalerAlert] as const
 }

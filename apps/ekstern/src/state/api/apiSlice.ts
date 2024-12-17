@@ -101,7 +101,7 @@ export const apiSlice = createApi({
     }),
     offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
       query: (body) => ({
-        url: '/v1/simuler-oftp',
+        url: '/v2/simuler-oftp',
         method: 'POST',
         body,
       }),
@@ -121,7 +121,7 @@ export const apiSlice = createApi({
       TidligstMuligHeltUttakRequestBody | void
     >({
       query: (body) => ({
-        url: '/v1/tidligste-hel-uttaksalder',
+        url: '/v2/tidligste-hel-uttaksalder',
         method: 'POST',
         body,
       }),
@@ -166,7 +166,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v7/alderspensjon/simulering',
+        url: '/v8/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -196,8 +196,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-endring',
+    getTpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-tpoffentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -236,6 +236,6 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
-  useGetEndringFeatureToggleQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

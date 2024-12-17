@@ -195,6 +195,7 @@ const translations = {
     'gjeld samtykket kun for denne utrekninga.',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente dine pensjonsavtalar?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -310,16 +311,12 @@ const translations = {
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
-  'beregning.tpo.info': 'MANGLER_TEKST',
-  'beregning.tpo.info.endring': 'MANGLER_TEKST',
-  'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.tpo.error': 'MANGLER_TEKST',
-  'beregning.tpo.error.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.tpo.error.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.privat.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.offentlig.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
   'beregning.alert.inntekt': 'MANGLER_TEKST',
@@ -485,11 +482,13 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.ingress.norsk_pensjon':
+  'pensjonsavtaler.fra_og_med_forklaring': 'MANGLER_TEKST',
+  'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
@@ -497,13 +496,20 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'viss du ynskjer å få dette i utrekninga.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
-  'pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
+  'alder.livsvarig': 'Livsvarig frå og med',
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
-  'pensjonsavtaler.tpo.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.tpo.er_medlem': 'MANGLER_TEKST',
-  'pensjonsavtaler.tpo.error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_error': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk_empty': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.subtitle.spk': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_ja': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',

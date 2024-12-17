@@ -11,15 +11,15 @@ import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-o
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
-import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableTpOffentligToggleResponse from './data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
-    await delay(1500)
+    await delay(500)
     return HttpResponse.json({
       session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
       tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
@@ -61,7 +61,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(ansattIdResponse)
   }),
 
-  http.post(`${baseUrl}/v1/simuler-oftp`, async () => {
+  http.post(`${baseUrl}/v2/simuler-oftp`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(offentligTpResponse)
   }),
@@ -71,7 +71,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(loependeVedtakResponse)
   }),
 
-  http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
+  http.post(`${baseUrl}/v2/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
@@ -85,14 +85,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v7/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v8/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
     const data = await import(`./data/alderspensjon/${aar}.json`)
     const mergedData = JSON.parse(JSON.stringify(data.default))
-    let afpPrivat: Pensjonsberegning[] = []
-    let afpOffentlig: Pensjonsberegning[] = []
+    let afpPrivat: AfpPrivatPensjonsberegning[] = []
+    let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
       'ALDERSPENSJON_MED_AFP_PRIVAT'
@@ -147,10 +147,13 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
   ),
 
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-endring`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(enableEndringToggleResponse)
-  }),
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-tpoffentlig`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableTpOffentligToggleResponse)
+    }
+  ),
 
   http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
     await delay(TEST_DELAY)

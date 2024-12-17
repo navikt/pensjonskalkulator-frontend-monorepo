@@ -1,9 +1,9 @@
 import { describe, it } from 'vitest'
 
-import { PensjonsavtalerTable } from '../PensjonsavtalerTable'
+import { PrivatePensjonsavtalerMobile } from '../PrivatePensjonsavtalerMobile'
 import { render, screen } from '@/test-utils'
 
-describe('PensjonsavtalerTable', () => {
+describe('PrivatePensjonsavtalerMobile', () => {
   const avtale: Pensjonsavtale = {
     key: 0,
     produktbetegnelse: 'DNB',
@@ -17,7 +17,6 @@ describe('PensjonsavtalerTable', () => {
       },
     ],
   }
-
   const avtaler = [
     avtale,
     {
@@ -33,38 +32,40 @@ describe('PensjonsavtalerTable', () => {
   ]
 
   it('rendrer riktig header for pensjonsavtaler', async () => {
-    render(<PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />)
-    expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
+    render(
+      <PrivatePensjonsavtalerMobile
+        headingLevel="4"
+        pensjonsavtaler={avtaler}
+      />
+    )
+    expect(await screen.findAllByRole('heading', { level: 5 })).toHaveLength(2)
     expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
   it('rendrer riktig med avtaler som bare har start dato', async () => {
     const { container } = render(
-      <PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />
+      <PrivatePensjonsavtalerMobile
+        headingLevel="4"
+        pensjonsavtaler={avtaler}
+      />
     )
-    expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.left')
+      await screen.findByTestId('private-pensjonsavtaler-mobile')
     ).toBeVisible()
-    expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.middle')
-    ).toBeVisible()
-    expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.right')
-    ).toBeVisible()
-
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText('pensjonsavtaler.livsvarig 67 alder.aar')
+      await screen.findByText('alder.livsvarig 67 alder.aar:')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'pensjonsavtaler.livsvarig 67 alder.aar string.og 6 alder.md'
+        'alder.livsvarig 67 alder.aar string.og 6 alder.md:'
       )
     ).toBeVisible()
-    expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
+    expect(
+      await screen.findAllByText('12 345 pensjonsavtaler.kr_pr_aar')
+    ).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
-    expect(rows?.length).toBe(3)
+    expect(rows?.length).toBe(2)
   })
 
   it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
@@ -91,33 +92,30 @@ describe('PensjonsavtalerTable', () => {
     }
 
     const { container } = render(
-      <PensjonsavtalerTable
+      <PrivatePensjonsavtalerMobile
         headingLevel="4"
         pensjonsavtaler={[avtaleMedStartOgSlutt]}
       />
     )
-    expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.left')
-    ).toBeVisible()
-    expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.middle')
-    ).toBeVisible()
-    expect(
-      await screen.findByText('pensjonsavtaler.tabell.title.right')
+      await screen.findByTestId('private-pensjonsavtaler-mobile')
     ).toBeVisible()
 
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText('String.fra 67 alder.aar string.til 77 alder.aar')
+      await screen.findByText(
+        'String.fra 67 alder.aar string.til 77 alder.aar:'
+      )
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md'
+        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md:'
       )
     ).toBeVisible()
-    expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
+    expect(
+      await screen.findAllByText('12 345 pensjonsavtaler.kr_pr_aar')
+    ).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
-    expect(rows?.length).toBe(3)
+    expect(rows?.length).toBe(2)
   })
 })

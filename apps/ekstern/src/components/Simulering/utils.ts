@@ -119,7 +119,7 @@ export const processInntektArray = (args: {
 }
 
 export const processPensjonsberegningArray = (
-  pensjonsberegninger: Pensjonsberegning[] = [],
+  pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
   isEndring: boolean,
   length: number
 ): number[] => {
@@ -168,37 +168,41 @@ export const getAntallMaanederMedPensjon = (
 export const processPensjonsavtalerArray = (
   startAar: number, // uttaksaar, minus 1
   length: number,
-  pensjonsavtaler: Pensjonsavtale[]
+  privatePensjonsavtaler: Pensjonsavtale[],
+  offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[]
 ): number[] => {
   const sluttAlder = startAar + length - 1
   const result = new Array(sluttAlder - startAar + 1).fill(0)
 
-  pensjonsavtaler.forEach((avtale) => {
-    avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
-      const avtaleStartYear = Math.max(
-        startAar,
-        utbetalingsperiode.startAlder.aar
-      )
-      const avtaleEndYear = utbetalingsperiode.sluttAlder
-        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder.aar)
-        : sluttAlder
+  const samledeUtbetalingsperioder = [
+    ...privatePensjonsavtaler.flatMap((avtale) => avtale.utbetalingsperioder),
+    ...offentligTpUtbetalingsperioder,
+  ]
 
-      for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
-        if (year >= startAar) {
-          const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
-            year,
-            utbetalingsperiode.startAlder,
-            utbetalingsperiode.sluttAlder
-          )
+  samledeUtbetalingsperioder.forEach((utbetalingsperiode) => {
+    const avtaleStartYear = Math.max(
+      startAar,
+      utbetalingsperiode.startAlder.aar
+    )
+    const avtaleEndYear = utbetalingsperiode.sluttAlder
+      ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder.aar)
+      : sluttAlder
 
-          const allocatedAmount =
-            (utbetalingsperiode.aarligUtbetaling *
-              Math.max(0, antallMaanederMedPensjon)) /
-            12
-          result[year - startAar] += allocatedAmount
-        }
+    for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
+      if (year >= startAar) {
+        const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
+          year,
+          utbetalingsperiode.startAlder,
+          utbetalingsperiode.sluttAlder
+        )
+
+        const allocatedAmount =
+          (utbetalingsperiode.aarligUtbetaling *
+            Math.max(0, antallMaanederMedPensjon)) /
+          12
+        result[year - startAar] += allocatedAmount
       }
-    })
+    }
   })
   return result
 }
@@ -206,13 +210,14 @@ export const processPensjonsavtalerArray = (
 export const generateXAxis = (
   startAar: number,
   isEndring: boolean,
-  pensjonsavtaler: Pensjonsavtale[],
+  privatePensjonsavtaler: Pensjonsavtale[],
+  offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[],
   setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   let sluttAar = MAX_UTTAKSALDER
   let hasAvtaleBeforeStartAlder = false
 
-  pensjonsavtaler.forEach((avtale) => {
+  privatePensjonsavtaler.forEach((avtale: Pensjonsavtale) => {
     if (avtale.sluttAar && avtale.sluttAar > sluttAar) {
       sluttAar = avtale.sluttAar
     }
@@ -224,6 +229,26 @@ export const generateXAxis = (
       hasAvtaleBeforeStartAlder = true
     }
   })
+
+  offentligTpUtbetalingsperioder.forEach(
+    (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => {
+      if (utbetalingsperiode.startAlder.aar > sluttAar) {
+        sluttAar = utbetalingsperiode.startAlder.aar
+      }
+      if (
+        utbetalingsperiode.sluttAlder &&
+        utbetalingsperiode.sluttAlder.aar > sluttAar
+      ) {
+        sluttAar = utbetalingsperiode.sluttAlder.aar
+      }
+      if (
+        !hasAvtaleBeforeStartAlder &&
+        utbetalingsperiode.startAlder.aar < startAar
+      ) {
+        hasAvtaleBeforeStartAlder = true
+      }
+    }
+  )
 
   const alderArray: string[] = []
   for (let i = startAar; i <= sluttAar + 1; i++) {

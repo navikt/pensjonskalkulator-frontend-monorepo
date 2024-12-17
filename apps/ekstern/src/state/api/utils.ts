@@ -88,7 +88,8 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
       loependeVedtak,
       afp
     ),
-    harEps: harSamboer !== null ? harSamboer : undefined,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -143,7 +144,7 @@ export const generateAlderspensjonRequestBody = (args: {
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // epsHarPensjon: false, // Støttes ikke i Pesys
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -208,7 +209,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // epsHarPensjon: false, // Støttes ikke i Pesys
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -303,7 +304,8 @@ export const generateOffentligTpRequestBody = (args: {
   foedselsdato: string | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: string
-  uttaksalder: Alder | null
+  gradertUttak?: GradertUttak
+  heltUttak?: HeltUttak
   utenlandsperioder: Utenlandsperiode[]
 }): OffentligTpRequestBody | undefined => {
   const {
@@ -311,17 +313,36 @@ export const generateOffentligTpRequestBody = (args: {
     foedselsdato,
     harSamboer,
     aarligInntektFoerUttakBeloep,
-    uttaksalder,
+    gradertUttak,
+    heltUttak,
     utenlandsperioder,
   } = args
 
-  if (!foedselsdato || !uttaksalder) {
+  if (!foedselsdato || !heltUttak) {
     return undefined
   }
 
   return {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    uttaksalder,
+    gradertUttak: gradertUttak
+      ? {
+          uttaksalder: gradertUttak.uttaksalder,
+          aarligInntektVsaPensjonBeloep: formatInntektToNumber(
+            gradertUttak?.aarligInntektVsaPensjonBeloep
+          ),
+        }
+      : undefined,
+    heltUttak: {
+      ...heltUttak,
+      aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon
+        ? {
+            beloep: formatInntektToNumber(
+              heltUttak.aarligInntektVsaPensjon?.beloep
+            ),
+            sluttAlder: heltUttak.aarligInntektVsaPensjon?.sluttAlder,
+          }
+        : undefined,
+    },
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
