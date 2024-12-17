@@ -143,16 +143,46 @@ describe('alder-utils', () => {
 
   describe('isAlderOverMinUttaksalder', () => {
     it('returnerer false når alderen er lik eller under 62 år', () => {
-      expect(isAlderOverMinUttaksalder({ aar: 61, maaneder: 11 })).toBeFalsy()
-      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 0 })).toBeFalsy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 61, maaneder: 11 },
+          { aar: 62, maaneder: 0 }
+        )
+      ).toBeFalsy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 62, maaneder: 0 },
+          { aar: 62, maaneder: 0 }
+        )
+      ).toBeFalsy()
     })
 
     it('returnerer true når alderen er over 62 år', () => {
-      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 1 })).toBeTruthy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 62, maaneder: 1 },
+          { aar: 63, maaneder: 0 }
+        )
+      ).toBeTruthy()
 
-      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 2 })).toBeTruthy()
-      expect(isAlderOverMinUttaksalder({ aar: 63, maaneder: 0 })).toBeTruthy()
-      expect(isAlderOverMinUttaksalder({ aar: 70, maaneder: 0 })).toBeTruthy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 62, maaneder: 2 },
+          { aar: 62, maaneder: 0 }
+        )
+      ).toBeTruthy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 63, maaneder: 0 },
+          { aar: 62, maaneder: 0 }
+        )
+      ).toBeTruthy()
+      expect(
+        isAlderOverMinUttaksalder(
+          { aar: 70, maaneder: 0 },
+          { aar: 62, maaneder: 0 }
+        )
+      ).toBeTruthy()
     })
   })
 

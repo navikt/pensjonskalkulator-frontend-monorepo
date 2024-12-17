@@ -60,6 +60,8 @@ export const BeregningAvansert: React.FC = () => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+
   const { data: person } = useGetPersonQuery()
 
   const {
@@ -154,12 +156,12 @@ export const BeregningAvansert: React.FC = () => {
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = person
       ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
-      : getAlderMinus1Maaned(useAppSelector(selectNedreAldersgrense))
+      : getAlderMinus1Maaned(nedreAldersgrense)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksalder(beregnetMinAlder)
+    return isAlderOverMinUttaksalder(beregnetMinAlder, nedreAldersgrense)
       ? beregnetMinAlder
-      : useAppSelector(selectNedreAldersgrense)
-  }, [person])
+      : nedreAldersgrense
+  }, [person, nedreAldersgrense])
 
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))

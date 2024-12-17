@@ -68,6 +68,7 @@ export const BeregningEnkel: React.FC = () => {
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
@@ -176,8 +177,6 @@ export const BeregningEnkel: React.FC = () => {
   const show1963Text = React.useMemo(() => {
     return isPersonSuccess && isFoedtFoer1964(person?.foedselsdato)
   }, [person])
-
-  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = isPersonSuccess
