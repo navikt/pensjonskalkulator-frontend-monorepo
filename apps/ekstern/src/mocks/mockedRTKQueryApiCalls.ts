@@ -8,6 +8,16 @@ export const fulfilledGetPerson = {
       navn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -23,6 +33,16 @@ export const fulfilledGetPersonMedSamboer = {
       navn: 'Aprikos',
       sivilstand: 'GIFT',
       foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
     },
     fulfilledTimeStamp: 1688046412103,
   },
