@@ -2,8 +2,6 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
-import { useAppSelector } from '@/state/hooks'
-import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
 import { getFormatMessageValues } from '@/utils/translations'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
@@ -17,6 +15,7 @@ export const useFormLocalState = (initialValues: {
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
+  ubetingetUttaksalder: Alder
 }) => {
   const {
     isEndring,
@@ -120,7 +119,7 @@ export const useFormLocalState = (initialValues: {
       valgtAlder?.maaneder !== undefined &&
       ufoeregrad &&
       ufoeregrad !== 100 &&
-      valgtAlder?.aar < useAppSelector(selectUbetingetUttaksalder).aar
+      valgtAlder?.aar < ubetingetUttaksalder.aar
     ) {
       const maksGrad = 100 - ufoeregrad
       const avgrensetUttaksgrad = [...filtrerteUttaksgrad].filter(

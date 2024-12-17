@@ -102,6 +102,7 @@ export const RedigerAvansertBeregning: React.FC<{
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    ubetingetUttaksalder,
   })
 
   const [
