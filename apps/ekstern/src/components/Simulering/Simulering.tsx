@@ -28,10 +28,7 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 
-import {
-  useSimuleringChartLocalState,
-  useSimuleringPensjonsavtalerLocalState,
-} from './hooks'
+import { useSimuleringChartLocalState } from './hooks'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
@@ -94,7 +91,7 @@ export function Simulering(props: {
     useGetTpOffentligFeatureToggleQuery()
 
   const {
-    data: offentligTp,
+    data: offentligTpData,
     isFetching: isOffentligTpLoading,
     isError: isOffentligTpError,
   } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
@@ -102,7 +99,7 @@ export function Simulering(props: {
   })
 
   const {
-    data: pensjonsavtaler,
+    data: pensjonsavtalerData,
     isFetching: isPensjonsavtalerLoading,
     isSuccess: isPensjonsavtalerSuccess,
     isError: isPensjonsavtalerError,
@@ -166,31 +163,16 @@ export function Simulering(props: {
     afpOffentligListe,
     pensjonsavtaler: {
       isLoading: isPensjonsavtalerLoading,
-      data: pensjonsavtaler,
+      data: pensjonsavtalerData,
     },
     offentligTp: {
       isLoading: isOffentligTpLoading,
       data: tpOffentligFeatureToggle?.enabled
-        ? offentligTp
+        ? offentligTpData
         : ({
-            ...offentligTp,
+            ...offentligTpData,
             simulertTjenestepensjon: undefined,
           } as OffentligTp),
-    },
-  })
-
-  const [pensjonsavtalerAlert] = useSimuleringPensjonsavtalerLocalState({
-    isEndring,
-    isPensjonsavtaleFlagVisible,
-    pensjonsavtaler: {
-      isLoading: isPensjonsavtalerLoading,
-      isSuccess: isPensjonsavtalerSuccess,
-      isError: isPensjonsavtalerError,
-      data: pensjonsavtaler,
-    },
-    offentligTp: {
-      isError: isOffentligTpError,
-      data: offentligTp,
     },
   })
 
@@ -225,8 +207,17 @@ export function Simulering(props: {
         />
       )}
       <SimuleringPensjonsavtalerAlert
-        variant={pensjonsavtalerAlert?.variant}
-        text={pensjonsavtalerAlert?.text}
+        isPensjonsavtaleFlagVisible={isPensjonsavtaleFlagVisible}
+        pensjonsavtaler={{
+          isLoading: isPensjonsavtalerLoading,
+          isError: isPensjonsavtalerError,
+          isSuccess: isPensjonsavtalerSuccess,
+          data: pensjonsavtalerData,
+        }}
+        offentligTp={{
+          isError: isOffentligTpError,
+          data: offentligTpData,
+        }}
       />
 
       {showButtonsAndTable && (

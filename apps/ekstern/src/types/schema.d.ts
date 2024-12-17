@@ -948,6 +948,7 @@ export interface components {
         | 'TEKNISK_FEIL'
       muligeTpLeverandoerListe: string[]
       simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonV2']
+      serviceData?: string[]
     }
     SimuleringsresultatV2: {
       utbetalingsperioder: components['schemas']['UtbetalingsperiodeV2'][]

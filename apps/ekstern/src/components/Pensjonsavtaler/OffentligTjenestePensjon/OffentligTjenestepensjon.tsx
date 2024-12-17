@@ -103,7 +103,12 @@ export const OffentligTjenestepensjon = (props: {
         // Ved feil når /simuler-oftp kalles
         !isLoading && isError && (
           <Alert inline variant="warning">
-            <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
+            <FormattedMessage
+              id="pensjonsavtaler.offentligtp.error"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
           </Alert>
         )
       }
@@ -115,35 +120,45 @@ export const OffentligTjenestepensjon = (props: {
             !isError &&
             offentligTp?.muligeTpLeverandoerListe.length === 0)) && (
           <Alert inline variant="info">
-            <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+            <FormattedMessage
+              id="pensjonsavtaler.ingress.ingen"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
           </Alert>
         )
       }
       {
         // Når brukeren er medlem av en annen ordning
-        (tpOffentligFeatureToggle?.enabled &&
+        ((tpOffentligFeatureToggle?.enabled &&
           offentligTp?.simuleringsresultatStatus ===
             'TP_ORDNING_STOETTES_IKKE') ||
           (!tpOffentligFeatureToggle?.enabled &&
             !isError &&
             offentligTp?.muligeTpLeverandoerListe &&
-            offentligTp.muligeTpLeverandoerListe.length > 0 && (
-              <Alert inline variant="warning">
-                <FormattedMessage
-                  id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
-                  values={{
-                    chunk: leverandoererString,
-                  }}
-                />
-              </Alert>
-            ))
+            offentligTp.muligeTpLeverandoerListe.length > 0)) && (
+          <Alert inline variant="warning">
+            <FormattedMessage
+              id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
+              values={{
+                chunk: leverandoererString,
+              }}
+            />
+          </Alert>
+        )
       }
       {
         // Ved feil hos SPK
         tpOffentligFeatureToggle?.enabled &&
           offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
             <Alert inline variant="warning">
-              <FormattedMessage id="pensjonsavtaler.offentligtp.spk_error" />
+              <FormattedMessage
+                id="pensjonsavtaler.offentligtp.spk_error"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
             </Alert>
           )
       }
@@ -153,7 +168,12 @@ export const OffentligTjenestepensjon = (props: {
           offentligTp?.simuleringsresultatStatus ===
             'TOM_SIMULERING_FRA_TP_ORDNING' && (
             <Alert inline variant="warning">
-              <FormattedMessage id="pensjonsavtaler.offentligtp.spk_empty" />
+              <FormattedMessage
+                id="pensjonsavtaler.offentligtp.spk_empty"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
             </Alert>
           )
       }
