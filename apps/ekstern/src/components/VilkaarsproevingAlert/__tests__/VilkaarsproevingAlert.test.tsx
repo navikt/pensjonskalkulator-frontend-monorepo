@@ -1,18 +1,28 @@
 import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
-import { useAppSelector } from '@/state/hooks'
-import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen } from '@/test-utils'
 
 describe('VilkaarsproevingAlert', () => {
-  const uttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const uttaksalder = { aar: 63, maaneder: 3 }
   const vilkaarsproeving = {
     vilkaarErOppfylt: false,
     alternativ: {
       gradertUttaksalder: undefined,
       uttaksgrad: undefined,
       heltUttaksalder: { aar: 65, maaneder: 3 },
+    },
+  }
+  const mockedState = {
+    api: {
+      queries: {
+        ...fulfilledGetPerson,
+      },
+    },
+    userInput: {
+      ...userInputInitialState,
     },
   }
   it('Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst', () => {
@@ -23,12 +33,19 @@ describe('VilkaarsproevingAlert', () => {
           alternativ: {
             ...vilkaarsproeving.alternativ,
             heltUttaksalder: {
-              ...uttaksalder,
+              aar: 67,
+              maaneder: 0,
             },
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
@@ -49,7 +66,13 @@ describe('VilkaarsproevingAlert', () => {
       <VilkaarsproevingAlert
         vilkaarsproeving={vilkaarsproeving}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
@@ -96,7 +119,13 @@ describe('VilkaarsproevingAlert', () => {
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
@@ -142,7 +171,13 @@ describe('VilkaarsproevingAlert', () => {
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
