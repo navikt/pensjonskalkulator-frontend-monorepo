@@ -1,9 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
 import { AgePicker } from '..'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, fireEvent } from '@/test-utils'
 
-// Legger til test med aT SELECT FOR MÅNED ER DISABLED, OG AKTIVERT NÅR ÅR ENDRES. TESTE AT MÅNED NULLSTILLES
 describe('AgePicker', () => {
   it('rendrer riktig default verdier, description og info', () => {
     const { asFragment, container } = render(
@@ -29,7 +30,20 @@ describe('AgePicker', () => {
   describe('rendrer riktig valg i select', () => {
     it('med default min og max', () => {
       const { container } = render(
-        <AgePicker name="unique-name" label="My Test Age Picker" />
+        <AgePicker name="unique-name" label="My Test Age Picker" />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(screen.getByTestId('age-picker-unique-name')).toBeVisible()
@@ -68,7 +82,20 @@ describe('AgePicker', () => {
           label="My Test Age Picker"
           minAlder={{ aar: 70, maaneder: 5 }}
           maxAlder={{ aar: 72, maaneder: 0 }}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(screen.getByTestId('age-picker-unique-name')).toBeVisible()
@@ -208,7 +235,20 @@ describe('AgePicker', () => {
         name="unique-name"
         label="My Test Age Picker"
         onChange={onChangeMock}
-      />
+      />,
+      {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
 
     expect(

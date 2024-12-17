@@ -552,6 +552,16 @@ describe('Loaders', () => {
                   navn: 'Aprikos',
                   sivilstand: 'UGIFT',
                   foedselsdato,
+                  pensjoneringAldre: {
+                    normertPensjoneringsalder: {
+                      aar: 67,
+                      maaneder: 0,
+                    },
+                    nedreAldersgrense: {
+                      aar: 62,
+                      maaneder: 0,
+                    },
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },
@@ -589,6 +599,16 @@ describe('Loaders', () => {
                   navn: 'Aprikos',
                   sivilstand: 'UGIFT',
                   foedselsdato,
+                  pensjoneringAldre: {
+                    normertPensjoneringsalder: {
+                      aar: 67,
+                      maaneder: 0,
+                    },
+                    nedreAldersgrense: {
+                      aar: 62,
+                      maaneder: 0,
+                    },
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },
@@ -1019,6 +1039,16 @@ describe('Loaders', () => {
                   navn: 'Aprikos',
                   sivilstand: 'UGIFT',
                   foedselsdato,
+                  pensjoneringAldre: {
+                    normertPensjoneringsalder: {
+                      aar: 67,
+                      maaneder: 0,
+                    },
+                    nedreAldersgrense: {
+                      aar: 62,
+                      maaneder: 0,
+                    },
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },
@@ -1054,6 +1084,16 @@ describe('Loaders', () => {
                   navn: 'Aprikos',
                   sivilstand: 'UGIFT',
                   foedselsdato,
+                  pensjoneringAldre: {
+                    normertPensjoneringsalder: {
+                      aar: 67,
+                      maaneder: 0,
+                    },
+                    nedreAldersgrense: {
+                      aar: 62,
+                      maaneder: 0,
+                    },
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },
@@ -1088,6 +1128,16 @@ describe('Loaders', () => {
                   navn: 'Aprikos',
                   sivilstand: 'UGIFT',
                   foedselsdato,
+                  pensjoneringAldre: {
+                    normertPensjoneringsalder: {
+                      aar: 67,
+                      maaneder: 0,
+                    },
+                    nedreAldersgrense: {
+                      aar: 62,
+                      maaneder: 0,
+                    },
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },
