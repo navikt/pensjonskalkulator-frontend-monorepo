@@ -84,6 +84,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v2/simuler-oftp': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler offentlig tjenestepensjon hos tp-leverandør bruker er medlem av
+     * @description Simulerer offentlig tjenestepensjon hos tp-leverandør som har ansvar for brukers tjenestepensjon
+     */
+    post: operations['simulerOffentligTjenestepensjonV2']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -880,6 +900,70 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
+    IngressSimuleringOffentligTjenestepensjonSpecV2: {
+      /** Format: date */
+      foedselsdato: string
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      gradertUttak?: components['schemas']['SimuleringOffentligTjenestepensjonGradertUttakV2']
+      heltUttak: components['schemas']['SimuleringOffentligTjenestepensjonHeltUttakV2']
+      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV2'][]
+      epsHarPensjon: boolean
+      epsHarInntektOver2G: boolean
+      brukerBaOmAfp: boolean
+    }
+    SimuleringOffentligTjenestepensjonAlderV2: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    SimuleringOffentligTjenestepensjonGradertUttakV2: {
+      uttaksalder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV2']
+      /** Format: int32 */
+      aarligInntektVsaPensjonBeloep?: number
+    }
+    SimuleringOffentligTjenestepensjonHeltUttakV2: {
+      uttaksalder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV2']
+      aarligInntektVsaPensjon?: components['schemas']['SimuleringOffentligTjenestepensjonInntektV2']
+    }
+    SimuleringOffentligTjenestepensjonInntektV2: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV2']
+    }
+    UtenlandsoppholdV2: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+    }
+    OffentligTjenestepensjonSimuleringsresultatDtoV2: {
+      /** @enum {string} */
+      simuleringsresultatStatus:
+        | 'OK'
+        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
+        | 'TOM_SIMULERING_FRA_TP_ORDNING'
+        | 'TEKNISK_FEIL'
+      muligeTpLeverandoerListe: string[]
+      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonV2']
+      serviceData?: string[]
+    }
+    SimuleringsresultatV2: {
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV2'][]
+      betingetTjenestepensjonErInkludert: boolean
+    }
+    SimulertTjenestepensjonV2: {
+      tpLeverandoer: string
+      simuleringsresultat: components['schemas']['SimuleringsresultatV2']
+    }
+    UtbetalingsperiodeV2: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder']
+      /** Format: int32 */
+      aarligUtbetaling: number
+    }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
       aar: number
@@ -945,14 +1029,6 @@ export interface components {
     SelskapV2: {
       navn: string
       heltUtilgjengelig: boolean
-    }
-    UtbetalingsperiodeV2: {
-      startAlder: components['schemas']['Alder']
-      sluttAlder?: components['schemas']['Alder']
-      /** Format: int32 */
-      aarligUtbetaling: number
-      /** Format: int32 */
-      grad: number
     }
     IngressUttaksalderAlderV1: {
       /** Format: int32 */
@@ -1403,6 +1479,30 @@ export interface operations {
         }
         content: {
           '*/*': unknown
+        }
+      }
+    }
+  }
+  simulerOffentligTjenestepensjonV2: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV2']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV2']
         }
       }
     }

@@ -20,7 +20,7 @@ export const isInntekt = (data?: any): data is Inntekt => {
 
 export const isPensjonsberegningArray = (
   data?: any
-): data is Pensjonsberegning[] => {
+): data is AfpPrivatPensjonsberegning[] => {
   return (
     Array.isArray(data) &&
     data.every(

@@ -195,6 +195,7 @@ const translations = {
     'gjeld samtykket kun for denne utrekninga.',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente dine pensjonsavtalar?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -310,16 +311,12 @@ const translations = {
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
-  'beregning.tpo.info': 'MANGLER_TEKST',
-  'beregning.tpo.info.endring': 'MANGLER_TEKST',
-  'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.tpo.error': 'MANGLER_TEKST',
-  'beregning.tpo.error.pensjonsavtaler.error': 'MANGLER_TEKST',
-  'beregning.tpo.error.pensjonsavtaler.partial': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.privat.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.offentlig.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
   'beregning.alert.inntekt': 'MANGLER_TEKST',

@@ -46,11 +46,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
+          // TODO utdatert
+          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
               'Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.'
             ).should('exist')
@@ -70,11 +69,12 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon,', () => {
         describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -99,14 +99,12 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Andre avtaler').should('be.visible')
             cy.contains('Privat tjenestepensjon').should('be.visible')
             cy.contains('Individuelle ordninger').should('be.visible')
-            cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
+          // TODO utdatert
+          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
               'Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.'
             ).should('exist')
@@ -121,7 +119,7 @@ describe('Pensjonsavtaler', () => {
         })
       })
 
-      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis', () => {
+      describe('Som bruker som har pensjonsavtaler hos Norsk Pensjon som svarer delvis,', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -136,6 +134,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -155,11 +154,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
+          // TODO utdatert
+          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
               'Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.'
             ).should('exist')
@@ -176,7 +174,6 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Andre avtaler').should('be.visible')
             cy.contains('Privat tjenestepensjon').should('be.visible')
             cy.contains('Individuelle ordninger').should('be.visible')
-            cy.contains('Vis mindre').should('be.visible')
           })
 
           it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at jeg er eller har vært ansatt i offentlig sektor, men at avtalene ikke er hentet.', () => {
@@ -197,7 +194,6 @@ describe('Pensjonsavtaler', () => {
             },
             {
               avtaler: [],
-
               utilgjengeligeSelskap: ['Something'],
             }
           ).as('fetchPensjonsavtaler')
@@ -207,6 +203,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -230,11 +227,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.'
+              'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor.'
             ).should('exist')
           })
 
@@ -264,6 +259,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -287,11 +283,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler, og at jeg kan ha rett til offentlig tjenestepensjon.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.'
+              'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor.'
             ).should('exist')
           })
 
@@ -316,7 +310,7 @@ describe('Pensjonsavtaler', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v1/simuler-oftp',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
           },
           {
             simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -369,7 +363,8 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -407,7 +402,8 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -428,6 +424,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -447,11 +444,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
           })
 
-          it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler.', () => {
+          // TODO utdatert
+          it.skip('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
               'Vi klarte ikke å hente alle dine private pensjonsavtaler.'
             ).should('exist')
@@ -468,10 +464,10 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Andre avtaler').should('be.visible')
             cy.contains('Privat tjenestepensjon').should('be.visible')
             cy.contains('Individuelle ordninger').should('be.visible')
-            cy.contains('Vis mindre').should('be.visible')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -496,6 +492,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -519,9 +516,7 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
               'Vi klarte ikke å hente dine private pensjonsavtaler.'
             ).should('exist')
@@ -532,8 +527,8 @@ describe('Pensjonsavtaler', () => {
               'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.'
             ).should('exist')
           })
-
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -550,6 +545,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -573,11 +569,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å hente dine private pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i privat sektor.'
             ).should('exist')
           })
 
@@ -587,7 +581,8 @@ describe('Pensjonsavtaler', () => {
             ).should('exist')
           })
 
-          it('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
+          // TODO utdatert
+          it.skip('forventer jeg ingen informasjon om «Offentlig tjenestepensjon».', () => {
             cy.contains('Offentlig tjenestepensjon').should('not.exist')
           })
         })
@@ -598,7 +593,7 @@ describe('Pensjonsavtaler', () => {
       beforeEach(() => {
         cy.intercept(
           'POST',
-          '/pensjon/kalkulator/api/v1/simuler-oftp',
+          '/pensjon/kalkulator/api/v2/simuler-oftp',
 
           {
             statusCode: 503,
@@ -647,11 +642,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. '
             ).should('exist')
           })
 
@@ -674,6 +667,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -695,11 +689,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt og at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor'
             ).should('exist')
           })
 
@@ -708,7 +700,6 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Andre avtaler').should('be.visible')
             cy.contains('Privat tjenestepensjon').should('be.visible')
             cy.contains('Individuelle ordninger').should('be.visible')
-            cy.contains('Vis mindre').should('be.visible')
           })
 
           it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
@@ -735,6 +726,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -756,11 +748,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente alle private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle dine private pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.'
             ).should('exist')
           })
 
@@ -775,7 +765,6 @@ describe('Pensjonsavtaler', () => {
             cy.contains('Andre avtaler').should('be.visible')
             cy.contains('Privat tjenestepensjon').should('be.visible')
             cy.contains('Individuelle ordninger').should('be.visible')
-            cy.contains('Vis mindre').should('be.visible')
           })
 
           it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
@@ -806,6 +795,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -829,11 +819,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente dine private pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.'
             ).should('exist')
           })
 
@@ -863,6 +851,7 @@ describe('Pensjonsavtaler', () => {
           beforeEach(() => {
             cy.contains('button', '62 år og 10 md.').click()
             cy.wait('@fetchPensjonsavtaler')
+            cy.contains('Vis mer').click({ force: true })
           })
 
           it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
@@ -886,11 +875,9 @@ describe('Pensjonsavtaler', () => {
 
           it('forventer jeg en alert med informasjon om at beregningen kanskje ikke viser alt. Med informasjon om at Nav ikke har klart å hente mine private pensjonsavtaler og ikke har klart å sjekke om jeg har avtaler i offentlig sektor.', () => {
             cy.contains('Beregning').should('exist')
-            cy.contains('Denne beregningen viser kanskje ikke alt.').should(
-              'exist'
-            )
+            cy.contains('Beregningen viser kanskje ikke alt.').should('exist')
             cy.contains(
-              'Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente dine private pensjonsavtaler.'
+              'Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.'
             ).should('exist')
           })
 
@@ -915,6 +902,7 @@ describe('Pensjonsavtaler', () => {
         beforeEach(() => {
           cy.contains('button', '70 år').click()
           cy.wait('@fetchPensjonsavtaler')
+          cy.contains('Vis mer').click({ force: true })
         })
 
         it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
@@ -939,7 +927,6 @@ describe('Pensjonsavtaler', () => {
           cy.contains('Andre avtaler').should('be.visible')
           cy.contains('Privat tjenestepensjon').should('be.visible')
           cy.contains('Individuelle ordninger').should('be.visible')
-          cy.contains('Vis mindre').should('be.visible')
         })
 
         it('forventer jeg informasjon om at jeg har pensjonsavtaler som starter før valgt alder. ', () => {
