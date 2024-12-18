@@ -8,8 +8,8 @@ import {
   unformatUttaksalder,
   isFoedtFoer1963,
   isFoedtFoer1964,
-  isAlderLikEllerOverUbetingetUttaksalder,
-  isAlderOverMinUttaksalder,
+  isAlderLikEllerOverAnnenAlder,
+  isAlderOverAnnenAlder,
   isFoedselsdatoOverEllerLikAlder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
@@ -111,23 +111,23 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('isAlderLikEllerOverUbetingetUttaksalder', () => {
+  describe('isAlderLikEllerOverAnnenAlder', () => {
     const ubetingetUttaksalder = { aar: 67, maaneder: 0 }
     it('returnerer true når alderen er lik eller over ubetinget uttaksalder', () => {
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 67, maaneder: 0 },
           ubetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 67, maaneder: 11 },
           ubetingetUttaksalder
         )
       ).toBeTruthy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 70, maaneder: 3 },
           ubetingetUttaksalder
         )
@@ -136,28 +136,25 @@ describe('alder-utils', () => {
 
     it('returnerer false når alderen er under 67 år', () => {
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder({}, ubetingetUttaksalder)
+        isAlderLikEllerOverAnnenAlder({}, ubetingetUttaksalder)
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
-          { maaneder: 6 },
-          ubetingetUttaksalder
-        )
+        isAlderLikEllerOverAnnenAlder({ maaneder: 6 }, ubetingetUttaksalder)
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 62, maaneder: 1 },
           ubetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 63, maaneder: 0 },
           ubetingetUttaksalder
         )
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverUbetingetUttaksalder(
+        isAlderLikEllerOverAnnenAlder(
           { aar: 66, maaneder: 11 },
           ubetingetUttaksalder
         )
@@ -165,16 +162,16 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('isAlderOverMinUttaksalder', () => {
+  describe('isAlderOverAnnenAlder', () => {
     it('returnerer false når alderen er lik eller under 62 år', () => {
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 61, maaneder: 11 },
           { aar: 62, maaneder: 0 }
         )
       ).toBeFalsy()
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 62, maaneder: 0 },
           { aar: 62, maaneder: 0 }
         )
@@ -183,26 +180,26 @@ describe('alder-utils', () => {
 
     it('returnerer true når alderen er over 62 år', () => {
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 62, maaneder: 1 },
           { aar: 62, maaneder: 0 }
         )
       ).toBeTruthy()
 
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 62, maaneder: 2 },
           { aar: 62, maaneder: 0 }
         )
       ).toBeTruthy()
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 63, maaneder: 0 },
           { aar: 62, maaneder: 0 }
         )
       ).toBeTruthy()
       expect(
-        isAlderOverMinUttaksalder(
+        isAlderOverAnnenAlder(
           { aar: 70, maaneder: 0 },
           { aar: 62, maaneder: 0 }
         )

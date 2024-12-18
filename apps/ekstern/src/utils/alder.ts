@@ -70,27 +70,24 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   )
 }
 
-export const isAlderLikEllerOverUbetingetUttaksalder = (
+export const isAlderLikEllerOverAnnenAlder = (
   alder: Alder | Partial<Alder>,
-  ubetingetUttaksalder: Alder
+  alder2: Alder
 ) => {
   if (!alder.aar) {
     return false
   }
-  if (alder.aar >= ubetingetUttaksalder.aar) {
+  if (alder.aar >= alder2.aar) {
     return true
   } else {
     return false
   }
 }
 
-export const isAlderOverMinUttaksalder = (
-  alder: Alder,
-  nedreAldersgrense: Alder
-) => {
-  if (alder.aar > nedreAldersgrense.aar) {
+export const isAlderOverAnnenAlder = (alder: Alder, alder2: Alder) => {
+  if (alder.aar > alder2.aar) {
     return true
-  } else if (alder.aar === nedreAldersgrense.aar && alder.maaneder > 0) {
+  } else if (alder.aar === alder2.aar && alder.maaneder > 0) {
     return true
   } else {
     return false

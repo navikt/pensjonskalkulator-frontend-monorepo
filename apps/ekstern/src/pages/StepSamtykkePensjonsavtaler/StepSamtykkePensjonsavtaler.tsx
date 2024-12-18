@@ -17,7 +17,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
-  isAlderOverMinUttaksalder,
+  isAlderOverAnnenAlder,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 
@@ -58,7 +58,7 @@ export function StepSamtykkePensjonsavtaler() {
     if (
       ufoeregrad &&
       foedselsdato &&
-      isAlderOverMinUttaksalder(
+      isAlderOverAnnenAlder(
         transformFoedselsdatoToAlderMinus1md(foedselsdato),
         nedreAldersgrense
       )

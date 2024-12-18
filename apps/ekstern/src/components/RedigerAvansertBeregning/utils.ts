@@ -5,7 +5,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   validateAlderFromForm,
   getAlderMinus1Maaned,
-  isAlderLikEllerOverUbetingetUttaksalder,
+  isAlderLikEllerOverAnnenAlder,
   transformUttaksalderToDate,
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
@@ -264,7 +264,7 @@ export const validateAvansertBeregningSkjema = (
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
       // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
-      const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder(
+      const isHeltUttaksalderValid = isAlderLikEllerOverAnnenAlder(
         {
           aar: parseInt(heltUttakAarFormData as string, 10),
           maaneder: parseInt(heltUttakMaanederFormData as string, 10),
@@ -274,7 +274,7 @@ export const validateAvansertBeregningSkjema = (
       const isGradertUttaksalderValid =
         uttaksgradFormData === '100 %' ||
         (uttaksgradFormData !== '100 %' &&
-          isAlderLikEllerOverUbetingetUttaksalder(
+          isAlderLikEllerOverAnnenAlder(
             {
               aar: parseInt(gradertUttakAarFormData as string, 10),
               maaneder: parseInt(gradertUttakMaanederFormData as string, 10),

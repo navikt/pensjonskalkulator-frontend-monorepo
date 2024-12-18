@@ -42,7 +42,7 @@ import {
 import {
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksalder,
+  isAlderOverAnnenAlder,
   isFoedtFoer1964,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
@@ -184,7 +184,7 @@ export const BeregningEnkel: React.FC = () => {
       ? transformFoedselsdatoToAlderMinus1md(person?.foedselsdato)
       : getAlderMinus1Maaned(nedreAldersgrense)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksalder(beregnetMinAlder, nedreAldersgrense)
+    return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
       ? beregnetMinAlder
       : nedreAldersgrense
   }, [person, nedreAldersgrense])
