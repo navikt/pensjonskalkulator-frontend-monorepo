@@ -18,12 +18,12 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
   uttaksalder,
 }) => {
   const intl = useIntl()
-  const ubentingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   const harIkkeNokOpptjening = React.useMemo(() => {
     return (
       JSON.stringify(vilkaarsproeving.alternativ?.heltUttaksalder) ===
-        JSON.stringify(ubentingetUttaksalder) &&
+        JSON.stringify(ubetingetUttaksalder) &&
       !vilkaarsproeving.alternativ?.gradertUttaksalder
     )
   }, [vilkaarsproeving])

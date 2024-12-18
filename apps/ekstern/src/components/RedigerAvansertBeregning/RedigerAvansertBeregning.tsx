@@ -345,12 +345,12 @@ export const RedigerAvansertBeregning: React.FC<{
                 gaaTilResultat,
                 {
                   foedselsdato: foedselsdato as string,
+                  ubetingetUttaksalder,
                   loependeVedtak,
                   localInntektFremTilUttak,
                   hasVilkaarIkkeOppfylt:
                     vilkaarsproeving?.vilkaarErOppfylt === false,
                   harAvansertSkjemaUnsavedChanges,
-                  ubetingetUttaksalder,
                 }
               )
             }}

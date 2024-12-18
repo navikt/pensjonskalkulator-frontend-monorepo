@@ -263,7 +263,7 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksgraden er iht uføregraden
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
-      // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
+      // Dette kan i teorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
       const isHeltUttaksalderValid = isAlderLikEllerOverAnnenAlder(
         {
           aar: parseInt(heltUttakAarFormData as string, 10),
@@ -495,6 +495,7 @@ export const onAvansertBeregningSubmit = (
 ): void => {
   const {
     foedselsdato,
+    ubetingetUttaksalder,
     loependeVedtak,
     localInntektFremTilUttak,
     hasVilkaarIkkeOppfylt,
@@ -548,7 +549,7 @@ export const onAvansertBeregningSubmit = (
         inntektVsaGradertUttakFormData,
       },
       foedselsdato,
-      previousData.ubetingetUttaksalder,
+      ubetingetUttaksalder,
       loependeVedtak,
       setValidationErrors
     )
