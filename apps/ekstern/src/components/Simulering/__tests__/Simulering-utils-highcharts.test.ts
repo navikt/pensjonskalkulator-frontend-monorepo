@@ -244,7 +244,7 @@ describe('Simulering-utils-highcharts', () => {
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
         expect(pointUpdateMock.mock.calls).toEqual([
           [{ color: 'var(--a-deepblue-200)' }, false],
-          [{ color: 'var(--a-green-200)' }, false],
+          [{ color: 'var(--a-data-surface-5-subtle)' }, false],
           [{ color: 'var(--a-purple-200)' }, false],
         ])
         expect(redrawMock).toHaveBeenCalledOnce()
@@ -295,7 +295,7 @@ describe('Simulering-utils-highcharts', () => {
           expect(pointUpdateMock).toHaveBeenCalledTimes(3)
           expect(pointUpdateMock.mock.calls).toEqual([
             [{ color: 'var(--a-deepblue-500)' }, false],
-            [{ color: 'var(--a-green-400)' }, false],
+            [{ color: 'var(--a-data-surface-5)' }, false],
             [{ color: 'var(--a-purple-400)' }, false],
           ])
           expect(redrawMock).toHaveBeenCalledOnce()
@@ -325,7 +325,7 @@ describe('Simulering-utils-highcharts', () => {
             ],
             [
               {
-                color: 'var(--a-green-400)',
+                color: 'var(--a-data-surface-5)',
               },
               false,
             ],
@@ -343,7 +343,7 @@ describe('Simulering-utils-highcharts', () => {
             ],
             [
               {
-                color: 'var(--a-green-400)',
+                color: 'var(--a-data-surface-5)',
               },
               false,
             ],

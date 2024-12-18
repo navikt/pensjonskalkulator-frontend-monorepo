@@ -627,7 +627,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 162264,
@@ -759,7 +759,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 162264,
                 208165,
@@ -904,7 +904,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 0,
@@ -1034,7 +1034,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 64340,
@@ -1126,7 +1126,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 64340,
                 53670,
@@ -1234,7 +1234,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 0,
@@ -1353,7 +1353,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 64340,
@@ -1446,7 +1446,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 64340,
                 78670,
@@ -1555,7 +1555,7 @@ describe('Simulering-hooks', () => {
               "type": "column",
             },
             {
-              "color": "var(--a-green-400)",
+              "color": "var(--a-data-surface-5)",
               "data": [
                 0,
                 0,
