@@ -672,6 +672,15 @@ describe('Typeguards', () => {
       })
 
       describe('pensjoneringAldre validation', () => {
+        it('returnerer false når pensjoneringAldre mangler', () => {
+          expect(
+            isPerson({
+              ...validPerson,
+              pensjoneringAldre: undefined,
+            })
+          ).toEqual(false)
+        })
+
         it('returnerer false når pensjoneringAldre mangler obligatoriske felt', () => {
           expect(
             isPerson({
