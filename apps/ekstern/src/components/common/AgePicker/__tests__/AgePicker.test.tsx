@@ -191,7 +191,7 @@ describe('AgePicker', () => {
   })
 
   it('viser aria-invalid attribut på riktig felt når error er fylt ut', () => {
-    const { container, asFragment } = render(
+    render(
       <AgePicker
         name="unique-name"
         label="My Test Age Picker"
@@ -199,6 +199,16 @@ describe('AgePicker', () => {
       />
     )
     // Når ingen av de feltene er fylt ut
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-aar')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-maaneder')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
 
     // Når bare år er fylt ut
     fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
@@ -217,7 +227,7 @@ describe('AgePicker', () => {
 
     // Når år og måned er fylt ut
     fireEvent.change(screen.getByTestId('age-picker-unique-name-maaneder'), {
-      target: { value: '5' },
+      target: { value: '0' },
     })
     expect(
       screen

@@ -74,17 +74,18 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
     }, [])
 
     const hasError = React.useMemo(() => {
+      console.log('>>> valgtAlder', valgtAlder)
       if (error) {
-        if (!valgtAlder.aar && !valgtAlder.maaneder) {
+        if (!valgtAlder.aar && valgtAlder.maaneder === undefined) {
           return { aar: true, maaneder: true }
         }
-        if (valgtAlder.aar && valgtAlder.maaneder) {
+        if (valgtAlder.aar && valgtAlder.maaneder !== undefined) {
           return { aar: true, maaneder: true }
         }
-        if (valgtAlder.aar && !valgtAlder.maaneder) {
+        if (valgtAlder.aar && valgtAlder.maaneder === undefined) {
           return { aar: false, maaneder: true }
         }
-        if (!valgtAlder.aar && valgtAlder.maaneder) {
+        if (!valgtAlder.aar && valgtAlder.maaneder !== undefined) {
           return { aar: true, maaneder: false }
         }
       }
