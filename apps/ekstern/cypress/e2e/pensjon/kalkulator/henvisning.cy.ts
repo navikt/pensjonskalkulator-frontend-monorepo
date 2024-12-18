@@ -6,11 +6,21 @@ describe('Henvisning', () => {
         return false
       })
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
         {
           navn: 'Aprikos',
           sivilstand: 'UGIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         }
       ).as('getPerson')
 

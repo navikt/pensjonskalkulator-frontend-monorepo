@@ -103,12 +103,22 @@ describe('Loaders', () => {
       vi.stubGlobal('open', open)
       vi.stubGlobal('addEventListener', addEventListener)
 
-      mockResponse('/v2/person', {
+      mockResponse('/v4/person', {
         status: 200,
         json: {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
@@ -226,12 +236,22 @@ describe('Loaders', () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
-      mockResponse('/v2/person', {
+      mockResponse('/v4/person', {
         status: 200,
         json: {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
@@ -272,7 +292,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med 403 status redirigeres brukes til ingen-tilgang', async () => {
-      mockErrorResponse('/v2/person', {
+      mockErrorResponse('/v4/person', {
         status: 403,
       })
 
@@ -292,7 +312,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med andre status redirigeres brukes til uventet-feil side', async () => {
-      mockErrorResponse('/v2/person', {
+      mockErrorResponse('/v4/person', {
         status: 503,
       })
 
