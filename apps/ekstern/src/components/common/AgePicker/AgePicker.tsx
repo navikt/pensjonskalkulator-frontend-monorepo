@@ -57,6 +57,22 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       setValgtAlder(value ? value : { aar: undefined, maaneder: undefined })
     }, [value])
 
+    const yearsArray = React.useMemo(() => {
+      const arr = []
+      for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
+        arr.push(i)
+      }
+      return arr
+    }, [minAlder, maxAlder])
+
+    const monthsArray = React.useMemo(() => {
+      const arr = []
+      for (let i = 0; i <= 11; i++) {
+        arr.push(i)
+      }
+      return arr
+    }, [])
+
     const hasError = React.useMemo(() => {
       if (error) {
         if (!valgtAlder.aar && !valgtAlder.maaneder) {
@@ -74,24 +90,6 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       }
       return { aar: false, maaneder: false }
     }, [error, valgtAlder])
-
-    console.log('hasError', hasError)
-
-    const yearsArray = React.useMemo(() => {
-      const arr = []
-      for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
-        arr.push(i)
-      }
-      return arr
-    }, [minAlder, maxAlder])
-
-    const monthsArray = React.useMemo(() => {
-      const arr = []
-      for (let i = 0; i <= 11; i++) {
-        arr.push(i)
-      }
-      return arr
-    }, [])
 
     const transformertDate = React.useMemo(() => {
       if (
