@@ -174,11 +174,11 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
   foedselsdato: string,
+  ubetingetUttaksalder: Alder,
   loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
-  >,
-  ubetingetUttaksalder: Alder
+  >
 ) => {
   const {
     gradertUttakAarFormData,
@@ -486,11 +486,11 @@ export const onAvansertBeregningSubmit = (
   gaaTilResultat: () => void,
   previousData: {
     foedselsdato: string
+    ubetingetUttaksalder: Alder
     loependeVedtak: LoependeVedtak
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
-    ubetingetUttaksalder: Alder
   }
 ): void => {
   const {
@@ -548,9 +548,9 @@ export const onAvansertBeregningSubmit = (
         inntektVsaGradertUttakFormData,
       },
       foedselsdato,
+      previousData.ubetingetUttaksalder,
       loependeVedtak,
-      setValidationErrors,
-      previousData.ubetingetUttaksalder
+      setValidationErrors
     )
   ) {
     dispatch(
