@@ -10,8 +10,8 @@ export const Divider: React.FC<Props> = ({ smallMargin, noMargin }) => {
   return (
     <hr
       className={clsx(styles.divider, {
-        [styles.divider__SmallMargin]: smallMargin,
-        [styles.divider__NoMargin]: noMargin,
+        [styles.divider__smallMargin]: smallMargin,
+        [styles.divider__noMargin]: noMargin,
       })}
     />
   )
