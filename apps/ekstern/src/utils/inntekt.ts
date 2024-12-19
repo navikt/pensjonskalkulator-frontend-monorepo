@@ -81,22 +81,27 @@ export const updateAndFormatInntektFromInputField = (
     const antallTegnBefore = inntekt.length
     const formatertInntekt = formatInntekt(inntekt)
     const antallTegnAfter = formatertInntekt.length
+    const charAtCaret = formatertInntekt[Math.max(caretPosition, 0)]
 
     updateInntekt(formatertInntekt)
     updateValidationErrors('')
 
     setTimeout(() => {
-      const updatedCaretPosition =
-        antallTegnAfter > antallTegnBefore
-          ? caretPosition + 1
-          : antallTegnAfter < antallTegnBefore
-            ? caretPosition - 1
-            : caretPosition
+      let updatedCaretPosition = caretPosition
+
+      if (antallTegnAfter > antallTegnBefore && charAtCaret === '\u00A0') {
+        updatedCaretPosition = caretPosition
+      } else if (antallTegnAfter > antallTegnBefore) {
+        updatedCaretPosition = caretPosition + 1
+      } else if (antallTegnAfter < antallTegnBefore) {
+        updatedCaretPosition = Math.max(caretPosition - 1, 0)
+      }
+
       inputElement?.setSelectionRange(
         updatedCaretPosition,
         updatedCaretPosition
       )
-    }, 10)
+    }, 0)
   } else {
     updateInntekt(inntekt)
     updateValidationErrors('')
