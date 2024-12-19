@@ -322,13 +322,11 @@ describe('inntekt-utils', () => {
       ).toBeFalsy()
       expect(
         validateInntekt('-25', updateValidationErrorMessageMock)
-      ).toBeTruthy()
-      expect(
-        validateInntekt('-', updateValidationErrorMessageMock)
-      ).toBeTruthy()
+      ).toBeFalsy()
+      expect(validateInntekt('-', updateValidationErrorMessageMock)).toBeFalsy()
       expect(
         validateInntekt('123.43', updateValidationErrorMessageMock)
-      ).toBeTruthy()
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.type'

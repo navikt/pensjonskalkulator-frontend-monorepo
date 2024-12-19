@@ -1,7 +1,7 @@
-import globalClassNames from "../../../style.d";
+import globalClassNames from '../../../style.d'
 declare const classNames: typeof globalClassNames & {
-  readonly divider: "divider";
-  readonly divider__SmallMargin: "divider__SmallMargin";
-  readonly divider__NoMargin: "divider__NoMargin";
-};
-export = classNames;
+  readonly divider: 'divider'
+  readonly divider__smallMargin: 'divider__smallMargin'
+  readonly divider__noMargin: 'divider__noMargin'
+}
+export = classNames

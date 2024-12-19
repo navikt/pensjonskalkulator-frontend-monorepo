@@ -47,7 +47,7 @@ export const validateInntekt = (
     return isValid
   }
 
-  if (!/^[0-9\s\-.]+$/.test(input)) {
+  if (!/^[0-9\s]+$/.test(input)) {
     isValid = false
     if (updateValidationErrorMessage) {
       updateValidationErrorMessage(
