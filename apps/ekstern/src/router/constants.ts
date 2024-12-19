@@ -12,8 +12,7 @@ export const externalUrls = {
   afpPrivat: 'https://www.nav.no/afp-i-privat-sektor',
   garantipensjon: 'https://www.nav.no/minstepensjon',
   norskPensjon: 'https://norskpensjon.no/',
-  uinnloggetKalkulator:
-    'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
+  uinnloggetKalkulator: 'https://www.nav.no/pensjon/uinnlogget-kalkulator',
   personvernerklaering:
     'https://www.nav.no/personvernerklaering#dine-rettigheter',
   personvernerklaeringKontaktOss:
