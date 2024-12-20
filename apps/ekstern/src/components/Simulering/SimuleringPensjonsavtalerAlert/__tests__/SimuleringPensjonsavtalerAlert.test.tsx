@@ -69,7 +69,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
   })
 
   describe('Gitt at henting av offentlig-tp er "OK", (dvs. vellykket med status OK eller BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING),', () => {
-    it('Når simulering av offentlig-tp er vellykket, og henting av private pensjonsavtaler også, viser ingen alert.', () => {
+    it('Når simulering av offentlig-tp er vellykket med status "OK", og henting av private pensjonsavtaler også, viser ingen alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -90,7 +90,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeNull()
     })
 
-    it('Når simulering av offentlig-tp er vellykket, og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
+    it('Når simulering av offentlig-tp er vellykket med status "OK", og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -117,7 +117,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       ).toBeVisible()
     })
 
-    it('Når simulering av offentlig-tp er vellykket, og at private pensjonsavtaler gir delvis svar med 0 avtaler, viser riktig alert.', () => {
+    it('Når simulering av offentlig-tp er vellykket med status "OK", og at private pensjonsavtaler gir delvis svar med 0 avtaler, viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -148,7 +148,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       ).toBeVisible()
     })
 
-    it('Når simulering av offentlig-tp er vellykket men at brukeren ikke er meldem av noe ordning, og henting av private pensjonsavtaler er gså vellykket, viser ingen alert.', () => {
+    it('Når simulering av offentlig-tp er vellykket men at brukeren ikke er meldem av noe ordning, og henting av private pensjonsavtaler er også vellykket, viser ingen alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -238,8 +238,8 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     })
   })
 
-  describe('Gitt at henting av offentlig-tp er "OK", (dvs. vellykket med status OK eller TP_ORDNING_STOETTES_IKKE),', () => {
-    it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, og at private pensjonsavtaler er vellykket viser riktig alert.', () => {
+  describe('Gitt at henting av offentlig-tp er vellykket men at TP-ordningen ikke støttes, (dvs. vellykket med status TP_ORDNING_STOETTES_IKKE),', () => {
+    it('Når private pensjonsavtaler er vellykket viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -273,7 +273,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       ).toBeVisible()
     })
 
-    it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, og at private pensjonsavtaler har feilet viser riktig alert.', () => {
+    it('Når private pensjonsavtaler har feilet viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -303,7 +303,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       ).toBeVisible()
     })
 
-    it('Når kall til offentlig-tp er vellykket men at TP-ordningen ikke støttes, at private pensjonsavtaler gir delvis svar med 0 avtaler viser riktig alert.', () => {
+    it('Når private pensjonsavtaler gir delvis svar med 0 avtaler viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
@@ -338,7 +338,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     })
   })
 
-  describe('Gitt at henting av offentlig-tp er "FEIL/KOMPLETT", (dvs. feil, eller vellykket med status TOM_SIMULERING_FRA_TP_ORDNING eller TEKNISK_FEIL),', () => {
+  describe('Gitt at henting av offentlig-tp er "FEIL/UKOMPLETT", (dvs. feil, eller vellykket med status TOM_SIMULERING_FRA_TP_ORDNING eller TEKNISK_FEIL),', () => {
     it('Når kall til offentlig-tp feiler, og at private pensjonsavtaler har feilet, viser riktig alert.', () => {
       render(
         <SimuleringPensjonsavtalerAlert
