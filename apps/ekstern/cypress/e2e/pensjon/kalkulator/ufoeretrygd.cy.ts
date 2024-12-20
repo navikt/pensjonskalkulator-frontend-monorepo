@@ -131,7 +131,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains(
           'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
         ).should('exist')
-        cy.contains('Ønsker du hjelp til å finne ut hva som lønner seg').should(
+        cy.contains('Ønsker du hjelp til å vurdere alternativene dine').should(
           'exist'
         )
       })
