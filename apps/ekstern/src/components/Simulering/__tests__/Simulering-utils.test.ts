@@ -1267,7 +1267,7 @@ describe('Simulering-utils', () => {
   describe('getHoverColor og getNormalColor', () => {
     test.each([
       ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
-      ['var(--a-green-400)', 'var(--a-green-200)'],
+      ['var(--a-data-surface-5)', 'var(--a-data-surface-5-subtle)'],
       ['var(--a-purple-400)', 'var(--a-purple-200)'],
       ['var(--a-gray-500)', 'var(--a-gray-300)'],
       ['#FF0000', ''],
@@ -1278,11 +1278,11 @@ describe('Simulering-utils', () => {
 
     test.each([
       ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
-      ['var(--a-green-200)', 'var(--a-green-400)'],
+      ['var(--a-data-surface-5-subtle)', 'var(--a-data-surface-5)'],
       ['var(--a-purple-200)', 'var(--a-purple-400)'],
       ['var(--a-gray-300)', 'var(--a-gray-500)'],
       ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
-      ['var(--a-green-400)', 'var(--a-green-400)'],
+      ['var(--a-data-surface-5)', 'var(--a-data-surface-5)'],
       ['var(--a-purple-400)', 'var(--a-purple-400)'],
       ['var(--a-gray-500)', 'var(--a-gray-500)'],
     ])('returnerer riktig normal farge for: %s', async (a, expected) => {
