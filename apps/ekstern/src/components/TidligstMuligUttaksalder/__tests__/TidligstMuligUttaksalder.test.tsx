@@ -75,7 +75,7 @@ describe('TidligstMuligUttaksalder', () => {
         })
       ).toBeInTheDocument()
       expect(
-        screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+        screen.getByText('Beregningen din viser at du kan ta ut', {
           exact: false,
         })
       ).toBeInTheDocument()
@@ -109,7 +109,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()
@@ -150,7 +150,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()

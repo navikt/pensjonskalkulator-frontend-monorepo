@@ -97,6 +97,8 @@ export function onPointClick(this: Point): void {
       label.style.fill = 'var(--a-text-default)'
     } else {
       label.style.fontWeight = 'normal'
+      label.style.color = 'var(--a-text-subtle)'
+      label.style.fill = 'var(--a-text-subtle)'
     }
   })
   this.series.chart.redraw()
@@ -254,7 +256,6 @@ export const getChartOptions = (
             const el1 = document.querySelector('[data-highcharts-chart]')
             el1?.setAttribute('data-testid', 'highcharts-done-drawing')
             // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
-
             clearTimeout(timeout)
           }, 50)
         },
