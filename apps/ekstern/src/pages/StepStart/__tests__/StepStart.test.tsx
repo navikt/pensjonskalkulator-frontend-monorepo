@@ -74,7 +74,7 @@ describe('StepStart', () => {
     })
 
     it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
-      mockErrorResponse('/v2/person')
+      mockErrorResponse('/v4/person')
       const mockedState = {
         api: {
           queries: {

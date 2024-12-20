@@ -48,7 +48,7 @@ export const apiSlice = createApi({
       },
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v2/person',
+      query: () => '/v4/person',
       providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {

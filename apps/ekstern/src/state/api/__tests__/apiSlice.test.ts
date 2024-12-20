@@ -91,7 +91,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/person')
+      mockErrorResponse('/v4/person')
       return storeRef
         .dispatch(apiSlice.endpoints.getPerson.initiate())
         .then((result) => {
@@ -103,7 +103,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/person', {
+      mockResponse('/v4/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
       })
