@@ -192,7 +192,7 @@ describe('inntekt-utils', () => {
       const updateInntektMock = vi.fn()
       const updateValideringsfeilMock = vi.fn()
       const inputHtmlElement = {
-        selectionStart: 3,
+        selectionStart: 4,
         setSelectionRange: setSelectionRangeMock,
       } as unknown as HTMLInputElement
 
@@ -206,8 +206,54 @@ describe('inntekt-utils', () => {
       expect(updateInntektMock).toHaveBeenCalled()
       expect(updateValideringsfeilMock).toHaveBeenCalled()
       await waitFor(() => {
-        expect(setSelectionRangeMock).toHaveBeenCalledWith(4, 4)
+        expect(setSelectionRangeMock).toHaveBeenCalledWith(5, 5)
       })
+    })
+  })
+
+  it('når input elementet er funnet og at ny input prøver å fjerne et mellomrom, vil caret beholde sin nye posisjon, og inntekt og valideringsfeil oppdateres', async () => {
+    const setSelectionRangeMock = vi.fn()
+    const updateInntektMock = vi.fn()
+    const updateValideringsfeilMock = vi.fn()
+    const inputHtmlElement = {
+      selectionStart: 3,
+      setSelectionRange: setSelectionRangeMock,
+    } as unknown as HTMLInputElement
+
+    updateAndFormatInntektFromInputField(
+      inputHtmlElement,
+      '123000', // denne strenges skal formateres til 123 000, altså ett karakter mer
+      updateInntektMock,
+      updateValideringsfeilMock
+    )
+
+    expect(updateInntektMock).toHaveBeenCalled()
+    expect(updateValideringsfeilMock).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(setSelectionRangeMock).toHaveBeenCalledWith(3, 3)
+    })
+  })
+
+  it('når input elementet er funnet og at ny input sletter første tegn slik at formatert verdi blir mindre, vil caret gå til posisjon 0, og inntekt og valideringsfeil oppdateres', async () => {
+    const setSelectionRangeMock = vi.fn()
+    const updateInntektMock = vi.fn()
+    const updateValideringsfeilMock = vi.fn()
+    const inputHtmlElement = {
+      selectionStart: 0,
+      setSelectionRange: setSelectionRangeMock,
+    } as unknown as HTMLInputElement
+
+    updateAndFormatInntektFromInputField(
+      inputHtmlElement,
+      ' 123 000', // denne strenges skal formateres til 123 000, med ett tegn mindre
+      updateInntektMock,
+      updateValideringsfeilMock
+    )
+
+    expect(updateInntektMock).toHaveBeenCalled()
+    expect(updateValideringsfeilMock).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(setSelectionRangeMock).toHaveBeenCalledWith(0, 0)
     })
   })
 
@@ -276,13 +322,11 @@ describe('inntekt-utils', () => {
       ).toBeFalsy()
       expect(
         validateInntekt('-25', updateValidationErrorMessageMock)
-      ).toBeTruthy()
-      expect(
-        validateInntekt('-', updateValidationErrorMessageMock)
-      ).toBeTruthy()
+      ).toBeFalsy()
+      expect(validateInntekt('-', updateValidationErrorMessageMock)).toBeFalsy()
       expect(
         validateInntekt('123.43', updateValidationErrorMessageMock)
-      ).toBeTruthy()
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.type'

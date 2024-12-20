@@ -34,7 +34,7 @@ describe('stegvisning - Ufoere', () => {
       )
     ).toBeVisible()
     expect(screen.getByTestId('ufoere-ingress')).toHaveTextContent(
-      'Du kan få hjelp til å finne ut hva som lønner seg'
+      'Du kan få hjelp til å vurdere alternativene dine.'
     )
     expect(result.asFragment()).toMatchSnapshot()
   })

@@ -18,7 +18,7 @@ describe('med omstillingsstønad og gjenlevende', () => {
 
       it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         )
       })
 
@@ -28,9 +28,9 @@ describe('med omstillingsstønad og gjenlevende', () => {
         )
       })
 
-      it('må jeg kunne trykke på Readmore for informasjon om pensjonsalder.', () => {
-        cy.contains('Om pensjonsalder')
-        cy.contains('Om pensjonsalder').click()
+      it('må jeg kunne trykke på Readmore for informasjon om tidspunktet for tidligst uttak.', () => {
+        cy.contains('Om tidspunktet for tidligst uttak')
+        cy.contains('Om tidspunktet for tidligst uttak').click()
         cy.contains('Den oppgitte alderen er et estimat').should('exist')
       })
     })
