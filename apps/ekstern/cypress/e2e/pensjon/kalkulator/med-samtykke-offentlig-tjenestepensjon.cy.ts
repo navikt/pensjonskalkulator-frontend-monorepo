@@ -525,9 +525,192 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
           cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
         })
 
-        it(' forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at ingen pensjonsavtale ble funnet.', () => {
+        it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at ingen pensjonsavtale ble funnet.', () => {
           cy.contains('Offentlig tjenestepensjon').should('exist')
           cy.contains('Vi fant ingen pensjonsavtaler.').should('exist')
+        })
+      })
+    })
+
+    describe('Når kall til TP-registret feiler', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
+          },
+          {
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }
+        ).as('fetchPensjonsavtaler')
+        cy.intercept('POST', '/pensjon/kalkulator/api/v2/simuler-oftp', {
+          statusCode: 503,
+        }).as('fetchOffentligTp')
+
+        cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
+        beforeEach(() => {
+          cy.contains('button', '62 år og 10 md.').click()
+        })
+
+        it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Vis tabell av beregningen').click({ force: true })
+          cy.get('.navds-table__toggle-expand-button')
+            .first()
+            .click({ force: true })
+          cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
+          cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
+        })
+
+        it('forventer jeg en alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.', () => {
+          cy.contains(
+            'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.'
+          ).should('exist')
+        })
+
+        it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at ingen pensjonsavtale ble funnet.', () => {
+          cy.contains('Offentlig tjenestepensjon').should('exist')
+          cy.contains(
+            'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+          ).should('exist')
+        })
+      })
+    })
+
+    describe('Som bruker som har TPO forhold hos SPK som svarer med teknisk feil', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
+          },
+          {
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }
+        ).as('fetchPensjonsavtaler')
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+          },
+          {
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: [],
+          }
+        ).as('fetchOffentligTp')
+        cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
+        beforeEach(() => {
+          cy.contains('button', '62 år og 10 md.').click()
+        })
+
+        it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Vis tabell av beregningen').click({ force: true })
+          cy.get('.navds-table__toggle-expand-button')
+            .first()
+            .click({ force: true })
+          cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
+          cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
+        })
+
+        it('forventer jeg en alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.', () => {
+          cy.contains(
+            'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.'
+          ).should('exist')
+        })
+
+        it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke klarte å hente min offentlige tjenestepensjon.', () => {
+          cy.contains('Offentlig tjenestepensjon').should('exist')
+          cy.contains(
+            'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt SPK'
+          ).should('exist')
+        })
+      })
+    })
+
+    describe('Som bruker som har TPO forhold hos SPK som svarer med tom respons feil', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
+          },
+          {
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }
+        ).as('fetchPensjonsavtaler')
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+          },
+          {
+            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+            muligeTpLeverandoerListe: [],
+          }
+        ).as('fetchOffentligTp')
+        cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
+        beforeEach(() => {
+          cy.contains('button', '62 år og 10 md.').click()
+        })
+
+        it('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', () => {
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('Alderspensjon (Nav)').should('exist')
+          cy.contains('Vis tabell av beregningen').click({ force: true })
+          cy.get('.navds-table__toggle-expand-button')
+            .first()
+            .click({ force: true })
+          cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
+          cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'not.exist'
+          )
+          cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
+        })
+
+        it('forventer jeg en alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.', () => {
+          cy.contains(
+            'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.'
+          ).should('exist')
+        })
+
+        it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke fikk svar fra min offentlige tjenestepensjonsordning.', () => {
+          cy.contains('Offentlig tjenestepensjon').should('exist')
+          cy.contains(
+            'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.'
+          ).should('exist')
         })
       })
     })
