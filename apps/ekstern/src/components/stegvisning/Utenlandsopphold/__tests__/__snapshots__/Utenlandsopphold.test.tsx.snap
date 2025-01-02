@@ -20,6 +20,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
     </p>
     <div
       class="navds-read-more navds-read-more--medium _readmore1_30e252"
+      data-volume="low"
     >
       <button
         aria-expanded="false"
@@ -120,6 +121,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
     </div>
     <div
       class="navds-read-more navds-read-more--medium _readmore2_30e252"
+      data-volume="low"
     >
       <button
         aria-expanded="false"
