@@ -42,7 +42,7 @@ export const PageFramework: React.FC<{
   hasToggleBg?: boolean
   shouldShowLogo?: boolean
   shouldRedirectNonAuthenticated?: boolean
-  children?: JSX.Element
+  children?: React.JSX.Element
 }> = (props) => {
   const { shouldRedirectNonAuthenticated = true, children, ...rest } = props
   const intl = useIntl()

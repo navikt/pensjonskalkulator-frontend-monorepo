@@ -22,7 +22,7 @@ import globalClassNames from './Simulering.module.scss'
 
 export const useSimuleringChartLocalState = (initialValues: {
   styles: Partial<typeof globalClassNames>
-  chartRef: React.RefObject<HighchartsReact.RefObject>
+  chartRef: React.RefObject<HighchartsReact.RefObject | null>
   foedselsdato?: string
   isEndring: boolean
   uttaksalder: Alder | null

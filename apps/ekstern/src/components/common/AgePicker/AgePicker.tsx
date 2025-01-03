@@ -17,14 +17,14 @@ import {
 export interface AgePickerProps {
   form?: string
   name: string
-  label: string | JSX.Element
-  description?: string | JSX.Element
+  label: string | React.JSX.Element
+  description?: string | React.JSX.Element
   value?: Partial<Alder>
   minAlder?: Alder
   maxAlder?: Alder
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
-  error?: string | JSX.Element
+  error?: string | React.JSX.Element
 }
 
 import styles from './AgePicker.module.scss'

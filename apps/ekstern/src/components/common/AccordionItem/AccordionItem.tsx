@@ -9,7 +9,7 @@ interface IProps {
   initialOpen?: boolean
   onClick?: () => void // kun hvis controlled
   isOpen?: boolean // kun hvis controlled
-  children: React.ReactFragment | JSX.Element
+  children: React.JSX.Element
 }
 
 interface AccordionContextType {
