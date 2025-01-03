@@ -18,6 +18,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmoreOffentlig_cef636"
+        data-volume="low"
       >
         <button
           aria-expanded="false"
@@ -64,6 +65,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_cef636"
+        data-volume="low"
       >
         <button
           aria-expanded="false"

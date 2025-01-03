@@ -50,6 +50,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmore1_10fc87 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
