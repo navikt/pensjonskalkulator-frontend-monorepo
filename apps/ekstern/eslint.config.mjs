@@ -2,6 +2,7 @@ import _import from 'eslint-plugin-import'
 import { fixupPluginRules } from '@eslint/compat'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import globals from 'globals'
 
 const ignoredFiles = [
   'eslint.config.mjs',
@@ -37,6 +38,13 @@ const defaultEslintConfig = tseslint.config(
 
 export default [
   ...defaultEslintConfig,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
   {
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
