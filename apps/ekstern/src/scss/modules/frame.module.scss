@@ -1,3 +1,5 @@
+// Deklarerer variablene på nytt fordi @import er deprecated, og @use/@forward fungerer ikke med compose
+// Løses når @use/@forward fikses, eller når var()/env() støttes for media queries
 $local-a-breakpoint-lg: 1024px;
 $local-a-breakpoint-md: 768px;
 $local-container-max-width: 632px;
