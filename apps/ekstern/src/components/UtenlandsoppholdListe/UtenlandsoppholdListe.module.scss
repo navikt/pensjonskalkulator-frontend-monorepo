@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .section {
   margin-top: var(--a-spacing-4);
@@ -42,7 +42,7 @@
     }
   }
 
-  @media (min-width: $a-breakpoint-md) {
+  @media (min-width: variables.$a-breakpoint-md) {
     &Item {
       flex-direction: row;
     }

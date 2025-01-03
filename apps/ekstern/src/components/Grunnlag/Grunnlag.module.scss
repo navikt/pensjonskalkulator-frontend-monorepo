@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .section {
   display: flex;
@@ -6,8 +6,8 @@
   gap: var(--a-spacing-4);
   margin-bottom: var(--a-spacing-12);
 
-  @media (min-width: $a-breakpoint-lg) {
-    max-width: $container-max-width;
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
   }
 
   // TODO denne logikken kan vekk når Aksel har løst manglende border bottom

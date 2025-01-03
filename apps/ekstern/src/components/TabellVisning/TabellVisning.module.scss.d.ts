@@ -1,4 +1,3 @@
-import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly visTabell: "visTabell";
   readonly "navds-read-more__content": "navds-read-more__content";
