@@ -41,6 +41,7 @@ describe('Simuleringsdetaljer', () => {
       <DocumentFragment>
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"
@@ -161,6 +162,7 @@ describe('Simuleringsdetaljer', () => {
       <DocumentFragment>
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"
@@ -285,6 +287,7 @@ describe('Simuleringsdetaljer', () => {
       <DocumentFragment>
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"
