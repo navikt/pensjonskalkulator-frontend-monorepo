@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 
+import { Provider as AkselProvider } from '@navikt/ds-react'
+import { nb, nn, en } from '@navikt/ds-react/locales'
 import {
   setAvailableLanguages,
   onLanguageSelect,
@@ -18,6 +20,8 @@ import '@formatjs/intl-datetimeformat/locale-data/nb'
 import '@formatjs/intl-datetimeformat/locale-data/nn'
 
 import { getCookie, getTranslations, updateLanguage, setCookie } from './utils'
+
+const akselLocales: Record<Locales, typeof nb> = { nb, nn, en }
 
 interface Props {
   children: ReactNode
@@ -66,7 +70,9 @@ export function LanguageProvider({ children }: Props) {
       locale={languageCookie}
       messages={getTranslations(languageCookie)}
     >
-      {children}
+      <AkselProvider locale={akselLocales[languageCookie]}>
+        {children}
+      </AkselProvider>
     </IntlProvider>
   )
 }
