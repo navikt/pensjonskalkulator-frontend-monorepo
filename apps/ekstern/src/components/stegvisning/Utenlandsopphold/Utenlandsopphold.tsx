@@ -91,54 +91,52 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
         }
       >
-        <>
-          <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-          <ul>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-          <ul>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.ingress"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-        </>
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
+          </li>
+        </ul>
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
+          </li>
+        </ul>
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.ingress"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
       </ReadMore>
       <ReadMore
         name="Betydning av opphold utenfor Norge for pensjon"
