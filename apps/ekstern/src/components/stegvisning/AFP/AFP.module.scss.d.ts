@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly readmoreOffentlig: "readmoreOffentlig";
   readonly readmorePrivat: "readmorePrivat";
   readonly list: "list";

@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly container: "container";
   readonly container__hasMobilePadding: "container__hasMobilePadding";
   readonly alert: "alert";

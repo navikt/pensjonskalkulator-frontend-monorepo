@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly wrapper: "wrapper";
   readonly list: "list";
 };

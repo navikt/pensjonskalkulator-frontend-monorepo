@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly datepicker: "datepicker";
   readonly select: "select";
   readonly "navds-select__container": "navds-select__container";

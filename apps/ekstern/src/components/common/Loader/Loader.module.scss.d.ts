@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly loader__isCentered: "loader__isCentered";
 };
 export = classNames;

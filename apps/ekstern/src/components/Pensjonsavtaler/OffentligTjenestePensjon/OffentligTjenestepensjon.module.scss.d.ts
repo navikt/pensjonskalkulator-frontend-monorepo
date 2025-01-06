@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly mobileTable: "mobileTable";
   readonly desktopTableHeader: "desktopTableHeader";
   readonly desktopTableRader__noBottomBorder: "desktopTableRader__noBottomBorder";

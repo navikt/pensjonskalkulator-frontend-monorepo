@@ -1,4 +1,4 @@
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly readmore1: "readmore1";
   readonly readmore2: "readmore2";
   readonly radiogroup: "radiogroup";
