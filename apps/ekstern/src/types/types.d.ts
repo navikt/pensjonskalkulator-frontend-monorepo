@@ -137,3 +137,15 @@ declare global {
   type OffentligTp =
     components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV2']
 }
+
+declare module 'react/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      ['representasjon-banner']: CustomElement<{
+        representasjonstyper?: string
+        redirectTo: string
+        style?: React.CSSProperties
+      }>
+    }
+  }
+}

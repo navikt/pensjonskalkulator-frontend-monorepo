@@ -1,4 +1,4 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables';
 
 .section {
   composes: innerframe from '../../../scss/modules/frame.module.scss';

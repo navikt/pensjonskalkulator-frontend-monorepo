@@ -5,7 +5,7 @@ import { ReadMore as ReadMoreAksel, ReadMoreProps } from '@navikt/ds-react'
 import { logger } from '@/utils/logging'
 interface IProps extends ReadMoreProps {
   name: string
-  children: React.ReactNode | React.ReactFragment
+  children: React.ReactNode
   onClick?: () => void
   open?: boolean
 }
