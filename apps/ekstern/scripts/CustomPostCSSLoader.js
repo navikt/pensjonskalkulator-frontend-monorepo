@@ -153,7 +153,7 @@ export default class CustomPostCSSLoader {
 
       // Custom kode fs.readFile er erstattet med sass for preprocessing
       sass
-        .compileAsync(fileRelativePath, { silenceDeprecations: ['import'] })
+        .compileAsync(fileRelativePath)
         .then((result) => {
           this.core
             .load(
