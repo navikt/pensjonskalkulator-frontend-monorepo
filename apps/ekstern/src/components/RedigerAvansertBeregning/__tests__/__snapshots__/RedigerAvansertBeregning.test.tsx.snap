@@ -246,6 +246,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
         />
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"
@@ -546,6 +547,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
         />
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"
@@ -693,6 +695,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
         />
         <div
           class="navds-read-more navds-read-more--medium"
+          data-volume="low"
         >
           <button
             aria-expanded="false"

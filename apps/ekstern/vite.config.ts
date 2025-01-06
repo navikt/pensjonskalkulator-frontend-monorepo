@@ -10,7 +10,7 @@ import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+export default defineConfig({
   base: '/pensjon/kalkulator',
   build: {
     sourcemap: true,
@@ -81,6 +81,7 @@ export default defineConfig(() => ({
   },
   css: {
     modules: {
+      // @ts-expect-error
       Loader: CustomPostCSSLoader,
       generateScopedName: (name, fileName) => {
         const pathArray = fileName.split('/')
@@ -134,4 +135,4 @@ export default defineConfig(() => ({
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
     },
   },
-}))
+})
