@@ -82,8 +82,9 @@ export function AFP({
     setValidationError('')
     setShowVetIkkeAlert(value === 'vet_ikke')
     if (value === 'vet_ikke') {
-      logger('alert', {
+      logger('alert vist', {
         tekst: 'Rett til AFP: Vet ikke',
+        variant: 'info',
       })
     }
   }
