@@ -1,11 +1,6 @@
 import { IntlShape } from 'react-intl'
 
-import {
-  AxisLabelsFormatterContextObject,
-  TooltipFormatterContextObject,
-  Chart,
-  Point,
-} from 'highcharts'
+import { AxisLabelsFormatterContextObject, Chart, Point } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
 import { SERIES_DEFAULT } from '../constants'
@@ -114,62 +109,63 @@ describe('Simulering-utils-highcharts', () => {
         },
       }
 
-      const context = {
+      const mockedPoint = {
+        category: '67',
         point: { plotY },
         x: alder,
+        series: {
+          name: SERIES_DEFAULT.SERIE_INNTEKT.name,
+          color: colorSerie1,
+          chart: {
+            chartHeight: 400,
+            plotLeft: 35,
+            series: [
+              {
+                name: SERIES_DEFAULT.SERIE_INNTEKT.name,
+                color: colorSerie1,
+                chart: { chartHeight: 400, plotLeft: 35 },
+                data: [
+                  {
+                    ...simplePoint,
+                  },
+                  {
+                    ...simplePoint,
+                    y: pointSumSerie2,
+                    series: {
+                      ...simplePoint.series,
+                      name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+                      color: colorSerie2,
+                    },
+                  },
+                ],
+              },
+              {
+                name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+                color: colorSerie2,
+                chart: { chartHeight: 400, plotLeft: 35 },
+                data: [
+                  {
+                    ...simplePoint,
+                  },
+                  {
+                    ...simplePoint,
+                    y: pointSumSerie2,
+                    series: {
+                      ...simplePoint.series,
+                      name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+                      color: colorSerie2,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
         points: [
           {
             y: pointSumSerie1,
             percentage: 20,
             total,
-            series: {
-              name: SERIES_DEFAULT.SERIE_INNTEKT.name,
-              color: colorSerie1,
-              chart: {
-                chartHeight: 400,
-                plotLeft: 35,
-                series: [
-                  {
-                    name: SERIES_DEFAULT.SERIE_INNTEKT.name,
-                    color: colorSerie1,
-                    chart: { chartHeight: 400, plotLeft: 35 },
-                    data: [
-                      {
-                        ...simplePoint,
-                      },
-                      {
-                        ...simplePoint,
-                        y: pointSumSerie2,
-                        series: {
-                          ...simplePoint.series,
-                          name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
-                          color: colorSerie2,
-                        },
-                      },
-                    ],
-                  },
-                  {
-                    name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
-                    color: colorSerie2,
-                    chart: { chartHeight: 400, plotLeft: 35 },
-                    data: [
-                      {
-                        ...simplePoint,
-                      },
-                      {
-                        ...simplePoint,
-                        y: pointSumSerie2,
-                        series: {
-                          ...simplePoint.series,
-                          name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
-                          color: colorSerie2,
-                        },
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
             point: {
               plotX: 129,
               series: {
@@ -180,7 +176,7 @@ describe('Simulering-utils-highcharts', () => {
         ],
       }
       const tooltipMarkup = tooltipFormatter(
-        context as unknown as TooltipFormatterContextObject,
+        mockedPoint as unknown as Point,
         stylesMock,
         {
           formatMessage: (s: { id: string }) => s.id,
@@ -205,7 +201,7 @@ describe('Simulering-utils-highcharts', () => {
       onVisFlereAarClick()
 
       const tooltipMarkupAfterScroll = tooltipFormatter(
-        context as unknown as TooltipFormatterContextObject,
+        mockedPoint as unknown as Point,
         stylesMock,
         {
           formatMessage: (s: { id: string }) => s.id,
