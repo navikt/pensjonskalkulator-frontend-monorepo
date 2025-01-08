@@ -36,7 +36,7 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'table expand lukket', { tekst: string; data: string }>
   | AmplitudeEvent<'help text åpnet', { tekst: string }>
   | AmplitudeEvent<'help text lukket', { tekst: string }>
-  | AmplitudeEvent<'alert', { tekst: string }>
+  | AmplitudeEvent<'alert vist', { tekst: string; variant: string }>
   | AmplitudeEvent<'feilside', { tekst: string }>
   | AmplitudeEvent<'link åpnet', { href?: string; target?: string }>
   | AmplitudeEvent<'show more åpnet', { tekst: string }>
