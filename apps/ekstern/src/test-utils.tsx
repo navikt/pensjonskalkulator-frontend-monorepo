@@ -1,11 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import {
-  createBrowserRouter,
-  MemoryRouter,
-  RouterProvider,
-} from 'react-router-dom'
+import { createBrowserRouter, MemoryRouter, RouterProvider } from 'react-router'
 
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
@@ -76,7 +72,9 @@ export function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
+  function Wrapper({
+    children,
+  }: PropsWithChildren<unknown>): React.JSX.Element {
     const router = createBrowserRouter([
       {
         loader: authenticationGuard,

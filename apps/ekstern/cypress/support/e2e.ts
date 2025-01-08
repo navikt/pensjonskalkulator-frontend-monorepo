@@ -1,7 +1,6 @@
 import 'cypress-axe'
 
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
-import { apiSlice } from '../../src/state/api/apiSlice'
 
 beforeEach(() => {
   cy.intercept(
@@ -83,18 +82,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-redirect-1963',
     },
-    { fixture: 'toggle-enable-highcharts-accessibility-plugin.json' }
-  ).as('getFeatureToggleHighcharts')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-utland',
-    },
-    { fixture: 'toggle-enable-utland.json' }
-  ).as('getFeatureToggleUtland')
+    { fixture: 'toggle-enable-redirect-1963.json' }
+  ).as('getFeatureToggleRedirect1963')
 
   cy.intercept(
     {
@@ -115,13 +106,13 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+      url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
     },
     { fixture: 'loepende-vedtak.json' }
   ).as('getLoependeVedtak')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
     { fixture: 'person.json' }
   ).as('getPerson')
 
@@ -131,27 +122,27 @@ beforeEach(() => {
   ).as('getInntekt')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v1/tpo-medlemskap' },
-    { fixture: 'tpo-medlemskap.json' }
-  ).as('getTpoMedlemskap')
+    { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
+    { fixture: 'offentlig-tp.json' }
+  ).as('fetchOffentligTp')
 
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+      url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
     },
     { fixture: 'tidligste-uttaksalder.json' }
   ).as('fetchTidligsteUttaksalder')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v2/pensjonsavtaler' },
+    { method: 'POST', url: '/pensjon/kalkulator/api/v3/pensjonsavtaler' },
     { fixture: 'pensjonsavtaler.json' }
   ).as('fetchPensjonsavtaler')
 
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+      url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
@@ -201,9 +192,17 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
   cy.window().its('router').invoke('navigate', '/beregning')
 })
 
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.on('uncaught:exception', (err) => {
   if (err.message.includes('Amplitude')) {
     // prevents Amplitude errors to fail tests
     return false
+  } else if (
+    err.stack?.includes(
+      'https://representasjon-banner-frontend-borger-q2.ekstern.dev.nav.no'
+    )
+  ) {
+    // prevents Representasjon banner errors to fail tests
+    return false
   }
+  return true
 })

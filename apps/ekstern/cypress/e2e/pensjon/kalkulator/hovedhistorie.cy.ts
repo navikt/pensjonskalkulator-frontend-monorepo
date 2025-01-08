@@ -27,7 +27,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
         cy.origin('https://login.idporten.no', () => {
-          cy.get('h1').contains('Velg elektronisk ID')
+          cy.get('h1').contains('Velg innloggingsmetode')
         })
         // Denne må deaktiveres foreløpig på grunn av OWASP CSRFGuard JavaScript was included from within an unauthorized domain!
         // cy.visit('/pensjon/kalkulator/')
@@ -42,7 +42,10 @@ describe('Hovedhistorie', () => {
       it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
 
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
@@ -70,7 +73,10 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/personopplysninger')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
@@ -110,11 +116,21 @@ describe('Hovedhistorie', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+            { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
             {
               navn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
+              pensjoneringAldre: {
+                normertPensjoneringsalder: {
+                  aar: 67,
+                  maaneder: 0,
+                },
+                nedreAldersgrense: {
+                  aar: 62,
+                  maaneder: 0,
+                },
+              },
             }
           ).as('getPerson')
           cy.login()
@@ -159,7 +175,7 @@ describe('Hovedhistorie', () => {
         })
         it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
           cy.contains('h2', 'AFP (avtalefestet pensjon)').should('exist')
-          cy.contains('Om AFP i offentlig sektor').click()
+          cy.contains('Om livsvarig AFP i offentlig sektor').click()
           cy.contains('Om AFP i privat sektor').click()
           cy.contains('a', 'AFP i privat sektor på afp.no')
             .should('have.attr', 'href')
@@ -206,18 +222,18 @@ describe('Hovedhistorie', () => {
           it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
             cy.contains(
               'h2',
-              'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+              'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
             ).should('exist')
-            cy.contains('Vil du at NAV skal beregne AFP for deg?').should(
+            cy.contains('Vil du at Nav skal beregne AFP for deg?').should(
               'exist'
             )
             cy.contains('button', 'Neste').click()
             cy.contains(
-              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+              'Du må svare på om du vil at Nav skal beregne AFP for deg.'
             ).should('exist')
             cy.get('[type="radio"]').last().check()
             cy.contains(
-              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+              'Du må svare på om du vil at Nav skal beregne AFP for deg.'
             ).should('not.exist')
             cy.contains('button', 'Neste').click()
           })
@@ -247,14 +263,14 @@ describe('Hovedhistorie', () => {
           cy.contains('h2', 'Pensjonsavtaler').should('exist')
           cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains(
-            'Dette sjekker vi om tjenestepensjon i offentlig sektor'
+            'Dette henter vi fra offentlige tjenestepensjonsordninger'
           ).should('exist')
           cy.contains(
-            'Dette henter vi om pensjonsavtaler fra privat sektor'
+            'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor'
           ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
           ).should('exist')
@@ -262,7 +278,7 @@ describe('Hovedhistorie', () => {
           cy.contains(
             'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
           ).should('not.exist')
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
@@ -280,7 +296,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
           },
           (req) => {
             req.on('response', (res) => {
@@ -299,16 +315,16 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
-        cy.contains('Jo lenger du venter, desto mer får du i året.').should(
-          'exist'
-        )
+        cy.contains(
+          'Hvis du venter lenger med uttaket, vil den årlige pensjonen din øke.'
+        ).should('exist')
       })
       it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
           {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
@@ -319,18 +335,18 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
         cy.contains('Det kan bli senere pga. økt pensjonsalder.').should(
           'exist'
         )
       })
-      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder.', () => {
+      it('må jeg kunne trykke på Readmore for å få mer informasjon om tidspunktet for tidligst uttak.', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Om pensjonsalder').click()
+        cy.contains('Om tidspunktet for tidligst uttak').click()
         cy.contains('Den oppgitte alderen er et estimat.').should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
@@ -356,7 +372,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('be.visible')
         cy.contains('61').should('be.visible')
         cy.contains('87+').should('exist')
@@ -394,7 +410,10 @@ describe('Hovedhistorie', () => {
           .and('include', '/pensjon/kalkulator/forbehold')
         cy.contains('a', 'detaljert pensjonskalkulator')
           .should('have.attr', 'href')
-          .and('include', 'https://www.nav.no/pselv/simulering.jsf')
+          .and(
+            'include',
+            'https://www.nav.no/pselv/simulering.jsf?simpleMode=true'
+          )
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {
@@ -428,7 +447,7 @@ describe('Hovedhistorie', () => {
         cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
           'exist'
         )
-        cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+        cy.contains('dt', 'Alderspensjon (Nav)').should('exist')
       })
     })
 
@@ -448,13 +467,13 @@ describe('Hovedhistorie', () => {
         cy.contains('521 338 kr').should('exist')
         cy.contains('Inntekt frem til uttak: 521 338 kr').should('exist')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 62 år og 10 måneder'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er 62 år og 10 måneder'
         ).should('exist')
 
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
           },
           {
             aar: 67,
@@ -467,7 +486,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Oppdater inntekt').click()
         cy.get('62 år og 10 måneder').should('not.exist')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 67 år.'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er 67 år.'
         ).should('exist')
       })
 

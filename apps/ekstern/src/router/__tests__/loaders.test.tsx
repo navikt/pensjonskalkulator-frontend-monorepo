@@ -1,4 +1,4 @@
-import { UNSAFE_DeferredData } from '@remix-run/router'
+import { add, endOfDay, format } from 'date-fns'
 import { describe, it, vi } from 'vitest'
 
 import {
@@ -7,18 +7,27 @@ import {
   landingPageAccessGuard,
   stepStartAccessGuard,
   stepSivilstandAccessGuard,
+  StepSivilstandAccessGuardLoader,
   stepAFPAccessGuard,
+  StepAFPAccessGuardLoader,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from '../loaders'
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetPerson,
+  fulfilledGetPersonMedSamboer,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { waitFor } from '@/test-utils'
+import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 describe('Loaders', () => {
   afterEach(() => {
@@ -79,9 +88,7 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
@@ -91,14 +98,27 @@ describe('Loaders', () => {
 
     it('redirigerer til detaljert kalkulator dersom brukeren er født før 1963', async () => {
       const open = vi.fn()
-      vi.stubGlobal('open', open)
+      const addEventListener = vi.fn()
 
-      mockResponse('/v2/person', {
+      vi.stubGlobal('open', open)
+      vi.stubGlobal('addEventListener', addEventListener)
+
+      mockResponse('/v4/person', {
         status: 200,
         json: {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
@@ -109,12 +129,17 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
+      })
+
+      await waitFor(async () => {
+        expect(addEventListener).toHaveBeenCalledWith(
+          'pageshow',
+          expect.any(Function)
+        )
       })
 
       await waitFor(async () => {
@@ -139,9 +164,7 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await landingPageAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.start)
@@ -178,12 +201,10 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      const getPersonQueryResponse =
-        await returnedFromLoader.data.getPersonQuery
+      const getPersonQueryResponse = await returnedFromLoader.getPersonQuery
       const getLoependeVedtakQueryResponse =
-        await returnedFromLoader.data.getLoependeVedtakQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+        await returnedFromLoader.getLoependeVedtakQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(
@@ -191,13 +212,19 @@ describe('Loaders', () => {
         ).toBe('1963-04-30')
         expect(
           (getLoependeVedtakQueryResponse as GetLoependeVedtakQuery).data
-            .alderspensjon.grad
-        ).toBe(0)
+            .alderspensjon
+        ).toBe(undefined)
 
         expect(shouldRedirectToResponse).toEqual('')
       })
 
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toEqual(
+        expect.objectContaining({
+          getLoependeVedtakQuery: expect.any(Promise),
+          getPersonQuery: expect.any(Promise),
+          shouldRedirectTo: expect.any(Promise),
+        })
+      )
       expect(initiateGetPersonMock).toHaveBeenCalled()
       expect(initiateGetLoependeVedtakQueryMock).toHaveBeenCalled()
       expect(initiateGetInntektMock).toHaveBeenCalled()
@@ -209,12 +236,22 @@ describe('Loaders', () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
-      mockResponse('/v2/person', {
+      mockResponse('/v4/person', {
         status: 200,
         json: {
           navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
         },
       })
 
@@ -225,11 +262,73 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      await returnedFromLoader.data.getPersonQuery
-      expect(open).toHaveBeenCalledWith(
-        externalUrls.detaljertKalkulator,
-        '_self'
-      )
+      const getPersonQueryResponse =
+        await (returnedFromLoader.getPersonQuery as GetPersonQuery)
+      expect(getPersonQueryResponse.data.foedselsdato).toBe('1960-04-30')
+      await waitFor(() => {
+        expect(open).toHaveBeenCalledWith(
+          externalUrls.detaljertKalkulator,
+          '_self'
+        )
+      })
+    })
+
+    it('Når /vedtak/loepende-vedtak kall feiler redirigeres brukes til uventet-feil side', async () => {
+      mockErrorResponse('/v2/vedtak/loepende-vedtak')
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepStartAccessGuard()
+
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
+      })
+    })
+
+    it('Når /person kall feiler med 403 status redirigeres brukes til ingen-tilgang', async () => {
+      mockErrorResponse('/v4/person', {
+        status: 403,
+      })
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepStartAccessGuard()
+
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.ingenTilgang)
+      })
+    })
+
+    it('Når /person kall feiler med andre status redirigeres brukes til uventet-feil side', async () => {
+      mockErrorResponse('/v4/person', {
+        status: 503,
+      })
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepStartAccessGuard()
+
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
+      })
     })
 
     it('Når brukeren har bruker har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
@@ -247,9 +346,8 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      await returnedFromLoader.data.getPersonQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+      await returnedFromLoader.getPersonQuery
+      const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(
@@ -272,25 +370,40 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSivilstandAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
       const mockedState = {
         api: {
           queries: {
-            ['getPerson(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: {
-                navn: 'Aprikos',
-                sivilstand: 'UGIFT',
-                foedselsdato: '1963-04-30',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState },
@@ -301,8 +414,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -310,18 +423,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getPerson(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: {
-                navn: 'Aprikos',
-                sivilstand: 'GIFT',
-                foedselsdato: '1963-04-30',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            ...fulfilledGetPersonMedSamboer,
           },
         },
         userInput: { ...userInputInitialState },
@@ -332,186 +434,9 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
-    })
-
-    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
-      mockResponse('/v2/person', {
-        status: 200,
-        json: {
-          navn: 'Ola',
-          sivilstand: 'UGIFT',
-          foedselsdato: '1963-04-30',
-        },
-      })
-
-      const mockedState = {
-        api: {
-          queries: {
-            ['getPerson(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepSivilstandAccessGuard()
-      const getPersonResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.getPersonQuery
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect((getPersonResponse as GetPersonQuery).data.sivilstand).toBe(
-        'UGIFT'
-      )
-      expect(shouldRedirectToResponse).toBe('')
-    })
-
-    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren har samboer, er hen redirigert', async () => {
-      mockResponse('/v2/person', {
-        status: 200,
-        json: {
-          navn: 'Ola',
-          sivilstand: 'GIFT',
-          foedselsdato: '1963-04-30',
-        },
-      })
-
-      const mockedState = {
-        api: {
-          queries: {
-            ['getPerson(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepSivilstandAccessGuard()
-      const getPersonResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.getPersonQuery
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect((getPersonResponse as GetPersonQuery).data.sivilstand).toBe('GIFT')
-      expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
-    })
-
-    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren er født før 1963, er hen redirigert', async () => {
-      const open = vi.fn()
-      vi.stubGlobal('open', open)
-
-      mockResponse('/v2/person', {
-        status: 200,
-        json: {
-          navn: 'Ola',
-          sivilstand: 'GIFT',
-          foedselsdato: '1960-04-30',
-        },
-      })
-
-      const mockedState = {
-        api: {
-          queries: {
-            ['getPerson(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepSivilstandAccessGuard()
-      const getPersonResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.getPersonQuery
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect((getPersonResponse as GetPersonQuery).data.foedselsdato).toBe(
-        '1960-04-30'
-      )
-      expect(shouldRedirectToResponse).toBe('')
-
-      expect(open).toHaveBeenCalledWith(
-        externalUrls.detaljertKalkulator,
-        '_self'
-      )
-    })
-
-    it('Gitt at getPerson har tidligere feilet og at den feiler igjen ved nytt kall, er brukeren redirigert', async () => {
-      mockErrorResponse('/v2/person')
-
-      const mockedState = {
-        api: {
-          queries: {
-            ['getPerson(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getPerson',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepSivilstandAccessGuard()
-      const getPersonResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.getPersonQuery
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect((getPersonResponse as GetPersonQuery).isError).toBeTruthy()
-      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })
 
@@ -555,153 +480,173 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Gitt at alle kallene er vellykket, er brukeren ikke redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ...mockedVellykketQueries,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect(shouldRedirectToResponse).toBe('')
-    })
-
-    it('Gitt at alle kallene er vellykket og getLoependeVedtak feiler, er brukeren redirigert', async () => {
-      mockErrorResponse('/v1/vedtak/loepende-vedtak')
-      const mockedState = {
-        api: {
-          queries: {
-            ...mockedVellykketQueries,
-            ['getLoependeVedtak(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getLoependeVedtak',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
+    })
+
+    describe('Gitt at alle kallene er vellykket, ', () => {
+      it('brukere uten uføretrygd og uten vedtak om afp er ikke redirigert', async () => {
+        const mockedState = {
+          api: {
+            queries: {
+              ...mockedVellykketQueries,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
             },
           },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+        const returnedFromLoader = await stepAFPAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe('')
       })
 
-      const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+      it('brukere med uføretrygd som ikke er fylt minimum uttaksalder, er ikke redirigert', async () => {
+        const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+          years: -61,
+          months: -11,
+        })
+        const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
 
-      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
-    })
-
-    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med alderspensjon, kalles det flushSamboerOgUtenlandsperioder og brukeren er ikke redirigert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: {
-            loepende: true,
-            grad: 50,
+        const mockedState = {
+          api: {
+            queries: {
+              ...mockedVellykketQueries,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ['getPerson(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'UGIFT',
+                  foedselsdato,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+            },
           },
-          ufoeretrygd: {
-            loepende: false,
-            grad: 0,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
-        },
-      })
-      const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
-        userInputReducerUtils.userInputActions,
-        'flushSamboerOgUtenlandsperioder'
-      )
-      const mockedState = {
-        api: {
-          queries: {
-            ...mockedVellykketQueries,
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+        const returnedFromLoader = await stepAFPAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe('')
       })
 
-      const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect(flushSamboerOgUtenlandsperioderMock).toHaveBeenCalled()
+      it('brukere med uføretrygd som er fylt minimum uttaksalder, er redirigert', async () => {
+        const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+          years: -62,
+        })
+        const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
 
-      expect(shouldRedirectToResponse).toBe('')
-    })
-
-    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
+        const mockedState = {
+          api: {
+            queries: {
+              ...mockedVellykketQueries,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ['getPerson(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'UGIFT',
+                  foedselsdato,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+            },
           },
-          ufoeretrygd: {
-            loepende: false,
-            grad: 0,
-          },
-          afpPrivat: {
-            loepende: true,
-            grad: 50,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
-        },
-      })
-      const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
-        userInputReducerUtils.userInputActions,
-        'flushSamboerOgUtenlandsperioder'
-      )
-      const mockedState = {
-        api: {
-          queries: {
-            ...mockedVellykketQueries,
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+        const returnedFromLoader = await stepAFPAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
       })
 
-      const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect(flushSamboerOgUtenlandsperioderMock).toHaveBeenCalled()
+      it('brukere med vedtak om afp-offentlig, er redirigert', async () => {
+        const mockedState = {
+          api: {
+            queries: {
+              ...mockedVellykketQueries,
+              ...fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+        const returnedFromLoader = await stepAFPAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
+      })
 
-      expect(shouldRedirectToResponse).toBe(paths.beregningAvansert)
+      it('brukere med vedtak om afp-privat, er redirigert', async () => {
+        const mockedState = {
+          api: {
+            queries: {
+              ...mockedVellykketQueries,
+              ...fulfilledGetLoependeVedtakLoependeAFPprivat,
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+        const returnedFromLoader = await stepAFPAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepAFPAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe(paths.ufoeretrygdAFP)
+      })
     })
 
     it('Gitt at getInntekt har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {
@@ -717,6 +662,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getInntekt(undefined)']: {
               status: 'rejected',
               endpointName: 'getInntekt',
@@ -738,8 +684,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -749,6 +695,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getInntekt(undefined)']: {
               status: 'rejected',
               endpointName: 'getInntekt',
@@ -770,8 +717,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -787,6 +734,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
               status: 'rejected',
               endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -808,8 +756,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -821,6 +769,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
               status: 'rejected',
               endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -842,8 +791,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
@@ -860,6 +809,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getEkskludertStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getEkskludertStatus',
@@ -881,8 +831,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(
         `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
@@ -901,6 +851,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getEkskludertStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getEkskludertStatus',
@@ -922,8 +873,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe('')
     })
 
@@ -933,6 +884,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
             ['getEkskludertStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getEkskludertStatus',
@@ -954,8 +906,8 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard()
       const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+        returnedFromLoader as StepAFPAccessGuardLoader
+      ).shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })
@@ -973,104 +925,41 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når brukeren har uføretrygd og har valgt afp, er hen ikke redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getLoependeVedtak(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getLoependeVedtak',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
-                ufoeretrygd: {
-                  loepende: true,
-                  grad: 50,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
                 },
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
+              Symbol(headers map sorted): null,
             },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
           },
-        },
-        userInput: { ...userInputInitialState, afp: 'ja_privat' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
-      expect(returnedFromLoader).toBeNull()
-    })
-
-    it('Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getLoependeVedtak(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getLoependeVedtak',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
-                ufoeretrygd: {
-                  loepende: true,
-                  grad: 50,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'nei' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
       const mockedState = {
         api: {
           queries: {
-            ['getEkskludertStatus(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getEkskludertStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ekskludert: false, aarsak: 'NONE' },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            ...fulfilledGetPerson,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
           },
         },
         userInput: { ...userInputInitialState },
@@ -1081,7 +970,166 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke-offentlig-afp",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
+    })
+
+    describe('Gitt at brukeren har uføretrygd, ', () => {
+      it('Når hen har svart ja til spørsmål om afp og er ikke fylt minimum uttaksalder, er hen ikke redirigert', async () => {
+        const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+          years: -61,
+          months: -11,
+        })
+        const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+
+        const mockedState = {
+          api: {
+            queries: {
+              ['getPerson(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'UGIFT',
+                  foedselsdato,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+            },
+          },
+          userInput: { ...userInputInitialState, afp: 'ja_privat' },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+
+        const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
+        expect(returnedFromLoader).toBeNull()
+      })
+
+      it('Når hen har svart nei til spørsmål om afp og er ikke fylt minimum uttaksalder, er hen ikke redirigert', async () => {
+        const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+          years: -61,
+          months: -11,
+        })
+        const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+
+        const mockedState = {
+          api: {
+            queries: {
+              ['getPerson(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'UGIFT',
+                  foedselsdato,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+            },
+          },
+          userInput: { ...userInputInitialState, afp: 'nei' },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+
+        const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
+        expect(returnedFromLoader).not.toBeNull()
+      })
+
+      it('Når hen er fylt minimum uttaksalder, er hen redirigert', async () => {
+        const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+          years: -62,
+        })
+        const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+
+        const mockedState = {
+          api: {
+            queries: {
+              ['getPerson(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'UGIFT',
+                  foedselsdato,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+            },
+          },
+          userInput: { ...userInputInitialState, afp: 'nei' },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+
+        const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
+        expect(returnedFromLoader).not.toBeNull()
+        expect(returnedFromLoader).toMatchInlineSnapshot(`
+          Response {
+            Symbol(state): {
+              "aborted": false,
+              "cacheState": "",
+              "headersList": HeadersList {
+                "cookies": null,
+                Symbol(headers map): Map {
+                  "location" => {
+                    "name": "location",
+                    "value": "/samtykke-offentlig-afp",
+                  },
+                },
+                Symbol(headers map sorted): null,
+              },
+              "rangeRequested": false,
+              "requestIncludesCredentials": false,
+              "status": 302,
+              "statusText": "",
+              "timingAllowPassed": false,
+              "timingInfo": null,
+              "type": "default",
+              "urlList": [],
+            },
+            Symbol(headers): Headers {},
+          }
+        `)
+      })
     })
   })
 
@@ -1098,7 +1146,33 @@ describe('Loaders', () => {
       })
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/start",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
@@ -1110,22 +1184,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
                   grad: 0,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1151,22 +1213,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1181,7 +1231,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
@@ -1193,22 +1269,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
                   grad: 0,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1223,7 +1287,33 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
+      expect(returnedFromLoader).toMatchInlineSnapshot(`
+        Response {
+          Symbol(state): {
+            "aborted": false,
+            "cacheState": "",
+            "headersList": HeadersList {
+              "cookies": null,
+              Symbol(headers map): Map {
+                "location" => {
+                  "name": "location",
+                  "value": "/samtykke",
+                },
+              },
+              Symbol(headers map sorted): null,
+            },
+            "rangeRequested": false,
+            "requestIncludesCredentials": false,
+            "status": 302,
+            "statusText": "",
+            "timingAllowPassed": false,
+            "timingInfo": null,
+            "type": "default",
+            "urlList": [],
+          },
+          Symbol(headers): Headers {},
+        }
+      `)
     })
   })
 })

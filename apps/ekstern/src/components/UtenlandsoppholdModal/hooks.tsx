@@ -12,8 +12,8 @@ import {
   UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
 } from './utils'
 
-export const useFormLocalState = (initialValues: {
-  modalRef: React.RefObject<HTMLDialogElement>
+export const useUtenlandsoppholdLocalState = (initialValues: {
+  modalRef: React.RefObject<HTMLDialogElement | null>
   foedselsdato?: string
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void

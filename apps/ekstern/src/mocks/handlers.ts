@@ -6,22 +6,24 @@ import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from './data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'json' }
+import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
-import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
-import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
-import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
-import enableUtlandToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
+import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableTpOffentligToggleResponse from './data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
-    await delay(1500)
-    return HttpResponse.json({ data: 'OK' })
+    await delay(500)
+    return HttpResponse.json({
+      session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
+      tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
+    })
   }),
 
   http.get(`${baseUrl}/inntekt`, async () => {
@@ -42,15 +44,15 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
   ),
 
-  http.get(`${baseUrl}/v2/person`, async ({ request }) => {
+  http.get(`${baseUrl}/v4/person`, async ({ request }) => {
     await delay(TEST_DELAY)
     if (request.headers.get('fnr') === '40100000000') {
       return HttpResponse.json({}, { status: 401 })
-    }
-    if (request.headers.get('fnr') === '40400000000') {
+    } else if (request.headers.get('fnr') === '40400000000') {
       return HttpResponse.json({}, { status: 404 })
+    } else if (request.headers.get('fnr') === '40300000000') {
+      return HttpResponse.json({}, { status: 403 })
     }
-
     return HttpResponse.json(personResponse)
   }),
 
@@ -59,22 +61,22 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(ansattIdResponse)
   }),
 
-  http.get(`${baseUrl}/v1/tpo-medlemskap`, async () => {
+  http.post(`${baseUrl}/v2/simuler-oftp`, async () => {
     await delay(TEST_DELAY)
-    return HttpResponse.json(tpoMedlemskapResponse)
+    return HttpResponse.json(offentligTpResponse)
   }),
 
-  http.get(`${baseUrl}/v1/vedtak/loepende-vedtak`, async () => {
+  http.get(`${baseUrl}/v2/vedtak/loepende-vedtak`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(loependeVedtakResponse)
   }),
 
-  http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
+  http.post(`${baseUrl}/v2/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
 
-  http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {
+  http.post(`${baseUrl}/v3/pensjonsavtaler`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]
@@ -83,14 +85,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v6/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v8/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
     const data = await import(`./data/alderspensjon/${aar}.json`)
     const mergedData = JSON.parse(JSON.stringify(data.default))
-    let afpPrivat: Pensjonsberegning[] = []
-    let afpOffentlig: Pensjonsberegning[] = []
+    let afpPrivat: AfpPrivatPensjonsberegning[] = []
+    let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
       'ALDERSPENSJON_MED_AFP_PRIVAT'
@@ -138,22 +140,20 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   ),
 
   http.get(
-    `${baseUrl}/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin`,
+    `${baseUrl}/feature/pensjonskalkulator.enable-redirect-1963`,
     async () => {
       await delay(TEST_DELAY)
-      return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
+      return HttpResponse.json(enableRedirect1963ToggleResponse)
     }
   ),
 
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-utland`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(enableUtlandToggleResponse)
-  }),
-
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-endring`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(enableEndringToggleResponse)
-  }),
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-tpoffentlig`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableTpOffentligToggleResponse)
+    }
+  ),
 
   http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
     await delay(TEST_DELAY)

@@ -1,4 +1,5 @@
-FROM node:20-alpine
+FROM gcr.io/distroless/nodejs22-debian12
+ENV NODE_ENV=production
 
 ENV TZ="Europe/Oslo"
 
@@ -10,4 +11,4 @@ COPY node_modules/ node_modules/
 
 
 
-CMD ["node", "server/server.js"]
+CMD ["server/server.js"]

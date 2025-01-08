@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .container {
   composes: frame from '../../scss/modules/frame.module.scss';
@@ -13,7 +13,7 @@
 }
 
 .form {
-  max-width: $container-max-width;
+  max-width: variables.$container-max-width;
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-8);
@@ -26,14 +26,14 @@
 }
 
 .textfield input {
-  width: $input-width-m;
+  width: variables.$input-width-m;
 }
 
 .select {
   :global {
     select,
     .navds-select__container {
-      width: $input-width-xxs;
+      width: variables.$input-width-xxs;
     }
   }
 }
@@ -52,6 +52,10 @@
 
 .label {
   display: block;
+
+  &__margin {
+    margin-top: var(--a-spacing-6);
+  }
 }
 
 .description {
@@ -73,14 +77,10 @@
   }
 }
 
-.alert {
-  margin-bottom: var(--a-spacing-8);
-}
-
 .ingress {
   display: inline;
 
-  @media (min-width: $a-breakpoint-lg) {
+  @media (min-width: variables.$a-breakpoint-lg) {
     font-size: var(--a-font-size-xlarge);
     line-height: var(--a-font-line-height-xlarge);
   }

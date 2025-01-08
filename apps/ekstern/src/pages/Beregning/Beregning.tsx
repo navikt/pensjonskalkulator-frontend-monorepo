@@ -1,24 +1,22 @@
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useIntl } from 'react-intl'
+import { useNavigate } from 'react-router'
 
-import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
-import Highcharts from 'highcharts'
-import HighchartsAccessibility from 'highcharts/modules/accessibility'
+import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
+import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
+import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetLoependeVedtakQuery,
-} from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
-import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+  selectCurrentSimulation,
+  selectIsEndring,
+  selectLoependeVedtak,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -43,15 +41,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
     React.useState<boolean>(false)
 
-  const { data: highchartsAccessibilityFeatureToggle } =
-    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
-  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
+  const isEndring = useAppSelector(selectIsEndring)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
 
   React.useEffect(() => {
-    /* c8 ignore next 3 */
-    if (highchartsAccessibilityFeatureToggle?.enabled) {
-      HighchartsAccessibility(Highcharts)
-    }
     document.title = intl.formatMessage({
       id: 'application.title.beregning',
     })
@@ -129,6 +122,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     }
   }
 
+  const pensjonsavtalerShowMoreRef = React.useRef<ShowMoreRef>(null)
+
   return (
     <BeregningContext.Provider
       value={{
@@ -136,13 +131,16 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         setAvansertSkjemaModus,
         harAvansertSkjemaUnsavedChanges,
         setHarAvansertSkjemaUnsavedChanges,
+        pensjonsavtalerShowMoreRef,
       }}
     >
       <Modal
         ref={avbrytModalRef}
         header={{
           heading: intl.formatMessage({
-            id: 'beregning.avansert.avbryt_modal.title',
+            id: isEndring
+              ? 'beregning.avansert.avbryt_modal.endring.title'
+              : 'beregning.avansert.avbryt_modal.title',
           }),
         }}
         width="medium"
@@ -162,12 +160,22 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <Button
             type="button"
             onClick={() => {
-              navigateToTab('enkel')
+              if (isEndring) {
+                dispatch(
+                  userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
+                )
+                navigate(paths.start)
+              } else {
+                navigateToTab('enkel')
+              }
+
               avbrytModalRef.current?.close('returnValue')
             }}
           >
             {intl.formatMessage({
-              id: 'beregning.avansert.avbryt_modal.button.avslutt',
+              id: isEndring
+                ? 'beregning.avansert.avbryt_modal.endring.button.avslutt'
+                : 'beregning.avansert.avbryt_modal.button.avslutt',
             })}
           </Button>
           <Button
@@ -184,43 +192,33 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {(loependeVedtak?.alderspensjon.loepende ||
-          loependeVedtak?.afpPrivat.loepende) && (
-          <div className={styles.container}>
-            <Alert
-              className={styles.alert}
-              variant="warning"
-              aria-live="polite"
-            >
-              <FormattedMessage
-                id="stegvisning.endring.alert"
-                values={{ ...getFormatMessageValues(intl) }}
-              />
-            </Alert>
+        <div className={styles.container}>
+          <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
+        </div>
+        {!isEndring && (
+          <div
+            className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
+          >
+            <div className={styles.container} data-testid="toggle-avansert">
+              <ToggleGroup
+                value={visning}
+                variant="neutral"
+                onChange={onToggleChange}
+              >
+                <ToggleGroup.Item value="enkel">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.enkel',
+                  })}
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="avansert">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.avansert',
+                  })}
+                </ToggleGroup.Item>
+              </ToggleGroup>
+            </div>
           </div>
         )}
-        <div
-          className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
-        >
-          <div className={styles.container} data-testid="toggle-avansert">
-            <ToggleGroup
-              value={visning}
-              variant="neutral"
-              onChange={onToggleChange}
-            >
-              <ToggleGroup.Item value="enkel">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.enkel',
-                })}
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="avansert">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.avansert',
-                })}
-              </ToggleGroup.Item>
-            </ToggleGroup>
-          </div>
-        </div>
         {visning === 'enkel' && <BeregningEnkel />}
         {visning === 'avansert' && <BeregningAvansert />}
         <div className={`${styles.background} ${styles.background__lightblue}`}>

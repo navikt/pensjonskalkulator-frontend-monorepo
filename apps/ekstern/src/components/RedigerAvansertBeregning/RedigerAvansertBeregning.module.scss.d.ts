@@ -1,5 +1,4 @@
-import globalClassNames from "../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly container: "container";
   readonly container__hasMobilePadding: "container__hasMobilePadding";
   readonly form: "form";
@@ -10,9 +9,9 @@ declare const classNames: typeof globalClassNames & {
   readonly spacer: "spacer";
   readonly spacer__small: "spacer__small";
   readonly label: "label";
+  readonly label__margin: "label__margin";
   readonly description: "description";
   readonly descriptionText: "descriptionText";
-  readonly alert: "alert";
   readonly ingress: "ingress";
 };
 export = classNames;

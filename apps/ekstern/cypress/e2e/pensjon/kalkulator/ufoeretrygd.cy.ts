@@ -4,24 +4,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -48,7 +35,7 @@ describe('Med ufoeretrygd', () => {
         cy.get('[type="radio"]').eq(2).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Nei').click()
         cy.contains(
@@ -68,7 +55,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -77,7 +64,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Vet ikke').click()
         cy.contains(
@@ -97,7 +84,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -106,9 +93,9 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
-        cy.contains('AFP: Offentlig (ikke beregnet)').click()
+        cy.contains('AFP: Offentlig (Ikke beregnet)').click()
         cy.contains(
           'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
         ).should('exist')
@@ -129,7 +116,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -138,13 +125,13 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
-        cy.contains('AFP: Privat (ikke beregnet)').click()
+        cy.contains('AFP: Privat (Ikke beregnet)').click()
         cy.contains(
           'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
         ).should('exist')
-        cy.contains('Ønsker du hjelp til å finne ut hva som lønner seg').should(
+        cy.contains('Ønsker du hjelp til å vurdere alternativene dine').should(
           'exist'
         )
       })
@@ -156,24 +143,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -212,24 +186,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 75,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -271,24 +232,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -350,24 +298,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 40,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -445,7 +380,7 @@ describe('Med ufoeretrygd', () => {
       it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
         cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
         cy.contains(
-          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
+          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
         ).should('exist')
       })
 
@@ -489,7 +424,7 @@ describe('Med ufoeretrygd', () => {
       it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
         cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
         cy.contains(
-          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
+          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
         ).should('exist')
       })
 
@@ -499,7 +434,7 @@ describe('Med ufoeretrygd', () => {
           'Forventer du å ha inntekt samtidig som du tar ut 50 % pensjon?'
         ).should('exist')
         cy.contains(
-          'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.'
+          'Du kan tjene så mye du vil samtidig som du tar ut pensjon.'
         ).should('exist')
       })
     })

@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
@@ -8,6 +6,15 @@ import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('TidligstMuligUttaksalder', () => {
   afterEach(() => {
@@ -68,7 +75,7 @@ describe('TidligstMuligUttaksalder', () => {
         })
       ).toBeInTheDocument()
       expect(
-        screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+        screen.getByText('Beregningen din viser at du kan ta ut', {
           exact: false,
         })
       ).toBeInTheDocument()
@@ -102,7 +109,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()
@@ -143,7 +150,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()
@@ -179,7 +186,6 @@ describe('TidligstMuligUttaksalder', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
@@ -258,10 +264,6 @@ describe('TidligstMuligUttaksalder', () => {
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulationUtenomUtenlandsperioder'
       )
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
 
       const user = userEvent.setup()
       render(
@@ -301,7 +303,6 @@ describe('TidligstMuligUttaksalder', () => {
         {
           preloadedState: {
             api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,

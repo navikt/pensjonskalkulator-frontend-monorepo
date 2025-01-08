@@ -1,8 +1,16 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { GrunnlagUtenlandsopphold } from '..'
+import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet', () => {
@@ -123,12 +131,46 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  it('Når man klikker på lenken for å endre opphold, sendes man til Utenlandsoppholdsteget', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
+      const user = userEvent.setup()
+      render(<GrunnlagUtenlandsopphold />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+            },
+          },
+          userInput: { ...userInputInitialState, harUtenlandsopphold: false },
+        },
+      })
 
+      expect(
+        await screen.findByText('grunnlag.opphold.title.endring')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.opphold.value.endring')
+      ).toBeVisible()
+
+      await user.click(await screen.findByTestId('accordion-header'))
+
+      expect(
+        await screen.findByText('grunnlag.opphold.ingress.endring')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('stegvisning.utenlandsopphold.oppholdene.title')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('grunnlag.opphold.ingress.for_lite_trygdetid')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('grunnlag.opphold.bunntekst')
+      ).not.toBeInTheDocument()
+    })
+  })
+
+  it('Når man klikker på lenken for å endre opphold, sendes man til Utenlandsoppholdsteget', async () => {
     const user = userEvent.setup()
 
     render(<GrunnlagUtenlandsopphold />, {

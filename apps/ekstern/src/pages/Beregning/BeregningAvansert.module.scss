@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .container {
   composes: frame from '../../scss/modules/frame.module.scss';
@@ -21,4 +21,9 @@
   &__lightblue {
     background-color: var(--a-deepblue-50);
   }
+}
+
+.button {
+  margin-top: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-6);
 }

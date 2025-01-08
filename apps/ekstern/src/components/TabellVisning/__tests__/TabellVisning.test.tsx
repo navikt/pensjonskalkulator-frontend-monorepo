@@ -6,18 +6,17 @@ import { render, screen, userEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
 describe('TabellVisning', () => {
-  const series: SeriesColumnOptions[] = [
-    {
-      type: 'column',
-      name: 'beregning.highcharts.serie.inntekt.name',
-      data: [100000, 175000, 0, 0, 0, 0, 0, 0, 0],
-    },
-    {
-      type: 'column',
-      name: 'beregning.highcharts.serie.alderspensjon.name',
-      data: [200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 0],
-    },
-  ]
+  const inntektSerie: SeriesColumnOptions = {
+    type: 'column',
+    name: 'beregning.highcharts.serie.inntekt.name',
+    data: [100000, 175000, 0, 0, 0, 0, 0, 0, 0],
+  }
+
+  const alderspensjonSerie: SeriesColumnOptions = {
+    type: 'column',
+    name: 'beregning.highcharts.serie.alderspensjon.name',
+    data: [200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 0],
+  }
 
   const afpSerie: SeriesColumnOptions = {
     type: 'column',
@@ -30,11 +29,31 @@ describe('TabellVisning', () => {
     data: [180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 0],
   }
 
+  it('rendrer riktig formatert tabell med detaljer når 1 serie er oppgitt: alderspensjon', async () => {
+    const user = userEvent.setup()
+    render(
+      <TabellVisning
+        series={[alderspensjonSerie]}
+        aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
+      />
+    )
+
+    await user.click(await screen.findByText('beregning.tabell.vis'))
+    expect(await screen.findByText('beregning.tabell.lukk')).toBeVisible()
+    expect(await screen.findAllByRole('button')).toHaveLength(10)
+    expect(await screen.findAllByRole('row')).toHaveLength(19)
+    expect(await screen.findAllByRole('cell')).toHaveLength(45)
+
+    const buttons = await screen.findAllByRole('button')
+    await user.click(buttons[1])
+    expect(await screen.findAllByRole('term')).toHaveLength(1)
+  })
+
   it('rendrer riktig formatert tabell med detaljer når 2 serier er oppgitt: inntekt og alderspensjon', async () => {
     const user = userEvent.setup()
     render(
       <TabellVisning
-        series={[series[0], series[1]]}
+        series={[inntektSerie, alderspensjonSerie]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
@@ -57,7 +76,12 @@ describe('TabellVisning', () => {
     const user = userEvent.setup()
     render(
       <TabellVisning
-        series={[...series, afpSerie, pensjonsavtalerSerie]}
+        series={[
+          inntektSerie,
+          alderspensjonSerie,
+          afpSerie,
+          pensjonsavtalerSerie,
+        ]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
@@ -86,7 +110,12 @@ describe('TabellVisning', () => {
     const loggerSpy = vi.spyOn(loggerUtils, 'logger')
     render(
       <TabellVisning
-        series={[...series, afpSerie, pensjonsavtalerSerie]}
+        series={[
+          inntektSerie,
+          alderspensjonSerie,
+          afpSerie,
+          pensjonsavtalerSerie,
+        ]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )

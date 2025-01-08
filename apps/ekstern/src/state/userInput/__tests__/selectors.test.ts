@@ -14,21 +14,23 @@ import {
   selectCurrentSimulationUtenlandsperioder,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
-  selectHarHentetTpoMedlemskap,
+  selectHarHentetOffentligTp,
   selectIsVeileder,
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
+  selectLoependeVedtak,
   selectUfoeregrad,
   selectIsEndring,
 } from '../selectors'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
-  fulfilledGetTpoMedlemskap,
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledsimulerOffentligTp,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+  fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -99,7 +101,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -130,7 +131,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -144,7 +144,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -157,7 +156,6 @@ describe('userInput selectors', () => {
         api: {
           queries: {
             ['getPerson(undefined)']: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               status: 'fulfilled',
               endpointName: 'getPerson',
@@ -182,7 +180,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetPerson },
         },
@@ -200,7 +197,6 @@ describe('userInput selectors', () => {
         api: {
           queries: {
             ['getPerson(undefined)']: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               status: 'fulfilled',
               endpointName: 'getPerson',
@@ -251,7 +247,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -267,7 +262,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -286,7 +280,6 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetInntekt },
         },
@@ -355,23 +348,22 @@ describe('userInput selectors', () => {
     expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
   })
 
-  describe('selectHarHentetTpoMedlemskap', () => {
-    it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
+  describe('selectHarHentetOffentligTp', () => {
+    it('returnerer false når /simuler-oftp har ikke blitt hentet', () => {
       const state: RootState = {
         ...initialState,
       }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
+      expect(selectHarHentetOffentligTp(state)).toBeFalsy()
     })
-    it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
+    it('returnerer true når /simuler-oftp har blitt hentet', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetTpoMedlemskap },
+          queries: { ...fulfilledsimulerOffentligTp },
         },
       }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+      expect(selectHarHentetOffentligTp(state)).toBeTruthy()
     })
   })
   describe('selectIsVeileder', () => {
@@ -433,8 +425,33 @@ describe('userInput selectors', () => {
     })
   })
 
+  describe('selectLoependeVedtak', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectLoependeVedtak(state)).toBeUndefined()
+    })
+
+    it('returnerer vedtaket når kallet er vellykket', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+        },
+      }
+      expect(selectLoependeVedtak(state)).toMatchInlineSnapshot(`
+        {
+          "harFremtidigLoependeVedtak": false,
+          "ufoeretrygd": {
+            "grad": 75,
+          },
+        }
+      `)
+    })
+  })
+
   describe('selectUfoeregrad', () => {
-    it('er undefined når ufoeregrad ikke er kalt enda', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
       const state: RootState = initialState
       expect(selectUfoeregrad(state)).toBeUndefined()
     })
@@ -443,9 +460,8 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
@@ -458,49 +474,59 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon eller AFP', () => {
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er true når kallet er vellykket og brukeren har løpende alderspensjon', () => {
+    it('er false når kallet er vellykket og brukeren har løpende AFP-offentlig uten alderspensjon', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har 0 % løpende alderspensjon og 100 % uføretrygd', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+          },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
         },
       }
+
       expect(selectIsEndring(state)).toBeTruthy()
     })
 
-    it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
+    it('er true når kallet er vellykket og brukeren har 0 % alderspensjon og løpende AFP-privat', () => {
       const state: RootState = {
         ...initialState,
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
-        },
-      }
-      expect(selectIsEndring(state)).toBeTruthy()
-    })
-
-    it('er true når kallet er vellykket og brukeren har løpende AFP-offentlig', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
         },
       }
       expect(selectIsEndring(state)).toBeTruthy()

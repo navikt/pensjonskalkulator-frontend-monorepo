@@ -1,11 +1,18 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepFeil } from '..'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('Step Feil', () => {
   it('har riktig sidetittel', () => {
@@ -24,10 +31,7 @@ describe('Step Feil', () => {
 
   it('redirigerer til landingssiden når brukeren klikker på knappen', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepFeil />, {
       preloadedState: {
         userInput: {

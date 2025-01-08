@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { PageFramework } from '..'
+import { PageFramework } from '../PageFramework'
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
@@ -85,9 +85,12 @@ describe('PageFramework', () => {
   })
 
   it('redirigerer til id-porten hvis shouldRedirectNonAuthenticated prop er satt og at brukeren ikke er authenticated', async () => {
+    const addEventListener = vi.fn()
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })
+
+    vi.stubGlobal('addEventListener', addEventListener)
 
     const windowSpy = vi.spyOn(window, 'open')
 
@@ -99,10 +102,17 @@ describe('PageFramework', () => {
     )
     await Promise.resolve()
 
-    expect(await screen.findByTestId('redirect-element')).toBeVisible()
-    expect(windowSpy).toHaveBeenCalledWith(
-      'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-      '_self'
+    await waitFor(() =>
+      expect(windowSpy).toHaveBeenCalledWith(
+        'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+        '_self'
+      )
     )
+    await waitFor(async () => {
+      expect(addEventListener).toHaveBeenCalledWith(
+        'pageshow',
+        expect.any(Function)
+      )
+    })
   })
 })

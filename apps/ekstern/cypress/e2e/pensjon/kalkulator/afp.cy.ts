@@ -25,7 +25,7 @@ describe('AFP', () => {
       it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('button', 'Neste').click()
         cy.contains(
-          'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
         ).should('not.exist')
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
@@ -36,14 +36,14 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
@@ -52,7 +52,7 @@ describe('AFP', () => {
       it('forventer jeg å få informasjon i grunnlaget om at AFP kan påvirke min uttaksalder.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -73,7 +73,7 @@ describe('AFP', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
-          'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
         ).should('not.exist')
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
@@ -84,14 +84,14 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
@@ -100,7 +100,7 @@ describe('AFP', () => {
       it('forventer jeg å få informasjon i grunnlaget om at jeg bør gjøre ny beregning hvis jeg starter i jobb hos arbeidsgiver med AFP.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -123,7 +123,7 @@ describe('AFP', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
-          'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
         ).should('not.exist')
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
@@ -134,30 +134,30 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, AFP, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
       })
 
-      it('forventer jeg å få informasjon i grunnlaget om at vilkårene for AFP ikke vurderes av NAV, men av Fellesordningen.', () => {
+      it('forventer jeg å få informasjon i grunnlaget om at vilkårene for AFP ikke vurderes av Nav, men av Fellesordningen.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('AFP:').click()
         cy.contains('Privat').should('exist')
         cy.contains(
-          'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos Fellesordningen for AFP'
+          'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det.'
         ).should('exist')
         cy.contains('a', 'Fellesordningen for AFP')
           .should('have.attr', 'href')
@@ -174,7 +174,7 @@ describe('AFP', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
-          'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
         ).should('exist')
       })
 
@@ -182,7 +182,7 @@ describe('AFP', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_med_afp_offentlig.json' }
         ).as('fetchAlderspensjon')
@@ -191,32 +191,32 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(0).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
       })
 
-      it('forventer jeg å få informasjon i grunnlaget om at vilkårene for AFP ikke vurderes av NAV, og at det må sjekkes hos tjenestepensjonsordningen min.', () => {
+      it('forventer jeg å få informasjon i grunnlaget om at vilkårene for AFP ikke vurderes av Nav, og at det må sjekkes hos tjenestepensjonsordningen min.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(0).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('AFP:').click()
         cy.contains('Offentlig').should('exist')
         cy.contains(
-          'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.'
+          'Du har oppgitt AFP i offentlig sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.'
         ).should('exist')
       })
     })
@@ -230,7 +230,7 @@ describe('AFP', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
-          'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
+          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
         ).should('exist')
       })
 
@@ -239,14 +239,14 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(1).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
@@ -257,14 +257,14 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(1).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('AFP:').click()
         cy.contains('Offentlig').should('exist')
         cy.contains(
-          'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at NAV beregner den. Derfor vises ikke AFP i beregningen.'
+          'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.'
         ).should('exist')
       })
     })

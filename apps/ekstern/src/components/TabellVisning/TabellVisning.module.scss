@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .visTabell {
   width: 100%;
@@ -6,7 +6,7 @@
   button {
     margin: 0 auto;
 
-    @media (min-width: $a-breakpoint-md) {
+    @media (min-width: variables.$a-breakpoint-md) {
       margin: 0;
     }
   }
@@ -31,18 +31,18 @@
     }
   }
 
-  @media (min-width: $a-breakpoint-lg) {
+  @media (min-width: variables.$a-breakpoint-lg) {
     table-layout: fixed;
   }
 
   &MobileOnly {
-    @media (min-width: $a-breakpoint-lg) {
+    @media (min-width: variables.$a-breakpoint-lg) {
       display: none !important;
     }
   }
 
   &DesktopOnly {
-    @media (max-width: $a-breakpoint-lg-down) {
+    @media (max-width: variables.$a-breakpoint-lg-down) {
       display: none !important;
     }
   }
@@ -67,7 +67,7 @@
     }
   }
 
-  @media (min-width: $a-breakpoint-sm) {
+  @media (min-width: variables.$a-breakpoint-sm) {
     font-size: var(--a-font-size-large);
   }
 }

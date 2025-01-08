@@ -58,6 +58,21 @@ export const getFormatMessageValues = (
         />
       </Link>
     ),
+    dinPensjonEndreSoeknadLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.dinPensjonEndreSoeknad}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
     alderspensjonsreglerLink: (chunks: string) => (
       <Link
         onClick={logOpenLink}
@@ -212,6 +227,36 @@ export const getFormatMessageValues = (
       <Link
         onClick={logOpenLink}
         href={externalUrls.kortBotid}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
+    personopplysningerLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.personopplysninger}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
+    spkLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.spk}
         target="_blank"
         inlineText
       >

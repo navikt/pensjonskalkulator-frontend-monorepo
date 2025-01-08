@@ -4,13 +4,19 @@ import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { typ
 import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
 import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { Simulering } from '../Simulering'
+import {
+  fulfilledGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, userEvent, waitFor } from '@/test-utils'
+import { act, render, screen, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
@@ -21,6 +27,11 @@ describe('Simulering', () => {
     gradertUttaksperiode: null,
   }
 
+  const preloadedQueries = {
+    ...fulfilledGetInntekt,
+    ...fulfilledGetPerson,
+  }
+
   const fakeApiCallUfoere = {
     queries: {
       ['getLoependeVedtak(undefined)']: {
@@ -29,22 +40,10 @@ describe('Simulering', () => {
         requestId: 'xTaE6mOydr5ZI75UXq4Wi',
         startedTimeStamp: 1688046411971,
         data: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 75,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
         fulfilledTimeStamp: 1688046412103,
       },
@@ -93,7 +92,55 @@ describe('Simulering', () => {
     expect(heading).toHaveTextContent('beregning.highcharts.title')
   })
 
-  describe('Gitt at brukeren IKKE samtykker', () => {
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    it('viser banner om info for endret alderspensjon', () => {
+      render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpPrivatListe={afpPrivatData.afpPrivat}
+          showButtonsAndTable={false}
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonMaanedligVedEndring={{
+            heltUttakMaanedligBeloep: 100000,
+          }}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.title', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(
+        screen.getByText('100 000', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.avansert.endring_banner.kr_md', {
+          exact: false,
+        })
+      ).toBeVisible()
+    })
+  })
+
+  describe('Gitt at brukeren IKKE samtykker, ', () => {
     it('Når brukeren ikke velger AFP, viser kun inntekt og alderspensjon', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
@@ -109,6 +156,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -151,6 +205,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -191,6 +252,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -230,6 +298,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -292,10 +367,42 @@ describe('Simulering', () => {
       expect(xAxisLabels[0]).toHaveTextContent('61')
       expect(xAxisLabels[17]).toHaveTextContent('77+')
     })
+
+    it('Når brukeren har vedtak om alderspensjon, vises det riktig infomelding for tp-ordning', async () => {
+      render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="0"
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      expect(
+        await screen.findByText('beregning.pensjonsavtaler.alert.endring')
+      ).toBeVisible()
+    })
   })
 
-  describe('Gitt at brukeren samtykker', () => {
-    it('Når brukeren velger uten AFP, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+  describe('Gitt at brukeren samtykker, ', () => {
+    it('Når brukeren velger uten AFP, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler.', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -310,6 +417,12 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -324,7 +437,9 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          sivilstand: undefined,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
@@ -332,7 +447,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -364,7 +478,7 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+    it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler.', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -380,6 +494,12 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -394,7 +514,9 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: true,
-          sivilstand: undefined,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
@@ -402,7 +524,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -424,7 +545,7 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(4)
     })
 
-    it('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+    it('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler.', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -440,6 +561,12 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -459,7 +586,9 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          sivilstand: undefined,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
@@ -467,7 +596,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -483,7 +611,7 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(4)
     })
 
-    it('Når brukeren har uføretrygd og velger AFP-privat, henter og viser inntekt, alderspensjon og pensjonsavtaler', async () => {
+    it('Når brukeren har uføretrygd og velger AFP-privat, henter og viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -498,11 +626,14 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
             api: {
-              ...fakeApiCallUfoere,
+              /* @ts-ignore */
+              queries: {
+                ...fakeApiCallUfoere,
+                ...fulfilledGetPerson,
+              },
             },
+
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -516,8 +647,10 @@ describe('Simulering', () => {
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
           aarligInntektFoerUttakBeloep: 500000,
-          harAfp: false,
-          sivilstand: undefined,
+          harAfp: true,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
@@ -525,7 +658,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -557,7 +689,7 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har uføretrygd og velger AFP-offentlig, henter og viser inntekt, alderspensjon og pensjonsavtaler', async () => {
+    it('Når brukeren har uføretrygd og velger AFP-offentlig, henter og viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -572,10 +704,12 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
             api: {
-              ...fakeApiCallUfoere,
+              /* @ts-ignore */
+              queries: {
+                ...fakeApiCallUfoere,
+                ...fulfilledGetPerson,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -591,7 +725,9 @@ describe('Simulering', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
-          sivilstand: undefined,
+          epsHarPensjon: false,
+          epsHarInntektOver2G: false,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
@@ -599,7 +735,6 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
-          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -631,8 +766,17 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
+    it('Når brukeren har 0 pensjonsavtaler (private og offentlige), viser inntekt og alderspensjon (uten pensjonsavtaler).', async () => {
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        json: {
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+        },
+        method: 'post',
+      })
+
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -651,6 +795,12 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -682,15 +832,137 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(2)
     })
 
-    it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      const scrollToMock = vi.fn()
-      Object.defineProperty(global.window, 'scrollTo', {
-        value: scrollToMock,
-        writable: true,
+    it('Når henting av pensjonsavtaler (private og offentlige) feiler, viser inntekt og alderspensjon (uten pensjonsavtaler) og alert.', async () => {
+      mockErrorResponse('/v2/simuler-oftp', {
+        method: 'post',
+      })
+      mockErrorResponse('/v3/pensjonsavtaler', {
+        method: 'post',
       })
 
-      const user = userEvent.setup()
-      mockResponse('/v2/pensjonsavtaler', {
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(2)
+      expect(screen.getByTestId('pensjonsavtaler-alert')).toBeVisible()
+    })
+
+    it('Når brukeren uten offentlig-tp har minst én privat pensjonsavtale, viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
+      mockResponse('/v3/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [
+            {
+              produktbetegnelse: 'Storebrand',
+              kategori: 'PRIVAT_TJENESTEPENSJON',
+              startAar: 62,
+              sluttAar: 71,
+              utbetalingsperioder: [
+                {
+                  startAlder: { aar: 62, maaneder: 0 },
+                  sluttAlder: { aar: 71, maaneder: 11 },
+                  aarligUtbetaling: 31298,
+                  grad: 100,
+                },
+              ],
+            },
+          ],
+          utilgjengeligeSelskap: [],
+        },
+        method: 'post',
+      })
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        json: {
+          simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+          muligeTpLeverandoerListe: [],
+        },
+        method: 'post',
+      })
+
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har privat pensjonsavtale før valgt alder, viser alert.', async () => {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -714,479 +986,112 @@ describe('Simulering', () => {
         method: 'post',
       })
 
-      render(
+      const { container } = render(
         <Simulering
           isLoading={false}
           headingLevel="3"
-          aarligInntektFoerUttakBeloep="0"
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjonListe={alderspensjonData.alderspensjon}
-          showButtonsAndTable={true}
+          showButtonsAndTable={false}
         />,
         {
           preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
-              currentSimulation: {
-                ...currentSimulation,
-                aarligInntektFoerUttakBeloep: '500 000',
-              },
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
             },
           },
         }
       )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      const elemDiv = document.createElement('div')
-      elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
-      document.body.appendChild(elemDiv)
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
       await waitFor(async () => {
-        expect(
-          await screen.findByText(
-            'Du har pensjonsavtaler som starter før valgt alder.',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
-      await user.click(await screen.findByTestId('pensjonsavtaler-info-link'))
-      expect(scrollToMock).toHaveBeenCalledWith({
-        behavior: 'smooth',
-        top: -15,
+        expect(screen.getByTestId('pensjonsavtaler-alert')).toBeVisible()
       })
     })
 
-    describe('Gitt at brukeren har tp-medlemskap', () => {
-      it('Når pensjonsavtaler hentes, vises det riktig infomelding for tp-ordning', async () => {
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',
-            {
-              exact: false,
-            }
-          )
-        ).toBeVisible()
+    it('Når brukeren med offentlig-tp ikke har noe privat pensjonsavtale, viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
+      mockResponse('/v3/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [],
+          utilgjengeligeSelskap: [],
+        },
+        method: 'post',
       })
 
-      it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
-          status: 500,
-          json: "Beep boop I'm an error!",
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
               },
             },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
-            {
-              exact: false,
-            }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [
-              {
-                produktbetegnelse:
-                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
-                kategori: 'PRIVAT_TJENESTEPENSJON',
-                startAar: 69,
-                utbetalingsperioder: [
-                  {
-                    startAlder: { aar: 69, maaneder: 0 },
-                    aarligUtbetaling: 175000,
-                    grad: 100,
-                  },
-                ],
-              },
-            ],
-            utilgjengeligeSelskap: ['Something'],
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
           },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [],
-            utilgjengeligeSelskap: ['Something'],
-          },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
-            { exact: false }
-          )
-        ).toBeVisible()
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
       })
-    })
-
-    describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
-      beforeEach(() => {
-        mockResponse('/v1/tpo-medlemskap', {
-          status: 200,
-          json: {
-            tpLeverandoerListe: [],
-          },
-        })
-      })
-      it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
-          status: 500,
-          json: "Beep boop I'm an error!",
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
-            {
-              exact: false,
-            }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [
-              {
-                produktbetegnelse:
-                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
-                kategori: 'PRIVAT_TJENESTEPENSJON',
-                startAar: 69,
-                utbetalingsperioder: [
-                  {
-                    startAlder: { aar: 69, maaneder: 0 },
-                    aarligUtbetaling: 175000,
-                    grad: 100,
-                  },
-                ],
-              },
-            ],
-            utilgjengeligeSelskap: ['Something'],
-          },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [],
-            utilgjengeligeSelskap: ['Something'],
-          },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
-    })
-
-    describe('Gitt at kall til tp-medlemskap feiler', () => {
-      beforeEach(() => {
-        mockErrorResponse('/v1/tpo-medlemskap')
-      })
-
-      it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor.',
-            {
-              exact: false,
-            }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler feiler, vises det riktig feilmelding for tp-ordninger og pensjonsvtaler', async () => {
-        mockErrorResponse('/v2/pensjonsavtaler', {
-          status: 500,
-          json: "Beep boop I'm an error!",
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
-            {
-              exact: false,
-            }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [
-              {
-                produktbetegnelse:
-                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
-                kategori: 'PRIVAT_TJENESTEPENSJON',
-                startAar: 69,
-                utbetalingsperioder: [
-                  {
-                    startAlder: { aar: 69, maaneder: 0 },
-                    aarligUtbetaling: 175000,
-                    grad: 100,
-                  },
-                ],
-              },
-            ],
-            utilgjengeligeSelskap: ['Something'],
-          },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
-
-      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
-        mockResponse('/v2/pensjonsavtaler', {
-          status: 200,
-          json: {
-            avtaler: [],
-            utilgjengeligeSelskap: ['Something'],
-          },
-          method: 'post',
-        })
-        render(
-          <Simulering
-            isLoading={false}
-            headingLevel="3"
-            aarligInntektFoerUttakBeloep="0"
-            showButtonsAndTable={false}
-          />,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
-                samtykke: true,
-                afp: 'nei',
-                currentSimulation: { ...currentSimulation },
-              },
-            },
-          }
-        )
-        expect(
-          await screen.findByText(
-            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
     })
   })
 
   it('viser tabell og skjuler grafen for skjermlesere', async () => {
-    const { store } = render(
+    render(
       <Simulering
         isLoading={false}
         headingLevel="3"
@@ -1197,6 +1102,12 @@ describe('Simulering', () => {
       />,
       {
         preloadedState: {
+          api: {
+            /* @ts-ignore */
+            queries: {
+              ...fulfilledGetPerson,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -1204,9 +1115,6 @@ describe('Simulering', () => {
           },
         },
       }
-    )
-    store.dispatch(
-      apiSliceUtils.apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
     )
     expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     const highChartsWrapper = await screen.findByTestId(
@@ -1214,41 +1122,6 @@ describe('Simulering', () => {
     )
     await waitFor(() => {
       expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
-    })
-  })
-
-  it('setter aria-hidden attribute iht feature toggle', async () => {
-    mockResponse(
-      '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-      {
-        status: 200,
-        json: { enabled: true },
-      }
-    )
-
-    render(
-      <Simulering
-        isLoading={false}
-        headingLevel="3"
-        aarligInntektFoerUttakBeloep="0"
-        afpPrivatListe={afpPrivatData.afpPrivat}
-        showButtonsAndTable={true}
-      />,
-      {
-        preloadedState: {
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: { ...currentSimulation },
-          },
-        },
-      }
-    )
-    await waitFor(async () => {
-      const highchartsWrapper = await screen.findByTestId(
-        'highcharts-aria-wrapper'
-      )
-      expect(highchartsWrapper.getAttribute('aria-hidden')).toBe('false')
     })
   })
 })

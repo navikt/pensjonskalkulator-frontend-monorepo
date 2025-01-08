@@ -12,7 +12,7 @@ import {
   isAlderspensjonSimulering,
   isPerson,
   isPensjonsavtale,
-  isTpoMedlemskap,
+  isOffentligTp,
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
@@ -35,7 +35,7 @@ export const apiSlice = createApi({
       }
     },
   }),
-  tagTypes: ['Person', 'TpoMedlemskap', 'Alderspensjon', 'Pensjonsavtaler'],
+  tagTypes: ['Person', 'OffentligTp', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -48,7 +48,7 @@ export const apiSlice = createApi({
       },
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v2/person',
+      query: () => '/v4/person',
       providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
@@ -87,22 +87,29 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
-      query: () => '/v1/tpo-medlemskap',
-      providesTags: ['TpoMedlemskap'],
-      transformResponse: (response: TpoMedlemskap) => {
-        if (!isTpoMedlemskap(response)) {
-          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
-        }
-        return response
-      },
-    }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
-      query: () => '/v1/vedtak/loepende-vedtak',
+      query: () => '/v2/vedtak/loepende-vedtak',
       transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
           throw new Error(
             `Mottok ugyldig løpende vedtak response:`,
+            response as ErrorOptions
+          )
+        }
+        return response
+      },
+    }),
+    offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
+      query: (body) => ({
+        url: '/v2/simuler-oftp',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['OffentligTp'],
+      transformResponse: (response: OffentligTp) => {
+        if (!isOffentligTp(response)) {
+          throw new Error(
+            `Mottok ugyldig offentlig-tp:`,
             response as ErrorOptions
           )
         }
@@ -114,7 +121,7 @@ export const apiSlice = createApi({
       TidligstMuligHeltUttakRequestBody | void
     >({
       query: (body) => ({
-        url: '/v1/tidligste-hel-uttaksalder',
+        url: '/v2/tidligste-hel-uttaksalder',
         method: 'POST',
         body,
       }),
@@ -130,7 +137,7 @@ export const apiSlice = createApi({
       PensjonsavtalerRequestBody
     >({
       query: (body) => ({
-        url: '/v2/pensjonsavtaler',
+        url: '/v3/pensjonsavtaler',
         method: 'POST',
         body,
       }),
@@ -154,13 +161,12 @@ export const apiSlice = createApi({
         }
       },
     }),
-
     alderspensjon: builder.query<
       AlderspensjonResponseBody,
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v6/alderspensjon/simulering',
+        url: '/v8/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -172,7 +178,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
@@ -182,12 +187,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getHighchartsAccessibilityPluginFeatureToggle: builder.query<
-      UnleashToggle,
-      void
-    >({
-      query: () =>
-        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+    getRedirect1963FeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-redirect-1963',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -195,17 +196,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getUtlandFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-utland',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
-    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-endring',
+    getTpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-tpoffentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -238,13 +230,12 @@ export const {
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetLoependeVedtakQuery,
-  useGetTpoMedlemskapQuery,
+  useOffentligTpQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetUtlandFeatureToggleQuery,
-  useGetEndringFeatureToggleQuery,
+  useGetRedirect1963FeatureToggleQuery,
+  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

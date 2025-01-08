@@ -1,14 +1,15 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
-import { paths } from '@/router/constants'
-import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
+import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
+import { externalUrls } from '@/router/constants'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -19,7 +20,7 @@ interface Props {
   navn: string
   loependeVedtak?: LoependeVedtak
   onCancel?: () => void
-  onNext: () => void
+  onNext?: () => void
 }
 
 export function Start({
@@ -31,9 +32,6 @@ export function Start({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-  const navnString = navn !== '' ? ` ${navn}!` : '!'
-
-  const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -41,28 +39,14 @@ export function Start({
     }
   }, [shouldRedirectTo])
 
-  const isEndring = React.useMemo(() => {
-    return (
-      loependeVedtak?.alderspensjon?.loepende ||
-      loependeVedtak?.afpPrivat?.loepende ||
-      loependeVedtak?.afpOffentlig?.loepende
-    )
-  }, [loependeVedtak])
-
   if (shouldRedirectTo) {
     return null
   }
 
   return (
     <>
-      {isEndring && (
-        <Alert className={styles.alert} variant="warning" aria-live="polite">
-          <FormattedMessage
-            id="stegvisning.endring.alert"
-            values={{ ...getFormatMessageValues(intl) }}
-          />
-        </Alert>
-      )}
+      <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} isCentered />
+
       <Card hasLargePadding hasMargin>
         <div className={styles.wrapper}>
           <img className={styles.image} src={FridaPortrett} alt="" />
@@ -70,10 +54,10 @@ export function Start({
             <Heading level="2" size="medium" spacing>
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
-              })}${navnString}`}
+              })} ${navn}!`}
             </Heading>
 
-            {isEndring ? (
+            {loependeVedtak && isLoependeVedtakEndring(loependeVedtak) ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -92,7 +76,7 @@ export function Start({
                             }
                           )
                         : undefined,
-                      afpPrivat: loependeVedtak.afpPrivat.grad
+                      afpPrivat: loependeVedtak.afpPrivat
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.privat',
@@ -100,7 +84,7 @@ export function Start({
                             { ...getFormatMessageValues(intl) }
                           )
                         : undefined,
-                      afpOffentlig: loependeVedtak.afpOffentlig.grad
+                      afpOffentlig: loependeVedtak.afpOffentlig
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.offentlig',
@@ -152,7 +136,7 @@ export function Start({
               </>
             )}
 
-            {(!isEndring || (isEndring && endringFeatureToggle?.enabled)) && (
+            {onNext && (
               <Button
                 type="submit"
                 className={styles.button}
@@ -179,8 +163,7 @@ export function Start({
         <Link
           onClick={logOpenLink}
           className={styles.link}
-          as={ReactRouterLink}
-          to={paths.personopplysninger}
+          href={externalUrls.personopplysninger}
           target="_blank"
           inlineText
         >

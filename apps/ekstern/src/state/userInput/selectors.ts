@@ -4,6 +4,7 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 import { formatInntekt } from '@/utils/inntekt'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
@@ -109,11 +110,24 @@ export const selectFormatertUttaksalderReadOnly = (
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation
 
-export const selectHarHentetTpoMedlemskap = createSelector(
+export const selectHarHentetOffentligTp = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
-      ?.isUninitialized
+    const offentligTpEntries = Object.keys(state.api.queries).filter((key) =>
+      key.startsWith('offentligTp')
+    )
+
+    return offentligTpEntries.some(
+      (key) => !state.api.queries[key]?.isUninitialized
+    )
+  }
+)
+
+export const selectLoependeVedtak = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
+      ?.data as LoependeVedtak
   }
 )
 
@@ -128,13 +142,12 @@ export const selectUfoeregrad = createSelector(
 export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return (
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.alderspensjon?.loepende ||
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.afpPrivat?.loepende ||
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.afpOffentlig?.loepende
+    if (!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data) {
+      return false
+    }
+    return isLoependeVedtakEndring(
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
+        ?.data as LoependeVedtak
     )
   }
 )

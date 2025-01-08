@@ -1,12 +1,24 @@
 import { Provider } from 'react-redux'
-import * as ReactRouterUtils from 'react-router'
 
 import { RootState, setupStore } from '../../../state/store'
 import { useStegvisningNavigation } from '../stegvisning-hooks'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { renderHook } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('stegvisning - hooks', () => {
   describe('useStegvisningNavigation', () => {
@@ -16,13 +28,19 @@ describe('stegvisning - hooks', () => {
           userInputReducerUtils.userInputActions,
           'flush'
         )
-        const navigateMock = vi.fn()
-        vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-          () => navigateMock
-        )
+
+        const mockedState = {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: { ...userInputInitialState },
+        }
 
         const wrapper = ({ children }: { children: React.ReactNode }) => {
-          const storeRef = setupStore(undefined, true)
+          const storeRef = setupStore(mockedState as unknown as RootState, true)
           return <Provider store={storeRef}>{children}</Provider>
         }
 
@@ -32,7 +50,9 @@ describe('stegvisning - hooks', () => {
         })
 
         // onStegvisningNext
-        result.current[0].onStegvisningNext()
+        if (result.current[0].onStegvisningNext) {
+          result.current[0].onStegvisningNext()
+        }
         expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
 
         // onStegvisningPrevious
@@ -52,41 +72,12 @@ describe('stegvisning - hooks', () => {
           userInputReducerUtils.userInputActions,
           'flush'
         )
-        const navigateMock = vi.fn()
-        vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-          () => navigateMock
-        )
 
         const mockedState = {
           api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ['getLoependeVedtak(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getLoependeVedtak',
-                requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: {
-                  alderspensjon: {
-                    loepende: true,
-                    grad: 50,
-                  },
-                  ufoeretrygd: {
-                    loepende: false,
-                    grad: 0,
-                  },
-                  afpPrivat: {
-                    loepende: false,
-                    grad: 0,
-                  },
-                  afpOffentlig: {
-                    loepende: false,
-                    grad: 0,
-                  },
-                },
-                startedTimeStamp: 1714725797072,
-                fulfilledTimeStamp: 1714725797669,
-              },
+              ...fulfilledGetLoependeVedtakLoepende50Alderspensjon,
             },
           },
           userInput: { ...userInputInitialState },
@@ -103,7 +94,9 @@ describe('stegvisning - hooks', () => {
         })
 
         // onStegvisningNext
-        result.current[0].onStegvisningNext()
+        if (result.current[0].onStegvisningNext) {
+          result.current[0].onStegvisningNext()
+        }
         expect(navigateMock).toHaveBeenCalledWith(paths.afp)
 
         // onStegvisningPrevious

@@ -2,6 +2,7 @@ import _import from 'eslint-plugin-import'
 import { fixupPluginRules } from '@eslint/compat'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import globals from 'globals'
 
 const ignoredFiles = [
   'eslint.config.mjs',
@@ -39,17 +40,30 @@ const defaultEslintConfig = tseslint.config(
 export default [
   ...defaultEslintConfig,
   {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      'no-irregular-whitespace': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+    },
+  },
+  {
     ignores: [...ignoredFiles],
     plugins: {
       import: fixupPluginRules(_import),
     },
     rules: {
-      '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       'no-debugger': 'warn',
       '@typescript-eslint/no-shadow': ['error'],
-      'no-irregular-whitespace': 'warn',
+      '@typescript-eslint/naming-convention': 'off',
       'no-shadow': 'off',
       'import/order': [
         'warn',

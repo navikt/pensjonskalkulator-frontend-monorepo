@@ -18,10 +18,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6"
+        data-volume="low"
       >
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-state="closed"
           data-testid="readmore"
           type="button"
         >
@@ -50,6 +52,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+          data-state="closed"
         >
           stegvisning.afp.readmore_offentlig_list_title
           <ul
@@ -70,10 +73,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6"
+        data-volume="low"
       >
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-state="closed"
           data-testid="readmore"
           type="button"
         >
@@ -102,6 +107,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+          data-state="closed"
         >
           stegvisning.afp.readmore_privat_list_title
           <ul
@@ -120,7 +126,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               stegvisning.afp.readmore_privat_list_item4
             </li>
           </ul>
-          Les om vilkårene til 
+          Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til 
           <a
             class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"
@@ -339,10 +345,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-state="open"
           data-testid="readmore"
           type="button"
         >
@@ -371,6 +379,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         <div
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
+          data-state="open"
         >
           stegvisning.afp.readmore_offentlig_list_title
           <ul
@@ -391,10 +400,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-state="open"
           data-testid="readmore"
           type="button"
         >
@@ -423,6 +434,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         <div
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
+          data-state="open"
         >
           stegvisning.afp.readmore_privat_list_title
           <ul
@@ -441,7 +453,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               stegvisning.afp.readmore_privat_list_item4
             </li>
           </ul>
-          Les om vilkårene til 
+          Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til 
           <a
             class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"
@@ -659,10 +671,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-state="open"
           data-testid="readmore"
           type="button"
         >
@@ -691,6 +705,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         <div
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
+          data-state="open"
         >
           stegvisning.afp.readmore_offentlig_list_title
           <ul
@@ -711,10 +726,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-state="open"
           data-testid="readmore"
           type="button"
         >
@@ -743,6 +760,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         <div
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
+          data-state="open"
         >
           stegvisning.afp.readmore_privat_list_title
           <ul
@@ -761,7 +779,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
               stegvisning.afp.readmore_privat_list_item4
             </li>
           </ul>
-          Les om vilkårene til 
+          Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til 
           <a
             class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"

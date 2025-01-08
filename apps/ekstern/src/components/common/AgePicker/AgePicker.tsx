@@ -17,14 +17,14 @@ import {
 export interface AgePickerProps {
   form?: string
   name: string
-  label: string | JSX.Element
-  description?: string | JSX.Element
+  label: string | React.JSX.Element
+  description?: string | React.JSX.Element
   value?: Partial<Alder>
   minAlder?: Alder
   maxAlder?: Alder
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
-  error?: string | JSX.Element
+  error?: string | React.JSX.Element
 }
 
 import styles from './AgePicker.module.scss'
@@ -73,6 +73,24 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       return arr
     }, [])
 
+    const hasError = React.useMemo(() => {
+      if (error) {
+        if (!valgtAlder.aar && valgtAlder.maaneder === undefined) {
+          return { aar: true, maaneder: true }
+        }
+        if (valgtAlder.aar && valgtAlder.maaneder !== undefined) {
+          return { aar: true, maaneder: true }
+        }
+        if (valgtAlder.aar && valgtAlder.maaneder === undefined) {
+          return { aar: false, maaneder: true }
+        }
+        if (!valgtAlder.aar && valgtAlder.maaneder !== undefined) {
+          return { aar: true, maaneder: false }
+        }
+      }
+      return { aar: false, maaneder: false }
+    }, [error, valgtAlder])
+
     const transformertDate = React.useMemo(() => {
       if (
         isSuccess &&
@@ -109,7 +127,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             name={`${name}-aar`}
             label="Velg år"
             className={clsx(styles.selectAar, {
-              [styles.select__hasError]: !!error && !valgtAlder.aar,
+              [styles.select__hasError]: hasError.aar,
             })}
             value={valgtAlder.aar ? valgtAlder.aar : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -138,8 +156,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
                 })
               }
             }}
-            aria-describedby={error ? `${name}-error` : undefined}
-            aria-invalid={!!error && !valgtAlder.aar}
+            aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
+            aria-invalid={hasError.aar}
             aria-required
           >
             <option disabled selected value="">
@@ -159,8 +177,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             name={`${name}-maaneder`}
             label="Velg måned"
             className={clsx(styles.selectMaaned, {
-              [styles.select__hasError]:
-                !!error && valgtAlder.maaneder === undefined,
+              [styles.select__hasError]: hasError.maaneder,
             })}
             value={valgtAlder.maaneder !== undefined ? valgtAlder.maaneder : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -178,8 +195,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               }
             }}
             disabled={!valgtAlder.aar}
-            aria-describedby={error ? `${name}-error` : undefined}
-            aria-invalid={!!error && valgtAlder.maaneder === undefined}
+            aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
+            aria-invalid={hasError.maaneder}
             aria-required
           >
             <option disabled selected value="">

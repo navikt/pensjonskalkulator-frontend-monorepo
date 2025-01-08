@@ -1,11 +1,19 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepUfoeretrygdAFP } from '..'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepUfoeretrygdAFP', () => {
   it('har riktig sidetittel', () => {
@@ -15,11 +23,17 @@ describe('StepUfoeretrygdAFP', () => {
 
   it('sender til neste steg når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<StepUfoeretrygdAFP />)
+
+    render(<StepUfoeretrygdAFP />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
+    })
     await user.click(await screen.findByText('stegvisning.neste'))
     expect(navigateMock).toHaveBeenCalledWith(paths.samtykkeOffentligAFP)
   })
@@ -27,10 +41,6 @@ describe('StepUfoeretrygdAFP', () => {
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
 
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     render(<StepUfoeretrygdAFP />)
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(navigateMock).toHaveBeenCalledWith(-1)

@@ -1,5 +1,4 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
@@ -12,6 +11,15 @@ import { store } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('LandingPage', () => {
   afterEach(() => {
@@ -33,25 +41,43 @@ describe('LandingPage', () => {
     })
   })
 
-  it('rendrer innlogget side', async () => {
+  it('rendrer riktig innhold når brukeren er pålogget', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.login}`],
     })
-    const { asFragment } = render(<RouterProvider router={router} />, {
+    render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
 
     await waitFor(() => {
+      // Viser TopSection
+      expect(
+        screen.getByText('landingsside.for.deg.foedt.etter.1963')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.velge_mellom_detaljert_og_enkel')
+      ).toBeVisible()
+      // Viser riktig tekst på Enkel kalkulator knappen
+      expect(
+        screen.getByTestId('landingside-enkel-kalkulator-button').textContent
+      ).toBe('landingsside.button.enkel_kalkulator')
+      // Viser lenke til personopplysninger
+      expect(
+        screen.getByText('landingsside.link.personopplysninger')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.velge_mellom_detaljert_og_enkel_2')
+      ).toBeVisible()
+      // Viser riktig tekst på Detaljert kalkulator knappen
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
           .textContent
       ).toBe('landingsside.button.detaljert_kalkulator')
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 
-  it('rendrer utlogget side', async () => {
+  it('rendrer riktig innhold når brukeren ikke er pålogget', async () => {
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })
@@ -61,21 +87,58 @@ describe('LandingPage', () => {
       initialEntries: [`${BASE_PATH}${paths.login}`],
     })
 
-    const { asFragment } = render(<RouterProvider router={router} />, {
+    render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
 
     await waitFor(() => {
+      // Viser TopSection
+      expect(
+        screen.getByText('landingsside.for.deg.foedt.etter.1963')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.velge_mellom_detaljert_og_enkel')
+      ).toBeVisible()
+      // Viser riktig tekst på Enkel kalkulator knappen
+      expect(
+        screen.getByTestId('landingside-enkel-kalkulator-button').textContent
+      ).toBe('landingsside.button.enkel_kalkulator_utlogget')
+      // Viser lenke til personopplysninger
+      expect(
+        screen.getByText('landingsside.link.personopplysninger')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.velge_mellom_detaljert_og_enkel_2')
+      ).toBeVisible()
+      // Viser riktig tekst på Detaljert kalkulator knappen
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
           .textContent
       ).toBe('landingsside.button.detaljert_kalkulator_utlogget')
+      // Viser info for brukere født før 1963
+      expect(
+        screen.getByText('landingsside.for.deg.foedt.foer.1963')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.du.maa.bruke.detaljert')
+      ).toBeVisible()
+      // Viser riktig tekst på den tilleggsknappen som går til detaljert
+      expect(
+        screen.getByTestId('landingside-detaljert-kalkulator-second-button')
+          .textContent
+      ).toBe('landingsside.button.detaljert_kalkulator_utlogget')
+      // Viser info om Uinnlogget kalkulator
+      expect(
+        screen.getByText('landingsside.text.uinnlogget_kalkulator')
+      ).toBeVisible()
+      expect(
+        screen.getByText('landingsside.body.uinnlogget_kalkulator')
+      ).toBeVisible()
+      // Viser riktig tekst på Uinnlogget kalkulator knappen
       expect(
         screen.getByTestId('landingside-uinnlogget-kalkulator-button')
           .textContent
       ).toBe('landingsside.button.uinnlogget_kalkulator')
-
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 
@@ -112,10 +175,6 @@ describe('LandingPage', () => {
     })
 
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
@@ -137,7 +196,7 @@ describe('LandingPage', () => {
     expect(navigateMock).toHaveBeenCalledWith(`${paths.start}`)
   })
 
-  it('går til detaljert kalkulator når brukeren klikker på knappen i det andre avsnittet', async () => {
+  it('går til detaljert kalkulator når brukeren klikker på tilleggsknappen i det andre avsnittet', async () => {
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })

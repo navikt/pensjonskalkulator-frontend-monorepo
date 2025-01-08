@@ -12,8 +12,22 @@ declare global {
 
   type BooleanRadio = 'ja' | 'nei'
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+  type BeregningVisning = 'enkel' | 'avansert'
   type Alder = components['schemas']['Alder']
+
   type UnleashToggle = components['schemas']['EnablementDto']
+
+  // fetching av landliste
+  type Land = components['schemas']['LandInfo']
+  type Utenlandsperiode = {
+    id: string
+    landkode: string
+    arbeidetUtenlands: boolean | null
+    startdato: string
+    sluttdato?: string
+  }
+  // /ansatt-id
+  type Ansatt = components['schemas']['AnsattV1']
 
   // /person
   export type GetPersonQuery = TypedUseQueryStateResult<
@@ -21,9 +35,11 @@ declare global {
     void,
     BaseQueryFn<Record<string, unknown>, Person>
   >
-  type Person = components['schemas']['PersonV2']
-  type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
+  type Person = components['schemas']['PersonResultV4']
+  type Sivilstand = components['schemas']['PersonResultV4']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+  type pensjoneringAldre =
+    components['schemas']['PersonResultV4']['pensjoneringAldre']
 
   // /inntekt
   export type GetInntektQuery = TypedUseQueryStateResult<
@@ -45,89 +61,91 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /v1/vedtak/loepende-vedtak
+  // /v2/vedtak/loepende-vedtak
   export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
     LoependeVedtak,
     void,
     BaseQueryFn<Record<string, unknown>, LoependeVedtak>
   >
-
-  // LoependeVedtakDto
-  type LoependeVedtak = components['schemas']['LoependeVedtakDto']
-
-  // /tpo-medlemskap
-  export type TpoMedlemskapQuery = TypedUseQueryStateResult<
-    TpoMedlemskap,
-    void,
-    BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
-  >
-  type TpoMedlemskap =
-    components['schemas']['MedlemskapITjenestepensjonsordningDto']
+  type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
+    components['schemas']['UttaksalderSpecV2']
   type TidligstMuligGradertUttakRequestBody =
-    components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
-
-  // /pensjonsavtaler
-  type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleSpecV2']
-  type PensjonsavtalerResponseBody =
-    components['schemas']['PensjonsavtaleResultV2']
-  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV2']
-  type Pensjonsavtale = components['schemas']['PensjonsavtaleV2'] & {
-    key?: number
-  }
-  type PensjonsavtaleKategori =
-    components['schemas']['PensjonsavtaleV2']['kategori']
-  type UtilgjengeligeSelskap = components['schemas']['SelskapV2']
+    components['schemas']['UttaksalderResultV2']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
-    components['schemas']['IngressSimuleringSpecV6']
-  type AfpSimuleringstype =
-    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
-  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
-  type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
-  type VilkaarsproevingAlternativ = components['schemas']['AlternativV6']
+    components['schemas']['PersonligSimuleringSpecV8']
+  type AlderspensjonSimuleringstype =
+    components['schemas']['PersonligSimuleringSpecV8']['simuleringstype']
+  type AlderspensjonResponseBody =
+    components['schemas']['PersonligSimuleringResultV8']
+  type Vilkaarsproeving =
+    components['schemas']['PersonligSimuleringVilkaarsproevingResultV8']
+  type VilkaarsproevingAlternativ =
+    components['schemas']['PersonligSimuleringAlternativResultV8']
   type SimulertOpptjeningGrunnlag =
-    components['schemas']['SimulertOpptjeningGrunnlagV6']
+    components['schemas']['PersonligSimuleringAarligInntektResultV8']
+  type AlderspensjonMaanedligVedEndring =
+    components['schemas']['PersonligSimuleringMaanedligPensjonResultV8']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
   }
-
-  type Land = components['schemas']['LandInfo']
-  type Utenlandsperiode = {
-    id: string
-    landkode: string
-    arbeidetUtenlands: boolean | null
-    startdato: string
-    sluttdato?: string
-  }
-
   type HeltUttak = Omit<
-    components['schemas']['IngressSimuleringHeltUttakV6'],
+    components['schemas']['PersonligSimuleringHeltUttakSpecV8'],
     'aarligInntektVsaPensjon'
   > & {
     aarligInntektVsaPensjon?: AarligInntektVsaPensjon
   }
 
   type GradertUttak = Omit<
-    components['schemas']['IngressSimuleringGradertUttakV6'],
+    components['schemas']['PersonligSimuleringGradertUttakSpecV8'],
     'aarligInntektVsaPensjonBeloep'
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
+  type AfpPrivatPensjonsberegning =
+    components['schemas']['PersonligSimuleringAarligPensjonResultV8']
+  type AlderspensjonPensjonsberegning =
+    components['schemas']['PersonligSimuleringAlderspensjonResultV8']
 
-  type Simuleringstype =
-    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
-  type Pensjonsberegning = components['schemas']['PensjonsberegningV6']
-  type PensjonsberegningMedDetaljer =
-    components['schemas']['AlderspensjonsberegningV6']
+  // /pensjonsavtaler
+  type PensjonsavtalerRequestBody =
+    components['schemas']['PensjonsavtaleSpecV3']
+  type PensjonsavtalerResponseBody =
+    components['schemas']['PensjonsavtaleResultV3']
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
+  type UtbetalingsperiodeWithoutGrad = Omit<Utbetalingsperiode, 'grad'>
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
+    key?: number
+  }
+  type PensjonsavtaleKategori =
+    components['schemas']['PensjonsavtaleV3']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapV3']
 
-  type Ansatt = components['schemas']['AnsattV1']
+  // /simuler-oftp
+  export type SimulerOffentligTpQuery = TypedUseQueryStateResult<
+    OffentligTp,
+    void,
+    BaseQueryFn<Record<string, unknown>, OffentligTp>
+  >
+  type OffentligTpRequestBody =
+    components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV2']
+  type OffentligTp =
+    components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV2']
+}
 
-  type BeregningVisning = 'enkel' | 'avansert'
+declare module 'react/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      ['representasjon-banner']: CustomElement<{
+        representasjonstyper?: string
+        redirectTo: string
+        style?: React.CSSProperties
+      }>
+    }
+  }
 }

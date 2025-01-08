@@ -1,5 +1,4 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
@@ -15,12 +14,14 @@ import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 describe('Henvisning ', async () => {
-  beforeEach(() => {
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-  })
   afterEach(() => {
     navigateMock.mockReset()
   })
@@ -37,21 +38,6 @@ describe('Henvisning ', async () => {
     })
     expect(await screen.findByText('henvisning.apotekerne.body')).toBeVisible()
     expect(document.title).toBe('application.title.henvisning.apotekerne')
-    expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('rendrer henvisning til utland', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [
-        `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
-      ],
-    })
-    const { asFragment } = render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    expect(await screen.findByText('henvisning.utland.body')).toBeVisible()
-    expect(document.title).toBe('application.title.henvisning.utland')
     expect(asFragment()).toMatchSnapshot()
   })
 

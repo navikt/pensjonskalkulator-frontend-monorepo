@@ -1,11 +1,20 @@
 import {
-  getAfpSimuleringstypeFromRadio,
+  getSimuleringstypeFromRadioEllerVedtak,
   transformUtenlandsperioderArray,
   generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
   generatePensjonsavtalerRequestBody,
+  generateOffentligTpRequestBody,
 } from '../utils'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+} from '@/mocks/mockedRTKQueryApiCalls'
 
 describe('apiSlice - utils', () => {
   const utenlandsperiode: Utenlandsperiode = {
@@ -16,19 +25,122 @@ describe('apiSlice - utils', () => {
     sluttdato: '28.01.2018',
   }
 
-  describe('getAfpSimuleringstypeFromRadio', () => {
+  describe('getSimuleringstypeFromRadioEllerVedtak', () => {
     it('returnerer riktig simuleringstype', () => {
-      expect(getAfpSimuleringstypeFromRadio(null)).toEqual('ALDERSPENSJON')
-      expect(getAfpSimuleringstypeFromRadio('nei')).toEqual('ALDERSPENSJON')
-      expect(getAfpSimuleringstypeFromRadio('vet_ikke')).toEqual(
-        'ALDERSPENSJON'
-      )
-      expect(getAfpSimuleringstypeFromRadio('ja_privat')).toEqual(
-        'ALDERSPENSJON_MED_AFP_PRIVAT'
-      )
-      expect(getAfpSimuleringstypeFromRadio('ja_offentlig')).toEqual(
-        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      )
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          null
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'nei'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'vet_ikke'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_privat'
+        )
+      ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_offentlig'
+        )
+      ).toEqual('ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_privat'
+        )
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
+            .data,
+          'ja_offentlig'
+        )
+      ).toEqual('ALDERSPENSJON')
+
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'nei'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'vet_ikke'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_privat'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjon[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_offentlig'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          'ja_privat'
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAFPprivat[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        getSimuleringstypeFromRadioEllerVedtak(
+          fulfilledGetLoependeVedtakLoependeAFPoffentlig[
+            'getLoependeVedtak(undefined)'
+          ].data,
+          null
+        )
+      ).toEqual('ALDERSPENSJON')
     })
   })
 
@@ -74,6 +186,12 @@ describe('apiSlice - utils', () => {
 
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
+      loependeVedtak: {
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: null,
       harSamboer: null,
       aarligInntektFoerUttakBeloep: '0',
@@ -99,19 +217,71 @@ describe('apiSlice - utils', () => {
           afp: 'ja_privat',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+          afp: 'ja_privat',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
+
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+          afp: 'ja_privat',
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
     })
 
     it('returnerer riktig harEps', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-        })?.harEps
-      ).toBeUndefined()
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          harSamboer: false,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           harSamboer: true,
-        })?.simuleringstype
+        })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
 
@@ -202,7 +372,12 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
-      ufoeregrad: 0,
+      loependeVedtak: {
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -265,16 +440,60 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          ufoeregrad: 75,
+          loependeVedtak: {
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          ufoeregrad: 75,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
           afp: 'ja_offentlig',
         })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          loependeVedtak: {
+            alderspensjon: {
+              grad: 50,
+              fom: '2012-12-12',
+            },
+            ufoeretrygd: {
+              grad: 50,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {
@@ -364,7 +583,10 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonRequestBody', () => {
     const requestBody = {
-      ufoeregrad: 0,
+      loependeVedtak: {
+        ufoeretrygd: { grad: 0 },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -433,16 +655,34 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          ufoeregrad: 60,
+          afp: null,
+          loependeVedtak: {
+            ufoeretrygd: { grad: 60 },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          afp: 'ja_offentlig',
-          ufoeregrad: 60,
+          loependeVedtak: {
+            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            ufoeretrygd: { grad: 0 },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          afp: null,
+          loependeVedtak: {
+            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            ufoeretrygd: { grad: 0 },
+            harFremtidigLoependeVedtak: false,
+          },
+        })?.simuleringstype
+      ).toEqual('ENDRING_ALDERSPENSJON')
     })
 
     it('returnerer riktig sivilstand', () => {
@@ -530,18 +770,23 @@ describe('apiSlice - utils', () => {
   })
 
   describe('generatePensjonsavtalerRequestBody', () => {
+    const requestBody = {
+      aarligInntektFoerUttakBeloep: '500 000',
+      ufoeregrad: 0,
+      afp: 'vet_ikke' as AfpRadio,
+      harSamboer: null,
+      heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
+    }
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep: '500 000',
-          ufoeregrad: 0,
-          afp: 'vet_ikke',
-          heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
-          utenlandsperioder: [],
+          ...requestBody,
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        epsHarPensjon: false,
+        epsHarInntektOver2G: false,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -550,21 +795,39 @@ describe('apiSlice - utils', () => {
             aarligInntektVsaPensjon: undefined,
           },
         ],
-        utenlandsperioder: [],
       })
+    })
+    it('returnerer riktig harEps', () => {
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
+          harSamboer: false,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
+          harSamboer: true,
+        })?.epsHarInntektOver2G
+      ).toBeTruthy()
     })
     it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp privat', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep: '500 000',
+          ...requestBody,
           ufoeregrad: 50,
           afp: 'ja_privat',
-          heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
-          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
+        epsHarPensjon: false,
+        epsHarInntektOver2G: false,
         sivilstand: undefined,
         uttaksperioder: [
           {
@@ -573,14 +836,12 @@ describe('apiSlice - utils', () => {
             aarligInntektVsaPensjon: undefined,
           },
         ],
-        utenlandsperioder: [],
       })
     })
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep: '500 000',
-          ufoeregrad: 0,
+          ...requestBody,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {
@@ -590,11 +851,12 @@ describe('apiSlice - utils', () => {
               sluttAlder: { aar: 75, maaneder: 0 },
             },
           },
-          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        epsHarPensjon: false,
+        epsHarInntektOver2G: false,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -606,14 +868,12 @@ describe('apiSlice - utils', () => {
             },
           },
         ],
-        utenlandsperioder: [],
       })
     })
     it('returnerer riktig requestBody med gradert periode', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep: '500 000',
-          ufoeregrad: 0,
+          ...requestBody,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {
@@ -628,11 +888,12 @@ describe('apiSlice - utils', () => {
             grad: 20,
             aarligInntektVsaPensjonBeloep: '123 000',
           },
-          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
+        epsHarPensjon: false,
+        epsHarInntektOver2G: false,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
@@ -652,19 +913,140 @@ describe('apiSlice - utils', () => {
             },
           },
         ],
-        utenlandsperioder: [],
       })
     })
+  })
+
+  describe('generateOffentligTpRequestBody', () => {
+    const requestBody = {
+      afp: 'vet_ikke' as AfpRadio,
+      harSamboer: null,
+      foedselsdato: '1963-04-30',
+      aarligInntektFoerUttakBeloep: '500 000',
+      heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
+      utenlandsperioder: [],
+    }
+
+    it('returnerer undefined når fodselsdato eller heltUttak ikke er oppgitt', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          foedselsdato: null,
+        })
+      ).toEqual(undefined)
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          heltUttak: undefined,
+          utenlandsperioder: [],
+        })
+      ).toEqual(undefined)
+    })
+
+    it('returnerer riktig harEps', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          harSamboer: false,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          harSamboer: true,
+        })?.epsHarInntektOver2G
+      ).toBeTruthy()
+    })
+
+    it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp', () => {
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          afp: 'ja_privat',
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: true,
+        epsHarInntektOver2G: false,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [],
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
+        },
+      })
+      expect(
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          afp: 'ja_offentlig',
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        brukerBaOmAfp: true,
+        epsHarInntektOver2G: false,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        utenlandsperiodeListe: [],
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
+          },
+        },
+      })
+    })
+
+    it('returnerer riktig gradertUttak uten grad, når den er oppgitt', () => {
+      const gradertUttak = generateOffentligTpRequestBody({
+        ...requestBody,
+        gradertUttak: {
+          uttaksalder: { aar: 67, maaneder: 3 },
+          grad: 20,
+          aarligInntektVsaPensjonBeloep: '123 000',
+        },
+      })?.gradertUttak
+      expect(gradertUttak?.aarligInntektVsaPensjonBeloep).toEqual(123000)
+      expect(gradertUttak).not.toHaveProperty('grad')
+      expect(gradertUttak?.uttaksalder.aar).toEqual(67)
+      expect(gradertUttak?.uttaksalder.maaneder).toEqual(3)
+    })
+
+    it('returnerer riktig heltUttak', () => {
+      const heltUttak = generateOffentligTpRequestBody({
+        ...requestBody,
+        heltUttak: {
+          uttaksalder: { aar: 68, maaneder: 3 },
+          aarligInntektVsaPensjon: {
+            beloep: '99 000',
+            sluttAlder: { aar: 75, maaneder: 0 },
+          },
+        },
+      })?.heltUttak
+
+      expect(heltUttak?.uttaksalder.aar).toEqual(68)
+      expect(heltUttak?.uttaksalder.maaneder).toEqual(3)
+      expect(heltUttak?.aarligInntektVsaPensjon?.beloep).toEqual(99000)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.aar).toEqual(75)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.maaneder).toEqual(0)
+    })
+
     it('returnerer riktig requestBody med utenlandsperioder', () => {
       expect(
-        generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttakBeloep: '500 000',
-          ufoeregrad: 0,
-          afp: 'ja_privat',
-          sivilstand: 'GIFT',
-          heltUttak: {
-            uttaksalder: { aar: 62, maaneder: 0 },
-          },
+        generateOffentligTpRequestBody({
+          ...requestBody,
+          afp: 'nei',
           utenlandsperioder: [
             {
               id: '1',
@@ -684,16 +1066,19 @@ describe('apiSlice - utils', () => {
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
-        harAfp: true,
-        sivilstand: 'GIFT',
-        uttaksperioder: [
-          {
-            startAlder: { aar: 62, maaneder: 0 },
-            aarligInntektVsaPensjon: undefined,
-            grad: 100,
+        brukerBaOmAfp: false,
+        epsHarInntektOver2G: false,
+        epsHarPensjon: false,
+        foedselsdato: '1963-04-30',
+        gradertUttak: undefined,
+        heltUttak: {
+          aarligInntektVsaPensjon: undefined,
+          uttaksalder: {
+            aar: 67,
+            maaneder: 0,
           },
-        ],
-        utenlandsperioder: [
+        },
+        utenlandsperiodeListe: [
           {
             arbeidetUtenlands: false,
             fom: '2018-01-01',

@@ -427,7 +427,7 @@ export const onUtenlandsoppholdSubmit = (
   setValidationErrors: React.Dispatch<
     React.SetStateAction<Record<UtenlandsoppholdFormNames, string>>
   >,
-  modalRef: React.RefObject<HTMLDialogElement>,
+  modalRef: React.RefObject<HTMLDialogElement | null>,
   onSubmitCallback: () => void,
   locale: Locales,
   previousData: {

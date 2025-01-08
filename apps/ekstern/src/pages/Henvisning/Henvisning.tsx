@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import { Card } from '../../components/common/Card'
 import { externalUrls, paths, henvisningUrlParams } from '@/router/constants'
@@ -29,12 +30,6 @@ export const Henvisning: React.FC = () => {
           id: 'application.title.henvisning.apotekerne',
         })
         setIngress('henvisning.apotekerne.body')
-        break
-      case henvisningUrlParams.utland:
-        document.title = intl.formatMessage({
-          id: 'application.title.henvisning.utland',
-        })
-        setIngress('henvisning.utland.body')
         break
       default:
         setIngress('')

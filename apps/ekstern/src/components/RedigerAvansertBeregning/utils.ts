@@ -1,3 +1,5 @@
+import { add, endOfDay, format, isBefore, parse, startOfMonth } from 'date-fns'
+
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
@@ -5,8 +7,11 @@ import {
   validateAlderFromForm,
   getAlderMinus1Maaned,
   isAlderLikEllerOverUbetingetUttaksalder,
+  transformUttaksalderToDate,
 } from '@/utils/alder'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { validateInntekt } from '@/utils/inntekt'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
@@ -15,6 +20,7 @@ export type AvansertFormNames =
 
 export const AVANSERT_FORM_NAMES = {
   form: 'avansert-beregning',
+  endringAlertFremtidigDato: 'endring-alert-fremtidig-dato',
   uttaksgrad: 'uttaksgrad',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
@@ -29,8 +35,8 @@ const validateAlderForGradertUttak = (
   heltUttaksalder: Alder,
   gradertUttaksalder:
     | {
-        aar: FormDataEntryValue | number | undefined | null
-        maaneder: FormDataEntryValue | number | undefined | null
+        aar: FormDataEntryValue | string | number | undefined | null
+        maaneder: FormDataEntryValue | string | number | undefined | null
       }
     | undefined
     | null,
@@ -104,6 +110,56 @@ const validateAlderForGradertUttak = (
   return isValid
 }
 
+const validateEndringGradertUttak = (
+  forrigeGrad: number,
+  forrigeEndringsdato: string,
+  nyGrad: string,
+  nyUttaksalder: {
+    aar: number
+    maaneder: number
+  },
+  foedselsdato: string,
+  updateValidationErrorMessage: React.Dispatch<
+    React.SetStateAction<Record<string, string>>
+  >
+): boolean => {
+  const nyGradAsNumber = parseInt(nyGrad.match(/\d+/)?.[0] as string, 10)
+  if (nyGradAsNumber === forrigeGrad) {
+    return true
+  } else {
+    const uttaksdato = parse(
+      transformUttaksalderToDate(nyUttaksalder, foedselsdato),
+      DATE_ENDUSER_FORMAT,
+      new Date()
+    )
+
+    const fremtidigMuligEndring = startOfMonth(
+      add(
+        endOfDay(parse(forrigeEndringsdato, DATE_BACKEND_FORMAT, new Date())),
+        {
+          months: 12,
+        }
+      )
+    )
+    if (isBefore(uttaksdato, fremtidigMuligEndring)) {
+      const formatertDato = format(fremtidigMuligEndring, DATE_ENDUSER_FORMAT)
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.endringAlertFremtidigDato]: formatertDato,
+        }
+      })
+      logger('valideringsfeil', {
+        data: 'Avansert - For tidlig endring av gradert uttak',
+        tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`,
+      })
+      window.scrollTo(0, 0)
+      return false
+    }
+  }
+  return true
+}
+
 export const validateAvansertBeregningSkjema = (
   inputData: {
     gradertUttakAarFormData: FormDataEntryValue | null
@@ -118,7 +174,8 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaHeltUttakSluttAlderMaanederFormData: FormDataEntryValue | null
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
-  ufoeregrad: number,
+  foedselsdato: string,
+  loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >
@@ -168,7 +225,7 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksgrad er fylt ut med en prosent
   if (
     !uttaksgradFormData ||
-    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
+    /^(?!(0 %|100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
   ) {
     isValid = false
     logger('valideringsfeil', {
@@ -189,12 +246,12 @@ export const validateAvansertBeregningSkjema = (
     uttaksgradFormData !== '100 %' &&
     !validateAlderForGradertUttak(
       {
-        aar: heltUttakAarFormData as unknown as number,
-        maaneder: heltUttakMaanederFormData as unknown as number,
+        aar: parseInt(heltUttakAarFormData as string, 10),
+        maaneder: parseInt(heltUttakMaanederFormData as string, 10),
       },
       {
-        aar: gradertUttakAarFormData as unknown as number,
-        maaneder: gradertUttakMaanederFormData as unknown as number,
+        aar: gradertUttakAarFormData,
+        maaneder: gradertUttakMaanederFormData,
       },
       updateValidationErrorMessage
     )
@@ -204,8 +261,8 @@ export const validateAvansertBeregningSkjema = (
 
   // Gitt at brukeren har uføretrygd, og at heltUttaksalder, gradertUttaksalder og uttaksgradFormData er valid
   // Sjekker at uttaksgraden er iht uføregraden
-  if (isValid && ufoeregrad) {
-    if (ufoeregrad === 100) {
+  if (isValid && loependeVedtak.ufoeretrygd.grad) {
+    if (loependeVedtak.ufoeretrygd.grad === 100) {
       // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
       const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder({
         aar: parseInt(heltUttakAarFormData as string, 10),
@@ -237,10 +294,12 @@ export const validateAvansertBeregningSkjema = (
         parseInt(valgtAlder.aar as string, 10) <
           DEFAULT_UBETINGET_UTTAKSALDER.aar
       ) {
-        const maksGrad = 100 - ufoeregrad
-        const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
-          (grad) => grad <= maksGrad
-        )
+        const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
+        const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
+          ? [...ALLE_UTTAKSGRAD_AS_NUMBER].filter((grad) => grad <= maksGrad)
+          : [...ALLE_UTTAKSGRAD_AS_NUMBER]
+              .filter((grad) => grad <= maksGrad)
+              .slice(1)
         const valgtUttaksgradAsNumber = parseFloat(
           (uttaksgradFormData as string).replace(/\D/g, '')
         )
@@ -386,6 +445,30 @@ export const validateAvansertBeregningSkjema = (
     }
   }
 
+  // Hvis alle feltene er gyldige,
+  // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
+  if (isValid) {
+    if (
+      isLoependeVedtakEndring(loependeVedtak) &&
+      uttaksgradFormData !== '0 %' &&
+      uttaksgradFormData !== '100 %' &&
+      loependeVedtak.alderspensjon &&
+      !validateEndringGradertUttak(
+        loependeVedtak.alderspensjon.grad,
+        loependeVedtak.alderspensjon.fom,
+        uttaksgradFormData as string,
+        {
+          aar: parseInt(gradertUttakAarFormData as string, 10),
+          maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
+        },
+        foedselsdato,
+        updateValidationErrorMessage
+      )
+    ) {
+      isValid = false
+    }
+  }
+
   return isValid
 }
 
@@ -397,15 +480,17 @@ export const onAvansertBeregningSubmit = (
   >,
   gaaTilResultat: () => void,
   previousData: {
+    foedselsdato: string
+    loependeVedtak: LoependeVedtak
     localInntektFremTilUttak: string | null
-    ufoeregrad: number
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   }
 ): void => {
   const {
+    foedselsdato,
+    loependeVedtak,
     localInntektFremTilUttak,
-    ufoeregrad,
     hasVilkaarIkkeOppfylt,
     harAvansertSkjemaUnsavedChanges,
   } = previousData
@@ -456,7 +541,8 @@ export const onAvansertBeregningSubmit = (
         inntektVsaHeltUttakSluttAlderMaanederFormData,
         inntektVsaGradertUttakFormData,
       },
-      ufoeregrad,
+      foedselsdato,
+      loependeVedtak,
       setValidationErrors
     )
   ) {

@@ -1,5 +1,6 @@
 import { IntlShape } from 'react-intl'
 
+import { add, endOfDay, format } from 'date-fns'
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -8,14 +9,20 @@ import {
   isFoedtFoer1963,
   isFoedtFoer1964,
   isAlderLikEllerOverUbetingetUttaksalder,
-  isAlderOverMinUttaksaar,
+  isAlderOverMinUttaksalder,
+  isFoedselsdatoOverEllerLikMinUttaksalder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
   transformFoedselsdatoToAlder,
+  transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
   transformMaanedToDate,
   validateAlderFromForm,
+  getMaanedString,
+  formaterSluttAlderString,
+  formaterLivsvarigString,
 } from '../alder'
+import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 describe('alder-utils', () => {
   describe('formatUttaksalder', () => {
@@ -134,18 +141,50 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('isAlderOverMinUttaksaar', () => {
+  describe('isAlderOverMinUttaksalder', () => {
     it('returnerer false når alderen er lik eller under 62 år', () => {
-      expect(isAlderOverMinUttaksaar({ aar: 61, maaneder: 11 })).toBeFalsy()
-      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 0 })).toBeFalsy()
+      expect(isAlderOverMinUttaksalder({ aar: 61, maaneder: 11 })).toBeFalsy()
+      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 0 })).toBeFalsy()
     })
 
     it('returnerer true når alderen er over 62 år', () => {
-      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 1 })).toBeTruthy()
+      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 1 })).toBeTruthy()
 
-      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 2 })).toBeTruthy()
-      expect(isAlderOverMinUttaksaar({ aar: 63, maaneder: 0 })).toBeTruthy()
-      expect(isAlderOverMinUttaksaar({ aar: 70, maaneder: 0 })).toBeTruthy()
+      expect(isAlderOverMinUttaksalder({ aar: 62, maaneder: 2 })).toBeTruthy()
+      expect(isAlderOverMinUttaksalder({ aar: 63, maaneder: 0 })).toBeTruthy()
+      expect(isAlderOverMinUttaksalder({ aar: 70, maaneder: 0 })).toBeTruthy()
+    })
+  })
+
+  describe('isFoedselsdatoOverEllerLikMinUttaksalder', () => {
+    it('returnerer true når fødselsdatoen er 62 år fra nå', () => {
+      const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+        years: -62,
+      })
+      const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+      expect(
+        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)
+      ).toBeTruthy()
+    })
+
+    it('returnerer true når fødselsdatoen er mer enn 62 år fra nå', () => {
+      const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+        years: -62,
+        months: -5,
+      })
+      const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+      expect(
+        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når fødselsdatoen er mindre enn 62 år fra nå', () => {
+      const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
+        years: -61,
+        months: -11,
+      })
+      const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
+      expect(isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato)).toBeFalsy()
     })
   })
 
@@ -190,6 +229,14 @@ describe('alder-utils', () => {
   })
 
   describe('transformUttaksalderToDate', () => {
+    it('returnerer riktig dato når foedselsdato er første eller siste i måned', () => {
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-01')
+      ).toBe('01.02.2040')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, '1970-01-31')
+      ).toBe('01.02.2040')
+    })
     it('returnerer riktig dato', () => {
       const foedselsdato = '1970-04-15'
       expect(
@@ -201,6 +248,7 @@ describe('alder-utils', () => {
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 8 }, foedselsdato)
       ).toBe('01.01.2041')
+
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 11 }, foedselsdato)
       ).toBe('01.04.2041')
@@ -208,6 +256,11 @@ describe('alder-utils', () => {
   })
 
   describe('transformMaanedToDate', () => {
+    it('returnerer riktig måned når dagen er første eller siste i måned', () => {
+      expect(transformMaanedToDate(8, '1970-01-31', 'nb')).toBe('okt.')
+      expect(transformMaanedToDate(8, '1970-12-01', 'nb')).toBe('sep.')
+    })
+
     it('returnerer riktig måned basert på locale', () => {
       const foedselsdato = '1970-04-15'
       expect(transformMaanedToDate(0, foedselsdato, 'nb')).toBe('mai')
@@ -335,48 +388,163 @@ describe('alder-utils', () => {
 
     it('returnerer riktig alder når datoen er én måned før fødselsdatoen', () => {
       const expectedAlder = transformFoedselsdatoToAlder('1970-07-06')
-      expect(expectedAlder).toStrictEqual({ aar: 59, maaneder: 10 })
+      expect(expectedAlder).toStrictEqual({ aar: 59, maaneder: 11 })
     })
 
     it('returnerer riktig alder når datoen er på samme måned som fødselsdatoen', () => {
       expect(transformFoedselsdatoToAlder('1970-06-01')).toStrictEqual({
-        aar: 59,
-        maaneder: 11,
+        aar: 60,
+        maaneder: 0,
       })
       expect(transformFoedselsdatoToAlder('1970-06-06')).toStrictEqual({
-        aar: 59,
-        maaneder: 11,
+        aar: 60,
+        maaneder: 0,
       })
       expect(transformFoedselsdatoToAlder('1970-06-30')).toStrictEqual({
-        aar: 59,
-        maaneder: 11,
+        aar: 60,
+        maaneder: 0,
       })
     })
 
     it('returnerer riktig alder når datoen er én måned etter fødselsdatoen', () => {
       expect(transformFoedselsdatoToAlder('1970-05-01')).toStrictEqual({
         aar: 60,
-        maaneder: 0,
+        maaneder: 1,
       })
       expect(transformFoedselsdatoToAlder('1970-05-06')).toStrictEqual({
         aar: 60,
-        maaneder: 0,
+        maaneder: 1,
       })
       expect(transformFoedselsdatoToAlder('1970-05-31')).toStrictEqual({
+        aar: 60,
+        maaneder: 1,
+      })
+    })
+
+    it('returnerer riktig alder når datoen bikker over et år', () => {
+      expect(transformFoedselsdatoToAlder('1969-06-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlder('1969-05-01')).toStrictEqual({
+        aar: 61,
+        maaneder: 1,
+      })
+    })
+  })
+
+  describe('transformFoedselsdatoToAlderMinus1md', () => {
+    beforeEach(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2030-06-06'))
+    })
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('returnerer riktig alder når datoen er én måned før fødselsdatoen', () => {
+      const expectedAlder = transformFoedselsdatoToAlderMinus1md('1970-07-06')
+      expect(expectedAlder).toStrictEqual({ aar: 59, maaneder: 10 })
+    })
+
+    it('returnerer riktig alder når datoen er på samme måned som fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlderMinus1md('1970-06-01')).toStrictEqual({
+        aar: 59,
+        maaneder: 11,
+      })
+      expect(transformFoedselsdatoToAlderMinus1md('1970-06-06')).toStrictEqual({
+        aar: 59,
+        maaneder: 11,
+      })
+      expect(transformFoedselsdatoToAlderMinus1md('1970-06-30')).toStrictEqual({
+        aar: 59,
+        maaneder: 11,
+      })
+    })
+
+    it('returnerer riktig alder når datoen er én måned etter fødselsdatoen', () => {
+      expect(transformFoedselsdatoToAlderMinus1md('1970-05-01')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlderMinus1md('1970-05-06')).toStrictEqual({
+        aar: 60,
+        maaneder: 0,
+      })
+      expect(transformFoedselsdatoToAlderMinus1md('1970-05-31')).toStrictEqual({
         aar: 60,
         maaneder: 0,
       })
     })
 
     it('returnerer riktig alder når datoen bikker over et år', () => {
-      expect(transformFoedselsdatoToAlder('1969-06-01')).toStrictEqual({
+      expect(transformFoedselsdatoToAlderMinus1md('1969-06-01')).toStrictEqual({
         aar: 60,
         maaneder: 11,
       })
-      expect(transformFoedselsdatoToAlder('1969-05-01')).toStrictEqual({
+      expect(transformFoedselsdatoToAlderMinus1md('1969-05-01')).toStrictEqual({
         aar: 61,
         maaneder: 0,
       })
+    })
+  })
+
+  describe('getMaanedString', () => {
+    it('returnerer tom streng når måned er undefined eller lik 0', () => {
+      const mockFn = vi.fn()
+      expect(getMaanedString(mockFn)).toEqual('')
+      expect(getMaanedString(mockFn, 0)).toEqual('')
+      expect(mockFn).not.toHaveBeenCalled()
+    })
+    it('returnerer riktig streng når måned er større enn 0', () => {
+      const mockFn = vi.fn().mockReturnValue('string')
+      expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
+      expect(mockFn).toHaveBeenNthCalledWith(1, {
+        id: 'string.og',
+      })
+      expect(mockFn).toHaveBeenNthCalledWith(2, {
+        id: 'alder.md',
+      })
+      expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
+    })
+  })
+
+  describe('formaterSluttAlderString', () => {
+    it('returnerer riktig formatert streng', () => {
+      const intlMock = {
+        formatMessage: (s: { id: string }) => s.id,
+      } as unknown as IntlShape
+
+      expect(
+        formaterSluttAlderString(
+          intlMock,
+          { aar: 67, maaneder: 3 },
+          { aar: 67, maaneder: 6 }
+        )
+      ).toBe(
+        'String.fra 67 alder.aar string.og 3 alder.md string.til 67 alder.aar string.og 6 alder.md'
+      )
+      expect(
+        formaterSluttAlderString(
+          intlMock,
+          { aar: 67, maaneder: 0 },
+          { aar: 67, maaneder: 11 }
+        )
+      ).toBe('String.fra 67 alder.aar string.til 67 alder.aar')
+    })
+  })
+
+  describe('formaterLivsvarigString', () => {
+    it('returnerer riktig formatert streng for livsvarig', () => {
+      const intlMock = {
+        formatMessage: (s: { id: string }) => s.id,
+      } as unknown as IntlShape
+
+      expect(formaterLivsvarigString(intlMock, { aar: 67, maaneder: 3 })).toBe(
+        'alder.livsvarig 67 alder.aar string.og 3 alder.md'
+      )
+      expect(formaterLivsvarigString(intlMock, { aar: 67, maaneder: 0 })).toBe(
+        'alder.livsvarig 67 alder.aar'
+      )
     })
   })
 })

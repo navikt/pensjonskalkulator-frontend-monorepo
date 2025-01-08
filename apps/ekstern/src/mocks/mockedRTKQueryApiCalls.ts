@@ -8,6 +8,41 @@ export const fulfilledGetPerson = {
       navn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetPersonMedSamboer = {
+  ['getPerson(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getPerson',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      navn: 'Aprikos',
+      sivilstand: 'GIFT',
+      foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -38,6 +73,16 @@ export const fulfilledGetEkskludertStatus = {
   },
 }
 
+export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
+  ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getOmstillingsstoenadOgGjenlevende',
+    requestId: 't1wLPiRKrfe_vchftk8s8',
+    data: { harLoependeSak: false },
+    startedTimeStamp: 1714725797072,
+    fulfilledTimeStamp: 1714725797669,
+  },
+}
 export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',
@@ -49,29 +94,49 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   },
 }
 
-export const fulfilledGetLoependeVedtakUfoeregrad = {
+export const fulfilledGetLoependeVedtak0Ufoeregrad = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getLoependeVedtak',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      alderspensjon: {
-        loepende: false,
+      ufoeretrygd: {
         grad: 0,
       },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtak100Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
       ufoeretrygd: {
-        loepende: true,
+        grad: 100,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtak75Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
         grad: 75,
       },
-      afpPrivat: {
-        loepende: false,
-        grad: 0,
-      },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
-      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -85,21 +150,78 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
-        loepende: true,
         grad: 100,
+        fom: '2020-10-02',
       },
       ufoeretrygd: {
-        loepende: false,
         grad: 0,
       },
-      afpPrivat: {
-        loepende: false,
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling =
+  {
+    ['getLoependeVedtak(undefined)']: {
+      status: 'fulfilled',
+      endpointName: 'getLoependeVedtak',
+      requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+      startedTimeStamp: 1688046411971,
+      data: {
+        alderspensjon: {
+          grad: 100,
+          fom: '2020-10-02',
+          sisteUtbetaling: {
+            beloep: 34000,
+            utbetalingsdato: '2024-10-12',
+          },
+        },
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      },
+      fulfilledTimeStamp: 1688046412103,
+    },
+  }
+
+export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 50,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
         grad: 0,
       },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 100,
+        fom: '2020-10-02',
       },
+      ufoeretrygd: {
+        grad: 40,
+      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -113,21 +235,16 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
-        loepende: false,
         grad: 0,
+        fom: '2020-10-02',
       },
       ufoeretrygd: {
-        loepende: false,
         grad: 0,
       },
       afpPrivat: {
-        loepende: true,
-        grad: 100,
+        fom: '2020-10-02',
       },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
-      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -140,35 +257,83 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      alderspensjon: {
-        loepende: false,
-        grad: 0,
-      },
       ufoeretrygd: {
-        loepende: false,
-        grad: 0,
-      },
-      afpPrivat: {
-        loepende: false,
         grad: 0,
       },
       afpOffentlig: {
-        loepende: true,
-        grad: 100,
+        fom: '2020-10-02',
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
 }
 
-export const fulfilledGetTpoMedlemskap = {
-  ['getTpoMedlemskap(undefined)']: {
+export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
+  ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
-    endpointName: 'getTpoMedlemskap',
+    endpointName: 'getLoependeVedtak',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      tpLeverandoerListe: [
+      alderspensjon: {
+        grad: 0,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 100,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakFremtidig = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: true,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 100,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: true,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledsimulerOffentligTp = {
+  ['offentligTp(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'offentligTp',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      simuleringsresultatStatus: 'OK',
+      muligeTpLeverandoerListe: [
         'Statens pensjonskasse',
         'Kommunal Landspensjonskasse',
         'Oslo Pensjonsforsikring',
@@ -266,6 +431,19 @@ export const rejectedGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'rejected',
     endpointName: 'getOmstillingsstoenadOgGjenlevende',
+    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+    startedTimeStamp: 1714725265404,
+    error: {
+      status: 'FETCH_ERROR',
+      error: 'TypeError: Failed to fetch',
+    },
+  },
+}
+
+export const rejectedGetLoependeVedtak = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'rejected',
+    endpointName: 'getLoependeVedtak',
     requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
     startedTimeStamp: 1714725265404,
     error: {

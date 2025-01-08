@@ -5,7 +5,7 @@ import { add, endOfDay, parse } from 'date-fns'
 import { describe, expect, it } from 'vitest'
 
 import { setupStore } from '../../../state/store'
-import { useFormLocalState } from '../hooks'
+import { useUtenlandsoppholdLocalState } from '../hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES } from '../utils'
 import { act, renderHook } from '@/test-utils'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
@@ -45,7 +45,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     .slice(0, 10)
     .replace(/-/g, '')
 
-  describe('useFormLocalState', () => {
+  describe('useUtenlandsoppholdLocalState', () => {
     const closeMock = vi.fn()
     const onSubmitCallbackMock = vi.fn()
 
@@ -70,7 +70,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     }
 
     it('Når ingen verdi er lagret i Redux store, returnerer riktig initial values', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
@@ -136,7 +136,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     })
 
     it('Når fødselsdato ikke er angitt, returnerer riktig initial values', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
@@ -197,7 +197,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     })
 
     it('Når det gjelder en endring på en eksisterende utenlandsperiode, returnerer riktig initial values', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
@@ -262,7 +262,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     })
 
     it('Når handleLandChange kalles, fjernes valideringsfeilmelding og utenlandsperiode oppdateres', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
@@ -326,7 +326,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     })
 
     it('Når handleArbeidetUtenlandsChange kalles, fjernes valideringsfeilmelding og utenlandsperiode oppdateres', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,
@@ -389,7 +389,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
     })
 
     it('Når onCancel kalles, nullstilles utenlandsperiode og feilmeldinger og modalen lukkes', async () => {
-      const { result } = renderHook(useFormLocalState, {
+      const { result } = renderHook(useUtenlandsoppholdLocalState, {
         wrapper,
         initialProps: {
           ...initialProps,

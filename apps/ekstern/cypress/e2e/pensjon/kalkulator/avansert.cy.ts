@@ -92,7 +92,7 @@ describe('Avansert', () => {
         })
       })
 
-      it('forventer jeg å kunne velge mellom  20, 40, 50, 60, 80 og 100% uttaksgrad.', () => {
+      it('forventer jeg å kunne velge mellom 20, 40, 50, 60, 80 og 100% uttaksgrad.', () => {
         cy.contains('Hvor mye alderspensjon vil du ta ut?').should('exist')
         cy.contains('Velg uttaksgrad').should('exist')
         cy.get('[data-testid="uttaksgrad"]').then((selectElements) => {
@@ -175,7 +175,7 @@ describe('Avansert', () => {
       it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel.', () => {
         cy.go('back')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })
@@ -197,7 +197,7 @@ describe('Avansert', () => {
         cy.get('[data-testid="uttaksgrad"]').select('100 %')
       })
 
-      it('forventer jeg å kunne oppgi inntekt mens jeg tar ut 100% pensjon. Jeg forventer å kunne legge inn til hvilken alder jeg vil ha inntekt, men ikke lenger enn 75 år + 11 md.', () => {
+      it('forventer jeg å kunne oppgi inntekt ved siden av 100% alderspensjon. Jeg forventer å kunne legge inn til hvilken alder jeg vil ha inntekt, men ikke lenger enn 75 år + 11 md.', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
         cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
         cy.contains('Til hvilken alder forventer du å ha inntekten?').should(
@@ -233,26 +233,26 @@ describe('Avansert', () => {
           expect(options.length).equal(13)
           expect(options.eq(1).text()).equal('0 md. (mai)')
           expect(options.eq(12).text()).equal('11 md. (apr.)')
-          cy.get(
-            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
-          ).select('3')
-
-          cy.contains('Beregn pensjon').click()
-          cy.contains('Beregning').should('exist')
-          cy.contains('Se og endre dine valg').click({ force: true })
-          cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
-          cy.contains('Alderspensjon: 100 %').should('exist')
-          cy.contains(
-            'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-          ).should('exist')
         })
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+        ).select('3')
+
+        cy.contains('Beregn pensjon').click()
+        cy.contains('Beregning').should('exist')
+        cy.contains('Valgene dine').click({ force: true })
+        cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('Alderspensjon: 100 %').should('exist')
+        cy.contains(
+          'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
+        ).should('exist')
       })
 
       it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. 100 % alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
@@ -264,7 +264,7 @@ describe('Avansert', () => {
         ).should('exist')
         cy.contains('Gå ut av Avansert').click()
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })
@@ -320,7 +320,7 @@ describe('Avansert', () => {
         })
       })
 
-      it('forventer jeg å kunne oppgi inntekt mens jeg tar ut gradert alderspensjon og 100 % alderspensjon og beregne pensjon.', () => {
+      it('forventer jeg å kunne oppgi inntekt ved siden av gradert alderspensjon og 100 % alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
         cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
@@ -379,7 +379,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -404,7 +404,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -427,7 +427,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -442,7 +442,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -450,7 +450,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -468,7 +468,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -476,7 +476,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -493,7 +493,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains(
-          'Ett alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
+          'Et alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -514,7 +514,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon.json' }
         ).as('fetchAlderspensjon')
@@ -532,7 +532,7 @@ describe('Avansert', () => {
   })
 
   describe('Gitt at jeg som bruker har valgt "Avansert", fylt ut skjemaet og klikket på "Beregn Pensjon",', () => {
-    describe('Når jeg er kommet til beregningssiden,', () => {
+    describe('Når jeg er kommet til beregningssiden i resultatmodus,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
@@ -572,7 +572,7 @@ describe('Avansert', () => {
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
-        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')
         cy.contains('61').should('exist')
         cy.contains('87+').should('exist')
@@ -597,7 +597,7 @@ describe('Avansert', () => {
 
       it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
         cy.contains('Beregning').should('exist')
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('62 år og 3 md. (01.08.2025)').should('exist')
         cy.contains('Alderspensjon: 40 %').should('exist')
         cy.contains('Pensjonsgivende årsinntekt: 300 000 kr før skatt').should(
@@ -647,8 +647,7 @@ describe('Avansert', () => {
           '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
         ).select('0')
         cy.contains('Beregn pensjon').click()
-        cy.contains('Se og endre dine valg').click({ force: true })
-        cy.contains('Endre valg').click()
+        cy.contains('Endre valgene dine').click({ force: true })
       })
 
       it('forventer jeg at mine tidligere valg er lagret.', () => {
@@ -711,7 +710,7 @@ describe('Avansert', () => {
         ).select('6')
         cy.contains('Oppdater pensjon').click()
 
-        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Valgene dine').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt: 550 000 kr før skatt').should(
           'exist'
         )
@@ -766,7 +765,7 @@ describe('Avansert', () => {
 
       it('forventer jeg å kunne avbryte og komme tilbake til beregningen.', () => {
         cy.contains('Avbryt endring').click({ force: true })
-        cy.contains('Se og endre dine valg').should('exist')
+        cy.contains('Endre valgene dine').should('exist')
       })
 
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp.', () => {
@@ -776,7 +775,7 @@ describe('Avansert', () => {
         ).should('exist')
         cy.contains('Gå ut av Avansert').click()
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
       })
     })

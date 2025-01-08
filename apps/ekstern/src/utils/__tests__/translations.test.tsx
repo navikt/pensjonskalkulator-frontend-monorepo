@@ -72,6 +72,26 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
+    it('formaterer <dinPensjonEndreSoeknadLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.dinPensjonEndreSoeknadLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        'https://www.nav.no/pensjon/selvbetjening/alderspensjon/endringssoknad'
+      )
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
     it('formaterer <alderspensjonsreglerLink> med riktig url og ikon', async () => {
       render(
         <FormattedMessage
@@ -303,6 +323,52 @@ describe('translations-utils', () => {
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         externalUrls.kortBotid
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <personopplysningerLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.personopplysningerLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.personopplysninger
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <spkLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.spkLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.spk
       )
 
       expect(

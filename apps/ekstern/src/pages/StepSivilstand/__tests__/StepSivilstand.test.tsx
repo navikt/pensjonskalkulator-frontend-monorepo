@@ -1,9 +1,9 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { rejectedGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -14,12 +14,21 @@ import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
 describe('StepSivilstand', () => {
   beforeEach(() => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...rejectedGetPerson,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -45,8 +54,10 @@ describe('StepSivilstand', () => {
       hasRouter: false,
     })
     await waitFor(async () => {
-      expect(await screen.findByTestId('sivilstand-loader')).toBeVisible()
       expect(document.title).toBe('application.title.stegvisning.sivilstand')
+    })
+    await waitFor(async () => {
+      expect(await screen.findByTestId('sivilstand-loader')).toBeVisible()
     })
   })
 
@@ -68,19 +79,23 @@ describe('StepSivilstand', () => {
 
   it('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
     const setSamboerMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
       'setSamboer'
-    )
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
     )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
     const radioButtons = await screen.findAllByRole('radio')
@@ -94,10 +109,6 @@ describe('StepSivilstand', () => {
 
   it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -106,10 +117,9 @@ describe('StepSivilstand', () => {
       hasRouter: false,
       preloadedState: {
         api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
-            ...rejectedGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: {

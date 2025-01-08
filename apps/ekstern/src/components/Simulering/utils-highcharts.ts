@@ -29,7 +29,7 @@ import {
   resetColumnColors,
 } from './utils'
 
-import globalClassNames from './Pensjonssimulering.module.scss'
+import globalClassNames from './Simulering.module.scss'
 
 export type ExtendedAxis = Axis & {
   height: number
@@ -97,6 +97,8 @@ export function onPointClick(this: Point): void {
       label.style.fill = 'var(--a-text-default)'
     } else {
       label.style.fontWeight = 'normal'
+      label.style.color = 'var(--a-text-subtle)'
+      label.style.fill = 'var(--a-text-subtle)'
     }
   })
   this.series.chart.redraw()
@@ -254,22 +256,17 @@ export const getChartOptions = (
             const el1 = document.querySelector('[data-highcharts-chart]')
             el1?.setAttribute('data-testid', 'highcharts-done-drawing')
             // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
-
             clearTimeout(timeout)
           }, 50)
         },
       },
     },
     title: {
-      text: intl.formatMessage({ id: 'beregning.highcharts.title' }),
+      text: '-',
       align: 'left',
-      margin: 40,
-      y: 20,
-      style: {
-        fontFamily: 'var(--a-font-family)',
-        fontWeight: 'bold',
-        fontSize: '20px',
-      },
+      margin: 20,
+      y: 0,
+      style: { opacity: 0 },
     },
     xAxis: {
       categories: [],
@@ -488,9 +485,6 @@ export const getChartOptions = (
           },
         },
       ],
-    },
-    accessibility: {
-      description: 'Interaktiv graf, tabell følger etter',
     },
   }
 }

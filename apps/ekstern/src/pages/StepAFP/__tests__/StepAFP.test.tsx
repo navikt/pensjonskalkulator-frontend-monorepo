@@ -1,9 +1,10 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
 import {
+  fulfilledGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   rejectedGetInntekt,
 } from '@/mocks/mockedRTKQueryApiCalls'
@@ -17,12 +18,23 @@ import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
 describe('StepAFP', () => {
   beforeEach(() => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
+          ...fulfilledGetInntekt,
           ...fulfilledGetPerson,
+          ...fulfilledGetLoependeVedtak0Ufoeregrad,
         },
       },
       userInput: {
@@ -45,6 +57,7 @@ describe('StepAFP', () => {
         queries: {
           ...rejectedGetInntekt,
           ...fulfilledGetPerson,
+          ...fulfilledGetLoependeVedtak0Ufoeregrad,
         },
       },
       userInput: {
@@ -59,10 +72,12 @@ describe('StepAFP', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
+    await waitFor(async () => {
+      expect(document.title).toBe('application.title.stegvisning.afp')
+    })
 
     await waitFor(async () => {
       expect(await screen.findByTestId('afp-loader')).toBeVisible()
-      expect(document.title).toBe('application.title.stegvisning.afp')
     })
   })
 
@@ -87,15 +102,19 @@ describe('StepAFP', () => {
     )
     const user = userEvent.setup()
 
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
 
@@ -109,10 +128,7 @@ describe('StepAFP', () => {
 
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.afp}`],

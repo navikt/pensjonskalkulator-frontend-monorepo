@@ -1,14 +1,21 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
-import { mockErrorResponse } from '@/mocks/server'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
-import { paths, henvisningUrlParams } from '@/router/constants'
+import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepUtenlandsopphold', () => {
   it('har riktig sidetittel', () => {
@@ -18,33 +25,40 @@ describe('StepUtenlandsopphold', () => {
     )
   })
 
-  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren sendes videre til riktig side når hen klikker på Neste', async () => {
-    mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
+  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const { store } = render(<StepUtenlandsopphold />, {})
+
+    const { store } = render(<StepUtenlandsopphold />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
+    })
+    expect(
+      screen.getByText('stegvisning.utenlandsopphold.ingress')
+    ).toBeVisible()
     const radioButtons = await screen.findAllByRole('radio')
-
-    await user.click(radioButtons[0])
+    await user.click(radioButtons[1])
     await user.click(await screen.findByText('stegvisning.neste'))
-
-    expect(store.getState().userInput.harUtenlandsopphold).toBe(true)
-    expect(navigateMock).toHaveBeenCalledWith(
-      `${paths.henvisning}/${henvisningUrlParams.utland}`
-    )
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+    expect(store.getState().userInput.harUtenlandsopphold).toBe(false)
   })
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
         userInput: {
           ...userInputInitialState,
           currentSimulation: {
@@ -82,10 +96,7 @@ describe('StepUtenlandsopphold', () => {
 
   it('Gitt at brukeren ikke har samboer, nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: null },
@@ -103,20 +114,27 @@ describe('StepUtenlandsopphold', () => {
   })
 
   it('nullstiller input fra brukeren og navigerer to steg tilbake når brukeren klikker på Tilbake', async () => {
-    mockResponse('/v2/person', {
+    mockResponse('/v4/person', {
       status: 200,
       json: {
         navn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
+        pensjoneringAldre: {
+          normertPensjoneringsalder: {
+            aar: 67,
+            maaneder: 0,
+          },
+          nedreAldersgrense: {
+            aar: 62,
+            maaneder: 0,
+          },
+        },
       },
     })
 
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: null },

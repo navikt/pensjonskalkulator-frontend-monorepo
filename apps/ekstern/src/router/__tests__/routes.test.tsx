@@ -1,4 +1,4 @@
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, vi } from 'vitest'
 
@@ -9,7 +9,14 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
-import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetPerson,
+  fulfilledGetInntekt,
+  fulfilledGetEkskludertStatus,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -94,7 +101,7 @@ describe('routes', () => {
       })
 
       it('Når brukeren er pålogget og kall til /person feiler, viser pålogget landingssiden', async () => {
-        mockErrorResponse('/v2/person')
+        mockErrorResponse('/v4/person')
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
@@ -113,12 +120,22 @@ describe('routes', () => {
       it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v2/person', {
+        mockResponse('/v4/person', {
           status: 200,
           json: {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {
@@ -134,22 +151,6 @@ describe('routes', () => {
             '_self'
           )
         })
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.personopplysninger}`, () => {
-      it('viser personopplysninger siden', async () => {
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.personopplysninger}`],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-        expect(router.state.location.pathname).toBe(
-          `${BASE_PATH}/personopplysninger`
-        )
-        expect(
-          await screen.findByText('personopplysninger.header')
-        ).toBeInTheDocument()
       })
     })
   })
@@ -180,12 +181,22 @@ describe('routes', () => {
       it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v2/person', {
+        mockResponse('/v4/person', {
           status: 200,
           json: {
             navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
         })
         const router = createMemoryRouter(routes, {
@@ -261,45 +272,6 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser utenlandsopphold feil', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(await screen.findByText('henvisning.utland.body')).toBeVisible()
-      })
-    })
-
     describe(`${BASE_PATH}${paths.forbehold}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
@@ -367,13 +339,15 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fulfilledGetPerson,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -382,6 +356,15 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
         })
         render(<RouterProvider router={router} />, {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: { ...userInputInitialState },
+          },
           hasRouter: false,
         })
         expect(
@@ -424,13 +407,15 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fakeApiCalls,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -481,16 +466,25 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
-      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /ekskludert ikke har feilet', async () => {
+        const mockedState = {
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
+            },
           },
-          userInput: { ...userInputInitialState },
-        }))
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.afp}`],
@@ -538,14 +532,15 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises steget', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: { ...userInputInitialState },
@@ -601,7 +596,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -614,22 +609,10 @@ describe('routes', () => {
                 endpointName: 'getLoependeVedtak',
                 requestId: 't1wLPiRKrfe_vchftk8s8',
                 data: {
-                  alderspensjon: {
-                    loepende: false,
-                    grad: 0,
-                  },
                   ufoeretrygd: {
-                    loepende: false,
                     grad: 0,
                   },
-                  afpPrivat: {
-                    loepende: false,
-                    grad: 0,
-                  },
-                  afpOffentlig: {
-                    loepende: false,
-                    grad: 0,
-                  },
+                  harFremtidigLoependeVedtak: false,
                 },
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,
@@ -681,7 +664,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -739,13 +722,15 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fakeApiCalls,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -796,14 +781,17 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fakeApiCalls,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -813,6 +801,21 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fakeApiCalls,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+              },
+            },
+          },
         })
 
         await waitFor(async () => {
@@ -860,14 +863,17 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fakeApiCalls,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -877,6 +883,24 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fakeApiCalls,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              samboer: false,
+              afp: 'ja_privat',
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+              },
+            },
+          },
         })
 
         await waitFor(async () => {

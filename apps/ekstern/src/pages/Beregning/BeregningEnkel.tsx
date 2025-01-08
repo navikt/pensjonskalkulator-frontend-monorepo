@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -34,15 +34,17 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
+  selectIsEndring,
+  selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
   DEFAULT_UBETINGET_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksaar,
+  isAlderOverMinUttaksalder,
   isFoedtFoer1964,
-  transformFoedselsdatoToAlder,
+  transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
@@ -58,6 +60,8 @@ export const BeregningEnkel: React.FC = () => {
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const isEndring = useAppSelector(selectIsEndring)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -97,6 +101,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (!ufoeregrad) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
         harSamboer,
@@ -110,7 +115,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
-        ufoeregrad,
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
@@ -174,10 +179,10 @@ export const BeregningEnkel: React.FC = () => {
 
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = isPersonSuccess
-      ? transformFoedselsdatoToAlder(person?.foedselsdato)
+      ? transformFoedselsdatoToAlderMinus1md(person?.foedselsdato)
       : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksaar(beregnetMinAlder)
+    return isAlderOverMinUttaksalder(beregnetMinAlder)
       ? beregnetMinAlder
       : DEFAULT_TIDLIGST_UTTAKSALDER
   }, [person])
@@ -278,7 +283,8 @@ export const BeregningEnkel: React.FC = () => {
                 }
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 afpPrivatListe={
-                  !ufoeregrad && afp === 'ja_privat'
+                  !ufoeregrad &&
+                  (afp === 'ja_privat' || loependeVedtak.afpPrivat)
                     ? alderspensjon?.afpPrivat
                     : undefined
                 }
@@ -303,7 +309,7 @@ export const BeregningEnkel: React.FC = () => {
                     : undefined
                 }
               />
-              <Pensjonsavtaler headingLevel="3" />
+              {!isEndring && <Pensjonsavtaler headingLevel="3" />}
               <Grunnlag
                 visning="enkel"
                 headingLevel="3"
@@ -321,7 +327,11 @@ export const BeregningEnkel: React.FC = () => {
               className={clsx(styles.background, styles.background__lightblue)}
             >
               <div className={styles.container}>
-                <SavnerDuNoe headingLevel="3" showAvansert />
+                <SavnerDuNoe
+                  headingLevel="3"
+                  isEndring={isEndring}
+                  showAvansert
+                />
               </div>
             </div>
             <div className={styles.container}>

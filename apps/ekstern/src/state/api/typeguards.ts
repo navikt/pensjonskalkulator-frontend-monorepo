@@ -20,7 +20,7 @@ export const isInntekt = (data?: any): data is Inntekt => {
 
 export const isPensjonsberegningArray = (
   data?: any
-): data is Pensjonsberegning[] => {
+): data is AfpPrivatPensjonsberegning[] => {
   return (
     Array.isArray(data) &&
     data.every(
@@ -58,6 +58,17 @@ export const isVilkaarsproeving = (data?: any): data is Vilkaarsproeving => {
   }
 }
 
+export const isAlderspensjonMaanedligVedEndring = (data?: any) => {
+  if (data === null) {
+    return false
+  }
+  return (
+    typeof data.heltUttakMaanedligBeloep === 'number' &&
+    (data.gradertUttakMaanedligBeloep === undefined ||
+      typeof data.gradertUttakMaanedligBeloep === 'number')
+  )
+}
+
 export const isAlderspensjonSimulering = (
   data?: any
 ): data is AlderspensjonResponseBody => {
@@ -74,14 +85,21 @@ export const isAlderspensjonSimulering = (
 
   return (
     isVilkaarsproeving(data.vilkaarsproeving) &&
+    (data?.alderspensjonMaanedligVedEndring === undefined ||
+      isAlderspensjonMaanedligVedEndring(
+        data?.alderspensjonMaanedligVedEndring
+      )) &&
     (data.harForLiteTrygdetid === undefined ||
       typeof data.harForLiteTrygdetid === 'boolean')
   )
 }
 
-export const isUtbetalingsperiode = (
+export const isUtbetalingsperiode = <T extends boolean>(
+  checkGrad: T,
   data?: any
-): data is Utbetalingsperiode => {
+): data is T extends true
+  ? Utbetalingsperiode
+  : UtbetalingsperiodeWithoutGrad => {
   if (data === null || data === undefined) {
     return false
   }
@@ -90,10 +108,12 @@ export const isUtbetalingsperiode = (
     data.sluttAlder === undefined ||
     (data.sluttAlder !== undefined && isAlder(data.sluttAlder))
 
+  const hasCorrectGrad = checkGrad ? typeof data.grad === 'number' : true
+
   return (
     data.startAlder !== undefined &&
     isAlder(data.startAlder) &&
-    typeof data.grad === 'number' &&
+    hasCorrectGrad &&
     data.aarligUtbetaling !== undefined &&
     typeof data.aarligUtbetaling === 'number' &&
     hasCorrectSluttAlder
@@ -104,12 +124,12 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
   if (data === null || data === undefined) {
     return false
   }
-  const harFeilUtbetalingsperiode =
+
+  const hasCorrectUtbetalingsperiode: boolean =
     data.utbetalingsperioder !== undefined &&
     Array.isArray(data.utbetalingsperioder) &&
-    data.utbetalingsperioder.some(
-      (utbetalingsperiode: Utbetalingsperiode) =>
-        !isUtbetalingsperiode(utbetalingsperiode)
+    data.utbetalingsperioder.every((utbetalingsperiode: any) =>
+      isUtbetalingsperiode(true, utbetalingsperiode)
     )
 
   const harFeilStartAar =
@@ -125,7 +145,7 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     data.kategori &&
     isSomeEnumKey(pensjonsavtalerKategoriMapObj)(data.kategori) &&
     Array.isArray(data.utbetalingsperioder) &&
-    !harFeilUtbetalingsperiode &&
+    hasCorrectUtbetalingsperiode &&
     !harFeilStartAar &&
     !harFeilSluttAar
   )
@@ -150,19 +170,69 @@ export const isPerson = (data?: any): data is Person => {
     typeof data.navn === 'string' &&
     data.foedselsdato &&
     data.foedselsdato !== undefined &&
-    new Date(data.foedselsdato).toString() !== 'Invalid Date'
+    new Date(data.foedselsdato).toString() !== 'Invalid Date' &&
+    data.pensjoneringAldre &&
+    typeof data.pensjoneringAldre === 'object' &&
+    data.pensjoneringAldre.normertPensjoneringsalder &&
+    typeof data.pensjoneringAldre.normertPensjoneringsalder === 'object' &&
+    data.pensjoneringAldre.nedreAldersgrense &&
+    typeof data.pensjoneringAldre.nedreAldersgrense === 'object' &&
+    isAlder(data.pensjoneringAldre.normertPensjoneringsalder) &&
+    isAlder(data.pensjoneringAldre.nedreAldersgrense)
   )
 }
 
-export const isTpoMedlemskap = (data?: any): data is TpoMedlemskap => {
+export const isSimulertOffentligTp = (data?: any) => {
+  if (data === null || typeof data !== 'object') {
+    return false
+  }
+
+  const hasCorrectUtbetalingsperiode: boolean =
+    data.simuleringsresultat.utbetalingsperioder !== undefined &&
+    Array.isArray(data.simuleringsresultat.utbetalingsperioder) &&
+    data.simuleringsresultat.utbetalingsperioder.every(
+      (utbetalingsperiode: any) =>
+        isUtbetalingsperiode(false, utbetalingsperiode)
+    )
+
+  return (
+    typeof data.tpLeverandoer === 'string' &&
+    data.simuleringsresultat.betingetTjenestepensjonErInkludert !== undefined &&
+    typeof data.simuleringsresultat.betingetTjenestepensjonErInkludert ===
+      'boolean' &&
+    hasCorrectUtbetalingsperiode
+  )
+}
+
+export const isOffentligTp = (data?: any): data is OffentligTp => {
+  if (
+    !data ||
+    !data.simuleringsresultatStatus ||
+    ![
+      'OK',
+      'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+      'TP_ORDNING_STOETTES_IKKE',
+      'TOM_SIMULERING_FRA_TP_ORDNING',
+      'TEKNISK_FEIL',
+    ].includes(data.simuleringsresultatStatus)
+  ) {
+    return false
+  }
+
+  const simulertTjenestepensjonValid =
+    data.simulertTjenestepensjon !== undefined
+      ? isSimulertOffentligTp(data.simulertTjenestepensjon)
+      : true
+
   return (
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    Array.isArray(data.tpLeverandoerListe) &&
-    data.tpLeverandoerListe.every(
+    Array.isArray(data.muligeTpLeverandoerListe) &&
+    data.muligeTpLeverandoerListe.every(
       (tpLeverandoer: string) => typeof tpLeverandoer === 'string'
-    )
+    ) &&
+    simulertTjenestepensjonValid
   )
 }
 
@@ -195,36 +265,33 @@ export const isOmstillingsstoenadOgGjenlevende = (
     typeof data.harLoependeSak === 'boolean'
   )
 }
-
 export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
-  if (data === null || data === undefined) {
-    return false
-  }
-
-  if (
-    data.alderspensjon === null ||
-    data.ufoeretrygd === null ||
-    data.afpPrivat === null ||
-    data.afpOffentlig === null
-  ) {
+  if (data === null || data === undefined || data.ufoeretrygd === null) {
     return false
   }
 
   return (
     typeof data === 'object' &&
     !Array.isArray(data) &&
-    typeof data.alderspensjon === 'object' &&
     typeof data.ufoeretrygd === 'object' &&
-    typeof data.afpPrivat === 'object' &&
-    typeof data.afpOffentlig === 'object' &&
-    typeof data.alderspensjon.loepende === 'boolean' &&
-    typeof data.ufoeretrygd.loepende === 'boolean' &&
-    typeof data.afpPrivat.loepende === 'boolean' &&
-    typeof data.afpOffentlig.loepende === 'boolean' &&
-    typeof data.alderspensjon.grad === 'number' &&
     typeof data.ufoeretrygd.grad === 'number' &&
-    typeof data.afpPrivat.grad === 'number' &&
-    typeof data.afpOffentlig.grad === 'number'
+    (!data.alderspensjon ||
+      (data.alderspensjon &&
+        typeof data.alderspensjon === 'object' &&
+        data.alderspensjon.grad !== undefined &&
+        typeof data.alderspensjon.grad === 'number')) &&
+    (!data.alderspensjon ||
+      (data.alderspensjon &&
+        data.alderspensjon.fom &&
+        typeof data.alderspensjon.fom === 'string')) &&
+    (!data.afpPrivat ||
+      (data.afpPrivat &&
+        typeof data.afpPrivat === 'object' &&
+        typeof data.afpPrivat.fom === 'string')) &&
+    (!data.afpOffentlig ||
+      (data.afpOffentlig &&
+        typeof data.afpOffentlig === 'object' &&
+        typeof data.afpOffentlig.fom === 'string'))
   )
 }
 

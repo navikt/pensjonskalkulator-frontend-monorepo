@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import {
   Accordion,
@@ -12,23 +12,15 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import {
-  useGetPersonQuery,
-  useGetUtlandFeatureToggleQuery,
-} from '@/state/api/apiSlice'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import {
-  selectAfp,
-  selectSamboer,
-  selectUfoeregrad,
-  selectSamtykkeOffentligAFP,
-} from '@/state/userInput/selectors'
+import { selectSamboer } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
-import { formatAfp } from '@/utils/afp'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import { GrunnlagAFP } from './GrunnlagAFP'
 import { GrunnlagInntekt } from './GrunnlagInntekt'
 import { GrunnlagSection } from './GrunnlagSection'
 import { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'
@@ -49,37 +41,22 @@ export const Grunnlag: React.FC<Props> = ({
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
-    e.preventDefault()
-    dispatch(userInputActions.flush())
-    navigate(paths.start)
-  }
-
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
     navigate(paths.beregningAvansert)
   }
 
+  const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
+    e.preventDefault()
+    dispatch(userInputActions.flush())
+    navigate(paths.start)
+  }
+
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
-  const { data: utlandFeatureToggle } = useGetUtlandFeatureToggleQuery()
-  const afp = useAppSelector(selectAfp)
-  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
-  const ufoeregrad = useAppSelector(selectUfoeregrad)
-
-  const formatertAfp = React.useMemo(() => {
-    const afpString = formatAfp(intl, afp ?? 'vet_ikke')
-    if (ufoeregrad && (afp === 'ja_offentlig' || afp === 'ja_privat')) {
-      return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
-    }
-    if (!harSamtykketOffentligAFP && !ufoeregrad && afp === 'ja_offentlig') {
-      return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
-    }
-    return afpString
-  }, [afp])
 
   const formatertSivilstand = React.useMemo(
     () =>
@@ -152,29 +129,7 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        {utlandFeatureToggle?.enabled ? (
-          <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
-        ) : (
-          <AccordionItem name="Grunnlag: Utenlandsopphold">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.opphold.title',
-              })}
-              headerValue={intl.formatMessage({
-                id: 'grunnlag.opphold.value',
-              })}
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id="grunnlag.opphold.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-        )}
+        <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
 
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection
@@ -195,32 +150,8 @@ export const Grunnlag: React.FC<Props> = ({
             </BodyLong>
           </GrunnlagSection>
         </AccordionItem>
-        <AccordionItem name="Grunnlag: AFP">
-          <GrunnlagSection
-            headerTitle={intl.formatMessage({
-              id: 'grunnlag.afp.title',
-            })}
-            headerValue={formatertAfp}
-          >
-            <BodyLong>
-              <FormattedMessage
-                id={`grunnlag.afp.ingress.${afp === 'ja_offentlig' && !harSamtykketOffentligAFP && !ufoeregrad ? 'ja_offentlig_utilgjengelig' : afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
 
-              {!ufoeregrad && afp === 'nei' && (
-                <>
-                  <Link href="#" onClick={goToStart}>
-                    <FormattedMessage id="grunnlag.afp.reset_link" />
-                  </Link>
-                  .
-                </>
-              )}
-            </BodyLong>
-          </GrunnlagSection>
-        </AccordionItem>
+        <GrunnlagAFP goToStart={goToStart} />
       </Accordion>
     </section>
   )

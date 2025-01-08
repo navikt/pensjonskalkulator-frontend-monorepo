@@ -14,7 +14,7 @@ import styles from './Ufoere.module.scss'
 interface Props {
   onCancel?: () => void
   onPrevious: () => void
-  onNext: () => void
+  onNext?: () => void
 }
 
 export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
@@ -25,7 +25,9 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
     logger('button klikk', {
       tekst: `Neste fra ${paths.ufoeretrygdAFP}`,
     })
-    onNext()
+    if (onNext) {
+      onNext()
+    }
   }
 
   return (

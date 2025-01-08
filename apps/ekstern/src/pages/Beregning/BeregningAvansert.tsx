@@ -1,14 +1,16 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
-import { Heading } from '@navikt/ds-react'
+import { PencilIcon } from '@navikt/aksel-icons'
+import { Button, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
+import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
@@ -29,14 +31,15 @@ import {
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
-  selectUfoeregrad,
+  selectIsEndring,
+  selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksaar,
-  transformFoedselsdatoToAlder,
+  isAlderOverMinUttaksalder,
+  transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
@@ -52,7 +55,8 @@ export const BeregningAvansert: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
-  const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const isEndring = useAppSelector(selectIsEndring)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -75,7 +79,7 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
-        ufoeregrad,
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
@@ -149,10 +153,10 @@ export const BeregningAvansert: React.FC = () => {
 
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = person
-      ? transformFoedselsdatoToAlder(person.foedselsdato)
+      ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
       : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksaar(beregnetMinAlder)
+    return isAlderOverMinUttaksalder(beregnetMinAlder)
       ? beregnetMinAlder
       : DEFAULT_TIDLIGST_UTTAKSALDER
   }, [person])
@@ -181,25 +185,39 @@ export const BeregningAvansert: React.FC = () => {
 
       {avansertSkjemaModus === 'resultat' && (
         <>
-          {isError ? (
-            <div
-              className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
-            >
-              <Heading level="2" size="small">
-                <FormattedMessage id="beregning.title" />
-              </Heading>
-              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {isError && <FormattedMessage id="beregning.error" />}
-              </AlertDashBorder>
-              <ResultatkortAvansertBeregning
-                onButtonClick={() => setAvansertSkjemaModus('redigering')}
-              />
-            </div>
-          ) : (
-            <>
-              <div
-                className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
-              >
+          <InfoOmLoependeVedtak loependeVedtak={loependeVedtak} />
+          <div
+            className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
+          >
+            {isError ? (
+              <>
+                <Heading level="2" size="small">
+                  <FormattedMessage id="beregning.title" />
+                </Heading>
+                <AlertDashBorder onRetry={isError ? onRetry : undefined}>
+                  {isError && <FormattedMessage id="beregning.error" />}
+                </AlertDashBorder>
+                <ResultatkortAvansertBeregning
+                  onButtonClick={() => setAvansertSkjemaModus('redigering')}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  type="button"
+                  data-testid="card-button-secondary"
+                  className={styles.button}
+                  variant="secondary"
+                  icon={<PencilIcon aria-hidden />}
+                  onClick={() => {
+                    logger('button klikk', {
+                      tekst: 'Beregning avansert: Endre valgene dine',
+                    })
+                    setAvansertSkjemaModus('redigering')
+                  }}
+                >
+                  <FormattedMessage id="beregning.avansert.button.endre_valgene_dine" />
+                </Button>
                 <Simulering
                   isLoading={isFetching}
                   headingLevel="2"
@@ -208,19 +226,22 @@ export const BeregningAvansert: React.FC = () => {
                   }
                   alderspensjonListe={alderspensjon?.alderspensjon}
                   afpPrivatListe={
-                    !ufoeregrad &&
-                    afp === 'ja_privat' &&
+                    !loependeVedtak.ufoeretrygd.grad &&
+                    (afp === 'ja_privat' || loependeVedtak.afpPrivat) &&
                     alderspensjon?.afpPrivat
                       ? alderspensjon?.afpPrivat
                       : undefined
                   }
                   afpOffentligListe={
-                    !ufoeregrad &&
+                    !loependeVedtak.ufoeretrygd.grad &&
                     afp === 'ja_offentlig' &&
                     harSamtykketOffentligAFP &&
                     alderspensjon?.afpOffentlig
                       ? alderspensjon?.afpOffentlig
                       : undefined
+                  }
+                  alderspensjonMaanedligVedEndring={
+                    alderspensjon?.alderspensjonMaanedligVedEndring
                   }
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
@@ -239,28 +260,30 @@ export const BeregningAvansert: React.FC = () => {
                 <ResultatkortAvansertBeregning
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
-                <Pensjonsavtaler headingLevel="2" />
+                {!isEndring && <Pensjonsavtaler headingLevel="2" />}
                 <Grunnlag
                   visning="avansert"
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
                 />
-              </div>
-              <>
-                <div
-                  className={clsx(
-                    styles.background,
-                    styles.background__lightblue
-                  )}
-                >
-                  <div className={styles.container}>
-                    <SavnerDuNoe headingLevel="3" />
-                  </div>
-                </div>
-                <div className={styles.container}>
-                  <GrunnlagForbehold headingLevel="3" />
-                </div>
               </>
+            )}
+          </div>
+          {!isError && (
+            <>
+              <div
+                className={clsx(
+                  styles.background,
+                  styles.background__lightblue
+                )}
+              >
+                <div className={styles.container}>
+                  <SavnerDuNoe headingLevel="3" isEndring={isEndring} />
+                </div>
+              </div>
+              <div className={styles.container}>
+                <GrunnlagForbehold headingLevel="3" />
+              </div>
             </>
           )}
         </>

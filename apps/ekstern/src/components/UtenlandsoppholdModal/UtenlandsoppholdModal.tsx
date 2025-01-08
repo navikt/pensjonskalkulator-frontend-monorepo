@@ -23,13 +23,13 @@ import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { useFormLocalState } from './hooks'
+import { useUtenlandsoppholdLocalState } from './hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES, onUtenlandsoppholdSubmit } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
 
 interface Props {
-  modalRef: React.RefObject<HTMLDialogElement>
+  modalRef: React.RefObject<HTMLDialogElement | null>
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void
 }
@@ -61,7 +61,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       handleArbeidetUtenlandsChange,
       onCancel,
     },
-  ] = useFormLocalState({
+  ] = useUtenlandsoppholdLocalState({
     modalRef,
     foedselsdato,
     utenlandsperiode,
@@ -330,14 +330,22 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button form={UTENLANDSOPPHOLD_FORM_NAMES.form}>
+        <Button
+          form={UTENLANDSOPPHOLD_FORM_NAMES.form}
+          data-testid="legg-til-utenlandsopphold-submit"
+        >
           {intl.formatMessage({
             id: utenlandsperiode
               ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater'
               : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
           })}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          data-testid="legg-til-utenlandsopphold-avbryt"
+        >
           {intl.formatMessage({
             id: utenlandsperiode
               ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'

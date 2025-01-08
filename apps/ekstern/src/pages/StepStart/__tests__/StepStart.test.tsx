@@ -1,9 +1,14 @@
-import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import {
+  rejectedGetPerson,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetPerson,
+  rejectedGetLoependeVedtak,
+} from '@/mocks/mockedRTKQueryApiCalls'
+import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -12,6 +17,15 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
 
 describe('StepStart', () => {
   afterEach(() => {
@@ -33,7 +47,9 @@ describe('StepStart', () => {
     await waitFor(async () => {
       expect(document.title).toBe('application.title.stegvisning.start')
     })
-    expect(screen.getByTestId('start-loader')).toBeVisible()
+    await waitFor(async () => {
+      expect(screen.getByTestId('start-loader')).toBeVisible()
+    })
   })
 
   describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
@@ -43,50 +59,67 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(
-          screen.getByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
-      })
+      expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
+      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })
 
-    it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
-      mockErrorResponse('/v2/person')
+    it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
+      mockErrorResponse('/v4/person')
+      const mockedState = {
+        api: {
+          queries: {
+            ...rejectedGetPerson,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
+
+      await waitFor(async () => {
+        expect(await screen.findByText('pageframework.title')).toBeVisible()
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
       })
     })
   })
+
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
 
@@ -107,39 +140,62 @@ describe('StepStart', () => {
         ).toBeVisible()
       })
     })
-    it('viser vanlig startsisde når henting av vedtak feiler', async () => {
-      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+
+    it('rendrer ikke siden når henting av loepende vedtak feiler og redirigerer til /uventet-feil', async () => {
+      mockErrorResponse('/v2/vedtak/loepende-vedtak')
+      const mockedState = {
+        api: {
+          queries: {
+            ...fulfilledGetPerson,
+            ...rejectedGetLoependeVedtak,
+          },
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(
-          screen.getByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
-        expect(screen.getByText('stegvisning.start.ingress')).toBeVisible()
+
+      await waitFor(async () => {
+        expect(await screen.findByText('pageframework.title')).toBeVisible()
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
       })
     })
   })
 
   it('sender videre til neste steg når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
     await waitFor(async () => {
-      await user.click(await screen.findByText('stegvisning.start.button'))
+      const startButton = await screen.findByText('stegvisning.start.button')
+      await user.click(startButton)
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
   })
@@ -160,7 +216,7 @@ describe('StepStart', () => {
         hasRouter: false,
       })
 
-      expect(await screen.findAllByRole('button')).toHaveLength(1)
+      expect(screen.queryAllByRole('button')).toHaveLength(0)
     })
   })
 })

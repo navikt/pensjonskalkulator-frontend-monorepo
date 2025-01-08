@@ -4,15 +4,14 @@ import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' wi
 import ekskludertStatusResponse from '../../../mocks/data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from '../../../mocks/data/loepende-vedtak.json' with { type: 'json' }
+import offentligTpResponse from '../../../mocks/data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from '../../../mocks/data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import pensjonsavtalerResponse from '../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import personResponse from '../../../mocks/data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from '../../../mocks/data/tidligstMuligHeltUttak.json' with { type: 'json' }
-import tpoMedlemskapResponse from '../../../mocks/data/tpo-medlemskap.json' with { type: 'json' }
 import spraakvelgerToggleResponse from '../../../mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
-import endringToggleResponse from '../../../mocks/data/unleash-enable-endring.json' with { type: 'json' }
-import highchartsAccessibilityPluginToggleResponse from '../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
-import utlandToggleResponse from '../../../mocks/data/unleash-enable-utland.json' with { type: 'json' }
+import enableRedirect1963ToggleResponse from '../../../mocks/data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableTpOffentligToggleResponse from '../../../mocks/data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import utvidetSimuleringsresultatToggleResponse from '../../../mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -23,7 +22,7 @@ describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('getInntekt')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
-    expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
+    expect(apiSlice.endpoints).toHaveProperty('offentligTp')
     expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHeltUttak')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
@@ -92,7 +91,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/person')
+      mockErrorResponse('/v4/person')
       return storeRef
         .dispatch(apiSlice.endpoints.getPerson.initiate())
         .then((result) => {
@@ -104,7 +103,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/person', {
+      mockResponse('/v4/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
       })
@@ -213,7 +212,7 @@ describe('apiSlice', () => {
     it('kaster feil ved uforventet format på data', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         json: {
           feil: 'format',
         },
@@ -231,23 +230,25 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getTpoMedlemskap', () => {
+  describe('simulerOffentligTp', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(tpoMedlemskapResponse)
+          expect(fetchBaseQueryResult.data).toMatchObject(offentligTpResponse)
         })
     })
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/tpo-medlemskap')
+      mockErrorResponse('/v2/simuler-oftp', {
+        method: 'post',
+      })
       return storeRef
-        .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('rejected')
@@ -257,13 +258,14 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/tpo-medlemskap', {
+      mockResponse('/v2/simuler-oftp', {
         status: 200,
         json: { lorem: 'ipsum' },
+        method: 'post',
       })
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch(apiSlice.endpoints.getTpoMedlemskap.initiate())
+          .dispatch(apiSlice.endpoints.offentligTp.initiate())
           .then((result) => {
             const fetchBaseQueryResult =
               result as unknown as FetchBaseQueryError
@@ -276,7 +278,9 @@ describe('apiSlice', () => {
   })
 
   describe('pensjonsavtaler', () => {
-    const dummyRequestBody = {
+    const dummyRequestBody: PensjonsavtalerRequestBody = {
+      epsHarInntektOver2G: false,
+      epsHarPensjon: false,
       aarligInntektFoerUttakBeloep: 500000,
       uttaksperioder: [
         {
@@ -321,7 +325,7 @@ describe('apiSlice', () => {
           },
         ],
       }
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [{ ...avtale }],
@@ -346,7 +350,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/pensjonsavtaler', {
+      mockErrorResponse('/v3/pensjonsavtaler', {
         method: 'post',
       })
       return storeRef
@@ -360,7 +364,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/pensjonsavtaler', {
+      mockResponse('/v3/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -397,7 +401,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+      mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
         status: 500,
         method: 'post',
       })
@@ -412,7 +416,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/tidligste-hel-uttaksalder', {
+      mockResponse('/v2/tidligste-hel-uttaksalder', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -436,7 +440,8 @@ describe('apiSlice', () => {
       simuleringstype: 'ALDERSPENSJON',
       foedselsdato: '1963-04-30',
       sivilstand: 'UGIFT',
-      epsHarInntektOver2G: true,
+      epsHarInntektOver2G: false,
+      epsHarPensjon: false,
       heltUttak: {
         uttaksalder: { aar: 67, maaneder: 8 },
         aarligInntektVsaPensjon: {
@@ -458,7 +463,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v6/alderspensjon/simulering', {
+      mockErrorResponse('/v8/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -472,7 +477,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v6/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -491,7 +496,7 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpPrivat', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v6/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
@@ -522,7 +527,7 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpOffentlig', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v6/alderspensjon/simulering', {
+      mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
@@ -601,31 +606,25 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getHighchartsAccessibilityPluginFeatureToggle', () => {
+  describe('getRedirect1963FeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch(
-          apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-        )
+        .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('fulfilled')
           expect(fetchBaseQueryResult.data).toMatchObject(
-            highchartsAccessibilityPluginToggleResponse
+            enableRedirect1963ToggleResponse
           )
         })
     })
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse(
-        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin'
-      )
+      mockErrorResponse('/feature/pensjonskalkulator.enable-redirect-1963')
       return storeRef
-        .dispatch(
-          apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-        )
+        .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('rejected')
@@ -636,19 +635,14 @@ describe('apiSlice', () => {
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse(
-        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-        {
-          status: 200,
-          json: { lorem: 'ipsum' },
-        }
-      )
+      mockResponse('/feature/pensjonskalkulator.enable-redirect-1963', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
 
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch(
-            apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-          )
+          .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
           .then((result) => {
             const fetchBaseQueryResult =
               result as unknown as FetchBaseQueryError
@@ -660,23 +654,25 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getUtlandFeatureToggle', () => {
+  describe('getTpOffentligFeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
+        .dispatch(apiSlice.endpoints.getTpOffentligFeatureToggle.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(utlandToggleResponse)
+          expect(fetchBaseQueryResult.data).toMatchObject(
+            enableTpOffentligToggleResponse
+          )
         })
     })
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
+      mockErrorResponse('/feature/pensjonskalkulator.enable-tpoffentlig')
       return storeRef
-        .dispatch(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
+        .dispatch(apiSlice.endpoints.getTpOffentligFeatureToggle.initiate())
         .then((result) => {
           const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
           expect(fetchBaseQueryResult.status).toBe('rejected')
@@ -687,60 +683,14 @@ describe('apiSlice', () => {
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/feature/pensjonskalkulator.enable-utland', {
+      mockResponse('/feature/pensjonskalkulator.enable-tpoffentlig', {
         status: 200,
         json: { lorem: 'ipsum' },
       })
 
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
-          .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
-  describe('getEndringFeatureToggle', () => {
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore(undefined, true)
-      return storeRef
-        .dispatch(apiSlice.endpoints.getEndringFeatureToggle.initiate())
-        .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(endringToggleResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/feature/pensjonskalkulator.enable-endring')
-      return storeRef
-        .dispatch(apiSlice.endpoints.getEndringFeatureToggle.initiate())
-        .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/feature/pensjonskalkulator.enable-endring', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.getEndringFeatureToggle.initiate())
+          .dispatch(apiSlice.endpoints.getTpOffentligFeatureToggle.initiate())
           .then((result) => {
             const fetchBaseQueryResult =
               result as unknown as FetchBaseQueryError

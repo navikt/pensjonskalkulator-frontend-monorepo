@@ -1,11 +1,11 @@
-import { RouteObject, Navigate, Outlet } from 'react-router-dom'
+import { RouteObject, Navigate, Outlet } from 'react-router'
 
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
+import { IngenTilgang } from '@/pages/IngenTilgang'
 import { LandingPage } from '@/pages/LandingPage'
-import { Personopplysninger } from '@/pages/Personopplysninger'
 import { StepAFP } from '@/pages/StepAFP'
 import { StepFeil } from '@/pages/StepFeil'
 import { StepSamtykkeOffentligAFP } from '@/pages/StepSamtykkeOffentligAFP'
@@ -50,10 +50,6 @@ export const routes: RouteObject[] = [
         loader: landingPageAccessGuard,
         path: paths.login,
         element: <LandingPage />,
-      },
-      {
-        path: paths.personopplysninger,
-        element: <Personopplysninger />,
       },
     ],
   },
@@ -113,6 +109,11 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.uventetFeil,
         element: <StepFeil />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.ingenTilgang,
+        element: <IngenTilgang />,
       },
     ],
   },

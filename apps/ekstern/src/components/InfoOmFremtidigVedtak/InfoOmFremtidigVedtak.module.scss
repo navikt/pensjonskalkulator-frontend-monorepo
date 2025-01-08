@@ -1,0 +1,23 @@
+@use '../../scss/variables';
+
+.alert {
+  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-md) {
+    max-width: variables.$container-max-width;
+  }
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    margin: 0 0 var(--a-spacing-6) 0;
+  }
+
+  &__centered {
+    @media (min-width: variables.$a-breakpoint-md) {
+      margin: 0 auto var(--a-spacing-6) auto;
+    }
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      margin: 0 0 var(--a-spacing-6) 0;
+    }
+  }
+}

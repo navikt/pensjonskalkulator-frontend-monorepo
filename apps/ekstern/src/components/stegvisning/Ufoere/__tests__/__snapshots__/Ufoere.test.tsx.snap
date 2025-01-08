@@ -50,10 +50,12 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
       </div>
       <div
         class="navds-read-more navds-read-more--medium _readmore1_10fc87 navds-read-more--open"
+        data-volume="low"
       >
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-state="open"
           data-testid="readmore"
           type="button"
         >
@@ -82,8 +84,9 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
         <div
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
+          data-state="open"
         >
-          For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.
+          For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra Nav etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.
           <br />
           <br />
           Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.
@@ -93,13 +96,13 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
         class="_paragraph_10fc87 navds-body-long navds-body-long--large"
         data-testid="ufoere-ingress"
       >
-        Du kan få hjelp til å finne ut hva som lønner seg. 
+        Du kan få hjelp til å vurdere alternativene dine. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
           href="https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her"
           target="_blank"
         >
-          Kontakt NAV
+          Kontakt Nav
           <svg
             aria-labelledby="title-r2"
             fill="none"
@@ -123,13 +126,13 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
             />
           </svg>
         </a>
-         hvis du jobber i privat sektor. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. 
+         hvis du jobber i privat sektor. 
         <br />
         <br />
          Kalkulatoren beregner ikke AFP for deg som får uføretrygd.
         <br />
         <br />
-         Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.
+         Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.
       </p>
       <button
         class="_button_10fc87 navds-button navds-button--primary navds-button--medium"

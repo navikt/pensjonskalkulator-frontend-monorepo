@@ -13,6 +13,7 @@ import {
 import { nb, nn, enGB } from 'date-fns/locale'
 
 import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
+import { capitalize } from '@/utils/string'
 
 export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
@@ -92,7 +93,7 @@ export const isAlderLikEllerOverUbetingetUttaksalder = (
   }
 }
 
-export const isAlderOverMinUttaksaar = (alder: Alder) => {
+export const isAlderOverMinUttaksalder = (alder: Alder) => {
   if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
     return true
   } else if (
@@ -103,6 +104,17 @@ export const isAlderOverMinUttaksaar = (alder: Alder) => {
   } else {
     return false
   }
+}
+
+export const isFoedselsdatoOverEllerLikMinUttaksalder = (
+  foedselsdato: string
+) => {
+  const birtdateJs = endOfDay(
+    parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+  )
+  const currentDate = endOfDay(new Date())
+  const aar = differenceInYears(currentDate, birtdateJs)
+  return aar >= DEFAULT_TIDLIGST_UTTAKSALDER.aar
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {
@@ -130,7 +142,13 @@ export const transformFoedselsdatoToAlder = (foedselsdato: string): Alder => {
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)
   const maaneder = differenceInMonths(currentDate, birtdateJs) % 12
-  return getAlderMinus1Maaned({ aar, maaneder })
+  return { aar, maaneder }
+}
+
+export const transformFoedselsdatoToAlderMinus1md = (
+  foedselsdato: string
+): Alder => {
+  return getAlderMinus1Maaned(transformFoedselsdatoToAlder(foedselsdato))
 }
 
 export const transformUttaksalderToDate = (
@@ -142,11 +160,7 @@ export const transformUttaksalderToDate = (
   const oppdatertAar =
     foedselsdatoDate.getFullYear() + alder.aar + Math.floor(antallMaaneder / 12)
 
-  const calculatedDate = new Date(
-    oppdatertAar,
-    antallMaaneder % 12,
-    foedselsdatoDate.getDate()
-  )
+  const calculatedDate = new Date(oppdatertAar, antallMaaneder % 12, 1)
 
   return format(startOfMonth(calculatedDate), DATE_ENDUSER_FORMAT)
 }
@@ -158,11 +172,10 @@ export const transformMaanedToDate = (
 ) => {
   const foedselsdatoDate = new Date(foedselsdato)
   const antallMaaneder = foedselsdatoDate.getMonth() + maaneder + 1
-
   const calculatedDate = new Date(
     foedselsdatoDate.getFullYear(),
     antallMaaneder % 12,
-    foedselsdatoDate.getDate()
+    1
   )
 
   return format(startOfMonth(calculatedDate), 'LLL', {
@@ -205,4 +218,55 @@ export const validateAlderFromForm = (
   }
 
   return isValid
+}
+
+export function getMaanedString(
+  formatFn: (a: { id: string }) => string,
+  maaned?: number
+) {
+  if (maaned !== undefined && maaned > 0) {
+    return ` ${formatFn({
+      id: 'string.og',
+    })} ${maaned} ${formatFn({
+      id: 'alder.md',
+    })}`
+  }
+  return ''
+}
+
+export const formaterSluttAlderString = (
+  intl: IntlShape,
+  startAlder: Alder,
+  sluttAlder: Alder
+) => {
+  return `${capitalize(
+    intl.formatMessage({
+      id: 'string.fra',
+    })
+  )} ${startAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${getMaanedString(
+    intl.formatMessage,
+    startAlder.maaneder
+  )} ${intl.formatMessage({
+    id: 'string.til',
+  })} ${sluttAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${
+    sluttAlder.maaneder && sluttAlder.maaneder < 11
+      ? getMaanedString(intl.formatMessage, sluttAlder.maaneder)
+      : ''
+  }`
+}
+
+export const formaterLivsvarigString = (intl: IntlShape, startAlder: Alder) => {
+  return `${intl.formatMessage({
+    id: 'alder.livsvarig',
+  })} ${startAlder.aar} ${intl.formatMessage({
+    id: 'alder.aar',
+  })}${
+    startAlder.maaneder
+      ? getMaanedString(intl.formatMessage, startAlder.maaneder)
+      : ''
+  }`
 }

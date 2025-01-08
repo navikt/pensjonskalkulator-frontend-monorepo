@@ -11,7 +11,7 @@ exports[`Divider > rendrer riktig med default verdier 1`] = `
 exports[`Divider > rendrer riktig uten margin 1`] = `
 <DocumentFragment>
   <hr
-    class="_divider_1adfb3 _divider__NoMargin_1adfb3"
+    class="_divider_1adfb3 _divider__noMargin_1adfb3"
   />
 </DocumentFragment>
 `;

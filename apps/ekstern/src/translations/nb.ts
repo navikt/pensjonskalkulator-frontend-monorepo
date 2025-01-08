@@ -16,14 +16,17 @@ const translations = {
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.henvisning.apotekerne':
     'Henvisning apotekerne – Pensjonskalkulator',
-  'application.title.henvisning.utland':
-    'Henvisning utland – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
   'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
   'pageframework.loading': 'Vent litt mens vi henter informasjon.',
+  'error.fullmakt.title':
+    'Du kan ikke bruke kalkulatoren på vegne av denne brukeren',
+  'error.fullmakt.ingress':
+    'Gå videre for å se hva du kan gjøre på vegne av denne brukeren eller bytte bruker.',
+  'error.fullmakt.bytt_bruker': 'Gå videre til Bytt bruker',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
@@ -43,7 +46,7 @@ const translations = {
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du få et estimat på ',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Hvis du trenger å lagre beregningen din eller se detaljert beregning kan du bruke detaljert pensjonskalkulator. Den viser ikke livsvarig AFP i offentlig sektor.',
+    'Hvis du trenger å lagre beregningen din eller se detaljert beregning kan du bruke detaljert pensjonskalkulator. Den viser ikke livsvarig AFP eller tjenestepensjon i offentlig sektor.',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -53,14 +56,12 @@ const translations = {
   'landingsside.text.uinnlogget_kalkulator': 'For deg som ikke kan logge inn',
   'landingsside.button.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':
-    'Du kan bruke vår uinnloggede kalkulator. Den henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren gir deg et estimat på alderspensjon fra folketrygden (NAV) og AFP (avtalefestet pensjon) i privat sektor.',
+    'Du kan bruke vår uinnloggede kalkulator. Den henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren gir deg et estimat på alderspensjon fra folketrygden (Nav) og AFP (avtalefestet pensjon) i privat sektor. Hvis du mottar uføretrygd eller andre ytelser, tar vi ikke hensyn til dette i kalkulatoren. Du bør derfor bruke den innloggede kalkulatoren.',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i pensjonskalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'henvisning.apotekerne.body':
     'Siden du har apotekordningen, må du bruke detaljert pensjonskalkulator.',
-  'henvisning.utland.body':
-    'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -71,9 +72,10 @@ const translations = {
     'Hvis du går tilbake til start, mister du alle valgene dine.',
   'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
-  'stegvisning.beregn': 'Beregn pensjon',
-  'stegvisning.endring.alert':
-    'Du har pensjon. Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+  'stegvisning.fremtidigvedtak.alert':
+    'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.',
+  'stegvisning.fremtidigvedtak.endring.alert':
+    'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress':
     'Du har nå <strong>{grad} % alderspensjon</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',
@@ -85,21 +87,16 @@ const translations = {
     ' og <strong>AFP i offentlig sektor</strong>',
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
-  'stegvisning.start.list_item1': 'alderspensjon (NAV)',
+  'stegvisning.start.list_item1': 'alderspensjon (Nav)',
   'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
   'stegvisning.start.list_item3': 'pensjonsavtaler (arbeidsgivere m.m.)',
   'stegvisning.start.endring.ingress_2':
     'Du må svare på alle spørsmålene som kommer.',
   'stegvisning.start.ingress_2':
-    'For å få et estimat av pensjonen din, må du svare på alle spørsmålene som kommer.',
+    'For å få et estimat på pensjonen din, må du svare på alle spørsmålene som kommer.',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'stegvisning.utenlandsopphold_med_henvisning.title': 'Utenlandsopphold',
-  'stegvisning.utenlandsopphold_med_henvisning.ingress':
-    'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
-  'stegvisning.utenlandsopphold_med_henvisning.radio_label':
-    'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?',
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
     'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
@@ -208,15 +205,15 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og eventuell AFP (avtalefestet pensjon).',
+    'Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig. Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'Dette sjekker vi om tjenestepensjon i offentlig sektor',
+    'Dette henter vi fra offentlige tjenestepensjonsordninger',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'Hvis du samtykker sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning og informerer deg om det. Vi kan dessverre ikke hente inn offentlige pensjonsavtaler.',
+    'Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem.{br}{br}Vi henter beregning av tjenestepensjonen din fra den siste tjenestepensjonsordningen du var medlem i. Det inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger.{br}{br}Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Statens pensjonskasse (SPK).',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
-    'Dette henter vi om pensjonsavtaler fra privat sektor',
+    'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'Hvis du samtykker henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon:',
+    'Hvis du samtykker, henter vi beregning av pensjonsavtaler i privat sektor fra Norsk Pensjon:',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)',
   'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
@@ -225,6 +222,8 @@ const translations = {
     'enkelte pensjonssparingsavtaler som du har tegnet selv',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente pensjonsavtalene dine?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_description':
+    'Samtykket gjelder bare for beregninger i denne kalkulatoren, frem til du logger ut.',
   'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
@@ -237,20 +236,21 @@ const translations = {
   'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_privat_list_item2': 'kan tas ut sammen med arbeid',
   'stegvisning.afp.readmore_privat_list_item3':
-    'må tas ut sammen med alderspensjon fra folketrygden (NAV)',
+    'må tas ut sammen med alderspensjon fra folketrygden (Nav)',
   'stegvisning.afp.readmore_privat_list_item4':
     'kan tas ut sammen med tjenestepensjon',
   'stegvisning.afp.readmore_privat_link':
-    'Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title': 'Om AFP i offentlig sektor',
+    'Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
+  'stegvisning.afp.readmore_offentlig_title':
+    'Om livsvarig AFP i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP i offentlig sektor:',
   'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_offentlig_list_item2':
     'kan tas ut sammen med arbeid',
   'stegvisning.afp.readmore_offentlig_list_item3':
-    'kan tas ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
+    'kan tas ut sammen med alderspensjon fra folketrygden (Nav) og tjenestepensjon',
   'stegvisning.afp.readmore_offentlig_ingress':
-    'De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om livsvarig AFP. Sjekk hos arbeidsgiveren din hva som gjelder for deg.',
+    'De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om livsvarig AFP. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Hvis du er usikker på hva som gjelder for deg, sjekk hos arbeidsgiveren din.',
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
@@ -264,26 +264,26 @@ const translations = {
     'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden. {br}{br} AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden).',
   'stegvisning.ufoere.readmore_1.title': 'Om uføretrygd og AFP',
   'stegvisning.ufoere.readmore_1.body':
-    'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
+    'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra Nav etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
   'stegvisning.ufoere.ingress':
-    'Du kan få hjelp til å finne ut hva som lønner seg. <planleggePensjonLink>Kontakt NAV</planleggePensjonLink> hvis du jobber i privat sektor. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. {br}{br} Kalkulatoren beregner ikke AFP for deg som får uføretrygd.{br}{br} Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+    'Du kan få hjelp til å vurdere alternativene dine. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. <planleggePensjonLink>Kontakt Nav</planleggePensjonLink> hvis du jobber i privat sektor. {br}{br} Kalkulatoren beregner ikke AFP for deg som får uføretrygd.{br}{br} Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.',
   'stegvisning.samtykke_offentlig_afp.title':
-    'Samtykke til at NAV beregner AFP (avtalefestet pensjon)',
+    'Samtykke til at Nav beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':
-    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
+    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}Nav vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
   'stegvisning.samtykke_offentlig_afp.radio_label':
-    'Vil du at NAV skal beregne AFP for deg?',
+    'Vil du at Nav skal beregne AFP for deg?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'Samtykket gjelder kun beregninger i denne kalkulatoren.',
+    'Samtykket gjelder bare for beregninger i denne kalkulatoren, frem til du logger ut.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
-    'Du må svare på om du vil at NAV skal beregne AFP for deg.',
+    'Du må svare på om du vil at Nav skal beregne AFP for deg.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
-    ' i Folkeregisteret. Hvis du har samboer kan det påvirke beregningen.',
-  'stegvisning.sivilstand.radio_label': 'Har du samboer?',
+    ' i Folkeregisteret. Hvis du har samboer eller ektefelle kan det påvirke beregningen.',
+  'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
@@ -314,20 +314,24 @@ const translations = {
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.ingress_1':
-    'Din opptjening gjør at du tidligst kan ta ut <nowrap>100 %</nowrap> alderspensjon når du er ',
+    'Beregningen din viser at du kan ta ut <nowrap>100 %</nowrap> alderspensjon fra du er ',
   'tidligstmuliguttak.1963.ingress_2':
-    ' Jo lenger du venter, desto mer får du i året.',
+    ' Hvis du venter lenger med uttaket, vil den årlige pensjonen din øke.',
   'tidligstmuliguttak.1964.ingress_2':
     ' Det kan bli senere pga. økt pensjonsalder.',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før 67 år, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
-  'beregning.read_more.pensjonsalder.label': 'Om pensjonsalder',
+  'beregning.read_more.pensjonsalder.label':
+    'Om tidspunktet for tidligst uttak',
   'beregning.read_more.pensjonsalder.body.optional':
     'Den oppgitte alderen er et estimat. ',
   'beregning.read_more.pensjonsalder.body':
-    'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har oppgitt at du har AFP, er AFP med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Hvis du har oppgitt AFP og/eller utenlandsopphold, er dette med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.',
+  'beregning.read_more.pensjonsalder.endring.body':
+    'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har AFP, er AFP med i vurderingen av hvor mye alderspensjon du kan ta ut.',
+  'beregning.alt_tekst': 'Årlig inntekt og pensjon etter uttak i kroner.',
   'omufoeretrygd.hel.ingress':
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
   'omufoeretrygd.gradert.ingress':
@@ -338,9 +342,12 @@ const translations = {
   'omufoeretrygd.readmore.gradert.ingress':
     'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'omufoeretrygd.readmore.gradert.avansert.ingress':
-    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved 67 år går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad.',
+    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved 67 år går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha 100 % alderspensjon må du selv søke om dette.',
+  'omufoeretrygd.readmore.endring.ingress':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).{br}{br}Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 0 % når du vil.',
   'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
+  'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Avansert',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
@@ -354,23 +361,17 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.tpo.info':
-    'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.info.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.error':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.tpo.error.pensjonsavtaler.partial':
-    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
-  'beregning.pensjonsavtaler.info':
+  'beregning.pensjonsavtaler.alert.endring':
+    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
+  'beregning.pensjonsavtaler.alert.stoettes_ikke':
+    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
@@ -382,7 +383,7 @@ const translations = {
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
   'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
   'beregning.highcharts.serie.afp.name': 'AFP (avtalefestet pensjon)',
-  'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
+  'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (Nav)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
   'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
   'beregning.highcharts.tooltip.inntekt_og_pensjon':
@@ -390,16 +391,24 @@ const translations = {
   'beregning.tabell.lukk': 'Lukk tabell av beregningen',
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
-  'beregning.avansert.resultatkort.tittel': 'Se og endre dine valg',
+  'beregning.avansert.button.endre_valgene_dine': 'Endre valgene dine',
+  'beregning.avansert.endring_banner.title':
+    'Alderspensjon før skatt når du er ',
+  'beregning.avansert.endring_banner.kr_md': 'kr/md.',
+  'beregning.avansert.resultatkort.tittel': 'Valgene dine',
   'beregning.avansert.resultatkort.description':
     'Inntekt, uttaksgrad og pensjonsalder',
-  'beregning.avansert.resultatkort.button': 'Endre valg',
+  'beregning.avansert.resultatkort.button': 'Endre valgene dine',
   'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
+  'beregning.avansert.resultatkort.frem_til_endring':
+    'Frem til endring av pensjon',
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
     'Pensjonsgivende inntekt frem til pensjon',
+  'beregning.avansert.rediger.inntekt_frem_til_endring.label':
+    'Pensjonsgivende inntekt frem til endring',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
     'Uten uføretrygd og uførepensjon.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
@@ -407,17 +416,21 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
+  'beregning.avansert.rediger.uttaksgrad.endring.description':
+    'Velg ny uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
-  'beregning.avansert.rediger.read_more.uttaksgrad.body':
-    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
   'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label':
     'Om uttaksgrad og uføretrygd',
+  'beregning.avansert.rediger.read_more.uttaksgrad.body':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.read_more.uttaksgrad.endring.body':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Hvis du vil endre gradering til 20, 40, 50, 60 eller 80 % må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan endre til 0 % og 100 % så ofte du vil.',
   'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
-    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
-    'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
+    'Du kan tjene så mye du vil samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.uttaksgrad.validation_error':
@@ -429,7 +442,7 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
-    'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
+    'Du kan tjene så mye du vil samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
     'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
@@ -450,6 +463,7 @@ const translations = {
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon?',
   'beregning.avansert.button.beregn': 'Beregn pensjon',
+  'beregning.avansert.button.beregn.endring': 'Beregn ny pensjon',
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
@@ -460,16 +474,29 @@ const translations = {
   'beregning.vilkaarsproeving.intro.optional':
     'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
   'beregning.vilkaarsproeving.alternativer.heltUttak':
-    'Ett alternativ er at du ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder kan ta ut <nowrap>100 %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
+    'Et alternativ er at du ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder kan ta ut <nowrap>100 %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.gradertUttak':
-    'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
+    'Et alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
+    'Et alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Hvis du går ut av Avansert, mister du alle valgene dine.',
+  'beregning.avansert.avbryt_modal.endring.title':
+    'Hvis du går ut av beregningen, mister du alle valgene dine og går tilbake til start.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Avansert',
+  'beregning.avansert.avbryt_modal.endring.button.avslutt':
+    'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
+  'beregning.endring.alert.uttaksdato':
+    'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
+  'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',
+  'beregning.endring.rediger.vedtak_status':
+    'Fra {dato} har du mottatt {grad} % alderspensjon.',
+  'beregning.endring.rediger.vedtak_grad_status':
+    'Du har i dag <strong><nowrap>{grad} %</nowrap> alderspensjon</strong>. ',
+  'beregning.endring.rediger.vedtak_betaling_status':
+    'I {maaned} var dette <strong><nowrap>{beloep} kr</nowrap></strong> før skatt.',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
@@ -486,17 +513,15 @@ const translations = {
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
-    'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
-  'grunnlag.opphold.title': 'Opphold i Norge',
+    'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. Hvis du mottar alderspensjon må du derfor melde fra til Nav ved endring i sivilstand. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
-  'grunnlag.opphold.value': 'Minst 40 år',
+  'grunnlag.opphold.title.endring': 'Opphold utenfor Norge',
   'grunnlag.opphold.value.mindre_enn_5_aar': '5 år eller mindre',
   'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
   'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
-  'grunnlag.opphold.ingress':
-    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.value.endring': 'Fra vedtak',
   'grunnlag.opphold.ingress.endre_opphold':
     'Du kan endre oppholdene dine ved å gå tilbake til {link}.',
   'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
@@ -504,6 +529,8 @@ const translations = {
     'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon.',
   'grunnlag.opphold.ingress.for_lite_trygdetid':
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
+  'grunnlag.opphold.ingress.endring':
+    'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -511,22 +538,23 @@ const translations = {
   'grunnlag.opphold.avbryt_modal.bekreft': 'Gå tilbake til opphold',
   'grunnlag.opphold.avbryt_modal.avbryt': 'Avbryt',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
-  'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
+  'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
-  'grunnlag.afp.ikke_beregnet': 'ikke beregnet',
+  'grunnlag.afp.ikke_beregnet': 'Ikke beregnet',
+  'grunnlag.afp.endring': 'Uendret',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':
-    'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
+    'Du har oppgitt AFP i offentlig sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd':
     'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}For mer informasjon om AFP, kontakt din tjenestepensjonsordning.',
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
-    'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at NAV beregner den. Derfor vises ikke AFP i beregningen.',
+    'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.',
   'grunnlag.afp.ingress.ja_privat':
-    'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+    'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP og hvordan du søker hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
-    'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}Du kan lese mer om dette på <afpPrivatLink>nav.no</afpPrivatLink>. Ønsker du hjelp til å finne ut hva som lønner seg, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>.',
+    'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}Du kan lese mer om dette på <afpPrivatLink>nav.no</afpPrivatLink>. Ønsker du hjelp til å vurdere alternativene dine, <planleggePensjonLink>kontakt Nav</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
     'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.',
   'grunnlag.afp.ingress.vet_ikke.ufoeretrygd':
@@ -535,26 +563,34 @@ const translations = {
     'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ',
   'grunnlag.afp.ingress.nei.ufoeretrygd':
     'Starter du i jobb hos en arbeidsgiver som har avtale om AFP, må du være oppmerksom på at AFP og uføretrygd ikke kan kombineres. Du må velge mellom AFP og uføretrygd før du er 62 år.',
+  'grunnlag.afp.ingress.ja_offentlig.endring':
+    'Du har AFP i offentlig sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
+  'grunnlag.afp.ingress.ja_privat.endring':
+    'Du har AFP i privat sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
+  'grunnlag.afp.ingress.nei.endring':
+    'Du har oppgitt at du ikke har rett til AFP. Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.',
   'grunnlag.afp.reset_link': 'ny beregning',
   'grunnlag.forbehold.ingress_1':
-    'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat av hva du kan forvente deg i pensjon. ',
-  'grunnlag.forbehold.ingress_2':
-    'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+    'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat på hva du kan forvente deg i pensjon. Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
   'savnerdunoe.title': 'Savner du noe?',
+  'savnerdunoe.title.endring': 'Klar til å søke om endring?',
   'savnerdunoe.ingress':
     'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
   'savnerdunoe.button': 'Gå til Avansert',
   'savnerdunoe.body':
     'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'savnerdunoe.body.endring':
+    'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
-  'pensjonsavtaler.ingress.norsk_pensjon':
-    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+  'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',
+  'pensjonsavtaler.private.ingress.norsk_pensjon':
+    'Avtaler fra privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
-  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
@@ -563,18 +599,32 @@ const translations = {
     'hvis du ønsker å få dette i beregningen.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
-  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
+  'alder.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'pensjonsavtaler.tpo.title': 'Offentlig tjenestepensjon',
-  'pensjonsavtaler.tpo.er_medlem':
+  'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
-  'pensjonsavtaler.tpo.error':
+  'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.offentligtp.spk_error':
+    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
+  'pensjonsavtaler.offentligtp.spk_empty':
+    'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
+  'pensjonsavtaler.offentligtp.subtitle.spk':
+    'Alderspensjon fra Statens pensjonskasse (SPK)',
+  'pensjonsavtaler.offentligtp.afp_ja':
+    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+    'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+    'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
@@ -632,7 +682,7 @@ const translations = {
   'inntekt.info_om_inntekt.subtitle_2':
     'Dette er ikke pensjonsgivende inntekt:',
   'inntekt.info_om_inntekt.ikke_inntekt.list_item1':
-    'uføretrygd fra NAV gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt',
+    'uføretrygd fra Nav gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt',
   'inntekt.info_om_inntekt.ikke_inntekt.list_item2':
     'uførepensjon og annen pensjon fra tjenestepensjonsordning',
   'inntekt.info_om_inntekt.ikke_inntekt.list_item3':
@@ -643,48 +693,51 @@ const translations = {
     'Listen er ikke uttømmende.{br}{br}Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser.',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
-    'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',
+    'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Hvis du fortsetter i jobb etter uttak av alderspensjon, tjener du fortsatt opp til alderspensjon frem til og med året du fyller 75 år.',
   'forbehold.inntekt.title': 'Inntekt',
   'forbehold.inntekt.ingress':
-    'I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som NAV har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren.',
+    'I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren.',
   'forbehold.utenlandsopphold.title': 'Opphold utenfor Norge',
   'forbehold.utenlandsopphold.ingress':
-    'Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. NAV fastsetter endelig trygdetid når du søker om pensjon. NAV kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land.{br}{br}Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon.{br}{br}Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge.{br}{br}Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i periodene. Får du pensjonsgivende inntekt fra Norge i periodene vil den bli med i beregningen når du tar ut pensjonen din.{br}{br}Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder.{br}{br}Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen.',
+    'Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land.{br}{br}Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon.{br}{br}Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge.{br}{br}Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i periodene. Får du pensjonsgivende inntekt fra Norge i periodene vil den bli med i beregningen når du tar ut pensjonen din.{br}{br}Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder.{br}{br}Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen.',
   'forbehold.sivilstand.title': 'Sivilstand',
   'forbehold.sivilstand.ingress':
     'Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du gift eller har bekreftet at du har samboer, har vi forutsatt at den du bor sammen med har egen inntekt høyere enn 2 ganger grunnbeløpet eller mottar egen pensjon når du tar ut pensjon. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon. Beregningen benytter ordinær sats for beregning av garantipensjon. Dersom ektefelle eller samboer har lavere inntekt og ikke mottar egen pensjon kan du ha rett på høy sats for garantipensjon, som for noen betyr en høyere alderspensjon.{br}{br}Om du har bekreftet at du bor alene er alderspensjon beregnet etter høy sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har samboer eller er gift, kan det gi lavere alderspensjon grunnet at ordinær sats for garantipensjon skal benyttes. ',
   'forbehold.afp.title': 'AFP',
   'forbehold.afp.ingress':
-    'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.',
+    'Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.',
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres.{br}{br}Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren.{br}{br}Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer vil gi deg et annet resultat.',
+  'forbehold.uforetrygd_afp.title': 'Uføretrygd og AFP',
+  'forbehold.uforetrygd_afp.ingress':
+    'Har du mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP.{br}{br}Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP.{br}{br}Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP.{br}{br}Kalkulatoren tar ikke høyde for nevnte unntak.',
   'forbehold.gjenlevende.title': 'Gjenlevendepensjon og omstillingsstønad',
   'forbehold.gjenlevende.ingress':
     'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
-    'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. NAV har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}NAV har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
+    'Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger.{br}{br}Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon.{br}{br}Beregningen av offentlig tjenestepensjon fra Statens pensjonskasse (SPK) er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i SPK fra datoen du beregner pensjonen fra.{br}{br}Beregning av privat tjenestepensjon graderes likt som alderspensjon for de avtalene der det er mulig. Offentlig tjenestepensjon beregnes kun med 100 % uttaksgrad.',
   'personopplysninger.header':
     'Personopplysninger som brukes i pensjonskalkulator',
   'personopplysninger.section.formaal.header':
     'Hva er formålet med personopplysningene?',
   'personopplysninger.section.formaal.1':
-    'NAV henter inn personopplysninger i kalkulatoren for at du skal kunne planlegge pensjonen din, og få et estimat på fremtidig pensjon.',
+    'Nav henter inn personopplysninger i kalkulatoren for at du skal kunne planlegge pensjonen din, og få et estimat på fremtidig pensjon.',
   'personopplysninger.section.formaal.2':
-    'Du må logge inn for å bruke kalkulatoren. For å beregne alderspensjon bruker vi opplysninger du oppgir i kalkulatoren, opplysninger NAV har om deg, og nødvendige opplysninger fra andre offentlige instanser. Hvis du samtykker, henter vi inn pensjonsavtaler fra andre pensjonsleverandører, for å gi deg en samlet oversikt over pensjonen din.',
+    'Du må logge inn for å bruke kalkulatoren. For å beregne alderspensjon bruker vi opplysninger du oppgir i kalkulatoren, opplysninger Nav har om deg, og nødvendige opplysninger fra andre offentlige instanser. Hvis du samtykker, henter vi inn pensjonsavtaler fra andre pensjonsleverandører, for å gi deg en samlet oversikt over pensjonen din.',
   'personopplysninger.section.hvordan_brukes.header':
     'Hvordan behandler vi personopplysninger?',
   'personopplysninger.section.hvordan_brukes.1':
-    'NAV henter inn og utleverer kun personopplysninger når vi har lovhjemmel til det. Hvis vi trenger flere opplysninger, ber vi om et samtykke fra deg til å innhente eller utlevere opplysningene. Vi bruker kun opplysningene til det du samtykker til. Samtykket er frivillig. Du får informasjon underveis om hvilke opplysninger vi henter inn fra andre, som f.eks. Folkeregisteret og pensjonsleverandører.',
+    'Nav henter inn og utleverer kun personopplysninger når vi har lovhjemmel til det. Hvis vi trenger flere opplysninger, ber vi om et samtykke fra deg til å innhente eller utlevere opplysningene. Vi bruker kun opplysningene til det du samtykker til. Samtykket er frivillig. Du får informasjon underveis om hvilke opplysninger vi henter inn fra andre, som f.eks. Folkeregisteret og pensjonsleverandører.',
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrer ikke beregningene du gjør, eller personopplysningene brukt i behandlingen.',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlingen simulering av pensjon er Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11, Folketrygdlovens kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlingen som gjøres i pensjonskalkulatoren.',
+    'Behandlingsgrunnlaget for behandlingen simulering av pensjon er Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11, Folketrygdlovens kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. Nav er behandlingsansvarlig for behandlingen som gjøres i pensjonskalkulatoren.',
   'personopplysninger.section.hvilke_opplysninger.header':
     'Hvilke personopplysninger bruker vi?',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
-    'Opplysninger som vi henter for å oppfylle NAV sin veiledningsplikt etter Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11.',
+    'Opplysninger som vi henter for å oppfylle Nav sin veiledningsplikt etter Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
     'Fødselsnummeret ditt henter vi fra ID-porten for å identifisere deg.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
@@ -694,11 +747,11 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
     'Ønsket alder (år og ev. måned) for uttak av pensjon oppgir du for at vi skal kunne beregne alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
-    'Din pensjonsopptjening hentes fra pensjonsopptjeningsregisteret hos NAV, som er basert på innrapporterte inntekter fra Skatteetaten, og ev. opptjening fra dagpenger, førstegangstjeneste, omsorgsopptjening og opptjening fra uføretrygd.',
+    'Din pensjonsopptjening hentes fra pensjonsopptjeningsregisteret hos Nav, som er basert på innrapporterte inntekter fra Skatteetaten, og ev. opptjening fra dagpenger, førstegangstjeneste, omsorgsopptjening og opptjening fra uføretrygd.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
     'Din siste pensjonsgivende årsinntekt (og årstall) fra Skatteetaten brukes som inntekt frem til uttak av pensjon. Den inngår i pensjonsbeholdningen for beregning av alderspensjonen din. Endrer du fremtidig inntekt, blir din fremtidige pensjonsbeholdning basert på den.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
-    'Din sivilstand kan påvirke pensjonens størrelse. Opplysninger om sivilstanden din hentes fra Folkeregisteret. Hvis du er registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har samboer. Endringer du gjør, gjelder kun for den beregningen og lagres ikke hos NAV eller Folkeregisteret.',
+    'Din sivilstand kan påvirke pensjonens størrelse. Opplysninger om sivilstanden din hentes fra Folkeregisteret. Hvis du er registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har samboer. Endringer du gjør, gjelder kun for den beregningen og lagres ikke hos Nav eller Folkeregisteret.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
     'Hvis du har uføretrygd, bruker vi din uførehistorikk, uføregrad, antatt inntekt og eventuell yrkesskadehistorikk. Dette gjør vi for å kunne beregne alderspensjonen din. Vi bruker også uføregraden til å vise mulige graderinger av alderspensjon som du kan ta ut i kombinasjon med uføretrygd. Vi henter ikke inn medisinske opplysninger fra saken din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
@@ -706,7 +759,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
     'Vi spør deg om opphold utenfor Norge. Vi bruker opplysningen til å beregne alderspensjon med riktig trygdetid i Norge. Vi spør om hvilket land oppholdet gjelder og om arbeid i landet, for å legge riktig trygdeavtale til grunn.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
-    'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP.',
+    'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP i privat sektor.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
     'Opplysninger som vi bruker hvis du samtykker (GDPR Art 6 (1) a, Samtykke).',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
@@ -719,14 +772,14 @@ const translations = {
     'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
   'personopplysninger.section.lagring.heading': 'Lagring',
   'personopplysninger.section.lagring.text':
-    'Det er mellomlagring i pensjonskalkulatoren for å gjøre en beregning av pensjonen din. Når du avslutter beregningen eller logger ut, slettes mellomlagringen. Beregningen din blir ikke lagret eller arkivert hos NAV.',
+    'Det er mellomlagring i pensjonskalkulatoren for å gjøre en beregning av pensjonen din. Når du avslutter beregningen eller logger ut, slettes mellomlagringen. Beregningen din blir ikke lagret eller arkivert hos Nav.',
   'personopplysninger.section.informasjon_om_rettighetene.heading':
     'Informasjon om rettighetene dine',
   'personopplysninger.section.informasjon_om_rettighetene.text':
-    'Se <navPersonvernerklaeringLink>personvernerklæringen</navPersonvernerklaeringLink> for NAV.',
+    'Se <navPersonvernerklaeringLink>personvernerklæringen</navPersonvernerklaeringLink> for Nav.',
   'personopplysninger.section.spoersmaal.heading':
-    'Spørsmål til NAV eller datatilsynet om personvern',
+    'Spørsmål til Nav eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
-    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringen</navPersonvernerklaeringKontaktOssLink> for NAV.',
+    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringen</navPersonvernerklaeringKontaktOssLink> for Nav.',
 }
 export const getTranslation_nb = () => translations

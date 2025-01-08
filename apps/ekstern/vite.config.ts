@@ -10,7 +10,7 @@ import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+export default defineConfig({
   base: '/pensjon/kalkulator',
   build: {
     sourcemap: true,
@@ -41,9 +41,6 @@ export default defineConfig(() => ({
             '@formatjs/intl',
             '@formatjs/intl-numberformat',
             '@formatjs/intl-datetimeformat',
-            '@formatjs/intl-displaynames',
-            '@formatjs/intl-listformat',
-            '@formatjs/intl-localematcher',
           ],
         },
       },
@@ -58,13 +55,8 @@ export default defineConfig(() => ({
     }),
     process.env.NODE_ENV !== 'test' && eslint(),
     process.env.NODE_ENV !== 'test' && stylelint({ fix: true }),
-    process.env.NODE_ENV !== 'test' &&
-      sassDts({
-        global: {
-          generate: true,
-          outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
-        },
-      }),
+    process.env.NODE_ENV !== 'test' && sassDts(),
+
     process.env.NODE_ENV !== 'test' &&
       visualizer({
         open: true,
@@ -84,6 +76,7 @@ export default defineConfig(() => ({
   },
   css: {
     modules: {
+      // @ts-expect-error
       Loader: CustomPostCSSLoader,
       generateScopedName: (name, fileName) => {
         const pathArray = fileName.split('/')
@@ -124,7 +117,6 @@ export default defineConfig(() => ({
         'src/**/index.ts',
         'src/state/hooks.ts',
         'src/components/common/ShowMore',
-        'src/components/Simulering/Simuleringsdetaljer',
         'src/types',
         'src/paths.ts',
       ],
@@ -138,4 +130,4 @@ export default defineConfig(() => ({
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
     },
   },
-}))
+})

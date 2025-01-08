@@ -10,10 +10,11 @@ import { useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
+  selectIsEndring,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
-import { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 interface Props {
   onButtonClick: () => void
 }
@@ -27,6 +28,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const isEndring = useAppSelector(selectIsEndring)
   const { data: person } = useGetPersonQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
@@ -38,6 +40,11 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
       className={styles.card}
       aria-labelledby="expansion-card-label"
       size="small"
+      onClick={() => {
+        logger('button klikk', {
+          tekst: 'Resultatkort: Åpne/lukke',
+        })
+      }}
     >
       <ExpansionCardAksel.Header>
         <ExpansionCardAksel.Title id="expansion-card-label" size="small">
@@ -50,7 +57,13 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
       <ExpansionCardAksel.Content>
         <dl className={styles.list}>
           <dt className={styles.listTitle}>
-            <FormattedMessage id="beregning.avansert.resultatkort.frem_til_uttak" />
+            <FormattedMessage
+              id={
+                isEndring
+                  ? 'beregning.avansert.resultatkort.frem_til_endring'
+                  : 'beregning.avansert.resultatkort.frem_til_uttak'
+              }
+            />
           </dt>
           <dd className={styles.listDescription}>
             {intl.formatMessage({
