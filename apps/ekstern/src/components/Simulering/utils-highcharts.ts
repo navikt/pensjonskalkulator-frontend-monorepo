@@ -65,7 +65,6 @@ export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
 }
 
 export function onPointClick(this: Point): void {
-  console.log('onPointClick', this)
   logger('graf tooltip åpnet', {
     data: this.category as string,
   })
@@ -126,13 +125,11 @@ export function tooltipFormatter(
   styles: Partial<typeof globalClassNames>,
   intl: IntlShape
 ): string {
-  console.log('point', point)
   const chart = point.series.chart as Chart
   const points: ExtendedPoint[] = []
 
   chart.series.forEach(function (serie: Series) {
     serie.data.forEach(function (localPoint: Point) {
-      console.log('point.category', point.category)
       if (localPoint.category === point.category) {
         points.push(localPoint as ExtendedPoint)
       }
@@ -187,7 +184,7 @@ export function tooltipFormatter(
     `<table class="${styles.tooltipTable}"><thead><tr>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__left
-    }">${getTooltipTitle(point.x + '', hasInntekt, hasPensjon, intl)}</th>` +
+    }">${getTooltipTitle(point.category + '', hasInntekt, hasPensjon, intl)}</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
     }"><span class="nowrap">${formatInntekt(points?.[0].total)} kr</span></th>` +
@@ -236,7 +233,6 @@ export const getChartOptions = (
                 showRightButton(elementScrollWidth > elementWidth)
                 /* eslint-disable-next-line @typescript-eslint/no-this-alias */
                 const chart = this
-
                 cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
                   chart,
                   scrollPosition,
@@ -288,7 +284,6 @@ export const getChartOptions = (
           color: 'var(--a-text-subtle)',
         },
       },
-
       lineColor: 'var(--a-text-subtle)',
     },
     yAxis: {

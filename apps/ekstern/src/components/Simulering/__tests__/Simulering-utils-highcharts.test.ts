@@ -94,9 +94,9 @@ describe('Simulering-utils-highcharts', () => {
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 135px; left: 34px; height: 34px'
+      const beregnetLinePosition = 'top: 95px; left: 34px; height: 74px'
       const beregnetLinePositionAfterScroll =
-        'top: 135px; left: -16px; height: 34px'
+        'top: 95px; left: -16px; height: 74px'
 
       const simplePoint = {
         y: pointSumSerie1,
@@ -110,7 +110,7 @@ describe('Simulering-utils-highcharts', () => {
       }
 
       const mockedPoint = {
-        category: '67',
+        category: alder + '',
         point: { plotY },
         x: alder,
         series: {
@@ -127,15 +127,11 @@ describe('Simulering-utils-highcharts', () => {
                 data: [
                   {
                     ...simplePoint,
+                    category: '65',
                   },
                   {
                     ...simplePoint,
-                    y: pointSumSerie2,
-                    series: {
-                      ...simplePoint.series,
-                      name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
-                      color: colorSerie2,
-                    },
+                    category: '66',
                   },
                 ],
               },
@@ -146,9 +142,17 @@ describe('Simulering-utils-highcharts', () => {
                 data: [
                   {
                     ...simplePoint,
+                    category: '65',
+                    y: pointSumSerie2,
+                    series: {
+                      ...simplePoint.series,
+                      name: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+                      color: colorSerie2,
+                    },
                   },
                   {
                     ...simplePoint,
+                    category: '66',
                     y: pointSumSerie2,
                     series: {
                       ...simplePoint.series,
