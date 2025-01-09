@@ -1,8 +1,10 @@
 import { defineCliConfig } from 'sanity/cli'
-import { resolve } from 'path'
+import { projectId } from './sanity.config'
+
 export default defineCliConfig({
   api: {
-    projectId: 'g2by7q6m',
+    projectId,
+    // TODO bør være "development" når applikasjonen er i staging
     dataset: 'production',
   },
   /**

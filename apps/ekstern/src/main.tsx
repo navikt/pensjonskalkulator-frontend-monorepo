@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import ReactDOM from 'react-dom/client'
 
+import { client } from '../sanity.config'
 import { LanguageProvider } from '@/context/LanguageProvider'
 import { initializeLogs } from '@/faro'
 import { BASE_PATH } from '@/router/constants'
@@ -38,6 +39,11 @@ const router = createBrowserRouter(routes, {
     v7_normalizeFormMethod: true,
   },
 })
+
+// TODO midlertidig fetching av tekster
+const data = await client.fetch<number>(`count(*)`)
+// data is typed as `number`
+console.log(`Number of documents: ${data}`)
 
 initializeLogs()
 
