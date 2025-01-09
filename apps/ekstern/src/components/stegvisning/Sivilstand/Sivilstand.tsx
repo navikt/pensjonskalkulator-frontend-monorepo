@@ -55,7 +55,8 @@ export function Sivilstand({
         id: 'stegvisning.sivilstand.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: 'stegvisning-sivilstand',
         data: intl.formatMessage({
           id: 'stegvisning.sivilstand.radio_label',
         }),

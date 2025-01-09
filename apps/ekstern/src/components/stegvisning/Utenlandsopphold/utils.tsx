@@ -22,7 +22,8 @@ export const onSubmit = (
         top: tekst,
       }
     })
-    logger('valideringsfeil', {
+    logger('skjema validering feilet', {
+      skjemanavn: 'stegvisning-utenlandsopphold',
       data: intl.formatMessage({
         id: 'stegvisning.utenlandsopphold.radio_label',
       }),
@@ -41,7 +42,8 @@ export const onSubmit = (
           bottom: tekst,
         }
       })
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: 'stegvisning-utenlandsopphold',
         data: intl.formatMessage({
           id: 'stegvisning.utenlandsopphold.radio_label',
         }),

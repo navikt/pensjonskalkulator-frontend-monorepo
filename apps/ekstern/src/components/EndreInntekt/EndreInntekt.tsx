@@ -78,7 +78,8 @@ export const EndreInntekt: React.FC<Props> = ({
     const tekst = intl.formatMessage({
       id,
     })
-    logger('valideringsfeil', {
+    logger('skjema validering feilet', {
+      skjemanavn: 'endre-inntekt',
       data: intl.formatMessage({
         id: 'inntekt.endre_inntekt_modal.textfield.label',
       }),

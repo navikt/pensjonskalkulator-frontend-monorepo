@@ -60,7 +60,8 @@ export function AFP({
         id: 'stegvisning.afp.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: 'stegvisning-afp',
         data: intl.formatMessage({
           id: 'stegvisning.afp.radio_label',
         }),

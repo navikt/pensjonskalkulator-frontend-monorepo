@@ -39,7 +39,8 @@ export function SamtykkeOffentligAFP({
         id: 'stegvisning.samtykke_offentlig_afp.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: 'stegvisning-samtykke-offentlig-afp',
         data: intl.formatMessage({
           id: 'stegvisning.samtykke_offentlig_afp.radio_label',
         }),

@@ -38,7 +38,8 @@ export function SamtykkePensjonsavtaler({
         id: 'stegvisning.samtykke_pensjonsavtaler.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: 'stegvisning-samtykke-pensjonsavtaler',
         data: intl.formatMessage({
           id: 'stegvisning.samtykke_pensjonsavtaler.radio_label',
         }),
