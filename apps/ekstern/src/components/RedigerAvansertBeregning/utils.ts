@@ -53,7 +53,7 @@ const validateAlderForGradertUttak = (
       function (tekst) {
         if (tekst) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert - Uttaksalder for gradert uttak',
             tekst,
           })
@@ -73,7 +73,7 @@ const validateAlderForGradertUttak = (
       function (tekst) {
         if (tekst) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert - Uttaksalder for gradert uttak',
             tekst,
           })
@@ -103,7 +103,7 @@ const validateAlderForGradertUttak = (
         }
       })
       logger('skjema validering feilet', {
-        skjemanavn: 'rediger-avansert-beregning',
+        skjemanavn: AVANSERT_FORM_NAMES.form,
         data: 'Avansert - Uttaksalder for gradert uttak',
         tekst: 'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
       })
@@ -153,7 +153,7 @@ const validateEndringGradertUttak = (
         }
       })
       logger('skjema validering feilet', {
-        skjemanavn: 'rediger-avansert-beregning',
+        skjemanavn: AVANSERT_FORM_NAMES.form,
         data: 'Avansert - For tidlig endring av gradert uttak',
         tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`,
       })
@@ -210,7 +210,7 @@ export const validateAvansertBeregningSkjema = (
       function (tekst) {
         if (tekst) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert - Uttaksalder for helt uttak',
             tekst,
           })
@@ -234,7 +234,7 @@ export const validateAvansertBeregningSkjema = (
   ) {
     isValid = false
     logger('skjema validering feilet', {
-      skjemanavn: 'rediger-avansert-beregning',
+      skjemanavn: AVANSERT_FORM_NAMES.form,
       data: 'Avansert - Uttaksgrad',
       tekst: 'beregning.avansert.rediger.uttaksgrad.validation_error',
     })
@@ -314,7 +314,7 @@ export const validateAvansertBeregningSkjema = (
         )
         if (!isUttaksgradValid) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert - Uttaksgrad',
             tekst:
               'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
@@ -340,7 +340,7 @@ export const validateAvansertBeregningSkjema = (
   ) {
     isValid = false
     logger('skjema validering feilet', {
-      skjemanavn: 'rediger-avansert-beregning',
+      skjemanavn: AVANSERT_FORM_NAMES.form,
       data: 'Avansert - Radio inntekt vsa. helt uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
@@ -361,7 +361,7 @@ export const validateAvansertBeregningSkjema = (
       (tekst: string) => {
         if (tekst) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert -  Inntekt vsa. helt uttak',
             tekst,
           })
@@ -388,7 +388,7 @@ export const validateAvansertBeregningSkjema = (
       function (tekst) {
         if (tekst) {
           logger('skjema validering feilet', {
-            skjemanavn: 'rediger-avansert-beregning',
+            skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert -  Sluttalder inntekt vsa. helt uttak',
             tekst,
           })
@@ -409,7 +409,7 @@ export const validateAvansertBeregningSkjema = (
   if (uttaksgradFormData !== '100 %' && !inntektVsaGradertUttakRadioFormData) {
     isValid = false
     logger('skjema validering feilet', {
-      skjemanavn: 'rediger-avansert-beregning',
+      skjemanavn: AVANSERT_FORM_NAMES.form,
       data: 'Avansert -  Radio inntekt vsa. gradert uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
@@ -434,7 +434,7 @@ export const validateAvansertBeregningSkjema = (
         (tekst: string) => {
           if (tekst) {
             logger('skjema validering feilet', {
-              skjemanavn: 'rediger-avansert-beregning',
+              skjemanavn: AVANSERT_FORM_NAMES.form,
               data: 'Avansert -  Inntekt vsa. gradert uttak',
               tekst,
             })

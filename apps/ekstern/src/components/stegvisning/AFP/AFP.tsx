@@ -19,6 +19,7 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   shouldRedirectTo?: string
@@ -61,7 +62,7 @@ export function AFP({
       })
       setValidationError(tekst)
       logger('skjema validering feilet', {
-        skjemanavn: 'stegvisning-afp',
+        skjemanavn: STEGVISNING_FORM_NAMES.afp,
         data: intl.formatMessage({
           id: 'stegvisning.afp.radio_label',
         }),

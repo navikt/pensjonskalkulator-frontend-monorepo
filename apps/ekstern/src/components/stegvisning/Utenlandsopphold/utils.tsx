@@ -2,6 +2,7 @@ import { IntlShape } from 'react-intl'
 
 import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 export const onSubmit = (
   data: FormDataEntryValue | null,
@@ -23,7 +24,7 @@ export const onSubmit = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'stegvisning-utenlandsopphold',
+      skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
       data: intl.formatMessage({
         id: 'stegvisning.utenlandsopphold.radio_label',
       }),
@@ -43,7 +44,7 @@ export const onSubmit = (
         }
       })
       logger('skjema validering feilet', {
-        skjemanavn: 'stegvisning-utenlandsopphold',
+        skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
         data: intl.formatMessage({
           id: 'stegvisning.utenlandsopphold.radio_label',
         }),

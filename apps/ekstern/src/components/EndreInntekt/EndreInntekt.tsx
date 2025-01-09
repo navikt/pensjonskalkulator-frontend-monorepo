@@ -30,6 +30,9 @@ interface Props {
   value: string | null
   onSubmit: (inntekt: string) => void
 }
+
+const ENDRE_INNTEKT_FORM_NAME = 'endre-inntekt'
+
 export const EndreInntekt: React.FC<Props> = ({
   visning,
   className,
@@ -79,7 +82,7 @@ export const EndreInntekt: React.FC<Props> = ({
       id,
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'endre-inntekt',
+      skjemanavn: ENDRE_INNTEKT_FORM_NAME,
       data: intl.formatMessage({
         id: 'inntekt.endre_inntekt_modal.textfield.label',
       }),

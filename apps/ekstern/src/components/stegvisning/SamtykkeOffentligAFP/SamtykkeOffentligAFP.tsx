@@ -9,6 +9,7 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './SamtykkeOffentligAFP.module.scss'
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   harSamtykket: boolean | null
@@ -40,7 +41,7 @@ export function SamtykkeOffentligAFP({
       })
       setValidationError(tekst)
       logger('skjema validering feilet', {
-        skjemanavn: 'stegvisning-samtykke-offentlig-afp',
+        skjemanavn: STEGVISNING_FORM_NAMES.samtykkeOffentligAFP,
         data: intl.formatMessage({
           id: 'stegvisning.samtykke_offentlig_afp.radio_label',
         }),

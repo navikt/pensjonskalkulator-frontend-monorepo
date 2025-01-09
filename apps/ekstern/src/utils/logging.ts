@@ -37,6 +37,10 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'help text åpnet', { tekst: string }>
   | AmplitudeEvent<'help text lukket', { tekst: string }>
   | AmplitudeEvent<'alert vist', { tekst: string; variant: string }>
+  | AmplitudeEvent<
+      'skjema validering feilet',
+      { skjemanavn: string; data: string; tekst: string }
+    >
   | AmplitudeEvent<'feilside', { tekst: string }>
   | AmplitudeEvent<'link åpnet', { href?: string; target?: string }>
   | AmplitudeEvent<'show more åpnet', { tekst: string }>

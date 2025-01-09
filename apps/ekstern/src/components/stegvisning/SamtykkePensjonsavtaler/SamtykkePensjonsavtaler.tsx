@@ -10,6 +10,7 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './SamtykkePensjonsavtaler.module.scss'
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   harSamtykket: boolean | null
@@ -39,7 +40,7 @@ export function SamtykkePensjonsavtaler({
       })
       setValidationError(tekst)
       logger('skjema validering feilet', {
-        skjemanavn: 'stegvisning-samtykke-pensjonsavtaler',
+        skjemanavn: STEGVISNING_FORM_NAMES.samtykkePensjonsavtaler,
         data: intl.formatMessage({
           id: 'stegvisning.samtykke_pensjonsavtaler.radio_label',
         }),

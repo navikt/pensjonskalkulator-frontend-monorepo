@@ -63,12 +63,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
 
     if (isEndring) {
       const text = 'beregning.pensjonsavtaler.alert.endring'
+      const variant = 'inline-info'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'inline-info',
+        variant,
       })
       return {
-        variant: 'inline-info',
+        variant,
         text,
       }
     }
@@ -76,12 +77,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
     if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
       const text = 'beregning.pensjonsavtaler.alert.privat.error'
+      const variant = 'warning'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'warning',
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -95,12 +97,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       (isPensjonsavtalerError || isPartialWith0Avtaler)
     ) {
       const text = 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error'
+      const variant = 'warning'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'warning',
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -111,12 +114,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       isPensjonsavtalerSuccess
     ) {
       const text = 'beregning.pensjonsavtaler.alert.offentlig.error'
+      const variant = 'warning'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'warning',
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -127,24 +131,26 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       offentligTpData.simuleringsresultatStatus === 'TP_ORDNING_STOETTES_IKKE'
     ) {
       const text = 'beregning.pensjonsavtaler.alert.stoettes_ikke'
+      const variant = 'info'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'info',
+        variant,
       })
       return {
-        variant: 'info',
+        variant,
         text,
       }
     }
 
     if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
       const text = 'beregning.pensjonsavtaler.alert.avtaler_foer_alder'
+      const variant = 'inline-info'
       logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant: 'inline-info',
+        variant,
       })
       return {
-        variant: 'inline-info',
+        variant,
         text,
       }
     }

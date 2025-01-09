@@ -75,7 +75,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - land',
       tekst,
     })
@@ -100,7 +100,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - arbeidet utenlands',
       tekst,
     })
@@ -118,7 +118,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - startdato',
       tekst,
     })
@@ -134,7 +134,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - startdato',
       tekst,
     })
@@ -155,7 +155,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - startdato',
       tekst,
     })
@@ -179,7 +179,7 @@ export const validateOpphold = (
       }
     })
     logger('skjema validering feilet', {
-      skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: 'Utenlandsopphold - startdato',
       tekst,
     })
@@ -191,7 +191,7 @@ export const validateOpphold = (
       const tekst =
         'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format'
       logger('skjema validering feilet', {
-        skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
         data: 'Utenlandsopphold - sluttdato',
         tekst,
       })
@@ -213,7 +213,7 @@ export const validateOpphold = (
       const tekst =
         'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min'
       logger('skjema validering feilet', {
-        skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
         data: 'Utenlandsopphold - sluttdato',
         tekst,
       })
@@ -238,7 +238,7 @@ export const validateOpphold = (
       const tekst =
         'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max'
       logger('skjema validering feilet', {
-        skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
         data: 'Utenlandsopphold - sluttdato',
         tekst,
       })
@@ -305,7 +305,7 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland'
           logger('skjema validering feilet', {
-            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: 'Utenlandsopphold - overlappende perioder',
             tekst,
           })
@@ -336,7 +336,7 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land'
           logger('skjema validering feilet', {
-            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: 'Utenlandsopphold - overlappende perioder',
             tekst,
           })
@@ -370,7 +370,7 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus'
           logger('skjema validering feilet', {
-            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: 'Utenlandsopphold - overlappende perioder',
             tekst,
           })
@@ -404,7 +404,7 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus'
           logger('skjema validering feilet', {
-            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: 'Utenlandsopphold - overlappende perioder',
             tekst,
           })
