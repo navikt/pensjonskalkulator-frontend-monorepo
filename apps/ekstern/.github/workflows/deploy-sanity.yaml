@@ -62,7 +62,7 @@ jobs:
         id: image-creation
         uses: nais/docker-build-push@v0
         with:
-          tag: pensjonskalkulator-frontend-sanity
+          image_suffix: sanity
           dockerfile: .docker/Dockerfile-sanity
           team: pensjonskalkulator
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
