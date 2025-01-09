@@ -62,6 +62,7 @@ jobs:
         id: image-creation
         uses: nais/docker-build-push@v0
         with:
+          tag: pensjonskalkulator-frontend-sanity
           dockerfile: .docker/Dockerfile-sanity
           team: pensjonskalkulator
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
@@ -90,7 +91,6 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-sanity-staging.yml
-
 
   #  deploy-prod:
   #    name: Deploy to prod-gcp
