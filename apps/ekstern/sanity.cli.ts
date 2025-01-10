@@ -4,8 +4,7 @@ import { projectId } from './sanity.config'
 export default defineCliConfig({
   api: {
     projectId,
-    // TODO bør være "development" når applikasjonen er i staging
-    dataset: 'production',
+    dataset: 'development',
   },
   /**
    * Enable auto-updates for studios.
