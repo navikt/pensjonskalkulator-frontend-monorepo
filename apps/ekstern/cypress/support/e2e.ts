@@ -146,6 +146,14 @@ beforeEach(() => {
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/production?query=count%28*%29&returnQuery=false',
+    },
+    { result: 5, syncTags: ['s1:TMPr9A'], ms: 1 }
+  ).as('fetchSanityDocuments')
 })
 
 Cypress.Commands.add('login', () => {
