@@ -99,7 +99,7 @@ const translations = {
     'Personopplysninger som brukes i pensjonskalkulator',
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
-    'Har du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.',
+    'Har du bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.',
   'stegvisning.utenlandsopphold.readmore_1.title':
     'Hva som er opphold utenfor Norge',
   'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
