@@ -1,3 +1,5 @@
+import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
+
 describe('Hovedhistorie', () => {
   describe('Når jeg som bruker navigerer på nav.no/din pensjon og velger å prøve den nye kalkulatoren,', () => {
     it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
@@ -19,7 +21,7 @@ describe('Hovedhistorie', () => {
 
     describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
       it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
-        Cypress.on('uncaught:exception', (err) => {
+        Cypress.on('uncaught:exception', () => {
           // prevents Cypress from failing when catching errors in uinnlogget kalkulator
           return false
         })
@@ -82,9 +84,31 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should('include', '/pensjon/kalkulator/sivilstand')
-        cy.go('forward')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+    })
+
+    describe('Som bruker som har fremtidig vedtak om alderspensjon,', () => {
+      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+        beforeEach(() => {
+          cy.intercept(
+            {
+              method: 'GET',
+              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            },
+            {
+              ...loependeVedtakMock,
+              harFremtidigLoependeVedtak: true,
+            }
+          ).as('getLoependeVedtak')
+          cy.login()
+        })
+        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+          cy.contains(
+            'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.'
+          )
+        })
       })
     })
 
