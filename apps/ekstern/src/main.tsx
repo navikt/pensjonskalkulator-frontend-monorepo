@@ -41,9 +41,9 @@ const router = createBrowserRouter(routes, {
 })
 
 // TODO midlertidig fetching av tekster
-const data = await client.fetch<number>(`count(*)`)
-// data is typed as `number`
-console.log(`Number of documents: ${data}`)
+client.fetch<number>(`count(*)`).then((data: number) => {
+  console.log(`Number of documents: ${data}`)
+})
 
 initializeLogs()
 
