@@ -592,8 +592,9 @@ describe('BeregningAvansert', () => {
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledTimes(1)
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledWith('redigering')
         })
-        expect(loggerSpy).toHaveBeenCalledWith('alert', {
+        expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
           tekst: 'Beregning avansert: Ikke høy nok opptjening',
+          variant: 'warning',
         })
       })
 
@@ -646,8 +647,9 @@ describe('BeregningAvansert', () => {
           ).toBeVisible()
           expect(screen.getByText('beregning.error')).toBeVisible()
         })
-        expect(loggerSpy).toHaveBeenCalledWith('alert', {
+        expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
+          variant: 'error',
         })
         await user.click(await screen.findByText('application.global.retry'))
         expect(initiateMock).toHaveBeenCalledTimes(3)
