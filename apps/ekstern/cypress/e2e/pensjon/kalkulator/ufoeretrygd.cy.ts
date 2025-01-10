@@ -1,5 +1,6 @@
 import { format, sub } from 'date-fns'
 
+import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
 import personMock from '../../../fixtures/person.json'
 
 const fødselsdatoEldreEnn62 = format(
@@ -23,6 +24,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -50,6 +52,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -196,6 +199,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -224,6 +228,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -267,6 +272,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 75,
           },
@@ -313,6 +319,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -379,6 +386,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 40,
           },
