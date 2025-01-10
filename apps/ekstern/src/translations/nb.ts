@@ -99,34 +99,34 @@ const translations = {
     'Personopplysninger som brukes i pensjonskalkulator',
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
-    'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
+    'Har du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.',
   'stegvisning.utenlandsopphold.readmore_1.title':
     'Hva som er opphold utenfor Norge',
   'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
     'Som hovedregel er dette opphold utenfor Norge:',
   'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1':
-    'Opphold i mer enn 12 måneder.',
+    'opphold i mer enn 12 måneder',
   'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2':
-    'Opphold med jobb for utenlandsk arbeidsgiver uansett varighet.',
+    'opphold med jobb for utenlandsk arbeidsgiver uansett varighet',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
     'Som hovedregel er dette ikke opphold utenfor Norge:',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'Ferier',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'ferier',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
-    'Opphold uten jobb på under 12 måneder.',
+    'opphold uten jobb på under 12 måneder',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
-    'Studier på under 12 måneder eller med støtte fra Lånekassen.',
+    'studier på under 12 måneder eller med støtte fra Lånekassen',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
-    'Ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i.',
+    'ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
-    'Ansatt i Forsvarets tjeneste.',
+    'ansatt i Forsvarets tjeneste',
   'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
-    'Norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap.',
+    'norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap',
   'stegvisning.utenlandsopphold.readmore_1.ingress':
-    'Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se <trygdetidLink>nav.no</trygdetidLink>.',
+    'Er du usikker på hva som gjelder for deg, les om <trygdetidLink>medlemskap i folketrygden</trygdetidLink>.',
   'stegvisning.utenlandsopphold.readmore_2.title':
     'Betydning av opphold utenfor Norge for pensjon',
   'stegvisning.utenlandsopphold.readmore_2.ingress':
-    'Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års trygdetid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge. ',
+    'Hvis du er i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet i Norge kortere enn 40 år fra du fylte 16 år til du tar ut alderspensjon? Da kan du få lavere pensjon i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge. ',
   'stegvisning.utenlandsopphold.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
   'stegvisning.utenlandsopphold.radio_label.description':
@@ -205,7 +205,7 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig. Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
+    'Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig.{br}{br} Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
     'Dette henter vi fra offentlige tjenestepensjonsordninger',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
@@ -270,7 +270,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.title':
     'Samtykke til at Nav beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':
-    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}Nav vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
+    'Tjenestepensjonsordningen din har ansvar for livsvarig AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}Nav vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Vil du at Nav skal beregne AFP for deg?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
