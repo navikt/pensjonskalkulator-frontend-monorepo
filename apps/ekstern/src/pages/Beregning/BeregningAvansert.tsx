@@ -267,6 +267,7 @@ export const BeregningAvansert: React.FC = () => {
                   visning="avansert"
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                  trygdetid={alderspensjon?.trygdetid}
                 />
               </>
             )}

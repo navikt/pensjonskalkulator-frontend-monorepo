@@ -531,6 +531,8 @@ const translations = {
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
   'grunnlag.opphold.ingress.endring':
     'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.',
+  'grunnlag.opphold.ingress.trygdetid':
+    'Din trygdetid ved uttak: {aar} år{br}{br}<kortBotidLink>Om trygdetid</kortBotidLink>',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.opphold.avbryt_modal.title':

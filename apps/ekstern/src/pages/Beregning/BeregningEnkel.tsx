@@ -318,6 +318,7 @@ export const BeregningEnkel: React.FC = () => {
                 visning="enkel"
                 headingLevel="3"
                 harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                trygdetid={alderspensjon?.trygdetid}
               />
             </>
           )}

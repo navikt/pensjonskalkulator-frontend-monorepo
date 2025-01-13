@@ -535,6 +535,7 @@ const translations = {
     'You have lived less than 5 years in Norway. Your calculation may be incomplete.',
   'grunnlag.opphold.ingress.endring':
     'The calculation uses the insurance time you have in Norway from your decision about retirement pension.',
+  'grunnlag.opphold.ingress.trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.bunntekst':
     'When you apply for retirement pension, information about time spent outside Norway will be checked against pension authorities in agreement countries. Therefore, your final pension may differ.',
   'grunnlag.opphold.avbryt_modal.title':

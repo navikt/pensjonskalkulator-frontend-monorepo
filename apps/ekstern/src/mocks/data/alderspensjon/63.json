@@ -71,5 +71,6 @@
       "heltUttaksalder": { "aar": 67, "maaneder": 0 }
     }
   },
-  "harForLiteTrygdetid": false
+  "harForLiteTrygdetid": false,
+  "trygdetid": 40
 }

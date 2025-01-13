@@ -31,12 +31,14 @@ interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
   harForLiteTrygdetid?: boolean
+  trygdetid?: number
 }
 
 export const Grunnlag: React.FC<Props> = ({
   visning,
   headingLevel,
   harForLiteTrygdetid,
+  trygdetid,
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -129,7 +131,10 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
+        <GrunnlagUtenlandsopphold
+          harForLiteTrygdetid={harForLiteTrygdetid}
+          trygdetid={trygdetid}
+        />
 
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection

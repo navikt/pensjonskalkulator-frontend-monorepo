@@ -13,7 +13,7 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('GrunnlagUtenlandsopphold', () => {
-  describe('Gitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet', () => {
+  describe('gGitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold />, {
@@ -52,7 +52,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('Gitt at brukeren har svart "ja" på spørsmålet om opphold i utlandet', () => {
+  describe('gGitt at brukeren har svart "ja" på spørsmålet om opphold i utlandet,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
 
@@ -92,7 +92,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('Gitt at brukeren har for lite trygdetid', () => {
+  describe('gGitt at brukeren har for lite trygdetid,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold harForLiteTrygdetid={true} />, {
@@ -131,7 +131,33 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+  describe('Gitt vi har informasjon om trygdetid,', () => {
+    it('viser riktig informasjon om trygdetid', async () => {
+      const user = userEvent.setup()
+      render(
+        <GrunnlagUtenlandsopphold harForLiteTrygdetid={false} trygdetid={40} />,
+        {
+          preloadedState: {
+            userInput: { ...userInputInitialState, harUtenlandsopphold: true },
+          },
+        }
+      )
+
+      await user.click(await screen.findByTestId('accordion-header'))
+
+      expect(
+        await screen.findByText('Din trygdetid ved uttak:', { exact: false })
+      ).toBeVisible()
+      expect(await screen.findByText('40', { exact: false })).toBeVisible()
+      expect(
+        screen.getByRole('link', {
+          name: 'Om trygdetid application.global.external_link',
+        })
+      ).toHaveAttribute('href', 'https://www.nav.no/alderspensjon#kort-botid')
+    })
+  })
+
+  describe('gGitt at brukeren har vedtak om alderspensjon', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold />, {

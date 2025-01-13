@@ -60,5 +60,6 @@
   "vilkaarsproeving": {
     "vilkaarErOppfylt": true
   },
-  "harForLiteTrygdetid": false
+  "harForLiteTrygdetid": false,
+  "trygdetid": 40
 }
