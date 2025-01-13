@@ -11,6 +11,7 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   shouldRedirectTo?: string
@@ -55,7 +56,8 @@ export function Sivilstand({
         id: 'stegvisning.sivilstand.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
         data: intl.formatMessage({
           id: 'stegvisning.sivilstand.radio_label',
         }),
