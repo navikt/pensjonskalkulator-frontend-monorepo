@@ -29,7 +29,7 @@ import { UTENLANDSOPPHOLD_FORM_NAMES, onUtenlandsoppholdSubmit } from './utils'
 import styles from './UtenlandsoppholdModal.module.scss'
 
 interface Props {
-  modalRef: React.RefObject<HTMLDialogElement>
+  modalRef: React.RefObject<HTMLDialogElement | null>
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void
 }

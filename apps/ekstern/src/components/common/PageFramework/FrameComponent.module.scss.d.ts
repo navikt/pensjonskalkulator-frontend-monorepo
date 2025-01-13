@@ -1,5 +1,4 @@
-import globalClassNames from "../../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly main: "main";
   readonly main__white: "main__white";
   readonly content: "content";

@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .beregning {
   width: 100%;
@@ -13,10 +13,10 @@
 }
 
 .alert {
-  max-width: $container-max-width;
+  max-width: variables.$container-max-width;
   margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
 
-  @media (min-width: $a-breakpoint-lg) {
+  @media (min-width: variables.$a-breakpoint-lg) {
     margin: 0 0 var(--a-spacing-6) 0;
   }
 }
@@ -29,7 +29,7 @@
     padding-bottom: var(--a-spacing-6);
   }
 
-  @media (min-width: $a-breakpoint-lg) {
+  @media (min-width: variables.$a-breakpoint-lg) {
     padding: 0;
 
     &__paddingBottom {
@@ -37,7 +37,7 @@
     }
   }
 
-  @media (max-width: $a-breakpoint-sm) {
+  @media (max-width: variables.$a-breakpoint-sm) {
     div[role='radiogroup'] {
       width: 100%;
     }

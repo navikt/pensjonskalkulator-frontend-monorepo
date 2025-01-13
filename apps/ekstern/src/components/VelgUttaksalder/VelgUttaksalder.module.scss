@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .wrapper {
   composes: frame from '../../scss/modules/frame.module.scss';
@@ -10,8 +10,8 @@
     flex-direction: column;
     gap: var(--a-spacing-3);
 
-    @media (min-width: $a-breakpoint-lg) {
-      max-width: $container-max-width;
+    @media (min-width: variables.$a-breakpoint-lg) {
+      max-width: variables.$container-max-width;
       padding: var(--a-spacing-6) 0;
     }
   }

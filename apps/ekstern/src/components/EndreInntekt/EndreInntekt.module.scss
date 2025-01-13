@@ -1,5 +1,5 @@
-@import '../../scss/variables';
+@use '../../scss/variables';
 
 .textfield input {
-  width: $input-width-m;
+  width: variables.$input-width-m;
 }

@@ -1,4 +1,4 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables';
 
 .label {
   display: block;
@@ -21,12 +21,12 @@
   }
 
   &Aar {
-    flex-basis: $input-width-xxs;
+    flex-basis: variables.$input-width-xxs;
     flex-shrink: 0;
   }
 
   &Maaned {
-    flex-basis: $input-width-xs;
+    flex-basis: variables.$input-width-xs;
     flex-shrink: 0;
   }
 

@@ -13,7 +13,7 @@ interface BeregningContextType {
   setHarAvansertSkjemaUnsavedChanges: React.Dispatch<
     React.SetStateAction<boolean>
   >
-  pensjonsavtalerShowMoreRef?: React.RefObject<ShowMoreRef>
+  pensjonsavtalerShowMoreRef?: React.RefObject<ShowMoreRef | null>
 }
 
 export const BeregningContext = React.createContext<BeregningContextType>({

@@ -4,7 +4,7 @@ import { HOST_BASEURL } from '@/paths'
 
 export const CheckLoginOnFocus: React.FC<{
   shouldRedirectNonAuthenticated: boolean
-  children: JSX.Element
+  children: React.JSX.Element
 }> = ({ shouldRedirectNonAuthenticated, children }) => {
   React.useEffect(() => {
     const onFocus = async () => {

@@ -1,4 +1,4 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables';
 
 .main {
   background: var(--a-gray-100);
@@ -24,8 +24,8 @@
   width: 100%;
   padding-bottom: var(--a-spacing-4);
 
-  @media (min-width: $a-breakpoint-lg) {
-    width: $a-breakpoint-lg;
+  @media (min-width: variables.$a-breakpoint-lg) {
+    width: variables.$a-breakpoint-lg;
     margin: 0 auto;
   }
 
@@ -40,13 +40,13 @@
       height: 48px;
       width: 48px;
 
-      @media (min-width: $a-breakpoint-md) {
+      @media (min-width: variables.$a-breakpoint-md) {
         height: 56px;
         width: 56px;
       }
     }
 
-    @media (min-width: $a-breakpoint-lg) {
+    @media (min-width: variables.$a-breakpoint-lg) {
       padding: 0;
     }
 
@@ -54,12 +54,12 @@
       margin: 0 auto;
       padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
 
-      @media (min-width: $a-breakpoint-md) {
+      @media (min-width: variables.$a-breakpoint-md) {
         padding: 0;
-        width: $container-max-width;
+        width: variables.$container-max-width;
       }
 
-      @media (min-width: $a-breakpoint-lg) {
+      @media (min-width: variables.$a-breakpoint-lg) {
         margin: 0;
       }
     }

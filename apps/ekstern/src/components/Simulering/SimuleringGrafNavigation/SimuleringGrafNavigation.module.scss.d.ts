@@ -1,5 +1,4 @@
-import globalClassNames from "../../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly grafNavigation: "grafNavigation";
   readonly grafNavigation__visible: "grafNavigation__visible";
   readonly grafNavigationElement: "grafNavigationElement";

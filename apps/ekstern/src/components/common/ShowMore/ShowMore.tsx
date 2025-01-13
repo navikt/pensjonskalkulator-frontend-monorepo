@@ -15,7 +15,7 @@ export function mergeRefs<T>(refs: PossibleRef<T>[]): React.RefCallback<T> {
       if (typeof ref === 'function') {
         ref(value)
       } else if (ref !== null && ref !== undefined) {
-        ;(ref as React.MutableRefObject<T | null>).current = value
+        ;(ref as React.RefObject<T | null>).current = value
       }
     })
   }
