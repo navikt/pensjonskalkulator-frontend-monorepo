@@ -545,7 +545,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'retirement pension',
   'grunnlag.alderspensjon.value': 'National Insurance Scheme (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
+    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}MANGLER_TEKST: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'Not calculated',
   'grunnlag.afp.endring': 'Unchanged',

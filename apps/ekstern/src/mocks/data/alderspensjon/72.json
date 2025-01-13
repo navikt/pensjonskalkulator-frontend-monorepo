@@ -2,7 +2,8 @@
   "alderspensjon": [
     {
       "alder": 72,
-      "beloep": 311578
+      "beloep": 311578,
+      "pensjonBeholdningFoerUttakBeloep": 2345186
     },
     {
       "alder": 73,

@@ -268,6 +268,13 @@ export const BeregningAvansert: React.FC = () => {
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
                   trygdetid={alderspensjon?.trygdetid}
+                  pensjonsbeholdning={
+                    alderspensjon?.alderspensjon &&
+                    alderspensjon?.alderspensjon.length > 0
+                      ? alderspensjon?.alderspensjon[0]
+                          .pensjonBeholdningFoerUttakBeloep
+                      : undefined
+                  }
                 />
               </>
             )}
