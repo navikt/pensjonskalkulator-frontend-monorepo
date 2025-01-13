@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
+import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore/ReadMore'
 import { paths } from '@/router/constants'
@@ -10,7 +11,6 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './SamtykkePensjonsavtaler.module.scss'
-import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   harSamtykket: boolean | null

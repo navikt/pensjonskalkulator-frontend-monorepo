@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
+import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
-import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   shouldRedirectTo?: string
