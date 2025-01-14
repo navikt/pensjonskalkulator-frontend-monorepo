@@ -267,7 +267,7 @@ const translations = {
   'stegvisning.ufoere.readmore_1.body':
     'To qualify for AFP, you cannot have received disability benefits from Nav after the month you turn 62. This applies regardless of whether you have received full or partial disability benefits, how long you have been on disability benefits, and how much you have received in disability benefits.{br}{br}If you are under 62, you must relinquish your disability benefits by the end of the month you turn 62 in order to receive AFP. Remember that all the other conditions for qualifying for AFP must also be met.',
   'stegvisning.ufoere.ingress':
-    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements in the private sector.',
+    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Consent for Nav to Calculate AFP (contractual pension)',
   'stegvisning.samtykke_offentlig_afp.ingress':
