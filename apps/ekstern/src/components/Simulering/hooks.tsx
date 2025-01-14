@@ -223,8 +223,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                     isEndring ? startAar : startAar - 1,
                     XAxis.length,
                     afpPrivatListe,
-                    isEndring,
-                    true
+                    isEndring
                   ),
                 } as SeriesOptionsType,
               ]
