@@ -12,6 +12,7 @@ import {
   RadioGroup,
 } from '@navikt/ds-react'
 
+import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
@@ -19,7 +20,6 @@ import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
-import { STEGVISNING_FORM_NAMES } from '../utils'
 
 interface Props {
   shouldRedirectTo?: string

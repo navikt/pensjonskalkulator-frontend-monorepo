@@ -21,10 +21,6 @@ describe('Hovedhistorie', () => {
 
     describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
       it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
-        Cypress.on('uncaught:exception', () => {
-          // prevents Cypress from failing when catching errors in uinnlogget kalkulator
-          return false
-        })
         cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
