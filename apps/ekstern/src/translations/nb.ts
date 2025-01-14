@@ -531,6 +531,8 @@ const translations = {
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
   'grunnlag.opphold.ingress.endring':
     'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.',
+  'grunnlag.opphold.ingress.trygdetid':
+    'Din trygdetid ved uttak: {aar} år{br}{br}<kortBotidLink>Om trygdetid</kortBotidLink>',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -540,7 +542,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
+    'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}Din pensjonsbeholdning før uttak: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'Ikke beregnet',
   'grunnlag.afp.endring': 'Uendret',

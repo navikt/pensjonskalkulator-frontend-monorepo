@@ -535,6 +535,8 @@ const translations = {
     'You have lived less than 5 years in Norway. Your calculation may be incomplete.',
   'grunnlag.opphold.ingress.endring':
     'The calculation uses the insurance time you have in Norway from your decision about retirement pension.',
+  'grunnlag.opphold.ingress.trygdetid':
+    'Your insurance time when starting the withdrawal of your pension: {aar} years{br}{br}<kortBotidLink>About insurance time</kortBotidLink>',
   'grunnlag.opphold.bunntekst':
     'When you apply for retirement pension, information about time spent outside Norway will be checked against pension authorities in agreement countries. Therefore, your final pension may differ.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -544,7 +546,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'retirement pension',
   'grunnlag.alderspensjon.value': 'National Insurance Scheme (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
+    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}Your pension balance before withdrawal: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'Not calculated',
   'grunnlag.afp.endring': 'Unchanged',

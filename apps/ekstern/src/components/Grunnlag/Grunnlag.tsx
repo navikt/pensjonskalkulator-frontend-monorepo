@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamboer } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
+import { formatInntekt } from '@/utils/inntekt'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -31,12 +32,16 @@ interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
   harForLiteTrygdetid?: boolean
+  trygdetid?: number
+  pensjonsbeholdning?: number
 }
 
 export const Grunnlag: React.FC<Props> = ({
   visning,
   headingLevel,
   harForLiteTrygdetid,
+  trygdetid,
+  pensjonsbeholdning,
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -129,7 +134,10 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
+        <GrunnlagUtenlandsopphold
+          harForLiteTrygdetid={harForLiteTrygdetid}
+          trygdetid={trygdetid}
+        />
 
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection
@@ -143,6 +151,21 @@ export const Grunnlag: React.FC<Props> = ({
             <BodyLong>
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+              {pensjonsbeholdning && (
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.ingress.pensjonsbeholdning"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    sum: formatInntekt(pensjonsbeholdning),
+                  }}
+                />
+              )}
+              <FormattedMessage
+                id="grunnlag.alderspensjon.ingress.link"
                 values={{
                   ...getFormatMessageValues(intl),
                 }}
