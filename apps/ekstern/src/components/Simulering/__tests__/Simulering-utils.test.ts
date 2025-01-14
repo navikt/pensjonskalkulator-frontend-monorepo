@@ -519,7 +519,7 @@ describe('Simulering-utils', () => {
   })
 
   describe('processAfpPensjonsberegningArray', () => {
-    it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
+    it('returnerer et tomt array uten å feile hvis input er et tomt array', () => {
       expect(processAfpPensjonsberegningArray(67, 5, [], false)).toEqual([])
     })
 
