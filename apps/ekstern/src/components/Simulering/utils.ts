@@ -144,13 +144,15 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
-// TODO skrive tester
 export const processAfpPensjonsberegningArray = (
-  startAar: number, // uttaksaar, minus 1
+  startAar: number, // uttaksaar, (uttaksaar minus 1 for førstegangsøkere)
   length: number,
   pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
   isEndring: boolean
 ): number[] => {
+  if (pensjonsberegninger.length === 0) {
+    return []
+  }
   const arrayLength = Math.max(
     length,
     isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2

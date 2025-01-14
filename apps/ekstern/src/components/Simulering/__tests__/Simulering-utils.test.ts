@@ -8,6 +8,7 @@ import {
   getChartDefaults,
   processInntektArray,
   processPensjonsberegningArray,
+  processAfpPensjonsberegningArray,
   getAntallMaanederMedPensjon,
   processPensjonsavtalerArray,
   generateXAxis,
@@ -517,6 +518,106 @@ describe('Simulering-utils', () => {
     })
   })
 
+  describe('processAfpPensjonsberegningArray', () => {
+    it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
+      expect(processAfpPensjonsberegningArray(67, 5, [], false)).toEqual([])
+    })
+
+    it('returnerer riktig mappet array med 0 verdi først, beløp, og livsvarig beløp duplisert sist, avhengig av x-axis lengden', () => {
+      expect(
+        processAfpPensjonsberegningArray(
+          73,
+          6,
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          false
+        )
+      ).toEqual([0, 0, 20000, 80000, 80000, 80000])
+      expect(
+        processAfpPensjonsberegningArray(
+          74,
+          5,
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          false
+        )
+      ).toEqual([0, 20000, 80000, 80000, 80000])
+    })
+
+    it('Når brukeren har vedtak om alderspensjon, returnerer riktig mappet array med beløp først, og livsvarig beløp duplisert sist, avhengig av x-axis lengden', () => {
+      expect(
+        processAfpPensjonsberegningArray(
+          74,
+          5,
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          true
+        )
+      ).toEqual([0, 20000, 80000, 80000, 80000])
+      expect(
+        processAfpPensjonsberegningArray(
+          75,
+          4,
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          true
+        )
+      ).toEqual([20000, 80000, 80000, 80000])
+    })
+  })
+
   describe('getAntallMaanederMedPensjon', () => {
     it('returnerer 12 måneder når uttaksalderen er hverken først eller sist', () => {
       expect(getAntallMaanederMedPensjon(69, { aar: 68, maaneder: 0 })).toBe(12)
@@ -614,6 +715,7 @@ describe('Simulering-utils', () => {
       ).toBe(0)
     })
   })
+
   describe('processPensjonsavtalerArray', () => {
     it('returnerer en liste med 0 med riktig lengde', () => {
       expect(processPensjonsavtalerArray(66, 13, [], [])).toEqual([
@@ -1290,6 +1392,7 @@ describe('Simulering-utils', () => {
       expect(color).toEqual(expected)
     })
   })
+
   describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
     it('finner riktig element og øker scrollLeft', () => {
       const div = document.createElement('div')
