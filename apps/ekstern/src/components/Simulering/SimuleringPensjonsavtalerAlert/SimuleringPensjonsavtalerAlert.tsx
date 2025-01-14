@@ -44,7 +44,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
   const { isError: isOffentligTpError, data: offentligTpData } = offentligTp
 
   const alert = React.useMemo(():
-    | { variant: 'info' | 'warning' | 'inline'; text: string }
+    | { variant: 'info' | 'warning' | 'inline-info'; text: string }
     | undefined => {
     const isPartialWith0Avtaler =
       pensjonsavtalerData?.partialResponse &&
@@ -63,11 +63,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
 
     if (isEndring) {
       const text = 'beregning.pensjonsavtaler.alert.endring'
-      logger('alert', {
+      const variant = 'inline-info'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'inline',
+        variant,
         text,
       }
     }
@@ -75,11 +77,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
     if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
       const text = 'beregning.pensjonsavtaler.alert.privat.error'
-      logger('alert', {
+      const variant = 'warning'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -93,11 +97,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       (isPensjonsavtalerError || isPartialWith0Avtaler)
     ) {
       const text = 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error'
-      logger('alert', {
+      const variant = 'warning'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -108,11 +114,13 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       isPensjonsavtalerSuccess
     ) {
       const text = 'beregning.pensjonsavtaler.alert.offentlig.error'
-      logger('alert', {
+      const variant = 'warning'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'warning',
+        variant,
         text,
       }
     }
@@ -123,22 +131,26 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       offentligTpData.simuleringsresultatStatus === 'TP_ORDNING_STOETTES_IKKE'
     ) {
       const text = 'beregning.pensjonsavtaler.alert.stoettes_ikke'
-      logger('alert', {
+      const variant = 'info'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'info',
+        variant,
         text,
       }
     }
 
     if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
       const text = 'beregning.pensjonsavtaler.alert.avtaler_foer_alder'
-      logger('alert', {
+      const variant = 'inline-info'
+      logger('alert vist', {
         tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        variant,
       })
       return {
-        variant: 'inline',
+        variant,
         text,
       }
     }
@@ -176,10 +188,10 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
 
   return (
     <Alert
-      variant={alert.variant === 'inline' ? 'info' : alert.variant}
+      variant={alert.variant === 'inline-info' ? 'info' : alert.variant}
       data-testid="pensjonsavtaler-alert"
       className={styles.alert}
-      inline={alert.variant === 'inline'}
+      inline={alert.variant === 'inline-info'}
     >
       <FormattedMessage
         id={alert.text}

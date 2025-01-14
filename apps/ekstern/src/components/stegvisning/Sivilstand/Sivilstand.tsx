@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
+import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
@@ -55,7 +56,8 @@ export function Sivilstand({
         id: 'stegvisning.sivilstand.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
         data: intl.formatMessage({
           id: 'stegvisning.sivilstand.radio_label',
         }),

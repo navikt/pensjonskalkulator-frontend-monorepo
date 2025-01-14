@@ -116,12 +116,14 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-        logger('alert', {
+        logger('alert vist', {
           tekst: 'Beregning avansert: Ikke høy nok opptjening',
+          variant: 'warning',
         })
       } else if (isError) {
-        logger('alert', {
+        logger('alert vist', {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
+          variant: 'error',
         })
       }
     }
@@ -265,6 +267,14 @@ export const BeregningAvansert: React.FC = () => {
                   visning="avansert"
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                  trygdetid={alderspensjon?.trygdetid}
+                  pensjonsbeholdning={
+                    alderspensjon?.alderspensjon &&
+                    alderspensjon?.alderspensjon.length > 0
+                      ? alderspensjon?.alderspensjon[0]
+                          .pensjonBeholdningFoerUttakBeloep
+                      : undefined
+                  }
                 />
               </>
             )}

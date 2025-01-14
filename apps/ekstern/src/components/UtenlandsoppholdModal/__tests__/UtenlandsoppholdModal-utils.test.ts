@@ -45,7 +45,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - land',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error',
@@ -66,7 +67,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - land',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error',
@@ -114,7 +116,8 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
             data: 'Utenlandsopphold - arbeidet utenlands',
             tekst:
               'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
@@ -138,7 +141,8 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
             data: 'Utenlandsopphold - arbeidet utenlands',
             tekst:
               'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
@@ -162,7 +166,8 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+            skjemanavn: 'utenlandsopphold-oppholdet-ditt',
             data: 'Utenlandsopphold - arbeidet utenlands',
             tekst:
               'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
@@ -186,7 +191,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - startdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required',
@@ -206,7 +212,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - startdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required',
@@ -226,7 +233,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - startdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format',
@@ -246,7 +254,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - startdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min',
@@ -266,7 +275,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - startdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max',
@@ -289,7 +299,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - sluttdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format',
@@ -309,7 +320,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - sluttdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min',
@@ -329,7 +341,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - sluttdato',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max',
@@ -405,7 +418,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - overlappende perioder',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland',
@@ -431,7 +445,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - overlappende perioder',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land',
@@ -457,7 +472,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - overlappende perioder',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus',
@@ -483,7 +499,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
           data: 'Utenlandsopphold - overlappende perioder',
           tekst:
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus',
