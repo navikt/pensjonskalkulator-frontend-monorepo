@@ -14,6 +14,7 @@ import {
   generateXAxis,
   processInntektArray,
   processPensjonsberegningArray,
+  processAfpPensjonsberegningArray,
   processPensjonsavtalerArray,
 } from './utils'
 import { getChartOptions, onPointUnclick } from './utils-highcharts'
@@ -210,7 +211,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(afpPrivatListe
+          ...(afpPrivatListe && afpPrivatListe.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
@@ -218,15 +219,17 @@ export const useSimuleringChartLocalState = (initialValues: {
                     id: SERIES_DEFAULT.SERIE_AFP.name,
                   }),
                   /* c8 ignore next 1 */
-                  data: processPensjonsberegningArray(
+                  data: processAfpPensjonsberegningArray(
+                    isEndring ? startAar : startAar - 1,
+                    XAxis.length,
                     afpPrivatListe,
                     isEndring,
-                    XAxis.length
+                    true
                   ),
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(afpOffentligListe
+          ...(afpOffentligListe && afpOffentligListe.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
@@ -234,10 +237,11 @@ export const useSimuleringChartLocalState = (initialValues: {
                     id: SERIES_DEFAULT.SERIE_AFP.name,
                   }),
                   /* c8 ignore next 1 */
-                  data: processPensjonsberegningArray(
+                  data: processAfpPensjonsberegningArray(
+                    isEndring ? startAar : startAar - 1,
+                    XAxis.length,
                     afpOffentligListe,
-                    isEndring,
-                    XAxis.length
+                    isEndring
                   ),
                 } as SeriesOptionsType,
               ]

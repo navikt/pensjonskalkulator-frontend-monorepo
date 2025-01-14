@@ -144,6 +144,41 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
+// TODO skrive tester
+export const processAfpPensjonsberegningArray = (
+  startAar: number, // uttaksaar, minus 1
+  length: number,
+  pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
+  isEndring: boolean
+): number[] => {
+  const arrayLength = Math.max(
+    length,
+    isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2
+  )
+
+  const startYear = pensjonsberegninger[0].alder
+  const emptyYearsBeforeStart = startYear - startAar
+  const dataArray = isEndring ? [] : new Array(1).fill(0)
+  const startIndex = emptyYearsBeforeStart ?? (isEndring ? 0 : 1)
+
+  const livsvarigPensjonsbeloep =
+    pensjonsberegninger[pensjonsberegninger.length - 1]?.beloep ?? 0
+
+  for (let index = isEndring ? 0 : 1; index < arrayLength; index++) {
+    if (startIndex > index) {
+      dataArray.push(0)
+    } else {
+      const pensjonsBeregningAtIndex = pensjonsberegninger[index - startIndex]
+      dataArray.push(
+        pensjonsBeregningAtIndex
+          ? pensjonsBeregningAtIndex.beloep
+          : livsvarigPensjonsbeloep
+      )
+    }
+  }
+  return dataArray
+}
+
 // Antall maaneder i en avtale beregnes "Fra og med" og "Til og med"
 export const getAntallMaanederMedPensjon = (
   year: number,

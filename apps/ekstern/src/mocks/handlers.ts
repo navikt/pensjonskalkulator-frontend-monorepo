@@ -94,7 +94,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_PRIVAT'
+        'ALDERSPENSJON_MED_AFP_PRIVAT' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
     ) {
       const afpPrivatData = JSON.parse(
         JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
