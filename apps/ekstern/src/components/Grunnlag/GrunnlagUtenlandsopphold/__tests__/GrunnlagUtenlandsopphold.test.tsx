@@ -13,7 +13,7 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('GrunnlagUtenlandsopphold', () => {
-  describe('gGitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet,', () => {
+  describe('Gitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold />, {
@@ -52,7 +52,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('gGitt at brukeren har svart "ja" på spørsmålet om opphold i utlandet,', () => {
+  describe('Gitt at brukeren har svart "ja" på spørsmålet om opphold i utlandet,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
 
@@ -92,7 +92,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('gGitt at brukeren har for lite trygdetid,', () => {
+  describe('Gitt at brukeren har for lite trygdetid,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold harForLiteTrygdetid={true} />, {
@@ -157,7 +157,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     })
   })
 
-  describe('gGitt at brukeren har vedtak om alderspensjon', () => {
+  describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
       render(<GrunnlagUtenlandsopphold />, {
