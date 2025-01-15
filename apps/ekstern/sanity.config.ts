@@ -23,7 +23,7 @@ const config: ClientConfig = {
   apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
 }
 
-export const client = createClient(config)
+export const sanityClient = createClient(config)
 
 const pluginsArray = [
   structureTool(),
