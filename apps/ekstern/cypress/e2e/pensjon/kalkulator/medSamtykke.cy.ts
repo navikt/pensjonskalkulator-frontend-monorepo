@@ -4,24 +4,27 @@ const alertTekstNP = `${alertTekstStart} Noe gikk galt ved henting av pensjonsav
 const alertTekstTPO = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under pensjonsavtaler.`
 const alertTekstBegge = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under pensjonsavtaler.`
 
+// https://jira.adeo.no/secure/Tests.jspa#/testCase/PEK-T16
+
 describe('Med samtykke', () => {
-  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos SPK', () => {
+  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos SPK,', () => {
     beforeEach(() => {
       cy.login()
     })
 
-    describe('Når NP og TPO er vellykket', () => {
+    describe('Når NP og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
+      // 1
       it('forventer jeg ingen alert', () => {
         cy.contains('button', 'Vis tabell av beregningen').should('exist')
         cy.contains(alertTekstStart).should('not.exist')
       })
     })
 
-    describe('Når NP har feilet og TPO er vellykket', () => {
+    describe('Når NP har feilet og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
           statusCode: 503,
@@ -29,12 +32,13 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 2
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i privat sektor.', () => {
         cy.contains(alertTekstNP).should('exist')
       })
     })
 
-    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket', () => {
+    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -49,13 +53,14 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 3
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i privat sektor.', () => {
         cy.contains(alertTekstNP).should('exist')
       })
     })
   })
 
-  describe('Som bruker som har samtykket til innhenting av avtaler og IKKE har TPO-forhold', () => {
+  describe('Som bruker som har samtykket til innhenting av avtaler og IKKE har TPO-forhold,', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
@@ -67,17 +72,18 @@ describe('Med samtykke', () => {
       cy.login()
     })
 
-    describe('Når NP og TPO er vellykket', () => {
+    describe('Når NP og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
+      // 5
       it('forventer jeg ingen alert', () => {
         cy.contains(alertTekstStart).should('not.exist')
       })
     })
 
-    describe('Når NP har feilet og TPO er vellykket', () => {
+    describe('Når NP har feilet og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
           statusCode: 503,
@@ -85,12 +91,13 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 6
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i privat sektor.', () => {
         cy.contains(alertTekstNP).should('exist')
       })
     })
 
-    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket', () => {
+    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -105,13 +112,14 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 7
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i privat sektor.', () => {
         cy.contains(alertTekstNP).should('exist')
       })
     })
   })
 
-  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos annen ordning enn SPK', () => {
+  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos annen ordning enn SPK,', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
@@ -123,17 +131,18 @@ describe('Med samtykke', () => {
       cy.login()
     })
 
-    describe('Når NP og TPO er vellykket', () => {
+    describe('Når NP og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg melding om at beregningen kanskje ikke viser alt', () => {
+      // 9
+      it('forventer jeg melding om at jeg kan ha rett til offentlig tjenestepensjon.', () => {
         cy.contains(alertTekstAnnenTPO).should('exist')
       })
     })
 
-    describe('Når NP har feilet og TPO er vellykket', () => {
+    describe('Når NP har feilet og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
           statusCode: 503,
@@ -141,12 +150,13 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 10
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
         cy.contains(alertTekstBegge).should('exist')
       })
     })
 
-    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket', () => {
+    describe('Når NP gir delvis svar med 0 avtaler og TPO er vellykket,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -161,18 +171,19 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
         cy.contains('button', '67 år').click()
       })
-      it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      // 11
+      it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
         cy.contains(alertTekstBegge).should('exist')
       })
     })
   })
 
-  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos SPK', () => {
+  describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos SPK,', () => {
     beforeEach(() => {
       cy.login()
     })
 
-    describe('Når TP-register er ukomplett og svarer med Teknisk feil', () => {
+    describe('Når TP-register er ukomplett og svarer med Teknisk feil,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -187,26 +198,28 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
       })
 
-      describe('Når NP er vellykket', () => {
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      describe('Når NP er vellykket,', () => {
+        // 13
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.', () => {
           cy.contains('button', '67 år').click()
           cy.contains(alertTekstTPO).should('exist')
         })
       })
 
-      describe('Når NP feiler', () => {
+      describe('Når NP feiler,', () => {
         beforeEach(() => {
           cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
           cy.contains('button', '67 år').click()
         })
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+        // 14
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
           cy.contains(alertTekstBegge).should('exist')
         })
       })
 
-      describe('Når NP feiler gir delvis svar med 0 avtaler', () => {
+      describe('Når NP feiler gir delvis svar med 0 avtaler,', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -220,13 +233,14 @@ describe('Med samtykke', () => {
           ).as('fetchPensjonsavtaler')
           cy.contains('button', '67 år').click()
         })
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+        // 15
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
           cy.contains(alertTekstBegge).should('exist')
         })
       })
     })
 
-    describe('Når TP-register er ukomplett og svarer med tom simulering', () => {
+    describe('Når TP-register er ukomplett og svarer med tom simulering,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -241,26 +255,28 @@ describe('Med samtykke', () => {
         cy.fillOutStegvisning({ samtykke: true })
       })
 
-      describe('Når NP er vellykket', () => {
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+      describe('Når NP er vellykket,', () => {
+        // 16
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig sektor.', () => {
           cy.contains('button', '67 år').click()
           cy.contains(alertTekstTPO).should('exist')
         })
       })
 
-      describe('Når NP feiler', () => {
+      describe('Når NP feiler,', () => {
         beforeEach(() => {
           cy.intercept('POST', '/pensjon/kalkulator/api/v3/pensjonsavtaler', {
             statusCode: 503,
           }).as('fetchPensjonsavtaler')
           cy.contains('button', '67 år').click()
         })
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+        // 17
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
           cy.contains(alertTekstBegge).should('exist')
         })
       })
 
-      describe('Når NP feiler gir delvis svar med 0 avtaler', () => {
+      describe('Når NP feiler gir delvis svar med 0 avtaler,', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -274,7 +290,8 @@ describe('Med samtykke', () => {
           ).as('fetchPensjonsavtaler')
           cy.contains('button', '67 år').click()
         })
-        it('forventer jeg alert om at beregningen kanskje ikke viser alt', () => {
+        // 18
+        it('forventer jeg alert om at noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor.', () => {
           cy.contains(alertTekstBegge).should('exist')
         })
       })
