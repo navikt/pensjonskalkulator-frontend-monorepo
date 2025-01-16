@@ -94,7 +94,7 @@
     "react-router": "^7.1.1",
     "react-router-dom": "^7.1.1",
     "rollup-plugin-visualizer": "^5.14.0",
-    "sass": "^1.83.0",
+    "sass": "^1.83.4",
     "start-server-and-test": "^2.0.9",
     "stylelint": "^16.13.2",
     "stylelint-config-standard-scss": "^14.0.0",
