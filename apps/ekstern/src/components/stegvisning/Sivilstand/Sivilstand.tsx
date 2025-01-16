@@ -3,7 +3,14 @@ import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Button,
+  Heading,
+  Radio,
+  RadioGroup,
+  Select,
+} from '@navikt/ds-react'
 
 import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
@@ -17,6 +24,8 @@ interface Props {
   shouldRedirectTo?: string
   sivilstand: Sivilstand
   harSamboer: boolean | null
+  epsHarInntektOver2G: boolean | null
+  epsHarPensjon: boolean | null
   onCancel?: () => void
   onPrevious: () => void
   onNext: (sivilstandData: BooleanRadio) => void
@@ -26,6 +35,8 @@ export function Sivilstand({
   shouldRedirectTo,
   sivilstand,
   harSamboer,
+  epsHarInntektOver2G,
+  epsHarPensjon,
   onCancel,
   onPrevious,
   onNext,
@@ -33,6 +44,18 @@ export function Sivilstand({
   const intl = useIntl()
   const navigate = useNavigate()
   const [validationError, setValidationError] = useState<string>('')
+  const sivilstandOptions = [
+    'gift',
+    'ugift',
+    'gjenlevende_partner',
+    'skilt',
+    'separert',
+    'registrert_partner',
+    'separert_partner',
+    'skilt_partner',
+    'enke_enkemann',
+    'samboer',
+  ]
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -108,6 +131,67 @@ export function Sivilstand({
             <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
           </Radio>
           <Radio value="nei">
+            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+          </Radio>
+        </RadioGroup>
+        <Select
+          //defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
+          label={intl.formatMessage({
+            id: `stegvisning.sivilstand.select_label`,
+          })}
+          description={intl.formatMessage({
+            id: `stegvisning.sivilstand.select_description`,
+          })}
+        >
+          {sivilstandOptions.map((option) => (
+            <option key={option} value={option}>
+              {intl.formatMessage({
+                id: `sivilstand.${option}`,
+              })}
+            </option>
+          ))}
+        </Select>
+        <RadioGroup
+          legend={
+            <FormattedMessage id="stegvisning.sivilstand.radio_epsHarPensjon_label" />
+          }
+          description={intl.formatMessage({
+            id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
+          })}
+          name="epsHarPensjon"
+          className={styles.radiogroup}
+          value={epsHarPensjon}
+          onChange={handleRadioChange}
+          error={validationError}
+          role="radiogroup"
+          aria-required="true"
+        >
+          <Radio value={true}>
+            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+          </Radio>
+          <Radio value={false}>
+            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+          </Radio>
+        </RadioGroup>
+        <RadioGroup
+          legend={
+            <FormattedMessage id="stegvisning.sivilstand.radio_epsHarInntektOver2G_label" />
+          }
+          description={intl.formatMessage({
+            id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
+          })}
+          name="epsHarInntektOver2G"
+          className={styles.radiogroup}
+          value={epsHarInntektOver2G}
+          onChange={handleRadioChange}
+          error={validationError}
+          role="radiogroup"
+          aria-required="true"
+        >
+          <Radio value={true}>
+            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+          </Radio>
+          <Radio value={false}>
             <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
           </Radio>
         </RadioGroup>

@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectIsVeileder,
   selectSamboerFraBrukerInput,
+  selectEpsHarInntektOver2G,
+  selectEpsHarPensjon,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -23,6 +25,8 @@ export function StepSivilstand() {
     useLoaderData() as StepSivilstandAccessGuardLoader
   const isVeileder = useAppSelector(selectIsVeileder)
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
     useStegvisningNavigation(paths.sivilstand)
@@ -60,6 +64,8 @@ export function StepSivilstand() {
               shouldRedirectTo={resp[1]}
               sivilstand={resp[0].data.sivilstand}
               harSamboer={samboerSvar}
+              epsHarInntektOver2G={epsHarInntektOver2G}
+              epsHarPensjon={epsHarPensjon}
               onCancel={isVeileder ? undefined : onStegvisningCancel}
               onPrevious={onStegvisningPrevious}
               onNext={onNext}

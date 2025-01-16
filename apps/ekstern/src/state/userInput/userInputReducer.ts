@@ -19,6 +19,8 @@ export interface UserInputState {
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
   samboer: boolean | null
+  epsHarPensjon: boolean | null
+  epsHarInntektOver2G: boolean | null
   currentSimulation: Simulation
 }
 
@@ -30,6 +32,8 @@ export const userInputInitialState: UserInputState = {
   samtykkeOffentligAFP: null,
   afp: null,
   samboer: null,
+  epsHarInntektOver2G: null,
+  epsHarPensjon: null,
   currentSimulation: {
     utenlandsperioder: [],
     formatertUttaksalderReadOnly: null,
@@ -64,6 +68,12 @@ export const userInputSlice = createSlice({
     },
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
+    },
+    setEpsHarInntektOver2G: (state, action: PayloadAction<boolean>) => {
+      state.epsHarInntektOver2G = action.payload
+    },
+    setEpsHarPensjon: (state, action: PayloadAction<boolean>) => {
+      state.epsHarPensjon = action.payload
     },
     setCurrentSimulationUtenlandsperiode: (
       state,
@@ -164,6 +174,8 @@ export const userInputSlice = createSlice({
       state.samtykkeOffentligAFP = null
       state.afp = null
       state.samboer = null
+      state.epsHarPensjon = null
+      state.epsHarInntektOver2G = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
     flushCurrentSimulationUtenomUtenlandsperioder: (state) => {

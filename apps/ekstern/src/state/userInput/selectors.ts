@@ -65,6 +65,12 @@ export const selectSamboer = (state: RootState): boolean | null => {
   return samboerskapFraBrukerInput
 }
 
+export const selectEpsHarInntektOver2G = (state: RootState): boolean | null =>
+  state.userInput.epsHarInntektOver2G
+
+export const selectEpsHarPensjon = (state: RootState): boolean | null =>
+  state.userInput.epsHarPensjon
+
 export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (
   state: RootState
 ): string | null =>

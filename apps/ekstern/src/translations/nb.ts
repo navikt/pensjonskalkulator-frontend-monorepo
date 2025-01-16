@@ -283,6 +283,18 @@ const translations = {
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
     ' i Folkeregisteret. Hvis du har samboer eller ektefelle kan det påvirke beregningen.',
+  'stegvisning.sivilstand.select_label':
+    'Hva er sivilstanden din når du skal ta ut pensjon',
+  'stegvisning.sivilstand.select_description':
+    'Endring gjelder kun beregninger i kalkulatoren',
+  'stegvisning.sivilstand.radio_epsHarPensjon_label':
+    'Vil din ektefelle motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+  'stegvisning.sivilstand.radio_epsHarPensjon_description':
+    'Garantipensjonsnivået du har rett til beregnes ut fra om hen mottar en av disse ytelsene.',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
+    'Vil din ektefelle ha inntekt over 2G?',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
+    'Alle inntekter skal regnes med, også kapitalinntekter og tjenestepensjon/privat pensjon.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
@@ -311,6 +323,7 @@ const translations = {
   'sivilstand.separert_partner': 'Separert partner',
   'sivilstand.skilt_partner': 'Skilt partner',
   'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
+  'sivilstand.samboer': 'Samboer',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.ingress_1':
