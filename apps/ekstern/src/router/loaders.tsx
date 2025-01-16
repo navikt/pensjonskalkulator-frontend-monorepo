@@ -23,7 +23,6 @@ import {
 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
-import { checkHarSamboer } from '@/utils/sivilstand'
 
 export interface LoginContext {
   isLoggedIn: boolean
@@ -244,16 +243,9 @@ export const stepSivilstandAccessGuard = async (): Promise<
   const getPersonResponse = apiSlice.endpoints.getPerson.select(undefined)(
     store.getState()
   )
-  if (
-    getPersonResponse?.data?.sivilstand &&
-    checkHarSamboer(getPersonResponse.data.sivilstand)
-  ) {
-    resolveRedirectUrl(paths.utenlandsopphold)
-    resolveGetPerson(getPersonResponse)
-  } else {
-    resolveRedirectUrl('')
-    resolveGetPerson(getPersonResponse)
-  }
+
+  resolveRedirectUrl('')
+  resolveGetPerson(getPersonResponse)
 
   return {
     getPersonQuery: getPersonResponse,
