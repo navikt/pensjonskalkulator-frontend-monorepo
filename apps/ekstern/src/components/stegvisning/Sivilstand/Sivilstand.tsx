@@ -135,7 +135,7 @@ export function Sivilstand({
           </Radio>
         </RadioGroup>
         <Select
-          //defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
+          defaultValue={formatertSivilstand}
           label={intl.formatMessage({
             id: `stegvisning.sivilstand.select_label`,
           })}
