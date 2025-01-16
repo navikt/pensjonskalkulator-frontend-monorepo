@@ -8,8 +8,10 @@ import {
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
 
+import { sanityClient } from '../../../sanity.config'
+import { SanityContext } from '@/context/SanityContext'
+import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
-
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
@@ -29,13 +31,26 @@ interface Props {
 
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
+  const [sanityData, setSanityData] = useState<SanityReadMore[]>([])
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
 
+  const fetchSanityData = async (locale: Locales) => {
+    if (sanityClient) {
+      await sanityClient
+        .fetch(`*[_type == "readmore" && language == "${locale}"]`)
+        .then((readMoreData) => {
+          console.log(`Fetches sanity data`, readMoreData)
+          setSanityData(readMoreData)
+        })
+    }
+  }
+
   // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
   /* c8 ignore next 3 */
   onLanguageSelect((language) => {
+    fetchSanityData(language.locale as Locales)
     setCookie('decorator-language', language.locale)
     updateLanguage(language.locale as Locales, setLanguageCookie)
   })
@@ -60,8 +75,11 @@ export function LanguageProvider({ children }: Props) {
       const previousLanguage = getCookie('decorator-language')
 
       if (previousLanguage) {
+        fetchSanityData(previousLanguage as Locales)
         updateLanguage(previousLanguage as Locales, setLanguageCookie)
       }
+    } else {
+      fetchSanityData('nb' as Locales)
     }
   }, [isSuccess])
 
@@ -71,7 +89,9 @@ export function LanguageProvider({ children }: Props) {
       messages={getTranslations(languageCookie)}
     >
       <AkselProvider locale={akselLocales[languageCookie]}>
-        {children}
+        <SanityContext.Provider value={{ readMoreData: sanityData }}>
+          {children}
+        </SanityContext.Provider>
       </AkselProvider>
     </IntlProvider>
   )

@@ -4,10 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import ReactDOM from 'react-dom/client'
 
-import { sanityClient } from '../sanity.config'
 import { LanguageProvider } from '@/context/LanguageProvider'
-import { SanityContext } from '@/context/SanityContext'
-import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { initializeLogs } from '@/faro'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -42,23 +39,13 @@ const router = createBrowserRouter(routes, {
   },
 })
 
-let sanityData: SanityReadMore[] = []
-if (sanityClient) {
-  await sanityClient.fetch(`*[_type == "readmore"]`).then((readMoreData) => {
-    console.log(`Fetches readmores`, readMoreData)
-    sanityData = readMoreData
-  })
-}
-
 initializeLogs()
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <Provider store={store}>
       <LanguageProvider>
-        <SanityContext.Provider value={{ readMoreData: sanityData }}>
-          <RouterProvider router={router} />
-        </SanityContext.Provider>
+        <RouterProvider router={router} />
       </LanguageProvider>
     </Provider>
   </React.StrictMode>
