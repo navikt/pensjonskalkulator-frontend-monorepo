@@ -2,6 +2,7 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { PortableText } from '@portabletext/react'
 
 import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
@@ -13,6 +14,7 @@ import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
+import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { onSubmit } from './utils'
@@ -112,56 +114,10 @@ export function Utenlandsopphold({
           header={readMore1.overskrift}
           className={styles.readmore1}
         >
-          {
-            // TODO - How to show rich text?
-          }
-          <>INNHOLD</>
-          {/* <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
+          <PortableText
+            value={readMore1.innhold}
+            components={{ ...getSanityPortableTextComponents(intl) }}
           />
-          <ul>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-          <ul>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.utenlandsopphold.readmore_1.ingress"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          /> */}
         </ReadMore>
       )}
       <ReadMore

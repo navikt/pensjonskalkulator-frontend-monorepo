@@ -56,7 +56,43 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         data-state="closed"
       >
-        INNHOLD
+        <p>
+          Som hovedregel er dette opphold utenfor Norge:
+        </p>
+        <ul>
+          <li>
+            Opphold i mer enn 12 måneder.
+          </li>
+          <li>
+            Opphold med jobb for utenlandsk arbeidsgiver uansett varighet.'
+          </li>
+        </ul>
+        <p>
+          Som hovedregel er dette ikke opphold utenfor Norge:
+        </p>
+        <ul>
+          <li>
+            Ferier
+          </li>
+          <li>
+            Opphold uten jobb på under 12 måneder.
+          </li>
+          <li>
+            Studier på under 12 måneder eller med støtte fra Lånekassen.
+          </li>
+          <li>
+            Ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i.
+          </li>
+          <li>
+            Ansatt i Forsvarets tjeneste.
+          </li>
+          <li>
+            Norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap.
+          </li>
+        </ul>
+        <p>
+          Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se &lt;trygdetidLink&gt;nav.no&lt;/trygdetidLink&gt;.
+        </p>
       </div>
     </div>
     <div

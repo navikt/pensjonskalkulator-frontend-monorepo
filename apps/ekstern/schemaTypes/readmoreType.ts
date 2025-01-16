@@ -46,10 +46,35 @@ export const readmoreType = defineType({
     defineField({
       name: 'innhold',
       type: 'array',
-      of: [{ type: 'riktekst' }],
+      of: [
+        {
+          type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Lenke',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                  },
+                  {
+                    name: 'blank',
+                    type: 'boolean',
+                    title: 'Åpnes i ny fane',
+                    description:
+                      'Ved å huke av denne boksen vil lenken vises med "external" ikon og åpnes i ny fane',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
       description: 'Avsnitt(ene) i ReadMore. Vises når ReadMore er åpent.',
     }),
   ],
 })
-
-// https://www.sanity.io/learn/course/day-one-with-sanity-studio/custom-form-components

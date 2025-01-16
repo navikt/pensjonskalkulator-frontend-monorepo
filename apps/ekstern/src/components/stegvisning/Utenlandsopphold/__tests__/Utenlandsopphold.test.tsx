@@ -6,6 +6,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
+// TODO fjerne snapshots fra denne testen
 describe('stegvisning - Utenlandsopphold', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
