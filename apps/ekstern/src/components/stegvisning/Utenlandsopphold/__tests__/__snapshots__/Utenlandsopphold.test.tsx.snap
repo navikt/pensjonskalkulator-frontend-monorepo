@@ -48,7 +48,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           />
         </svg>
         <span>
-          stegvisning.utenlandsopphold.readmore_1.title
+          hva_er_opphold_utenfor_norge
         </span>
       </button>
       <div
@@ -56,67 +56,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         data-state="closed"
       >
-        stegvisning.utenlandsopphold.readmore_1.opphold.subtitle
-        <ul>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.opphold.list_item1
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.opphold.list_item2
-          </li>
-        </ul>
-        stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle
-        <ul>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5
-          </li>
-          <li>
-            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6
-          </li>
-        </ul>
-        Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se 
-        <a
-          class="navds-link navds-link--action navds-link--inline-text"
-          href="https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden"
-          target="_blank"
-        >
-          nav.no
-          <svg
-            aria-labelledby="title-r1"
-            fill="none"
-            focusable="false"
-            height="1.25rem"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1.25rem"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title
-              id="title-r1"
-            >
-              application.global.external_link
-            </title>
-            <path
-              clip-rule="evenodd"
-              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </a>
-        .
+        INNHOLD
       </div>
     </div>
     <div
@@ -165,7 +105,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         >
           Mer om kort botid i Norge
           <svg
-            aria-labelledby="title-r3"
+            aria-labelledby="title-r1"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -175,7 +115,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r3"
+              id="title-r1"
             >
               application.global.external_link
             </title>
@@ -208,7 +148,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       </legend>
       <div
         class="navds-fieldset__description navds-body-short navds-body-short--medium"
-        id="fieldset-description-r5"
+        id="fieldset-description-r3"
       >
         stegvisning.utenlandsopphold.radio_label.description
       </div>
@@ -219,17 +159,17 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           class="navds-radio navds-radio--medium"
         >
           <input
-            aria-labelledby="r7"
+            aria-labelledby="r5"
             class="navds-radio__input"
             form="har-utenlandsopphold"
-            id="radio-r6"
+            id="radio-r4"
             name="har-utenlandsopphold-radio"
             type="radio"
             value="ja"
           />
           <label
             class="navds-radio__label"
-            for="radio-r6"
+            for="radio-r4"
           >
             <span
               class="navds-radio__content"
@@ -237,7 +177,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
               <span
                 aria-hidden="true"
                 class="navds-body-short navds-body-short--medium"
-                id="r7"
+                id="r5"
               >
                 stegvisning.utenlandsopphold.radio_ja
               </span>
@@ -248,17 +188,17 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           class="navds-radio navds-radio--medium"
         >
           <input
-            aria-labelledby="ra"
+            aria-labelledby="r8"
             class="navds-radio__input"
             form="har-utenlandsopphold"
-            id="radio-r9"
+            id="radio-r7"
             name="har-utenlandsopphold-radio"
             type="radio"
             value="nei"
           />
           <label
             class="navds-radio__label"
-            for="radio-r9"
+            for="radio-r7"
           >
             <span
               class="navds-radio__content"
@@ -266,7 +206,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
               <span
                 aria-hidden="true"
                 class="navds-body-short navds-body-short--medium"
-                id="ra"
+                id="r8"
               >
                 stegvisning.utenlandsopphold.radio_nei
               </span>
@@ -278,7 +218,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         aria-live="polite"
         aria-relevant="additions removals"
         class="navds-fieldset__error"
-        id="fieldset-error-r5"
+        id="fieldset-error-r3"
       />
     </fieldset>
     <button

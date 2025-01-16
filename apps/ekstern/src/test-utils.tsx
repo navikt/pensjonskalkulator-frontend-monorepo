@@ -6,9 +6,12 @@ import { createBrowserRouter, MemoryRouter, RouterProvider } from 'react-router'
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
+import { SanityContext } from '@/context/SanityContext'
+import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
+import sanityDocumentsResponse from './mocks/data/sanity-documents.json' with { type: 'json' }
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
   setupStore,
@@ -92,7 +95,14 @@ export function renderWithProviders(
     return (
       <Provider store={store}>
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
-          {hasRouter ? childrenWithRouter : children}
+          <SanityContext.Provider
+            value={{
+              readMoreData:
+                sanityDocumentsResponse.result as unknown as SanityReadMore[],
+            }}
+          >
+            {hasRouter ? childrenWithRouter : children}
+          </SanityContext.Provider>
         </IntlProvider>
       </Provider>
     )

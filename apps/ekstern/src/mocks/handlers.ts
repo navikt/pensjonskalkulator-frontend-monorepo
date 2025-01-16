@@ -9,6 +9,7 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
+import sanityDocumentsResponse from './data/sanity-documents.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
@@ -17,7 +18,20 @@ import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
+const testHandlers =
+  process.env.NODE_ENV === 'test'
+    ? [
+        http.get(
+          `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development`,
+          async () => {
+            return HttpResponse.json(sanityDocumentsResponse)
+          }
+        ),
+      ]
+    : []
+
 export const getHandlers = (baseUrl: string = API_PATH) => [
+  ...testHandlers,
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
     await delay(500)
     return HttpResponse.json({

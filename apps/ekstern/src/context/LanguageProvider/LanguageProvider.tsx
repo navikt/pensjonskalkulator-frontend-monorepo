@@ -40,9 +40,9 @@ export function LanguageProvider({ children }: Props) {
     if (sanityClient) {
       await sanityClient
         .fetch(`*[_type == "readmore" && language == "${locale}"]`)
-        .then((readMoreData) => {
-          console.log(`Fetches sanity data`, readMoreData)
-          setSanityData(readMoreData)
+        .then((sanityResponse) => {
+          console.log(`Fetches sanity documents:`, sanityResponse)
+          setSanityData(sanityResponse)
         })
     }
   }

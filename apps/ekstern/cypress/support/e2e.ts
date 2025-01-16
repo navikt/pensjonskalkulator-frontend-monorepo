@@ -150,9 +150,9 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=count%28*%29&returnQuery=false',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?*`,
     },
-    { result: 5, syncTags: ['s1:TMPr9A'], ms: 1 }
+    { fixture: 'sanity-documents.json' }
   ).as('fetchSanityDocuments')
 })
 

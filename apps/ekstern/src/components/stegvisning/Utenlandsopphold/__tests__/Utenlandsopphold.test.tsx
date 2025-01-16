@@ -26,9 +26,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     expect(
       screen.getByText('stegvisning.utenlandsopphold.ingress')
     ).toBeVisible()
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.readmore_1.title')
-    ).toBeVisible()
+    expect(screen.getByText('hva_er_opphold_utenfor_norge')).toBeVisible()
     expect(
       screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
     ).toBeVisible()
