@@ -10,7 +10,10 @@ import {
 
 import { sanityClient } from '../../../sanity.config'
 import { SanityContext } from '@/context/SanityContext'
-import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
+import {
+  SanityForbeholdAvsnitt,
+  SanityReadMore,
+} from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
@@ -31,19 +34,35 @@ interface Props {
 
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
-  const [sanityData, setSanityData] = useState<SanityReadMore[]>([])
+  const [sanityReadMoreData, setSanityReadMoreData] = useState<
+    SanityReadMore[]
+  >([])
+  const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] = useState<
+    SanityForbeholdAvsnitt[]
+  >([])
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
 
   const fetchSanityData = async (locale: Locales) => {
     if (sanityClient) {
-      await sanityClient
+      const readMorePromise = sanityClient
         .fetch(`*[_type == "readmore" && language == "${locale}"]`)
-        .then((sanityResponse) => {
-          console.log(`Fetches sanity documents:`, sanityResponse)
-          setSanityData(sanityResponse)
+        .then((sanityReadMoreResponse) => {
+          console.log(`Fetches sanity ReadMore:`, sanityReadMoreResponse)
+          setSanityReadMoreData(sanityReadMoreResponse)
         })
+      const forbeholdAvsnittPromise = sanityClient
+        .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
+        .then((sanityForbeholdAvsnittResponse) => {
+          console.log(
+            `Fetches sanity ForebholdAvsnitt:`,
+            sanityForbeholdAvsnittResponse
+          )
+          setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse)
+        })
+
+      await Promise.all([readMorePromise, forbeholdAvsnittPromise])
     }
   }
 
@@ -89,7 +108,12 @@ export function LanguageProvider({ children }: Props) {
       messages={getTranslations(languageCookie)}
     >
       <AkselProvider locale={akselLocales[languageCookie]}>
-        <SanityContext.Provider value={{ readMoreData: sanityData }}>
+        <SanityContext.Provider
+          value={{
+            readMoreData: sanityReadMoreData,
+            forbeholdAvsnittData: sanityForbeholdAvsnittData,
+          }}
+        >
           {children}
         </SanityContext.Provider>
       </AkselProvider>

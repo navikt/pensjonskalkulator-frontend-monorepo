@@ -1,4 +1,4 @@
-import { DoubleChevronDownIcon } from '@sanity/icons'
+import { InfoOutlineIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 import { supportedLanguages } from './supportedLanguages'
@@ -6,7 +6,7 @@ import { supportedLanguages } from './supportedLanguages'
 export const readmoreType = defineType({
   name: 'readmore',
   title: 'ReadMore',
-  icon: DoubleChevronDownIcon,
+  icon: InfoOutlineIcon,
   type: 'document',
   preview: {
     select: {

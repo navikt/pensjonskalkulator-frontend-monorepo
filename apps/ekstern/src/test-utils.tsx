@@ -7,7 +7,10 @@ import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
 import { SanityContext } from '@/context/SanityContext'
-import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
+import {
+  SanityForbeholdAvsnitt,
+  SanityReadMore,
+} from '@/context/SanityContext/SanityTypes'
 import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
@@ -97,8 +100,16 @@ export function renderWithProviders(
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
           <SanityContext.Provider
             value={{
-              readMoreData:
-                sanityDocumentsResponse.result as unknown as SanityReadMore[],
+              readMoreData: sanityDocumentsResponse.result.filter(
+                (document) => {
+                  return document._type === 'readmore'
+                }
+              ) as unknown as SanityReadMore[],
+              forbeholdAvsnittData: sanityDocumentsResponse.result.filter(
+                (document) => {
+                  return document._type === 'forbeholdAvsnitt'
+                }
+              ) as unknown as SanityForbeholdAvsnitt[],
             }}
           >
             {hasRouter ? childrenWithRouter : children}
