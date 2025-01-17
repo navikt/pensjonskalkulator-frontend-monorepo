@@ -34,9 +34,9 @@ describe('stegvisning - Utenlandsopphold', () => {
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
 
-      expect(screen.getByText('hva_er_opphold_utenfor_norge')).toBeVisible()
+      expect(screen.getByTestId('hva_er_opphold_utenfor_norge')).toBeVisible()
       expect(
-        screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
+        screen.getByTestId('betydning_av_opphold_utenfor_norge')
       ).toBeVisible()
     })
 

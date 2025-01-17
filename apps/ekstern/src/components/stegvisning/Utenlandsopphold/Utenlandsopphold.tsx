@@ -63,10 +63,7 @@ export function Utenlandsopphold({
       readMoreData.forEach((item) => {
         if (item.name === 'hva_er_opphold_utenfor_norge') {
           setReadMore1(item)
-        } else if (
-          item.name === 'my_second_readmore' &&
-          item.language === 'nb'
-        ) {
+        } else if (item.name === 'betydning_av_opphold_utenfor_norge') {
           setReadMore2(item)
         }
       })
@@ -113,7 +110,8 @@ export function Utenlandsopphold({
       </BodyLong>
       {sanityFeatureToggle?.enabled && readMore1 ? (
         <ReadMore
-          name={readMore1.overskrift}
+          data-testid={readMore1.name}
+          name={readMore1.name}
           header={readMore1.overskrift}
           className={styles.readmore1}
         >
@@ -178,20 +176,34 @@ export function Utenlandsopphold({
           />
         </ReadMore>
       )}
-      <ReadMore
-        name="Betydning av opphold utenfor Norge for pensjon"
-        className={styles.readmore2}
-        header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_2.title" />
-        }
-      >
-        <FormattedMessage
-          id="stegvisning.utenlandsopphold.readmore_2.ingress"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </ReadMore>
+      {sanityFeatureToggle?.enabled && readMore2 ? (
+        <ReadMore
+          data-testid={readMore2.name}
+          name={readMore2.name}
+          header={readMore2.overskrift}
+          className={styles.readmore2}
+        >
+          <PortableText
+            value={readMore2.innhold}
+            components={{ ...getSanityPortableTextComponents(intl) }}
+          />
+        </ReadMore>
+      ) : (
+        <ReadMore
+          name="Betydning av opphold utenfor Norge for pensjon"
+          className={styles.readmore2}
+          header={
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_2.title" />
+          }
+        >
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_2.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </ReadMore>
+      )}
       <RadioGroup
         name="har-utenlandsopphold-radio"
         className={styles.radiogroup}
