@@ -6,14 +6,13 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
-// TODO fjerne snapshots fra denne testen
 describe('stegvisning - Utenlandsopphold', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart', async () => {
-    const result = render(
+    render(
       <Utenlandsopphold
         harUtenlandsopphold={null}
         onCancel={onCancelMock}
@@ -27,17 +26,18 @@ describe('stegvisning - Utenlandsopphold', () => {
     expect(
       screen.getByText('stegvisning.utenlandsopphold.ingress')
     ).toBeVisible()
-    expect(screen.getByText('hva_er_opphold_utenfor_norge')).toBeVisible()
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
-    ).toBeVisible()
+
     const radioButtons = screen.getAllByRole('radio')
 
     await waitFor(() => {
       expect(screen.getAllByRole('radio')).toHaveLength(2)
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
-      expect(result.asFragment()).toMatchSnapshot()
+
+      expect(screen.getByText('hva_er_opphold_utenfor_norge')).toBeVisible()
+      expect(
+        screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
+      ).toBeVisible()
     })
 
     expect(

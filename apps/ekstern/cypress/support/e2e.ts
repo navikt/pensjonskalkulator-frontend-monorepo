@@ -90,6 +90,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.hent-tekster-fra-sanity',
+    },
+    { fixture: 'toggle-enable-sanity.json' }
+  ).as('getFeatureToggleRedirect1963')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }

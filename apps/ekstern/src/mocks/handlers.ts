@@ -13,6 +13,7 @@ import sanityDocumentsResponse from './data/sanity-documents.json' with { type: 
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableSanityToggleResponse from './data/unleash-enable-sanity.json' with { type: 'json' }
 import enableTpOffentligToggleResponse from './data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
@@ -166,6 +167,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(enableTpOffentligToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.hent-tekster-fra-sanity`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableSanityToggleResponse)
     }
   ),
 

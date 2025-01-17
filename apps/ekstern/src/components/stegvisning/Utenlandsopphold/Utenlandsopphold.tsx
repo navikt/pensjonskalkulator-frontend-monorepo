@@ -11,6 +11,7 @@ import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/Utenla
 import { SanityContext } from '@/context/SanityContext'
 import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { paths } from '@/router/constants'
+import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
@@ -39,6 +40,8 @@ export function Utenlandsopphold({
   const { readMoreData } = React.useContext(SanityContext)
   const [readMore1, setReadMore1] = React.useState<SanityReadMore | undefined>()
   const [readMore2, setReadMore2] = React.useState<SanityReadMore | undefined>()
+
+  const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
@@ -108,7 +111,7 @@ export function Utenlandsopphold({
       <BodyLong size="large">
         <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
       </BodyLong>
-      {readMore1 && (
+      {sanityFeatureToggle?.enabled && readMore1 ? (
         <ReadMore
           name={readMore1.overskrift}
           header={readMore1.overskrift}
@@ -117,6 +120,61 @@ export function Utenlandsopphold({
           <PortableText
             value={readMore1.innhold}
             components={{ ...getSanityPortableTextComponents(intl) }}
+          />
+        </ReadMore>
+      ) : (
+        <ReadMore
+          name="Hva som er opphold utenfor Norge"
+          className={styles.readmore1}
+          header={
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
+          }
+        >
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
+            </li>
+          </ul>
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
+            </li>
+          </ul>
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
           />
         </ReadMore>
       )}
