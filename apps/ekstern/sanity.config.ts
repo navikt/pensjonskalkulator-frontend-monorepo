@@ -30,7 +30,7 @@ const pluginsArray = [
   visionTool(),
   documentInternationalization({
     supportedLanguages,
-    schemaTypes: ['readmore'],
+    schemaTypes: ['readmore', 'forbeholdAvsnitt'],
     languageField: 'language',
   }),
 ]
