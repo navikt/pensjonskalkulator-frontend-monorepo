@@ -22,19 +22,22 @@ import styles from './Sivilstand.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
-  sivilstand: Sivilstand
+  sivilstand: UtvidetSivilstand
   harSamboer: boolean | null
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   onCancel?: () => void
   onPrevious: () => void
-  onNext: (sivilstandData: BooleanRadio) => void
+  onNext: (sivilstandData: {
+    sivilstand: UtvidetSivilstand
+    epsHarPensjon: boolean
+    epsHarInntektOver2G: boolean
+  }) => void
 }
 
 export function Sivilstand({
   shouldRedirectTo,
   sivilstand,
-  harSamboer,
   epsHarInntektOver2G,
   epsHarPensjon,
   onCancel,
@@ -43,18 +46,19 @@ export function Sivilstand({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-  const [validationError, setValidationError] = useState<string>('')
+  const [, /* validationError */ setValidationError] = useState<string>('')
+
   const sivilstandOptions = [
-    'gift',
-    'ugift',
-    'gjenlevende_partner',
-    'skilt',
-    'separert',
-    'registrert_partner',
-    'separert_partner',
-    'skilt_partner',
-    'enke_enkemann',
-    'samboer',
+    'UGIFT',
+    'GIFT',
+    'ENKE_ELLER_ENKEMANN',
+    'SKILT',
+    'SEPARERT',
+    'REGISTRERT_PARTNER',
+    'SEPARERT_PARTNER',
+    'SKILT_PARTNER',
+    'GJENLEVENDE_PARTNER',
+    'SAMBOER',
   ]
 
   React.useEffect(() => {
@@ -72,7 +76,16 @@ export function Sivilstand({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const sivilstandData = data.get('sivilstand') as BooleanRadio | undefined
+
+    const sivilstandData = data.get('sivilstand') as UtvidetSivilstand
+    const epsHarPensjonData =
+      (data.get('epsHarPensjon') as BooleanRadio | undefined) === 'ja'
+        ? true
+        : false
+    const epsHarInntektOver2GData =
+      (data.get('epsHarInntektOver2G') as BooleanRadio | undefined) === 'ja'
+        ? true
+        : false
 
     if (!sivilstandData) {
       const tekst = intl.formatMessage({
@@ -94,13 +107,56 @@ export function Sivilstand({
       logger('button klikk', {
         tekst: `Neste fra ${paths.sivilstand}`,
       })
-      onNext(sivilstandData)
+      onNext({
+        sivilstand: sivilstandData,
+        epsHarPensjon: epsHarPensjonData,
+        epsHarInntektOver2G: epsHarInntektOver2GData,
+      })
     }
   }
 
-  const handleRadioChange = (): void => {
-    setValidationError('')
+  interface InputChange {
+    field: 'epsHarPensjon' | 'sivilstand'
+    value: BooleanRadio | UtvidetSivilstand
   }
+  interface ShouldShowInputs {
+    epsHarPensjon: boolean
+    epsHarInntektOver2G: boolean
+  }
+  const [shouldShowInput, handleInputChange] = React.useReducer<
+    React.Reducer<ShouldShowInputs, InputChange>
+  >(
+    (_, action) => {
+      if (action.field === 'sivilstand') {
+        const shouldShowEpsHarPensjon =
+          action.value === 'GIFT' ||
+          action.value === 'REGISTRERT_PARTNER' ||
+          action.value === 'SAMBOER'
+        return {
+          epsHarPensjon: shouldShowEpsHarPensjon,
+          epsHarInntektOver2G: false,
+        }
+      } else if (action.field === 'epsHarPensjon') {
+        const shouldShowEpsHarInntektOver2G = action.value === 'nei'
+        return {
+          epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
+          epsHarPensjon: true,
+        }
+      } else {
+        return {
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
+        }
+      }
+    },
+    {
+      epsHarPensjon:
+        sivilstand === 'GIFT' ||
+        sivilstand === 'REGISTRERT_PARTNER' ||
+        sivilstand === 'SAMBOER',
+      epsHarInntektOver2G: epsHarPensjon !== null && epsHarPensjon === false,
+    }
+  )
 
   if (shouldRedirectTo) {
     return null
@@ -117,31 +173,21 @@ export function Sivilstand({
           {formatertSivilstand}
           <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
         </BodyLong>
-        <RadioGroup
-          legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
-          name="sivilstand"
-          className={styles.radiogroup}
-          defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value="ja">
-            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
-          </Radio>
-          <Radio value="nei">
-            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
-          </Radio>
-        </RadioGroup>
         <Select
-          defaultValue={formatertSivilstand}
+          name="sivilstand"
+          defaultValue={sivilstand}
           label={intl.formatMessage({
             id: `stegvisning.sivilstand.select_label`,
           })}
           description={intl.formatMessage({
             id: `stegvisning.sivilstand.select_description`,
           })}
+          onChange={(e) =>
+            handleInputChange({
+              field: 'sivilstand',
+              value: e.target.value as UtvidetSivilstand,
+            })
+          }
         >
           {sivilstandOptions.map((option) => (
             <option key={option} value={option}>
@@ -151,50 +197,63 @@ export function Sivilstand({
             </option>
           ))}
         </Select>
-        <RadioGroup
-          legend={
-            <FormattedMessage id="stegvisning.sivilstand.radio_epsHarPensjon_label" />
-          }
-          description={intl.formatMessage({
-            id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
-          })}
-          name="epsHarPensjon"
-          className={styles.radiogroup}
-          value={epsHarPensjon}
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value={true}>
-            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
-          </Radio>
-          <Radio value={false}>
-            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
-          </Radio>
-        </RadioGroup>
-        <RadioGroup
-          legend={
-            <FormattedMessage id="stegvisning.sivilstand.radio_epsHarInntektOver2G_label" />
-          }
-          description={intl.formatMessage({
-            id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
-          })}
-          name="epsHarInntektOver2G"
-          className={styles.radiogroup}
-          value={epsHarInntektOver2G}
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value={true}>
-            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
-          </Radio>
-          <Radio value={false}>
-            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
-          </Radio>
-        </RadioGroup>
+        {shouldShowInput.epsHarPensjon && (
+          <RadioGroup
+            legend={
+              <FormattedMessage id="stegvisning.sivilstand.radio_epsHarPensjon_label" />
+            }
+            description={intl.formatMessage({
+              id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
+            })}
+            name="epsHarPensjon"
+            defaultValue={
+              epsHarPensjon === null ? '' : epsHarPensjon ? 'ja' : 'nei'
+            }
+            onChange={(value) =>
+              handleInputChange({ field: 'epsHarPensjon', value })
+            }
+            className={styles.radiogroup}
+            //error={validationError}
+            role="radiogroup"
+            aria-required="true"
+          >
+            <Radio value="ja">
+              <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+            </Radio>
+            <Radio value="nei">
+              <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+            </Radio>
+          </RadioGroup>
+        )}
+        {shouldShowInput.epsHarInntektOver2G && (
+          <RadioGroup
+            legend={
+              <FormattedMessage id="stegvisning.sivilstand.radio_epsHarInntektOver2G_label" />
+            }
+            description={intl.formatMessage({
+              id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
+            })}
+            name="epsHarInntektOver2G"
+            defaultValue={
+              epsHarInntektOver2G === null
+                ? ''
+                : epsHarInntektOver2G
+                  ? 'ja'
+                  : 'nei'
+            }
+            className={styles.radiogroup}
+            //error={validationError}
+            role="radiogroup"
+            aria-required="true"
+          >
+            <Radio value="ja">
+              <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+            </Radio>
+            <Radio value="nei">
+              <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+            </Radio>
+          </RadioGroup>
+        )}
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>

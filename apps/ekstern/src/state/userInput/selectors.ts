@@ -43,8 +43,10 @@ export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
-      ?.sivilstand
+    return (
+      state.userInput.sivilstand ??
+      apiSlice.endpoints.getPerson.select(undefined)(state)?.data?.sivilstand
+    )
   }
 )
 

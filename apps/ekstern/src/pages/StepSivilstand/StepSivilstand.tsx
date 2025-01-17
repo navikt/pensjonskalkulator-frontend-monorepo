@@ -39,8 +39,12 @@ export function StepSivilstand() {
     })
   }, [])
 
-  const onNext = (sivilstandData: BooleanRadio): void => {
-    dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
+  const onNext = (sivilstandData: {
+    sivilstand: UtvidetSivilstand
+    epsHarPensjon: boolean
+    epsHarInntektOver2G: boolean
+  }): void => {
+    dispatch(userInputActions.setSivilstand(sivilstandData))
     if (onStegvisningNext) {
       onStegvisningNext()
     }
@@ -65,7 +69,7 @@ export function StepSivilstand() {
             <Sivilstand
               shouldRedirectTo={resp[1]}
               //sivilstand={resp[0].data.sivilstand}
-              sivilstand={sivilstand || 'UNKNOWN'}
+              sivilstand={sivilstand}
               harSamboer={samboerSvar}
               epsHarInntektOver2G={epsHarInntektOver2G}
               epsHarPensjon={epsHarPensjon}
