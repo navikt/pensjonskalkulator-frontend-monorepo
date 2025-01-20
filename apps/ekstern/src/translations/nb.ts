@@ -781,5 +781,7 @@ const translations = {
     'Spørsmål til Nav eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
     'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringen</navPersonvernerklaeringKontaktOssLink> for Nav.',
+  'showmore.vis_mindre': 'Vis mindre',
+  'showmore.vis_mer': 'Vis mer',
 }
 export const getTranslation_nb = () => translations
