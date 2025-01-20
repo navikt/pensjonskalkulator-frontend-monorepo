@@ -44,7 +44,7 @@ export function StepSivilstand() {
     epsHarPensjon: boolean
     epsHarInntektOver2G: boolean
   }): void => {
-    console.log(dispatch(userInputActions.setSivilstand(sivilstandData)))
+    dispatch(userInputActions.setSivilstand(sivilstandData))
     if (onStegvisningNext) {
       onStegvisningNext()
     }

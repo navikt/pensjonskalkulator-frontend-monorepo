@@ -130,9 +130,17 @@ export function Sivilstand({
         sivilstand === 'GIFT' ||
         sivilstand === 'REGISTRERT_PARTNER' ||
         sivilstand === 'SAMBOER',
-      epsHarInntektOver2G: epsHarPensjon === false,
+      epsHarInntektOver2G:
+        (sivilstand === 'GIFT' ||
+          sivilstand === 'REGISTRERT_PARTNER' ||
+          sivilstand === 'SAMBOER') &&
+        epsHarPensjon === false,
     }
   )
+
+  React.useEffect(() => {
+    console.log(shouldShowInput)
+  }, [])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
