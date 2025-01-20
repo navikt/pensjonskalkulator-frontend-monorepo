@@ -131,7 +131,7 @@ describe('Simulering', () => {
         screen.getAllByText('100 000', {
           exact: false,
         })
-      ).toHaveLength(1)
+      ).toHaveLength(2)
       expect(
         screen.getByText('beregning.avansert.endring_banner.kr_md', {
           exact: false,
