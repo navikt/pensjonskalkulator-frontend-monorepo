@@ -13,7 +13,7 @@ export const FrameComponent: React.FC<{
   isFullWidth?: boolean
   hasWhiteBg?: boolean
   shouldShowLogo?: boolean
-  children?: JSX.Element
+  children?: React.JSX.Element
 }> = ({
   isFullWidth,
   hasWhiteBg = false,
@@ -41,6 +41,7 @@ export const FrameComponent: React.FC<{
               marginBottom: 'var(--a-spacing-6)',
             }}
           ></representasjon-banner>
+
           <div
             className={clsx(styles.headerGroupTitle, {
               [styles.headerGroupTitle__isFramed]: !isFullWidth,

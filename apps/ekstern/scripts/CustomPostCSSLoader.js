@@ -1,18 +1,18 @@
 import path from 'path'
 
-import sass from 'node-sass'
 import postcss from 'postcss'
 import extractImports from 'postcss-modules-extract-imports'
 import localByDefault from 'postcss-modules-local-by-default'
 import scope from 'postcss-modules-scope'
 import values from 'postcss-modules-values'
+import * as sass from 'sass'
 
 const importRegexp = /^:import\((.+)\)$/
 
 // TODO - Denne custom loader er nødvendig for at scss filer som importeres gjennom CSS "compose" blir pre-prosessert
 // Denne koden kan fases ut når bugg'en i vite er løst. "Loader" i vite-config skal også fjernes.
 // https://github.com/vitejs/vite/issues/10340 og https://github.com/vitejs/vite/issues/10079
-// Følgende pakker skal også fjernes fra package.json: node-sass, postcss-modules-extract-imports, postcss-modules-local-by-default, postcss-modules-scope, postcss-modules-values
+// Følgende pakker skal også fjernes fra package.json: postcss-modules-extract-imports, postcss-modules-local-by-default, postcss-modules-scope, postcss-modules-values
 
 // Parser class er kopiert fra https://github.com/css-modules/css-modules-loader-core/blob/master/src/parser.js
 class Parser {
@@ -135,10 +135,7 @@ export default class CustomPostCSSLoader {
     return new Promise((resolve, reject) => {
       let relativeDir = path.dirname(relativeTo),
         rootRelativePath = path.resolve(relativeDir, newPath),
-        fileRelativePath = path.resolve(
-          path.join(this.root, relativeDir),
-          newPath
-        )
+        fileRelativePath = rootRelativePath
 
       // if the path is not relative or absolute, try to resolve it in node_modules
       if (newPath[0] !== '.' && newPath[0] !== '/') {
@@ -155,24 +152,24 @@ export default class CustomPostCSSLoader {
       }
 
       // Custom kode fs.readFile er erstattet med sass for preprocessing
-      sass.render({ file: fileRelativePath }, (err, source) => {
-        if (err) {
-          reject(err)
-        }
-        this.core
-          .load(
-            source.css.toString(),
-            rootRelativePath,
-            trace,
-            this.fetch.bind(this)
-          )
-          .then(({ injectableSource, exportTokens }) => {
-            this.sources[fileRelativePath] = injectableSource
-            this.traces[trace] = fileRelativePath
-            this.tokensByFile[fileRelativePath] = exportTokens
-            resolve(exportTokens)
-          }, reject)
-      })
+      sass
+        .compileAsync(fileRelativePath)
+        .then((result) => {
+          this.core
+            .load(
+              result.css.toString(),
+              rootRelativePath.replaceAll('\\', '/'), // Hack: Erstatt Windows path separator med Unix
+              trace,
+              this.fetch.bind(this)
+            )
+            .then(({ injectableSource, exportTokens }) => {
+              this.sources[fileRelativePath] = injectableSource
+              this.traces[trace] = fileRelativePath
+              this.tokensByFile[fileRelativePath] = exportTokens
+              resolve(exportTokens)
+            }, reject)
+        })
+        .catch(reject)
     })
   }
 

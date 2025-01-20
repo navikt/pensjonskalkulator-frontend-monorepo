@@ -42,7 +42,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
           {
             exact: false,
           }
@@ -75,13 +75,13 @@ describe('TidligstMuligUttaksalder', () => {
         })
       ).toBeInTheDocument()
       expect(
-        screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+        screen.getByText('Beregningen din viser at du kan ta ut', {
           exact: false,
         })
       ).toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
           {
             exact: false,
           }
@@ -109,7 +109,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()
@@ -150,7 +150,7 @@ describe('TidligstMuligUttaksalder', () => {
           })
         ).toBeInTheDocument()
         expect(
-          screen.getByText('Din opptjening gjør at du tidligst kan ta ut', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
         ).toBeInTheDocument()

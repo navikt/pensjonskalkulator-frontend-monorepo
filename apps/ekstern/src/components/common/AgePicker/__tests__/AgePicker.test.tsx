@@ -3,7 +3,7 @@ import { describe, it, vi } from 'vitest'
 import { AgePicker } from '..'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, fireEvent } from '@/test-utils'
+import { render, screen, fireEvent, waitFor } from '@/test-utils'
 
 describe('AgePicker', () => {
   it('rendrer riktig default verdier, description og info', () => {
@@ -197,7 +197,7 @@ describe('AgePicker', () => {
     })
   })
 
-  it('viser feilmelding når error er fylt ut og rikrig aria attributer', () => {
+  it('viser feilmelding når error er fylt ut', () => {
     render(
       <AgePicker
         name="unique-name"
@@ -213,19 +213,74 @@ describe('AgePicker', () => {
     ).toBe('unique-name-error')
     expect(
       screen
-        .getByTestId('age-picker-unique-name-aar')
-        .getAttribute('aria-invalid')
-    ).toBeTruthy()
-    expect(
-      screen
         .getByTestId('age-picker-unique-name-maaneder')
         .getAttribute('aria-describedby')
     ).toBe('unique-name-error')
+  })
+
+  it('viser aria-invalid attribut på riktig felt når error er fylt ut', () => {
+    render(
+      <AgePicker
+        name="unique-name"
+        label="My Test Age Picker"
+        error="My Error"
+      />
+    )
+    // Når ingen av de feltene er fylt ut
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-aar')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
     expect(
       screen
         .getByTestId('age-picker-unique-name-maaneder')
         .getAttribute('aria-invalid')
-    ).toBeTruthy()
+    ).toBe('true')
+
+    // Når bare år er fylt ut
+    fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+      target: { value: '72' },
+    })
+    waitFor(() => {
+      expect(
+        screen
+          .getByTestId('age-picker-unique-name-aar')
+          .getAttribute('aria-invalid')
+      ).toBe('false')
+      expect(
+        screen
+          .getByTestId('age-picker-unique-name-maaneder')
+          .getAttribute('aria-invalid')
+      ).toBe('true')
+    })
+
+    // Når år og måned er fylt ut
+    fireEvent.change(screen.getByTestId('age-picker-unique-name-maaneder'), {
+      target: { value: '0' },
+    })
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-aar')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-maaneder')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-aar')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
+    expect(
+      screen
+        .getByTestId('age-picker-unique-name-maaneder')
+        .getAttribute('aria-invalid')
+    ).toBe('true')
+
+    // Når bare måned er fylt ut kan ikke testes fordi monthArray er tom så lenge år ikke e rvalgt
   })
 
   it('kaller onChange når option velges i år eller måneder, og Select for måneder enables når år er valgt', () => {

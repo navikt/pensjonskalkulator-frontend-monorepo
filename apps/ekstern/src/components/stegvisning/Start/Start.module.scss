@@ -1,9 +1,9 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables';
 
 .wrapper {
   text-align: left;
 
-  @media (min-width: $a-breakpoint-md) {
+  @media (min-width: variables.$a-breakpoint-md) {
     display: flex;
     flex-flow: row-reverse;
 
@@ -44,7 +44,7 @@
   }
 
   &__green {
-    background-color: var(--a-green-400);
+    background-color: var(--a-data-surface-5);
   }
 }
 

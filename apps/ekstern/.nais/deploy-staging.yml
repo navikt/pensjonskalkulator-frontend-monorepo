@@ -42,6 +42,7 @@ spec:
   idporten:
     enabled: true
     sidecar:
+      level: idporten-loa-substantial
       enabled: true
       autoLogin: true
       autoLoginIgnorePaths:

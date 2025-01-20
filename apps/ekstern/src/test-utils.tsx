@@ -72,7 +72,9 @@ export function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
+  function Wrapper({
+    children,
+  }: PropsWithChildren<unknown>): React.JSX.Element {
     const router = createBrowserRouter([
       {
         loader: authenticationGuard,

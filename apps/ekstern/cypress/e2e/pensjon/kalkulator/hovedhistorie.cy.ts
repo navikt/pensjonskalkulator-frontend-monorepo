@@ -1,3 +1,5 @@
+import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
+
 describe('Hovedhistorie', () => {
   describe('Når jeg som bruker navigerer på nav.no/din pensjon og velger å prøve den nye kalkulatoren,', () => {
     it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
@@ -19,10 +21,6 @@ describe('Hovedhistorie', () => {
 
     describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
       it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
-        Cypress.on('uncaught:exception', (err) => {
-          // prevents Cypress from failing when catching errors in uinnlogget kalkulator
-          return false
-        })
         cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
@@ -82,9 +80,31 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should('include', '/pensjon/kalkulator/sivilstand')
-        cy.go('forward')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+    })
+
+    describe('Som bruker som har fremtidig vedtak om alderspensjon,', () => {
+      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+        beforeEach(() => {
+          cy.intercept(
+            {
+              method: 'GET',
+              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            },
+            {
+              ...loependeVedtakMock,
+              harFremtidigLoependeVedtak: true,
+            }
+          ).as('getLoependeVedtak')
+          cy.login()
+        })
+        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+          cy.contains(
+            'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.'
+          )
+        })
       })
     })
 
@@ -315,12 +335,12 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
-        cy.contains('Jo lenger du venter, desto mer får du i året.').should(
-          'exist'
-        )
+        cy.contains(
+          'Hvis du venter lenger med uttaket, vil den årlige pensjonen din øke.'
+        ).should('exist')
       })
       it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
@@ -345,18 +365,18 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
         cy.contains('Det kan bli senere pga. økt pensjonsalder.').should(
           'exist'
         )
       })
-      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder.', () => {
+      it('må jeg kunne trykke på Readmore for å få mer informasjon om tidspunktet for tidligst uttak.', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Om pensjonsalder').click()
+        cy.contains('Om tidspunktet for tidligst uttak').click()
         cy.contains('Den oppgitte alderen er et estimat.').should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
@@ -477,7 +497,7 @@ describe('Hovedhistorie', () => {
         cy.contains('521 338 kr').should('exist')
         cy.contains('Inntekt frem til uttak: 521 338 kr').should('exist')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 62 år og 10 måneder'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er 62 år og 10 måneder'
         ).should('exist')
 
         cy.intercept(
@@ -496,7 +516,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Oppdater inntekt').click()
         cy.get('62 år og 10 måneder').should('not.exist')
         cy.contains(
-          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 67 år.'
+          'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er 67 år.'
         ).should('exist')
       })
 

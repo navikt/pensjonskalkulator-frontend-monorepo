@@ -19,22 +19,30 @@ describe('Grunnlag', () => {
   const renderGrunnlagMedPreloadedState = (
     headingLevel: '1' | '2' | '3',
     visning: 'avansert' | 'enkel',
-    userInputState?: userInputReducerUtils.UserInputState
+    userInputState?: userInputReducerUtils.UserInputState,
+    pensjonsbeholdning?: number
   ) => {
-    render(<Grunnlag headingLevel={headingLevel} visning={visning} />, {
-      preloadedState: {
-        api: {
-          //@ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+    render(
+      <Grunnlag
+        headingLevel={headingLevel}
+        visning={visning}
+        pensjonsbeholdning={pensjonsbeholdning}
+      />,
+      {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            ...userInputState,
           },
         },
-        userInput: {
-          ...userInputInitialState,
-          ...userInputState,
-        },
-      },
-    })
+      }
+    )
   }
   it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
     renderGrunnlagMedPreloadedState('3', 'enkel')
@@ -269,14 +277,27 @@ describe('Grunnlag', () => {
     it('viser riktig tittel', async () => {
       const user = userEvent.setup()
       renderGrunnlagMedPreloadedState('2', 'enkel')
-      expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
-      expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.alderspensjon.title')
+      ).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[5])
 
       expect(
-        await screen.findByText('Alderspensjon beregnes ut ifra', {
+        await screen.findByText('grunnlag.alderspensjon.ingress')
+      ).toBeVisible()
+    })
+
+    it('viser pensjonsbeholdning når den er oppgitt', async () => {
+      const user = userEvent.setup()
+      renderGrunnlagMedPreloadedState('2', 'enkel', undefined, 2345678)
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[5])
+
+      expect(
+        await screen.findByText('Din pensjonsbeholdning før uttak:', {
           exact: false,
         })
       ).toBeVisible()

@@ -13,7 +13,7 @@ import {
 } from './utils'
 
 export const useUtenlandsoppholdLocalState = (initialValues: {
-  modalRef: React.RefObject<HTMLDialogElement>
+  modalRef: React.RefObject<HTMLDialogElement | null>
   foedselsdato?: string
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void

@@ -11,7 +11,7 @@ interface Props {
   headerTitle: string
   headerValue?: string
   isLoading?: boolean
-  children: JSX.Element
+  children: React.JSX.Element
 }
 
 export const GrunnlagSection = React.forwardRef(

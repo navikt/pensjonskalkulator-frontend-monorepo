@@ -8,7 +8,7 @@ import {
   BeregningContext,
   AvansertBeregningModus,
 } from '@/pages/Beregning/context'
-import { act, renderHook, screen } from '@/test-utils'
+import { act, render, renderHook, screen } from '@/test-utils'
 
 describe('RedigerAvansertBeregning-hooks', () => {
   describe('useFormLocalState', () => {
@@ -884,48 +884,27 @@ describe('RedigerAvansertBeregning-hooks', () => {
       })
 
       // gradertAgePickerError
-      expect(result.current[1]).toMatchInlineSnapshot(
-        `
-        <React.Fragment>
-          id2
-           
-          <Memo(MemoizedFormattedMessage)
-            id="beregning.avansert.rediger.agepicker.grad.validation_error"
-            values={
-              {
-                "afpLink": [Function],
-                "afpPrivatLink": [Function],
-                "alderspensjonsreglerLink": [Function],
-                "br": <br />,
-                "detaljertKalkulatorLink": [Function],
-                "dinPensjonBeholdningLink": [Function],
-                "dinPensjonEndreSoeknadLink": [Function],
-                "dinPensjonLink": [Function],
-                "garantiPensjonLink": [Function],
-                "grad": undefined,
-                "kontaktOssLink": [Function],
-                "kortBotidLink": [Function],
-                "navPersonvernerklaeringKontaktOssLink": [Function],
-                "navPersonvernerklaeringLink": [Function],
-                "norskPensjonLink": [Function],
-                "nowrap": [Function],
-                "personopplysningerLink": [Function],
-                "planleggePensjonLink": [Function],
-                "spkLink": [Function],
-                "strong": [Function],
-                "trygdetidLink": [Function],
-              }
-            }
-          />
-        </React.Fragment>
-      `
+      const gradertAgePickerError = render(
+        result.current[1] as React.ReactElement
       )
+      expect(gradertAgePickerError.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          id2  for når du vil ta ut 
+          <span
+            class="nowrap"
+          >
+             %
+          </span>
+           alderspensjon.
+        </DocumentFragment>
+      `)
+
       // heltAgePickerError
-      expect(result.current[2]).toMatchInlineSnapshot(`
-        <React.Fragment>
-          id4
-           
-        </React.Fragment>
+      const heltAgePickerError = render(result.current[2] as React.ReactElement)
+      expect(heltAgePickerError.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          id4 
+        </DocumentFragment>
       `)
 
       act(() => {

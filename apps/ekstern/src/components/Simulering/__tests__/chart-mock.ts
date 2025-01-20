@@ -27,17 +27,17 @@ export const getChartMock = (
   const data2 = [
     {
       index: 0,
-      color: 'var(--a-green-400)',
+      color: 'var(--a-data-surface-5)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 1,
-      color: 'var(--a-green-400)',
+      color: 'var(--a-data-surface-5)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 2,
-      color: 'var(--a-green-200)',
+      color: 'var(--a-data-surface-5-subtle)',
       update: pointUpdateMock,
     } as unknown as Point,
   ]

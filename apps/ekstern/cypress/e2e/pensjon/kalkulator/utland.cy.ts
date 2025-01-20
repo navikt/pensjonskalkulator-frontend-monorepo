@@ -315,7 +315,7 @@ describe('Utland', () => {
               cy.contains('button', 'Gå tilbake til opphold').click()
               cy.contains('Opphold utenfor Norge').should('exist')
               cy.contains(
-                'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.'
+                'Har du bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.'
               ).should('exist')
             })
           })
@@ -383,7 +383,7 @@ describe('Utland', () => {
               cy.contains('button', 'Gå tilbake til opphold').click()
               cy.contains('Opphold utenfor Norge').should('exist')
               cy.contains(
-                'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.'
+                'Har du bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.'
               ).should('exist')
             })
           })
@@ -424,7 +424,7 @@ describe('Utland', () => {
             cy.contains('button', 'Gå tilbake til opphold').click()
             cy.contains('Opphold utenfor Norge').should('exist')
             cy.contains(
-              'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.'
+              'Har du bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.'
             ).should('exist')
           })
         })

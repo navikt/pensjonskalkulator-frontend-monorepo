@@ -19,7 +19,7 @@ export interface CardContentProps {
   onPrimaryButtonClick?: () => void
   onSecondaryButtonClick?: () => void
   onTertiaryButtonClick?: () => void
-  children?: JSX.Element
+  children?: React.JSX.Element
 }
 
 export function CardContent({

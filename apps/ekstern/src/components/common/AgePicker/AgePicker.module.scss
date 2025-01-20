@@ -1,4 +1,4 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables';
 
 .label {
   display: block;
@@ -21,12 +21,12 @@
   }
 
   &Aar {
-    flex-basis: $input-width-xxs;
+    flex-basis: variables.$input-width-xxs;
     flex-shrink: 0;
   }
 
   &Maaned {
-    flex-basis: $input-width-xs;
+    flex-basis: variables.$input-width-xs;
     flex-shrink: 0;
   }
 
@@ -35,6 +35,15 @@
       box-shadow: 0 0 0 1px
         var(--ac-select-error-border, var(--a-surface-danger));
       border-color: var(--ac-select-error-border, var(--a-surface-danger));
+
+      &:focus {
+        outline: none;
+        border-color: var(
+          --ac-select-active-border,
+          var(--a-border-action-selected)
+        );
+        box-shadow: var(--a-shadow-focus);
+      }
     }
   }
 

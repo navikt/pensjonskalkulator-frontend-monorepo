@@ -12,7 +12,7 @@ export default defineConfig({
         if (browser.family === 'firefox') {
           launchOptions.preferences['ui.prefersReducedMotion'] = 1
         }
-        if (browser.family === 'chromium') {
+        if (browser.family === 'chromium' && browser.name !== 'electron') {
           launchOptions.args.push('--force-prefers-reduced-motion')
         }
         return launchOptions

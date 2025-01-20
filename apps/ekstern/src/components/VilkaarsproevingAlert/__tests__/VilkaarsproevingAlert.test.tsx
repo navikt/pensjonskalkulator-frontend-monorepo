@@ -87,7 +87,7 @@ describe('VilkaarsproevingAlert', () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut',
+        'Et alternativ er at du ved 65 år og 3 måneder kan ta ut',
         {
           exact: false,
         }
@@ -140,7 +140,7 @@ describe('VilkaarsproevingAlert', () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut',
+        'Et alternativ er at du ved 65 år og 3 måneder kan ta ut',
         {
           exact: false,
         }
@@ -192,7 +192,7 @@ describe('VilkaarsproevingAlert', () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Ett alternativ er at du ved 68 år og 5 måneder kan ta ut',
+        'Et alternativ er at du ved 68 år og 5 måneder kan ta ut',
         {
           exact: false,
         }

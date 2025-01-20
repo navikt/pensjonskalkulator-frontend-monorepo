@@ -1,5 +1,4 @@
-import globalClassNames from "../../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly label: "label";
   readonly description: "description";
   readonly selectWrapper: "selectWrapper";

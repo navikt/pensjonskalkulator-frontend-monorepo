@@ -15,7 +15,7 @@ export function mergeRefs<T>(refs: PossibleRef<T>[]): React.RefCallback<T> {
       if (typeof ref === 'function') {
         ref(value)
       } else if (ref !== null && ref !== undefined) {
-        ;(ref as React.MutableRefObject<T | null>).current = value
+        ;(ref as React.RefObject<T | null>).current = value
       }
     })
   }
@@ -204,8 +204,7 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
         <div
           className="navds-show-more__content"
           style={isOpen ? {} : { height: collapsedHeight }}
-          // @ts-expect-error https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60822
-          inert={isOpen ? undefined : ''}
+          inert={isOpen ? undefined : true}
         >
           {children}
         </div>

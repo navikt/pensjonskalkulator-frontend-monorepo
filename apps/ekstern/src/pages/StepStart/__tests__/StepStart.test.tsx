@@ -103,8 +103,8 @@ describe('StepStart', () => {
 
       await waitFor(async () => {
         expect(await screen.findByText('pageframework.title')).toBeVisible()
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
       })
-      expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
     })
   })
 
@@ -171,9 +171,8 @@ describe('StepStart', () => {
 
       await waitFor(async () => {
         expect(await screen.findByText('pageframework.title')).toBeVisible()
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
       })
-
-      expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
     })
   })
 

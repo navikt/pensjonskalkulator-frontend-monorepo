@@ -441,6 +441,7 @@ const translations = {
   'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.endring': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
   'grunnlag.opphold.avbryt_modal.title': 'MANGLER_TEKST',
   'grunnlag.opphold.avbryt_modal.bekreft': 'MANGLER_TEKST',
@@ -448,7 +449,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
+    'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}MANGLER_TEKST: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'MANGLER_TEKST',
   'grunnlag.afp.endring': 'MANGLER_TEKST',

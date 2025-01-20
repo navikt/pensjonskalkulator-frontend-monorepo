@@ -1,5 +1,4 @@
-import globalClassNames from "../../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly info: "info";
   readonly infoIcon: "infoIcon";
   readonly infoIcon__orange: "infoIcon__orange";
