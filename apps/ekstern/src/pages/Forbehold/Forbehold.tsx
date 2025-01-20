@@ -6,6 +6,8 @@ import { BodyLong, Heading } from '@navikt/ds-react'
 import { Card } from '@/components/common/Card'
 import { getFormatMessageValues } from '@/utils/translations'
 
+// TODO hente feature-toggle for sanity
+// TODO hente forbehold avsnitt og sortere dem etter "order" felt
 export function Forbehold() {
   const intl = useIntl()
 
