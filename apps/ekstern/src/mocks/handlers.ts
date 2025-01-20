@@ -105,7 +105,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     ) {
       const afpOffentligData = JSON.parse(
         JSON.stringify(await import(`./data/afp-offentlig.json`))
