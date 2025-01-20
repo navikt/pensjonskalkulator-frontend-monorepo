@@ -44,7 +44,7 @@ export function StepSivilstand() {
     epsHarPensjon: boolean
     epsHarInntektOver2G: boolean
   }): void => {
-    dispatch(userInputActions.setSivilstand(sivilstandData))
+    console.log(dispatch(userInputActions.setSivilstand(sivilstandData)))
     if (onStegvisningNext) {
       onStegvisningNext()
     }
@@ -68,7 +68,6 @@ export function StepSivilstand() {
           return (
             <Sivilstand
               shouldRedirectTo={resp[1]}
-              //sivilstand={resp[0].data.sivilstand}
               sivilstand={sivilstand}
               harSamboer={samboerSvar}
               epsHarInntektOver2G={epsHarInntektOver2G}

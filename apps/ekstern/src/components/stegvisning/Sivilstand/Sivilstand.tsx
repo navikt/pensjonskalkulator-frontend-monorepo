@@ -35,6 +35,15 @@ interface Props {
   }) => void
 }
 
+interface InputChange {
+  field: 'epsHarPensjon' | 'sivilstand'
+  value: BooleanRadio | UtvidetSivilstand
+}
+interface ShouldShowInputs {
+  epsHarPensjon: boolean
+  epsHarInntektOver2G: boolean
+}
+
 export function Sivilstand({
   shouldRedirectTo,
   sivilstand,
@@ -62,6 +71,24 @@ export function Sivilstand({
   ]
 
   React.useEffect(() => {
+    handleInputChange({
+      field: 'sivilstand',
+      value: sivilstand,
+    })
+  }, [sivilstand])
+
+  React.useEffect(() => {
+    if (epsHarPensjon === false) {
+      handleInputChange({
+        field: 'epsHarPensjon',
+        value: epsHarPensjon ? 'ja' : 'nei',
+      })
+    }
+
+    console.log(shouldShowInput)
+  }, [epsHarPensjon])
+
+  React.useEffect(() => {
     if (shouldRedirectTo) {
       navigate(shouldRedirectTo)
     }
@@ -70,6 +97,41 @@ export function Sivilstand({
   const formatertSivilstand = useMemo(
     () => formatSivilstand(intl, sivilstand).toLowerCase(),
     [sivilstand]
+  )
+
+  const [shouldShowInput, handleInputChange] = React.useReducer<
+    React.Reducer<ShouldShowInputs, InputChange>
+  >(
+    (_, action) => {
+      if (action.field === 'sivilstand') {
+        const shouldShowEpsHarPensjon =
+          action.value === 'GIFT' ||
+          action.value === 'REGISTRERT_PARTNER' ||
+          action.value === 'SAMBOER'
+        return {
+          epsHarPensjon: shouldShowEpsHarPensjon,
+          epsHarInntektOver2G: false,
+        }
+      } else if (action.field === 'epsHarPensjon') {
+        const shouldShowEpsHarInntektOver2G = action.value === 'nei'
+        return {
+          epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
+          epsHarPensjon: true,
+        }
+      } else {
+        return {
+          epsHarInntektOver2G: false,
+          epsHarPensjon: false,
+        }
+      }
+    },
+    {
+      epsHarPensjon:
+        sivilstand === 'GIFT' ||
+        sivilstand === 'REGISTRERT_PARTNER' ||
+        sivilstand === 'SAMBOER',
+      epsHarInntektOver2G: epsHarPensjon === false,
+    }
   )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -114,49 +176,6 @@ export function Sivilstand({
       })
     }
   }
-
-  interface InputChange {
-    field: 'epsHarPensjon' | 'sivilstand'
-    value: BooleanRadio | UtvidetSivilstand
-  }
-  interface ShouldShowInputs {
-    epsHarPensjon: boolean
-    epsHarInntektOver2G: boolean
-  }
-  const [shouldShowInput, handleInputChange] = React.useReducer<
-    React.Reducer<ShouldShowInputs, InputChange>
-  >(
-    (_, action) => {
-      if (action.field === 'sivilstand') {
-        const shouldShowEpsHarPensjon =
-          action.value === 'GIFT' ||
-          action.value === 'REGISTRERT_PARTNER' ||
-          action.value === 'SAMBOER'
-        return {
-          epsHarPensjon: shouldShowEpsHarPensjon,
-          epsHarInntektOver2G: false,
-        }
-      } else if (action.field === 'epsHarPensjon') {
-        const shouldShowEpsHarInntektOver2G = action.value === 'nei'
-        return {
-          epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
-          epsHarPensjon: true,
-        }
-      } else {
-        return {
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
-        }
-      }
-    },
-    {
-      epsHarPensjon:
-        sivilstand === 'GIFT' ||
-        sivilstand === 'REGISTRERT_PARTNER' ||
-        sivilstand === 'SAMBOER',
-      epsHarInntektOver2G: epsHarPensjon !== null && epsHarPensjon === false,
-    }
-  )
 
   if (shouldRedirectTo) {
     return null
@@ -207,7 +226,15 @@ export function Sivilstand({
             })}
             name="epsHarPensjon"
             defaultValue={
-              epsHarPensjon === null ? '' : epsHarPensjon ? 'ja' : 'nei'
+              sivilstand === 'GIFT' ||
+              sivilstand === 'REGISTRERT_PARTNER' ||
+              sivilstand === 'SAMBOER'
+                ? epsHarPensjon === null
+                  ? ''
+                  : epsHarPensjon
+                    ? 'ja'
+                    : 'nei'
+                : ''
             }
             onChange={(value) =>
               handleInputChange({ field: 'epsHarPensjon', value })
@@ -235,11 +262,17 @@ export function Sivilstand({
             })}
             name="epsHarInntektOver2G"
             defaultValue={
-              epsHarInntektOver2G === null
-                ? ''
-                : epsHarInntektOver2G
-                  ? 'ja'
-                  : 'nei'
+              sivilstand === 'GIFT' ||
+              sivilstand === 'REGISTRERT_PARTNER' ||
+              sivilstand === 'SAMBOER'
+                ? epsHarPensjon === false
+                  ? epsHarInntektOver2G === null
+                    ? ''
+                    : epsHarInntektOver2G
+                      ? 'ja'
+                      : 'nei'
+                  : ''
+                : ''
             }
             className={styles.radiogroup}
             //error={validationError}
