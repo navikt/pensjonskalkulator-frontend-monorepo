@@ -31,7 +31,7 @@ export const getChartDefaults = (aarArray: string[]) => {
 }
 
 export const processInntektArray = (args: {
-  startAar: number
+  xAxisStartAar: number
   inntektFoerUttakBeloep: number
   gradertUttak:
     | {
@@ -48,15 +48,20 @@ export const processInntektArray = (args: {
       }
     | undefined
 
-  length: number
+  xAxisLength: number
 }): number[] => {
-  const { startAar, inntektFoerUttakBeloep, gradertUttak, heltUttak, length } =
-    args
+  const {
+    xAxisStartAar,
+    inntektFoerUttakBeloep,
+    gradertUttak,
+    heltUttak,
+    xAxisLength,
+  } = args
 
   const utbetalingsperioder = [
     // før uttak
     {
-      startAlder: { aar: startAar, maaneder: 0 },
+      startAlder: { aar: xAxisStartAar, maaneder: 0 },
       sluttAlder: gradertUttak
         ? getAlderMinus1Maaned(gradertUttak.fra)
         : heltUttak
@@ -86,12 +91,12 @@ export const processInntektArray = (args: {
       : []),
   ]
 
-  const sluttAlder = startAar + length - 1
-  const result = new Array(sluttAlder - startAar + 1).fill(0)
+  const sluttAlder = xAxisStartAar + xAxisLength - 1
+  const result = new Array(sluttAlder - xAxisStartAar + 1).fill(0)
 
   utbetalingsperioder.forEach((utbetalingsperiode) => {
     const periodeStartYear = Math.max(
-      startAar,
+      xAxisStartAar,
       utbetalingsperiode.startAlder.aar
     )
     const avtaleEndYear = utbetalingsperiode.sluttAlder
@@ -99,7 +104,7 @@ export const processInntektArray = (args: {
       : sluttAlder
 
     for (let year = periodeStartYear; year <= avtaleEndYear; year++) {
-      if (year >= startAar) {
+      if (year >= xAxisStartAar) {
         const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
           year,
           utbetalingsperiode.startAlder,
@@ -110,7 +115,7 @@ export const processInntektArray = (args: {
           (utbetalingsperiode.aarligUtbetaling *
             Math.max(0, antallMaanederMedPensjon)) /
           12
-        result[year - startAar] += allocatedAmount
+        result[year - xAxisStartAar] += allocatedAmount
       }
     }
   })
@@ -121,10 +126,10 @@ export const processInntektArray = (args: {
 export const processPensjonsberegningArray = (
   pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
   isEndring: boolean,
-  length: number
+  xAxisLength: number
 ): number[] => {
   const arrayLength = Math.max(
-    length,
+    xAxisLength,
     isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2
   )
   const dataArray = isEndring ? [] : new Array(1).fill(0)
@@ -145,8 +150,8 @@ export const processPensjonsberegningArray = (
 }
 
 export const processAfpPensjonsberegningArray = (
-  startAar: number, // uttaksaar, (uttaksaar minus 1 for førstegangsøkere)
-  length: number,
+  xAxisStartAar: number, // uttaksaar, (uttaksaar minus 1 for førstegangsøkere)
+  xAxisLength: number,
   pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
   isEndring: boolean
 ): number[] => {
@@ -154,12 +159,12 @@ export const processAfpPensjonsberegningArray = (
     return []
   }
   const arrayLength = Math.max(
-    length,
+    xAxisLength,
     isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2
   )
 
   const startYear = pensjonsberegninger[0].alder
-  const emptyYearsBeforeStart = startYear - startAar
+  const emptyYearsBeforeStart = startYear - xAxisStartAar
   const dataArray = isEndring ? [] : new Array(1).fill(0)
   const startIndex = emptyYearsBeforeStart ?? (isEndring ? 0 : 1)
 
@@ -203,13 +208,13 @@ export const getAntallMaanederMedPensjon = (
 }
 
 export const processPensjonsavtalerArray = (
-  startAar: number, // uttaksaar, minus 1
-  length: number,
+  xAxisStartAar: number, // uttaksaar, minus 1
+  xAxisLength: number,
   privatePensjonsavtaler: Pensjonsavtale[],
   offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[]
 ): number[] => {
-  const sluttAlder = startAar + length - 1
-  const result = new Array(sluttAlder - startAar + 1).fill(0)
+  const sluttAlder = xAxisStartAar + xAxisLength - 1
+  const result = new Array(sluttAlder - xAxisStartAar + 1).fill(0)
 
   const samledeUtbetalingsperioder = [
     ...privatePensjonsavtaler.flatMap((avtale) => avtale.utbetalingsperioder),
@@ -218,7 +223,7 @@ export const processPensjonsavtalerArray = (
 
   samledeUtbetalingsperioder.forEach((utbetalingsperiode) => {
     const avtaleStartYear = Math.max(
-      startAar,
+      xAxisStartAar,
       utbetalingsperiode.startAlder.aar
     )
     const avtaleEndYear = utbetalingsperiode.sluttAlder
@@ -226,7 +231,7 @@ export const processPensjonsavtalerArray = (
       : sluttAlder
 
     for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
-      if (year >= startAar) {
+      if (year >= xAxisStartAar) {
         const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
           year,
           utbetalingsperiode.startAlder,
@@ -237,7 +242,7 @@ export const processPensjonsavtalerArray = (
           (utbetalingsperiode.aarligUtbetaling *
             Math.max(0, antallMaanederMedPensjon)) /
           12
-        result[year - startAar] += allocatedAmount
+        result[year - xAxisStartAar] += allocatedAmount
       }
     }
   })
@@ -245,7 +250,7 @@ export const processPensjonsavtalerArray = (
 }
 
 export const generateXAxis = (
-  startAar: number,
+  xAxisStartAar: number,
   isEndring: boolean,
   privatePensjonsavtaler: Pensjonsavtale[],
   offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[],
@@ -261,7 +266,7 @@ export const generateXAxis = (
     if (
       !hasAvtaleBeforeStartAlder &&
       avtale.startAar &&
-      avtale.startAar < startAar
+      avtale.startAar < xAxisStartAar
     ) {
       hasAvtaleBeforeStartAlder = true
     }
@@ -280,7 +285,7 @@ export const generateXAxis = (
       }
       if (
         !hasAvtaleBeforeStartAlder &&
-        utbetalingsperiode.startAlder.aar < startAar
+        utbetalingsperiode.startAlder.aar < xAxisStartAar
       ) {
         hasAvtaleBeforeStartAlder = true
       }
@@ -288,8 +293,8 @@ export const generateXAxis = (
   )
 
   const alderArray: string[] = []
-  for (let i = startAar; i <= sluttAar + 1; i++) {
-    if (!isEndring && i === startAar) {
+  for (let i = xAxisStartAar; i <= sluttAar + 1; i++) {
+    if (!isEndring && i === xAxisStartAar) {
       alderArray.push((i - 1).toString())
     }
 

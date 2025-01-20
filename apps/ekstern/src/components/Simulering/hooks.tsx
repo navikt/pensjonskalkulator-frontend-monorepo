@@ -179,7 +179,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                     id: SERIES_DEFAULT.SERIE_INNTEKT.name,
                   }),
                   data: processInntektArray({
-                    startAar: isEndring ? startAar : startAar - 1,
+                    xAxisStartAar: isEndring ? startAar : startAar - 1,
                     inntektFoerUttakBeloep: formatInntektToNumber(
                       aarligInntektFoerUttakBeloep
                     ),
@@ -206,7 +206,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                           ),
                         }
                       : undefined,
-                    length: XAxis.length,
+                    xAxisLength: XAxis.length,
                   }),
                 } as SeriesOptionsType,
               ]

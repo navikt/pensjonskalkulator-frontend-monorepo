@@ -74,11 +74,11 @@ describe('Simulering-utils', () => {
       it('returnerer et tomt array uten å feile', () => {
         expect(
           processInntektArray({
-            startAar: 67,
+            xAxisStartAar: 67,
             inntektFoerUttakBeloep: 0,
             gradertUttak: undefined,
             heltUttak: undefined,
-            length: 0,
+            xAxisLength: 0,
           })
         ).toEqual([])
       })
@@ -86,20 +86,20 @@ describe('Simulering-utils', () => {
       it('returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
-            startAar: 67,
+            xAxisStartAar: 67,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: undefined,
-            length: 1,
+            xAxisLength: 1,
           })
         ).toEqual([500000])
         expect(
           processInntektArray({
-            startAar: 67,
+            xAxisStartAar: 67,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: undefined,
-            length: 4,
+            xAxisLength: 4,
           })
         ).toEqual([500000, 500000, 500000, 500000])
       })
@@ -108,7 +108,7 @@ describe('Simulering-utils', () => {
       it('uten inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -116,13 +116,13 @@ describe('Simulering-utils', () => {
               til: undefined,
               beloep: undefined,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 0, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -130,14 +130,14 @@ describe('Simulering-utils', () => {
               til: undefined,
               beloep: undefined,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 166666.66666666666, 0, 0, 0])
       })
       it('med inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -145,13 +145,13 @@ describe('Simulering-utils', () => {
               til: { aar: 66, maaneder: 11 },
               beloep: 300000,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 300000, 300000, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -159,13 +159,13 @@ describe('Simulering-utils', () => {
               til: { aar: 67, maaneder: 2 },
               beloep: 300000,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 366666.6666666666, 300000, 75000, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -173,13 +173,13 @@ describe('Simulering-utils', () => {
               til: { aar: 67, maaneder: 5 },
               beloep: 300000,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 150000, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -187,13 +187,13 @@ describe('Simulering-utils', () => {
               til: { aar: 67, maaneder: 11 },
               beloep: 300000,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 400000, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: undefined,
             heltUttak: {
@@ -201,7 +201,7 @@ describe('Simulering-utils', () => {
               til: { aar: 67, maaneder: 9 },
               beloep: 300000,
             },
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 350000, 0, 0, 0])
       })
@@ -210,7 +210,7 @@ describe('Simulering-utils', () => {
       it('uten inntekt vsa gradert pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
@@ -218,13 +218,13 @@ describe('Simulering-utils', () => {
               beloep: undefined,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 0, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
@@ -232,7 +232,7 @@ describe('Simulering-utils', () => {
               beloep: undefined,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 166666.66666666666, 0, 0, 0])
       })
@@ -240,7 +240,7 @@ describe('Simulering-utils', () => {
       it('med inntekt vsa gradert pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
@@ -248,13 +248,13 @@ describe('Simulering-utils', () => {
               beloep: 300000,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 300000, 300000, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
@@ -262,13 +262,13 @@ describe('Simulering-utils', () => {
               beloep: 300000,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 366666.6666666666, 300000, 75000, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 0 },
@@ -276,13 +276,13 @@ describe('Simulering-utils', () => {
               beloep: 300000,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 150000, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 6 },
@@ -290,13 +290,13 @@ describe('Simulering-utils', () => {
               beloep: 300000,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 400000, 0, 0, 0])
 
         expect(
           processInntektArray({
-            startAar: 66,
+            xAxisStartAar: 66,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 67, maaneder: 6 },
@@ -304,7 +304,7 @@ describe('Simulering-utils', () => {
               beloep: 300000,
             },
             heltUttak: undefined,
-            length: 5,
+            xAxisLength: 5,
           })
         ).toEqual([500000, 350000, 0, 0, 0])
       })
@@ -314,7 +314,7 @@ describe('Simulering-utils', () => {
       it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
@@ -326,13 +326,13 @@ describe('Simulering-utils', () => {
               til: { aar: 70, maaneder: 11 },
               beloep: 100000,
             },
-            length: 8,
+            xAxisLength: 8,
           })
         ).toEqual([500000, 300000, 300000, 100000, 100000, 100000, 100000, 0])
 
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
@@ -344,7 +344,7 @@ describe('Simulering-utils', () => {
               til: { aar: 71, maaneder: 7 },
               beloep: 100000,
             },
-            length: 10,
+            xAxisLength: 10,
           })
         ).toEqual([
           500000, 366666.6666666666, 300000, 150000, 100000, 100000, 100000,
@@ -354,7 +354,7 @@ describe('Simulering-utils', () => {
         // half of inntektFoerUttak: 250000 =  250000 (half of inntektFoerUttak) + 125000 (5md av inntekt vsa gradert) + 8333,33 (1md inntekt vsa helt)
         expect(
           processInntektArray({
-            startAar: 64,
+            xAxisStartAar: 64,
             inntektFoerUttakBeloep: 500000,
             gradertUttak: {
               fra: { aar: 65, maaneder: 6 },
@@ -366,7 +366,7 @@ describe('Simulering-utils', () => {
               til: { aar: 70, maaneder: 11 },
               beloep: 100000,
             },
-            length: 8,
+            xAxisLength: 8,
           })
         ).toEqual([
           500000, 383333.3333333333, 100000, 100000, 100000, 100000, 100000, 0,
