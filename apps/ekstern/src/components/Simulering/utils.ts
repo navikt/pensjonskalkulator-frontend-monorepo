@@ -169,7 +169,7 @@ export const processPensjonsavtalerArray = (
   startAar: number, // uttaksaar, minus 1
   length: number,
   privatePensjonsavtaler: Pensjonsavtale[],
-  offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[]
+  offentligTpUtbetalingsperioder: UtbetalingsperiodeOffentligTP[]
 ): number[] => {
   const sluttAlder = startAar + length - 1
   const result = new Array(sluttAlder - startAar + 1).fill(0)
@@ -211,7 +211,7 @@ export const generateXAxis = (
   startAar: number,
   isEndring: boolean,
   privatePensjonsavtaler: Pensjonsavtale[],
-  offentligTpUtbetalingsperioder: UtbetalingsperiodeWithoutGrad[],
+  offentligTpUtbetalingsperioder: UtbetalingsperiodeOffentligTP[],
   setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   let sluttAar = MAX_UTTAKSALDER
@@ -231,7 +231,7 @@ export const generateXAxis = (
   })
 
   offentligTpUtbetalingsperioder.forEach(
-    (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => {
+    (utbetalingsperiode: UtbetalingsperiodeOffentligTP) => {
       if (utbetalingsperiode.startAlder.aar > sluttAar) {
         sluttAar = utbetalingsperiode.startAlder.aar
       }

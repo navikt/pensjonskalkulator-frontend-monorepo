@@ -99,7 +99,7 @@ export const isUtbetalingsperiode = <T extends boolean>(
   data?: any
 ): data is T extends true
   ? Utbetalingsperiode
-  : UtbetalingsperiodeWithoutGrad => {
+  : UtbetalingsperiodeOffentligTP => {
   if (data === null || data === undefined) {
     return false
   }
