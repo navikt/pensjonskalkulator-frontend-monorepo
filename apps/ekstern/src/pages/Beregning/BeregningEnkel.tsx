@@ -36,13 +36,13 @@ import {
   selectUfoeregrad,
   selectIsEndring,
   selectLoependeVedtak,
+  selectNedreAldersgrense,
+  selectUbetingetUttaksalder,
 } from '@/state/userInput/selectors'
 import {
-  DEFAULT_TIDLIGST_UTTAKSALDER,
-  DEFAULT_UBETINGET_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksalder,
+  isAlderOverAnnenAlder,
   isFoedtFoer1964,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
@@ -68,6 +68,8 @@ export const BeregningEnkel: React.FC = () => {
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
@@ -184,12 +186,12 @@ export const BeregningEnkel: React.FC = () => {
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = isPersonSuccess
       ? transformFoedselsdatoToAlderMinus1md(person?.foedselsdato)
-      : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
+      : getAlderMinus1Maaned(nedreAldersgrense)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksalder(beregnetMinAlder)
+    return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
       ? beregnetMinAlder
-      : DEFAULT_TIDLIGST_UTTAKSALDER
-  }, [person])
+      : nedreAldersgrense
+  }, [person, nedreAldersgrense])
 
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
@@ -246,7 +248,7 @@ export const BeregningEnkel: React.FC = () => {
         <VelgUttaksalder
           tidligstMuligUttak={
             ufoeregrad
-              ? { ...DEFAULT_UBETINGET_UTTAKSALDER }
+              ? ubetingetUttaksalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
                 : brukerensAlderPlus1Maaned
@@ -268,7 +270,7 @@ export const BeregningEnkel: React.FC = () => {
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {!isError &&
                   uttaksalder &&
-                  uttaksalder.aar < DEFAULT_UBETINGET_UTTAKSALDER.aar && (
+                  uttaksalder.aar < ubetingetUttaksalder.aar && (
                     <FormattedMessage
                       id="beregning.lav_opptjening.aar"
                       values={{ startAar: uttaksalder.aar }}

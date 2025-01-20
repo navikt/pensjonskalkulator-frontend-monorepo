@@ -31,6 +31,11 @@ describe('RedigerAvansertBeregning', () => {
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
 
+  const mockedQueries = {
+    ...fulfilledGetPerson,
+    ...fulfilledGetLoependeVedtak0Ufoeregrad,
+  }
+
   it('scroller på toppen av siden når en route endrer seg', async () => {
     const scrollToMock = vi.fn()
     Object.defineProperty(global.window, 'scrollTo', {
@@ -49,7 +54,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -77,7 +82,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -267,7 +272,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -324,7 +329,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -592,7 +597,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -682,7 +687,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -803,7 +808,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -930,7 +935,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1014,7 +1019,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1157,6 +1162,10 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
+        ubetingetUttaksalder: {
+          aar: 67,
+          maaneder: 0,
+        },
       })
     })
 
@@ -1174,7 +1183,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1338,7 +1347,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1481,6 +1490,10 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
+        ubetingetUttaksalder: {
+          aar: 67,
+          maaneder: 0,
+        },
       })
     })
   })
@@ -1501,7 +1514,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak100Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1600,7 +1616,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1692,7 +1711,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1756,7 +1778,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1817,7 +1842,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1914,7 +1942,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2028,7 +2059,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2117,7 +2151,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -2458,7 +2492,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -2491,7 +2525,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2525,7 +2562,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2592,6 +2632,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
+                ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
               },
             },

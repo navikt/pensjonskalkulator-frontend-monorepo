@@ -6,12 +6,13 @@ import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import {
+  DEFAULT_SENEST_UTTAKSALDER,
   formatUttaksalder,
   transformUttaksalderToDate,
   transformMaanedToDate,
-  DEFAULT_TIDLIGST_UTTAKSALDER,
-  DEFAULT_SENEST_UTTAKSALDER,
 } from '@/utils/alder'
 
 export interface AgePickerProps {
@@ -37,7 +38,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       label,
       description,
       value,
-      minAlder = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
+      minAlder = { ...useAppSelector(selectNedreAldersgrense) },
       maxAlder = { ...DEFAULT_SENEST_UTTAKSALDER },
       info,
       onChange,

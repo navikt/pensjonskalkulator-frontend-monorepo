@@ -33,12 +33,12 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectIsEndring,
   selectLoependeVedtak,
+  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
 import {
-  DEFAULT_TIDLIGST_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksalder,
+  isAlderOverAnnenAlder,
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -60,6 +60,8 @@ export const BeregningAvansert: React.FC = () => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+
   const { data: person } = useGetPersonQuery()
 
   const {
@@ -156,12 +158,12 @@ export const BeregningAvansert: React.FC = () => {
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = person
       ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
-      : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
+      : getAlderMinus1Maaned(nedreAldersgrense)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksalder(beregnetMinAlder)
+    return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
       ? beregnetMinAlder
-      : DEFAULT_TIDLIGST_UTTAKSALDER
-  }, [person])
+      : nedreAldersgrense
+  }, [person, nedreAldersgrense])
 
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))

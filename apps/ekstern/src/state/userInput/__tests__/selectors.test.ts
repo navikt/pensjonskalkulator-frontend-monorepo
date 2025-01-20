@@ -165,6 +165,16 @@ describe('userInput selectors', () => {
                 navn: 'Aprikos',
                 sivilstand: 'GIFT',
                 foedselsdato: '1963-04-30',
+                pensjoneringAldre: {
+                  normertPensjoneringsalder: {
+                    aar: 67,
+                    maaneder: 0,
+                  },
+                  nedreAldersgrense: {
+                    aar: 62,
+                    maaneder: 0,
+                  },
+                },
               },
               fulfilledTimeStamp: 1688046412103,
             },
@@ -206,6 +216,16 @@ describe('userInput selectors', () => {
                 navn: 'Aprikos',
                 sivilstand: 'GIFT',
                 foedselsdato: '1963-04-30',
+                pensjoneringAldre: {
+                  normertPensjoneringsalder: {
+                    aar: 67,
+                    maaneder: 0,
+                  },
+                  nedreAldersgrense: {
+                    aar: 62,
+                    maaneder: 0,
+                  },
+                },
               },
               fulfilledTimeStamp: 1688046412103,
             },
