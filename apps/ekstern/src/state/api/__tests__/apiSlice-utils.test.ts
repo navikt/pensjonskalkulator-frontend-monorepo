@@ -193,7 +193,9 @@ describe('apiSlice - utils', () => {
         harFremtidigLoependeVedtak: false,
       },
       afp: null,
-      harSamboer: null,
+      sivilstand: null,
+      epsHarPensjon: null,
+      epsHarInntektOver2G: null,
       aarligInntektFoerUttakBeloep: '0',
       utenlandsperioder: [],
     }
@@ -274,13 +276,11 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-          harSamboer: false,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-          harSamboer: true,
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
@@ -321,14 +321,12 @@ describe('apiSlice - utils', () => {
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: null,
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
     })
@@ -380,7 +378,8 @@ describe('apiSlice - utils', () => {
       },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
-      harSamboer: false,
+      epsHarInntektOver2G: null,
+      epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
       foedselsdato: '1963-04-30',
       uttaksalder: { aar: 68, maaneder: 3 },
@@ -512,7 +511,6 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           sivilstand: null,
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
@@ -525,7 +523,6 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT' as Sivilstand,
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
     })
@@ -589,7 +586,8 @@ describe('apiSlice - utils', () => {
       },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
-      harSamboer: false,
+      epsHarInntektOver2G: null,
+      epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
       foedselsdato: '1963-04-30',
       heltUttak: {
@@ -701,7 +699,6 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonRequestBody({
           ...requestBody,
           sivilstand: null,
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
@@ -714,7 +711,6 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT' as Sivilstand,
-          harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
     })
@@ -774,7 +770,8 @@ describe('apiSlice - utils', () => {
       aarligInntektFoerUttakBeloep: '500 000',
       ufoeregrad: 0,
       afp: 'vet_ikke' as AfpRadio,
-      harSamboer: null,
+      epsHarPensjon: false,
+      epsHarInntektOver2G: false,
       heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
     }
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
@@ -801,18 +798,28 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
+        })?.epsHarPensjon
+      ).toBeFalsy()
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
+          epsHarPensjon: true,
+        })?.epsHarPensjon
+      ).toBeTruthy()
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
-          harSamboer: false,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
-          harSamboer: true,
+          epsHarInntektOver2G: true,
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
@@ -920,11 +927,12 @@ describe('apiSlice - utils', () => {
   describe('generateOffentligTpRequestBody', () => {
     const requestBody = {
       afp: 'vet_ikke' as AfpRadio,
-      harSamboer: null,
       foedselsdato: '1963-04-30',
       aarligInntektFoerUttakBeloep: '500 000',
       heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
       utenlandsperioder: [],
+      epsHarPensjon: null,
+      epsHarInntektOver2G: null,
     }
 
     it('returnerer undefined når fodselsdato eller heltUttak ikke er oppgitt', () => {
@@ -952,13 +960,12 @@ describe('apiSlice - utils', () => {
       expect(
         generateOffentligTpRequestBody({
           ...requestBody,
-          harSamboer: false,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generateOffentligTpRequestBody({
           ...requestBody,
-          harSamboer: true,
+          epsHarInntektOver2G: true,
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })

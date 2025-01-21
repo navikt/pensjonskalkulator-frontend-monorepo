@@ -64,9 +64,7 @@ describe('sivilstand-utils', () => {
           'sivilstand.gjenlevende_partner, sivilstand.med_samboer',
         ],
       ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-        const sivilstand = formatSivilstand(intlMock, a as Sivilstand, {
-          harSamboer: true,
-        })
+        const sivilstand = formatSivilstand(intlMock, a as Sivilstand)
         expect(sivilstand).toEqual(expected)
       })
 
@@ -91,9 +89,7 @@ describe('sivilstand-utils', () => {
           'sivilstand.gjenlevende_partner, sivilstand.uten_samboer',
         ],
       ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-        const sivilstand = formatSivilstand(intlMock, a as Sivilstand, {
-          harSamboer: false,
-        })
+        const sivilstand = formatSivilstand(intlMock, a as Sivilstand)
         expect(sivilstand).toEqual(expected)
       })
     })

@@ -495,7 +495,6 @@ describe('userInputSlice', () => {
         harUtenlandsopphold: true,
         samtykke: true,
         afp: 'ja_offentlig',
-        samboer: false,
       })
     })
   })
