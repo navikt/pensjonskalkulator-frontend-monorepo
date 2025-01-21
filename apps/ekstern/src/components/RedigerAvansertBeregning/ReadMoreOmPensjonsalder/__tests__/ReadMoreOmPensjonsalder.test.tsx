@@ -55,7 +55,7 @@ describe('ReadMoreOmPensjonsalder', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.getByText(
-          'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon.',
+          'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
@@ -72,7 +72,7 @@ describe('ReadMoreOmPensjonsalder', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.getByText(
-          'Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren.',
+          'Det er derfor ikke mulig å beregne alderspensjon før',
           { exact: false }
         )
       ).toBeVisible()
