@@ -30,18 +30,22 @@ interface Props {
   onPrevious: () => void
   onNext: (sivilstandData: {
     sivilstand: UtvidetSivilstand
-    epsHarPensjon: boolean
-    epsHarInntektOver2G: boolean
+    epsHarPensjon: boolean | null
+    epsHarInntektOver2G: boolean | null
   }) => void
 }
 
-interface InputChange {
-  field: 'epsHarPensjon' | 'sivilstand'
-  value: BooleanRadio | UtvidetSivilstand
-}
-interface ShouldShowInputs {
-  epsHarPensjon: boolean
-  epsHarInntektOver2G: boolean
+const convertBooleanToBooleanRadio = (
+  input: boolean | null
+): BooleanRadio | null => (input !== null ? (input ? 'ja' : 'nei') : null)
+
+const convertBooleanRadioToBoolean = (
+  input: BooleanRadio | null
+): boolean | null => {
+  if (input === null) {
+    return null
+  }
+  return input === 'ja' ? true : false
 }
 
 export function Sivilstand({
@@ -70,23 +74,13 @@ export function Sivilstand({
     'SAMBOER',
   ]
 
-  React.useEffect(() => {
-    handleInputChange({
-      field: 'sivilstand',
-      value: sivilstand,
-    })
-  }, [sivilstand])
-
-  React.useEffect(() => {
-    if (epsHarPensjon === false) {
-      handleInputChange({
-        field: 'epsHarPensjon',
-        value: epsHarPensjon ? 'ja' : 'nei',
-      })
-    }
-
-    console.log(shouldShowInput)
-  }, [epsHarPensjon])
+  const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
+  const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
+    convertBooleanToBooleanRadio(epsHarPensjon)
+  )
+  const [epsHarInntektOver2GInput, setEpsHarInntektOver2GInput] = useState(
+    convertBooleanToBooleanRadio(epsHarInntektOver2G)
+  )
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -99,65 +93,24 @@ export function Sivilstand({
     [sivilstand]
   )
 
-  const [shouldShowInput, handleInputChange] = React.useReducer<
-    React.Reducer<ShouldShowInputs, InputChange>
-  >(
-    (_, action) => {
-      if (action.field === 'sivilstand') {
-        const shouldShowEpsHarPensjon =
-          action.value === 'GIFT' ||
-          action.value === 'REGISTRERT_PARTNER' ||
-          action.value === 'SAMBOER'
-        return {
-          epsHarPensjon: shouldShowEpsHarPensjon,
-          epsHarInntektOver2G: false,
-        }
-      } else if (action.field === 'epsHarPensjon') {
-        const shouldShowEpsHarInntektOver2G = action.value === 'nei'
-        return {
-          epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
-          epsHarPensjon: true,
-        }
-      } else {
-        return {
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
-        }
-      }
-    },
-    {
-      epsHarPensjon:
-        sivilstand === 'GIFT' ||
-        sivilstand === 'REGISTRERT_PARTNER' ||
-        sivilstand === 'SAMBOER',
-      epsHarInntektOver2G:
-        (sivilstand === 'GIFT' ||
-          sivilstand === 'REGISTRERT_PARTNER' ||
-          sivilstand === 'SAMBOER') &&
-        epsHarPensjon === false,
-    }
-  )
+  const shouldShowInput = React.useMemo(() => {
+    const shouldShowEpsHarPensjon =
+      sivilstandInput === 'GIFT' ||
+      sivilstandInput === 'REGISTRERT_PARTNER' ||
+      sivilstandInput === 'SAMBOER'
 
-  React.useEffect(() => {
-    console.log(shouldShowInput)
-  }, [])
+    const shouldShowEpsHarInntektOver2G =
+      shouldShowEpsHarPensjon && epsHarPensjonInput === 'nei'
+
+    return {
+      epsHarPensjon: shouldShowEpsHarPensjon,
+      epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
+    }
+  }, [sivilstandInput, epsHarPensjonInput])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-
-    const data = new FormData(e.currentTarget)
-
-    const sivilstandData = data.get('sivilstand') as UtvidetSivilstand
-    const epsHarPensjonData =
-      (data.get('epsHarPensjon') as BooleanRadio | undefined) === 'ja'
-        ? true
-        : false
-    const epsHarInntektOver2GData =
-      (data.get('epsHarInntektOver2G') as BooleanRadio | undefined) === 'ja'
-        ? true
-        : false
-
-    if (!sivilstandData) {
+    if (!sivilstandInput) {
       const tekst = intl.formatMessage({
         id: 'stegvisning.sivilstand.validation_error',
       })
@@ -170,17 +123,19 @@ export function Sivilstand({
         tekst,
       })
     } else {
-      logger('radiogroup valgt', {
-        tekst: 'Samboer',
-        valg: sivilstandData,
-      })
       logger('button klikk', {
         tekst: `Neste fra ${paths.sivilstand}`,
       })
+
+      // TODO: Konverter til true/false før submit
       onNext({
-        sivilstand: sivilstandData,
-        epsHarPensjon: epsHarPensjonData,
-        epsHarInntektOver2G: epsHarInntektOver2GData,
+        sivilstand: sivilstandInput,
+        epsHarPensjon: shouldShowInput.epsHarPensjon
+          ? convertBooleanRadioToBoolean(epsHarPensjonInput)
+          : null,
+        epsHarInntektOver2G: shouldShowInput.epsHarInntektOver2G
+          ? convertBooleanRadioToBoolean(epsHarInntektOver2GInput)
+          : null,
       })
     }
   }
@@ -202,19 +157,16 @@ export function Sivilstand({
         </BodyLong>
         <Select
           name="sivilstand"
-          defaultValue={sivilstand}
+          value={sivilstandInput}
+          onChange={(e) =>
+            setSivilstandInput(e.target.value as UtvidetSivilstand)
+          }
           label={intl.formatMessage({
             id: `stegvisning.sivilstand.select_label`,
           })}
           description={intl.formatMessage({
             id: `stegvisning.sivilstand.select_description`,
           })}
-          onChange={(e) =>
-            handleInputChange({
-              field: 'sivilstand',
-              value: e.target.value as UtvidetSivilstand,
-            })
-          }
         >
           {sivilstandOptions.map((option) => (
             <option key={option} value={option}>
@@ -233,20 +185,8 @@ export function Sivilstand({
               id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
             })}
             name="epsHarPensjon"
-            defaultValue={
-              sivilstand === 'GIFT' ||
-              sivilstand === 'REGISTRERT_PARTNER' ||
-              sivilstand === 'SAMBOER'
-                ? epsHarPensjon === null
-                  ? ''
-                  : epsHarPensjon
-                    ? 'ja'
-                    : 'nei'
-                : ''
-            }
-            onChange={(value) =>
-              handleInputChange({ field: 'epsHarPensjon', value })
-            }
+            value={epsHarPensjonInput}
+            onChange={(value) => setEpsharPensjonInput(value)}
             className={styles.radiogroup}
             //error={validationError}
             role="radiogroup"
@@ -268,20 +208,9 @@ export function Sivilstand({
             description={intl.formatMessage({
               id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
             })}
+            value={epsHarInntektOver2GInput}
+            onChange={(value) => setEpsHarInntektOver2GInput(value)}
             name="epsHarInntektOver2G"
-            defaultValue={
-              sivilstand === 'GIFT' ||
-              sivilstand === 'REGISTRERT_PARTNER' ||
-              sivilstand === 'SAMBOER'
-                ? epsHarPensjon === false
-                  ? epsHarInntektOver2G === null
-                    ? ''
-                    : epsHarInntektOver2G
-                      ? 'ja'
-                      : 'nei'
-                  : ''
-                : ''
-            }
             className={styles.radiogroup}
             //error={validationError}
             role="radiogroup"

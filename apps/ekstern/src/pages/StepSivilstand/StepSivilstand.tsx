@@ -41,8 +41,8 @@ export function StepSivilstand() {
 
   const onNext = (sivilstandData: {
     sivilstand: UtvidetSivilstand
-    epsHarPensjon: boolean
-    epsHarInntektOver2G: boolean
+    epsHarPensjon: boolean | null
+    epsHarInntektOver2G: boolean | null
   }): void => {
     dispatch(userInputActions.setSivilstand(sivilstandData))
     if (onStegvisningNext) {

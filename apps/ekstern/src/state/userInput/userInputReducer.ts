@@ -75,8 +75,8 @@ export const userInputSlice = createSlice({
       state,
       action: PayloadAction<{
         sivilstand: UtvidetSivilstand
-        epsHarPensjon: boolean
-        epsHarInntektOver2G: boolean
+        epsHarPensjon: boolean | null
+        epsHarInntektOver2G: boolean | null
       }>
     ) => {
       state.sivilstand = action.payload.sivilstand
