@@ -16,7 +16,6 @@ import { Loader } from '@/components/common/Loader'
 import { useGetOtpKlpFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp } from '@/state/userInput/selectors'
-import type { Translations } from '@/translations/nb'
 import {
   formaterLivsvarigString,
   formaterSluttAlderString,
@@ -25,12 +24,12 @@ import { formatInntekt } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
-import styles from './OffentligTjenestepensjon.module.scss'
+import {
+  getInfoOmAfpOgBetingetTjenestepensjon,
+  leverandoerMessageKeyMap,
+} from './utils'
 
-const leverandørMessageKeyMap = {
-  'Statens pensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.spk',
-  'Kommunal Landspensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.klp',
-}
+import styles from './OffentligTjenestepensjon.module.scss'
 
 export const OffentligTjenestepensjon = (props: {
   isLoading: boolean
@@ -39,7 +38,7 @@ export const OffentligTjenestepensjon = (props: {
   headingLevel: Exclude<HeadingProps['level'], undefined>
 }) => {
   const { isLoading, isError, offentligTp, headingLevel } = props
-  const tpLeverandør = offentligTp?.simulertTjenestepensjon?.tpLeverandoer
+  const tpLeverandoer = offentligTp?.simulertTjenestepensjon?.tpLeverandoer
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
@@ -47,35 +46,8 @@ export const OffentligTjenestepensjon = (props: {
   const { data: otpKlpFeatureToggle } = useGetOtpKlpFeatureToggleQuery()
 
   const subHeadingLevel = React.useMemo(() => {
-    return (
-      parseInt(headingLevel as string, 10) + 1
-    ).toString() as HeadingProps['level']
+    return (parseInt(headingLevel, 10) + 1).toString() as HeadingProps['level']
   }, [headingLevel])
-
-  const infoOmAfpOgBetingetTjenestepensjon: keyof Translations = (() => {
-    if (tpLeverandør === 'Kommunal Landspensjonskasse') {
-      if (afp === 'ja_offentlig' || afp === 'ja_privat') {
-        return 'pensjonsavtaler.offentligtp.klp.afp_ja'
-      }
-      return 'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke'
-    }
-
-    // SPK
-    if (afp === 'ja_offentlig' || afp === 'ja_privat') {
-      return 'pensjonsavtaler.offentligtp.spk.afp_ja'
-    } else if (afp === 'vet_ikke') {
-      return 'pensjonsavtaler.offentligtp.spk.afp_vet_ikke'
-    } else {
-      if (
-        offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-          .betingetTjenestepensjonErInkludert
-      ) {
-        return 'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
-      } else {
-        return 'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget'
-      }
-    }
-  })()
 
   if (isLoading) {
     return (
@@ -92,9 +64,9 @@ export const OffentligTjenestepensjon = (props: {
   const visResultat =
     offentligTp?.simuleringsresultatStatus === 'OK' &&
     offentligTp.simulertTjenestepensjon !== undefined &&
-    (tpLeverandør === 'Statens pensjonskasse' ||
+    (tpLeverandoer === 'Statens pensjonskasse' ||
       (otpKlpFeatureToggle?.enabled &&
-        tpLeverandør === 'Kommunal Landspensjonskasse'))
+        tpLeverandoer === 'Kommunal Landspensjonskasse'))
 
   return (
     <VStack gap="3">
@@ -175,7 +147,7 @@ export const OffentligTjenestepensjon = (props: {
                 size="xsmall"
               >
                 {intl.formatMessage({
-                  id: leverandørMessageKeyMap[tpLeverandør],
+                  id: leverandoerMessageKeyMap[tpLeverandoer],
                 })}
               </Heading>
               <table
@@ -251,7 +223,7 @@ export const OffentligTjenestepensjon = (props: {
                             rowSpan={utbetalingsperioder.length}
                           >
                             {intl.formatMessage({
-                              id: leverandørMessageKeyMap[tpLeverandør],
+                              id: leverandoerMessageKeyMap[tpLeverandoer],
                             })}
                           </Table.HeaderCell>
                         )}
@@ -282,7 +254,12 @@ export const OffentligTjenestepensjon = (props: {
           )}
           <BodyLong size="small">
             <FormattedMessage
-              id={infoOmAfpOgBetingetTjenestepensjon}
+              id={getInfoOmAfpOgBetingetTjenestepensjon(
+                tpLeverandoer,
+                afp,
+                offentligTp.simulertTjenestepensjon?.simuleringsresultat
+                  .betingetTjenestepensjonErInkludert
+              )}
               values={getFormatMessageValues(intl)}
             />
           </BodyLong>

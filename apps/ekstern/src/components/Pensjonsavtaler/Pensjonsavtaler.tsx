@@ -124,7 +124,7 @@ export const Pensjonsavtaler = (props: {
 
   const subHeadingLevel = React.useMemo(() => {
     return (
-      headingLevel ? (parseInt(headingLevel as string, 10) + 1).toString() : '4'
+      headingLevel ? (parseInt(headingLevel, 10) + 1).toString() : '4'
     ) as Exclude<HeadingProps['level'], undefined>
   }, [headingLevel])
 
