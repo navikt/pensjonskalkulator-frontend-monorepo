@@ -27,12 +27,14 @@ import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
-  selectSamboer,
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectIsEndring,
   selectLoependeVedtak,
+  selectEpsHarPensjon,
+  selectEpsHarInntektOver2G,
+  selectSivilstand,
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
@@ -52,7 +54,6 @@ export const BeregningAvansert: React.FC = () => {
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
     React.useContext(BeregningContext)
 
-  const harSamboer = useAppSelector(selectSamboer)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const isEndring = useAppSelector(selectIsEndring)
@@ -60,6 +61,9 @@ export const BeregningAvansert: React.FC = () => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
 
   const {
@@ -81,8 +85,9 @@ export const BeregningAvansert: React.FC = () => {
       const requestBody = generateAlderspensjonRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand: person?.sivilstand,
-        harSamboer,
+        sivilstand: sivilstand,
+        epsHarPensjon,
+        epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode
@@ -98,7 +103,15 @@ export const BeregningAvansert: React.FC = () => {
       })
       setAlderspensjonRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttakBeloep, harSamboer, uttaksalder])
+  }, [
+    afp,
+    person,
+    aarligInntektFoerUttakBeloep,
+    sivilstand,
+    uttaksalder,
+    epsHarPensjon,
+    epsHarInntektOver2G,
+  ])
 
   // Hent alderspensjon + AFP
   const {

@@ -10,7 +10,6 @@ import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectIsVeileder,
-  selectSamboerFraBrukerInput,
   selectSivilstand,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
@@ -25,7 +24,6 @@ export function StepSivilstand() {
   const { getPersonQuery, shouldRedirectTo } =
     useLoaderData() as StepSivilstandAccessGuardLoader
   const isVeileder = useAppSelector(selectIsVeileder)
-  const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
   const sivilstand = useAppSelector(selectSivilstand)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
@@ -69,7 +67,6 @@ export function StepSivilstand() {
             <Sivilstand
               shouldRedirectTo={resp[1]}
               sivilstand={sivilstand}
-              harSamboer={samboerSvar}
               epsHarInntektOver2G={epsHarInntektOver2G}
               epsHarPensjon={epsHarPensjon}
               onCancel={isVeileder ? undefined : onStegvisningCancel}

@@ -5,7 +5,6 @@ import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 import { formatInntekt } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
-import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
   state.userInput.harUtenlandsopphold
@@ -37,9 +36,6 @@ export const selectFoedselsdato = createSelector(
   }
 )
 
-export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
-  state.userInput.samboer
-
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
@@ -49,23 +45,6 @@ export const selectSivilstand = createSelector(
     )
   }
 )
-
-export const selectSamboerFraSivilstand = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    const sivilstand =
-      apiSlice.endpoints.getPerson.select(undefined)(state)?.data?.sivilstand
-    return sivilstand ? checkHarSamboer(sivilstand) : null
-  }
-)
-
-export const selectSamboer = (state: RootState): boolean | null => {
-  const samboerskapFraBrukerInput = selectSamboerFraBrukerInput(state)
-  if (samboerskapFraBrukerInput === null) {
-    return selectSamboerFraSivilstand(state, undefined)
-  }
-  return samboerskapFraBrukerInput
-}
 
 export const selectEpsHarInntektOver2G = (state: RootState): boolean | null =>
   state.userInput.epsHarInntektOver2G

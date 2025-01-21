@@ -1,13 +1,13 @@
 import { IntlShape } from 'react-intl'
 
+// TODO: Trenger vi denne?
 export function checkHarSamboer(sivilstand: UtvidetSivilstand): boolean {
-  return ['GIFT', 'REGISTRERT_PARTNER'].includes(sivilstand)
+  return ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
 }
 
 export const formatSivilstand = (
   intl: IntlShape,
-  sivilstand: UtvidetSivilstand,
-  showSamboerskap?: { harSamboer: boolean }
+  sivilstand: UtvidetSivilstand
 ): string => {
   const sivilstandMap: Record<UtvidetSivilstand, string> = {
     UNKNOWN: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
@@ -30,17 +30,5 @@ export const formatSivilstand = (
     SAMBOER: intl.formatMessage({ id: 'sivilstand.SAMBOER' }),
   }
 
-  const formatertSivilstand = sivilstandMap[sivilstand]
-
-  if (checkHarSamboer(sivilstand)) {
-    return formatertSivilstand
-  }
-
-  return showSamboerskap !== undefined
-    ? `${formatertSivilstand}, ${
-        showSamboerskap?.harSamboer
-          ? intl.formatMessage({ id: 'sivilstand.MED_SAMBOER' })
-          : intl.formatMessage({ id: 'sivilstand.UTEN_SAMBOER' })
-      }`
-    : formatertSivilstand
+  return sivilstandMap[sivilstand]
 }

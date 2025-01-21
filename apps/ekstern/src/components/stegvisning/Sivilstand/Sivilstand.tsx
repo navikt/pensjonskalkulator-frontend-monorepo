@@ -23,7 +23,6 @@ import styles from './Sivilstand.module.scss'
 interface Props {
   shouldRedirectTo?: string
   sivilstand: UtvidetSivilstand
-  harSamboer: boolean | null
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   onCancel?: () => void
