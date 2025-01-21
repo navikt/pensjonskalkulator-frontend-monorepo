@@ -183,7 +183,7 @@ describe('Med samtykke', () => {
       cy.login()
     })
 
-    describe('Når TP-register er ukomplett og svarer med Teknisk feil,', () => {
+    describe('Når simulering av tjenestepensjon fra SPK svarer med Teknisk feil,', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -240,7 +240,7 @@ describe('Med samtykke', () => {
       })
     })
 
-    describe('Når TP-register er ukomplett og svarer med tom simulering,', () => {
+    describe('Når simulering av tjenestepensjon fra SPK svarer med tom simulering,', () => {
       beforeEach(() => {
         cy.intercept(
           {
