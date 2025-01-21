@@ -10,8 +10,9 @@ export function ErrorPageUnexpected() {
   const [{ onStegvisningCancel }] = useStegvisningNavigation(paths.uventetFeil)
 
   React.useEffect(() => {
-    logger('feilside', {
-      feil: 'Uventet feil',
+    logger('info', {
+      tekst: 'Redirect til /uventet-feil',
+      data: 'fra RouteErrorBoundary',
     })
     window.scrollTo(0, 0)
   })
