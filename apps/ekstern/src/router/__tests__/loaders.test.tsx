@@ -399,23 +399,30 @@ describe('Loaders', () => {
       `)
     })
     describe('Gitt at alle kallene er vellykket, ', () => {
-      it('skal ikke brukere bli redirigert etter innhenting av sivilstand', async () => {
+      it('skal ikke brukere bli redirigert etter innhenting av sivilstand uten samboerskap', async () => {
         const mockedState = {
           api: {
             queries: {
               ...fulfilledGetPerson,
-              ['getPerson(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getPerson',
-                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                startedTimeStamp: 1688046411971,
-                data: {
-                  navn: 'Aprikos',
-                  sivilstand: 'UGIFT',
-                  foedselsdato: '1990-01-01',
-                },
-                fulfilledTimeStamp: 1688046412103,
-              },
+            },
+          },
+          userInput: { ...userInputInitialState },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
+
+        const returnedFromLoader = await stepSivilstandAccessGuard()
+        const shouldRedirectToResponse = await (
+          returnedFromLoader as StepSivilstandAccessGuardLoader
+        ).shouldRedirectTo
+        expect(shouldRedirectToResponse).toBe('')
+      })
+      it('skal ikke brukere bli redirigert etter innhenting av sivilstand med samboerskap', async () => {
+        const mockedState = {
+          api: {
+            queries: {
+              ...fulfilledGetPersonMedSamboer,
             },
           },
           userInput: { ...userInputInitialState },
