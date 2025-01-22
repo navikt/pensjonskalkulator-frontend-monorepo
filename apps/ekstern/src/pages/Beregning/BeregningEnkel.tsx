@@ -261,22 +261,24 @@ export const BeregningEnkel: React.FC = () => {
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
           {isError ||
-          (alderspensjon &&
-            !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) ? (
+          (!isError &&
+            alderspensjon &&
+            !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt &&
+            uttaksalder &&
+            uttaksalder.aar < ubetingetUttaksalder.aar) ? (
             <>
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {!isError &&
-                  uttaksalder &&
-                  uttaksalder.aar < ubetingetUttaksalder.aar && (
-                    <FormattedMessage
-                      id="beregning.lav_opptjening.aar"
-                      values={{ startAar: uttaksalder.aar }}
-                    />
-                  )}
-                {isError && <FormattedMessage id="beregning.error" />}
+                {isError ? (
+                  <FormattedMessage id="beregning.error" />
+                ) : (
+                  <FormattedMessage
+                    id="beregning.lav_opptjening.aar"
+                    values={{ startAar: uttaksalder.aar }}
+                  />
+                )}
               </AlertDashBorder>
             </>
           ) : (
