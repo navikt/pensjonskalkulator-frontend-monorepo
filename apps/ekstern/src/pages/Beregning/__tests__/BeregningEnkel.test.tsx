@@ -49,7 +49,6 @@ describe('BeregningEnkel', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
-            samboer: false,
             afp: 'ja_privat',
           },
         },
@@ -96,7 +95,6 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             samtykke: true,
             samtykkeOffentligAFP: false,
-            samboer: false,
             afp: 'ja_offentlig',
           },
         },
@@ -179,7 +177,6 @@ describe('BeregningEnkel', () => {
             userInput: {
               ...userInputInitialState,
               samtykke: true,
-              samboer: false,
             },
           },
         })
@@ -210,7 +207,6 @@ describe('BeregningEnkel', () => {
             userInput: {
               ...userInputInitialState,
               samtykke: true,
-              samboer: false,
             },
           },
         })
@@ -255,7 +251,6 @@ describe('BeregningEnkel', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
-            samboer: false,
             afp: 'ja_privat',
           },
         },
@@ -279,7 +274,6 @@ describe('BeregningEnkel', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
-            samboer: false,
             afp: 'ja_privat',
           },
         },
@@ -818,7 +812,6 @@ describe('BeregningEnkel', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
-            samboer: false,
             currentSimulation: {
               utenlandsperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',

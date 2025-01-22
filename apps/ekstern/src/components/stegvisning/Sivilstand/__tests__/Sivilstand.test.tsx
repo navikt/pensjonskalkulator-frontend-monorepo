@@ -97,10 +97,10 @@ describe('stegvisning - Sivilstand', () => {
           />
         )
         const epsHarPensjonRadioGroup = screen.getByRole('radiogroup', {
-          name: /stegvisning.sivilstand.radio_epsHarPensjon_label/i,
+          name: /epsHarPensjon/i,
         })
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /stegvisning.sivilstand.radio_epsHarInntektOver2G_label/i,
+          name: /epsHarInntektOver2G/i,
         })
 
         await waitFor(() => {
@@ -108,8 +108,74 @@ describe('stegvisning - Sivilstand', () => {
           expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
         })
       })
+      describe('gitt at sivilstanden din er gift, ', async () => {
+        it('skal teksten for epsHarPensjon endres til "ektefellen din"', async () => {
+          render(
+            <Sivilstand
+              sivilstand="GIFT"
+              epsHarPensjon={null}
+              epsHarInntektOver2G={null}
+              onCancel={onCancelMock}
+              onPrevious={onPreviousMock}
+              onNext={onNextMock}
+            />
+          )
+
+          await waitFor(() => {
+            expect(
+              screen.getByText(
+                'Vil ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+              )
+            ).toBeInTheDocument()
+          })
+        })
+      })
+      describe('gitt at sivilstanden din er samboer, ', async () => {
+        it('skal teksten for epsHarPensjon endres til "samboeren din"', async () => {
+          render(
+            <Sivilstand
+              sivilstand="GIFT"
+              epsHarPensjon={null}
+              epsHarInntektOver2G={null}
+              onCancel={onCancelMock}
+              onPrevious={onPreviousMock}
+              onNext={onNextMock}
+            />
+          )
+
+          await waitFor(() => {
+            expect(
+              screen.getByText(
+                'Vil samboeren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+              )
+            ).toBeInTheDocument()
+          })
+        })
+      })
+      describe('gitt at sivilstanden din er registrert partner, ', async () => {
+        it('skal teksten for epsHarPensjon endres til "partneren din"', async () => {
+          render(
+            <Sivilstand
+              sivilstand="GIFT"
+              epsHarPensjon={null}
+              epsHarInntektOver2G={null}
+              onCancel={onCancelMock}
+              onPrevious={onPreviousMock}
+              onNext={onNextMock}
+            />
+          )
+
+          await waitFor(() => {
+            expect(
+              screen.getByText(
+                'Vil partneren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+              )
+            ).toBeInTheDocument()
+          })
+        })
+      })
     })
-    describe('Gitt radio button for epsHarPensjon settes til "Ja" ', async () => {
+    describe('gitt radio button for epsHarPensjon settes til "Ja" ', async () => {
       it('skal ikke radio button for epsHarInntektOver2G vises', async () => {
         render(
           <Sivilstand
@@ -129,7 +195,7 @@ describe('stegvisning - Sivilstand', () => {
         fireEvent.click(radioButtonJa)
 
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /stegvisning.sivilstand.radio_epsHarInntektOver2G_label/i,
+          name: /epsHarInntektOver2G/i,
         })
 
         await waitFor(() => {
@@ -138,7 +204,7 @@ describe('stegvisning - Sivilstand', () => {
         })
       })
     })
-    describe('Gitt radio button for epsHarPensjon settes til "Nei" ', async () => {
+    describe('gitt radio button for epsHarPensjon settes til "Nei" ', async () => {
       it('skal radio button for epsHarInntektOver2G vises', async () => {
         render(
           <Sivilstand
@@ -158,7 +224,7 @@ describe('stegvisning - Sivilstand', () => {
         fireEvent.click(radioButtonNei)
 
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /stegvisning.sivilstand.radio_epsHarInntektOver2G_label/i,
+          name: /epsHarInntektOver2G/i,
         })
 
         await waitFor(() => {

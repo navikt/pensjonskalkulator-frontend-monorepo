@@ -894,7 +894,6 @@ describe('routes', () => {
             userInput: {
               ...userInputInitialState,
               samtykke: true,
-              samboer: false,
               afp: 'ja_privat',
               currentSimulation: {
                 ...userInputInitialState.currentSimulation,

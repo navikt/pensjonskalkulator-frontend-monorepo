@@ -219,9 +219,13 @@ export function Sivilstand({
         )}
         {shouldShowInput.epsHarInntektOver2G && (
           <RadioGroup
-            legend={
+            legend={intl.formatMessage(
+              { id: 'stegvisning.sivilstand.radio_epsHarPensjon_label' },
+              { sivilstand: getSivilstandTekst(sivilstandInput) }
+            )}
+            /* legend={
               <FormattedMessage id="stegvisning.sivilstand.radio_epsHarInntektOver2G_label" />
-            }
+            } */
             description={intl.formatMessage({
               id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
             })}
