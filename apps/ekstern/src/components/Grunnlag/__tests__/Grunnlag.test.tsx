@@ -180,7 +180,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
@@ -205,7 +205,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
