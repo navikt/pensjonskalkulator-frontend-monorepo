@@ -623,14 +623,20 @@ const translations = {
     'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
-  'pensjonsavtaler.offentligtp.afp_ja':
+  'pensjonsavtaler.offentligtp.subtitle.klp':
+    'Alderspensjon fra Kommunal Landspensjonskasse (KLP)',
+  'pensjonsavtaler.offentligtp.spk.afp_ja':
     'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
-  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+  'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget':
     'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
-  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+  'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget':
     'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
-  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+  'pensjonsavtaler.offentligtp.spk.afp_vet_ikke':
     'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.klp.afp_ja':
+    'Livsvarig AFP eller eventuell betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke':
+    'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
@@ -791,3 +797,4 @@ const translations = {
   'showmore.vis_mer': 'Vis mer',
 }
 export const getTranslation_nb = () => translations
+export type Translations = typeof translations
