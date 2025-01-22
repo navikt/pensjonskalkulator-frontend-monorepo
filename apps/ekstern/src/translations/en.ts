@@ -789,5 +789,7 @@ const translations = {
     'Questions for Nav or the Data Protection Authority about privacy',
   'personopplysninger.section.spoersmaal.text':
     'See contact information in <navPersonvernerklaeringKontaktOssLink>the privacy policy</navPersonvernerklaeringKontaktOssLink> for Nav.',
+  'showmore.vis_mindre': 'Show less',
+  'showmore.vis_mer': 'Show more',
 }
 export const getTranslation_en = () => translations

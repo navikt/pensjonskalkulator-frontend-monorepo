@@ -591,5 +591,7 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. Nav har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}Nav har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
+  'showmore.vis_mindre': 'Vis mindre',
+  'showmore.vis_mer': 'Vis meir',
 }
 export const getTranslation_nn = () => translations
