@@ -288,11 +288,11 @@ const translations = {
   'stegvisning.sivilstand.select_description':
     'Hvis du endrer, gjelder det kun beregninger i kalkulatoren.',
   'stegvisning.sivilstand.radio_epsHarPensjon_label':
-    'Vil din ektefelle motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+    'Vil {sivilstand} din motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
     'Garantipensjonsnivået du har rett til beregnes ut fra om hen mottar en av disse ytelsene.',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
-    'Vil din ektefelle ha inntekt over 2G?',
+    'Vil {sivilstand} din ha inntekt over 2G?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
     'Alle inntekter skal regnes med, også kapitalinntekter og tjenestepensjon/privat pensjon.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',

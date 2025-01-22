@@ -73,6 +73,20 @@ export function Sivilstand({
     'SAMBOER',
   ]
 
+  const getSivilstandTekst = (sivilstandTekst: UtvidetSivilstand) => {
+    switch (sivilstandTekst) {
+      case 'GIFT':
+        console.log('KOM INN 1')
+        return 'ektefellen'
+      case 'REGISTRERT_PARTNER':
+        console.log('KOM INN 2')
+        return 'partneren'
+      case 'SAMBOER':
+        console.log('KOM INN 3')
+        return 'samboeren'
+    }
+  }
+
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
   const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
     convertBooleanToBooleanRadio(epsHarPensjon)
@@ -177,9 +191,13 @@ export function Sivilstand({
         </Select>
         {shouldShowInput.epsHarPensjon && (
           <RadioGroup
-            legend={
+            legend={intl.formatMessage(
+              { id: 'stegvisning.sivilstand.radio_epsHarPensjon_label' },
+              { sivilstand: getSivilstandTekst(sivilstandInput) }
+            )}
+            /* legend={
               <FormattedMessage id="stegvisning.sivilstand.radio_epsHarPensjon_label" />
-            }
+            } */
             description={intl.formatMessage({
               id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
             })}

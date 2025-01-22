@@ -61,6 +61,7 @@ export function StepSivilstand() {
         </div>
       }
     >
+      {/* TODO - Skal ikke redirectes mer, unødvendig å ha denne promisen da? Fiks opp dette i loader senere */}
       <Await resolve={Promise.all([getPersonQuery, shouldRedirectTo])}>
         {(resp: [GetPersonQuery, string]) => {
           return (
