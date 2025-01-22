@@ -146,6 +146,6 @@ describe('StepUtenlandsopphold', () => {
     expect(radioButtons[0]).toBeChecked()
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(store.getState().userInput.harUtenlandsopphold).toBeNull()
-    expect(navigateMock).toHaveBeenCalledWith(-2)
+    expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 })

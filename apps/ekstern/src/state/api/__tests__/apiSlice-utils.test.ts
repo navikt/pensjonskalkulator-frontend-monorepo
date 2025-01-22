@@ -271,8 +271,14 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-        })?.epsHarInntektOver2G
+        })?.epsHarPensjon
       ).toBeFalsy()
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          epsHarPensjon: true,
+        })?.epsHarPensjon
+      ).toBeTruthy()
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
@@ -281,6 +287,12 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
+        })?.epsHarInntektOver2G
+      ).toBeFalsy()
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          epsHarInntektOver2G: true,
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
@@ -308,9 +320,9 @@ describe('apiSlice - utils', () => {
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
-          sivilstand: 'UGIFT',
+          sivilstand: 'SAMBOER',
         })?.sivilstand
-      ).toEqual('UGIFT')
+      ).toEqual('SAMBOER')
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
@@ -322,13 +334,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           sivilstand: null,
         })?.sivilstand
-      ).toEqual('SAMBOER')
-      expect(
-        generateTidligstMuligHeltUttakRequestBody({
-          ...requestBody,
-          sivilstand: 'UGIFT',
-        })?.sivilstand
-      ).toEqual('SAMBOER')
+      ).toEqual('UGIFT')
     })
 
     it('returnerer riktig aarligInntektVsaPensjon', () => {
@@ -510,21 +516,15 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          sivilstand: null,
-        })?.sivilstand
-      ).toEqual('SAMBOER')
-      expect(
-        generateAlderspensjonEnkelRequestBody({
-          ...requestBody,
           sivilstand: 'UGIFT' as Sivilstand,
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          sivilstand: 'UGIFT' as Sivilstand,
+          sivilstand: 'GIFT' as Sivilstand,
         })?.sivilstand
-      ).toEqual('SAMBOER')
+      ).toEqual('GIFT')
     })
 
     it('returnerer riktig forventetInntekt', () => {
@@ -698,7 +698,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          sivilstand: null,
+          sivilstand: 'SAMBOER' as Sivilstand,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
@@ -712,7 +712,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           sivilstand: 'UGIFT' as Sivilstand,
         })?.sivilstand
-      ).toEqual('SAMBOER')
+      ).toEqual('UGIFT')
     })
 
     it('returnerer riktig gradertUttak', () => {
