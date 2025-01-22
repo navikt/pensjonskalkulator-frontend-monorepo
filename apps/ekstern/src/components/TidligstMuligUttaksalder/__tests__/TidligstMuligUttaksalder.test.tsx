@@ -21,8 +21,8 @@ describe('TidligstMuligUttaksalder', () => {
     loggerTeardown()
   })
 
-  describe('Gitt at en bruker ikke mottar uføretrygd', () => {
-    it('når tidligstMuligUttak ikke kunne hentes, vises riktig introduksjonstekst og readmore nederst har riktig tekst', async () => {
+  describe('Gitt at en bruker ikke mottar uføretrygd, ', () => {
+    it('når tidligstMuligUttak ikke kunne hentes, vises riktig introduksjonstekst og readmore nederst har riktig tekst.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={undefined}
@@ -42,7 +42,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
           {
             exact: false,
           }
@@ -55,7 +55,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('når tidligstMuligUttak kunne hentes, vises readmore nederst med riktig tekst ', async () => {
+    it('når tidligstMuligUttak kunne hentes, vises readmore nederst med riktig tekst.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
@@ -81,7 +81,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
           {
             exact: false,
           }
@@ -94,7 +94,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('når brukeren er født etter 1963, vises riktig ingress ', async () => {
+    it('når brukeren er født etter 1963, vises riktig ingress.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
@@ -135,7 +135,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('når brukeren er født i 1963, vises riktig ingress ', async () => {
+    it('når brukeren er født i 1963, vises riktig ingress.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
@@ -176,7 +176,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('når brukeren mottar omstillingsstønad eller gjenlevendepensjon, vises riktig alertboks', async () => {
+    it('når brukeren mottar omstillingsstønad eller gjenlevendepensjon, vises riktig alertboks.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
@@ -199,15 +199,16 @@ describe('TidligstMuligUttaksalder', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
+            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad.',
+            { exact: false }
           )
         ).toBeInTheDocument()
       })
     })
   })
 
-  describe('Gitt at en bruker ikke mottar uføretrygd', () => {
-    it('når tidligstMuligUttak ikke kunne hentes, vises ikke noe feilmelding og readmore nederst har riktig tekst', async () => {
+  describe('Gitt at en bruker ikke mottar uføretrygd, ', () => {
+    it('når tidligstMuligUttak ikke kunne hentes, vises ikke noe feilmelding og readmore nederst har riktig tekst.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={undefined}
@@ -233,7 +234,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('viser riktig innhold med 100 % ufoeretrygd', async () => {
+    it('viser riktig innhold med 100 % ufoeretrygd.', async () => {
       const user = userEvent.setup()
       render(
         <TidligstMuligUttaksalder
@@ -244,7 +245,7 @@ describe('TidligstMuligUttaksalder', () => {
       )
       expect(
         await screen.findByText(
-          'alderspensjon fra 67 år. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+          'Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
           {
             exact: false,
           }
@@ -253,13 +254,13 @@ describe('TidligstMuligUttaksalder', () => {
       await user.click(screen.getByText('omufoeretrygd.readmore.title'))
       expect(
         screen.getByText(
-          'uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går',
+          'uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før',
           { exact: false }
         )
       ).toBeInTheDocument()
     })
 
-    it('viser riktig innhold med gradert ufoeretrygd', async () => {
+    it('viser riktig innhold med gradert ufoeretrygd.', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulationUtenomUtenlandsperioder'
@@ -274,17 +275,14 @@ describe('TidligstMuligUttaksalder', () => {
         />
       )
       expect(
-        await screen.findByText(
-          'alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til ',
-          {
-            exact: false,
-          }
-        )
+        await screen.findByText('Vil du beregne uttak før ', {
+          exact: false,
+        })
       ).toBeVisible()
       await user.click(screen.getByText('omufoeretrygd.readmore.title'))
       expect(
         screen.getByText(
-          'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon.',
+          'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -293,7 +291,7 @@ describe('TidligstMuligUttaksalder', () => {
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
     })
 
-    it('når brukeren mottar omstillingsstønad eller gjenlevendepensjon, vises riktig alertboks', async () => {
+    it('når brukeren mottar omstillingsstønad eller gjenlevendepensjon, vises riktig alertboks.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
@@ -316,7 +314,8 @@ describe('TidligstMuligUttaksalder', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
+            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad',
+            { exact: false }
           )
         ).toBeInTheDocument()
       })

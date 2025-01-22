@@ -1,4 +1,49 @@
+import { format, sub } from 'date-fns'
+
+import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
+import personMock from '../../../fixtures/person.json'
+
+const fødselsdatoEldreEnn62 = format(
+  sub(new Date(), { years: 62, days: 5 }),
+  'yyyy-MM-dd'
+)
+
 describe('Med ufoeretrygd', () => {
+  describe('Som bruker som har logget inn på kalkulatoren, mottar uføretrygd og er eldre enn 62 år', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+        {
+          ...personMock,
+          foedselsdato: fødselsdatoEldreEnn62,
+        }
+      ).as('getPerson')
+      cy.intercept(
+        {
+          method: 'GET',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+        },
+        {
+          ...loependeVedtakMock,
+          ufoeretrygd: {
+            grad: 100,
+          },
+        }
+      ).as('getLoependeVedtak')
+      cy.login()
+      cy.contains('button', 'Kom i gang').click() // -> Din sivilstand
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click() // -> Opphold utenfor Norge
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click() // -> Pensjonsavtaler
+    })
+
+    it('forventer jeg å ikke få steget om AFP og at neste steg er "Pensjonsavtaler".', () => {
+      cy.contains('Pensjonsavtaler').should('exist')
+      cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
+    })
+  })
+
   describe('Som bruker som har logget inn på kalkulatoren og som mottar uføretrygd,', () => {
     beforeEach(() => {
       cy.intercept(
@@ -7,6 +52,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -55,7 +101,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -84,7 +130,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -116,7 +162,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should('exist')
         cy.contains(
-          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler i privat sektor.'
+          'Gå videre for å se alderspensjon fra Nav og pensjonsavtaler.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -138,6 +184,42 @@ describe('Med ufoeretrygd', () => {
     })
   })
 
+  describe('Som bruker som har logget inn på kalkulatoren, mottar uføretrygd og er eldre enn 62 år', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+        {
+          ...personMock,
+          foedselsdato: fødselsdatoEldreEnn62,
+        }
+      ).as('getPerson')
+      cy.intercept(
+        {
+          method: 'GET',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+        },
+        {
+          ...loependeVedtakMock,
+          ufoeretrygd: {
+            grad: 100,
+          },
+        }
+      ).as('getLoependeVedtak')
+      cy.login()
+    })
+
+    describe('Når jeg er kommet til beregningssiden,', () => {
+      beforeEach(() => {
+        cy.fillOutStegvisning({})
+        cy.contains('button', '67 år').click()
+      })
+
+      it('forventer jeg at informasjon om AFP ikke står i grunnlaget.', () => {
+        cy.contains('AFP').should('not.exist')
+      })
+    })
+  })
+
   describe('Som bruker som har logget inn på kalkulatoren, som mottar 100 % uføretrygd og som ikke har rett til AFP', () => {
     beforeEach(() => {
       cy.intercept(
@@ -146,6 +228,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -181,7 +264,7 @@ describe('Med ufoeretrygd', () => {
     })
   })
 
-  describe('Som bruker som har logget inn på kalkulatoren,som mottar gradert uføretrygd og som ikke har rett til AFP,', () => {
+  describe('Som bruker som har logget inn på kalkulatoren, som mottar gradert uføretrygd og som ikke har rett til AFP,', () => {
     beforeEach(() => {
       cy.intercept(
         {
@@ -189,6 +272,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 75,
           },
@@ -235,6 +319,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 100,
           },
@@ -301,6 +386,7 @@ describe('Med ufoeretrygd', () => {
           url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
+          ...loependeVedtakMock,
           ufoeretrygd: {
             grad: 40,
           },

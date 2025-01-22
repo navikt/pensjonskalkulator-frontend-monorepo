@@ -267,7 +267,7 @@ const translations = {
   'stegvisning.ufoere.readmore_1.body':
     'To qualify for AFP, you cannot have received disability benefits from Nav after the month you turn 62. This applies regardless of whether you have received full or partial disability benefits, how long you have been on disability benefits, and how much you have received in disability benefits.{br}{br}If you are under 62, you must relinquish your disability benefits by the end of the month you turn 62 in order to receive AFP. Remember that all the other conditions for qualifying for AFP must also be met.',
   'stegvisning.ufoere.ingress':
-    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements in the private sector.',
+    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Consent for Nav to Calculate AFP (contractual pension)',
   'stegvisning.samtykke_offentlig_afp.ingress':
@@ -535,6 +535,8 @@ const translations = {
     'You have lived less than 5 years in Norway. Your calculation may be incomplete.',
   'grunnlag.opphold.ingress.endring':
     'The calculation uses the insurance time you have in Norway from your decision about retirement pension.',
+  'grunnlag.opphold.ingress.trygdetid':
+    'Your insurance time when starting the withdrawal of your pension: {aar} years{br}{br}<kortBotidLink>About insurance time</kortBotidLink>',
   'grunnlag.opphold.bunntekst':
     'When you apply for retirement pension, information about time spent outside Norway will be checked against pension authorities in agreement countries. Therefore, your final pension may differ.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -544,7 +546,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'retirement pension',
   'grunnlag.alderspensjon.value': 'National Insurance Scheme (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
+    'retirement pension is calculated based on your pension balance in the National Insurance Scheme. If you continue to have income while withdrawing pension, your retirement pension will increase.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}Your pension balance before withdrawal: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>About the rules for retirement pension</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'Not calculated',
   'grunnlag.afp.endring': 'Unchanged',
@@ -780,5 +786,7 @@ const translations = {
     'Questions for Nav or the Data Protection Authority about privacy',
   'personopplysninger.section.spoersmaal.text':
     'See contact information in <navPersonvernerklaeringKontaktOssLink>the privacy policy</navPersonvernerklaeringKontaktOssLink> for Nav.',
+  'showmore.vis_mindre': 'Show less',
+  'showmore.vis_mer': 'Show more',
 }
 export const getTranslation_en = () => translations

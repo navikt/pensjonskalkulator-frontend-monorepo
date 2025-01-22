@@ -25,6 +25,7 @@
 .highlighted {
   display: inline;
   font-weight: var(--a-font-weight-bold);
+  white-space: nowrap;
 
   @media (min-width: variables.$a-breakpoint-lg) {
     font-size: var(--a-font-size-xlarge);
