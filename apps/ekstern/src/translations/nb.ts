@@ -526,7 +526,7 @@ const translations = {
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
-    'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. Hvis du mottar alderspensjon må du derfor melde fra til Nav ved endring i sivilstand. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
+    'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.{br}{br}Når du mottar alderspensjon må du derfor melde fra til Nav ved endring i sivilstand.{br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
