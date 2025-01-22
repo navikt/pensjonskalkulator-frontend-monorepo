@@ -324,8 +324,8 @@ const translations = {
   'sivilstand.SKILT_PARTNER': 'Skilt partner',
   'sivilstand.GJENLEVENDE_PARTNER': 'Gjenlevende partner',
   'sivilstand.SAMBOER': 'Samboer',
-  'sivilstand.MED_SAMBOER': 'med samboer',
-  'sivilstand.UTEN_SAMBOER': 'uten samboer',
+  'sivilstand.med_samboer': 'med samboer',
+  'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.ingress_1':
     'Beregningen din viser at du kan ta ut <nowrap>100 %</nowrap> alderspensjon fra du er ',
   'tidligstmuliguttak.1963.ingress_2':

@@ -65,7 +65,7 @@ export function StepSivilstand() {
         {(resp: [GetPersonQuery, string]) => {
           return (
             <Sivilstand
-              shouldRedirectTo={resp[1]}
+              //shouldRedirectTo={resp[1]}
               sivilstand={sivilstand}
               epsHarInntektOver2G={epsHarInntektOver2G}
               epsHarPensjon={epsHarPensjon}
