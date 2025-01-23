@@ -22,7 +22,6 @@ import {
   authenticationGuard,
   landingPageAccessGuard,
   stepStartAccessGuard,
-  stepSivilstandAccessGuard,
   stepAFPAccessGuard,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
@@ -76,7 +75,7 @@ export const routes: RouteObject[] = [
         element: <Forbehold />,
       },
       {
-        loader: stepSivilstandAccessGuard,
+        loader: directAccessGuard,
         path: paths.sivilstand,
         element: <StepSivilstand />,
       },

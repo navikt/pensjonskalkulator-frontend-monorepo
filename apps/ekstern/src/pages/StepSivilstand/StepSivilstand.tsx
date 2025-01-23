@@ -6,7 +6,6 @@ import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectIsVeileder,
@@ -20,9 +19,6 @@ export function StepSivilstand() {
   const intl = useIntl()
 
   const dispatch = useAppDispatch()
-
-  const { getPersonQuery, shouldRedirectTo } =
-    useLoaderData() as StepSivilstandAccessGuardLoader
   const isVeileder = useAppSelector(selectIsVeileder)
   const sivilstand = useAppSelector(selectSivilstand)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
@@ -49,34 +45,13 @@ export function StepSivilstand() {
   }
 
   return (
-    <React.Suspense
-      fallback={
-        <div style={{ width: '100%' }}>
-          <Loader
-            data-testid="sivilstand-loader"
-            size="3xlarge"
-            title={intl.formatMessage({ id: 'pageframework.loading' })}
-            isCentered
-          />
-        </div>
-      }
-    >
-      {/* TODO - Skal ikke redirectes mer, unødvendig å ha denne promisen da? Fiks opp dette i loader senere */}
-      <Await resolve={Promise.all([getPersonQuery, shouldRedirectTo])}>
-        {(resp: [GetPersonQuery, string]) => {
-          return (
-            <Sivilstand
-              //shouldRedirectTo={resp[1]}
-              sivilstand={sivilstand}
-              epsHarInntektOver2G={epsHarInntektOver2G}
-              epsHarPensjon={epsHarPensjon}
-              onCancel={isVeileder ? undefined : onStegvisningCancel}
-              onPrevious={onStegvisningPrevious}
-              onNext={onNext}
-            />
-          )
-        }}
-      </Await>
-    </React.Suspense>
+    <Sivilstand
+      sivilstand={sivilstand}
+      epsHarInntektOver2G={epsHarInntektOver2G}
+      epsHarPensjon={epsHarPensjon}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onStegvisningPrevious}
+      onNext={onNext}
+    />
   )
 }

@@ -77,7 +77,7 @@ describe('StepSivilstand', () => {
     })
   })
 
-  it.skip('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
+  it('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
     const user = userEvent.setup()
     const setSivilstandMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
@@ -109,7 +109,7 @@ describe('StepSivilstand', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
   })
 
-  describe.skip('Gitt at brukeren er logget på som veileder', async () => {
+  describe('Gitt at brukeren er logget på som veileder', async () => {
     it('vises ikke Avbryt knapp', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,

@@ -10,13 +10,14 @@ import {
   Radio,
   RadioGroup,
   Select,
+  VStack,
 } from '@navikt/ds-react'
 
 import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
-import { formatSivilstand } from '@/utils/sivilstand'
+import { formatSivilstand, getSivilstandTekst } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
 
@@ -58,7 +59,10 @@ export function Sivilstand({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-  const [, /* validationError */ setValidationError] = useState<string>('')
+  const [validationError, setValidationError] = useState<{
+    epsHarPensjon?: string
+    epsHarInntektOver2G?: string
+  }>({ epsHarPensjon: undefined, epsHarInntektOver2G: undefined })
 
   const sivilstandOptions = [
     'UGIFT',
@@ -72,20 +76,6 @@ export function Sivilstand({
     'GJENLEVENDE_PARTNER',
     'SAMBOER',
   ]
-
-  const getSivilstandTekst = (sivilstandTekst: UtvidetSivilstand) => {
-    switch (sivilstandTekst) {
-      case 'GIFT':
-        console.log('KOM INN 1')
-        return 'ektefellen'
-      case 'REGISTRERT_PARTNER':
-        console.log('KOM INN 2')
-        return 'partneren'
-      case 'SAMBOER':
-        console.log('KOM INN 3')
-        return 'samboeren'
-    }
-  }
 
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
   const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
@@ -106,6 +96,7 @@ export function Sivilstand({
     [sivilstand]
   )
 
+  /* TODO: Spør Cecilie om vi skal fjerne validationError her */
   const shouldShowInput = React.useMemo(() => {
     const shouldShowEpsHarPensjon =
       sivilstandInput === 'GIFT' ||
@@ -123,34 +114,58 @@ export function Sivilstand({
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    if (!sivilstandInput) {
-      const tekst = intl.formatMessage({
-        id: 'stegvisning.sivilstand.validation_error',
-      })
-      setValidationError(tekst)
+    const epsHarPensjon_validationText = intl.formatMessage(
+      { id: 'stegvisning.sivilstand.epsHarPensjon.validation_error' },
+      { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
+    )
+    const epsHarInntektOver2G_validationText = intl.formatMessage(
+      { id: 'stegvisning.sivilstand.epsHarInntektOver2G.validation_error' },
+      { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
+    )
+    if (
+      (shouldShowInput.epsHarPensjon && epsHarPensjonInput === null) ||
+      (shouldShowInput.epsHarInntektOver2G && epsHarInntektOver2GInput === null)
+    ) {
+      const validationErrorText = {
+        epsHarPensjon:
+          shouldShowInput.epsHarPensjon && epsHarPensjonInput === null
+            ? epsHarPensjon_validationText
+            : undefined,
+        epsHarInntektOver2G:
+          shouldShowInput.epsHarInntektOver2G &&
+          epsHarInntektOver2GInput === null
+            ? epsHarInntektOver2G_validationText
+            : undefined,
+      }
+      setValidationError(validationErrorText)
       logger('skjema validering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
         data: intl.formatMessage({
           id: 'stegvisning.sivilstand.radio_label',
         }),
-        tekst,
+        tekst: validationErrorText,
       })
-    } else {
-      logger('button klikk', {
-        tekst: `Neste fra ${paths.sivilstand}`,
-      })
-
-      // TODO: Konverter til true/false før submit
-      onNext({
-        sivilstand: sivilstandInput,
-        epsHarPensjon: shouldShowInput.epsHarPensjon
-          ? convertBooleanRadioToBoolean(epsHarPensjonInput)
-          : null,
-        epsHarInntektOver2G: shouldShowInput.epsHarInntektOver2G
-          ? convertBooleanRadioToBoolean(epsHarInntektOver2GInput)
-          : null,
-      })
+      return
     }
+
+    logger('button klikk', {
+      tekst: `Neste fra ${paths.sivilstand}`,
+    })
+
+    setValidationError({
+      epsHarPensjon: undefined,
+      epsHarInntektOver2G: undefined,
+    })
+
+    onNext({
+      sivilstand: sivilstandInput,
+      epsHarPensjon: shouldShowInput.epsHarPensjon
+        ? convertBooleanRadioToBoolean(epsHarPensjonInput)
+        : null,
+      epsHarInntektOver2G: shouldShowInput.epsHarInntektOver2G
+        ? convertBooleanRadioToBoolean(epsHarInntektOver2GInput)
+        : null,
+    })
   }
 
   if (shouldRedirectTo) {
@@ -168,83 +183,80 @@ export function Sivilstand({
           {formatertSivilstand}
           <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
         </BodyLong>
-        <Select
-          name="sivilstand"
-          value={sivilstandInput}
-          onChange={(e) =>
-            setSivilstandInput(e.target.value as UtvidetSivilstand)
-          }
-          label={intl.formatMessage({
-            id: `stegvisning.sivilstand.select_label`,
-          })}
-          description={intl.formatMessage({
-            id: `stegvisning.sivilstand.select_description`,
-          })}
-        >
-          {sivilstandOptions.map((option) => (
-            <option key={option} value={option}>
-              {intl.formatMessage({
-                id: `sivilstand.${option}`,
+        <VStack gap="6">
+          <Select
+            className={styles.selectSivilstand}
+            name="sivilstand"
+            value={sivilstandInput}
+            onChange={(e) =>
+              setSivilstandInput(e.target.value as UtvidetSivilstand)
+            }
+            label={intl.formatMessage({
+              id: `stegvisning.sivilstand.select_label`,
+            })}
+            description={intl.formatMessage({
+              id: `stegvisning.sivilstand.select_description`,
+            })}
+          >
+            {sivilstandOptions.map((option) => (
+              <option key={option} value={option}>
+                {intl.formatMessage({
+                  id: `sivilstand.${option}`,
+                })}
+              </option>
+            ))}
+          </Select>
+          {shouldShowInput.epsHarPensjon && (
+            <RadioGroup
+              legend={intl.formatMessage(
+                { id: 'stegvisning.sivilstand.radio_epsHarPensjon_label' },
+                { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
+              )}
+              description={intl.formatMessage({
+                id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
               })}
-            </option>
-          ))}
-        </Select>
-        {shouldShowInput.epsHarPensjon && (
-          <RadioGroup
-            legend={intl.formatMessage(
-              { id: 'stegvisning.sivilstand.radio_epsHarPensjon_label' },
-              { sivilstand: getSivilstandTekst(sivilstandInput) }
-            )}
-            /* legend={
-              <FormattedMessage id="stegvisning.sivilstand.radio_epsHarPensjon_label" />
-            } */
-            description={intl.formatMessage({
-              id: 'stegvisning.sivilstand.radio_epsHarPensjon_description',
-            })}
-            name="epsHarPensjon"
-            value={epsHarPensjonInput}
-            onChange={(value) => setEpsharPensjonInput(value)}
-            className={styles.radiogroup}
-            //error={validationError}
-            role="radiogroup"
-            aria-required="true"
-          >
-            <Radio value="ja">
-              <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
-            </Radio>
-            <Radio value="nei">
-              <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
-            </Radio>
-          </RadioGroup>
-        )}
-        {shouldShowInput.epsHarInntektOver2G && (
-          <RadioGroup
-            legend={intl.formatMessage(
-              { id: 'stegvisning.sivilstand.radio_epsHarPensjon_label' },
-              { sivilstand: getSivilstandTekst(sivilstandInput) }
-            )}
-            /* legend={
-              <FormattedMessage id="stegvisning.sivilstand.radio_epsHarInntektOver2G_label" />
-            } */
-            description={intl.formatMessage({
-              id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
-            })}
-            value={epsHarInntektOver2GInput}
-            onChange={(value) => setEpsHarInntektOver2GInput(value)}
-            name="epsHarInntektOver2G"
-            className={styles.radiogroup}
-            //error={validationError}
-            role="radiogroup"
-            aria-required="true"
-          >
-            <Radio value="ja">
-              <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
-            </Radio>
-            <Radio value="nei">
-              <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
-            </Radio>
-          </RadioGroup>
-        )}
+              name="epsHarPensjon"
+              value={epsHarPensjonInput}
+              onChange={(value) => setEpsharPensjonInput(value)}
+              error={validationError.epsHarPensjon}
+              role="radiogroup"
+              aria-required="true"
+            >
+              <Radio value="ja">
+                <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+              </Radio>
+              <Radio value="nei">
+                <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+              </Radio>
+            </RadioGroup>
+          )}
+          {shouldShowInput.epsHarInntektOver2G && (
+            <RadioGroup
+              legend={intl.formatMessage(
+                {
+                  id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_label',
+                },
+                { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
+              )}
+              description={intl.formatMessage({
+                id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
+              })}
+              value={epsHarInntektOver2GInput}
+              onChange={(value) => setEpsHarInntektOver2GInput(value)}
+              name="epsHarInntektOver2G"
+              error={validationError.epsHarInntektOver2G}
+              role="radiogroup"
+              aria-required="true"
+            >
+              <Radio value="ja">
+                <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+              </Radio>
+              <Radio value="nei">
+                <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+              </Radio>
+            </RadioGroup>
+          )}
+        </VStack>
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>

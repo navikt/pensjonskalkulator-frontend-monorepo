@@ -279,7 +279,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
-  'stegvisning.sivilstand.title': 'Din sivilstand',
+  'stegvisning.sivilstand.title': 'Sivilstand',
   'stegvisning.sivilstand.ingress_1':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon. Du er registrert som ',
   'stegvisning.sivilstand.ingress_2': ' i Folkeregisteret.',
@@ -298,8 +298,13 @@ const translations = {
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
-  'stegvisning.sivilstand.validation_error':
-    'Du må svare på om du har samboer.',
+  'stegvisning.sivilstand.epsHarPensjon.validation_error':
+    'Du må svare på om {sivilstand} vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.',
+  'stegvisning.sivilstand.epsHarInntektOver2G.validation_error':
+    'Du må svare på om {sivilstand} vil ha inntekt over 2G.',
+  'stegvisning.sivilstand.ektefellen': 'ektefellen',
+  'stegvisning.sivilstand.samboeren': 'samboeren',
+  'stegvisning.sivilstand.partneren': 'partneren',
   'agepicker.validation_error.aar': 'Du må velge år og måned',
   'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',

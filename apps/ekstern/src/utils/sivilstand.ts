@@ -1,8 +1,18 @@
 import { IntlShape } from 'react-intl'
 
-// TODO: Trenger vi denne?
-export function checkHarSamboer(sivilstand: UtvidetSivilstand): boolean {
-  return ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
+/* TODO - internasjonal tekst + flytte til nb og en */
+export const getSivilstandTekst = (
+  intl: IntlShape,
+  sivilstandTekst: UtvidetSivilstand
+) => {
+  switch (sivilstandTekst) {
+    case 'GIFT':
+      return intl.formatMessage({ id: 'stegvisning.sivilstand.ektefellen' })
+    case 'REGISTRERT_PARTNER':
+      return intl.formatMessage({ id: 'stegvisning.sivilstand.partneren' })
+    case 'SAMBOER':
+      return intl.formatMessage({ id: 'stegvisning.sivilstand.samboeren' })
+  }
 }
 
 export const formatSivilstand = (

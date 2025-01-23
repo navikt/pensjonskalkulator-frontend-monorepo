@@ -289,6 +289,10 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'No',
   'stegvisning.sivilstand.validation_error':
     'You must answer whether you have a partner or spouse.',
+  /* TODO: SPØR LUCAS */
+  'stegvisning.sivilstand.ektefellen': 'ektefellen',
+  'stegvisning.sivilstand.samboeren': 'samboeren',
+  'stegvisning.sivilstand.partneren': 'partneren',
   'agepicker.validation_error.aar': 'You must select year and month',
   'agepicker.validation_error.maaneder': 'You must select month',
   'string.og': 'and',
