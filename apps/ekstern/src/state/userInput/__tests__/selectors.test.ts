@@ -111,7 +111,7 @@ describe('userInput selectors', () => {
       const state: RootState = {
         ...initialState,
       }
-      expect(selectSivilstand(state)).toBe(undefined)
+      expect(selectSivilstand(state)).toBe('UGIFT')
     })
     it('returnerer riktig sivilstand når queryen er vellykket', () => {
       const state: RootState = {

@@ -96,8 +96,8 @@ describe('stegvisning - Sivilstand', () => {
             onNext={onNextMock}
           />
         )
-        const epsHarPensjonRadioGroup = screen.getByRole('radiogroup', {
-          name: /epsHarPensjon/i,
+        const epsHarPensjonRadioGroup = screen.queryByRole('radiogroup', {
+          name: /Vil stegvisning.sivilstand.ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
         })
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
           name: /epsHarInntektOver2G/i,
@@ -123,9 +123,9 @@ describe('stegvisning - Sivilstand', () => {
 
           await waitFor(() => {
             expect(
-              screen.getByText(
-                'Vil ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
-              )
+              screen.queryByRole('radiogroup', {
+                name: /Vil stegvisning.sivilstand.ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+              })
             ).toBeInTheDocument()
           })
         })
@@ -134,7 +134,7 @@ describe('stegvisning - Sivilstand', () => {
         it('skal teksten for epsHarPensjon endres til "samboeren din"', async () => {
           render(
             <Sivilstand
-              sivilstand="GIFT"
+              sivilstand="SAMBOER"
               epsHarPensjon={null}
               epsHarInntektOver2G={null}
               onCancel={onCancelMock}
@@ -145,9 +145,9 @@ describe('stegvisning - Sivilstand', () => {
 
           await waitFor(() => {
             expect(
-              screen.getByText(
-                'Vil samboeren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
-              )
+              screen.queryByRole('radiogroup', {
+                name: /Vil stegvisning.sivilstand.samboeren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+              })
             ).toBeInTheDocument()
           })
         })
@@ -156,7 +156,7 @@ describe('stegvisning - Sivilstand', () => {
         it('skal teksten for epsHarPensjon endres til "partneren din"', async () => {
           render(
             <Sivilstand
-              sivilstand="GIFT"
+              sivilstand="REGISTRERT_PARTNER"
               epsHarPensjon={null}
               epsHarInntektOver2G={null}
               onCancel={onCancelMock}
@@ -167,9 +167,9 @@ describe('stegvisning - Sivilstand', () => {
 
           await waitFor(() => {
             expect(
-              screen.getByText(
-                'Vil partneren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
-              )
+              screen.queryByRole('radiogroup', {
+                name: /Vil stegvisning.sivilstand.partneren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+              })
             ).toBeInTheDocument()
           })
         })
@@ -203,6 +203,47 @@ describe('stegvisning - Sivilstand', () => {
           expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
         })
       })
+      it('validerer epsHarPensjon, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+        const user = userEvent.setup()
+        render(
+          <Sivilstand
+            sivilstand="GIFT"
+            epsHarPensjon={null}
+            epsHarInntektOver2G={null}
+            onCancel={onCancelMock}
+            onPrevious={onPreviousMock}
+            onNext={onNextMock}
+          />
+        )
+
+        await user.click(screen.getByText('stegvisning.neste'))
+
+        waitFor(() => {
+          expect(
+            screen.getByText(
+              'stegvisning.sivilstand.epsHarPensjon.validation_error'
+            )
+          ).toBeInTheDocument()
+          expect(onNextMock).not.toHaveBeenCalled()
+        })
+
+        const epsHarPensjonRadioButtonJa = screen.getByLabelText(
+          /stegvisning.sivilstand.radio_ja/i
+        )
+        fireEvent.click(epsHarPensjonRadioButtonJa)
+
+        expect(
+          screen.queryByText(
+            'stegvisning.sivilstand.epsHarPensjon.validation_error'
+          )
+        ).not.toBeInTheDocument()
+
+        await user.click(screen.getByText('stegvisning.neste'))
+
+        waitFor(() => {
+          expect(onNextMock).toHaveBeenCalled()
+        })
+      })
     })
     describe('gitt radio button for epsHarPensjon settes til "Nei" ', async () => {
       it('skal radio button for epsHarInntektOver2G vises', async () => {
@@ -216,30 +257,28 @@ describe('stegvisning - Sivilstand', () => {
             onNext={onNextMock}
           />
         )
-
-        const radioButtons = screen.getAllByRole('radio', {
-          name: /stegvisning.sivilstand.radio_nei/i,
-        })
-        const radioButtonNei = radioButtons[0]
-        fireEvent.click(radioButtonNei)
+        const epsHarPensjonRadioButtonNei = screen.getByLabelText(
+          /stegvisning.sivilstand.radio_nei/i
+        )
+        fireEvent.click(epsHarPensjonRadioButtonNei)
 
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /epsHarInntektOver2G/i,
+          name: /Vil stegvisning.sivilstand.ektefellen din ha inntekt over 2G?/i,
         })
 
         await waitFor(() => {
-          expect(radioButtonNei).toBeChecked()
+          expect(epsHarPensjonRadioButtonNei).toBeChecked()
           expect(epsHarInntektOver2GRadioGroup).toBeVisible()
         })
       })
     })
   })
 
-  it.skip('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+  it('validerer epsHarPensjon, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
-        sivilstand="UGIFT"
+        sivilstand="GIFT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}
         onCancel={onCancelMock}
@@ -247,21 +286,30 @@ describe('stegvisning - Sivilstand', () => {
         onNext={onNextMock}
       />
     )
-    const radioButtons = screen.getAllByRole('radio')
+
+    const epsHarPensjonRadioButtonNei = screen.getByLabelText(
+      /stegvisning.sivilstand.radio_nei/i
+    )
+    fireEvent.click(epsHarPensjonRadioButtonNei)
 
     await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
-        screen.getByText('stegvisning.sivilstand.validation_error')
+        screen.getByText(
+          'stegvisning.sivilstand.epsHarInntektOver2G.validation_error'
+        )
       ).toBeInTheDocument()
       expect(onNextMock).not.toHaveBeenCalled()
     })
 
-    await user.click(radioButtons[0])
+    const epsHarInntektOver2GRadioButtonNei = screen.getAllByRole('radio')
+    fireEvent.click(epsHarInntektOver2GRadioButtonNei[3])
 
     expect(
-      screen.queryByText('stegvisning.sivilstand.validation_error')
+      screen.queryByText(
+        'stegvisning.sivilstand.epsHarInntektOver2G.validation_error'
+      )
     ).not.toBeInTheDocument()
 
     await user.click(screen.getByText('stegvisning.neste'))

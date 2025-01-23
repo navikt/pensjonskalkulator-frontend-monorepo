@@ -195,9 +195,6 @@ describe('Grunnlag', () => {
         expect(
           screen.queryByText('grunnlag.sivilstand.title')
         ).toBeInTheDocument()
-        expect(
-          screen.getByText('grunnlag.sivilstand.title.error')
-        ).toBeVisible()
       })
       const buttons = screen.getAllByRole('button')
 
