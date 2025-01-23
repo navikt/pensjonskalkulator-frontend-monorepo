@@ -25,6 +25,7 @@ import {
   stepAFPAccessGuard,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
+  stepSivilstandAccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -75,7 +76,7 @@ export const routes: RouteObject[] = [
         element: <Forbehold />,
       },
       {
-        loader: directAccessGuard,
+        loader: stepSivilstandAccessGuard,
         path: paths.sivilstand,
         element: <StepSivilstand />,
       },

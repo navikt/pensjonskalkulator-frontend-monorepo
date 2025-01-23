@@ -39,10 +39,14 @@ export const selectFoedselsdato = createSelector(
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return (
-      state.userInput.sivilstand ??
-      apiSlice.endpoints.getPerson.select(undefined)(state)?.data?.sivilstand
-    )
+    // Returner userInput dersom satt, hvis ikke returner respons fra `getPerson`
+    const personQuerySivilstandResponse =
+      apiSlice.endpoints.getPerson.select()(state).data?.sivilstand ?? 'UGIFT'
+
+    return (state.userInput.sivilstand ??
+      ['UNKNOWN', 'UOPPGITT'].includes(personQuerySivilstandResponse))
+      ? 'UGIFT'
+      : personQuerySivilstandResponse
   }
 )
 

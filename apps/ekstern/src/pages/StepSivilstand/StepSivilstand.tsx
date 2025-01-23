@@ -6,6 +6,7 @@ import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
+import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectIsVeileder,
@@ -23,6 +24,9 @@ export function StepSivilstand() {
   const sivilstand = useAppSelector(selectSivilstand)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+
+  const { getPersonQuery, shouldRedirectTo } =
+    useLoaderData() as StepSivilstandAccessGuardLoader
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
     useStegvisningNavigation(paths.sivilstand)
@@ -45,13 +49,33 @@ export function StepSivilstand() {
   }
 
   return (
-    <Sivilstand
-      sivilstand={sivilstand}
-      epsHarInntektOver2G={epsHarInntektOver2G}
-      epsHarPensjon={epsHarPensjon}
-      onCancel={isVeileder ? undefined : onStegvisningCancel}
-      onPrevious={onStegvisningPrevious}
-      onNext={onNext}
-    />
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="sivilstand-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await resolve={Promise.all([getPersonQuery, shouldRedirectTo])}>
+        {([, shouldRedirectToResp]) => {
+          return (
+            <Sivilstand
+              shouldRedirectTo={shouldRedirectToResp}
+              sivilstand={sivilstand}
+              epsHarInntektOver2G={epsHarInntektOver2G}
+              epsHarPensjon={epsHarPensjon}
+              onCancel={isVeileder ? undefined : onStegvisningCancel}
+              onPrevious={onStegvisningPrevious}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

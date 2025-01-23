@@ -155,6 +155,7 @@ export const isPerson = (data?: any): data is Person => {
   return !!(
     [
       null,
+      'UNKNOWN',
       'UOPPGITT',
       'UGIFT',
       'GIFT',

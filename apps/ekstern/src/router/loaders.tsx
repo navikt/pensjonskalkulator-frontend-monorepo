@@ -216,6 +216,42 @@ export const stepStartAccessGuard =
     }
   }
 
+// ///////////////////////////////////////////
+
+export type StepSivilstandAccessGuardLoader = {
+  getPersonQuery: GetPersonQuery
+  shouldRedirectTo: Promise<string>
+}
+
+export const stepSivilstandAccessGuard = async (): Promise<
+  Response | StepSivilstandAccessGuardLoader
+> => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+  const resolveGetPerson: (
+    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+
+  const getPersonResponse = apiSlice.endpoints.getPerson.select(undefined)(
+    store.getState()
+  )
+  resolveRedirectUrl('')
+  resolveGetPerson(getPersonResponse)
+
+  return {
+    getPersonQuery: getPersonResponse,
+    shouldRedirectTo,
+  }
+}
+
 /// ////////////////////////////////////////////////////////////////////////
 
 export type StepAFPAccessGuardLoader = {
