@@ -2,7 +2,8 @@
   "alderspensjon": [
     {
       "alder": 74,
-      "beloep": 356836
+      "beloep": 356836,
+      "pensjonBeholdningFoerUttakBeloep": 2345186
     },
     {
       "alder": 75,
@@ -24,5 +25,6 @@
   "vilkaarsproeving": {
     "vilkaarErOppfylt": true
   },
-  "harForLiteTrygdetid": false
+  "harForLiteTrygdetid": false,
+  "trygdetid": 40
 }

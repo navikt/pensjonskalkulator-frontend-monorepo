@@ -14,7 +14,6 @@ import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' 
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
 import enableSanityToggleResponse from './data/unleash-enable-sanity.json' with { type: 'json' }
-import enableTpOffentligToggleResponse from './data/unleash-enable-tpoffentlig.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -110,7 +109,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_PRIVAT'
+        'ALDERSPENSJON_MED_AFP_PRIVAT' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
     ) {
       const afpPrivatData = JSON.parse(
         JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
@@ -119,7 +120,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     ) {
       const afpOffentligData = JSON.parse(
         JSON.stringify(await import(`./data/afp-offentlig.json`))
@@ -159,14 +162,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(enableRedirect1963ToggleResponse)
-    }
-  ),
-
-  http.get(
-    `${baseUrl}/feature/pensjonskalkulator.enable-tpoffentlig`,
-    async () => {
-      await delay(TEST_DELAY)
-      return HttpResponse.json(enableTpOffentligToggleResponse)
     }
   ),
 

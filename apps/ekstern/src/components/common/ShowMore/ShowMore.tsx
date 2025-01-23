@@ -207,8 +207,7 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
         <div
           className="navds-show-more__content"
           style={isOpen ? {} : { height: collapsedHeight }}
-          // @ts-expect-error https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60822
-          inert={isOpen ? undefined : ''}
+          inert={isOpen ? undefined : true}
         >
           {children}
         </div>

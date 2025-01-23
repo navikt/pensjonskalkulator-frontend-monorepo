@@ -245,7 +245,6 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
-  useGetTpOffentligFeatureToggleQuery,
   useGetSanityFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice
