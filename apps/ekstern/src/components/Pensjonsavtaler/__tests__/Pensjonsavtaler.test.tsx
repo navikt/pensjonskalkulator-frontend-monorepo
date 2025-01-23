@@ -139,7 +139,7 @@ describe('Pensjonsavtaler', () => {
           harAfp: true,
           epsHarPensjon: false,
           epsHarInntektOver2G: false,
-          sivilstand: undefined,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               aarligInntektVsaPensjon: {

@@ -1,25 +1,23 @@
 import { IntlShape } from 'react-intl'
 
-import { checkHarSamboer, formatSivilstand } from '@/utils/sivilstand'
+import { formatSivilstand, getSivilstandTekst } from '@/utils/sivilstand'
 
 describe('sivilstand-utils', () => {
-  describe('checkHarSamboer', () => {
-    test.each([
-      ['UOPPGITT', false],
-      ['UGIFT', false],
-      ['GIFT', true],
-      ['ENKE_ELLER_ENKEMANN', false],
-      ['SKILT', false],
-      ['SEPARERT', false],
-      ['REGISTRERT_PARTNER', true],
-      ['SEPARERT_PARTNER', false],
-      ['SKILT_PARTNER', false],
-      ['GJENLEVENDE_PARTNER', false],
-    ])('Viser riktig samboerskap når sivilstand er: %s', (a, expected) => {
-      expect(checkHarSamboer(a as Sivilstand)).toEqual(expected)
+  describe('getSivilstandTekst', () => {
+    const intlMock = {
+      formatMessage: (s: { id: string }) => s.id,
+    } as unknown as IntlShape
+    describe('returnerer riktig sivilstand tekst', () => {
+      test.each([
+        ['GIFT', 'stegvisning.sivilstand.ektefellen'],
+        ['REGISTRERT_PARTNER', 'stegvisning.sivilstand.partneren'],
+        ['SAMBOER', 'stegvisning.sivilstand.samboeren'],
+      ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
+        const sivilstand = getSivilstandTekst(intlMock, a as Sivilstand)
+        expect(sivilstand).toEqual(expected)
+      })
     })
   })
-
   describe('formatSivilstand', () => {
     const intlMock = {
       formatMessage: (s: { id: string }) => s.id,

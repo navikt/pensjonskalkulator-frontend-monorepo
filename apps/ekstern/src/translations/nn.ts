@@ -248,11 +248,19 @@ const translations = {
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
     'i Folkeregisteret. Har du sambuar eller ektefelle kan det påverke utrekninga.',
+  'stegvisning.sivilstand.select_label': 'MANGLER TEKST',
+  'stegvisning.sivilstand.select_description': 'MANGLER TEKST',
+  'stegvisning.sivilstand.radio_epsHarPensjon_label': 'MANGLER TEKST',
+  'stegvisning.sivilstand.radio_epsHarPensjon_description': 'MANGLER TEKST',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_label': 'MANGLER TEKST',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
+    'MANGLER TEKST',
   'stegvisning.sivilstand.radio_label': 'Har du sambuar eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
-  'stegvisning.sivilstand.validation_error':
-    'Du må svare på om du har sambuar.',
+  'stegvisning.sivilstand.epsHarPensjon.validation_error': 'MANGLER TEKST',
+  'stegvisning.sivilstand.epsHarInntektOver2G.validation_error':
+    'MANGLER TEKST',
   'agepicker.validation_error.aar': 'MANGLER_TEKST',
   'agepicker.validation_error.maaneder': 'MANGLER_TEKST',
   'string.og': 'og',
