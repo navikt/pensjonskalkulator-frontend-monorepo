@@ -196,7 +196,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-
     getSanityFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.hent-tekster-fra-sanity',
       transformResponse: (response: UnleashToggle) => {
@@ -206,7 +205,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-
     getUtvidetSimuleringsresultatFeatureToggle: builder.query<
       UnleashToggle,
       void
