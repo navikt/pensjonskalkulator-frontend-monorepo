@@ -116,7 +116,7 @@ describe('apiSlice - utils', () => {
           ].data,
           'ja_offentlig'
         )
-      ).toEqual('ENDRING_ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
           fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
@@ -140,7 +140,7 @@ describe('apiSlice - utils', () => {
           ].data,
           null
         )
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
     })
   })
 
@@ -478,7 +478,7 @@ describe('apiSlice - utils', () => {
           },
           afp: 'ja_offentlig',
         })?.simuleringstype
-      ).toEqual('ENDRING_ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
