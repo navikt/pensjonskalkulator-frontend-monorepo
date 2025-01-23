@@ -43,6 +43,10 @@ export const selectSivilstand = createSelector(
     const personQuerySivilstandResponse =
       apiSlice.endpoints.getPerson.select()(state).data?.sivilstand ?? 'UGIFT'
 
+    if (state.userInput.sivilstand) {
+      return state.userInput.sivilstand
+    }
+
     return (state.userInput.sivilstand ??
       ['UNKNOWN', 'UOPPGITT'].includes(personQuerySivilstandResponse))
       ? 'UGIFT'

@@ -157,6 +157,9 @@ export function Sivilstand({
       epsHarInntektOver2G: undefined,
     })
 
+    console.log('sivilstandInput', sivilstandInput)
+    console.log('epsHarPensjonInput', epsHarPensjonInput)
+    console.log('epsHarInntektOver2GInput', epsHarInntektOver2GInput)
     onNext({
       sivilstand: sivilstandInput,
       epsHarPensjon: shouldShowInput.epsHarPensjon

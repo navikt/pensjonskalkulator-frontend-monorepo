@@ -45,7 +45,7 @@ describe('StepSivilstand', () => {
     store.getState = initialGetState
   })
 
-  it.skip('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
+  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -61,7 +61,7 @@ describe('StepSivilstand', () => {
     })
   })
 
-  it.skip('rendrer StepSivilstand slik den skal', async () => {
+  it('rendrer StepSivilstand slik den skal', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -73,7 +73,11 @@ describe('StepSivilstand', () => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.sivilstand.title'
       )
-      expect(screen.getAllByRole('radio')).toHaveLength(2)
+      expect(
+        screen.getByRole('combobox', {
+          name: /stegvisning.sivilstand.select_label/i,
+        })
+      ).toBeVisible()
     })
   })
 
@@ -99,9 +103,13 @@ describe('StepSivilstand', () => {
       hasRouter: false,
     })
 
-    const selectElement = screen.getByLabelText(
-      /stegvisning.sivilstand.select_label/i
-    )
+    const selectElement = screen.getByRole('combobox', {
+      name: /stegvisning.sivilstand.select_label/i,
+    })
+
+    await waitFor(() => {
+      expect(selectElement).toBeVisible()
+    })
 
     await user.selectOptions(selectElement, 'UGIFT')
     await user.click(screen.getByText('stegvisning.neste'))
@@ -109,7 +117,7 @@ describe('StepSivilstand', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
   })
 
-  describe.skip('Gitt at brukeren er logget på som veileder', async () => {
+  describe('Gitt at brukeren er logget på som veileder', async () => {
     it('vises ikke Avbryt knapp', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
