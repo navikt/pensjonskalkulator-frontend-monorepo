@@ -12,7 +12,6 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSivilstand } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -60,8 +59,6 @@ export const Grunnlag: React.FC<Props> = ({
 
   const intl = useIntl()
 
-  // TODO: Trenger vi denne person responsen?
-  const { data: person, isSuccess } = useGetPersonQuery()
   const sivilstand = useAppSelector(selectSivilstand)
 
   const formatertSivilstand = React.useMemo(
@@ -110,13 +107,7 @@ export const Grunnlag: React.FC<Props> = ({
             headerTitle={intl.formatMessage({
               id: 'grunnlag.sivilstand.title',
             })}
-            headerValue={
-              isSuccess
-                ? formatertSivilstand
-                : intl.formatMessage({
-                    id: 'grunnlag.sivilstand.title.error',
-                  })
-            }
+            headerValue={formatertSivilstand}
           >
             <BodyLong>
               <FormattedMessage
