@@ -10,18 +10,29 @@ export const getSimuleringstypeFromRadioEllerVedtak = (
   afp: AfpRadio | null
 ): AlderspensjonSimuleringstype => {
   const isEndring = isLoependeVedtakEndring(loependeVedtak)
+
   if (isEndring) {
     if (
       !loependeVedtak.ufoeretrygd.grad &&
       (afp === 'ja_privat' || loependeVedtak.afpPrivat)
     ) {
       return 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
+    } else if (
+      !loependeVedtak.ufoeretrygd.grad &&
+      (afp === 'ja_offentlig' || loependeVedtak.afpOffentlig)
+    ) {
+      return 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     } else {
       return 'ENDRING_ALDERSPENSJON'
     }
   } else {
     if (loependeVedtak.ufoeretrygd.grad) {
       return 'ALDERSPENSJON'
+    } else if (
+      !loependeVedtak.ufoeretrygd.grad &&
+      loependeVedtak.afpOffentlig
+    ) {
+      return 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     } else {
       switch (afp) {
         case 'ja_privat':
