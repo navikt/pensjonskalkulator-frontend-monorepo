@@ -145,13 +145,24 @@ export function Sivilstand({
             : undefined,
       }
       setValidationError(validationErrorText)
-      logger('skjema validering feilet', {
-        skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
-        data: intl.formatMessage({
-          id: 'stegvisning.sivilstand.radio_label',
-        }),
-        tekst: validationErrorText,
-      })
+      if (validationErrorText.epsHarPensjon) {
+        logger('skjema validering feilet', {
+          skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
+          data: intl.formatMessage({
+            id: 'stegvisning.sivilstand.radio_epsHarPensjon_label',
+          }),
+          tekst: validationErrorText.epsHarPensjon,
+        })
+      }
+      if (validationErrorText.epsHarInntektOver2G) {
+        logger('skjema validering feilet', {
+          skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
+          data: intl.formatMessage({
+            id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_label',
+          }),
+          tekst: validationErrorText.epsHarInntektOver2G,
+        })
+      }
       return
     }
 

@@ -31,11 +31,11 @@ describe('Med ufoeretrygd', () => {
         }
       ).as('getLoependeVedtak')
       cy.login()
-      cy.contains('button', 'Kom i gang').click() // -> Din sivilstand
+      cy.contains('button', 'Kom i gang').click()
+      cy.contains('button', 'Neste').click() // -> Sivilstand
       cy.get('[type="radio"]').last().check()
       cy.contains('button', 'Neste').click() // -> Opphold utenfor Norge
       cy.get('[type="radio"]').last().check()
-      cy.contains('button', 'Neste').click() // -> Pensjonsavtaler
     })
 
     it('forventer jeg å ikke få steget om AFP og at neste steg er "Pensjonsavtaler".', () => {
@@ -60,7 +60,6 @@ describe('Med ufoeretrygd', () => {
       ).as('getLoependeVedtak')
       cy.login()
       cy.contains('button', 'Kom i gang').click()
-      cy.get('[type="radio"]').last().check()
       cy.contains('button', 'Neste').click()
       cy.get('[type="radio"]').last().check()
       cy.contains('button', 'Neste').click()

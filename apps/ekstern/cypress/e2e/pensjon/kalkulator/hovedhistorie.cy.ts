@@ -116,16 +116,16 @@ describe('Hovedhistorie', () => {
         })
         it('forventer jeg å få muligheten til å endre sivilstand for å få riktig beregning.', () => {
           cy.contains('h2', 'Sivilstand').should('exist')
-          cy.get('select[name="sivilstand"]').select('Gift')
+          cy.get('select[name="sivilstand"]').select('GIFT')
           cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
           ).should('exist')
           cy.get('[type="radio"]').first().check({ force: true })
+          cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
           ).should('not.exist')
-          cy.contains('button', 'Neste').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
@@ -137,54 +137,53 @@ describe('Hovedhistorie', () => {
       })
     })
 
-    describe('Gitt at jeg som bruker er registrert som gift eller registrert partner,', () => {
-      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
-        beforeEach(() => {
-          cy.intercept(
-            { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
-            {
-              navn: 'Aprikos',
-              sivilstand: 'GIFT',
-              foedselsdato: '1963-04-30',
-              pensjoneringAldre: {
-                normertPensjoneringsalder: {
-                  aar: 67,
-                  maaneder: 0,
-                },
-                nedreAldersgrense: {
-                  aar: 62,
-                  maaneder: 0,
-                },
+    describe('Når jeg navigerer videre fra sivilstand til neste steg,', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+          {
+            navn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1963-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
               },
-            }
-          ).as('getPerson')
-          cy.login()
-          cy.contains('button', 'Kom i gang').click()
-        })
-        it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
-          cy.contains('h2', 'Opphold utenfor Norge').should('exist')
-          cy.contains(
-            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?'
-          ).should('exist')
-        })
-        it('forventer jeg å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
-          cy.contains('button', 'Neste').click()
-          cy.contains(
-            'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
-          ).should('exist')
-          cy.get('[type="radio"]').first().check()
-          cy.contains(
-            'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
-          ).should('not.exist')
-          cy.contains('button', 'Neste').click()
-        })
-        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
-          cy.contains('button', 'Tilbake').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/start')
-          cy.go('forward')
-          cy.contains('button', 'Avbryt').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/login')
-        })
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
+          }
+        ).as('getPerson')
+        cy.login()
+        cy.contains('button', 'Kom i gang').click()
+        cy.contains('button', 'Neste').click()
+      })
+      it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
+        cy.contains('h2', 'Opphold utenfor Norge').should('exist')
+        cy.contains(
+          'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?'
+        ).should('exist')
+      })
+      it('forventer jeg å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
+        cy.contains('button', 'Neste').click()
+        cy.contains(
+          'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
+        ).should('exist')
+        cy.get('[type="radio"]').first().check()
+        cy.contains(
+          'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
+        ).should('not.exist')
+        cy.contains('button', 'Neste').click()
+      })
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+        cy.contains('button', 'Tilbake').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/sivilstand')
+        cy.go('forward')
+        cy.contains('button', 'Avbryt').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
     })
 
@@ -193,7 +192,6 @@ describe('Hovedhistorie', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
@@ -237,7 +235,6 @@ describe('Hovedhistorie', () => {
           beforeEach(() => {
             cy.login()
             cy.contains('button', 'Kom i gang').click()
-            cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
             cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
@@ -277,7 +274,6 @@ describe('Hovedhistorie', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
