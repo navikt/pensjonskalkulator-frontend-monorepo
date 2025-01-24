@@ -106,6 +106,13 @@ export function Sivilstand({
     const shouldShowEpsHarInntektOver2G =
       shouldShowEpsHarPensjon && epsHarPensjonInput === 'nei'
 
+    if (!shouldShowEpsHarPensjon) {
+      setValidationError({
+        epsHarPensjon: undefined,
+        epsHarInntektOver2G: undefined,
+      })
+    }
+
     return {
       epsHarPensjon: shouldShowEpsHarPensjon,
       epsHarInntektOver2G: shouldShowEpsHarInntektOver2G,
@@ -157,9 +164,6 @@ export function Sivilstand({
       epsHarInntektOver2G: undefined,
     })
 
-    console.log('sivilstandInput', sivilstandInput)
-    console.log('epsHarPensjonInput', epsHarPensjonInput)
-    console.log('epsHarInntektOver2GInput', epsHarInntektOver2GInput)
     onNext({
       sivilstand: sivilstandInput,
       epsHarPensjon: shouldShowInput.epsHarPensjon
