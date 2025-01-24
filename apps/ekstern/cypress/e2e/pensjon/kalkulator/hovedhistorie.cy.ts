@@ -108,18 +108,23 @@ describe('Hovedhistorie', () => {
       })
     })
 
-    describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift eller registrert partner,', () => {
+    describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift, registrert partner eller samboer,', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
         })
-        it('forventer jeg å måtte opplyse om at jeg har samboer eller ikke for å få riktig beregning.', () => {
-          cy.contains('h2', 'Din sivilstand').should('exist')
+        it('forventer jeg å få muligheten til å endre sivilstand for å få riktig beregning.', () => {
+          cy.contains('h2', 'Sivilstand').should('exist')
+          cy.get('select[name="sivilstand"]').select('Gift')
           cy.contains('button', 'Neste').click()
-          cy.contains('Du må svare på om du har samboer.').should('exist')
-          cy.get('[type="radio"]').last().check({ force: true })
-          cy.contains('Du må svare på om du har samboer.').should('not.exist')
+          cy.contains(
+            'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+          ).should('exist')
+          cy.get('[type="radio"]').first().check({ force: true })
+          cy.contains(
+            'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+          ).should('not.exist')
           cy.contains('button', 'Neste').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
