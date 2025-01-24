@@ -1,3 +1,5 @@
+import { use } from 'react'
+
 import { describe, expect, it } from 'vitest'
 
 import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
@@ -66,6 +68,8 @@ describe('RedigerAvansertBeregning', () => {
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 
+  // 2. Når bruker har 0 uføretrygd, er minimumsalder til AgePicker for helt uttak (uten gradert periode) eller gradert uttak
+  // 4. AgePicker: Når bruker har 0 uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak
   it('feltene rendres riktig som default, og når brukeren legger til en gradert periode', async () => {
     const user = userEvent.setup()
     render(
@@ -133,6 +137,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     const optionAarElements = selectAarElement?.querySelectorAll('option')
     expect(optionAarElements?.[0].value).toBe('')
+    // 64 er brukerens alder + 1 måned
     expect(optionAarElements?.[1].value).toBe('64')
 
     fireEvent.change(
@@ -1500,7 +1505,8 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra normert pensjoneringsalder', async () => {
+    // 4. Når bruker har 100% uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak
+    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalder', async () => {
       const user = userEvent.setup()
 
       const { store } = render(
@@ -1600,267 +1606,10 @@ describe('RedigerAvansertBeregning', () => {
     })
   })
 
-  describe('Gitt at en bruker mottar 0 uføretrygd', () => {
-    it('brukes nedre aldersgrense når brukeren ikke har nådd alderen', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      const selectAarElement = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElements = selectAarElement?.querySelectorAll('option')
-      expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('65')
-      expect(optionAarElements?.[6].value).toBe('70')
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('65')
-      expect(optionAarElementsHelt?.[6].value).toBe('70')
-    })
-
-    it('brukes brukerens alder som minimum alder dersom de har nådd nedre aldersgrense', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            brukerensAlderPlus1Maaned={{ aar: 66, maaneder: 0 }}
-          />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      const selectAarElement = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElements = selectAarElement?.querySelectorAll('option')
-      expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('66')
-      expect(optionAarElements?.[6].value).toBe('71')
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('66')
-      expect(optionAarElementsHelt?.[6].value).toBe('71')
-    })
-
-    it('Når bruker har lagt inn et gradert uttak, er minimumsalderen for helt uttak satt til nedre aldersgrense dersom bruker ikke har nådd nedre aldersgrense', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('65')
-      expect(optionAarElementsHelt?.[6].value).toBe('70')
-    })
-
-    it('Når bruker har lagt inn et gradert uttak, er minimumsalderen for helt uttak satt til brukerenes alder dersom bruker har nådd nedre aldersgrense', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            brukerensAlderPlus1Maaned={{ aar: 66, maaneder: 0 }}
-          />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('66')
-      expect(optionAarElementsHelt?.[6].value).toBe('71')
-    })
-  })
-
   describe('Gitt at en bruker mottar gradert uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra normert pensjonering  salder', async () => {
+    // 2. Når bruker har gradert uføretrygd, er minimumsalder til AgePicker for helt uttak (uten gradert periode) eller gradert uttak
+    // 3. Når bruker har gradert uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak lik ubetinget uttaksalder.
+    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttakssalder', async () => {
       render(
         <BeregningContext.Provider
           value={{
@@ -1958,143 +1707,6 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsGradert?.[12].value).toBe('75')
     })
 
-    it('brukes nedre aldersgrense når brukeren ikke har nådd alderen', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      const selectAarElement = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElements = selectAarElement?.querySelectorAll('option')
-      expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('65')
-      expect(optionAarElements?.[6].value).toBe('70')
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('65')
-      expect(optionAarElementsHelt?.[6].value).toBe('70')
-    })
-
-    it('brukes brukerens alder som minimum alder dersom de har nådd nedre aldersgrense', async () => {
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            brukerensAlderPlus1Maaned={{ aar: 66, maaneder: 0 }}
-          />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      const selectAarElement = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElements = selectAarElement?.querySelectorAll('option')
-      expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('66')
-      expect(optionAarElements?.[6].value).toBe('71')
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-        ),
-        {
-          target: { value: '67' },
-        }
-      )
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-        ),
-        {
-          target: { value: '5' },
-        }
-      )
-
-      fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '50 %' },
-        }
-      )
-
-      const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      )
-      const optionAarElementsHelt =
-        selectAarElementHelt?.querySelectorAll('option')
-      expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('66')
-      expect(optionAarElementsHelt?.[6].value).toBe('71')
-    })
-
     it('Når brukeren har lagt inn et gradert uttak, er minimum alder i aldersvelgeren for helt uttak lik ubetinget uttaksalder', async () => {
       render(
         <BeregningContext.Provider
@@ -2156,6 +1768,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsHelt?.[6].value).toBe('75')
     })
 
+    // 7.  Hvis bruker har uføretrygd og hvis året til valgt uttaksalder for gradert er lavere enn ubetinget uttaksalder, vises det description om inntektsgrensen for uføretrygd.
     it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {
       render(
         <BeregningContext.Provider
@@ -2170,7 +1783,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPerson,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2187,7 +1800,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -2386,6 +1999,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
     })
 
+    // 6. bruker med gradert uføretrygd skal få valideringsfeil når valgt uttaksgrad overstiger tillat grad
     it('Når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
       render(
@@ -2401,7 +2015,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPerson,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2418,7 +2032,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '70' },
+          target: { value: '72' },
         }
       )
       fireEvent.change(
@@ -2444,7 +2058,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -2504,6 +2118,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
     })
 
+    // 5. Fikset med mock av getPersonMedOkteAldersgrenser
     it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
       render(
         <BeregningContext.Provider
@@ -2518,7 +2133,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPerson,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2535,7 +2150,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -2568,7 +2183,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
-          target: { value: '70' },
+          target: { value: '72' },
         }
       )
 

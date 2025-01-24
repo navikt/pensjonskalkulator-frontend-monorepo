@@ -1,3 +1,5 @@
+import { mock } from 'node:test'
+
 import { IntlShape } from 'react-intl'
 
 import { add, endOfDay, format } from 'date-fns'
@@ -13,6 +15,7 @@ import {
   isFoedselsdatoOverEllerLikAlder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
+  getBrukerensAlderPlus1Maaned,
   transformFoedselsdatoToAlder,
   transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
@@ -279,6 +282,65 @@ describe('alder-utils', () => {
       const alder = getAlderMinus1Maaned({ aar: 63, maaneder: 11 })
       expect(alder.aar).toBe(63)
       expect(alder.maaneder).toBe(10)
+    })
+  })
+
+  // Tester for denne funksjonen
+  // export const getBrukerensAlderPlus1Maaned = (
+  //   person: Person,
+  //   nedreAldersgrense: Alder
+  // ): Alder => {
+  //   const brukerensAlder = person
+  //     ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
+  //     : getAlderMinus1Maaned(nedreAldersgrense)
+  //   const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
+  //   return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
+  //     ? beregnetMinAlder
+  //     : nedreAldersgrense
+  // }
+  describe('getBrukerensAlderPlus1Maaned', () => {
+    const mock_person: Person = {
+      navn: 'Aprikos',
+      sivilstand: 'UGIFT',
+      foedselsdato: '1963-04-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
+    }
+
+    const nedreAldersgrense = { aar: 62, maaneder: 0 }
+
+    it('returnerer alderen til personen når alderen + 1 mnd er over nedre aldersgrense', () => {
+      mock_person.foedselsdato = '1960-01-01'
+      const expectedAlder = getBrukerensAlderPlus1Maaned(
+        mock_person,
+        nedreAldersgrense
+      )
+      expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 0 })
+    })
+
+    it('returnerer nedre aldersgrense når alderen + 1 mnd er under nedre aldersgrense', () => {
+      mock_person.foedselsdato = '1963-06-01'
+      const expectedAlder = getBrukerensAlderPlus1Maaned(
+        mock_person,
+        nedreAldersgrense
+      )
+      expect(expectedAlder).toStrictEqual(nedreAldersgrense)
+    })
+
+    it('returnerer nedre aldersgrense når person er undefined', () => {
+      const expectedAlder = getBrukerensAlderPlus1Maaned(
+        undefined,
+        nedreAldersgrense
+      )
+      expect(expectedAlder).toStrictEqual(nedreAldersgrense)
     })
   })
 

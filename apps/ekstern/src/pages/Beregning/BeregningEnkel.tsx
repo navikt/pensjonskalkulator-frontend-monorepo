@@ -39,13 +39,7 @@ import {
   selectNedreAldersgrense,
   selectUbetingetUttaksalder,
 } from '@/state/userInput/selectors'
-import {
-  getAlderMinus1Maaned,
-  getAlderPlus1Maaned,
-  isAlderOverAnnenAlder,
-  isFoedtFoer1964,
-  transformFoedselsdatoToAlderMinus1md,
-} from '@/utils/alder'
+import { isFoedtFoer1964, getBrukerensAlderPlus1Maaned } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -183,16 +177,6 @@ export const BeregningEnkel: React.FC = () => {
     return isPersonSuccess && isFoedtFoer1964(person?.foedselsdato)
   }, [person])
 
-  const brukerensAlderPlus1Maaned = React.useMemo(() => {
-    const brukerensAlder = isPersonSuccess
-      ? transformFoedselsdatoToAlderMinus1md(person?.foedselsdato)
-      : getAlderMinus1Maaned(nedreAldersgrense)
-    const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
-      ? beregnetMinAlder
-      : nedreAldersgrense
-  }, [person, nedreAldersgrense])
-
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonEnkelRequestBody) {
@@ -251,7 +235,7 @@ export const BeregningEnkel: React.FC = () => {
               ? ubetingetUttaksalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
-                : brukerensAlderPlus1Maaned
+                : getBrukerensAlderPlus1Maaned(person, nedreAldersgrense)
           }
         />
       </div>

@@ -35,12 +35,7 @@ import {
   selectLoependeVedtak,
   selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
-import {
-  getAlderMinus1Maaned,
-  getAlderPlus1Maaned,
-  isAlderOverAnnenAlder,
-  transformFoedselsdatoToAlderMinus1md,
-} from '@/utils/alder'
+import { getBrukerensAlderPlus1Maaned } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -155,16 +150,6 @@ export const BeregningAvansert: React.FC = () => {
     }
   }, [alderspensjon])
 
-  const brukerensAlderPlus1Maaned = React.useMemo(() => {
-    const brukerensAlder = person
-      ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
-      : getAlderMinus1Maaned(nedreAldersgrense)
-    const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
-      ? beregnetMinAlder
-      : nedreAldersgrense
-  }, [person, nedreAldersgrense])
-
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonRequestBody) {
@@ -183,7 +168,10 @@ export const BeregningAvansert: React.FC = () => {
             window.scrollTo(0, 0)
           }}
           vilkaarsproeving={alderspensjon?.vilkaarsproeving}
-          brukerensAlderPlus1Maaned={brukerensAlderPlus1Maaned}
+          brukerensAlderPlus1Maaned={getBrukerensAlderPlus1Maaned(
+            person,
+            nedreAldersgrense
+          )}
         />
       )}
 
