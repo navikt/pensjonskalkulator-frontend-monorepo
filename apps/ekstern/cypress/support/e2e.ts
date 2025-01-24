@@ -158,10 +158,18 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?*`,
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26*`,
     },
-    { fixture: 'sanity-documents.json' }
-  ).as('fetchSanityDocuments')
+    { fixture: 'sanity-readmore-data.json' }
+  ).as('fetchSanityReadMoreData')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26*`,
+    },
+    { fixture: 'sanity-forbehold-avsnitt-data.json' }
+  ).as('fetchSanityForbeholdAvsnittData')
 })
 
 Cypress.Commands.add('login', () => {

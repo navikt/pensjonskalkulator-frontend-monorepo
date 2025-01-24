@@ -59,7 +59,6 @@ export function Utenlandsopphold({
 
   React.useEffect(() => {
     if (readMoreData) {
-      console.log('Utenlandsopphold readMoreData', readMoreData)
       readMoreData.forEach((item) => {
         if (item.name === 'hva_er_opphold_utenfor_norge') {
           setReadMore1(item)

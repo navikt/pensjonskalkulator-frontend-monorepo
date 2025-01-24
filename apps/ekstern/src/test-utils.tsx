@@ -14,7 +14,8 @@ import {
 import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
-import sanityDocumentsResponse from './mocks/data/sanity-documents.json' with { type: 'json' }
+import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
   setupStore,
@@ -100,16 +101,10 @@ export function renderWithProviders(
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
           <SanityContext.Provider
             value={{
-              readMoreData: sanityDocumentsResponse.result.filter(
-                (document) => {
-                  return document._type === 'readmore'
-                }
-              ) as unknown as SanityReadMore[],
-              forbeholdAvsnittData: sanityDocumentsResponse.result.filter(
-                (document) => {
-                  return document._type === 'forbeholdAvsnitt'
-                }
-              ) as unknown as SanityForbeholdAvsnitt[],
+              readMoreData:
+                sanityReadMoreDataResponse.result as unknown as SanityReadMore[],
+              forbeholdAvsnittData:
+                sanityForbeholdAvsnittDataResponse.result as unknown as SanityForbeholdAvsnitt[],
             }}
           >
             {hasRouter ? childrenWithRouter : children}

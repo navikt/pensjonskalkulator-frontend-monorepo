@@ -49,16 +49,11 @@ export function LanguageProvider({ children }: Props) {
       const readMorePromise = sanityClient
         .fetch(`*[_type == "readmore" && language == "${locale}"]`)
         .then((sanityReadMoreResponse) => {
-          console.log(`Fetches sanity ReadMore:`, sanityReadMoreResponse)
           setSanityReadMoreData(sanityReadMoreResponse)
         })
       const forbeholdAvsnittPromise = sanityClient
         .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
         .then((sanityForbeholdAvsnittResponse) => {
-          console.log(
-            `Fetches sanity ForebholdAvsnitt:`,
-            sanityForbeholdAvsnittResponse
-          )
           setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse)
         })
 
