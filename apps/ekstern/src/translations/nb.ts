@@ -280,7 +280,9 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
   'stegvisning.sivilstand.title': 'Sivilstand',
-  'stegvisning.sivilstand.ingress_1':
+  'stegvisning.sivilstand.ingress_1_ugift':
+    'Sivilstanden din kan ha betydning for hva du får i pensjon. Du er registrert som ',
+  'stegvisning.sivilstand.ingress_1_gift':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon. Du er registrert som ',
   'stegvisning.sivilstand.ingress_2': ' i Folkeregisteret.',
   'stegvisning.sivilstand.select_label':
@@ -290,11 +292,11 @@ const translations = {
   'stegvisning.sivilstand.radio_epsHarPensjon_label':
     'Vil {sivilstand} din motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
-    'Garantipensjonsnivået du har rett til beregnes ut fra om hen mottar en av disse ytelsene.',
+    'Gjelder fra tidspunktet du tar ut pensjon.',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
     'Vil {sivilstand} din ha inntekt over 2G?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
-    'Alle inntekter skal regnes med, også kapitalinntekter og tjenestepensjon/privat pensjon.',
+    'Gjelder kalenderåret du tar ut pensjon. Alle inntekter skal regnes med, også kapitalinntekter og pensjon fra andre enn Nav.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',

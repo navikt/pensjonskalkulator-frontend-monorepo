@@ -17,7 +17,11 @@ import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
-import { formatSivilstand, getSivilstandTekst } from '@/utils/sivilstand'
+import {
+  sivilstandOptions,
+  formatSivilstand,
+  getSivilstandTekst,
+} from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
 
@@ -63,19 +67,6 @@ export function Sivilstand({
     epsHarPensjon?: string
     epsHarInntektOver2G?: string
   }>({ epsHarPensjon: undefined, epsHarInntektOver2G: undefined })
-
-  const sivilstandOptions = [
-    'UGIFT',
-    'GIFT',
-    'ENKE_ELLER_ENKEMANN',
-    'SKILT',
-    'SEPARERT',
-    'REGISTRERT_PARTNER',
-    'SEPARERT_PARTNER',
-    'SKILT_PARTNER',
-    'GJENLEVENDE_PARTNER',
-    'SAMBOER',
-  ]
 
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
   const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
@@ -197,9 +188,19 @@ export function Sivilstand({
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>
-          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
-          {formatertSivilstand}
-          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+          {shouldShowInput.epsHarPensjon ? (
+            <>
+              <FormattedMessage id="stegvisning.sivilstand.ingress_1_gift" />
+              {formatertSivilstand}
+              <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+            </>
+          ) : (
+            <>
+              <FormattedMessage id="stegvisning.sivilstand.ingress_1_ugift" />
+              {formatertSivilstand}
+              <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+            </>
+          )}
         </BodyLong>
         <VStack gap="6">
           <Select

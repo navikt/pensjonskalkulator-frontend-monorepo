@@ -1,5 +1,18 @@
 import { IntlShape } from 'react-intl'
 
+export const sivilstandOptions = [
+  'ENKE_ELLER_ENKEMANN',
+  'GIFT',
+  'GJENLEVENDE_PARTNER',
+  'REGISTRERT_PARTNER',
+  'SEPARERT_PARTNER',
+  'SEPARERT',
+  'SAMBOER',
+  'SKILT',
+  'SKILT_PARTNER',
+  'UGIFT',
+]
+
 /* TODO - internasjonal tekst + flytte til nb og en */
 export const getSivilstandTekst = (
   intl: IntlShape,
