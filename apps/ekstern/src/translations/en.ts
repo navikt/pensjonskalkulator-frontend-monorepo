@@ -281,7 +281,8 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'You must answer whether you want Nav to calculate AFP for you.',
   'stegvisning.sivilstand.title': 'Your Marital Status',
-  'stegvisning.sivilstand.ingress_1': 'You are registered as ',
+  'stegvisning.sivilstand.ingress_1_ugift': 'You are registered as ',
+  'stegvisning.sivilstand.ingress_1_gift': 'You are registered as ',
   'stegvisning.sivilstand.ingress_2':
     ' in the National Population Register. If you have a partner or spouse, it may affect the calculation.',
   'stegvisning.sivilstand.select_label': 'MANGLER TEKST',

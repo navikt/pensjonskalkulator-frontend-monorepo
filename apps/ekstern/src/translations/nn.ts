@@ -245,7 +245,8 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.validation_error': 'MANGLER_TEKST',
   'stegvisning.sivilstand.title': 'Din sivilstand',
-  'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
+  'stegvisning.sivilstand.ingress_1_ugift': 'Du er registrert som ',
+  'stegvisning.sivilstand.ingress_1_gift': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
     'i Folkeregisteret. Har du sambuar eller ektefelle kan det påverke utrekninga.',
   'stegvisning.sivilstand.select_label': 'MANGLER TEKST',
