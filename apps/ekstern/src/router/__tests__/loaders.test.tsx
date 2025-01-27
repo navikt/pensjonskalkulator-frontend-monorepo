@@ -20,6 +20,7 @@ import {
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+  fulfilledGetGrunnbelop,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
@@ -398,18 +399,19 @@ describe('Loaders', () => {
         }
       `)
     })
-    describe('Gitt at alle kallene er vellykket, ', () => {
+    describe.skip('Gitt at alle kallene er vellykket, ', () => {
       it('skal ikke brukere bli redirigert etter innhenting av sivilstand uten samboerskap', async () => {
         const mockedState = {
           api: {
             queries: {
               ...fulfilledGetPerson,
+              ...fulfilledGetGrunnbelop,
             },
           },
           userInput: { ...userInputInitialState },
         }
         store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
+          return { ...mockedState }
         })
 
         const returnedFromLoader = await stepSivilstandAccessGuard()

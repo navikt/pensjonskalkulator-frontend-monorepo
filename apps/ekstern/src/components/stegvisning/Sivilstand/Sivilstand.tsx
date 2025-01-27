@@ -1,5 +1,4 @@
-import React from 'react'
-import { FormEvent, useMemo, useState } from 'react'
+import React, { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
@@ -16,6 +15,7 @@ import {
 import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
+import { formatInntekt } from '@/utils/inntekt'
 import { logger, wrapLogger } from '@/utils/logging'
 import {
   sivilstandOptions,
@@ -27,6 +27,7 @@ import styles from './Sivilstand.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
+  grunnbelop?: number
   sivilstand: UtvidetSivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
@@ -54,6 +55,7 @@ const convertBooleanRadioToBoolean = (
 
 export function Sivilstand({
   shouldRedirectTo,
+  grunnbelop,
   sivilstand,
   epsHarInntektOver2G,
   epsHarPensjon,
@@ -254,7 +256,12 @@ export function Sivilstand({
                 {
                   id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_label',
                 },
-                { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
+                {
+                  sivilstand: getSivilstandTekst(intl, sivilstandInput),
+                  grunnbelop: grunnbelop
+                    ? ` (${formatInntekt(grunnbelop)} kr)`
+                    : '',
+                }
               )}
               description={intl.formatMessage({
                 id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',

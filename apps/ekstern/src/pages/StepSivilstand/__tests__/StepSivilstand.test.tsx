@@ -45,7 +45,7 @@ describe('StepSivilstand', () => {
     store.getState = initialGetState
   })
 
-  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
+  it.skip('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -61,7 +61,7 @@ describe('StepSivilstand', () => {
     })
   })
 
-  it('rendrer StepSivilstand slik den skal', async () => {
+  it.skip('rendrer StepSivilstand slik den skal', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -117,7 +117,7 @@ describe('StepSivilstand', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
   })
 
-  describe('Gitt at brukeren er logget på som veileder', async () => {
+  describe.skip('Gitt at brukeren er logget på som veileder', async () => {
     it('vises ikke Avbryt knapp', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,

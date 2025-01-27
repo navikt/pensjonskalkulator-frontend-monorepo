@@ -294,7 +294,7 @@ const translations = {
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
     'Gjelder fra tidspunktet du tar ut pensjon.',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
-    'Vil {sivilstand} din ha inntekt over 2G?',
+    'Vil {sivilstand} din ha inntekt over 2G{grunnbelop}?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
     'Gjelder kalenderåret du tar ut pensjon. Alle inntekter skal regnes med, også kapitalinntekter og pensjon fra andre enn Nav.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
