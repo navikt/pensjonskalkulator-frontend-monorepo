@@ -2,7 +2,10 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetGrunnbelop,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -29,6 +32,7 @@ describe('StepSivilstand', () => {
       api: {
         queries: {
           ...fulfilledGetPerson,
+          ...fulfilledGetGrunnbelop,
         },
       },
       userInput: {
@@ -45,7 +49,7 @@ describe('StepSivilstand', () => {
     store.getState = initialGetState
   })
 
-  it.skip('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
+  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -61,7 +65,7 @@ describe('StepSivilstand', () => {
     })
   })
 
-  it.skip('rendrer StepSivilstand slik den skal', async () => {
+  it('rendrer StepSivilstand slik den skal', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
@@ -81,7 +85,7 @@ describe('StepSivilstand', () => {
     })
   })
 
-  it.skip('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
+  it('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
     const user = userEvent.setup()
     const setSivilstandMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
