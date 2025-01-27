@@ -87,7 +87,6 @@ export function Sivilstand({
     [sivilstand]
   )
 
-  /* TODO: Spør Cecilie om vi skal fjerne validationError her */
   const shouldShowInput = React.useMemo(() => {
     const shouldShowEpsHarPensjon =
       sivilstandInput === 'GIFT' ||
