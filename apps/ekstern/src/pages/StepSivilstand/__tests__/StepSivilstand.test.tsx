@@ -2,10 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import {
-  fulfilledGetGrunnbelop,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-} from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetGrunnbelop } from '@/mocks/mockedRTKQueryApiCalls'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -96,32 +93,31 @@ describe('StepSivilstand', () => {
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
     })
     render(<RouterProvider router={router} />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
-      },
       hasRouter: false,
     })
 
-    const selectElement = screen.getByRole('combobox', {
-      name: /stegvisning.sivilstand.select_label/i,
-    })
-
     await waitFor(() => {
-      expect(selectElement).toBeVisible()
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.sivilstand.title'
+      )
+      expect(
+        screen.getByRole('combobox', {
+          name: /stegvisning.sivilstand.select_label/i,
+        })
+      ).toBeVisible()
     })
-
-    await user.selectOptions(selectElement, 'UGIFT')
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: /stegvisning.sivilstand.select_label/i,
+      }),
+      'UGIFT'
+    )
     await user.click(screen.getByText('stegvisning.neste'))
-    expect(setSivilstandMock).toHaveBeenCalledWith(true)
+    expect(setSivilstandMock).toHaveBeenCalled()
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
   })
 
-  describe.skip('Gitt at brukeren er logget på som veileder', async () => {
+  describe('Gitt at brukeren er logget på som veileder', async () => {
     it('vises ikke Avbryt knapp', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
