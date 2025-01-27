@@ -626,7 +626,7 @@ const translations = {
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.spk.afp_ja':
-    'Lifelong AFP is not included in the amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
+    'Lifelong AFP is not included in this amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
   'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget':
     'You have stated that you are not entitled to lifelong AFP. Conditional occupational pension is therefore included in the amount. Check <spkLink>SPK</spkLink> for details.',
   'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget':
