@@ -343,7 +343,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
-      it.skip('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
+      it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {

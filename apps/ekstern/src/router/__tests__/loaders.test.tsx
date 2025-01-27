@@ -399,7 +399,7 @@ describe('Loaders', () => {
         }
       `)
     })
-    describe.skip('Gitt at alle kallene er vellykket, ', () => {
+    describe('Gitt at alle kallene er vellykket, ', () => {
       it('skal ikke brukere bli redirigert etter innhenting av sivilstand uten samboerskap', async () => {
         const mockedState = {
           api: {
