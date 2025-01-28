@@ -120,7 +120,7 @@ describe('Språkvelger', () => {
 
     // Sjekker engelsk språk på utenlandsopphold steg
     cy.contains('Time abroad')
-    cy.contains('My english text (Sanity) (Sanity)')
+    cy.contains('My english text (Sanity)')
   })
 })
 
