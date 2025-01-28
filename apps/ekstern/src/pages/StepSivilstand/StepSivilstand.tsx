@@ -68,10 +68,11 @@ export function StepSivilstand() {
           shouldRedirectTo,
         ])}
       >
-        {([, grunnbelopData, shouldRedirectToResp]) => {
+        {([personData, grunnbelopData, shouldRedirectToResp]) => {
           return (
             <Sivilstand
               shouldRedirectTo={shouldRedirectToResp}
+              sivilstandFolkeregister={personData.data.sivilstand}
               grunnbelop={grunnbelopData}
               sivilstand={sivilstand}
               epsHarInntektOver2G={epsHarInntektOver2G}

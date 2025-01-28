@@ -21,6 +21,7 @@ describe('stegvisning - Sivilstand', () => {
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="UOPPGITT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}
@@ -50,6 +51,7 @@ describe('stegvisning - Sivilstand', () => {
 
     render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="UOPPGITT"
         shouldRedirectTo={randomPath}
         epsHarPensjon={null}
@@ -66,6 +68,7 @@ describe('stegvisning - Sivilstand', () => {
     it('når bruker endrer sivilstand, skal ny sivilstand vises', async () => {
       render(
         <Sivilstand
+          sivilstandFolkeregister="UGIFT"
           sivilstand="UGIFT"
           epsHarPensjon={null}
           epsHarInntektOver2G={null}
@@ -88,6 +91,7 @@ describe('stegvisning - Sivilstand', () => {
       it('skal radio button for epsHarPensjon rendres', async () => {
         render(
           <Sivilstand
+            sivilstandFolkeregister="UGIFT"
             sivilstand="GIFT"
             epsHarPensjon={null}
             epsHarInntektOver2G={null}
@@ -112,6 +116,7 @@ describe('stegvisning - Sivilstand', () => {
         it('skal teksten for epsHarPensjon endres til "ektefellen din"', async () => {
           render(
             <Sivilstand
+              sivilstandFolkeregister="UGIFT"
               sivilstand="GIFT"
               epsHarPensjon={null}
               epsHarInntektOver2G={null}
@@ -134,6 +139,7 @@ describe('stegvisning - Sivilstand', () => {
         it('skal teksten for epsHarPensjon endres til "samboeren din"', async () => {
           render(
             <Sivilstand
+              sivilstandFolkeregister="UGIFT"
               sivilstand="SAMBOER"
               epsHarPensjon={null}
               epsHarInntektOver2G={null}
@@ -156,6 +162,7 @@ describe('stegvisning - Sivilstand', () => {
         it('skal teksten for epsHarPensjon endres til "partneren din"', async () => {
           render(
             <Sivilstand
+              sivilstandFolkeregister="UGIFT"
               sivilstand="REGISTRERT_PARTNER"
               epsHarPensjon={null}
               epsHarInntektOver2G={null}
@@ -179,6 +186,7 @@ describe('stegvisning - Sivilstand', () => {
       it('skal ikke radio button for epsHarInntektOver2G vises', async () => {
         render(
           <Sivilstand
+            sivilstandFolkeregister="UGIFT"
             sivilstand="GIFT"
             epsHarPensjon={null}
             epsHarInntektOver2G={null}
@@ -207,6 +215,7 @@ describe('stegvisning - Sivilstand', () => {
         const user = userEvent.setup()
         render(
           <Sivilstand
+            sivilstandFolkeregister="UGIFT"
             sivilstand="GIFT"
             epsHarPensjon={null}
             epsHarInntektOver2G={null}
@@ -249,6 +258,7 @@ describe('stegvisning - Sivilstand', () => {
       it('skal radio button for epsHarInntektOver2G vises', async () => {
         render(
           <Sivilstand
+            sivilstandFolkeregister="UGIFT"
             sivilstand="GIFT"
             epsHarPensjon={null}
             epsHarInntektOver2G={null}
@@ -278,6 +288,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="GIFT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}
@@ -323,6 +334,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="UGIFT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}
@@ -346,6 +358,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="UGIFT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}
@@ -364,6 +377,7 @@ describe('stegvisning - Sivilstand', () => {
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(
       <Sivilstand
+        sivilstandFolkeregister="UGIFT"
         sivilstand="UGIFT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}

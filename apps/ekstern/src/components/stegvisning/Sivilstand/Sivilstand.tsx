@@ -27,6 +27,7 @@ import styles from './Sivilstand.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
+  sivilstandFolkeregister: UtvidetSivilstand
   grunnbelop?: number
   sivilstand: UtvidetSivilstand
   epsHarInntektOver2G: boolean | null
@@ -55,6 +56,7 @@ const convertBooleanRadioToBoolean = (
 
 export function Sivilstand({
   shouldRedirectTo,
+  sivilstandFolkeregister,
   grunnbelop,
   sivilstand,
   epsHarInntektOver2G,
@@ -85,8 +87,8 @@ export function Sivilstand({
   }, [shouldRedirectTo])
 
   const formatertSivilstand = useMemo(
-    () => formatSivilstand(intl, sivilstand).toLowerCase(),
-    [sivilstand]
+    () => formatSivilstand(intl, sivilstandFolkeregister).toLowerCase(),
+    [sivilstandFolkeregister]
   )
 
   const shouldShowInput = React.useMemo(() => {
