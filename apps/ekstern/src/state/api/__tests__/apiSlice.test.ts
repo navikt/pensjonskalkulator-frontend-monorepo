@@ -242,6 +242,58 @@ describe('apiSlice', () => {
         })
     })
 
+    it('fjerner simulert TP fra responsen hvis leverandør er KLP og feature-toggle er av', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        method: 'post',
+        json: {
+          ...offentligTpResponse,
+          simulertTjenestepensjon: {
+            ...offentligTpResponse.simulertTjenestepensjon,
+            tpLeverandoer: 'Kommunal Landspensjonskasse',
+          },
+        },
+      })
+      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
+        status: 200,
+        json: { enabled: false },
+      })
+      return storeRef
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
+        .then((result) => {
+          expect(result.data?.simuleringsresultatStatus).toBe(
+            'TP_ORDNING_STOETTES_IKKE'
+          )
+          expect(result.data?.simulertTjenestepensjon).toBeUndefined()
+        })
+    })
+
+    it('fjerner IKKE simulert TP fra responsen hvis leverandør er KLP og feature-toggle er PÅ', async () => {
+      const storeRef = setupStore(undefined, true)
+      const json = {
+        ...offentligTpResponse,
+        simulertTjenestepensjon: {
+          ...offentligTpResponse.simulertTjenestepensjon,
+          tpLeverandoer: 'Kommunal Landspensjonskasse',
+        },
+      }
+      mockResponse('/v2/simuler-oftp', {
+        status: 200,
+        method: 'post',
+        json,
+      })
+      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
+        status: 200,
+        json: { enabled: true },
+      })
+      return storeRef
+        .dispatch(apiSlice.endpoints.offentligTp.initiate())
+        .then((result) => {
+          expect(result.data).toMatchObject(json)
+        })
+    })
+
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
       mockErrorResponse('/v2/simuler-oftp', {
