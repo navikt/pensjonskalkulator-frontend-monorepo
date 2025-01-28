@@ -113,6 +113,18 @@ export function Sivilstand({
     }
   }, [sivilstandInput, epsHarPensjonInput])
 
+  React.useEffect(() => {
+    if (epsHarPensjonInput !== null) {
+      setValidationError((prev) => ({ ...prev, epsHarPensjon: undefined }))
+    }
+    if (epsHarInntektOver2GInput !== null) {
+      setValidationError((prev) => ({
+        ...prev,
+        epsHarInntektOver2G: undefined,
+      }))
+    }
+  }, [epsHarPensjonInput, epsHarInntektOver2GInput])
+
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     const epsHarPensjon_validationText = intl.formatMessage(
