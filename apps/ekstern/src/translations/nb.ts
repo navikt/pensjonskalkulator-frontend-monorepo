@@ -288,11 +288,11 @@ const translations = {
   'stegvisning.sivilstand.select_description':
     'Hvis du endrer, gjelder det kun beregninger i kalkulatoren.',
   'stegvisning.sivilstand.radio_epsHarPensjon_label':
-    'Vil {sivilstand} din motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+    'Vil {sivilstand} motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
     'Når du skal ta ut pensjon',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
-    'Vil {sivilstand} din ha inntekt over 2G{grunnbelop}?',
+    'Vil {sivilstand} ha inntekt over 2G{grunnbelop}?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
     'Gjelder kalenderåret du tar ut pensjon. Alle inntekter skal regnes med, også kapitalinntekter og pensjon fra andre enn Nav.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',

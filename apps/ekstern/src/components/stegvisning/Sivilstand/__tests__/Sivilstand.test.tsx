@@ -101,7 +101,7 @@ describe('stegvisning - Sivilstand', () => {
           />
         )
         const epsHarPensjonRadioGroup = screen.queryByRole('radiogroup', {
-          name: /Vil stegvisning.sivilstand.ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+          name: /Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
         })
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
           name: /epsHarInntektOver2G/i,
@@ -129,7 +129,7 @@ describe('stegvisning - Sivilstand', () => {
           await waitFor(() => {
             expect(
               screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.ektefellen din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+                name: /Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
               })
             ).toBeInTheDocument()
           })
@@ -152,7 +152,7 @@ describe('stegvisning - Sivilstand', () => {
           await waitFor(() => {
             expect(
               screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.samboeren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+                name: /Vil stegvisning.sivilstand.samboeren motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
               })
             ).toBeInTheDocument()
           })
@@ -175,7 +175,7 @@ describe('stegvisning - Sivilstand', () => {
           await waitFor(() => {
             expect(
               screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.partneren din motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+                name: /Vil stegvisning.sivilstand.partneren motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
               })
             ).toBeInTheDocument()
           })
@@ -273,7 +273,7 @@ describe('stegvisning - Sivilstand', () => {
         fireEvent.click(epsHarPensjonRadioButtonNei)
 
         const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /Vil stegvisning.sivilstand.ektefellen din ha inntekt over 2G?/i,
+          name: /Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G?/i,
         })
 
         await waitFor(() => {
