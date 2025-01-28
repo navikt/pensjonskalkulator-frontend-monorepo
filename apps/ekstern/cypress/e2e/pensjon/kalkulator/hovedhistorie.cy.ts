@@ -119,12 +119,12 @@ describe('Hovedhistorie', () => {
           cy.get('select[name="sivilstand"]').select('GIFT')
           cy.contains('button', 'Neste').click()
           cy.contains(
-            'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+            'Du må svare på om ektefellen din vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
           ).should('exist')
           cy.get('[type="radio"]').first().check({ force: true })
           cy.contains('button', 'Neste').click()
           cy.contains(
-            'Du må svare på om ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+            'Du må svare på om ektefellen din vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
           ).should('not.exist')
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
