@@ -61,8 +61,7 @@ export function LanguageProvider({ children }: Props) {
     }
   }
 
-  // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
-  /* c8 ignore next 3 */
+  /* c8 ignore next 4 */
   onLanguageSelect((language) => {
     fetchSanityData(language.locale as Locales)
     setCookie('decorator-language', language.locale)

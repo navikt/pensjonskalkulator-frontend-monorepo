@@ -7,7 +7,7 @@
       "_type": "readmore",
       "name": "hva_er_opphold_utenfor_norge",
       "_updatedAt": "2025-01-16T15:26:45Z",
-      "overskrift": "Hva som er opphold utenfor Norge",
+      "overskrift": "Hva som er opphold utenfor Norge (Sanity)",
       "_rev": "IZ4ZA8avncRcTDvyuMLOnJ",
       "innhold": [
         {
@@ -202,7 +202,7 @@
       ]
     },
     {
-      "overskrift": "Betydning av opphold utenfor Norge for pensjon",
+      "overskrift": "Betydning av opphold utenfor Norge for pensjon (Sanity)",
       "_rev": "aW9ZvtW6d5z6x1Negh1PL7",
       "name": "betydning_av_opphold_utenfor_norge",
       "language": "nb",
