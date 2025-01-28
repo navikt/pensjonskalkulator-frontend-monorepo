@@ -147,7 +147,7 @@ describe('EndreInntekt', () => {
 
   describe('Gitt at brukeren har uføretrygd', () => {
     it('viser riktig tekst', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
+      mockResponse('/v3/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           ufoeretrygd: {
