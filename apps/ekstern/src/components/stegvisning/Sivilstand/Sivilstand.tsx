@@ -189,19 +189,9 @@ export function Sivilstand({
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>
-          {shouldShowInput.epsHarPensjon ? (
-            <>
-              <FormattedMessage id="stegvisning.sivilstand.ingress_1_gift" />
-              {formatertSivilstand}
-              <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
-            </>
-          ) : (
-            <>
-              <FormattedMessage id="stegvisning.sivilstand.ingress_1_ugift" />
-              {formatertSivilstand}
-              <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
-            </>
-          )}
+          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
+          {formatertSivilstand}
+          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
         </BodyLong>
         <VStack gap="6">
           <Select

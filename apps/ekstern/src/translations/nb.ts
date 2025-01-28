@@ -280,19 +280,17 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
   'stegvisning.sivilstand.title': 'Sivilstand',
-  'stegvisning.sivilstand.ingress_1_ugift':
-    'Sivilstanden din kan ha betydning for hva du får i pensjon. Du er registrert som ',
-  'stegvisning.sivilstand.ingress_1_gift':
+  'stegvisning.sivilstand.ingress_1':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon. Du er registrert som ',
   'stegvisning.sivilstand.ingress_2': ' i Folkeregisteret.',
   'stegvisning.sivilstand.select_label':
-    'Hva er sivilstanden din når du skal ta ut pensjon',
+    'Hva er sivilstanden din når du skal ta ut pensjon?',
   'stegvisning.sivilstand.select_description':
     'Hvis du endrer, gjelder det kun beregninger i kalkulatoren.',
   'stegvisning.sivilstand.radio_epsHarPensjon_label':
     'Vil {sivilstand} din motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
-    'Gjelder fra tidspunktet du tar ut pensjon.',
+    'Når du skal ta ut pensjon',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
     'Vil {sivilstand} din ha inntekt over 2G{grunnbelop}?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
@@ -304,9 +302,9 @@ const translations = {
     'Du må svare på om {sivilstand} vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.',
   'stegvisning.sivilstand.epsHarInntektOver2G.validation_error':
     'Du må svare på om {sivilstand} vil ha inntekt over 2G.',
-  'stegvisning.sivilstand.ektefellen': 'ektefellen',
-  'stegvisning.sivilstand.samboeren': 'samboeren',
-  'stegvisning.sivilstand.partneren': 'partneren',
+  'stegvisning.sivilstand.ektefellen': 'ektefellen din',
+  'stegvisning.sivilstand.samboeren': 'samboeren din',
+  'stegvisning.sivilstand.partneren': 'partneren din',
   'agepicker.validation_error.aar': 'Du må velge år og måned',
   'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
