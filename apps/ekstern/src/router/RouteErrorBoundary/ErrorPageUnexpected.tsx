@@ -15,7 +15,7 @@ export function ErrorPageUnexpected() {
       data: 'fra RouteErrorBoundary',
     })
     window.scrollTo(0, 0)
-  })
+  }, [])
 
   return (
     <FrameComponent>
