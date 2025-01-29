@@ -133,6 +133,10 @@ export const BeregningAvansert: React.FC = () => {
         (error as FetchBaseQueryError).status === 'PARSING_ERROR')
     ) {
       navigate(paths.uventetFeil)
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: 'fra Beregning Avansert',
+      })
     }
   }, [error])
 

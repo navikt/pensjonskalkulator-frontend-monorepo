@@ -144,6 +144,10 @@ export const stepStartAccessGuard =
         }
 
         if (getLoependeVedtakRes.isError) {
+          logger('info', {
+            tekst: 'Redirect til /uventet-feil',
+            data: 'fra Step Start Loader pga. feil med getLoependeVedtak',
+          })
           return paths.uventetFeil
         }
         if (getLoependeVedtakRes.isSuccess) {
@@ -184,6 +188,10 @@ export const stepStartAccessGuard =
           if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
             return paths.ingenTilgang
           } else {
+            logger('info', {
+              tekst: 'Redirect til /uventet-feil',
+              data: 'fra Step Start Loader pga. feil med getPerson',
+            })
             return paths.uventetFeil
           }
         }
@@ -337,6 +345,10 @@ export const stepAFPAccessGuard = async (): Promise<
       .dispatch(apiSlice.endpoints.getInntekt.initiate())
       .then((inntektRes) => {
         if (inntektRes.isError) {
+          logger('info', {
+            tekst: 'Redirect til /uventet-feil',
+            data: 'fra Step AFP Loader pga. feil med getInntekt',
+          })
           resolveRedirectUrl(paths.uventetFeil)
         } else if (
           apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
@@ -359,7 +371,8 @@ export const stepAFPAccessGuard = async (): Promise<
       .then((omstillingsstoenadOgGjenlevendeRes) => {
         if (omstillingsstoenadOgGjenlevendeRes.isError) {
           logger('info', {
-            tekst: 'omstillingsstønad og gjenlevende feilet',
+            tekst: 'Redirect til /uventet-feil',
+            data: 'fra Step AFP Loader pga. feil med getOmstillingsstoenadOgGjenlevende',
           })
           resolveRedirectUrl(paths.uventetFeil)
         } else if (
@@ -379,7 +392,8 @@ export const stepAFPAccessGuard = async (): Promise<
       .then((ekskludertStatusRes) => {
         if (ekskludertStatusRes.isError) {
           logger('info', {
-            tekst: 'ekskludert feilet',
+            tekst: 'Redirect til /uventet-feil',
+            data: 'fra Step AFP Loader pga. feil med getEkskludertStatus',
           })
           resolveRedirectUrl(paths.uventetFeil)
         }
