@@ -85,44 +85,6 @@ describe('OffentligTjenestepensjon', () => {
     })
   })
 
-  it('Gitt at feature-toggle for KLP er av og brukeren er medlem av KLP, viser riktig infomelding.', async () => {
-    mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
-      status: 200,
-      json: { enabled: false },
-    })
-    const spy = vi.spyOn(queries, 'useGetOtpKlpFeatureToggleQuery')
-
-    render(
-      <OffentligTjenestepensjon
-        isLoading={false}
-        isError={false}
-        offentligTp={{
-          simuleringsresultatStatus: 'OK',
-          muligeTpLeverandoerListe: [
-            'Kommunal Landspensjonskasse',
-            'Oslo Pensjonsforsikring',
-          ],
-          simulertTjenestepensjon: {
-            ...offentligTpData.simulertTjenestepensjon,
-            tpLeverandoer: 'Kommunal Landspensjonskasse',
-          },
-        }}
-        headingLevel="3"
-      />
-    )
-
-    await waitFor(() =>
-      expect(spy.mock.results.slice(-1)[0].value.isSuccess).toBe(true)
-    )
-
-    expect(
-      screen.getByText(
-        'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning',
-        { exact: false }
-      )
-    ).toBeVisible()
-  })
-
   describe('Gitt at brukeren er medlem av SPK, ', async () => {
     it('Når simuleringen feiler hos SPK, viser riktig heading på riktig level og riktig infomelding.', async () => {
       render(
@@ -510,13 +472,8 @@ describe('OffentligTjenestepensjon', () => {
     })
   })
 
-  describe('Gitt at feature-toggle for KLP er på og brukeren er medlem av KLP,', () => {
-    beforeEach(() => {
-      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
-        status: 200,
-        json: { enabled: true },
-      })
-    })
+  describe('Gitt at brukeren er medlem av KLP (og feature-toggle for KLP er på),', () => {
+    // Info: Selve feature-toggelen blir testet i apiSlice.test.ts
 
     it('Når simuleringen er vellykket og brukeren er på desktop, viser riktig radoverskrift.', async () => {
       vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
