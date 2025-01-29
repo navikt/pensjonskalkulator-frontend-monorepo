@@ -60,8 +60,6 @@ export const selectSamboerFraSivilstand = createSelector(
   }
 )
 
-// TODO avklare hvor de verdiene for epsHarPensjon og epsHarInntektOver2G skal komme fra for brukere som beregner Endring
-// TODO skriver ikke tester - skal fases ut til fordel for selectEpsHarInntektOver2G og selectEpsHarPensjon
 export const selectSamboerFraVedtak = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
@@ -72,7 +70,6 @@ export const selectSamboerFraVedtak = createSelector(
   }
 )
 
-// TODO skriver ikke tester - skal fases ut til fordel for selectEpsHarInntektOver2G og selectEpsHarPensjon
 export const selectSamboer = (state: RootState): boolean | null => {
   const isEndring = selectIsEndring(state)
   const samboerskapFraBrukerInput = selectSamboerFraBrukerInput(state)
