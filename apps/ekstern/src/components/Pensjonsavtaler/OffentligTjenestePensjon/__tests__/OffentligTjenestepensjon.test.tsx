@@ -329,7 +329,7 @@ describe('OffentligTjenestepensjon', () => {
           await screen.findByTestId('offentlig-tjenestepensjon-mobile')
         ).toBeVisible()
         expect(
-          screen.getByText('Livsvarig AFP er ikke inkludert i beløpet', {
+          screen.getByText('Livsvarig AFP er ikke inkludert i dette beløpet', {
             exact: false,
           })
         ).toBeVisible()
@@ -368,7 +368,7 @@ describe('OffentligTjenestepensjon', () => {
           await screen.findByTestId('offentlig-tjenestepensjon-mobile')
         ).toBeVisible()
         expect(
-          screen.getByText('Livsvarig AFP er ikke inkludert i beløpet', {
+          screen.getByText('Livsvarig AFP er ikke inkludert i dette beløpet', {
             exact: false,
           })
         ).toBeVisible()

@@ -626,7 +626,7 @@ const translations = {
   'pensjonsavtaler.offentligtp.subtitle.klp':
     'Alderspensjon fra Kommunal Landspensjonskasse (KLP)',
   'pensjonsavtaler.offentligtp.spk.afp_ja':
-    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+    'Livsvarig AFP er ikke inkludert i dette beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
   'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget':
     'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
   'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget':
