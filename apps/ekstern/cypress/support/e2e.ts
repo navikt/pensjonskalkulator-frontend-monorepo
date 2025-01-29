@@ -15,6 +15,18 @@ beforeEach(() => {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
 
+  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
+    statusCode: 200,
+  }).as('getDecoratorLoginEksternAuth')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://representasjon-banner-frontend-borger-q2.ekstern.dev.nav.no/pensjon/selvbetjening/representasjon/api/representasjon/harRepresentasjonsforhold`,
+    },
+    { fixture: 'representasjon-banner.json' }
+  ).as('getRepresentasjonBanner')
+
   cy.intercept('GET', `/collect`, {
     statusCode: 200,
   }).as('getDecoratoCollect')
@@ -31,6 +43,14 @@ beforeEach(() => {
     {
       method: 'GET',
       url: `/main-menu?*`,
+    },
+    { fixture: 'decorator-main-menu.html' }
+  ).as('getDecoratorMainMenu')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://dekoratoren.ekstern.dev.nav.no/main-menu?`,
     },
     { fixture: 'decorator-main-menu.html' }
   ).as('getDecoratorMainMenu')
@@ -158,10 +178,18 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26*`,
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%22nb%22%5D&returnQuery=false`,
     },
-    { fixture: 'sanity-readmore-data.json' }
-  ).as('fetchSanityReadMoreData')
+    { fixture: 'sanity-readmore-nb-data.json' }
+  ).as('fetchSanityReadMoreDataNb')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%22en%22%5D&returnQuery=false`,
+    },
+    { fixture: 'sanity-readmore-en-data.json' }
+  ).as('fetchSanityReadMoreDataEn')
 
   cy.intercept(
     {
