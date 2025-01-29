@@ -122,31 +122,35 @@ describe('userInput selectors', () => {
   })
 
   describe('selectSivilstand', () => {
-    it('Når brukeren har vedtak om alderspensjon, returnerer sivilstand fra vedtaket.', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-      expect(selectSivilstand(state)).toBe('UGIFT')
+    describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
+      it('returnerer sivilstand fra vedtaket.', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+          },
+        }
+        expect(selectSivilstand(state)).toBe('UGIFT')
+      })
     })
-    it('Når brukeren har vedtak om alderspensjon, returnerer sivilstand fra /person.', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetPerson },
-        },
-      }
-      expect(selectSivilstand(state)).toBe('UGIFT')
-    })
-    it('Når brukeren ikke har vedtak om alderspensjon og at /person ikke er blitt kalt eller har feilet, returnerer undefined', () => {
-      const state: RootState = {
-        ...initialState,
-      }
-      expect(selectSivilstand(state)).toBe(undefined)
+    describe('Gitt at brukeren ikker har vedtak om alderspensjon, ', () => {
+      it('returnerer sivilstand fra /person.', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPerson },
+          },
+        }
+        expect(selectSivilstand(state)).toBe('UGIFT')
+      })
+      it('Når /person ikke er blitt kalt eller har feilet, returnerer undefined.', () => {
+        const state: RootState = {
+          ...initialState,
+        }
+        expect(selectSivilstand(state)).toBe(undefined)
+      })
     })
   })
 

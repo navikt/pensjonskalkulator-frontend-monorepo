@@ -578,7 +578,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             alderspensjon: {
               fom: '2025-10-01',
               grad: 40,
-              sivilstand: 'UGIFT',
+              sivilstand: 'UGIFT' as Sivilstand,
             },
             ufoeretrygd: {
               grad: 0,
