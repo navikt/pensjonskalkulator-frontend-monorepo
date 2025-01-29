@@ -14,7 +14,7 @@ import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboer } from '@/state/userInput/selectors'
+import { selectSamboer, selectSivilstand } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { formatInntekt } from '@/utils/inntekt'
@@ -62,11 +62,12 @@ export const Grunnlag: React.FC<Props> = ({
 
   const { data: person, isSuccess } = useGetPersonQuery()
   const harSamboer = useAppSelector(selectSamboer)
+  const sivilstand = useAppSelector(selectSivilstand)
 
   const formatertSivilstand = React.useMemo(
     () =>
-      person
-        ? formatSivilstand(intl, person.sivilstand, {
+      sivilstand
+        ? formatSivilstand(intl, sivilstand, {
             harSamboer: !!harSamboer,
           })
         : '',
