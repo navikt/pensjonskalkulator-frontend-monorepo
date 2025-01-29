@@ -1,9 +1,4 @@
 {
-  "alderspensjon": {
-    "grad": 100,
-    "fom": "2020-10-02",
-    "sivilstand": "UGIFT"
-  },
   "ufoeretrygd": {
     "grad": 0
   },
