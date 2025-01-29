@@ -121,13 +121,17 @@ describe('userInput selectors', () => {
   })
 
   describe('selectSivilstand', () => {
-    it('returnerer undefined sivilstand når /person har ikke blitt kalt eller har feilet', () => {
+    it('Når brukeren har vedtak om alderspensjon, returnerer sivilstand fra vedtaket.', () => {
       const state: RootState = {
         ...initialState,
+        api: {
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
       }
-      expect(selectSivilstand(state)).toBe(undefined)
+      expect(selectSivilstand(state)).toBe('UGIFT')
     })
-    it('returnerer riktig sivilstand når queryen er vellykket', () => {
+    it('Når brukeren har vedtak om alderspensjon, returnerer sivilstand fra /person.', () => {
       const state: RootState = {
         ...initialState,
         api: {
@@ -136,6 +140,12 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectSivilstand(state)).toBe('UGIFT')
+    })
+    it('Når brukeren ikke har vedtak om alderspensjon og at /person ikke er blitt kalt eller har feilet, returnerer undefined', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectSivilstand(state)).toBe(undefined)
     })
   })
 

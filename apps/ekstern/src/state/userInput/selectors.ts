@@ -40,7 +40,6 @@ export const selectFoedselsdato = createSelector(
 export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
   state.userInput.samboer
 
-// TODO skrive tester
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
