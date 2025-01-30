@@ -72,6 +72,7 @@ export function Sivilstand({
     epsHarInntektOver2G?: string
   }>({ epsHarPensjon: undefined, epsHarInntektOver2G: undefined })
 
+  // TODO: Mappe UOPPGITT og UNKNOWN til UGIFT?
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
   const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
     convertBooleanToBooleanRadio(epsHarPensjon)

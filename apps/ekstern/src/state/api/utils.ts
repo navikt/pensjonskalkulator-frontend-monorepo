@@ -186,7 +186,7 @@ export const generateAlderspensjonRequestBody = (args: {
 export const generateAlderspensjonEnkelRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
-  sivilstand: UtvidetSivilstand | null
+  sivilstand: UtvidetSivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null // Støttes ikke i Pesys - defaultes til false
   foedselsdato: string | null | undefined
@@ -221,8 +221,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    // TODO: Sett default verdi for sivilstand i redux?
-    sivilstand: sivilstand ?? 'UGIFT',
+    sivilstand,
     heltUttak: {
       uttaksalder,
     },

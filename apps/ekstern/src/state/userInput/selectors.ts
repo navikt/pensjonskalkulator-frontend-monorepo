@@ -37,29 +37,23 @@ export const selectFoedselsdato = createSelector(
   }
 )
 
-export const selectSivilstand = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    // Henter sivilstand fra vedtak hvis det er en endringssøknad, hvis ikke hentes sivilstand fra personopplysninger
-    const isEndring = selectIsEndring(state)
-    if (isEndring) {
-      return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.alderspensjon?.sivilstand
-    } else {
-      const personQuerySivilstandResponse =
-        apiSlice.endpoints.getPerson.select()(state).data?.sivilstand ?? 'UGIFT'
-
-      if (state.userInput.sivilstand) {
-        return state.userInput.sivilstand
-      }
-
-      return (state.userInput.sivilstand ??
-        ['UNKNOWN', 'UOPPGITT'].includes(personQuerySivilstandResponse))
-        ? 'UGIFT'
-        : personQuerySivilstandResponse
-    }
+export const selectSivilstand = (state: RootState) => {
+  if (state.userInput.sivilstand) {
+    return state.userInput.sivilstand
   }
-)
+
+  // Henter sivilstand fra vedtak hvis det er en endringssøknad, hvis ikke hentes sivilstand fra personopplysninger
+  const isEndring = selectIsEndring(state)
+  if (isEndring) {
+    return apiSlice.endpoints.getLoependeVedtak.select()(state)?.data
+      ?.alderspensjon?.sivilstand
+  } else {
+    const personQuerySivilstandResponse =
+      apiSlice.endpoints.getPerson.select()(state).data?.sivilstand
+
+    return personQuerySivilstandResponse
+  }
+}
 
 export const selectEpsHarInntektOver2G = (state: RootState): boolean | null =>
   state.userInput.epsHarInntektOver2G
