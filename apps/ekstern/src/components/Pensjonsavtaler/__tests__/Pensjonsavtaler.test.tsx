@@ -129,6 +129,7 @@ describe('Pensjonsavtaler', () => {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
+            sivilstand: 'UGIFT',
             currentSimulation: currentSimulation,
           },
         },
