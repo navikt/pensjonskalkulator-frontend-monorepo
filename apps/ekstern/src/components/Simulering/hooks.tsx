@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import Highcharts, { SeriesOptionsType } from 'highcharts'
+import Highcharts, { Point, SeriesOptionsType } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { transformFoedselsdatoToAlder } from '@/utils/alder'
@@ -291,3 +291,118 @@ export const useSimuleringChartLocalState = (initialValues: {
     isPensjonsavtaleFlagVisible,
   ] as const
 }
+
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-this-alias */
+export const useHighchartsRegressionPlugin = () => {
+  React.useEffect(() => {
+    console.log('>>>> useHighchartsRegressionPlugin')
+    // TODO fjerne de ulike ts-ignore og prøve å skru på bedre typing
+
+    type Column = {
+      prototype: {
+        drawTracker: (points: any) => void
+        _hasTracking: boolean
+        trackerGroups: any[]
+      }
+    }
+
+    type ExtendedHighchartsType = typeof Highcharts & {
+      seriesTypes?: {
+        line: () => void
+        area: () => void
+        spline: () => void
+        areaspline: () => void
+        column: Column
+      }
+    }
+    ;(function (H: ExtendedHighchartsType) {
+      const { isArray, fireEvent, seriesTypes } = H
+
+      if (seriesTypes) {
+        seriesTypes.column.prototype.drawTracker = function (
+          // @ts-ignore
+          points = this.points
+        ) {
+          const series = this,
+            // @ts-ignore
+            chart = series.chart,
+            pointer = chart.pointer,
+            // @ts-ignore
+            onMouseOver = function (e) {
+              pointer?.normalize(e)
+              const point = pointer?.getPointFromEvent(e),
+                // Run point events only for points inside plot area, #21136
+                isInsidePlot =
+                  chart.scrollablePlotArea &&
+                  chart.scrollablePlotArea.scrollingContainer.offsetWidth <
+                    chart.options.chart.scrollablePlotArea.minWidth
+                    ? chart.isInsidePlot(
+                        e.chartX - chart.plotLeft,
+                        e.chartY - chart.plotTop,
+                        {
+                          visiblePlotOnly: true,
+                        }
+                      )
+                    : true
+              // Undefined on graph in scatterchart
+              if (
+                pointer &&
+                point &&
+                // @ts-ignore
+                series.options.enableMouseTracking &&
+                isInsidePlot
+              ) {
+                pointer.isDirectTouch = true
+                point.onMouseOver(e)
+              }
+            }
+          type DataLabel = { div: { point: Point }; element: { point: Point } }
+          let dataLabels: DataLabel[]
+          // Add reference to the point
+          points.forEach(function (
+            point: Point & { dataLabels: DataLabel[]; dataLabel: DataLabel }
+          ) {
+            dataLabels = isArray(point.dataLabels)
+              ? point.dataLabels
+              : point.dataLabel
+                ? [point.dataLabel]
+                : []
+            if (point.graphic) {
+              // @ts-ignore
+              point.graphic.element.point = point
+            }
+            dataLabels.forEach(function (dataLabel) {
+              ;(dataLabel.div || dataLabel.element).point = point
+            })
+          })
+          // Add the event listeners, we need to do this only once
+          if (!series._hasTracking) {
+            series.trackerGroups.forEach(function (key) {
+              // @ts-ignore
+              if (series[key]) {
+                // We don't always have dataLabelsGroup
+                // @ts-ignore
+                series[key]
+                  .addClass('highcharts-tracker')
+                  .on('mouseover', onMouseOver)
+                  // @ts-ignore
+                  .on('mouseout', function (e) {
+                    pointer?.onTrackerMouseOut(e)
+                  })
+                  .on('touchstart', onMouseOver)
+                // @ts-ignore
+                if (!chart.styledMode && series.options.cursor) {
+                  // @ts-ignore
+                  series[key].css({ cursor: series.options.cursor })
+                }
+              }
+            })
+            series._hasTracking = true
+          }
+          fireEvent(this, 'afterDrawTracker')
+        }
+      }
+    })(Highcharts)
+  }, [])
+}
+/* eslint-enable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-this-alias */
