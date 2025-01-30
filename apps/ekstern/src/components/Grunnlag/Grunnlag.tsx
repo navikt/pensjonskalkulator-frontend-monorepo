@@ -62,7 +62,7 @@ export const Grunnlag: React.FC<Props> = ({
   const sivilstand = useAppSelector(selectSivilstand)
 
   const formatertSivilstand = React.useMemo(
-    () => formatSivilstand(intl, sivilstand),
+    () => formatSivilstand(intl, sivilstand!),
     [sivilstand]
   )
 

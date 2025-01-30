@@ -127,7 +127,7 @@ export const BeregningEnkel: React.FC = () => {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand,
+        sivilstand: sivilstand ?? 'UOPPGITT',
         epsHarPensjon,
         epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,

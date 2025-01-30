@@ -515,12 +515,6 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          sivilstand: null,
-        })?.sivilstand
-      ).toEqual('UGIFT')
-      expect(
-        generateAlderspensjonEnkelRequestBody({
-          ...requestBody,
           sivilstand: 'UGIFT' as Sivilstand,
         })?.sivilstand
       ).toEqual('UGIFT')

@@ -74,7 +74,7 @@ export function StepSivilstand() {
               shouldRedirectTo={shouldRedirectToResp}
               sivilstandFolkeregister={personData.data.sivilstand}
               grunnbelop={grunnbelopData}
-              sivilstand={sivilstand}
+              sivilstand={sivilstand!}
               epsHarInntektOver2G={epsHarInntektOver2G}
               epsHarPensjon={epsHarPensjon}
               onCancel={isVeileder ? undefined : onStegvisningCancel}
