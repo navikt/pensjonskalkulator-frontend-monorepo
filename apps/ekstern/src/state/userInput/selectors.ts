@@ -40,7 +40,7 @@ export const selectFoedselsdato = createSelector(
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    // Returner userInput dersom satt, hvis ikke returner respons fra `getPerson`
+    // Henter sivilstand fra vedtak hvis det er en endringssøknad, hvis ikke hentes sivilstand fra personopplysninger
     const isEndring = selectIsEndring(state)
     if (isEndring) {
       return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
