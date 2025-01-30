@@ -1,5 +1,9 @@
 import { IntlShape } from 'react-intl'
 
+export function checkHarSamboer(sivilstand: Sivilstand): boolean {
+  return ['GIFT', 'REGISTRERT_PARTNER'].includes(sivilstand)
+}
+
 export const sivilstandOptions = [
   'ENKE_ELLER_ENKEMANN',
   'GIFT',

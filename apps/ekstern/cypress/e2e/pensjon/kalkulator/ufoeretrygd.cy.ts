@@ -21,7 +21,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -49,7 +49,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -195,7 +195,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -224,7 +224,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -268,7 +268,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -315,7 +315,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,
@@ -382,7 +382,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
         },
         {
           ...loependeVedtakMock,

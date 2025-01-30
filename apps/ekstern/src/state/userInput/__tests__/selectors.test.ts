@@ -5,6 +5,7 @@ import {
   selectAfp,
   selectFoedselsdato,
   selectSivilstand,
+  selectSamboerFraVedtak,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloep,
@@ -107,13 +108,40 @@ describe('userInput selectors', () => {
   })
 
   describe('selectSivilstand', () => {
-    it('returnerer undefined sivilstand når /person har ikke blitt kalt eller har feilet', () => {
-      const state: RootState = {
-        ...initialState,
-      }
-      expect(selectSivilstand(state)).toBe('UGIFT')
+    describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
+      it('returnerer sivilstand fra vedtaket.', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+          },
+        }
+        expect(selectSivilstand(state)).toBe('UGIFT')
+      })
     })
-    it('returnerer riktig sivilstand når queryen er vellykket', () => {
+    describe('Gitt at brukeren ikker har vedtak om alderspensjon, ', () => {
+      it('returnerer sivilstand fra /person.', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPerson },
+          },
+        }
+        expect(selectSivilstand(state)).toBe('UGIFT')
+      })
+      it('Når /person ikke er blitt kalt eller har feilet, returnerer undefined.', () => {
+        const state: RootState = {
+          ...initialState,
+        }
+        expect(selectSivilstand(state)).toBe(undefined)
+      })
+    })
+  })
+
+  /* describe('selectSamboerFraSivilstand', () => {
+    it('returnerer false når sivilstanden medfører at personen ikke har samboer', () => {
       const state: RootState = {
         ...initialState,
         api: {
@@ -121,9 +149,168 @@ describe('userInput selectors', () => {
           queries: { ...fulfilledGetPerson },
         },
       }
-      expect(selectSivilstand(state)).toBe('UGIFT')
+      expect(selectSamboerFraSivilstand(state)).toBe(false)
+    })
+    it('returnerer true når sivilstanden medfører at personen har samboer', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              // @ts-ignore
+              status: 'fulfilled',
+              endpointName: 'getPerson',
+              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+              startedTimeStamp: 1688046411971,
+              data: {
+                navn: 'Aprikos',
+                sivilstand: 'GIFT',
+                foedselsdato: '1963-04-30',
+              },
+              fulfilledTimeStamp: 1688046412103,
+            },
+          },
+        },
+      }
+      expect(selectSamboerFraSivilstand(state)).toBe(true)
+    })
+  }) */
+
+  describe('selectSamboerFraVedtak', () => {
+    it('returnerer false når sivilstanden medfører at personen ikke har samboer', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
+      }
+      expect(selectSamboerFraVedtak(state)).toBe(false)
+    })
+    it('returnerer true når sivilstanden medfører at personen har samboer', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          queries: {
+            ['getLoependeVedtak(undefined)']: {
+              // @ts-ignore
+              status: 'fulfilled',
+              endpointName: 'getLoependeVedtak',
+              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+              startedTimeStamp: 1688046411971,
+              data: {
+                alderspensjon: {
+                  grad: 100,
+                  fom: '2020-10-02',
+                  sivilstand: 'GIFT' as Sivilstand,
+                },
+                ufoeretrygd: {
+                  grad: 0,
+                },
+                harFremtidigLoependeVedtak: false,
+              },
+              fulfilledTimeStamp: 1688046412103,
+            },
+          },
+        },
+      }
+      expect(selectSamboerFraVedtak(state)).toBe(true)
     })
   })
+
+  /*describe('selectSamboer', () => {
+    describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+      it('returnerer samboerskap basert på sivilstanden fra vedtaket', () => {
+        const stateMedVedtakMedSivilstandUgift: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+          },
+          userInput: {
+            ...initialState.userInput,
+          },
+        }
+        expect(selectSamboer(stateMedVedtakMedSivilstandUgift)).toBe(false)
+
+        const stateMedVedtakMedSivilstandGift: RootState = {
+          ...initialState,
+          api: {
+            queries: {
+              ['getLoependeVedtak(undefined)']: {
+                // @ts-ignore
+                status: 'fulfilled',
+                endpointName: 'getLoependeVedtak',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  alderspensjon: {
+                    grad: 100,
+                    fom: '2020-10-02',
+                    sivilstand: 'GIFT' as Sivilstand,
+                  },
+                  ufoeretrygd: {
+                    grad: 0,
+                  },
+                  harFremtidigLoependeVedtak: false,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+            },
+          },
+          userInput: {
+            ...initialState.userInput,
+          },
+        }
+        expect(selectSamboer(stateMedVedtakMedSivilstandGift)).toBe(true)
+      })
+    })
+
+    describe('Gitt at brukeren ikke har vedtak om alderspensjon', () => {
+      it('returnerer samboerskap basert på svaret som brukeren har oppgitt, til tross for at sivilstanden fra person sier noe annet', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPerson },
+          },
+          userInput: {
+            ...initialState.userInput,
+            samboer: true,
+          },
+        }
+        expect(selectSamboer(state)).toBe(true)
+      })
+
+      it('returnerer samboerskap basert på sivilstand, og at brukeren ikke svarte spørsmålet om samboer', () => {
+        const state: RootState = {
+          ...initialState,
+          api: {
+            queries: {
+              ['getPerson(undefined)']: {
+                // @ts-ignore
+                status: 'fulfilled',
+                endpointName: 'getPerson',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  navn: 'Aprikos',
+                  sivilstand: 'GIFT',
+                  foedselsdato: '1963-04-30',
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+            },
+          },
+          userInput: {
+            ...initialState.userInput,
+            samboer: null,
+          },
+        }
+        expect(selectSamboer(state)).toBe(true)
+      })
+    }) 
+  })*/
 
   it('selectAarligInntektFoerUttakBeloepFraBrukerInput', () => {
     const state: RootState = {

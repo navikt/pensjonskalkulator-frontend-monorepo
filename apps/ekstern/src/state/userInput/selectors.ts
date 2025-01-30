@@ -5,6 +5,7 @@ import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 import { formatInntekt } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
+import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
   state.userInput.harUtenlandsopphold
@@ -40,17 +41,23 @@ export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     // Returner userInput dersom satt, hvis ikke returner respons fra `getPerson`
-    const personQuerySivilstandResponse =
-      apiSlice.endpoints.getPerson.select()(state).data?.sivilstand ?? 'UGIFT'
+    const isEndring = selectIsEndring(state)
+    if (isEndring) {
+      return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.alderspensjon?.sivilstand
+    } else {
+      const personQuerySivilstandResponse =
+        apiSlice.endpoints.getPerson.select()(state).data?.sivilstand ?? 'UGIFT'
 
-    if (state.userInput.sivilstand) {
-      return state.userInput.sivilstand
+      if (state.userInput.sivilstand) {
+        return state.userInput.sivilstand
+      }
+
+      return (state.userInput.sivilstand ??
+        ['UNKNOWN', 'UOPPGITT'].includes(personQuerySivilstandResponse))
+        ? 'UGIFT'
+        : personQuerySivilstandResponse
     }
-
-    return (state.userInput.sivilstand ??
-      ['UNKNOWN', 'UOPPGITT'].includes(personQuerySivilstandResponse))
-      ? 'UGIFT'
-      : personQuerySivilstandResponse
   }
 )
 
@@ -59,6 +66,16 @@ export const selectEpsHarInntektOver2G = (state: RootState): boolean | null =>
 
 export const selectEpsHarPensjon = (state: RootState): boolean | null =>
   state.userInput.epsHarPensjon
+
+export const selectSamboerFraVedtak = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    const sivilstand =
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.alderspensjon?.sivilstand
+    return sivilstand ? checkHarSamboer(sivilstand) : null
+  }
+)
 
 export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (
   state: RootState

@@ -2329,6 +2329,7 @@ describe('RedigerAvansertBeregning', () => {
                     alderspensjon: {
                       grad: 100,
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
+                      sivilstand: 'UGIFT',
                     },
                     ufoeretrygd: {
                       grad: 0,

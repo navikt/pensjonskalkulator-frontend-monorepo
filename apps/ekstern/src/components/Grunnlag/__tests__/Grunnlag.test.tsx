@@ -1,5 +1,8 @@
 import { Grunnlag } from '@/components/Grunnlag'
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -143,7 +146,92 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - sivilstand', () => {
-    it('viser riktig tekst og lenke til sivilstand', async () => {
+    it('viser riktig tekst og lenke når henting av sivilstand fra vedtaket er vellykket', async () => {
+      const user = userEvent.setup()
+
+      render(<Grunnlag headingLevel={'2'} visning={'avansert'} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
+      ).toBeInTheDocument()
+      await waitFor(async () => {
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+      })
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser riktig tekst og lenke når henting av sivilstand fra person er vellykket', async () => {
+      const user = userEvent.setup()
+      mockResponse('/v4/person', {
+        status: 200,
+        json: {
+          navn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1963-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
+        },
+      })
+      renderGrunnlagMedPreloadedState('2', 'avansert', {
+        ...userInputInitialState,
+      })
+
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.gift')).toBeInTheDocument()
+      await waitFor(async () => {
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+      })
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser riktig tekst og lenke når brukeren har oppgitt samboerskap manuelt', async () => {
       const user = userEvent.setup()
       mockResponse('/v4/person', {
         status: 200,
