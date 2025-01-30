@@ -441,6 +441,7 @@ const translations = {
   'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.endring': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
   'grunnlag.opphold.avbryt_modal.title': 'MANGLER_TEKST',
   'grunnlag.opphold.avbryt_modal.bekreft': 'MANGLER_TEKST',
@@ -448,7 +449,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
+    'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.',
+  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+    '{br}{br}MANGLER_TEKST: {sum} kr',
+  'grunnlag.alderspensjon.ingress.link':
+    '{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'MANGLER_TEKST',
   'grunnlag.afp.endring': 'MANGLER_TEKST',
@@ -581,5 +586,7 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. Nav har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}Nav har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
+  'showmore.vis_mindre': 'Vis mindre',
+  'showmore.vis_mer': 'Vis meir',
 }
 export const getTranslation_nn = () => translations

@@ -798,6 +798,7 @@ describe('Typeguards', () => {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT',
       },
       ufoeretrygd: {
         grad: 75,
@@ -861,6 +862,7 @@ describe('Typeguards', () => {
           alderspensjon: {},
         })
       ).toEqual(false)
+
       expect(
         isLoependeVedtak({
           ...correctResponse,
@@ -883,13 +885,22 @@ describe('Typeguards', () => {
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          alderspensjon: { grad: '75' },
+          alderspensjon: {
+            ...correctResponse.alderspensjon,
+            sivilstand: undefined,
+          },
         })
       ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          alderspensjon: { grad: 75, fom: 123 },
+          alderspensjon: { grad: '75', sivilstand: 'UGIFT' },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: { grad: 75, fom: 123, sivilstand: 'UGIFT' },
         })
       ).toEqual(false)
       expect(

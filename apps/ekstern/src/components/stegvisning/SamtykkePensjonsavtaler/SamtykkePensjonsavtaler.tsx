@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
+import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore/ReadMore'
 import { paths } from '@/router/constants'
@@ -38,7 +39,8 @@ export function SamtykkePensjonsavtaler({
         id: 'stegvisning.samtykke_pensjonsavtaler.validation_error',
       })
       setValidationError(tekst)
-      logger('valideringsfeil', {
+      logger('skjema validering feilet', {
+        skjemanavn: STEGVISNING_FORM_NAMES.samtykkePensjonsavtaler,
         data: intl.formatMessage({
           id: 'stegvisning.samtykke_pensjonsavtaler.radio_label',
         }),

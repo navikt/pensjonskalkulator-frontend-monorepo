@@ -28,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
+  selectSivilstand,
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
@@ -53,6 +54,7 @@ export const BeregningAvansert: React.FC = () => {
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
+  const sivilstand = useAppSelector(selectSivilstand)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const isEndring = useAppSelector(selectIsEndring)
@@ -81,7 +83,7 @@ export const BeregningAvansert: React.FC = () => {
       const requestBody = generateAlderspensjonRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand: person?.sivilstand,
+        sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -116,12 +118,14 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-        logger('alert', {
+        logger('alert vist', {
           tekst: 'Beregning avansert: Ikke høy nok opptjening',
+          variant: 'warning',
         })
       } else if (isError) {
-        logger('alert', {
+        logger('alert vist', {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
+          variant: 'error',
         })
       }
     }
@@ -134,6 +138,10 @@ export const BeregningAvansert: React.FC = () => {
         (error as FetchBaseQueryError).status === 'PARSING_ERROR')
     ) {
       navigate(paths.uventetFeil)
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: 'fra Beregning Avansert',
+      })
     }
   }, [error])
 
@@ -265,6 +273,14 @@ export const BeregningAvansert: React.FC = () => {
                   visning="avansert"
                   headingLevel="2"
                   harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                  trygdetid={alderspensjon?.trygdetid}
+                  pensjonsbeholdning={
+                    alderspensjon?.alderspensjon &&
+                    alderspensjon?.alderspensjon.length > 0
+                      ? alderspensjon?.alderspensjon[0]
+                          .pensjonBeholdningFoerUttakBeloep
+                      : undefined
+                  }
                 />
               </>
             )}

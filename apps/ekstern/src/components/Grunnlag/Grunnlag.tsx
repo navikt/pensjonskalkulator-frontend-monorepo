@@ -14,9 +14,10 @@ import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboer } from '@/state/userInput/selectors'
+import { selectSamboer, selectSivilstand } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
+import { formatInntekt } from '@/utils/inntekt'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -31,12 +32,16 @@ interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
   harForLiteTrygdetid?: boolean
+  trygdetid?: number
+  pensjonsbeholdning?: number
 }
 
 export const Grunnlag: React.FC<Props> = ({
   visning,
   headingLevel,
   harForLiteTrygdetid,
+  trygdetid,
+  pensjonsbeholdning,
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -57,11 +62,12 @@ export const Grunnlag: React.FC<Props> = ({
 
   const { data: person, isSuccess } = useGetPersonQuery()
   const harSamboer = useAppSelector(selectSamboer)
+  const sivilstand = useAppSelector(selectSivilstand)
 
   const formatertSivilstand = React.useMemo(
     () =>
-      person
-        ? formatSivilstand(intl, person.sivilstand, {
+      sivilstand
+        ? formatSivilstand(intl, sivilstand, {
             harSamboer: !!harSamboer,
           })
         : '',
@@ -129,7 +135,10 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
+        <GrunnlagUtenlandsopphold
+          harForLiteTrygdetid={harForLiteTrygdetid}
+          trygdetid={trygdetid}
+        />
 
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection
@@ -143,6 +152,21 @@ export const Grunnlag: React.FC<Props> = ({
             <BodyLong>
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+              {pensjonsbeholdning && (
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.ingress.pensjonsbeholdning"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    sum: formatInntekt(pensjonsbeholdning),
+                  }}
+                />
+              )}
+              <FormattedMessage
+                id="grunnlag.alderspensjon.ingress.link"
                 values={{
                   ...getFormatMessageValues(intl),
                 }}

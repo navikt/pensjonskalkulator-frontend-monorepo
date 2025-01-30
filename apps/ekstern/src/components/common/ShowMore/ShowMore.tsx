@@ -1,5 +1,6 @@
 /* c8 ignore start */
 import React, { forwardRef, useMemo, useRef, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Heading, HeadingProps, useId } from '@navikt/ds-react'
@@ -196,7 +197,9 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
               size={size}
               onClick={toggleOpen}
             >
-              {isOpen ? 'Vis mindre' : 'Vis mer'}
+              <FormattedMessage
+                id={isOpen ? 'showmore.vis_mindre' : 'showmore.vis_mer'}
+              />
             </Button>
           </div>
         </div>
@@ -204,8 +207,7 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
         <div
           className="navds-show-more__content"
           style={isOpen ? {} : { height: collapsedHeight }}
-          // @ts-expect-error https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60822
-          inert={isOpen ? undefined : ''}
+          inert={isOpen ? undefined : true}
         >
           {children}
         </div>

@@ -14,7 +14,10 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
       <p
         class="navds-body-long navds-body-long--large"
       >
-        stegvisning.samtykke_pensjonsavtaler.ingress
+        Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig.
+        <br />
+        <br />
+         Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmoreOffentlig_cef636"

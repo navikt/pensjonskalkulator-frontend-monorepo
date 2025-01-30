@@ -5,7 +5,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
           },
           { fixture: 'loepende-vedtak-endring.json' }
         ).as('getLoependeVedtak')
@@ -34,12 +34,13 @@ describe('Endring av alderspensjon', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
             },
             {
               alderspensjon: {
                 grad: 100,
                 fom: '2010-10-10',
+                sivilstand: 'UGIFT',
               },
               ufoeretrygd: {
                 grad: 0,
@@ -466,12 +467,13 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
           },
           {
             alderspensjon: {
               grad: 80,
               fom: '2010-10-10',
+              sivilstand: 'UGIFT',
             },
             afpPrivat: { fom: '2010-10-10' },
             ufoeretrygd: {
@@ -505,12 +507,13 @@ describe('Endring av alderspensjon', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
             },
             {
               alderspensjon: {
                 grad: 80,
                 fom: '2010-10-10',
+                sivilstand: 'UGIFT',
               },
               afpPrivat: { fom: '2010-10-10' },
               ufoeretrygd: {
@@ -790,12 +793,13 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
           },
           {
             alderspensjon: {
               grad: 80,
               fom: '2010-10-10',
+              sivilstand: 'UGIFT',
             },
             afpOffentlig: { fom: '2010-10-10' },
             ufoeretrygd: {
@@ -829,12 +833,13 @@ describe('Endring av alderspensjon', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
             },
             {
               alderspensjon: {
                 grad: 80,
                 fom: '2010-10-10',
+                sivilstand: 'UGIFT',
               },
               afpOffentlig: { fom: '2010-10-10' },
               ufoeretrygd: {
@@ -1115,12 +1120,13 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
           },
           {
             alderspensjon: {
               grad: 50,
               fom: '2010-10-10',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 50,
@@ -1153,12 +1159,13 @@ describe('Endring av alderspensjon', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
             },
             {
               alderspensjon: {
                 grad: 50,
                 fom: '2010-10-10',
+                sivilstand: 'UGIFT',
               },
               ufoeretrygd: {
                 grad: 50,
@@ -1409,12 +1416,13 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
           },
           {
             alderspensjon: {
               grad: 0,
               fom: '2010-10-10',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 100,
@@ -1447,12 +1455,13 @@ describe('Endring av alderspensjon', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
             },
             {
               alderspensjon: {
                 grad: 0,
                 fom: '2010-10-10',
+                sivilstand: 'UGIFT',
               },
               ufoeretrygd: {
                 grad: 100,
