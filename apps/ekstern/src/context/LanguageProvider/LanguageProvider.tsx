@@ -15,6 +15,7 @@ import {
   SanityReadMore,
 } from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
+import { logger } from '@/utils/logging'
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
@@ -51,10 +52,22 @@ export function LanguageProvider({ children }: Props) {
         .then((sanityReadMoreResponse) => {
           setSanityReadMoreData(sanityReadMoreResponse)
         })
+        .catch(() => {
+          logger('info', {
+            tekst: 'Feil ved henting av innhold fra Sanity',
+            data: `readmore ${locale}`,
+          })
+        })
       const forbeholdAvsnittPromise = sanityClient
         .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
         .then((sanityForbeholdAvsnittResponse) => {
           setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse)
+        })
+        .catch(() => {
+          logger('info', {
+            tekst: 'Feil ved henting av innhold fra Sanity',
+            data: `forbeholdAvsnitt ${locale}`,
+          })
         })
 
       await Promise.all([readMorePromise, forbeholdAvsnittPromise])
