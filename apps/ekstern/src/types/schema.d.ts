@@ -204,6 +204,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v3/vedtak/loepende-vedtak': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Har løpende vedtak
+     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
+     */
+    get: operations['hentLoependeVedtakV3']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/vedtak/loepende-vedtak': {
     parameters: {
       query?: never
@@ -1089,6 +1109,46 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
       pensjoneringAldre: components['schemas']['PersonPensjoneringAldreV4']
     }
+    AlderspensjonDetaljerV3: {
+      /** Format: int32 */
+      grad: number
+      /** Format: date */
+      fom: string
+      sisteUtbetaling?: components['schemas']['UtbetalingV3']
+      /** @enum {string} */
+      sivilstand:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+    }
+    LoependeFraV3: {
+      /** Format: date */
+      fom: string
+    }
+    LoependeVedtakV3: {
+      alderspensjon?: components['schemas']['AlderspensjonDetaljerV3']
+      harFremtidigLoependeVedtak: boolean
+      ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV3']
+      afpPrivat?: components['schemas']['LoependeFraV3']
+      afpOffentlig?: components['schemas']['LoependeFraV3']
+    }
+    UfoeretrygdDetaljerV3: {
+      /** Format: int32 */
+      grad: number
+    }
+    UtbetalingV3: {
+      beloep: number
+      /** Format: date */
+      utbetalingsdato: string
+    }
     AlderspensjonDetaljerV2: {
       /** Format: int32 */
       grad: number
@@ -1515,6 +1575,35 @@ export interface operations {
         }
       }
       /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  hentLoependeVedtakV3: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av løpende vedtak utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['LoependeVedtakV3']
+        }
+      }
+      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

@@ -89,7 +89,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(offentligTpResponse)
   }),
 
-  http.get(`${baseUrl}/v2/vedtak/loepende-vedtak`, async () => {
+  http.get(`${baseUrl}/v3/vedtak/loepende-vedtak`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(loependeVedtakResponse)
   }),

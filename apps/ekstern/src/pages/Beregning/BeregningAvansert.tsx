@@ -28,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
+  selectSivilstand,
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
@@ -53,6 +54,7 @@ export const BeregningAvansert: React.FC = () => {
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
+  const sivilstand = useAppSelector(selectSivilstand)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const isEndring = useAppSelector(selectIsEndring)
@@ -81,7 +83,7 @@ export const BeregningAvansert: React.FC = () => {
       const requestBody = generateAlderspensjonRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand: person?.sivilstand,
+        sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',

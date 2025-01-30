@@ -37,6 +37,7 @@ declare global {
   >
   type Person = components['schemas']['PersonResultV4']
   type Sivilstand = components['schemas']['PersonResultV4']['sivilstand']
+
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
   type pensjoneringAldre =
     components['schemas']['PersonResultV4']['pensjoneringAldre']
@@ -61,13 +62,13 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /v2/vedtak/loepende-vedtak
+  // /v3/vedtak/loepende-vedtak
   export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
     LoependeVedtak,
     void,
     BaseQueryFn<Record<string, unknown>, LoependeVedtak>
   >
-  type LoependeVedtak = components['schemas']['LoependeVedtakV2']
+  type LoependeVedtak = components['schemas']['LoependeVedtakV3']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
