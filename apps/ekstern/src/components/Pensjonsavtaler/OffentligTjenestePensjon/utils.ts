@@ -1,8 +1,20 @@
-import { Translations } from '@/translations/nb'
+import type { IntlShape } from 'react-intl'
 
-export const leverandoerMessageKeyMap = {
+import type { Translations } from '@/translations/nb'
+
+const leverandoerMessageKeyMap: Record<string, string> = {
   'Statens pensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.spk',
   'Kommunal Landspensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.klp',
+}
+
+export const getLeverandoerHeading = (
+  intl: IntlShape,
+  tpLeverandoer: string
+) => {
+  if (tpLeverandoer in leverandoerMessageKeyMap) {
+    return intl.formatMessage({ id: leverandoerMessageKeyMap[tpLeverandoer] })
+  }
+  return tpLeverandoer
 }
 
 export const getInfoOmAfpOgBetingetTjenestepensjon = (

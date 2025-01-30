@@ -13,7 +13,6 @@ import clsx from 'clsx'
 
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
-import { useGetOtpKlpFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp } from '@/state/userInput/selectors'
 import {
@@ -26,7 +25,7 @@ import { useIsMobile } from '@/utils/useIsMobile'
 
 import {
   getInfoOmAfpOgBetingetTjenestepensjon,
-  leverandoerMessageKeyMap,
+  getLeverandoerHeading,
 } from './utils'
 
 import styles from './OffentligTjenestepensjon.module.scss'
@@ -42,8 +41,6 @@ export const OffentligTjenestepensjon = (props: {
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
-
-  const { data: otpKlpFeatureToggle } = useGetOtpKlpFeatureToggleQuery()
 
   const subHeadingLevel = React.useMemo(() => {
     return (parseInt(headingLevel, 10) + 1).toString() as HeadingProps['level']
@@ -61,12 +58,9 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
-  const visResultat =
+  const showResults =
     offentligTp?.simuleringsresultatStatus === 'OK' &&
-    offentligTp.simulertTjenestepensjon !== undefined &&
-    (tpLeverandoer === 'Statens pensjonskasse' ||
-      (otpKlpFeatureToggle?.enabled &&
-        tpLeverandoer === 'Kommunal Landspensjonskasse'))
+    tpLeverandoer !== undefined
 
   return (
     <VStack gap="3">
@@ -99,10 +93,8 @@ export const OffentligTjenestepensjon = (props: {
       }
       {
         // Når brukeren er medlem av en annen ordning
-        (offentligTp?.simuleringsresultatStatus ===
-          'TP_ORDNING_STOETTES_IKKE' ||
-          (offentligTp?.simuleringsresultatStatus === 'OK' &&
-            !visResultat)) && (
+        offentligTp?.simuleringsresultatStatus ===
+          'TP_ORDNING_STOETTES_IKKE' && (
           <Alert inline variant="warning">
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
@@ -137,7 +129,7 @@ export const OffentligTjenestepensjon = (props: {
         )
       }
 
-      {visResultat && (
+      {showResults && (
         <>
           {isMobile ? (
             <>
@@ -146,9 +138,7 @@ export const OffentligTjenestepensjon = (props: {
                 level={subHeadingLevel}
                 size="xsmall"
               >
-                {intl.formatMessage({
-                  id: leverandoerMessageKeyMap[tpLeverandoer],
-                })}
+                {getLeverandoerHeading(intl, tpLeverandoer)}
               </Heading>
               <table
                 className={styles.mobileTable}
@@ -222,9 +212,7 @@ export const OffentligTjenestepensjon = (props: {
                             className={styles.desktopTableRader__alignTop}
                             rowSpan={utbetalingsperioder.length}
                           >
-                            {intl.formatMessage({
-                              id: leverandoerMessageKeyMap[tpLeverandoer],
-                            })}
+                            {getLeverandoerHeading(intl, tpLeverandoer)}
                           </Table.HeaderCell>
                         )}
                         <Table.DataCell className={dataCellClassName}>
