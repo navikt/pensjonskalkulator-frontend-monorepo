@@ -427,6 +427,8 @@ const translations = {
     'About withdrawal degree and disability benefits',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Withdrawal degree indicates how much of the monthly retirement pension you wish to withdraw. You can choose graded withdrawal (20, 40, 50, 60, or <nowrap>80 %</nowrap>), or full retirement pension (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.read_more.uttaksgrad.endring.body':
+    'Withdrawal degree indicates how much of the monthly retirement pension you wish to withdraw. If you want to change the degree to 20, 40, 50, 60, or 80 %, at least 12 months must have elapsed since you started withdrawing retirement pension or changed the withdrawal degree. You can change to 0 % and 100 % as often as you wish.',
   'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
     'Withdrawal degree indicates how much of the monthly retirement pension you wish to withdraw. The degree of disability benefits and retirement pension cannot together exceed 100 %. From 67 years you can freely choose graded withdrawal (20, 40, 50, 60, or 80 %), or full retirement pension (100 %).',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
