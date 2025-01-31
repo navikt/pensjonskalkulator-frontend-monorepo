@@ -2,7 +2,7 @@ import { IntlShape } from 'react-intl'
 
 export function checkHarSamboer(sivilstand?: UtvidetSivilstand): boolean {
   if (!sivilstand) return false
-  return ['GIFT', 'REGISTRERT_PARTNER'].includes(sivilstand)
+  return ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
 }
 
 export const sivilstandOptions = [

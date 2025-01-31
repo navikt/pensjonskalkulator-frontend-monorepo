@@ -5,7 +5,6 @@ import {
   selectAfp,
   selectFoedselsdato,
   selectSivilstand,
-  selectSamboerFraVedtak,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloep,
@@ -19,6 +18,8 @@ import {
   selectLoependeVedtak,
   selectUfoeregrad,
   selectIsEndring,
+  selectEpsHarPensjon,
+  selectEpsHarInntektOver2G,
 } from '../selectors'
 import {
   fulfilledGetInntekt,
@@ -88,6 +89,28 @@ describe('userInput selectors', () => {
     expect(selectAfp(state)).toBe('nei')
   })
 
+  it('selectEpsHarPensjon', () => {
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        epsHarPensjon: false,
+      },
+    }
+    expect(selectEpsHarPensjon(state)).toBe(false)
+  })
+
+  it('selectEpsHarInntektOver2G', () => {
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        epsHarInntektOver2G: true,
+      },
+    }
+    expect(selectEpsHarInntektOver2G(state)).toBe(true)
+  })
+
   describe('selectFoedselsdato', () => {
     it('returnerer undefined fødselsdato når /person har ikke blitt kalt eller har feilet', () => {
       const state: RootState = {
@@ -108,6 +131,12 @@ describe('userInput selectors', () => {
   })
 
   describe('selectSivilstand', () => {
+    it('Når /person ikke er blitt kalt eller har feilet, returnerer undefined.', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectSivilstand(state)).toBe(undefined)
+    })
     describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
       it('returnerer sivilstand fra vedtaket.', () => {
         const state: RootState = {
@@ -130,12 +159,6 @@ describe('userInput selectors', () => {
           },
         }
         expect(selectSivilstand(state)).toBe('UGIFT')
-      })
-      it('Når /person ikke er blitt kalt eller har feilet, returnerer undefined.', () => {
-        const state: RootState = {
-          ...initialState,
-        }
-        expect(selectSivilstand(state)).toBe(undefined)
       })
     })
   })
@@ -185,52 +208,6 @@ describe('userInput selectors', () => {
       }
       expect(selectSivilstand(stateMedVedtakMedSivilstandGift)).toBe('GIFT')
     })
-  })
-  /*
-    describe('Gitt at brukeren ikke har vedtak om alderspensjon', () => {
-      it('returnerer samboerskap basert på svaret som brukeren har oppgitt, til tross for at sivilstanden fra person sier noe annet', () => {
-        const state: RootState = {
-          ...initialState,
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
-          userInput: {
-            ...initialState.userInput,
-            samboer: true,
-          },
-        }
-        expect(selectSamboer(state)).toBe(true)
-      })
-
-      it('returnerer samboerskap basert på sivilstand, og at brukeren ikke svarte spørsmålet om samboer', () => {
-        const state: RootState = {
-          ...initialState,
-          api: {
-            queries: {
-              ['getPerson(undefined)']: {
-                // @ts-ignore
-                status: 'fulfilled',
-                endpointName: 'getPerson',
-                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                startedTimeStamp: 1688046411971,
-                data: {
-                  navn: 'Aprikos',
-                  sivilstand: 'GIFT',
-                  foedselsdato: '1963-04-30',
-                },
-                fulfilledTimeStamp: 1688046412103,
-              },
-            },
-          },
-          userInput: {
-            ...initialState.userInput,
-            samboer: null,
-          },
-        }
-        expect(selectSamboer(state)).toBe(true)
-      })
-    }) 
   })
 
   it('selectAarligInntektFoerUttakBeloepFraBrukerInput', () => {
@@ -545,5 +522,4 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeTruthy()
     })
   })
-*/
 })
