@@ -66,7 +66,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(offentligTpResponse)
   }),
 
-  http.get(`${baseUrl}/v2/vedtak/loepende-vedtak`, async () => {
+  http.get(`${baseUrl}/v3/vedtak/loepende-vedtak`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(loependeVedtakResponse)
   }),
@@ -95,7 +95,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     let afpOffentlig: AfpPrivatPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_PRIVAT'
+        'ALDERSPENSJON_MED_AFP_PRIVAT' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
     ) {
       const afpPrivatData = JSON.parse(
         JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
@@ -104,7 +106,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
-      'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG' ||
+      (body as AlderspensjonRequestBody).simuleringstype ===
+        'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     ) {
       const afpOffentligData = JSON.parse(
         JSON.stringify(await import(`./data/afp-offentlig.json`))
