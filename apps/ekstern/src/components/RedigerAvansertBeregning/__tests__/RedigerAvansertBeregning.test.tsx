@@ -2562,11 +2562,26 @@ describe('RedigerAvansertBeregning', () => {
         screen.queryByText('beregning.avansert.rediger.uttaksgrad.description')
       ).not.toBeInTheDocument()
 
-      expect(
-        await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.body'
-        )
-      ).toBeVisible()
+      expect(await screen.findByTestId('om-uttaksgrad')).toMatchInlineSnapshot(`
+        <p
+          class="navds-body-long navds-body-long--medium"
+          data-testid="om-uttaksgrad"
+        >
+          Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 
+          <span
+            class="nowrap"
+          >
+            80 %
+          </span>
+          ), eller hel alderspensjon (
+          <span
+            class="nowrap"
+          >
+            100 %
+          </span>
+          ).
+        </p>
+      `)
     })
 
     it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
