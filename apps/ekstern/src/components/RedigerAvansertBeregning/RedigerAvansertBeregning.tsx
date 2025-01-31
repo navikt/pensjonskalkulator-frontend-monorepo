@@ -563,7 +563,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     ? loependeVedtak.ufoeretrygd.grad &&
                       loependeVedtak.ufoeretrygd.grad !== 100
                       ? 'omufoeretrygd.readmore.endring.ingress'
-                      : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
+                      : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
                     : loependeVedtak.ufoeretrygd.grad &&
                         loependeVedtak.ufoeretrygd.grad !== 100
                       ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'

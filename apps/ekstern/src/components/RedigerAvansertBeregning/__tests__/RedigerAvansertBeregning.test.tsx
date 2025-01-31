@@ -2564,14 +2564,9 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(
         await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
-        )
-      ).toBeVisible()
-      expect(
-        screen.queryByText(
           'beregning.avansert.rediger.read_more.uttaksgrad.body'
         )
-      ).not.toBeInTheDocument()
+      ).toBeVisible()
     })
 
     it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
