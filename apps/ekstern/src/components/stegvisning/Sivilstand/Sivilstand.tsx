@@ -234,7 +234,9 @@ export function Sivilstand({
           <Select
             className={styles.selectSivilstand}
             name="sivilstand"
-            value={checkUkjentSivilstand(sivilstand) ? '' : sivilstandInput}
+            value={
+              checkUkjentSivilstand(sivilstandInput) ? '' : sivilstandInput
+            }
             onChange={(e) =>
               setSivilstandInput(e.target.value as UtvidetSivilstand)
             }
