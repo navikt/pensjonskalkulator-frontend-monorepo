@@ -21,7 +21,7 @@ describe('stegvisning - Sivilstand', () => {
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
-        sivilstandFolkeregister="UGIFT"
+        sivilstandFolkeregister="UOPPGITT"
         sivilstand="UOPPGITT"
         epsHarPensjon={null}
         epsHarInntektOver2G={null}

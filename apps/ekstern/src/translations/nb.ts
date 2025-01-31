@@ -280,11 +280,15 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
   'stegvisning.sivilstand.title': 'Sivilstand',
+  'stegvisning.sivilstand.ingress_ukjent':
+    'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon.',
   'stegvisning.sivilstand.ingress_1':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon. Du er registrert som ',
   'stegvisning.sivilstand.ingress_2': ' i Folkeregisteret.',
   'stegvisning.sivilstand.select_label':
     'Hva er sivilstanden din når du skal ta ut pensjon?',
+  'stegvisning.sivilstand.select_description_ukjent':
+    'Dette gjelder kun beregninger i kalkulatoren.',
   'stegvisning.sivilstand.select_description':
     'Hvis du endrer, gjelder det kun beregninger i kalkulatoren.',
   'stegvisning.sivilstand.radio_epsHarPensjon_label':
@@ -298,6 +302,8 @@ const translations = {
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
+  'stegvisning.sivilstand.select_validation_error':
+    'Du må velge en sivilstand.',
   'stegvisning.sivilstand.epsHarPensjon.validation_error':
     'Du må svare på om {sivilstand} vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.',
   'stegvisning.sivilstand.epsHarInntektOver2G.validation_error':

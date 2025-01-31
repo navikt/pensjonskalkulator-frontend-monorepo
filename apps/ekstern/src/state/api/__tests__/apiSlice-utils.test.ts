@@ -318,7 +318,7 @@ describe('apiSlice - utils', () => {
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.sivilstand
-      ).toBe('UGIFT')
+      ).toBe('UOPPGITT')
       expect(
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
@@ -336,7 +336,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           sivilstand: null,
         })?.sivilstand
-      ).toEqual('UGIFT')
+      ).toEqual('UOPPGITT')
     })
 
     it('returnerer riktig aarligInntektVsaPensjon', () => {
@@ -693,7 +693,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           sivilstand: null,
         })?.sivilstand
-      ).toEqual('UGIFT')
+      ).toEqual('UOPPGITT')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,

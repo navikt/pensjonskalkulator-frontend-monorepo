@@ -21,6 +21,7 @@ import {
   sivilstandOptions,
   formatSivilstand,
   getSivilstandTekst,
+  checkUkjentSivilstand,
 } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
@@ -68,9 +69,14 @@ export function Sivilstand({
   const intl = useIntl()
   const navigate = useNavigate()
   const [validationError, setValidationError] = useState<{
+    sivilstand?: string
     epsHarPensjon?: string
     epsHarInntektOver2G?: string
-  }>({ epsHarPensjon: undefined, epsHarInntektOver2G: undefined })
+  }>({
+    sivilstand: undefined,
+    epsHarPensjon: undefined,
+    epsHarInntektOver2G: undefined,
+  })
 
   // TODO: Mappe UOPPGITT og UNKNOWN til UGIFT?
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
@@ -115,6 +121,9 @@ export function Sivilstand({
   }, [sivilstandInput, epsHarPensjonInput])
 
   React.useEffect(() => {
+    if (sivilstandInput !== null) {
+      setValidationError((prev) => ({ ...prev, sivilstand: undefined }))
+    }
     if (epsHarPensjonInput !== null) {
       setValidationError((prev) => ({ ...prev, epsHarPensjon: undefined }))
     }
@@ -124,10 +133,13 @@ export function Sivilstand({
         epsHarInntektOver2G: undefined,
       }))
     }
-  }, [epsHarPensjonInput, epsHarInntektOver2GInput])
+  }, [sivilstandInput, epsHarPensjonInput, epsHarInntektOver2GInput])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    const sivilstand_validationText = intl.formatMessage({
+      id: 'stegvisning.sivilstand.select_validation_error',
+    })
     const epsHarPensjon_validationText = intl.formatMessage(
       { id: 'stegvisning.sivilstand.epsHarPensjon.validation_error' },
       { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
@@ -137,10 +149,14 @@ export function Sivilstand({
       { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
     )
     if (
+      checkUkjentSivilstand(sivilstandInput) ||
       (shouldShowInput.epsHarPensjon && epsHarPensjonInput === null) ||
       (shouldShowInput.epsHarInntektOver2G && epsHarInntektOver2GInput === null)
     ) {
       const validationErrorText = {
+        sivilstand: checkUkjentSivilstand(sivilstandInput)
+          ? sivilstand_validationText
+          : undefined,
         epsHarPensjon:
           shouldShowInput.epsHarPensjon && epsHarPensjonInput === null
             ? epsHarPensjon_validationText
@@ -204,25 +220,43 @@ export function Sivilstand({
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>
-          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
-          {formatertSivilstand}
-          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+          {checkUkjentSivilstand(sivilstandFolkeregister) ? (
+            <FormattedMessage id="stegvisning.sivilstand.ingress_ukjent" />
+          ) : (
+            <>
+              <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
+              {formatertSivilstand}
+              <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+            </>
+          )}
         </BodyLong>
         <VStack gap="6">
           <Select
             className={styles.selectSivilstand}
             name="sivilstand"
-            value={sivilstandInput}
+            value={checkUkjentSivilstand(sivilstand) ? '' : sivilstandInput}
             onChange={(e) =>
               setSivilstandInput(e.target.value as UtvidetSivilstand)
             }
             label={intl.formatMessage({
               id: `stegvisning.sivilstand.select_label`,
             })}
-            description={intl.formatMessage({
-              id: `stegvisning.sivilstand.select_description`,
-            })}
+            description={
+              checkUkjentSivilstand(sivilstand)
+                ? intl.formatMessage({
+                    id: `stegvisning.sivilstand.select_description_ukjent`,
+                  })
+                : intl.formatMessage({
+                    id: `stegvisning.sivilstand.select_description`,
+                  })
+            }
+            error={validationError.sivilstand}
           >
+            {checkUkjentSivilstand(sivilstandInput) && (
+              <option disabled selected value="">
+                {' '}
+              </option>
+            )}
             {sivilstandOptions.map((option) => (
               <option key={option} value={option}>
                 {intl.formatMessage({

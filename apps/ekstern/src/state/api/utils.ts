@@ -106,7 +106,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
       aarligInntektFoerUttakBeloep
     ),
     // TODO: Default sivilstand?
-    sivilstand: sivilstand ?? 'UGIFT',
+    sivilstand: sivilstand ?? 'UOPPGITT',
     aarligInntektVsaPensjon:
       aarligInntektVsaPensjon && aarligInntektVsaPensjon.beloep
         ? {
@@ -159,7 +159,7 @@ export const generateAlderspensjonRequestBody = (args: {
       aarligInntektFoerUttakBeloep
     ),
     // TODO: Default sivilstand?
-    sivilstand: sivilstand ?? 'UGIFT',
+    sivilstand: sivilstand ?? 'UOPPGITT',
     gradertUttak: gradertUttak
       ? {
           ...gradertUttak,
@@ -330,7 +330,6 @@ export const generateOffentligTpRequestBody = (args: {
     return undefined
   }
 
-  // TODO: Burde ikke denne ha sivilstand?
   return {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     gradertUttak: gradertUttak
