@@ -1,7 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import Highcharts, { Point, SeriesOptionsType } from 'highcharts'
+import Highcharts, {
+  Chart,
+  Point,
+  PointerEventObject,
+  SeriesOptionsType,
+} from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { transformFoedselsdatoToAlder } from '@/utils/alder'
@@ -292,17 +297,55 @@ export const useSimuleringChartLocalState = (initialValues: {
   ] as const
 }
 
-/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-this-alias */
 export const useHighchartsRegressionPlugin = () => {
   React.useEffect(() => {
-    console.log('>>>> useHighchartsRegressionPlugin')
-    // TODO fjerne de ulike ts-ignore og prøve å skru på bedre typing
+    type DataLabel = {
+      div: { point: ExtendedPoint }
+      element: { point: ExtendedPoint }
+    }
+    type ExtendedPoint = Point & {
+      dataLabels: DataLabel[]
+      dataLabel: DataLabel
+    }
+    type ExtendedChart = Chart & {
+      scrollablePlotArea?: {
+        scrollingContainer: {
+          offsetWidth: number
+        }
+      }
+      options: {
+        chart: {
+          scrollablePlotArea: {
+            minWidth: number
+          }
+        }
+      }
+      pointer: {
+        isDirectTouch: boolean
+        getPointFromEvent: (e: PointerEventObject) => ExtendedPoint | undefined
+        onTrackerMouseOut: (e: MouseEvent) => void
+      }
+      isInsidePlot: (
+        chartX: number,
+        chartY: number,
+        options?: { visiblePlotOnly: boolean }
+      ) => boolean
+    }
+
+    type Series = {
+      _hasTracking: boolean
+      trackerGroups: string[]
+      points: ExtendedPoint[]
+      options: {
+        enableMouseTracking: boolean
+        cursor?: string
+      }
+      chart: ExtendedChart
+    }
 
     type Column = {
-      prototype: {
-        drawTracker: (points: any) => void
-        _hasTracking: boolean
-        trackerGroups: any[]
+      prototype: Series & {
+        drawTracker: (points?: ExtendedPoint[]) => void
       }
     }
 
@@ -315,53 +358,48 @@ export const useHighchartsRegressionPlugin = () => {
         column: Column
       }
     }
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
     ;(function (H: ExtendedHighchartsType) {
       const { isArray, fireEvent, seriesTypes } = H
 
       if (seriesTypes) {
-        seriesTypes.column.prototype.drawTracker = function (
-          // @ts-ignore
-          points = this.points
-        ) {
-          const series = this,
-            // @ts-ignore
-            chart = series.chart,
-            pointer = chart.pointer,
-            // @ts-ignore
-            onMouseOver = function (e) {
-              pointer?.normalize(e)
-              const point = pointer?.getPointFromEvent(e),
-                // Run point events only for points inside plot area, #21136
-                isInsidePlot =
-                  chart.scrollablePlotArea &&
-                  chart.scrollablePlotArea.scrollingContainer.offsetWidth <
-                    chart.options.chart.scrollablePlotArea.minWidth
-                    ? chart.isInsidePlot(
-                        e.chartX - chart.plotLeft,
-                        e.chartY - chart.plotTop,
-                        {
-                          visiblePlotOnly: true,
-                        }
-                      )
-                    : true
-              // Undefined on graph in scatterchart
-              if (
-                pointer &&
-                point &&
-                // @ts-ignore
-                series.options.enableMouseTracking &&
-                isInsidePlot
-              ) {
-                pointer.isDirectTouch = true
-                point.onMouseOver(e)
-              }
+        seriesTypes.column.prototype.drawTracker = function (this: Series) {
+          /* eslint-disable-next-line @typescript-eslint/no-this-alias */
+          const series = this
+          const { points, chart } = series
+          const pointer = chart.pointer
+          const onMouseOver = function (e: PointerEventObject) {
+            pointer?.normalize(e)
+
+            const point = pointer?.getPointFromEvent(e),
+              // Run point events only for points inside plot area, #21136
+              isInsidePlot =
+                chart.scrollablePlotArea &&
+                chart.scrollablePlotArea.scrollingContainer.offsetWidth <
+                  chart.options.chart.scrollablePlotArea.minWidth
+                  ? chart.isInsidePlot(
+                      e.chartX - chart.plotLeft,
+                      e.chartY - chart.plotTop,
+                      {
+                        visiblePlotOnly: true,
+                      }
+                    )
+                  : true
+            // Undefined on graph in scatterchart
+            if (
+              pointer &&
+              point &&
+              series.options.enableMouseTracking &&
+              isInsidePlot
+            ) {
+              pointer.isDirectTouch = true
+              point.onMouseOver(e)
             }
-          type DataLabel = { div: { point: Point }; element: { point: Point } }
+          }
+
           let dataLabels: DataLabel[]
           // Add reference to the point
-          points.forEach(function (
-            point: Point & { dataLabels: DataLabel[]; dataLabel: DataLabel }
-          ) {
+          points.forEach(function (point: ExtendedPoint) {
             dataLabels = isArray(point.dataLabels)
               ? point.dataLabels
               : point.dataLabel
@@ -385,12 +423,10 @@ export const useHighchartsRegressionPlugin = () => {
                 series[key]
                   .addClass('highcharts-tracker')
                   .on('mouseover', onMouseOver)
-                  // @ts-ignore
-                  .on('mouseout', function (e) {
+                  .on('mouseout', function (e: MouseEvent) {
                     pointer?.onTrackerMouseOut(e)
                   })
                   .on('touchstart', onMouseOver)
-                // @ts-ignore
                 if (!chart.styledMode && series.options.cursor) {
                   // @ts-ignore
                   series[key].css({ cursor: series.options.cursor })
@@ -403,6 +439,6 @@ export const useHighchartsRegressionPlugin = () => {
         }
       }
     })(Highcharts)
+    /* eslint-enable @typescript-eslint/ban-ts-comment */
   }, [])
 }
-/* eslint-enable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-this-alias */
