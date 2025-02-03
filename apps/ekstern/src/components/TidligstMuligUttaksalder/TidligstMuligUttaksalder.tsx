@@ -67,6 +67,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
+                ubetingetUttaksalder: transformAlderToString(
+                  intl.formatMessage,
+                  ubetingetUttaksalder
+                ),
                 grad: ufoeregrad,
                 link: (
                   <Link href="#" onClick={goToAvansert}>
