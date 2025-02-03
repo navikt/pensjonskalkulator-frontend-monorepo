@@ -143,12 +143,35 @@ describe('userInput selectors', () => {
           ...initialState,
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+            queries: {
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              ...fulfilledGetPerson,
+            },
           },
         }
         expect(selectSivilstand(state)).toBe('UGIFT')
       })
+
+      it('dersom bruker har satt sivilstand returneres denne', () => {
+        const state: RootState = {
+          ...initialState,
+          userInput: {
+            ...initialState.userInput,
+            sivilstand: 'REGISTRERT_PARTNER',
+          },
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              ...fulfilledGetPerson,
+            },
+          },
+        }
+
+        expect(selectSivilstand(state)).toBe('REGISTRERT_PARTNER')
+      })
     })
+
     describe('Gitt at brukeren ikke har vedtak om alderspensjon, ', () => {
       it('returnerer sivilstand fra /person.', () => {
         const state: RootState = {
@@ -159,6 +182,22 @@ describe('userInput selectors', () => {
           },
         }
         expect(selectSivilstand(state)).toBe('UGIFT')
+      })
+
+      it('dersom bruker har satt sivilstand returneres denne', () => {
+        const state: RootState = {
+          ...initialState,
+          userInput: {
+            ...initialState.userInput,
+            sivilstand: 'REGISTRERT_PARTNER',
+          },
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPerson },
+          },
+        }
+
+        expect(selectSivilstand(state)).toBe('REGISTRERT_PARTNER')
       })
     })
   })
