@@ -18,7 +18,7 @@ describe('stegvisning - Sivilstand', () => {
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
-  it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
+  it('rendrer slik den skal når sivilstand ikke er oppgitt (UOPPGITT eller UKNOWN)', async () => {
     const result = render(
       <Sivilstand
         sivilstandFolkeregister="UOPPGITT"
@@ -41,6 +41,7 @@ describe('stegvisning - Sivilstand', () => {
 
     await waitFor(() => {
       expect(selectElement).toBeVisible()
+      expect(selectElement).toHaveValue('')
       expect(screen.queryAllByRole('radio')).toHaveLength(0)
       expect(result.asFragment()).toMatchSnapshot()
     })
