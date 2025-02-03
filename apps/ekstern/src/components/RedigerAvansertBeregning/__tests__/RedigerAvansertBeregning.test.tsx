@@ -2791,6 +2791,7 @@ describe('RedigerAvansertBeregning', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
               },
             },
             userInput: {

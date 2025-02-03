@@ -4,6 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
+import { useAppSelector } from '@/state/hooks'
+import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
+import { transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
@@ -15,6 +18,7 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
   isEndring,
 }) => {
   const intl = useIntl()
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   return (
     <ReadMore
@@ -35,6 +39,10 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
             }
             values={{
               ...getFormatMessageValues(intl),
+              ubetingetUttaksalder: transformAlderToString(
+                intl.formatMessage,
+                ubetingetUttaksalder
+              ),
             }}
           />
         </BodyLong>

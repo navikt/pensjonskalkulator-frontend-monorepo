@@ -8,7 +8,10 @@ import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
 import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectNedreAldersgrense } from '@/state/userInput/selectors'
+import {
+  selectNedreAldersgrense,
+  selectUbetingetUttaksalder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -32,6 +35,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -128,6 +132,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 nedreAldersgrense: transformAlderToString(
                   intl.formatMessage,
                   nedreAldersgrense
+                ),
+                ubetingetUttaksalder: transformAlderToString(
+                  intl.formatMessage,
+                  ubetingetUttaksalder
                 ),
               }}
             />

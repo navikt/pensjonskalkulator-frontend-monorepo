@@ -1,4 +1,6 @@
 import { ReadMoreOmPensjonsalder } from '..'
+import { fulfilledGetPersonMedOkteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('ReadMoreOmPensjonsalder', () => {
@@ -48,7 +50,17 @@ describe('ReadMoreOmPensjonsalder', () => {
   describe('Gitt at en bruker har gradert uføretrygd, ', () => {
     it('viser riktig info om pensjonsalder', async () => {
       const user = userEvent.setup()
-      render(<ReadMoreOmPensjonsalder ufoeregrad={75} isEndring={false} />)
+      render(<ReadMoreOmPensjonsalder ufoeregrad={75} isEndring={false} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       await user.click(screen.getByText('omufoeretrygd.readmore.title'))
       expect(
         screen.queryByText('beregning.read_more.pensjonsalder.label')
@@ -65,7 +77,17 @@ describe('ReadMoreOmPensjonsalder', () => {
   describe('Gitt at en bruker har 100 % uføretrygd, ', () => {
     it('viser riktig info om pensjonsalder', async () => {
       const user = userEvent.setup()
-      render(<ReadMoreOmPensjonsalder ufoeregrad={100} isEndring={false} />)
+      render(<ReadMoreOmPensjonsalder ufoeregrad={100} isEndring={false} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       await user.click(screen.getByText('omufoeretrygd.readmore.title'))
       expect(
         screen.queryByText('beregning.read_more.pensjonsalder.label')
