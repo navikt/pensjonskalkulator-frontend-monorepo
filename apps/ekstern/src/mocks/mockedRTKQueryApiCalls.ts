@@ -152,6 +152,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 0,
@@ -177,6 +178,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling =
             beloep: 34000,
             utbetalingsdato: '2024-10-12',
           },
+          sivilstand: 'UGIFT' as Sivilstand,
         },
         ufoeretrygd: {
           grad: 0,
@@ -197,6 +199,7 @@ export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
       alderspensjon: {
         grad: 50,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 0,
@@ -217,6 +220,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 40,
@@ -237,6 +241,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 0,
@@ -279,6 +284,7 @@ export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 100,
@@ -315,6 +321,7 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
+        sivilstand: 'UGIFT' as Sivilstand,
       },
       ufoeretrygd: {
         grad: 0,

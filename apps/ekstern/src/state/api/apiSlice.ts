@@ -88,7 +88,7 @@ export const apiSlice = createApi({
       },
     }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
-      query: () => '/v2/vedtak/loepende-vedtak',
+      query: () => '/v3/vedtak/loepende-vedtak',
       transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
           throw new Error(
@@ -196,15 +196,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getTpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-tpoffentlig',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
     getUtvidetSimuleringsresultatFeatureToggle: builder.query<
       UnleashToggle,
       void
@@ -236,6 +227,5 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
-  useGetTpOffentligFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

@@ -116,7 +116,7 @@ describe('apiSlice - utils', () => {
           ].data,
           'ja_offentlig'
         )
-      ).toEqual('ENDRING_ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
           fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
@@ -140,7 +140,7 @@ describe('apiSlice - utils', () => {
           ].data,
           null
         )
-      ).toEqual('ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
     })
   })
 
@@ -238,6 +238,7 @@ describe('apiSlice - utils', () => {
             alderspensjon: {
               grad: 50,
               fom: '2012-12-12',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 0,
@@ -254,6 +255,7 @@ describe('apiSlice - utils', () => {
             alderspensjon: {
               grad: 50,
               fom: '2012-12-12',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 0,
@@ -455,6 +457,7 @@ describe('apiSlice - utils', () => {
             alderspensjon: {
               grad: 50,
               fom: '2012-12-12',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 0,
@@ -470,6 +473,7 @@ describe('apiSlice - utils', () => {
             alderspensjon: {
               grad: 50,
               fom: '2012-12-12',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 0,
@@ -478,7 +482,7 @@ describe('apiSlice - utils', () => {
           },
           afp: 'ja_offentlig',
         })?.simuleringstype
-      ).toEqual('ENDRING_ALDERSPENSJON')
+      ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
@@ -486,6 +490,7 @@ describe('apiSlice - utils', () => {
             alderspensjon: {
               grad: 50,
               fom: '2012-12-12',
+              sivilstand: 'UGIFT',
             },
             ufoeretrygd: {
               grad: 50,
@@ -666,7 +671,7 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonRequestBody({
           ...requestBody,
           loependeVedtak: {
-            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            alderspensjon: { grad: 60, fom: '2010-10-10', sivilstand: 'UGIFT' },
             ufoeretrygd: { grad: 0 },
             harFremtidigLoependeVedtak: false,
           },
@@ -677,7 +682,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           afp: null,
           loependeVedtak: {
-            alderspensjon: { grad: 60, fom: '2010-10-10' },
+            alderspensjon: { grad: 60, fom: '2010-10-10', sivilstand: 'UGIFT' },
             ufoeretrygd: { grad: 0 },
             harFremtidigLoependeVedtak: false,
           },

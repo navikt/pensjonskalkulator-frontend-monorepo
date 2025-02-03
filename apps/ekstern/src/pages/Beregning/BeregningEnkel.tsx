@@ -154,10 +154,14 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-        logger('alert', { tekst: 'Beregning enkel: Ikke høy nok opptjening' })
+        logger('alert vist', {
+          tekst: 'Beregning enkel: Ikke høy nok opptjening',
+          variant: 'warning',
+        })
       } else if (isError) {
-        logger('alert', {
+        logger('alert vist', {
           tekst: 'Beregning enkel: Klarte ikke beregne pensjon',
+          variant: 'error',
         })
       }
     }
@@ -170,6 +174,10 @@ export const BeregningEnkel: React.FC = () => {
         (error as FetchBaseQueryError).status === 'PARSING_ERROR')
     ) {
       navigate(paths.uventetFeil)
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: 'fra Beregning Enkel',
+      })
     }
   }, [error])
 
@@ -314,6 +322,14 @@ export const BeregningEnkel: React.FC = () => {
                 visning="enkel"
                 headingLevel="3"
                 harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                trygdetid={alderspensjon?.trygdetid}
+                pensjonsbeholdning={
+                  alderspensjon?.alderspensjon &&
+                  alderspensjon?.alderspensjon.length > 0
+                    ? alderspensjon?.alderspensjon[0]
+                        .pensjonBeholdningFoerUttakBeloep
+                    : undefined
+                }
               />
             </>
           )}
