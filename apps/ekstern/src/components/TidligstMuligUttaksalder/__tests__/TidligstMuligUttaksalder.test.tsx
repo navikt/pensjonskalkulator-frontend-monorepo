@@ -1,9 +1,13 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { fulfilledGetOmstillingsstoenadOgGjenlevende } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetOmstillingsstoenadOgGjenlevende,
+  fulfilledGetPersonMedOkteAldersgrenser,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
 
@@ -214,7 +218,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={100}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(
@@ -241,7 +256,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={100}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         await screen.findByText(
@@ -272,7 +298,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={75}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         await screen.findByText('Vil du beregne uttak før ', {
@@ -304,6 +341,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },

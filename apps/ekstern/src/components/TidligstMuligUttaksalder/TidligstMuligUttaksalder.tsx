@@ -7,9 +7,10 @@ import { Alert, BodyLong, Link } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
 import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
@@ -30,6 +31,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -123,6 +125,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
+                nedreAldersgrense: transformAlderToString(
+                  intl.formatMessage,
+                  nedreAldersgrense
+                ),
               }}
             />
           </ReadMore>

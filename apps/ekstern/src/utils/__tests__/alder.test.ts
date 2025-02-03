@@ -372,7 +372,7 @@ describe('alder-utils', () => {
   })
 
   describe('transformAlderToString', () => {
-    it('returns correct string when months is 0', () => {
+    it('returnerer riktig string når maander er 0', () => {
       const mockFormatFn = vi.fn((args) => {
         if (args.id === 'alder.aar') return 'år'
         return ''
@@ -386,7 +386,7 @@ describe('alder-utils', () => {
       expect(mockFormatFn).toHaveBeenCalledWith({ id: 'alder.aar' })
     })
 
-    it('returns correct string with years and months', () => {
+    it('returnerer riktig string med aar og maaneder gitt at begge har en verdi', () => {
       const mockFormatFn = vi.fn((args) => {
         switch (args.id) {
           case 'alder.aar':
