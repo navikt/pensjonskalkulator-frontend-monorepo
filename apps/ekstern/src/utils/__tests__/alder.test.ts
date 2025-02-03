@@ -18,6 +18,7 @@ import {
   transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
   transformMaanedToDate,
+  transformAlderToString,
   validateAlderFromForm,
   getMaanedString,
   formaterSluttAlderString,
@@ -367,6 +368,47 @@ describe('alder-utils', () => {
       expect(transformMaanedToDate(8, foedselsdato, 'nb')).toBe('jan.')
       expect(transformMaanedToDate(11, foedselsdato, 'nb')).toBe('apr.')
       expect(transformMaanedToDate(0, foedselsdato, 'en')).toBe('May')
+    })
+  })
+
+  describe('transformAlderToString', () => {
+    it('returns correct string when months is 0', () => {
+      const mockFormatFn = vi.fn((args) => {
+        if (args.id === 'alder.aar') return 'år'
+        return ''
+      })
+
+      const result = transformAlderToString(mockFormatFn, {
+        aar: 67,
+        maaneder: 0,
+      })
+      expect(result).toBe('67 år')
+      expect(mockFormatFn).toHaveBeenCalledWith({ id: 'alder.aar' })
+    })
+
+    it('returns correct string with years and months', () => {
+      const mockFormatFn = vi.fn((args) => {
+        switch (args.id) {
+          case 'alder.aar':
+            return 'år'
+          case 'string.og':
+            return 'og'
+          case 'alder.md':
+            return 'md'
+          default:
+            return ''
+        }
+      })
+
+      const result = transformAlderToString(mockFormatFn, {
+        aar: 67,
+        maaneder: 3,
+      })
+      expect(result).toBe('67 år og 3 md')
+      expect(mockFormatFn).toHaveBeenCalledTimes(3)
+      expect(mockFormatFn).toHaveBeenCalledWith({ id: 'alder.aar' })
+      expect(mockFormatFn).toHaveBeenCalledWith({ id: 'string.og' })
+      expect(mockFormatFn).toHaveBeenCalledWith({ id: 'alder.md' })
     })
   })
 

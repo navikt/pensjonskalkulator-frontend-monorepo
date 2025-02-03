@@ -1,5 +1,3 @@
-import { use } from 'react'
-
 import { describe, expect, it } from 'vitest'
 
 import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
