@@ -169,12 +169,12 @@ export const stepStartAccessGuard =
           }
           if (getLoependeVedtakRes.data?.afpPrivat) {
             logger('info', {
-              tekst: 'Vedtak AFP Offentlig',
+              tekst: 'Vedtak AFP Privat',
             })
           }
           if (getLoependeVedtakRes.data?.afpOffentlig) {
             logger('info', {
-              tekst: 'Vedtak AFP Privat',
+              tekst: 'Vedtak AFP Offentlig',
             })
           }
           if (getLoependeVedtakRes.data?.harFremtidigLoependeVedtak) {
