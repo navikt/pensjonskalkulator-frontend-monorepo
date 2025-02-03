@@ -113,11 +113,11 @@
   },
   "lint-staged": {
     "**/*.{css,scss}": [
-      "npm run stylelint:check"
+      "stylelint"
     ],
     "**/*.{cjs,js,jsx,ts,tsx}": [
-      "npm run prettier:check",
-      "npm run eslint:check"
+      "prettier",
+      "eslint"
     ]
   }
 }
