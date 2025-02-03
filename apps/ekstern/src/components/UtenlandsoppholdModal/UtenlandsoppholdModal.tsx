@@ -148,7 +148,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
               }
               aria-required="true"
             >
-              <option disabled selected value="">
+              <option disabled value="">
                 {' '}
               </option>
               {landListeData.map((land) => (

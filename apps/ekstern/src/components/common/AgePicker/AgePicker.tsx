@@ -160,7 +160,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             aria-invalid={hasError.aar}
             aria-required
           >
-            <option disabled selected value="">
+            <option disabled value="">
               {' '}
             </option>
             {yearsArray.map((year) => {
@@ -199,7 +199,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             aria-invalid={hasError.maaneder}
             aria-required
           >
-            <option disabled selected value="">
+            <option disabled value="">
               {' '}
             </option>
             {monthsArray.map((month) => {
