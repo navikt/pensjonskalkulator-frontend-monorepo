@@ -1,5 +1,3 @@
-import { mock } from 'node:test'
-
 import { IntlShape } from 'react-intl'
 
 import { add, endOfDay, format } from 'date-fns'
@@ -303,6 +301,7 @@ describe('alder-utils', () => {
     })
 
     it('returnerer alderen til personen når alderen + 1 mnd er over nedre aldersgrense', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-01-04'))
       const mock_person = {
         ...person,
         foedselsdato: '1960-01-01',
@@ -312,6 +311,7 @@ describe('alder-utils', () => {
         nedreAldersgrense
       )
       expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 0 })
+      vi.useRealTimers()
     })
 
     it('returnerer nedre aldersgrense når alderen + 1 mnd er under nedre aldersgrense', () => {

@@ -110,12 +110,13 @@ describe('StepStart', () => {
 
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
+      mockResponse('/v3/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            sivilstand: 'UGIFT',
           },
           ufoeretrygd: {
             grad: 0,
@@ -143,7 +144,7 @@ describe('StepStart', () => {
     })
 
     it('rendrer ikke siden når henting av loepende vedtak feiler og redirigerer til /uventet-feil', async () => {
-      mockErrorResponse('/v2/vedtak/loepende-vedtak')
+      mockErrorResponse('/v3/vedtak/loepende-vedtak')
       const mockedState = {
         api: {
           queries: {

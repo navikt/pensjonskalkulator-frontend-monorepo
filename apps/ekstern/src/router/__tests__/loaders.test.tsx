@@ -274,7 +274,7 @@ describe('Loaders', () => {
     })
 
     it('Når /vedtak/loepende-vedtak kall feiler redirigeres brukes til uventet-feil side', async () => {
-      mockErrorResponse('/v2/vedtak/loepende-vedtak')
+      mockErrorResponse('/v3/vedtak/loepende-vedtak')
 
       const mockedState = {
         userInput: { ...userInputInitialState },

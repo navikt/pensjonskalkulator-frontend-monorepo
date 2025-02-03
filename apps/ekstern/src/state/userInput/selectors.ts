@@ -59,8 +59,11 @@ export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
-      ?.sivilstand
+    const isEndring = selectIsEndring(state)
+    return isEndring
+      ? apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+          ?.alderspensjon?.sivilstand
+      : apiSlice.endpoints.getPerson.select(undefined)(state)?.data?.sivilstand
   }
 )
 
@@ -73,10 +76,23 @@ export const selectSamboerFraSivilstand = createSelector(
   }
 )
 
+export const selectSamboerFraVedtak = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    const sivilstand =
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.alderspensjon?.sivilstand
+    return sivilstand ? checkHarSamboer(sivilstand) : null
+  }
+)
+
 export const selectSamboer = (state: RootState): boolean | null => {
+  const isEndring = selectIsEndring(state)
   const samboerskapFraBrukerInput = selectSamboerFraBrukerInput(state)
   if (samboerskapFraBrukerInput === null) {
-    return selectSamboerFraSivilstand(state, undefined)
+    return isEndring
+      ? selectSamboerFraVedtak(state, undefined)
+      : selectSamboerFraSivilstand(state, undefined)
   }
   return samboerskapFraBrukerInput
 }

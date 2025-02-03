@@ -561,10 +561,12 @@ export const RedigerAvansertBeregning: React.FC<{
               <FormattedMessage
                 id={
                   isEndring
-                    ? loependeVedtak.ufoeretrygd.grad &&
-                      loependeVedtak.ufoeretrygd.grad !== 100
-                      ? 'omufoeretrygd.readmore.endring.ingress'
-                      : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
+                    ? loependeVedtak.ufoeretrygd.grad === 100
+                      ? 'beregning.avansert.rediger.read_more.uttaksgrad.body'
+                      : loependeVedtak.ufoeretrygd.grad &&
+                          loependeVedtak.ufoeretrygd.grad !== 100
+                        ? 'omufoeretrygd.readmore.endring.ingress'
+                        : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
                     : loependeVedtak.ufoeretrygd.grad &&
                         loependeVedtak.ufoeretrygd.grad !== 100
                       ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'

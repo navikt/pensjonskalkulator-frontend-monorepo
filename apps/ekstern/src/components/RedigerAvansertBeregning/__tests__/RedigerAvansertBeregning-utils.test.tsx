@@ -541,6 +541,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         alderspensjon: {
           fom: '2025-10-01',
           grad: 100,
+          sivilstand: 'UGIFT' as Sivilstand,
         },
         ufoeretrygd: {
           grad: 0,
@@ -616,6 +617,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             alderspensjon: {
               fom: '2025-10-01',
               grad: 40,
+              sivilstand: 'UGIFT' as Sivilstand,
             },
             ufoeretrygd: {
               grad: 0,
