@@ -52,9 +52,9 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
           })
 
           it('forventer jeg informasjon om at Livsvarig AFP ikke er inkludert. ', () => {
-            cy.contains('Livsvarig AFP er ikke inkludert i beløpet.').should(
-              'exist'
-            )
+            cy.contains(
+              'Livsvarig AFP er ikke inkludert i dette beløpet.'
+            ).should('exist')
           })
         })
       })
@@ -99,9 +99,9 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
           })
 
           it('forventer jeg informasjon om at Livsvarig AFP ikke er inkludert. ', () => {
-            cy.contains('Livsvarig AFP er ikke inkludert i beløpet.').should(
-              'exist'
-            )
+            cy.contains(
+              'Livsvarig AFP er ikke inkludert i dette beløpet.'
+            ).should('exist')
           })
         })
       })

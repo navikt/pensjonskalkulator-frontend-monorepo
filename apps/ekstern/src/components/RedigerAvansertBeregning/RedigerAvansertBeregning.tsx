@@ -537,7 +537,7 @@ export const RedigerAvansertBeregning: React.FC<{
             }
             aria-required="true"
           >
-            <option disabled selected value="">
+            <option disabled value="">
               {' '}
             </option>
             {muligeUttaksgrad.map((grad) => (

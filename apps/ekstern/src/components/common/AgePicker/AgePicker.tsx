@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
 
-import { BodyShort, Label, Select } from '@navikt/ds-react'
+import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
@@ -161,7 +161,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             aria-invalid={hasError.aar}
             aria-required
           >
-            <option disabled selected value="">
+            <option disabled value="">
               {' '}
             </option>
             {yearsArray.map((year) => {
@@ -200,7 +200,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             aria-invalid={hasError.maaneder}
             aria-required
           >
-            <option disabled selected value="">
+            <option disabled value="">
               {' '}
             </option>
             {monthsArray.map((month) => {
@@ -245,7 +245,9 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             aria-relevant="additions removals"
             aria-live="polite"
           >
-            <p className={styles.selectErrorMessage}>{error}</p>
+            <ErrorMessage showIcon className={styles.selectErrorMessage}>
+              {error}
+            </ErrorMessage>
           </div>
         )}
         {info && <AlertDashBorder>{info}</AlertDashBorder>}
