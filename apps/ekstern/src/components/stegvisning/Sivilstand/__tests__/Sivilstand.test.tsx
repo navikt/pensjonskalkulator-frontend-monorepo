@@ -1,12 +1,12 @@
 import { describe, it, vi } from 'vitest'
 
 import { Sivilstand } from '..'
-import { RootState } from '@/state/store'
-import { screen, render, waitFor, userEvent, fireEvent } from '@/test-utils'
 import {
   convertBooleanRadioToBoolean,
   convertBooleanToBooleanRadio,
 } from '../Sivilstand'
+import { RootState } from '@/state/store'
+import { screen, render, waitFor, userEvent, fireEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
