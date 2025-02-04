@@ -36,6 +36,10 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('BeregningAvansert', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   const contextMockedValues = {
     avansertSkjemaModus: 'resultat' as AvansertBeregningModus,
     setAvansertSkjemaModus: vi.fn(),
