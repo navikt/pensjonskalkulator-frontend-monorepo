@@ -20,7 +20,7 @@ import {
 import {
   isFoedselsdatoOverEllerLikAlder,
   isFoedtFoer1963,
-  AFP_UFOERE_GRENSE,
+  AFP_UFOERE_OPPSIGELSESALDER,
 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
@@ -325,7 +325,10 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikAlder(foedselsdato, AFP_UFOERE_GRENSE))
+        isFoedselsdatoOverEllerLikAlder(
+          foedselsdato,
+          AFP_UFOERE_OPPSIGELSESALDER
+        ))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -450,7 +453,7 @@ export const stepUfoeretrygdAFPAccessGuard =
       afp !== 'nei' &&
       !isFoedselsdatoOverEllerLikAlder(
         foedselsdato as string,
-        AFP_UFOERE_GRENSE
+        AFP_UFOERE_OPPSIGELSESALDER
       )
     ) {
       return null

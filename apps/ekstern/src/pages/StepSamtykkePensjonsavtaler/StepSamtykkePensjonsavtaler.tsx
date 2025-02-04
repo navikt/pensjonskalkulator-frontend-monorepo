@@ -18,7 +18,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   isAlderOverAnnenAlder,
   transformFoedselsdatoToAlderMinus1md,
-  AFP_UFOERE_GRENSE,
+  AFP_UFOERE_OPPSIGELSESALDER,
 } from '@/utils/alder'
 
 export function StepSamtykkePensjonsavtaler() {
@@ -59,7 +59,7 @@ export function StepSamtykkePensjonsavtaler() {
       foedselsdato &&
       isAlderOverAnnenAlder(
         transformFoedselsdatoToAlderMinus1md(foedselsdato),
-        AFP_UFOERE_GRENSE
+        AFP_UFOERE_OPPSIGELSESALDER
       )
     ) {
       navigateBackAntallStep = -2

@@ -2,8 +2,6 @@ import { describe, it } from 'vitest'
 
 import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
-import { mockResponse } from '@/mocks/server'
-import * as queries from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, waitFor } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
