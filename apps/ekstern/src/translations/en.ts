@@ -791,5 +791,4 @@ const translations = {
   'showmore.vis_mindre': 'Show less',
   'showmore.vis_mer': 'Show more',
 }
-export default translations
 export const getTranslation_en = () => translations
