@@ -32,7 +32,10 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUbetingetUttaksalder,
 } from '@/state/userInput/selectors'
-import { DEFAULT_MAX_OPPTJENINGSALDER } from '@/utils/alder'
+import {
+  DEFAULT_MAX_OPPTJENINGSALDER,
+  transformAlderToString,
+} from '@/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
   formatInntekt,
@@ -531,6 +534,10 @@ export const RedigerAvansertBeregning: React.FC<{
                     },
                     {
                       ...getFormatMessageValues(intl),
+                      ubetingetUttaksalder: transformAlderToString(
+                        intl.formatMessage,
+                        ubetingetUttaksalder
+                      ),
                     }
                   )
                 : ''
