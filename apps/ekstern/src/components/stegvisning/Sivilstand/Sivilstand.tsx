@@ -40,11 +40,11 @@ interface Props {
   }) => void
 }
 
-const convertBooleanToBooleanRadio = (
+export const convertBooleanToBooleanRadio = (
   input: boolean | null
 ): BooleanRadio | null => (input !== null ? (input ? 'ja' : 'nei') : null)
 
-const convertBooleanRadioToBoolean = (
+export const convertBooleanRadioToBoolean = (
   input: BooleanRadio | null
 ): boolean | null => {
   if (input === null) {
