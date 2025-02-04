@@ -47,24 +47,6 @@ describe('stegvisning - Sivilstand', () => {
     })
   })
 
-  it('kaller navigate når shouldRedirectTo er angitt', async () => {
-    const randomPath = '/random-path'
-
-    render(
-      <Sivilstand
-        sivilstandFolkeregister="UGIFT"
-        sivilstand="UOPPGITT"
-        shouldRedirectTo={randomPath}
-        epsHarPensjon={null}
-        epsHarInntektOver2G={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    expect(navigateMock).toHaveBeenCalledWith(randomPath)
-  })
-
   describe('rendrer slik den skal når sivilstand er oppgitt', async () => {
     it('når bruker endrer sivilstand, skal ny sivilstand vises', async () => {
       render(

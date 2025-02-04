@@ -25,8 +25,8 @@ export function StepSivilstand() {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
 
-  const { getPersonQuery, getGrunnbelopQuery, shouldRedirectTo } =
-    useLoaderData() as StepSivilstandAccessGuardLoader
+  const { getPersonQuery, getGrunnbelopQuery } =
+    useLoaderData<StepSivilstandAccessGuardLoader>()
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
     useStegvisningNavigation(paths.sivilstand)
@@ -61,18 +61,11 @@ export function StepSivilstand() {
         </div>
       }
     >
-      <Await
-        resolve={Promise.all([
-          getPersonQuery,
-          getGrunnbelopQuery,
-          shouldRedirectTo,
-        ])}
-      >
-        {([personData, grunnbelopData, shouldRedirectToResp]) => {
+      <Await resolve={Promise.all([getPersonQuery, getGrunnbelopQuery])}>
+        {([personData, grunnbelopData]) => {
           return (
             <Sivilstand
-              shouldRedirectTo={shouldRedirectToResp}
-              sivilstandFolkeregister={personData.data.sivilstand}
+              sivilstandFolkeregister={personData.sivilstand}
               grunnbelop={grunnbelopData}
               sivilstand={sivilstand!}
               epsHarInntektOver2G={epsHarInntektOver2G}

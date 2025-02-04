@@ -29,7 +29,7 @@ export const fulfilledGetGrunnbelop = {
     endpointName: 'getGrunnbelop',
     requestId: 'mockedRequestId',
     startedTimeStamp: Date.now(),
-    data: 106399,
+    data: 100000,
     fulfilledTimeStamp: Date.now(),
   },
 }

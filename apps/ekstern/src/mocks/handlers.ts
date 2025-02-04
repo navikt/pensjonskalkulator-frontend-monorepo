@@ -166,10 +166,10 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     await delay(TEST_DELAY)
     return HttpResponse.json({
       dato: '2024-05-01',
-      grunnbeløp: 124028,
-      grunnbeløpPerMåned: 10336,
-      gjennomsnittPerÅr: 122225,
-      omregningsfaktor: 1.045591,
+      grunnbeløp: 100000,
+      grunnbeløpPerMåned: 10000,
+      gjennomsnittPerÅr: 120000,
+      omregningsfaktor: 1,
       virkningstidspunktForMinsteinntekt: '2024-06-03',
     })
   }),

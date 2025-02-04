@@ -60,14 +60,13 @@ export const apiSlice = createApi({
         }
       },
     }),
-    getGrunnbelop: builder.query<number | undefined, void>({
+    getGrunnbelop: builder.query<number, void>({
       query: () => 'https://g.nav.no/api/v1/grunnbel%C3%B8p',
       transformResponse: (response: { grunnbeløp: number }) => {
-        if (!response) {
-          console.error(`Mottok ugyldig grunnbeløp: ${response}`)
-          return undefined
+        if (!response.grunnbeløp) {
+          throw new Error(`Mottok ugyldig grunnbeløp: ${response}`)
         }
-        return 2 * response.grunnbeløp
+        return response.grunnbeløp
       },
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({

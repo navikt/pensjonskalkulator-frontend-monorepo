@@ -1,6 +1,5 @@
 import React, { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router'
 
 import {
   BodyLong,
@@ -27,7 +26,6 @@ import {
 import styles from './Sivilstand.module.scss'
 
 interface Props {
-  shouldRedirectTo?: string
   sivilstandFolkeregister: UtvidetSivilstand
   grunnbelop?: number
   sivilstand: UtvidetSivilstand
@@ -56,7 +54,6 @@ const convertBooleanRadioToBoolean = (
 }
 
 export function Sivilstand({
-  shouldRedirectTo,
   sivilstandFolkeregister,
   grunnbelop,
   sivilstand,
@@ -67,7 +64,6 @@ export function Sivilstand({
   onNext,
 }: Props) {
   const intl = useIntl()
-  const navigate = useNavigate()
   const [validationError, setValidationError] = useState<{
     sivilstand?: string
     epsHarPensjon?: string
@@ -86,12 +82,6 @@ export function Sivilstand({
   const [epsHarInntektOver2GInput, setEpsHarInntektOver2GInput] = useState(
     convertBooleanToBooleanRadio(epsHarInntektOver2G)
   )
-
-  React.useEffect(() => {
-    if (shouldRedirectTo) {
-      navigate(shouldRedirectTo)
-    }
-  }, [shouldRedirectTo])
 
   const formatertSivilstand = useMemo(
     () => formatSivilstand(intl, sivilstandFolkeregister).toLowerCase(),
@@ -209,10 +199,6 @@ export function Sivilstand({
     })
   }
 
-  if (shouldRedirectTo) {
-    return null
-  }
-
   return (
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
@@ -300,7 +286,7 @@ export function Sivilstand({
                 {
                   sivilstand: getSivilstandTekst(intl, sivilstandInput),
                   grunnbelop: grunnbelop
-                    ? ` (${formatInntekt(grunnbelop)} kr)`
+                    ? ` (${formatInntekt(grunnbelop * 2)} kr)`
                     : '',
                 }
               )}

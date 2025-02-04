@@ -227,9 +227,8 @@ export const stepStartAccessGuard =
 // ///////////////////////////////////////////
 
 export type StepSivilstandAccessGuardLoader = {
-  getPersonQuery: GetPersonQuery
-  getGrunnbelopQuery: number | undefined
-  shouldRedirectTo: Promise<string>
+  getPersonQuery: Promise<Person>
+  getGrunnbelopQuery: Promise<number | undefined>
 }
 
 export const stepSivilstandAccessGuard = async (): Promise<
@@ -238,38 +237,19 @@ export const stepSivilstandAccessGuard = async (): Promise<
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
-  const resolveGetPerson: (
-    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
-  ) => void = () => {}
-  const resolveGetGrunnbelop: (
-    value: number | undefined | PromiseLike<number | undefined>
-  ) => void = () => {}
-
-  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
-    resolveRedirectUrl = resolve
-  })
-
-  const getPersonResponse = apiSlice.endpoints.getPerson.select(undefined)(
-    store.getState()
-  )
-
-  const getGrunnbelopPromise = store
-    .dispatch(apiSlice.endpoints.getGrunnbelop.initiate(undefined))
+  const getPersonQuery = store
+    .dispatch(apiSlice.endpoints.getPerson.initiate())
     .unwrap()
 
-  const getGrunnbelopResponse = await getGrunnbelopPromise
-
-  resolveRedirectUrl('')
-  resolveGetPerson(getPersonResponse)
-  resolveGetGrunnbelop(getGrunnbelopResponse)
+  const getGrunnbelopQuery = store
+    .dispatch(apiSlice.endpoints.getGrunnbelop.initiate())
+    .unwrap()
+    .then((grunnbelopRes) => grunnbelopRes)
+    .catch(() => undefined)
 
   return {
-    getPersonQuery: getPersonResponse,
-    getGrunnbelopQuery: getGrunnbelopResponse,
-    shouldRedirectTo,
+    getPersonQuery,
+    getGrunnbelopQuery,
   }
 }
 
