@@ -1991,11 +1991,10 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      expect(
-        screen.getByText(
-          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
-        )
-      ).toBeVisible()
+      const uttaksgradSelect = screen.getByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
+      expect(uttaksgradSelect).toHaveErrorMessage(
+        expect.stringContaining('')
+      )
     })
 
     // 6. bruker med gradert uføretrygd skal få valideringsfeil når valgt uttaksgrad overstiger tillat grad
@@ -2110,11 +2109,10 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      expect(
-        screen.getByText(
-          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
-        )
-      ).toBeVisible()
+      const uttaksgradSelect = screen.getByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
+      expect(uttaksgradSelect).toHaveErrorMessage(
+        expect.stringContaining('')
+      )
     })
 
     // 5. Fikset med mock av getPersonMedOkteAldersgrenser

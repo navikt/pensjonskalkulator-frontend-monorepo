@@ -1,46 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst 1`] = `
-<DocumentFragment>
-  <div
-    aria-live="polite"
-    class="navds-alert navds-alert--warning navds-alert--medium"
-  >
-    <svg
-      aria-labelledby="title-r0"
-      class="navds-alert__icon"
-      fill="none"
-      focusable="false"
-      height="1em"
-      role="img"
-      viewBox="0 0 24 24"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title
-        id="title-r0"
-      >
-        Advarsel
-      </title>
-      <path
-        clip-rule="evenodd"
-        d="M12 2.25a.75.75 0 0 1 .656.387l9.527 17.25A.75.75 0 0 1 21.526 21H2.474a.75.75 0 0 1-.657-1.113l9.526-17.25A.75.75 0 0 1 12 2.25M12 8.75a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75m-1 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0"
-        fill="currentColor"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
-    >
-      beregning.vilkaarsproeving.intro
-      <br />
-      <br />
-      Du kan tidligst ta ut alderspensjon ved 67 alder.aar.
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaksalder med ny gradering, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
@@ -48,7 +7,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaks
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r2"
+      aria-labelledby="title-r1"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -59,7 +18,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaks
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r2"
+        id="title-r1"
       >
         Advarsel
       </title>
@@ -95,7 +54,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttak
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r3"
+      aria-labelledby="title-r2"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -106,7 +65,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttak
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r3"
+        id="title-r2"
       >
         Advarsel
       </title>
@@ -148,7 +107,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er uttaksalde
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r1"
+      aria-labelledby="title-r0"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -159,7 +118,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er uttaksalde
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r1"
+        id="title-r0"
       >
         Advarsel
       </title>
