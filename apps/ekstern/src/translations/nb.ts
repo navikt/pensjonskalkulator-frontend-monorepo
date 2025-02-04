@@ -617,9 +617,9 @@ const translations = {
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.spk_error':
-    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
-  'pensjonsavtaler.offentligtp.spk_empty':
+  'pensjonsavtaler.offentligtp.teknisk_feil':
+    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din ({chunk}).',
+  'pensjonsavtaler.offentligtp.empty':
     'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
@@ -796,5 +796,6 @@ const translations = {
   'showmore.vis_mindre': 'Vis mindre',
   'showmore.vis_mer': 'Vis mer',
 }
+export default translations
 export const getTranslation_nb = () => translations
 export type Translations = typeof translations

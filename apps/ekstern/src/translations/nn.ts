@@ -508,8 +508,8 @@ const translations = {
   'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.spk_error': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.spk_empty': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon frå Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp':
