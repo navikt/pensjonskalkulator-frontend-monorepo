@@ -470,7 +470,7 @@ const translations = {
   'beregning.vilkaarsproeving.intro':
     'Opptjeningen din er ikke høy nok til ønsket uttak. ',
   'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
-    '{br}{br}Du kan tidligst ta ut alderspensjon ved 67 år.',
+    '{br}{br}Du kan tidligst ta ut alderspensjon ved {ubetingetUttaksalder}.',
   'beregning.vilkaarsproeving.intro.optional':
     'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
   'beregning.vilkaarsproeving.alternativer.heltUttak':

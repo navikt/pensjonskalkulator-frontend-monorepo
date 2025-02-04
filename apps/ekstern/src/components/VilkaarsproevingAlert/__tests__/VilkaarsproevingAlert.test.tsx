@@ -1,7 +1,10 @@
 import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetPerson,
+  fulfilledGetPersonMedOkteAldersgrenser,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen } from '@/test-utils'
 
@@ -42,8 +45,14 @@ describe('VilkaarsproevingAlert', () => {
       />,
       {
         // @ts-ignore
-        preloadedState: {
-          ...mockedState,
+        api: {
+          queries: {
+            ...fulfilledGetPerson,
+            ...fulfilledGetPersonMedOkteAldersgrenser,
+          },
+        },
+        userInput: {
+          ...userInputInitialState,
         },
       }
     )
@@ -54,9 +63,12 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan tidligst ta ut alderspensjon ved 67 år.', {
-        exact: false,
-      })
+      screen.getByText(
+        `Du kan tidligst ta ut alderspensjon ved 67 alder.aar.`,
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })

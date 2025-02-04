@@ -6,6 +6,7 @@ import { Alert } from '@navikt/ds-react'
 
 import { useAppSelector } from '@/state/hooks'
 import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
+import { transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
@@ -45,7 +46,13 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
             ? 'beregning.vilkaarsproeving.intro.ikke_nok_opptjening'
             : 'beregning.vilkaarsproeving.intro.optional'
         }
-        values={{ ...getFormatMessageValues(intl) }}
+        values={{
+          ...getFormatMessageValues(intl),
+          ubetingetUttaksalder: transformAlderToString(
+            intl.formatMessage,
+            ubetingetUttaksalder
+          ),
+        }}
       />
 
       {
