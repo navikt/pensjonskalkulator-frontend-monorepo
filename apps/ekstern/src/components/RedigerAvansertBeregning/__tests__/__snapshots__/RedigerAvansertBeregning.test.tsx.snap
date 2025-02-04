@@ -590,7 +590,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
               <span
                 class="nowrap"
               >
-                67 år
+                67 alder.aar
               </span>
                må pensjonen minst tilsvare garantipensjon. Uttak før 
               <span
@@ -605,7 +605,7 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
               <span
                 class="nowrap"
               >
-                67 år
+                67 alder.aar
               </span>
                går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha 
               <span
