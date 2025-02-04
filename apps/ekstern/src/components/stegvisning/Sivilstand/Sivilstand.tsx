@@ -26,7 +26,7 @@ import {
 import styles from './Sivilstand.module.scss'
 
 interface Props {
-  sivilstandFolkeregister: UtvidetSivilstand
+  sivilstandFolkeregister: Sivilstand
   grunnbelop?: number
   sivilstand: UtvidetSivilstand
   epsHarInntektOver2G: boolean | null
