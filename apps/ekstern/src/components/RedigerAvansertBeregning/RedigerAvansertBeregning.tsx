@@ -581,6 +581,10 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
                 values={{
                   ...getFormatMessageValues(intl),
+                  ubetingetUttaksalder: transformAlderToString(
+                    intl.formatMessage,
+                    ubetingetUttaksalder
+                  ),
                 }}
               />
             </BodyLong>
