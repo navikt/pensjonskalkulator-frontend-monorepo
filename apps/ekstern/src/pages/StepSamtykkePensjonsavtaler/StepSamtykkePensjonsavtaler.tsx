@@ -8,7 +8,6 @@ import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectNedreAldersgrense,
   selectFoedselsdato,
   selectUfoeregrad,
   selectSamtykke,
@@ -19,6 +18,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   isAlderOverAnnenAlder,
   transformFoedselsdatoToAlderMinus1md,
+  AFP_UFOERE_GRENSE,
 } from '@/utils/alder'
 
 export function StepSamtykkePensjonsavtaler() {
@@ -30,7 +30,6 @@ export function StepSamtykkePensjonsavtaler() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const shouldFlush = useAppSelector(selectHarHentetOffentligTp)
   const isVeileder = useAppSelector(selectIsVeileder)
-  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
     paths.samtykke
@@ -60,7 +59,7 @@ export function StepSamtykkePensjonsavtaler() {
       foedselsdato &&
       isAlderOverAnnenAlder(
         transformFoedselsdatoToAlderMinus1md(foedselsdato),
-        nedreAldersgrense
+        AFP_UFOERE_GRENSE
       )
     ) {
       navigateBackAntallStep = -2

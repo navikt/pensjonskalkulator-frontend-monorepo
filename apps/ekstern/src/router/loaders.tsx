@@ -16,9 +16,12 @@ import {
   selectIsVeileder,
   selectAfp,
   selectFoedselsdato,
-  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
-import { isFoedselsdatoOverEllerLikAlder, isFoedtFoer1963 } from '@/utils/alder'
+import {
+  isFoedselsdatoOverEllerLikAlder,
+  isFoedtFoer1963,
+  AFP_UFOERE_GRENSE,
+} from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
@@ -291,7 +294,6 @@ export const stepAFPAccessGuard = async (): Promise<
   const state = store.getState()
 
   const foedselsdato = selectFoedselsdato(state)
-  const nedreAldersgrense = selectNedreAldersgrense(state)
 
   const hasInntektPreviouslyFailed =
     apiSlice.endpoints.getInntekt.select(undefined)(state).isError
@@ -323,7 +325,7 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense))
+        isFoedselsdatoOverEllerLikAlder(foedselsdato, AFP_UFOERE_GRENSE))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -435,7 +437,6 @@ export const stepUfoeretrygdAFPAccessGuard =
     const foedselsdato = selectFoedselsdato(state)
     const getLoependeVedtakResponse =
       apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
-    const nedreAldersgrense = selectNedreAldersgrense(state)
 
     const stepArrays = isLoependeVedtakEndring(
       getLoependeVedtakResponse.data as LoependeVedtak
@@ -449,7 +450,7 @@ export const stepUfoeretrygdAFPAccessGuard =
       afp !== 'nei' &&
       !isFoedselsdatoOverEllerLikAlder(
         foedselsdato as string,
-        nedreAldersgrense
+        AFP_UFOERE_GRENSE
       )
     ) {
       return null

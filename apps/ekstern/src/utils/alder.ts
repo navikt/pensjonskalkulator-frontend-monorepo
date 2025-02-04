@@ -25,6 +25,11 @@ export const DEFAULT_MAX_OPPTJENINGSALDER: Alder = {
   maaneder: 11,
 }
 
+export const AFP_UFOERE_GRENSE: Alder = {
+  aar: 62,
+  maaneder: 0,
+}
+
 export const formatUttaksalder = (
   intl: IntlShape,
   { aar, maaneder }: Alder,
