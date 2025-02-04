@@ -105,7 +105,6 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    // TODO: Default sivilstand?
     sivilstand: sivilstand ?? 'UOPPGITT',
     aarligInntektVsaPensjon:
       aarligInntektVsaPensjon && aarligInntektVsaPensjon.beloep
@@ -158,7 +157,6 @@ export const generateAlderspensjonRequestBody = (args: {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    // TODO: Default sivilstand?
     sivilstand: sivilstand ?? 'UOPPGITT',
     gradertUttak: gradertUttak
       ? {
