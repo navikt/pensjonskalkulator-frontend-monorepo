@@ -4,10 +4,15 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
+import { useAppSelector } from '@/state/hooks'
+import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
+import { transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export function Forbehold() {
   const intl = useIntl()
+
+  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
 
   useEffect(() => {
     document.title = intl.formatMessage({
@@ -89,6 +94,10 @@ export function Forbehold() {
             id="forbehold.uforetrygd.ingress"
             values={{
               ...getFormatMessageValues(intl),
+              ubetingetUttaksalder: transformAlderToString(
+                intl.formatMessage,
+                ubetingetUttaksalder
+              ),
             }}
           />
         </BodyLong>
