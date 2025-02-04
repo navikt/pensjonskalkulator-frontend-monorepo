@@ -27,6 +27,7 @@ import {
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from './loaders'
+import { ErrorPage404 } from './RouteErrorBoundary/ErrorPage404'
 
 export const routes: RouteObject[] = [
   {
@@ -50,6 +51,10 @@ export const routes: RouteObject[] = [
         loader: landingPageAccessGuard,
         path: paths.login,
         element: <LandingPage />,
+      },
+      {
+        path: '/*',
+        element: <ErrorPage404 />,
       },
     ],
   },
