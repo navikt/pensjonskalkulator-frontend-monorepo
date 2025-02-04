@@ -22,8 +22,6 @@ export const sivilstandOptions = [
   'SKILT_PARTNER',
   'UGIFT',
 ]
-
-/* TODO - internasjonal tekst + flytte til nb og en */
 export const getSivilstandTekst = (
   intl: IntlShape,
   sivilstandTekst: UtvidetSivilstand

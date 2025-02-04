@@ -1,6 +1,12 @@
 import { IntlShape } from 'react-intl'
 
-import { formatSivilstand, getSivilstandTekst } from '@/utils/sivilstand'
+import {
+  checkHarSamboer,
+  checkUkjentSivilstand,
+  formatSivilstand,
+  getSivilstandTekst,
+  sivilstandOptions,
+} from '@/utils/sivilstand'
 
 describe('sivilstand-utils', () => {
   describe('getSivilstandTekst', () => {
@@ -72,6 +78,45 @@ describe('sivilstand-utils', () => {
         const sivilstand = formatSivilstand(intlMock, a as Sivilstand)
         expect(sivilstand).toEqual(expected)
       })
+    })
+  })
+
+  describe('checkHarSamboer', () => {
+    const HAR_SAMBOER_STATES = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER']
+    it('har samboer', () => {
+      const actual = HAR_SAMBOER_STATES.map((s) =>
+        checkHarSamboer(s as Sivilstand)
+      )
+
+      expect(actual.every((it) => it)).toBe(true)
+    })
+
+    it('har ikke samboer', () => {
+      const HAR_IKKE_SAMBOER_STATES = sivilstandOptions.filter(
+        (s) => HAR_SAMBOER_STATES.indexOf(s) === -1
+      ) as UtvidetSivilstand[]
+
+      const actual = HAR_IKKE_SAMBOER_STATES.map((it) => checkHarSamboer(it))
+
+      expect(actual.every((it) => !it)).toBe(true)
+    })
+  })
+
+  describe('checkUkjentSivilstand', () => {
+    it('er ukjent sivilstand', () => {
+      const actual = ['UNKNOWN', 'UOPPGITT'].map((it) =>
+        checkUkjentSivilstand(it as Sivilstand)
+      )
+
+      expect(actual.every((it) => it)).toBe(true)
+    })
+
+    it('er kjent sivilstand', () => {
+      const actual = sivilstandOptions.map((it) =>
+        checkUkjentSivilstand(it as UtvidetSivilstand)
+      )
+
+      expect(actual.every((it) => !it)).toBe(true)
     })
   })
 })
