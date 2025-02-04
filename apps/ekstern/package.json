@@ -67,7 +67,7 @@
     "@vitest/ui": "^3.0.5",
     "axe-core": "^4.10.2",
     "clsx": "^2.1.1",
-    "cypress": "^13.17.0",
+    "cypress": "^14.0.1",
     "cypress-axe": "^1.4.0",
     "date-fns": "^4.1.0",
     "eslint": "^9.19.0",
