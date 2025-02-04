@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react'
 
 import { API_BASEURL } from '@/paths'
 import { RootState } from '@/state/store'
@@ -99,23 +103,47 @@ export const apiSlice = createApi({
         return response
       },
     }),
+
     offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
-      query: (body) => ({
-        url: '/v2/simuler-oftp',
-        method: 'POST',
-        body,
-      }),
-      providesTags: ['OffentligTp'],
-      transformResponse: (response: OffentligTp) => {
-        if (!isOffentligTp(response)) {
+      queryFn: async (body, queryApi, _extraOptions, fetchWithBQ) => {
+        const otpQuery = fetchWithBQ({
+          url: '/v2/simuler-oftp',
+          method: 'POST',
+          body,
+        })
+        const featureToggleQuery = queryApi.dispatch(
+          apiSlice.endpoints.getOtpKlpFeatureToggle.initiate()
+        ) as Promise<{ data?: UnleashToggle }>
+
+        const results = await Promise.all([otpQuery, featureToggleQuery])
+        const otpResult = results[0]
+        const featureToggleResult = results[1]
+
+        if (otpResult.error) {
+          return { error: otpResult.error as FetchBaseQueryError }
+        }
+
+        const data = otpResult.data
+        if (!isOffentligTp(data)) {
           throw new Error(
-            `Mottok ugyldig offentlig-tp:`,
-            response as ErrorOptions
+            `Mottok ugyldig offentlig-tp: ${JSON.stringify(data)}`
           )
         }
-        return response
+
+        if (
+          data.simulertTjenestepensjon?.tpLeverandoer ===
+            'Kommunal Landspensjonskasse' &&
+          !featureToggleResult.data?.enabled
+        ) {
+          data.simuleringsresultatStatus = 'TP_ORDNING_STOETTES_IKKE'
+          delete data.simulertTjenestepensjon
+        }
+
+        return { data }
       },
+      providesTags: ['OffentligTp'],
     }),
+
     tidligstMuligHeltUttak: builder.query<
       Alder,
       TidligstMuligHeltUttakRequestBody | void
@@ -217,6 +245,15 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getOtpKlpFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.vis-otp-fra-klp',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -237,5 +274,6 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetRedirect1963FeatureToggleQuery,
   useGetSanityFeatureToggleQuery,
+  useGetOtpKlpFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

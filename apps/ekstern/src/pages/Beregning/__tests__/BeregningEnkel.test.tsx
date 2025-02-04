@@ -30,6 +30,10 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('BeregningEnkel', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   describe('Gitt at en bruker ikke mottar uføretrygd', () => {
     it('kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
       const initiateMock = vi.spyOn(
