@@ -3,6 +3,7 @@ import { IntlProvider, useIntl } from 'react-intl'
 import { describe, it } from 'vitest'
 
 import {
+  formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
 } from '../utils'
@@ -120,6 +121,45 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
       expect(heading).toBe(
         'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
       )
+    })
+  })
+})
+
+describe('formatLeverandoerList', () => {
+  it('Returnerer tom string når listen er tom.', () => {
+    const string = formatLeverandoerList('nb', [])
+    expect(string).toBe('')
+  })
+
+  it('Returnerer riktig streng på bokmål.', () => {
+    const string = formatLeverandoerList('nb', ['A', 'B', 'C'])
+    expect(string).toBe('A, B eller C')
+  })
+
+  it('Returnerer riktig streng på nynorsk.', () => {
+    const string = formatLeverandoerList('nn', ['A', 'B', 'C'])
+    expect(string).toBe('A, B eller C')
+  })
+
+  it('Returnerer riktig streng på engelsk.', () => {
+    const string = formatLeverandoerList('en', ['A', 'B', 'C'])
+    expect(string).toBe('A, B, or C')
+  })
+
+  describe('Gitt at Intl.ListFormat er udefinert,', () => {
+    beforeEach(() => {
+      // @ts-expect-error - Simulerer eldre nettlesere som ikke har Intl.ListFormat
+      vi.spyOn(Intl, 'ListFormat', 'get').mockReturnValue(undefined)
+    })
+
+    it('returnerer tom string når listen er tom.', () => {
+      const string = formatLeverandoerList('nb', [])
+      expect(string).toBe('')
+    })
+
+    it('returnerer riktig streng når listen ikke er tom.', () => {
+      const string = formatLeverandoerList('nb', ['A', 'B', 'C'])
+      expect(string).toBe('A, B, C')
     })
   })
 })

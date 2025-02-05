@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  chromeWebSecurity: false,
   env: {
     DECORATOR_URL: 'https://www.nav.no/dekoratoren',
     DEV_DECORATOR_URL: 'https://dekoratoren.ekstern.dev.nav.no',
