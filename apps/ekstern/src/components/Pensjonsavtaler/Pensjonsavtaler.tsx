@@ -36,7 +36,7 @@ import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
 import styles from './Pensjonsavtaler.module.scss'
 
 export const Pensjonsavtaler = (props: {
-  headingLevel: HeadingProps['level']
+  headingLevel: Exclude<HeadingProps['level'], undefined>
 }) => {
   const { headingLevel } = props
   const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
@@ -127,11 +127,9 @@ export const Pensjonsavtaler = (props: {
   )
 
   const subHeadingLevel = React.useMemo(() => {
-    return headingLevel
-      ? ((
-          parseInt(headingLevel as string, 10) + 1
-        ).toString() as HeadingProps['level'])
-      : '4'
+    return (
+      headingLevel ? (parseInt(headingLevel, 10) + 1).toString() : '4'
+    ) as Exclude<HeadingProps['level'], undefined>
   }, [headingLevel])
 
   const onCancel = (e: React.MouseEvent<HTMLAnchorElement>): void => {

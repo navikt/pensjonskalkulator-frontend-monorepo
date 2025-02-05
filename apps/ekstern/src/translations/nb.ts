@@ -641,20 +641,26 @@ const translations = {
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.spk_error':
-    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt <spkLink>SPK</spkLink>.',
-  'pensjonsavtaler.offentligtp.spk_empty':
+  'pensjonsavtaler.offentligtp.teknisk_feil':
+    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din ({chunk}).',
+  'pensjonsavtaler.offentligtp.empty':
     'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
-  'pensjonsavtaler.offentligtp.afp_ja':
-    'Livsvarig AFP er ikke inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
-  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+  'pensjonsavtaler.offentligtp.subtitle.klp':
+    'Alderspensjon fra Kommunal Landspensjonskasse (KLP)',
+  'pensjonsavtaler.offentligtp.spk.afp_ja':
+    'Livsvarig AFP er ikke inkludert i dette beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget':
     'Du har oppgitt at du ikke har rett til livsvarig AFP. Betinget tjenestepensjon er derfor inkludert i beløpet. Sjekk <spkLink>SPK</spkLink> for detaljer.',
-  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+  'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget':
     'Du har oppgitt at du ikke har rett til livsvarig AFP. Sjekk <spkLink>SPK</spkLink> for detaljer.',
-  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+  'pensjonsavtaler.offentligtp.spk.afp_vet_ikke':
     'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.klp.afp_ja':
+    'Livsvarig AFP eller eventuell betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke':
+    'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
@@ -747,7 +753,7 @@ const translations = {
     'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
-    'Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger.{br}{br}Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon.{br}{br}Beregningen av offentlig tjenestepensjon fra Statens pensjonskasse (SPK) er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i SPK fra datoen du beregner pensjonen fra.{br}{br}Beregning av privat tjenestepensjon graderes likt som alderspensjon for de avtalene der det er mulig. Offentlig tjenestepensjon beregnes kun med 100 % uttaksgrad.',
+    'Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger.{br}{br}Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon.{br}{br}Beregningen av offentlig tjenestepensjon er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskapet fra datoen du beregner pensjonen fra.{br}{br}Beregning av privat tjenestepensjon graderes likt som alderspensjon for de avtalene der det er mulig. Offentlig tjenestepensjon beregnes kun med 100 % uttaksgrad.',
   'personopplysninger.header':
     'Personopplysninger som brukes i pensjonskalkulator',
   'personopplysninger.section.formaal.header':
@@ -815,3 +821,4 @@ const translations = {
   'showmore.vis_mer': 'Vis mer',
 }
 export const getTranslation_nb = () => translations
+export type Translations = typeof translations

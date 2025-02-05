@@ -20,6 +20,10 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('Pensjonsavtaler', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   const currentSimulation: Simulation = {
     utenlandsperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',

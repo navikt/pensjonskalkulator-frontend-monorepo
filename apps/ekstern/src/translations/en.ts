@@ -632,20 +632,22 @@ const translations = {
     'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
   'pensjonsavtaler.offentligtp.error':
     'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.spk_error':
-    'We were unable to retrieve your public service pension. Please try again later or contact <spkLink>SPK</spkLink>.',
-  'pensjonsavtaler.offentligtp.spk_empty':
+  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.empty':
     'We did not receive a response regarding your public service pension.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
-  'pensjonsavtaler.offentligtp.afp_ja':
-    'Lifelong AFP is not included in the amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
-  'pensjonsavtaler.offentligtp.afp_nei.med_betinget':
+  'pensjonsavtaler.offentligtp.subtitle.klp': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.spk.afp_ja':
+    'Lifelong AFP is not included in this amount. Check <spkLink>SPK</spkLink> for details about your pension agreement.',
+  'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget':
     'You have stated that you are not entitled to lifelong AFP. Conditional occupational pension is therefore included in the amount. Check <spkLink>SPK</spkLink> for details.',
-  'pensjonsavtaler.offentligtp.afp_nei.uten_betinget':
+  'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget':
     'You have stated that you are not entitled to lifelong AFP. Check <spkLink>SPK</spkLink> for details.',
-  'pensjonsavtaler.offentligtp.afp_vet_ikke':
+  'pensjonsavtaler.offentligtp.spk.afp_vet_ikke':
     'You have stated that you are unsure if you are entitled to lifelong AFP. The amount may therefore include conditional occupational pension. Check <spkLink>SPK</spkLink> for details.',
+  'pensjonsavtaler.offentligtp.klp.afp_ja': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':
@@ -735,8 +737,7 @@ const translations = {
   'forbehold.gjenlevende.ingress':
     'Early withdrawal of retirement pension assumes that you have relinquished the survivor"s pension or the adjustment benefit at the time of withdrawal.',
   'forbehold.pensjonsavtaler.title': 'Pension Agreements',
-  'forbehold.pensjonsavtaler.ingress':
-    'If you have consented, we will retrieve information about what you will receive from public and private pension schemes. Nav is not responsible for the amounts provided, but is intended to give a rough overview of your total pension.{br}{br}Private occupational pension and individual rights are retrieved via Norsk Pensjon.{br}{br}Nav currently has no ability to retrieve information from public occupational pension schemes. Please contact your occupational pension scheme if you need information about your occupational pension.{br}{br}If you want a closer overview of your pension agreements, you need to check directly with each pension scheme.',
+  'forbehold.pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'personopplysninger.header':
     'Personal information used in the pension calculator',
   'personopplysninger.section.formaal.header':
