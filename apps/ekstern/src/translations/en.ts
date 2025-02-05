@@ -723,8 +723,7 @@ const translations = {
   'forbehold.gjenlevende.ingress':
     'Early withdrawal of retirement pension assumes that you have relinquished the survivor"s pension or the adjustment benefit at the time of withdrawal.',
   'forbehold.pensjonsavtaler.title': 'Pension Agreements',
-  'forbehold.pensjonsavtaler.ingress':
-    'If you have consented, we will retrieve information about what you will receive from public and private pension schemes. Nav is not responsible for the amounts provided, but is intended to give a rough overview of your total pension.{br}{br}Private occupational pension and individual rights are retrieved via Norsk Pensjon.{br}{br}Nav currently has no ability to retrieve information from public occupational pension schemes. Please contact your occupational pension scheme if you need information about your occupational pension.{br}{br}If you want a closer overview of your pension agreements, you need to check directly with each pension scheme.',
+  'forbehold.pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'personopplysninger.header':
     'Personal information used in the pension calculator',
   'personopplysninger.section.formaal.header':
