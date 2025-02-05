@@ -6,9 +6,16 @@ import { createBrowserRouter, MemoryRouter, RouterProvider } from 'react-router'
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
+import { SanityContext } from '@/context/SanityContext'
+import {
+  SanityForbeholdAvsnitt,
+  SanityReadMore,
+} from '@/context/SanityContext/SanityTypes'
 import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
+import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
   setupStore,
@@ -92,7 +99,16 @@ export function renderWithProviders(
     return (
       <Provider store={store}>
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
-          {hasRouter ? childrenWithRouter : children}
+          <SanityContext.Provider
+            value={{
+              readMoreData:
+                sanityReadMoreDataResponse.result as unknown as SanityReadMore[],
+              forbeholdAvsnittData:
+                sanityForbeholdAvsnittDataResponse.result as unknown as SanityForbeholdAvsnitt[],
+            }}
+          >
+            {hasRouter ? childrenWithRouter : children}
+          </SanityContext.Provider>
         </IntlProvider>
       </Provider>
     )
