@@ -44,19 +44,19 @@ describe('VilkaarsproevingAlert', () => {
         uttaksalder={uttaksalder}
       />,
       {
-        // @ts-ignore
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetPersonMedOkteAldersgrenser,
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+            },
           },
-        },
-        userInput: {
-          ...userInputInitialState,
+          userInput: {
+            ...userInputInitialState,
+          },
         },
       }
     )
-
     expect(
       screen.getByText('beregning.vilkaarsproeving.intro', {
         exact: false,

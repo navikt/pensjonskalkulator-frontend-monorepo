@@ -1649,9 +1649,7 @@ describe('RedigerAvansertBeregning', () => {
         )
       ).toBeVisible()
       expect(
-        await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-        )
+        screen.getByTestId('om-uttaksgrad')
       ).toBeInTheDocument()
 
       const selectAarElement = screen.getByTestId(

@@ -299,6 +299,17 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.forbehold}`],
         })
         render(<RouterProvider router={router} />, {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
           hasRouter: false,
         })
         expect(await screen.findByText('forbehold.title')).toBeInTheDocument()
