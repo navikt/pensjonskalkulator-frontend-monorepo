@@ -50,7 +50,7 @@ describe('routes', () => {
     store.getState = initialGetState
   })
 
-  describe.skip(`Gitt at siden er åpen uten pålogging`, () => {
+  describe(`Gitt at siden er åpen uten pålogging`, () => {
     describe(`${BASE_PATH}${paths.root}`, () => {
       it('redirigerer til /login og viser upålogget landingssiden', async () => {
         mockErrorResponse('/oauth2/session', {
@@ -155,7 +155,7 @@ describe('routes', () => {
     })
   })
 
-  describe.skip(`Gitt at siden er en del av stegvisningen`, () => {
+  describe(`Gitt at siden er en del av stegvisningen`, () => {
     describe(`${BASE_PATH}${paths.start}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()

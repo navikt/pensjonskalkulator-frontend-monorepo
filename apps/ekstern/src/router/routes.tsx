@@ -52,10 +52,6 @@ export const routes: RouteObject[] = [
         path: paths.login,
         element: <LandingPage />,
       },
-      {
-        path: '/*',
-        element: <ErrorPage404 />,
-      },
     ],
   },
   {
@@ -142,5 +138,9 @@ export const routes: RouteObject[] = [
         element: <Beregning visning="avansert" />,
       },
     ],
+  },
+  {
+    path: '/*',
+    element: <ErrorPage404 />,
   },
 ]
