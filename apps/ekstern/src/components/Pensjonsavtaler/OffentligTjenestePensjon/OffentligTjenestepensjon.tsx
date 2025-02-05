@@ -26,6 +26,7 @@ import { useIsMobile } from '@/utils/useIsMobile'
 import {
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
+  formatLeverandoerList,
 } from './utils'
 
 import styles from './OffentligTjenestepensjon.module.scss'
@@ -72,10 +73,7 @@ export const OffentligTjenestepensjon = (props: {
         // Ved feil når /simuler-oftp kalles
         isError && (
           <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.error"
-              values={getFormatMessageValues(intl)}
-            />
+            <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
           </Alert>
         )
       }
@@ -84,10 +82,7 @@ export const OffentligTjenestepensjon = (props: {
         offentligTp?.simuleringsresultatStatus ===
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' && (
           <Alert inline variant="info">
-            <FormattedMessage
-              id="pensjonsavtaler.ingress.ingen"
-              values={getFormatMessageValues(intl)}
-            />
+            <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
           </Alert>
         )
       }
@@ -99,30 +94,38 @@ export const OffentligTjenestepensjon = (props: {
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
               values={{
-                chunk: offentligTp.muligeTpLeverandoerListe.join(', '),
+                chunk: formatLeverandoerList(
+                  intl.locale,
+                  offentligTp.muligeTpLeverandoerListe
+                ),
               }}
             />
           </Alert>
         )
       }
       {
-        // Ved feil hos SPK
+        // Ved feil hos TP-leverandør
         offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
           <Alert inline variant="warning">
             <FormattedMessage
-              id="pensjonsavtaler.offentligtp.spk_error"
-              values={getFormatMessageValues(intl)}
+              id="pensjonsavtaler.offentligtp.teknisk_feil"
+              values={{
+                chunk: formatLeverandoerList(
+                  intl.locale,
+                  offentligTp.muligeTpLeverandoerListe
+                ),
+              }}
             />
           </Alert>
         )
       }
       {
-        // Ved tomt svar hos SPK
+        // Ved tomt svar fra TP-leverandør
         offentligTp?.simuleringsresultatStatus ===
           'TOM_SIMULERING_FRA_TP_ORDNING' && (
           <Alert inline variant="warning">
             <FormattedMessage
-              id="pensjonsavtaler.offentligtp.spk_empty"
+              id="pensjonsavtaler.offentligtp.empty"
               values={getFormatMessageValues(intl)}
             />
           </Alert>

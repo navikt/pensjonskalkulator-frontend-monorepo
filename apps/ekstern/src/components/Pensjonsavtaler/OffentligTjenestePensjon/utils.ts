@@ -42,3 +42,13 @@ export const getInfoOmAfpOgBetingetTjenestepensjon = (
     }
   }
 }
+
+export const formatLeverandoerList = (
+  locale: string,
+  leverandoerList: string[]
+) =>
+  Intl.ListFormat
+    ? new Intl.ListFormat(locale, { type: 'disjunction' }).format(
+        leverandoerList
+      )
+    : leverandoerList.join(', ')
