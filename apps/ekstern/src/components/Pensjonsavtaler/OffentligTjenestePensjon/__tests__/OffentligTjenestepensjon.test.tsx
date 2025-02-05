@@ -130,7 +130,7 @@ describe('OffentligTjenestepensjon', () => {
       )
       await waitFor(() => {
         expect(
-          screen.getByText('pensjonsavtaler.offentligtp.spk_empty')
+          screen.getByText('pensjonsavtaler.offentligtp.empty')
         ).toBeVisible()
       })
     })

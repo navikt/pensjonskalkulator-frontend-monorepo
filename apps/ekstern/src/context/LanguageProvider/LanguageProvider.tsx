@@ -8,8 +8,14 @@ import {
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
 
+import { sanityClient } from '../../../sanity.config'
+import { SanityContext } from '@/context/SanityContext'
+import {
+  SanityForbeholdAvsnitt,
+  SanityReadMore,
+} from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
-
+import { logger } from '@/utils/logging'
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
@@ -29,13 +35,48 @@ interface Props {
 
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
+  const [sanityReadMoreData, setSanityReadMoreData] = useState<
+    SanityReadMore[]
+  >([])
+  const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] = useState<
+    SanityForbeholdAvsnitt[]
+  >([])
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
 
-  // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
-  /* c8 ignore next 3 */
+  const fetchSanityData = async (locale: Locales) => {
+    if (sanityClient) {
+      const readMorePromise = sanityClient
+        .fetch(`*[_type == "readmore" && language == "${locale}"]`)
+        .then((sanityReadMoreResponse) => {
+          setSanityReadMoreData(sanityReadMoreResponse)
+        })
+        .catch(() => {
+          logger('info', {
+            tekst: 'Feil ved henting av innhold fra Sanity',
+            data: `readmore ${locale}`,
+          })
+        })
+      const forbeholdAvsnittPromise = sanityClient
+        .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
+        .then((sanityForbeholdAvsnittResponse) => {
+          setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse)
+        })
+        .catch(() => {
+          logger('info', {
+            tekst: 'Feil ved henting av innhold fra Sanity',
+            data: `forbeholdAvsnitt ${locale}`,
+          })
+        })
+
+      await Promise.all([readMorePromise, forbeholdAvsnittPromise])
+    }
+  }
+
+  /* c8 ignore next 4 */
   onLanguageSelect((language) => {
+    fetchSanityData(language.locale as Locales)
     setCookie('decorator-language', language.locale)
     updateLanguage(language.locale as Locales, setLanguageCookie)
   })
@@ -60,8 +101,11 @@ export function LanguageProvider({ children }: Props) {
       const previousLanguage = getCookie('decorator-language')
 
       if (previousLanguage) {
+        fetchSanityData(previousLanguage as Locales)
         updateLanguage(previousLanguage as Locales, setLanguageCookie)
       }
+    } else {
+      fetchSanityData('nb' as Locales)
     }
   }, [isSuccess])
 
@@ -71,7 +115,14 @@ export function LanguageProvider({ children }: Props) {
       messages={getTranslations(languageCookie)}
     >
       <AkselProvider locale={akselLocales[languageCookie]}>
-        {children}
+        <SanityContext.Provider
+          value={{
+            readMoreData: sanityReadMoreData,
+            forbeholdAvsnittData: sanityForbeholdAvsnittData,
+          }}
+        >
+          {children}
+        </SanityContext.Provider>
       </AkselProvider>
     </IntlProvider>
   )

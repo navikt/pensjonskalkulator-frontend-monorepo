@@ -1,6 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { Utenlandsopphold } from '..'
+import { mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -12,7 +13,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart', async () => {
-    const result = render(
+    render(
       <Utenlandsopphold
         harUtenlandsopphold={null}
         onCancel={onCancelMock}
@@ -26,19 +27,55 @@ describe('stegvisning - Utenlandsopphold', () => {
     expect(
       screen.getByText('stegvisning.utenlandsopphold.ingress')
     ).toBeVisible()
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.readmore_1.title')
-    ).toBeVisible()
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
-    ).toBeVisible()
+
     const radioButtons = screen.getAllByRole('radio')
 
     await waitFor(() => {
       expect(screen.getAllByRole('radio')).toHaveLength(2)
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
-      expect(result.asFragment()).toMatchSnapshot()
+
+      expect(screen.getByTestId('hva_er_opphold_utenfor_norge')).toBeVisible()
+      expect(
+        screen.getByTestId('betydning_av_opphold_utenfor_norge')
+      ).toBeVisible()
+    })
+
+    expect(
+      screen.queryByText('stegvisning.utenlandsopphold.ingress.bottom')
+    ).not.toBeInTheDocument()
+  })
+
+  it('rendrer slik den skal når tekstene fra sanity ikke kunne hentes', async () => {
+    mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'stegvisning.utenlandsopphold.title'
+    )
+    expect(
+      screen.getByText('stegvisning.utenlandsopphold.ingress')
+    ).toBeVisible()
+
+    const radioButtons = screen.getAllByRole('radio')
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('radio')).toHaveLength(2)
+      expect(radioButtons[0]).not.toBeChecked()
+      expect(radioButtons[1]).not.toBeChecked()
+
+      expect(
+        screen.getByText('stegvisning.utenlandsopphold.readmore_1.title')
+      ).toBeVisible()
+      expect(
+        screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
+      ).toBeVisible()
     })
 
     expect(

@@ -1,10 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
-import {
-  fulfilledGetPerson,
-  fulfilledGetPersonMedOkteAldersgrenser,
-} from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen } from '@/test-utils'
 
