@@ -20,7 +20,7 @@ import {
   sivilstandOptions,
   formatSivilstand,
   getSivilstandTekst,
-  checkUkjentSivilstand,
+  isSivilstandUkjent,
 } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
@@ -138,12 +138,12 @@ export function Sivilstand({
       { sivilstand: getSivilstandTekst(intl, sivilstandInput) }
     )
     if (
-      checkUkjentSivilstand(sivilstandInput) ||
+      isSivilstandUkjent(sivilstandInput) ||
       (shouldShowInput.epsHarPensjon && epsHarPensjonInput === null) ||
       (shouldShowInput.epsHarInntektOver2G && epsHarInntektOver2GInput === null)
     ) {
       const validationErrorText = {
-        sivilstand: checkUkjentSivilstand(sivilstandInput)
+        sivilstand: isSivilstandUkjent(sivilstandInput)
           ? sivilstand_validationText
           : undefined,
         epsHarPensjon:
@@ -205,7 +205,7 @@ export function Sivilstand({
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>
-          {checkUkjentSivilstand(sivilstandFolkeregister) ? (
+          {isSivilstandUkjent(sivilstandFolkeregister) ? (
             <FormattedMessage id="stegvisning.sivilstand.ingress_ukjent" />
           ) : (
             <>
@@ -219,9 +219,7 @@ export function Sivilstand({
           <Select
             className={styles.selectSivilstand}
             name="sivilstand"
-            value={
-              checkUkjentSivilstand(sivilstandInput) ? '' : sivilstandInput
-            }
+            value={isSivilstandUkjent(sivilstandInput) ? '' : sivilstandInput}
             onChange={(e) =>
               setSivilstandInput(e.target.value as UtvidetSivilstand)
             }
@@ -229,7 +227,7 @@ export function Sivilstand({
               id: `stegvisning.sivilstand.select_label`,
             })}
             description={
-              checkUkjentSivilstand(sivilstand)
+              isSivilstandUkjent(sivilstand)
                 ? intl.formatMessage({
                     id: `stegvisning.sivilstand.select_description_ukjent`,
                   })
@@ -239,7 +237,7 @@ export function Sivilstand({
             }
             error={validationError.sivilstand}
           >
-            {checkUkjentSivilstand(sivilstandInput) && (
+            {isSivilstandUkjent(sivilstandInput) && (
               <option disabled selected value="">
                 {' '}
               </option>

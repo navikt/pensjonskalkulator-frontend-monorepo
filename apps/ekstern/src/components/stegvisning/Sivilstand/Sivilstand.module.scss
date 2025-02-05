@@ -1,3 +1,5 @@
+@use '../../../scss/variables';
+
 .ingress {
   margin-bottom: var(--a-spacing-6);
 }
@@ -7,11 +9,11 @@
 }
 
 .selectSivilstand :global(.navds-select__container) {
-  width: 16rem;
+  width: variables.$input-width-m;
 }
 
 .selectSivilstand select {
-  width: 16rem;
+  width: variables.$input-width-m;
 }
 
 .selectSivilstand label {

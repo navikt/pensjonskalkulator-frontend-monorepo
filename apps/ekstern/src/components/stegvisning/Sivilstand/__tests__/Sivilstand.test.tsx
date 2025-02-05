@@ -74,7 +74,7 @@ describe('stegvisning - Sivilstand', () => {
         expect(selectElement).toHaveValue('SKILT')
       })
     })
-    describe('når sivilstand er gift, samboer eller registrert partner, ', async () => {
+    describe('Gitt at sivilstand er gift, samboer eller registrert partner, ', async () => {
       it('skal radio button for epsHarPensjon rendres', async () => {
         render(
           <Sivilstand
@@ -99,7 +99,7 @@ describe('stegvisning - Sivilstand', () => {
           expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
         })
       })
-      describe('gitt at sivilstanden din er gift, ', async () => {
+      describe('når sivilstanden din er gift, ', async () => {
         it('skal teksten for epsHarPensjon endres til "ektefellen din"', async () => {
           render(
             <Sivilstand
@@ -122,7 +122,7 @@ describe('stegvisning - Sivilstand', () => {
           })
         })
       })
-      describe('gitt at sivilstanden din er samboer, ', async () => {
+      describe('når sivilstanden din er samboer, ', async () => {
         it('skal teksten for epsHarPensjon endres til "samboeren din"', async () => {
           render(
             <Sivilstand
@@ -145,7 +145,7 @@ describe('stegvisning - Sivilstand', () => {
           })
         })
       })
-      describe('gitt at sivilstanden din er registrert partner, ', async () => {
+      describe('når sivilstanden din er registrert partner, ', async () => {
         it('skal teksten for epsHarPensjon endres til "partneren din"', async () => {
           render(
             <Sivilstand

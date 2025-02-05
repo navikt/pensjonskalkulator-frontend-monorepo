@@ -2,7 +2,7 @@ import { IntlShape } from 'react-intl'
 
 import {
   checkHarSamboer,
-  checkUkjentSivilstand,
+  isSivilstandUkjent,
   formatSivilstand,
   getSivilstandTekst,
   sivilstandOptions,
@@ -102,10 +102,10 @@ describe('sivilstand-utils', () => {
     })
   })
 
-  describe('checkUkjentSivilstand', () => {
+  describe('isSivilstandUkjent', () => {
     it('er ukjent sivilstand', () => {
       const actual = ['UNKNOWN', 'UOPPGITT'].map((it) =>
-        checkUkjentSivilstand(it as Sivilstand)
+        isSivilstandUkjent(it as Sivilstand)
       )
 
       expect(actual.every((it) => it)).toBe(true)
@@ -113,7 +113,7 @@ describe('sivilstand-utils', () => {
 
     it('er kjent sivilstand', () => {
       const actual = sivilstandOptions.map((it) =>
-        checkUkjentSivilstand(it as UtvidetSivilstand)
+        isSivilstandUkjent(it as UtvidetSivilstand)
       )
 
       expect(actual.every((it) => !it)).toBe(true)
