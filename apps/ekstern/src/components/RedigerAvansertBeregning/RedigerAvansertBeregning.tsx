@@ -364,7 +364,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   id={'beregning.endring.rediger.vedtak_status'}
                   values={{
                     dato: format(
-                      loependeVedtak?.alderspensjon?.fom as string,
+                      new Date(loependeVedtak?.alderspensjon?.fom || ''),
                       DATE_ENDUSER_FORMAT
                     ),
                     grad: loependeVedtak?.alderspensjon?.grad,
