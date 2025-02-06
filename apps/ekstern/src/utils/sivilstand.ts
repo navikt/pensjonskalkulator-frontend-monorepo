@@ -21,6 +21,7 @@ export const formatSivilstand = (
       id: 'sivilstand.registrert_partner',
     }),
     SEPARERT_PARTNER: intl.formatMessage({ id: 'sivilstand.separert_partner' }),
+    SAMBOER: intl.formatMessage({ id: 'sivilstand.samboer' }),
     SKILT_PARTNER: intl.formatMessage({ id: 'sivilstand.skilt_partner' }),
     GJENLEVENDE_PARTNER: intl.formatMessage({
       id: 'sivilstand.gjenlevende_partner',

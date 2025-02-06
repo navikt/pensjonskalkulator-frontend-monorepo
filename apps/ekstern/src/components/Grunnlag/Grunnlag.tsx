@@ -67,9 +67,15 @@ export const Grunnlag: React.FC<Props> = ({
   const formatertSivilstand = React.useMemo(
     () =>
       sivilstand
-        ? formatSivilstand(intl, sivilstand, {
-            harSamboer: !!harSamboer,
-          })
+        ? formatSivilstand(
+            intl,
+            sivilstand,
+            sivilstand !== 'SAMBOER'
+              ? {
+                  harSamboer: !!harSamboer,
+                }
+              : undefined
+          )
         : '',
 
     [person]
