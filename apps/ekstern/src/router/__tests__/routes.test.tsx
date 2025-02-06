@@ -923,8 +923,6 @@ describe('routes', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
-    await waitFor(() => {
-      expect(screen.getByTestId('error-page-404')).toBeInTheDocument()
-    })
+    expect(screen.getByTestId('error-page-404')).toBeInTheDocument()
   })
 })
