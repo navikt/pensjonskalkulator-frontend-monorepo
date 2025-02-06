@@ -282,7 +282,7 @@ export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
         data.alderspensjon.grad !== undefined &&
         typeof data.alderspensjon.grad === 'number' &&
         [
-          null,
+          'UNKNOWN',
           'UOPPGITT',
           'UGIFT',
           'GIFT',
@@ -293,6 +293,7 @@ export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
           'SEPARERT_PARTNER',
           'SKILT_PARTNER',
           'GJENLEVENDE_PARTNER',
+          'SAMBOER',
         ].includes(data.alderspensjon.sivilstand))) &&
     (!data.alderspensjon ||
       (data.alderspensjon &&

@@ -184,6 +184,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v4/vedtak/loepende-vedtak': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Har løpende vedtak
+     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
+     */
+    get: operations['hentLoependeVedtakV4']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v4/person': {
     parameters: {
       query?: never
@@ -1080,6 +1100,53 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AnonymAlternativV1']
     }
+    AlderspensjonDetaljerV4: {
+      /** Format: int32 */
+      grad: number
+      /** Format: date */
+      fom: string
+      sisteUtbetaling?: components['schemas']['UtbetalingV4']
+      /** @enum {string} */
+      sivilstand:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+    }
+    FremtidigAlderspensjonDetaljerV4: {
+      /** Format: int32 */
+      grad: number
+      /** Format: date */
+      fom: string
+    }
+    LoependeFraV4: {
+      /** Format: date */
+      fom: string
+    }
+    LoependeVedtakV4: {
+      alderspensjon?: components['schemas']['AlderspensjonDetaljerV4']
+      fremtidigAlderspensjon?: components['schemas']['FremtidigAlderspensjonDetaljerV4']
+      ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV4']
+      afpPrivat?: components['schemas']['LoependeFraV4']
+      afpOffentlig?: components['schemas']['LoependeFraV4']
+    }
+    UfoeretrygdDetaljerV4: {
+      /** Format: int32 */
+      grad: number
+    }
+    UtbetalingV4: {
+      beloep: number
+      /** Format: date */
+      utbetalingsdato: string
+    }
     PersonAlderV4: {
       /** Format: int32 */
       aar: number
@@ -1128,6 +1195,7 @@ export interface components {
         | 'SEPARERT_PARTNER'
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
     }
     LoependeFraV3: {
       /** Format: date */
@@ -1543,6 +1611,35 @@ export interface operations {
         }
         content: {
           '*/*': components['schemas']['AnonymSimuleringErrorV1']
+        }
+      }
+    }
+  }
+  hentLoependeVedtakV4: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av løpende vedtak utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['LoependeVedtakV4']
+        }
+      }
+      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
         }
       }
     }
