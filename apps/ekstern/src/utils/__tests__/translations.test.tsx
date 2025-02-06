@@ -376,6 +376,29 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
+    it('formaterer <klpLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.klpLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.klp
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
     it('formaterer {br} til <br/>', async () => {
       const { asFragment } = render(
         <FormattedMessage

@@ -23,61 +23,29 @@ import { formatInntekt } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
+import {
+  getInfoOmAfpOgBetingetTjenestepensjon,
+  getLeverandoerHeading,
+  formatLeverandoerList,
+} from './utils'
+
 import styles from './OffentligTjenestepensjon.module.scss'
 
 export const OffentligTjenestepensjon = (props: {
   isLoading: boolean
   isError: boolean
   offentligTp?: OffentligTp
-  headingLevel: HeadingProps['level']
+  headingLevel: Exclude<HeadingProps['level'], undefined>
 }) => {
   const { isLoading, isError, offentligTp, headingLevel } = props
+  const tpLeverandoer = offentligTp?.simulertTjenestepensjon?.tpLeverandoer
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
 
-  const [leverandoererString, setleverandoererString] =
-    React.useState<string>('')
-
-  React.useEffect(() => {
-    if (
-      offentligTp?.muligeTpLeverandoerListe &&
-      offentligTp.muligeTpLeverandoerListe.length > 0
-    ) {
-      const joinedLeverandoerer =
-        offentligTp?.muligeTpLeverandoerListe.join(', ')
-      setleverandoererString(joinedLeverandoerer)
-    }
-  }, [offentligTp])
-
   const subHeadingLevel = React.useMemo(() => {
-    return headingLevel
-      ? ((
-          parseInt(headingLevel as string, 10) + 1
-        ).toString() as HeadingProps['level'])
-      : '4'
+    return (parseInt(headingLevel, 10) + 1).toString() as HeadingProps['level']
   }, [headingLevel])
-
-  const infoOmAfpOgBetingetTjenestepensjon = React.useMemo(() => {
-    if (afp === 'ja_offentlig' || afp === 'ja_privat') {
-      return 'pensjonsavtaler.offentligtp.afp_ja'
-    } else if (afp === 'vet_ikke') {
-      return 'pensjonsavtaler.offentligtp.afp_vet_ikke'
-    } else {
-      if (
-        offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-          .betingetTjenestepensjonErInkludert
-      ) {
-        return 'pensjonsavtaler.offentligtp.afp_nei.med_betinget'
-      } else {
-        return 'pensjonsavtaler.offentligtp.afp_nei.uten_betinget'
-      }
-    }
-  }, [
-    afp,
-    offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-      .betingetTjenestepensjonErInkludert,
-  ])
 
   if (isLoading) {
     return (
@@ -91,6 +59,10 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
+  const showResults =
+    offentligTp?.simuleringsresultatStatus === 'OK' &&
+    tpLeverandoer !== undefined
+
   return (
     <VStack gap="3">
       <Divider smallMargin />
@@ -99,14 +71,9 @@ export const OffentligTjenestepensjon = (props: {
       </Heading>
       {
         // Ved feil når /simuler-oftp kalles
-        !isLoading && isError && (
+        isError && (
           <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.error"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
+            <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
           </Alert>
         )
       }
@@ -115,12 +82,7 @@ export const OffentligTjenestepensjon = (props: {
         offentligTp?.simuleringsresultatStatus ===
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' && (
           <Alert inline variant="info">
-            <FormattedMessage
-              id="pensjonsavtaler.ingress.ingen"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
+            <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
           </Alert>
         )
       }
@@ -132,41 +94,45 @@ export const OffentligTjenestepensjon = (props: {
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
               values={{
-                chunk: leverandoererString,
+                chunk: formatLeverandoerList(
+                  intl.locale,
+                  offentligTp.muligeTpLeverandoerListe
+                ),
               }}
             />
           </Alert>
         )
       }
       {
-        // Ved feil hos SPK
+        // Ved feil hos TP-leverandør
         offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
           <Alert inline variant="warning">
             <FormattedMessage
-              id="pensjonsavtaler.offentligtp.spk_error"
+              id="pensjonsavtaler.offentligtp.teknisk_feil"
               values={{
-                ...getFormatMessageValues(intl),
+                chunk: formatLeverandoerList(
+                  intl.locale,
+                  offentligTp.muligeTpLeverandoerListe
+                ),
               }}
             />
           </Alert>
         )
       }
       {
-        // Ved tomt svar hos SPK
+        // Ved tomt svar fra TP-leverandør
         offentligTp?.simuleringsresultatStatus ===
           'TOM_SIMULERING_FRA_TP_ORDNING' && (
           <Alert inline variant="warning">
             <FormattedMessage
-              id="pensjonsavtaler.offentligtp.spk_empty"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
+              id="pensjonsavtaler.offentligtp.empty"
+              values={getFormatMessageValues(intl)}
             />
           </Alert>
         )
       }
 
-      {offentligTp?.simuleringsresultatStatus === 'OK' && (
+      {showResults && (
         <>
           {isMobile ? (
             <>
@@ -175,17 +141,15 @@ export const OffentligTjenestepensjon = (props: {
                 level={subHeadingLevel}
                 size="xsmall"
               >
-                {intl.formatMessage({
-                  id: 'pensjonsavtaler.offentligtp.subtitle.spk',
-                })}
+                {getLeverandoerHeading(intl, tpLeverandoer)}
               </Heading>
               <table
                 className={styles.mobileTable}
                 data-testid="offentlig-tjenestepensjon-mobile"
               >
                 <tbody>
-                  {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
-                    (utbetalingsperiode: UtbetalingsperiodeWithoutGrad) => (
+                  {offentligTp.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
+                    (utbetalingsperiode: UtbetalingsperiodeOffentligTP) => (
                       <tr key={`${JSON.stringify(utbetalingsperiode)}-mobile`}>
                         <th
                           style={{ fontWeight: 'normal' }}
@@ -230,13 +194,16 @@ export const OffentligTjenestepensjon = (props: {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {offentligTp?.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
-                  (utbetalingsperiode: UtbetalingsperiodeWithoutGrad, i) => {
-                    const isLastRow =
-                      (offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-                        .utbetalingsperioder.length ?? 0) -
-                        1 >
-                      i
+                {offentligTp.simulertTjenestepensjon?.simuleringsresultat.utbetalingsperioder.map(
+                  (
+                    utbetalingsperiode: UtbetalingsperiodeOffentligTP,
+                    i,
+                    utbetalingsperioder
+                  ) => {
+                    const dataCellClassName = clsx({
+                      [styles.desktopTableRader__noBottomBorder]:
+                        utbetalingsperioder.length - 1 > i,
+                    })
                     return (
                       <Table.Row
                         shadeOnHover={false}
@@ -246,22 +213,12 @@ export const OffentligTjenestepensjon = (props: {
                           <Table.HeaderCell
                             scope="row"
                             className={styles.desktopTableRader__alignTop}
-                            rowSpan={
-                              offentligTp?.simulertTjenestepensjon
-                                ?.simuleringsresultat.utbetalingsperioder.length
-                            }
+                            rowSpan={utbetalingsperioder.length}
                           >
-                            {intl.formatMessage({
-                              id: 'pensjonsavtaler.offentligtp.subtitle.spk',
-                            })}
+                            {getLeverandoerHeading(intl, tpLeverandoer)}
                           </Table.HeaderCell>
                         )}
-                        <Table.DataCell
-                          className={clsx({
-                            [styles.desktopTableRader__noBottomBorder]:
-                              isLastRow,
-                          })}
-                        >
+                        <Table.DataCell className={dataCellClassName}>
                           {utbetalingsperiode.sluttAlder
                             ? formaterSluttAlderString(
                                 intl,
@@ -275,13 +232,9 @@ export const OffentligTjenestepensjon = (props: {
                         </Table.DataCell>
                         <Table.DataCell
                           align="right"
-                          className={clsx({
-                            [styles.desktopTableRader__noBottomBorder]:
-                              isLastRow,
-                          })}
+                          className={dataCellClassName}
                         >
-                          {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
-                          kr
+                          {`${formatInntekt(utbetalingsperiode.aarligUtbetaling)} kr`}
                         </Table.DataCell>
                       </Table.Row>
                     )
@@ -292,10 +245,13 @@ export const OffentligTjenestepensjon = (props: {
           )}
           <BodyLong size="small">
             <FormattedMessage
-              id={infoOmAfpOgBetingetTjenestepensjon}
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
+              id={getInfoOmAfpOgBetingetTjenestepensjon(
+                tpLeverandoer,
+                afp,
+                offentligTp.simulertTjenestepensjon?.simuleringsresultat
+                  .betingetTjenestepensjonErInkludert
+              )}
+              values={getFormatMessageValues(intl)}
             />
           </BodyLong>
         </>

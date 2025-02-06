@@ -2,15 +2,20 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { PortableText } from '@portabletext/react'
 
 import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
+import { SanityContext } from '@/context/SanityContext'
+import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { paths } from '@/router/constants'
+import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
+import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { onSubmit } from './utils'
@@ -32,6 +37,12 @@ export function Utenlandsopphold({
 }: Props) {
   const intl = useIntl()
 
+  const { readMoreData } = React.useContext(SanityContext)
+  const [readMore1, setReadMore1] = React.useState<SanityReadMore | undefined>()
+  const [readMore2, setReadMore2] = React.useState<SanityReadMore | undefined>()
+
+  const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
+
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
   )
@@ -45,6 +56,18 @@ export function Utenlandsopphold({
 
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
+
+  React.useEffect(() => {
+    if (readMoreData) {
+      readMoreData.forEach((item) => {
+        if (item.name === 'hva_er_opphold_utenfor_norge') {
+          setReadMore1(item)
+        } else if (item.name === 'betydning_av_opphold_utenfor_norge') {
+          setReadMore2(item)
+        }
+      })
+    }
+  }, [readMoreData])
 
   React.useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {
@@ -84,74 +107,102 @@ export function Utenlandsopphold({
       <BodyLong size="large">
         <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
       </BodyLong>
-      <ReadMore
-        name="Hva som er opphold utenfor Norge"
-        className={styles.readmore1}
-        header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
-        }
-      >
-        <FormattedMessage
-          id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-        <ul>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
-          </li>
-        </ul>
-        <FormattedMessage
-          id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-        <ul>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
-          </li>
-          <li>
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
-          </li>
-        </ul>
-        <FormattedMessage
-          id="stegvisning.utenlandsopphold.readmore_1.ingress"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </ReadMore>
-      <ReadMore
-        name="Betydning av opphold utenfor Norge for pensjon"
-        className={styles.readmore2}
-        header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_2.title" />
-        }
-      >
-        <FormattedMessage
-          id="stegvisning.utenlandsopphold.readmore_2.ingress"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </ReadMore>
+      {sanityFeatureToggle?.enabled && readMore1 ? (
+        <ReadMore
+          data-testid={readMore1.name}
+          name={readMore1.name}
+          header={readMore1.overskrift}
+          className={styles.readmore1}
+        >
+          <PortableText
+            value={readMore1.innhold}
+            components={{ ...getSanityPortableTextComponents(intl) }}
+          />
+        </ReadMore>
+      ) : (
+        <ReadMore
+          name="Hva som er opphold utenfor Norge"
+          className={styles.readmore1}
+          header={
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
+          }
+        >
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
+            </li>
+          </ul>
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
+            </li>
+          </ul>
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_1.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </ReadMore>
+      )}
+      {sanityFeatureToggle?.enabled && readMore2 ? (
+        <ReadMore
+          data-testid={readMore2.name}
+          name={readMore2.name}
+          header={readMore2.overskrift}
+          className={styles.readmore2}
+        >
+          <PortableText
+            value={readMore2.innhold}
+            components={{ ...getSanityPortableTextComponents(intl) }}
+          />
+        </ReadMore>
+      ) : (
+        <ReadMore
+          name="Betydning av opphold utenfor Norge for pensjon"
+          className={styles.readmore2}
+          header={
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_2.title" />
+          }
+        >
+          <FormattedMessage
+            id="stegvisning.utenlandsopphold.readmore_2.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </ReadMore>
+      )}
       <RadioGroup
         name="har-utenlandsopphold-radio"
         className={styles.radiogroup}

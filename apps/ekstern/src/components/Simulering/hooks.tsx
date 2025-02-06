@@ -297,6 +297,8 @@ export const useSimuleringChartLocalState = (initialValues: {
   ] as const
 }
 
+// Denne pluginen er nødvendig etter oppgradering av Highcharts til v12 pga. regression bug
+// Den kan fjernes når Highcharts har løst bug'en. Saken kan følges opp her: https://github.com/highcharts/highcharts/issues/22489
 export const useHighchartsRegressionPlugin = () => {
   React.useEffect(() => {
     type DataLabel = {

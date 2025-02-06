@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
 import { Forbehold } from '..'
-import { render, screen } from '@/test-utils'
+import { mockErrorResponse } from '@/mocks/server'
+import { render, screen, waitFor } from '@/test-utils'
 
 describe('Forbehold', () => {
   it('har riktig sidetittel', () => {
@@ -9,7 +10,16 @@ describe('Forbehold', () => {
     expect(document.title).toBe('application.title.forbehold')
   })
 
-  it('rendrer seksjonene riktig', () => {
+  it('rendrer seksjonene riktig med innhold fra Sanity', async () => {
+    render(<Forbehold />)
+    await waitFor(() => {
+      expect(screen.getByText('forbehold.title')).toBeVisible()
+      expect(screen.getAllByRole('paragraph').length).toBeGreaterThanOrEqual(3)
+    })
+  })
+
+  it('rendrer seksjonene riktig når tekstene fra Sanity ikke kunne hentes', () => {
+    mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
     render(<Forbehold />)
     expect(screen.getByText('forbehold.title')).toBeVisible()
     expect(screen.getByText('forbehold.inntekt.title')).toBeVisible()

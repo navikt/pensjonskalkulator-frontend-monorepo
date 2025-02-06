@@ -6,13 +6,14 @@ import globals from 'globals'
 
 const ignoredFiles = [
   'eslint.config.mjs',
-  'dist/*',
+  'dist/**',
+  'dist-sanity/**',
   '.nginx/*',
   '.nais/*',
   'src/nais.js',
   '**/api',
   '**/coverage',
-  '**/vite.config.ts',
+  '**/vite.config.ts*',
   '**/.stylelintrc.cjs',
   '**/tsconfig.json',
   '**/tsconfig.node.json',
@@ -23,6 +24,7 @@ const ignoredFiles = [
   '**/cypress',
   'public/src/nais.js',
   'scripts/FetchLandListe.js',
+  'sanity.cli.ts',
 ]
 
 const defaultEslintConfig = tseslint.config(

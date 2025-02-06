@@ -52,9 +52,9 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
           })
 
           it('forventer jeg informasjon om at Livsvarig AFP ikke er inkludert. ', () => {
-            cy.contains('Livsvarig AFP er ikke inkludert i beløpet.').should(
-              'exist'
-            )
+            cy.contains(
+              'Livsvarig AFP er ikke inkludert i dette beløpet.'
+            ).should('exist')
           })
         })
       })
@@ -99,9 +99,9 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
           })
 
           it('forventer jeg informasjon om at Livsvarig AFP ikke er inkludert. ', () => {
-            cy.contains('Livsvarig AFP er ikke inkludert i beløpet.').should(
-              'exist'
-            )
+            cy.contains(
+              'Livsvarig AFP er ikke inkludert i dette beløpet.'
+            ).should('exist')
           })
         })
       })
@@ -646,7 +646,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
         it('forventer jeg informasjon i «Pensjonsavtaler - Offentlig tjenestepensjon» om at Nav ikke klarte å hente min offentlige tjenestepensjon.', () => {
           cy.contains('Offentlig tjenestepensjon').should('exist')
           cy.contains(
-            'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt SPK'
+            'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din'
           ).should('exist')
         })
       })
