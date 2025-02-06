@@ -10,8 +10,8 @@ import { supportedLanguages } from './schemaTypes/supportedLanguages'
 
 export const projectId = 'g2by7q6m'
 const dataset =
-  window.location.href.indexOf('ekstern.dev') != -1 ||
-  window.location.href.indexOf('localhost') != -1
+  window.location.href.includes('ekstern.dev') ||
+  window.location.href.includes('localhost')
     ? 'development'
     : 'production'
 

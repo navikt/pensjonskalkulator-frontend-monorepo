@@ -9,8 +9,6 @@
     "sanity-dev": "sanity dev -- --port 3333",
     "sanity-start": "sanity start dist-sanity/",
     "sanity-build": "sanity build dist-sanity/ --yes",
-    "sanity-deploy": "sanity deploy",
-    "sanity-deploy-graphql": "sanity graphql deploy",
     "fetch-land-liste": "node --experimental-fetch ./scripts/FetchLandListe.js",
     "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/types/schema.d.ts",
     "postfetch-dev-types": "npm run format:types",
