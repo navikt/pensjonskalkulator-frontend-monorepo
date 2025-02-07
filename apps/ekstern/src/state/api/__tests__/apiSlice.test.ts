@@ -36,9 +36,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getInntekt.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(inntektResponse)
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(inntektResponse)
         })
     })
 
@@ -48,10 +47,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getInntekt.initiate())
         .then((result) => {
-          const fetchBaseQueryResult =
-            result as unknown as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -65,11 +62,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.getInntekt.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -81,9 +76,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getPerson.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject({
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject({
             ...personResponse,
             foedselsdato: '1963-04-30',
           })
@@ -96,9 +90,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getPerson.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -112,11 +105,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.getPerson.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -128,11 +119,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            ekskludertStatusResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(ekskludertStatusResponse)
         })
     })
 
@@ -148,10 +136,8 @@ describe('apiSlice', () => {
         return storeRef
           .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -165,9 +151,8 @@ describe('apiSlice', () => {
           apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
         )
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(
             omstillingsstoenadOgGjenlevendeResponse
           )
         })
@@ -187,10 +172,8 @@ describe('apiSlice', () => {
             apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
           )
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -202,11 +185,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            loependeVedtakResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(loependeVedtakResponse)
         })
     })
 
@@ -222,10 +202,8 @@ describe('apiSlice', () => {
         return storeRef
           .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -237,9 +215,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(offentligTpResponse)
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(offentligTpResponse)
         })
     })
 
@@ -303,9 +280,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.offentligTp.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -320,11 +296,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.offentligTp.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -352,9 +326,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody))
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          const obj = fetchBaseQueryResult.data as {
+          expect(result.status).toBe('fulfilled')
+          const obj = result.data as {
             avtaler: Pensjonsavtale[]
             partialResponse: boolean
           }
@@ -390,9 +363,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody))
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          const obj = fetchBaseQueryResult.data as {
+          expect(result.status).toBe('fulfilled')
+          const obj = result.data as {
             avtaler: Pensjonsavtale[]
             partialResponse: boolean
           }
@@ -409,9 +381,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody))
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -428,11 +399,9 @@ describe('apiSlice', () => {
             apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody)
           )
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -444,11 +413,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.tidligstMuligHeltUttak.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            tidligstMuligHeltUttakResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(tidligstMuligHeltUttakResponse)
         })
     })
 
@@ -461,9 +427,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.tidligstMuligHeltUttak.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -478,11 +443,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.tidligstMuligHeltUttak.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -508,9 +471,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(alderspensjonResponse)
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(alderspensjonResponse)
         })
     })
 
@@ -522,9 +484,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -539,11 +500,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -570,11 +529,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -601,11 +558,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -617,11 +572,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            spraakvelgerToggleResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(spraakvelgerToggleResponse)
         })
     })
 
@@ -631,9 +583,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -649,11 +600,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -665,11 +614,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            enableRedirect1963ToggleResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(enableRedirect1963ToggleResponse)
         })
     })
 
@@ -679,9 +625,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -697,11 +642,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.getRedirect1963FeatureToggle.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -713,11 +656,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getSanityFeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
-            enableSanityToggleResponse
-          )
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(enableSanityToggleResponse)
         })
     })
 
@@ -727,9 +667,8 @@ describe('apiSlice', () => {
       return storeRef
         .dispatch(apiSlice.endpoints.getSanityFeatureToggle.initiate())
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -745,11 +684,9 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch(apiSlice.endpoints.getSanityFeatureToggle.initiate())
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })
@@ -763,9 +700,8 @@ describe('apiSlice', () => {
           apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
         )
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('fulfilled')
-          expect(fetchBaseQueryResult.data).toMatchObject(
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(
             utvidetSimuleringsresultatToggleResponse
           )
         })
@@ -779,9 +715,8 @@ describe('apiSlice', () => {
           apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
         )
         .then((result) => {
-          const fetchBaseQueryResult = result as unknown as FetchBaseQueryError
-          expect(fetchBaseQueryResult.status).toBe('rejected')
-          expect(fetchBaseQueryResult.data).toBe(undefined)
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
         })
     })
 
@@ -799,11 +734,9 @@ describe('apiSlice', () => {
             apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
           )
           .then((result) => {
-            const fetchBaseQueryResult =
-              result as unknown as FetchBaseQueryError
-            expect(fetchBaseQueryResult).toThrow(Error)
-            expect(fetchBaseQueryResult.status).toBe('rejected')
-            expect(fetchBaseQueryResult.data).toBe(undefined)
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
           })
       })
     })

@@ -45,17 +45,21 @@ export function Forbehold() {
                 <Heading level="3" size="small" spacing>
                   {forbeholdAvsnitt.overskrift}
                 </Heading>
+                <BodyLong spacing as="div">
+                  <PortableText
+                    value={forbeholdAvsnitt.innhold}
+                    components={{ ...getSanityPortableTextComponents(intl) }}
+                  />
+                </BodyLong>
+              </section>
+            ) : (
+              <BodyLong spacing as="div">
                 <PortableText
+                  key={i}
                   value={forbeholdAvsnitt.innhold}
                   components={{ ...getSanityPortableTextComponents(intl) }}
                 />
-              </section>
-            ) : (
-              <PortableText
-                key={i}
-                value={forbeholdAvsnitt.innhold}
-                components={{ ...getSanityPortableTextComponents(intl) }}
-              />
+              </BodyLong>
             )
           })}
         </>
