@@ -8,7 +8,6 @@ import {
   Point,
   Series,
   Tooltip,
-  TooltipFormatterContextObject,
   TooltipPositionerPointObject,
 } from 'highcharts'
 
@@ -122,26 +121,26 @@ export function onPointUnclick(
 }
 
 export function tooltipFormatter(
-  context: TooltipFormatterContextObject,
+  point: Point,
   styles: Partial<typeof globalClassNames>,
   intl: IntlShape
 ): string {
-  const series = context.points?.[0].series as Series
-  const chart = series.chart as Chart
+  const chart = point.series.chart as Chart
   const points: ExtendedPoint[] = []
 
   chart.series.forEach(function (serie: Series) {
-    serie.data.forEach(function (point: Point) {
-      if (point.category === context.key) {
-        points.push(point as ExtendedPoint)
+    serie.data.forEach(function (localPoint: Point) {
+      if (localPoint.category === point.category) {
+        points.push(localPoint as ExtendedPoint)
       }
     })
   })
 
   const tooltipEntriesHeight =
     20 *
-    (points?.filter((point: ExtendedPoint) => point.percentage > 0)?.length ??
-      0)
+    (points?.filter(
+      (extendedPoint: ExtendedPoint) => extendedPoint.percentage > 0
+    )?.length ?? 0)
   const lineYstartPOS = tooltipEntriesHeight + 55
   const columnHeight =
     (points?.[0].series.yAxis as ExtendedAxis).height - (points[0].plotY ?? 0)
@@ -164,19 +163,19 @@ export function tooltipFormatter(
   const inntektSerieName = intl.formatMessage({
     id: SERIES_DEFAULT.SERIE_INNTEKT.name,
   })
-  points.forEach(function (point) {
-    if (point.y && point.y > 0) {
-      if (point.series.name === inntektSerieName) {
+  points.forEach(function (localPoint) {
+    if (localPoint.y && localPoint.y > 0) {
+      if (localPoint.series.name === inntektSerieName) {
         hasInntekt = true
       } else {
         hasPensjon = true
       }
       pointsFormat +=
         `<tr>` +
-        `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
+        `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${localPoint.series.color}"></span>${localPoint.series.name}</td>` +
         `<td class="${styles.tooltipTableCell} ${
           styles.tooltipTableCell__right
-        }"><span class="nowrap">${formatInntekt(point.y)} kr</span></td>` +
+        }"><span class="nowrap">${formatInntekt(localPoint.y)} kr</span></td>` +
         `</tr>`
     }
   })
@@ -185,12 +184,7 @@ export function tooltipFormatter(
     `<table class="${styles.tooltipTable}"><thead><tr>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__left
-    }">${getTooltipTitle(
-      context.x as string,
-      hasInntekt,
-      hasPensjon,
-      intl
-    )}</th>` +
+    }">${getTooltipTitle(point.category + '', hasInntekt, hasPensjon, intl)}</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
     }"><span class="nowrap">${formatInntekt(points?.[0].total)} kr</span></th>` +
@@ -239,7 +233,6 @@ export const getChartOptions = (
                 showRightButton(elementScrollWidth > elementWidth)
                 /* eslint-disable-next-line @typescript-eslint/no-this-alias */
                 const chart = this
-
                 cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
                   chart,
                   scrollPosition,
@@ -291,7 +284,6 @@ export const getChartOptions = (
           color: 'var(--a-text-subtle)',
         },
       },
-
       lineColor: 'var(--a-text-subtle)',
     },
     yAxis: {
@@ -338,7 +330,7 @@ export const getChartOptions = (
       animation: false,
       followTouchMove: false,
       // /* c8 ignore next 20 */
-      formatter: function (this: TooltipFormatterContextObject) {
+      formatter: function (this: Point) {
         return tooltipFormatter(this, styles, intl)
       },
       positioner: function (

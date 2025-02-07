@@ -36,9 +36,10 @@ declare global {
     BaseQueryFn<Record<string, unknown>, Person>
   >
   type Person = components['schemas']['PersonResultV4']
-  type Sivilstand = components['schemas']['PersonResultV4']['sivilstand']
-
-  type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+  type Sivilstand =
+    components['schemas']['AlderspensjonDetaljerV4']['sivilstand']
+  type BegrensetSivilstand =
+    components['schemas']['PersonResultV4']['sivilstand']
   type pensjoneringAldre =
     components['schemas']['PersonResultV4']['pensjoneringAldre']
 
