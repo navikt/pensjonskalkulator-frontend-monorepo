@@ -44,7 +44,6 @@ import {
   transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
-import { checkHarSamboer } from '@/utils/sivilstand'
 
 import styles from './BeregningAvansert.module.scss'
 
@@ -88,10 +87,7 @@ export const BeregningAvansert: React.FC = () => {
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
         epsHarPensjon: !!epsHarPensjon,
-        epsHarInntektOver2G:
-          epsHarInntektOver2G === null
-            ? checkHarSamboer(sivilstand)
-            : epsHarInntektOver2G,
+        epsHarInntektOver2G: !!epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode

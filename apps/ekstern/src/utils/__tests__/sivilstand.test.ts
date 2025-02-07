@@ -1,7 +1,6 @@
 import { IntlShape } from 'react-intl'
 
 import {
-  checkHarSamboer,
   isSivilstandUkjent,
   formatSivilstand,
   getSivilstandTekst,
@@ -81,27 +80,6 @@ describe('sivilstand-utils', () => {
     })
   })
 
-  describe('checkHarSamboer', () => {
-    const HAR_SAMBOER_STATES = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER']
-    it('har samboer', () => {
-      const actual = HAR_SAMBOER_STATES.map((s) =>
-        checkHarSamboer(s as Sivilstand)
-      )
-
-      expect(actual.every((it) => it)).toBe(true)
-    })
-
-    it('har ikke samboer', () => {
-      const HAR_IKKE_SAMBOER_STATES = sivilstandOptions.filter(
-        (s) => HAR_SAMBOER_STATES.indexOf(s) === -1
-      ) as UtvidetSivilstand[]
-
-      const actual = HAR_IKKE_SAMBOER_STATES.map((it) => checkHarSamboer(it))
-
-      expect(actual.every((it) => !it)).toBe(true)
-    })
-  })
-
   describe('isSivilstandUkjent', () => {
     it('er ukjent sivilstand', () => {
       const actual = ['UNKNOWN', 'UOPPGITT'].map((it) =>
@@ -113,7 +91,7 @@ describe('sivilstand-utils', () => {
 
     it('er kjent sivilstand', () => {
       const actual = sivilstandOptions.map((it) =>
-        isSivilstandUkjent(it as UtvidetSivilstand)
+        isSivilstandUkjent(it as Sivilstand)
       )
 
       expect(actual.every((it) => !it)).toBe(true)

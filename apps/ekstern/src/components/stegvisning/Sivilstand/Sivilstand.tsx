@@ -28,13 +28,13 @@ import styles from './Sivilstand.module.scss'
 interface Props {
   sivilstandFolkeregister: Sivilstand
   grunnbelop?: number
-  sivilstand: UtvidetSivilstand
+  sivilstand: Sivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   onCancel?: () => void
   onPrevious: () => void
   onNext: (sivilstandData: {
-    sivilstand: UtvidetSivilstand
+    sivilstand: Sivilstand
     epsHarPensjon: boolean | null
     epsHarInntektOver2G: boolean | null
   }) => void
@@ -220,9 +220,7 @@ export function Sivilstand({
             className={styles.selectSivilstand}
             name="sivilstand"
             value={isSivilstandUkjent(sivilstandInput) ? '' : sivilstandInput}
-            onChange={(e) =>
-              setSivilstandInput(e.target.value as UtvidetSivilstand)
-            }
+            onChange={(e) => setSivilstandInput(e.target.value as Sivilstand)}
             label={intl.formatMessage({
               id: `stegvisning.sivilstand.select_label`,
             })}

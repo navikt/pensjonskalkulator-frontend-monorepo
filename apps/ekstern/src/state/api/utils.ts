@@ -77,7 +77,7 @@ export const transformUtenlandsperioderArray = (
 export const generateTidligstMuligHeltUttakRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
-  sivilstand?: UtvidetSivilstand | null | undefined
+  sivilstand?: Sivilstand | null | undefined
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   aarligInntektFoerUttakBeloep: string
@@ -120,7 +120,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
 export const generateAlderspensjonRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
-  sivilstand?: UtvidetSivilstand | null | undefined
+  sivilstand?: Sivilstand | null | undefined
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   foedselsdato: string | null | undefined
@@ -184,7 +184,7 @@ export const generateAlderspensjonRequestBody = (args: {
 export const generateAlderspensjonEnkelRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
-  sivilstand: UtvidetSivilstand
+  sivilstand: Sivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null // Støttes ikke i Pesys - defaultes til false
   foedselsdato: string | null | undefined
@@ -231,7 +231,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   ufoeregrad: number
   afp: AfpRadio | null
-  sivilstand?: UtvidetSivilstand
+  sivilstand?: Sivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
   heltUttak: HeltUttak
@@ -305,7 +305,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
 export const generateOffentligTpRequestBody = (args: {
   afp: AfpRadio | null
   foedselsdato: string | null | undefined
-  sivilstand?: UtvidetSivilstand | null | undefined
+  sivilstand?: Sivilstand | null | undefined
   epsHarPensjon: boolean | null
   epsHarInntektOver2G: boolean | null
   aarligInntektFoerUttakBeloep: string

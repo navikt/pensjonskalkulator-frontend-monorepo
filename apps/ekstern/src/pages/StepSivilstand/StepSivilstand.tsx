@@ -38,7 +38,7 @@ export function StepSivilstand() {
   }, [])
 
   const onNext = (sivilstandData: {
-    sivilstand: UtvidetSivilstand
+    sivilstand: Sivilstand
     epsHarPensjon: boolean | null
     epsHarInntektOver2G: boolean | null
   }): void => {

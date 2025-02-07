@@ -12,7 +12,7 @@ declare global {
         samtykke?: boolean
         afp?: AfpRadio
         samtykkeAfpOffentlig?: boolean
-        sivilstand?: UtvidetSivilstand
+        sivilstand?: Sivilstand
         epsHarPensjon?: boolean
         epsHarInntektOver2G?: boolean
       }): Chainable<void>

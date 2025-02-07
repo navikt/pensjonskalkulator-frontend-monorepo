@@ -18,7 +18,7 @@ export interface UserInputState {
   samtykke: boolean | null
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
-  sivilstand: UtvidetSivilstand | null
+  sivilstand: Sivilstand | null
   epsHarPensjon: boolean | null
   epsHarInntektOver2G: boolean | null
   currentSimulation: Simulation
@@ -69,7 +69,7 @@ export const userInputSlice = createSlice({
     setSivilstand: (
       state,
       action: PayloadAction<{
-        sivilstand: UtvidetSivilstand
+        sivilstand: Sivilstand
         epsHarPensjon: boolean | null
         epsHarInntektOver2G: boolean | null
       }>
