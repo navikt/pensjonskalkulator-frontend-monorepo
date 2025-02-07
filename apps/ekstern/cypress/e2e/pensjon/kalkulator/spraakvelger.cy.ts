@@ -23,7 +23,6 @@ describe('Språkvelger', () => {
 
     // Går videre fra Sivilstand steg
     cy.contains('Sivilstand')
-    cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
 
     // Sjekker default språk på utenlandsopphold steg
