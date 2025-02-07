@@ -22,7 +22,7 @@ describe('Språkvelger', () => {
     cy.contains('button', 'Kom i gang').click()
 
     // Går videre fra Sivilstand steg
-    cy.contains('Din sivilstand')
+    cy.contains('Sivilstand')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
 
