@@ -332,9 +332,9 @@ const translations = {
   'sivilstand.SKILT': 'Skilt',
   'sivilstand.SEPARERT': 'Separert',
   'sivilstand.SEPARERT_PARTNER': 'Separert partner',
+  'sivilstand.SAMBOER': 'Samboer',
   'sivilstand.SKILT_PARTNER': 'Skilt partner',
   'sivilstand.GJENLEVENDE_PARTNER': 'Gjenlevende partner',
-  'sivilstand.SAMBOER': 'Samboer',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.ingress_1':
