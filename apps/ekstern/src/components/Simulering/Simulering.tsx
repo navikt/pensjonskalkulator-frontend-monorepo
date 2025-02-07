@@ -28,7 +28,10 @@ import {
   selectEpsHarInntektOver2G,
 } from '@/state/userInput/selectors'
 
-import { useSimuleringChartLocalState } from './hooks'
+import {
+  useSimuleringChartLocalState,
+  useHighchartsRegressionPlugin,
+} from './hooks'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
@@ -142,6 +145,8 @@ export function Simulering(props: {
       )
     }
   }, [harSamtykket, uttaksalder])
+
+  useHighchartsRegressionPlugin()
 
   const [
     chartOptions,

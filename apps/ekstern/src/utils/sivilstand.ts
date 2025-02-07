@@ -1,11 +1,6 @@
 import { IntlShape } from 'react-intl'
 
-export function checkHarSamboer(sivilstand?: UtvidetSivilstand): boolean {
-  if (!sivilstand) return false
-  return ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
-}
-
-export function isSivilstandUkjent(sivilstand?: UtvidetSivilstand): boolean {
+export function isSivilstandUkjent(sivilstand?: Sivilstand): boolean {
   if (!sivilstand) return false
   return ['UNKNOWN', 'UOPPGITT'].includes(sivilstand)
 }
@@ -24,7 +19,7 @@ export const sivilstandOptions = [
 ]
 export const getSivilstandTekst = (
   intl: IntlShape,
-  sivilstandTekst: UtvidetSivilstand
+  sivilstandTekst: Sivilstand
 ) => {
   switch (sivilstandTekst) {
     case 'GIFT':
@@ -38,9 +33,9 @@ export const getSivilstandTekst = (
 
 export const formatSivilstand = (
   intl: IntlShape,
-  sivilstand: UtvidetSivilstand
+  sivilstand: Sivilstand
 ): string => {
-  const sivilstandMap: Record<UtvidetSivilstand, string> = {
+  const sivilstandMap: Record<Sivilstand, string> = {
     UNKNOWN: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
     UOPPGITT: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
     UGIFT: intl.formatMessage({ id: 'sivilstand.UGIFT' }),

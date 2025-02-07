@@ -9,15 +9,39 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
+import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
+import enableSanityToggleResponse from './data/unleash-enable-sanity.json' with { type: 'json' }
 import enableOtpFraKlpToggleResponse from './data/unleash-otp-fra-klp.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
+const testHandlers =
+  process.env.NODE_ENV === 'test'
+    ? [
+        http.get(
+          'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development',
+          async ({ request }) => {
+            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26'
+            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26',
+            const url = new URL(request.url)
+            const type = url.searchParams.get('_type')
+            if (type === 'readmore') {
+              return HttpResponse.json(sanityReadMoreDataResponse)
+            } else if (type === 'forbeholdAvsnitt') {
+              return HttpResponse.json(sanityForbeholdAvsnittDataResponse)
+            }
+          }
+        ),
+      ]
+    : []
+
 export const getHandlers = (baseUrl: string = API_PATH) => [
+  ...testHandlers,
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
     await delay(500)
     return HttpResponse.json({
@@ -148,6 +172,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(enableRedirect1963ToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.hent-tekster-fra-sanity`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableSanityToggleResponse)
     }
   ),
 

@@ -11,9 +11,29 @@ beforeEach(() => {
     { fixture: 'decorator-auth.json' }
   ).as('getDecoratorPersonAuth')
 
-  cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
+  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
+
+  cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
+    statusCode: 200,
+  }).as('getDecoratorLoginAuthProd')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://representasjon-banner-frontend-borger-q2.ekstern.dev.nav.no/pensjon/selvbetjening/representasjon/api/representasjon/harRepresentasjonsforhold`,
+    },
+    { fixture: 'representasjon-banner.json' }
+  ).as('getRepresentasjonBanner')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://www.nav.no/pensjon/selvbetjening/representasjon/api/representasjon/harRepresentasjonsforhold`,
+    },
+    { fixture: 'representasjon-banner.json' }
+  ).as('getRepresentasjonBannerProd')
 
   cy.intercept('GET', `/collect`, {
     statusCode: 200,
@@ -31,6 +51,14 @@ beforeEach(() => {
     {
       method: 'GET',
       url: `/main-menu?*`,
+    },
+    { fixture: 'decorator-main-menu.html' }
+  ).as('getDecoratorMainMenu')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://dekoratoren.ekstern.dev.nav.no/main-menu?`,
     },
     { fixture: 'decorator-main-menu.html' }
   ).as('getDecoratorMainMenu')
@@ -85,6 +113,14 @@ beforeEach(() => {
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-redirect-1963',
     },
     { fixture: 'toggle-enable-redirect-1963.json' }
+  ).as('getFeatureToggleRedirect1963')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.hent-tekster-fra-sanity',
+    },
+    { fixture: 'toggle-enable-sanity.json' }
   ).as('getFeatureToggleRedirect1963')
 
   cy.intercept(
@@ -154,6 +190,30 @@ beforeEach(() => {
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%22nb%22%5D&returnQuery=false`,
+    },
+    { fixture: 'sanity-readmore-nb-data.json' }
+  ).as('fetchSanityReadMoreDataNb')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%22en%22%5D&returnQuery=false`,
+    },
+    { fixture: 'sanity-readmore-en-data.json' }
+  ).as('fetchSanityReadMoreDataEn')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26*`,
+    },
+    { fixture: 'sanity-forbehold-avsnitt-data.json' }
+  ).as('fetchSanityForbeholdAvsnittData')
 })
 
 Cypress.Commands.add('login', () => {
