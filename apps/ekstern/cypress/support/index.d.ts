@@ -12,9 +12,7 @@ declare global {
         samtykke?: boolean
         afp?: AfpRadio
         samtykkeAfpOffentlig?: boolean
-        sivilstand?: Sivilstand
-        epsHarPensjon?: boolean
-        epsHarInntektOver2G?: boolean
+        samboer?: boolean
       }): Chainable<void>
       /**
        * Custom command for å logge inn og navigere til /start

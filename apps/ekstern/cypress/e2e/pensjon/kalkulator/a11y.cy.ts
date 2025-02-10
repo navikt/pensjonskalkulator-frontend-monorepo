@@ -9,11 +9,9 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Kom i gang').click()
 
     // Sjekker Sivilstand steg
-    cy.contains('Sivilstand')
+    cy.contains('Din sivilstand')
     cy.checkA11y('main')
-    cy.get('select[name="sivilstand"]').select(1)
-    cy.get('input[name="epsHarPensjon"][value="nei"]').check()
-    cy.get('input[name="epsHarInntektOver2G"][value="nei"]').check()
+    cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
 
     // Sjekker utenlandsopphold steg

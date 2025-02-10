@@ -15,6 +15,7 @@ import {
 } from '../loaders'
 import {
   fulfilledGetPerson,
+  fulfilledGetPersonMedSamboer,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
@@ -398,98 +399,44 @@ describe('Loaders', () => {
       `)
     })
 
-    it('får data fra /person fra loader', async () => {
-      const initiateGetPersonMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getPerson,
-        'initiate'
-      )
-
-      mockResponse('/v4/person', {
-        status: 200,
-        json: {
-          navn: 'Ola',
-          sivilstand: 'GIFT',
-          foedselsdato: '1960-04-30',
-          pensjoneringAldre: {
-            normertPensjoneringsalder: {
-              aar: 67,
-              maaneder: 0,
-            },
-            nedreAldersgrense: {
-              aar: 62,
-              maaneder: 0,
-            },
-          },
-        },
-      })
-
+    it('Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
       const mockedState = {
         api: {
           queries: {
-            mock: 'mock',
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState },
       }
       store.getState = vi.fn().mockImplementation(() => {
-        return { ...mockedState }
+        return mockedState
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      console.log(returnedFromLoader)
-      const person = await (
+      const shouldRedirectToResponse = await (
         returnedFromLoader as StepSivilstandAccessGuardLoader
-      ).getPersonQuery
-
-      expect(initiateGetPersonMock).toHaveBeenCalled()
-      expect(person.sivilstand).toBe('GIFT')
+      ).shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
     })
 
-    it('får data fra g.nav fra loader', async () => {
-      mockResponse('/api/v1/grunnbel%C3%B8p', {
-        baseUrl: 'https://g.nav.no',
-        json: {
-          grunnbeløp: 1234,
-        },
-      })
+    it('Når brukeren har samboer, er hen redirigert', async () => {
       const mockedState = {
         api: {
           queries: {
-            mock: 'mock',
+            ...fulfilledGetPersonMedSamboer,
           },
         },
         userInput: { ...userInputInitialState },
       }
       store.getState = vi.fn().mockImplementation(() => {
-        return { ...mockedState }
+        return mockedState
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      const g = await (returnedFromLoader as StepSivilstandAccessGuardLoader)
-        .getGrunnbelopQuery
-      expect(g).toBe(1234)
-    })
-
-    it('returner undefined dersom g.nav.no feiler', async () => {
-      mockErrorResponse('/api/v1/grunnbel%C3%B8p', {
-        baseUrl: 'https://g.nav.no',
-      })
-      const mockedState = {
-        api: {
-          queries: {
-            mock: 'mock',
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return { ...mockedState }
-      })
-
-      const returnedFromLoader = await stepSivilstandAccessGuard()
-      const g = await (returnedFromLoader as StepSivilstandAccessGuardLoader)
-        .getGrunnbelopQuery
-      expect(g).toBeUndefined()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as StepSivilstandAccessGuardLoader
+      ).shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
   })
 

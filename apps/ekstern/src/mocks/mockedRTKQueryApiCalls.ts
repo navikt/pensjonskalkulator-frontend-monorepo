@@ -45,15 +45,6 @@ export const fulfilledGetPersonMedOkteAldersgrenser = {
       },
     },
     fulfilledTimeStamp: 1688046412103,
-
-export const fulfilledGetGrunnbelop = {
-  'getGrunnbelop(undefined)': {
-    status: 'fulfilled',
-    endpointName: 'getGrunnbelop',
-    requestId: 'mockedRequestId',
-    startedTimeStamp: Date.now(),
-    data: 100000,
-    fulfilledTimeStamp: Date.now(),
   },
 }
 

@@ -7,7 +7,10 @@ import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
-import { selectIsVeileder } from '@/state/userInput/selectors'
+import {
+  selectIsVeileder,
+  selectSamboerFraSivilstand,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepUtenlandsopphold() {
@@ -15,6 +18,7 @@ export function StepUtenlandsopphold() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
+  const harSamboerFraSivilstand = useAppSelector(selectSamboerFraSivilstand)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
@@ -41,7 +45,7 @@ export function StepUtenlandsopphold() {
   }
 
   const onPrevious = (): void => {
-    navigate(-1)
+    navigate(harSamboerFraSivilstand ? -2 : -1)
   }
 
   return (

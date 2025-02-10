@@ -21,10 +21,9 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
   selectFoedselsdato,
+  selectSamboer,
   selectUfoeregrad,
   selectSivilstand,
-  selectEpsHarInntektOver2G,
-  selectEpsHarPensjon,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -51,8 +50,7 @@ export const Pensjonsavtaler = (props: {
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
   const foedselsdato = useAppSelector(selectFoedselsdato)
-  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
-  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const harSamboer = useAppSelector(selectSamboer)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -78,8 +76,7 @@ export const Pensjonsavtaler = (props: {
       const requestBody = generateOffentligTpRequestBody({
         afp,
         foedselsdato,
-        epsHarInntektOver2G,
-        epsHarPensjon,
+        harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         heltUttak: {
@@ -102,8 +99,7 @@ export const Pensjonsavtaler = (props: {
         ufoeregrad,
         afp,
         sivilstand,
-        epsHarInntektOver2G,
-        epsHarPensjon,
+        harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
         heltUttak: {

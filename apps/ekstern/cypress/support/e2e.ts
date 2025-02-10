@@ -235,9 +235,7 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     samtykke = false,
     afp = 'vet_ikke',
     samtykkeAfpOffentlig = true,
-    sivilstand = 'UGIFT',
-    epsHarPensjon = null,
-    epsHarInntektOver2G = null,
+    samboer = true,
   } = args
 
   cy.window()
@@ -256,14 +254,9 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
 
   cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
 
-  cy.window().its('store').invoke(
-    'dispatch',
-    userInputActions.setSivilstand({
-      sivilstand,
-      epsHarPensjon,
-      epsHarInntektOver2G,
-    })
-  )
+  cy.window()
+    .its('store')
+    .invoke('dispatch', userInputActions.setSamboer(samboer))
   cy.window().its('router').invoke('navigate', '/beregning')
 })
 

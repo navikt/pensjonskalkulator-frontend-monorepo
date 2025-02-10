@@ -27,6 +27,7 @@ import { generateAlderspensjonEnkelRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
+  selectSamboer,
   selectSivilstand,
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
@@ -37,8 +38,6 @@ import {
   selectLoependeVedtak,
   selectNedreAldersgrense,
   selectUbetingetUttaksalder,
-  selectEpsHarPensjon,
-  selectEpsHarInntektOver2G,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964, getBrukerensAlderPlus1Maaned } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -50,6 +49,7 @@ export const BeregningEnkel: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
+  const harSamboer = useAppSelector(selectSamboer)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -64,8 +64,6 @@ export const BeregningEnkel: React.FC = () => {
   )
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
   const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
-  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
-  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
@@ -101,31 +99,22 @@ export const BeregningEnkel: React.FC = () => {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand: sivilstand,
-        epsHarPensjon,
-        epsHarInntektOver2G,
+        sivilstand,
+        harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         utenlandsperioder,
       })
       setTidligstMuligHeltUttakRequestBody(requestBody)
     }
-  }, [
-    ufoeregrad,
-    afp,
-    sivilstand,
-    aarligInntektFoerUttakBeloep,
-    epsHarPensjon,
-    epsHarInntektOver2G,
-  ])
+  }, [ufoeregrad, afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand: sivilstand ?? 'UOPPGITT',
-        epsHarPensjon,
-        epsHarInntektOver2G,
+        sivilstand: person?.sivilstand,
+        harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder,
@@ -133,15 +122,7 @@ export const BeregningEnkel: React.FC = () => {
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }
-  }, [
-    afp,
-    person,
-    aarligInntektFoerUttakBeloep,
-    uttaksalder,
-    sivilstand,
-    epsHarPensjon,
-    epsHarInntektOver2G,
-  ])
+  }, [afp, person, aarligInntektFoerUttakBeloep, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {

@@ -3,6 +3,7 @@ import { parse, format, parseISO } from 'date-fns'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
+import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
@@ -78,8 +79,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
-  epsHarInntektOver2G: boolean | null
-  epsHarPensjon: boolean | null
+  harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaPensjon?: { beloep: string; sluttAlder: Alder }
   utenlandsperioder: Utenlandsperiode[]
@@ -88,8 +88,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     loependeVedtak,
     afp,
     sivilstand,
-    epsHarPensjon,
-    epsHarInntektOver2G,
+    harSamboer,
     aarligInntektFoerUttakBeloep,
     aarligInntektVsaPensjon,
     utenlandsperioder,
@@ -100,12 +99,17 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
       loependeVedtak,
       afp
     ),
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    sivilstand: sivilstand ?? 'UOPPGITT',
+    sivilstand:
+      sivilstand && checkHarSamboer(sivilstand)
+        ? sivilstand
+        : harSamboer
+          ? 'SAMBOER'
+          : 'UGIFT',
     aarligInntektVsaPensjon:
       aarligInntektVsaPensjon && aarligInntektVsaPensjon.beloep
         ? {
@@ -121,8 +125,7 @@ export const generateAlderspensjonRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
-  epsHarInntektOver2G: boolean | null
-  epsHarPensjon: boolean | null
+  harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: string
   gradertUttak?: GradertUttak
@@ -133,8 +136,7 @@ export const generateAlderspensjonRequestBody = (args: {
     loependeVedtak,
     afp,
     sivilstand,
-    epsHarInntektOver2G,
-    epsHarPensjon,
+    harSamboer,
     foedselsdato,
     aarligInntektFoerUttakBeloep,
     gradertUttak,
@@ -152,12 +154,17 @@ export const generateAlderspensjonRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    sivilstand: sivilstand ?? 'UOPPGITT',
+    sivilstand:
+      sivilstand && checkHarSamboer(sivilstand)
+        ? sivilstand
+        : harSamboer
+          ? 'SAMBOER'
+          : 'UGIFT',
     gradertUttak: gradertUttak
       ? {
           ...gradertUttak,
@@ -184,9 +191,8 @@ export const generateAlderspensjonRequestBody = (args: {
 export const generateAlderspensjonEnkelRequestBody = (args: {
   loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
-  sivilstand: Sivilstand
-  epsHarInntektOver2G: boolean | null
-  epsHarPensjon: boolean | null // Støttes ikke i Pesys - defaultes til false
+  sivilstand?: Sivilstand | null | undefined
+  harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
@@ -196,8 +202,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     loependeVedtak,
     afp,
     sivilstand,
-    epsHarPensjon,
-    epsHarInntektOver2G,
+    harSamboer,
     foedselsdato,
     aarligInntektFoerUttakBeloep,
     uttaksalder,
@@ -214,12 +219,17 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Støttes ikke i Pesys - defaultes til false
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
-    sivilstand,
+    sivilstand:
+      sivilstand && checkHarSamboer(sivilstand)
+        ? sivilstand
+        : harSamboer
+          ? 'SAMBOER'
+          : 'UGIFT',
     heltUttak: {
       uttaksalder,
     },
@@ -232,8 +242,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
   ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
-  epsHarInntektOver2G: boolean | null
-  epsHarPensjon: boolean | null
+  harSamboer: boolean | null
   heltUttak: HeltUttak
   gradertUttak?: GradertUttak
 }): PensjonsavtalerRequestBody => {
@@ -242,8 +251,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
     ufoeregrad,
     afp,
     sivilstand,
-    epsHarPensjon,
-    epsHarInntektOver2G,
+    harSamboer,
     heltUttak,
     gradertUttak,
   } = args
@@ -296,8 +304,8 @@ export const generatePensjonsavtalerRequestBody = (args: {
       },
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forbehold
     sivilstand,
   }
 }
@@ -305,9 +313,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
 export const generateOffentligTpRequestBody = (args: {
   afp: AfpRadio | null
   foedselsdato: string | null | undefined
-  sivilstand?: Sivilstand | null | undefined
-  epsHarPensjon: boolean | null
-  epsHarInntektOver2G: boolean | null
+  harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: string
   gradertUttak?: GradertUttak
   heltUttak?: HeltUttak
@@ -316,9 +322,8 @@ export const generateOffentligTpRequestBody = (args: {
   const {
     afp,
     foedselsdato,
+    harSamboer,
     aarligInntektFoerUttakBeloep,
-    epsHarPensjon,
-    epsHarInntektOver2G,
     gradertUttak,
     heltUttak,
     utenlandsperioder,
@@ -353,8 +358,8 @@ export const generateOffentligTpRequestBody = (args: {
       aarligInntektFoerUttakBeloep
     ),
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
-    epsHarInntektOver2G: epsHarInntektOver2G ?? false,
-    epsHarPensjon: epsHarPensjon ?? false,
+    epsHarInntektOver2G: harSamboer !== null ? harSamboer : false, // Fast - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
+    epsHarPensjon: false, // Fast iht. forbehold
     brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
 }

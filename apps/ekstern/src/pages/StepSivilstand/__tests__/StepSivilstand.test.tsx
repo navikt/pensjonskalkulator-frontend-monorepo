@@ -2,7 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetGrunnbelop } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -29,7 +29,6 @@ describe('StepSivilstand', () => {
       api: {
         queries: {
           ...fulfilledGetPerson,
-          ...fulfilledGetGrunnbelop,
         },
       },
       userInput: {
@@ -74,47 +73,69 @@ describe('StepSivilstand', () => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.sivilstand.title'
       )
-      expect(
-        screen.getByRole('combobox', {
-          name: /stegvisning.sivilstand.select_label/i,
-        })
-      ).toBeVisible()
+      expect(screen.getAllByRole('radio')).toHaveLength(2)
     })
   })
 
   it('registrerer sivilstand og navigerer videre til neste steg når brukeren svarer og klikker på Neste', async () => {
     const user = userEvent.setup()
-    const setSivilstandMock = vi.spyOn(
+    const setSamboerMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
-      'setSivilstand'
+      'setSamboer'
     )
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.sivilstand.title'
-      )
-      expect(
-        screen.getByRole('combobox', {
-          name: /stegvisning.sivilstand.select_label/i,
-        })
-      ).toBeVisible()
-    })
-    await user.selectOptions(
-      screen.getByRole('combobox', {
-        name: /stegvisning.sivilstand.select_label/i,
-      }),
-      'UGIFT'
-    )
+    const radioButtons = await screen.findAllByRole('radio')
+    expect(radioButtons[0]).not.toBeChecked()
+    expect(radioButtons[1]).not.toBeChecked()
+    await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
-    expect(setSivilstandMock).toHaveBeenCalled()
+    expect(setSamboerMock).toHaveBeenCalledWith(true)
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+  })
+
+  it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetPerson,
+          },
+        },
+        userInput: {
+          ...userInputReducerUtils.userInputInitialState,
+          samboer: true,
+        },
+      },
+    })
+    const radioButtons = await screen.findAllByRole('radio')
+
+    await user.click(radioButtons[0])
+    expect(radioButtons[0]).toBeChecked()
+    await user.click(screen.getByText('stegvisning.tilbake'))
+
+    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(store.getState().userInput.samboer).toBe(null)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {
