@@ -3,7 +3,6 @@ describe('AFP', () => {
     beforeEach(() => {
       cy.login()
       cy.contains('button', 'Kom i gang').click()
-      cy.get('[type="radio"]').last().check()
       cy.contains('button', 'Neste').click()
       cy.get('[type="radio"]').last().check()
       cy.contains('button', 'Neste').click()

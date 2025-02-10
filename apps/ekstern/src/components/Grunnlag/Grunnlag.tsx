@@ -12,9 +12,8 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboer, selectSivilstand } from '@/state/userInput/selectors'
+import { selectSivilstand } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { formatInntekt } from '@/utils/inntekt'
@@ -60,25 +59,11 @@ export const Grunnlag: React.FC<Props> = ({
 
   const intl = useIntl()
 
-  const { data: person, isSuccess } = useGetPersonQuery()
-  const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
 
   const formatertSivilstand = React.useMemo(
-    () =>
-      sivilstand
-        ? formatSivilstand(
-            intl,
-            sivilstand,
-            sivilstand !== 'SAMBOER'
-              ? {
-                  harSamboer: !!harSamboer,
-                }
-              : undefined
-          )
-        : '',
-
-    [person]
+    () => formatSivilstand(intl, sivilstand!),
+    [sivilstand]
   )
 
   return (
@@ -122,13 +107,7 @@ export const Grunnlag: React.FC<Props> = ({
             headerTitle={intl.formatMessage({
               id: 'grunnlag.sivilstand.title',
             })}
-            headerValue={
-              isSuccess
-                ? formatertSivilstand
-                : intl.formatMessage({
-                    id: 'grunnlag.sivilstand.title.error',
-                  })
-            }
+            headerValue={formatertSivilstand}
           >
             <BodyLong>
               <FormattedMessage

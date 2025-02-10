@@ -68,18 +68,6 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setSamboer', () => {
-      const updatedState = userInputSlice(
-        userInputInitialState,
-        userInputActions.setSamboer(true)
-      )
-
-      expect(updatedState).toStrictEqual({
-        ...userInputInitialState,
-        samboer: true,
-      })
-    })
-
     it('setCurrentSimulationUtenlandsperiode', () => {
       const utenlandsperiode: Utenlandsperiode = {
         id: '12345',
@@ -453,7 +441,6 @@ describe('userInputSlice', () => {
           samtykke: true,
           samtykkeOffentligAFP: true,
           afp: 'ja_offentlig',
-          samboer: false,
           currentSimulation: {
             utenlandsperioder: [],
             formatertUttaksalderReadOnly:
@@ -487,7 +474,6 @@ describe('userInputSlice', () => {
           harUtenlandsopphold: true,
           samtykke: true,
           afp: 'ja_offentlig',
-          samboer: false,
           currentSimulation: {
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
@@ -509,49 +495,6 @@ describe('userInputSlice', () => {
         harUtenlandsopphold: true,
         samtykke: true,
         afp: 'ja_offentlig',
-        samboer: false,
-      })
-    })
-
-    it('flushSamboerOgUtenlandsperioder', () => {
-      const utenlandsperioder = [
-        {
-          id: '1',
-          landkode: 'URY',
-          arbeidetUtenlands: false,
-          startdato: '01.01.2012',
-          sluttdato: '28.01.2015',
-        },
-      ]
-      const updatedState = userInputSlice(
-        {
-          ...userInputInitialState,
-          harUtenlandsopphold: true,
-          samtykke: true,
-          afp: 'ja_offentlig',
-          samboer: false,
-          currentSimulation: {
-            formatertUttaksalderReadOnly:
-              '66 alder.aar string.og 4 alder.maaneder',
-            uttaksalder: { aar: 66, maaneder: 4 },
-            aarligInntektFoerUttakBeloep: '300 000',
-            gradertUttaksperiode: null,
-            utenlandsperioder: [...utenlandsperioder],
-          },
-        },
-        userInputActions.flushSamboerOgUtenlandsperioder()
-      )
-
-      expect(updatedState).toStrictEqual({
-        ...userInputInitialState,
-        currentSimulation: {
-          ...userInputInitialState.currentSimulation,
-          utenlandsperioder: [],
-        },
-        harUtenlandsopphold: true,
-        samtykke: true,
-        afp: 'ja_offentlig',
-        samboer: null,
       })
     })
   })

@@ -202,4 +202,16 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     await request.json()
     return HttpResponse.json({ data: 'OK' })
   }),
+
+  http.get('https://g.nav.no/api/v1/grunnbel%C3%B8p', async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json({
+      dato: '2024-05-01',
+      grunnbeløp: 100000,
+      grunnbeløpPerMåned: 10000,
+      gjennomsnittPerÅr: 120000,
+      omregningsfaktor: 1,
+      virkningstidspunktForMinsteinntekt: '2024-06-03',
+    })
+  }),
 ]

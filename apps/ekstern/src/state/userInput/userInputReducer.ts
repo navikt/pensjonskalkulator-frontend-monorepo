@@ -18,7 +18,9 @@ export interface UserInputState {
   samtykke: boolean | null
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
-  samboer: boolean | null
+  sivilstand: Sivilstand | null
+  epsHarPensjon: boolean | null
+  epsHarInntektOver2G: boolean | null
   currentSimulation: Simulation
 }
 
@@ -29,7 +31,9 @@ export const userInputInitialState: UserInputState = {
   samtykke: null,
   samtykkeOffentligAFP: null,
   afp: null,
-  samboer: null,
+  sivilstand: null,
+  epsHarInntektOver2G: null,
+  epsHarPensjon: null,
   currentSimulation: {
     utenlandsperioder: [],
     formatertUttaksalderReadOnly: null,
@@ -62,8 +66,17 @@ export const userInputSlice = createSlice({
     setAfp: (state, action: PayloadAction<AfpRadio>) => {
       state.afp = action.payload
     },
-    setSamboer: (state, action: PayloadAction<boolean>) => {
-      state.samboer = action.payload
+    setSivilstand: (
+      state,
+      action: PayloadAction<{
+        sivilstand: Sivilstand
+        epsHarPensjon: boolean | null
+        epsHarInntektOver2G: boolean | null
+      }>
+    ) => {
+      state.sivilstand = action.payload.sivilstand
+      state.epsHarInntektOver2G = action.payload.epsHarInntektOver2G
+      state.epsHarPensjon = action.payload.epsHarPensjon
     },
     setCurrentSimulationUtenlandsperiode: (
       state,
@@ -163,7 +176,9 @@ export const userInputSlice = createSlice({
       state.samtykke = null
       state.samtykkeOffentligAFP = null
       state.afp = null
-      state.samboer = null
+      state.sivilstand = null
+      state.epsHarPensjon = null
+      state.epsHarInntektOver2G = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
     flushCurrentSimulationUtenomUtenlandsperioder: (state) => {
@@ -171,13 +186,6 @@ export const userInputSlice = createSlice({
       state.currentSimulation = {
         ...userInputInitialState.currentSimulation,
         utenlandsperioder,
-      }
-    },
-    flushSamboerOgUtenlandsperioder: (state) => {
-      state.samboer = null
-      state.currentSimulation = {
-        ...userInputInitialState.currentSimulation,
-        utenlandsperioder: [],
       }
     },
   },

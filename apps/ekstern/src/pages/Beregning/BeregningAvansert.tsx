@@ -27,14 +27,15 @@ import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
-  selectSamboer,
-  selectSivilstand,
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectIsEndring,
   selectLoependeVedtak,
   selectNedreAldersgrense,
+  selectEpsHarPensjon,
+  selectEpsHarInntektOver2G,
+  selectSivilstand,
 } from '@/state/userInput/selectors'
 import { getBrukerensAlderPlus1Maaned } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -48,8 +49,6 @@ export const BeregningAvansert: React.FC = () => {
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
     React.useContext(BeregningContext)
 
-  const harSamboer = useAppSelector(selectSamboer)
-  const sivilstand = useAppSelector(selectSivilstand)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const isEndring = useAppSelector(selectIsEndring)
@@ -59,6 +58,9 @@ export const BeregningAvansert: React.FC = () => {
   )
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
 
   const {
@@ -80,8 +82,9 @@ export const BeregningAvansert: React.FC = () => {
       const requestBody = generateAlderspensjonRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
-        sivilstand,
-        harSamboer,
+        sivilstand: sivilstand,
+        epsHarPensjon: !!epsHarPensjon,
+        epsHarInntektOver2G: !!epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode
@@ -97,7 +100,15 @@ export const BeregningAvansert: React.FC = () => {
       })
       setAlderspensjonRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttakBeloep, harSamboer, uttaksalder])
+  }, [
+    afp,
+    person,
+    aarligInntektFoerUttakBeloep,
+    sivilstand,
+    uttaksalder,
+    epsHarPensjon,
+    epsHarInntektOver2G,
+  ])
 
   // Hent alderspensjon + AFP
   const {

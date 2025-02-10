@@ -38,7 +38,6 @@ describe('Step Feil', () => {
           ...userInputInitialState,
           samtykke: true,
           afp: 'nei',
-          samboer: true,
         },
       },
     })
@@ -46,6 +45,5 @@ describe('Step Feil', () => {
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
     expect(store.getState().userInput.afp).toBe(null)
-    expect(store.getState().userInput.samboer).toBe(null)
   })
 })

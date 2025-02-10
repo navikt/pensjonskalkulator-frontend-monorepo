@@ -3,7 +3,6 @@ describe('Utland', () => {
     beforeEach(() => {
       cy.login()
       cy.contains('button', 'Kom i gang').click()
-      cy.get('[type="radio"]').last().check({ force: true })
       cy.contains('button', 'Neste').click()
     })
 

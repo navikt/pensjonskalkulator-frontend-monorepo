@@ -133,6 +133,7 @@ describe('Pensjonsavtaler', () => {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
+            sivilstand: 'UGIFT',
             currentSimulation: currentSimulation,
           },
         },
@@ -143,7 +144,7 @@ describe('Pensjonsavtaler', () => {
           harAfp: true,
           epsHarPensjon: false,
           epsHarInntektOver2G: false,
-          sivilstand: undefined,
+          sivilstand: 'UGIFT',
           uttaksperioder: [
             {
               aarligInntektVsaPensjon: {

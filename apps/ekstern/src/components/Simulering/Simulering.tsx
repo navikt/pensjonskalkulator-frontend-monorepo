@@ -21,10 +21,11 @@ import {
   selectSamtykke,
   selectUfoeregrad,
   selectSivilstand,
-  selectSamboer,
   selectAfp,
   selectIsEndring,
   selectFoedselsdato,
+  selectEpsHarPensjon,
+  selectEpsHarInntektOver2G,
 } from '@/state/userInput/selectors'
 
 import {
@@ -70,7 +71,8 @@ export function Simulering(props: {
   const sivilstand = useAppSelector(selectSivilstand)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const isEndring = useAppSelector(selectIsEndring)
-  const harSamboer = useAppSelector(selectSamboer)
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const {
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -115,7 +117,8 @@ export function Simulering(props: {
         generateOffentligTpRequestBody({
           afp,
           foedselsdato,
-          harSamboer,
+          epsHarPensjon,
+          epsHarInntektOver2G,
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
           gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
@@ -130,7 +133,8 @@ export function Simulering(props: {
           ufoeregrad,
           afp,
           sivilstand,
-          harSamboer,
+          epsHarPensjon,
+          epsHarInntektOver2G,
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
           gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
           heltUttak: {
