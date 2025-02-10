@@ -1,5 +1,3 @@
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-
 import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import ekskludertStatusResponse from '../../../mocks/data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
