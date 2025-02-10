@@ -8,7 +8,6 @@ import {
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
 
-import { sanityClient } from '../../../sanity.config'
 import { SanityContext } from '@/context/SanityContext'
 import {
   SanityForbeholdAvsnitt,
@@ -16,6 +15,7 @@ import {
 } from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logger } from '@/utils/logging'
+import { sanityClient } from '@/utils/sanity'
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
@@ -50,7 +50,7 @@ export function LanguageProvider({ children }: Props) {
       const readMorePromise = sanityClient
         .fetch(`*[_type == "readmore" && language == "${locale}"]`)
         .then((sanityReadMoreResponse) => {
-          setSanityReadMoreData(sanityReadMoreResponse)
+          setSanityReadMoreData(sanityReadMoreResponse || [])
         })
         .catch(() => {
           logger('info', {
@@ -61,7 +61,7 @@ export function LanguageProvider({ children }: Props) {
       const forbeholdAvsnittPromise = sanityClient
         .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
         .then((sanityForbeholdAvsnittResponse) => {
-          setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse)
+          setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
         })
         .catch(() => {
           logger('info', {

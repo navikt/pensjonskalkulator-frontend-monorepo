@@ -1,4 +1,3 @@
-import { createClient, type ClientConfig } from '@sanity/client'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { RobotIcon, RocketIcon } from '@sanity/icons'
 import { visionTool } from '@sanity/vision'
@@ -9,21 +8,6 @@ import { schemaTypes } from './schemaTypes'
 import { supportedLanguages } from './schemaTypes/supportedLanguages'
 
 export const projectId = 'g2by7q6m'
-const dataset =
-  window.location.href.indexOf('ekstern.dev') != -1 ||
-  window.location.href.indexOf('localhost') != -1
-    ? 'development'
-    : 'production'
-
-const config: ClientConfig = {
-  projectId,
-  dataset,
-
-  useCdn: true, // set to `false` to bypass the edge cache
-  apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
-}
-
-export const sanityClient = createClient(config)
 
 const pluginsArray = [
   structureTool(),

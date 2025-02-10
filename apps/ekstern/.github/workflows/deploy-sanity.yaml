@@ -4,13 +4,23 @@ on:
   push:
     branches:
       - main
+      - sandbox
+      - catbox
+      - magicbox
       - dreambox
+      - coffeebox
+      - codebox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE.md'
       - 'README.md'
   workflow_dispatch:
+    inputs:
+      sanity:
+        description: Deploy Sanity
+        type: boolean
+        required: false
 
 jobs:
   build:
@@ -70,12 +80,11 @@ jobs:
     needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
-    # TODO: Fjern github.ref dreambox
     if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      (github.ref == 'refs/heads/dreambox' || github.ref == 'refs/heads/main' )
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.sanity == 'true' &&
+      github.ref == 'refs/heads/main' 
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,23 +95,3 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-sanity-staging.yml
-
-  #  deploy-prod:
-  #    name: Deploy to prod-gcp
-  #    needs: [build, run-unit-tests, run-integration-tests]
-  #    permissions: write-all
-  #    runs-on: ubuntu-latest
-  #    if: |
-  #      github.ref == 'refs/heads/main' &&
-  #      github.event_name == 'workflow_dispatch' &&
-  #      github.event.inputs.prod == 'true'
-  #    steps:
-  #      - name: Checkout
-  #        uses: actions/checkout@v4
-  #
-  #      - name: Deploy to prod-gcp
-  #        uses: nais/deploy/actions/deploy@v2
-  #        env:
-  #          CLUSTER: prod-gcp
-  #          IMAGE: ${{ needs.build.outputs.image }}
-  #          RESOURCE: .nais/deploy-sanity-prod.yml

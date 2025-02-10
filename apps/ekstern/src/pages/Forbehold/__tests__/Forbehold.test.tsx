@@ -47,7 +47,7 @@ describe('Forbehold', () => {
     })
   })
 
-  it('rendrer seksjonene riktig når tekstene fra Sanity ikke kunne hentes', () => {
+  it('rendrer seksjonene riktig når tekstene fra Sanity ikke skal brukes', () => {
     mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
     render(<Forbehold />, {
       preloadedState: {

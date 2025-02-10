@@ -3,8 +3,22 @@ import { IntlShape } from 'react-intl'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 import { PortableTextReactComponents } from '@portabletext/react'
+import { createClient } from '@sanity/client'
 
 import { logOpenLink } from './logging'
+
+const dataset =
+  window.location.href.includes('ekstern.dev') ||
+  window.location.href.includes('localhost')
+    ? 'development'
+    : 'production'
+
+export const sanityClient = createClient({
+  projectId: 'g2by7q6m',
+  dataset,
+  useCdn: true, // set to `false` to bypass the edge cache
+  apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
+})
 
 export const getSanityPortableTextComponents = (
   intl: IntlShape

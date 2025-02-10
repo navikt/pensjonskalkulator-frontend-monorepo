@@ -11,13 +11,13 @@ beforeEach(() => {
     { fixture: 'decorator-auth.json' }
   ).as('getDecoratorPersonAuth')
 
-  cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
+  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
 
-  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
+  cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
     statusCode: 200,
-  }).as('getDecoratorLoginEksternAuth')
+  }).as('getDecoratorLoginAuthProd')
 
   cy.intercept(
     {
@@ -26,6 +26,14 @@ beforeEach(() => {
     },
     { fixture: 'representasjon-banner.json' }
   ).as('getRepresentasjonBanner')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `https://www.nav.no/pensjon/selvbetjening/representasjon/api/representasjon/harRepresentasjonsforhold`,
+    },
+    { fixture: 'representasjon-banner.json' }
+  ).as('getRepresentasjonBannerProd')
 
   cy.intercept('GET', `/collect`, {
     statusCode: 200,

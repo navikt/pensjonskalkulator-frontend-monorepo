@@ -46,7 +46,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('rendrer slik den skal når tekstene fra sanity ikke kunne hentes', async () => {
+  it('rendrer slik den skal når tekstene fra sanity ikke skal brukes', async () => {
     mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
     render(
       <Utenlandsopphold

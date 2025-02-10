@@ -12,7 +12,7 @@ import {
   TextField,
 } from '@navikt/ds-react'
 import clsx from 'clsx'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
@@ -36,7 +36,7 @@ import {
   DEFAULT_MAX_OPPTJENINGSALDER,
   transformAlderToString,
 } from '@/utils/alder'
-import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
   formatInntekt,
   updateAndFormatInntektFromInputField,
@@ -368,7 +368,11 @@ export const RedigerAvansertBeregning: React.FC<{
                   id={'beregning.endring.rediger.vedtak_status'}
                   values={{
                     dato: format(
-                      loependeVedtak?.alderspensjon?.fom as string,
+                      parse(
+                        loependeVedtak?.alderspensjon?.fom as string,
+                        DATE_BACKEND_FORMAT,
+                        new Date()
+                      ),
                       DATE_ENDUSER_FORMAT
                     ),
                     grad: loependeVedtak?.alderspensjon?.grad,
