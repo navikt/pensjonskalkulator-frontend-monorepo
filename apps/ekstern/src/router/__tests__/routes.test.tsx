@@ -16,6 +16,7 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
+  fulfilledGetGrunnbelop,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
@@ -361,6 +362,7 @@ describe('routes', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetPerson,
+                ...fulfilledGetGrunnbelop,
               },
             },
             userInput: { ...userInputInitialState },
@@ -894,7 +896,6 @@ describe('routes', () => {
             userInput: {
               ...userInputInitialState,
               samtykke: true,
-              samboer: false,
               afp: 'ja_privat',
               currentSimulation: {
                 ...userInputInitialState.currentSimulation,

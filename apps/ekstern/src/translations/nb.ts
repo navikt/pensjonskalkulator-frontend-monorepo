@@ -279,15 +279,38 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
-  'stegvisning.sivilstand.title': 'Din sivilstand',
-  'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
-  'stegvisning.sivilstand.ingress_2':
-    ' i Folkeregisteret. Hvis du har samboer eller ektefelle kan det påvirke beregningen.',
+  'stegvisning.sivilstand.title': 'Sivilstand',
+  'stegvisning.sivilstand.ingress_ukjent':
+    'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon.',
+  'stegvisning.sivilstand.ingress_1':
+    'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon. Du er registrert som ',
+  'stegvisning.sivilstand.ingress_2': ' i Folkeregisteret.',
+  'stegvisning.sivilstand.select_label':
+    'Hva er sivilstanden din når du skal ta ut pensjon?',
+  'stegvisning.sivilstand.select_description_ukjent':
+    'Dette gjelder kun beregninger i kalkulatoren.',
+  'stegvisning.sivilstand.select_description':
+    'Hvis du endrer, gjelder det kun beregninger i kalkulatoren.',
+  'stegvisning.sivilstand.radio_epsHarPensjon_label':
+    'Vil {sivilstand} motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+  'stegvisning.sivilstand.radio_epsHarPensjon_description':
+    'Når du skal ta ut pensjon',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
+    'Vil {sivilstand} ha inntekt over 2G{grunnbelop}?',
+  'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
+    'Gjelder kalenderåret du tar ut pensjon. Alle inntekter skal regnes med, også kapitalinntekter og pensjon fra andre enn Nav.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',
-  'stegvisning.sivilstand.validation_error':
-    'Du må svare på om du har samboer.',
+  'stegvisning.sivilstand.select_validation_error':
+    'Du må velge en sivilstand.',
+  'stegvisning.sivilstand.epsHarPensjon.validation_error':
+    'Du må svare på om {sivilstand} vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.',
+  'stegvisning.sivilstand.epsHarInntektOver2G.validation_error':
+    'Du må svare på om {sivilstand} vil ha inntekt over 2G.',
+  'stegvisning.sivilstand.ektefellen': 'ektefellen din',
+  'stegvisning.sivilstand.samboeren': 'samboeren din',
+  'stegvisning.sivilstand.partneren': 'partneren din',
   'agepicker.validation_error.aar': 'Du må velge år og måned',
   'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
@@ -302,16 +325,16 @@ const translations = {
   'afp.privat': 'Privat',
   'afp.nei': 'Nei',
   'afp.vet_ikke': 'Vet ikke',
-  'sivilstand.gift': 'Gift',
-  'sivilstand.ugift': 'Ugift',
-  'sivilstand.registrert_partner': 'Registrert partner',
-  'sivilstand.enke_enkemann': 'Enke/enkemann',
-  'sivilstand.skilt': 'Skilt',
-  'sivilstand.separert': 'Separert',
-  'sivilstand.separert_partner': 'Separert partner',
-  'sivilstand.samboer': 'Samboer',
-  'sivilstand.skilt_partner': 'Skilt partner',
-  'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
+  'sivilstand.GIFT': 'Gift',
+  'sivilstand.UGIFT': 'Ugift',
+  'sivilstand.REGISTRERT_PARTNER': 'Registrert partner',
+  'sivilstand.ENKE_ELLER_ENKEMANN': 'Enke/enkemann',
+  'sivilstand.SKILT': 'Skilt',
+  'sivilstand.SEPARERT': 'Separert',
+  'sivilstand.SEPARERT_PARTNER': 'Separert partner',
+  'sivilstand.SAMBOER': 'Samboer',
+  'sivilstand.SKILT_PARTNER': 'Skilt partner',
+  'sivilstand.GJENLEVENDE_PARTNER': 'Gjenlevende partner',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.ingress_1':
@@ -514,7 +537,7 @@ const translations = {
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
-    'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. Hvis du mottar alderspensjon må du derfor melde fra til Nav ved endring i sivilstand. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
+    'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.{br}{br}Når du mottar alderspensjon må du derfor melde fra til Nav ved endring i sivilstand.{br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
@@ -715,7 +738,7 @@ const translations = {
     'Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land.{br}{br}Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon.{br}{br}Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge.{br}{br}Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i periodene. Får du pensjonsgivende inntekt fra Norge i periodene vil den bli med i beregningen når du tar ut pensjonen din.{br}{br}Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder.{br}{br}Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen.',
   'forbehold.sivilstand.title': 'Sivilstand',
   'forbehold.sivilstand.ingress':
-    'Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du gift eller har bekreftet at du har samboer, har vi forutsatt at den du bor sammen med har egen inntekt høyere enn 2 ganger grunnbeløpet eller mottar egen pensjon når du tar ut pensjon. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon. Beregningen benytter ordinær sats for beregning av garantipensjon. Dersom ektefelle eller samboer har lavere inntekt og ikke mottar egen pensjon kan du ha rett på høy sats for garantipensjon, som for noen betyr en høyere alderspensjon.{br}{br}Om du har bekreftet at du bor alene er alderspensjon beregnet etter høy sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har samboer eller er gift, kan det gi lavere alderspensjon grunnet at ordinær sats for garantipensjon skal benyttes. ',
+    'Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon.{br}{br}Hvilken sats for minstepensjon du får kan påvirkes av sivilstanden din, og hvilke inntekter og ytelser ektefellen eller samboeren din har. Kalkulatoren kan ikke kontrollere ektefelles eller samboers ytelser. I noen tilfeller kan derfor feil sats for minstepensjon bli brukt.',
   'forbehold.afp.title': 'AFP',
   'forbehold.afp.ingress':
     'Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For livsvarig AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.{br}{br}Hvis du allerede har startet uttak av livsvarig AFP i offentlig sektor, og beregner det på nytt i kalkulatoren, kan beregningen bli feil. AFP-beløpet kan bli for høyt og tidspunktet for når du kan ta ut alderspensjon vises for tidlig.',

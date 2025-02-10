@@ -23,6 +23,17 @@ export const fulfilledGetPerson = {
   },
 }
 
+export const fulfilledGetGrunnbelop = {
+  'getGrunnbelop(undefined)': {
+    status: 'fulfilled',
+    endpointName: 'getGrunnbelop',
+    requestId: 'mockedRequestId',
+    startedTimeStamp: Date.now(),
+    data: 100000,
+    fulfilledTimeStamp: Date.now(),
+  },
+}
+
 export const fulfilledGetPersonMedSamboer = {
   ['getPerson(undefined)']: {
     status: 'fulfilled',

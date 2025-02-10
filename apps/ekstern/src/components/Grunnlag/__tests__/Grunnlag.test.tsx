@@ -166,9 +166,7 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByText('grunnlag.sivilstand.title')
       ).toBeInTheDocument()
-      expect(
-        await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
-      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.UGIFT')).toBeInTheDocument()
       await waitFor(async () => {
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
@@ -180,7 +178,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
@@ -208,13 +206,13 @@ describe('Grunnlag', () => {
       })
       renderGrunnlagMedPreloadedState('2', 'avansert', {
         ...userInputInitialState,
-        samboer: true,
+        sivilstand: 'GIFT',
       })
 
       expect(
         await screen.findByText('grunnlag.sivilstand.title')
       ).toBeInTheDocument()
-      expect(await screen.findByText('sivilstand.gift')).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.GIFT')).toBeInTheDocument()
       await waitFor(async () => {
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
@@ -226,7 +224,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
@@ -255,15 +253,13 @@ describe('Grunnlag', () => {
 
       renderGrunnlagMedPreloadedState('2', 'enkel', {
         ...userInputInitialState,
-        samboer: false,
+        sivilstand: 'UGIFT',
       })
 
       expect(
         await screen.findByText('grunnlag.sivilstand.title')
       ).toBeInTheDocument()
-      expect(
-        await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
-      ).toBeVisible()
+      expect(await screen.findByText('sivilstand.UGIFT')).toBeVisible()
       expect(
         screen.queryByText('grunnlag.sivilstand.title.error')
       ).not.toBeInTheDocument()
@@ -272,7 +268,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()
@@ -287,9 +283,6 @@ describe('Grunnlag', () => {
         expect(
           screen.queryByText('grunnlag.sivilstand.title')
         ).toBeInTheDocument()
-        expect(
-          screen.getByText('grunnlag.sivilstand.title.error')
-        ).toBeVisible()
       })
       const buttons = screen.getAllByRole('button')
 
@@ -297,7 +290,7 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText(
-          'Størrelsen på alderspensjonen din kan avhenge av om du bor alene eller sammen med noen. ',
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
           { exact: false }
         )
       ).toBeVisible()

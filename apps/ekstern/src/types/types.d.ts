@@ -38,8 +38,6 @@ declare global {
   type Person = components['schemas']['PersonResultV4']
   type Sivilstand =
     components['schemas']['AlderspensjonDetaljerV4']['sivilstand']
-  type BegrensetSivilstand =
-    components['schemas']['PersonResultV4']['sivilstand']
   type pensjoneringAldre =
     components['schemas']['PersonResultV4']['pensjoneringAldre']
 

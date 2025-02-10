@@ -18,7 +18,9 @@ describe('store', () => {
       samtykke: true,
       samtykkeOffentligAFP: true,
       afp: null,
-      samboer: null,
+      sivilstand: null,
+      epsHarPensjon: null,
+      epsHarInntektOver2G: null,
       currentSimulation: {
         utenlandsperioder: [],
         formatertUttaksalderReadOnly: null,
