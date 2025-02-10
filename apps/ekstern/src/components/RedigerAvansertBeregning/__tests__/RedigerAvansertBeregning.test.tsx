@@ -1648,9 +1648,7 @@ describe('RedigerAvansertBeregning', () => {
           'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
         )
       ).toBeVisible()
-      expect(
-        screen.getByTestId('om-uttaksgrad')
-      ).toBeInTheDocument()
+      expect(screen.getByTestId('om-uttaksgrad')).toBeInTheDocument()
 
       const selectAarElement = screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
