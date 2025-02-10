@@ -844,6 +844,15 @@ describe('Typeguards', () => {
           afpOffentlig: null,
         })
       ).toEqual(true)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: {
+            ...correctResponse.alderspensjon,
+            sivilstand: 'SAMBOER',
+          },
+        })
+      ).toEqual(true)
     })
 
     it('returnerer false når input ikke er et LoependeVedtak-objekt', () => {
