@@ -45,6 +45,8 @@ export const fulfilledGetPersonMedOkteAldersgrenser = {
       },
     },
     fulfilledTimeStamp: 1688046412103,
+  },
+}
 
 export const fulfilledGetGrunnbelop = {
   'getGrunnbelop(undefined)': {

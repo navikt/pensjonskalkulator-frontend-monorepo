@@ -52,16 +52,6 @@ export const selectUbetingetUttaksalder = createSelector(
   }
 )
 
-export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
-  state.userInput.samboer
-
-export const selectSamboerFraSivilstand = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    const sivilstand =
-      apiSlice.endpoints.getPerson.select(undefined)(state)?.data?.sivilstand
-    return sivilstand ? checkHarSamboer(sivilstand) : null
-
 export const selectSivilstand = (state: RootState) => {
   if (state.userInput.sivilstand) {
     return state.userInput.sivilstand

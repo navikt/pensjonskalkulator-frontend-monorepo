@@ -210,38 +210,6 @@ describe('userInput selectors', () => {
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
         },
-      }
-      expect(selectSamboerFraSivilstand(state)).toBe(false)
-    })
-    it('returnerer true når sivilstanden medfører at personen har samboer', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          queries: {
-            ['getPerson(undefined)']: {
-              // @ts-ignore
-              status: 'fulfilled',
-              endpointName: 'getPerson',
-              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-              startedTimeStamp: 1688046411971,
-              data: {
-                navn: 'Aprikos',
-                sivilstand: 'GIFT',
-                foedselsdato: '1963-04-30',
-                pensjoneringAldre: {
-                  normertPensjoneringsalder: {
-                    aar: 67,
-                    maaneder: 0,
-                  },
-                  nedreAldersgrense: {
-                    aar: 62,
-                    maaneder: 0,
-                  },
-                },
-              },
-              fulfilledTimeStamp: 1688046412103,
-            },
-          },
         userInput: {
           ...initialState.userInput,
         },
