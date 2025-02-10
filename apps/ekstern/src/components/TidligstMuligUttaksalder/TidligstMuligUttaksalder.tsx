@@ -114,6 +114,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
                 ...getFormatMessageValues(intl),
+                ubetingetUttaksalder: transformAlderToString(
+                  intl.formatMessage,
+                  ubetingetUttaksalder
+                ),
               }}
             />
           </Alert>

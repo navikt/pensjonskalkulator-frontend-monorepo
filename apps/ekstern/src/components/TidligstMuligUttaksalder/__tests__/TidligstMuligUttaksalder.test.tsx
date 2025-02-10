@@ -193,6 +193,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetPersonMedOkteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },
