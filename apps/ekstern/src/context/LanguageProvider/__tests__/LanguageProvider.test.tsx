@@ -4,11 +4,11 @@ import { Provider } from 'react-redux'
 
 import { render, screen, waitFor } from '@testing-library/react'
 
-import { sanityClient } from '../../../../sanity.config'
 import { setupStore } from '../../../state/store'
 import { LanguageProvider } from '../LanguageProvider'
 import { SanityContext } from '@/context/SanityContext'
 import { mockErrorResponse } from '@/mocks/server'
+import { sanityClient } from '@/utils/sanity'
 
 function TestComponent() {
   const intl = useIntl()
