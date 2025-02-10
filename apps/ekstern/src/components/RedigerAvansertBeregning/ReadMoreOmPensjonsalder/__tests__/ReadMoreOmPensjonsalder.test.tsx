@@ -7,7 +7,19 @@ describe('ReadMoreOmPensjonsalder', () => {
   describe('Gitt at en bruker ikke har uføretrygd, ', () => {
     it('viser riktig info om pensjonsalder', async () => {
       const user = userEvent.setup()
-      render(<ReadMoreOmPensjonsalder ufoeregrad={0} isEndring={false} />)
+      render(<ReadMoreOmPensjonsalder ufoeregrad={0} isEndring={false} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPersonMedOkteAldersgrenser,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       await user.click(
         screen.getByText('beregning.read_more.pensjonsalder.label')
       )
@@ -23,7 +35,19 @@ describe('ReadMoreOmPensjonsalder', () => {
 
     it('Når brukeren har vedtak om alderspensjon, viser riktig info om pensjonsalder', async () => {
       const user = userEvent.setup()
-      render(<ReadMoreOmPensjonsalder ufoeregrad={0} isEndring={true} />)
+      render(<ReadMoreOmPensjonsalder ufoeregrad={0} isEndring={true} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPersonMedOkteAldersgrenser,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       await user.click(
         screen.getByText('beregning.read_more.pensjonsalder.label')
       )
@@ -38,7 +62,7 @@ describe('ReadMoreOmPensjonsalder', () => {
 
       expect(
         screen.getByText(
-          'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved 67 år må pensjonen minst tilsvare garantipensjon.',
+          'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved 70 alder.aar må pensjonen minst tilsvare garantipensjon.',
           {
             exact: false,
           }

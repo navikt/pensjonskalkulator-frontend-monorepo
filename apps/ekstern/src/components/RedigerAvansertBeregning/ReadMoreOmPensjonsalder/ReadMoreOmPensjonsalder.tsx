@@ -57,6 +57,10 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
+                ubetingetUttaksalder: transformAlderToString(
+                  intl.formatMessage,
+                  ubetingetUttaksalder
+                ),
               }}
             />
           </BodyLong>
