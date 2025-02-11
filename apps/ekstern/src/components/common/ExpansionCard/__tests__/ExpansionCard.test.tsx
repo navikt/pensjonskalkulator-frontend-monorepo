@@ -25,7 +25,7 @@ describe('ExpansionCard', () => {
         </ExpansionCard>
       )
 
-      await user.click(screen.getByTestId('expansioncard'))
+      await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
@@ -33,7 +33,7 @@ describe('ExpansionCard', () => {
         expect.any(Object)
       )
 
-      await user.click(screen.getByTestId('expansioncard'))
+      await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         2,
@@ -53,7 +53,7 @@ describe('ExpansionCard', () => {
           name="name"
           aria-labelledby="expansion-card-label"
           open={isOpen}
-          onClick={toggleOpen}
+          onToggle={toggleOpen}
         >
           <ExpansionCardAksel.Header>
             <ExpansionCardAksel.Title id="expansion-card-label" size="small">
@@ -66,7 +66,7 @@ describe('ExpansionCard', () => {
         </ExpansionCard>
       )
 
-      await user.click(screen.getByTestId('expansioncard'))
+      await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
@@ -85,7 +85,7 @@ describe('ExpansionCard', () => {
           name="name"
           aria-labelledby="expansion-card-label"
           open={isOpen}
-          onClick={toggleOpen}
+          onToggle={toggleOpen}
         >
           <ExpansionCardAksel.Header>
             <ExpansionCardAksel.Title id="expansion-card-label" size="small">
@@ -98,7 +98,7 @@ describe('ExpansionCard', () => {
         </ExpansionCard>
       )
 
-      await user.click(screen.getByTestId('expansioncard'))
+      await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
