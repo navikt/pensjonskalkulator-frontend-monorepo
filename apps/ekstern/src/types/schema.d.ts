@@ -852,6 +852,7 @@ export interface components {
     }
     SimulertTjenestepensjonV2: {
       tpLeverandoer: string
+      tpNummer: string
       simuleringsresultat: components['schemas']['SimuleringsresultatV2']
     }
     UtbetalingsperiodeV2: {
