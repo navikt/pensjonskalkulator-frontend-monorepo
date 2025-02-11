@@ -172,7 +172,7 @@ describe('Hovedhistorie', () => {
           cy.get('select[name="sivilstand"]').select('UGIFT')
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å må oppgi om E/P/S motter pensjon, uføretrygd eller AFP.', () => {
+        it('forventer jeg å måtte oppgi om E/P/S mottar pensjon, uføretrygd eller AFP.', () => {
           cy.get('select[name="sivilstand"]').should('have.value', 'GIFT')
           cy.get('[type="radio"]')
             .first()
@@ -180,7 +180,7 @@ describe('Hovedhistorie', () => {
             .should('be.checked')
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å må oppgi om E/P/S har inntekt over 2G når bruker har svart "nei" på at EPS har pensjon.', () => {
+        it('forventer jeg å måtte oppgi om E/P/S har inntekt over 2G når bruker har svart "nei" på at EPS har pensjon.', () => {
           cy.get('select[name="sivilstand"]').should('have.value', 'GIFT')
           cy.get('[type="radio"][name="epsHarPensjon"][value="nei"]')
             .check({ force: true })
