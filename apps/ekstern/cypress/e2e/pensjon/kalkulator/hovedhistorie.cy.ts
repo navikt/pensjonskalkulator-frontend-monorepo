@@ -108,14 +108,17 @@ describe('Hovedhistorie', () => {
       })
     })
 
-    describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift, registrert partner eller samboer,', () => {
+    describe('Som bruker som er registrert med en annen sivilstand enn gift, registrert partner eller samboer,', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
         })
-        it('forventer jeg å få muligheten til å endre sivilstand for å få riktig beregning.', () => {
+        it('forventer jeg informasjon om hvilken sivilstand jeg er registrert med.', () => {
           cy.contains('h2', 'Sivilstand').should('exist')
+          cy.get('select[name="sivilstand"]').should('have.value', 'UGIFT')
+        })
+        it('forventer jeg å få muligheten til å endre sivilstand for å få riktig beregning.', () => {
           cy.get('select[name="sivilstand"]').select('GIFT')
           cy.contains('button', 'Neste').click()
           cy.contains(
@@ -125,6 +128,73 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om ektefellen din vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+          ).should('not.exist')
+        })
+        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+          cy.contains('button', 'Tilbake').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/start')
+          cy.go('forward')
+          cy.contains('button', 'Avbryt').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/login')
+        })
+      })
+    })
+
+    describe('Som bruker som har sivilstand gift, registrert partner eller samboer,', () => {
+      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+            {
+              navn: 'Aprikos',
+              sivilstand: 'GIFT',
+              foedselsdato: '1963-04-30',
+              pensjoneringAldre: {
+                normertPensjoneringsalder: {
+                  aar: 67,
+                  maaneder: 0,
+                },
+                nedreAldersgrense: {
+                  aar: 62,
+                  maaneder: 0,
+                },
+              },
+            }
+          ).as('getPerson')
+          cy.login()
+          cy.contains('button', 'Kom i gang').click()
+        })
+        it('forventer jeg informasjon om hvilken sivilstand jeg er registrert med.', () => {
+          cy.contains('h2', 'Sivilstand').should('exist')
+          cy.get('select[name="sivilstand"]').should('have.value', 'GIFT')
+        })
+        it('forventer jeg å få muligheten til å endre sivilstand for å få riktig beregning.', () => {
+          cy.get('select[name="sivilstand"]').select('UGIFT')
+          cy.contains('button', 'Neste').click()
+        })
+        it('forventer jeg å måtte oppgi om E/P/S mottar pensjon, uføretrygd eller AFP.', () => {
+          cy.get('select[name="sivilstand"]').should('have.value', 'GIFT')
+          cy.get('[type="radio"]')
+            .first()
+            .check({ force: true })
+            .should('be.checked')
+          cy.contains('button', 'Neste').click()
+        })
+        it('forventer jeg å måtte oppgi om E/P/S har inntekt over 2G når bruker har svart "nei" på at EPS har pensjon.', () => {
+          cy.get('select[name="sivilstand"]').should('have.value', 'GIFT')
+          cy.get('[type="radio"][name="epsHarPensjon"][value="nei"]')
+            .check({ force: true })
+            .should('be.checked')
+          cy.contains('button', 'Neste').click()
+          cy.contains(
+            'Du må svare på om ektefellen din vil ha inntekt over 2G.'
+          ).should('exist')
+          cy.get('[type="radio"][name="epsHarInntektOver2G"][value="ja"]')
+            .check({ force: true })
+            .should('be.checked')
+          cy.contains('button', 'Neste').click()
+          cy.contains(
+            'Du må svare på om ektefellen din vil ha inntekt over 2G.'
           ).should('not.exist')
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
