@@ -115,51 +115,51 @@ describe('alder-utils', () => {
   })
 
   describe('isAlderLikEllerOverAnnenAlder', () => {
-    const ubetingetUttaksalder = { aar: 67, maaneder: 0 }
+    const normertPensjonsalder = { aar: 67, maaneder: 0 }
     it('returnerer true når alderen er lik eller over ubetinget uttaksalder', () => {
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 67, maaneder: 0 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeTruthy()
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 67, maaneder: 11 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeTruthy()
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 70, maaneder: 3 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeTruthy()
     })
 
     it('returnerer false når alderen er under 67 år', () => {
       expect(
-        isAlderLikEllerOverAnnenAlder({}, ubetingetUttaksalder)
+        isAlderLikEllerOverAnnenAlder({}, normertPensjonsalder)
       ).toBeFalsy()
       expect(
-        isAlderLikEllerOverAnnenAlder({ maaneder: 6 }, ubetingetUttaksalder)
+        isAlderLikEllerOverAnnenAlder({ maaneder: 6 }, normertPensjonsalder)
       ).toBeFalsy()
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 62, maaneder: 1 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeFalsy()
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 63, maaneder: 0 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeFalsy()
       expect(
         isAlderLikEllerOverAnnenAlder(
           { aar: 66, maaneder: 11 },
-          ubetingetUttaksalder
+          normertPensjonsalder
         )
       ).toBeFalsy()
     })

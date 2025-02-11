@@ -10,7 +10,7 @@ import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectNedreAldersgrense,
-  selectUbetingetUttaksalder,
+  selectNormertPensjonsalder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, transformAlderToString } from '@/utils/alder'
@@ -35,7 +35,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
-  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -67,9 +67,9 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
-                ubetingetUttaksalder: transformAlderToString(
+                normertPensjonsalder: transformAlderToString(
                   intl.formatMessage,
-                  ubetingetUttaksalder
+                  normertPensjonsalder
                 ),
                 grad: ufoeregrad,
                 link: (
@@ -114,9 +114,9 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
                 ...getFormatMessageValues(intl),
-                ubetingetUttaksalder: transformAlderToString(
+                normertPensjonsalder: transformAlderToString(
                   intl.formatMessage,
-                  ubetingetUttaksalder
+                  normertPensjonsalder
                 ),
               }}
             />
@@ -141,9 +141,9 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   intl.formatMessage,
                   nedreAldersgrense
                 ),
-                ubetingetUttaksalder: transformAlderToString(
+                normertPensjonsalder: transformAlderToString(
                   intl.formatMessage,
-                  ubetingetUttaksalder
+                  normertPensjonsalder
                 ),
               }}
             />

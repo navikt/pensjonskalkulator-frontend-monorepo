@@ -178,7 +178,7 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
   foedselsdato: string,
-  ubetingetUttaksalder: Alder,
+  normertPensjonsalder: Alder,
   loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
@@ -275,7 +275,7 @@ export const validateAvansertBeregningSkjema = (
           aar: parseInt(heltUttakAarFormData as string, 10),
           maaneder: parseInt(heltUttakMaanederFormData as string, 10),
         },
-        ubetingetUttaksalder
+        normertPensjonsalder
       )
       const isGradertUttaksalderValid =
         uttaksgradFormData === '100 %' ||
@@ -285,7 +285,7 @@ export const validateAvansertBeregningSkjema = (
               aar: parseInt(gradertUttakAarFormData as string, 10),
               maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
             },
-            ubetingetUttaksalder
+            normertPensjonsalder
           ))
       isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
     } else {
@@ -303,7 +303,7 @@ export const validateAvansertBeregningSkjema = (
       if (
         valgtAlder.aar &&
         valgtAlder.maaneder &&
-        parseInt(valgtAlder.aar as string, 10) < ubetingetUttaksalder.aar
+        parseInt(valgtAlder.aar as string, 10) < normertPensjonsalder.aar
       ) {
         const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
         const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
@@ -498,7 +498,7 @@ export const onAvansertBeregningSubmit = (
   gaaTilResultat: () => void,
   previousData: {
     foedselsdato: string
-    ubetingetUttaksalder: Alder
+    normertPensjonsalder: Alder
     loependeVedtak: LoependeVedtak
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
@@ -507,7 +507,7 @@ export const onAvansertBeregningSubmit = (
 ): void => {
   const {
     foedselsdato,
-    ubetingetUttaksalder,
+    normertPensjonsalder,
     loependeVedtak,
     localInntektFremTilUttak,
     hasVilkaarIkkeOppfylt,
@@ -561,7 +561,7 @@ export const onAvansertBeregningSubmit = (
         inntektVsaGradertUttakFormData,
       },
       foedselsdato,
-      ubetingetUttaksalder,
+      normertPensjonsalder,
       loependeVedtak,
       setValidationErrors
     )

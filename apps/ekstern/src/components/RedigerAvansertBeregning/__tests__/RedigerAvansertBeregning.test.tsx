@@ -1167,7 +1167,7 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
-        ubetingetUttaksalder: {
+        normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
         },
@@ -1495,7 +1495,7 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
-        ubetingetUttaksalder: {
+        normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
         },

@@ -15,7 +15,7 @@ export const useFormLocalState = (initialValues: {
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
-  ubetingetUttaksalder: Alder
+  normertPensjonsalder: Alder
 }) => {
   const {
     isEndring,
@@ -25,7 +25,7 @@ export const useFormLocalState = (initialValues: {
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
-    ubetingetUttaksalder,
+    normertPensjonsalder,
   } = initialValues
 
   const { setHarAvansertSkjemaUnsavedChanges } =
@@ -120,7 +120,7 @@ export const useFormLocalState = (initialValues: {
       valgtAlder?.maaneder !== undefined &&
       ufoeregrad &&
       ufoeregrad !== 100 &&
-      valgtAlder?.aar < ubetingetUttaksalder.aar
+      valgtAlder?.aar < normertPensjonsalder.aar
     ) {
       const maksGrad = 100 - ufoeregrad
       const avgrensetUttaksgrad = [...filtrerteUttaksgrad].filter(

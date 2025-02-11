@@ -5,7 +5,7 @@ import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
 import { useAppSelector } from '@/state/hooks'
-import { selectUbetingetUttaksalder } from '@/state/userInput/selectors'
+import { selectNormertPensjonsalder } from '@/state/userInput/selectors'
 import { transformAlderToString } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -18,7 +18,7 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
   isEndring,
 }) => {
   const intl = useIntl()
-  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
 
   return (
     <ReadMore
@@ -39,9 +39,9 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
             }
             values={{
               ...getFormatMessageValues(intl),
-              ubetingetUttaksalder: transformAlderToString(
+              normertPensjonsalder: transformAlderToString(
                 intl.formatMessage,
-                ubetingetUttaksalder
+                normertPensjonsalder
               ),
             }}
           />
@@ -57,9 +57,9 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
-                ubetingetUttaksalder: transformAlderToString(
+                normertPensjonsalder: transformAlderToString(
                   intl.formatMessage,
-                  ubetingetUttaksalder
+                  normertPensjonsalder
                 ),
               }}
             />

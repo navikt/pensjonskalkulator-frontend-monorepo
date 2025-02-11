@@ -61,7 +61,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           localInntektFremTilUttak: null,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
-          ubetingetUttaksalder: {
+          normertPensjonsalder: {
             aar: 67,
             maaneder: 0,
           },
@@ -125,7 +125,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: null,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
-            ubetingetUttaksalder: {
+            normertPensjonsalder: {
               aar: 67,
               maaneder: 0,
             },
@@ -193,7 +193,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
-            ubetingetUttaksalder: {
+            normertPensjonsalder: {
               aar: 67,
               maaneder: 0,
             },
@@ -288,7 +288,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
-            ubetingetUttaksalder: {
+            normertPensjonsalder: {
               aar: 67,
               maaneder: 0,
             },
@@ -349,7 +349,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
-            ubetingetUttaksalder: {
+            normertPensjonsalder: {
               aar: 67,
               maaneder: 0,
             },
@@ -384,7 +384,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
-            ubetingetUttaksalder: {
+            normertPensjonsalder: {
               aar: 67,
               maaneder: 0,
             },
@@ -432,7 +432,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       },
       harFremtidigLoependeVedtak: false,
     }
-    const mockedUbetingetUttaksalder = { aar: 67, maaneder: 0 }
+    const mockedNormertPensjonsalder = { aar: 67, maaneder: 0 }
 
     it('returnerer true uten å oppdatere feilmeldingsteksten når input er korrekt', () => {
       const updateErrorMessageMock = vi.fn()
@@ -440,7 +440,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           correctInputData,
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -458,7 +458,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakAarFormData: 'abc' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -467,7 +467,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakMaanederFormData: null },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -483,7 +483,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -493,7 +493,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: 'abc' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -502,7 +502,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '400' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -511,7 +511,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '4000' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -520,7 +520,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '0 %' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -529,7 +529,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '100 %' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -558,7 +558,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtakEndring,
           updateErrorMessageMock
         )
@@ -572,7 +572,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtakEndring,
           updateErrorMessageMock
         )
@@ -586,7 +586,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtakEndring,
           updateErrorMessageMock
         )
@@ -599,7 +599,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '5',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtakEndring,
           updateErrorMessageMock
         )
@@ -612,7 +612,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           {
             alderspensjon: {
               fom: '2025-10-01',
@@ -639,7 +639,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakAarFormData: 'abc' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -648,7 +648,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakMaanederFormData: null },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -672,7 +672,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -686,7 +686,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -700,7 +700,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '11',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -724,7 +724,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: 'abc',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -737,7 +737,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: null,
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -757,7 +757,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             heltUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak100,
           updateErrorMessageMock
         )
@@ -771,7 +771,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: null,
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak100,
           updateErrorMessageMock
         )
@@ -785,7 +785,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '3',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak100,
           updateErrorMessageMock
         )
@@ -798,7 +798,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak100,
           updateErrorMessageMock
         )
@@ -820,7 +820,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: null,
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak60,
           updateErrorMessageMock
         )
@@ -834,7 +834,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak60,
           updateErrorMessageMock
         )
@@ -848,7 +848,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakMaanederFormData: '0',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak60,
           updateErrorMessageMock
         )
@@ -866,7 +866,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             heltUttakMaanederFormData: '6',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak60,
           updateErrorMessageMock
         )
@@ -881,7 +881,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakRadioFormData: null },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -895,7 +895,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: null },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -910,7 +910,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: 'abc' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -932,7 +932,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             inntektVsaHeltUttakSluttAlderAarFormData: 'abc',
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -947,7 +947,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakRadioFormData: null },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -965,7 +965,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             inntektVsaGradertUttakRadioFormData: null,
           },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )
@@ -980,7 +980,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
           mockedFoedselsdato,
-          mockedUbetingetUttaksalder,
+          mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock
         )

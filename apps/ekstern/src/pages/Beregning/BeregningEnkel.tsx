@@ -36,7 +36,7 @@ import {
   selectIsEndring,
   selectLoependeVedtak,
   selectNedreAldersgrense,
-  selectUbetingetUttaksalder,
+  selectNormertPensjonsalder,
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
 } from '@/state/userInput/selectors'
@@ -63,7 +63,7 @@ export const BeregningEnkel: React.FC = () => {
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
-  const ubetingetUttaksalder = useAppSelector(selectUbetingetUttaksalder)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
 
@@ -255,7 +255,7 @@ export const BeregningEnkel: React.FC = () => {
         <VelgUttaksalder
           tidligstMuligUttak={
             ufoeregrad
-              ? ubetingetUttaksalder
+              ? normertPensjonsalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
                 : getBrukerensAlderPlus1Maaned(person, nedreAldersgrense)
@@ -272,7 +272,7 @@ export const BeregningEnkel: React.FC = () => {
             alderspensjon &&
             !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt &&
             uttaksalder &&
-            uttaksalder.aar < ubetingetUttaksalder.aar) ? (
+            uttaksalder.aar < normertPensjonsalder.aar) ? (
             <>
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />

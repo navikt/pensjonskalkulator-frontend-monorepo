@@ -31,7 +31,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         uttaksalder: { aar: 67, maaneder: 0 },
         aarligInntektVsaPensjonBeloep: '100 000',
       },
-      ubetingetUttaksalder: { aar: 67, maaneder: 0 },
+      normertPensjonsalder: { aar: 67, maaneder: 0 },
     }
 
     const wrapper = ({ children }: { children: React.ReactNode }) => {
@@ -68,7 +68,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           uttaksalder: null,
           aarligInntektVsaHelPensjon: undefined,
           gradertUttaksperiode: null,
-          ubetingetUttaksalder: { aar: 67, maaneder: 0 },
+          normertPensjonsalder: { aar: 67, maaneder: 0 },
         },
       })
 

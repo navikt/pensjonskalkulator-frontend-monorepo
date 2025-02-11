@@ -44,7 +44,7 @@ export const selectNedreAldersgrense = createSelector(
   }
 )
 
-export const selectUbetingetUttaksalder = createSelector(
+export const selectNormertPensjonsalder = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
