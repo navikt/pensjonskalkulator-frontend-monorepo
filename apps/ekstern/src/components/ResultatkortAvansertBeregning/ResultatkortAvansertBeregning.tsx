@@ -14,7 +14,7 @@ import {
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
-import { logger, wrapLogger } from '@/utils/logging'
+import { wrapLogger } from '@/utils/logging'
 interface Props {
   onButtonClick: () => void
 }
@@ -40,11 +40,6 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
       className={styles.card}
       aria-labelledby="expansion-card-label"
       size="small"
-      onClick={() => {
-        logger('button klikk', {
-          tekst: 'Resultatkort: Åpne/lukke',
-        })
-      }}
     >
       <ExpansionCardAksel.Header>
         <ExpansionCardAksel.Title id="expansion-card-label" size="small">
