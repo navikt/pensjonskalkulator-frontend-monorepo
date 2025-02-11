@@ -1,5 +1,5 @@
 import { ReadMoreOmPensjonsalder } from '..'
-import { fulfilledGetPersonMedOkteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -12,7 +12,7 @@ describe('ReadMoreOmPensjonsalder', () => {
           api: {
             // @ts-ignore
             queries: {
-              ...fulfilledGetPersonMedOkteAldersgrenser,
+              ...fulfilledGetPersonMedOekteAldersgrenser,
             },
           },
           userInput: {
@@ -40,7 +40,7 @@ describe('ReadMoreOmPensjonsalder', () => {
           api: {
             // @ts-ignore
             queries: {
-              ...fulfilledGetPersonMedOkteAldersgrenser,
+              ...fulfilledGetPersonMedOekteAldersgrenser,
             },
           },
           userInput: {
@@ -78,7 +78,7 @@ describe('ReadMoreOmPensjonsalder', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+            queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
           },
           userInput: {
             ...userInputInitialState,
@@ -105,7 +105,7 @@ describe('ReadMoreOmPensjonsalder', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+            queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
           },
           userInput: {
             ...userInputInitialState,

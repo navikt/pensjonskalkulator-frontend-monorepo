@@ -23,7 +23,7 @@ export const fulfilledGetPerson = {
   },
 }
 
-export const fulfilledGetPersonMedOkteAldersgrenser = {
+export const fulfilledGetPersonMedOekteAldersgrenser = {
   ['getPerson(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getPerson',

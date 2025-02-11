@@ -2,7 +2,7 @@ import { describe, it } from 'vitest'
 
 import { Forbehold } from '..'
 import {
-  fulfilledGetPersonMedOkteAldersgrenser,
+  fulfilledGetPersonMedOekteAldersgrenser,
   fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse } from '@/mocks/server'
@@ -16,7 +16,7 @@ describe('Forbehold', () => {
         api: {
           //@ts-ignore
           queries: {
-            ...fulfilledGetPersonMedOkteAldersgrenser,
+            ...fulfilledGetPersonMedOekteAldersgrenser,
           },
         },
         userInput: {
@@ -33,7 +33,7 @@ describe('Forbehold', () => {
         api: {
           //@ts-ignore
           queries: {
-            ...fulfilledGetPersonMedOkteAldersgrenser,
+            ...fulfilledGetPersonMedOekteAldersgrenser,
           },
         },
         userInput: {

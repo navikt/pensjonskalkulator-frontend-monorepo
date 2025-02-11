@@ -3,7 +3,7 @@ import { describe, it } from 'vitest'
 import { TidligstMuligUttaksalder } from '..'
 import {
   fulfilledGetOmstillingsstoenadOgGjenlevende,
-  fulfilledGetPersonMedOkteAldersgrenser,
+  fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
@@ -193,7 +193,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },
@@ -224,7 +224,7 @@ describe('TidligstMuligUttaksalder', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
             },
             userInput: {
               ...userInputInitialState,
@@ -262,7 +262,7 @@ describe('TidligstMuligUttaksalder', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
             },
             userInput: {
               ...userInputInitialState,
@@ -304,7 +304,7 @@ describe('TidligstMuligUttaksalder', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOkteAldersgrenser },
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
             },
             userInput: {
               ...userInputInitialState,
@@ -342,7 +342,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },

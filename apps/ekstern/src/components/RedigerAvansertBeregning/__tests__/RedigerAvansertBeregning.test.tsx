@@ -11,7 +11,7 @@ import {
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
   fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
-  fulfilledGetPersonMedOkteAldersgrenser,
+  fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
@@ -1521,7 +1521,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak100Ufoeregrad,
               },
             },
@@ -1625,7 +1625,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -1719,7 +1719,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -1778,7 +1778,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2009,7 +2009,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2111,7 +2111,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(uttaksgradSelect).toHaveErrorMessage(expect.stringContaining(''))
     })
 
-    // 5. Fikset med mock av getPersonMedOkteAldersgrenser
+    // 5. Fikset med mock av getPersonMedOekteAldersgrenser
     it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
       render(
         <BeregningContext.Provider
@@ -2126,7 +2126,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
@@ -2785,7 +2785,7 @@ describe('RedigerAvansertBeregning', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
-                ...fulfilledGetPersonMedOkteAldersgrenser,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: {
