@@ -26,7 +26,8 @@ jobs:
   build:
     name: Build application
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -194,7 +195,8 @@ jobs:
   deploy-staging:
     name: Deploy to staging
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -222,7 +224,8 @@ jobs:
   deploy-sandbox:
     name: Deploy to sandbox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -252,7 +255,8 @@ jobs:
   deploy-catbox:
     name: Deploy to catbox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -280,7 +284,8 @@ jobs:
   deploy-magicbox:
     name: Deploy to magicbox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -308,7 +313,8 @@ jobs:
   deploy-dreambox:
     name: Deploy to dreambox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -336,7 +342,8 @@ jobs:
   deploy-coffeebox:
     name: Deploy to coffeebox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -364,7 +371,8 @@ jobs:
   deploy-codebox:
     name: Deploy to codebox
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
@@ -392,7 +400,8 @@ jobs:
   deploy-prod:
     name: Deploy to prod-gcp
     needs: [build, run-unit-tests, run-integration-tests]
-    permissions: write-all
+    permissions:
+      id-token: 'write'
     runs-on: ubuntu-latest
     if: |
       github.ref == 'refs/heads/main' &&
