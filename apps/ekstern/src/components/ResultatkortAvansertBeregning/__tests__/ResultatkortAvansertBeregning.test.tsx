@@ -48,7 +48,7 @@ describe('ResultatkortAvansertBeregning', () => {
     expect(
       await screen.findByText('beregning.avansert.resultatkort.description')
     ).toBeVisible()
-    await user.click(screen.getByTestId('expansioncard'))
+    await user.click(screen.getByRole('button', { name: 'Vis mer' }))
     expect(
       await screen.findByText('beregning.avansert.resultatkort.frem_til_uttak')
     ).toBeVisible()
@@ -117,7 +117,7 @@ describe('ResultatkortAvansertBeregning', () => {
     )
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
     await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-    await user.click(screen.getByTestId('expansioncard'))
+    await user.click(screen.getByRole('button', { name: 'Vis mer' }))
     expect(
       await screen.findByText('67 alder.aar', {
         exact: false,
@@ -158,7 +158,7 @@ describe('ResultatkortAvansertBeregning', () => {
     )
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
     await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-    await user.click(screen.getByTestId('expansioncard'))
+    await user.click(screen.getByRole('button', { name: 'Vis mer' }))
     expect(
       await screen.findByText('67 alder.aar', {
         exact: false,
@@ -213,7 +213,7 @@ describe('ResultatkortAvansertBeregning', () => {
     )
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
     await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-    await user.click(screen.getByTestId('expansioncard'))
+    await user.click(screen.getByRole('button', { name: 'Vis mer' }))
     expect(
       await screen.findByText('65 alder.aar string.og 3 alder.md', {
         exact: false,

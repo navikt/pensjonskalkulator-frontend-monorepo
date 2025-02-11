@@ -8,8 +8,6 @@ import {
 import { logger } from '@/utils/logging'
 interface IProps {
   name: string
-  onClick?: () => void
-  open?: boolean
 }
 
 const logIsOpen = (name: string, isOpen: boolean) => {
@@ -23,41 +21,16 @@ const logIsOpen = (name: string, isOpen: boolean) => {
 export const ExpansionCard: React.FC<ExpansionCardProps & IProps> = ({
   name,
   children,
-  open,
-  onClick,
+  onToggle,
   ...rest
-}) => {
-  const toggleOpenReducer: React.ReducerWithoutAction<boolean> = (
-    prevIsOpen
-  ) => {
-    const nextIsOpen = !prevIsOpen
-    logIsOpen(name, nextIsOpen)
-    return nextIsOpen
-  }
-
-  const [isOpen, toggleOpen] = React.useReducer(toggleOpenReducer, false)
-
-  const isControlled = React.useMemo(
-    () => open !== undefined && !!onClick,
-    [open, onClick]
-  )
-
-  const wrappedOnClick = React.useCallback(() => {
-    // Inversert da det er en antagelse at onClick endrer state
-    logIsOpen(name, !open as boolean)
-    if (onClick) {
-      onClick()
-    }
-  }, [onClick])
-
-  return (
-    <ExpansionCardAksel
-      data-testid="expansioncard"
-      open={isControlled ? open : isOpen}
-      onClick={isControlled ? wrappedOnClick : toggleOpen}
-      {...rest}
-    >
-      {children}
-    </ExpansionCardAksel>
-  )
-}
+}) => (
+  <ExpansionCardAksel
+    onToggle={(newIsOpen) => {
+      logIsOpen(name, newIsOpen)
+      onToggle?.(newIsOpen)
+    }}
+    {...rest}
+  >
+    {children}
+  </ExpansionCardAksel>
+)
