@@ -266,6 +266,7 @@ describe('OffentligTjenestepensjon', () => {
               muligeTpLeverandoerListe: ['Statens pensjonskasse'],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
+                tpNummer: '3010',
                 simuleringsresultat: {
                   betingetTjenestepensjonErInkludert: false,
                   utbetalingsperioder: [],
@@ -305,6 +306,7 @@ describe('OffentligTjenestepensjon', () => {
               muligeTpLeverandoerListe: ['Statens pensjonskasse'],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
+                tpNummer: '3010',
                 simuleringsresultat: {
                   betingetTjenestepensjonErInkludert: false,
                   utbetalingsperioder: [],
@@ -344,6 +346,7 @@ describe('OffentligTjenestepensjon', () => {
               muligeTpLeverandoerListe: ['Statens pensjonskasse'],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
+                tpNummer: '3010',
                 simuleringsresultat: {
                   betingetTjenestepensjonErInkludert: false,
                   utbetalingsperioder: [],
@@ -386,6 +389,7 @@ describe('OffentligTjenestepensjon', () => {
               muligeTpLeverandoerListe: ['Statens pensjonskasse'],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
+                tpNummer: '3010',
                 simuleringsresultat: {
                   betingetTjenestepensjonErInkludert: false,
                   utbetalingsperioder: [],
@@ -436,6 +440,7 @@ describe('OffentligTjenestepensjon', () => {
               muligeTpLeverandoerListe: ['Statens pensjonskasse'],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
+                tpNummer: '3010',
                 simuleringsresultat: {
                   betingetTjenestepensjonErInkludert: true,
                   utbetalingsperioder: [],
@@ -489,6 +494,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
               tpLeverandoer: 'Kommunal Landspensjonskasse',
+              tpNummer: '4080',
             },
           }}
           headingLevel="3"
@@ -517,6 +523,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
               tpLeverandoer: 'Kommunal Landspensjonskasse',
+              tpNummer: '4080',
             },
           }}
           headingLevel="3"
@@ -543,6 +550,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
+                tpNummer: '4080',
               },
             }}
             headingLevel="3"
@@ -582,6 +590,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
+                tpNummer: '4080',
               },
             }}
             headingLevel="3"
@@ -621,6 +630,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
+                tpNummer: '4080',
               },
             }}
             headingLevel="3"
@@ -660,6 +670,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
+                tpNummer: '4080',
               },
             }}
             headingLevel="3"
