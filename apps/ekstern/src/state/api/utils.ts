@@ -3,7 +3,7 @@ import { parse, format, parseISO } from 'date-fns'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
-import { harSamboer } from '@/utils/sivilstand'
+import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
@@ -155,7 +155,7 @@ export const generateAlderspensjonRequestBody = (args: {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G:
       epsHarInntektOver2G === null
-        ? harSamboer(sivilstand)
+        ? checkHarSamboer(sivilstand)
         : epsHarInntektOver2G,
     epsHarPensjon: !!epsHarPensjon,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -220,7 +220,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G:
       epsHarInntektOver2G === null
-        ? harSamboer(sivilstand)
+        ? checkHarSamboer(sivilstand)
         : epsHarInntektOver2G,
     epsHarPensjon: !!epsHarPensjon,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(

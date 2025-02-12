@@ -5,7 +5,7 @@ export function isSivilstandUkjent(sivilstand?: Sivilstand): boolean {
   return ['UNKNOWN', 'UOPPGITT'].includes(sivilstand)
 }
 
-export function harSamboer(sivilstand?: Sivilstand | null): boolean {
+export function checkHarSamboer(sivilstand?: Sivilstand | null): boolean {
   if (!sivilstand) return false
   const samboerSivilstander = ['SAMBOER', 'GIFT', 'REGISTRERT_PARTNER']
   return samboerSivilstander.includes(sivilstand)
