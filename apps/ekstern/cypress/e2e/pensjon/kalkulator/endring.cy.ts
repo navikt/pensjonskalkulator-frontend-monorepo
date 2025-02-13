@@ -80,7 +80,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('100 %')
           cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
           cy.contains('Beregn ny pensjon').click()
@@ -125,7 +125,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('100 %')
           cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
           cy.contains('Beregn ny pensjon').click()
@@ -169,7 +169,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('100 %')
           cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
           cy.contains('Beregn ny pensjon').click()
@@ -244,9 +244,9 @@ describe('Endring av alderspensjon', () => {
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
             ).then((selectElements) => {
               const options = selectElements.find('option')
-              expect(options.length).equal(9)
-              expect(options.eq(1).text()).equal('4 md. (sep.)')
-              expect(options.eq(8).text()).equal('11 md. (apr.)')
+              expect(options.length).equal(8)
+              expect(options.eq(1).text()).equal('5 md. (okt.)')
+              expect(options.eq(7).text()).equal('11 md. (apr.)')
             })
             cy.get(
               '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -282,7 +282,7 @@ describe('Endring av alderspensjon', () => {
             ).select('65')
             cy.get(
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-            ).select('4')
+            ).select('5')
             cy.get('[data-testid="uttaksgrad"]').select('100 %')
             cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
             cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
@@ -313,7 +313,7 @@ describe('Endring av alderspensjon', () => {
 
             cy.contains('Beregning').should('exist')
             cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+            cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
             cy.contains('Alderspensjon: 100 %').should('exist')
             cy.contains(
               'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
@@ -328,7 +328,7 @@ describe('Endring av alderspensjon', () => {
             ).select('65')
             cy.get(
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-            ).select('4')
+            ).select('5')
             cy.get('[data-testid="uttaksgrad"]').select('40 %')
           })
 
@@ -363,7 +363,7 @@ describe('Endring av alderspensjon', () => {
             ).select('65')
             cy.get(
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-            ).select('4')
+            ).select('5')
             cy.get('[data-testid="uttaksgrad"]').select('40 %')
             cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
             cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
@@ -396,7 +396,7 @@ describe('Endring av alderspensjon', () => {
 
             it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
               cy.contains('Alderspensjon før skatt når du er')
-              cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
+              cy.contains('65 år og 5 md. (40 %): 12 342 kr/md.')
               cy.contains('67 år (100 %): 28 513 kr/md.')
             })
 
@@ -420,7 +420,7 @@ describe('Endring av alderspensjon', () => {
             it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
               cy.contains('Beregning').should('exist')
               cy.contains('Valgene dine').click({ force: true })
-              cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+              cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
               cy.contains('Alderspensjon: 40 %').should('exist')
               cy.contains(
                 'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
@@ -569,9 +569,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(1).text()).equal('5 md. (okt.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -607,7 +607,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('100 %')
           cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
@@ -638,7 +638,7 @@ describe('Endring av alderspensjon', () => {
 
           cy.contains('Beregning').should('exist')
           cy.contains('Valgene dine').click({ force: true })
-          cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+          cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
           cy.contains('Alderspensjon: 100 %').should('exist')
           cy.contains(
             'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
@@ -654,7 +654,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
         })
 
@@ -690,7 +690,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
           cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
@@ -723,7 +723,7 @@ describe('Endring av alderspensjon', () => {
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
             cy.contains('Alderspensjon før skatt når du er')
-            cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
+            cy.contains('65 år og 5 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
@@ -747,7 +747,7 @@ describe('Endring av alderspensjon', () => {
           it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+            cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
             cy.contains('Alderspensjon: 40 %').should('exist')
             cy.contains(
               'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
@@ -895,9 +895,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(1).text()).equal('5 md. (okt.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -933,7 +933,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('100 %')
           cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
@@ -964,7 +964,7 @@ describe('Endring av alderspensjon', () => {
 
           cy.contains('Beregning').should('exist')
           cy.contains('Valgene dine').click({ force: true })
-          cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+          cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
           cy.contains('Alderspensjon: 100 %').should('exist')
           cy.contains(
             'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
@@ -980,7 +980,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
         })
 
@@ -1016,7 +1016,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
           cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
@@ -1049,7 +1049,7 @@ describe('Endring av alderspensjon', () => {
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
             cy.contains('Alderspensjon før skatt når du er')
-            cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
+            cy.contains('65 år og 5 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
@@ -1074,7 +1074,7 @@ describe('Endring av alderspensjon', () => {
           it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+            cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
             cy.contains('Alderspensjon: 40 %').should('exist')
             cy.contains(
               'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
@@ -1220,9 +1220,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(1).text()).equal('5 md. (okt.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -1281,7 +1281,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
           cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
@@ -1314,7 +1314,7 @@ describe('Endring av alderspensjon', () => {
           ).select('65')
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
-          ).select('4')
+          ).select('5')
           cy.get('[data-testid="uttaksgrad"]').select('40 %')
           cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
           cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
@@ -1347,7 +1347,7 @@ describe('Endring av alderspensjon', () => {
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
             cy.contains('Alderspensjon før skatt når du er')
-            cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
+            cy.contains('65 år og 5 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
@@ -1371,7 +1371,7 @@ describe('Endring av alderspensjon', () => {
           it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2028)').should('exist')
+            cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
             cy.contains('Alderspensjon: 40 %').should('exist')
             cy.contains(
               'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
