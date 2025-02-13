@@ -310,21 +310,52 @@ describe('alder-utils', () => {
       expect(expectedAlder).toStrictEqual(nedreAldersgrense)
     })
 
-    it('returnerer alderen til personen når alderen + 1 mnd er over nedre aldersgrense', () => {
+    it('returnerer alderen til personen + 1 måned når alderen er over nedre aldersgrense', () => {
       vi.useFakeTimers().setSystemTime(new Date('2025-01-04'))
       const mock_person = {
         ...person,
         foedselsdato: '1960-01-01',
       }
+      // Brukeren er 65 år og 0 md
       const expectedAlder = getBrukerensAlderPlus1Maaned(
         mock_person,
         nedreAldersgrense
       )
-      expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 0 })
+      expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 1 })
       vi.useRealTimers()
     })
 
-    it('returnerer nedre aldersgrense når alderen + 1 mnd er under nedre aldersgrense', () => {
+    it('returnerer nedre aldersgrense når alderen er lik nedre aldersgrense', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-01-01'))
+      const mock_person = {
+        ...person,
+        foedselsdato: '1963-01-01',
+      }
+      // Brukeren er 62 år og 0 md
+      const expectedAlder = getBrukerensAlderPlus1Maaned(
+        mock_person,
+        nedreAldersgrense
+      )
+      expect(expectedAlder).toStrictEqual({ aar: 62, maaneder: 0 })
+      vi.useRealTimers()
+    })
+
+    it('returnerer alderen til personen + 1 måned når alderen er nedre aldersgrense + 1 måned', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-01-01'))
+      const mock_person = {
+        ...person,
+        foedselsdato: '1962-12-01',
+      }
+      // Brukeren er 62 år og 1 md
+      const expectedAlder = getBrukerensAlderPlus1Maaned(
+        mock_person,
+        nedreAldersgrense
+      )
+      expect(expectedAlder).toStrictEqual({ aar: 62, maaneder: 2 })
+      vi.useRealTimers()
+    })
+
+    it('returnerer nedre aldersgrense når alderen er under nedre aldersgrense', () => {
       const mock_person = {
         ...person,
         foedselsdato: '1970-01-01',

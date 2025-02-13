@@ -34,9 +34,7 @@ import {
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_MAX_OPPTJENINGSALDER,
-  isAlderOverAnnenAlder,
   transformAlderToString,
-  transformFoedselsdatoToAlder,
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
