@@ -268,8 +268,7 @@ export const BeregningEnkel: React.FC = () => {
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
           {isError ||
-          (!isError &&
-            alderspensjon &&
+          (alderspensjon &&
             !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt &&
             uttaksalder &&
             uttaksalder.aar < normertPensjonsalder.aar) ? (
