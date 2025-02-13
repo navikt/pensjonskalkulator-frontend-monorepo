@@ -34,7 +34,9 @@ import {
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_MAX_OPPTJENINGSALDER,
+  isAlderOverAnnenAlder,
   transformAlderToString,
+  transformFoedselsdatoToAlder,
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
@@ -318,6 +320,32 @@ export const RedigerAvansertBeregning: React.FC<{
     )
   }
 
+  const minAlderAlderspensjonUforetrygd = React.useMemo((): Alder => {
+    const ufoeregrad = loependeVedtak.ufoeretrygd.grad
+
+    debugger
+
+    if (ufoeregrad < 100) {
+      if (
+        isAlderOverAnnenAlder(
+          transformFoedselsdatoToAlder(foedselsdato as string),
+          normertPensjonsalder
+        )
+      ) {
+        return brukerensAlderPlus1Maaned as Alder
+      } else {
+        return normertPensjonsalder
+      }
+    } else {
+      return normertPensjonsalder
+    }
+  }, [
+    foedselsdato,
+    normertPensjonsalder,
+    brukerensAlderPlus1Maaned,
+    loependeVedtak.ufoeretrygd.grad,
+  ])
+
   const resetForm = (): void => {
     resetValidationErrors()
     setLocalInntektFremTilUttak(
@@ -475,11 +503,7 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
-              minAlder={
-                loependeVedtak.ufoeretrygd.grad === 100
-                  ? normertPensjonsalder
-                  : brukerensAlderPlus1Maaned
-              }
+              minAlder={minAlderAlderspensjonUforetrygd}
             />
           ) : (
             <AgePicker
@@ -497,11 +521,7 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
-              minAlder={
-                loependeVedtak.ufoeretrygd.grad === 100
-                  ? normertPensjonsalder
-                  : brukerensAlderPlus1Maaned
-              }
+              minAlder={minAlderAlderspensjonUforetrygd}
             />
           )}
           <div className={styles.spacer__small} />

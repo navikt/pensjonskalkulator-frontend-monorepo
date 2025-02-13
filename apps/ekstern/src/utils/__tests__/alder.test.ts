@@ -208,6 +208,15 @@ describe('alder-utils', () => {
         )
       ).toBeTruthy()
     })
+
+    it('returnerer false når alder er lik og største alder er mindre enn minste alder', () => {
+      expect(
+        isAlderOverAnnenAlder(
+          { aar: 62, maaneder: 1 },
+          { aar: 62, maaneder: 5 }
+        )
+      ).toBeFalsy()
+    })
   })
 
   describe('isFoedselsdatoOverEllerLikAlder', () => {

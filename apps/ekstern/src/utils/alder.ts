@@ -89,10 +89,16 @@ export const isAlderLikEllerOverAnnenAlder = (
   }
 }
 
-export const isAlderOverAnnenAlder = (alder: Alder, alder2: Alder) => {
-  if (alder.aar > alder2.aar) {
+export const isAlderOverAnnenAlder = (
+  storsteAlder: Alder,
+  minsteAlder: Alder
+) => {
+  if (storsteAlder.aar > minsteAlder.aar) {
     return true
-  } else if (alder.aar === alder2.aar && alder.maaneder > 0) {
+  } else if (
+    storsteAlder.aar === minsteAlder.aar &&
+    storsteAlder.maaneder > minsteAlder.maaneder
+  ) {
     return true
   } else {
     return false
