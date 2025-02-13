@@ -323,8 +323,6 @@ export const RedigerAvansertBeregning: React.FC<{
   const minAlderAlderspensjonUforetrygd = React.useMemo((): Alder => {
     const ufoeregrad = loependeVedtak.ufoeretrygd.grad
 
-    debugger
-
     if (ufoeregrad < 100) {
       if (
         isAlderOverAnnenAlder(
