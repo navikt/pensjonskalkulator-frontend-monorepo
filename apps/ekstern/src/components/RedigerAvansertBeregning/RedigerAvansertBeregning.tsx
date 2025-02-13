@@ -320,30 +320,6 @@ export const RedigerAvansertBeregning: React.FC<{
     )
   }
 
-  const minAlderAlderspensjonUforetrygd = React.useMemo((): Alder => {
-    const ufoeregrad = loependeVedtak.ufoeretrygd.grad
-
-    if (ufoeregrad < 100) {
-      if (
-        isAlderOverAnnenAlder(
-          transformFoedselsdatoToAlder(foedselsdato as string),
-          normertPensjonsalder
-        )
-      ) {
-        return brukerensAlderPlus1Maaned as Alder
-      } else {
-        return normertPensjonsalder
-      }
-    } else {
-      return normertPensjonsalder
-    }
-  }, [
-    foedselsdato,
-    normertPensjonsalder,
-    brukerensAlderPlus1Maaned,
-    loependeVedtak.ufoeretrygd.grad,
-  ])
-
   const resetForm = (): void => {
     resetValidationErrors()
     setLocalInntektFremTilUttak(
@@ -501,7 +477,11 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
-              minAlder={minAlderAlderspensjonUforetrygd}
+              minAlder={
+                loependeVedtak.ufoeretrygd.grad === 100
+                  ? normertPensjonsalder
+                  : brukerensAlderPlus1Maaned
+              }
             />
           ) : (
             <AgePicker
@@ -519,7 +499,11 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
-              minAlder={minAlderAlderspensjonUforetrygd}
+              minAlder={
+                loependeVedtak.ufoeretrygd.grad === 100
+                  ? normertPensjonsalder
+                  : brukerensAlderPlus1Maaned
+              }
             />
           )}
           <div className={styles.spacer__small} />
