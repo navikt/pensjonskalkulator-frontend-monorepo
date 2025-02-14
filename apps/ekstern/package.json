@@ -102,7 +102,6 @@
     "react-intl": "7.1.6",
     "react-redux": "^9.2.0",
     "react-router": "^7.1.5",
-    "react-router-dom": "^7.1.5",
     "rollup-plugin-visualizer": "^5.14.0",
     "sass": "^1.83.4",
     "start-server-and-test": "^2.0.10",
