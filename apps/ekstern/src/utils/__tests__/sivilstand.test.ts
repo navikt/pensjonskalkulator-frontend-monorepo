@@ -99,7 +99,7 @@ describe('sivilstand-utils', () => {
     })
   })
 
-  describe('harSamboer', () => {
+  describe('checkHarSamboer', () => {
     it('sivilstand er GIFT og gir true for harSamboer', () => {
       const actual = checkHarSamboer('GIFT')
       expect(actual).toBe(true)
