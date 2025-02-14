@@ -13,7 +13,7 @@ import {
   selectNormertPensjonsalder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatUttaksalder, transformAlderToString } from '@/utils/alder'
+import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
@@ -36,6 +36,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
     useGetOmstillingsstoenadOgGjenlevendeQuery()
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
   const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
+  const formatertNormertPensjonsalder = formatUttaksalder(
+    intl,
+    normertPensjonsalder
+  )
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -67,10 +71,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
-                normertPensjonsalder: transformAlderToString(
-                  intl.formatMessage,
-                  normertPensjonsalder
-                ),
+                normertPensjonsalder: formatertNormertPensjonsalder,
                 grad: ufoeregrad,
                 link: (
                   <Link href="#" onClick={goToAvansert}>
@@ -114,10 +115,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
                 ...getFormatMessageValues(intl),
-                normertPensjonsalder: transformAlderToString(
-                  intl.formatMessage,
-                  normertPensjonsalder
-                ),
+                normertPensjonsalder: formatertNormertPensjonsalder,
               }}
             />
           </Alert>
@@ -137,14 +135,8 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
-                nedreAldersgrense: transformAlderToString(
-                  intl.formatMessage,
-                  nedreAldersgrense
-                ),
-                normertPensjonsalder: transformAlderToString(
-                  intl.formatMessage,
-                  normertPensjonsalder
-                ),
+                nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
+                normertPensjonsalder: formatertNormertPensjonsalder,
               }}
             />
           </ReadMore>

@@ -6,7 +6,7 @@ import { Alert } from '@navikt/ds-react'
 
 import { useAppSelector } from '@/state/hooks'
 import { selectNormertPensjonsalder } from '@/state/userInput/selectors'
-import { transformAlderToString } from '@/utils/alder'
+import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
@@ -48,10 +48,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
         }
         values={{
           ...getFormatMessageValues(intl),
-          normertPensjonsalder: transformAlderToString(
-            intl.formatMessage,
-            normertPensjonsalder
-          ),
+          normertPensjonsalder: formatUttaksalder(intl, normertPensjonsalder),
         }}
       />
 

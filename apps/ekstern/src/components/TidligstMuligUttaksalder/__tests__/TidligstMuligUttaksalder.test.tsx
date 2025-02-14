@@ -1,6 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import {
   fulfilledGetOmstillingsstoenadOgGjenlevende,
   fulfilledGetPersonMedOekteAldersgrenser,
@@ -32,7 +33,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
@@ -65,7 +79,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         screen.queryByText('tidligstmuliguttak.error')
@@ -104,7 +131,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await waitFor(() => {
         expect(
@@ -145,7 +185,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
           ufoeregrad={0}
           show1963Text={true}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await waitFor(() => {
         expect(

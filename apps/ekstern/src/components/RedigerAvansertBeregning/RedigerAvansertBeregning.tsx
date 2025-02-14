@@ -32,10 +32,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectNormertPensjonsalder,
 } from '@/state/userInput/selectors'
-import {
-  DEFAULT_MAX_OPPTJENINGSALDER,
-  transformAlderToString,
-} from '@/utils/alder'
+import { DEFAULT_MAX_OPPTJENINGSALDER, formatUttaksalder } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
   formatInntekt,
@@ -74,6 +71,10 @@ export const RedigerAvansertBeregning: React.FC<{
   )
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
+  )
+  const formatertNormertPensjonsalder = formatUttaksalder(
+    intl,
+    normertPensjonsalder
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
@@ -538,10 +539,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     },
                     {
                       ...getFormatMessageValues(intl),
-                      normertPensjonsalder: transformAlderToString(
-                        intl.formatMessage,
-                        normertPensjonsalder
-                      ),
+                      normertPensjonsalder: formatertNormertPensjonsalder,
                     }
                   )
                 : ''
@@ -585,10 +583,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
                 values={{
                   ...getFormatMessageValues(intl),
-                  normertPensjonsalder: transformAlderToString(
-                    intl.formatMessage,
-                    normertPensjonsalder
-                  ),
+                  normertPensjonsalder: formatertNormertPensjonsalder,
                 }}
               />
             </BodyLong>

@@ -9,7 +9,7 @@ import { SanityContext } from '@/context/SanityContext'
 import { SanityForbeholdAvsnitt } from '@/context/SanityContext/SanityTypes'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
-import { transformAlderToString } from '@/utils/alder'
+import { formatUttaksalder } from '@/utils/alder'
 import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -139,8 +139,8 @@ export function Forbehold() {
                   id="forbehold.uforetrygd.ingress"
                   values={{
                     ...getFormatMessageValues(intl),
-                    normertPensjonsalder: transformAlderToString(
-                      intl.formatMessage,
+                    normertPensjonsalder: formatUttaksalder(
+                      intl,
                       person?.pensjoneringAldre.normertPensjoneringsalder
                     ),
                   }}

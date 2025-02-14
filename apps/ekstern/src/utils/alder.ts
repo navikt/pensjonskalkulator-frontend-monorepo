@@ -197,19 +197,6 @@ export const transformMaanedToDate = (
   })
 }
 
-export const transformAlderToString = (
-  formatFn: (args: { id: string }) => string,
-  alder: Alder
-) => {
-  if (alder.maaneder === 0) {
-    return `${alder.aar} ${formatFn({ id: 'alder.aar' })}`
-  } else {
-    return `${alder.aar} ${formatFn({ id: 'alder.aar' })} ${formatFn({
-      id: 'string.og',
-    })} ${alder.maaneder} ${formatFn({ id: 'alder.md' })}`
-  }
-}
-
 export const validateAlderFromForm = (
   alder:
     | {
