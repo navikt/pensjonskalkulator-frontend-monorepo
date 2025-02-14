@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
-    "@navikt/oasis": "^3.6.0",
+    "@navikt/oasis": "^3.7.0",
     "@portabletext/react": "^3.2.0",
     "@sanity/vision": "^3.75.0",
     "express": "^4.21.2",
