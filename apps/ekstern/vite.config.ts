@@ -30,7 +30,7 @@ export default defineConfig({
             'redux',
             'redux-thunk',
             '@reduxjs/toolkit',
-            'react-router-dom',
+            'react-router',
           ],
           ['designsystem']: ['@navikt/ds-react'],
           ['faro']: ['@grafana/faro-web-sdk'],
