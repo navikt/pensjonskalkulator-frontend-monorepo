@@ -344,7 +344,7 @@ const translations = {
   'tidligstmuliguttak.1964.ingress_2':
     ' Det kan bli senere pga. økt pensjonsalder.',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
-    'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>67 år</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
+    'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'beregning.read_more.pensjonsalder.label':
@@ -354,19 +354,19 @@ const translations = {
   'beregning.read_more.pensjonsalder.body':
     'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Hvis du har oppgitt AFP og/eller utenlandsopphold, er dette med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.',
   'beregning.read_more.pensjonsalder.endring.body':
-    'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har AFP, er AFP med i vurderingen av hvor mye alderspensjon du kan ta ut.',
+    'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved {normertPensjonsalder} må pensjonen minst tilsvare garantipensjon. Uttak før {normertPensjonsalder} betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har AFP, er AFP med i vurderingen av hvor mye alderspensjon du kan ta ut.',
   'beregning.alt_tekst': 'Årlig inntekt og pensjon etter uttak i kroner.',
   'omufoeretrygd.hel.ingress':
-    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>67 år</nowrap>. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
   'omufoeretrygd.gradert.ingress':
-    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>67 år</nowrap>. Vil du beregne uttak før <nowrap>67 år</nowrap>, må du gå til {link}. {br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}. {br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
   'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
   'omufoeretrygd.readmore.hel.ingress':
-    '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før <nowrap>67 år</nowrap> i kalkulatoren. Ved <nowrap>67 år</nowrap> går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
+    '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før <nowrap>{normertPensjonsalder}</nowrap> i kalkulatoren. Ved <nowrap>{normertPensjonsalder}</nowrap> går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
   'omufoeretrygd.readmore.gradert.ingress':
-    'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra <nowrap>62 år</nowrap>, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
+    'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra <nowrap>{nedreAldersgrense}</nowrap>, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',
   'omufoeretrygd.readmore.gradert.avansert.ingress':
-    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved <nowrap>67 år</nowrap> må pensjonen minst tilsvare garantipensjon. Uttak før <nowrap>67 år</nowrap> betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved <nowrap>67 år</nowrap> går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha <nowrap>100 %</nowrap> alderspensjon må du selv søke om dette.',
+    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved <nowrap>{normertPensjonsalder}</nowrap> må pensjonen minst tilsvare garantipensjon. Uttak før <nowrap>67 år</nowrap> betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved <nowrap>{normertPensjonsalder}</nowrap> går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha <nowrap>100 %</nowrap> alderspensjon må du selv søke om dette.',
   'omufoeretrygd.readmore.endring.ingress':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige <nowrap>100 %</nowrap>. Fra <nowrap>67 år</nowrap> kan du fritt velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).{br}{br}Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til <nowrap>0 %</nowrap> når du vil.',
   'omufoeretrygd.avansert_link': 'Avansert',
@@ -450,7 +450,7 @@ const translations = {
   'beregning.avansert.rediger.read_more.uttaksgrad.endring.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Hvis du vil endre gradering til 20, 40, 50, 60 eller 80 % må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan endre til 0 % og 100 % så ofte du vil.',
   'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
-    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra {normertPensjonsalder} kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
@@ -460,7 +460,7 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.validation_error':
     'Du må velge hvor mye alderspensjon du vil ta ut.',
   'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
-    'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter 67 år kan du velge 100 % uttak.',
+    'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter {normertPensjonsalder} kan du velge 100 % uttak.',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
@@ -494,7 +494,7 @@ const translations = {
   'beregning.vilkaarsproeving.intro':
     'Opptjeningen din er ikke høy nok til ønsket uttak. ',
   'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
-    '{br}{br}Du kan tidligst ta ut alderspensjon ved 67 år.',
+    '{br}{br}Du kan tidligst ta ut alderspensjon ved {normertPensjonsalder}.',
   'beregning.vilkaarsproeving.intro.optional':
     'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
   'beregning.vilkaarsproeving.alternativer.heltUttak':
@@ -744,7 +744,7 @@ const translations = {
     'Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For livsvarig AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.{br}{br}Hvis du allerede har startet uttak av livsvarig AFP i offentlig sektor, og beregner det på nytt i kalkulatoren, kan beregningen bli feil. AFP-beløpet kan bli for høyt og tidspunktet for når du kan ta ut alderspensjon vises for tidlig.',
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
-    'Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres.{br}{br}Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren.{br}{br}Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer vil gi deg et annet resultat.',
+    'Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved {normertPensjonsalder}. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres.{br}{br}Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren.{br}{br}Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer vil gi deg et annet resultat.',
   'forbehold.uforetrygd_afp.title': 'Uføretrygd og AFP',
   'forbehold.uforetrygd_afp.ingress':
     'Har du mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP.{br}{br}Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP.{br}{br}Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP.{br}{br}Kalkulatoren tar ikke høyde for nevnte unntak.',

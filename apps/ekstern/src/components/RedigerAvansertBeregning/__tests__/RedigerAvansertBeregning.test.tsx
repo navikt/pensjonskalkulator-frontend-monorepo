@@ -11,6 +11,7 @@ import {
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
   fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+  fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
@@ -32,6 +33,11 @@ describe('RedigerAvansertBeregning', () => {
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
 
+  const mockedQueries = {
+    ...fulfilledGetPerson,
+    ...fulfilledGetLoependeVedtak0Ufoeregrad,
+  }
+
   it('scroller på toppen av siden når en route endrer seg', async () => {
     const scrollToMock = vi.fn()
     Object.defineProperty(global.window, 'scrollTo', {
@@ -50,7 +56,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -61,6 +67,8 @@ describe('RedigerAvansertBeregning', () => {
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 
+  // 2. Når bruker har 0 uføretrygd, er minimumsalder til AgePicker for helt uttak (uten gradert periode) eller gradert uttak
+  // 4. AgePicker: Når bruker har 0 uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak
   it('feltene rendres riktig som default, og når brukeren legger til en gradert periode', async () => {
     const user = userEvent.setup()
     render(
@@ -78,7 +86,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -128,6 +136,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     const optionAarElements = selectAarElement?.querySelectorAll('option')
     expect(optionAarElements?.[0].value).toBe('')
+    // 64 er brukerens alder + 1 måned
     expect(optionAarElements?.[1].value).toBe('64')
 
     fireEvent.change(
@@ -268,7 +277,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -325,7 +334,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -593,7 +602,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -683,7 +692,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -804,7 +813,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -931,7 +940,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1015,7 +1024,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1158,6 +1167,10 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
+        normertPensjonsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
       })
     })
 
@@ -1175,7 +1188,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1339,7 +1352,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -1482,12 +1495,17 @@ describe('RedigerAvansertBeregning', () => {
             grad: 0,
           },
         },
+        normertPensjonsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
       })
     })
   })
 
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalderen', async () => {
+    // 4. Når bruker har 100% uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak
+    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalder', async () => {
       const user = userEvent.setup()
 
       const { store } = render(
@@ -1502,7 +1520,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak100Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1536,8 +1557,8 @@ describe('RedigerAvansertBeregning', () => {
       )
       const optionAarElements = selectAarElement?.querySelectorAll('option')
       expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('67')
-      expect(optionAarElements?.[9].value).toBe('75')
+      expect(optionAarElements?.[1].value).toBe('70')
+      expect(optionAarElements?.[6].value).toBe('75')
 
       // Fyller ut uttaksalder
       fireEvent.change(
@@ -1545,7 +1566,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '67' },
+          target: { value: '70' },
         }
       )
       fireEvent.change(
@@ -1570,8 +1591,8 @@ describe('RedigerAvansertBeregning', () => {
       const optionAarElementsHelt =
         selectAarElementHelt?.querySelectorAll('option')
       expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('67')
-      expect(optionAarElementsHelt?.[9].value).toBe('75')
+      expect(optionAarElementsHelt?.[1].value).toBe('70')
+      expect(optionAarElementsHelt?.[6].value).toBe('75')
 
       const selectAarElementGradert = screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
@@ -1579,13 +1600,15 @@ describe('RedigerAvansertBeregning', () => {
       const optionAarElementsGradert =
         selectAarElementGradert?.querySelectorAll('option')
       expect(optionAarElementsGradert?.[0].value).toBe('')
-      expect(optionAarElementsGradert?.[1].value).toBe('67')
-      expect(optionAarElementsGradert?.[9].value).toBe('75')
+      expect(optionAarElementsGradert?.[1].value).toBe('70')
+      expect(optionAarElementsGradert?.[6].value).toBe('75')
     })
   })
 
   describe('Gitt at en bruker mottar gradert uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttaksalderen', async () => {
+    // 2. Når bruker har gradert uføretrygd, er minimumsalder til AgePicker for helt uttak (uten gradert periode) eller gradert uttak
+    // 3. Når bruker har gradert uføretrygd og har lagt inn et gradert uttak, er minimumsalder til AgePicker for helt uttak lik ubetinget uttaksalder.
+    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttakssalder', async () => {
       render(
         <BeregningContext.Provider
           value={{
@@ -1601,7 +1624,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1622,11 +1648,7 @@ describe('RedigerAvansertBeregning', () => {
           'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
         )
       ).toBeVisible()
-      expect(
-        await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-        )
-      ).toBeInTheDocument()
+      expect(screen.getByTestId('om-uttaksgrad')).toBeInTheDocument()
 
       const selectAarElement = screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
@@ -1667,8 +1689,8 @@ describe('RedigerAvansertBeregning', () => {
       const optionAarElementsHelt =
         selectAarElementHelt?.querySelectorAll('option')
       expect(optionAarElementsHelt?.[0].value).toBe('')
-      expect(optionAarElementsHelt?.[1].value).toBe('67')
-      expect(optionAarElementsHelt?.[9].value).toBe('75')
+      expect(optionAarElementsHelt?.[1].value).toBe('70')
+      expect(optionAarElementsHelt?.[6].value).toBe('75')
 
       const selectAarElementGradert = screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
@@ -1680,6 +1702,68 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsGradert?.[12].value).toBe('75')
     })
 
+    it('Når brukeren har lagt inn et gradert uttak, er minimum alder i aldersvelgeren for helt uttak lik ubetinget uttaksalder', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            brukerensAlderPlus1Maaned={{ aar: 66, maaneder: 0 }}
+          />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '50 %' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      const selectAarElementHelt = screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      const optionAarElementsHelt =
+        selectAarElementHelt?.querySelectorAll('option')
+      expect(optionAarElementsHelt?.[0].value).toBe('')
+      expect(optionAarElementsHelt?.[1].value).toBe('70')
+      expect(optionAarElementsHelt?.[6].value).toBe('75')
+    })
+
+    // 7.  Hvis bruker har uføretrygd og hvis året til valgt uttaksalder for gradert er lavere enn ubetinget uttaksalder, vises det description om inntektsgrensen for uføretrygd.
     it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {
       render(
         <BeregningContext.Provider
@@ -1693,7 +1777,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1708,7 +1795,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -1757,7 +1844,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1818,7 +1908,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1894,13 +1987,13 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      expect(
-        screen.getByText(
-          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
-        )
-      ).toBeVisible()
+      const uttaksgradSelect = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
+      expect(uttaksgradSelect).toHaveErrorMessage(expect.stringContaining(''))
     })
 
+    // 6. bruker med gradert uføretrygd skal få valideringsfeil når valgt uttaksgrad overstiger tillat grad
     it('Når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
       render(
@@ -1915,7 +2008,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -1930,7 +2026,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '70' },
+          target: { value: '72' },
         }
       )
       fireEvent.change(
@@ -1956,7 +2052,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -2009,13 +2105,13 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      expect(
-        screen.getByText(
-          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
-        )
-      ).toBeVisible()
+      const uttaksgradSelect = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
+      expect(uttaksgradSelect).toHaveErrorMessage(expect.stringContaining(''))
     })
 
+    // 5. Fikset med mock av getPersonMedOekteAldersgrenser
     it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
       render(
         <BeregningContext.Provider
@@ -2029,7 +2125,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2044,7 +2143,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '64' },
+          target: { value: '66' },
         }
       )
       fireEvent.change(
@@ -2077,7 +2176,7 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
-          target: { value: '70' },
+          target: { value: '72' },
         }
       )
 
@@ -2118,7 +2217,7 @@ describe('RedigerAvansertBeregning', () => {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: {
             ...userInputInitialState,
@@ -2460,7 +2559,7 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...mockedQueries },
             },
             userInput: {
               ...userInputInitialState,
@@ -2493,7 +2592,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2527,7 +2629,10 @@ describe('RedigerAvansertBeregning', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
             },
             userInput: {
               ...userInputInitialState,
@@ -2589,6 +2694,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               // @ts-ignore
               queries: {
+                ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
               },
             },
@@ -2679,6 +2785,7 @@ describe('RedigerAvansertBeregning', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: {

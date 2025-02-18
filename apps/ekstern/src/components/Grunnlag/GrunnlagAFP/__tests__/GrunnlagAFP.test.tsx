@@ -189,12 +189,22 @@ describe('Grunnlag - AFP', () => {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato,
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
           fulfilledTimeStamp: 1688046412103,
         },
       }
 
-      it('Når hen er yngre enn 62 år, returneres null', async () => {
+      it('Når hen er yngre enn nedre aldersgrense, returneres null', async () => {
         render(<GrunnlagAFP goToStart={vi.fn()} />, {
           preloadedState: {
             api: {
@@ -230,6 +240,16 @@ describe('Grunnlag - AFP', () => {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato,
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           },
           fulfilledTimeStamp: 1688046412103,
         },

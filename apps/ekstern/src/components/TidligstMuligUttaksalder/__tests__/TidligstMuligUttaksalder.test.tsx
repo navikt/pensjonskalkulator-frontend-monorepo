@@ -1,9 +1,14 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { fulfilledGetOmstillingsstoenadOgGjenlevende } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetOmstillingsstoenadOgGjenlevende,
+  fulfilledGetPersonMedOekteAldersgrenser,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
 
@@ -28,7 +33,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
@@ -42,7 +60,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.',
           {
             exact: false,
           }
@@ -61,7 +79,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         screen.queryByText('tidligstmuliguttak.error')
@@ -81,7 +112,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
       expect(
         screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull,',
+          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.',
           {
             exact: false,
           }
@@ -100,7 +131,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
           ufoeregrad={0}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await waitFor(() => {
         expect(
@@ -141,7 +185,20 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
           ufoeregrad={0}
           show1963Text={true}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await waitFor(() => {
         expect(
@@ -189,6 +246,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },
@@ -214,7 +272,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={100}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       expect(
@@ -241,7 +310,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={100}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         await screen.findByText(
@@ -272,7 +352,18 @@ describe('TidligstMuligUttaksalder', () => {
           tidligstMuligUttak={undefined}
           ufoeregrad={75}
           show1963Text={false}
-        />
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       expect(
         await screen.findByText('Vil du beregne uttak før ', {
@@ -304,6 +395,7 @@ describe('TidligstMuligUttaksalder', () => {
               // @ts-ignore
               queries: {
                 ...fulfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetPersonMedOekteAldersgrenser,
               },
             },
             userInput: { ...userInputReducerUtils.userInputInitialState },

@@ -30,11 +30,9 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
+  selectNormertPensjonsalder,
 } from '@/state/userInput/selectors'
-import {
-  DEFAULT_MAX_OPPTJENINGSALDER,
-  DEFAULT_UBETINGET_UTTAKSALDER,
-} from '@/utils/alder'
+import { DEFAULT_MAX_OPPTJENINGSALDER, formatUttaksalder } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
   formatInntekt,
@@ -58,6 +56,7 @@ export const RedigerAvansertBeregning: React.FC<{
   const dispatch = useAppDispatch()
 
   const foedselsdato = useAppSelector(selectFoedselsdato)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const isEndring = useAppSelector(selectIsEndring)
   const inntektVsaHeltUttakInputRef = React.useRef<HTMLInputElement>(null)
   const inntektVsaGradertUttakInputRef = React.useRef<HTMLInputElement>(null)
@@ -72,6 +71,10 @@ export const RedigerAvansertBeregning: React.FC<{
   )
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
+  )
+  const formatertNormertPensjonsalder = formatUttaksalder(
+    intl,
+    normertPensjonsalder
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
@@ -103,6 +106,7 @@ export const RedigerAvansertBeregning: React.FC<{
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    normertPensjonsalder,
   })
 
   const [
@@ -153,7 +157,7 @@ export const RedigerAvansertBeregning: React.FC<{
       loependeVedtak.ufoeretrygd.grad !== 100 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
-      alder?.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar
+      alder?.aar >= normertPensjonsalder.aar
     setValidationErrorUttaksalderGradertUttak('')
     if (shouldResetGradertUttak) {
       // Overførter verdien tilbake til helt uttak
@@ -345,6 +349,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 gaaTilResultat,
                 {
                   foedselsdato: foedselsdato as string,
+                  normertPensjonsalder,
                   loependeVedtak,
                   localInntektFremTilUttak,
                   hasVilkaarIkkeOppfylt:
@@ -473,7 +478,7 @@ export const RedigerAvansertBeregning: React.FC<{
               error={gradertUttakAgePickerError}
               minAlder={
                 loependeVedtak.ufoeretrygd.grad === 100
-                  ? DEFAULT_UBETINGET_UTTAKSALDER
+                  ? normertPensjonsalder
                   : brukerensAlderPlus1Maaned
               }
             />
@@ -495,7 +500,7 @@ export const RedigerAvansertBeregning: React.FC<{
               error={heltUttakAgePickerError}
               minAlder={
                 loependeVedtak.ufoeretrygd.grad === 100
-                  ? DEFAULT_UBETINGET_UTTAKSALDER
+                  ? normertPensjonsalder
                   : brukerensAlderPlus1Maaned
               }
             />
@@ -534,6 +539,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     },
                     {
                       ...getFormatMessageValues(intl),
+                      normertPensjonsalder: formatertNormertPensjonsalder,
                     }
                   )
                 : ''
@@ -577,6 +583,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
                 values={{
                   ...getFormatMessageValues(intl),
+                  normertPensjonsalder: formatertNormertPensjonsalder,
                 }}
               />
             </BodyLong>
@@ -603,7 +610,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       id={
                         loependeVedtak.ufoeretrygd.grad &&
                         localGradertUttak.uttaksalder.aar <
-                          DEFAULT_UBETINGET_UTTAKSALDER.aar
+                          normertPensjonsalder.aar
                           ? 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
                           : 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description'
                       }
@@ -660,8 +667,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   </Radio>
                 </RadioGroup>
                 {loependeVedtak.ufoeretrygd.grad &&
-                localGradertUttak.uttaksalder.aar <
-                  DEFAULT_UBETINGET_UTTAKSALDER.aar ? (
+                localGradertUttak.uttaksalder.aar < normertPensjonsalder.aar ? (
                   <ReadMore
                     name="Om inntekt og uføretrygd"
                     header={intl.formatMessage({
@@ -744,7 +750,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   error={heltUttakAgePickerError}
                   minAlder={
                     loependeVedtak.ufoeretrygd.grad
-                      ? DEFAULT_UBETINGET_UTTAKSALDER
+                      ? normertPensjonsalder
                       : brukerensAlderPlus1Maaned
                   }
                 />

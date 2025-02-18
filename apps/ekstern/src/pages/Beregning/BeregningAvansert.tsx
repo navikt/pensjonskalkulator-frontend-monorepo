@@ -32,17 +32,12 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectIsEndring,
   selectLoependeVedtak,
+  selectNedreAldersgrense,
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
   selectSivilstand,
 } from '@/state/userInput/selectors'
-import {
-  DEFAULT_TIDLIGST_UTTAKSALDER,
-  getAlderMinus1Maaned,
-  getAlderPlus1Maaned,
-  isAlderOverMinUttaksalder,
-  transformFoedselsdatoToAlderMinus1md,
-} from '@/utils/alder'
+import { getBrukerensAlderISluttenAvMaaneden } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -61,6 +56,8 @@ export const BeregningAvansert: React.FC = () => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -170,16 +167,6 @@ export const BeregningAvansert: React.FC = () => {
     }
   }, [alderspensjon])
 
-  const brukerensAlderPlus1Maaned = React.useMemo(() => {
-    const brukerensAlder = person
-      ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
-      : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
-    const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksalder(beregnetMinAlder)
-      ? beregnetMinAlder
-      : DEFAULT_TIDLIGST_UTTAKSALDER
-  }, [person])
-
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonRequestBody) {
@@ -198,7 +185,10 @@ export const BeregningAvansert: React.FC = () => {
             window.scrollTo(0, 0)
           }}
           vilkaarsproeving={alderspensjon?.vilkaarsproeving}
-          brukerensAlderPlus1Maaned={brukerensAlderPlus1Maaned}
+          brukerensAlderPlus1Maaned={getBrukerensAlderISluttenAvMaaneden(
+            person,
+            nedreAldersgrense
+          )}
         />
       )}
 
