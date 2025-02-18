@@ -40,7 +40,10 @@ import {
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
 } from '@/state/userInput/selectors'
-import { isFoedtFoer1964, getBrukerensAlderPlus1Maaned } from '@/utils/alder'
+import {
+  isFoedtFoer1964,
+  getBrukerensAlderISluttenAvMaaneden,
+} from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -258,7 +261,7 @@ export const BeregningEnkel: React.FC = () => {
               ? normertPensjonsalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
-                : getBrukerensAlderPlus1Maaned(person, nedreAldersgrense)
+                : getBrukerensAlderISluttenAvMaaneden(person, nedreAldersgrense)
           }
         />
       </div>

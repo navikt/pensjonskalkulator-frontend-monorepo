@@ -13,7 +13,7 @@ import {
   isFoedselsdatoOverEllerLikAlder,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
-  getBrukerensAlderPlus1Maaned,
+  getBrukerensAlderISluttenAvMaaneden,
   transformFoedselsdatoToAlder,
   transformFoedselsdatoToAlderMinus1md,
   transformUttaksalderToDate,
@@ -293,7 +293,7 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('getBrukerensAlderPlus1Maaned', () => {
+  describe('getBrukerensAlderISluttenAvMaaneden', () => {
     const nedreAldersgrense = { aar: 62, maaneder: 0 }
     const person: Person = {
       ...fulfilledGetPerson['getPerson(undefined)'].data,
@@ -302,25 +302,25 @@ describe('alder-utils', () => {
     }
 
     it('returnerer nedre aldersgrense når person er undefined', () => {
-      const expectedAlder = getBrukerensAlderPlus1Maaned(
+      const expectedAlder = getBrukerensAlderISluttenAvMaaneden(
         undefined,
         nedreAldersgrense
       )
       expect(expectedAlder).toStrictEqual(nedreAldersgrense)
     })
 
-    it('returnerer alderen til personen + 1 måned når alderen er over nedre aldersgrense', () => {
+    it('returnerer alderen til personen når alderen er over nedre aldersgrense', () => {
       vi.useFakeTimers().setSystemTime(new Date('2025-01-04'))
       const mock_person = {
         ...person,
         foedselsdato: '1960-01-01',
       }
-      // Brukeren er 65 år og 0 md
-      const expectedAlder = getBrukerensAlderPlus1Maaned(
+      // Brukeren er 65 år, 0 md og 3 dager den 4. januar 2025
+      const expectedAlder = getBrukerensAlderISluttenAvMaaneden(
         mock_person,
         nedreAldersgrense
       )
-      expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 1 })
+      expect(expectedAlder).toStrictEqual({ aar: 65, maaneder: 0 })
       vi.useRealTimers()
     })
 
@@ -330,8 +330,8 @@ describe('alder-utils', () => {
         ...person,
         foedselsdato: '1963-01-01',
       }
-      // Brukeren er 62 år og 0 md
-      const expectedAlder = getBrukerensAlderPlus1Maaned(
+      // Brukeren er 62 år og 0 md den 1. januar 2025
+      const expectedAlder = getBrukerensAlderISluttenAvMaaneden(
         mock_person,
         nedreAldersgrense
       )
@@ -339,18 +339,18 @@ describe('alder-utils', () => {
       vi.useRealTimers()
     })
 
-    it('returnerer alderen til personen + 1 måned når alderen er nedre aldersgrense + 1 måned', () => {
+    it('returnerer alderen til personen når alderen er nedre aldersgrense + 1 måned', () => {
       vi.useFakeTimers().setSystemTime(new Date('2025-01-01'))
       const mock_person = {
         ...person,
         foedselsdato: '1962-12-01',
       }
-      // Brukeren er 62 år og 1 md
-      const expectedAlder = getBrukerensAlderPlus1Maaned(
+      // Brukeren er 62 år og 1 md den 1. januar 2025
+      const expectedAlder = getBrukerensAlderISluttenAvMaaneden(
         mock_person,
         nedreAldersgrense
       )
-      expect(expectedAlder).toStrictEqual({ aar: 62, maaneder: 2 })
+      expect(expectedAlder).toStrictEqual({ aar: 62, maaneder: 1 })
       vi.useRealTimers()
     })
 
@@ -359,7 +359,7 @@ describe('alder-utils', () => {
         ...person,
         foedselsdato: '1970-01-01',
       }
-      const expectedAlder = getBrukerensAlderPlus1Maaned(
+      const expectedAlder = getBrukerensAlderISluttenAvMaaneden(
         mock_person,
         nedreAldersgrense
       )

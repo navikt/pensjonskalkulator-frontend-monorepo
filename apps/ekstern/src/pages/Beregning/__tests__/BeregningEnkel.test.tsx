@@ -223,7 +223,7 @@ describe('BeregningEnkel', () => {
         const buttons = screen.getAllByRole('button')
         expect(buttons).toHaveLength(13)
         expect(buttons[1]).toHaveTextContent(
-          '64 alder.aar string.og 6 alder.md'
+          '64 alder.aar string.og 5 alder.md'
         )
         vi.setSystemTime(new Date())
         vi.useRealTimers()

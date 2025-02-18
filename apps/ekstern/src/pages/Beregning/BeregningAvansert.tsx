@@ -37,7 +37,7 @@ import {
   selectEpsHarInntektOver2G,
   selectSivilstand,
 } from '@/state/userInput/selectors'
-import { getBrukerensAlderPlus1Maaned } from '@/utils/alder'
+import { getBrukerensAlderISluttenAvMaaneden } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -185,7 +185,7 @@ export const BeregningAvansert: React.FC = () => {
             window.scrollTo(0, 0)
           }}
           vilkaarsproeving={alderspensjon?.vilkaarsproeving}
-          brukerensAlderPlus1Maaned={getBrukerensAlderPlus1Maaned(
+          brukerensAlderPlus1Maaned={getBrukerensAlderISluttenAvMaaneden(
             person,
             nedreAldersgrense
           )}

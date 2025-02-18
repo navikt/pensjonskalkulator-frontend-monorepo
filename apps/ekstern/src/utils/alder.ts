@@ -151,17 +151,16 @@ export const transformFoedselsdatoToAlderMinus1md = (
   return getAlderMinus1Maaned(transformFoedselsdatoToAlder(foedselsdato))
 }
 
-export const getBrukerensAlderPlus1Maaned = (
+export const getBrukerensAlderISluttenAvMaaneden = (
   person: Person | undefined,
   nedreAldersgrense: Alder
 ): Alder => {
   const brukerensAlder = person
-    ? transformFoedselsdatoToAlder(person?.foedselsdato)
-    : undefined
-
-  return brukerensAlder &&
-    isAlderOverAnnenAlder(brukerensAlder, nedreAldersgrense)
-    ? getAlderPlus1Maaned(brukerensAlder)
+    ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
+    : getAlderMinus1Maaned(nedreAldersgrense)
+  const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
+  return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
+    ? beregnetMinAlder
     : nedreAldersgrense
 }
 
