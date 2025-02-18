@@ -2,7 +2,6 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
-import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
@@ -16,6 +15,7 @@ export const useFormLocalState = (initialValues: {
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
+  normertPensjonsalder: Alder
 }) => {
   const {
     isEndring,
@@ -25,6 +25,7 @@ export const useFormLocalState = (initialValues: {
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    normertPensjonsalder,
   } = initialValues
 
   const { setHarAvansertSkjemaUnsavedChanges } =
@@ -119,7 +120,7 @@ export const useFormLocalState = (initialValues: {
       valgtAlder?.maaneder !== undefined &&
       ufoeregrad &&
       ufoeregrad !== 100 &&
-      valgtAlder?.aar < DEFAULT_UBETINGET_UTTAKSALDER.aar
+      valgtAlder?.aar < normertPensjonsalder.aar
     ) {
       const maksGrad = 100 - ufoeregrad
       const avgrensetUttaksgrad = [...filtrerteUttaksgrad].filter(

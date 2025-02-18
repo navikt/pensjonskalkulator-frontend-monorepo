@@ -877,7 +877,7 @@ describe('BeregningEnkel', () => {
       const alertBoks = await screen.findByTestId('alert-inntekt')
       expect(alertBoks).toBeVisible()
 
-      await user.click(await screen.findByText('67 alder.aar'))
+      await user.click(await screen.findByText('70 alder.aar'))
       expect(alertBoks).not.toBeVisible()
     })
 

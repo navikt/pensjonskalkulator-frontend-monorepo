@@ -7,7 +7,11 @@ import { Alert, BodyLong, Link } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
 import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectNedreAldersgrense,
+  selectNormertPensjonsalder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -30,6 +34,12 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
+  const formatertNormertPensjonsalder = formatUttaksalder(
+    intl,
+    normertPensjonsalder
+  )
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -61,6 +71,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
+                normertPensjonsalder: formatertNormertPensjonsalder,
                 grad: ufoeregrad,
                 link: (
                   <Link href="#" onClick={goToAvansert}>
@@ -104,6 +115,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
                 ...getFormatMessageValues(intl),
+                normertPensjonsalder: formatertNormertPensjonsalder,
               }}
             />
           </Alert>
@@ -123,6 +135,8 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               }
               values={{
                 ...getFormatMessageValues(intl),
+                nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
+                normertPensjonsalder: formatertNormertPensjonsalder,
               }}
             />
           </ReadMore>

@@ -16,8 +16,9 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
-  isAlderOverMinUttaksalder,
+  isAlderOverAnnenAlder,
   transformFoedselsdatoToAlderMinus1md,
+  AFP_UFOERE_OPPSIGELSESALDER,
 } from '@/utils/alder'
 
 export function StepSamtykkePensjonsavtaler() {
@@ -56,8 +57,9 @@ export function StepSamtykkePensjonsavtaler() {
     if (
       ufoeregrad &&
       foedselsdato &&
-      isAlderOverMinUttaksalder(
-        transformFoedselsdatoToAlderMinus1md(foedselsdato)
+      isAlderOverAnnenAlder(
+        transformFoedselsdatoToAlderMinus1md(foedselsdato),
+        AFP_UFOERE_OPPSIGELSESALDER
       )
     ) {
       navigateBackAntallStep = -2

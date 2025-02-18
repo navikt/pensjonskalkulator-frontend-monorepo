@@ -420,6 +420,16 @@ describe('Hovedhistorie', () => {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1964-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
           }
         ).as('getPerson')
         cy.login()

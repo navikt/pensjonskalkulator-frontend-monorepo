@@ -18,8 +18,9 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 import {
-  isFoedselsdatoOverEllerLikMinUttaksalder,
+  isFoedselsdatoOverEllerLikAlder,
   isFoedtFoer1963,
+  AFP_UFOERE_OPPSIGELSESALDER,
 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
@@ -36,10 +37,11 @@ export async function authenticationGuard(): Promise<AuthenticationGuardLoader> 
 }
 
 export const directAccessGuard = async () => {
+  const state = store.getState()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
-    store.getState().api?.queries === undefined ||
-    Object.keys(store.getState().api.queries).length === 0
+    state.api?.queries === undefined ||
+    Object.keys(state.api.queries).length === 0
   ) {
     return redirect(paths.start)
   }
@@ -273,26 +275,23 @@ export const stepAFPAccessGuard = async (): Promise<
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
   })
+  const state = store.getState()
 
-  const foedselsdato = selectFoedselsdato(store.getState())
+  const foedselsdato = selectFoedselsdato(state)
 
-  const hasInntektPreviouslyFailed = apiSlice.endpoints.getInntekt.select(
-    undefined
-  )(store.getState()).isError
+  const hasInntektPreviouslyFailed =
+    apiSlice.endpoints.getInntekt.select(undefined)(state).isError
 
   const hasOmstillingsstoenadOgGjenlevendePreviouslyFailed =
     apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(undefined)(
-      store.getState()
+      state
     ).isError
 
   const hasEkskludertStatusPreviouslyFailed =
-    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-      store.getState()
-    ).isError
+    apiSlice.endpoints.getEkskludertStatus.select(undefined)(state).isError
 
-  const getLoependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
-    undefined
-  )(store.getState())
+  const getLoependeVedtakResponse =
+    apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
 
   const { ufoeretrygd, afpPrivat, afpOffentlig } =
     getLoependeVedtakResponse.data as LoependeVedtak
@@ -310,7 +309,10 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato))
+        isFoedselsdatoOverEllerLikAlder(
+          foedselsdato,
+          AFP_UFOERE_OPPSIGELSESALDER
+        ))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -340,10 +342,9 @@ export const stepAFPAccessGuard = async (): Promise<
         } else if (
           apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
             undefined
-          )(store.getState()).isSuccess &&
-          apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-            store.getState()
-          ).isSuccess
+          )(state).isSuccess &&
+          apiSlice.endpoints.getEkskludertStatus.select(undefined)(state)
+            .isSuccess
         ) {
           resolveRedirectUrl(redirectFromAFPSteg())
         }
@@ -364,11 +365,9 @@ export const stepAFPAccessGuard = async (): Promise<
           })
           resolveRedirectUrl(paths.uventetFeil)
         } else if (
-          apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-            .isSuccess &&
-          apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-            store.getState()
-          ).isSuccess
+          apiSlice.endpoints.getInntekt.select(undefined)(state).isSuccess &&
+          apiSlice.endpoints.getEkskludertStatus.select(undefined)(state)
+            .isSuccess
         ) {
           resolveRedirectUrl(redirectFromAFPSteg())
         }
@@ -396,11 +395,10 @@ export const stepAFPAccessGuard = async (): Promise<
               `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
             )
           } else if (
-            apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-              .isSuccess &&
+            apiSlice.endpoints.getInntekt.select(undefined)(state).isSuccess &&
             apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
               undefined
-            )(store.getState()).isSuccess
+            )(state).isSuccess
           ) {
             resolveRedirectUrl(redirectFromAFPSteg())
           }
@@ -421,10 +419,11 @@ export const stepUfoeretrygdAFPAccessGuard =
       return redirect(paths.start)
     }
 
-    const afp = selectAfp(store.getState())
-    const foedselsdato = selectFoedselsdato(store.getState())
+    const state = store.getState()
+    const afp = selectAfp(state)
+    const foedselsdato = selectFoedselsdato(state)
     const getLoependeVedtakResponse =
-      apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
 
     const stepArrays = isLoependeVedtakEndring(
       getLoependeVedtakResponse.data as LoependeVedtak
@@ -432,11 +431,14 @@ export const stepUfoeretrygdAFPAccessGuard =
       ? stegvisningOrderEndring
       : stegvisningOrder
 
-    // Bruker med uføretrygd, som svarer ja til afp, og som er under 62 kan se steget
+    // Bruker med uføretrygd, som svarer ja til afp, og som er under nedre aldersgrense kan se steget
     if (
       (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
       afp !== 'nei' &&
-      !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
+      !isFoedselsdatoOverEllerLikAlder(
+        foedselsdato as string,
+        AFP_UFOERE_OPPSIGELSESALDER
+      )
     ) {
       return null
     }
@@ -451,9 +453,10 @@ export const stepSamtykkeOffentligAFPAccessGuard =
       return redirect(paths.start)
     }
 
-    const afp = selectAfp(store.getState())
+    const state = store.getState()
+    const afp = selectAfp(state)
     const getLoependeVedtakResponse =
-      apiSlice.endpoints.getLoependeVedtak.select(undefined)(store.getState())
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
 
     const stepArrays = isLoependeVedtakEndring(
       getLoependeVedtakResponse.data as LoependeVedtak

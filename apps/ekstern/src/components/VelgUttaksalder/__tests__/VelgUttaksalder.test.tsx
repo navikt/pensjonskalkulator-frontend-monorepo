@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('VelgUttaksalder', () => {
@@ -9,8 +11,24 @@ describe('VelgUttaksalder', () => {
     maaneder: 10,
   }
 
+  const mockedState = {
+    api: {
+      queries: {
+        ...fulfilledGetPerson,
+      },
+    },
+    userInput: {
+      ...userInputInitialState,
+    },
+  }
+
   it('viser riktige aldere når uttaksalder ikke er angitt', async () => {
-    render(<VelgUttaksalder tidligstMuligUttak={undefined} />)
+    render(<VelgUttaksalder tidligstMuligUttak={undefined} />, {
+      // @ts-ignore
+      preloadedState: {
+        ...mockedState,
+      },
+    })
     expect(await screen.findAllByRole('button')).toHaveLength(14)
   })
 
@@ -21,7 +39,12 @@ describe('VelgUttaksalder', () => {
       tidligstMuligUttak: uttaksalder,
     })
 
-    const { rerender } = render(<VelgUttaksalder {...getProps()} />)
+    const { rerender } = render(<VelgUttaksalder {...getProps()} />, {
+      // @ts-ignore
+      preloadedState: {
+        ...mockedState,
+      },
+    })
 
     await user.click(screen.getByText('65 alder.aar', { exact: false }))
 

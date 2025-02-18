@@ -15,16 +15,6 @@ import { nb, nn, enGB } from 'date-fns/locale'
 import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
 import { capitalize } from '@/utils/string'
 
-export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
-  aar: 62,
-  maaneder: 0,
-}
-
-export const DEFAULT_UBETINGET_UTTAKSALDER: Alder = {
-  aar: 67,
-  maaneder: 0,
-}
-
 export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   aar: 75,
   maaneder: 0,
@@ -33,6 +23,11 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
 export const DEFAULT_MAX_OPPTJENINGSALDER: Alder = {
   aar: 75,
   maaneder: 11,
+}
+
+export const AFP_UFOERE_OPPSIGELSESALDER: Alder = {
+  aar: 62,
+  maaneder: 0,
 }
 
 export const formatUttaksalder = (
@@ -80,25 +75,29 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   )
 }
 
-export const isAlderLikEllerOverUbetingetUttaksalder = (
-  alder: Alder | Partial<Alder>
+export const isAlderLikEllerOverAnnenAlder = (
+  alder: Alder | Partial<Alder>,
+  alder2: Alder
 ) => {
   if (!alder.aar) {
     return false
   }
-  if (alder.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar) {
+  if (alder.aar >= alder2.aar) {
     return true
   } else {
     return false
   }
 }
 
-export const isAlderOverMinUttaksalder = (alder: Alder) => {
-  if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
+export const isAlderOverAnnenAlder = (
+  stoersteAlder: Alder,
+  minsteAlder: Alder
+) => {
+  if (stoersteAlder.aar > minsteAlder.aar) {
     return true
   } else if (
-    alder.aar === DEFAULT_TIDLIGST_UTTAKSALDER.aar &&
-    alder.maaneder > 0
+    stoersteAlder.aar === minsteAlder.aar &&
+    stoersteAlder.maaneder > minsteAlder.maaneder
   ) {
     return true
   } else {
@@ -106,15 +105,16 @@ export const isAlderOverMinUttaksalder = (alder: Alder) => {
   }
 }
 
-export const isFoedselsdatoOverEllerLikMinUttaksalder = (
-  foedselsdato: string
+export const isFoedselsdatoOverEllerLikAlder = (
+  foedselsdato: string,
+  alder: Alder
 ) => {
   const birtdateJs = endOfDay(
     parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
   )
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)
-  return aar >= DEFAULT_TIDLIGST_UTTAKSALDER.aar
+  return aar >= alder.aar
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {
@@ -149,6 +149,19 @@ export const transformFoedselsdatoToAlderMinus1md = (
   foedselsdato: string
 ): Alder => {
   return getAlderMinus1Maaned(transformFoedselsdatoToAlder(foedselsdato))
+}
+
+export const getBrukerensAlderISluttenAvMaaneden = (
+  person: Person | undefined,
+  nedreAldersgrense: Alder
+): Alder => {
+  const brukerensAlder = person
+    ? transformFoedselsdatoToAlderMinus1md(person.foedselsdato)
+    : getAlderMinus1Maaned(nedreAldersgrense)
+  const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
+  return isAlderOverAnnenAlder(beregnetMinAlder, nedreAldersgrense)
+    ? beregnetMinAlder
+    : nedreAldersgrense
 }
 
 export const transformUttaksalderToDate = (

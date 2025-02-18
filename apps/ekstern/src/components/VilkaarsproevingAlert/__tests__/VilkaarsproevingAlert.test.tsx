@@ -1,8 +1,9 @@
 import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen } from '@/test-utils'
-import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 
 describe('VilkaarsproevingAlert', () => {
   const uttaksalder = { aar: 63, maaneder: 3 }
@@ -14,6 +15,16 @@ describe('VilkaarsproevingAlert', () => {
       heltUttaksalder: { aar: 65, maaneder: 3 },
     },
   }
+  const mockedState = {
+    api: {
+      queries: {
+        ...fulfilledGetPerson,
+      },
+    },
+    userInput: {
+      ...userInputInitialState,
+    },
+  }
   it('Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst', () => {
     const { asFragment } = render(
       <VilkaarsproevingAlert
@@ -21,22 +32,40 @@ describe('VilkaarsproevingAlert', () => {
           ...vilkaarsproeving,
           alternativ: {
             ...vilkaarsproeving.alternativ,
-            heltUttaksalder: { ...DEFAULT_UBETINGET_UTTAKSALDER },
+            heltUttaksalder: {
+              aar: 67,
+              maaneder: 0,
+            },
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
-
     expect(
       screen.getByText('beregning.vilkaarsproeving.intro', {
         exact: false,
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan tidligst ta ut alderspensjon ved 67 år.', {
-        exact: false,
-      })
+      screen.getByText(
+        `Du kan tidligst ta ut alderspensjon ved 67 alder.aar.`,
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })
@@ -46,7 +75,13 @@ describe('VilkaarsproevingAlert', () => {
       <VilkaarsproevingAlert
         vilkaarsproeving={vilkaarsproeving}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
@@ -93,7 +128,13 @@ describe('VilkaarsproevingAlert', () => {
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(
@@ -139,7 +180,13 @@ describe('VilkaarsproevingAlert', () => {
           },
         }}
         uttaksalder={uttaksalder}
-      />
+      />,
+      {
+        // @ts-ignore
+        preloadedState: {
+          ...mockedState,
+        },
+      }
     )
 
     expect(

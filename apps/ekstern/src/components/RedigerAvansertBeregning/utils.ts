@@ -3,10 +3,9 @@ import { add, endOfDay, format, isBefore, parse, startOfMonth } from 'date-fns'
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
-  DEFAULT_UBETINGET_UTTAKSALDER,
   validateAlderFromForm,
   getAlderMinus1Maaned,
-  isAlderLikEllerOverUbetingetUttaksalder,
+  isAlderLikEllerOverAnnenAlder,
   transformUttaksalderToDate,
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
@@ -179,6 +178,7 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
   foedselsdato: string,
+  normertPensjonsalder: Alder,
   loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
@@ -269,18 +269,24 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksgraden er iht uføregraden
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
-      // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
-      const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder({
-        aar: parseInt(heltUttakAarFormData as string, 10),
-        maaneder: parseInt(heltUttakMaanederFormData as string, 10),
-      })
+      // Dette kan i teorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
+      const isHeltUttaksalderValid = isAlderLikEllerOverAnnenAlder(
+        {
+          aar: parseInt(heltUttakAarFormData as string, 10),
+          maaneder: parseInt(heltUttakMaanederFormData as string, 10),
+        },
+        normertPensjonsalder
+      )
       const isGradertUttaksalderValid =
         uttaksgradFormData === '100 %' ||
         (uttaksgradFormData !== '100 %' &&
-          isAlderLikEllerOverUbetingetUttaksalder({
-            aar: parseInt(gradertUttakAarFormData as string, 10),
-            maaneder: parseInt(gradertUttakAarFormData as string, 10),
-          }))
+          isAlderLikEllerOverAnnenAlder(
+            {
+              aar: parseInt(gradertUttakAarFormData as string, 10),
+              maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
+            },
+            normertPensjonsalder
+          ))
       isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
     } else {
       // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
@@ -297,8 +303,7 @@ export const validateAvansertBeregningSkjema = (
       if (
         valgtAlder.aar &&
         valgtAlder.maaneder &&
-        parseInt(valgtAlder.aar as string, 10) <
-          DEFAULT_UBETINGET_UTTAKSALDER.aar
+        parseInt(valgtAlder.aar as string, 10) < normertPensjonsalder.aar
       ) {
         const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
         const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
@@ -493,6 +498,7 @@ export const onAvansertBeregningSubmit = (
   gaaTilResultat: () => void,
   previousData: {
     foedselsdato: string
+    normertPensjonsalder: Alder
     loependeVedtak: LoependeVedtak
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
@@ -501,6 +507,7 @@ export const onAvansertBeregningSubmit = (
 ): void => {
   const {
     foedselsdato,
+    normertPensjonsalder,
     loependeVedtak,
     localInntektFremTilUttak,
     hasVilkaarIkkeOppfylt,
@@ -554,6 +561,7 @@ export const onAvansertBeregningSubmit = (
         inntektVsaGradertUttakFormData,
       },
       foedselsdato,
+      normertPensjonsalder,
       loependeVedtak,
       setValidationErrors
     )
