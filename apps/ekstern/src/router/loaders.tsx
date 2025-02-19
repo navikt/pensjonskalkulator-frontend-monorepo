@@ -148,7 +148,7 @@ export const stepStartAccessGuard =
         if (getLoependeVedtakRes.isError) {
           logger('info', {
             tekst: 'Redirect til /uventet-feil',
-            data: 'fra Step Start Loader pga. feil med getLoependeVedtak',
+            data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${(getLoependeVedtakRes.error as FetchBaseQueryError).status}`,
           })
           return paths.uventetFeil
         }
