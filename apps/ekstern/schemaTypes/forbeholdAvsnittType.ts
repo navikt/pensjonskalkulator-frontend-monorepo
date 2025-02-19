@@ -41,12 +41,12 @@ export const forbeholdAvsnittType = defineType({
     defineField({
       name: 'overskrift',
       type: 'string',
-      description: 'Overskrift til dette avsnittet',
+      description: 'Overskrift til avsnittet',
     }),
     defineField({
       name: 'order',
       type: 'number',
-      description: 'Rekkefølge på det avsnittet',
+      description: 'Rekkefølge på avsnittet',
     }),
     defineField({
       name: 'innhold',
