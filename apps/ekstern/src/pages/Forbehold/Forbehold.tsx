@@ -7,7 +7,9 @@ import { PortableText } from '@portabletext/react'
 import { Card } from '@/components/common/Card'
 import { SanityContext } from '@/context/SanityContext'
 import { SanityForbeholdAvsnitt } from '@/context/SanityContext/SanityTypes'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
+import { formatUttaksalder } from '@/utils/alder'
 import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -15,6 +17,8 @@ export function Forbehold() {
   const intl = useIntl()
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
   const { forbeholdAvsnittData } = React.useContext(SanityContext)
+
+  const { data: person } = useGetPersonQuery()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -125,19 +129,25 @@ export function Forbehold() {
               />
             </BodyLong>
           </section>
-          <section>
-            <Heading level="3" size="small" spacing>
-              <FormattedMessage id="forbehold.uforetrygd.title" />
-            </Heading>
-            <BodyLong spacing>
-              <FormattedMessage
-                id="forbehold.uforetrygd.ingress"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            </BodyLong>
-          </section>
+          {person?.pensjoneringAldre.normertPensjoneringsalder && (
+            <section>
+              <Heading level="3" size="small" spacing>
+                <FormattedMessage id="forbehold.uforetrygd.title" />
+              </Heading>
+              <BodyLong spacing>
+                <FormattedMessage
+                  id="forbehold.uforetrygd.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    normertPensjonsalder: formatUttaksalder(
+                      intl,
+                      person?.pensjoneringAldre.normertPensjoneringsalder
+                    ),
+                  }}
+                />
+              </BodyLong>
+            </section>
+          )}
           <section>
             <Heading level="3" size="small" spacing>
               <FormattedMessage id="forbehold.uforetrygd_afp.title" />

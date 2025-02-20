@@ -4,7 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert } from '@navikt/ds-react'
 
-import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
+import { useAppSelector } from '@/state/hooks'
+import { selectNormertPensjonsalder } from '@/state/userInput/selectors'
+import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
@@ -17,10 +19,12 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
   uttaksalder,
 }) => {
   const intl = useIntl()
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
+
   const harIkkeNokOpptjening = React.useMemo(() => {
     return (
       JSON.stringify(vilkaarsproeving.alternativ?.heltUttaksalder) ===
-        JSON.stringify(DEFAULT_UBETINGET_UTTAKSALDER) &&
+        JSON.stringify(normertPensjonsalder) &&
       !vilkaarsproeving.alternativ?.gradertUttaksalder
     )
   }, [vilkaarsproeving])
@@ -42,7 +46,10 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
             ? 'beregning.vilkaarsproeving.intro.ikke_nok_opptjening'
             : 'beregning.vilkaarsproeving.intro.optional'
         }
-        values={{ ...getFormatMessageValues(intl) }}
+        values={{
+          ...getFormatMessageValues(intl),
+          normertPensjonsalder: formatUttaksalder(intl, normertPensjonsalder),
+        }}
       />
 
       {

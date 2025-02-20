@@ -5,12 +5,12 @@ import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
-  unformatUttaksalder,
-  DEFAULT_TIDLIGST_UTTAKSALDER,
-} from '@/utils/alder'
+  selectCurrentSimulation,
+  selectNedreAldersgrense,
+} from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
+import { unformatUttaksalder } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import { getFormaterteAldere } from './utils'
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const VelgUttaksalder: React.FC<Props> = ({
-  tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
+  tidligstMuligUttak = { ...useAppSelector(selectNedreAldersgrense) },
 }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()

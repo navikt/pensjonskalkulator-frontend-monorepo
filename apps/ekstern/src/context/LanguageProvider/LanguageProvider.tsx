@@ -45,33 +45,29 @@ export function LanguageProvider({ children }: Props) {
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
 
-  const fetchSanityData = async (locale: Locales) => {
-    if (sanityClient) {
-      const readMorePromise = sanityClient
-        .fetch(`*[_type == "readmore" && language == "${locale}"]`)
-        .then((sanityReadMoreResponse) => {
-          setSanityReadMoreData(sanityReadMoreResponse || [])
+  const fetchSanityData = (locale: Locales) => {
+    sanityClient
+      .fetch(`*[_type == "readmore" && language == "${locale}"]`)
+      .then((sanityReadMoreResponse) => {
+        setSanityReadMoreData(sanityReadMoreResponse || [])
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: 'Feil ved henting av innhold fra Sanity',
+          data: `readmore ${locale}`,
         })
-        .catch(() => {
-          logger('info', {
-            tekst: 'Feil ved henting av innhold fra Sanity',
-            data: `readmore ${locale}`,
-          })
+      })
+    sanityClient
+      .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
+      .then((sanityForbeholdAvsnittResponse) => {
+        setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: 'Feil ved henting av innhold fra Sanity',
+          data: `forbeholdAvsnitt ${locale}`,
         })
-      const forbeholdAvsnittPromise = sanityClient
-        .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
-        .then((sanityForbeholdAvsnittResponse) => {
-          setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
-        })
-        .catch(() => {
-          logger('info', {
-            tekst: 'Feil ved henting av innhold fra Sanity',
-            data: `forbeholdAvsnitt ${locale}`,
-          })
-        })
-
-      await Promise.all([readMorePromise, forbeholdAvsnittPromise])
-    }
+      })
   }
 
   /* c8 ignore next 4 */
