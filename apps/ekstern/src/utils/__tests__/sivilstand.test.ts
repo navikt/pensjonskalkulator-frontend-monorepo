@@ -100,17 +100,17 @@ describe('sivilstand-utils', () => {
   })
 
   describe('checkHarSamboer', () => {
-    it('sivilstand er GIFT og gir true for harSamboer', () => {
+    it('returnerer true når sivilstand er GIFT', () => {
       const actual = checkHarSamboer('GIFT')
       expect(actual).toBe(true)
     })
 
-    it('sivilstand er UGIFT og gir false for harSamboer', () => {
+    it('returnerer false når sivilstand er UGIFT', () => {
       const actual = checkHarSamboer('UGIFT')
       expect(actual).toBe(false)
     })
 
-    it('sivilstand er undefined og gir false for harSamboer', () => {
+    it('returnerer false når sivilstand er undefined', () => {
       const actual = checkHarSamboer(undefined)
       expect(actual).toBe(false)
     })
