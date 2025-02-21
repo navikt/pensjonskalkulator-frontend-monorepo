@@ -632,9 +632,10 @@ describe('Loaders', () => {
         expect(shouldRedirectToResponse).toBe('')
       })
 
-      it('brukere med uføretrygd som er fylt minimum uttaksalder, er redirigert', async () => {
+      it('brukere med uføretrygd som er over minimum uttaksalder, er redirigert', async () => {
         const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
           years: -62,
+          months: -1,
         })
         const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
 

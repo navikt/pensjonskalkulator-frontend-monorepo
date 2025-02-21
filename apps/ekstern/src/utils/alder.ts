@@ -75,20 +75,6 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   )
 }
 
-export const isAlderLikEllerOverAnnenAlder = (
-  alder: Alder | Partial<Alder>,
-  alder2: Alder
-) => {
-  if (!alder.aar) {
-    return false
-  }
-  if (alder.aar >= alder2.aar) {
-    return true
-  } else {
-    return false
-  }
-}
-
 export const isAlderOverAnnenAlder = (
   stoersteAlder: Alder,
   minsteAlder: Alder
@@ -105,16 +91,32 @@ export const isAlderOverAnnenAlder = (
   }
 }
 
-export const isFoedselsdatoOverEllerLikAlder = (
-  foedselsdato: string,
-  alder: Alder
+export const isAlderLikEllerOverAnnenAlder = (
+  stoersteAlder: Alder | Partial<Alder>,
+  minsteAlder: Alder
 ) => {
-  const birtdateJs = endOfDay(
-    parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
-  )
-  const currentDate = endOfDay(new Date())
-  const aar = differenceInYears(currentDate, birtdateJs)
-  return aar >= alder.aar
+  if (!stoersteAlder.aar) {
+    return false
+  }
+  if (stoersteAlder.aar > minsteAlder.aar) {
+    return true
+  } else if (
+    stoersteAlder.maaneder !== undefined &&
+    stoersteAlder.aar === minsteAlder.aar &&
+    stoersteAlder.maaneder >= minsteAlder.maaneder
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const isFoedselsdatoOverAlder = (
+  foedselsdato: string,
+  minsteAlder: Alder
+) => {
+  const brukerensAlder = transformFoedselsdatoToAlder(foedselsdato)
+  return isAlderOverAnnenAlder(brukerensAlder, minsteAlder)
 }
 
 export const getAlderPlus1Maaned = (alder: Alder) => {

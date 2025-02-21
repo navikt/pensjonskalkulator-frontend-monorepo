@@ -18,7 +18,7 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 import {
-  isFoedselsdatoOverEllerLikAlder,
+  isFoedselsdatoOverAlder,
   isFoedtFoer1963,
   AFP_UFOERE_OPPSIGELSESALDER,
 } from '@/utils/alder'
@@ -309,10 +309,7 @@ export const stepAFPAccessGuard = async (): Promise<
       afpOffentlig ||
       (ufoeretrygd.grad &&
         foedselsdato &&
-        isFoedselsdatoOverEllerLikAlder(
-          foedselsdato,
-          AFP_UFOERE_OPPSIGELSESALDER
-        ))
+        isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER))
     ) {
       return stepArrays[stepArrays.indexOf(paths.afp) + 1]
     } else {
@@ -431,11 +428,11 @@ export const stepUfoeretrygdAFPAccessGuard =
       ? stegvisningOrderEndring
       : stegvisningOrder
 
-    // Bruker med uføretrygd, som svarer ja til afp, og som er under nedre aldersgrense kan se steget
+    // Bruker med uføretrygd, som svarer ja eller vet_ikke til afp, og som er under AFP-Uføre aldersgrense kan se steget
     if (
       (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
       afp !== 'nei' &&
-      !isFoedselsdatoOverEllerLikAlder(
+      !isFoedselsdatoOverAlder(
         foedselsdato as string,
         AFP_UFOERE_OPPSIGELSESALDER
       )
