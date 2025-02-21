@@ -36,8 +36,8 @@ interface Props {
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
   const [sanityReadMoreData, setSanityReadMoreData] = useState<
-    SanityReadMore[]
-  >([])
+    Record<string, SanityReadMore>
+  >({})
   const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] = useState<
     SanityForbeholdAvsnitt[]
   >([])
@@ -49,7 +49,9 @@ export function LanguageProvider({ children }: Props) {
     const logTekst = 'Feil ved henting av innhold fra Sanity'
     const logData = `readmore ${locale}`
     sanityClient
-      .fetch(`*[_type == "readmore" && language == "${locale}"]`)
+      .fetch(
+        `*[_type == "readmore" && language == "${locale}"] | {name,overskrift,innhold}`
+      )
       .then((sanityReadMoreResponse) => {
         if (!sanityReadMoreResponse.ok) {
           logger('info', {
@@ -57,7 +59,14 @@ export function LanguageProvider({ children }: Props) {
             data: logData,
           })
         }
-        setSanityReadMoreData(sanityReadMoreResponse || [])
+        setSanityReadMoreData(
+          Object.fromEntries(
+            (sanityReadMoreResponse || []).map((readmore: SanityReadMore) => [
+              readmore.name,
+              readmore,
+            ])
+          )
+        )
       })
       .catch(() => {
         logger('info', {
@@ -66,7 +75,9 @@ export function LanguageProvider({ children }: Props) {
         })
       })
     sanityClient
-      .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
+      .fetch(
+        `*[_type == "forbeholdAvsnitt" && language == "${locale}"] | order(order asc) | {overskrift,innhold}`
+      )
       .then((sanityForbeholdAvsnittResponse) => {
         if (!sanityForbeholdAvsnittResponse.ok) {
           logger('info', {
@@ -86,10 +97,13 @@ export function LanguageProvider({ children }: Props) {
 
   /* c8 ignore next 4 */
   onLanguageSelect((language) => {
-    fetchSanityData(language.locale as Locales)
     setCookie('decorator-language', language.locale)
     updateLanguage(language.locale as Locales, setLanguageCookie)
   })
+
+  useEffect(() => {
+    fetchSanityData(languageCookie)
+  }, [languageCookie])
 
   useEffect(() => {
     if (isSuccess && !disableSpraakvelgerFeatureToggle.enabled) {
@@ -111,11 +125,8 @@ export function LanguageProvider({ children }: Props) {
       const previousLanguage = getCookie('decorator-language')
 
       if (previousLanguage) {
-        fetchSanityData(previousLanguage as Locales)
         updateLanguage(previousLanguage as Locales, setLanguageCookie)
       }
-    } else {
-      fetchSanityData('nb' as Locales)
     }
   }, [isSuccess])
 

@@ -436,7 +436,6 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      console.log(returnedFromLoader)
       const person = await (
         returnedFromLoader as StepSivilstandAccessGuardLoader
       ).getPersonQuery
