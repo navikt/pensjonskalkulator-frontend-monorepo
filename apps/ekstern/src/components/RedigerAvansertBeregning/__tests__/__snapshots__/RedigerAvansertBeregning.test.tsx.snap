@@ -356,6 +356,14 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
       <hr
         class="_divider_1adfb3 _divider__noMargin_1adfb3"
       />
+      <div
+        aria-live="polite"
+        class="_alertWrapper_50fcfd"
+      />
+      <div
+        aria-live="polite"
+        class="_alertWrapper_50fcfd"
+      />
       <div>
         <div
           data-testid="age-picker-uttaksalder-helt-uttak"

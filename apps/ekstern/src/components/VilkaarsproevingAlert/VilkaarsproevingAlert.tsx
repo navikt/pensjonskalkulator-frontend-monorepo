@@ -37,7 +37,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
   }, [vilkaarsproeving])
 
   return (
-    <Alert variant="warning" aria-live="polite">
+    <Alert variant="warning">
       <FormattedMessage id="beregning.vilkaarsproeving.intro" />
 
       <FormattedMessage

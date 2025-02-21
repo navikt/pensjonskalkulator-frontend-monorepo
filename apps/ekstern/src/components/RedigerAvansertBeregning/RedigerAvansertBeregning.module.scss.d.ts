@@ -13,5 +13,6 @@ declare const classNames: {
   readonly description: "description";
   readonly descriptionText: "descriptionText";
   readonly ingress: "ingress";
+  readonly alertWrapper: "alertWrapper";
 };
 export = classNames;

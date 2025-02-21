@@ -437,27 +437,31 @@ export const RedigerAvansertBeregning: React.FC<{
           </ReadMore>
         </div>
         <Divider noMargin />
-        {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
-          <Alert variant="warning" aria-live="polite">
-            <FormattedMessage
-              id="beregning.endring.alert.uttaksdato"
-              values={{
-                ...getFormatMessageValues(intl),
-                dato: validationErrors[
-                  AVANSERT_FORM_NAMES.endringAlertFremtidigDato
-                ],
-              }}
-            />
-          </Alert>
-        )}
-        {vilkaarsproeving &&
-          !vilkaarsproeving?.vilkaarErOppfylt &&
-          uttaksalder && (
-            <VilkaarsproevingAlert
-              vilkaarsproeving={vilkaarsproeving}
-              uttaksalder={uttaksalder}
-            />
+        <div className={styles.alertWrapper} aria-live="polite">
+          {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
+            <Alert variant="warning">
+              <FormattedMessage
+                id="beregning.endring.alert.uttaksdato"
+                values={{
+                  ...getFormatMessageValues(intl),
+                  dato: validationErrors[
+                    AVANSERT_FORM_NAMES.endringAlertFremtidigDato
+                  ],
+                }}
+              />
+            </Alert>
           )}
+        </div>
+        <div className={styles.alertWrapper} aria-live="polite">
+          {vilkaarsproeving &&
+            !vilkaarsproeving?.vilkaarErOppfylt &&
+            uttaksalder && (
+              <VilkaarsproevingAlert
+                vilkaarsproeving={vilkaarsproeving}
+                uttaksalder={uttaksalder}
+              />
+            )}
+        </div>
         <div>
           {localGradertUttak?.grad !== undefined &&
           localGradertUttak?.grad !== 100 ? (
