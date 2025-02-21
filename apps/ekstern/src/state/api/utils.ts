@@ -101,7 +101,10 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
       loependeVedtak,
       afp
     ),
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
+    epsHarInntektOver2G:
+      epsHarInntektOver2G === null
+        ? checkHarSamboer(sivilstand)
+        : epsHarInntektOver2G,
     epsHarPensjon: !!epsHarPensjon,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
