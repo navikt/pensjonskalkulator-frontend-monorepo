@@ -46,26 +46,40 @@ export function LanguageProvider({ children }: Props) {
     useGetSpraakvelgerFeatureToggleQuery()
 
   const fetchSanityData = (locale: Locales) => {
+    const logTekst = 'Feil ved henting av innhold fra Sanity'
+    const logData = `readmore ${locale}`
     sanityClient
       .fetch(`*[_type == "readmore" && language == "${locale}"]`)
       .then((sanityReadMoreResponse) => {
+        if (!sanityReadMoreResponse.ok) {
+          logger('info', {
+            tekst: `${logTekst} med status: ${sanityReadMoreResponse.status}`,
+            data: logData,
+          })
+        }
         setSanityReadMoreData(sanityReadMoreResponse || [])
       })
       .catch(() => {
         logger('info', {
-          tekst: 'Feil ved henting av innhold fra Sanity',
-          data: `readmore ${locale}`,
+          tekst: logTekst,
+          data: logData,
         })
       })
     sanityClient
       .fetch(`*[_type == "forbeholdAvsnitt" && language == "${locale}"]`)
       .then((sanityForbeholdAvsnittResponse) => {
+        if (!sanityForbeholdAvsnittResponse.ok) {
+          logger('info', {
+            tekst: `${logTekst} med status: ${sanityForbeholdAvsnittResponse.status}`,
+            data: logData,
+          })
+        }
         setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
       })
       .catch(() => {
         logger('info', {
-          tekst: 'Feil ved henting av innhold fra Sanity',
-          data: `forbeholdAvsnitt ${locale}`,
+          tekst: logTekst,
+          data: logData,
         })
       })
   }
