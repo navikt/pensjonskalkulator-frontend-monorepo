@@ -9,7 +9,6 @@ import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { SanityContext } from '@/context/SanityContext'
-import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { paths } from '@/router/constants'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
@@ -38,8 +37,8 @@ export function Utenlandsopphold({
   const intl = useIntl()
 
   const { readMoreData } = React.useContext(SanityContext)
-  const [readMore1, setReadMore1] = React.useState<SanityReadMore | undefined>()
-  const [readMore2, setReadMore2] = React.useState<SanityReadMore | undefined>()
+  const readMore1 = readMoreData['hva_er_opphold_utenfor_norge']
+  const readMore2 = readMoreData['betydning_av_opphold_utenfor_norge']
 
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
@@ -56,18 +55,6 @@ export function Utenlandsopphold({
 
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
-
-  React.useEffect(() => {
-    if (readMoreData) {
-      readMoreData.forEach((item) => {
-        if (item.name === 'hva_er_opphold_utenfor_norge') {
-          setReadMore1(item)
-        } else if (item.name === 'betydning_av_opphold_utenfor_norge') {
-          setReadMore2(item)
-        }
-      })
-    }
-  }, [readMoreData])
 
   React.useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {

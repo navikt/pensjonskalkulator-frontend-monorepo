@@ -85,3 +85,7 @@
     line-height: var(--a-font-line-height-xlarge);
   }
 }
+
+.alertWrapper:empty {
+  display: contents;
+}

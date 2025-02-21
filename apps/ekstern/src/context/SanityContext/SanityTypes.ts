@@ -29,19 +29,15 @@ export type SanityReadMore = {
       _key: string
     } & Content
   >
-  language: Locales
 }
 
 export type SanityForbeholdAvsnitt = {
-  name: string
   overskrift: string
-  order: number
   innhold: Array<
     {
       _key: string
     } & Content
   >
-  language: Locales
 }
 
 export declare const internalGroqTypeReferenceTo: unique symbol

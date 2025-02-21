@@ -4,7 +4,7 @@ import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
 import personMock from '../../../fixtures/person.json'
 
 const fødselsdatoEldreEnn62 = format(
-  sub(new Date(), { years: 62, days: 5 }),
+  sub(new Date(), { years: 62, months: 1, days: 5 }),
   'yyyy-MM-dd'
 )
 

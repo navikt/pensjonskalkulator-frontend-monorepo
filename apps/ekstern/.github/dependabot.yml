@@ -17,8 +17,12 @@ updates:
     groups:
       designsystemet:
         patterns:
-          - "@navikt/ds*"
-          - "@navikt/aksel*"
+          - '@navikt/ds*'
+          - '@navikt/aksel*'
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
 
 registries:
   npm-github:

@@ -1,7 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
 import { StepUfoeretrygdAFP } from '..'
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -16,6 +19,10 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('StepUfoeretrygdAFP', () => {
+  afterEach(() => {
+    vi.resetAllMocks()
+  })
+
   it('har riktig sidetittel', () => {
     render(<StepUfoeretrygdAFP />)
     expect(document.title).toBe('application.title.stegvisning.ufoeretryg_AFP')
@@ -41,9 +48,19 @@ describe('StepUfoeretrygdAFP', () => {
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
 
-    render(<StepUfoeretrygdAFP />)
+    render(<StepUfoeretrygdAFP />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak75Ufoeregrad,
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_privat' },
+      },
+    })
     await user.click(await screen.findByText('stegvisning.tilbake'))
-    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {

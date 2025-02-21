@@ -11,7 +11,7 @@ pensjonsregelverket (ikke kapittel 19).
 
 ## Teknologi
 
-Prosjektet kjører med Node > v20.9.0 og Npm > v10.1.0
+Prosjektet kjører med Node > v22 og Npm > v10.1.0
 
 ## Komme i gang
 
