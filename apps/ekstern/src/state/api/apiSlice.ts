@@ -6,10 +6,6 @@ import {
 
 import { API_BASEURL } from '@/paths'
 import { RootState } from '@/state/store'
-import {
-  selectVeilederBorgerFnr,
-  selectVeilederBorgerEncryptedFnr,
-} from '@/state/userInput/selectors'
 
 import {
   isInntekt,
@@ -29,10 +25,8 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
     prepareHeaders: (headers, { getState }) => {
-      const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
-      const veilederBorgerEncryptedFnr = selectVeilederBorgerEncryptedFnr(
-        getState() as RootState
-      )
+      const state = getState() as RootState
+      const { veilederBorgerFnr, veilederBorgerEncryptedFnr } = state.userInput
 
       if (veilederBorgerFnr && veilederBorgerEncryptedFnr) {
         headers.set('fnr', veilederBorgerEncryptedFnr)

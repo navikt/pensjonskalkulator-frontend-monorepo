@@ -63,7 +63,7 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
               <FormattedMessage
                 id="grunnlag.inntekt.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                   beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,
                   aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
                 }}

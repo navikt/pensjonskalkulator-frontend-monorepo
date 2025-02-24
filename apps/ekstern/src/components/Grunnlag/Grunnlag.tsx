@@ -89,7 +89,7 @@ export const Grunnlag: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.uttaksgrad.ingress"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                   }}
                 />
                 <br />
@@ -113,7 +113,7 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.sivilstand.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -138,14 +138,14 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
               {pensjonsbeholdning && (
                 <FormattedMessage
                   id="grunnlag.alderspensjon.ingress.pensjonsbeholdning"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                     sum: formatInntekt(pensjonsbeholdning),
                   }}
                 />
@@ -153,7 +153,7 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress.link"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>

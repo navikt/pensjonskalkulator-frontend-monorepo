@@ -11,7 +11,6 @@ import {
   selectCurrentSimulationUtenlandsperioder,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
-  selectHarHentetOffentligTp,
   selectIsVeileder,
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
@@ -24,7 +23,6 @@ import {
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
-  fulfilledsimulerOffentligTp,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
@@ -377,24 +375,6 @@ describe('userInput selectors', () => {
     expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
   })
 
-  describe('selectHarHentetOffentligTp', () => {
-    it('returnerer false når /simuler-oftp har ikke blitt hentet', () => {
-      const state: RootState = {
-        ...initialState,
-      }
-      expect(selectHarHentetOffentligTp(state)).toBeFalsy()
-    })
-    it('returnerer true når /simuler-oftp har blitt hentet', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledsimulerOffentligTp },
-        },
-      }
-      expect(selectHarHentetOffentligTp(state)).toBeTruthy()
-    })
-  })
   describe('selectIsVeileder', () => {
     it('er false når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState

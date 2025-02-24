@@ -3,7 +3,6 @@
 exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
-    aria-live="polite"
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
@@ -44,7 +43,6 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den defaul
 exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaksalder med ny gradering, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
-    aria-live="polite"
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
@@ -91,7 +89,6 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaks
 exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttaksalder med ny gradering, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
-    aria-live="polite"
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
@@ -144,7 +141,6 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttak
 exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er uttaksalder for 100% uten gradering, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
-    aria-live="polite"
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg

@@ -186,7 +186,7 @@ export const Pensjonsavtaler = (props: {
           <FormattedMessage
             id="pensjonsavtaler.ingress.error.samtykke_link_2"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </BodyLong>

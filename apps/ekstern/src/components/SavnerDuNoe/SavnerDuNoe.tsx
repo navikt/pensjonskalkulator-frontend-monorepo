@@ -1,4 +1,4 @@
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Button } from '@navikt/ds-react'
@@ -18,7 +18,6 @@ export function SavnerDuNoe(props: {
   showAvansert?: boolean
 }) {
   const { headingLevel, isEndring, showAvansert } = props
-  const intl = useIntl()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -54,7 +53,7 @@ export function SavnerDuNoe(props: {
         <FormattedMessage
           id={isEndring ? 'savnerdunoe.body.endring' : 'savnerdunoe.body'}
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
           }}
         />
       </BodyLong>

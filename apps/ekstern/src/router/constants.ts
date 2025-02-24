@@ -10,12 +10,12 @@ export const externalUrls = {
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
   afpPrivat: 'https://www.nav.no/afp-i-privat-sektor',
-  garantipensjon: 'https://www.nav.no/minstepensjon',
+  garantiPensjon: 'https://www.nav.no/minstepensjon',
   norskPensjon: 'https://norskpensjon.no/',
   uinnloggetKalkulator: 'https://www.nav.no/pensjon/uinnlogget-kalkulator',
-  personvernerklaering:
+  navPersonvernerklaering:
     'https://www.nav.no/personvernerklaering#dine-rettigheter',
-  personvernerklaeringKontaktOss:
+  navPersonvernerklaeringKontaktOss:
     'https://www.nav.no/personvernerklaering#kontakt-nav',
   kontaktOss: 'https://www.nav.no/kontaktoss',
   planleggePensjon:

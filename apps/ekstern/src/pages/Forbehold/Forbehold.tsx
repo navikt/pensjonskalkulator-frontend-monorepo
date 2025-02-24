@@ -6,7 +6,6 @@ import { PortableText } from '@portabletext/react'
 
 import { Card } from '@/components/common/Card'
 import { SanityContext } from '@/context/SanityContext'
-import { SanityForbeholdAvsnitt } from '@/context/SanityContext/SanityTypes'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { formatUttaksalder } from '@/utils/alder'
@@ -26,24 +25,15 @@ export function Forbehold() {
     })
   }, [])
 
-  const sortertForbeholdAvsnittData = React.useMemo(() => {
-    return forbeholdAvsnittData.sort(
-      (a: SanityForbeholdAvsnitt, b: SanityForbeholdAvsnitt) => {
-        return a.order - b.order
-      }
-    )
-  }, [forbeholdAvsnittData])
-
   return (
     <Card hasLargePadding hasMargin>
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="forbehold.title" />
       </Heading>
 
-      {sanityFeatureToggle?.enabled &&
-      sortertForbeholdAvsnittData.length > 0 ? (
+      {sanityFeatureToggle?.enabled && forbeholdAvsnittData.length > 0 ? (
         <>
-          {sortertForbeholdAvsnittData.map((forbeholdAvsnitt, i) => {
+          {forbeholdAvsnittData.map((forbeholdAvsnitt, i) => {
             return forbeholdAvsnitt.overskrift ? (
               <section key={i}>
                 <Heading level="3" size="small" spacing>
@@ -73,7 +63,7 @@ export function Forbehold() {
             <FormattedMessage
               id="forbehold.intro"
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
               }}
             />
           </BodyLong>
@@ -85,7 +75,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.inntekt.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -98,7 +88,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.utenlandsopphold.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -111,7 +101,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.sivilstand.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -124,7 +114,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.afp.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -138,7 +128,7 @@ export function Forbehold() {
                 <FormattedMessage
                   id="forbehold.uforetrygd.ingress"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                     normertPensjonsalder: formatUttaksalder(
                       intl,
                       person?.pensjoneringAldre.normertPensjoneringsalder
@@ -156,7 +146,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.uforetrygd_afp.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -169,7 +159,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.gjenlevende.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -182,7 +172,7 @@ export function Forbehold() {
               <FormattedMessage
                 id="forbehold.pensjonsavtaler.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>

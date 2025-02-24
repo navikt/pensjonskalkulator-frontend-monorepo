@@ -63,7 +63,7 @@ export function Start({
                   <FormattedMessage
                     id="stegvisning.start.endring.ingress"
                     values={{
-                      ...getFormatMessageValues(intl),
+                      ...getFormatMessageValues(),
                       grad: loependeVedtak.alderspensjon?.grad,
                       ufoeretrygd: loependeVedtak.ufoeretrygd.grad
                         ? intl.formatMessage(
@@ -71,7 +71,7 @@ export function Start({
                               id: 'stegvisning.start.endring.ufoeretrygd',
                             },
                             {
-                              ...getFormatMessageValues(intl),
+                              ...getFormatMessageValues(),
                               grad: loependeVedtak.ufoeretrygd.grad,
                             }
                           )
@@ -81,7 +81,7 @@ export function Start({
                             {
                               id: 'stegvisning.start.endring.afp.privat',
                             },
-                            { ...getFormatMessageValues(intl) }
+                            { ...getFormatMessageValues() }
                           )
                         : undefined,
                       afpOffentlig: loependeVedtak.afpOffentlig
@@ -89,7 +89,7 @@ export function Start({
                             {
                               id: 'stegvisning.start.endring.afp.offentlig',
                             },
-                            { ...getFormatMessageValues(intl) }
+                            { ...getFormatMessageValues() }
                           )
                         : undefined,
                     }}

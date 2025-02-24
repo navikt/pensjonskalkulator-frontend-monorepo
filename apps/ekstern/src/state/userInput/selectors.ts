@@ -28,12 +28,14 @@ export const selectIsVeileder = (state: RootState) =>
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
+const selectPersonResponse = apiSlice.endpoints.getPerson.select()
+const selectInntektResponse = apiSlice.endpoints.getInntekt.select()
+const selectLoependeVedtakResponse =
+  apiSlice.endpoints.getLoependeVedtak.select()
+
 export const selectFoedselsdato = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
-      ?.foedselsdato
-  }
+  selectPersonResponse,
+  (personResponse) => personResponse.data?.foedselsdato
 )
 
 export const selectNedreAldersgrense = createSelector(
@@ -58,16 +60,9 @@ export const selectSivilstand = (state: RootState) => {
   }
 
   // Henter sivilstand fra vedtak hvis det er en endringssøknad, hvis ikke hentes sivilstand fra personopplysninger
-  const isEndring = selectIsEndring(state)
-  if (isEndring) {
-    return apiSlice.endpoints.getLoependeVedtak.select()(state)?.data
-      ?.alderspensjon?.sivilstand
-  } else {
-    const personQuerySivilstandResponse =
-      apiSlice.endpoints.getPerson.select()(state).data?.sivilstand
-
-    return personQuerySivilstandResponse
-  }
+  return selectIsEndring(state)
+    ? selectLoependeVedtakResponse(state).data?.alderspensjon?.sivilstand
+    : selectPersonResponse(state).data?.sivilstand
 }
 
 export const selectEpsHarInntektOver2G = (state: RootState): boolean | null =>
@@ -82,10 +77,9 @@ export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (
   state.userInput.currentSimulation.aarligInntektFoerUttakBeloep
 
 export const selectAarligInntektFoerUttakBeloepFraSkatt = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    const aarligInntektFraSkatt =
-      apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
+  selectInntektResponse,
+  (inntektResponse) => {
+    const aarligInntektFraSkatt = inntektResponse.data
     return aarligInntektFraSkatt
       ? {
           ...aarligInntektFraSkatt,
@@ -103,7 +97,7 @@ export const selectAarligInntektFoerUttakBeloep = (
 
   if (aarligInntektFoerUttakBeloepFraBrukerInput === null) {
     return formatInntekt(
-      selectAarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
+      selectAarligInntektFoerUttakBeloepFraSkatt(state)?.beloep
     )
   }
   return aarligInntektFoerUttakBeloepFraBrukerInput
@@ -121,44 +115,24 @@ export const selectFormatertUttaksalderReadOnly = (
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation
 
-export const selectHarHentetOffentligTp = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    const offentligTpEntries = Object.keys(state.api.queries).filter((key) =>
-      key.startsWith('offentligTp')
-    )
-
-    return offentligTpEntries.some(
-      (key) => !state.api.queries[key]?.isUninitialized
-    )
-  }
-)
-
 export const selectLoependeVedtak = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
-      ?.data as LoependeVedtak
-  }
+  selectLoependeVedtakResponse,
+  (loependeVedtakResponse) => loependeVedtakResponse.data as LoependeVedtak
 )
 
 export const selectUfoeregrad = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-      ?.ufoeretrygd.grad as number
-  }
+  selectLoependeVedtakResponse,
+  (loependeVedtakResponse) =>
+    loependeVedtakResponse?.data?.ufoeretrygd
+      .grad as LoependeVedtak['ufoeretrygd']['grad']
 )
 
 export const selectIsEndring = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    if (!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data) {
+  selectLoependeVedtakResponse,
+  (loependeVedtakResponse) => {
+    if (!loependeVedtakResponse.data) {
       return false
     }
-    return isLoependeVedtakEndring(
-      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
-        ?.data as LoependeVedtak
-    )
+    return isLoependeVedtakEndring(loependeVedtakResponse.data)
   }
 )

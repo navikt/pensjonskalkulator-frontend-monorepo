@@ -71,22 +71,21 @@ describe('StepSamtykkeOffentligAFP', () => {
     })
   })
 
-  it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
+  it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
 
-    const { store } = render(<StepSamtykkeOffentligAFP />, {
+    render(<StepSamtykkeOffentligAFP />, {
       preloadedState: {
-        userInput: { ...userInputInitialState, samtykkeOffentligAFP: null },
+        userInput: {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+        },
       },
     })
-    const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(radioButtons[0])
-    expect(radioButtons[0]).toBeChecked()
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    expect(navigateMock).toHaveBeenCalledWith(-1)
-    expect(store.getState().userInput.samtykkeOffentligAFP).toBe(null)
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {
