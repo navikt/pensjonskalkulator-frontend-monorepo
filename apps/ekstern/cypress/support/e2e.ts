@@ -1,6 +1,6 @@
 import 'cypress-axe'
 
-import { userInputActions } from '../../src/state/userInput/userInputReducer'
+import { userInputActions } from '../../src/state/userInput/userInputSlice'
 
 beforeEach(() => {
   cy.intercept(

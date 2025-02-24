@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
 
@@ -18,8 +18,6 @@ interface Props {
 }
 
 export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
-  const intl = useIntl()
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     logger('button klikk', {
@@ -45,7 +43,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage
             id="stegvisning.ufoere.info"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </Alert>
 
@@ -56,7 +54,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage
             id="stegvisning.ufoere.readmore_1.body"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </ReadMore>
 
@@ -67,7 +65,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage
             id="stegvisning.ufoere.ingress"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </BodyLong>
 

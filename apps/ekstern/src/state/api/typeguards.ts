@@ -198,6 +198,7 @@ export const isSimulertOffentligTp = (data?: any) => {
 
   return (
     typeof data.tpLeverandoer === 'string' &&
+    typeof data.tpNummer === 'string' &&
     data.simuleringsresultat.betingetTjenestepensjonErInkludert !== undefined &&
     typeof data.simuleringsresultat.betingetTjenestepensjonErInkludert ===
       'boolean' &&

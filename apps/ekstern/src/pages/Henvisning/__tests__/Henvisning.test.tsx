@@ -10,7 +10,7 @@ import {
   paths,
 } from '@/router/constants'
 import { routes } from '@/router/routes'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()

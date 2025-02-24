@@ -1,7 +1,7 @@
 import { add, endOfDay, format, isBefore, parse, startOfMonth } from 'date-fns'
 
 import { AppDispatch } from '@/state/store'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
   validateAlderFromForm,
   getAlderMinus1Maaned,

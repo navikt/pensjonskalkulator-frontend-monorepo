@@ -1,20 +1,17 @@
-import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Label } from '@navikt/ds-react'
 
 import { getFormatMessageValues } from '@/utils/translations'
 
 export const InfoOmInntekt = () => {
-  const intl = useIntl()
-
   return (
     <>
       <BodyLong>
         <FormattedMessage
           id="inntekt.info_om_inntekt.intro"
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
           }}
         />
       </BodyLong>
@@ -71,7 +68,7 @@ export const InfoOmInntekt = () => {
         <FormattedMessage
           id="inntekt.info_om_inntekt.ingress"
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
           }}
         />
       </BodyLong>

@@ -7,7 +7,7 @@ import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
 import { selectIsVeileder } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 
 export function StepUtenlandsopphold() {
   const intl = useIntl()
@@ -30,7 +30,7 @@ export function StepUtenlandsopphold() {
     )
 
     if (utenlandsoppholdData === 'nei') {
-      dispatch(userInputActions.deleteCurrentSimulationAlleUtenlandsperioder())
+      dispatch(userInputActions.flushUtenlandsperioder())
     }
     if (onStegvisningNext) {
       onStegvisningNext()

@@ -12,7 +12,7 @@ import { SanityContext } from '@/context/SanityContext'
 import { paths } from '@/router/constants'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
+import { selectUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
 import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -42,9 +42,7 @@ export function Utenlandsopphold({
 
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
-  const utenlandsperioder = useAppSelector(
-    selectCurrentSimulationUtenlandsperioder
-  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [validationErrors, setValidationErrors] = React.useState<
     Record<'top' | 'bottom', string>
@@ -117,7 +115,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
           <ul>
@@ -131,7 +129,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
           <ul>
@@ -157,7 +155,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.ingress"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </ReadMore>
@@ -185,7 +183,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_2.ingress"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </ReadMore>

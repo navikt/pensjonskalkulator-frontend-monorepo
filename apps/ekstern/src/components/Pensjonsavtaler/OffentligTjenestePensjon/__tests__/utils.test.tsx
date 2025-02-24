@@ -10,9 +10,12 @@ import {
 import { renderHook } from '@/test-utils'
 import { getTranslation_nb } from '@/translations/nb'
 
-const wrappedGetLeverandoerHeading = (leverandoer: string) => {
+const wrappedGetLeverandoerHeading = (
+  tpNummer: string,
+  leverandoer: string
+) => {
   const { result } = renderHook(
-    () => getLeverandoerHeading(useIntl(), leverandoer),
+    () => getLeverandoerHeading(useIntl(), tpNummer, leverandoer),
     {
       wrapper: ({ children }) => (
         <IntlProvider locale="nb" messages={getTranslation_nb()}>
@@ -26,17 +29,17 @@ const wrappedGetLeverandoerHeading = (leverandoer: string) => {
 
 describe('getLeverandoerHeading', () => {
   it('Returnerer riktig overskrift for SPK.', () => {
-    const heading = wrappedGetLeverandoerHeading('Statens pensjonskasse')
+    const heading = wrappedGetLeverandoerHeading('3010', 'Fallback')
     expect(heading).toBe('Alderspensjon fra Statens pensjonskasse (SPK)')
   })
 
   it('Returnerer riktig overskrift for KLP.', () => {
-    const heading = wrappedGetLeverandoerHeading('Kommunal Landspensjonskasse')
+    const heading = wrappedGetLeverandoerHeading('4080', 'Fallback')
     expect(heading).toBe('Alderspensjon fra Kommunal Landspensjonskasse (KLP)')
   })
 
-  it('Returnerer tpLeverandoer-parameteret hvis den er ugyldig.', () => {
-    const heading = wrappedGetLeverandoerHeading('ugyldig verdi')
+  it('Returnerer tpLeverandoer-parameteret hvis tpNummer er ugyldig.', () => {
+    const heading = wrappedGetLeverandoerHeading('0000', 'ugyldig verdi')
     expect(heading).toBe('ugyldig verdi')
   })
 })
@@ -45,7 +48,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
   describe('Gitt at leverandør er KLP,', () => {
     it('returnerer riktig infotekst når AFP==ja_offentlig.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Kommunal Landspensjonskasse',
+        '4080',
         'ja_offentlig',
         false
       )
@@ -53,7 +56,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==ja_privat.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Kommunal Landspensjonskasse',
+        '4080',
         'ja_privat',
         false
       )
@@ -61,7 +64,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==nei.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Kommunal Landspensjonskasse',
+        '3200',
         'nei',
         false
       )
@@ -69,7 +72,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==vet_ikke.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Kommunal Landspensjonskasse',
+        '3200',
         'vet_ikke',
         false
       )
@@ -80,7 +83,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
   describe('Gitt at leverandør er SPK,', () => {
     it('returnerer riktig infotekst når AFP==ja_offentlig.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Statens pensjonskasse',
+        '3010',
         'ja_offentlig',
         false
       )
@@ -88,7 +91,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==ja_privat.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Statens pensjonskasse',
+        '3010',
         'ja_privat',
         false
       )
@@ -96,7 +99,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==vet_ikke.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Statens pensjonskasse',
+        '3060',
         'vet_ikke',
         false
       )
@@ -104,7 +107,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==nei og betingetTjenestepensjonErInkludert==false.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Statens pensjonskasse',
+        '3060',
         'nei',
         false
       )
@@ -113,11 +116,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
       )
     })
     it('returnerer riktig infotekst når AFP==nei og betingetTjenestepensjonErInkludert==true.', () => {
-      const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        'Statens pensjonskasse',
-        'nei',
-        true
-      )
+      const heading = getInfoOmAfpOgBetingetTjenestepensjon('3010', 'nei', true)
       expect(heading).toBe(
         'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
       )

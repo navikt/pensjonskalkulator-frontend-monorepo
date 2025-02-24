@@ -1,6 +1,6 @@
 import { ReadMoreOmPensjonsalder } from '..'
 import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('ReadMoreOmPensjonsalder', () => {

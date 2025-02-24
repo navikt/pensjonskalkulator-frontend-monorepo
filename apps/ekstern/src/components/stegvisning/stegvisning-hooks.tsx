@@ -13,7 +13,7 @@ import {
   selectAfp,
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
   isFoedselsdatoOverAlder,
   AFP_UFOERE_OPPSIGELSESALDER,

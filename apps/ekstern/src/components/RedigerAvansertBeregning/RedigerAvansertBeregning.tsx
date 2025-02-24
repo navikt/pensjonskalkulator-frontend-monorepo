@@ -443,7 +443,7 @@ export const RedigerAvansertBeregning: React.FC<{
               <FormattedMessage
                 id="beregning.endring.alert.uttaksdato"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                   dato: validationErrors[
                     AVANSERT_FORM_NAMES.endringAlertFremtidigDato
                   ],
@@ -542,7 +542,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       id: validationErrors[AVANSERT_FORM_NAMES.uttaksgrad],
                     },
                     {
-                      ...getFormatMessageValues(intl),
+                      ...getFormatMessageValues(),
                       normertPensjonsalder: formatertNormertPensjonsalder,
                     }
                   )
@@ -586,7 +586,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
                 }
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                   normertPensjonsalder: formatertNormertPensjonsalder,
                 }}
               />
@@ -604,7 +604,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     <FormattedMessage
                       id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak"
                       values={{
-                        ...getFormatMessageValues(intl),
+                        ...getFormatMessageValues(),
                         grad: localGradertUttak.grad,
                       }}
                     />
@@ -641,7 +641,7 @@ export const RedigerAvansertBeregning: React.FC<{
                             ],
                           },
                           {
-                            ...getFormatMessageValues(intl),
+                            ...getFormatMessageValues(),
                             grad: localGradertUttak.grad,
                           }
                         )
@@ -682,7 +682,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       <FormattedMessage
                         id="inntekt.info_om_inntekt.ufoeretrygd.read_more.body"
                         values={{
-                          ...getFormatMessageValues(intl),
+                          ...getFormatMessageValues(),
                         }}
                       />
                     </BodyLong>
@@ -704,7 +704,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       <FormattedMessage
                         id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
                         values={{
-                          ...getFormatMessageValues(intl),
+                          ...getFormatMessageValues(),
                           grad: localGradertUttak.grad,
                         }}
                       />
@@ -723,7 +723,7 @@ export const RedigerAvansertBeregning: React.FC<{
                               ],
                             },
                             {
-                              ...getFormatMessageValues(intl),
+                              ...getFormatMessageValues(),
                               grad: localGradertUttak.grad,
                             }
                           )
@@ -745,7 +745,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     <FormattedMessage
                       id="beregning.avansert.rediger.heltuttak.agepicker.label"
                       values={{
-                        ...getFormatMessageValues(intl),
+                        ...getFormatMessageValues(),
                       }}
                     />
                   }
@@ -770,7 +770,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 legend={
                   <FormattedMessage
                     id="beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak"
-                    values={{ ...getFormatMessageValues(intl) }}
+                    values={{ ...getFormatMessageValues() }}
                   />
                 }
                 description={
@@ -794,7 +794,7 @@ export const RedigerAvansertBeregning: React.FC<{
                             AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
                           ],
                         },
-                        { ...getFormatMessageValues(intl) }
+                        { ...getFormatMessageValues() }
                       )
                     : ''
                 }
@@ -840,7 +840,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   label={
                     <FormattedMessage
                       id="inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label"
-                      values={{ ...getFormatMessageValues(intl) }}
+                      values={{ ...getFormatMessageValues() }}
                     />
                   }
                   description={intl.formatMessage({
@@ -854,7 +854,7 @@ export const RedigerAvansertBeregning: React.FC<{
                               AVANSERT_FORM_NAMES.inntektVsaHeltUttak
                             ],
                           },
-                          { ...getFormatMessageValues(intl) }
+                          { ...getFormatMessageValues() }
                         )
                       : undefined
                   }

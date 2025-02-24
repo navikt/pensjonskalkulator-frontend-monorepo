@@ -12,7 +12,7 @@ import {
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -43,7 +43,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningAvansert)
   }
 
@@ -55,7 +55,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             <FormattedMessage
               id="tidligstmuliguttak.error"
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
               }}
             />
           </BodyLong>
@@ -70,7 +70,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   : 'omufoeretrygd.gradert.ingress'
               }
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
                 normertPensjonsalder: formatertNormertPensjonsalder,
                 grad: ufoeregrad,
                 link: (
@@ -89,7 +89,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               <FormattedMessage
                 id="tidligstmuliguttak.ingress_1"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -102,7 +102,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   show1963Text ? '1963' : '1964'
                 }.ingress_2`}
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -114,7 +114,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             <FormattedMessage
               id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
                 normertPensjonsalder: formatertNormertPensjonsalder,
               }}
             />
@@ -134,7 +134,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   : 'omufoeretrygd.readmore.gradert.ingress'
               }
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
                 nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
                 normertPensjonsalder: formatertNormertPensjonsalder,
               }}
@@ -152,14 +152,14 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               <FormattedMessage
                 id="beregning.read_more.pensjonsalder.body.optional"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             )}
             <FormattedMessage
               id="beregning.read_more.pensjonsalder.body"
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
               }}
             />
           </ReadMore>

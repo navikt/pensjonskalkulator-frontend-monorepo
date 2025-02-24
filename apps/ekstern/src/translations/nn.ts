@@ -579,29 +579,6 @@ const translations = {
   'inntekt.info_om_inntekt.ingress':
     'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
   'forbehold.title': 'Atterhald',
-  'forbehold.intro':
-    'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',
-  'forbehold.inntekt.title': 'Inntekt',
-  'forbehold.inntekt.ingress':
-    'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som Nav har fått frå Skatteetaten. Ho vert brukt som di framtidige inntekt fram til du startar uttak av alderspensjon, med mindre du sjølve endrar beløpet i kalkulatoren.',
-  'forbehold.utenlandsopphold.title': 'Utanlandsopphald',
-  'forbehold.utenlandsopphold.ingress':
-    'Kalkulatoren tek atterhald om at du på tidspunktet for uttak av alderspensjon har budd i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon.{br}{br}Har du mindre enn 40 års trygdetid kan det verka inn på kor mykje du får i alderspensjon, og kor tid du kan ta ut alderspensjon. I denne utgåva av kalkulatoren kan du foreløpig ikkje registrere opphald utenfor Noreg. For å få rekne ut alderspensjonen din så riktig som mogeleg, må du nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
-  'forbehold.sivilstand.title': 'Sivilstand',
-  'forbehold.sivilstand.ingress':
-    'Er du gift har vi lagt til grunn at du bur saman med ektefellen din. Er du gift eller har stadfesta at du har sambuar, har vi lagt til grunn at den du bur saman med har eiga inntekt høgare enn 2 gonger grunnbeløpet, eller har eigen pensjon når du tek ut pensjon. Er du sambuar legg vi til grunn at de har budd saman i 12 av de siste 18 månadane når du tek ut pensjon. Utrekninga nyttar ordinær sats for garantipensjon. Har ektefelle eller samboer lågare inntekt og ikkje eigen pensjon kan du ha rett på høg sats for garantipensjon. For nokon betyr det høgare alderspensjon.{br}{br}Har du stadfesta at du bur aleine er alderspensjon rekna ut etter høg sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har sambuar eller er gift, kan det gje lågare alderspensjon då ordinær sats for garantipensjon skal nyttast.',
-  'forbehold.afp.title': 'AFP',
-  'forbehold.afp.ingress': 'MANGLER_TEKST',
-  'forbehold.uforetrygd.title': 'Uføretrygd',
-  'forbehold.uforetrygd.ingress':
-    'Har du full eller delvis uføretrygd kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
-  'forbehold.uforetrygd_afp.title': 'MANGLER_TEKST',
-  'forbehold.uforetrygd_afp.ingress': 'MANGLER_TEKST',
-  'forbehold.gjenlevende.title': 'Attlevandepensjon',
-  'forbehold.gjenlevende.ingress':
-    'Har du vedtak om attlevandepensjon kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>. Dette gjeld og om du er i jobb og ikkje får utbetalt attlevandepensjon.',
-  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
-  'forbehold.pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'showmore.vis_mindre': 'Vis mindre',
   'showmore.vis_mer': 'Vis meir',
 }

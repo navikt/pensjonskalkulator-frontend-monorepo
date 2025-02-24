@@ -1,7 +1,7 @@
 import { addYears, areIntervalsOverlapping, isBefore, parse } from 'date-fns'
 
 import { AppDispatch } from '@/state/store'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
   DATE_BACKEND_FORMAT,
   DATE_ENDUSER_FORMAT,
@@ -484,7 +484,7 @@ export const onUtenlandsoppholdSubmit = (
     }
 
     dispatch(
-      userInputActions.setCurrentSimulationUtenlandsperiode({
+      userInputActions.setUtenlandsperiode({
         ...updatedUtenlandsperiode,
       })
     )

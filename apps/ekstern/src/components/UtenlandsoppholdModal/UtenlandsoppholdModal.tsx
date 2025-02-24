@@ -17,7 +17,7 @@ import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectFoedselsdato,
-  selectCurrentSimulationUtenlandsperioder,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
@@ -44,9 +44,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   const locale = getSelectedLanguage()
 
   const foedselsdato = useAppSelector(selectFoedselsdato)
-  const utenlandsperioder = useAppSelector(
-    selectCurrentSimulationUtenlandsperioder
-  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [
     localUtenlandsperiode,
@@ -123,7 +121,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                         id: validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land],
                       },
                       {
-                        ...getFormatMessageValues(intl),
+                        ...getFormatMessageValues(),
                         land: validationErrors[
                           UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
                         ],
@@ -198,7 +196,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                               ],
                             },
                             {
-                              ...getFormatMessageValues(intl),
+                              ...getFormatMessageValues(),
                               land: validationErrors[
                                 UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
                               ],
@@ -264,7 +262,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                               ],
                             },
                             {
-                              ...getFormatMessageValues(intl),
+                              ...getFormatMessageValues(),
                               maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
                               land: validationErrors[
                                 UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
@@ -316,7 +314,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                               ],
                             },
                             {
-                              ...getFormatMessageValues(intl),
+                              ...getFormatMessageValues(),
                               maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
                             }
                           )

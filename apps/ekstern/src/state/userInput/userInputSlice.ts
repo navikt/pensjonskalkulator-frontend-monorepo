@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { formatInntekt } from '@/utils/inntekt'
 
 export interface Simulation {
-  utenlandsperioder: Utenlandsperiode[]
   formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
   uttaksalder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
   aarligInntektFoerUttakBeloep: string | null // inntekt før uttak av pensjon - formatert string i nok - overskriver beløp fra Skatteetaten
@@ -15,6 +14,7 @@ export interface UserInputState {
   veilederBorgerFnr?: string
   veilederBorgerEncryptedFnr?: string
   harUtenlandsopphold: boolean | null
+  utenlandsperioder: Utenlandsperiode[]
   samtykke: boolean | null
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
@@ -28,6 +28,7 @@ export const userInputInitialState: UserInputState = {
   veilederBorgerFnr: undefined,
   veilederBorgerEncryptedFnr: undefined,
   harUtenlandsopphold: null,
+  utenlandsperioder: [],
   samtykke: null,
   samtykkeOffentligAFP: null,
   afp: null,
@@ -35,7 +36,6 @@ export const userInputInitialState: UserInputState = {
   epsHarInntektOver2G: null,
   epsHarPensjon: null,
   currentSimulation: {
-    utenlandsperioder: [],
     formatertUttaksalderReadOnly: null,
     uttaksalder: null,
     aarligInntektFoerUttakBeloep: null,
@@ -57,6 +57,26 @@ export const userInputSlice = createSlice({
     setHarUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
       state.harUtenlandsopphold = action.payload
     },
+    setUtenlandsperiode: (state, action: PayloadAction<Utenlandsperiode>) => {
+      const index = state.utenlandsperioder.findIndex(
+        (item) => item.id === action.payload.id
+      )
+      if (index !== -1) {
+        // Update the existing object
+        state.utenlandsperioder[index] = action.payload
+      } else {
+        // Add the new object
+        state.utenlandsperioder.push(action.payload)
+      }
+    },
+    deleteUtenlandsperiode: (state, action: PayloadAction<string>) => {
+      state.utenlandsperioder = state.utenlandsperioder.filter(
+        (utenlandsperiode) => utenlandsperiode.id !== action.payload
+      )
+    },
+    flushUtenlandsperioder: (state) => {
+      state.utenlandsperioder = []
+    },
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
@@ -77,46 +97,6 @@ export const userInputSlice = createSlice({
       state.sivilstand = action.payload.sivilstand
       state.epsHarInntektOver2G = action.payload.epsHarInntektOver2G
       state.epsHarPensjon = action.payload.epsHarPensjon
-    },
-    setCurrentSimulationUtenlandsperiode: (
-      state,
-      action: PayloadAction<Utenlandsperiode>
-    ) => {
-      const previousUtenlandsperioderArray =
-        state.currentSimulation.utenlandsperioder
-      const index = previousUtenlandsperioderArray.findIndex(
-        (item) => item.id === action.payload.id
-      )
-      if (index !== -1) {
-        // Update the existing object
-        previousUtenlandsperioderArray[index] = action.payload
-      } else {
-        // Add the new object
-        previousUtenlandsperioderArray.push(action.payload)
-      }
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        utenlandsperioder: previousUtenlandsperioderArray,
-      }
-    },
-    deleteCurrentSimulationUtenlandsperiode: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-      const updatedUtenlandsperioderArray =
-        state.currentSimulation.utenlandsperioder.filter(
-          (utenlandsperiode) => utenlandsperiode.id !== action.payload
-        )
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        utenlandsperioder: updatedUtenlandsperioderArray,
-      }
-    },
-    deleteCurrentSimulationAlleUtenlandsperioder: (state) => {
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        utenlandsperioder: [],
-      }
     },
     setCurrentSimulationUttaksalder: (
       state,
@@ -173,6 +153,7 @@ export const userInputSlice = createSlice({
     },
     flush: (state) => {
       state.harUtenlandsopphold = null
+      state.utenlandsperioder = []
       state.samtykke = null
       state.samtykkeOffentligAFP = null
       state.afp = null
@@ -181,12 +162,8 @@ export const userInputSlice = createSlice({
       state.epsHarInntektOver2G = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
-    flushCurrentSimulationUtenomUtenlandsperioder: (state) => {
-      const utenlandsperioder = state.currentSimulation.utenlandsperioder
-      state.currentSimulation = {
-        ...userInputInitialState.currentSimulation,
-        utenlandsperioder,
-      }
+    flushCurrentSimulation: (state) => {
+      state.currentSimulation = userInputInitialState.currentSimulation
     },
   },
 })

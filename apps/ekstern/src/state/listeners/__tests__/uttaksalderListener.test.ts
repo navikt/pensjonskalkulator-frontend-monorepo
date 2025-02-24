@@ -12,7 +12,7 @@ import {
   selectCurrentSimulation,
   selectFormatertUttaksalderReadOnly,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 
 describe('uttaksalderListener', () => {
   const onMiddlewareError = vi.fn((): void => {})

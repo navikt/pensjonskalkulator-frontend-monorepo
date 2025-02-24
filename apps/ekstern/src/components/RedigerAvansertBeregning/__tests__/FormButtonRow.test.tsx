@@ -7,7 +7,7 @@ import {
   BeregningContext,
   AvansertBeregningModus,
 } from '@/pages/Beregning/context'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, fireEvent } from '@/test-utils'
 
 describe('FormButtonRow', () => {
