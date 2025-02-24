@@ -1,7 +1,6 @@
 import { describe, it } from 'vitest'
 
 import { Forbehold } from '..'
-import { mockErrorResponse } from '@/mocks/server'
 import { render, screen, waitFor } from '@/test-utils'
 
 describe('Forbehold', () => {
