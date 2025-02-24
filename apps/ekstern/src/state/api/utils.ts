@@ -193,7 +193,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand: Sivilstand
   epsHarInntektOver2G: boolean | null
-  epsHarPensjon: boolean | null // Støttes ikke i Pesys - defaultes til false
+  epsHarPensjon: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
@@ -306,7 +306,10 @@ export const generatePensjonsavtalerRequestBody = (args: {
       },
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
-    epsHarInntektOver2G: !!epsHarInntektOver2G,
+    epsHarInntektOver2G:
+      epsHarInntektOver2G === null
+        ? checkHarSamboer(sivilstand)
+        : epsHarInntektOver2G,
     epsHarPensjon: !!epsHarPensjon,
     sivilstand,
   }
@@ -327,6 +330,7 @@ export const generateOffentligTpRequestBody = (args: {
     afp,
     foedselsdato,
     aarligInntektFoerUttakBeloep,
+    sivilstand,
     epsHarPensjon,
     epsHarInntektOver2G,
     gradertUttak,
@@ -363,8 +367,11 @@ export const generateOffentligTpRequestBody = (args: {
       aarligInntektFoerUttakBeloep
     ),
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
-    epsHarInntektOver2G: epsHarInntektOver2G ?? false,
-    epsHarPensjon: epsHarPensjon ?? false,
+    epsHarInntektOver2G:
+      epsHarInntektOver2G === null
+        ? checkHarSamboer(sivilstand)
+        : epsHarInntektOver2G,
+    epsHarPensjon: !!epsHarPensjon,
     brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
   }
 }
