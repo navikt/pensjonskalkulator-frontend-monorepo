@@ -26,6 +26,7 @@ import {
   selectFoedselsdato,
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 
 import {
@@ -73,12 +74,9 @@ export function Simulering(props: {
   const isEndring = useAppSelector(selectIsEndring)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
-  const {
-    uttaksalder,
-    aarligInntektVsaHelPensjon,
-    gradertUttaksperiode,
-    utenlandsperioder,
-  } = useAppSelector(selectCurrentSimulation)
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
   const { data: utvidetSimuleringsresultatFeatureToggle } =
     useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 

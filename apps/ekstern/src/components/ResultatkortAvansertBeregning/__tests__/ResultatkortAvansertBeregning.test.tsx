@@ -9,13 +9,12 @@ import { apiSlice } from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
-} from '@/state/userInput/userInputReducer'
+} from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
 describe('ResultatkortAvansertBeregning', () => {
   const currentSimulation: Simulation = {
-    utenlandsperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttakBeloep: null,

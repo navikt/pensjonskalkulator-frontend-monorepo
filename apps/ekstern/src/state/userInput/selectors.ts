@@ -2,12 +2,15 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
-import { Simulation } from '@/state/userInput/userInputReducer'
+import { Simulation } from '@/state/userInput/userInputSlice'
 import { formatInntekt } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 
 export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
   state.userInput.harUtenlandsopphold
+
+export const selectUtenlandsperioder = (state: RootState) =>
+  state.userInput.utenlandsperioder
 
 export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke
@@ -102,10 +105,6 @@ export const selectAarligInntektFoerUttakBeloep = (
   }
   return aarligInntektFoerUttakBeloepFraBrukerInput
 }
-
-export const selectCurrentSimulationUtenlandsperioder = (
-  state: RootState
-): Utenlandsperiode[] => state.userInput.currentSimulation.utenlandsperioder
 
 export const selectFormatertUttaksalderReadOnly = (
   state: RootState

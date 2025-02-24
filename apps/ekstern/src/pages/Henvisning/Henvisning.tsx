@@ -7,7 +7,7 @@ import { Card } from '../../components/common/Card'
 import { externalUrls, paths, henvisningUrlParams } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { wrapLogger } from '@/utils/logging'
 
 const gaaTilDetaljertKalkulator = () => {

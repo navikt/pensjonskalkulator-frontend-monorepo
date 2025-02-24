@@ -5,8 +5,8 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -120,7 +120,7 @@ describe('Grunnlag', () => {
     it('brukeren kan gå til avansert fane og starte en ny beregning', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulationUtenomUtenlandsperioder'
+        'flushCurrentSimulation'
       )
 
       const user = userEvent.setup()

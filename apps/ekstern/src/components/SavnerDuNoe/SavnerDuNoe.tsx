@@ -6,7 +6,7 @@ import { BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -22,7 +22,7 @@ export function SavnerDuNoe(props: {
   const navigate = useNavigate()
 
   const onClick = (): void => {
-    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningAvansert)
   }
 

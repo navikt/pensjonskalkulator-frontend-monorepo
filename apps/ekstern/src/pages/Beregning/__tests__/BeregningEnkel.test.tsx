@@ -17,7 +17,7 @@ import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -352,7 +352,6 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: true,
             afp: 'ja_offentlig',
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -445,7 +444,6 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: false,
             afp: 'ja_offentlig',
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -538,7 +536,6 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             afp: 'ja_privat',
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -631,7 +628,6 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             afp: 'ja_privat',
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -817,7 +813,6 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -980,7 +975,6 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',

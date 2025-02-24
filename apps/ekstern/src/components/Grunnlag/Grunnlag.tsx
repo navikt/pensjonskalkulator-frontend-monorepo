@@ -14,7 +14,7 @@ import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSivilstand } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
 import { formatInntekt } from '@/utils/inntekt'
 import { formatSivilstand } from '@/utils/sivilstand'
@@ -47,7 +47,7 @@ export const Grunnlag: React.FC<Props> = ({
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningAvansert)
   }
 

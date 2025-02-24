@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { setupStore } from '../store'
-import { UserInputState } from '../userInput/userInputReducer'
+import { UserInputState } from '../userInput/userInputSlice'
 
 describe('store', () => {
   it('returnerer store med riktig slices og default state', () => {
@@ -15,6 +15,7 @@ describe('store', () => {
       veilederBorgerEncryptedFnr: undefined,
       veilederBorgerFnr: undefined,
       harUtenlandsopphold: true,
+      utenlandsperioder: [],
       samtykke: true,
       samtykkeOffentligAFP: true,
       afp: null,
@@ -22,7 +23,6 @@ describe('store', () => {
       epsHarPensjon: null,
       epsHarInntektOver2G: null,
       currentSimulation: {
-        utenlandsperioder: [],
         formatertUttaksalderReadOnly: null,
         uttaksalder: null,
         aarligInntektFoerUttakBeloep: '500 000',

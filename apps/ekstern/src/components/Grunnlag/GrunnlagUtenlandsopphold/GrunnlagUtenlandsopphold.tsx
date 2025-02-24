@@ -15,7 +15,7 @@ import {
   selectCurrentSimulation,
   selectIsEndring,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -91,9 +91,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
             type="button"
             onClick={() => {
               logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
-              dispatch(
-                userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
-              )
+              dispatch(userInputActions.flushCurrentSimulation())
               avbrytModalRef.current?.close()
               navigate(paths.utenlandsopphold)
             }}

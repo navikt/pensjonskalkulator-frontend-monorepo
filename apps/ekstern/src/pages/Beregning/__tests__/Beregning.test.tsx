@@ -11,8 +11,8 @@ import {
   fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 const previousWindow = window
 
@@ -78,7 +78,6 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -107,7 +106,6 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -138,7 +136,6 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -160,7 +157,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulationUtenomUtenlandsperioder'
+        'flushCurrentSimulation'
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
@@ -172,7 +169,6 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
-              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -192,7 +188,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulationUtenomUtenlandsperioder'
+        'flushCurrentSimulation'
       )
       render(<Beregning visning="avansert" />, {
         preloadedState: {
@@ -377,7 +373,6 @@ describe('Beregning', () => {
               ...userInputInitialState,
               samtykke: true,
               currentSimulation: {
-                utenlandsperioder: [],
                 formatertUttaksalderReadOnly:
                   '70 alder.aar string.og 4 alder.maaned',
                 uttaksalder: { aar: 70, maaneder: 4 },
@@ -515,7 +510,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulationUtenomUtenlandsperioder'
+        'flushCurrentSimulation'
       )
       render(
         <NavigateWrapper>
