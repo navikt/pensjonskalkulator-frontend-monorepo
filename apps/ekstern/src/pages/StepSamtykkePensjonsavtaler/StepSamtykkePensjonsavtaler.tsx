@@ -6,10 +6,7 @@ import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-h
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import {
-  selectSamtykke,
-  selectIsVeileder,
-} from '@/state/userInput/selectors'
+import { selectSamtykke, selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepSamtykkePensjonsavtaler() {
