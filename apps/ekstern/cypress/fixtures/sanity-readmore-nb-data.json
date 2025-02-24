@@ -39,6 +39,46 @@
           "style": "normal"
         }
       ]
+    },
+    {
+      "name": "om_livsvarig_AFP_i_offentlig_sektor",
+      "overskrift": "Om livsvarig AFP i offentlig sektor",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_livsvarig_AFP_i_privat_sektor",
+      "overskrift": "Om livsvarig AFP i privat sektor",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
     }
   ],
   "syncTags": ["s1:EmCcjQ"],

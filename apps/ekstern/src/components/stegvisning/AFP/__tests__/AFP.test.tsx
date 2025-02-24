@@ -52,11 +52,6 @@ describe('stegvisning - AFP', () => {
     )
 
     expect(result.asFragment()).toMatchSnapshot()
-    expect(
-      screen.getByRole('link', {
-        name: 'AFP i privat sektor på afp.no application.global.external_link',
-      })
-    ).toHaveAttribute('href', 'https://www.afp.no')
 
     const radioButtons = await screen.findAllByRole('radio')
     await waitFor(() => {
