@@ -249,12 +249,12 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           {
             id: validationErrors[AVANSERT_FORM_NAMES.uttaksalderGradertUttak],
           },
-          { ...getFormatMessageValues(intl) }
+          { ...getFormatMessageValues() }
         )}{' '}
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.grad.validation_error"
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
             grad: initialValues.grad,
           }}
         />
@@ -271,7 +271,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           {
             id: validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak],
           },
-          { ...getFormatMessageValues(intl) }
+          { ...getFormatMessageValues() }
         )}{' '}
         {(validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak] ===
           'agepicker.validation_error.aar' ||
@@ -283,7 +283,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
                 ? 'beregning.avansert.rediger.agepicker.grad.validation_error'
                 : 'beregning.avansert.rediger.agepicker.validation_error'
             }
-            values={{ ...getFormatMessageValues(intl), grad: 100 }}
+            values={{ ...getFormatMessageValues(), grad: 100 }}
           />
         )}
       </>

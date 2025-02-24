@@ -72,7 +72,7 @@ export function SamtykkeOffentligAFP({
         <BodyLong size="large">
           <FormattedMessage
             id="stegvisning.samtykke_offentlig_afp.ingress"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </BodyLong>
 

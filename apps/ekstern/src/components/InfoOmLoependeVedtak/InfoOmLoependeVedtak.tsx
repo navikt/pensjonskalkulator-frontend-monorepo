@@ -57,7 +57,7 @@ export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
         <FormattedMessage
           id={'beregning.endring.rediger.vedtak_grad_status'}
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
             grad: loependeVedtak?.alderspensjon?.grad,
           }}
         />
@@ -66,7 +66,7 @@ export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
             <FormattedMessage
               id={'beregning.endring.rediger.vedtak_betaling_status'}
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
                 maaned: formatertMaaned,
                 beloep: formatInntekt(
                   loependeVedtak.alderspensjon.sisteUtbetaling.beloep

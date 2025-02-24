@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Alert, BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
@@ -26,7 +26,6 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
   privatePensjonsavtaler,
 }) => {
   const isMobile = useIsMobile()
-  const intl = useIntl()
 
   // TODO PEK-812 Bør vi ha en håndtering av loading?
   return (
@@ -98,7 +97,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
         <FormattedMessage
           id="pensjonsavtaler.private.ingress.norsk_pensjon"
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
           }}
         />
       </BodyLong>
