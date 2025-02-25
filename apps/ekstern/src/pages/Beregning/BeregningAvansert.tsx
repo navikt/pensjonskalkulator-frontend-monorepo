@@ -81,8 +81,8 @@ export const BeregningAvansert: React.FC = () => {
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
-        epsHarPensjon: !!epsHarPensjon,
-        epsHarInntektOver2G: !!epsHarInntektOver2G,
+        epsHarPensjon: epsHarPensjon,
+        epsHarInntektOver2G: epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode

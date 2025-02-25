@@ -5,6 +5,7 @@ import {
   formatSivilstand,
   getSivilstandTekst,
   sivilstandOptions,
+  checkHarSamboer,
 } from '@/utils/sivilstand'
 
 describe('sivilstand-utils', () => {
@@ -95,6 +96,23 @@ describe('sivilstand-utils', () => {
       )
 
       expect(actual.every((it) => !it)).toBe(true)
+    })
+  })
+
+  describe('checkHarSamboer', () => {
+    it('returnerer true når sivilstand er GIFT', () => {
+      const actual = checkHarSamboer('GIFT')
+      expect(actual).toBe(true)
+    })
+
+    it('returnerer false når sivilstand er UGIFT', () => {
+      const actual = checkHarSamboer('UGIFT')
+      expect(actual).toBe(false)
+    })
+
+    it('returnerer false når sivilstand er undefined', () => {
+      const actual = checkHarSamboer(undefined)
+      expect(actual).toBe(false)
     })
   })
 })
