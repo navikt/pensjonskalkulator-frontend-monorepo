@@ -1,4 +1,4 @@
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Button } from '@navikt/ds-react'
@@ -6,7 +6,7 @@ import { BodyLong, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -18,12 +18,11 @@ export function SavnerDuNoe(props: {
   showAvansert?: boolean
 }) {
   const { headingLevel, isEndring, showAvansert } = props
-  const intl = useIntl()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const onClick = (): void => {
-    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningAvansert)
   }
 
@@ -54,7 +53,7 @@ export function SavnerDuNoe(props: {
         <FormattedMessage
           id={isEndring ? 'savnerdunoe.body.endring' : 'savnerdunoe.body'}
           values={{
-            ...getFormatMessageValues(intl),
+            ...getFormatMessageValues(),
           }}
         />
       </BodyLong>

@@ -2,27 +2,32 @@ import type { IntlShape } from 'react-intl'
 
 import type { Translations } from '@/translations/nb'
 
-const leverandoerMessageKeyMap: Record<string, string> = {
-  'Statens pensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.spk',
-  'Kommunal Landspensjonskasse': 'pensjonsavtaler.offentligtp.subtitle.klp',
+export const tpNummerTilNavn: Record<string, 'spk' | 'klp'> = {
+  '3010': 'spk',
+  '3060': 'spk',
+  '4080': 'klp',
+  '3200': 'klp',
 }
 
 export const getLeverandoerHeading = (
   intl: IntlShape,
-  tpLeverandoer: string
+  tpNummer: string,
+  tpLeverandoer?: string
 ) => {
-  if (tpLeverandoer in leverandoerMessageKeyMap) {
-    return intl.formatMessage({ id: leverandoerMessageKeyMap[tpLeverandoer] })
+  if (tpNummer in tpNummerTilNavn) {
+    return intl.formatMessage({
+      id: `pensjonsavtaler.offentligtp.subtitle.${tpNummerTilNavn[tpNummer]}`,
+    })
   }
   return tpLeverandoer
 }
 
 export const getInfoOmAfpOgBetingetTjenestepensjon = (
-  tpLeverandoer: string,
+  tpNummer: string,
   afp: AfpRadio | null,
   betingetTjenestepensjonErInkludert?: boolean
 ): keyof Translations => {
-  if (tpLeverandoer === 'Kommunal Landspensjonskasse') {
+  if (tpNummerTilNavn[tpNummer] === 'klp') {
     if (afp === 'ja_offentlig' || afp === 'ja_privat') {
       return 'pensjonsavtaler.offentligtp.klp.afp_ja'
     }

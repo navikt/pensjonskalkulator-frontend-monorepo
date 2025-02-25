@@ -9,11 +9,10 @@ import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { SanityContext } from '@/context/SanityContext'
-import { SanityReadMore } from '@/context/SanityContext/SanityTypes'
 import { paths } from '@/router/constants'
 import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
+import { selectUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
 import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -38,14 +37,12 @@ export function Utenlandsopphold({
   const intl = useIntl()
 
   const { readMoreData } = React.useContext(SanityContext)
-  const [readMore1, setReadMore1] = React.useState<SanityReadMore | undefined>()
-  const [readMore2, setReadMore2] = React.useState<SanityReadMore | undefined>()
+  const readMore1 = readMoreData['hva_er_opphold_utenfor_norge']
+  const readMore2 = readMoreData['betydning_av_opphold_utenfor_norge']
 
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
-  const utenlandsperioder = useAppSelector(
-    selectCurrentSimulationUtenlandsperioder
-  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [validationErrors, setValidationErrors] = React.useState<
     Record<'top' | 'bottom', string>
@@ -56,18 +53,6 @@ export function Utenlandsopphold({
 
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
-
-  React.useEffect(() => {
-    if (readMoreData) {
-      readMoreData.forEach((item) => {
-        if (item.name === 'hva_er_opphold_utenfor_norge') {
-          setReadMore1(item)
-        } else if (item.name === 'betydning_av_opphold_utenfor_norge') {
-          setReadMore2(item)
-        }
-      })
-    }
-  }, [readMoreData])
 
   React.useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {
@@ -130,7 +115,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
           <ul>
@@ -144,7 +129,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
           <ul>
@@ -170,7 +155,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_1.ingress"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </ReadMore>
@@ -198,7 +183,7 @@ export function Utenlandsopphold({
           <FormattedMessage
             id="stegvisning.utenlandsopphold.readmore_2.ingress"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </ReadMore>

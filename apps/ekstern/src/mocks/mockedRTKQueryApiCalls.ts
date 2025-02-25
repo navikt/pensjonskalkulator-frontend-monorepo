@@ -23,6 +23,56 @@ export const fulfilledGetPerson = {
   },
 }
 
+export const fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder = {
+  ['getPerson(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getPerson',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      navn: 'Aprikos',
+      sivilstand: 'UGIFT',
+      foedselsdato: '1963-01-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder = {
+  ['getPerson(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getPerson',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      navn: 'Aprikos',
+      sivilstand: 'UGIFT',
+      foedselsdato: '1990-01-30',
+      pensjoneringAldre: {
+        normertPensjoneringsalder: {
+          aar: 67,
+          maaneder: 0,
+        },
+        nedreAldersgrense: {
+          aar: 62,
+          maaneder: 0,
+        },
+      },
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetPersonMedOekteAldersgrenser = {
   ['getPerson(undefined)']: {
     status: 'fulfilled',

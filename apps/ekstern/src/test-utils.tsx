@@ -101,8 +101,11 @@ export function renderWithProviders(
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
           <SanityContext.Provider
             value={{
-              readMoreData:
-                sanityReadMoreDataResponse.result as unknown as SanityReadMore[],
+              readMoreData: Object.fromEntries(
+                (
+                  sanityReadMoreDataResponse.result as unknown as SanityReadMore[]
+                ).map((readmore) => [readmore.name, readmore])
+              ),
               forbeholdAvsnittData:
                 sanityForbeholdAvsnittDataResponse.result as unknown as SanityForbeholdAvsnitt[],
             }}

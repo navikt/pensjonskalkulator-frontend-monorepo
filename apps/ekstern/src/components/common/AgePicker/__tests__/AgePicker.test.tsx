@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { AgePicker } from '..'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, fireEvent, waitFor } from '@/test-utils'
 
 describe('AgePicker', () => {

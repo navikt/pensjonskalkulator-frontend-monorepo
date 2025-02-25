@@ -39,6 +39,7 @@ import {
   selectNormertPensjonsalder,
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import {
   isFoedtFoer1964,
@@ -85,9 +86,8 @@ export const BeregningEnkel: React.FC = () => {
     skip: !tidligstMuligHeltUttakRequestBody || !!ufoeregrad,
   })
 
-  const { uttaksalder, utenlandsperioder } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
   const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)

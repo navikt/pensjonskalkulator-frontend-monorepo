@@ -5,7 +5,7 @@ import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApi
 import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { screen, render, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -61,24 +61,21 @@ describe('StepUtenlandsopphold', () => {
         },
         userInput: {
           ...userInputInitialState,
-          currentSimulation: {
-            ...userInputInitialState.currentSimulation,
-            utenlandsperioder: [
-              {
-                id: '1',
-                landkode: 'SWE',
-                startdato: '12.12.2012',
-                sluttdato: '12.12.2013',
-                arbeidetUtenlands: true,
-              },
-              {
-                id: '2',
-                landkode: 'SWE',
-                startdato: '12.12.2020',
-                arbeidetUtenlands: true,
-              },
-            ],
-          },
+          utenlandsperioder: [
+            {
+              id: '1',
+              landkode: 'SWE',
+              startdato: '12.12.2012',
+              sluttdato: '12.12.2013',
+              arbeidetUtenlands: true,
+            },
+            {
+              id: '2',
+              landkode: 'SWE',
+              startdato: '12.12.2020',
+              arbeidetUtenlands: true,
+            },
+          ],
         },
       },
     })
@@ -88,32 +85,11 @@ describe('StepUtenlandsopphold', () => {
     await user.click(await screen.findByText('stegvisning.neste'))
 
     expect(store.getState().userInput.harUtenlandsopphold).toBe(false)
-    expect(
-      store.getState().userInput.currentSimulation.utenlandsperioder
-    ).toStrictEqual([])
+    expect(store.getState().userInput.utenlandsperioder).toStrictEqual([])
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
-  it('Gitt at brukeren ikke har samboer, nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
-    const user = userEvent.setup()
-
-    const { store } = render(<StepUtenlandsopphold />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, harUtenlandsopphold: null },
-      },
-    })
-    const radioButtons = await screen.findAllByRole('radio')
-
-    await user.click(radioButtons[0])
-    expect(radioButtons[0]).toBeChecked()
-
-    await user.click(await screen.findByText('stegvisning.tilbake'))
-
-    expect(store.getState().userInput.harUtenlandsopphold).toBeNull()
-    expect(navigateMock).toHaveBeenCalledWith(-1)
-  })
-
-  it('nullstiller input fra brukeren og navigerer to steg tilbake når brukeren klikker på Tilbake', async () => {
+  it('nullstiller input fra brukeren og navigerer tilbake til /sivilstand når brukeren klikker på Tilbake', async () => {
     mockResponse('/v4/person', {
       status: 200,
       json: {
@@ -146,6 +122,6 @@ describe('StepUtenlandsopphold', () => {
     expect(radioButtons[0]).toBeChecked()
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(store.getState().userInput.harUtenlandsopphold).toBeNull()
-    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
   })
 })

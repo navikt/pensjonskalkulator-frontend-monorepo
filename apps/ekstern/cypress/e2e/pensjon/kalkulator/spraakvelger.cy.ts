@@ -27,7 +27,7 @@ describe('Språkvelger', () => {
 
     // Sjekker default språk på utenlandsopphold steg
     cy.contains('Opphold utenfor Norge')
-    cy.contains('Hva som er opphold utenfor Norge (Sanity)')
+    cy.contains('Hva som er opphold utenfor Norge')
 
     cy.contains('button', 'Språk/Language').click()
     cy.contains('button', 'English').click()

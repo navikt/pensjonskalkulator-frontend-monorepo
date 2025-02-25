@@ -12,8 +12,8 @@ import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
@@ -139,7 +139,7 @@ describe('StepAFP', () => {
     await waitFor(async () => {
       await user.click(await screen.findByText('stegvisning.tilbake'))
     })
-    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {

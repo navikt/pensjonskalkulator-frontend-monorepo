@@ -26,8 +26,9 @@ import {
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
   selectCurrentSimulation,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
@@ -53,12 +54,9 @@ export const Pensjonsavtaler = (props: {
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
-  const {
-    uttaksalder,
-    aarligInntektVsaHelPensjon,
-    gradertUttaksperiode,
-    utenlandsperioder,
-  } = useAppSelector(selectCurrentSimulation)
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
 
   const [offentligTpRequestBody, setOffentligTpRequestBody] = React.useState<
     OffentligTpRequestBody | undefined
@@ -186,7 +184,7 @@ export const Pensjonsavtaler = (props: {
           <FormattedMessage
             id="pensjonsavtaler.ingress.error.samtykke_link_2"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </BodyLong>

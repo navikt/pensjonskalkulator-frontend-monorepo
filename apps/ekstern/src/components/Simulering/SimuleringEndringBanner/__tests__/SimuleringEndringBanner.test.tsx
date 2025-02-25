@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SimuleringEndringBanner } from '../SimuleringEndringBanner'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { screen, render } from '@/test-utils'
 
 describe('SimuleringEndringBanner', () => {

@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { StepFeil } from '..'
 import { paths } from '@/router/constants'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 const navigateMock = vi.fn()

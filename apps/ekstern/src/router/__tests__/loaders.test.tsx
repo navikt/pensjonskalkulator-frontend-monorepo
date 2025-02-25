@@ -24,7 +24,7 @@ import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { waitFor } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
@@ -436,7 +436,6 @@ describe('Loaders', () => {
       })
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      console.log(returnedFromLoader)
       const person = await (
         returnedFromLoader as StepSivilstandAccessGuardLoader
       ).getPersonQuery
@@ -632,9 +631,10 @@ describe('Loaders', () => {
         expect(shouldRedirectToResponse).toBe('')
       })
 
-      it('brukere med uføretrygd som er fylt minimum uttaksalder, er redirigert', async () => {
+      it('brukere med uføretrygd som er over minimum uttaksalder, er redirigert', async () => {
         const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
           years: -62,
+          months: -1,
         })
         const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
 

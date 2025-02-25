@@ -71,7 +71,7 @@ export function SamtykkePensjonsavtaler({
         <BodyLong size="large">
           <FormattedMessage
             id="stegvisning.samtykke_pensjonsavtaler.ingress"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </BodyLong>
         <ReadMore
@@ -83,7 +83,7 @@ export function SamtykkePensjonsavtaler({
         >
           <FormattedMessage
             id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
         </ReadMore>
         <ReadMore
@@ -95,7 +95,7 @@ export function SamtykkePensjonsavtaler({
         >
           <FormattedMessage
             id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress"
-            values={{ ...getFormatMessageValues(intl) }}
+            values={{ ...getFormatMessageValues() }}
           />
           <ul className={styles.list}>
             <li>

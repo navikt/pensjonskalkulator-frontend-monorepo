@@ -9,7 +9,7 @@ import {
   selectCurrentSimulation,
   selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { unformatUttaksalder } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 

@@ -1,5 +1,4 @@
-import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Alert } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -14,8 +13,6 @@ interface Props {
 }
 
 export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
-  const intl = useIntl()
-
   if (!loependeVedtak || !loependeVedtak?.harFremtidigLoependeVedtak) {
     return null
   }
@@ -33,7 +30,7 @@ export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
               ? 'stegvisning.fremtidigvedtak.endring.alert'
               : 'stegvisning.fremtidigvedtak.alert'
           }
-          values={{ ...getFormatMessageValues(intl) }}
+          values={{ ...getFormatMessageValues() }}
         />
       </Alert>
     </>

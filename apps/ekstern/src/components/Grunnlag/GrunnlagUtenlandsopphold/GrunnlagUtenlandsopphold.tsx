@@ -15,7 +15,7 @@ import {
   selectCurrentSimulation,
   selectIsEndring,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -91,9 +91,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
             type="button"
             onClick={() => {
               logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
-              dispatch(
-                userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
-              )
+              dispatch(userInputActions.flushCurrentSimulation())
               avbrytModalRef.current?.close()
               navigate(paths.utenlandsopphold)
             }}
@@ -130,7 +128,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.opphold.ingress.endring"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                   }}
                 />
               </BodyLong>
@@ -141,7 +139,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.opphold.ingress.mindre_enn_5_aar"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                   }}
                 />
               </BodyLong>
@@ -162,7 +160,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                   <FormattedMessage
                     id="grunnlag.opphold.ingress.for_lite_trygdetid"
                     values={{
-                      ...getFormatMessageValues(intl),
+                      ...getFormatMessageValues(),
                     }}
                   />
                 </BodyLong>
@@ -174,7 +172,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.opphold.ingress.endre_opphold"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                     link: (
                       <Link href="#" onClick={goToUtenlandsoppholdStep}>
                         <FormattedMessage id="grunnlag.opphold.ingress.endre_opphold.link" />
@@ -188,7 +186,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                     <FormattedMessage
                       id="grunnlag.opphold.ingress.trygdetid"
                       values={{
-                        ...getFormatMessageValues(intl),
+                        ...getFormatMessageValues(),
                         aar: trygdetid,
                       }}
                     />
@@ -203,7 +201,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.opphold.bunntekst"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                   }}
                 />
               </BodyLong>

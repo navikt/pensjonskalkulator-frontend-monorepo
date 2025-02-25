@@ -13,10 +13,12 @@ import {
   selectFoedselsdato,
   selectLoependeVedtak,
   selectSamtykkeOffentligAFP,
-  selectNedreAldersgrense,
 } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
-import { isFoedselsdatoOverEllerLikAlder } from '@/utils/alder'
+import {
+  AFP_UFOERE_OPPSIGELSESALDER,
+  isFoedselsdatoOverAlder,
+} from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
@@ -32,12 +34,11 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
-  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
 
   if (
     loependeVedtak.ufoeretrygd.grad &&
     foedselsdato &&
-    isFoedselsdatoOverEllerLikAlder(foedselsdato, nedreAldersgrense)
+    isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER)
   ) {
     return null
   }
@@ -98,7 +99,7 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
             <FormattedMessage
               id={formatertAfpIngress}
               values={{
-                ...getFormatMessageValues(intl),
+                ...getFormatMessageValues(),
               }}
             />
 

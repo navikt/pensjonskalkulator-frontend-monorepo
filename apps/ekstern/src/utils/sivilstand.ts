@@ -5,6 +5,11 @@ export function isSivilstandUkjent(sivilstand?: Sivilstand): boolean {
   return ['UNKNOWN', 'UOPPGITT'].includes(sivilstand)
 }
 
+export function checkHarSamboer(sivilstand?: Sivilstand | null): boolean {
+  if (!sivilstand) return false
+  return ['SAMBOER', 'GIFT', 'REGISTRERT_PARTNER'].includes(sivilstand)
+}
+
 export const sivilstandOptions = [
   'ENKE_ELLER_ENKEMANN',
   'GIFT',

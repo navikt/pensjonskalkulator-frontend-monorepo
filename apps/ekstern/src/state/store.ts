@@ -9,8 +9,8 @@ import {
 
 import { apiSlice } from './api/apiSlice'
 import { createUttaksalderListener } from './listeners/uttaksalderListener'
-import { userInputInitialState } from './userInput/userInputReducer'
-import userInputReducer from './userInput/userInputReducer'
+import { userInputInitialState } from './userInput/userInputSlice'
+import userInputReducer from './userInput/userInputSlice'
 
 const listenerMiddleware = createListenerMiddleware()
 

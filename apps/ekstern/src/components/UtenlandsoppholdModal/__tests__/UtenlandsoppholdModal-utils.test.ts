@@ -591,7 +591,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         )
 
         expect(dispatchMock.mock.calls[0][0].type).toStrictEqual(
-          'userInputSlice/setCurrentSimulationUtenlandsperiode'
+          'userInputSlice/setUtenlandsperiode'
         )
         expect(dispatchMock.mock.calls[0][0].payload.id).toBeDefined()
         expect(
@@ -666,7 +666,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         )
 
         expect(dispatchMock.mock.calls[0][0].type).toStrictEqual(
-          'userInputSlice/setCurrentSimulationUtenlandsperiode'
+          'userInputSlice/setUtenlandsperiode'
         )
         expect(dispatchMock.mock.calls[0][0].payload.id).toBeDefined()
         expect(

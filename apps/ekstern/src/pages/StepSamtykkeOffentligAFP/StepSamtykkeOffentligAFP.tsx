@@ -9,7 +9,7 @@ import {
   selectSamtykkeOffentligAFP,
   selectIsVeileder,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 
 export function StepSamtykkeOffentligAFP() {
   const intl = useIntl()

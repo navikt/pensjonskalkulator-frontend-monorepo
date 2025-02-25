@@ -36,6 +36,7 @@ import {
   selectEpsHarPensjon,
   selectEpsHarInntektOver2G,
   selectSivilstand,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { getBrukerensAlderISluttenAvMaaneden } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -63,12 +64,9 @@ export const BeregningAvansert: React.FC = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
 
-  const {
-    uttaksalder,
-    aarligInntektVsaHelPensjon,
-    gradertUttaksperiode,
-    utenlandsperioder,
-  } = useAppSelector(selectCurrentSimulation)
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
 
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
@@ -83,8 +81,8 @@ export const BeregningAvansert: React.FC = () => {
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
-        epsHarPensjon: !!epsHarPensjon,
-        epsHarInntektOver2G: !!epsHarInntektOver2G,
+        epsHarPensjon: epsHarPensjon,
+        epsHarInntektOver2G: epsHarInntektOver2G,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode

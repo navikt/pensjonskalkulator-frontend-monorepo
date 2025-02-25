@@ -3,8 +3,8 @@ import { describe, it, vi } from 'vitest'
 import { Utenlandsopphold } from '..'
 import { mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
-import { userInputActions } from '@/state/userInput/userInputReducer'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Utenlandsopphold', () => {
@@ -215,10 +215,6 @@ describe('stegvisning - Utenlandsopphold', () => {
           preloadedState: {
             userInput: {
               ...userInputInitialState,
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-                utenlandsperioder: [],
-              },
             },
           },
         }
@@ -255,10 +251,6 @@ describe('stegvisning - Utenlandsopphold', () => {
           preloadedState: {
             userInput: {
               ...userInputInitialState,
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-                utenlandsperioder: [],
-              },
             },
           },
         }
@@ -272,16 +264,14 @@ describe('stegvisning - Utenlandsopphold', () => {
         )
       ).toBeInTheDocument()
 
-      await waitFor(() => {
-        store.dispatch(
-          userInputActions.setCurrentSimulationUtenlandsperiode({
-            id: '1',
-            landkode: 'AFG',
-            arbeidetUtenlands: true,
-            startdato: '20-01-2021',
-          })
-        )
-      })
+      store.dispatch(
+        userInputActions.setUtenlandsperiode({
+          id: '1',
+          landkode: 'AFG',
+          arbeidetUtenlands: true,
+          startdato: '20-01-2021',
+        })
+      )
 
       expect(
         await screen.findByText('stegvisning.utenlandsopphold.oppholdene.title')

@@ -29,7 +29,7 @@ import {
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { findRoutesWithoutLoaders } from '@/utils/veileder'
 
 import { VeilederInputRequestError } from './VeilederInputRequestError'

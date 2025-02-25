@@ -14,7 +14,7 @@ import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSivilstand } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
 import { formatInntekt } from '@/utils/inntekt'
 import { formatSivilstand } from '@/utils/sivilstand'
@@ -47,7 +47,7 @@ export const Grunnlag: React.FC<Props> = ({
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningAvansert)
   }
 
@@ -89,7 +89,7 @@ export const Grunnlag: React.FC<Props> = ({
                 <FormattedMessage
                   id="grunnlag.uttaksgrad.ingress"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                   }}
                 />
                 <br />
@@ -113,7 +113,7 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.sivilstand.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>
@@ -138,14 +138,14 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
               {pensjonsbeholdning && (
                 <FormattedMessage
                   id="grunnlag.alderspensjon.ingress.pensjonsbeholdning"
                   values={{
-                    ...getFormatMessageValues(intl),
+                    ...getFormatMessageValues(),
                     sum: formatInntekt(pensjonsbeholdning),
                   }}
                 />
@@ -153,7 +153,7 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id="grunnlag.alderspensjon.ingress.link"
                 values={{
-                  ...getFormatMessageValues(intl),
+                  ...getFormatMessageValues(),
                 }}
               />
             </BodyLong>

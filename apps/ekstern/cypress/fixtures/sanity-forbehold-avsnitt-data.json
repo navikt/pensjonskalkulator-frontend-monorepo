@@ -1,9 +1,7 @@
 {
   "result": [
     {
-      "_updatedAt": "2025-01-24T08:22:42Z",
-      "_createdAt": "2025-01-09T14:31:55Z",
-      "_rev": "i5ry3uOsKKtEGpoPKbzUb1",
+      "overskrift": null,
       "innhold": [
         {
           "markDefs": [],
@@ -19,15 +17,10 @@
           "style": "normal",
           "_key": "9d4d5f7f7e6e"
         }
-      ],
-      "language": "nb",
-      "_id": "1467f99a-4ed3-476a-815a-fab0bd5c31c7",
-      "_type": "forbeholdAvsnitt",
-      "name": "intro",
-      "order": 1
+      ]
     },
     {
-      "name": "inntekt",
+      "overskrift": "Inntekt",
       "innhold": [
         {
           "_type": "block",
@@ -43,17 +36,10 @@
             }
           ]
         }
-      ],
-      "_id": "6c48e57a-4ba1-437b-b651-de741a09e686",
-      "_updatedAt": "2025-01-24T08:23:02Z",
-      "order": 2,
-      "_createdAt": "2024-10-07T13:16:21Z",
-      "overskrift": "Inntekt",
-      "language": "nb",
-      "_rev": "i5ry3uOsKKtEGpoPKbzVZz",
-      "_type": "forbeholdAvsnitt"
+      ]
     },
     {
+      "overskrift": "Opphold utenfor Norge",
       "innhold": [
         {
           "markDefs": [],
@@ -69,16 +55,7 @@
           "style": "normal",
           "_key": "e6e29b3f6d4c"
         }
-      ],
-      "_id": "c44e4d87-cc85-4bce-acfc-6b97de2ecdc7",
-      "order": 3,
-      "name": "opphold_utenfor_norge",
-      "language": "nb",
-      "_updatedAt": "2025-01-24T08:22:53Z",
-      "_createdAt": "2025-01-17T14:06:18Z",
-      "overskrift": "Opphold utenfor Norge",
-      "_rev": "iBzEylCaJfBlbg7ZekFAyN",
-      "_type": "forbeholdAvsnitt"
+      ]
     }
   ],
   "syncTags": ["s1:9mesEw"],

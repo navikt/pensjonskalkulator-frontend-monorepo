@@ -150,7 +150,7 @@ export function AFP({
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
             values={{
-              ...getFormatMessageValues(intl),
+              ...getFormatMessageValues(),
             }}
           />
         </ReadMore>
