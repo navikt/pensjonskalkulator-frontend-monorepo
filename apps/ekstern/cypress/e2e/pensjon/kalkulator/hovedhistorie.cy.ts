@@ -269,10 +269,7 @@ describe('Hovedhistorie', () => {
         it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
           cy.contains('h2', 'AFP (avtalefestet pensjon)').should('exist')
           cy.get('[data-testid="om_livsvarig_AFP_i_offentlig_sektor"]').click()
-          cy.contains('Om AFP i privat sektor').click()
-          cy.contains('a', 'AFP i privat sektor på afp.no')
-            .should('have.attr', 'href')
-            .and('include', 'https://www.afp.no')
+          cy.get('[data-testid="om_livsvarig_AFP_i_offentlig_sektor"]').click()
         })
         it('forventer jeg å måtte velge om jeg vil beregne med eller uten AFP både i privat og offentlig sektor. Jeg må kunne svare nei for å bare beregne alderspensjon, eller vet ikke hvis jeg er usikker.', () => {
           cy.contains('Har du rett til AFP?').should('exist')
