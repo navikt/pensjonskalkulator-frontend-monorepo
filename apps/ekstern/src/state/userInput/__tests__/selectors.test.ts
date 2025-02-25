@@ -1,5 +1,6 @@
 import {
   selectHarUtenlandsopphold,
+  selectUtenlandsperioder,
   selectSamtykke,
   selectSamtykkeOffentligAFP,
   selectAfp,
@@ -8,7 +9,6 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloep,
-  selectCurrentSimulationUtenlandsperioder,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectIsVeileder,
@@ -30,13 +30,12 @@ import {
   fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
-import { Simulation } from '@/state/userInput/userInputReducer'
+import { Simulation } from '@/state/userInput/userInputSlice'
 
 describe('userInput selectors', () => {
   const initialState = store.getState()
 
   const currentSimulation: Simulation = {
-    utenlandsperioder: [],
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     uttaksalder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttakBeloep: '0',
@@ -322,7 +321,7 @@ describe('userInput selectors', () => {
     })
   })
 
-  it('selectCurrentSimulationUtenlandsperioder', () => {
+  it('selectUtenlandsperioder', () => {
     const utenlandsperiode: Utenlandsperiode = {
       id: '123',
       landkode: 'URY',
@@ -334,19 +333,10 @@ describe('userInput selectors', () => {
       ...initialState,
       userInput: {
         ...initialState.userInput,
-        currentSimulation: {
-          ...currentSimulation,
-          utenlandsperioder: [
-            {
-              ...utenlandsperiode,
-            },
-          ],
-        },
+        utenlandsperioder: [{ ...utenlandsperiode }],
       },
     }
-    expect(selectCurrentSimulationUtenlandsperioder(state)).toStrictEqual([
-      utenlandsperiode,
-    ])
+    expect(selectUtenlandsperioder(state)).toStrictEqual([utenlandsperiode])
   })
 
   it('selectFormatertUttaksalder', () => {

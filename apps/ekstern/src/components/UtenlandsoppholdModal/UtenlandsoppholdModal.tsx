@@ -17,7 +17,7 @@ import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectFoedselsdato,
-  selectCurrentSimulationUtenlandsperioder,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
@@ -44,9 +44,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   const locale = getSelectedLanguage()
 
   const foedselsdato = useAppSelector(selectFoedselsdato)
-  const utenlandsperioder = useAppSelector(
-    selectCurrentSimulationUtenlandsperioder
-  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [
     localUtenlandsperiode,

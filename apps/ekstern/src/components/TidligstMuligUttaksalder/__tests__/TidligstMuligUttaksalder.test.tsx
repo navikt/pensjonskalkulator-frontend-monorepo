@@ -7,8 +7,8 @@ import {
   fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
-import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
 
@@ -343,7 +343,7 @@ describe('TidligstMuligUttaksalder', () => {
     it('viser riktig innhold med gradert ufoeretrygd.', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulationUtenomUtenlandsperioder'
+        'flushCurrentSimulation'
       )
 
       const user = userEvent.setup()

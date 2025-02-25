@@ -7,7 +7,7 @@ import {
   getTranslations,
 } from '@/context/LanguageProvider/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
 
 /**

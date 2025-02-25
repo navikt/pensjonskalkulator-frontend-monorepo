@@ -8,7 +8,7 @@ import {
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 

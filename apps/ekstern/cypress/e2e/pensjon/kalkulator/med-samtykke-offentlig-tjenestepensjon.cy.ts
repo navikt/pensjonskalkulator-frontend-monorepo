@@ -172,7 +172,6 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                 method: 'POST',
                 url: '/pensjon/kalkulator/api/v2/simuler-oftp',
               },
-
               {
                 simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: [
@@ -182,6 +181,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                 ],
                 simulertTjenestepensjon: {
                   tpLeverandoer: 'Statens pensjonskasse',
+                  tpNummer: '3010',
                   simuleringsresultat: {
                     utbetalingsperioder: [
                       {
@@ -202,7 +202,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                     betingetTjenestepensjonErInkludert: false,
                   },
                 },
-              }
+              } satisfies OffentligTp
             ).as('fetchOffentligTp')
           })
 
@@ -325,7 +325,6 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                 method: 'POST',
                 url: '/pensjon/kalkulator/api/v2/simuler-oftp',
               },
-
               {
                 simuleringsresultatStatus: 'OK',
                 muligeTpLeverandoerListe: [
@@ -335,6 +334,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                 ],
                 simulertTjenestepensjon: {
                   tpLeverandoer: 'Statens pensjonskasse',
+                  tpNummer: '3010',
                   simuleringsresultat: {
                     utbetalingsperioder: [
                       {
@@ -355,7 +355,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
                     betingetTjenestepensjonErInkludert: false,
                   },
                 },
-              }
+              } satisfies OffentligTp
             ).as('fetchOffentligTp')
           })
 

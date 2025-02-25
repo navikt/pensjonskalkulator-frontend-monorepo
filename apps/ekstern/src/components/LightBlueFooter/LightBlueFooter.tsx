@@ -6,7 +6,7 @@ import { Button, Modal } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './LightBlueFooter.module.scss'

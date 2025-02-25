@@ -14,7 +14,7 @@ import {
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 
 export function StepSivilstand() {
   const intl = useIntl()

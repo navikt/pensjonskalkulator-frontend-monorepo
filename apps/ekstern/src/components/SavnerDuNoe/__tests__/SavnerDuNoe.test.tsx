@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { SavnerDuNoe } from '..'
 import { paths } from '@/router/constants'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -54,7 +54,6 @@ describe('SavnerDuNoe', () => {
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
-                utenlandsperioder: [],
                 formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
                 uttaksalder: { aar: 67, maaneder: 1 },
                 aarligInntektFoerUttakBeloep: '0',
@@ -68,7 +67,6 @@ describe('SavnerDuNoe', () => {
       await user.click(screen.getByText('savnerdunoe.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
       expect(store.getState().userInput.currentSimulation).toStrictEqual({
-        utenlandsperioder: [],
         aarligInntektFoerUttakBeloep: null,
         formatertUttaksalderReadOnly: null,
         gradertUttaksperiode: null,

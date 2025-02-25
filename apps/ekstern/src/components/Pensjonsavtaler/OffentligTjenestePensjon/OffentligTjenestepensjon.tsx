@@ -38,7 +38,7 @@ export const OffentligTjenestepensjon = (props: {
   headingLevel: Exclude<HeadingProps['level'], undefined>
 }) => {
   const { isLoading, isError, offentligTp, headingLevel } = props
-  const tpLeverandoer = offentligTp?.simulertTjenestepensjon?.tpLeverandoer
+  const { tpLeverandoer, tpNummer } = offentligTp?.simulertTjenestepensjon || {}
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
@@ -60,8 +60,7 @@ export const OffentligTjenestepensjon = (props: {
   }
 
   const showResults =
-    offentligTp?.simuleringsresultatStatus === 'OK' &&
-    tpLeverandoer !== undefined
+    offentligTp?.simuleringsresultatStatus === 'OK' && tpNummer !== undefined
 
   return (
     <VStack gap="3">
@@ -141,7 +140,7 @@ export const OffentligTjenestepensjon = (props: {
                 level={subHeadingLevel}
                 size="xsmall"
               >
-                {getLeverandoerHeading(intl, tpLeverandoer)}
+                {getLeverandoerHeading(intl, tpNummer, tpLeverandoer)}
               </Heading>
               <table
                 className={styles.mobileTable}
@@ -215,7 +214,11 @@ export const OffentligTjenestepensjon = (props: {
                             className={styles.desktopTableRader__alignTop}
                             rowSpan={utbetalingsperioder.length}
                           >
-                            {getLeverandoerHeading(intl, tpLeverandoer)}
+                            {getLeverandoerHeading(
+                              intl,
+                              tpNummer,
+                              tpLeverandoer
+                            )}
                           </Table.HeaderCell>
                         )}
                         <Table.DataCell className={dataCellClassName}>
@@ -246,7 +249,7 @@ export const OffentligTjenestepensjon = (props: {
           <BodyLong size="small">
             <FormattedMessage
               id={getInfoOmAfpOgBetingetTjenestepensjon(
-                tpLeverandoer,
+                tpNummer,
                 afp,
                 offentligTp.simulertTjenestepensjon?.simuleringsresultat
                   .betingetTjenestepensjonErInkludert

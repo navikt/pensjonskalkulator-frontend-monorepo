@@ -9,7 +9,7 @@ import { paths } from '@/router/constants'
 import { StepAFPAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectAfp, selectIsVeileder } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 
 export function StepAFP() {
   const intl = useIntl()
