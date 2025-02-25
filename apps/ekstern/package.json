@@ -96,7 +96,7 @@
     "postcss-modules-local-by-default": "^4.2.0",
     "postcss-modules-scope": "^3.2.1",
     "postcss-modules-values": "^4.0.0",
-    "prettier": "^3.5.1",
+    "prettier": "^3.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-intl": "7.1.6",
