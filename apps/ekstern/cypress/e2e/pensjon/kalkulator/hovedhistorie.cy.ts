@@ -268,7 +268,7 @@ describe('Hovedhistorie', () => {
         })
         it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
           cy.contains('h2', 'AFP (avtalefestet pensjon)').should('exist')
-          cy.contains('Om livsvarig AFP i offentlig sektor').click()
+          cy.get('[data-testid="om_livsvarig_AFP_i_offentlig_sektor"]').click()
           cy.contains('Om AFP i privat sektor').click()
           cy.contains('a', 'AFP i privat sektor på afp.no')
             .should('have.attr', 'href')
