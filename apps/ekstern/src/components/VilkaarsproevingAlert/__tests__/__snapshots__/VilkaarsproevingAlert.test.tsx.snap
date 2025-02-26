@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst 1`] = `
+exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den default normert pensjonsalder, vises det riktig tekst 1`] = `
 <DocumentFragment>
   <div
     class="navds-alert navds-alert--warning navds-alert--medium"

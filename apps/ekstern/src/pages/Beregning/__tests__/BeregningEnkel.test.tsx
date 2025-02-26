@@ -264,7 +264,7 @@ describe('BeregningEnkel', () => {
       expect(screen.getAllByRole('button')).toHaveLength(10)
     })
 
-    it('vises det riktig antall knapper fra default ubetinget uttaksalder', async () => {
+    it('vises det riktig antall knapper fra default normert pensjonsalder', async () => {
       render(<BeregningEnkel />, {
         preloadedState: {
           api: {

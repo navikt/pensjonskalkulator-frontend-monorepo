@@ -7,7 +7,7 @@ import {
 import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
-describe('RedigerAvansertBeregning-utils', () => {
+describe('AvansertSkjema-utils', () => {
   describe('onAvansertBeregningSubmit', () => {
     const formDataAllFieldsSwitch = (s: string) => {
       switch (s) {
@@ -747,7 +747,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
-    it('returnerer false når gradertUttaksalder eller heltUttaksalder er før ubetinget uttaksalder for en bruker med 100 % uføretrygd', () => {
+    it('returnerer false når gradertUttaksalder eller heltUttaksalder er før normert pensjonsalder for en bruker med 100 % uføretrygd', () => {
       const updateErrorMessageMock = vi.fn()
       expect(
         validateAvansertBeregningSkjema(
@@ -807,7 +807,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(0)
     })
 
-    it('returnerer false når heltUttaksalder eller gradertUttaksalder er før ubetinget uttaksalder med et ugyldig uttaksgrad for en bruker med gradert uføretrygd', () => {
+    it('returnerer false når heltUttaksalder eller gradertUttaksalder er før normert pensjonsalder med et ugyldig uttaksgrad for en bruker med gradert uføretrygd', () => {
       const updateErrorMessageMock = vi.fn()
       expect(
         validateAvansertBeregningSkjema(
@@ -854,7 +854,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeTruthy()
 
-      // Denne skal returnere true fordi alderen er etter ubetinget uttaksgrad
+      // Denne skal returnere true fordi alderen er etter normert pensjonsalder
       expect(
         validateAvansertBeregningSkjema(
           {

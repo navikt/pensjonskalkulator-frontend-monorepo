@@ -10,7 +10,7 @@ import {
 } from '@/pages/Beregning/context'
 import { act, render, renderHook, screen } from '@/test-utils'
 
-describe('RedigerAvansertBeregning-hooks', () => {
+describe('AvansertSkjema-hooks', () => {
   describe('useFormLocalState', () => {
     const defaultContextValues = {
       avansertSkjemaModus: 'redigering' as AvansertBeregningModus,
@@ -704,7 +704,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       })
 
       describe('Gitt at brukeren har gradert uføretrygd,', () => {
-        it('Når uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad', async () => {
+        it('Når uttaksalder endres til en alder før normert pensjonsalder, avgrenses muligeUttaksgrad', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,
             initialProps: {
@@ -730,7 +730,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
         })
 
-        it('og gitt at brukeren har vedtak om alderspensjon, Når brukers uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
+        it('og gitt at brukeren har vedtak om alderspensjon, Når brukers uttaksalder endres til en alder før normert pensjonsalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,
             initialProps: {
@@ -757,7 +757,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           expect(result.current[6]).toStrictEqual(['0 %', '20 %', '40 %'])
         })
 
-        it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjør denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
+        it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før normert pensjonsalder som gjør denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,
             initialProps: {

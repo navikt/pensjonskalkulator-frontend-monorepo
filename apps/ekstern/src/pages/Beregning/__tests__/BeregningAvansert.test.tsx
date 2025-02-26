@@ -3,8 +3,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningAvansert } from '../BeregningAvansert'
+import { AVANSERT_FORM_NAMES } from '@/components/AvansertSkjema/utils'
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
-import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,

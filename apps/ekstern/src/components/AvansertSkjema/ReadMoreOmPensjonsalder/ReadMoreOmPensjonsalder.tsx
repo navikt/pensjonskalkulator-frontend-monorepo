@@ -13,6 +13,8 @@ interface Props {
   ufoeregrad: number
   isEndring: boolean
 }
+
+// PEK-1026 - Denne komponenten fases sannsynligvis ut etter at logikken med ufoeretrygd er splittet
 export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
   ufoeregrad,
   isEndring,

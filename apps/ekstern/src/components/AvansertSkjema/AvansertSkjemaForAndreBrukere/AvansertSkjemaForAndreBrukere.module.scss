@@ -1,14 +1,14 @@
-@use '../../scss/variables';
+@use '../../../scss/variables';
 
 .container {
-  composes: frame from '../../scss/modules/frame.module.scss';
+  composes: frame from '../../../scss/modules/frame.module.scss';
   background-color: var(--a-white);
   display: flex;
   flex-direction: column;
   padding-bottom: var(--a-spacing-6) !important;
 
   &__hasMobilePadding {
-    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+    composes: frame__hasMobilePadding from '../../../scss/modules/frame.module.scss';
   }
 }
 
