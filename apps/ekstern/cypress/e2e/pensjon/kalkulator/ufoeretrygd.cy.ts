@@ -26,7 +26,7 @@ describe('Med ufoeretrygd', () => {
         {
           ...loependeVedtakMock,
           ufoeretrygd: {
-            grad: 100,
+            grad: 90,
           },
         }
       ).as('getLoependeVedtak')
@@ -54,7 +54,7 @@ describe('Med ufoeretrygd', () => {
         {
           ...loependeVedtakMock,
           ufoeretrygd: {
-            grad: 100,
+            grad: 90,
           },
         }
       ).as('getLoependeVedtak')
@@ -200,7 +200,7 @@ describe('Med ufoeretrygd', () => {
         {
           ...loependeVedtakMock,
           ufoeretrygd: {
-            grad: 100,
+            grad: 90,
           },
         }
       ).as('getLoependeVedtak')

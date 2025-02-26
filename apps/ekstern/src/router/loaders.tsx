@@ -301,12 +301,14 @@ export const stepAFPAccessGuard = async (): Promise<
     ? stegvisningOrderEndring
     : stegvisningOrder
 
-  // Hvis brukeren mottar AFP skal hen ikke se AFP steget
-  // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget
+  // Hvis brukeren mottar AFP skal hen ikke se AFP-steget
+  // Hvis brukeren har 100% uføretrygd skal hen ikke se AFP-steget
+  // Hvis brukeren har gradert uføretrygd og er eldre enn AFP-Uføre oppsigelsesalder skal hen ikke se AFP-steget
   const redirectFromAFPSteg = (): string => {
     if (
       afpPrivat ||
       afpOffentlig ||
+      ufoeretrygd.grad === 100 ||
       (ufoeretrygd.grad &&
         foedselsdato &&
         isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER))
@@ -418,25 +420,16 @@ export const stepUfoeretrygdAFPAccessGuard =
 
     const state = store.getState()
     const afp = selectAfp(state)
-    const foedselsdato = selectFoedselsdato(state)
-    const getLoependeVedtakResponse =
-      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
+    const loependeVedtak =
+      apiSlice.endpoints.getLoependeVedtak.select()(state).data
+    if (!loependeVedtak) throw new Error('Missing loependeVedtak')
 
-    const stepArrays = isLoependeVedtakEndring(
-      getLoependeVedtakResponse.data as LoependeVedtak
-    )
+    const stepArrays = isLoependeVedtakEndring(loependeVedtak)
       ? stegvisningOrderEndring
       : stegvisningOrder
 
-    // Bruker med uføretrygd, som svarer ja eller vet_ikke til afp, og som er under AFP-Uføre aldersgrense kan se steget
-    if (
-      (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
-      afp !== 'nei' &&
-      !isFoedselsdatoOverAlder(
-        foedselsdato as string,
-        AFP_UFOERE_OPPSIGELSESALDER
-      )
-    ) {
+    // Brukere med uføretrygd som har svart ja eller vet_ikke til AFP kan se steget
+    if (loependeVedtak.ufoeretrygd.grad && afp && afp !== 'nei') {
       return null
     }
     return redirect(stepArrays[stepArrays.indexOf(paths.ufoeretrygdAFP) + 1])
@@ -460,6 +453,8 @@ export const stepSamtykkeOffentligAFPAccessGuard =
     )
       ? stegvisningOrderEndring
       : stegvisningOrder
+
+    // Bruker uten uføretrygd som svarer ja_offentlig til AFP kan se steget
     if (
       (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad ===
         0 &&

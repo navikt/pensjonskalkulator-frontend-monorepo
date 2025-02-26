@@ -16,6 +16,7 @@ export const externalLinks = [
   'planleggePensjon',
   'trygdetid',
   'kortBotid',
+  'ufoeretrygdOgAfp',
   'personopplysninger',
   'spk',
   'klp',

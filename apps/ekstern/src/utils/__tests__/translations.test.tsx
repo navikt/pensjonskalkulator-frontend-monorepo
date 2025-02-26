@@ -29,6 +29,7 @@ const tagToExpectedLink: Record<
   trygdetidLink:
     'https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden',
   kortBotidLink: 'https://www.nav.no/alderspensjon#kort-botid',
+  ufoeretrygdOgAfpLink: 'https://www.nav.no/ufor-til-pensjon#afp',
   personopplysningerLink:
     'https://www.nav.no/personopplysninger-i-pensjonskalkulator',
   spkLink: 'https://www.spk.no/',

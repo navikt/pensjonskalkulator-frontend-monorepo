@@ -54,6 +54,9 @@ export const useStegvisningNavigation = (currentPath: Path) => {
         isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER)
       ) {
         antallStepTilbake = antallStepTilbake + 1
+      } else if (ufoeregrad === 100) {
+        // Bruker med 100 % uføretrygd har ikke fått steg om AFP og skal navigere tilbake forbi den
+        antallStepTilbake = antallStepTilbake + 1
       } else if (loependeVedtak?.afpPrivat || loependeVedtak?.afpOffentlig) {
         // Bruker med vedtak om AFP har ikke fått steg om AFP og skal navigere tilbake forbi den
         antallStepTilbake = antallStepTilbake + 1
@@ -62,15 +65,9 @@ export const useStegvisningNavigation = (currentPath: Path) => {
 
     // Hvis brukeren er forbi ufoeretrygdAFP steget (gjelder både endring og vanlig flyt)
     if (currentPathIndex > stepArrays.indexOf(paths.ufoeretrygdAFP)) {
-      // Bruker uten uføretryg, eller bruker med uføretrygd som har svart "nei" på AFP,
-      // eller bruker med uføretrygd eldre enn AFP-Uføre oppsigelsesalder har ikke fått infosteg om AFP + Uføretrygd og skal navigere tilbake forbi den
-      if (
-        !ufoeregrad ||
-        (ufoeregrad && (afp === null || afp === 'nei')) ||
-        (ufoeregrad &&
-          foedselsdato &&
-          isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER))
-      ) {
+      // Bruker uten uføretrygd, eller bruker med uføretrygd som har svart "nei" på AFP,
+      // eller bruker med uføretrygd som ikke har fått AFP steget, har ikke fått ufoeretrygdAFP steget og skal navigere tilbake forbi den
+      if (!ufoeregrad || (ufoeregrad && (afp === null || afp === 'nei'))) {
         antallStepTilbake = antallStepTilbake + 1
       }
     }

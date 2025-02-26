@@ -3,6 +3,7 @@ import { add, endOfDay, format } from 'date-fns'
 import { GrunnlagAFP } from '..'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoepende50Alderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
@@ -170,8 +171,8 @@ describe('Grunnlag - AFP', () => {
     ).toBeVisible()
   })
 
-  describe('Gitt at brukeren har uføretrygd,', () => {
-    describe('Gitt at brukeren er eldre enn minimum uttaksalderen,', () => {
+  describe('Gitt at brukeren har gradert uføretrygd,', () => {
+    describe('Gitt at brukeren er eldre enn AFP-Uføre oppsigelsesalder,', () => {
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
         years: -63,
         months: -1,
@@ -204,8 +205,8 @@ describe('Grunnlag - AFP', () => {
         },
       }
 
-      it('Når hen er yngre enn nedre aldersgrense, returneres null', async () => {
-        render(<GrunnlagAFP goToStart={vi.fn()} />, {
+      it('returneres null', async () => {
+        const { asFragment } = render(<GrunnlagAFP goToStart={vi.fn()} />, {
           preloadedState: {
             api: {
               // @ts-ignore
@@ -217,12 +218,11 @@ describe('Grunnlag - AFP', () => {
             },
           },
         })
-
-        expect(screen.queryByText('grunnlag.afp.title')).toBeNull()
+        expect(asFragment()).toMatchInlineSnapshot('<DocumentFragment />')
       })
     })
 
-    describe('Gitt at brukeren er yngre enn minimum uttaksalderen,', () => {
+    describe('Gitt at brukeren er yngre enn AFP-Uføre oppsigelsesalder,', () => {
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
         years: -61,
         months: -11,
@@ -345,6 +345,29 @@ describe('Grunnlag - AFP', () => {
           screen.getByText('grunnlag.afp.ingress.vet_ikke.ufoeretrygd')
         ).toBeInTheDocument()
       })
+    })
+  })
+
+  describe('Gitt at brukeren har 100% uføretrygd,', () => {
+    it('Viser riktig tittel og tekst', () => {
+      render(<GrunnlagAFP goToStart={vi.fn()} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
+          },
+          userInput: { ...userInputInitialState },
+        },
+      })
+
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.nei')).toBeVisible()
+      expect(
+        screen.getByText(
+          'For å ha rett til AFP, må du være ansatt i offentlig sektor eller i en bedrift med AFP-ordning i privat sektor. Det gjelder de siste årene og helt fram til du tar ut AFP. Hvis du mottar full uføretrygd, har du derfor normalt ikke rett til AFP.',
+          { exact: false }
+        )
+      ).toBeInTheDocument()
     })
   })
 
