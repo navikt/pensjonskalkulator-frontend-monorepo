@@ -1,0 +1,851 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AvansertSkjemaForAndreBrukere > Gitt at en bruker har vedtak om alderspensjon,  > Når brukeren har gradert uføretrygd, vises det riktig label på feltene 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_658086 _container__hasMobilePadding_658086"
+  >
+    <div
+      class="_form_658086"
+    >
+      <div>
+        <form
+          data-testid="AVANSERT_SKJEMA_FOR_ANDRE_BRUKERE"
+          id="avansert-beregning"
+          method="dialog"
+        />
+        <h2
+          class="navds-heading navds-heading--medium"
+        >
+          beregning.endring.rediger.title
+        </h2>
+        <p
+          class="navds-body-long navds-body-long--medium"
+        >
+          Fra 02.10.2020 har du mottatt 100 % alderspensjon.
+        </p>
+        <hr
+          class="_divider_1adfb3"
+        />
+        <label
+          class="_label_658086 navds-label"
+        >
+          beregning.avansert.rediger.inntekt_frem_til_endring.label
+        </label>
+        <div
+          class="_description_658086"
+        >
+          <span
+            class="_descriptionText_658086"
+          >
+            beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere
+          </span>
+        </div>
+        <div
+          class="_description_658086"
+        >
+          <span
+            class="_descriptionText_658086"
+          >
+            <span
+              class="nowrap"
+              data-testid="formatert-inntekt-frem-til-uttak"
+            />
+             beregning.avansert.rediger.inntekt_frem_til_uttak.description
+          </span>
+          <dialog
+            aria-labelledby="rmu"
+            class="navds-modal navds-modal--polyfilled navds-modal--small"
+            role="dialog"
+          >
+            <div
+              class="navds-modal__header"
+            >
+              <button
+                class="navds-modal__button navds-button navds-button--tertiary-neutral navds-button--small navds-button--icon-only"
+                type="button"
+              >
+                <span
+                  class="navds-button__icon"
+                >
+                  <svg
+                    aria-labelledby="title-rn0"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rn0"
+                    >
+                      Lukk
+                    </title>
+                    <path
+                      d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <h1
+                class="navds-heading navds-heading--medium"
+                id="rmu"
+              >
+                inntekt.endre_inntekt_modal.title
+              </h1>
+            </div>
+            <div
+              class="navds-modal__body"
+            >
+              <p
+                class="navds-body-long navds-body-long--medium"
+              >
+                Din siste pensjonsgivende inntekt fra Skatteetaten er 
+                <span
+                  class="nowrap"
+                >
+                   kr
+                </span>
+                 fra . Se tidligere inntekter i 
+                <a
+                  class="navds-link navds-link--action navds-link--inline-text"
+                  href="https://www.nav.no/pensjon/opptjening/nb/"
+                  target="_blank"
+                >
+                  Din pensjonsopptjening
+                  <svg
+                    aria-labelledby="title-rn1"
+                    fill="none"
+                    focusable="false"
+                    height="1.25rem"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1.25rem"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rn1"
+                    >
+                      application.global.external_link
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </a>
+                <br />
+                <br />
+              </p>
+              <form
+                id="oppdatere-inntekt"
+                method="dialog"
+              >
+                <div
+                  class="navds-stack navds-vstack navds-stack-gap navds-stack-direction"
+                  style="--__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+                >
+                  <div
+                    class="_textfield_edc51c navds-form-field navds-form-field--medium"
+                  >
+                    <label
+                      class="navds-form-field__label navds-label"
+                      for="textField-rn2"
+                    >
+                      inntekt.endre_inntekt_modal.textfield.label
+                    </label>
+                    <div
+                      class="navds-form-field__description navds-body-short navds-body-short--medium"
+                      id="textField-description-rn2"
+                    >
+                      inntekt.endre_inntekt_modal.textfield.description.ufoere
+                    </div>
+                    <input
+                      aria-describedby="textField-description-rn2"
+                      class="navds-text-field__input navds-body-short navds-body-short--medium"
+                      data-testid="inntekt-textfield"
+                      id="textField-rn2"
+                      inputmode="numeric"
+                      max="5"
+                      name="inntekt"
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      aria-live="polite"
+                      aria-relevant="additions removals"
+                      class="navds-form-field__error"
+                      id="textField-error-rn2"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div
+              class="navds-modal__footer"
+            >
+              <button
+                class="navds-button navds-button--primary navds-button--medium"
+                form="oppdatere-inntekt"
+              >
+                <span
+                  class="navds-label"
+                >
+                  inntekt.endre_inntekt_modal.button
+                </span>
+              </button>
+              <button
+                class="navds-button navds-button--secondary navds-button--medium"
+                type="button"
+              >
+                <span
+                  class="navds-label"
+                >
+                  stegvisning.avbryt
+                </span>
+              </button>
+            </div>
+          </dialog>
+          <button
+            class="navds-button navds-button--tertiary navds-button--small"
+          >
+            <span
+              class="navds-button__icon"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M19.638 4.417a3.25 3.25 0 0 0-4.608-.008l-9.378 9.379a.75.75 0 0 0-.191.324l-1.414 4.95a.75.75 0 0 0 .925.927l4.94-1.398a.75.75 0 0 0 .327-.191l9.39-9.391a3.25 3.25 0 0 0 .01-4.592M16.091 5.47a1.752 1.752 0 1 1 2.478 2.478l-.23.23-2.477-2.479zM14.8 6.76 6.85 14.71l-.991 3.47 3.457-.979 7.963-7.963z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="navds-label navds-label--small"
+            >
+              beregning.avansert.rediger.inntekt.button
+            </span>
+          </button>
+        </div>
+        <div
+          class="_spacer_658086 _spacer__small_658086"
+        />
+        <div
+          class="navds-read-more navds-read-more--medium"
+          data-volume="low"
+        >
+          <button
+            aria-expanded="false"
+            class="navds-read-more__button navds-body-short"
+            data-state="closed"
+            data-testid="readmore"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="navds-read-more__expand-icon"
+              fill="none"
+              focusable="false"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span>
+              inntekt.info_om_inntekt.read_more.label
+            </span>
+          </button>
+          <div
+            aria-hidden="true"
+            class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
+          >
+            <p
+              class="navds-body-long navds-body-long--medium"
+            >
+              Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.
+              <br />
+              <br />
+            </p>
+            <h2
+              class="navds-label"
+            >
+              inntekt.info_om_inntekt.subtitle_1
+            </h2>
+            <ul>
+              <li>
+                inntekt.info_om_inntekt.list_item1
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item2
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item3
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item4
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item5
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item6
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item7
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item8
+              </li>
+              <li>
+                inntekt.info_om_inntekt.list_item9
+              </li>
+            </ul>
+            <h2
+              class="navds-label"
+            >
+              inntekt.info_om_inntekt.subtitle_2
+            </h2>
+            <ul>
+              <li>
+                inntekt.info_om_inntekt.ikke_inntekt.list_item1
+              </li>
+              <li>
+                inntekt.info_om_inntekt.ikke_inntekt.list_item2
+              </li>
+              <li>
+                inntekt.info_om_inntekt.ikke_inntekt.list_item3
+              </li>
+              <li>
+                inntekt.info_om_inntekt.ikke_inntekt.list_item4
+              </li>
+            </ul>
+            <p
+              class="navds-body-long navds-body-long--medium"
+            >
+              Listen er ikke uttømmende.
+              <br />
+              <br />
+              Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser.
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="_divider_1adfb3 _divider__noMargin_1adfb3"
+      />
+      <div
+        aria-live="polite"
+        class="_alertWrapper_658086"
+      />
+      <div
+        aria-live="polite"
+        class="_alertWrapper_658086"
+      />
+      <div>
+        <div
+          data-testid="age-picker-uttaksalder-helt-uttak"
+        >
+          <label
+            class="_label_1edc42 navds-label"
+          >
+            velguttaksalder.endring.title
+          </label>
+          <div
+            class="_selectWrapper_1edc42"
+          >
+            <div
+              class="_selectAar_1edc42 navds-form-field navds-form-field--medium"
+            >
+              <label
+                class="navds-form-field__label navds-label"
+                for="select-rn5"
+              >
+                Velg år
+              </label>
+              <div
+                class="navds-select__container"
+              >
+                <select
+                  aria-invalid="false"
+                  aria-required="true"
+                  class="navds-select__input navds-body-short navds-body-short--medium"
+                  data-testid="age-picker-uttaksalder-helt-uttak-aar"
+                  form="avansert-beregning"
+                  id="select-rn5"
+                  name="uttaksalder-helt-uttak-aar"
+                >
+                  <option
+                    disabled=""
+                    value=""
+                  >
+                     
+                  </option>
+                  <option
+                    value="62"
+                  >
+                    62 alder.aar
+                  </option>
+                  <option
+                    value="63"
+                  >
+                    63 alder.aar
+                  </option>
+                  <option
+                    value="64"
+                  >
+                    64 alder.aar
+                  </option>
+                  <option
+                    value="65"
+                  >
+                    65 alder.aar
+                  </option>
+                  <option
+                    value="66"
+                  >
+                    66 alder.aar
+                  </option>
+                  <option
+                    value="67"
+                  >
+                    67 alder.aar
+                  </option>
+                  <option
+                    value="68"
+                  >
+                    68 alder.aar
+                  </option>
+                  <option
+                    value="69"
+                  >
+                    69 alder.aar
+                  </option>
+                  <option
+                    value="70"
+                  >
+                    70 alder.aar
+                  </option>
+                  <option
+                    value="71"
+                  >
+                    71 alder.aar
+                  </option>
+                  <option
+                    value="72"
+                  >
+                    72 alder.aar
+                  </option>
+                  <option
+                    value="73"
+                  >
+                    73 alder.aar
+                  </option>
+                  <option
+                    value="74"
+                  >
+                    74 alder.aar
+                  </option>
+                  <option
+                    value="75"
+                  >
+                    75 alder.aar
+                  </option>
+                </select>
+                <svg
+                  aria-hidden="true"
+                  class="navds-select__chevron"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div
+                aria-live="polite"
+                aria-relevant="additions removals"
+                class="navds-form-field__error"
+                id="select-error-rn5"
+              />
+            </div>
+            <div
+              class="_selectMaaned_1edc42 navds-form-field navds-form-field--medium navds-form-field--disabled"
+            >
+              <label
+                class="navds-form-field__label navds-label"
+                for="select-rn7"
+              >
+                Velg måned
+              </label>
+              <div
+                class="navds-select__container"
+              >
+                <select
+                  aria-invalid="false"
+                  aria-required="true"
+                  class="navds-select__input navds-body-short navds-body-short--medium"
+                  data-testid="age-picker-uttaksalder-helt-uttak-maaneder"
+                  disabled=""
+                  form="avansert-beregning"
+                  id="select-rn7"
+                  name="uttaksalder-helt-uttak-maaneder"
+                >
+                  <option
+                    disabled=""
+                    value=""
+                  >
+                     
+                  </option>
+                </select>
+                <svg
+                  aria-hidden="true"
+                  class="navds-select__chevron"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div
+                aria-live="polite"
+                aria-relevant="additions removals"
+                class="navds-form-field__error"
+                id="select-error-rn7"
+              />
+            </div>
+            <span
+              class="_date_1edc42"
+            />
+          </div>
+        </div>
+        <div
+          class="_spacer__small_658086"
+        />
+        <div
+          class="navds-read-more navds-read-more--medium"
+          data-volume="low"
+        >
+          <button
+            aria-expanded="false"
+            class="navds-read-more__button navds-body-short"
+            data-state="closed"
+            data-testid="readmore"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="navds-read-more__expand-icon"
+              fill="none"
+              focusable="false"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span>
+              omufoeretrygd.readmore.title
+            </span>
+          </button>
+          <div
+            aria-hidden="true"
+            class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
+          >
+            <p
+              class="navds-body-long navds-body-long--medium"
+            >
+              Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 
+              <span
+                class="nowrap"
+              >
+                67 alder.aar
+              </span>
+               må pensjonen minst tilsvare garantipensjon. Uttak før 
+              <span
+                class="nowrap"
+              >
+                67 år
+              </span>
+               betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.
+              <br />
+              <br />
+              Ved 
+              <span
+                class="nowrap"
+              >
+                67 alder.aar
+              </span>
+               går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha 
+              <span
+                class="nowrap"
+              >
+                100 %
+              </span>
+               alderspensjon må du selv søke om dette.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          class="_select_658086 navds-form-field navds-form-field--medium"
+        >
+          <label
+            class="navds-form-field__label navds-label"
+            for="select-rna"
+          >
+            beregning.avansert.rediger.uttaksgrad.label
+          </label>
+          <div
+            class="navds-form-field__description navds-body-short navds-body-short--medium"
+            id="select-description-rna"
+          >
+            beregning.avansert.rediger.uttaksgrad.endring.description
+          </div>
+          <div
+            class="navds-select__container"
+          >
+            <select
+              aria-describedby="select-description-rna"
+              aria-required="true"
+              class="navds-select__input navds-body-short navds-body-short--medium"
+              data-testid="uttaksgrad"
+              form="avansert-beregning"
+              id="select-rna"
+              name="uttaksgrad"
+            >
+              <option
+                disabled=""
+                value=""
+              >
+                 
+              </option>
+              <option
+                value="0 %"
+              >
+                0 %
+              </option>
+              <option
+                value="20 %"
+              >
+                20 %
+              </option>
+              <option
+                value="40 %"
+              >
+                40 %
+              </option>
+              <option
+                value="50 %"
+              >
+                50 %
+              </option>
+              <option
+                value="60 %"
+              >
+                60 %
+              </option>
+              <option
+                value="80 %"
+              >
+                80 %
+              </option>
+              <option
+                value="100 %"
+              >
+                100 %
+              </option>
+            </select>
+            <svg
+              aria-hidden="true"
+              class="navds-select__chevron"
+              fill="none"
+              focusable="false"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div
+            aria-live="polite"
+            aria-relevant="additions removals"
+            class="navds-form-field__error"
+            id="select-error-rna"
+          />
+        </div>
+        <div
+          class="_spacer__small_658086"
+        />
+        <div
+          class="navds-read-more navds-read-more--medium"
+          data-volume="low"
+        >
+          <button
+            aria-expanded="false"
+            class="navds-read-more__button navds-body-short"
+            data-state="closed"
+            data-testid="readmore"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="navds-read-more__expand-icon"
+              fill="none"
+              focusable="false"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <span>
+              beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label
+            </span>
+          </button>
+          <div
+            aria-hidden="true"
+            class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+            data-state="closed"
+          >
+            <p
+              class="navds-body-long navds-body-long--medium"
+              data-testid="om-uttaksgrad"
+            >
+              Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 
+              <span
+                class="nowrap"
+              >
+                100 %
+              </span>
+              . Fra 
+              <span
+                class="nowrap"
+              >
+                67 år
+              </span>
+               kan du fritt velge gradert uttak (20, 40, 50, 60 eller 
+              <span
+                class="nowrap"
+              >
+                80 %
+              </span>
+              ), eller hel alderspensjon (
+              <span
+                class="nowrap"
+              >
+                100 %
+              </span>
+              ).
+              <br />
+              <br />
+              Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 
+              <span
+                class="nowrap"
+              >
+                0 %
+              </span>
+               når du vil.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="_wrapper_d1848f"
+      >
+        <hr
+          class="_separator_d1848f"
+        />
+        <div>
+          <button
+            class="_button_d1848f _buttonSubmit_d1848f navds-button navds-button--primary navds-button--medium"
+            form="avansert-beregning"
+          >
+            <span
+              class="navds-label"
+            >
+              beregning.avansert.button.beregn.endring
+            </span>
+          </button>
+          <button
+            class="_button_d1848f navds-button navds-button--secondary navds-button--medium"
+            type="button"
+          >
+            <span
+              class="navds-label"
+            >
+              beregning.avansert.button.nullstill
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

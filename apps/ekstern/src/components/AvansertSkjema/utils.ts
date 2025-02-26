@@ -14,6 +14,10 @@ import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
+// TODO PEK-1026 - utvide AVANSERT_FORM_NAMES for de 3 skjemaene:
+// AVANSERT_SKJEMA_FOR_BRUKERE_MED_GRADERT_UFOERETRYGD
+// AVANSERT_SKJEMA_FOR_ANDRE_BRUKERE
+// AVANSERT_SKJEMA_FOR_BRUKERE_MED_KAP19_AFP
 export type AvansertFormNames =
   (typeof AVANSERT_FORM_NAMES)[keyof typeof AVANSERT_FORM_NAMES]
 
@@ -269,7 +273,7 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksgraden er iht uføregraden
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
-      // Dette kan i teorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
+      // Dette kan i teorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra normert pensjonsalder allerede
       const isHeltUttaksalderValid = isAlderLikEllerOverAnnenAlder(
         {
           aar: parseInt(heltUttakAarFormData as string, 10),
@@ -299,7 +303,7 @@ export const validateAvansertBeregningSkjema = (
               maaneder: gradertUttakMaanederFormData,
             }
 
-      // Hvis brukeren har valgt uttaksalder før ubetinget uttaksalderen
+      // Hvis brukeren har valgt uttaksalder før normert pensjonsalder
       if (
         valgtAlder.aar &&
         valgtAlder.maaneder &&

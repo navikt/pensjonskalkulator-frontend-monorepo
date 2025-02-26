@@ -261,7 +261,10 @@ export const BeregningEnkel: React.FC = () => {
               ? normertPensjonsalder
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
-                : getBrukerensAlderISluttenAvMaaneden(person, nedreAldersgrense)
+                : getBrukerensAlderISluttenAvMaaneden(
+                    person?.foedselsdato,
+                    nedreAldersgrense
+                  )
           }
         />
       </div>

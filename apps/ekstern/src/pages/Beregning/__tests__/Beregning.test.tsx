@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
-import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { AVANSERT_FORM_NAMES } from '@/components/AvansertSkjema/utils'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,

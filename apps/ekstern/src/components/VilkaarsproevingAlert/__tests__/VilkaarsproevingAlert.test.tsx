@@ -25,7 +25,7 @@ describe('VilkaarsproevingAlert', () => {
       ...userInputInitialState,
     },
   }
-  it('Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst', () => {
+  it('Når det foreslåtte alternativet er den default normert pensjonsalder, vises det riktig tekst', () => {
     const { asFragment } = render(
       <VilkaarsproevingAlert
         vilkaarsproeving={{
