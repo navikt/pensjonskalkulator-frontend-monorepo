@@ -89,7 +89,7 @@
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "lint-staged": "^15.4.3",
-    "msw": "^2.7.0",
+    "msw": "^2.7.3",
     "openapi-typescript": "^7.6.1",
     "postcss": "^8.5.3",
     "postcss-modules-extract-imports": "^3.1.0",
