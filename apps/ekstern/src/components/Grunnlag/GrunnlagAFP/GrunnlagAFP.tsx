@@ -61,20 +61,29 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
     if (!harSamtykketOffentligAFP && !ufoeregrad && afp === 'ja_offentlig') {
       return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
     }
+
+    if (ufoeregrad === 100) {
+      return formatAfp(intl, 'nei')
+    }
+
     return afpString
   }, [afp])
 
   const formatertAfpIngress = React.useMemo(() => {
     if (isEndring && loependeVedtak.afpPrivat) {
-      return `grunnlag.afp.ingress.ja_privat.endring`
+      return 'grunnlag.afp.ingress.ja_privat.endring'
     }
 
     if (loependeVedtak.afpOffentlig) {
-      return `grunnlag.afp.ingress.ja_offentlig.endring`
+      return 'grunnlag.afp.ingress.ja_offentlig.endring'
     }
 
     if (isEndring && afp === 'nei') {
-      return `grunnlag.afp.ingress.nei.endring`
+      return 'grunnlag.afp.ingress.nei.endring'
+    }
+
+    if (ufoeregrad === 100) {
+      return 'grunnlag.afp.ingress.full_ufoeretrygd'
     }
 
     const afpString =

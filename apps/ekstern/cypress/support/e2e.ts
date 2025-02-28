@@ -3,6 +3,11 @@ import 'cypress-axe'
 import { userInputActions } from '../../src/state/userInput/userInputSlice'
 
 beforeEach(() => {
+  cy.setCookie(
+    'navno-consent',
+    '{%22consent%22:{%22analytics%22:false%2C%22surveys%22:false}%2C%22userActionTaken%22:true%2C%22meta%22:{%22createdAt%22:%222025-02-17T09:17:38.688Z%22%2C%22updatedAt%22:%222025-02-17T09:17:38.688Z%22%2C%22version%22:1}}'
+  ) // Skjuler cookiebanner (har ingenting å si for testene, er kun for å slippe å se det når tester lokalt)
+
   cy.intercept(
     {
       method: 'GET',

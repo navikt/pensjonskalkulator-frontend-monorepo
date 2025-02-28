@@ -11,6 +11,7 @@ import {
   fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder,
   fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
   fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -75,7 +76,41 @@ describe('stegvisning - hooks', () => {
         expect(flushMock).toHaveBeenCalled()
       })
 
-      describe('Gitt at brukeren har uføretrygd og er eldre enn AFP-Uføre oppsigelsesalder,', () => {
+      describe('Gitt at brukeren har 100 % uføretrygd', () => {
+        const apiMock = {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak100Ufoeregrad,
+            ...fulfilledGetPerson,
+          },
+        }
+
+        it('Når brukeren navigerer tilbake fra samtykke steget, er hen sendt tilbake til utenlandsopphold steget.', () => {
+          const wrapper = ({ children }: { children: React.ReactNode }) => {
+            const storeRef = setupStore(
+              {
+                // @ts-ignore
+                api: {
+                  ...apiMock,
+                },
+                userInput: { ...userInputInitialState },
+              },
+              true
+            )
+            return <Provider store={storeRef}>{children}</Provider>
+          }
+
+          const { result } = renderHook(useStegvisningNavigation, {
+            wrapper,
+            initialProps: paths.samtykke,
+          })
+
+          result.current[0].onStegvisningPrevious()
+          expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+        })
+      })
+
+      describe('Gitt at brukeren har gradert uføretrygd og er eldre enn AFP-Uføre oppsigelsesalder,', () => {
         const apiMock = {
           // @ts-ignore
           queries: {
@@ -110,7 +145,7 @@ describe('stegvisning - hooks', () => {
         })
       })
 
-      describe('Gitt at brukeren har uføretrygd og er yngre enn AFP-Uføre oppsigelsesalder,', () => {
+      describe('Gitt at brukeren har gradert uføretrygd og er yngre enn AFP-Uføre oppsigelsesalder,', () => {
         const apiMock = {
           // @ts-ignore
           queries: {
@@ -237,7 +272,7 @@ describe('stegvisning - hooks', () => {
       })
 
       // Andre case oppstår:
-      // brukere med uføretrygd  eldre enn AFP-Uføre oppsigelsesalder får ikke AFP steg og går da direkte til beregning (ingen tilbakeknapp der)
+      // brukere med uføretrygd eldre enn AFP-Uføre oppsigelsesalder får ikke AFP steg og går da direkte til beregning (ingen tilbakeknapp der)
       // brukere med AFP vedtak får ikke AFP steg og går da direkte til beregning (ingen tilbakeknapp der)
 
       it('navigerer riktig fremover, bakover og ved kansellering.', () => {
