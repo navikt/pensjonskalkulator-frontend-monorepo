@@ -131,7 +131,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.otp-fra-klp',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.vis-otp-fra-klp',
     },
     { fixture: 'toggle-otp-fra-klp.json' }
   ).as('getFeatureToggleOtpFraKlp')
@@ -195,6 +195,18 @@ beforeEach(() => {
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
+
+  cy.intercept(
+    { url: 'https://g.nav.no/api/v1/grunnbel%C3%B8p' },
+    {
+      dato: '2024-05-01',
+      grunnbeløp: 100000,
+      grunnbeløpPerMåned: 10000,
+      gjennomsnittPerÅr: 120000,
+      omregningsfaktor: 1,
+      virkningstidspunktForMinsteinntekt: '2024-06-03',
+    }
+  ).as('getGrunnbeløp')
 
   cy.intercept(
     {
