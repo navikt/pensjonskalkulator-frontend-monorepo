@@ -156,7 +156,7 @@ export function AFP({
             data-testid={readMore2.name}
             name={readMore2.name}
             header={readMore2.overskrift}
-            className={styles.readmoreOffentlig}
+            className={styles.readmorePrivat}
           >
             <PortableText
               value={readMore2.innhold}
