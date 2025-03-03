@@ -83,10 +83,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   const gaaTilResultat = () => {
     setAvansertSkjemaModus('resultat')
     window.scrollTo(0, 0)
@@ -166,10 +162,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
-    // Dersom brukeren har uføregrad og endrer alderen til en alder som tillater flere graderinger, skal gradert uttak nullstilles
+    // Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal gradert uttak nullstilles
     const shouldResetGradertUttak =
-      loependeVedtak.ufoeretrygd.grad &&
-      loependeVedtak.ufoeretrygd.grad !== 100 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
       alder?.aar >= normertPensjonsalder.aar
@@ -376,6 +370,10 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
               )
             }}
           ></form>
+          {
+            // PEK-1026 denne er felles med AvansertSkjemaForAndreBrukere
+            // Vurdere å ha dette som egen komponent AvansertSkjemaIntroEndring
+          }
           {isEndring && (
             <>
               <Heading level="2" size="medium">
@@ -413,13 +411,19 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
               }
             />
           </Label>
-          {!!loependeVedtak.ufoeretrygd.grad && (
-            <div className={styles.description}>
-              <span className={styles.descriptionText}>
-                <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere" />
-              </span>
-            </div>
-          )}
+          {
+            // PEK-1026 denne er felles med AvansertSkjemaForAndreBrukere
+            // Vurdere å ha dette som egen komponent AvansertSkjemaIntroUfoeretrygd
+          }
+          <div className={styles.description}>
+            <span className={styles.descriptionText}>
+              <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere" />
+            </span>
+          </div>
+          {
+            // PEK-1026 denne er felles med AvansertSkjemaForAndreBrukere
+            // Vurdere å ha dette som egen komponent AvansertSkjemaIntroInntekt
+          }
           <div className={styles.description}>
             <span className={styles.descriptionText}>
               <span
@@ -497,11 +501,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
-              minAlder={
-                loependeVedtak.ufoeretrygd.grad === 100
-                  ? normertPensjonsalder
-                  : brukerensAlderPlus1Maaned
-              }
+              minAlder={brukerensAlderPlus1Maaned}
             />
           ) : (
             <AgePicker
@@ -519,11 +519,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
-              minAlder={
-                loependeVedtak.ufoeretrygd.grad === 100
-                  ? normertPensjonsalder
-                  : brukerensAlderPlus1Maaned
-              }
+              minAlder={brukerensAlderPlus1Maaned}
             />
           )}
           <div className={styles.spacer__small} />
@@ -580,27 +576,15 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
           <ReadMore
             name="Om uttaksgrad"
             header={intl.formatMessage({
-              id:
-                loependeVedtak.ufoeretrygd.grad &&
-                loependeVedtak.ufoeretrygd.grad !== 100
-                  ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
-                  : 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+              id: 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label',
             })}
           >
             <BodyLong data-testid="om-uttaksgrad">
               <FormattedMessage
                 id={
                   isEndring
-                    ? loependeVedtak.ufoeretrygd.grad === 100
-                      ? 'beregning.avansert.rediger.read_more.uttaksgrad.body'
-                      : loependeVedtak.ufoeretrygd.grad &&
-                          loependeVedtak.ufoeretrygd.grad !== 100
-                        ? 'omufoeretrygd.readmore.endring.ingress'
-                        : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
-                    : loependeVedtak.ufoeretrygd.grad &&
-                        loependeVedtak.ufoeretrygd.grad !== 100
-                      ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-                      : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
+                    ? 'omufoeretrygd.readmore.endring.ingress'
+                    : 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
                 }
                 values={{
                   ...getFormatMessageValues(),
@@ -629,9 +613,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                   description={
                     <FormattedMessage
                       id={
-                        loependeVedtak.ufoeretrygd.grad &&
                         localGradertUttak.uttaksalder.aar <
-                          normertPensjonsalder.aar
+                        normertPensjonsalder.aar
                           ? 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
                           : 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description'
                       }
@@ -687,8 +670,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                     <FormattedMessage id="stegvisning.radio_nei" />
                   </Radio>
                 </RadioGroup>
-                {loependeVedtak.ufoeretrygd.grad &&
-                localGradertUttak.uttaksalder.aar < normertPensjonsalder.aar ? (
+                {localGradertUttak.uttaksalder.aar <
+                normertPensjonsalder.aar ? (
                   <ReadMore
                     name="Om inntekt og uføretrygd"
                     header={intl.formatMessage({
@@ -769,11 +752,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                   value={localHeltUttak?.uttaksalder}
                   onChange={handleHeltUttaksalderChange}
                   error={heltUttakAgePickerError}
-                  minAlder={
-                    loependeVedtak.ufoeretrygd.grad
-                      ? normertPensjonsalder
-                      : brukerensAlderPlus1Maaned
-                  }
+                  minAlder={normertPensjonsalder}
                 />
               </div>
             </>
@@ -908,6 +887,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
             </>
           )}
         <FormButtonRow
+          formId={AVANSERT_FORM_NAMES.form}
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}
           hasVilkaarIkkeOppfylt={vilkaarsproeving?.vilkaarErOppfylt === false}
