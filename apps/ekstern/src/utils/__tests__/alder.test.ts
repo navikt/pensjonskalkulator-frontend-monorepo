@@ -220,6 +220,7 @@ describe('alder-utils', () => {
     })
 
     it('returnerer false når fødselsdatoen gir samme antall aar og måneder, og flere dager', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-02-15'))
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
         years: -62,
         days: -5,
