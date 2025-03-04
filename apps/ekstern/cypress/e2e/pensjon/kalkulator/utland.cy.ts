@@ -99,7 +99,7 @@ describe('Utland', () => {
             )
           })
 
-          it('forventer jeg å ikke få spørsmålom jeg har jobbet i landet eller ikke.', () => {
+          it('forventer jeg å ikke få spørsmål om jeg har jobbet i landet.', () => {
             cy.contains('Jobbet du i Afghanistan?').should('not.exist')
           })
 
