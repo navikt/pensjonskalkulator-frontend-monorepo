@@ -1,12 +1,9 @@
-import { describe, it, vi } from 'vitest'
-import * as React from 'react'
-
 import { PortableText } from '@portabletext/react'
+import { describe, it, vi } from 'vitest'
 
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { mockErrorResponse } from '@/mocks/server'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
-import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+import { render, screen, waitFor } from '@/test-utils'
 
 vi.mock('@portabletext/react', () => ({
   PortableText: vi.fn(() => (
@@ -19,14 +16,8 @@ describe('SanityReadmore', () => {
     vi.clearAllMocks()
   })
 
-  afterEach(() => {
-    loggerTeardown()
-  })
-
   describe('Gitt at Sanity er aktivert og innhold finnes', () => {
     it('rendrer ReadMore med korrekte props og innhold', async () => {
-      const user = userEvent.setup()
-
       render(
         <SanityReadmore
           id="hva_er_opphold_utenfor_norge"
