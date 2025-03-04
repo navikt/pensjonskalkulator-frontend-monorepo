@@ -101,7 +101,7 @@ export function Utenlandsopphold({
         >
           <PortableText
             value={readMore1.innhold}
-            components={{ ...getSanityPortableTextComponents(intl) }}
+            components={getSanityPortableTextComponents(intl)}
           />
         </ReadMore>
       ) : (
@@ -169,7 +169,7 @@ export function Utenlandsopphold({
         >
           <PortableText
             value={readMore2.innhold}
-            components={{ ...getSanityPortableTextComponents(intl) }}
+            components={getSanityPortableTextComponents(intl)}
           />
         </ReadMore>
       ) : (

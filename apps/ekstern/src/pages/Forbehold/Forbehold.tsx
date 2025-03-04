@@ -33,7 +33,7 @@ export function Forbehold() {
               <BodyLong spacing as="div">
                 <PortableText
                   value={forbeholdAvsnitt.innhold}
-                  components={{ ...getSanityPortableTextComponents(intl) }}
+                  components={getSanityPortableTextComponents(intl)}
                 />
               </BodyLong>
             </section>
@@ -42,7 +42,7 @@ export function Forbehold() {
               <PortableText
                 key={i}
                 value={forbeholdAvsnitt.innhold}
-                components={{ ...getSanityPortableTextComponents(intl) }}
+                components={getSanityPortableTextComponents(intl)}
               />
             </BodyLong>
           )
