@@ -17,9 +17,7 @@ interface IProps {
 export function SanityReadmore({ id, className, children }: IProps) {
   const intl = useIntl()
   const { readMoreData } = React.useContext(SanityContext)
-  console.log('readMoreData', readMoreData)
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
-  console.log('sanityFeatureToggle', sanityFeatureToggle)
   const sanityContent = readMoreData[id]
 
   if (!sanityFeatureToggle?.enabled || !sanityContent) {
