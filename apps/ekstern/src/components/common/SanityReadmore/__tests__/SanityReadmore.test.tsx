@@ -19,27 +19,27 @@ describe('SanityReadmore', () => {
   describe('Gitt at Sanity er aktivert og innhold finnes', () => {
     it('rendrer ReadMore med korrekte props og innhold', async () => {
       render(
-        <SanityReadmore
-          id="hva_er_opphold_utenfor_norge"
-        >
+        <SanityReadmore id="hva_er_opphold_utenfor_norge">
           <div>Child content</div>
         </SanityReadmore>
       )
 
-	  await waitFor(() => {
-		const readMoreElement = screen.getByTestId('hva_er_opphold_utenfor_norge')
-		expect(readMoreElement).toBeInTheDocument()
-      	expect(readMoreElement).toHaveAttribute(
-      	  'data-testid',
-      	  'hva_er_opphold_utenfor_norge'
-      	)
-	  })
+      await waitFor(() => {
+        const readMoreElement = screen.getByTestId(
+          'hva_er_opphold_utenfor_norge'
+        )
+        expect(readMoreElement).toBeInTheDocument()
+        expect(readMoreElement).toHaveAttribute(
+          'data-testid',
+          'hva_er_opphold_utenfor_norge'
+        )
+      })
 
-	  expect(
-		screen.getByText('Hva som er opphold utenfor Norge')
-	  ).toBeInTheDocument()
+      expect(
+        screen.getByText('Hva som er opphold utenfor Norge')
+      ).toBeInTheDocument()
 
-	  expect(PortableText).toHaveBeenCalled()
+      expect(PortableText).toHaveBeenCalled()
     })
   })
 
@@ -76,7 +76,7 @@ describe('SanityReadmore', () => {
         expect(screen.getByText('Fallback innhold')).toBeInTheDocument()
       })
 
-	  expect(
+      expect(
         screen.queryByText('Hva som er opphold utenfor Norge')
       ).not.toBeInTheDocument()
       expect(PortableText).not.toHaveBeenCalled()
