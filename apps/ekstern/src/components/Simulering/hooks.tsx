@@ -154,7 +154,13 @@ export const useSimuleringChartLocalState = (initialValues: {
         )
       }
     }
-  }, [alderspensjonListe, pensjonsavtalerData, offentligTpUtbetalingsperioder])
+  }, [
+    alderspensjonListe,
+    pensjonsavtalerData,
+    isPensjonsavtalerLoading,
+    offentligTpUtbetalingsperioder,
+    isOffentligTpLoading,
+  ])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {

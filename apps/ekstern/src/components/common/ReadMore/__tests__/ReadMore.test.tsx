@@ -44,7 +44,7 @@ describe('ReadMore', () => {
           header="header"
           name="name"
           open={isOpen}
-          onClick={toggleOpen}
+          onOpenChange={toggleOpen}
         >
           test-data
         </ReadMore>
@@ -69,7 +69,7 @@ describe('ReadMore', () => {
           header="header"
           name="name"
           open={isOpen}
-          onClick={toggleOpen}
+          onOpenChange={toggleOpen}
         >
           test-data
         </ReadMore>

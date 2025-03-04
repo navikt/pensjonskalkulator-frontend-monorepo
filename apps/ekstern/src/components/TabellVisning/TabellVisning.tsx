@@ -77,10 +77,7 @@ export function TabellVisning({ series, aarArray }: Props) {
           : intl.formatMessage({ id: 'beregning.tabell.vis' })
       }
       className={styles.visTabell}
-      open={isVisTabellOpen}
-      onClick={() => {
-        setVisTabellOpen(!isVisTabellOpen)
-      }}
+      onOpenChange={setVisTabellOpen}
     >
       <Table className={styles.table}>
         <Table.Header>
