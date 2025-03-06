@@ -6,7 +6,6 @@ import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
 import CustomPostCSSLoader from './scripts/CustomPostCSSLoader'
-import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
