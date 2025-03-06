@@ -87,7 +87,7 @@ describe('Pensjonskalkulator', () => {
       cy.contains('Avansert').click()
     })
     cy.injectAxe()
-    cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+    cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should('exist')
 
     cy.checkA11y('main')
 
@@ -149,7 +149,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('Beregn pensjon').click()
 
     cy.contains('Beregning').should('not.exist')
-    cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+    cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should('exist')
     cy.contains(
       'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
     ).should('exist')
