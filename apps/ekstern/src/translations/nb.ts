@@ -430,9 +430,9 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
-    'Pensjonsgivende inntekt frem til pensjon',
+    'Pensjonsgivende årsinntekt frem til pensjon',
   'beregning.avansert.rediger.inntekt_frem_til_endring.label':
-    'Pensjonsgivende inntekt frem til endring',
+    'Pensjonsgivende årsinntekt frem til endring',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
     'Uten uføretrygd og uførepensjon.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
