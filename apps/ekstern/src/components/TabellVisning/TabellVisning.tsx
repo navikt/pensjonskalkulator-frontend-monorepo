@@ -172,9 +172,15 @@ export function TabellVisning({ series, aarArray }: Props) {
                 >
                   {sum > 0 ? `${formatInntekt(sum)} kr` : ''}
                 </Table.DataCell>
-                {detaljer.map(({ subSum }, j) => (
+                {detaljer.map(({ subSum, name }, j) => (
                   <Table.DataCell key={j} className={styles.detailsItemRight}>
-                    {subSum > 0 ? `${formatInntekt(subSum)} kr` : ''}
+                    {subSum > 0 ||
+                    name ===
+                      intl.formatMessage({
+                        id: SERIES_DEFAULT.SERIE_AFP.name,
+                      }) // Skal vise 0 kr, BARE hvis det er AFP som har 0 kr., ikke for andre felter med 0 kr.
+                      ? `${formatInntekt(subSum)} kr`
+                      : ''}
                   </Table.DataCell>
                 ))}
               </Table.Row>
