@@ -11,26 +11,34 @@ describe('Avansert', () => {
         cy.get('[data-testid="toggle-avansert"]').within(() => {
           cy.contains('Avansert').click()
         })
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
       })
 
       it('forventer også å kunne gå til Avansert fra «Uttaksgrad» og «Inntekt frem til uttak» i Grunnlaget.', () => {
         cy.contains('button', '70').click()
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Gå til avansert kalkulator').click({ force: true })
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
         cy.contains('Enkel').click()
         cy.contains('button', '70').click()
         cy.contains('Inntekt frem til uttak:').click({ force: true })
         cy.contains('Gå til avansert kalkulator').click({ force: true })
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {
         cy.get('[data-testid="toggle-avansert"]').within(() => {
           cy.contains('Avansert').click()
         })
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
         cy.contains('button', 'Tilbake til start').click({ force: true })
         cy.contains('button', 'Gå tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
@@ -50,7 +58,9 @@ describe('Avansert', () => {
       })
 
       it('forventer jeg å se, og kunne endre inntekt frem til pensjon.', () => {
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
         cy.contains('521 338 kr per år før skatt').should('exist')
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').type('0')
@@ -394,7 +404,9 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
 
         cy.contains('Beregning').should('not.exist')
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
         cy.contains(
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
         ).should('exist')
@@ -499,7 +511,9 @@ describe('Avansert', () => {
 
       it('forventer jeg å kunne endre på inntekt, pensjonsalder og uttaksgrad, og å kunne beregne pensjon.', () => {
         cy.contains('Beregning').should('not.exist')
-        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
+          'exist'
+        )
         cy.contains('button', 'Endre inntekt').should('exist')
         cy.contains('Når vil du ta ut alderspensjon?').should('exist')
 
