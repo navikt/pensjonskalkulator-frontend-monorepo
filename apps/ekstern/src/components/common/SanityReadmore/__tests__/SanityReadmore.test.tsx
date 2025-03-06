@@ -1,9 +1,8 @@
-import { PortableText } from '@portabletext/react'
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { mockErrorResponse } from '@/mocks/server'
-import { render, screen, waitFor } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 
 describe('SanityReadmore', () => {
   describe('Gitt at Sanity er aktivert og innhold finnes', () => {
@@ -14,15 +13,12 @@ describe('SanityReadmore', () => {
         </SanityReadmore>
       )
 
-
       const readMoreElement = await screen.findByTestId(
         'hva_er_opphold_utenfor_norge'
       )
       expect(readMoreElement).toBeVisible()
 
-      expect(
-        screen.getByText('Hva som er opphold utenfor Norge')
-      ).toBeVisible()
+      expect(screen.getByText('Hva som er opphold utenfor Norge')).toBeVisible()
     })
   })
 
@@ -36,13 +32,11 @@ describe('SanityReadmore', () => {
         </SanityReadmore>
       )
 
-	  const readMoreElement = await screen.getByText('Fallback innhold')
+      const readMoreElement = await screen.getByText('Fallback innhold')
       expect(readMoreElement).toBeVisible()
-	  readMoreElement.click()
+      readMoreElement.click()
 
-	  expect(
-	    screen.queryByText('Hva som er opphold utenfor Norge')
-	  ).toBeNull()
+      expect(screen.queryByText('Hva som er opphold utenfor Norge')).toBeNull()
     })
   })
 
@@ -56,11 +50,9 @@ describe('SanityReadmore', () => {
 
       const readMoreElement = await screen.getByText('Fallback innhold')
       expect(readMoreElement).toBeVisible()
-	  readMoreElement.click()
+      readMoreElement.click()
 
-	  expect(
-	    screen.queryByText('Hva som er opphold utenfor Norge')
-	  ).toBeNull()
+      expect(screen.queryByText('Hva som er opphold utenfor Norge')).toBeNull()
     })
   })
 })
