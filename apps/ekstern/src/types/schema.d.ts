@@ -642,6 +642,30 @@ export interface components {
       delingstall?: number
       /** Format: int32 */
       pensjonBeholdningFoerUttakBeloep?: number
+      /** Format: double */
+      andelsbroekKap19?: number
+      /** Format: double */
+      andelsbroekKap20?: number
+      /** Format: double */
+      sluttpoengtall?: number
+      /** Format: int32 */
+      trygdetidKap19?: number
+      /** Format: int32 */
+      trygdetidKap20?: number
+      /** Format: int32 */
+      poengaarFoer92?: number
+      /** Format: int32 */
+      poengaarEtter91?: number
+      /** Format: double */
+      forholdstall?: number
+      /** Format: int32 */
+      grunnpensjon?: number
+      /** Format: int32 */
+      tilleggspensjon?: number
+      /** Format: int32 */
+      pensjonstillegg?: number
+      /** Format: int32 */
+      skjermingstillegg?: number
     }
     PersonligSimuleringAlternativResultV8: {
       gradertUttaksalder?: components['schemas']['PersonligSimuleringAlderResultV8']

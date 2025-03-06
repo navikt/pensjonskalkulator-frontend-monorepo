@@ -3,14 +3,6 @@
 .visTabell {
   width: 100%;
 
-  button {
-    margin: 0 auto;
-
-    @media (min-width: variables.$a-breakpoint-md) {
-      margin: 0;
-    }
-  }
-
   :global {
     .navds-read-more__content {
       border-left: 0;

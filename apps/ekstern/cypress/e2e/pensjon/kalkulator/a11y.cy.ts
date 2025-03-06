@@ -38,7 +38,7 @@ describe('Pensjonskalkulator', () => {
 
     // Sjekker AFP steg
     cy.contains('AFP (avtalefestet pensjon)')
-    cy.contains('button', 'Om AFP i privat sektor').click()
+    cy.get('[data-testid="om_livsvarig_AFP_i_offentlig_sektor"]').click()
     cy.get('[type="radio"]').first().check()
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()

@@ -11,12 +11,16 @@ import {
   Radio,
   RadioGroup,
 } from '@navikt/ds-react'
+import { PortableText } from '@portabletext/react'
 
 import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { SanityContext } from '@/context/SanityContext'
 import { paths } from '@/router/constants'
+import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logger, wrapLogger } from '@/utils/logging'
+import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
@@ -38,6 +42,12 @@ export function AFP({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
+
+  const { readMoreData } = React.useContext(SanityContext)
+  const readMore1 = readMoreData['om_livsvarig_AFP_i_offentlig_sektor']
+  const readMore2 = readMoreData['om_livsvarig_AFP_i_privat_sektor']
+
+  const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
@@ -104,56 +114,86 @@ export function AFP({
         <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
-        <ReadMore
-          name="Avtalefestet pensjon i offentlig sektor"
-          className={styles.readmoreOffentlig}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
-            </li>
-          </ul>
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
-        </ReadMore>
-        <ReadMore
-          name="Avtalefestet pensjon i privat sektor"
-          className={styles.readmorePrivat}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item4" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.afp.readmore_privat_link"
-            values={{
-              ...getFormatMessageValues(),
-            }}
-          />
-        </ReadMore>
+
+        {sanityFeatureToggle?.enabled && readMore1 ? (
+          <ReadMore
+            data-testid={readMore1.name}
+            name={readMore1.name}
+            header={readMore1.overskrift}
+            className={styles.readmoreOffentlig}
+          >
+            <PortableText
+              value={readMore1.innhold}
+              components={getSanityPortableTextComponents(intl)}
+            />
+          </ReadMore>
+        ) : (
+          <ReadMore
+            name="Avtalefestet pensjon i offentlig sektor"
+            className={styles.readmoreOffentlig}
+            header={
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
+            }
+          >
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
+            <ul className={styles.list}>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
+              </li>
+            </ul>
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
+          </ReadMore>
+        )}
+
+        {sanityFeatureToggle?.enabled && readMore2 ? (
+          <ReadMore
+            data-testid={readMore2.name}
+            name={readMore2.name}
+            header={readMore2.overskrift}
+            className={styles.readmorePrivat}
+          >
+            <PortableText
+              value={readMore2.innhold}
+              components={getSanityPortableTextComponents(intl)}
+            />
+          </ReadMore>
+        ) : (
+          <ReadMore
+            name="Avtalefestet pensjon i privat sektor"
+            className={styles.readmorePrivat}
+            header={
+              <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
+            }
+          >
+            <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
+            <ul className={styles.list}>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item4" />
+              </li>
+            </ul>
+            <FormattedMessage
+              id="stegvisning.afp.readmore_privat_link"
+              values={{
+                ...getFormatMessageValues(),
+              }}
+            />
+          </ReadMore>
+        )}
         <RadioGroup
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afp.radio_label" />}

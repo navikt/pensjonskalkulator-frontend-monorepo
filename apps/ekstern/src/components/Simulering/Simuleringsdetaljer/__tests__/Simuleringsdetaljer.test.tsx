@@ -150,6 +150,18 @@ describe('Simuleringsdetaljer', () => {
         garantipensjonBeloep: 100000,
         delingstall: 13.5,
         pensjonBeholdningFoerUttakBeloep: 400000,
+        andelsbroekKap19: 0.7,
+        andelsbroekKap20: 0.3,
+        sluttpoengtall: 5.11,
+        trygdetidKap19: 40,
+        trygdetidKap20: 40,
+        poengaarFoer92: 13,
+        poengaarEtter91: 27,
+        forholdstall: 0.971,
+        grunnpensjon: 55180,
+        tilleggspensjon: 134641,
+        pensjonstillegg: -70243,
+        skjermingstillegg: 0,
       },
     ]
     const { asFragment } = render(
@@ -256,6 +268,67 @@ describe('Simuleringsdetaljer', () => {
                       Pensjonsabeholdning før uttak: 
                     </strong>
                     400 000 NOK
+                    <br />
+                    <strong>
+                      Andelsbrøk kap.19: 
+                    </strong>
+                     0.7
+                    <br />
+                    <strong>
+                      Andelsbrøk kap.20: 
+                    </strong>
+                     0.3
+                    <br />
+                    <strong>
+                      Sluttpoengtall: 
+                    </strong>
+                     5.11
+                    <br />
+                    <strong>
+                      Trygdetid kap.19: 
+                    </strong>
+                     40
+                    <br />
+                    <strong>
+                      Trygdetid kap.20: 
+                    </strong>
+                     40
+                    <br />
+                    <strong>
+                      Poengår før 1992: 
+                    </strong>
+                     13
+                    <br />
+                    <strong>
+                      Poengår etter 1991: 
+                    </strong>
+                     27
+                    <br />
+                    <strong>
+                      Forholdstall: 
+                    </strong>
+                     0.971
+                    <br />
+                    <strong>
+                      Grunnpensjon: 
+                    </strong>
+                    55 180 NOK
+                    <br />
+                    <strong>
+                      Tillegspensjon: 
+                    </strong>
+                    134 641 NOK
+                    <br />
+                    <strong>
+                      Pensjonstillegg: 
+                    </strong>
+                    −70 243 NOK
+                    <br />
+                    <strong>
+                      Skjermingstillegg: 
+                    </strong>
+                    0 NOK
+                    <br />
                   </li>
                 </ul>
               </dd>
@@ -266,7 +339,7 @@ describe('Simuleringsdetaljer', () => {
     `)
   })
 
-  it('Når inntektspensjonBeloep, garantipensjonBeloepviser og pensjonBeholdningFoerUttakBeloep er undefined, viser alderspensjon.', () => {
+  it('Når inntektspensjonBeloep, garantipensjonBeloepviser, pensjonBeholdningFoerUttakBeloep, grunnpensjon, tilleggspensjon, pensjonstillegg og skjermingstillegg er undefined, viser alderspensjon.', () => {
     const alderspensjonListe = [
       {
         alder: 67,
@@ -275,6 +348,18 @@ describe('Simuleringsdetaljer', () => {
         garantipensjonBeloep: undefined,
         delingstall: 13.5,
         pensjonBeholdningFoerUttakBeloep: undefined,
+        andelsbroekKap19: 0.7,
+        andelsbroekKap20: 0.3,
+        sluttpoengtall: 5.11,
+        trygdetidKap19: 40,
+        trygdetidKap20: 40,
+        poengaarFoer92: 13,
+        poengaarEtter91: 27,
+        forholdstall: 0.971,
+        grunnpensjon: undefined,
+        tilleggspensjon: undefined,
+        pensjonstillegg: undefined,
+        skjermingstillegg: undefined,
       },
     ]
     const { asFragment } = render(
@@ -381,6 +466,67 @@ describe('Simuleringsdetaljer', () => {
                       Pensjonsabeholdning før uttak: 
                     </strong>
                     0 NOK
+                    <br />
+                    <strong>
+                      Andelsbrøk kap.19: 
+                    </strong>
+                     0.7
+                    <br />
+                    <strong>
+                      Andelsbrøk kap.20: 
+                    </strong>
+                     0.3
+                    <br />
+                    <strong>
+                      Sluttpoengtall: 
+                    </strong>
+                     5.11
+                    <br />
+                    <strong>
+                      Trygdetid kap.19: 
+                    </strong>
+                     40
+                    <br />
+                    <strong>
+                      Trygdetid kap.20: 
+                    </strong>
+                     40
+                    <br />
+                    <strong>
+                      Poengår før 1992: 
+                    </strong>
+                     13
+                    <br />
+                    <strong>
+                      Poengår etter 1991: 
+                    </strong>
+                     27
+                    <br />
+                    <strong>
+                      Forholdstall: 
+                    </strong>
+                     0.971
+                    <br />
+                    <strong>
+                      Grunnpensjon: 
+                    </strong>
+                    0 NOK
+                    <br />
+                    <strong>
+                      Tillegspensjon: 
+                    </strong>
+                    0 NOK
+                    <br />
+                    <strong>
+                      Pensjonstillegg: 
+                    </strong>
+                    0 NOK
+                    <br />
+                    <strong>
+                      Skjermingstillegg: 
+                    </strong>
+                    0 NOK
+                    <br />
                   </li>
                 </ul>
               </dd>
