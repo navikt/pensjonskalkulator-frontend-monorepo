@@ -1,0 +1,40 @@
+@use '../../../../scss/variables';
+
+.description {
+  display: block;
+  color: var(--a-text-subtle);
+  font-size: var(--a-font-size-large);
+  font-weight: var(--a-font-weight-regular);
+  letter-spacing: 0;
+  line-height: var(--a-font-line-height-large);
+
+  &Text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+  }
+
+  button {
+    vertical-align: middle;
+  }
+}
+
+.label {
+  display: block;
+
+  &__margin {
+    margin-top: var(--a-spacing-6);
+  }
+}
+
+.spacer {
+  height: var(--a-spacing-4);
+  width: 100%;
+  background-color: transparent;
+  margin: 0 0 var(--a-spacing-4) 0;
+
+  &__small {
+    height: var(--a-spacing-1);
+    margin: 0 0 var(--a-spacing-1) 0;
+  }
+}

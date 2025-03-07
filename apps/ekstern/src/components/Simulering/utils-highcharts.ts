@@ -163,8 +163,15 @@ export function tooltipFormatter(
   const inntektSerieName = intl.formatMessage({
     id: SERIES_DEFAULT.SERIE_INNTEKT.name,
   })
+
+  const afpSerieName = intl.formatMessage({
+    id: SERIES_DEFAULT.SERIE_AFP.name,
+  })
   points.forEach(function (localPoint) {
-    if (localPoint.y && localPoint.y > 0) {
+    if (
+      (localPoint.y && localPoint.y > 0) ||
+      localPoint.series.name === afpSerieName // Unntak for AFP, skal vises hvis det er 0 i legend
+    ) {
       if (localPoint.series.name === inntektSerieName) {
         hasInntekt = true
       } else {

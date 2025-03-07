@@ -45,10 +45,12 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
         <ExpansionCardAksel.Title id="expansion-card-label" size="small">
           <FormattedMessage id="beregning.avansert.resultatkort.tittel" />
         </ExpansionCardAksel.Title>
+
         <ExpansionCardAksel.Description>
           <FormattedMessage id="beregning.avansert.resultatkort.description" />
         </ExpansionCardAksel.Description>
       </ExpansionCardAksel.Header>
+
       <ExpansionCardAksel.Content>
         <dl className={styles.list}>
           <dt className={styles.listTitle}>

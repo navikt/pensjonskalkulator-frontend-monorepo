@@ -1,4 +1,4 @@
-import { ReadMoreOmPensjonsalder } from '..'
+import { ReadMoreOmPensjonsalder } from '../ReadMoreOmPensjonsalder'
 import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'

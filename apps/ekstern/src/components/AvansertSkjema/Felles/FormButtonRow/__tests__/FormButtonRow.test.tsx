@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { AVANSERT_FORM_NAMES } from '../../utils'
+import { AVANSERT_FORM_NAMES } from '../../../utils'
 import { FormButtonRow } from '../FormButtonRow'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import {
