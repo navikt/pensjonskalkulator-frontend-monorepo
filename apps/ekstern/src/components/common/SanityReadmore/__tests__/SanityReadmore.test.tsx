@@ -19,7 +19,7 @@ describe('SanityReadmore', () => {
       expect(readMoreElement).toBeVisible()
 
       expect(screen.getByText('Hva som er opphold utenfor Norge')).toBeVisible()
-      
+
       expect(screen.getByText('Lorem')).toBeInTheDocument()
       expect(screen.queryByText('Child content')).not.toBeInTheDocument()
     })
