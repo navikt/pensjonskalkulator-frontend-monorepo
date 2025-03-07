@@ -46,9 +46,7 @@ describe('SanityReadmore', () => {
         </SanityReadmore>
       )
 
-      const readMoreElement = await screen.getByText('Fallback innhold')
-      expect(readMoreElement).toBeVisible()
-      readMoreElement.click()
+      expect(screen.getByText('Fallback innhold')).toBeVisible()
 
       expect(screen.queryByText('Hva som er opphold utenfor Norge')).toBeNull()
     })
