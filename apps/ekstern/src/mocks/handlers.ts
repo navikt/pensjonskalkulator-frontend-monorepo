@@ -214,4 +214,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
       virkningstidspunktForMinsteinntekt: '2024-06-03',
     })
   }),
+
+  http.get(
+    `${import.meta.env.VITE_REPRESENTASJON_BANNER}/api/representasjon/harRepresentasjonsforhold`,
+    async () => HttpResponse.json({ value: false })
+  ),
 ]
