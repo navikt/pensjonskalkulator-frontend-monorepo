@@ -25,10 +25,6 @@ const AUTH_PROVIDER = (() => {
     )
   }
 
-  if (!idporten && !azure) {
-    throw new Error('No auth provider is set')
-  }
-
   if (idporten) {
     return 'idporten'
   }
@@ -36,7 +32,9 @@ const AUTH_PROVIDER = (() => {
   if (azure) {
     return 'azure'
   }
-})() as 'idporten' | 'azure'
+
+  throw new Error('No auth provider is set')
+})()
 
 // TokenX is needed for token exchange from idporten to Nav token
 if (AUTH_PROVIDER === 'idporten' && !process.env.TOKEN_X_ISSUER) {
