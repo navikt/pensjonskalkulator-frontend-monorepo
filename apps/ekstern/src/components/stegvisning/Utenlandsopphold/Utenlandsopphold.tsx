@@ -2,19 +2,16 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
-import { PortableText } from '@portabletext/react'
 
 import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
+import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
-import { SanityContext } from '@/context/SanityContext'
 import { paths } from '@/router/constants'
-import { useGetSanityFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
-import { getSanityPortableTextComponents } from '@/utils/sanity'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { onSubmit } from './utils'
@@ -35,12 +32,6 @@ export function Utenlandsopphold({
   onNext,
 }: Props) {
   const intl = useIntl()
-
-  const { readMoreData } = React.useContext(SanityContext)
-  const readMore1 = readMoreData['hva_er_opphold_utenfor_norge']
-  const readMore2 = readMoreData['betydning_av_opphold_utenfor_norge']
-
-  const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()
 
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
@@ -92,19 +83,10 @@ export function Utenlandsopphold({
       <BodyLong size="large">
         <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
       </BodyLong>
-      {sanityFeatureToggle?.enabled && readMore1 ? (
-        <ReadMore
-          data-testid={readMore1.name}
-          name={readMore1.name}
-          header={readMore1.overskrift}
-          className={styles.readmore1}
-        >
-          <PortableText
-            value={readMore1.innhold}
-            components={getSanityPortableTextComponents(intl)}
-          />
-        </ReadMore>
-      ) : (
+      <SanityReadmore
+        id="hva_er_opphold_utenfor_norge"
+        className={styles.readmore1}
+      >
         <ReadMore
           name="Hva som er opphold utenfor Norge"
           className={styles.readmore1}
@@ -159,20 +141,11 @@ export function Utenlandsopphold({
             }}
           />
         </ReadMore>
-      )}
-      {sanityFeatureToggle?.enabled && readMore2 ? (
-        <ReadMore
-          data-testid={readMore2.name}
-          name={readMore2.name}
-          header={readMore2.overskrift}
-          className={styles.readmore2}
-        >
-          <PortableText
-            value={readMore2.innhold}
-            components={getSanityPortableTextComponents(intl)}
-          />
-        </ReadMore>
-      ) : (
+      </SanityReadmore>
+      <SanityReadmore
+        id="betydning_av_opphold_utenfor_norge"
+        className={styles.readmore2}
+      >
         <ReadMore
           name="Betydning av opphold utenfor Norge for pensjon"
           className={styles.readmore2}
@@ -187,7 +160,7 @@ export function Utenlandsopphold({
             }}
           />
         </ReadMore>
-      )}
+      </SanityReadmore>
       <RadioGroup
         name="har-utenlandsopphold-radio"
         className={styles.radiogroup}
