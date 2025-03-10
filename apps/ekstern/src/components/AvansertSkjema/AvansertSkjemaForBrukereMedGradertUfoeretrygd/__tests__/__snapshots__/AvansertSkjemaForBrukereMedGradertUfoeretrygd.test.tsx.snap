@@ -28,24 +28,24 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           class="_divider_1adfb3"
         />
         <label
-          class="_label_db4c62 navds-label"
+          class="_label_2e4d09 navds-label"
         >
           beregning.avansert.rediger.inntekt_frem_til_endring.label
         </label>
         <div
-          class="_description_db4c62"
+          class="_description_2e4d09"
         >
           <span
-            class="_descriptionText_db4c62"
+            class="_descriptionText_2e4d09"
           >
             beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere
           </span>
         </div>
         <div
-          class="_description_db4c62"
+          class="_description_2e4d09"
         >
           <span
-            class="_descriptionText_db4c62"
+            class="_descriptionText_2e4d09"
           >
             <span
               class="nowrap"
@@ -243,7 +243,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           </button>
         </div>
         <div
-          class="_spacer_db4c62 _spacer__small_db4c62"
+          class="_spacer_2e4d09 _spacer__small_2e4d09"
         />
         <div
           class="navds-read-more navds-read-more--medium"
@@ -817,14 +817,14 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
         </div>
       </div>
       <div
-        class="_wrapper_d1848f"
+        class="_wrapper_ef32cc"
       >
         <hr
-          class="_separator_d1848f"
+          class="_separator_ef32cc"
         />
         <div>
           <button
-            class="_button_d1848f _buttonSubmit_d1848f navds-button navds-button--primary navds-button--medium"
+            class="_button_ef32cc _buttonSubmit_ef32cc navds-button navds-button--primary navds-button--medium"
             form="avansert-beregning"
           >
             <span
@@ -834,7 +834,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             </span>
           </button>
           <button
-            class="_button_d1848f navds-button navds-button--secondary navds-button--medium"
+            class="_button_ef32cc navds-button navds-button--secondary navds-button--medium"
             type="button"
           >
             <span

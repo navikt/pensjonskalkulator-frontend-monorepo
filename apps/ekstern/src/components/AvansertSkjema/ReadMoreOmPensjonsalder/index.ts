@@ -1,1 +1,0 @@
-export { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'

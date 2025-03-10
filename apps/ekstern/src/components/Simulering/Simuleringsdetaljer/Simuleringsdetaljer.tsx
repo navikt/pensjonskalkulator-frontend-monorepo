@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { ReadMore as ReadMoreAksel } from '@navikt/ds-react'
 
 import { formatInntekt } from '@/utils/inntekt'
@@ -86,6 +84,58 @@ export function Simuleringsdetaljer(props: {
                         )
                       : '0'
                   } NOK`}
+                  <br />
+                  <strong>Andelsbrøk kap.19: </strong>{' '}
+                  {alderspensjon.andelsbroekKap19}
+                  <br />
+                  <strong>Andelsbrøk kap.20: </strong>{' '}
+                  {alderspensjon.andelsbroekKap20}
+                  <br />
+                  <strong>Sluttpoengtall: </strong>{' '}
+                  {alderspensjon.sluttpoengtall}
+                  <br />
+                  <strong>Trygdetid kap.19: </strong>{' '}
+                  {alderspensjon.trygdetidKap19}
+                  <br />
+                  <strong>Trygdetid kap.20: </strong>{' '}
+                  {alderspensjon.trygdetidKap20}
+                  <br />
+                  <strong>Poengår før 1992: </strong>{' '}
+                  {alderspensjon.poengaarFoer92}
+                  <br />
+                  <strong>Poengår etter 1991: </strong>{' '}
+                  {alderspensjon.poengaarEtter91}
+                  <br />
+                  <strong>Forholdstall: </strong> {alderspensjon.forholdstall}
+                  <br />
+                  <strong>Grunnpensjon: </strong>
+                  {`${
+                    alderspensjon.grunnpensjon
+                      ? formatInntekt(alderspensjon.grunnpensjon)
+                      : '0'
+                  } NOK`}
+                  <br />
+                  <strong>Tillegspensjon: </strong>
+                  {`${
+                    alderspensjon.tilleggspensjon
+                      ? formatInntekt(alderspensjon.tilleggspensjon)
+                      : '0'
+                  } NOK`}
+                  <br />
+                  <strong>Pensjonstillegg: </strong>
+                  {`${
+                    alderspensjon.pensjonstillegg
+                      ? formatInntekt(alderspensjon.pensjonstillegg)
+                      : '0'
+                  } NOK`}
+                  <br />
+                  <strong>Skjermingstillegg: </strong>
+                  {`${
+                    alderspensjon.skjermingstillegg
+                      ? formatInntekt(alderspensjon.skjermingstillegg)
+                      : '0'
+                  } NOK`}
+                  <br />
                 </li>
               ))}
             </ul>

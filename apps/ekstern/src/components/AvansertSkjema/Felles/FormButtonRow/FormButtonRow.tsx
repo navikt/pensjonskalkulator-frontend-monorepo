@@ -25,25 +25,31 @@ export const FormButtonRow: React.FC<{
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const isEndring = useAppSelector(selectIsEndring)
 
+  const getButtonMessageId = () => {
+    if (
+      uttaksalder &&
+      !hasVilkaarIkkeOppfylt &&
+      harAvansertSkjemaUnsavedChanges
+    ) {
+      return 'beregning.avansert.button.oppdater'
+    }
+    return isEndring
+      ? 'beregning.avansert.button.beregn.endring'
+      : 'beregning.avansert.button.beregn'
+  }
+
   return (
     <div className={styles.wrapper}>
       <hr className={styles.separator} />
+
       <div>
         <Button
           form={formId}
           className={`${styles.button} ${styles.buttonSubmit}`}
         >
-          {intl.formatMessage({
-            id:
-              uttaksalder &&
-              !hasVilkaarIkkeOppfylt &&
-              harAvansertSkjemaUnsavedChanges
-                ? 'beregning.avansert.button.oppdater'
-                : isEndring
-                  ? 'beregning.avansert.button.beregn.endring'
-                  : 'beregning.avansert.button.beregn',
-          })}
+          {intl.formatMessage({ id: getButtonMessageId() })}
         </Button>
+
         <Button
           type="button"
           variant="secondary"
@@ -57,6 +63,7 @@ export const FormButtonRow: React.FC<{
           })}
         </Button>
       </div>
+
       {uttaksalder && !hasVilkaarIkkeOppfylt && (
         <div>
           <Button

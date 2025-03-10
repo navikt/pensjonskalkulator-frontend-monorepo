@@ -23,6 +23,10 @@ updates:
         patterns:
           - 'vitest'
           - '@vitest/*'
+      sanity:
+        patterns:
+          - 'sanity'
+          - '@sanity/vision'
 
 registries:
   npm-github:
