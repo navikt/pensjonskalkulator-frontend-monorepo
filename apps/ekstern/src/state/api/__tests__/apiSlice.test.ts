@@ -191,18 +191,15 @@ describe('apiSlice', () => {
     it('returnerer samboer som sivilstand', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/v3/vedtak/loepende-vedtak', {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
         json: {
           alderspensjon: {
             grad: 1000,
             fom: '2020-10-02',
             sivilstand: 'SAMBOER',
           },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
+          ufoeretrygd: { grad: 0 },
+        } satisfies LoependeVedtak,
       })
 
       const actual = await storeRef
@@ -214,7 +211,7 @@ describe('apiSlice', () => {
     it('kaster feil ved uforventet format på data', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/v3/vedtak/loepende-vedtak', {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
         json: {
           feil: 'format',
         },

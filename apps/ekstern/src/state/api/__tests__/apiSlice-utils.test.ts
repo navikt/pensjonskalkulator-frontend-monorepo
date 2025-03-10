@@ -187,11 +187,8 @@ describe('apiSlice - utils', () => {
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
       loependeVedtak: {
-        ufoeretrygd: {
-          grad: 0,
-        },
-        harFremtidigLoependeVedtak: false,
-      },
+        ufoeretrygd: { grad: 0 },
+      } satisfies LoependeVedtak,
       afp: null,
       sivilstand: null,
       epsHarPensjon: null,
@@ -224,10 +221,7 @@ describe('apiSlice - utils', () => {
         generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           loependeVedtak: {
-            ufoeretrygd: {
-              grad: 50,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 50 },
           },
           afp: 'ja_privat',
         })?.simuleringstype
@@ -242,10 +236,7 @@ describe('apiSlice - utils', () => {
               fom: '2012-12-12',
               sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON')
@@ -259,10 +250,7 @@ describe('apiSlice - utils', () => {
               fom: '2012-12-12',
               sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
           afp: 'ja_privat',
         })?.simuleringstype
@@ -379,13 +367,10 @@ describe('apiSlice - utils', () => {
   describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
       loependeVedtak: {
-        ufoeretrygd: {
-          grad: 0,
-        },
-        harFremtidigLoependeVedtak: false,
-      },
-      afp: 'ja_privat' as AfpRadio,
-      sivilstand: 'GIFT' as Sivilstand,
+        ufoeretrygd: { grad: 0 },
+      } satisfies LoependeVedtak,
+      afp: 'ja_privat' as const,
+      sivilstand: 'GIFT' as const,
       epsHarInntektOver2G: null,
       epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
@@ -448,10 +433,7 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           loependeVedtak: {
-            ufoeretrygd: {
-              grad: 50,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 50 },
           },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
@@ -464,10 +446,7 @@ describe('apiSlice - utils', () => {
               fom: '2012-12-12',
               sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
@@ -480,10 +459,7 @@ describe('apiSlice - utils', () => {
               fom: '2012-12-12',
               sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
           afp: 'ja_offentlig',
         })?.simuleringstype
@@ -497,10 +473,7 @@ describe('apiSlice - utils', () => {
               fom: '2012-12-12',
               sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 50,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 50 },
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON')
@@ -515,13 +488,13 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          sivilstand: 'UGIFT' as Sivilstand,
+          sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          sivilstand: 'GIFT' as Sivilstand,
+          sivilstand: 'GIFT',
         })?.sivilstand
       ).toEqual('GIFT')
     })
@@ -581,10 +554,9 @@ describe('apiSlice - utils', () => {
     const requestBody = {
       loependeVedtak: {
         ufoeretrygd: { grad: 0 },
-        harFremtidigLoependeVedtak: false,
-      },
-      afp: 'ja_privat' as AfpRadio,
-      sivilstand: 'GIFT' as Sivilstand,
+      } satisfies LoependeVedtak,
+      afp: 'ja_privat' as const,
+      sivilstand: 'GIFT' as const,
       epsHarInntektOver2G: null,
       epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
@@ -655,7 +627,6 @@ describe('apiSlice - utils', () => {
           afp: null,
           loependeVedtak: {
             ufoeretrygd: { grad: 60 },
-            harFremtidigLoependeVedtak: false,
           },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
@@ -665,7 +636,6 @@ describe('apiSlice - utils', () => {
           loependeVedtak: {
             alderspensjon: { grad: 60, fom: '2010-10-10', sivilstand: 'UGIFT' },
             ufoeretrygd: { grad: 0 },
-            harFremtidigLoependeVedtak: false,
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
@@ -676,7 +646,6 @@ describe('apiSlice - utils', () => {
           loependeVedtak: {
             alderspensjon: { grad: 60, fom: '2010-10-10', sivilstand: 'UGIFT' },
             ufoeretrygd: { grad: 0 },
-            harFremtidigLoependeVedtak: false,
           },
         })?.simuleringstype
       ).toEqual('ENDRING_ALDERSPENSJON')
@@ -697,19 +666,19 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          sivilstand: 'SAMBOER' as Sivilstand,
+          sivilstand: 'SAMBOER',
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          sivilstand: 'UGIFT' as Sivilstand,
+          sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          sivilstand: 'UGIFT' as Sivilstand,
+          sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
     })

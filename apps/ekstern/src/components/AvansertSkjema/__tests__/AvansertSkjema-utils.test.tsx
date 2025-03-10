@@ -53,10 +53,7 @@ describe('AvansertSkjema-utils', () => {
         {
           foedselsdato: '1963-04-30',
           loependeVedtak: {
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
           localInntektFremTilUttak: null,
           hasVilkaarIkkeOppfylt: undefined,
@@ -117,10 +114,7 @@ describe('AvansertSkjema-utils', () => {
           {
             foedselsdato: '1963-04-30',
             loependeVedtak: {
-              ufoeretrygd: {
-                grad: 0,
-              },
-              harFremtidigLoependeVedtak: false,
+              ufoeretrygd: { grad: 0 },
             },
             localInntektFremTilUttak: null,
             hasVilkaarIkkeOppfylt: undefined,
@@ -185,10 +179,7 @@ describe('AvansertSkjema-utils', () => {
           {
             foedselsdato: '1963-04-30',
             loependeVedtak: {
-              ufoeretrygd: {
-                grad: 0,
-              },
-              harFremtidigLoependeVedtak: false,
+              ufoeretrygd: { grad: 0 },
             },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
@@ -280,10 +271,7 @@ describe('AvansertSkjema-utils', () => {
           {
             foedselsdato: '1963-04-30',
             loependeVedtak: {
-              ufoeretrygd: {
-                grad: 0,
-              },
-              harFremtidigLoependeVedtak: false,
+              ufoeretrygd: { grad: 0 },
             },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
@@ -341,10 +329,7 @@ describe('AvansertSkjema-utils', () => {
           {
             foedselsdato: '1963-04-30',
             loependeVedtak: {
-              ufoeretrygd: {
-                grad: 0,
-              },
-              harFremtidigLoependeVedtak: false,
+              ufoeretrygd: { grad: 0 },
             },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
@@ -376,10 +361,7 @@ describe('AvansertSkjema-utils', () => {
           {
             foedselsdato: '1963-04-30',
             loependeVedtak: {
-              ufoeretrygd: {
-                grad: 0,
-              },
-              harFremtidigLoependeVedtak: false,
+              ufoeretrygd: { grad: 0 },
             },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
@@ -415,22 +397,13 @@ describe('AvansertSkjema-utils', () => {
 
     const mockedFoedselsdato = '1963-04-30'
     const mockedLoependeVedtak = {
-      ufoeretrygd: {
-        grad: 0,
-      },
-      harFremtidigLoependeVedtak: false,
+      ufoeretrygd: { grad: 0 },
     }
     const mockedLoependeVedtak100 = {
-      ufoeretrygd: {
-        grad: 100,
-      },
-      harFremtidigLoependeVedtak: false,
+      ufoeretrygd: { grad: 100 },
     }
     const mockedLoependeVedtak60 = {
-      ufoeretrygd: {
-        grad: 60,
-      },
-      harFremtidigLoependeVedtak: false,
+      ufoeretrygd: { grad: 60 },
     }
     const mockedNormertPensjonsalder = { aar: 67, maaneder: 0 }
 
@@ -537,16 +510,13 @@ describe('AvansertSkjema-utils', () => {
     })
 
     it('returnerer false når uttaksgrad er endret til en grad mellom 20-80 før 12 md fra datoen til vedtaket', () => {
-      const mockedLoependeVedtakEndring = {
+      const mockedLoependeVedtakEndring: LoependeVedtak = {
         alderspensjon: {
           fom: '2025-10-01',
           grad: 100,
-          sivilstand: 'UGIFT' as Sivilstand,
+          sivilstand: 'UGIFT',
         },
-        ufoeretrygd: {
-          grad: 0,
-        },
-        harFremtidigLoependeVedtak: false,
+        ufoeretrygd: { grad: 0 },
       }
 
       const updateErrorMessageMock = vi.fn()
@@ -617,12 +587,9 @@ describe('AvansertSkjema-utils', () => {
             alderspensjon: {
               fom: '2025-10-01',
               grad: 40,
-              sivilstand: 'UGIFT' as Sivilstand,
+              sivilstand: 'UGIFT',
             },
-            ufoeretrygd: {
-              grad: 0,
-            },
-            harFremtidigLoependeVedtak: false,
+            ufoeretrygd: { grad: 0 },
           },
           updateErrorMessageMock
         )

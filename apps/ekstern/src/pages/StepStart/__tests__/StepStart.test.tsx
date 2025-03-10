@@ -110,7 +110,7 @@ describe('StepStart', () => {
 
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
-      mockResponse('/v3/vedtak/loepende-vedtak', {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
@@ -118,11 +118,8 @@ describe('StepStart', () => {
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
+          ufoeretrygd: { grad: 0 },
+        } satisfies LoependeVedtak,
       })
 
       const router = createMemoryRouter(routes, {
@@ -144,7 +141,7 @@ describe('StepStart', () => {
     })
 
     it('rendrer ikke siden når henting av loepende vedtak feiler og redirigerer til /uventet-feil', async () => {
-      mockErrorResponse('/v3/vedtak/loepende-vedtak')
+      mockErrorResponse('/v4/vedtak/loepende-vedtak')
       const mockedState = {
         api: {
           queries: {

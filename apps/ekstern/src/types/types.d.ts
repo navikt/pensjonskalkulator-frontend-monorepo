@@ -61,13 +61,13 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /v3/vedtak/loepende-vedtak
+  // /v4/vedtak/loepende-vedtak
   export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
     LoependeVedtak,
     void,
     BaseQueryFn<Record<string, unknown>, LoependeVedtak>
   >
-  type LoependeVedtak = components['schemas']['LoependeVedtakV3']
+  type LoependeVedtak = components['schemas']['LoependeVedtakV4']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =

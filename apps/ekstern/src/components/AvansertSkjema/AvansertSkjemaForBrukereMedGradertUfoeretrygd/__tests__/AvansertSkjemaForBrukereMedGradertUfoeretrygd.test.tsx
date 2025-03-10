@@ -1296,11 +1296,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
-          harFremtidigLoependeVedtak: false,
-          ufoeretrygd: {
-            grad: 75,
-          },
-        },
+          ufoeretrygd: { grad: 75 },
+        } satisfies LoependeVedtak,
         normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
@@ -1331,11 +1328,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                   requestId: 'xTaE6mOydr5ZI75UXq4Wi',
                   startedTimeStamp: 1688046411971,
                   data: {
-                    ufoeretrygd: {
-                      grad: 40,
-                    },
-                    harFremtidigLoependeVedtak: false,
-                  },
+                    ufoeretrygd: { grad: 40 },
+                  } satisfies LoependeVedtak,
                   fulfilledTimeStamp: 1688046412103,
                 },
               },
@@ -1641,11 +1635,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
-          harFremtidigLoependeVedtak: false,
-          ufoeretrygd: {
-            grad: 75,
-          },
-        },
+          ufoeretrygd: { grad: 75 },
+        } satisfies LoependeVedtak,
         normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
@@ -2250,11 +2241,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
                       sivilstand: 'UGIFT',
                     },
-                    ufoeretrygd: {
-                      grad: 60,
-                    },
-                    harFremtidigLoependeVedtak: false,
-                  },
+                    ufoeretrygd: { grad: 60 },
+                  } satisfies LoependeVedtak,
                   fulfilledTimeStamp: 1688046412103,
                 },
               },

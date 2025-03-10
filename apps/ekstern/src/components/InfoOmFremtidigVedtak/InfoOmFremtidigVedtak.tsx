@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
-  if (!loependeVedtak || !loependeVedtak?.harFremtidigLoependeVedtak) {
+  if (!loependeVedtak || !loependeVedtak.fremtidigAlderspensjon) {
     return null
   }
 

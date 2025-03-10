@@ -96,7 +96,7 @@ export const apiSlice = createApi({
       },
     }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
-      query: () => '/v3/vedtak/loepende-vedtak',
+      query: () => '/v4/vedtak/loepende-vedtak',
       transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
           throw new Error(

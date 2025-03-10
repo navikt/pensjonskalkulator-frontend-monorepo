@@ -39,11 +39,8 @@ describe('Simulering', () => {
         requestId: 'xTaE6mOydr5ZI75UXq4Wi',
         startedTimeStamp: 1688046411971,
         data: {
-          ufoeretrygd: {
-            grad: 75,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
+          ufoeretrygd: { grad: 75 },
+        } satisfies LoependeVedtak,
         fulfilledTimeStamp: 1688046412103,
       },
     },

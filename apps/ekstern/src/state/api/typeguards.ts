@@ -307,7 +307,12 @@ export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
     (!data.afpOffentlig ||
       (data.afpOffentlig &&
         typeof data.afpOffentlig === 'object' &&
-        typeof data.afpOffentlig.fom === 'string'))
+        typeof data.afpOffentlig.fom === 'string')) &&
+    (!data.fremtidigAlderspensjon ||
+      (data.fremtidigAlderspensjon &&
+        typeof data.fremtidigAlderspensjon === 'object' &&
+        typeof data.fremtidigAlderspensjon.grad === 'number' &&
+        typeof data.fremtidigAlderspensjon.fom === 'string'))
   )
 }
 

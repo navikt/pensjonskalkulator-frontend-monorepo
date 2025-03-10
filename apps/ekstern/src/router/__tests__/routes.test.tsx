@@ -22,7 +22,10 @@ import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import {
+  userInputInitialState,
+  UserInputState,
+} from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
@@ -619,17 +622,17 @@ describe('routes', () => {
                 endpointName: 'getLoependeVedtak',
                 requestId: 't1wLPiRKrfe_vchftk8s8',
                 data: {
-                  ufoeretrygd: {
-                    grad: 0,
-                  },
-                  harFremtidigLoependeVedtak: false,
-                },
+                  ufoeretrygd: { grad: 0 },
+                } satisfies LoependeVedtak,
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,
               },
             },
           },
-          userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+          } satisfies UserInputState,
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,

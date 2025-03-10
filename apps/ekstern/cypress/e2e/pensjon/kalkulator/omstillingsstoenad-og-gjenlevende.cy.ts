@@ -49,13 +49,11 @@ describe('med omstillingsstønad og gjenlevende', () => {
         cy.intercept(
           {
             method: 'GET',
-            url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
+            url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
           },
           {
-            ufoeretrygd: {
-              grad: 75,
-            },
-          }
+            ufoeretrygd: { grad: 75 },
+          } satisfies LoependeVedtak
         ).as('getLoependeVedtak')
 
         cy.login()

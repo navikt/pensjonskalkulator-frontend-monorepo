@@ -803,7 +803,7 @@ describe('Typeguards', () => {
   })
 
   describe('isLoependeVedtak', () => {
-    const correctResponse = {
+    const correctResponse: LoependeVedtak = {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
@@ -818,7 +818,6 @@ describe('Typeguards', () => {
       afpOffentlig: {
         fom: '2020-10-02',
       },
-      harFremtidigLoependeVedtak: false,
     }
     it('returnerer true når input er et LoependeVedtak-objekt', () => {
       expect(

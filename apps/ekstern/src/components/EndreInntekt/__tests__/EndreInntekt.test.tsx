@@ -147,14 +147,11 @@ describe('EndreInntekt', () => {
 
   describe('Gitt at brukeren har uføretrygd', () => {
     it('viser riktig tekst', async () => {
-      mockResponse('/v3/vedtak/loepende-vedtak', {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          ufoeretrygd: {
-            grad: 100,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
+          ufoeretrygd: { grad: 100 },
+        } satisfies LoependeVedtak,
       })
       const { store } = render(
         <EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />

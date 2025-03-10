@@ -1130,11 +1130,8 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
-          harFremtidigLoependeVedtak: false,
-          ufoeretrygd: {
-            grad: 0,
-          },
-        },
+          ufoeretrygd: { grad: 0 },
+        } satisfies LoependeVedtak,
         normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
@@ -1458,11 +1455,8 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
-          harFremtidigLoependeVedtak: false,
-          ufoeretrygd: {
-            grad: 0,
-          },
-        },
+          ufoeretrygd: { grad: 0 },
+        } satisfies LoependeVedtak,
         normertPensjonsalder: {
           aar: 67,
           maaneder: 0,
@@ -2009,11 +2003,8 @@ describe('AvansertSkjemaForAndreBrukere', () => {
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
                       sivilstand: 'UGIFT',
                     },
-                    ufoeretrygd: {
-                      grad: 0,
-                    },
-                    harFremtidigLoependeVedtak: false,
-                  },
+                    ufoeretrygd: { grad: 0 },
+                  } satisfies LoependeVedtak,
                   fulfilledTimeStamp: 1688046412103,
                 },
               },

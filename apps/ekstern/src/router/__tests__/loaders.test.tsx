@@ -25,7 +25,10 @@ import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import {
+  userInputInitialState,
+  UserInputState,
+} from '@/state/userInput/userInputSlice'
 import { waitFor } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
@@ -274,7 +277,7 @@ describe('Loaders', () => {
     })
 
     it('Når /vedtak/loepende-vedtak kall feiler redirigeres brukes til uventet-feil side', async () => {
-      mockErrorResponse('/v3/vedtak/loepende-vedtak')
+      mockErrorResponse('/v4/vedtak/loepende-vedtak')
 
       const mockedState = {
         userInput: { ...userInputInitialState },
@@ -1200,17 +1203,17 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                ufoeretrygd: {
-                  grad: 0,
-                },
-                harFremtidigLoependeVedtak: false,
-              },
+                ufoeretrygd: { grad: 0 },
+              } satisfies LoependeVedtak,
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
           },
         },
-        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+        userInput: {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+        } satisfies UserInputState,
       }
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
@@ -1229,17 +1232,17 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                ufoeretrygd: {
-                  grad: 50,
-                },
-                harFremtidigLoependeVedtak: false,
-              },
+                ufoeretrygd: { grad: 50 },
+              } satisfies LoependeVedtak,
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
           },
         },
-        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+        userInput: {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+        } satisfies UserInputState,
       }
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
@@ -1285,17 +1288,17 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                ufoeretrygd: {
-                  grad: 0,
-                },
-                harFremtidigLoependeVedtak: false,
-              },
+                ufoeretrygd: { grad: 0 },
+              } satisfies LoependeVedtak,
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
           },
         },
-        userInput: { ...userInputInitialState, afp: 'nei' },
+        userInput: {
+          ...userInputInitialState,
+          afp: 'nei',
+        } satisfies UserInputState,
       }
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState

@@ -16,11 +16,8 @@ describe('stegvisning - Start', () => {
   const onCancelMock = vi.fn()
   const onNextMock = vi.fn()
 
-  const loependeVedtak = {
-    ufoeretrygd: {
-      grad: 0,
-    },
-    harFremtidigLoependeVedtak: false,
+  const loependeVedtak: LoependeVedtak = {
+    ufoeretrygd: { grad: 0 },
   }
 
   it('kaller navigate når shouldRedirectTo er angitt', async () => {
@@ -66,10 +63,7 @@ describe('stegvisning - Start', () => {
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
+          ufoeretrygd: { grad: 0 },
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -97,10 +91,7 @@ describe('stegvisning - Start', () => {
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
-          ufoeretrygd: {
-            grad: 80,
-          },
-          harFremtidigLoependeVedtak: false,
+          ufoeretrygd: { grad: 80 },
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -137,7 +128,6 @@ describe('stegvisning - Start', () => {
           afpPrivat: {
             fom: '2020-10-02',
           },
-          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -174,7 +164,6 @@ describe('stegvisning - Start', () => {
           afpOffentlig: {
             fom: '2020-10-02',
           },
-          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -203,8 +192,10 @@ describe('stegvisning - Start', () => {
           ufoeretrygd: {
             grad: 0,
           },
-
-          harFremtidigLoependeVedtak: true,
+          fremtidigAlderspensjon: {
+            grad: 100,
+            fom: '2099-01-01',
+          },
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -234,7 +225,10 @@ describe('stegvisning - Start', () => {
           ufoeretrygd: {
             grad: 0,
           },
-          harFremtidigLoependeVedtak: true,
+          fremtidigAlderspensjon: {
+            grad: 100,
+            fom: '2099-01-01',
+          },
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}

@@ -91,12 +91,15 @@ describe('Hovedhistorie', () => {
           cy.intercept(
             {
               method: 'GET',
-              url: '/pensjon/kalkulator/api/v3/vedtak/loepende-vedtak',
+              url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
               ...loependeVedtakMock,
-              harFremtidigLoependeVedtak: true,
-            }
+              fremtidigAlderspensjon: {
+                grad: 100,
+                fom: '2099-01-01',
+              },
+            } satisfies LoependeVedtak
           ).as('getLoependeVedtak')
           cy.login()
         })
