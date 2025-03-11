@@ -357,9 +357,9 @@ const translations = {
     'Opptjeningen din i folketrygden bestemmer hvor mye alderspensjon du kan ta ut. Ved {normertPensjonsalder} må pensjonen minst tilsvare garantipensjon. Uttak før {normertPensjonsalder} betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har AFP, er AFP med i vurderingen av hvor mye alderspensjon du kan ta ut.',
   'beregning.alt_tekst': 'Årlig inntekt og pensjon etter uttak i kroner.',
   'omufoeretrygd.hel.ingress':
-    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Kommende lovendringer vil gradvis øke pensjonsalderen fra 2027.',
   'omufoeretrygd.gradert.ingress':
-    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}. {br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}. {br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen fra 2027.',
   'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
   'omufoeretrygd.readmore.hel.ingress':
     '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før <nowrap>{normertPensjonsalder}</nowrap> i kalkulatoren. Ved <nowrap>{normertPensjonsalder}</nowrap> går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>55 55 33 34</nowrap>.',

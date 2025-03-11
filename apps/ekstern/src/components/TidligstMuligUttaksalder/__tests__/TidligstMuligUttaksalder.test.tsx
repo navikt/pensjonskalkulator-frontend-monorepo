@@ -325,7 +325,7 @@ describe('TidligstMuligUttaksalder', () => {
       )
       expect(
         await screen.findByText(
-          'Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+          'Kommende lovendringer vil gradvis øke pensjonsalderen fra 2027.',
           {
             exact: false,
           }
