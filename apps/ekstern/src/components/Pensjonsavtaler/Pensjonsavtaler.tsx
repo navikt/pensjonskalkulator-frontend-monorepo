@@ -76,6 +76,7 @@ export const Pensjonsavtaler = (props: {
       const requestBody = generateOffentligTpRequestBody({
         afp,
         foedselsdato,
+        sivilstand,
         epsHarInntektOver2G,
         epsHarPensjon,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',

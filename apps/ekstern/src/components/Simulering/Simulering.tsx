@@ -115,6 +115,7 @@ export function Simulering(props: {
         generateOffentligTpRequestBody({
           afp,
           foedselsdato,
+          sivilstand,
           epsHarPensjon,
           epsHarInntektOver2G,
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -126,6 +127,7 @@ export function Simulering(props: {
           utenlandsperioder,
         })
       )
+
       setPensjonsavtalerRequestBody(
         generatePensjonsavtalerRequestBody({
           ufoeregrad,
