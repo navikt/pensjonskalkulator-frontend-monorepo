@@ -96,7 +96,7 @@ describe('Simulering', () => {
           headingLevel="3"
           alderspensjonListe={alderspensjonData.alderspensjon}
           afpPrivatListe={afpPrivatData.afpPrivat}
-          showButtonsAndTable={false}
+          showButtonsAndTable={true}
           aarligInntektFoerUttakBeloep="500 000"
           alderspensjonMaanedligVedEndring={{
             heltUttakMaanedligBeloep: 100000,

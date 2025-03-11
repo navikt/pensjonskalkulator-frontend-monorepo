@@ -14,12 +14,14 @@ interface Props {
   heltUttaksalder: Alder | null
   gradertUttaksperiode?: GradertUttak
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
+  isLoading: boolean
 }
 
 export const SimuleringEndringBanner: React.FC<Props> = ({
   heltUttaksalder,
   gradertUttaksperiode,
   alderspensjonMaanedligVedEndring,
+  isLoading,
 }) => {
   const intl = useIntl()
   const isEndring = useAppSelector(selectIsEndring)
@@ -32,7 +34,7 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
     <aside className={styles.wrapper}>
       <BodyLong>
         <FormattedMessage id="beregning.avansert.endring_banner.title" />
-        {gradertUttaksperiode ? (
+        {gradertUttaksperiode || isLoading ? (
           ''
         ) : (
           <>
@@ -49,6 +51,7 @@ export const SimuleringEndringBanner: React.FC<Props> = ({
       </BodyLong>
 
       {gradertUttaksperiode &&
+        !isLoading &&
         alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep !==
           undefined && (
           <ul className={styles.list}>

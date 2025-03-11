@@ -389,6 +389,7 @@ describe('Endring av alderspensjon', () => {
             beforeEach(() => {
               cy.contains('Beregn ny pensjon').click()
               cy.contains('Beregning').should('exist')
+              cy.contains('Pensjonsgivende inntekt').should('exist')
             })
 
             it('forventer jeg informasjon om hvilken uttaksgrad på alderspensjon jeg har i dag.', () => {

@@ -7,7 +7,7 @@ import { screen, render } from '@/test-utils'
 
 describe('SimuleringEndringBanner', () => {
   it('Gitt at brukeren ikke har noe vedtak om alderspensjon, skal banneren ikke vises.', () => {
-    render(<SimuleringEndringBanner heltUttaksalder={null} />)
+    render(<SimuleringEndringBanner isLoading={false} heltUttaksalder={null} />)
     expect(
       screen.queryByText('beregning.avansert.endring_banner.title')
     ).not.toBeInTheDocument()
@@ -23,15 +23,18 @@ describe('SimuleringEndringBanner', () => {
     }
 
     it('Når heltUttaksalder er null, skal banneren ikke vises.', () => {
-      render(<SimuleringEndringBanner heltUttaksalder={null} />, {
-        // @ts-ignore
-        preloadedState: {
-          ...preloadedQueries,
-          userInput: {
-            ...userInputInitialState,
+      render(
+        <SimuleringEndringBanner isLoading={false} heltUttaksalder={null} />,
+        {
+          // @ts-ignore
+          preloadedState: {
+            ...preloadedQueries,
+            userInput: {
+              ...userInputInitialState,
+            },
           },
-        },
-      })
+        }
+      )
       expect(
         screen.queryByText('beregning.avansert.endring_banner.title')
       ).not.toBeInTheDocument()
@@ -39,7 +42,10 @@ describe('SimuleringEndringBanner', () => {
 
     it('Når heltUttaksalder er satt, skal banneren vises med riktig tekst.', () => {
       const { asFragment } = render(
-        <SimuleringEndringBanner heltUttaksalder={{ aar: 67, maaneder: 0 }} />,
+        <SimuleringEndringBanner
+          isLoading={false}
+          heltUttaksalder={{ aar: 67, maaneder: 0 }}
+        />,
         {
           // @ts-ignore
           preloadedState: {
@@ -95,6 +101,7 @@ describe('SimuleringEndringBanner', () => {
     it('Når heltUttaksalder er satt med alderspensjonMaanedligVedEndring, skal banneren vises med riktig tekst.', () => {
       const { asFragment } = render(
         <SimuleringEndringBanner
+          isLoading={false}
           heltUttaksalder={{ aar: 67, maaneder: 0 }}
           alderspensjonMaanedligVedEndring={{
             heltUttakMaanedligBeloep: 100000,
@@ -155,6 +162,7 @@ describe('SimuleringEndringBanner', () => {
     it('Når heltUttaksalder og gradertUttaksperiode er satt, skal banneren vises med riktig tekst.', () => {
       const { asFragment } = render(
         <SimuleringEndringBanner
+          isLoading={false}
           heltUttaksalder={{ aar: 67, maaneder: 0 }}
           gradertUttaksperiode={{
             uttaksalder: { aar: 62, maaneder: 0 },
