@@ -2,6 +2,8 @@ declare const classNames: {
   readonly section: "section";
   readonly title: "title";
   readonly loader: "loader";
+  readonly infoClick: "infoClick";
+  readonly highchartsWrapper: "highchartsWrapper";
   readonly tooltip: "tooltip";
   readonly tooltipTable: "tooltipTable";
   readonly tooltipLine: "tooltipLine";

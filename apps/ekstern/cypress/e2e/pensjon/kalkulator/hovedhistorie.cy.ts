@@ -481,6 +481,7 @@ describe('Hovedhistorie', () => {
         cy.contains('61').should('not.exist')
         cy.contains('69').should('be.visible')
         cy.contains('87+').should('exist')
+        cy.contains('Klikk på søylene for detaljer').should('exist')
       })
 
       it('forventer jeg en egen tabell med oversikt over mine pensjonsavtaler. Jeg må kunne trykke på trykk vis mer for å se all informasjon, og vis mindre for å skjule informasjon om pensjonsavtaler.', () => {

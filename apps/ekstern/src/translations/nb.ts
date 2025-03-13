@@ -400,6 +400,7 @@ const translations = {
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
+  'beregning.highcharts.informasjon_klikk': 'Klikk på søylene for detaljer',
   'beregning.highcharts.title': 'Beregning',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',

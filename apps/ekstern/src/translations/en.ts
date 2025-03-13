@@ -394,6 +394,7 @@ const translations = {
   'beregning.title': 'Calculation',
   'beregning.alert.inntekt':
     'Because you have changed your income, your pension accrual changes.',
+  'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
   'beregning.highcharts.xaxis': 'Annual Income and Pension after Withdrawal',
   'beregning.highcharts.yaxis': 'Currency',

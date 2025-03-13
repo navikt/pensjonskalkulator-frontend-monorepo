@@ -1,7 +1,8 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Heading, HeadingProps } from '@navikt/ds-react'
+import { HandFingerIcon } from '@navikt/aksel-icons'
+import { BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
@@ -195,12 +196,25 @@ export function Simulering(props: {
         <div id="alt-chart-title" hidden>
           <FormattedMessage id="beregning.alt_tekst" />
         </div>
-        <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
+        <div
+          className={styles.highchartsWrapper}
+          data-testid="highcharts-aria-wrapper"
+          aria-hidden={true}
+        >
           <HighchartsReact
             ref={chartRef}
             highcharts={Highcharts}
             options={chartOptions}
           />
+
+          <BodyShort
+            size="small"
+            textColor="subtle"
+            className={styles.infoClick}
+          >
+            <HandFingerIcon />
+            <FormattedMessage id="beregning.highcharts.informasjon_klikk" />
+          </BodyShort>
         </div>
       </div>
       {showButtonsAndTable && (

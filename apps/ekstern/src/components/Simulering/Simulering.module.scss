@@ -40,6 +40,30 @@
   }
 }
 
+.infoClick {
+  display: none;
+}
+
+@media (min-width: variables.$a-breakpoint-lg) {
+  .infoClick {
+    display: flex;
+    position: absolute;
+    top: 0.1rem;
+    right: 10px;
+    align-items: center;
+    gap: 4px;
+
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .highchartsWrapper {
+    position: relative;
+  }
+}
+
 .tooltip {
   right: 0.375rem;
   background-color: var(--a-white);
