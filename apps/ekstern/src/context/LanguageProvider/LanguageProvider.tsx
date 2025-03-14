@@ -53,12 +53,6 @@ export function LanguageProvider({ children }: Props) {
         `*[_type == "readmore" && language == "${locale}"] | {name,overskrift,innhold}`
       )
       .then((sanityReadMoreResponse) => {
-        if (!sanityReadMoreResponse.ok) {
-          logger('info', {
-            tekst: `${logTekst} med status: ${sanityReadMoreResponse.status}`,
-            data: logData,
-          })
-        }
         setSanityReadMoreData(
           Object.fromEntries(
             (sanityReadMoreResponse || []).map((readmore: SanityReadMore) => [
@@ -79,12 +73,6 @@ export function LanguageProvider({ children }: Props) {
         `*[_type == "forbeholdAvsnitt" && language == "${locale}"] | order(order asc) | {overskrift,innhold}`
       )
       .then((sanityForbeholdAvsnittResponse) => {
-        if (!sanityForbeholdAvsnittResponse.ok) {
-          logger('info', {
-            tekst: `${logTekst} med status: ${sanityForbeholdAvsnittResponse.status}`,
-            data: logData,
-          })
-        }
         setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
       })
       .catch(() => {
