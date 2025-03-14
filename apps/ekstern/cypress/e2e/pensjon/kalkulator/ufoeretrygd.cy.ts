@@ -237,10 +237,7 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd».', () => {
-        cy.contains('Om pensjonsalder og uføretrygd').click()
-        cy.contains(
-          '100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon.'
-        ).should('exist')
+        cy.get('[data-testid="om_pensjonsalder_UT_hel"]').should('exist')
       })
 
       it('forventer jeg å kunne velge alder fra 67 år til 75 år.', () => {
@@ -282,10 +279,9 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd».', () => {
-        cy.contains('Om pensjonsalder og uføretrygd').click()
-        cy.contains(
-          'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %.'
-        ).should('exist')
+        cy.get('[data-testid="om_pensjonsalder_UT_gradert_enkel"]').should(
+          'exist'
+        )
       })
 
       it('forventer jeg å kunne velge alder fra 67 år til 75 år.', () => {

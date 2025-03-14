@@ -6,6 +6,7 @@ import {
   fulfilledGetOmstillingsstoenadOgGjenlevende,
   fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
+import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -27,7 +28,7 @@ describe('TidligstMuligUttaksalder', () => {
   })
 
   describe('Gitt at en bruker ikke mottar uføretrygd, ', () => {
-    it('når tidligstMuligUttak ikke kunne hentes, vises riktig introduksjonstekst og readmore nederst har riktig tekst.', async () => {
+    it('vises riktig introduksjonstekst og readmore nederst har riktig tekst.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={undefined}
@@ -50,22 +51,9 @@ describe('TidligstMuligUttaksalder', () => {
       )
 
       expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
-      expect(
-        screen.getByText('beregning.read_more.pensjonsalder.label')
-      ).toBeInTheDocument()
-      expect(
-        screen.queryByText('beregning.read_more.pensjonsalder.body.optional', {
-          exact: false,
-        })
-      ).not.toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.',
-          {
-            exact: false,
-          }
-        )
-      ).toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByTestId('om_TMU')).toBeVisible()
+      })
       expect(
         screen.queryByText(
           'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
@@ -73,10 +61,11 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('når tidligstMuligUttak kunne hentes, vises readmore nederst med riktig tekst.', async () => {
+    it('vises riktig readmore nederst har riktig tekst, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
       render(
         <TidligstMuligUttaksalder
-          tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
+          tidligstMuligUttak={undefined}
           ufoeregrad={0}
           show1963Text={false}
         />,
@@ -94,34 +83,14 @@ describe('TidligstMuligUttaksalder', () => {
           },
         }
       )
-      expect(
-        screen.queryByText('tidligstmuliguttak.error')
-      ).not.toBeInTheDocument()
+
       expect(
         screen.getByText('beregning.read_more.pensjonsalder.label')
       ).toBeInTheDocument()
       expect(
-        screen.getByText('beregning.read_more.pensjonsalder.body.optional', {
+        screen.queryByText('beregning.read_more.pensjonsalder.body', {
           exact: false,
         })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByText('Beregningen din viser at du kan ta ut', {
-          exact: false,
-        })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.',
-          {
-            exact: false,
-          }
-        )
-      ).toBeInTheDocument()
-      expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
       ).not.toBeInTheDocument()
     })
 
@@ -147,10 +116,56 @@ describe('TidligstMuligUttaksalder', () => {
         }
       )
       await waitFor(() => {
+        expect(screen.getByTestId('om_TMU')).toBeInTheDocument()
         expect(
-          screen.getByText('beregning.read_more.pensjonsalder.body.optional', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
+        ).toBeInTheDocument()
+        expect(
+          screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
+            exact: false,
+          })
+        ).toBeInTheDocument()
+        expect(
+          screen.queryByText('tidligstmuliguttak.1963.ingress_2')
+        ).not.toBeInTheDocument()
+        expect(
+          screen.getByText('tidligstmuliguttak.1964.ingress_2')
+        ).toBeInTheDocument()
+      })
+      expect(
+        screen.queryByText(
+          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
+        )
+      ).not.toBeInTheDocument()
+    })
+
+    it('når brukeren er født etter 1963, vises riktig ingress, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
+          ufoeregrad={0}
+          show1963Text={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      await waitFor(() => {
+        expect(
+          screen.getByText('beregning.read_more.pensjonsalder.label')
         ).toBeInTheDocument()
         expect(
           screen.getByText('Beregningen din viser at du kan ta ut', {
@@ -170,8 +185,10 @@ describe('TidligstMuligUttaksalder', () => {
         ).toBeInTheDocument()
       })
       expect(
-        screen.getByText('beregning.read_more.pensjonsalder.label')
-      ).toBeInTheDocument()
+        screen.queryByText('beregning.read_more.pensjonsalder.body', {
+          exact: false,
+        })
+      ).not.toBeInTheDocument()
       expect(
         screen.queryByText(
           'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
@@ -201,10 +218,56 @@ describe('TidligstMuligUttaksalder', () => {
         }
       )
       await waitFor(() => {
+        expect(screen.getByTestId('om_TMU')).toBeInTheDocument()
         expect(
-          screen.getByText('beregning.read_more.pensjonsalder.body.optional', {
+          screen.getByText('Beregningen din viser at du kan ta ut', {
             exact: false,
           })
+        ).toBeInTheDocument()
+        expect(
+          screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
+            exact: false,
+          })
+        ).toBeInTheDocument()
+        expect(
+          screen.getByText('tidligstmuliguttak.1963.ingress_2')
+        ).toBeInTheDocument()
+        expect(
+          screen.queryByText('tidligstmuliguttak.1964.ingress_2')
+        ).not.toBeInTheDocument()
+      })
+      expect(
+        screen.queryByText(
+          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
+        )
+      ).not.toBeInTheDocument()
+    })
+
+    it('når brukeren er født i 1963, vises riktig ingress, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
+          ufoeregrad={0}
+          show1963Text={true}
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      await waitFor(() => {
+        expect(
+          screen.getByText('beregning.read_more.pensjonsalder.label')
         ).toBeInTheDocument()
         expect(
           screen.getByText('Beregningen din viser at du kan ta ut', {
@@ -224,8 +287,10 @@ describe('TidligstMuligUttaksalder', () => {
         ).not.toBeInTheDocument()
       })
       expect(
-        screen.getByText('beregning.read_more.pensjonsalder.label')
-      ).toBeInTheDocument()
+        screen.queryByText('beregning.read_more.pensjonsalder.body', {
+          exact: false,
+        })
+      ).not.toBeInTheDocument()
       expect(
         screen.queryByText(
           'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
@@ -265,8 +330,46 @@ describe('TidligstMuligUttaksalder', () => {
     })
   })
 
-  describe('Gitt at en bruker ikke mottar uføretrygd, ', () => {
+  describe('Gitt at en bruker mottar uføretrygd, ', () => {
     it('når tidligstMuligUttak ikke kunne hentes, vises ikke noe feilmelding og readmore nederst har riktig tekst.', async () => {
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={undefined}
+          ufoeregrad={100}
+          show1963Text={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+
+      expect(
+        screen.queryByText('tidligstmuliguttak.error')
+      ).not.toBeInTheDocument()
+
+      await waitFor(() => {
+        expect(screen.getByTestId('om_pensjonsalder_UT_hel')).toBeVisible()
+      })
+      expect(
+        screen.queryByText('beregning.read_more.pensjonsalder.label')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(
+          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
+        )
+      ).not.toBeInTheDocument()
+    })
+
+    it('når tidligstMuligUttak ikke kunne hentes, vises ikke noe feilmelding og readmore nederst har riktig tekst, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={undefined}
@@ -304,6 +407,32 @@ describe('TidligstMuligUttaksalder', () => {
     })
 
     it('viser riktig innhold med 100 % ufoeretrygd.', async () => {
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={undefined}
+          ufoeregrad={100}
+          show1963Text={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      // Check for the data-testid for the ReadMore component when Sanity is enabled
+      await waitFor(() => {
+        expect(screen.getByTestId('om_pensjonsalder_UT_hel')).toBeVisible()
+      })
+    })
+
+    it('viser riktig innhold med 100 % ufoeretrygd, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
       const user = userEvent.setup()
       render(
         <TidligstMuligUttaksalder
@@ -341,6 +470,34 @@ describe('TidligstMuligUttaksalder', () => {
     })
 
     it('viser riktig innhold med gradert ufoeretrygd.', async () => {
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={undefined}
+          ufoeregrad={75}
+          show1963Text={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      // Check for the data-testid for the ReadMore component when Sanity is enabled
+      await waitFor(() => {
+        expect(
+          screen.getByTestId('om_pensjonsalder_UT_gradert_enkel')
+        ).toBeVisible()
+      })
+    })
+
+    it('viser riktig innhold med gradert ufoeretrygd, når tekstene fra sanity ikke kunne hentes', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulation'

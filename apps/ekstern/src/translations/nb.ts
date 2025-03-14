@@ -349,8 +349,6 @@ const translations = {
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'beregning.read_more.pensjonsalder.label':
     'Om tidspunktet for tidligst uttak',
-  'beregning.read_more.pensjonsalder.body.optional':
-    'Den oppgitte alderen er et estimat. ',
   'beregning.read_more.pensjonsalder.body':
     'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Hvis du har oppgitt AFP og/eller utenlandsopphold, er dette med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.',
   'beregning.read_more.pensjonsalder.endring.body':

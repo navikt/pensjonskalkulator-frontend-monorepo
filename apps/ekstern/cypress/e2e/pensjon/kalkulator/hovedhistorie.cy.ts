@@ -447,9 +447,9 @@ describe('Hovedhistorie', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Om tidspunktet for tidligst uttak').click()
-        cy.contains('Den oppgitte alderen er et estimat.').should('exist')
+        cy.get('[data-testid="om_TMU"]').should('exist')
       })
+
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
         cy.login()
         cy.fillOutStegvisning({})

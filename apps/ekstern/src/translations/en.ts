@@ -341,8 +341,6 @@ const translations = {
     'In Advanced, you can choose a more accurate pension age.',
   'beregning.read_more.pensjonsalder.label':
     'About the earliest withdrawal date',
-  'beregning.read_more.pensjonsalder.body.optional':
-    'The stated age is an estimate. ',
   'beregning.read_more.pensjonsalder.body':
     'Your earning record in the National Insurance Scheme determines when you can start withdrawing your retirement pension. The retirement age limits will gradually increase from the 1964 birth cohort by one to two months per year, but the pension calculator does not account for this.{br}{br}If you have provided information about AFP (contractual pension) and/or periods spent abroad, this is included in the assessment of when you can withdraw your retirement pension.{br}{br}If you cannot withdraw a full (100%) retirement pension from your desired age, you can adjust the withdrawal percentage to see if you can start earlier. If you withdraw a graded pension, the timing for when you can withdraw 100% may be delayed.',
   'beregning.read_more.pensjonsalder.endring.body':

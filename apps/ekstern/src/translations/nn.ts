@@ -296,7 +296,6 @@ const translations = {
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende': 'MANGLER_TEKST',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.label': 'MANGLER_TEKST',
-  'beregning.read_more.pensjonsalder.body.optional': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.body': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.endring.body': 'MANGLER_TEKST',
   'beregning.alt_tekst': 'MANGLER_TEKST',
