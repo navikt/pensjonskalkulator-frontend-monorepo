@@ -31,13 +31,7 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const router = createBrowserRouter(routes, {
-  basename: BASE_PATH,
-  future: {
-    v7_fetcherPersist: true,
-    v7_normalizeFormMethod: true,
-  },
-})
+const router = createBrowserRouter(routes, { basename: BASE_PATH })
 
 initializeLogs()
 
