@@ -234,8 +234,6 @@ const translations = {
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
   'stegvisning.ufoere.title': 'MANGLER_TEKST',
   'stegvisning.ufoere.info': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_1.title': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_1.body': 'MANGLER_TEKST',
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',

@@ -10,7 +10,6 @@ describe('stegvisning - Ufoere', () => {
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal', async () => {
-    const user = userEvent.setup()
     const result = render(
       <Ufoere
         onCancel={onCancelMock}
@@ -26,13 +25,9 @@ describe('stegvisning - Ufoere', () => {
       'Før du fyller 62 år må du'
     )
 
-    await user.click(screen.getByText('stegvisning.ufoere.readmore_1.title'))
-    expect(
-      await screen.findByText(
-        'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd',
-        { exact: false }
-      )
-    ).toBeVisible()
+    await waitFor(() => {
+      expect(screen.getByTestId('om_UT_AFP')).toBeVisible()
+    })
     expect(screen.getByTestId('ufoere-ingress')).toHaveTextContent(
       'Du kan få hjelp til å vurdere alternativene dine.'
     )

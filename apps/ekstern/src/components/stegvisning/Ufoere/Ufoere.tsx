@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import { ReadMore } from '@/components/common/ReadMore'
+import { SanityReadmore } from '@/components/common/SanityReadmore/SanityReadmore'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -47,16 +47,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           />
         </Alert>
 
-        <ReadMore
-          name="Om uføretrygd og avtalefestet pensjon"
-          className={styles.readmore1}
-          header={<FormattedMessage id="stegvisning.ufoere.readmore_1.title" />}
-        >
-          <FormattedMessage
-            id="stegvisning.ufoere.readmore_1.body"
-            values={{ ...getFormatMessageValues() }}
-          />
-        </ReadMore>
+        <SanityReadmore id={'om_UT_AFP'} className={styles.readmore1} />
 
         <BodyLong
           size="large"
