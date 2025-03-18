@@ -3,19 +3,31 @@ import { useIntl } from 'react-intl'
 import { Await, useLoaderData } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
-import { AFP } from '@/components/stegvisning/AFP'
+import {
+  AFP,
+  AFPOvergangskullUtenAP,
+  AFPPrivat,
+} from '@/components/stegvisning/AFP'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { StepAFPAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectAfp, selectIsVeileder } from '@/state/userInput/selectors'
+import {
+  selectAfp,
+  selectIsVeileder,
+  selectSkalBeregneAfp,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
+import { isAlderOver67, isFoedtFoer1963, isOvergangskull } from '@/utils/alder'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 
 export function StepAFP() {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const { shouldRedirectTo } = useLoaderData() as StepAFPAccessGuardLoader
+  const stepAFPAccessGuard =
+    useLoaderData() as Promise<StepAFPAccessGuardLoader>
   const previousAfp = useAppSelector(selectAfp)
+  const previousSkalBeregneAfp = useAppSelector(selectSkalBeregneAfp)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
@@ -27,8 +39,12 @@ export function StepAFP() {
     })
   }, [])
 
-  const onNext = (afpData: AfpRadio): void => {
-    dispatch(userInputActions.setAfp(afpData))
+  const onNext = (afp: AfpRadio, skalBeregneAfp?: boolean | null): void => {
+    dispatch(userInputActions.setAfp(afp))
+    if (skalBeregneAfp && skalBeregneAfp !== null) {
+      dispatch(userInputActions.setSkalBeregneAfp(skalBeregneAfp))
+    }
+
     if (onStegvisningNext) {
       onStegvisningNext()
     }
@@ -47,17 +63,44 @@ export function StepAFP() {
         </div>
       }
     >
-      <Await resolve={shouldRedirectTo}>
-        {(resp: string) => {
-          return (
-            <AFP
-              shouldRedirectTo={resp}
-              afp={previousAfp}
-              onCancel={isVeileder ? undefined : onStegvisningCancel}
-              onPrevious={onStegvisningPrevious}
-              onNext={onNext}
-            />
-          )
+      <Await resolve={stepAFPAccessGuard}>
+        {({ person, loependeVedtak }) => {
+          if (
+            isFoedtFoer1963(person.foedselsdato) &&
+            (isAlderOver67(person.foedselsdato) ||
+              isLoependeVedtakEndring(loependeVedtak))
+          ) {
+            return (
+              <AFPPrivat
+                previousAfp={previousAfp}
+                onCancel={isVeileder ? undefined : onStegvisningCancel}
+                onPrevious={onStegvisningPrevious}
+                onNext={onNext}
+              />
+            )
+          } else if (
+            isOvergangskull(person.foedselsdato) &&
+            !isLoependeVedtakEndring(loependeVedtak)
+          ) {
+            return (
+              <AFPOvergangskullUtenAP
+                previousAfp={previousAfp}
+                previousSkalBeregneAfp={previousSkalBeregneAfp}
+                onCancel={isVeileder ? undefined : onStegvisningCancel}
+                onPrevious={onStegvisningPrevious}
+                onNext={onNext}
+              />
+            )
+          } else {
+            return (
+              <AFP
+                previousAfp={previousAfp}
+                onCancel={isVeileder ? undefined : onStegvisningCancel}
+                onPrevious={onStegvisningPrevious}
+                onNext={onNext}
+              />
+            )
+          }
         }}
       </Await>
     </React.Suspense>

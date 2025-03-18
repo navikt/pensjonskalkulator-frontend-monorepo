@@ -18,6 +18,7 @@ export interface UserInputState {
   samtykke: boolean | null
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
+  skalBeregneAfp: boolean | null
   sivilstand: Sivilstand | null
   epsHarPensjon: boolean | null
   epsHarInntektOver2G: boolean | null
@@ -32,6 +33,7 @@ export const userInputInitialState: UserInputState = {
   samtykke: null,
   samtykkeOffentligAFP: null,
   afp: null,
+  skalBeregneAfp: null,
   sivilstand: null,
   epsHarInntektOver2G: null,
   epsHarPensjon: null,
@@ -85,6 +87,9 @@ export const userInputSlice = createSlice({
     },
     setAfp: (state, action: PayloadAction<AfpRadio>) => {
       state.afp = action.payload
+    },
+    setSkalBeregneAfp: (state, action: PayloadAction<boolean | null>) => {
+      state.skalBeregneAfp = action.payload
     },
     setSivilstand: (
       state,
@@ -160,6 +165,7 @@ export const userInputSlice = createSlice({
       state.sivilstand = null
       state.epsHarPensjon = null
       state.epsHarInntektOver2G = null
+      state.skalBeregneAfp = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
     flushCurrentSimulation: (state) => {

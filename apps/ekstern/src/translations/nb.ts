@@ -229,6 +229,7 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
   'stegvisning.afp.title': 'AFP (avtalefestet pensjon)',
+  'stegvisning.afpPrivat.title': 'AFP (avtalefestet pensjon) i privat sektor',
   'stegvisning.afp.ingress':
     'For å få AFP må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
   'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
@@ -251,14 +252,33 @@ const translations = {
     'kan tas ut sammen med alderspensjon fra folketrygden (Nav) og tjenestepensjon',
   'stegvisning.afp.readmore_offentlig_ingress':
     'De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om livsvarig AFP. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Hvis du er usikker på hva som gjelder for deg, sjekk hos arbeidsgiveren din.',
+  'stegvisning.afpOvergangskull.readmore_offentlig_title':
+    'Om AFP i offentlig sektor',
+  'stegvisning.afpOvergangskull.readmore_offentlig_list_item1':
+    'kan tas ut mellom 62 og 67 år',
+  'stegvisning.afpOvergangskull.readmore_offentlig_list_item2':
+    'reduseres mot inntekt',
+  'stegvisning.afpOvergangskull.readmore_offentlig_list_item3':
+    'kan ikke tas ut sammen med alderspensjon fra folketrygden (Nav)',
+  'stegvisning.afpOvergangskull.readmore_offentlig_ingress':
+    'De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om AFP. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Hvis du er usikker på hva som gjelder for deg, sjekk hos arbeidsgiveren din.',
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Vet ikke',
+  'stegvisning.afpPrivat.radio_label': 'Har du rett til AFP i privat sektor?',
+  'stegvisning.afp.overgangskullUtenAP.radio_label': 'Hva vil du beregne?',
+  'stegvisning.afp.overgangskullUtenAP.radio_ja':
+    'AFP etterfulgt av alderspensjon fra 67 år',
+  'stegvisning.afp.overgangskullUtenAP.radio_nei': 'Kun alderspensjon',
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.afpPrivat.validation_error':
+    'Du må svare på om du har rett til AFP i privat sektor.',
+  'stegvisning.afpOverganskull.validation_error':
+    'Du må svare på om du vil beregne AFP etterfulgt av alderspensjon fra 67 år eller kun alderspensjon.',
   'stegvisning.ufoere.title': 'Uføretrygd og AFP (avtalefestet pensjon)',
   'stegvisning.ufoere.info':
     'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden. {br}{br} AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden).',

@@ -68,6 +68,15 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('shallBeregneAfp', () => {
+      const skalBeregneAfpState = userInputReducer(
+        userInputInitialState,
+        userInputActions.setSkalBeregneAfp(true)
+      )
+
+      expect(skalBeregneAfpState.skalBeregneAfp).toBe(true)
+    })
+
     it('setUtenlandsperiode', () => {
       const utenlandsperiode: Utenlandsperiode = {
         id: '12345',
@@ -375,6 +384,7 @@ describe('userInputSlice', () => {
           harUtenlandsopphold: true,
           samtykke: true,
           samtykkeOffentligAFP: true,
+          skalBeregneAfp: true,
           afp: 'ja_offentlig',
           currentSimulation: {
             formatertUttaksalderReadOnly:

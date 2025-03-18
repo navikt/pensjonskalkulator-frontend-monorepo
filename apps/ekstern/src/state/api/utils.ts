@@ -5,6 +5,7 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
+// TODO: Legg til logikk for "AFP_ETTERFULGT_AV_ALDERSPENSJON_GAMMEL"
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
   afp: AfpRadio | null

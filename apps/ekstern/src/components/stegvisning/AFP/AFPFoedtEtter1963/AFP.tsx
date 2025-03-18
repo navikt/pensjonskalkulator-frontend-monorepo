@@ -1,18 +1,12 @@
 import { FormEvent } from 'react'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router'
 
-import {
-  Alert,
-  BodyLong,
-  Button,
-  Heading,
-  Radio,
-  RadioGroup,
-} from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
-import { STEGVISNING_FORM_NAMES } from '../utils'
+import { STEGVISNING_FORM_NAMES } from '../../utils'
+import styles from '../AFP.module.scss'
+import AFPRadioGroup from '../AFPRadiogroup'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
@@ -20,64 +14,48 @@ import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import styles from './AFP.module.scss'
-
 interface Props {
-  shouldRedirectTo?: string
-  afp: AfpRadio | null
+  previousAfp: AfpRadio | null
   onCancel?: () => void
   onPrevious: () => void
-  onNext: (afpData: AfpRadio) => void
+  onNext: (afpInput: AfpRadio) => void
 }
 
-export function AFP({
-  shouldRedirectTo,
-  afp,
-  onCancel,
-  onPrevious,
-  onNext,
-}: Props) {
+export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-  const navigate = useNavigate()
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
-    afp === 'vet_ikke'
+    previousAfp === 'vet_ikke'
   )
-
-  React.useEffect(() => {
-    if (shouldRedirectTo) {
-      navigate(shouldRedirectTo)
-    }
-  }, [shouldRedirectTo])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const data = new FormData(e.currentTarget)
-    const afpData = data.get('afp') as AfpRadio | undefined
+    const formData = new FormData(e.currentTarget)
+    const afpInput = formData.get('afp') as AfpRadio | null
 
-    if (!afpData) {
-      const tekst = intl.formatMessage({
+    if (!afpInput) {
+      const errorMessage = intl.formatMessage({
         id: 'stegvisning.afp.validation_error',
       })
-      setValidationError(tekst)
+      setValidationError(errorMessage)
       logger('skjema validering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.afp,
         data: intl.formatMessage({
           id: 'stegvisning.afp.radio_label',
         }),
-        tekst,
+        tekst: errorMessage,
       })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Rett til AFP',
-        valg: afpData,
+        valg: afpInput,
       })
       logger('button klikk', {
         tekst: `Neste fra ${paths.afp}`,
       })
-      onNext(afpData)
+      onNext(afpInput)
     }
   }
 
@@ -92,12 +70,8 @@ export function AFP({
     }
   }
 
-  if (shouldRedirectTo) {
-    return null
-  }
-
   return (
-    <Card hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin data-testid="afp-etter-1963">
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
@@ -161,40 +135,16 @@ export function AFP({
             </ul>
             <FormattedMessage
               id="stegvisning.afp.readmore_privat_link"
-              values={{
-                ...getFormatMessageValues(),
-              }}
+              values={{ ...getFormatMessageValues() }}
             />
           </ReadMore>
         </SanityReadmore>
-        <RadioGroup
-          className={styles.radiogroup}
-          legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
-          name="afp"
-          defaultValue={afp}
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value="ja_offentlig">
-            <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
-          </Radio>
-          <Radio value="ja_privat">
-            <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
-          </Radio>
-          <Radio value="nei">
-            <FormattedMessage id="stegvisning.afp.radio_nei" />
-          </Radio>
-          <Radio value="vet_ikke">
-            <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
-          </Radio>
-          {showVetIkkeAlert && (
-            <Alert className={styles.alert} variant="info" aria-live="polite">
-              <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
-            </Alert>
-          )}
-        </RadioGroup>
+        <AFPRadioGroup
+          afp={previousAfp}
+          handleRadioChange={handleRadioChange}
+          validationError={validationError}
+          showVetIkkeAlert={showVetIkkeAlert}
+        />
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>

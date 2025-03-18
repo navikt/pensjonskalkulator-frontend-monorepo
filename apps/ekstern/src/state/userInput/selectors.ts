@@ -31,6 +31,8 @@ export const selectIsVeileder = (state: RootState) =>
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
+export const selectSkalBeregneAfp = (state: RootState): boolean | null =>
+  state.userInput.skalBeregneAfp
 const selectPersonResponse = apiSlice.endpoints.getPerson.select()
 const selectInntektResponse = apiSlice.endpoints.getInntekt.select()
 const selectLoependeVedtakResponse =

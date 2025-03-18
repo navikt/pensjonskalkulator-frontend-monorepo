@@ -19,6 +19,7 @@ describe('store', () => {
       samtykke: true,
       samtykkeOffentligAFP: true,
       afp: null,
+      skalBeregneAfp: null,
       sivilstand: null,
       epsHarPensjon: null,
       epsHarInntektOver2G: null,

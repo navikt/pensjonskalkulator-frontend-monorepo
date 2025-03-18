@@ -22,6 +22,9 @@ import {
   getMaanedString,
   formaterSluttAlderString,
   formaterLivsvarigString,
+  isOvergangskull,
+  isAlderOver,
+  getAlderFromFoedselsdato,
 } from '../alder'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
@@ -660,6 +663,98 @@ describe('alder-utils', () => {
       expect(formaterLivsvarigString(intlMock, { aar: 67, maaneder: 0 })).toBe(
         'alder.livsvarig 67 alder.aar'
       )
+    })
+  })
+
+  describe('isOvergangskull', () => {
+    it('før overgangskull', () => {
+      const foedselsdato = '1953-12-31'
+
+      const actual = isOvergangskull(foedselsdato)
+      expect(actual).toBe(false)
+    })
+
+    it('start av overgangskull', () => {
+      const foedselsdato = '1954-01-01'
+
+      const actual = isOvergangskull(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('slutt av overgangskull', () => {
+      const foedselsdato = '1962-12-31'
+
+      const actual = isOvergangskull(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('etter overgangskull', () => {
+      const foedselsdato = '1963-01-01'
+
+      const actual = isOvergangskull(foedselsdato)
+      expect(actual).toBe(false)
+    })
+  })
+
+  describe('getAlderFromFoedselsdato', () => {
+    beforeAll(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-06-06'))
+    })
+
+    afterAll(() => {
+      vi.useRealTimers()
+    })
+
+    it('faketimers is set', () => {
+      const today = new Date()
+      expect(format(today, 'yyyy-MM-dd')).toBe('2025-06-06')
+    })
+
+    it('is 63 år today', () => {
+      const foedselsdato = '1962-06-06'
+      const age = getAlderFromFoedselsdato(foedselsdato)
+
+      expect(age).toBe(63)
+    })
+
+    it('is 63 år tomorrow', () => {
+      const foedselsdato = '1962-06-07'
+      const age = getAlderFromFoedselsdato(foedselsdato)
+
+      expect(age).toBe(62)
+    })
+  })
+
+  describe('isAlderOver', () => {
+    beforeAll(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-06-06'))
+    })
+
+    afterAll(() => {
+      vi.useRealTimers()
+    })
+
+    it('faketimers is set', () => {
+      const today = new Date()
+      expect(format(today, 'yyyy-MM-dd')).toBe('2025-06-06')
+    })
+
+    it('over 67 år', () => {
+      const foedselsdato = '1958-06-06' // 67 today (faketimers)
+      const actual = isAlderOver(67)(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('over 30 år', () => {
+      const foedselsdato = '1967-06-06' // 58 today
+      const actual = isAlderOver(30)(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('ikke over 63 år', () => {
+      const foedselsdato = '1967-06-06' // 58 today
+      const actual = isAlderOver(63)(foedselsdato)
+      expect(actual).toBe(false)
     })
   })
 })
