@@ -54,7 +54,7 @@ describe('Endring av alderspensjon', () => {
 
         it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
           cy.contains(
-            'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.'
+            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
@@ -527,7 +527,7 @@ describe('Endring av alderspensjon', () => {
 
         it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
           cy.contains(
-            'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.'
+            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
@@ -853,7 +853,7 @@ describe('Endring av alderspensjon', () => {
 
         it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
           cy.contains(
-            'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.'
+            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
@@ -1176,7 +1176,7 @@ describe('Endring av alderspensjon', () => {
 
         it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
           cy.contains(
-            'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.'
+            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
@@ -1470,7 +1470,7 @@ describe('Endring av alderspensjon', () => {
 
         it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
           cy.contains(
-            'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.'
+            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })

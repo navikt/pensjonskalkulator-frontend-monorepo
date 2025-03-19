@@ -73,18 +73,16 @@ const translations = {
   'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.fremtidigvedtak.alert':
-    'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.',
-  'stegvisning.fremtidigvedtak.endring.alert':
-    'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.',
+    'Du har vedtak om {grad} % alderspensjon fra {fom}. Du kan gjøre en ny beregning her frem til uttak.',
   'stegvisning.start.title': 'Hei',
-  'stegvisning.start.endring.ingress':
-    'Du har nå <strong>{grad} % alderspensjon</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',
-  'stegvisning.start.endring.ufoeretrygd':
-    ' og <strong>{grad} % uføretrygd</strong>',
-  'stegvisning.start.endring.afp.privat':
-    ' og <strong>AFP i privat sektor</strong>',
-  'stegvisning.start.endring.afp.offentlig':
-    ' og <strong>AFP i offentlig sektor</strong>',
+  'stegvisning.start.endring.ingress_1a': `Du har nå <strong>{grad} % alderspensjon</strong>{
+      ufoeretrygd,  select,     0 {} other { og <strong>{ufoeretrygd} % uføretrygd</strong>}}{
+      afpPrivat,    select, false {} other { og <strong>AFP i privat sektor</strong>}}{
+      afpOffentlig, select, false {} other { og <strong>AFP i offentlig sektor</strong>}}. `,
+  'stegvisning.start.endring.ingress_1b.uten_fremtidig':
+    'Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',
+  'stegvisning.start.endring.ingress_1b.med_fremtidig':
+    'Du har endret til <strong>{grad} % alderspensjon fra {fom}</strong>. Du kan ikke gjøre en ny beregning her før denne datoen.{br}{br}Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'alderspensjon (Nav)',

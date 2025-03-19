@@ -9,7 +9,7 @@ exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig headin
       class="_wrapper_09901f"
     >
       <img
-        alt=""
+        aria-hidden="true"
         class="_image_09901f"
         src="/pensjon/kalkulator/src/assets/frida.svg"
       />
@@ -61,7 +61,7 @@ exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig headin
           </li>
         </ul>
         <p
-          class="navds-body-long navds-body-long--large"
+          class="navds-body-long navds-body-long--medium"
         >
           stegvisning.start.ingress_2
         </p>
@@ -76,7 +76,7 @@ exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig headin
           </span>
         </button>
         <button
-          class="navds-button navds-button--tertiary navds-button--medium"
+          class="_button_09901f navds-button navds-button--tertiary navds-button--medium"
           type="button"
         >
           <span

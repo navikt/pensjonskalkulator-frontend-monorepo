@@ -9,12 +9,7 @@ import {
 import { render, screen } from '@/test-utils'
 
 describe('InfoOmFremtidigVedtak', () => {
-  it('Når vedtaket ikke er oppgitt, returnerer null', () => {
-    const { asFragment } = render(<InfoOmFremtidigVedtak />)
-    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
-  })
-
-  it('Når vedtaket ikke gjelder frem i tid, returnerer null', () => {
+  it('Ved gjeldende vedtak uten fremtidig vedtak, returnerer null', () => {
     const { asFragment } = render(
       <InfoOmFremtidigVedtak
         loependeVedtak={
@@ -27,20 +22,8 @@ describe('InfoOmFremtidigVedtak', () => {
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
-  it('Når vedtaket gjelder frem i tid, returnerer riktig tekst', () => {
-    render(
-      <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
-            .data
-        }
-      />
-    )
-    expect(screen.getByText('stegvisning.fremtidigvedtak.alert')).toBeVisible()
-  })
-
-  it('Når vedtaket gjelder både nå og frem i tid, returnerer riktig tekst', () => {
-    render(
+  it('Ved både gjeldende og fremtidig vedtak, returnerer null', () => {
+    const { asFragment } = render(
       <InfoOmFremtidigVedtak
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidigMedAlderspensjon[
@@ -49,105 +32,22 @@ describe('InfoOmFremtidigVedtak', () => {
         }
       />
     )
+    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
+  })
+
+  it('Ved fremtidig vedtak, returnerer riktig tekst', () => {
+    render(
+      <InfoOmFremtidigVedtak
+        loependeVedtak={
+          fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
+            .data
+        }
+      />
+    )
     expect(
-      screen.getByText('stegvisning.fremtidigvedtak.endring.alert')
+      screen.getByText(
+        'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
+      )
     ).toBeVisible()
-  })
-
-  it('Når vedtaket ikke er sentrert, returnerer riktig styling', () => {
-    const { asFragment } = render(
-      <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
-            .data
-        }
-      />
-    )
-    expect(asFragment()).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        <div
-          aria-live="polite"
-          class="_alert_2fc705 navds-alert navds-alert--info navds-alert--medium"
-        >
-          <svg
-            aria-labelledby="title-r2"
-            class="navds-alert__icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title
-              id="title-r2"
-            >
-              Informasjon
-            </title>
-            <path
-              clip-rule="evenodd"
-              d="M3.25 4A.75.75 0 0 1 4 3.25h16a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H4a.75.75 0 0 1-.75-.75zM11 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0m-1.25 3a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 .75.75v4.75h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75v-4h-.75a.75.75 0 0 1-.75-.75"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <div
-            class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
-          >
-            stegvisning.fremtidigvedtak.alert
-          </div>
-        </div>
-      </DocumentFragment>
-    `)
-  })
-
-  it('Når vedtaket er sentrert, returnerer riktig styling', () => {
-    const { asFragment } = render(
-      <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
-            .data
-        }
-        isCentered
-      />
-    )
-    expect(asFragment()).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        <div
-          aria-live="polite"
-          class="_alert_2fc705 _alert__centered_2fc705 navds-alert navds-alert--info navds-alert--medium"
-        >
-          <svg
-            aria-labelledby="title-r3"
-            class="navds-alert__icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title
-              id="title-r3"
-            >
-              Informasjon
-            </title>
-            <path
-              clip-rule="evenodd"
-              d="M3.25 4A.75.75 0 0 1 4 3.25h16a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H4a.75.75 0 0 1-.75-.75zM11 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0m-1.25 3a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 .75.75v4.75h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75v-4h-.75a.75.75 0 0 1-.75-.75"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <div
-            class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
-          >
-            stegvisning.fremtidigvedtak.alert
-          </div>
-        </div>
-      </DocumentFragment>
-    `)
   })
 })

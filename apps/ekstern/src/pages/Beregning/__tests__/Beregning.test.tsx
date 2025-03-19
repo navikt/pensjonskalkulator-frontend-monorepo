@@ -8,7 +8,6 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakFremtidig,
-  fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -92,7 +91,7 @@ describe('Beregning', () => {
       expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
     })
 
-    it('når vedtaket gjelder frem i tid vises info om det på toppen av siden', async () => {
+    it('når vedtaket gjelder frem i tid, vises info om det på toppen av siden', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
           api: {
@@ -119,38 +118,9 @@ describe('Beregning', () => {
       })
 
       expect(
-        screen.getByText('stegvisning.fremtidigvedtak.alert')
-      ).toBeVisible()
-    })
-
-    it('når vedtaket gjelder både nå og frem i tid vises info om det på toppen av siden', async () => {
-      render(<Beregning visning="enkel" />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: false,
-            currentSimulation: {
-              beregningsvalg: null,
-              formatertUttaksalderReadOnly:
-                '70 alder.aar string.og 4 alder.maaned',
-              uttaksalder: { aar: 70, maaneder: 4 },
-              aarligInntektFoerUttakBeloep: '300 000',
-              gradertUttaksperiode: null,
-            },
-          },
-        },
-      })
-
-      expect(
-        screen.getByText('stegvisning.fremtidigvedtak.endring.alert')
+        screen.getByText(
+          'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
+        )
       ).toBeVisible()
     })
   })

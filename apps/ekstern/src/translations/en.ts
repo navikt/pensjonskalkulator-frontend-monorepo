@@ -74,19 +74,15 @@ const translations = {
     'If you go back to start, you will lose all your choices.',
   'stegvisning.tilbake_start.modal.bekreft': 'Go back to start',
   'stegvisning.tilbake_start.modal.avbryt': 'Cancel',
-  'stegvisning.fremtidigvedtak.alert':
-    'You have changed your retirement pension but have not yet initiated a new withdrawal. You can calculate further changes here until you start withdrawing.',
-  'stegvisning.fremtidigvedtak.endring.alert':
-    'You have changed your retirement pension but have not started a new withdrawal yet. You can calculate a new change here until you start withdrawing.',
+  'stegvisning.fremtidigvedtak.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hello',
-  'stegvisning.start.endring.ingress':
-    'You currently have <strong>{grad} % retirement pension</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Here you can check what you can receive if you want to change your retirement pension.{br}{br}',
-  'stegvisning.start.endring.ufoeretrygd':
-    ' and <strong>{grad} % disability benefits</strong>',
-  'stegvisning.start.endring.afp.privat':
-    ' and <strong>AFP in the private sector</strong>',
-  'stegvisning.start.endring.afp.offentlig':
-    ' and <strong>AFP in the public sector</strong>',
+  'stegvisning.start.endring.ingress_1a': `You currently have <strong>{grad} % retirement pension</strong>{
+      ufoeretrygd,  select,     0 {} other { and <strong>{ufoeretrygd} % disability benefits</strong>}}{
+      afpPrivat,    select, false {} other { and <strong>AFP in the private sector</strong>}}{
+      afpOffentlig, select, false {} other { and <strong>AFP in the public sector</strong>}}. `,
+  'stegvisning.start.endring.ingress_1b.uten_fremtidig':
+    'Here you can check what you can receive if you want to change your retirement pension.{br}{br}',
+  'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.ingress':
     'Welcome to the pension calculator which can show you:',
   'stegvisning.start.list_item1': 'retirement pension (Nav)',

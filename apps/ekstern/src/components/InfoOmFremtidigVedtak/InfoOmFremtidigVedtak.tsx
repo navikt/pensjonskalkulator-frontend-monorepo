@@ -2,37 +2,37 @@ import { FormattedMessage } from 'react-intl'
 
 import { Alert } from '@navikt/ds-react'
 import clsx from 'clsx'
+import { format } from 'date-fns'
 
-import { getFormatMessageValues } from '@/utils/translations'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import styles from './InfoOmFremtidigVedtak.module.scss'
 
 interface Props {
-  loependeVedtak?: LoependeVedtak
+  loependeVedtak: LoependeVedtak
   isCentered?: boolean
 }
 
 export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
-  if (!loependeVedtak || !loependeVedtak.fremtidigAlderspensjon) {
+  // Vis hvis fremtidig vedtak uten gjeldende vedtak
+  if (!loependeVedtak.fremtidigAlderspensjon || loependeVedtak.alderspensjon)
     return null
-  }
 
   return (
-    <>
-      <Alert
-        className={clsx(styles.alert, { [styles.alert__centered]: isCentered })}
-        variant="info"
-        aria-live="polite"
-      >
-        <FormattedMessage
-          id={
-            loependeVedtak.alderspensjon
-              ? 'stegvisning.fremtidigvedtak.endring.alert'
-              : 'stegvisning.fremtidigvedtak.alert'
-          }
-          values={{ ...getFormatMessageValues() }}
-        />
-      </Alert>
-    </>
+    <Alert
+      className={clsx(styles.alert, { [styles.alert__centered]: isCentered })}
+      variant="info"
+    >
+      <FormattedMessage
+        id="stegvisning.fremtidigvedtak.alert"
+        values={{
+          grad: loependeVedtak.fremtidigAlderspensjon.grad,
+          fom: format(
+            loependeVedtak.fremtidigAlderspensjon.fom,
+            DATE_ENDUSER_FORMAT
+          ),
+        }}
+      />
+    </Alert>
   )
 }

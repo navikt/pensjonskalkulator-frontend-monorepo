@@ -50,7 +50,6 @@ export default [
   {
     files: ['**/*.test.ts', '**/*.test.tsx'],
     rules: {
-      'no-irregular-whitespace': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
@@ -60,12 +59,13 @@ export default [
       import: fixupPluginRules(_import),
     },
     rules: {
+      'no-debugger': 'warn',
+      'no-shadow': 'off',
+      'no-irregular-whitespace': ['error', { skipTemplates: true }],
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
-      'no-debugger': 'warn',
       '@typescript-eslint/no-shadow': ['error'],
       '@typescript-eslint/naming-convention': 'off',
-      'no-shadow': 'off',
       'import/order': [
         'warn',
         {

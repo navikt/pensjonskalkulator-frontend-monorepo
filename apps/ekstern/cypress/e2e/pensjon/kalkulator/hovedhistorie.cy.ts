@@ -103,9 +103,9 @@ describe('Hovedhistorie', () => {
           ).as('getLoependeVedtak')
           cy.login()
         })
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har vedtak, men ikke startet uttak enda.', () => {
           cy.contains(
-            'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.'
+            'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
           )
         })
       })

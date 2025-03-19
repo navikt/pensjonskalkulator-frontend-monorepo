@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { format } from 'date-fns'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { externalUrls } from '@/router/constants'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -18,7 +20,7 @@ import styles from './Start.module.scss'
 interface Props {
   shouldRedirectTo?: string
   navn: string
-  loependeVedtak?: LoependeVedtak
+  loependeVedtak: LoependeVedtak
   onCancel?: () => void
   onNext?: () => void
 }
@@ -43,13 +45,17 @@ export function Start({
     return null
   }
 
+  const isEndring = isLoependeVedtakEndring(loependeVedtak)
+  const fremtidigAlderspensjon = loependeVedtak.fremtidigAlderspensjon
+  const isEndringAndFremtidigVedtak = isEndring && !!fremtidigAlderspensjon
+
   return (
     <>
       <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} isCentered />
 
       <Card hasLargePadding hasMargin>
         <div className={styles.wrapper}>
-          <img className={styles.image} src={FridaPortrett} alt="" />
+          <img className={styles.image} src={FridaPortrett} aria-hidden />
           <div className={styles.wrapperText}>
             <Heading level="2" size="medium" spacing>
               {`${intl.formatMessage({
@@ -57,47 +63,43 @@ export function Start({
               })} ${navn}!`}
             </Heading>
 
-            {loependeVedtak && isLoependeVedtakEndring(loependeVedtak) ? (
+            {isEndring ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
-                    id="stegvisning.start.endring.ingress"
+                    id="stegvisning.start.endring.ingress_1a"
                     values={{
                       ...getFormatMessageValues(),
                       grad: loependeVedtak.alderspensjon?.grad,
-                      ufoeretrygd: loependeVedtak.ufoeretrygd.grad
-                        ? intl.formatMessage(
-                            {
-                              id: 'stegvisning.start.endring.ufoeretrygd',
-                            },
-                            {
-                              ...getFormatMessageValues(),
-                              grad: loependeVedtak.ufoeretrygd.grad,
-                            }
-                          )
-                        : undefined,
-                      afpPrivat: loependeVedtak.afpPrivat
-                        ? intl.formatMessage(
-                            {
-                              id: 'stegvisning.start.endring.afp.privat',
-                            },
-                            { ...getFormatMessageValues() }
-                          )
-                        : undefined,
-                      afpOffentlig: loependeVedtak.afpOffentlig
-                        ? intl.formatMessage(
-                            {
-                              id: 'stegvisning.start.endring.afp.offentlig',
-                            },
-                            { ...getFormatMessageValues() }
-                          )
-                        : undefined,
+                      ufoeretrygd: loependeVedtak.ufoeretrygd.grad,
+                      afpPrivat: !!loependeVedtak.afpPrivat,
+                      afpOffentlig: !!loependeVedtak.afpOffentlig,
                     }}
                   />
+                  {fremtidigAlderspensjon ? (
+                    <FormattedMessage
+                      id="stegvisning.start.endring.ingress_1b.med_fremtidig"
+                      values={{
+                        ...getFormatMessageValues(),
+                        grad: fremtidigAlderspensjon.grad,
+                        fom: format(
+                          fremtidigAlderspensjon.fom,
+                          DATE_ENDUSER_FORMAT
+                        ),
+                      }}
+                    />
+                  ) : (
+                    <FormattedMessage
+                      id="stegvisning.start.endring.ingress_1b.uten_fremtidig"
+                      values={getFormatMessageValues()}
+                    />
+                  )}
                 </BodyLong>
-                <BodyLong size="medium">
-                  <FormattedMessage id="stegvisning.start.endring.ingress_2" />
-                </BodyLong>
+                {!fremtidigAlderspensjon && (
+                  <BodyLong size="medium">
+                    <FormattedMessage id="stegvisning.start.endring.ingress_2" />
+                  </BodyLong>
+                )}
               </>
             ) : (
               <>
@@ -130,13 +132,13 @@ export function Start({
                     </BodyLong>
                   </li>
                 </ul>
-                <BodyLong size="large">
+                <BodyLong size="medium">
                   <FormattedMessage id="stegvisning.start.ingress_2" />
                 </BodyLong>
               </>
             )}
 
-            {onNext && (
+            {onNext && !isEndringAndFremtidigVedtak && (
               <Button
                 type="submit"
                 className={styles.button}
@@ -150,6 +152,7 @@ export function Start({
             {onCancel && (
               <Button
                 type="button"
+                className={styles.button}
                 variant="tertiary"
                 onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
                   onCancel
@@ -160,6 +163,7 @@ export function Start({
             )}
           </div>
         </div>
+
         <Link
           onClick={logOpenLink}
           className={styles.link}
