@@ -23,6 +23,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
     "afp": null,
     "currentSimulation": {
       "aarligInntektFoerUttakBeloep": null,
+      "beregningsvalg": null,
       "formatertUttaksalderReadOnly": null,
       "gradertUttaksperiode": null,
       "uttaksalder": null,

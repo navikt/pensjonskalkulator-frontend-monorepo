@@ -36,6 +36,7 @@ describe('userInput selectors', () => {
   const initialState = store.getState()
 
   const currentSimulation: Simulation = {
+    beregningsvalg: null,
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     uttaksalder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttakBeloep: '0',

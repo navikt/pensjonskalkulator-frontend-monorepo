@@ -146,6 +146,7 @@ export const EndreInntekt: React.FC<Props> = ({
               <br />
             </BodyLong>
           )}
+
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
             <VStack gap="4">
               <TextField
@@ -176,6 +177,7 @@ export const EndreInntekt: React.FC<Props> = ({
             </VStack>
           </form>
         </Modal.Body>
+
         <Modal.Footer>
           <Button form="oppdatere-inntekt">
             {intl.formatMessage({
@@ -191,6 +193,7 @@ export const EndreInntekt: React.FC<Props> = ({
       </Modal>
 
       <Button
+        type="button"
         className={className ? className : ''}
         variant="tertiary"
         size="small"

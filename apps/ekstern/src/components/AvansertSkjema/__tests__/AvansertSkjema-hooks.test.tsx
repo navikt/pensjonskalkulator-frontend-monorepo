@@ -17,6 +17,7 @@ describe('AvansertSkjema-hooks', () => {
       setAvansertSkjemaModus: vi.fn(),
     }
     const initialProps = {
+      beregningsvalg: null,
       isEndring: false,
       ufoeregrad: 0,
       aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: '250 000',
@@ -69,6 +70,7 @@ describe('AvansertSkjema-hooks', () => {
           aarligInntektVsaHelPensjon: undefined,
           gradertUttaksperiode: null,
           normertPensjonsalder: { aar: 67, maaneder: 0 },
+          beregningsvalg: null,
         },
       })
 

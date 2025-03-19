@@ -31,4 +31,5 @@ vite.config.ts.*
 *.njsproj
 *.sln
 *.sw?
+.qodo
 .fleet

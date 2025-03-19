@@ -487,6 +487,7 @@ describe('BeregningAvansert', () => {
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
+                  beregningsvalg: null,
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -577,6 +578,7 @@ describe('BeregningAvansert', () => {
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
+                  beregningsvalg: null,
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -629,6 +631,7 @@ describe('BeregningAvansert', () => {
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
+                  beregningsvalg: null,
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -688,6 +691,7 @@ describe('BeregningAvansert', () => {
             userInput: {
               ...preloadedState.userInput,
               currentSimulation: {
+                beregningsvalg: null,
                 formatertUttaksalderReadOnly: '67 år string.og 6 alder.maaned',
                 uttaksalder: { aar: 67, maaneder: 6 },
                 aarligInntektFoerUttakBeloep: null,

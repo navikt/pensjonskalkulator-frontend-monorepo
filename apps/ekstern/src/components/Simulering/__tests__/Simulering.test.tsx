@@ -20,6 +20,7 @@ import { act, render, screen, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
+    beregningsvalg: null,
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttakBeloep: '0',

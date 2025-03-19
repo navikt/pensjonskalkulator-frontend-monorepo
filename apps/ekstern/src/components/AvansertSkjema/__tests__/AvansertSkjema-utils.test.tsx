@@ -55,6 +55,7 @@ describe('AvansertSkjema-utils', () => {
           loependeVedtak: {
             ufoeretrygd: { grad: 0 },
           },
+          localBeregningsTypeRadio: null,
           localInntektFremTilUttak: null,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
@@ -116,6 +117,7 @@ describe('AvansertSkjema-utils', () => {
             loependeVedtak: {
               ufoeretrygd: { grad: 0 },
             },
+            localBeregningsTypeRadio: null,
             localInntektFremTilUttak: null,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -126,7 +128,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenCalledTimes(5)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -181,6 +183,7 @@ describe('AvansertSkjema-utils', () => {
             loependeVedtak: {
               ufoeretrygd: { grad: 0 },
             },
+            localBeregningsTypeRadio: null,
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -191,7 +194,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenCalledTimes(5)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -273,6 +276,7 @@ describe('AvansertSkjema-utils', () => {
             loependeVedtak: {
               ufoeretrygd: { grad: 0 },
             },
+            localBeregningsTypeRadio: null,
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -283,7 +287,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenCalledTimes(5)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -331,6 +335,7 @@ describe('AvansertSkjema-utils', () => {
             loependeVedtak: {
               ufoeretrygd: { grad: 0 },
             },
+            localBeregningsTypeRadio: null,
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
@@ -341,7 +346,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenCalledTimes(5)
         expect(gaaTilResultatMock).not.toHaveBeenCalled()
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })
@@ -363,6 +368,7 @@ describe('AvansertSkjema-utils', () => {
             loependeVedtak: {
               ufoeretrygd: { grad: 0 },
             },
+            localBeregningsTypeRadio: null,
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
@@ -373,7 +379,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenCalledTimes(5)
         expect(gaaTilResultatMock).toHaveBeenCalled()
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })

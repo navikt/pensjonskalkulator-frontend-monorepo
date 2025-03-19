@@ -189,14 +189,14 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       <div className={styles.beregning}>
         <div className={styles.container}>
           <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
         </div>
+
         {!isEndring && (
-          <div
-            className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
-          >
+          <div className={styles.toggle}>
             <div className={styles.container} data-testid="toggle-avansert">
               <ToggleGroup
                 value={visning}
@@ -208,6 +208,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
                     id: 'beregning.toggle.enkel',
                   })}
                 </ToggleGroup.Item>
+
                 <ToggleGroup.Item value="avansert">
                   {intl.formatMessage({
                     id: 'beregning.toggle.avansert',
@@ -217,8 +218,11 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             </div>
           </div>
         )}
+
         {visning === 'enkel' && <BeregningEnkel />}
+
         {visning === 'avansert' && <BeregningAvansert />}
+
         <div className={`${styles.background} ${styles.background__lightblue}`}>
           <div className={styles.container}>
             <LightBlueFooter />

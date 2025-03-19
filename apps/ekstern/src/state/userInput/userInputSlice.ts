@@ -8,6 +8,7 @@ export interface Simulation {
   aarligInntektFoerUttakBeloep: string | null // inntekt før uttak av pensjon - formatert string i nok - overskriver beløp fra Skatteetaten
   aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
   gradertUttaksperiode: GradertUttak | null
+  beregningsvalg: Beregningsvalg | null
 }
 
 export interface UserInputState {
@@ -38,6 +39,7 @@ export const userInputInitialState: UserInputState = {
   epsHarInntektOver2G: null,
   epsHarPensjon: null,
   currentSimulation: {
+    beregningsvalg: null,
     formatertUttaksalderReadOnly: null,
     uttaksalder: null,
     aarligInntektFoerUttakBeloep: null,
@@ -103,6 +105,12 @@ export const userInputSlice = createSlice({
       state.epsHarInntektOver2G = action.payload.epsHarInntektOver2G
       state.epsHarPensjon = action.payload.epsHarPensjon
     },
+    setCurrentSimulationBeregningsvalg: (
+      state,
+      action: PayloadAction<Beregningsvalg | null>
+    ) => {
+      state.currentSimulation.beregningsvalg = action.payload ?? null
+    },
     setCurrentSimulationUttaksalder: (
       state,
       action: PayloadAction<{
@@ -126,13 +134,13 @@ export const userInputSlice = createSlice({
       state,
       action: PayloadAction<AarligInntektVsaPensjon | undefined>
     ) => {
-      state.currentSimulation.aarligInntektVsaHelPensjon =
-        action.payload && action.payload.beloep
-          ? {
-              ...action.payload,
-              beloep: formatInntekt(action.payload?.beloep),
-            }
-          : undefined
+      state.currentSimulation.aarligInntektVsaHelPensjon = action.payload
+        ?.beloep
+        ? {
+            ...action.payload,
+            beloep: formatInntekt(action.payload.beloep),
+          }
+        : undefined
     },
     setCurrentSimulationGradertUttaksperiode: (
       state,

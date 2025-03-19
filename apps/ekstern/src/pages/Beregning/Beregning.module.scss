@@ -22,19 +22,12 @@
 }
 
 .toggle {
-  padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+  padding: 0 var(--a-spacing-6) var(--a-spacing-4) var(--a-spacing-6);
   background-color: var(--a-white);
 
-  &__paddingBottom {
-    padding-bottom: var(--a-spacing-6);
-  }
-
   @media (min-width: variables.$a-breakpoint-lg) {
-    padding: 0;
-
-    &__paddingBottom {
-      padding-bottom: var(--a-spacing-6);
-    }
+    padding-left: 0;
+    padding-right: 0;
   }
 
   @media (max-width: variables.$a-breakpoint-sm) {

@@ -16,6 +16,7 @@ export const useFormLocalState = (initialValues: {
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
   normertPensjonsalder: Alder
+  beregningsvalg: Beregningsvalg | null
 }) => {
   const {
     isEndring,
@@ -26,10 +27,14 @@ export const useFormLocalState = (initialValues: {
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
     normertPensjonsalder,
+    beregningsvalg,
   } = initialValues
 
   const { setHarAvansertSkjemaUnsavedChanges } =
     React.useContext(BeregningContext)
+
+  const [localBeregningsTypeRadio, setBeregningsTypeRadio] =
+    React.useState<Beregningsvalg | null>(beregningsvalg)
 
   const [localHarInntektVsaHeltUttakRadio, setHarInntektVsaHeltUttakRadio] =
     React.useState<boolean | null>(
@@ -49,15 +54,11 @@ export const useFormLocalState = (initialValues: {
 
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
     string | null
-  >(
-    aarligInntektFoerUttakBeloepFraBrukerInput
-      ? aarligInntektFoerUttakBeloepFraBrukerInput
-      : null
-  )
+  >(aarligInntektFoerUttakBeloepFraBrukerInput ?? null)
   const [localHeltUttak, setHeltUttak] = React.useState<
     RecursivePartial<HeltUttak> | undefined
   >({
-    uttaksalder: uttaksalder !== null ? uttaksalder : undefined,
+    uttaksalder: uttaksalder ?? undefined,
     aarligInntektVsaPensjon: aarligInntektVsaHelPensjon
       ? {
           ...aarligInntektVsaHelPensjon,
@@ -198,6 +199,7 @@ export const useFormLocalState = (initialValues: {
       setLocalGradertUttak: setGradertUttak,
       setLocalHarInntektVsaHeltUttakRadio: setHarInntektVsaHeltUttakRadio,
       setLocalHarInntektVsaGradertUttakRadio: setHarInntektVsaGradertUttakRadio,
+      setLocalBeregningsTypeRadio: setBeregningsTypeRadio,
     }),
     []
   )
@@ -211,6 +213,7 @@ export const useFormLocalState = (initialValues: {
     minAlderInntektSluttAlder,
     muligeUttaksgrad,
     handlers,
+    localBeregningsTypeRadio,
   ] as const
 }
 

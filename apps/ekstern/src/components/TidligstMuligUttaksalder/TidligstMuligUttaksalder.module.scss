@@ -4,7 +4,7 @@
   composes: frame from '../../scss/modules/frame.module.scss';
 
   &Card {
-    padding: var(--a-spacing-4) var(--a-spacing-6);
+    padding: var(--a-spacing-6);
 
     @media (min-width: variables.$a-breakpoint-lg) {
       padding: var(--a-spacing-6) 0;

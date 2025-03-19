@@ -31,12 +31,8 @@ export const AvansertSkjemaInntekt = ({
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
 
   return (
-    <>
-      <Label
-        className={clsx(styles.label, {
-          [styles.label__margin]: !isEndring,
-        })}
-      >
+    <div>
+      <Label className={styles.label}>
         <FormattedMessage
           id={
             isEndring
@@ -77,7 +73,7 @@ export const AvansertSkjemaInntekt = ({
         />
       </div>
 
-      <div className={`${styles.spacer} ${styles.spacer__small}`} />
+      <div className={clsx(styles.spacer, styles.spacer__small)} />
 
       <ReadMore
         name="Endring av inntekt i avansert fane"
@@ -87,6 +83,6 @@ export const AvansertSkjemaInntekt = ({
       >
         <InfoOmInntekt />
       </ReadMore>
-    </>
+    </div>
   )
 }

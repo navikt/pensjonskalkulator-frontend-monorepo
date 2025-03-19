@@ -4,7 +4,6 @@ declare const classNames: {
   readonly container__hasPadding: "container__hasPadding";
   readonly alert: "alert";
   readonly toggle: "toggle";
-  readonly toggle__paddingBottom: "toggle__paddingBottom";
   readonly background: "background";
   readonly background__lightblue: "background__lightblue";
 };

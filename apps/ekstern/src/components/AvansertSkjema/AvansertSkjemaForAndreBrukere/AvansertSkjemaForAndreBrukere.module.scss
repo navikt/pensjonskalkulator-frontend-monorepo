@@ -5,6 +5,7 @@
   background-color: var(--a-white);
   display: flex;
   flex-direction: column;
+  padding-top: var(--a-spacing-6) !important;
   padding-bottom: var(--a-spacing-6) !important;
 
   &__hasMobilePadding {

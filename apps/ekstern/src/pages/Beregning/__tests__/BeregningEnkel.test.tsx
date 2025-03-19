@@ -352,6 +352,7 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: true,
             afp: 'ja_offentlig',
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -444,6 +445,7 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: false,
             afp: 'ja_offentlig',
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -536,6 +538,7 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             afp: 'ja_privat',
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -628,6 +631,7 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             afp: 'ja_privat',
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -813,6 +817,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
@@ -975,6 +980,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: {
+              beregningsvalg: null,
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',

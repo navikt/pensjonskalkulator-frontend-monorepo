@@ -25,6 +25,7 @@ describe('Pensjonsavtaler', () => {
   })
 
   const currentSimulation: Simulation = {
+    beregningsvalg: null,
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 70, maaneder: 0 },
     aarligInntektVsaHelPensjon: {

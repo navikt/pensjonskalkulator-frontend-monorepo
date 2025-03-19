@@ -241,6 +241,7 @@ describe('userInputSlice', () => {
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
+          beregningsvalg: null,
           formatertUttaksalderReadOnly: null,
           uttaksalder: { aar: 65, maaneder: 4 },
           aarligInntektFoerUttakBeloep: null,
@@ -387,6 +388,7 @@ describe('userInputSlice', () => {
           skalBeregneAfp: true,
           afp: 'ja_offentlig',
           currentSimulation: {
+            beregningsvalg: null,
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
@@ -420,6 +422,7 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           currentSimulation: {
+            beregningsvalg: null,
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },

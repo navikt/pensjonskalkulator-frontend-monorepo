@@ -489,6 +489,22 @@ const translations = {
     'Uttaksalder for <nowrap>100 %</nowrap> alderspensjon må være senere enn alder for gradert pensjon.',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon?',
+
+  'beregning.avansert.rediger.beregningsvalg.description':
+    'Du har <nowrap>{ufoeregrad} %</nowrap> uføretrygd. Før du blir <nowrap>62 år</nowrap> må du velge enten uføretrygd eller AFP.{br}',
+  'beregning.avansert.rediger.beregningsvalg.om_valget_link':
+    'Om valget mellom uføretrygd og AFP',
+  'beregning.avansert.rediger.radio.beregningsvalg.label':
+    'Hva vil du beregne?',
+  'beregning.avansert.rediger.radio.beregningsvalg.uten_afp.label':
+    'Alderspensjon og uføretrygd, uten AFP.',
+  'beregning.avansert.rediger.radio.beregningsvalg.med_afp.label':
+    'Alderspensjon og AFP, uten uføretrygd fra <nowrap>{nedreAldersgrense}</nowrap>',
+  'beregning.avansert.rediger.beregningsvalg.med_afp.title':
+    'Alderspensjon og AFP fra <nowrap>{nedreAldersgrense}</nowrap>',
+  'beregning.avansert.rediger.beregningsvalg.med_afp.description':
+    '<nowrap>{nedreAldersgrense}</nowrap> er laveste uttaksalder. Du må ha høy nok pensjonsopptjening for å kunne ta ut alderspensjon og AFP fra denne alderen.',
+
   'beregning.avansert.button.beregn': 'Beregn pensjon',
   'beregning.avansert.button.beregn.endring': 'Beregn ny pensjon',
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',

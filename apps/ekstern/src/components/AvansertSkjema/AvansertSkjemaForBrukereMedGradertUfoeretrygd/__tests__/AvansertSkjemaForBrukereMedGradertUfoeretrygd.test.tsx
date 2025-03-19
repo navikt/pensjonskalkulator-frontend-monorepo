@@ -1294,6 +1294,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         foedselsdato: '1963-04-30',
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
+        localBeregningsTypeRadio: null,
         localInntektFremTilUttak: null,
         loependeVedtak: {
           ufoeretrygd: { grad: 75 },
@@ -1633,6 +1634,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         foedselsdato: '1963-04-30',
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
+        localBeregningsTypeRadio: null,
         localInntektFremTilUttak: null,
         loependeVedtak: {
           ufoeretrygd: { grad: 75 },
@@ -2345,6 +2347,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       })
 
       const currentSimulation: Simulation = {
+        beregningsvalg: null,
         formatertUttaksalderReadOnly: '62 år string.og 0 alder.maaned',
         uttaksalder: { aar: 62, maaneder: 0 },
         aarligInntektFoerUttakBeloep: null,
@@ -2561,6 +2564,95 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
         )
       ).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Gitt at feature toggle for gradert uføretrygd og AFP er enabled', () => {
+    beforeEach(() => {
+      mockResponse('/feature/pensjonskalkulator.gradert-ufoere-afp', {
+        status: 200,
+        json: { enabled: true },
+      })
+    })
+
+    it('Vis intro tekst om AFP og beregningsvalg', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_offentlig',
+              samtykkeOffentligAFP: true,
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByTestId('intro_afp')).toBeVisible()
+
+      expect(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.beregningsTypeRadio)
+      ).toBeVisible()
+    })
+
+    it('Vis resten av skjemaet når man har gjort et valg i Beregningsvalg', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <BeregningContext.Provider value={{ ...contextMockedValues }}>
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_offentlig',
+              samtykkeOffentligAFP: true,
+            },
+          },
+        }
+      )
+      expect(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.beregningsTypeRadio)
+      ).toBeVisible()
+
+      // Verify form fields are hidden initially
+      expect(
+        screen.queryByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
+      ).not.toBeInTheDocument()
+
+      // Test med_afp selection shows form fields
+      await user.click(screen.getByTestId('med_afp'))
+      expect(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
+      ).toBeVisible()
+
+      // Test uten_afp selection also shows form fields
+      await user.click(screen.getByTestId('uten_afp'))
+      expect(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
+      ).toBeVisible()
     })
   })
 })

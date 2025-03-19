@@ -359,14 +359,27 @@ export const stepSamtykkeOffentligAFPAccessGuard =
       ? stegvisningOrderEndring
       : stegvisningOrder
 
+    const getGradertUfoereAfpFeatureTogglequery = store.dispatch(
+      apiSlice.endpoints.getGradertUfoereAfpFeatureToggle.initiate()
+    )
+
+    // Wait for the feature toggle query to resolve
+    const toggleShowGradertUfoereAfp =
+      await getGradertUfoereAfpFeatureTogglequery
+        .unwrap()
+        .then((result) => result.enabled)
+        .catch(() => false)
+
+    const showStep = toggleShowGradertUfoereAfp
+      ? afp === 'ja_offentlig'
+      : (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad ===
+          0 && afp === 'ja_offentlig'
+
     // Bruker uten uføretrygd som svarer ja_offentlig til AFP kan se steget
-    if (
-      (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad ===
-        0 &&
-      afp === 'ja_offentlig'
-    ) {
+    if (showStep) {
       return null
     }
+
     return redirect(
       stepArrays[stepArrays.indexOf(paths.samtykkeOffentligAFP) + 1]
     )
