@@ -209,6 +209,9 @@ export const getChartOptions = (
 ): Options => {
   return {
     chart: {
+      style: {
+        zIndex: 1,
+      },
       type: 'column',
       animation: false,
       spacingTop: 0,

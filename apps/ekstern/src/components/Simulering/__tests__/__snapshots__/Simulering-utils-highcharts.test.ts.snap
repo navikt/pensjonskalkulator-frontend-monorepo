@@ -14,6 +14,9 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     "spacingBottom": 0,
     "spacingLeft": 0,
     "spacingTop": 0,
+    "style": {
+      "zIndex": 1,
+    },
     "type": "column",
   },
   "credits": {
