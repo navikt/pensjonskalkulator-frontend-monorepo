@@ -39,7 +39,6 @@ export default defineConfig({
             '@formatjs/ecma402-abstract',
             '@formatjs/intl',
             '@formatjs/intl-numberformat',
-            '@formatjs/intl-datetimeformat',
           ],
         },
       },
