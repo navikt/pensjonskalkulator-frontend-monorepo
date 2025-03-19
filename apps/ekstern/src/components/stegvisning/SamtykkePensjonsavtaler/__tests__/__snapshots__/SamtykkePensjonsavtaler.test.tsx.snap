@@ -27,7 +27,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
           data-state="closed"
-          data-testid="readmore"
+          data-testid="dette_henter_vi_OFTP"
           type="button"
         >
           <svg
@@ -49,7 +49,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
             />
           </svg>
           <span>
-            stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title
+            Dette henter vi fra offentlige tjenestepensjonsordninger
           </span>
         </button>
         <div
@@ -57,13 +57,9 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
           data-state="closed"
         >
-          Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem.
-          <br />
-          <br />
-          Vi henter beregning av tjenestepensjonen din fra den siste tjenestepensjonsordningen du var medlem i. Det inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger.
-          <br />
-          <br />
-          Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Statens pensjonskasse (SPK).
+          <p>
+            Lorem
+          </p>
         </div>
       </div>
       <div
@@ -74,7 +70,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
           data-state="closed"
-          data-testid="readmore"
+          data-testid="dette_henter_vi_NP"
           type="button"
         >
           <svg
@@ -96,7 +92,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
             />
           </svg>
           <span>
-            stegvisning.samtykke_pensjonsavtaler.privat.readmore_title
+            Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor
           </span>
         </button>
         <div
@@ -104,20 +100,9 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
           data-state="closed"
         >
-          stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress
-          <ul
-            class="_list_cef636"
-          >
-            <li>
-              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1
-            </li>
-            <li>
-              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2
-            </li>
-            <li>
-              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3
-            </li>
-          </ul>
+          <p>
+            Lorem
+          </p>
         </div>
       </div>
       <fieldset

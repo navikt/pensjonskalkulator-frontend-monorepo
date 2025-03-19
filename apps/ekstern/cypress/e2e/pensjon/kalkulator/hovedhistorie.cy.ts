@@ -353,12 +353,8 @@ describe('Hovedhistorie', () => {
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
           cy.contains('h2', 'Pensjonsavtaler').should('exist')
           cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
-          cy.contains(
-            'Dette henter vi fra offentlige tjenestepensjonsordninger'
-          ).should('exist')
-          cy.contains(
-            'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor'
-          ).should('exist')
+          cy.get('[data-testid="dette_henter_vi_OFTP"]').should('exist')
+          cy.get('[data-testid="dette_henter_vi_NP"]').should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
           cy.contains('button', 'Neste').click()

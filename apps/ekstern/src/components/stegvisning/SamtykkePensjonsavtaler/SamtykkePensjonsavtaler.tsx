@@ -5,7 +5,7 @@ import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
-import { ReadMore } from '@/components/common/ReadMore/ReadMore'
+import { SanityReadmore } from '@/components/common/SanityReadmore/SanityReadmore'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -74,41 +74,14 @@ export function SamtykkePensjonsavtaler({
             values={{ ...getFormatMessageValues() }}
           />
         </BodyLong>
-        <ReadMore
-          name="Dette henter vi fra offentlige tjenestepensjonsordninger"
+        <SanityReadmore
+          id={'dette_henter_vi_OFTP'}
           className={styles.readmoreOffentlig}
-          header={
-            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title" />
-          }
-        >
-          <FormattedMessage
-            id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress"
-            values={{ ...getFormatMessageValues() }}
-          />
-        </ReadMore>
-        <ReadMore
-          name="Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor"
+        />
+        <SanityReadmore
+          id={'dette_henter_vi_NP'}
           className={styles.readmorePrivat}
-          header={
-            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_title" />
-          }
-        >
-          <FormattedMessage
-            id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress"
-            values={{ ...getFormatMessageValues() }}
-          />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3" />
-            </li>
-          </ul>
-        </ReadMore>
+        />
 
         <RadioGroup
           className={styles.radiogroup}

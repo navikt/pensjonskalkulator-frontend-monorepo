@@ -180,19 +180,6 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (Nav) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',
-  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'Desse opplysningane hentar vi',
-  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'Samtykket er frivillig. Om du svarar nei får du rekna ut alderspensjon (Nav) og eventuell avtalefesta pensjon (AFP) i privat sektor.',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title': 'MANGLER_TEKST',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'MANGLER_TEKST',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
-    'tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og einskilde avtalar om pensjonssparing.',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
-    'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
-    'gjeld samtykket kun for denne utrekninga.',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente dine pensjonsavtalar?',
   'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',

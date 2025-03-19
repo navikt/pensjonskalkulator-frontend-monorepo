@@ -206,20 +206,6 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vil du se tjenestepensjon og andre pensjonsavtaler, må du samtykke til at Nav henter disse. Samtykket er frivillig.{br}{br} Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
-  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
-    'Dette henter vi fra offentlige tjenestepensjonsordninger',
-  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
-    'Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem.{br}{br}Vi henter beregning av tjenestepensjonen din fra den siste tjenestepensjonsordningen du var medlem i. Det inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger.{br}{br}Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Statens pensjonskasse (SPK).',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
-    'Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
-    'Hvis du samtykker, henter vi beregning av pensjonsavtaler i privat sektor fra Norsk Pensjon:',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
-    'tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
-    'fripoliser',
-  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
-    'enkelte pensjonssparingsavtaler som du har tegnet selv',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Skal vi hente pensjonsavtalene dine?',
   'stegvisning.samtykke_pensjonsavtaler.radio_description':

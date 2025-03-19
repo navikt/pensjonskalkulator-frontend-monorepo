@@ -79,7 +79,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
           },
         },
       })
-      expect(Object.keys(store.getState().api.queries).length).toEqual(4)
+      expect(Object.keys(store.getState().api.queries).length).toEqual(5)
 
       const radioButtons = screen.getAllByRole('radio')
 
@@ -87,7 +87,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       await user.click(screen.getByText('stegvisning.neste'))
 
       expect(store.getState().userInput.samtykke).toBe(false)
-      expect(invalidateMock).toHaveBeenCalledTimes(3)
+      expect(invalidateMock).toHaveBeenCalledTimes(6)
 
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })

@@ -159,6 +159,46 @@
           "style": "normal"
         }
       ]
+    },
+    {
+      "name": "dette_henter_vi_OFTP",
+      "overskrift": "Dette henter vi fra offentlige tjenestepensjonsordninger",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "dette_henter_vi_NP",
+      "overskrift": "Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
     }
   ],
   "syncTags": ["s1:EmCcjQ"],
