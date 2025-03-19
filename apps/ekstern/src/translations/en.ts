@@ -391,7 +391,8 @@ const translations = {
   'beregning.tabell.lukk': 'Close calculation table',
   'beregning.tabell.vis': 'Show calculation table',
   'beregning.tabell.sum': 'Total',
-  'beregning.avansert.button.endre_valgene_dine': 'Change your choices',
+  'beregning.avansert.link.endre_valgene_dine': 'Change your choices',
+  'beregning.avansert.link.endre_avanserte_valg': 'Change advanced choices',
   'beregning.avansert.endring_banner.title':
     'retirement pension before tax when you are ',
   'beregning.avansert.endring_banner.kr_md': 'kr/mo.',

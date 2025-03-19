@@ -661,7 +661,7 @@ describe('Avansert', () => {
           '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
         ).select('0')
         cy.contains('Beregn pensjon').click()
-        cy.contains('Endre valgene dine').click({ force: true })
+        cy.contains('Endre avanserte valg').click({ force: true })
       })
 
       it('forventer jeg at mine tidligere valg er lagret.', () => {
@@ -779,7 +779,7 @@ describe('Avansert', () => {
 
       it('forventer jeg å kunne avbryte og komme tilbake til beregningen.', () => {
         cy.contains('Avbryt endring').click({ force: true })
-        cy.contains('Endre valgene dine').should('exist')
+        cy.contains('Endre avanserte valg').should('exist')
       })
 
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp.', () => {

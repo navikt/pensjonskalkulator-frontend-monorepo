@@ -16,6 +16,7 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'modal lukket', { tekst: string }>
   | AmplitudeEvent<'radiogroup valgt', { tekst: string; valg: string }>
   | AmplitudeEvent<'button klikk', { tekst: string }>
+  | AmplitudeEvent<'link klikk', { tekst: string }>
   | AmplitudeEvent<'chip valgt', { tekst: string; data: string }>
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
   | AmplitudeEvent<
