@@ -9,7 +9,7 @@ import {
   selectCurrentSimulation,
   selectIsEndring,
 } from '@/state/userInput/selectors'
-import { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './FormButtonRow.module.scss'
 
@@ -70,7 +70,12 @@ export const FormButtonRow: React.FC<{
             type="button"
             variant="tertiary"
             className={styles.button}
-            onClick={gaaTilResultat}
+            onClick={() => {
+              logger('button klikk', {
+                tekst: 'Avbryt endring',
+              })
+              gaaTilResultat()
+            }}
           >
             {intl.formatMessage({
               id: 'beregning.avansert.button.avbryt',

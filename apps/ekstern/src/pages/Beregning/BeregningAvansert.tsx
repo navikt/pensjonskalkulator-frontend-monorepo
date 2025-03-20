@@ -211,7 +211,7 @@ export const BeregningAvansert: React.FC = () => {
                   className={styles.link}
                   onClick={(e) => {
                     e?.preventDefault()
-                    logger('link klikk', {
+                    logger('button klikk', {
                       tekst: isEndring
                         ? 'Beregning avansert: Endre valgene dine'
                         : 'Beregning avansert: Endre avanserte valg',
