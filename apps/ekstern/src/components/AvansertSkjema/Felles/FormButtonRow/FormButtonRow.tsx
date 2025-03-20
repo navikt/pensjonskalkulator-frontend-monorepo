@@ -72,7 +72,7 @@ export const FormButtonRow: React.FC<{
             className={styles.button}
             onClick={() => {
               logger('button klikk', {
-                tekst: 'Avbryt endring',
+                tekst: 'Beregning avansert: Avbryt endring',
               })
               gaaTilResultat()
             }}
