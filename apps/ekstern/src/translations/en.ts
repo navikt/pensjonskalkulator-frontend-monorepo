@@ -246,6 +246,8 @@ const translations = {
   'stegvisning.ufoere.info':
     'Before turning 62, you must choose between receiving AFP or retaining disability benefits. {br}{br} AFP and disability benefits cannot be combined. If you do not inform us, you will lose your right to AFP (but retain disability benefits).',
   'stegvisning.ufoere.ingress':
+    'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector.',
+  'stegvisning.ufoere.ingress-gammel':
     'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector. {br}{br} The calculator does not calculate AFP (contractual early retirement) for those receiving disability benefits. {br}{br} Proceed to view old-age pension from Nav and pension agreements.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Consent for Nav to Calculate AFP (contractual pension)',

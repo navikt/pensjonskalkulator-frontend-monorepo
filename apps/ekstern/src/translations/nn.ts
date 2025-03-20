@@ -220,6 +220,7 @@ const translations = {
   'stegvisning.ufoere.title': 'MANGLER_TEKST',
   'stegvisning.ufoere.info': 'MANGLER_TEKST',
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
+  'stegvisning.ufoere.ingress-gammel': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label': 'MANGLER_TEKST',

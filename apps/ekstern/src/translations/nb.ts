@@ -267,6 +267,8 @@ const translations = {
   'stegvisning.ufoere.info':
     'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden. {br}{br} AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden).',
   'stegvisning.ufoere.ingress':
+    'Du kan få hjelp til å vurdere alternativene dine. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. <planleggePensjonLink>Kontakt Nav</planleggePensjonLink> hvis du jobber i privat sektor.',
+  'stegvisning.ufoere.ingress-gammel':
     'Du kan få hjelp til å vurdere alternativene dine. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. <planleggePensjonLink>Kontakt Nav</planleggePensjonLink> hvis du jobber i privat sektor. {br}{br} Kalkulatoren beregner ikke AFP for deg som får uføretrygd.{br}{br} Gå videre for å se alderspensjon fra Nav og pensjonsavtaler.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Samtykke til at Nav beregner AFP (avtalefestet pensjon)',
@@ -487,7 +489,6 @@ const translations = {
     'Uttaksalder for <nowrap>100 %</nowrap> alderspensjon må være senere enn alder for gradert pensjon.',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon?',
-
   'beregning.avansert.rediger.beregningsvalg.description':
     'Du har <nowrap>{ufoeregrad} %</nowrap> uføretrygd. Før du blir <nowrap>62 år</nowrap> må du velge enten uføretrygd eller AFP.{br}',
   'beregning.avansert.rediger.beregningsvalg.om_valget_link':
@@ -502,7 +503,6 @@ const translations = {
     'Alderspensjon og AFP fra <nowrap>{nedreAldersgrense}</nowrap>',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     '<nowrap>{nedreAldersgrense}</nowrap> er laveste uttaksalder. Du må ha høy nok pensjonsopptjening for å kunne ta ut alderspensjon og AFP fra denne alderen.',
-
   'beregning.avansert.button.beregn': 'Beregn pensjon',
   'beregning.avansert.button.beregn.endring': 'Beregn ny pensjon',
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
