@@ -183,7 +183,7 @@ export const VeilederInput = () => {
                     label="Fødselsnummer"
                     name="veilederBorgerFnr"
                     description="11 siffer"
-                  ></TextField>
+                  />
                   <HStack gap="2">
                     <Button
                       type="submit"

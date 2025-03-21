@@ -76,7 +76,7 @@ export function Utenlandsopphold({
             onNext
           )
         }}
-      ></form>
+      />
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.utenlandsopphold.title" />
       </Heading>

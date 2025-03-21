@@ -55,9 +55,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
               <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
             </Heading>
             <Alert inline variant="warning">
-              <FormattedMessage
-                id={'pensjonsavtaler.private.ingress.error.pensjonsavtaler'}
-              />
+              <FormattedMessage id="pensjonsavtaler.private.ingress.error.pensjonsavtaler" />
             </Alert>
           </>
         )

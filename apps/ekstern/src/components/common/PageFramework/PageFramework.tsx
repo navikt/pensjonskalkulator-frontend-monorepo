@@ -33,7 +33,7 @@ function RedirectElement() {
     }
   }, [])
 
-  return <span data-testid="redirect-element"></span>
+  return <span data-testid="redirect-element" />
 }
 
 export const PageFramework: React.FC<{

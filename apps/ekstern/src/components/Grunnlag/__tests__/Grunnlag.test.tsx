@@ -149,7 +149,7 @@ describe('Grunnlag', () => {
     it('viser riktig tekst og lenke når henting av sivilstand fra vedtaket er vellykket', async () => {
       const user = userEvent.setup()
 
-      render(<Grunnlag headingLevel={'2'} visning={'avansert'} />, {
+      render(<Grunnlag headingLevel="2" visning="avansert" />, {
         preloadedState: {
           api: {
             //@ts-ignore

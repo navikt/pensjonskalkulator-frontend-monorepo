@@ -371,7 +371,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     <>
       <form
         id={AVANSERT_FORM_NAMES.form}
-        data-testid={'AVANSERT_SKJEMA_FOR_BRUKERE_MED_GRADERT_UFOERETRYGD'}
+        data-testid="AVANSERT_SKJEMA_FOR_BRUKERE_MED_GRADERT_UFOERETRYGD"
         method="dialog"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault()
@@ -393,7 +393,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
             }
           )
         }}
-      ></form>
+      />
       <div
         className={clsx(styles.container, styles.container__hasMobilePadding)}
       >

@@ -14,16 +14,15 @@ import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 import styles from './BorgerInformasjon.module.scss'
 
-interface IBorgerInformasjonProps {
+interface Props {
   fnr: string
 }
+
 const formatFnr = (fnr: string) => {
   return `${fnr.slice(0, 6)} ${fnr.slice(6)}`
 }
 
-export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
-  fnr,
-}) => {
+export const BorgerInformasjon = ({ fnr }: Props) => {
   const { data: person, isFetching: isPersonFetching } = useGetPersonQuery()
 
   const onNullstillClick = () => {

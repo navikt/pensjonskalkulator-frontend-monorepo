@@ -317,7 +317,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     <>
       <form
         id={AVANSERT_FORM_NAMES.form}
-        data-testid={'AVANSERT_SKJEMA_FOR_ANDRE_BRUKERE'}
+        data-testid="AVANSERT_SKJEMA_FOR_ANDRE_BRUKERE"
         method="dialog"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault()
@@ -339,7 +339,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
             }
           )
         }}
-      ></form>
+      />
 
       <div
         className={clsx(styles.container, styles.container__hasMobilePadding)}

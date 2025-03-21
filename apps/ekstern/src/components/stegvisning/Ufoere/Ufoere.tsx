@@ -53,7 +53,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           />
         </Alert>
 
-        <SanityReadmore id={'om_UT_AFP'} className={styles.readmore1} />
+        <SanityReadmore id="om_UT_AFP" className={styles.readmore1} />
 
         {/* TODO PEK-882: Remove this when feature toggle is removed */}
         {!isGradertUfoereAfpToggleEnabled ? (

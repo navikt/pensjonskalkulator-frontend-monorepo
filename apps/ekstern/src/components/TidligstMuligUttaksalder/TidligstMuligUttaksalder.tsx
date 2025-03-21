@@ -152,7 +152,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             </ReadMore>
           </SanityReadmore>
         ) : (
-          <SanityReadmore id={'om_TMU'} className={styles.readmore}>
+          <SanityReadmore id="om_TMU" className={styles.readmore}>
             <ReadMore
               name="Om pensjonsalder enkelt"
               className={styles.readmore}

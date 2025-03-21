@@ -14,7 +14,7 @@ export const IntroAFP = () => {
   return (
     <BodyLong data-testid="intro_afp">
       <FormattedMessage
-        id={'beregning.avansert.rediger.beregningsvalg.description'}
+        id="beregning.avansert.rediger.beregningsvalg.description"
         values={{
           ...getFormatMessageValues(),
           ufoeregrad,

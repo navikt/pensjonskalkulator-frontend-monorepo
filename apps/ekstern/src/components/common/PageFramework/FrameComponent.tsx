@@ -40,7 +40,7 @@ export const FrameComponent: React.FC<{
             style={{
               marginBottom: 'var(--a-spacing-6)',
             }}
-          ></representasjon-banner>
+          />
 
           <div
             className={clsx(styles.headerGroupTitle, {

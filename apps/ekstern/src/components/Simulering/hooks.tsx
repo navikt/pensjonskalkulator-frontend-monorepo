@@ -75,7 +75,7 @@ export const useSimuleringChartLocalState = (initialValues: {
     offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
       .utbetalingsperioder
   const intl = useIntl()
-  const [XAxis, setXAxis] = React.useState<string[]>([])
+  const [xAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
@@ -178,7 +178,7 @@ export const useSimuleringChartLocalState = (initialValues: {
 
     if (startAar && startMaaned !== undefined && alderspensjonListe) {
       setChartOptions({
-        ...getChartDefaults(XAxis),
+        ...getChartDefaults(xAxis),
         series: [
           ...(aarligInntektFoerUttakBeloep != '0' ||
           gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
@@ -217,7 +217,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                           ),
                         }
                       : undefined,
-                    xAxisLength: XAxis.length,
+                    xAxisLength: xAxis.length,
                   }),
                 } as SeriesOptionsType,
               ]
@@ -232,7 +232,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   /* c8 ignore next 1 */
                   data: processAfpPensjonsberegningArray(
                     isEndring ? startAar : startAar - 1,
-                    XAxis.length,
+                    xAxis.length,
                     afpPrivatListe,
                     isEndring
                   ),
@@ -249,7 +249,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   /* c8 ignore next 1 */
                   data: processAfpPensjonsberegningArray(
                     isEndring ? startAar : startAar - 1,
-                    XAxis.length,
+                    xAxis.length,
                     afpOffentligListe,
                     isEndring
                   ),
@@ -271,7 +271,7 @@ export const useSimuleringChartLocalState = (initialValues: {
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     isEndring ? startAar : startAar - 1,
-                    XAxis.length,
+                    xAxis.length,
                     pensjonsavtalerData?.avtaler ?? [],
                     offentligTpData?.simulertTjenestepensjon
                       ?.simuleringsresultat.utbetalingsperioder ?? []
@@ -287,13 +287,13 @@ export const useSimuleringChartLocalState = (initialValues: {
             data: processPensjonsberegningArray(
               alderspensjonListe,
               isEndring,
-              XAxis.length
+              xAxis.length
             ),
           } as SeriesOptionsType,
         ],
       })
     }
-  }, [XAxis])
+  }, [xAxis])
 
   return [
     chartOptions,

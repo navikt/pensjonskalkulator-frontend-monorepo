@@ -62,7 +62,7 @@ export const Beregningsvalg = ({
         <div className={styles.description}>
           <Heading level="2" size="medium" spacing>
             <FormattedMessage
-              id={'beregning.avansert.rediger.beregningsvalg.med_afp.title'}
+              id="beregning.avansert.rediger.beregningsvalg.med_afp.title"
               values={{
                 ...getFormatMessageValues(),
                 nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
@@ -72,9 +72,7 @@ export const Beregningsvalg = ({
 
           <BodyLong>
             <FormattedMessage
-              id={
-                'beregning.avansert.rediger.beregningsvalg.med_afp.description'
-              }
+              id="beregning.avansert.rediger.beregningsvalg.med_afp.description"
               values={{
                 ...getFormatMessageValues(),
                 nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),

@@ -50,82 +50,80 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
   )
 
   return (
-    <>
-      <AccordionItem name="Grunnlag: Inntekt">
-        <GrunnlagSection
-          headerTitle={intl.formatMessage({
-            id: 'grunnlag.inntekt.title',
-          })}
-          headerValue={`${aarligInntektFoerUttakBeloep} kr`}
-        >
-          <>
-            <BodyLong>
-              <FormattedMessage
-                id="grunnlag.inntekt.ingress"
-                values={{
-                  ...getFormatMessageValues(),
-                  beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,
-                  aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
-                }}
-              />
-              <br />
-            </BodyLong>
-            <Modal
-              ref={infoModalRef}
-              header={{
-                heading: intl.formatMessage({
-                  id: 'grunnlag.inntekt.info_om_inntekt',
-                }),
-              }}
-              width="medium"
-            >
-              <Modal.Body>
-                <InfoOmInntekt />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  type="button"
-                  onClick={() => infoModalRef.current?.close()}
-                >
-                  {intl.formatMessage({
-                    id: 'grunnlag.inntekt.info_om_inntekt.lukk',
-                  })}
-                </Button>
-              </Modal.Footer>
-            </Modal>
-
-            <Link
-              href="#"
-              className={styles.link}
-              onClick={openInfoModal}
-              inlineText
-            >
-              <FormattedMessage id="inntekt.info_om_inntekt.open.link" />
-            </Link>
-
-            <EndreInntekt
-              visning="enkel"
-              className={styles.button}
-              value={aarligInntektFoerUttakBeloepFraBrukerInput}
-              onSubmit={(uformatertInntekt) => {
-                dispatch(
-                  userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
-                    uformatertInntekt
-                  )
-                )
-                dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
+    <AccordionItem name="Grunnlag: Inntekt">
+      <GrunnlagSection
+        headerTitle={intl.formatMessage({
+          id: 'grunnlag.inntekt.title',
+        })}
+        headerValue={`${aarligInntektFoerUttakBeloep} kr`}
+      >
+        <>
+          <BodyLong>
+            <FormattedMessage
+              id="grunnlag.inntekt.ingress"
+              values={{
+                ...getFormatMessageValues(),
+                beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,
+                aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
               }}
             />
-            <BodyLong className={styles.link}>
-              <FormattedMessage id="grunnlag.inntekt.avansert_kalkulator" />
-              <Link href="#" onClick={goToAvansert}>
-                <FormattedMessage id="grunnlag.inntekt.avansert_link" />
-              </Link>
-              .
-            </BodyLong>
-          </>
-        </GrunnlagSection>
-      </AccordionItem>
-    </>
+            <br />
+          </BodyLong>
+          <Modal
+            ref={infoModalRef}
+            header={{
+              heading: intl.formatMessage({
+                id: 'grunnlag.inntekt.info_om_inntekt',
+              }),
+            }}
+            width="medium"
+          >
+            <Modal.Body>
+              <InfoOmInntekt />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                type="button"
+                onClick={() => infoModalRef.current?.close()}
+              >
+                {intl.formatMessage({
+                  id: 'grunnlag.inntekt.info_om_inntekt.lukk',
+                })}
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Link
+            href="#"
+            className={styles.link}
+            onClick={openInfoModal}
+            inlineText
+          >
+            <FormattedMessage id="inntekt.info_om_inntekt.open.link" />
+          </Link>
+
+          <EndreInntekt
+            visning="enkel"
+            className={styles.button}
+            value={aarligInntektFoerUttakBeloepFraBrukerInput}
+            onSubmit={(uformatertInntekt) => {
+              dispatch(
+                userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
+                  uformatertInntekt
+                )
+              )
+              dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
+            }}
+          />
+          <BodyLong className={styles.link}>
+            <FormattedMessage id="grunnlag.inntekt.avansert_kalkulator" />
+            <Link href="#" onClick={goToAvansert}>
+              <FormattedMessage id="grunnlag.inntekt.avansert_link" />
+            </Link>
+            .
+          </BodyLong>
+        </>
+      </GrunnlagSection>
+    </AccordionItem>
   )
 }

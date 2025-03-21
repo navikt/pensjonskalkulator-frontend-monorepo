@@ -96,33 +96,31 @@ export const GrunnlagAFP: React.FC<Props> = ({ goToStart }) => {
   }, [afp])
 
   return (
-    <>
-      <AccordionItem name="Grunnlag: AFP">
-        <GrunnlagSection
-          headerTitle={intl.formatMessage({
-            id: 'grunnlag.afp.title',
-          })}
-          headerValue={formatertAfpHeader}
-        >
-          <BodyLong>
-            <FormattedMessage
-              id={formatertAfpIngress}
-              values={{
-                ...getFormatMessageValues(),
-              }}
-            />
+    <AccordionItem name="Grunnlag: AFP">
+      <GrunnlagSection
+        headerTitle={intl.formatMessage({
+          id: 'grunnlag.afp.title',
+        })}
+        headerValue={formatertAfpHeader}
+      >
+        <BodyLong>
+          <FormattedMessage
+            id={formatertAfpIngress}
+            values={{
+              ...getFormatMessageValues(),
+            }}
+          />
 
-            {!isEndring && !ufoeregrad && afp === 'nei' && (
-              <>
-                <Link href="#" onClick={goToStart}>
-                  <FormattedMessage id="grunnlag.afp.reset_link" />
-                </Link>
-                .
-              </>
-            )}
-          </BodyLong>
-        </GrunnlagSection>
-      </AccordionItem>
-    </>
+          {!isEndring && !ufoeregrad && afp === 'nei' && (
+            <>
+              <Link href="#" onClick={goToStart}>
+                <FormattedMessage id="grunnlag.afp.reset_link" />
+              </Link>
+              .
+            </>
+          )}
+        </BodyLong>
+      </GrunnlagSection>
+    </AccordionItem>
   )
 }

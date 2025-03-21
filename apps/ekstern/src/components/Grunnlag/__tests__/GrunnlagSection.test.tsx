@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Accordion } from '@navikt/ds-react'
 
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
@@ -11,7 +9,7 @@ describe('GrunnlagSection', () => {
       <Accordion>
         <Accordion.Item>
           <GrunnlagSection headerTitle="mytest" headerValue="details" isLoading>
-            <>Lorem</>
+            Lorem
           </GrunnlagSection>
         </Accordion.Item>
       </Accordion>
@@ -26,7 +24,7 @@ describe('GrunnlagSection', () => {
       <Accordion>
         <Accordion.Item>
           <GrunnlagSection headerTitle="mytest" headerValue="details">
-            <>Lorem</>
+            Lorem
           </GrunnlagSection>
         </Accordion.Item>
       </Accordion>

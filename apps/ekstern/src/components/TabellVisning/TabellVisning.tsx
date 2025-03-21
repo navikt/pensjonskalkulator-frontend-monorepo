@@ -36,7 +36,7 @@ const logOnExpandOpenAndClose = (alder: string) => (open: boolean) => {
 export function TabellVisning({ series, aarArray }: Props) {
   const intl = useIntl()
   const tableData = useTableData(series, aarArray)
-  const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
+  const [isTabellVisible, setIsTabellVisible] = React.useState<boolean>(false)
 
   const showInntekt = React.useMemo(() => {
     return series.some(
@@ -72,12 +72,12 @@ export function TabellVisning({ series, aarArray }: Props) {
     <ReadMore
       name="Tabell av beregningen"
       header={
-        isVisTabellOpen
+        isTabellVisible
           ? intl.formatMessage({ id: 'beregning.tabell.lukk' })
           : intl.formatMessage({ id: 'beregning.tabell.vis' })
       }
       className={styles.visTabell}
-      onOpenChange={setVisTabellOpen}
+      onOpenChange={setIsTabellVisible}
     >
       <Table className={styles.table}>
         <Table.Header>

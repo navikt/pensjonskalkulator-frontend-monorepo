@@ -66,7 +66,7 @@ export function Sivilstand({
   })
 
   const [sivilstandInput, setSivilstandInput] = useState(sivilstand)
-  const [epsHarPensjonInput, setEpsharPensjonInput] = useState(
+  const [epsHarPensjonInput, setEpsHarPensjonInput] = useState(
     convertBooleanToBooleanRadio(epsHarPensjon)
   )
   const [epsHarInntektOver2GInput, setEpsHarInntektOver2GInput] = useState(
@@ -250,7 +250,7 @@ export function Sivilstand({
               })}
               name="epsHarPensjon"
               value={epsHarPensjonInput}
-              onChange={(value) => setEpsharPensjonInput(value)}
+              onChange={setEpsHarPensjonInput}
               error={validationError.epsHarPensjon}
               role="radiogroup"
               aria-required="true"

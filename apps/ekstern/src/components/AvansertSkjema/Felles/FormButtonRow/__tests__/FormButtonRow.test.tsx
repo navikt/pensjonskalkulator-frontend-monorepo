@@ -26,7 +26,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -52,7 +52,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -90,7 +90,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -129,7 +129,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
             hasVilkaarIkkeOppfylt={true}
@@ -168,7 +168,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
             hasVilkaarIkkeOppfylt={true}
@@ -208,7 +208,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -250,7 +250,7 @@ describe('FormButtonRow', () => {
           }}
         >
           <FormButtonRow
-            formId={''}
+            formId=""
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -320,7 +320,7 @@ describe('FormButtonRow', () => {
         }}
       >
         <FormButtonRow
-          formId={''}
+          formId=""
           resetForm={onResetMock}
           gaaTilResultat={vi.fn()}
         />
@@ -341,7 +341,7 @@ describe('FormButtonRow', () => {
         }}
       >
         <FormButtonRow
-          formId={''}
+          formId=""
           resetForm={vi.fn()}
           gaaTilResultat={gaaTilResultatMock}
         />

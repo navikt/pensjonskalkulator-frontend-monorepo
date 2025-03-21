@@ -196,6 +196,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
       <FormattedMessage
         id={alert.text}
         values={{
+          // eslint-disable-next-line react/no-unstable-nested-components
           scrollTo: (chunk) => (
             <Link
               href="#"

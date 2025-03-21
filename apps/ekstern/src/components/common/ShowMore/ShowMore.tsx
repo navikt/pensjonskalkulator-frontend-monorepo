@@ -215,6 +215,7 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
     )
   }
 )
+ShowMore.displayName = 'ShowMore'
 
 export default ShowMore
 /* c8 ignore end */

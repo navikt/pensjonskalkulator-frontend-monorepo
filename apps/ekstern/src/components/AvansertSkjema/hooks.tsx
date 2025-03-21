@@ -1,3 +1,4 @@
+/* eslint-disable react/hook-use-state */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 

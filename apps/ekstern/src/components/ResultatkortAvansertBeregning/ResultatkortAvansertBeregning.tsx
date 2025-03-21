@@ -117,19 +117,13 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
           )}
 
           <dt className={styles.listTitle}>
-            {uttaksalder && person && (
-              <>{`${formatUttaksalder(
-                intl,
-                {
-                  ...uttaksalder,
-                },
-                { compact: true }
-              )}
+            {uttaksalder &&
+              person &&
+              `${formatUttaksalder(intl, { ...uttaksalder }, { compact: true })}
                   (${transformUttaksalderToDate(
                     uttaksalder,
                     person?.foedselsdato as string
-                  )})`}</>
-            )}
+                  )})`}
           </dt>
           <dd className={styles.listDescription}>
             {intl.formatMessage({

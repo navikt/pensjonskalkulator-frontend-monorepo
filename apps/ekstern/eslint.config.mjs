@@ -2,6 +2,7 @@ import _import from 'eslint-plugin-import'
 import { fixupPluginRules } from '@eslint/compat'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import reactPlugin from 'eslint-plugin-react'
 import globals from 'globals'
 
 const ignoredFiles = [
@@ -35,12 +36,15 @@ const defaultEslintConfig = tseslint.config(
   ...tseslint.configs.recommended.map((config) => ({
     ...config,
     ignores: [...ignoredFiles],
-  }))
+  })),
+  reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat['jsx-runtime']
 )
 
 export default [
   ...defaultEslintConfig,
   {
+    settings: { react: { version: 'detect' } }, // eslint-plugin-react needs this
     languageOptions: {
       globals: {
         ...globals.node,
@@ -60,12 +64,21 @@ export default [
     },
     rules: {
       'no-debugger': 'warn',
-      'no-shadow': 'off',
       'no-irregular-whitespace': ['error', { skipTemplates: true }],
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       '@typescript-eslint/no-shadow': ['error'],
       '@typescript-eslint/naming-convention': 'off',
+      'react/jsx-curly-brace-presence': [
+        'error',
+        { props: 'never', children: 'never' },
+      ],
+      'react/hook-use-state': 'error',
+      'react/jsx-no-useless-fragment': 'error',
+      'react/jsx-props-no-spread-multi': 'error',
+      'react/no-unstable-nested-components': 'error',
+      'react/self-closing-comp': 'error',
+      'react/style-prop-object': 'error',
       'import/order': [
         'warn',
         {

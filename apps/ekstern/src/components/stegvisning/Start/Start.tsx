@@ -111,7 +111,7 @@ export function Start({
                     <BodyLong size="large">
                       <span
                         className={`${styles.ellipse} ${styles.ellipse__blue}`}
-                      ></span>
+                      />
                       <FormattedMessage id="stegvisning.start.list_item1" />
                     </BodyLong>
                   </li>
@@ -119,7 +119,7 @@ export function Start({
                     <BodyLong size="large">
                       <span
                         className={`${styles.ellipse} ${styles.ellipse__purple}`}
-                      ></span>
+                      />
                       <FormattedMessage id="stegvisning.start.list_item2" />{' '}
                     </BodyLong>
                   </li>
@@ -127,7 +127,7 @@ export function Start({
                     <BodyLong size="large">
                       <span
                         className={`${styles.ellipse} ${styles.ellipse__green}`}
-                      ></span>
+                      />
                       <FormattedMessage id="stegvisning.start.list_item3" />{' '}
                     </BodyLong>
                   </li>

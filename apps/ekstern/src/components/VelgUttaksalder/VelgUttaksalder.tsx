@@ -49,7 +49,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperCard}>
-        <span ref={pinRef} className={styles.pin}></span>
+        <span ref={pinRef} className={styles.pin} />
         <Heading size="xsmall" level="2">
           <FormattedMessage id="velguttaksalder.title" />
         </Heading>
