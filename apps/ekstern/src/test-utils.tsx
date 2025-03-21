@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'

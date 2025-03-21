@@ -1,12 +1,10 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLoaderData, useLocation } from 'react-router'
-import { Await } from 'react-router'
+import { useLoaderData, useLocation, Await } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { HOST_BASEURL } from '@/paths'
-import { LoginContext } from '@/router/loaders'
-import { AuthenticationGuardLoader } from '@/router/loaders'
+import { AuthenticationGuardLoader, LoginContext } from '@/router/loaders'
 
 import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'

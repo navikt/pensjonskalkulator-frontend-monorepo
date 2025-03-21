@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { Loader } from '@navikt/ds-react'
-import { Accordion } from '@navikt/ds-react'
+import { Accordion, Loader } from '@navikt/ds-react'
 
 import { AccordionContext } from '@/components/common/AccordionItem'
 

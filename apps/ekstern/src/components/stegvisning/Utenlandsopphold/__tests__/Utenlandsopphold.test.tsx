@@ -3,8 +3,10 @@ import { describe, it, vi } from 'vitest'
 import { Utenlandsopphold } from '..'
 import { mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
-import { userInputActions } from '@/state/userInput/userInputSlice'
-import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import {
+  userInputActions,
+  userInputInitialState,
+} from '@/state/userInput/userInputSlice'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Utenlandsopphold', () => {

@@ -22,8 +22,10 @@ import {
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
-import { generateTidligstMuligHeltUttakRequestBody } from '@/state/api/utils'
-import { generateAlderspensjonEnkelRequestBody } from '@/state/api/utils'
+import {
+  generateTidligstMuligHeltUttakRequestBody,
+  generateAlderspensjonEnkelRequestBody,
+} from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,

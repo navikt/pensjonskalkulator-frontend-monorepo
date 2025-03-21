@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import {
   fulfilledGetOmstillingsstoenadOgGjenlevende,
   fulfilledGetPersonMedOekteAldersgrenser,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'

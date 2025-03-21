@@ -9,8 +9,10 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { transformFoedselsdatoToAlder } from '@/utils/alder'
-import { getAlderMinus1Maaned } from '@/utils/alder'
+import {
+  transformFoedselsdatoToAlder,
+  getAlderMinus1Maaned,
+} from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 
 import { SERIES_DEFAULT } from './constants'

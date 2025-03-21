@@ -1,5 +1,4 @@
-import { FormEvent } from 'react'
-import React from 'react'
+import React, { FormEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'

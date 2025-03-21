@@ -1,5 +1,4 @@
-import _import from 'eslint-plugin-import'
-import { fixupPluginRules } from '@eslint/compat'
+import importPlugin from 'eslint-plugin-import'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import reactPlugin from 'eslint-plugin-react'
@@ -60,7 +59,7 @@ export default [
   {
     ignores: [...ignoredFiles],
     plugins: {
-      import: fixupPluginRules(_import),
+      import: importPlugin,
     },
     rules: {
       'no-debugger': 'warn',
@@ -79,6 +78,9 @@ export default [
       'react/no-unstable-nested-components': 'error',
       'react/self-closing-comp': 'error',
       'react/style-prop-object': 'error',
+      'import/export': 'error',
+      'import/no-extraneous-dependencies': 'error',
+      'import/no-duplicates': 'error',
       'import/order': [
         'warn',
         {

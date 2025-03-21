@@ -16,8 +16,10 @@ import {
   selectUfoeregrad,
   selectAarligInntektFoerUttakBeloepFraSkatt,
 } from '@/state/userInput/selectors'
-import { updateAndFormatInntektFromInputField } from '@/utils/inntekt'
-import { validateInntekt } from '@/utils/inntekt'
+import {
+  updateAndFormatInntektFromInputField,
+  validateInntekt,
+} from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 

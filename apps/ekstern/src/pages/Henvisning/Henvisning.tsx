@@ -1,7 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useParams } from 'react-router'
-import { useNavigate } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 
 import { Card } from '../../components/common/Card'
 import { externalUrls, paths, henvisningUrlParams } from '@/router/constants'
