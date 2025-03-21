@@ -223,7 +223,7 @@ jobs:
 
   deploy-sandbox:
     name: Deploy to sandbox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -254,7 +254,7 @@ jobs:
 
   deploy-catbox:
     name: Deploy to catbox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -283,7 +283,7 @@ jobs:
 
   deploy-magicbox:
     name: Deploy to magicbox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -312,7 +312,7 @@ jobs:
 
   deploy-dreambox:
     name: Deploy to dreambox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -341,7 +341,7 @@ jobs:
 
   deploy-coffeebox:
     name: Deploy to coffeebox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -370,7 +370,7 @@ jobs:
 
   deploy-codebox:
     name: Deploy to codebox
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
