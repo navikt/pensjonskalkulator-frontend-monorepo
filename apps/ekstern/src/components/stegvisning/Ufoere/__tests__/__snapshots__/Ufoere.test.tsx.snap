@@ -49,7 +49,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
         </div>
       </div>
       <div
-        class="navds-read-more navds-read-more--medium _readmore1_10fc87"
+        class="navds-read-more navds-read-more--medium _wrapper_11f63f _readmore1_10fc87"
         data-volume="low"
       >
         <button
