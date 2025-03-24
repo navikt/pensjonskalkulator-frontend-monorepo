@@ -12,6 +12,7 @@ import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
+import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
@@ -162,7 +163,7 @@ export const BeregningEnkel: React.FC = () => {
   )
 
   React.useEffect(() => {
-    if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
+    if (alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
       logger('resultat vist', { tekst: 'Beregning enkel' })
       logger('grunnlag for beregningen', {
         tekst: 'antall opphold',
@@ -364,9 +365,12 @@ export const BeregningEnkel: React.FC = () => {
                 />
               </div>
             </div>
+
             <div className={styles.container}>
               <GrunnlagForbehold headingLevel="3" />
             </div>
+
+            <Signals id="panel-qc608mkm1s" breakpoint="lg" />
           </>
         )}
     </>
