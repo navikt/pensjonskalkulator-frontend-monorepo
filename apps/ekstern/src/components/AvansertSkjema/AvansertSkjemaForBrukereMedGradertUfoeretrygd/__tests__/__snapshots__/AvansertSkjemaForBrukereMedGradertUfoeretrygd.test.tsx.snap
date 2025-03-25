@@ -779,7 +779,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           >
             <p
               class="navds-body-long navds-body-long--medium"
-              data-testid="om-uttaksgrad"
+              data-testid="om-uttaksgrad-og-ufoeretrygd"
             >
               Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 
               <span

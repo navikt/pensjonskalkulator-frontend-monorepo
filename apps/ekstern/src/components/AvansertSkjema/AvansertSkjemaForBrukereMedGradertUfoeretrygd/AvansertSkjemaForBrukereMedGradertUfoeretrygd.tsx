@@ -549,26 +549,42 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
 
                 <div className={styles.spacer__small} />
 
-                <ReadMore
-                  name="Om uttaksgrad"
-                  header={intl.formatMessage({
-                    id: 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label',
-                  })}
-                >
-                  <BodyLong data-testid="om-uttaksgrad">
-                    <FormattedMessage
-                      id={
-                        isEndring
-                          ? 'omufoeretrygd.readmore.endring.ingress'
-                          : 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-                      }
-                      values={{
-                        ...getFormatMessageValues(),
-                        normertPensjonsalder: formatertNormertPensjonsalder,
-                      }}
-                    />
-                  </BodyLong>
-                </ReadMore>
+                {localBeregningsTypeRadio === 'med_afp' ? (
+                  <ReadMore
+                    name="Om uttaksgrad"
+                    header={intl.formatMessage({
+                      id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+                    })}
+                  >
+                    <BodyLong data-testid="om-uttaksgrad">
+                      <FormattedMessage
+                        id="beregning.avansert.rediger.read_more.uttaksgrad.body"
+                        values={getFormatMessageValues()}
+                      />
+                    </BodyLong>
+                  </ReadMore>
+                ) : (
+                  <ReadMore
+                    name="Om uttaksgrad"
+                    header={intl.formatMessage({
+                      id: 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label',
+                    })}
+                  >
+                    <BodyLong data-testid="om-uttaksgrad-og-ufoeretrygd">
+                      <FormattedMessage
+                        id={
+                          isEndring
+                            ? 'omufoeretrygd.readmore.endring.ingress'
+                            : 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
+                        }
+                        values={{
+                          ...getFormatMessageValues(),
+                          normertPensjonsalder: formatertNormertPensjonsalder,
+                        }}
+                      />
+                    </BodyLong>
+                  </ReadMore>
+                )}
               </div>
 
               {localGradertUttak?.uttaksalder?.aar &&

@@ -84,7 +84,9 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
       )
     ).toBeVisible()
-    expect(screen.getByTestId('om-uttaksgrad')).toBeInTheDocument()
+    expect(
+      screen.getByTestId('om-uttaksgrad-og-ufoeretrygd')
+    ).toBeInTheDocument()
 
     const selectAarElement = screen.getByTestId(
       `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
@@ -2517,10 +2519,11 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
         )
       )
-      expect(await screen.findByTestId('om-uttaksgrad')).toMatchInlineSnapshot(`
+      expect(await screen.findByTestId('om-uttaksgrad-og-ufoeretrygd'))
+        .toMatchInlineSnapshot(`
         <p
           class="navds-body-long navds-body-long--medium"
-          data-testid="om-uttaksgrad"
+          data-testid="om-uttaksgrad-og-ufoeretrygd"
         >
           Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 
           <span
@@ -2575,7 +2578,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       })
     })
 
-    it('Vis intro tekst om AFP og beregningsvalg', async () => {
+    it('Viser intro-tekst om AFP og beregningsvalg', async () => {
       render(
         <BeregningContext.Provider
           value={{
@@ -2609,7 +2612,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       ).toBeVisible()
     })
 
-    it('Vis resten av skjemaet når man har gjort et valg i Beregningsvalg', async () => {
+    it('Viser resten av skjemaet når man har valgt beregning med eller uten AFP', async () => {
       const user = userEvent.setup()
 
       render(
@@ -2653,6 +2656,38 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       expect(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
       ).toBeVisible()
+    })
+
+    it('Viser riktig innhold når man har valgt beregning med AFP', async () => {
+      render(
+        <BeregningContext.Provider value={{ ...contextMockedValues }}>
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_privat',
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                beregningsvalg: 'med_afp',
+              },
+            },
+          },
+        }
+      )
+
+      expect(screen.getByTestId('om-uttaksgrad')).toBeInTheDocument()
+      expect(
+        screen.queryByTestId('om-uttaksgrad-og-ufoeretrygd')
+      ).not.toBeInTheDocument()
     })
   })
 })
