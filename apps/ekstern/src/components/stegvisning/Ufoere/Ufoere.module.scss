@@ -1,7 +1,6 @@
 @use '../../../scss/variables';
 
 .alert {
-  composes: fadein from '../../../scss/modules/fadein.module.scss';
   margin-bottom: var(--a-spacing-2);
 }
 

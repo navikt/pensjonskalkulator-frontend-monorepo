@@ -1,7 +1,6 @@
 @use '../../scss/variables';
 
 .section {
-  composes: fadein from '../../scss/modules/fadein.module.scss';
   composes: innerframe from '../../scss/modules/frame.module.scss';
 
   @media (min-width: variables.$a-breakpoint-lg) {

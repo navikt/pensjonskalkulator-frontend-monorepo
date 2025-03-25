@@ -2,7 +2,7 @@
 
 .landingPage {
   composes: innerframe from '../../scss/modules/frame.module.scss';
-  composes: whitesection from '../../scss/modules/fadein.module.scss';
+  composes: whitesection from '../../scss/modules/whitesection.module.scss';
 
   @media (min-width: variables.$a-breakpoint-md) {
     padding: var(--a-spacing-6) 0 var(--a-spacing-10) !important;

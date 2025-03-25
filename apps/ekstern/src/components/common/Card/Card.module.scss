@@ -2,7 +2,7 @@
 
 .section {
   composes: innerframe from '../../../scss/modules/frame.module.scss';
-  composes: whitesection from '../../../scss/modules/fadein.module.scss';
+  composes: whitesection from '../../../scss/modules/whitesection.module.scss';
 
   &__largePadding {
     composes: innerframe__largePadding from '../../../scss/modules/frame.module.scss';

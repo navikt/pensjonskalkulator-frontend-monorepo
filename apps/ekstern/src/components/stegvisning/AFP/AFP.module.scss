@@ -17,7 +17,6 @@
 }
 
 .alert {
-  composes: fadein from '../../../scss/modules/fadein.module.scss';
   margin-left: var(--a-spacing-8);
 }
 

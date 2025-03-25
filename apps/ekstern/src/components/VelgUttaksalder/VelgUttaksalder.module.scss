@@ -4,7 +4,7 @@
   composes: frame from '../../scss/modules/frame.module.scss';
 
   &Card {
-    composes: whitesection from '../../scss/modules/fadein.module.scss';
+    composes: whitesection from '../../scss/modules/whitesection.module.scss';
     display: flex;
     padding: var(--a-spacing-6);
     flex-direction: column;
