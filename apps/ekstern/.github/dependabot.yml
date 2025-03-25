@@ -28,6 +28,10 @@ updates:
         patterns:
           - 'sanity'
           - '@sanity/vision'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
 
 registries:
   npm-github:
