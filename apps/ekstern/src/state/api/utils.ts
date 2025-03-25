@@ -8,18 +8,16 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 // TODO: Legg til logikk for "AFP_ETTERFULGT_AV_ALDERSPENSJON_GAMMEL"
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
-  afp: AfpRadio | null
+  afp: AfpRadio | null,
+  beregningsvalg?: Beregningsvalg | null
 ): AlderspensjonSimuleringstype => {
-  const isEndring = isLoependeVedtakEndring(loependeVedtak)
+  const ufoeregrad = loependeVedtak.ufoeretrygd.grad
 
-  if (isEndring) {
-    if (
-      !loependeVedtak.ufoeretrygd.grad &&
-      (afp === 'ja_privat' || loependeVedtak.afpPrivat)
-    ) {
+  if (isLoependeVedtakEndring(loependeVedtak)) {
+    if (!ufoeregrad && (afp === 'ja_privat' || loependeVedtak.afpPrivat)) {
       return 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
     } else if (
-      !loependeVedtak.ufoeretrygd.grad &&
+      !ufoeregrad &&
       (afp === 'ja_offentlig' || loependeVedtak.afpOffentlig)
     ) {
       return 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
@@ -27,12 +25,9 @@ export const getSimuleringstypeFromRadioEllerVedtak = (
       return 'ENDRING_ALDERSPENSJON'
     }
   } else {
-    if (loependeVedtak.ufoeretrygd.grad) {
+    if (ufoeregrad && (!beregningsvalg || beregningsvalg === 'uten_afp')) {
       return 'ALDERSPENSJON'
-    } else if (
-      !loependeVedtak.ufoeretrygd.grad &&
-      loependeVedtak.afpOffentlig
-    ) {
+    } else if (!ufoeregrad && loependeVedtak.afpOffentlig) {
       return 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
     } else {
       switch (afp) {
@@ -126,9 +121,10 @@ export const generateAlderspensjonRequestBody = (args: {
   epsHarPensjon: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: string
-  gradertUttak?: GradertUttak
+  gradertUttak: GradertUttak | null
   heltUttak?: HeltUttak
   utenlandsperioder: Utenlandsperiode[]
+  beregningsvalg?: Beregningsvalg | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     loependeVedtak,
@@ -141,6 +137,7 @@ export const generateAlderspensjonRequestBody = (args: {
     gradertUttak,
     heltUttak,
     utenlandsperioder,
+    beregningsvalg,
   } = args
 
   if (!foedselsdato || !heltUttak) {
@@ -150,7 +147,8 @@ export const generateAlderspensjonRequestBody = (args: {
   return {
     simuleringstype: getSimuleringstypeFromRadioEllerVedtak(
       loependeVedtak,
-      afp
+      afp,
+      beregningsvalg
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
