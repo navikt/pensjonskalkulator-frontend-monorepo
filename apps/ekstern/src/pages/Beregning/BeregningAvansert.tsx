@@ -231,14 +231,12 @@ export const BeregningAvansert: React.FC = () => {
               aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? '0'}
               alderspensjonListe={alderspensjon?.alderspensjon}
               afpPrivatListe={
-                !loependeVedtak.ufoeretrygd.grad &&
                 (afp === 'ja_privat' || loependeVedtak.afpPrivat) &&
                 alderspensjon?.afpPrivat
                   ? alderspensjon?.afpPrivat
                   : undefined
               }
               afpOffentligListe={
-                !loependeVedtak.ufoeretrygd.grad &&
                 afp === 'ja_offentlig' &&
                 harSamtykketOffentligAFP &&
                 alderspensjon?.afpOffentlig
