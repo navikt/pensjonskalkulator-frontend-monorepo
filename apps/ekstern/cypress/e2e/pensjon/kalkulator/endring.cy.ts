@@ -1,3 +1,5 @@
+// https://jira.adeo.no/secure/Tests.jspa#/testCase/PEK-T14
+
 describe('Endring av alderspensjon', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
     describe('Som bruker som har gjeldende vedtak på alderspensjon,', () => {
@@ -20,15 +22,16 @@ describe('Endring av alderspensjon', () => {
         cy.login()
       })
 
+      // 1
       it('forventer jeg informasjon på startsiden om at jeg har alderspensjon og hvilken uttaksgrad.', () => {
         cy.contains('Hei Aprikos!')
         cy.contains('Du har nå 100 % alderspensjon.')
       })
-
       it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
         cy.contains('button', 'Kom i gang').click()
       })
 
+      // 2
       describe('Som bruker som har fremtidig vedtak om endring av alderspensjon,', () => {
         beforeEach(() => {
           cy.intercept(
@@ -38,13 +41,13 @@ describe('Endring av alderspensjon', () => {
             },
             {
               alderspensjon: {
-                grad: 100,
+                grad: 80,
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
               ufoeretrygd: { grad: 0 },
               fremtidigAlderspensjon: {
-                grad: 100,
+                grad: 90,
                 fom: '2099-01-01',
               },
             } satisfies LoependeVedtak
@@ -52,13 +55,18 @@ describe('Endring av alderspensjon', () => {
           cy.login()
         })
 
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har 80 % alderspensjon, at jeg har endret til 90 % alderspensjon fra 01.01.2099 og at ny beregning ikke kan gjøres før den datoen.', () => {
           cy.contains(
-            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
+            'Du har nå 80 % alderspensjon. Du har endret til 90 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
+        })
+        it('forventer jeg å kunne avbryte kalkulatoren.', () => {
+          cy.contains('button', 'Avbryt').should('exist')
+          cy.contains('button', 'Kom i gang').should('not.exist')
         })
       })
 
+      // 3
       describe('Når jeg har trykt kom i gang,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -68,6 +76,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 4
       describe('Som bruker som har svart "ja, offentlig" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -116,6 +125,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 5
       describe('Som bruker som har svart "ja, privat" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -160,6 +170,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 6
       describe('Som bruker som har svart "vet ikke" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -212,6 +223,7 @@ describe('Endring av alderspensjon', () => {
           cy.contains('button', 'Neste').click()
         })
 
+        // 7
         describe('Når jeg er kommet til beregningssiden i redigeringsmodus,', () => {
           it('forventer jeg informasjon om når jeg startet eller sist endret alderspensjon, og hvilken grad jeg har.', () => {
             cy.contains('Beregn endring av alderspensjon')
@@ -322,6 +334,7 @@ describe('Endring av alderspensjon', () => {
           })
         })
 
+        // 8
         describe('Når jeg velger å endre til en annen uttaksgrad enn 100%,', () => {
           beforeEach(() => {
             cy.get(
@@ -385,6 +398,7 @@ describe('Endring av alderspensjon', () => {
             ).select('0')
           })
 
+          // 9
           describe('Når jeg er kommet til beregningssiden i resultatmodus,', () => {
             beforeEach(() => {
               cy.contains('Beregn ny pensjon').click()
@@ -492,15 +506,16 @@ describe('Endring av alderspensjon', () => {
         cy.login()
       })
 
+      // 11
       it('forventer jeg informasjon på startsiden om at jeg har alderspensjon og AFP privat og hvilken uttaksgrad.', () => {
         cy.contains('Hei Aprikos!')
         cy.contains('Du har nå 80 % alderspensjon og AFP i privat sektor')
       })
-
       it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
         cy.contains('button', 'Kom i gang').click()
       })
 
+      // 12
       describe('Som bruker som har fremtidig vedtak om endring av alderspensjon,', () => {
         beforeEach(() => {
           cy.intercept(
@@ -517,7 +532,7 @@ describe('Endring av alderspensjon', () => {
               afpPrivat: { fom: '2010-10-10' },
               ufoeretrygd: { grad: 0 },
               fremtidigAlderspensjon: {
-                grad: 100,
+                grad: 90,
                 fom: '2099-01-01',
               },
             } satisfies LoependeVedtak
@@ -525,13 +540,14 @@ describe('Endring av alderspensjon', () => {
           cy.login()
         })
 
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har 80 % alderspensjon og AFP, at jeg har endret til 90 % alderspensjon fra 01.01.2099 og at ny beregning ikke kan gjøres før den datoen.', () => {
           cy.contains(
-            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
+            'Du har nå 80 % alderspensjon og AFP i privat sektor. Du har endret til 90 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
 
+      // 13
       describe('Når jeg har trykt kom i gang og er kommet til beregningssiden i redigeringsmodus,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -646,6 +662,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 14
       describe('Når jeg velger å endre til en annen uttaksgrad enn 100%,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -682,6 +699,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 15
       describe('Som bruker som har valgt endringer,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -788,6 +806,7 @@ describe('Endring av alderspensjon', () => {
       })
     })
 
+    // OBS: Dette er ikke i Jira
     describe('Som bruker som har gjeldende vedtak på alderspensjon og Livsvarig AFP (offentlig)', () => {
       beforeEach(() => {
         cy.intercept(
@@ -820,7 +839,6 @@ describe('Endring av alderspensjon', () => {
         cy.contains('Hei Aprikos!')
         cy.contains('Du har nå 80 % alderspensjon og AFP i offentlig sektor')
       })
-
       it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
         cy.contains('button', 'Kom i gang').click()
       })
@@ -843,7 +861,7 @@ describe('Endring av alderspensjon', () => {
                 grad: 0,
               },
               fremtidigAlderspensjon: {
-                grad: 100,
+                grad: 90,
                 fom: '2099-01-01',
               },
             } satisfies LoependeVedtak
@@ -851,9 +869,9 @@ describe('Endring av alderspensjon', () => {
           cy.login()
         })
 
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har 80 % alderspensjon og AFP, at jeg har endret til 90 % alderspensjon fra 01.01.2099 og at ny beregning ikke kan gjøres før den datoen.', () => {
           cy.contains(
-            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
+            'Du har nå 80 % alderspensjon og AFP i offentlig sektor. Du har endret til 90 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
@@ -1142,15 +1160,16 @@ describe('Endring av alderspensjon', () => {
         cy.login()
       })
 
+      // 17
       it('forventer jeg informasjon på startsiden om at jeg har alderspensjon og uføetrygd og hvilken uttaksgrad.', () => {
         cy.contains('Hei Aprikos!')
         cy.contains('Du har nå 50 % alderspensjon og 50 % uføretrygd')
       })
-
       it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
         cy.contains('button', 'Kom i gang').click()
       })
 
+      // 18
       describe('Som bruker som har fremtidig vedtak om endring av alderspensjon,', () => {
         beforeEach(() => {
           cy.intercept(
@@ -1164,9 +1183,9 @@ describe('Endring av alderspensjon', () => {
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
-              ufoeretrygd: { grad: 50 },
+              ufoeretrygd: { grad: 40 },
               fremtidigAlderspensjon: {
-                grad: 100,
+                grad: 90,
                 fom: '2099-01-01',
               },
             } satisfies LoependeVedtak
@@ -1174,13 +1193,14 @@ describe('Endring av alderspensjon', () => {
           cy.login()
         })
 
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har 50 % alderspensjon og 40 % uføretrygd, at jeg har endret til 90 % alderspensjon fra 01.01.2099 og at ny beregning ikke kan gjøres før den datoen.', () => {
           cy.contains(
-            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
+            'Du har nå 50 % alderspensjon og 40 % uføretrygd. Du har endret til 90 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
 
+      // 19
       describe('Når jeg har trykt kom i gang og er kommet til beregningssiden i redigeringsmodus,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -1304,6 +1324,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 20
       describe('Som bruker som har valgt endringer,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -1436,15 +1457,16 @@ describe('Endring av alderspensjon', () => {
         cy.login()
       })
 
+      // 22
       it('forventer jeg informasjon på startsiden om at jeg har 0% alderspensjon og 100 % uføretrygd.', () => {
         cy.contains('Hei Aprikos!')
         cy.contains('Du har nå 0 % alderspensjon og 100 % uføretrygd')
       })
-
       it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
         cy.contains('button', 'Kom i gang').click()
       })
 
+      // 23
       describe('Som bruker som har fremtidig vedtak om endring av alderspensjon,', () => {
         beforeEach(() => {
           cy.intercept(
@@ -1460,7 +1482,7 @@ describe('Endring av alderspensjon', () => {
               },
               ufoeretrygd: { grad: 100 },
               fremtidigAlderspensjon: {
-                grad: 100,
+                grad: 90,
                 fom: '2099-01-01',
               },
             } satisfies LoependeVedtak
@@ -1468,13 +1490,14 @@ describe('Endring av alderspensjon', () => {
           cy.login()
         })
 
-        it('forventer jeg informasjon om at jeg har endret alderspensjon, men ikke startet nytt uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har 0 % alderspensjon og 100 % uføretrygd, at jeg har endret til 90 % alderspensjon fra 01.01.2099 og at ny beregning ikke kan gjøres før den datoen.', () => {
           cy.contains(
-            'Du har endret til 100 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
+            'Du har nå 0 % alderspensjon og 100 % uføretrygd. Du har endret til 90 % alderspensjon fra 01.01.2099. Du kan ikke gjøre en ny beregning her før denne datoen.'
           )
         })
       })
 
+      // 24
       describe('Når jeg har trykt kom i gang og er kommet til beregningssiden i redigeringsmodus,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -1589,6 +1612,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 25
       describe('Når jeg velger å endre til en annen uttaksgrad enn 100%,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
@@ -1625,6 +1649,7 @@ describe('Endring av alderspensjon', () => {
         })
       })
 
+      // 26
       describe('Som bruker som har valgt endringer,', () => {
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()

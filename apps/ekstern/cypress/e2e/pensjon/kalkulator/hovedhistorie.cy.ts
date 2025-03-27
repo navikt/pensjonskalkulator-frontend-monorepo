@@ -1,7 +1,10 @@
 import loependeVedtakMock from '../../../fixtures/loepende-vedtak.json'
 
+// https://jira.adeo.no/secure/Tests.jspa#/testCase/PEK-T1
+
 describe('Hovedhistorie', () => {
   describe('Når jeg som bruker navigerer på nav.no/din pensjon og velger å prøve den nye kalkulatoren,', () => {
+    // 1
     it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
       cy.visit('https://www.nav.no/planlegger-pensjon')
       cy.contains('a', 'Prøv pensjonskalkulatoren')
@@ -20,6 +23,7 @@ describe('Hovedhistorie', () => {
     })
 
     describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
+      // 2
       it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
         cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
@@ -27,25 +31,38 @@ describe('Hovedhistorie', () => {
         cy.origin('https://login.idporten.no', () => {
           cy.get('h1').contains('Velg innloggingsmetode')
         })
-        // Denne må deaktiveres foreløpig på grunn av OWASP CSRFGuard JavaScript was included from within an unauthorized domain!
-        // cy.visit('/pensjon/kalkulator/')
-        // cy.contains('button', 'Uinnlogget kalkulator').click()
-        // cy.origin('https://www.nav.no/pselv', () => {
-        //   cy.get('h1').contains('Forenklet pensjonsberegning')
-        // })
+
+        cy.on('uncaught:exception', (e) => {
+          if (
+            e.message.includes('Minified React error #329') ||
+            e.message.includes('Minified React error #418') ||
+            e.message.includes('Minified React error #423')
+          ) {
+            return false
+          }
+        })
+        cy.origin('https://www.nav.no/pensjon/uinnlogget-kalkulator', () => {
+          cy.on('uncaught:exception', (e) => {
+            if (
+              e.message.includes('Minified React error #329') ||
+              e.message.includes('Minified React error #418') ||
+              e.message.includes('Minified React error #423')
+            ) {
+              return false
+            }
+          })
+        })
+
+        cy.visit('/pensjon/kalkulator/')
+        cy.contains('button', 'Uinnlogget kalkulator').click()
+        cy.origin('https://www.nav.no/pensjon/uinnlogget-kalkulator', () => {
+          cy.get('h1').contains('Uinnlogget pensjonskalkulator')
+        })
       })
     })
 
+    // 3
     describe('Når jeg vil logge inn for å teste kalkulatoren,', () => {
-      it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
-        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
-          .should('have.attr', 'href')
-          .and(
-            'include',
-            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
-          )
-      })
-
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
         cy.contains('button', 'Logg inn i pensjonskalkulator').click()
         cy.location('href').should(
@@ -53,10 +70,19 @@ describe('Hovedhistorie', () => {
           'http://localhost:4173/pensjon/kalkulator/oauth2/login?redirect=%2Fpensjon%2Fkalkulator%2Fstart'
         )
       })
+      it('ønsker jeg informasjon om hvilke personopplysninger som brukes i kalkulatoren.', () => {
+        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
+          .should('have.attr', 'href')
+          .and(
+            'include',
+            'https://www.nav.no/personopplysninger-i-pensjonskalkulator'
+          )
+      })
     })
   })
 
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
+    // 4
     describe('Når jeg navigerer videre fra /login til /start,', () => {
       beforeEach(() => {
         cy.visit('/pensjon/kalkulator/')
@@ -85,8 +111,9 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 5
     describe('Som bruker som har fremtidig vedtak om alderspensjon,', () => {
-      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+      describe('Når jeg navigerer videre fra /login til /start,', () => {
         beforeEach(() => {
           cy.intercept(
             {
@@ -103,7 +130,7 @@ describe('Hovedhistorie', () => {
           ).as('getLoependeVedtak')
           cy.login()
         })
-        it('forventer jeg informasjon om at jeg har vedtak, men ikke startet uttak enda.', () => {
+        it('forventer jeg informasjon om at jeg har vedtak med 100 % alderspensjon fra dato 01.01.2099.', () => {
           cy.contains(
             'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
           )
@@ -111,6 +138,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 6
     describe('Som bruker som er registrert med en annen sivilstand enn gift, registrert partner eller samboer,', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
@@ -143,6 +171,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 7
     describe('Som bruker som har sivilstand gift, registrert partner eller samboer,', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
@@ -210,6 +239,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 8
     describe('Når jeg navigerer videre fra sivilstand til neste steg,', () => {
       beforeEach(() => {
         cy.intercept(
@@ -261,6 +291,7 @@ describe('Hovedhistorie', () => {
     })
 
     describe('Gitt at jeg som bruker svarer nei på bodd/jobbet mer enn 5 år utenfor Norge,', () => {
+      // 9
       describe('Når jeg navigerer videre til /afp,', () => {
         beforeEach(() => {
           cy.login()
@@ -300,6 +331,7 @@ describe('Hovedhistorie', () => {
         })
       })
 
+      // 10
       describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
         describe('Når jeg navigerer videre fra /afp til /samtykke-offentlig-afp,', () => {
           beforeEach(() => {
@@ -340,6 +372,7 @@ describe('Hovedhistorie', () => {
         })
       })
 
+      // 11
       describe('Når jeg navigerer videre til /samtykke,', () => {
         beforeEach(() => {
           cy.login()
@@ -377,6 +410,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 12
     describe('Når jeg venter på at resultatet kommer fram,', () => {
       it('forventer jeg en melding dersom det tar tid før resultatet kommer opp.', () => {
         cy.login()
@@ -396,6 +430,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 13
     describe('Når jeg er kommet til beregningssiden,', () => {
       it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.login()
@@ -456,6 +491,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 14
     describe('Når jeg velger hvilken alder jeg ønsker beregning fra,', () => {
       beforeEach(() => {
         cy.login()
@@ -522,6 +558,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 15
     describe('Når jeg foretrekker tabell frem for graf,', () => {
       beforeEach(() => {
         cy.login()
@@ -549,6 +586,7 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    // 16
     describe('Når jeg endrer fremtidig inntekt,', () => {
       beforeEach(() => {
         cy.login()
