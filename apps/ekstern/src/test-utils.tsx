@@ -10,12 +10,14 @@ import { render, RenderOptions } from '@testing-library/react'
 import { SanityContext } from '@/context/SanityContext'
 import {
   SanityForbeholdAvsnitt,
+  SanityGuidePanel,
   SanityReadMore,
 } from '@/context/SanityContext/SanityTypes'
 import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
 import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
@@ -106,6 +108,11 @@ export function renderWithProviders(
                 (
                   sanityReadMoreDataResponse.result as unknown as SanityReadMore[]
                 ).map((readmore) => [readmore.name, readmore])
+              ),
+              guidePanelData: Object.fromEntries(
+                (
+                  sanityGuidePanelDataResponse.result as unknown as SanityGuidePanel[]
+                ).map((guidepanel) => [guidepanel.name, guidepanel])
               ),
               forbeholdAvsnittData:
                 sanityForbeholdAvsnittDataResponse.result as unknown as SanityForbeholdAvsnitt[],

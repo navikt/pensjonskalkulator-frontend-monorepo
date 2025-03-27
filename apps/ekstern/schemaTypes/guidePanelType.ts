@@ -1,4 +1,4 @@
-import { InfoOutlineIcon } from '@sanity/icons'
+import { HelpCircleIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 import {
@@ -9,10 +9,10 @@ import {
 } from './common/commonSchemaTypes'
 import { supportedLanguages } from './supportedLanguages'
 
-export const readmoreType = defineType({
-  name: 'readmore',
-  title: 'ReadMore',
-  icon: InfoOutlineIcon,
+export const guidePanelType = defineType({
+  name: 'guidepanel',
+  title: 'GuidePanel',
+  icon: HelpCircleIcon,
   type: 'document',
   preview: {
     select: {
@@ -35,11 +35,8 @@ export const readmoreType = defineType({
     nameField,
     defineField({
       ...overskriftField,
-      description: 'Tekst på ReadMore header (knappen som åpner og lukker)',
+      description: 'Valgfri overskrift',
     }),
-    defineField({
-      ...innholdField,
-      description: 'Avsnitt(ene) i ReadMore. Vises når ReadMore er åpent.',
-    }),
+    innholdField,
   ],
 })

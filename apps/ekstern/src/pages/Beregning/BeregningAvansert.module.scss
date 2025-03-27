@@ -27,3 +27,7 @@
   margin-top: var(--a-spacing-2);
   margin-bottom: var(--a-spacing-4);
 }
+
+.guidePanel {
+  margin-bottom: calc(var(--a-spacing-8) + var(--a-spacing-10));
+}

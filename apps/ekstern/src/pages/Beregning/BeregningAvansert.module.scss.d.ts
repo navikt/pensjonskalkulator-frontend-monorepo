@@ -5,5 +5,6 @@ declare const classNames: {
   readonly background: "background";
   readonly background__lightblue: "background__lightblue";
   readonly link: "link";
+  readonly guidePanel: "guidePanel";
 };
 export = classNames;

@@ -11,13 +11,13 @@ import { getSanityPortableTextComponents } from '@/utils/sanity'
 
 import styles from './SanityReadmore.module.scss'
 
-interface IProps {
+interface Props {
   id: string
   className?: string
   children?: React.ReactNode
 }
 
-export function SanityReadmore({ id, className, children }: IProps) {
+export const SanityReadmore = ({ id, className, children }: Props) => {
   const intl = useIntl()
   const { readMoreData } = React.useContext(SanityContext)
   const { data: sanityFeatureToggle } = useGetSanityFeatureToggleQuery()

@@ -14,7 +14,7 @@ const pluginsArray = [
   visionTool(),
   documentInternationalization({
     supportedLanguages,
-    schemaTypes: ['readmore', 'forbeholdAvsnitt'],
+    schemaTypes: ['readmore', 'forbeholdAvsnitt', 'guidepanel'],
     languageField: 'language',
   }),
 ]

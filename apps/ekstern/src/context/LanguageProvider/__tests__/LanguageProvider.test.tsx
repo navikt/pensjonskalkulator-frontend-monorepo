@@ -12,7 +12,8 @@ import { sanityClient } from '@/utils/sanity'
 
 function TestComponent() {
   const intl = useIntl()
-  const { readMoreData, forbeholdAvsnittData } = React.useContext(SanityContext)
+  const { forbeholdAvsnittData, guidePanelData, readMoreData } =
+    React.useContext(SanityContext)
 
   return (
     <div data-testid="test-component">
@@ -22,6 +23,9 @@ function TestComponent() {
       </p>
       <p data-testid="forbehold-avsnitt-length">
         {forbeholdAvsnittData.length}
+      </p>
+      <p data-testid="guidepanel-data-length">
+        {Object.keys(guidePanelData).length}
       </p>
     </div>
   )
@@ -95,6 +99,17 @@ describe('LanguageProvider', () => {
         _type: 'random',
         innhold: [],
       },
+      {
+        overskrift: 'Om livsvarig AFP i offentlig sektor',
+        _rev: 'aW9ZvtW6d5z6x1Negh1PL7',
+        name: 'om_livsvarig_afp_i_offentlig_sektor',
+        language: 'nb',
+        _id: '88dfc74a-9878-4753-88a3-4ded8c846fee',
+        _updatedAt: '2025-01-17T07:58:59Z',
+        _createdAt: '2025-01-17T07:54:30Z',
+        _type: 'random',
+        innhold: [],
+      },
     ]
 
     const sanityClientFetchMock = vi
@@ -112,25 +127,35 @@ describe('LanguageProvider', () => {
     )
 
     await waitFor(() => {
-      expect(sanityClientFetchMock).toHaveBeenCalledTimes(4)
+      expect(sanityClientFetchMock).toHaveBeenCalledTimes(6)
+
       expect(sanityClientFetchMock.mock.calls[0][0]).toBe(
-        '*[_type == "readmore" && language == "nb"] | {name,overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[1][0]).toBe(
         '*[_type == "forbeholdAvsnitt" && language == "nb"] | order(order asc) | {overskrift,innhold}'
       )
+      expect(sanityClientFetchMock.mock.calls[1][0]).toBe(
+        '*[_type == "guidepanel" && language == "nb"] | {name,overskrift,innhold}'
+      )
       expect(sanityClientFetchMock.mock.calls[2][0]).toBe(
-        '*[_type == "readmore" && language == "en"] | {name,overskrift,innhold}'
+        '*[_type == "readmore" && language == "nb"] | {name,overskrift,innhold}'
       )
       expect(sanityClientFetchMock.mock.calls[3][0]).toBe(
         '*[_type == "forbeholdAvsnitt" && language == "en"] | order(order asc) | {overskrift,innhold}'
       )
+      expect(sanityClientFetchMock.mock.calls[4][0]).toBe(
+        '*[_type == "guidepanel" && language == "en"] | {name,overskrift,innhold}'
+      )
+      expect(sanityClientFetchMock.mock.calls[5][0]).toBe(
+        '*[_type == "readmore" && language == "en"] | {name,overskrift,innhold}'
+      )
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('readmore-data-length')).toHaveTextContent('2')
+      expect(screen.getByTestId('readmore-data-length')).toHaveTextContent('3')
       expect(screen.getByTestId('forbehold-avsnitt-length')).toHaveTextContent(
-        '2'
+        '3'
+      )
+      expect(screen.getByTestId('guidepanel-data-length')).toHaveTextContent(
+        '3'
       )
     })
   })

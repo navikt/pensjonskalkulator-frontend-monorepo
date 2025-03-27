@@ -11,6 +11,7 @@ import {
 import { SanityContext } from '@/context/SanityContext'
 import {
   SanityForbeholdAvsnitt,
+  SanityGuidePanel,
   SanityReadMore,
 } from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
@@ -31,19 +32,56 @@ interface Props {
 
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
-  const [sanityReadMoreData, setSanityReadMoreData] = useState<
-    Record<string, SanityReadMore>
-  >({})
+
   const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] = useState<
     SanityForbeholdAvsnitt[]
   >([])
+  const [sanityGuidePanelData, setSanityGuidePanelData] = useState<
+    Record<string, SanityGuidePanel>
+  >({})
+  const [sanityReadMoreData, setSanityReadMoreData] = useState<
+    Record<string, SanityReadMore>
+  >({})
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
 
   const fetchSanityData = (locale: Locales) => {
     const logTekst = 'Feil ved henting av innhold fra Sanity'
-    const logData = `readmore ${locale}`
+    const logData = `Språk: ${locale}`
+
+    sanityClient
+      .fetch(
+        `*[_type == "forbeholdAvsnitt" && language == "${locale}"] | order(order asc) | {overskrift,innhold}`
+      )
+      .then((sanityForbeholdAvsnittResponse) => {
+        setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: logTekst,
+          data: logData,
+        })
+      })
+    sanityClient
+      .fetch(
+        `*[_type == "guidepanel" && language == "${locale}"] | {name,overskrift,innhold}`
+      )
+      .then((sanityGuidePanelResponse) => {
+        setSanityGuidePanelData(
+          Object.fromEntries(
+            (sanityGuidePanelResponse || []).map(
+              (guidepanel: SanityGuidePanel) => [guidepanel.name, guidepanel]
+            )
+          )
+        )
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: logTekst,
+          data: logData,
+        })
+      })
     sanityClient
       .fetch(
         `*[_type == "readmore" && language == "${locale}"] | {name,overskrift,innhold}`
@@ -57,19 +95,6 @@ export function LanguageProvider({ children }: Props) {
             ])
           )
         )
-      })
-      .catch(() => {
-        logger('info', {
-          tekst: logTekst,
-          data: logData,
-        })
-      })
-    sanityClient
-      .fetch(
-        `*[_type == "forbeholdAvsnitt" && language == "${locale}"] | order(order asc) | {overskrift,innhold}`
-      )
-      .then((sanityForbeholdAvsnittResponse) => {
-        setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
       })
       .catch(() => {
         logger('info', {
@@ -122,8 +147,9 @@ export function LanguageProvider({ children }: Props) {
       <AkselProvider locale={akselLocales[languageCookie]}>
         <SanityContext.Provider
           value={{
-            readMoreData: sanityReadMoreData,
             forbeholdAvsnittData: sanityForbeholdAvsnittData,
+            guidePanelData: sanityGuidePanelData,
+            readMoreData: sanityReadMoreData,
           }}
         >
           {children}

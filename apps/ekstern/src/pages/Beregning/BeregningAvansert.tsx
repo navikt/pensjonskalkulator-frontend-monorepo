@@ -8,6 +8,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
+import { SanityGuidePanel } from '@/components/common/SanityGuidePanel'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
@@ -264,6 +265,13 @@ export const BeregningAvansert: React.FC = () => {
             <ResultatkortAvansertBeregning
               onButtonClick={() => setAvansertSkjemaModus('redigering')}
             />
+
+            {beregningsvalg === 'med_afp' && (
+              <SanityGuidePanel
+                id="vurderer_du_a_velge_afp"
+                className={styles.guidePanel}
+              />
+            )}
 
             {!isEndring && <Pensjonsavtaler headingLevel="2" />}
 

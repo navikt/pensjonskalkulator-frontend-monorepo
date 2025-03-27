@@ -10,6 +10,7 @@ import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from './data/sanity-guidepanel-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
@@ -28,11 +29,14 @@ const testHandlers =
           'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development',
           async ({ request }) => {
             // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26'
+            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22guidepanel%22+%26%26'
             // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26',
             const url = new URL(request.url)
             const type = url.searchParams.get('_type')
             if (type === 'readmore') {
               return HttpResponse.json(sanityReadMoreDataResponse)
+            } else if (type === 'guidepanel') {
+              return HttpResponse.json(sanityGuidePanelDataResponse)
             } else if (type === 'forbeholdAvsnitt') {
               return HttpResponse.json(sanityForbeholdAvsnittDataResponse)
             }

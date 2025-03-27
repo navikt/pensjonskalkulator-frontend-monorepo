@@ -21,6 +21,16 @@ export type Content = {
   level?: number
 }
 
+export type SanityGuidePanel = {
+  name: string
+  overskrift: string
+  innhold: Array<
+    {
+      _key: string
+    } & Content
+  >
+}
+
 export type SanityReadMore = {
   name: string
   overskrift: string
