@@ -1,5 +1,5 @@
 /* eslint-disable react/hook-use-state */
-import React from 'react'
+import React, { useState } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
@@ -35,17 +35,17 @@ export const useFormLocalState = (initialValues: {
     React.useContext(BeregningContext)
 
   const [localBeregningsTypeRadio, setBeregningsTypeRadio] =
-    React.useState<Beregningsvalg | null>(beregningsvalg)
+    useState<Beregningsvalg | null>(beregningsvalg)
 
   const [localHarInntektVsaHeltUttakRadio, setHarInntektVsaHeltUttakRadio] =
-    React.useState<boolean | null>(
+    useState<boolean | null>(
       !uttaksalder ? null : aarligInntektVsaHelPensjon ? true : false
     )
 
   const [
     localHarInntektVsaGradertUttakRadio,
     setHarInntektVsaGradertUttakRadio,
-  ] = React.useState<boolean | null>(
+  ] = useState<boolean | null>(
     !uttaksalder || !gradertUttaksperiode?.uttaksalder
       ? null
       : gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
@@ -53,21 +53,16 @@ export const useFormLocalState = (initialValues: {
         : false
   )
 
-  const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
+  const [localInntektFremTilUttak, setInntektFremTilUttak] = useState<
     string | null
   >(aarligInntektFoerUttakBeloepFraBrukerInput ?? null)
-  const [localHeltUttak, setHeltUttak] = React.useState<
+  const [localHeltUttak, setHeltUttak] = useState<
     RecursivePartial<HeltUttak> | undefined
   >({
     uttaksalder: uttaksalder ?? undefined,
-    aarligInntektVsaPensjon: aarligInntektVsaHelPensjon
-      ? {
-          ...aarligInntektVsaHelPensjon,
-          beloep: aarligInntektVsaHelPensjon.beloep,
-        }
-      : undefined,
+    aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
   })
-  const [localGradertUttak, setGradertUttak] = React.useState<
+  const [localGradertUttak, setGradertUttak] = useState<
     RecursivePartial<GradertUttak> | undefined
   >({
     grad:
@@ -221,7 +216,7 @@ export const useFormLocalState = (initialValues: {
 export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const intl = useIntl()
 
-  const [validationErrors, setValidationErrors] = React.useState<
+  const [validationErrors, setValidationErrors] = useState<
     Record<AvansertFormNames, string>
   >({
     [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',

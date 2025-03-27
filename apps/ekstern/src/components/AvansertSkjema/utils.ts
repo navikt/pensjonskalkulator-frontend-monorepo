@@ -143,9 +143,7 @@ const validateEndringGradertUttak = (
     const fremtidigMuligEndring = startOfMonth(
       add(
         endOfDay(parse(forrigeEndringsdato, DATE_BACKEND_FORMAT, new Date())),
-        {
-          months: 12,
-        }
+        { months: 12 }
       )
     )
     if (isBefore(uttaksdato, fremtidigMuligEndring)) {
@@ -553,7 +551,7 @@ export const onAvansertBeregningSubmit = (
     AVANSERT_FORM_NAMES.inntektVsaGradertUttak
   )
   if (
-    validateAvansertBeregningSkjema(
+    !validateAvansertBeregningSkjema(
       {
         gradertUttakAarFormData,
         gradertUttakMaanederFormData,
@@ -573,104 +571,105 @@ export const onAvansertBeregningSubmit = (
       setValidationErrors
     )
   ) {
-    dispatch(
-      userInputActions.setCurrentSimulationUttaksalder({
-        aar: parseInt(heltUttakAarFormData as string, 10),
-        maaneder: parseInt(heltUttakMaanederFormData as string, 10),
-      })
-    )
-    logger('valg av uttaksalder for 100 % alderspensjon', {
-      tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
+    return
+  }
+
+  dispatch(
+    userInputActions.setCurrentSimulationUttaksalder({
+      aar: parseInt(heltUttakAarFormData as string, 10),
+      maaneder: parseInt(heltUttakMaanederFormData as string, 10),
     })
+  )
+  logger('valg av uttaksalder for 100 % alderspensjon', {
+    tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
+  })
 
-    if (uttaksgradFormData === '100 %') {
-      dispatch(userInputActions.setCurrentSimulationGradertUttaksperiode(null))
+  if (uttaksgradFormData === '100 %') {
+    dispatch(userInputActions.setCurrentSimulationGradertUttaksperiode(null))
+    logger('radiogroup valgt', {
+      tekst: 'Inntekt vsa. helt uttak',
+      valg: inntektVsaHeltUttakRadioFormData ? 'ja' : 'nei',
+    })
+  } else {
+    logger('valg av uttaksgrad', {
+      tekst: `${uttaksgradFormData}`,
+    })
+    logger('valg av uttaksalder for gradert alderspensjon', {
+      tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+    })
+    if (inntektVsaGradertUttakFormData) {
       logger('radiogroup valgt', {
-        tekst: 'Inntekt vsa. helt uttak',
-        valg: inntektVsaHeltUttakRadioFormData ? 'ja' : 'nei',
+        tekst: 'Inntekt vsa. gradert uttak',
+        valg: inntektVsaGradertUttakRadioFormData ? 'ja' : 'nei',
       })
-    } else {
-      logger('valg av uttaksgrad', {
-        tekst: `${uttaksgradFormData}`,
-      })
-      logger('valg av uttaksalder for gradert alderspensjon', {
-        tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
-      })
-      if (inntektVsaGradertUttakFormData) {
-        logger('radiogroup valgt', {
-          tekst: 'Inntekt vsa. gradert uttak',
-          valg: inntektVsaGradertUttakRadioFormData ? 'ja' : 'nei',
-        })
-        logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
-          tekst: `${(inntektVsaGradertUttakFormData as string).replace(/ /g, '').length}`,
-        })
-      }
-      dispatch(
-        userInputActions.setCurrentSimulationGradertUttaksperiode({
-          uttaksalder: {
-            aar: parseInt(gradertUttakAarFormData as string, 10),
-            maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
-          },
-          grad: parseInt(
-            (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
-            10
-          ),
-          aarligInntektVsaPensjonBeloep:
-            inntektVsaGradertUttakFormData as string,
-        })
-      )
-    }
-
-    if (inntektVsaHeltUttakFormData !== null) {
-      logger('valg av inntekt vsa. 100 % pensjon (antall sifre)', {
-        tekst: `${(inntektVsaHeltUttakFormData as string).replace(/ /g, '').length}`,
+      logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
+        tekst: `${(inntektVsaGradertUttakFormData as string).replace(/ /g, '').length}`,
       })
     }
-
     dispatch(
-      userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-        inntektVsaHeltUttakFormData !== null &&
-          inntektVsaHeltUttakSluttAlderAarFormData &&
-          inntektVsaHeltUttakSluttAlderMaanederFormData !== null
-          ? {
-              beloep: inntektVsaHeltUttakFormData as string,
-              sluttAlder: {
-                aar: parseInt(
-                  inntektVsaHeltUttakSluttAlderAarFormData as string,
-                  10
-                ),
-                maaneder: parseInt(
-                  inntektVsaHeltUttakSluttAlderMaanederFormData as string,
-                  10
-                ),
-              },
-            }
-          : undefined
-      )
-    )
-    dispatch(
-      userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
-        localInntektFremTilUttak
-      )
-    )
-
-    dispatch(
-      userInputActions.setCurrentSimulationBeregningsvalg(
-        localBeregningsTypeRadio
-      )
-    )
-
-    // Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
-    if (
-      !hasVilkaarIkkeOppfylt ||
-      (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
-    ) {
-      logger('button klikk', {
-        tekst: harAvansertSkjemaUnsavedChanges
-          ? 'Oppdater avansert pensjon'
-          : 'Beregn avansert pensjon',
+      userInputActions.setCurrentSimulationGradertUttaksperiode({
+        uttaksalder: {
+          aar: parseInt(gradertUttakAarFormData as string, 10),
+          maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
+        },
+        grad: parseInt(
+          (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
+          10
+        ),
+        aarligInntektVsaPensjonBeloep: inntektVsaGradertUttakFormData as string,
       })
-      gaaTilResultat()
-    }
+    )
+  }
+
+  if (inntektVsaHeltUttakFormData !== null) {
+    logger('valg av inntekt vsa. 100 % pensjon (antall sifre)', {
+      tekst: `${(inntektVsaHeltUttakFormData as string).replace(/ /g, '').length}`,
+    })
+  }
+
+  dispatch(
+    userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
+      inntektVsaHeltUttakFormData !== null &&
+        inntektVsaHeltUttakSluttAlderAarFormData &&
+        inntektVsaHeltUttakSluttAlderMaanederFormData !== null
+        ? {
+            beloep: inntektVsaHeltUttakFormData as string,
+            sluttAlder: {
+              aar: parseInt(
+                inntektVsaHeltUttakSluttAlderAarFormData as string,
+                10
+              ),
+              maaneder: parseInt(
+                inntektVsaHeltUttakSluttAlderMaanederFormData as string,
+                10
+              ),
+            },
+          }
+        : undefined
+    )
+  )
+  dispatch(
+    userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
+      localInntektFremTilUttak
+    )
+  )
+
+  dispatch(
+    userInputActions.setCurrentSimulationBeregningsvalg(
+      localBeregningsTypeRadio
+    )
+  )
+
+  // Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
+  if (
+    !hasVilkaarIkkeOppfylt ||
+    (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
+  ) {
+    logger('button klikk', {
+      tekst: harAvansertSkjemaUnsavedChanges
+        ? 'Oppdater avansert pensjon'
+        : 'Beregn avansert pensjon',
+    })
+    gaaTilResultat()
   }
 }
