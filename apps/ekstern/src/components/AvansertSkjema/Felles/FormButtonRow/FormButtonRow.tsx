@@ -2,6 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { Button } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppSelector } from '@/state/hooks'
@@ -45,7 +46,7 @@ export const FormButtonRow: React.FC<{
       <div>
         <Button
           form={formId}
-          className={`${styles.button} ${styles.buttonSubmit}`}
+          className={clsx(styles.button, styles.buttonSubmit)}
         >
           {intl.formatMessage({ id: getButtonMessageId() })}
         </Button>

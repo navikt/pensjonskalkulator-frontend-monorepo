@@ -12,12 +12,12 @@ import styles from './Beregningsvalg.module.scss'
 
 interface Props {
   localBeregningsTypeRadio: Beregningsvalg | null
-  setLocalBeregningsTypeRadio: (value: Beregningsvalg) => void
+  onChange: (newBeregningsvalg: Beregningsvalg) => void
 }
 
 export const Beregningsvalg = ({
   localBeregningsTypeRadio,
-  setLocalBeregningsTypeRadio,
+  onChange,
 }: Props) => {
   const intl = useIntl()
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
@@ -32,8 +32,8 @@ export const Beregningsvalg = ({
         aria-required="true"
         name={AVANSERT_FORM_NAMES.beregningsTypeRadio}
         data-testid={AVANSERT_FORM_NAMES.beregningsTypeRadio}
-        defaultValue={localBeregningsTypeRadio}
-        onChange={setLocalBeregningsTypeRadio}
+        value={localBeregningsTypeRadio}
+        onChange={onChange}
       >
         <Radio
           form={AVANSERT_FORM_NAMES.form}

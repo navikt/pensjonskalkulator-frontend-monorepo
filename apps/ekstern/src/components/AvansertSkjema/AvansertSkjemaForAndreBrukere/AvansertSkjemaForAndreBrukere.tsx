@@ -331,7 +331,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               foedselsdato: foedselsdato as string,
               normertPensjonsalder,
               loependeVedtak,
-              localBeregningsTypeRadio: null,
               localInntektFremTilUttak,
               hasVilkaarIkkeOppfylt:
                 vilkaarsproeving?.vilkaarErOppfylt === false,

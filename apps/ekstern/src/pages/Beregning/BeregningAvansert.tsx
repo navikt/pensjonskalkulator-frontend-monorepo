@@ -148,7 +148,7 @@ export const BeregningAvansert: React.FC = () => {
 
   // Skal redigerer tilbake når alderspensjon er refetchet ferdig, og
   React.useEffect(() => {
-    if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
+    if (alderspensjon && !alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
     if (alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
