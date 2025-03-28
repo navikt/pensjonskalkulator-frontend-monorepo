@@ -758,6 +758,40 @@ describe('AvansertSkjema-hooks', () => {
           expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
         })
 
+        it('Når beregningsvalg=med_afp avgrenses ikke muligeUttaksgrad selv om uttaksalder endres til en alder før normert pensjonsalder', async () => {
+          const { result } = renderHook(useFormLocalState, {
+            wrapper,
+            initialProps: {
+              ...initialProps,
+              beregningsvalg: 'med_afp',
+              gradertUttaksperiode: null,
+              ufoeregrad: 60,
+            },
+          })
+
+          const { setLocalGradertUttak } = result.current[7]
+
+          act(() => {
+            setLocalGradertUttak({
+              grad: undefined,
+              uttaksalder: { aar: 66, maaneder: 1 },
+              aarligInntektVsaPensjonBeloep:
+                initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+            })
+          })
+
+          // muligeUttaksgrad
+          expect(result.current[6]).toHaveLength(6)
+          expect(result.current[6]).toStrictEqual([
+            '20 %',
+            '40 %',
+            '50 %',
+            '60 %',
+            '80 %',
+            '100 %',
+          ])
+        })
+
         it('og gitt at brukeren har vedtak om alderspensjon, Når brukers uttaksalder endres til en alder før normert pensjonsalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,

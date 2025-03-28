@@ -115,6 +115,7 @@ export const useFormLocalState = ({
     if (
       valgtAlder?.aar &&
       valgtAlder?.maaneder !== undefined &&
+      localBeregningsTypeRadio !== 'med_afp' &&
       ufoeregrad &&
       ufoeregrad !== 100 &&
       valgtAlder?.aar < normertPensjonsalder.aar
@@ -133,7 +134,7 @@ export const useFormLocalState = ({
       }
     }
     return filtrerteUttaksgrad.map((grad) => `${grad} %`)
-  }, [ufoeregrad, localGradertUttak, localHeltUttak])
+  }, [ufoeregrad, localBeregningsTypeRadio, localGradertUttak, localHeltUttak])
 
   React.useEffect(() => {
     const hasBeregningsvalgChanged = beregningsvalg !== localBeregningsTypeRadio
