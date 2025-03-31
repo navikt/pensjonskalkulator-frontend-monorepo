@@ -32,6 +32,10 @@ updates:
         patterns:
           - 'eslint'
           - '@eslint/*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
 
 registries:
   npm-github:
