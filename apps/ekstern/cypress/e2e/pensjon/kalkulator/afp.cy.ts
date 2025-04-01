@@ -243,7 +243,7 @@ describe('AFP', () => {
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
-        cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('not.be.visible')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
         cy.contains('Alderspensjon (Nav)').should('exist')
         cy.contains('Tusen kroner').should('exist')

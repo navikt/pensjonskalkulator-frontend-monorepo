@@ -10,13 +10,6 @@
     max-width: variables.$container-max-width;
   }
 
-  // TODO denne logikken kan vekk når Aksel har løst manglende border bottom
-  :global {
-    .navds-accordion__item.navds-accordion__item--open:last-child {
-      border-bottom: 2px solid var(--a-border-divider);
-    }
-  }
-
   &Header {
     font-weight: normal;
     white-space: nowrap;

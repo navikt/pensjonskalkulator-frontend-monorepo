@@ -51,12 +51,6 @@ export const Grunnlag: React.FC<Props> = ({
     navigate(paths.beregningAvansert)
   }
 
-  const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
-    e.preventDefault()
-    dispatch(userInputActions.flush())
-    navigate(paths.start)
-  }
-
   const intl = useIntl()
 
   const sivilstand = useAppSelector(selectSivilstand)
@@ -72,10 +66,12 @@ export const Grunnlag: React.FC<Props> = ({
         <Heading level={headingLevel} size="medium">
           <FormattedMessage id="grunnlag.title" />
         </Heading>
+
         <BodyLong>
           <FormattedMessage id="grunnlag.ingress" />
         </BodyLong>
       </div>
+
       <Accordion>
         {visning === 'enkel' && (
           <AccordionItem name="Grunnlag: Uttaksgrad">
@@ -101,7 +97,9 @@ export const Grunnlag: React.FC<Props> = ({
             </GrunnlagSection>
           </AccordionItem>
         )}
+
         {visning === 'enkel' && <GrunnlagInntekt goToAvansert={goToAvansert} />}
+
         <AccordionItem name="Gunnlag: Sivilstand">
           <GrunnlagSection
             headerTitle={intl.formatMessage({
@@ -160,7 +158,7 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        <GrunnlagAFP goToStart={goToStart} />
+        <GrunnlagAFP />
       </Accordion>
     </section>
   )

@@ -45,6 +45,7 @@ export const GrunnlagSection = React.forwardRef(
             </>
           )}
         </Accordion.Header>
+
         <Accordion.Content className={styles.content}>
           {children}
         </Accordion.Content>

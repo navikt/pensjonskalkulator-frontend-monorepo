@@ -465,22 +465,35 @@ const translations = {
   'grunnlag.afp.ikke_beregnet': 'MANGLER_TEKST',
   'grunnlag.afp.endring': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.null': '-',
-  'grunnlag.afp.ingress.ja_offentlig':
-    'Vi kan ikkje vise din AFP fordi regelverket for ny AFP i offentleg sektor ikkje er endeleg avklart. For meir informasjon, sjekk tenestepensjonsordninga di.',
+  'grunnlag.afp.ingress.ja_offentlig': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig.endring': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig_utilgjengelig': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat':
     'Nav har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men i utrekninga føreset vi at du gjer det. Les meir om vilkåra for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+  'grunnlag.afp.ingress.ja_privat.endring': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.vet_ikke':
     'Er du er usikker på om du har rett til AFP bør du spørja arbeidsgjevaren din. AFP kan påverke kor tid du kan ta ut alderspensjon.',
   'grunnlag.afp.ingress.vet_ikke.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.nei':
-    'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei ny utrekning.',
-  'grunnlag.afp.ingress.nei.ufoeretrygd': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.endring': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_privat.endring': 'MANGLER_TEKST',
+    'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei <goToStart>ny utrekning</goToStart>.',
   'grunnlag.afp.ingress.nei.endring': 'MANGLER_TEKST',
-  'grunnlag.afp.reset_link': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.nei.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.full_ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig.gammel':
+    'Vi kan ikkje vise din AFP fordi regelverket for ny AFP i offentleg sektor ikkje er endeleg avklart. For meir informasjon, sjekk tenestepensjonsordninga di.',
+  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.gammel': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig_utilgjengelig.gammel': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_privat.gammel':
+    'Nav har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men i utrekninga føreset vi at du gjer det. Les meir om vilkåra for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+  'grunnlag.afp.ingress.ja_privat.ufoeretrygd.gammel': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.vet_ikke.gammel':
+    'Er du er usikker på om du har rett til AFP bør du spørja arbeidsgjevaren din. AFP kan påverke kor tid du kan ta ut alderspensjon.',
+  'grunnlag.afp.ingress.vet_ikke.ufoeretrygd.gammel': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.nei.gammel':
+    'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei <goToStart>ny utrekning</goToStart>.',
+  'grunnlag.afp.ingress.nei.ufoeretrygd.gammel': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
   'grunnlag.forbehold.link': 'Alle atterhald',

@@ -360,10 +360,10 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.nei', { exact: false })
+        await screen.findByTestId('grunnlag.afp.ingress.nei', { exact: false })
       ).toBeVisible()
-      expect(await screen.findByText('grunnlag.afp.reset_link')).toBeVisible()
-      await user.click(await screen.findByText('grunnlag.afp.reset_link'))
+      expect(await screen.findByTestId('grunnlag.afp.reset_link')).toBeVisible()
+      await user.click(await screen.findByTestId('grunnlag.afp.reset_link'))
       expect(flushMock).toHaveBeenCalled()
       expect(navigateMock).toHaveBeenCalledWith(paths.start)
     })
