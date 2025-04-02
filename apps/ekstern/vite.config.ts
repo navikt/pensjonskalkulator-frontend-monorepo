@@ -36,7 +36,6 @@ export default defineConfig({
           ['intl']: [
             'react-intl',
             'intl-messageformat',
-            '@formatjs/ecma402-abstract',
             '@formatjs/intl',
             '@formatjs/intl-numberformat',
           ],
