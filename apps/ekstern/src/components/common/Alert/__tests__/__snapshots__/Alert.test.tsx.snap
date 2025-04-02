@@ -3,7 +3,7 @@
 exports[`Alert > rendrer riktig med default verdier 1`] = `
 <DocumentFragment>
   <div
-    class="_alert_9168cd undefined"
+    class="_alert_9168cd"
     data-testid="alert"
     role="alert"
   >
@@ -19,7 +19,7 @@ exports[`Alert > rendrer riktig med default verdier 1`] = `
 exports[`Alert > rendrer riktig når onRetry er oppgitt 1`] = `
 <DocumentFragment>
   <div
-    class="_alert_9168cd undefined"
+    class="_alert_9168cd"
     data-testid="alert"
     role="alert"
   >

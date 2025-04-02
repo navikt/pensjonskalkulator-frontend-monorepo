@@ -45,7 +45,10 @@ export const SimuleringGrafNavigation: React.FC<Props> = ({
         )}
       </div>
       <div
-        className={`${styles.grafNavigationElement} ${styles.grafNavigationElement__Right}`}
+        className={clsx(
+          styles.grafNavigationElement,
+          styles.grafNavigationElement__Right
+        )}
       >
         {showVisFlereAarButton && (
           <Button

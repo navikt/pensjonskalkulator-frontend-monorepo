@@ -2,6 +2,7 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong } from '@navikt/ds-react'
+import clsx from 'clsx'
 import { format, parse } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
 
@@ -16,7 +17,7 @@ interface Props {
   loependeVedtak?: LoependeVedtak
 }
 
-export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
+export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
   const intl = useIntl()
 
   const formatertMaaned = React.useMemo(() => {
@@ -50,9 +51,7 @@ export function InfoOmLoependeVedtak({ loependeVedtak }: Props) {
   }
 
   return (
-    <div
-      className={`${styles.container} ${styles.container__hasMobilePadding}`}
-    >
+    <div className={clsx(styles.container, styles.container__hasMobilePadding)}>
       <BodyLong>
         <FormattedMessage
           id="beregning.endring.rediger.vedtak_grad_status"

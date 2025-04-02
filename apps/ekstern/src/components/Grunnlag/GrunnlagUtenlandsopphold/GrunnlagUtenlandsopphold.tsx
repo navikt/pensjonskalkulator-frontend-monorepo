@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
@@ -152,7 +153,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (
               <div className={styles.info}>
                 <ExclamationmarkTriangleFillIcon
-                  className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
+                  className={clsx(styles.infoIcon, styles.infoIcon__orange)}
                   fontSize="1.5rem"
                   aria-hidden
                 />

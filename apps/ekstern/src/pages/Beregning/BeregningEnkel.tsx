@@ -274,7 +274,7 @@ export const BeregningEnkel: React.FC = () => {
 
       {uttaksalder !== null && (
         <div
-          className={`${styles.container} ${styles.container__hasMobilePadding}`}
+          className={clsx(styles.container, styles.container__hasMobilePadding)}
         >
           {isError ||
           (alderspensjon &&

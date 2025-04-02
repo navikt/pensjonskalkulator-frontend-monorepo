@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
+import clsx from 'clsx'
 import { parse, compareAsc } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
@@ -249,7 +250,7 @@ export function UtenlandsoppholdListe({
       {validationError && (
         <BodyShort
           size="medium"
-          className={`navds-error-message navds-label ${styles.error}`}
+          className={clsx('navds-error-message navds-label', styles.error)}
         >
           {validationError}
         </BodyShort>

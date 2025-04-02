@@ -5,8 +5,9 @@ import {
   fulfilledGetOmstillingsstoenadOgGjenlevende,
   fulfilledGetPersonMedOekteAldersgrenser,
   fulfilledGetPerson,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -454,7 +455,7 @@ describe('TidligstMuligUttaksalder', () => {
       )
       expect(
         await screen.findByText(
-          'Kommende lovendringer vil gradvis øke pensjonsalderen fra 2027.',
+          'Kommende lovendringer vil gradvis øke pensjonsalderen.',
           {
             exact: false,
           }
@@ -567,6 +568,44 @@ describe('TidligstMuligUttaksalder', () => {
             { exact: false }
           )
         ).toBeInTheDocument()
+      })
+    })
+
+    it('viser riktig ingress med gradert ufoeretrygd når AFP er valgt og featureToggle er på.', async () => {
+      mockResponse('/feature/pensjonskalkulator.gradert-ufoere-afp', {
+        status: 200,
+        json: { enabled: true },
+      })
+
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={undefined}
+          ufoeregrad={75}
+          show1963Text={false}
+        />,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPersonMedOekteAldersgrenser,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_privat',
+            },
+          },
+        }
+      )
+      await waitFor(() => {
+        expect(
+          screen.getByText(
+            'kan du beregne kombinasjoner av alderspensjon og uføretrygd før',
+            { exact: false }
+          )
+        ).toBeVisible()
       })
     })
   })

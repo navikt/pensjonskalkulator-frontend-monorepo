@@ -16,6 +16,7 @@ import {
   Link,
   VStack,
 } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { Loader } from '@/components/common/Loader'
 import { externalUrls, paths } from '@/router/constants'
@@ -95,7 +96,7 @@ export const LandingPage = () => {
               <li>
                 <BodyLong>
                   <span
-                    className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                    className={clsx(styles.ellipse, styles.ellipse__blue)}
                   />
                   <FormattedMessage id="stegvisning.start.list_item1" />
                 </BodyLong>
@@ -103,7 +104,7 @@ export const LandingPage = () => {
               <li>
                 <BodyLong>
                   <span
-                    className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                    className={clsx(styles.ellipse, styles.ellipse__purple)}
                   />
                   <FormattedMessage id="stegvisning.start.list_item2" />{' '}
                 </BodyLong>
@@ -111,7 +112,7 @@ export const LandingPage = () => {
               <li>
                 <BodyLong>
                   <span
-                    className={`${styles.ellipse} ${styles.ellipse__green}`}
+                    className={clsx(styles.ellipse, styles.ellipse__green)}
                   />
                   <FormattedMessage id="stegvisning.start.list_item3" />{' '}
                 </BodyLong>
@@ -214,7 +215,7 @@ export const LandingPage = () => {
                 <li>
                   <BodyLong>
                     <span
-                      className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                      className={clsx(styles.ellipse, styles.ellipse__blue)}
                     />
                     <FormattedMessage id="stegvisning.start.list_item1" />
                   </BodyLong>
@@ -222,7 +223,7 @@ export const LandingPage = () => {
                 <li>
                   <BodyLong>
                     <span
-                      className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                      className={clsx(styles.ellipse, styles.ellipse__purple)}
                     />
                     <FormattedMessage id="stegvisning.start.list_item2" />{' '}
                   </BodyLong>
@@ -230,7 +231,7 @@ export const LandingPage = () => {
                 <li>
                   <BodyLong>
                     <span
-                      className={`${styles.ellipse} ${styles.ellipse__green}`}
+                      className={clsx(styles.ellipse, styles.ellipse__green)}
                     />
                     <FormattedMessage id="stegvisning.start.list_item3" />{' '}
                   </BodyLong>
@@ -251,6 +252,7 @@ export const LandingPage = () => {
             </div>
           </VStack>
         </section>
+
         <section>
           <VStack gap="2">
             <Heading size="medium" level="2">

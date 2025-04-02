@@ -329,9 +329,10 @@ const translations = {
   'beregning.alt_tekst':
     'Annual income and pension after withdrawal in kroner.',
   'omufoeretrygd.hel.ingress':
-    'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+    'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
-    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}. {br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+  'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.title': 'About Pension Age and Disability Benefits',
   'omufoeretrygd.readmore.hel.ingress':
     '<nowrap>100 %</nowrap> disability benefits cannot be combined with retirement pension. Therefore, it is not possible to calculate retirement pension before 67 in the calculator. At 67, <nowrap>100 %</nowrap> disability benefits automatically convert to <nowrap>100 %</nowrap> retirement pension. If you have questions, you can contact us at 55 55 33 34.',

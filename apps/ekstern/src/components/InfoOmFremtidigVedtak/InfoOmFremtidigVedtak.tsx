@@ -13,7 +13,10 @@ interface Props {
   isCentered?: boolean
 }
 
-export function InfoOmFremtidigVedtak({ loependeVedtak, isCentered }: Props) {
+export const InfoOmFremtidigVedtak = ({
+  loependeVedtak,
+  isCentered,
+}: Props) => {
   // Vis hvis fremtidig vedtak uten gjeldende vedtak
   if (!loependeVedtak.fremtidigAlderspensjon || loependeVedtak.alderspensjon)
     return null

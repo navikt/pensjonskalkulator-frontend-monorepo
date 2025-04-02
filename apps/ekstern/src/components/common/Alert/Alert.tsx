@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { ArrowCirclepathIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import styles from './Alert.module.scss'
 
@@ -17,25 +18,23 @@ export const Alert = ({
   children,
   onRetry,
   ...rest
-}: AlertProps) => {
-  return (
-    <div {...rest} className={`${styles.alert} ${className}`} role="alert">
-      <BodyLong as="div" className={styles.alertWrapper}>
-        {children}
-      </BodyLong>
-      {onRetry && (
-        <Button
-          size="small"
-          iconPosition="right"
-          variant="tertiary"
-          onClick={onRetry}
-          icon={<ArrowCirclepathIcon aria-hidden />}
-        >
-          <FormattedMessage id="application.global.retry" />
-        </Button>
-      )}
-    </div>
-  )
-}
+}: AlertProps) => (
+  <div {...rest} className={clsx(styles.alert, className)} role="alert">
+    <BodyLong as="div" className={styles.alertWrapper}>
+      {children}
+    </BodyLong>
+    {onRetry && (
+      <Button
+        size="small"
+        iconPosition="right"
+        variant="tertiary"
+        onClick={onRetry}
+        icon={<ArrowCirclepathIcon aria-hidden />}
+      >
+        <FormattedMessage id="application.global.retry" />
+      </Button>
+    )}
+  </div>
+)
 
 export default Alert

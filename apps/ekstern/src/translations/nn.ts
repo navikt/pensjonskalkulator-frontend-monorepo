@@ -285,6 +285,7 @@ const translations = {
   'beregning.alt_tekst': 'MANGLER_TEKST',
   'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.title': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.gradert.ingress': 'MANGLER_TEKST',

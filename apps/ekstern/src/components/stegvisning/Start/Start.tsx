@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import clsx from 'clsx'
 import { format } from 'date-fns'
 
 import FridaPortrett from '../../../assets/frida.svg'
@@ -110,7 +111,7 @@ export function Start({
                   <li>
                     <BodyLong size="large">
                       <span
-                        className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                        className={clsx(styles.ellipse, styles.ellipse__blue)}
                       />
                       <FormattedMessage id="stegvisning.start.list_item1" />
                     </BodyLong>
@@ -118,7 +119,7 @@ export function Start({
                   <li>
                     <BodyLong size="large">
                       <span
-                        className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                        className={clsx(styles.ellipse, styles.ellipse__purple)}
                       />
                       <FormattedMessage id="stegvisning.start.list_item2" />{' '}
                     </BodyLong>
@@ -126,7 +127,7 @@ export function Start({
                   <li>
                     <BodyLong size="large">
                       <span
-                        className={`${styles.ellipse} ${styles.ellipse__green}`}
+                        className={clsx(styles.ellipse, styles.ellipse__green)}
                       />
                       <FormattedMessage id="stegvisning.start.list_item3" />{' '}
                     </BodyLong>

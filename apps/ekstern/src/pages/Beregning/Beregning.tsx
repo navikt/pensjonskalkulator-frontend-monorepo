@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
@@ -223,7 +224,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
         {visning === 'avansert' && <BeregningAvansert />}
 
-        <div className={`${styles.background} ${styles.background__lightblue}`}>
+        <div className={clsx(styles.background, styles.background__lightblue)}>
           <div className={styles.container}>
             <LightBlueFooter />
           </div>
