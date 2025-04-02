@@ -247,6 +247,11 @@ beforeEach(() => {
     },
     { fixture: 'sanity-forbehold-avsnitt-data.json' }
   ).as('fetchSanityForbeholdAvsnittData')
+
+  cy.intercept(
+    { url: 'https://api.uxsignals.com/v2/study/id/*/active' },
+    { active: false }
+  ).as('getUxSignalsActive')
 })
 
 Cypress.Commands.add('login', () => {
