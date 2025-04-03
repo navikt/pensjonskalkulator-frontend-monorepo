@@ -199,8 +199,7 @@ const translations = {
   'utenlandsopphold.slette_modal.button.avbryt': 'Cancel',
   'utenlandsopphold.slette_modal.button.slett': 'Delete Stay',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pension Agreements',
-  'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'If you want to view occupational pensions and other pension agreements, you must consent to Nav retrieving this information. Consent is voluntary. If you answer no, you will calculate retirement pension (Nav) and any AFP (contractual pension).',
+  'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
     'Should we retrieve your pension agreements?',
   'stegvisning.samtykke_pensjonsavtaler.radio_description': 'MANGLER_TEKST',

@@ -71,7 +71,7 @@ export function SamtykkePensjonsavtaler({
         <BodyLong size="large">
           <FormattedMessage
             id="stegvisning.samtykke_pensjonsavtaler.ingress"
-            values={{ ...getFormatMessageValues() }}
+            values={getFormatMessageValues()}
           />
         </BodyLong>
         <SanityReadmore
