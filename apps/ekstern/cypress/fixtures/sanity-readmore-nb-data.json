@@ -199,6 +199,186 @@
           "style": "normal"
         }
       ]
+    },
+    {
+      "name": "om_uttaksgrad",
+      "overskrift": "Om uttaksgrad",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_uttaksgrad_endring",
+      "overskrift": "Om uttaksgrad",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_alderspensjon_inntektsgrense_UT",
+      "overskrift": "Om alderspensjon og inntektsgrensen for uføretrygd",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_uttaksgrad_UT_gradert_endring",
+      "overskrift": "Om uttaksgrad og uføretrygd",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_uttaksgrad_UT_gradert",
+      "overskrift": "Om uttaksgrad og uføretrygd",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_pensjonsalder_UT_hel",
+      "overskrift": "Om pensjonsalder og uføretrygd",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_pensjonsalder_UT_gradert_avansert",
+      "overskrift": "Om pensjonsalder og uføretrygd",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_TMU_endring",
+      "overskrift": "Om tidspunktet for tidligst uttak",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
+    },
+    {
+      "name": "om_pensjonsgivende_inntekt",
+      "overskrift": "Om pensjonsgivende inntekt",
+      "innhold": [
+        {
+          "_key": "95267fac3892",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Lorem",
+              "_key": "553475223f9e2"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ]
     }
   ],
   "syncTags": ["s1:EmCcjQ"],

@@ -67,26 +67,17 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       }
     )
 
-    expect(
-      screen.getByText('inntekt.info_om_inntekt.read_more.label')
-    ).toBeVisible()
+    expect(screen.queryByTestId('om_pensjonsgivende_inntekt')).toBeVisible()
 
     expect(
       await screen.findByText(
         'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere'
       )
     ).toBeVisible()
+    expect(screen.queryByTestId('om_uttaksgrad_UT_gradert')).toBeVisible()
     expect(
-      await screen.findByText('omufoeretrygd.readmore.title')
+      screen.queryByTestId('om_pensjonsalder_UT_gradert_avansert')
     ).toBeVisible()
-    expect(
-      await screen.findByText(
-        'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
-      )
-    ).toBeVisible()
-    expect(
-      screen.getByTestId('om-uttaksgrad-og-ufoeretrygd')
-    ).toBeInTheDocument()
 
     const selectAarElement = screen.getByTestId(
       `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
@@ -988,16 +979,9 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
       )
     ).toBeVisible()
-    expect(
-      await screen.findByText(
-        'inntekt.info_om_inntekt.ufoeretrygd.read_more.label'
-      )
+    await expect(
+      screen.getByTestId('om_alderspensjon_inntektsgrense_UT')
     ).toBeVisible()
-    expect(
-      await screen.findByText(
-        'inntekt.info_om_inntekt.ufoeretrygd.read_more.body'
-      )
-    ).toBeInTheDocument()
   })
 
   it('Når brukeren velger en alder før normert pensjonsalder, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
@@ -2472,16 +2456,11 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       ).not.toBeInTheDocument()
 
       expect(
-        await screen.findByText(
-          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut',
-          { exact: false }
-        )
+        screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
       ).toBeVisible()
     })
 
     it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
-      const user = userEvent.setup()
-
       const { asFragment, store } = render(
         <BeregningContext.Provider
           value={{
@@ -2512,59 +2491,9 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         )
       ).toBeVisible()
       expect(asFragment()).toMatchSnapshot()
-      await user.click(
-        await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
-        )
-      )
-      expect(await screen.findByTestId('om-uttaksgrad-og-ufoeretrygd'))
-        .toMatchInlineSnapshot(`
-        <p
-          class="navds-body-long navds-body-long--medium"
-          data-testid="om-uttaksgrad-og-ufoeretrygd"
-        >
-          Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 
-          <span
-            class="nowrap"
-          >
-            100 %
-          </span>
-          . Fra 
-          <span
-            class="nowrap"
-          >
-            67 alder.aar
-          </span>
-           kan du fritt velge gradert uttak (20, 40, 50, 60 eller 
-          <span
-            class="nowrap"
-          >
-            80 %
-          </span>
-          ), eller hel alderspensjon (
-          <span
-            class="nowrap"
-          >
-            100 %
-          </span>
-          ).
-          <br />
-          <br />
-          Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 
-          <span
-            class="nowrap"
-          >
-            0 %
-          </span>
-           når du vil.
-        </p>
-      `)
-
       expect(
-        screen.queryByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-        )
-      ).not.toBeInTheDocument()
+        screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
+      ).toBeVisible()
     })
   })
 
@@ -2733,9 +2662,12 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       ).not.toBeInTheDocument()
 
       // Viser riktig readmore om uttaksgrad
-      expect(screen.getByTestId('om-uttaksgrad')).toBeInTheDocument()
+      expect(screen.queryByTestId('om_uttaksgrad')).toBeVisible()
       expect(
-        screen.queryByTestId('om-uttaksgrad-og-ufoeretrygd')
+        screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('om_uttaksgrad_UT_gradert')
       ).not.toBeInTheDocument()
     })
   })

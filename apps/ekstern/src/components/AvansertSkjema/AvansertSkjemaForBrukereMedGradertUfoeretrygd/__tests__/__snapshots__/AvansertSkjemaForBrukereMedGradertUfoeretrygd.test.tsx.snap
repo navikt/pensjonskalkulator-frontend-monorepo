@@ -249,14 +249,14 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           class="_spacer_2e4d09 _spacer__small_2e4d09"
         />
         <div
-          class="navds-read-more navds-read-more--medium"
+          class="navds-read-more navds-read-more--medium _wrapper_11f63f"
           data-volume="low"
         >
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
             data-state="closed"
-            data-testid="readmore"
+            data-testid="om_pensjonsgivende_inntekt"
             type="button"
           >
             <svg
@@ -278,7 +278,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
               />
             </svg>
             <span>
-              inntekt.info_om_inntekt.read_more.label
+              Om pensjonsgivende inntekt
             </span>
           </button>
           <div
@@ -286,73 +286,8 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
             data-state="closed"
           >
-            <p
-              class="navds-body-long navds-body-long--medium"
-            >
-              Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.
-              <br />
-              <br />
-            </p>
-            <h2
-              class="navds-label"
-            >
-              inntekt.info_om_inntekt.subtitle_1
-            </h2>
-            <ul>
-              <li>
-                inntekt.info_om_inntekt.list_item1
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item2
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item3
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item4
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item5
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item6
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item7
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item8
-              </li>
-              <li>
-                inntekt.info_om_inntekt.list_item9
-              </li>
-            </ul>
-            <h2
-              class="navds-label"
-            >
-              inntekt.info_om_inntekt.subtitle_2
-            </h2>
-            <ul>
-              <li>
-                inntekt.info_om_inntekt.ikke_inntekt.list_item1
-              </li>
-              <li>
-                inntekt.info_om_inntekt.ikke_inntekt.list_item2
-              </li>
-              <li>
-                inntekt.info_om_inntekt.ikke_inntekt.list_item3
-              </li>
-              <li>
-                inntekt.info_om_inntekt.ikke_inntekt.list_item4
-              </li>
-            </ul>
-            <p
-              class="navds-body-long navds-body-long--medium"
-            >
-              Listen er ikke uttømmende.
-              <br />
-              <br />
-              Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser.
+            <p>
+              Lorem
             </p>
           </div>
         </div>
@@ -568,14 +503,14 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           class="_spacer__small_db4c62"
         />
         <div
-          class="navds-read-more navds-read-more--medium"
+          class="navds-read-more navds-read-more--medium _wrapper_11f63f"
           data-volume="low"
         >
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
             data-state="closed"
-            data-testid="readmore"
+            data-testid="om_pensjonsalder_UT_gradert_avansert"
             type="button"
           >
             <svg
@@ -597,7 +532,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
               />
             </svg>
             <span>
-              omufoeretrygd.readmore.title
+              Om pensjonsalder og uføretrygd
             </span>
           </button>
           <div
@@ -605,37 +540,8 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
             data-state="closed"
           >
-            <p
-              class="navds-body-long navds-body-long--medium"
-            >
-              Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 
-              <span
-                class="nowrap"
-              >
-                67 alder.aar
-              </span>
-               må pensjonen minst tilsvare garantipensjon. Uttak før 
-              <span
-                class="nowrap"
-              >
-                67 alder.aar
-              </span>
-               betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.
-              <br />
-              <br />
-              Ved 
-              <span
-                class="nowrap"
-              >
-                67 alder.aar
-              </span>
-               går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha 
-              <span
-                class="nowrap"
-              >
-                100 %
-              </span>
-               alderspensjon må du selv søke om dette.
+            <p>
+              Lorem
             </p>
           </div>
         </div>
@@ -740,14 +646,14 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
           class="_spacer__small_db4c62"
         />
         <div
-          class="navds-read-more navds-read-more--medium"
+          class="navds-read-more navds-read-more--medium _wrapper_11f63f"
           data-volume="low"
         >
           <button
             aria-expanded="false"
             class="navds-read-more__button navds-body-short"
             data-state="closed"
-            data-testid="readmore"
+            data-testid="om_uttaksgrad_UT_gradert_endring"
             type="button"
           >
             <svg
@@ -769,7 +675,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
               />
             </svg>
             <span>
-              beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label
+              Om uttaksgrad og uføretrygd
             </span>
           </button>
           <div
@@ -777,44 +683,8 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
             data-state="closed"
           >
-            <p
-              class="navds-body-long navds-body-long--medium"
-              data-testid="om-uttaksgrad-og-ufoeretrygd"
-            >
-              Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 
-              <span
-                class="nowrap"
-              >
-                100 %
-              </span>
-              . Fra 
-              <span
-                class="nowrap"
-              >
-                67 alder.aar
-              </span>
-               kan du fritt velge gradert uttak (20, 40, 50, 60 eller 
-              <span
-                class="nowrap"
-              >
-                80 %
-              </span>
-              ), eller hel alderspensjon (
-              <span
-                class="nowrap"
-              >
-                100 %
-              </span>
-              ).
-              <br />
-              <br />
-              Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 
-              <span
-                class="nowrap"
-              >
-                0 %
-              </span>
-               når du vil.
+            <p>
+              Lorem
             </p>
           </div>
         </div>

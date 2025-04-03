@@ -353,10 +353,7 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd».', () => {
-        cy.contains('Om pensjonsalder og uføretrygd').click()
-        cy.contains(
-          '100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon.'
-        ).should('exist')
+        cy.get('[data-testid="om_pensjonsalder_UT_hel"]').should('exist')
       })
     })
   })
@@ -418,10 +415,9 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd».', () => {
-        cy.contains('Om pensjonsalder og uføretrygd').click()
-        cy.contains(
-          'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.'
-        ).should('exist')
+        cy.get('[data-testid="om_pensjonsalder_UT_gradert_avansert"]').should(
+          'exist'
+        )
       })
     })
 
@@ -445,10 +441,7 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
-        cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
-        cy.contains(
-          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
-        ).should('exist')
+        cy.get('[data-testid="om_uttaksgrad_UT_gradert"]').should('exist')
       })
 
       it('forventer jeg tilpasset informasjon om inntekt samtidig som uttak av pensjon.', () => {
@@ -463,9 +456,9 @@ describe('Med ufoeretrygd', () => {
           'button',
           'Om alderspensjon og inntektsgrensen for uføretrygd'
         ).click()
-        cy.contains(
-          'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.'
-        ).should('exist')
+        cy.get('[data-testid="om_alderspensjon_inntektsgrense_UT"]').should(
+          'exist'
+        )
       })
     })
 
@@ -489,10 +482,7 @@ describe('Med ufoeretrygd', () => {
       })
 
       it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
-        cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
-        cy.contains(
-          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
-        ).should('exist')
+        cy.get('[data-testid="om_uttaksgrad_UT_gradert"]').should('exist')
       })
 
       it('forventer jeg vanlig informasjon om inntekt samtidig som uttak av pensjon.', () => {
