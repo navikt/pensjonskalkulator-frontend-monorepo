@@ -370,7 +370,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               !vilkaarsproeving?.vilkaarErOppfylt &&
               uttaksalder && (
                 <VilkaarsproevingAlert
-                  vilkaarsproeving={vilkaarsproeving}
+                  alternativ={vilkaarsproeving?.alternativ}
                   uttaksalder={uttaksalder}
                 />
               )}

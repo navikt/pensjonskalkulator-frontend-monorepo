@@ -473,6 +473,13 @@ const translations = {
     'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months. Feel free to try other combinations.',
   'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
     'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months if you withdraw <nowrap>100 %</nowrap> retirement pension at {alternativtHeltStartAar} years and {alternativtHeltStartMaaned} months or later. Feel free to try other combinations.',
+  'beregning.vilkaarsproeving.medAFP.intro': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak':
+    'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak':
+    'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
+    'MANGLER_TEKST',
   'grunnlag.title': 'Other Basis for Calculation',
   'beregning.avansert.avbryt_modal.title':
     'If you exit Advanced, you will lose all your choices.',
