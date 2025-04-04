@@ -31,7 +31,7 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
         </legend>
         <div
           class="navds-fieldset__description navds-body-short navds-body-short--medium"
-          id="fieldset-description-r1"
+          id="fieldset-description-«r1»"
         >
           stegvisning.samtykke_offentlig_afp.radio_description
         </div>
@@ -42,16 +42,16 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r3"
+              aria-labelledby="«r3»"
               class="navds-radio__input"
-              id="radio-r2"
+              id="radio-«r2»"
               name="samtykke-offentlig-afp"
               type="radio"
               value="ja"
             />
             <label
               class="navds-radio__label"
-              for="radio-r2"
+              for="radio-«r2»"
             >
               <span
                 class="navds-radio__content"
@@ -59,7 +59,7 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r3"
+                  id="«r3»"
                 >
                   stegvisning.samtykke_offentlig_afp.radio_ja
                 </span>
@@ -70,16 +70,16 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r6"
+              aria-labelledby="«r6»"
               class="navds-radio__input"
-              id="radio-r5"
+              id="radio-«r5»"
               name="samtykke-offentlig-afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r5"
+              for="radio-«r5»"
             >
               <span
                 class="navds-radio__content"
@@ -87,7 +87,7 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r6"
+                  id="«r6»"
                 >
                   stegvisning.samtykke_offentlig_afp.radio_nei
                 </span>
@@ -99,7 +99,7 @@ exports[`stegvisning - SamtykkeOffentligAFP > rendrer slik den skal når samtykk
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r1"
+          id="fieldset-error-«r1»"
         />
       </fieldset>
       <button

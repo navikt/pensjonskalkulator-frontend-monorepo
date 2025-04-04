@@ -135,7 +135,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-rj"
+              aria-labelledby="title-«rj»"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -145,7 +145,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-rj"
+                id="title-«rj»"
               >
                 application.global.external_link
               </title>
@@ -176,16 +176,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rn"
+              aria-labelledby="«rn»"
               class="navds-radio__input"
-              id="radio-rm"
+              id="radio-«rm»"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-rm"
+              for="radio-«rm»"
             >
               <span
                 class="navds-radio__content"
@@ -193,7 +193,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rn"
+                  id="«rn»"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -204,16 +204,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rq"
+              aria-labelledby="«rq»"
               class="navds-radio__input"
-              id="radio-rp"
+              id="radio-«rp»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-rp"
+              for="radio-«rp»"
             >
               <span
                 class="navds-radio__content"
@@ -221,7 +221,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rq"
+                  id="«rq»"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -232,17 +232,17 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rt"
+              aria-labelledby="«rt»"
               checked=""
               class="navds-radio__input"
-              id="radio-rs"
+              id="radio-«rs»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-rs"
+              for="radio-«rs»"
             >
               <span
                 class="navds-radio__content"
@@ -250,7 +250,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rt"
+                  id="«rt»"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -261,16 +261,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r10"
+              aria-labelledby="«r10»"
               class="navds-radio__input"
-              id="radio-rv"
+              id="radio-«rv»"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-rv"
+              for="radio-«rv»"
             >
               <span
                 class="navds-radio__content"
@@ -278,7 +278,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r10"
+                  id="«r10»"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -290,7 +290,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-rl"
+          id="fieldset-error-«rl»"
         />
       </fieldset>
       <button
@@ -463,7 +463,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-r2"
+              aria-labelledby="title-«r2»"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -473,7 +473,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r2"
+                id="title-«r2»"
               >
                 application.global.external_link
               </title>
@@ -504,16 +504,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r6"
+              aria-labelledby="«r6»"
               class="navds-radio__input"
-              id="radio-r5"
+              id="radio-«r5»"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-r5"
+              for="radio-«r5»"
             >
               <span
                 class="navds-radio__content"
@@ -521,7 +521,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r6"
+                  id="«r6»"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -532,16 +532,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r9"
+              aria-labelledby="«r9»"
               class="navds-radio__input"
-              id="radio-r8"
+              id="radio-«r8»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r8"
+              for="radio-«r8»"
             >
               <span
                 class="navds-radio__content"
@@ -549,7 +549,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r9"
+                  id="«r9»"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -560,16 +560,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rc"
+              aria-labelledby="«rc»"
               class="navds-radio__input"
-              id="radio-rb"
+              id="radio-«rb»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-rb"
+              for="radio-«rb»"
             >
               <span
                 class="navds-radio__content"
@@ -577,7 +577,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rc"
+                  id="«rc»"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -588,16 +588,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rf"
+              aria-labelledby="«rf»"
               class="navds-radio__input"
-              id="radio-re"
+              id="radio-«re»"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-re"
+              for="radio-«re»"
             >
               <span
                 class="navds-radio__content"
@@ -605,7 +605,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rf"
+                  id="«rf»"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -617,7 +617,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r4"
+          id="fieldset-error-«r4»"
         />
       </fieldset>
       <button
@@ -790,7 +790,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-r2"
+              aria-labelledby="title-«r2»"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -800,7 +800,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r2"
+                id="title-«r2»"
               >
                 application.global.external_link
               </title>
@@ -831,16 +831,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r6"
+              aria-labelledby="«r6»"
               class="navds-radio__input"
-              id="radio-r5"
+              id="radio-«r5»"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-r5"
+              for="radio-«r5»"
             >
               <span
                 class="navds-radio__content"
@@ -848,7 +848,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r6"
+                  id="«r6»"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -859,16 +859,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r9"
+              aria-labelledby="«r9»"
               class="navds-radio__input"
-              id="radio-r8"
+              id="radio-«r8»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r8"
+              for="radio-«r8»"
             >
               <span
                 class="navds-radio__content"
@@ -876,7 +876,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r9"
+                  id="«r9»"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -887,16 +887,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rc"
+              aria-labelledby="«rc»"
               class="navds-radio__input"
-              id="radio-rb"
+              id="radio-«rb»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-rb"
+              for="radio-«rb»"
             >
               <span
                 class="navds-radio__content"
@@ -904,7 +904,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rc"
+                  id="«rc»"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -915,16 +915,16 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="rf"
+              aria-labelledby="«rf»"
               class="navds-radio__input"
-              id="radio-re"
+              id="radio-«re»"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-re"
+              for="radio-«re»"
             >
               <span
                 class="navds-radio__content"
@@ -932,7 +932,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="rf"
+                  id="«rf»"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -944,7 +944,7 @@ exports[`stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjon
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r4"
+          id="fieldset-error-«r4»"
         />
       </fieldset>
       <button

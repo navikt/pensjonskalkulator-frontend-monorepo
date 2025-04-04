@@ -135,7 +135,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-r14"
+              aria-labelledby="title-«r14»"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -145,7 +145,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r14"
+                id="title-«r14»"
               >
                 application.global.external_link
               </title>
@@ -176,16 +176,16 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r18"
+              aria-labelledby="«r18»"
               class="navds-radio__input"
-              id="radio-r17"
+              id="radio-«r17»"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-r17"
+              for="radio-«r17»"
             >
               <span
                 class="navds-radio__content"
@@ -193,7 +193,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r18"
+                  id="«r18»"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -204,16 +204,16 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r1b"
+              aria-labelledby="«r1b»"
               class="navds-radio__input"
-              id="radio-r1a"
+              id="radio-«r1a»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r1a"
+              for="radio-«r1a»"
             >
               <span
                 class="navds-radio__content"
@@ -221,7 +221,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r1b"
+                  id="«r1b»"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -232,17 +232,17 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r1e"
+              aria-labelledby="«r1e»"
               checked=""
               class="navds-radio__input"
-              id="radio-r1d"
+              id="radio-«r1d»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r1d"
+              for="radio-«r1d»"
             >
               <span
                 class="navds-radio__content"
@@ -250,7 +250,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r1e"
+                  id="«r1e»"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -261,16 +261,16 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r1h"
+              aria-labelledby="«r1h»"
               class="navds-radio__input"
-              id="radio-r1g"
+              id="radio-«r1g»"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-r1g"
+              for="radio-«r1g»"
             >
               <span
                 class="navds-radio__content"
@@ -278,7 +278,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r1h"
+                  id="«r1h»"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -290,7 +290,7 @@ exports[`stegvisning - AFP - født etter 1963 > rendrer slik den skal når afp e
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r16"
+          id="fieldset-error-«r16»"
         />
       </fieldset>
       <button

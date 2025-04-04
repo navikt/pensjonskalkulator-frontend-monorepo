@@ -25,13 +25,13 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         >
           <label
             class="navds-form-field__label navds-label"
-            for="select-r0"
+            for="select-«r0»"
           >
             stegvisning.sivilstand.select_label
           </label>
           <div
             class="navds-form-field__description navds-body-short navds-body-short--medium"
-            id="select-description-r0"
+            id="select-description-«r0»"
           >
             stegvisning.sivilstand.select_description_ukjent
           </div>
@@ -39,9 +39,9 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
             class="navds-select__container"
           >
             <select
-              aria-describedby="select-description-r0"
+              aria-describedby="select-description-«r0»"
               class="navds-select__input navds-body-short navds-body-short--medium"
-              id="select-r0"
+              id="select-«r0»"
               name="sivilstand"
             >
               <option
@@ -124,7 +124,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
             aria-live="polite"
             aria-relevant="additions removals"
             class="navds-form-field__error"
-            id="select-error-r0"
+            id="select-error-«r0»"
           />
         </div>
       </div>

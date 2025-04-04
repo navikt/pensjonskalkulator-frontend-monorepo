@@ -17,7 +17,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
         data-testid="ufoere-info"
       >
         <svg
-          aria-labelledby="title-r0"
+          aria-labelledby="title-«r0»"
           class="navds-alert__icon"
           fill="none"
           focusable="false"
@@ -28,7 +28,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r0"
+            id="title-«r0»"
           >
             Informasjon
           </title>
@@ -103,7 +103,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
         >
           Kontakt Nav
           <svg
-            aria-labelledby="title-r2"
+            aria-labelledby="title-«r2»"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -113,7 +113,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r2"
+              id="title-«r2»"
             >
               application.global.external_link
             </title>

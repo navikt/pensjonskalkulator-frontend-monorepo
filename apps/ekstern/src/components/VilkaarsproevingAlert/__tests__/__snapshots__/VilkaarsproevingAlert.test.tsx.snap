@@ -6,7 +6,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r5"
+      aria-labelledby="title-«r5»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r5"
+        id="title-«r5»"
       >
         Advarsel
       </title>
@@ -49,7 +49,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r6"
+      aria-labelledby="title-«r6»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -60,7 +60,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r6"
+        id="title-«r6»"
       >
         Advarsel
       </title>
@@ -98,7 +98,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r4"
+      aria-labelledby="title-«r4»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -109,7 +109,7 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r4"
+        id="title-«r4»"
       >
         Advarsel
       </title>
@@ -135,7 +135,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r0"
+      aria-labelledby="title-«r0»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -146,7 +146,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r0"
+        id="title-«r0»"
       >
         Advarsel
       </title>
@@ -175,7 +175,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r2"
+      aria-labelledby="title-«r2»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -186,7 +186,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r2"
+        id="title-«r2»"
       >
         Advarsel
       </title>
@@ -221,7 +221,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r3"
+      aria-labelledby="title-«r3»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -232,7 +232,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r3"
+        id="title-«r3»"
       >
         Advarsel
       </title>
@@ -273,7 +273,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
     class="navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r1"
+      aria-labelledby="title-«r1»"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -284,7 +284,7 @@ exports[`VilkaarsproevingAlert > Uten gradert uføretrygd eller ikke valgt å be
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r1"
+        id="title-«r1»"
       >
         Advarsel
       </title>

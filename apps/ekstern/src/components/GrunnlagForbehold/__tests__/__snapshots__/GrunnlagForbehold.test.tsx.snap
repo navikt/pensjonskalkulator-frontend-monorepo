@@ -22,7 +22,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
       >
         grunnlag.forbehold.link
         <svg
-          aria-labelledby="title-r0"
+          aria-labelledby="title-«r0»"
           fill="none"
           focusable="false"
           height="1.25rem"
@@ -32,7 +32,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r0"
+            id="title-«r0»"
           >
             application.global.external_link
           </title>

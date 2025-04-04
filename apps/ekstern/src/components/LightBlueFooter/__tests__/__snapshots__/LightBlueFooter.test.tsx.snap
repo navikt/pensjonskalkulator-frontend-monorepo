@@ -3,7 +3,7 @@
 exports[`LightBlueFooter > rendrer med riktig tekst og knapper 1`] = `
 <DocumentFragment>
   <dialog
-    aria-labelledby="r0"
+    aria-labelledby="«r0»"
     class="navds-modal navds-modal--polyfilled navds-modal--medium"
     role="dialog"
   >
@@ -18,7 +18,7 @@ exports[`LightBlueFooter > rendrer med riktig tekst og knapper 1`] = `
           class="navds-button__icon"
         >
           <svg
-            aria-labelledby="title-r2"
+            aria-labelledby="title-«r2»"
             fill="none"
             focusable="false"
             height="1em"
@@ -28,7 +28,7 @@ exports[`LightBlueFooter > rendrer med riktig tekst og knapper 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r2"
+              id="title-«r2»"
             >
               Lukk
             </title>
@@ -41,7 +41,7 @@ exports[`LightBlueFooter > rendrer med riktig tekst og knapper 1`] = `
       </button>
       <h1
         class="navds-heading navds-heading--medium"
-        id="r0"
+        id="«r0»"
       >
         stegvisning.tilbake_start.modal.title
       </h1>

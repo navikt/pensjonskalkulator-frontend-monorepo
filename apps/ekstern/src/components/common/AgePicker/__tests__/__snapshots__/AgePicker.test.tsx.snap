@@ -23,7 +23,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
       >
         <label
           class="navds-form-field__label navds-label"
-          for="select-r0"
+          for="select-«r0»"
         >
           Velg år
         </label>
@@ -35,7 +35,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
             aria-required="true"
             class="navds-select__input navds-body-short navds-body-short--medium"
             data-testid="age-picker-unique-name-aar"
-            id="select-r0"
+            id="select-«r0»"
             name="unique-name-aar"
           >
             <option
@@ -68,7 +68,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-form-field__error"
-          id="select-error-r0"
+          id="select-error-«r0»"
         />
       </div>
       <div
@@ -76,7 +76,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
       >
         <label
           class="navds-form-field__label navds-label"
-          for="select-r2"
+          for="select-«r2»"
         >
           Velg måned
         </label>
@@ -89,7 +89,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
             class="navds-select__input navds-body-short navds-body-short--medium"
             data-testid="age-picker-unique-name-maaneder"
             disabled=""
-            id="select-r2"
+            id="select-«r2»"
             name="unique-name-maaneder"
           >
             <option
@@ -122,7 +122,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-form-field__error"
-          id="select-error-r2"
+          id="select-error-«r2»"
         />
       </div>
       <span

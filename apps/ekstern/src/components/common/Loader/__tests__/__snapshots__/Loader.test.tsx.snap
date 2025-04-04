@@ -3,7 +3,7 @@
 exports[`Loader > rendrer med riktig className når isCentered er false 1`] = `
 <DocumentFragment>
   <svg
-    aria-labelledby="loader-r1"
+    aria-labelledby="loader-«r1»"
     aria-live="polite"
     class="navds-loader navds-loader--medium navds-loader--neutral"
     data-testid="loader"
@@ -12,7 +12,7 @@ exports[`Loader > rendrer med riktig className når isCentered er false 1`] = `
     viewBox="0 0 50 50"
   >
     <title
-      id="loader-r1"
+      id="loader-«r1»"
     >
       fake title
     </title>
@@ -39,7 +39,7 @@ exports[`Loader > rendrer med riktig className når isCentered er false 1`] = `
 exports[`Loader > rendrer med riktig className og props by default 1`] = `
 <DocumentFragment>
   <svg
-    aria-labelledby="loader-r0"
+    aria-labelledby="loader-«r0»"
     aria-live="polite"
     class="navds-loader _loader__isCentered_1c4a2e navds-loader--medium navds-loader--neutral"
     data-testid="loader"
@@ -48,7 +48,7 @@ exports[`Loader > rendrer med riktig className og props by default 1`] = `
     viewBox="0 0 50 50"
   >
     <title
-      id="loader-r0"
+      id="loader-«r0»"
     >
       fake title
     </title>

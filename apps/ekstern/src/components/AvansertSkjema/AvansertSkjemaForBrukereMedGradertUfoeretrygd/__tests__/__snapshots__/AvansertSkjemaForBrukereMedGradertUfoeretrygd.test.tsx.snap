@@ -56,7 +56,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
              beregning.avansert.rediger.inntekt_frem_til_uttak.description
           </span>
           <dialog
-            aria-labelledby="rl9"
+            aria-labelledby="«rl9»"
             class="navds-modal navds-modal--polyfilled navds-modal--small"
             role="dialog"
           >
@@ -71,7 +71,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                   class="navds-button__icon"
                 >
                   <svg
-                    aria-labelledby="title-rlb"
+                    aria-labelledby="title-«rlb»"
                     fill="none"
                     focusable="false"
                     height="1em"
@@ -81,7 +81,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-rlb"
+                      id="title-«rlb»"
                     >
                       Lukk
                     </title>
@@ -94,7 +94,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
               </button>
               <h1
                 class="navds-heading navds-heading--medium"
-                id="rl9"
+                id="«rl9»"
               >
                 inntekt.endre_inntekt_modal.title
               </h1>
@@ -119,7 +119,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                 >
                   Din pensjonsopptjening
                   <svg
-                    aria-labelledby="title-rlc"
+                    aria-labelledby="title-«rlc»"
                     fill="none"
                     focusable="false"
                     height="1.25rem"
@@ -129,7 +129,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-rlc"
+                      id="title-«rlc»"
                     >
                       application.global.external_link
                     </title>
@@ -157,21 +157,21 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                   >
                     <label
                       class="navds-form-field__label navds-label"
-                      for="textField-rld"
+                      for="textField-«rld»"
                     >
                       inntekt.endre_inntekt_modal.textfield.label
                     </label>
                     <div
                       class="navds-form-field__description navds-body-short navds-body-short--medium"
-                      id="textField-description-rld"
+                      id="textField-description-«rld»"
                     >
                       inntekt.endre_inntekt_modal.textfield.description.ufoere
                     </div>
                     <input
-                      aria-describedby="textField-description-rld"
+                      aria-describedby="textField-description-«rld»"
                       class="navds-text-field__input navds-body-short navds-body-short--medium"
                       data-testid="inntekt-textfield"
-                      id="textField-rld"
+                      id="textField-«rld»"
                       inputmode="numeric"
                       max="5"
                       name="inntekt"
@@ -182,7 +182,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                       aria-live="polite"
                       aria-relevant="additions removals"
                       class="navds-form-field__error"
-                      id="textField-error-rld"
+                      id="textField-error-«rld»"
                     />
                   </div>
                 </div>
@@ -320,7 +320,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             >
               <label
                 class="navds-form-field__label navds-label"
-                for="select-rlg"
+                for="select-«rlg»"
               >
                 Velg år
               </label>
@@ -333,7 +333,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                   class="navds-select__input navds-body-short navds-body-short--medium"
                   data-testid="age-picker-uttaksalder-helt-uttak-aar"
                   form="avansert-beregning"
-                  id="select-rlg"
+                  id="select-«rlg»"
                   name="uttaksalder-helt-uttak-aar"
                 >
                   <option
@@ -436,7 +436,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                 aria-live="polite"
                 aria-relevant="additions removals"
                 class="navds-form-field__error"
-                id="select-error-rlg"
+                id="select-error-«rlg»"
               />
             </div>
             <div
@@ -444,7 +444,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             >
               <label
                 class="navds-form-field__label navds-label"
-                for="select-rli"
+                for="select-«rli»"
               >
                 Velg måned
               </label>
@@ -458,7 +458,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                   data-testid="age-picker-uttaksalder-helt-uttak-maaneder"
                   disabled=""
                   form="avansert-beregning"
-                  id="select-rli"
+                  id="select-«rli»"
                   name="uttaksalder-helt-uttak-maaneder"
                 >
                   <option
@@ -491,7 +491,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
                 aria-live="polite"
                 aria-relevant="additions removals"
                 class="navds-form-field__error"
-                id="select-error-rli"
+                id="select-error-«rli»"
               />
             </div>
             <span
@@ -552,13 +552,13 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
         >
           <label
             class="navds-form-field__label navds-label"
-            for="select-rll"
+            for="select-«rll»"
           >
             beregning.avansert.rediger.uttaksgrad.label
           </label>
           <div
             class="navds-form-field__description navds-body-short navds-body-short--medium"
-            id="select-description-rll"
+            id="select-description-«rll»"
           >
             beregning.avansert.rediger.uttaksgrad.endring.description
           </div>
@@ -566,12 +566,12 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             class="navds-select__container"
           >
             <select
-              aria-describedby="select-description-rll"
+              aria-describedby="select-description-«rll»"
               aria-required="true"
               class="navds-select__input navds-body-short navds-body-short--medium"
               data-testid="uttaksgrad"
               form="avansert-beregning"
-              id="select-rll"
+              id="select-«rll»"
               name="uttaksgrad"
             >
               <option
@@ -639,7 +639,7 @@ exports[`AvansertSkjemaForBrukereMedGradertUfoeretrygd > Gitt at en bruker har v
             aria-live="polite"
             aria-relevant="additions removals"
             class="navds-form-field__error"
-            id="select-error-rll"
+            id="select-error-«rll»"
           />
         </div>
         <div

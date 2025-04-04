@@ -14,14 +14,14 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
         class="navds-body-long navds-body-long--medium navds-typo--semibold"
       >
         <svg
-          aria-labelledby="loader-r0"
+          aria-labelledby="loader-«r0»"
           class="navds-loader navds-loader--medium navds-loader--neutral"
           focusable="false"
           preserveAspectRatio="xMidYMid"
           viewBox="0 0 50 50"
         >
           <title
-            id="loader-r0"
+            id="loader-«r0»"
           >
             Venter…
           </title>
@@ -70,7 +70,7 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
             >
               <svg
                 aria-hidden="false"
-                aria-labelledby="title-r1"
+                aria-labelledby="title-«r1»"
                 fill="none"
                 focusable="false"
                 height="1em"
@@ -80,7 +80,7 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <title
-                  id="title-r1"
+                  id="title-«r1»"
                 >
                   Kopier
                 </title>
