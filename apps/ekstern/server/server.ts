@@ -1,27 +1,68 @@
 import path from 'path'
 
-import { ecsFormat } from '@elastic/ecs-winston-format'
-import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
+import {
+  getToken,
+  parseAzureUserToken,
+  requestOboToken,
+  validateToken,
+} from '@navikt/oasis'
+import { isBefore, isSameDay } from 'date-fns'
 import express, { NextFunction, Request, Response } from 'express'
 import promBundle from 'express-prom-bundle'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { initialize } from 'unleash-client'
 import winston from 'winston'
+
+import type { components } from '../src/types/schema.d.ts'
+
+import { ensureEnv } from './ensureEnv.js'
+
+type Person = components['schemas']['PersonV2']
+
+const isDevelopment = process.env.NODE_ENV?.startsWith('development')
+const unleashUrl = process.env.UNLEASH_SERVER_API_URL
+const unleashToken = process.env.UNLEASH_SERVER_API_TOKEN
+const unleashEnv = process.env.UNLEASH_SERVER_API_ENV
 
 const metricsMiddleware = promBundle({ includeMethod: true })
 
 const logger = winston.createLogger({
-  format: ecsFormat({
-    convertReqRes: true,
-  }),
+  format: isDevelopment ? winston.format.simple() : undefined,
   transports: [new winston.transports.Console()],
 })
 
+const env = ensureEnv({
+  detaljertKalkulatorUrl: 'DETALJERT_KALKULATOR_URL',
+})
+
+const isFoedtFoer1963 = (foedselsdato: string): boolean => {
+  const LAST_DAY_1962 = new Date(1962, 11, 31)
+  return (
+    isBefore(new Date(foedselsdato), LAST_DAY_1962) ||
+    isSameDay(new Date(foedselsdato), LAST_DAY_1962)
+  )
+}
+
+const unleash = initialize({
+  disableAutoStart: !(unleashToken && unleashUrl && unleashEnv),
+  url: `${unleashUrl}/api`,
+  appName: 'pensjonskalkulator-frontend',
+  environment: unleashEnv,
+  customHeaders: {
+    Authorization: unleashToken ?? '',
+  },
+})
+
+unleash.on('synchronized', () => {
+  logger.info('Unleash synchronized')
+})
+
 const AUTH_PROVIDER = (() => {
-  const idporten: boolean = !!process.env.IDPORTEN_ISSUER
+  const idporten: boolean = !!process.env.TOKEN_X_ISSUER
   const azure: boolean = !!process.env.AZURE_OPENID_CONFIG_ISSUER
   if (idporten && azure) {
     throw new Error(
-      'Both IDPORTEN_ISSUER and AZURE_OPENID_CONFIG_ISSUER are set. Only one of these can be set.'
+      'Both TOKEN_X_ISSUER (idporten) and AZURE_OPENID_CONFIG_ISSUER are set. Only one of these can be set.'
     )
   }
 
@@ -57,11 +98,23 @@ const app = express()
 const __dirname = process.cwd()
 
 app.use(metricsMiddleware)
-app.use((req, _res, next) => {
+
+const addCorrelationId = (req: Request, res: Response, next: NextFunction) => {
   if (!req.headers['x_correlation-id']) {
     req.headers['x_correlation-id'] = crypto.randomUUID()
   }
   next()
+}
+
+app.use(addCorrelationId)
+
+// Kubernetes probes
+app.get('/internal/health/liveness', (_req: Request, res: Response) => {
+  res.sendStatus(200)
+})
+
+app.get('/internal/health/readiness', (_req: Request, res: Response) => {
+  res.sendStatus(200)
 })
 
 app.use((req, res, next) => {
@@ -85,6 +138,27 @@ app.use((req, res, next) => {
   })
   next()
 })
+
+app.use(
+  '/pensjon/kalkulator/redirect/detaljert-kalkulator',
+  express.urlencoded({ extended: true }),
+  async (req: Request, res: Response) => {
+    if (AUTH_PROVIDER === 'idporten') {
+      res.redirect(`${env.detaljertKalkulatorUrl}`)
+      return
+    } else if (AUTH_PROVIDER === 'azure') {
+      const { fnr } = req.body
+      const url = new URL(env.detaljertKalkulatorUrl)
+      const loggedOnName = await getUsernameFromAzureToken(req)
+
+      url.searchParams.append('_brukerId', fnr)
+      url.searchParams.append('_loggedOnName', loggedOnName)
+      res.redirect(url.toString())
+      return
+    }
+  }
+)
+
 // Server hele assets mappen uten autentisering
 app.use(
   '/pensjon/kalkulator/assets',
@@ -103,43 +177,85 @@ app.use(
   }
 )
 
+const getUsernameFromAzureToken = async (req: Request) => {
+  let token = getToken(req)
+
+  if (isDevelopment && process.env.ACCESS_TOKEN) {
+    logger.error('DEVELOPMENT: Using ACCESS_TOKEN from environment')
+    token = process.env.ACCESS_TOKEN
+  }
+
+  if (!token) {
+    logger.info('No token found in request', {
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
+    throw new Error('403')
+  }
+  const parse = parseAzureUserToken(token)
+
+  if (!parse.ok) {
+    logger.error('Failed to parse Azure token', {
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
+    throw new Error('403')
+  }
+
+  return parse.name
+}
+
+const getOboToken = async (req: Request) => {
+  if (isDevelopment && process.env.ACCESS_TOKEN) {
+    logger.error('DEVELOPMENT: Using ACCESS_TOKEN from environment')
+    return process.env.ACCESS_TOKEN
+  }
+
+  const token = getToken(req)
+  if (!token) {
+    logger.info('No token found in request', {
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
+    throw new Error('403')
+  }
+
+  const validationResult = await validateToken(token)
+  if (!validationResult.ok) {
+    logger.error('Failed to validate token', {
+      error: validationResult.error.message,
+      errorType: validationResult.errorType,
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
+    throw new Error('401')
+  }
+
+  const obo = await requestOboToken(token, OBO_AUDIENCE)
+  if (!obo.ok) {
+    logger.error('Failed to get OBO token', {
+      error: obo.error.message,
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
+    throw new Error('401')
+  }
+  return obo.token
+}
+
 // Proxy til backend med token exchange
 app.use(
   '/pensjon/kalkulator/api',
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = getToken(req)
-    if (!token) {
-      logger.info('No token found in request', {
-        'x_correlation-id': req.headers['x_correlation-id'],
-      })
-      res.sendStatus(403)
-      return
-    }
-    const validationResult = await validateToken(token)
-    if (!validationResult.ok) {
-      logger.error('Failed to validate token', {
-        error: validationResult.error.message,
-        errorType: validationResult.errorType,
-        'x_correlation-id': req.headers['x_correlation-id'],
-      })
-      res.sendStatus(401)
-      return
-    }
-
-    const obo = await requestOboToken(token, OBO_AUDIENCE)
-    if (!obo.ok) {
-      logger.error('Failed to get OBO token', {
-        error: obo.error.message,
-        'x_correlation-id': req.headers['x_correlation-id'],
-      })
+    let oboToken: string
+    try {
+      oboToken = await getOboToken(req)
+    } catch {
+      // Send 401 dersom man ikke kan hente obo token
       res.sendStatus(401)
       return
     }
 
     createProxyMiddleware({
       target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+      changeOrigin: true,
       headers: {
-        Authorization: `Bearer ${obo.token}`,
+        Authorization: `Bearer ${oboToken}`,
       },
       logger: logger,
     })(req, res, next)
@@ -150,18 +266,50 @@ app.use(
   '/pensjon/kalkulator/v3/api-docs',
   createProxyMiddleware({
     target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs`,
+    changeOrigin: true,
     logger: logger,
   })
 )
 
-// Kubernetes probes
-app.get('/internal/health/liveness', (_req: Request, res: Response) => {
-  res.sendStatus(200)
-})
+const redirect1963Middleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (AUTH_PROVIDER === 'azure') {
+    return next()
+  }
+  const disableRedirectToggle = unleash.isEnabled(
+    'pensjonskalkulator.disable-redirect-1963'
+  )
 
-app.get('/internal/health/readiness', (_req: Request, res: Response) => {
-  res.sendStatus(200)
-})
+  if (disableRedirectToggle) {
+    next()
+    return
+  }
+
+  try {
+    const oboToken = await getOboToken(req)
+    const data = await fetch(`${PENSJONSKALKULATOR_BACKEND}/api/v2/person`, {
+      headers: new Headers({
+        Authorization: `Bearer ${oboToken}`,
+      }),
+    })
+
+    const person = (await data.json()) as Person
+    if (isFoedtFoer1963(person.foedselsdato)) {
+      logger.info('Redirecting person born before 1963')
+      res.redirect(`${env.detaljertKalkulatorUrl}`)
+      return
+    }
+    next()
+  } catch {
+    logger.error(
+      'Could not redirect person, missing token or could not get /api/v2/person'
+    )
+    next()
+  }
+}
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
 app.get('/pensjon/kalkulator/veileder?*', (_req: Request, res: Response) => {
@@ -172,11 +320,13 @@ app.get('/pensjon/kalkulator/veileder?*', (_req: Request, res: Response) => {
   }
 })
 
-app.get('*', (_req: Request, res: Response) => {
+app.get('*', redirect1963Middleware, async (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
-    return res.sendFile(__dirname + '/index.html')
+    res.sendFile(__dirname + '/index.html')
+    return
   } else if (AUTH_PROVIDER === 'azure') {
-    return res.redirect('/pensjon/kalkulator/veileder')
+    res.redirect('/pensjon/kalkulator/veileder')
+    return
   }
 })
 

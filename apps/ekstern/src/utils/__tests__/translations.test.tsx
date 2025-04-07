@@ -9,8 +9,7 @@ const tagToExpectedLink: Record<
   `${(typeof externalLinks)[number]}Link`,
   string
 > = {
-  detaljertKalkulatorLink:
-    'https://www.nav.no/pselv/simulering.jsf?simpleMode=true',
+  detaljertKalkulatorLink: '/pensjon/kalkulator/redirect/detaljert-kalkulator',
   dinPensjonBeholdningLink: 'https://www.nav.no/pensjon/opptjening/nb/',
   dinPensjonEndreSoeknadLink:
     'https://www.nav.no/pensjon/selvbetjening/alderspensjon/endringssoknad',

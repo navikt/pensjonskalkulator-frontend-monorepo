@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "start:q2": "concurrently \"NODE_ENV=production npm run start\" \"nodemon --watch server/ --exec 'npm run build:server && NODE_ENV=development node dist/server/server.js'\"",
     "start:production": "vite --mode production",
     "sanity-dev": "sanity dev -- --port 3333",
     "sanity-start": "sanity start dist-sanity/",
@@ -45,6 +46,7 @@
     "prom-client": "^15.1.3",
     "sanity": "^3.82.0",
     "styled-components": "^6.1.16",
+    "unleash-client": "^6.6.0",
     "winston": "^3.17.0"
   },
   "devDependencies": {
@@ -73,6 +75,7 @@
     "@vitest/ui": "^3.0.9",
     "axe-core": "^4.10.3",
     "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
     "cypress": "^14.2.1",
     "cypress-axe": "^1.6.0",
     "date-fns": "^4.1.0",
@@ -87,6 +90,7 @@
     "jsdom": "^26.0.0",
     "lint-staged": "^15.5.0",
     "msw": "^2.7.3",
+    "nodemon": "^3.1.9",
     "openapi-typescript": "^7.6.1",
     "postcss": "^8.5.3",
     "postcss-modules-extract-imports": "^3.1.0",

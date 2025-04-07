@@ -66,3 +66,7 @@ spec:
       value: "http://pensjonskalkulator-backend"
     - name: "ENTRA_ID_OBO_SCOPE"
       value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"
+    - name: "DETALJERT_KALKULATOR_URL"
+      value: "https://pensjon-pselv-q2.dev.adeo.no/pselv/simulering.jsf?simpleMode=true&context=pensjon"
+  envFrom:
+    - secret: pensjonskalkulator-frontend-unleash-api-token

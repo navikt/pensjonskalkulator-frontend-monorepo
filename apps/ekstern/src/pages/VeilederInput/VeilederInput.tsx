@@ -30,8 +30,9 @@ import {
   selectVeilederBorgerEncryptedFnr,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { findRoutesWithoutLoaders } from '@/utils/veileder'
+import { isFoedtFoer1963 } from '@/utils/alder'
 
+import { AlertDelB } from './AlertDelB'
 import { VeilederInputRequestError } from './VeilederInputRequestError'
 
 import styles from './VeilederInput.module.scss'
@@ -53,9 +54,18 @@ export const VeilederInput = () => {
     isSuccess: personSuccess,
     isFetching: personLoading,
     error: personError,
+    data: personData,
   } = useGetPersonQuery(undefined, {
     skip: !veilederBorgerFnr || !veilederBorgerEncryptedFnr,
   })
+
+  const showDelbWarning = React.useMemo(
+    () =>
+      personData?.foedselsdato &&
+      isFoedtFoer1963(personData?.foedselsdato) &&
+      veilederBorgerFnr,
+    [veilederBorgerFnr, personData?.foedselsdato]
+  )
 
   const [encryptedRequestLoading, setEncryptedRequestLoading] = React.useState<
     'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'
@@ -122,27 +132,6 @@ export const VeilederInput = () => {
         dispatch(apiSlice.util.invalidateTags(['Person']))
       })
     }
-  }
-
-  const excludedPaths = findRoutesWithoutLoaders(routes)
-  const isExcludedPath = excludedPaths.some((path) =>
-    window.location.pathname.includes(`/veileder${path}`)
-  )
-
-  // Unntak for rutene som skal serveres uten å slå opp bruker
-  if (isExcludedPath) {
-    return (
-      <div data-testid="veileder-ekskludert-side">
-        <InternalHeader>
-          <InternalHeader.Title onClick={onTitleClick}>
-            Pensjonskalkulator
-          </InternalHeader.Title>
-          <Spacer />
-          <InternalHeader.User name={ansatt?.id ?? ''} />
-        </InternalHeader>
-        <RouterProvider router={router} />
-      </div>
-    )
   }
 
   if ((!personSuccess && !veilederBorgerFnr) || personError || isLoading) {
@@ -215,6 +204,9 @@ export const VeilederInput = () => {
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
         {veilederBorgerFnr && <BorgerInformasjon fnr={veilederBorgerFnr} />}
+        <div className={styles.alert}>
+          {showDelbWarning && <AlertDelB fnr={veilederBorgerFnr!} />}
+        </div>
         <RouterProvider router={router} />
       </div>
     )

@@ -67,3 +67,7 @@ spec:
       value: "http://pensjonskalkulator-backend"
     - name: "TOKEN_X_OBO_AUDIENCE"
       value: "prod-gcp:pensjonskalkulator:pensjonskalkulator-backend"
+    - name: "DETALJERT_KALKULATOR_URL"
+      value: "https://www.nav.no/pselv/simulering.jsf?simpleMode=true"
+  envFrom:
+    - secret: pensjonskalkulator-frontend-unleash-api-token

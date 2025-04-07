@@ -5,8 +5,7 @@ export const externalUrls = {
   dinPensjonBeholdning: 'https://www.nav.no/pensjon/opptjening/nb/',
   dinPensjonEndreSoeknad:
     'https://www.nav.no/pensjon/selvbetjening/alderspensjon/endringssoknad',
-  detaljertKalkulator:
-    'https://www.nav.no/pselv/simulering.jsf?simpleMode=true',
+  detaljertKalkulator: '/pensjon/kalkulator/redirect/detaljert-kalkulator',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
   afpPrivat: 'https://www.nav.no/afp-i-privat-sektor',

@@ -27,37 +27,23 @@ describe('Hovedhistorie', () => {
       it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
         cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
-
-        cy.origin('https://login.idporten.no', () => {
-          cy.get('h1').contains('Velg innloggingsmetode')
-        })
-
-        cy.on('uncaught:exception', (e) => {
-          if (
-            e.message.includes('Minified React error #329') ||
-            e.message.includes('Minified React error #418') ||
-            e.message.includes('Minified React error #423')
-          ) {
-            return false
-          }
-        })
-        cy.origin('https://www.nav.no/pensjon/uinnlogget-kalkulator', () => {
+        cy.origin('https://www.nav.no', () => {
           cy.on('uncaught:exception', (e) => {
-            if (
-              e.message.includes('Minified React error #329') ||
-              e.message.includes('Minified React error #418') ||
-              e.message.includes('Minified React error #423')
-            ) {
-              return false
-            }
+            return false
           })
         })
+        cy.location('pathname').should(
+          'eq',
+          '/pensjon/kalkulator/redirect/detaljert-kalkulator'
+        )
 
         cy.visit('/pensjon/kalkulator/')
         cy.contains('button', 'Uinnlogget kalkulator').click()
-        cy.origin('https://www.nav.no/pensjon/uinnlogget-kalkulator', () => {
-          cy.get('h1').contains('Uinnlogget pensjonskalkulator')
-        })
+
+        cy.location('href', { timeout: 0 }).should(
+          'eq',
+          'https://www.nav.no/pensjon/uinnlogget-kalkulator'
+        )
       })
     })
 
@@ -544,10 +530,7 @@ describe('Hovedhistorie', () => {
           .and('include', '/pensjon/kalkulator/forbehold')
         cy.contains('a', 'detaljert pensjonskalkulator')
           .should('have.attr', 'href')
-          .and(
-            'include',
-            'https://www.nav.no/pselv/simulering.jsf?simpleMode=true'
-          )
+          .and('include', '/pensjon/kalkulator/redirect/detaljert-kalkulator')
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {

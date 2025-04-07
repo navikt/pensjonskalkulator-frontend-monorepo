@@ -59,6 +59,16 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 - localhost:5173 brukes av vite ved npm run start
 - localhost:4173 brukes av vite ved npm run preview (static serve)
 
+## Kjøre lokalt mot Q2
+1. Hent ut ACCESS_TOKEN fra <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:pensjonskalkulator:pensjonskalkulator-backend>
+1. Sett ACCESS_TOKEN som miljøvariabel
+1. Sett PENSJONSKALKULATOR_BACKEND miljøvariabel til: <https://pensjonskalkulator-backend.intern.dev.nav.no>
+1. `set -a` for å kunne source .env-filen i terminal
+1. `source .env.development-q2`
+1. Kjør `npm run start:q2`
+
+Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes fra environment. For å bytte bruker må man logge ut med https://logout.ekstern.nav.no/oauth2/logout
+
 ## Systemdokumentasjon og beslutninger
 
 - [Frontend](https://confluence.adeo.no/display/PEN/Pensjonskalkulator+frontend)

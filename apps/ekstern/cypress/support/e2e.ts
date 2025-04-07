@@ -147,6 +147,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/utvidet-simuleringsresultat',
+    },
+    { enabled: false }
+  ).as('getFeatureToggleUtvidetSimuleringsresult')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }

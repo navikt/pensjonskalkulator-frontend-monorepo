@@ -219,15 +219,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getRedirect1963FeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-redirect-1963',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
     getSanityFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.hent-tekster-fra-sanity',
       transformResponse: (response: UnleashToggle) => {
@@ -286,7 +277,6 @@ export const {
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
-  useGetRedirect1963FeatureToggleQuery,
   useGetSanityFeatureToggleQuery,
   useGetOtpKlpFeatureToggleQuery,
   useGetGradertUfoereAfpFeatureToggleQuery,

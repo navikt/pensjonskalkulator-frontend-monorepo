@@ -47,7 +47,7 @@ export const BorgerInformasjon = ({ fnr }: Props) => {
           <CopyButton size="small" copyText={fnr} />
         </HStack>
         <Spacer />
-        <div>
+        <HStack gap="2">
           <Button
             onClick={onNullstillClick}
             data-testid="borger-nullstill"
@@ -56,7 +56,7 @@ export const BorgerInformasjon = ({ fnr }: Props) => {
           >
             Nullstill bruker
           </Button>
-        </div>
+        </HStack>
       </HStack>
     </Box>
   )

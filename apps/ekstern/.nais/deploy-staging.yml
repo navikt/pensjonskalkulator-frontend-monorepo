@@ -59,8 +59,16 @@ spec:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+    inbound:
+      rules:
+        - application: wonderwalled-idporten # only in dev
+          namespace: aura
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
     - name: "TOKEN_X_OBO_AUDIENCE"
       value: "dev-gcp:pensjonskalkulator:pensjonskalkulator-backend"
+    - name: "DETALJERT_KALKULATOR_URL"
+      value: "https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf?simpleMode=true"
+  envFrom:
+    - secret: pensjonskalkulator-frontend-unleash-api-token

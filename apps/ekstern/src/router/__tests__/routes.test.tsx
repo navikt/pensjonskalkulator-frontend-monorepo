@@ -2,12 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { describe, vi } from 'vitest'
 
-import {
-  BASE_PATH,
-  externalUrls,
-  henvisningUrlParams,
-  paths,
-} from '../constants'
+import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
 import { routes } from '../routes'
 import {
   fulfilledGetPerson,
@@ -120,42 +115,6 @@ describe('routes', () => {
           screen.queryByText('landingsside.for.deg.foedt.foer.1963')
         ).not.toBeInTheDocument()
       })
-
-      it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockResponse('/v4/person', {
-          status: 200,
-          json: {
-            navn: 'Ola',
-            sivilstand: 'GIFT',
-            foedselsdato: '1961-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: {
-                aar: 67,
-                maaneder: 0,
-              },
-              nedreAldersgrense: {
-                aar: 62,
-                maaneder: 0,
-              },
-            },
-          },
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.login}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            externalUrls.detaljertKalkulator,
-            '_self'
-          )
-        })
-      })
     })
   })
 
@@ -177,42 +136,6 @@ describe('routes', () => {
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
             'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-
-      it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockResponse('/v4/person', {
-          status: 200,
-          json: {
-            navn: 'Ola',
-            sivilstand: 'GIFT',
-            foedselsdato: '1961-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: {
-                aar: 67,
-                maaneder: 0,
-              },
-              nedreAldersgrense: {
-                aar: 62,
-                maaneder: 0,
-              },
-            },
-          },
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.start}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            externalUrls.detaljertKalkulator,
             '_self'
           )
         })

@@ -98,7 +98,10 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
       <span
         class="navds-stack__spacer"
       />
-      <div>
+      <div
+        class="navds-stack navds-hstack navds-stack-gap navds-stack-direction navds-stack-wrap"
+        style="--__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: row;"
+      >
         <button
           class="navds-button navds-button--secondary navds-button--small"
           data-testid="borger-nullstill"

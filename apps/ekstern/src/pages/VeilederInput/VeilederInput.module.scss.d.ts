@@ -1,5 +1,5 @@
-import globalClassNames from "../../style.d";
-declare const classNames: typeof globalClassNames & {
+declare const classNames: {
   readonly form: "form";
+  readonly alert: "alert";
 };
 export = classNames;

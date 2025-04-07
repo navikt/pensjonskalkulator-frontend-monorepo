@@ -65,7 +65,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/pensjon/kalkulator/api': {
-        target: 'https://pensjonskalkulator-backend.ekstern.dev.nav.no',
+        target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
       },
