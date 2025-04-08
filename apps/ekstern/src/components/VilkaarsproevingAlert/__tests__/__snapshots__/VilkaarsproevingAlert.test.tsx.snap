@@ -31,7 +31,10 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     <div
       class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
-      Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.{br}{br}Et alternativ er at du ved 62 alder.aar kan ta ut 
+      beregning.vilkaarsproeving.medAFP.intro
+      <br />
+      <br />
+      Et alternativ er at du ved 62 alder.aar kan ta ut 
       <span
         class="nowrap"
       >
@@ -74,7 +77,10 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     <div
       class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
-      Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.{br}{br}Et alternativ er at du ved 62 alder.aar kan ta ut 
+      beregning.vilkaarsproeving.medAFP.intro
+      <br />
+      <br />
+      Et alternativ er at du ved 62 alder.aar kan ta ut 
       <span
         class="nowrap"
       >
@@ -123,7 +129,13 @@ exports[`VilkaarsproevingAlert > Når brukeren har gradert uføretrygd og har va
     <div
       class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
-      Opptjeningen din er ikke høy nok til uttak av alderspensjon ved &lt;nedreAldersgrense&gt;.{br}{br}Kalkulatoren kan ikke beregne uttak etter &lt;nedreAldersgrense&gt;. Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.{br}{br}Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.
+      Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 62 alder.aar.
+      <br />
+      <br />
+      Kalkulatoren kan ikke beregne uttak etter 62 alder.aar. Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.
+      <br />
+      <br />
+      Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.
     </div>
   </div>
 </DocumentFragment>

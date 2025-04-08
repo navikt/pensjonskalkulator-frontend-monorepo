@@ -62,6 +62,7 @@ export const VilkaarsproevingAlert = ({
                 }}
               />
             )}
+
             {!isHeltUttaksalderLik && gradertUttaksalder && (
               <FormattedMessage
                 id="beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak"

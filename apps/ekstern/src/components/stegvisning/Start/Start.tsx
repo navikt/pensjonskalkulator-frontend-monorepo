@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { format } from 'date-fns'
-import React from 'react'
+import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
@@ -9,6 +9,7 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { Card } from '@/components/common/Card'
+import { TelefonLink } from '@/components/common/TelefonLink'
 import { externalUrls } from '@/router/constants'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
@@ -37,7 +38,7 @@ export function Start({
   const intl = useIntl()
   const navigate = useNavigate()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (shouldRedirectTo) {
       navigate(shouldRedirectTo)
     }
@@ -88,6 +89,7 @@ export function Start({
                           fremtidigAlderspensjon.fom,
                           DATE_ENDUSER_FORMAT
                         ),
+                        link: <TelefonLink />,
                       }}
                     />
                   ) : (
@@ -97,6 +99,7 @@ export function Start({
                     />
                   )}
                 </BodyLong>
+
                 {!fremtidigAlderspensjon && (
                   <BodyLong size="medium">
                     <FormattedMessage id="stegvisning.start.endring.ingress_2" />
@@ -108,6 +111,7 @@ export function Start({
                 <BodyLong size="large">
                   <FormattedMessage id="stegvisning.start.ingress" />
                 </BodyLong>
+
                 <ul className={styles.list}>
                   <li>
                     <BodyLong size="large">
@@ -134,6 +138,7 @@ export function Start({
                     </BodyLong>
                   </li>
                 </ul>
+
                 <BodyLong size="medium">
                   <FormattedMessage id="stegvisning.start.ingress_2" />
                 </BodyLong>
@@ -151,6 +156,7 @@ export function Start({
                 <FormattedMessage id="stegvisning.start.button" />
               </Button>
             )}
+
             {onCancel && (
               <Button
                 type="button"

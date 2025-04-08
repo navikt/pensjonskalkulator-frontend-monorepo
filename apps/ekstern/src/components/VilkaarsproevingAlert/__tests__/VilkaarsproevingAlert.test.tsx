@@ -231,6 +231,7 @@ describe('VilkaarsproevingAlert', () => {
         ...userInputInitialState,
       },
     }
+
     it('Når det ikke er nok opptjening, vises det riktig tekst', () => {
       const { asFragment } = render(
         <VilkaarsproevingAlert
@@ -245,9 +246,10 @@ describe('VilkaarsproevingAlert', () => {
           },
         }
       )
+
       expect(
         screen.getByText(
-          'Opptjeningen din er ikke høy nok til uttak av alderspensjon',
+          'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 62 alder.aar.',
           {
             exact: false,
           }
@@ -277,14 +279,10 @@ describe('VilkaarsproevingAlert', () => {
       )
 
       expect(
-        screen.getByText(
-          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
-          {
-            exact: false,
-          }
-        )
+        screen.getByText('beregning.vilkaarsproeving.medAFP.intro', {
+          exact: false,
+        })
       ).toBeInTheDocument()
-
       expect(
         screen.getByText('Et alternativ er at du ved 62 alder.aar kan ta ut ', {
           exact: false,
@@ -318,12 +316,9 @@ describe('VilkaarsproevingAlert', () => {
       )
 
       expect(
-        screen.getByText(
-          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
-          {
-            exact: false,
-          }
-        )
+        screen.getByText('beregning.vilkaarsproeving.medAFP.intro', {
+          exact: false,
+        })
       ).toBeInTheDocument()
       expect(
         screen.getByText('Et alternativ er at du ved 62 alder.aar kan ta ut ', {
