@@ -2,13 +2,18 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
-import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
-import clsx from 'clsx'
-import { parse, compareAsc } from 'date-fns'
+import {
+  BodyShort,
+  Button,
+  ErrorMessage,
+  Heading,
+  Modal,
+} from '@navikt/ds-react'
+import { compareAsc, parse } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
-import { useAppSelector, useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectUtenlandsperioder,
@@ -248,12 +253,9 @@ export function UtenlandsoppholdListe({
         </Button>
       )}
       {validationError && (
-        <BodyShort
-          size="medium"
-          className={clsx('navds-error-message navds-label', styles.error)}
-        >
+        <ErrorMessage showIcon className={styles.error}>
           {validationError}
-        </BodyShort>
+        </ErrorMessage>
       )}
     </section>
   )
