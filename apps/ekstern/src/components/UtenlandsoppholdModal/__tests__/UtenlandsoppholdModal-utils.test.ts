@@ -1,9 +1,10 @@
-import {
-  validateOpphold,
-  onUtenlandsoppholdSubmit,
-  UTENLANDSOPPHOLD_FORM_NAMES,
-} from '../utils'
 import * as loggerUtils from '@/utils/logging'
+
+import {
+  UTENLANDSOPPHOLD_FORM_NAMES,
+  onUtenlandsoppholdSubmit,
+  validateOpphold,
+} from '../utils'
 
 describe('UtenlandsoppholdModal-utils', () => {
   describe('validateOpphold', () => {

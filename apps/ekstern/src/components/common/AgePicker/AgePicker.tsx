@@ -1,8 +1,8 @@
+import clsx from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
@@ -11,9 +11,11 @@ import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import {
   DEFAULT_SENEST_UTTAKSALDER,
   formatUttaksalder,
-  transformUttaksalderToDate,
   transformMaanedToDate,
+  transformUttaksalderToDate,
 } from '@/utils/alder'
+
+import styles from './AgePicker.module.scss'
 
 export interface AgePickerProps {
   form?: string
@@ -27,8 +29,6 @@ export interface AgePickerProps {
   onChange?: (alder: Partial<Alder> | undefined) => void
   error?: string | React.JSX.Element
 }
-
-import styles from './AgePicker.module.scss'
 
 export const AgePicker = ({
   name,

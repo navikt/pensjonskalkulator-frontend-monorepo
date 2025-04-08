@@ -1,18 +1,19 @@
 import { describe, expect, it } from 'vitest'
 
-import { RedigerAvansertBeregning } from '..'
 import {
-  fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import {
-  BeregningContext,
   AvansertBeregningModus,
+  BeregningContext,
 } from '@/pages/Beregning/context'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
+
+import { RedigerAvansertBeregning } from '..'
 
 describe('RedigerAvansertBeregning', () => {
   const contextMockedValues = {

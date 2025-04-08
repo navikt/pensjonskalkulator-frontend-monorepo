@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router'
 
 import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'
 
-import ShowMore from '../common/ShowMore/ShowMore'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
 import {
@@ -17,20 +16,21 @@ import {
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectSamtykke,
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
-  selectFoedselsdato,
-  selectUfoeregrad,
-  selectSivilstand,
+  selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
-  selectCurrentSimulation,
+  selectFoedselsdato,
+  selectSamtykke,
+  selectSivilstand,
+  selectUfoeregrad,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import ShowMore from '../common/ShowMore/ShowMore'
 import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
 import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
 

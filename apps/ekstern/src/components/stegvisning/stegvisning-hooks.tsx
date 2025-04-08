@@ -9,14 +9,14 @@ import {
 import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectUfoeregrad,
   selectAfp,
   selectFoedselsdato,
+  selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
-  isFoedselsdatoOverAlder,
   AFP_UFOERE_OPPSIGELSESALDER,
+  isFoedselsdatoOverAlder,
 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 

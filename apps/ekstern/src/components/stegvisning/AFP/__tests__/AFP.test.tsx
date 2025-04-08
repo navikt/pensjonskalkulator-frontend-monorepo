@@ -1,8 +1,9 @@
 import { describe, it, vi } from 'vitest'
 
-import { AFP } from '..'
 import { mockErrorResponse } from '@/mocks/server'
-import { screen, render, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { AFP } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

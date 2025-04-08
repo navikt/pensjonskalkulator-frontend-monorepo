@@ -1,11 +1,10 @@
 /* eslint-disable import/export */
+import { createListenerMiddleware } from '@reduxjs/toolkit'
+import { RenderOptions, render } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, MemoryRouter, RouterProvider } from 'react-router'
-
-import { createListenerMiddleware } from '@reduxjs/toolkit'
-import { render, RenderOptions } from '@testing-library/react'
+import { MemoryRouter, RouterProvider, createBrowserRouter } from 'react-router'
 
 import { SanityContext } from '@/context/SanityContext'
 import {
@@ -21,10 +20,10 @@ import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.js
 import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
-  setupStore,
-  RootState,
-  AppStore,
   AppStartListening,
+  AppStore,
+  RootState,
+  setupStore,
 } from './state/store'
 import { getTranslation_nb } from './translations/nb'
 

@@ -6,6 +6,7 @@ import {
 } from '@navikt/ds-react'
 
 import { logger } from '@/utils/logging'
+
 interface IProps {
   name: string
 }

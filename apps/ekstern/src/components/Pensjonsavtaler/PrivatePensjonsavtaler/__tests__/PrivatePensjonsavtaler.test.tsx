@@ -1,9 +1,10 @@
 import { describe, it } from 'vitest'
 
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
-import { PrivatePensjonsavtaler } from '../PrivatePensjonsavtaler'
 import { render, screen } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
+
+import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
+import { PrivatePensjonsavtaler } from '../PrivatePensjonsavtaler'
 
 describe('PrivatePensjonsavtaler', () => {
   const avtalerWithKeys = pensjonsavtalerData.avtaler.map(

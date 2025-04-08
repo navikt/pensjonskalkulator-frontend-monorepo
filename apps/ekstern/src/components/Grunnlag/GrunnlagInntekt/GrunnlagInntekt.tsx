@@ -3,19 +3,20 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
 
-import { GrunnlagSection } from '../GrunnlagSection'
-import { AccordionItem } from '@/components/common/AccordionItem'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
-  selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
+
+import { GrunnlagSection } from '../GrunnlagSection'
 
 import styles from './GrunnlagInntekt.module.scss'
 

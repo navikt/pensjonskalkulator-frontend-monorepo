@@ -1,10 +1,9 @@
 import { add, endOfDay, format } from 'date-fns'
 
-import { GrunnlagAFP } from '..'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtakLoepende50Alderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
@@ -13,6 +12,8 @@ import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
+
+import { GrunnlagAFP } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

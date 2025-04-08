@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
-import { Loader } from '..'
 import { render, screen } from '@/test-utils'
+
+import { Loader } from '..'
 
 describe('Loader', () => {
   it('rendrer med riktig className og props by default', () => {

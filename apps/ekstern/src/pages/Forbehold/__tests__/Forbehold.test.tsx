@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
-import { Forbehold } from '..'
 import { render, screen, waitFor } from '@/test-utils'
+
+import { Forbehold } from '..'
 
 describe('Forbehold', () => {
   it('har riktig sidetittel', () => {

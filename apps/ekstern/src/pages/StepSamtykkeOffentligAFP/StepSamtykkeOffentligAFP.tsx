@@ -6,8 +6,8 @@ import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-h
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectSamtykkeOffentligAFP,
   selectIsVeileder,
+  selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 

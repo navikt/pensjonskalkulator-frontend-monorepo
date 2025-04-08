@@ -11,7 +11,6 @@ import {
   VStack,
 } from '@navikt/ds-react'
 
-import { STEGVISNING_FORM_NAMES } from '../utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { formatInntekt } from '@/utils/inntekt'
@@ -21,11 +20,13 @@ import {
   convertBooleanToBooleanRadio,
 } from '@/utils/radio'
 import {
-  sivilstandOptions,
   formatSivilstand,
   getSivilstandTekst,
   isSivilstandUkjent,
+  sivilstandOptions,
 } from '@/utils/sivilstand'
+
+import { STEGVISNING_FORM_NAMES } from '../utils'
 
 import styles from './Sivilstand.module.scss'
 

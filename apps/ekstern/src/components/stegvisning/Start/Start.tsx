@@ -1,20 +1,21 @@
+import clsx from 'clsx'
+import { format } from 'date-fns'
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
-import clsx from 'clsx'
-import { format } from 'date-fns'
 
-import FridaPortrett from '../../../assets/frida.svg'
-import { Card } from '@/components/common/Card'
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
+import { Card } from '@/components/common/Card'
 import { externalUrls } from '@/router/constants'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
+
+import FridaPortrett from '../../../assets/frida.svg'
 
 import styles from './Start.module.scss'
 

@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
+import { waitFor } from '@/test-utils'
+
 import {
   formatInntekt,
   formatInntektToNumber,
   updateAndFormatInntektFromInputField,
   validateInntekt,
 } from '../inntekt'
-import { waitFor } from '@/test-utils'
 
 describe('inntekt-utils', () => {
   describe('formatInntekt', () => {

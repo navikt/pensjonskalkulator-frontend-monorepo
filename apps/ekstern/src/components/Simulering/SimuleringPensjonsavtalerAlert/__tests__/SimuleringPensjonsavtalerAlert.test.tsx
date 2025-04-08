@@ -1,15 +1,16 @@
 import { vi } from 'vitest'
 
-import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
-import { SimuleringPensjonsavtalerAlert } from '../SimuleringPensjonsavtalerAlert'
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import {
   AvansertBeregningModus,
   BeregningContext,
 } from '@/pages/Beregning/context'
-import { render, screen, fireEvent } from '@/test-utils'
+import { fireEvent, render, screen } from '@/test-utils'
+
+import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
+import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
+import { SimuleringPensjonsavtalerAlert } from '../SimuleringPensjonsavtalerAlert'
 
 describe('SimuleringPensjonsavtalerAlert', () => {
   const avtalerWithKeys = pensjonsavtalerData.avtaler.map(

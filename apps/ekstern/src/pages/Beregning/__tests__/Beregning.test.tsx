@@ -1,18 +1,20 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { Beregning } from '../Beregning'
 import { AVANSERT_FORM_NAMES } from '@/components/AvansertSkjema/utils'
 import {
   fulfilledGetInntekt,
-  fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakFremtidig,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { Beregning } from '../Beregning'
+
 const previousWindow = window
 
 const navigateMock = vi.fn()

@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { Beregningsvalg } from '../Beregningsvalg'
 import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
+
+import { Beregningsvalg } from '../Beregningsvalg'
 
 describe('Beregningsvalg', () => {
   const mockOnChange = vi.fn()

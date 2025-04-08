@@ -1,6 +1,5 @@
 import { describe, it } from 'vitest'
 
-import { VeilederInput } from '../'
 import {
   fulfilledGetPerson,
   fulfilledPre1963GetPerson,
@@ -9,7 +8,9 @@ import { BASE_PATH } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
-import { render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { VeilederInput } from '../'
 
 const previousWindow = window
 

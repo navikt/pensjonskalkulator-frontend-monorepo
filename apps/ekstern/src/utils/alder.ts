@@ -1,19 +1,18 @@
-import { IntlShape } from 'react-intl'
-
 import {
-  differenceInYears,
   differenceInMonths,
+  differenceInYears,
   endOfDay,
   format,
+  isAfter,
   isBefore,
   isSameDay,
   parse,
   startOfMonth,
-  isAfter,
 } from 'date-fns'
-import { nb, nn, enGB } from 'date-fns/locale'
+import { enGB, nb, nn } from 'date-fns/locale'
+import { IntlShape } from 'react-intl'
 
-import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { capitalize } from '@/utils/string'
 
 export const DEFAULT_SENEST_UTTAKSALDER: Alder = {

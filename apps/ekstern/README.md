@@ -60,6 +60,7 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 - localhost:4173 brukes av vite ved npm run preview (static serve)
 
 ## Kjøre lokalt mot Q2
+
 1. Hent ut ACCESS_TOKEN fra <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:pensjonskalkulator:pensjonskalkulator-backend>
 1. Sett ACCESS_TOKEN som miljøvariabel
 1. Sett PENSJONSKALKULATOR_BACKEND miljøvariabel til: <https://pensjonskalkulator-backend.intern.dev.nav.no>

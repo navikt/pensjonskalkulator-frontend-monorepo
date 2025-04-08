@@ -1,6 +1,5 @@
 import { describe, it } from 'vitest'
 
-import { InfoOmLoependeVedtak } from '..'
 import {
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
@@ -8,6 +7,8 @@ import {
   fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { render, screen } from '@/test-utils'
+
+import { InfoOmLoependeVedtak } from '..'
 
 describe('InfoOmLoependeVedtak', () => {
   it('Når vedtaket ikke er oppgitt, returnerer null', () => {

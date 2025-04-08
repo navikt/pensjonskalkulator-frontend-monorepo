@@ -2,33 +2,34 @@ import { add, endOfDay, format } from 'date-fns'
 import { describe, it, vi } from 'vitest'
 
 import {
-  directAccessGuard,
-  authenticationGuard,
-  stepStartAccessGuard,
-  stepSivilstandAccessGuard,
-  StepSivilstandAccessGuardLoader,
-  stepAFPAccessGuard,
-  stepUfoeretrygdAFPAccessGuard,
-  stepSamtykkeOffentligAFPAccessGuard,
-  landingPageAccessGuard,
-} from '../loaders'
-import {
-  fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtak100Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import {
-  userInputInitialState,
   UserInputState,
+  userInputInitialState,
 } from '@/state/userInput/userInputSlice'
 import { waitFor } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
+
+import {
+  StepSivilstandAccessGuardLoader,
+  authenticationGuard,
+  directAccessGuard,
+  landingPageAccessGuard,
+  stepAFPAccessGuard,
+  stepSamtykkeOffentligAFPAccessGuard,
+  stepSivilstandAccessGuard,
+  stepStartAccessGuard,
+  stepUfoeretrygdAFPAccessGuard,
+} from '../loaders'
 
 describe('Loaders', () => {
   afterEach(() => {

@@ -1,8 +1,6 @@
-import { createMemoryRouter, RouterProvider } from 'react-router'
-
+import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
-import { Henvisning } from '../Henvisning'
 import {
   BASE_PATH,
   externalUrls,
@@ -12,6 +10,8 @@ import {
 import { routes } from '@/router/routes'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
+
+import { Henvisning } from '../Henvisning'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

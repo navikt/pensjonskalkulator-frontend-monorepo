@@ -3,10 +3,10 @@ import { add, endOfDay, format, isBefore, parse, startOfMonth } from 'date-fns'
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
-  validateAlderFromForm,
   getAlderMinus1Maaned,
   isAlderLikEllerOverAnnenAlder,
   transformUttaksalderToDate,
+  validateAlderFromForm,
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { validateInntekt } from '@/utils/inntekt'

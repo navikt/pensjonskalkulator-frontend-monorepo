@@ -1,9 +1,8 @@
+import { SeriesColumnOptions } from 'highcharts'
 import { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 
-import { SeriesColumnOptions } from 'highcharts'
-
-import { formatSeriesToTableData, TableDataRow } from './utils'
+import { TableDataRow, formatSeriesToTableData } from './utils'
 
 export const useTableData = (
   series: SeriesColumnOptions[],

@@ -1,10 +1,10 @@
+import clsx from 'clsx'
+import { format, parse } from 'date-fns'
+import { enGB, nb, nn } from 'date-fns/locale'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong } from '@navikt/ds-react'
-import clsx from 'clsx'
-import { format, parse } from 'date-fns'
-import { nb, nn, enGB } from 'date-fns/locale'
 
 import { Divider } from '@/components/common/Divider'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'

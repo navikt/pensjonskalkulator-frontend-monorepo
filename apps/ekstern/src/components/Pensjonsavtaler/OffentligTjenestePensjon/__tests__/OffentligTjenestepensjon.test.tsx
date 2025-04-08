@@ -1,10 +1,11 @@
 import { describe, it } from 'vitest'
 
-import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
-import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
+
+import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
+import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 
 describe('OffentligTjenestepensjon', () => {
   it('viser loader mens info om tp-medlemskap hentes.', () => {

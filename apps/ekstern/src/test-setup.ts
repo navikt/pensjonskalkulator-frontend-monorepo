@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+
 import { useSerialIds } from 'highcharts'
 import { vi } from 'vitest'
 

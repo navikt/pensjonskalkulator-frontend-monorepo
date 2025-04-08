@@ -1,5 +1,5 @@
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
 import { Button, ExpansionCard as ExpansionCardAksel } from '@navikt/ds-react'
@@ -15,11 +15,12 @@ import {
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
 import { wrapLogger } from '@/utils/logging'
+
+import styles from './ResultatkortAvansertBeregning.module.scss'
+
 interface Props {
   onButtonClick: () => void
 }
-
-import styles from './ResultatkortAvansertBeregning.module.scss'
 
 export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   onButtonClick,

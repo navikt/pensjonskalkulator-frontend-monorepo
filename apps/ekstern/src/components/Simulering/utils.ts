@@ -1,6 +1,5 @@
-import { IntlShape } from 'react-intl'
-
 import { Chart, Point, Series } from 'highcharts'
+import { IntlShape } from 'react-intl'
 
 import { getAlderMinus1Maaned } from '@/utils/alder'
 

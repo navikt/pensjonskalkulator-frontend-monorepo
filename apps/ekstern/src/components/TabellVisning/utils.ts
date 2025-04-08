@@ -1,6 +1,5 @@
-import { IntlShape } from 'react-intl'
-
 import { SeriesColumnOptions } from 'highcharts'
+import { IntlShape } from 'react-intl'
 
 export type TableDataRowDetaljer = { name: string; subSum: number }
 

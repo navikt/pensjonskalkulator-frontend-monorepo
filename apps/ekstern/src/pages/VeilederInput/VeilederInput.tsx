@@ -26,8 +26,8 @@ import {
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
+  selectVeilederBorgerFnr,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { isFoedtFoer1963 } from '@/utils/alder'

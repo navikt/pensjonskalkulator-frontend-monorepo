@@ -1,7 +1,8 @@
 import { describe, it, vi } from 'vitest'
 
+import { render, screen, swallowErrors, userEvent } from '@/test-utils'
+
 import { CardContent } from '../CardContent'
-import { screen, render, userEvent, swallowErrors } from '@/test-utils'
 
 describe('CardContent', () => {
   const onPrimaryButtonClickMock = vi.fn()

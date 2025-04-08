@@ -1,17 +1,17 @@
 import React from 'react'
-
 import { describe, it } from 'vitest'
 
-import { UtenlandsoppholdModal } from '..'
-import * as utenlandsoppholdModalUtils from '../utils'
 import {
   act,
   fireEvent,
-  screen,
   render,
+  screen,
   userEvent,
   waitFor,
 } from '@/test-utils'
+
+import { UtenlandsoppholdModal } from '..'
+import * as utenlandsoppholdModalUtils from '../utils'
 
 describe('UtenlandsoppholdModal', () => {
   describe('Gitt at det skal registreres et nytt opphold', () => {

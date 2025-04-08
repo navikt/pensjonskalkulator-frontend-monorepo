@@ -1,24 +1,25 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
-import clsx from 'clsx'
 
-import { GrunnlagSection } from '../GrunnlagSection'
-import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectHarUtenlandsopphold,
   selectCurrentSimulation,
+  selectHarUtenlandsopphold,
   selectIsEndring,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
+
+import { GrunnlagSection } from '../GrunnlagSection'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 

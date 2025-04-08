@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -9,7 +10,6 @@ import {
   Table,
   VStack,
 } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
@@ -24,9 +24,9 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
 import {
+  formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
-  formatLeverandoerList,
 } from './utils'
 
 import styles from './OffentligTjenestepensjon.module.scss'

@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { BodyLong, Heading, HeadingProps, Button } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'

@@ -1,8 +1,9 @@
 import { ExpansionCard as ExpansionCardAksel } from '@navikt/ds-react'
 
-import { ExpansionCard } from '../ExpansionCard'
 import { render, screen, userEvent } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+import { ExpansionCard } from '../ExpansionCard'
 
 describe('ExpansionCard', () => {
   afterEach(() => {

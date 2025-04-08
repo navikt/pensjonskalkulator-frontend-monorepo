@@ -1,17 +1,18 @@
 import { describe, it, vi } from 'vitest'
 
-import { StepSamtykkePensjonsavtaler } from '..'
 import {
-  fulfilledGetPerson,
-  fulfilledsimulerOffentligTp,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetPerson,
   fulfilledPensjonsavtaler,
+  fulfilledsimulerOffentligTp,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { screen, render, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { StepSamtykkePensjonsavtaler } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

@@ -1,13 +1,14 @@
 import { describe, it, vi } from 'vitest'
 
-import { StepUfoeretrygdAFP } from '..'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { screen, render, userEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
+
+import { StepUfoeretrygdAFP } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

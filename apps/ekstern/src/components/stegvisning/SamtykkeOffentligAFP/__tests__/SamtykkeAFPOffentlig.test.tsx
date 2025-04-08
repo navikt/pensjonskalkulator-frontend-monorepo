@@ -1,8 +1,9 @@
 import { describe, it, vi } from 'vitest'
 
-import { SamtykkeOffentligAFP } from '..'
 import { RootState } from '@/state/store'
-import { screen, render, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { SamtykkeOffentligAFP } from '..'
 
 describe('stegvisning - SamtykkeOffentligAFP', () => {
   const onCancelMock = vi.fn()

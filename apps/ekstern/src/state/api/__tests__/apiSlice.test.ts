@@ -1,3 +1,8 @@
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { apiSlice } from '@/state/api/apiSlice'
+import { setupStore } from '@/state/store'
+import { swallowErrorsAsync } from '@/test-utils'
+
 import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import ekskludertStatusResponse from '../../../mocks/data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
@@ -11,10 +16,6 @@ import spraakvelgerToggleResponse from '../../../mocks/data/unleash-disable-spra
 import enableSanityToggleResponse from '../../../mocks/data/unleash-enable-sanity.json' with { type: 'json' }
 import enableOtpFraKlpToggleResponse from '../../../mocks/data/unleash-otp-fra-klp.json' with { type: 'json' }
 import utvidetSimuleringsresultatToggleResponse from '../../../mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { apiSlice } from '@/state/api/apiSlice'
-import { setupStore } from '@/state/store'
-import { swallowErrorsAsync } from '@/test-utils'
 
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {

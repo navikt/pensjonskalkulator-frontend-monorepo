@@ -1,8 +1,8 @@
+import { PortableText } from '@portabletext/react'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { GuidePanel, Heading } from '@navikt/ds-react'
-import { PortableText } from '@portabletext/react'
 
 import { SanityContext } from '@/context/SanityContext'
 import { getSanityPortableTextComponents } from '@/utils/sanity'

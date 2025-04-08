@@ -1,7 +1,8 @@
-import { ReadMoreOmPensjonsalder } from '../ReadMoreOmPensjonsalder'
 import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
+
+import { ReadMoreOmPensjonsalder } from '../ReadMoreOmPensjonsalder'
 
 describe('ReadMoreOmPensjonsalder', () => {
   describe('Gitt at en bruker ikke har uføretrygd, ', () => {

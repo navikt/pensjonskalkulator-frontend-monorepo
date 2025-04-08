@@ -1,7 +1,8 @@
-import { SimuleringEndringBanner } from '../SimuleringEndringBanner'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { screen, render } from '@/test-utils'
+import { render, screen } from '@/test-utils'
+
+import { SimuleringEndringBanner } from '../SimuleringEndringBanner'
 
 describe('SimuleringEndringBanner', () => {
   it('Gitt at brukeren ikke har noe vedtak om alderspensjon, skal banneren ikke vises.', () => {

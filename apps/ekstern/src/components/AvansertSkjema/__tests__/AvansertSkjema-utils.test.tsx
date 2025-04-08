@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  validateAvansertBeregningSkjema,
-  onAvansertBeregningSubmit,
-} from '../utils'
 import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
+
+import {
+  onAvansertBeregningSubmit,
+  validateAvansertBeregningSkjema,
+} from '../utils'
 
 describe('AvansertSkjema-utils', () => {
   describe('onAvansertBeregningSubmit', () => {

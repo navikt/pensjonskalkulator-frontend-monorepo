@@ -1,8 +1,8 @@
-import importPlugin from 'eslint-plugin-import'
 import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
 import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 const ignoredFiles = [
   'eslint.config.mjs',
@@ -81,37 +81,6 @@ export default [
       'import/export': 'error',
       'import/no-extraneous-dependencies': 'error',
       'import/no-duplicates': 'error',
-      'import/order': [
-        'warn',
-        {
-          pathGroups: [
-            {
-              pattern: '{react*,redux*}',
-              group: 'external',
-              position: 'before',
-            },
-            {
-              pattern: '~/**',
-              group: 'external',
-            },
-            {
-              pattern: '@/**',
-              group: 'parent',
-            },
-            {
-              pattern: './*.scss',
-              group: 'sibling',
-              position: 'after',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['react'],
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          'newlines-between': 'always',
-        },
-      ],
     },
   },
 ]

@@ -1,9 +1,9 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ArrowCirclepathIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import styles from './Alert.module.scss'
 

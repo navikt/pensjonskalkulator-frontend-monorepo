@@ -1,25 +1,23 @@
-import { IntlShape } from 'react-intl'
-
 import { Chart } from 'highcharts'
+import { IntlShape } from 'react-intl'
 import { describe, expect, it, vi } from 'vitest'
 
 import { highchartsScrollingSelector } from '../constants'
 import {
-  getChartDefaults,
-  processInntektArray,
-  processPensjonsberegningArray,
-  processAfpPensjonsberegningArray,
-  getAntallMaanederMedPensjon,
-  processPensjonsavtalerArray,
   generateXAxis,
-  getTooltipTitle,
+  getAntallMaanederMedPensjon,
+  getChartDefaults,
   getHoverColor,
   getNormalColor,
-  onVisFlereAarClick,
-  onVisFaerreAarClick,
+  getTooltipTitle,
   handleChartScroll,
+  onVisFaerreAarClick,
+  onVisFlereAarClick,
+  processAfpPensjonsberegningArray,
+  processInntektArray,
+  processPensjonsavtalerArray,
+  processPensjonsberegningArray,
 } from '../utils'
-
 import { getChartMock } from './chart-mock'
 
 describe('Simulering-utils', () => {

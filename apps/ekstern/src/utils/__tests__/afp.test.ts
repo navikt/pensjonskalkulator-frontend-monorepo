@@ -1,5 +1,4 @@
 import { IntlShape } from 'react-intl'
-
 import { describe, expect } from 'vitest'
 
 import { formatAfp } from '../afp'

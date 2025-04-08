@@ -1,4 +1,4 @@
-import { RouteObject, Navigate, Outlet } from 'react-router'
+import { Navigate, Outlet, RouteObject } from 'react-router'
 
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
@@ -16,18 +16,18 @@ import { StepUfoeretrygdAFP } from '@/pages/StepUfoeretrygdAFP'
 import { StepUtenlandsopphold } from '@/pages/StepUtenlandsopphold'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
+import { ErrorPage404 } from './RouteErrorBoundary/ErrorPage404'
 import { paths } from './constants'
 import {
-  directAccessGuard,
   authenticationGuard,
-  stepStartAccessGuard,
+  directAccessGuard,
+  landingPageAccessGuard,
   stepAFPAccessGuard,
-  stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
   stepSivilstandAccessGuard,
-  landingPageAccessGuard,
+  stepStartAccessGuard,
+  stepUfoeretrygdAFPAccessGuard,
 } from './loaders'
-import { ErrorPage404 } from './RouteErrorBoundary/ErrorPage404'
 
 export const routes: RouteObject[] = [
   {

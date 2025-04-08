@@ -1,14 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
-import { AVANSERT_FORM_NAMES } from '../../../utils'
-import { FormButtonRow } from '../FormButtonRow'
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import {
-  BeregningContext,
   AvansertBeregningModus,
+  BeregningContext,
 } from '@/pages/Beregning/context'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, fireEvent } from '@/test-utils'
+import { fireEvent, render, screen } from '@/test-utils'
+
+import { AVANSERT_FORM_NAMES } from '../../../utils'
+import { FormButtonRow } from '../FormButtonRow'
 
 describe('FormButtonRow', () => {
   const contextMockedValues = {

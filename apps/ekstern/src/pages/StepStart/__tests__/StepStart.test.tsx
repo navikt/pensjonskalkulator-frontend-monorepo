@@ -1,20 +1,19 @@
-import { createMemoryRouter, RouterProvider } from 'react-router'
-
+import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  rejectedGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   rejectedGetLoependeVedtak,
+  rejectedGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { userEvent, render, screen, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 

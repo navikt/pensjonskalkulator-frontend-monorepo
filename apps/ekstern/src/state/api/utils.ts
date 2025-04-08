@@ -1,4 +1,4 @@
-import { parse, format, parseISO } from 'date-fns'
+import { format, parse, parseISO } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { formatInntektToNumber } from '@/utils/inntekt'

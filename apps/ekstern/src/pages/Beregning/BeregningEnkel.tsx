@@ -1,13 +1,11 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Alert, Heading } from '@navikt/ds-react'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import clsx from 'clsx'
 
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
-import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
@@ -16,37 +14,39 @@ import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
+import { Loader } from '@/components/common/Loader'
 import { paths } from '@/router/constants'
 import {
   apiSlice,
+  useAlderspensjonQuery,
   useGetPersonQuery,
   useTidligstMuligHeltUttakQuery,
-  useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
 import {
-  generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
+  generateTidligstMuligHeltUttakRequestBody,
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectAfp,
-  selectSivilstand,
-  selectCurrentSimulation,
-  selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
-  selectUfoeregrad,
+  selectAfp,
+  selectCurrentSimulation,
+  selectEpsHarInntektOver2G,
+  selectEpsHarPensjon,
   selectIsEndring,
   selectLoependeVedtak,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
-  selectEpsHarPensjon,
-  selectEpsHarInntektOver2G,
+  selectSamtykkeOffentligAFP,
+  selectSivilstand,
+  selectUfoeregrad,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import {
-  isFoedtFoer1964,
   getBrukerensAlderISluttenAvMaaneden,
+  isFoedtFoer1964,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 

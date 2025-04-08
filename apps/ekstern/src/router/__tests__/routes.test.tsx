@@ -1,27 +1,27 @@
-import { createMemoryRouter, RouterProvider } from 'react-router'
-
+import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, vi } from 'vitest'
 
-import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
-import { routes } from '../routes'
 import {
-  fulfilledGetPerson,
-  fulfilledGetInntekt,
   fulfilledGetEkskludertStatus,
+  fulfilledGetGrunnbelop,
+  fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
-  fulfilledGetGrunnbelop,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import {
-  userInputInitialState,
   UserInputState,
+  userInputInitialState,
 } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
+
+import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
+import { routes } from '../routes'
 
 const initialGetState = store.getState
 

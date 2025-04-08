@@ -1,6 +1,7 @@
-import { IngenTilgang } from '../IngenTilgang'
 import { externalUrls } from '@/router/constants'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { IngenTilgang } from '../IngenTilgang'
 
 describe('IngenTilgang', () => {
   it('har riktig sidetittel', async () => {

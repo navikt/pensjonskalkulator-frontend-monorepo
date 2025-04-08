@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Heading, HeadingProps, VStack } from '@navikt/ds-react'
 
-import { groupPensjonsavtalerByType } from '../utils'
 import { Divider } from '@/components/common/Divider'
 import {
   formaterLivsvarigString,
@@ -11,6 +10,8 @@ import {
 } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
+
+import { groupPensjonsavtalerByType } from '../utils'
 
 import styles from './PrivatePensjonsavtalerMobile.module.scss'
 

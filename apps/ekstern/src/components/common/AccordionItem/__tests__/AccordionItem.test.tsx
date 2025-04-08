@@ -1,9 +1,10 @@
 import { Accordion } from '@navikt/ds-react'
 
-import { AccordionItem } from '../AccordionItem'
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
 import { render, screen, userEvent } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+import { AccordionItem } from '../AccordionItem'
 
 describe('AccordionItem', () => {
   afterEach(() => {

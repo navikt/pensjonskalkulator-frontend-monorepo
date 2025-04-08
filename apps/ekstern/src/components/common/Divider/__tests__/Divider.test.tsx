@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
-import { Divider } from '..'
 import { render } from '@/test-utils'
+
+import { Divider } from '..'
 
 describe('Divider', () => {
   it('rendrer riktig med default verdier', () => {

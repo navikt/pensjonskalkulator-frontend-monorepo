@@ -1,3 +1,4 @@
+import { compareAsc, parse } from 'date-fns'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -9,7 +10,6 @@ import {
   Heading,
   Modal,
 } from '@navikt/ds-react'
-import { compareAsc, parse } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'

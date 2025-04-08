@@ -1,28 +1,29 @@
 import { describe, expect, it } from 'vitest'
 
-import { AvansertSkjemaForAndreBrukere } from '..'
-import { AVANSERT_FORM_NAMES } from '../../utils'
-import * as AvansertSkjemaForAndreBrukereUtils from '../../utils'
 import {
-  fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
   fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
-  BeregningContext,
   AvansertBeregningModus,
+  BeregningContext,
 } from '@/pages/Beregning/context'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
-  userInputInitialState,
   Simulation,
+  userInputInitialState,
 } from '@/state/userInput/userInputSlice'
-import { render, screen, fireEvent, userEvent } from '@/test-utils'
+import { fireEvent, render, screen, userEvent } from '@/test-utils'
 import * as alderUtils from '@/utils/alder'
+
+import { AvansertSkjemaForAndreBrukere } from '..'
+import { AVANSERT_FORM_NAMES } from '../../utils'
+import * as AvansertSkjemaForAndreBrukereUtils from '../../utils'
 
 describe('AvansertSkjemaForAndreBrukere', () => {
   afterEach(() => {

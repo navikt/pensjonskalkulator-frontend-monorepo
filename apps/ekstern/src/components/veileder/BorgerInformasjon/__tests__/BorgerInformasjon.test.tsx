@@ -1,6 +1,7 @@
-import { BorgerInformasjon } from '../BorgerInformasjon'
 import { BASE_PATH } from '@/router/constants'
-import { render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { BorgerInformasjon } from '../BorgerInformasjon'
 
 const previousWindow = window
 

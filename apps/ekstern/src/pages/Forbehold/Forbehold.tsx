@@ -1,8 +1,8 @@
+import { PortableText } from '@portabletext/react'
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Heading } from '@navikt/ds-react'
-import { PortableText } from '@portabletext/react'
 
 import { Card } from '@/components/common/Card'
 import { SanityContext } from '@/context/SanityContext'

@@ -1,5 +1,6 @@
-import { GrunnlagForbehold } from '..'
 import { render, screen } from '@/test-utils'
+
+import { GrunnlagForbehold } from '..'
 
 describe('GrunnlagForbehold', () => {
   it('rendrer riktig', () => {

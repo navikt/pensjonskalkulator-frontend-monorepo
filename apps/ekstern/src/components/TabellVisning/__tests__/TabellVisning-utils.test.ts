@@ -1,6 +1,5 @@
-import { IntlShape } from 'react-intl'
-
 import { SeriesColumnOptions } from 'highcharts'
+import { IntlShape } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
 import { formatSeriesToTableData } from '../utils'

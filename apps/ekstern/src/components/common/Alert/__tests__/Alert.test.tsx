@@ -1,7 +1,8 @@
 import { describe, it, vi } from 'vitest'
 
-import { Alert } from '..'
 import { render, screen, userEvent } from '@/test-utils'
+
+import { Alert } from '..'
 
 describe('Alert', () => {
   it('rendrer riktig med default verdier', () => {

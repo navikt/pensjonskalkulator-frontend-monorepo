@@ -1,5 +1,6 @@
-import { Loader as AkselLoader, LoaderProps } from '@navikt/ds-react'
 import clsx from 'clsx'
+
+import { Loader as AkselLoader, LoaderProps } from '@navikt/ds-react'
 
 import styles from './Loader.module.scss'
 

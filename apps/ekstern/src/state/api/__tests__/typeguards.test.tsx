@@ -1,23 +1,24 @@
 import { describe, expect, it } from 'vitest'
 
+import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
+
 import {
-  isInntekt,
-  isPensjonsavtale,
-  isPensjonsberegningArray,
-  isVilkaarsproeving,
+  isAlder,
   isAlderspensjonMaanedligVedEndring,
   isAlderspensjonSimulering,
-  isPerson,
   isEkskludertStatus,
-  isOmstillingsstoenadOgGjenlevende,
+  isInntekt,
   isLoependeVedtak,
   isOffentligTp,
-  isUtbetalingsperiode,
-  isUnleashToggle,
-  isAlder,
+  isOmstillingsstoenadOgGjenlevende,
+  isPensjonsavtale,
+  isPensjonsberegningArray,
+  isPerson,
   isSomeEnumKey,
+  isUnleashToggle,
+  isUtbetalingsperiode,
+  isVilkaarsproeving,
 } from '../typeguards'
-import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 describe('Typeguards', () => {
   describe('isInntekt', () => {

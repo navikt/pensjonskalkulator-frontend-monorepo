@@ -1,6 +1,7 @@
-import { ReadMore } from '../ReadMore'
 import { render, screen, userEvent } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+import { ReadMore } from '../ReadMore'
 
 describe('ReadMore', () => {
   afterEach(() => {

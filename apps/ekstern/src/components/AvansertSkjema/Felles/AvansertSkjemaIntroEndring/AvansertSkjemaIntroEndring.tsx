@@ -1,7 +1,7 @@
+import { format, parse } from 'date-fns'
 import { FormattedMessage } from 'react-intl'
 
-import { Heading, BodyLong } from '@navikt/ds-react'
-import { format, parse } from 'date-fns'
+import { BodyLong, Heading } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { useAppSelector } from '@/state/hooks'

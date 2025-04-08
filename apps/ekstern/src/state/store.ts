@@ -1,10 +1,10 @@
 import {
+  ListenerEffectAPI,
+  TypedAddListener,
+  TypedStartListening,
   combineReducers,
   configureStore,
   createListenerMiddleware,
-  ListenerEffectAPI,
-  TypedStartListening,
-  TypedAddListener,
 } from '@reduxjs/toolkit'
 
 import { apiSlice } from './api/apiSlice'

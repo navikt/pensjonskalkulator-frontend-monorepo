@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router'
 
 import { Alert, BodyLong, Link } from '@navikt/ds-react'
 
-import { SanityReadmore } from '../common/SanityReadmore'
 import { ReadMore } from '@/components/common/ReadMore'
 import { paths } from '@/router/constants'
 import {
@@ -21,6 +20,8 @@ import {
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
+
+import { SanityReadmore } from '../common/SanityReadmore'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
 

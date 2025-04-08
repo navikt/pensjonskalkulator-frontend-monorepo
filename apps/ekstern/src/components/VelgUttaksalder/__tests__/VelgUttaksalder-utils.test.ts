@@ -1,9 +1,9 @@
 import { IntlShape } from 'react-intl'
-
 import { describe, expect, it } from 'vitest'
 
-import { getFormaterteAldere } from '../utils'
 import { formatUttaksalder } from '@/utils/alder'
+
+import { getFormaterteAldere } from '../utils'
 
 describe('VelgUttaksalder-utils', () => {
   const intlMock = {

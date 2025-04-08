@@ -1,14 +1,14 @@
 import { IntlProvider, useIntl } from 'react-intl'
-
 import { describe, it } from 'vitest'
+
+import { renderHook } from '@/test-utils'
+import { getTranslation_nb } from '@/translations/nb'
 
 import {
   formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
 } from '../utils'
-import { renderHook } from '@/test-utils'
-import { getTranslation_nb } from '@/translations/nb'
 
 const wrappedGetLeverandoerHeading = (
   tpNummer: string,

@@ -1,11 +1,10 @@
 import {
+  Unsubscribe,
   configureStore,
   createListenerMiddleware,
-  Unsubscribe,
 } from '@reduxjs/toolkit'
 import { vi } from 'vitest'
 
-import { createUttaksalderListener } from '../uttaksalderListener'
 import { apiSlice } from '@/state/api/apiSlice'
 import { AppStartListening, rootReducer } from '@/state/store'
 import {
@@ -13,6 +12,8 @@ import {
   selectFormatertUttaksalderReadOnly,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
+
+import { createUttaksalderListener } from '../uttaksalderListener'
 
 describe('uttaksalderListener', () => {
   const onMiddlewareError = vi.fn((): void => {})

@@ -9,10 +9,10 @@ import { paths } from '@/router/constants'
 import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectIsVeileder,
-  selectSivilstand,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectIsVeileder,
+  selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 

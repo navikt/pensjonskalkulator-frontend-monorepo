@@ -1,9 +1,10 @@
 import { render as cleanRender, waitFor } from '@testing-library/react'
 import { describe, it, vi } from 'vitest'
 
-import { CheckLoginOnFocus } from '../CheckLoginOnFocus'
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
+
+import { CheckLoginOnFocus } from '../CheckLoginOnFocus'
 
 function TestComponent() {
   return <button>Klikk</button>

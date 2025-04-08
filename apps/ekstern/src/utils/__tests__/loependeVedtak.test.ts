@@ -1,17 +1,18 @@
 import { describe, expect } from 'vitest'
 
-import { isLoependeVedtakEndring } from '../loependeVedtak'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
 } from '@/mocks/mockedRTKQueryApiCalls'
+
+import { isLoependeVedtakEndring } from '../loependeVedtak'
 
 describe('loependeVedtak-utils', () => {
   describe('isLoependeVedtakEndring', () => {

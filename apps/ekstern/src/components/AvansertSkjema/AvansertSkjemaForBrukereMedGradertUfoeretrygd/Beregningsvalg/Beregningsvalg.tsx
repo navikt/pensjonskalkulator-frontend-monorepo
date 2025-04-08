@@ -1,12 +1,13 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { RadioGroup, Radio, BodyLong, Heading } from '@navikt/ds-react'
+import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
-import { AVANSERT_FORM_NAMES } from '../../utils'
 import { useAppSelector } from '@/state/hooks'
 import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
+
+import { AVANSERT_FORM_NAMES } from '../../utils'
 
 import styles from './Beregningsvalg.module.scss'
 

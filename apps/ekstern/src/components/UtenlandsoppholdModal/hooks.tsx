@@ -1,15 +1,15 @@
+import { add, format, isValid, parse } from 'date-fns'
 import React from 'react'
 
 import { useDatepicker } from '@navikt/ds-react'
-import { add, parse, format, isValid } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { harKravOmArbeidFromLandkode } from '@/utils/land'
 
 import {
-  UtenlandsoppholdFormNames,
   UTENLANDSOPPHOLD_FORM_NAMES,
   UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
+  UtenlandsoppholdFormNames,
 } from './utils'
 
 export const useUtenlandsoppholdLocalState = (initialValues: {

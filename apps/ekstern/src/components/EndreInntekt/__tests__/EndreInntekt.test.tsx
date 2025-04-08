@@ -1,9 +1,10 @@
-import { EndreInntekt } from '..'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { EndreInntekt } from '..'
 
 describe('EndreInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {

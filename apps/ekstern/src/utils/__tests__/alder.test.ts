@@ -1,32 +1,32 @@
-import { IntlShape } from 'react-intl'
-
 import { add, endOfDay, format } from 'date-fns'
+import { IntlShape } from 'react-intl'
 import { describe, expect, it } from 'vitest'
+
+import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 import {
   formatUttaksalder,
-  unformatUttaksalder,
-  isFoedtFoer1963,
-  isFoedtFoer1964,
+  formaterLivsvarigString,
+  formaterSluttAlderString,
+  getAlderFromFoedselsdato,
+  getAlderMinus1Maaned,
+  getAlderPlus1Maaned,
+  getBrukerensAlderISluttenAvMaaneden,
+  getMaanedString,
   isAlderLikEllerOverAnnenAlder,
+  isAlderOver,
   isAlderOverAnnenAlder,
   isFoedselsdatoOverAlder,
-  getAlderPlus1Maaned,
-  getAlderMinus1Maaned,
-  getBrukerensAlderISluttenAvMaaneden,
+  isFoedtFoer1963,
+  isFoedtFoer1964,
+  isOvergangskull,
   transformFoedselsdatoToAlder,
   transformFoedselsdatoToAlderMinus1md,
-  transformUttaksalderToDate,
   transformMaanedToDate,
+  transformUttaksalderToDate,
+  unformatUttaksalder,
   validateAlderFromForm,
-  getMaanedString,
-  formaterSluttAlderString,
-  formaterLivsvarigString,
-  isOvergangskull,
-  isAlderOver,
-  getAlderFromFoedselsdato,
 } from '../alder'
-import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 describe('alder-utils', () => {
   describe('formatUttaksalder', () => {

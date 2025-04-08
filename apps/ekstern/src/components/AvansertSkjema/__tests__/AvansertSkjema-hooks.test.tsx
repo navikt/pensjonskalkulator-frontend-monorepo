@@ -1,14 +1,14 @@
 import React from 'react'
 import * as useIntlUtils from 'react-intl'
-
 import { describe, expect, it } from 'vitest'
 
-import { useFormLocalState, useFormValidationErrors } from '../hooks'
 import {
-  BeregningContext,
   AvansertBeregningModus,
+  BeregningContext,
 } from '@/pages/Beregning/context'
 import { act, render, renderHook, screen } from '@/test-utils'
+
+import { useFormLocalState, useFormValidationErrors } from '../hooks'
 
 describe('AvansertSkjema-hooks', () => {
   describe('useFormLocalState', () => {

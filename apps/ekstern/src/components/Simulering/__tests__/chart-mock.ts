@@ -81,9 +81,9 @@ export const getChartMock = (
         labelGroup: {
           element: {
             childNodes: [
-              <HTMLDivElement>document.createElement('text'),
-              <HTMLDivElement>document.createElement('text'),
-              <HTMLDivElement>document.createElement('text'),
+              document.createElement('text'),
+              document.createElement('text'),
+              document.createElement('text'),
             ],
           },
         },

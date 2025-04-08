@@ -1,8 +1,8 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Chips, Heading } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {

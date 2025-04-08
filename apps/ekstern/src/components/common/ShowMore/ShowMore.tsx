@@ -1,13 +1,14 @@
 /* c8 ignore start */
+import cl from 'clsx'
 import React, { forwardRef, useMemo, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Heading, HeadingProps, useId } from '@navikt/ds-react'
-import cl from 'clsx'
+
+import { logger } from '@/utils/logging'
 
 import './ShowMore.styles.css'
-import { logger } from '@/utils/logging'
 
 type PossibleRef<T> = React.Ref<T> | undefined
 export function mergeRefs<T>(refs: PossibleRef<T>[]): React.RefCallback<T> {

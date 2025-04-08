@@ -1,7 +1,8 @@
 import { IntlShape } from 'react-intl'
 
-import { onSubmit } from '../utils'
 import * as loggerUtils from '@/utils/logging'
+
+import { onSubmit } from '../utils'
 
 describe('Utenlandsopphold-utils', () => {
   describe('onSubmit', () => {

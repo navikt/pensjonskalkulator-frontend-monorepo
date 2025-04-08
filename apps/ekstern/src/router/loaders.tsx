@@ -1,6 +1,5 @@
-import { redirect } from 'react-router'
-
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { redirect } from 'react-router'
 
 import { HOST_BASEURL } from '@/paths'
 import {
@@ -11,7 +10,7 @@ import {
 } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { selectIsVeileder, selectAfp } from '@/state/userInput/selectors'
+import { selectAfp, selectIsVeileder } from '@/state/userInput/selectors'
 import {
   AFP_UFOERE_OPPSIGELSESALDER,
   isFoedselsdatoOverAlder,

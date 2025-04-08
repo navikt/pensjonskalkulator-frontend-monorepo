@@ -1,12 +1,12 @@
 import {
+  BodyLong,
+  BodyShort,
   Box,
+  Button,
+  CopyButton,
   HStack,
   Loader,
-  CopyButton,
   Spacer,
-  Button,
-  BodyShort,
-  BodyLong,
 } from '@navikt/ds-react'
 
 import { BASE_PATH } from '@/router/constants'

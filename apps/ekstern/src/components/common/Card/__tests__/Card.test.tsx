@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
-import { Card } from '..'
 import { render } from '@/test-utils'
+
+import { Card } from '..'
 
 describe('Card', () => {
   it('rendrer slik den skal uten className', async () => {

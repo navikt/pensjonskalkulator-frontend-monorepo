@@ -1,8 +1,8 @@
+import clsx from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { Button } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppSelector } from '@/state/hooks'

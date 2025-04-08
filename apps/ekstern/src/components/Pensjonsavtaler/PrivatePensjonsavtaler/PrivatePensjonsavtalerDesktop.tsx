@@ -1,16 +1,17 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Heading, HeadingProps, Table, VStack } from '@navikt/ds-react'
-import clsx from 'clsx'
 
-import { groupPensjonsavtalerByType } from '../utils'
 import {
-  formaterSluttAlderString,
   formaterLivsvarigString,
+  formaterSluttAlderString,
 } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
+
+import { groupPensjonsavtalerByType } from '../utils'
 
 import styles from './PrivatePensjonsavtalerDesktop.module.scss'
 

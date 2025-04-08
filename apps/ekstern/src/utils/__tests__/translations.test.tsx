@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl'
-
 import { describe, expect, it } from 'vitest'
 
-import { externalLinks, getFormatMessageValues } from '../translations'
 import { render, screen } from '@/test-utils'
+
+import { externalLinks, getFormatMessageValues } from '../translations'
 
 const tagToExpectedLink: Record<
   `${(typeof externalLinks)[number]}Link`,

@@ -1,11 +1,11 @@
 import { IntlShape } from 'react-intl'
 
 import {
-  isSivilstandUkjent,
+  checkHarSamboer,
   formatSivilstand,
   getSivilstandTekst,
+  isSivilstandUkjent,
   sivilstandOptions,
-  checkHarSamboer,
 } from '@/utils/sivilstand'
 
 describe('sivilstand-utils', () => {

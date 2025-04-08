@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate, useOutletContext } from 'react-router'
@@ -6,12 +7,11 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   Button,
-  Heading,
   HStack,
+  Heading,
   Link,
   VStack,
 } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { externalUrls, paths } from '@/router/constants'
 import { LoginContext } from '@/router/loaders'

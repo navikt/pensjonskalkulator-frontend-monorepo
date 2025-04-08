@@ -1,7 +1,8 @@
 import { describe, it, vi } from 'vitest'
 
-import { Start } from '..'
 import { render, screen, userEvent } from '@/test-utils'
+
+import { Start } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

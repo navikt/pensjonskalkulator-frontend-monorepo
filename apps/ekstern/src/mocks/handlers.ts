@@ -1,4 +1,4 @@
-import { delay, http, HttpResponse } from 'msw'
+import { HttpResponse, delay, http } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 

@@ -1,10 +1,10 @@
+import clsx from 'clsx'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Label } from '@navikt/ds-react'
-import clsx from 'clsx'
 
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { EndreInntekt } from '@/components/EndreInntekt'
+import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectIsEndring,

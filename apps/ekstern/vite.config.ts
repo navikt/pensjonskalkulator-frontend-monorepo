@@ -1,12 +1,13 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import eslint from 'vite-plugin-eslint'
-import stylelint from 'vite-plugin-stylelint'
-import sassDts from 'vite-plugin-sass-dts'
+import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
-import CustomPostCSSLoader from './scripts/CustomPostCSSLoader'
+import { defineConfig } from 'vite'
+import eslint from 'vite-plugin-eslint'
+import sassDts from 'vite-plugin-sass-dts'
+import stylelint from 'vite-plugin-stylelint'
 import tsconfigPaths from 'vite-tsconfig-paths'
+
+import CustomPostCSSLoader from './scripts/CustomPostCSSLoader'
 
 // https://vitejs.dev/config/
 export default defineConfig({

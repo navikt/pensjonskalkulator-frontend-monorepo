@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 
-import { PrivatePensjonsavtalerDesktop } from '../PrivatePensjonsavtalerDesktop'
 import { render, screen } from '@/test-utils'
+
+import { PrivatePensjonsavtalerDesktop } from '../PrivatePensjonsavtalerDesktop'
 
 describe('PrivatePensjonsavtalerDesktop', () => {
   const avtale: Pensjonsavtale = {

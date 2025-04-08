@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -6,10 +7,10 @@ import {
   ChevronRightCircleIcon,
 } from '@navikt/aksel-icons'
 import { Button } from '@navikt/ds-react'
-import clsx from 'clsx'
+
+import { wrapLogger } from '@/utils/logging'
 
 import { onVisFaerreAarClick, onVisFlereAarClick } from '../utils'
-import { wrapLogger } from '@/utils/logging'
 
 import styles from './SimuleringGrafNavigation.module.scss'
 

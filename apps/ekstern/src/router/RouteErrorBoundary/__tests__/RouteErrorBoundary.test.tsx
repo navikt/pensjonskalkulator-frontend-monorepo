@@ -1,5 +1,4 @@
-import { createMemoryRouter, RouterProvider } from 'react-router'
-
+import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'

@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
+
+import { render, screen } from '@/test-utils'
 
 import { Simuleringsdetaljer } from '../Simuleringsdetaljer'
-import { render, screen } from '@/test-utils'
 
 describe('Simuleringsdetaljer', () => {
   it('Når trygdetid er undefined, viser tomt år', () => {

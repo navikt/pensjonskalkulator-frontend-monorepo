@@ -1,8 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import { render } from '@/test-utils'
+
 import { useTableData } from '../hooks'
 import * as MyModule from '../utils'
-import { render } from '@/test-utils'
 
 function TestComponent() {
   useTableData([], ['62', '63', '64'])

@@ -1,9 +1,9 @@
+import { PortableTextReactComponents } from '@portabletext/react'
+import { createClient } from '@sanity/client'
 import { IntlShape } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
-import { PortableTextReactComponents } from '@portabletext/react'
-import { createClient } from '@sanity/client'
 
 import { logOpenLink } from './logging'
 

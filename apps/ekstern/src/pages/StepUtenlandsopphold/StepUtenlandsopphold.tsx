@@ -1,8 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {

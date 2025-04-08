@@ -1,6 +1,5 @@
 import { describe, it, vi } from 'vitest'
 
-import { ErrorPage404 } from '../ErrorPage404'
 import { externalUrls, paths } from '@/router/constants'
 import { render, screen, userEvent } from '@/test-utils'
 import {
@@ -8,6 +7,8 @@ import {
   loggerSpy,
   loggerTeardown,
 } from '@/utils/__tests__/logging-stub'
+
+import { ErrorPage404 } from '../ErrorPage404'
 
 describe('ErrorPage404', () => {
   afterEach(() => {

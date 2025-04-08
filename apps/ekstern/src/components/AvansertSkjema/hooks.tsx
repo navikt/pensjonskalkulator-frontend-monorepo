@@ -1,12 +1,12 @@
 /* eslint-disable react/hook-use-state */
 import React, { useState } from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { getFormatMessageValues } from '@/utils/translations'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
-import { AvansertFormNames, AVANSERT_FORM_NAMES } from './utils'
+import { AVANSERT_FORM_NAMES, AvansertFormNames } from './utils'
 
 interface UseFormLocalStateProps {
   isEndring: boolean

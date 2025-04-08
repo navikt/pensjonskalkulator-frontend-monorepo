@@ -1,4 +1,10 @@
+import { isBefore, isSameDay } from 'date-fns'
+import express, { NextFunction, Request, Response } from 'express'
+import promBundle from 'express-prom-bundle'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
+import { initialize } from 'unleash-client'
+import winston from 'winston'
 
 import {
   getToken,
@@ -6,15 +12,8 @@ import {
   requestOboToken,
   validateToken,
 } from '@navikt/oasis'
-import { isBefore, isSameDay } from 'date-fns'
-import express, { NextFunction, Request, Response } from 'express'
-import promBundle from 'express-prom-bundle'
-import { createProxyMiddleware } from 'http-proxy-middleware'
-import { initialize } from 'unleash-client'
-import winston from 'winston'
 
 import type { components } from '../src/types/schema.d.ts'
-
 import { ensureEnv } from './ensureEnv.js'
 
 type Person = components['schemas']['PersonV2']

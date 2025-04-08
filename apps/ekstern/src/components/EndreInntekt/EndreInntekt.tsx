@@ -13,8 +13,8 @@ import {
 
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectUfoeregrad,
   selectAarligInntektFoerUttakBeloepFraSkatt,
+  selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import {
   updateAndFormatInntektFromInputField,

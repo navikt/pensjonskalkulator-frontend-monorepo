@@ -1,6 +1,5 @@
-import { createIntl, createIntlCache } from 'react-intl'
-
 import { Unsubscribe } from '@reduxjs/toolkit'
+import { createIntl, createIntlCache } from 'react-intl'
 
 import {
   getSelectedLanguage,

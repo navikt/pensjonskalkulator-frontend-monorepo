@@ -1,7 +1,7 @@
 import {
+  FetchBaseQueryError,
   createApi,
   fetchBaseQuery,
-  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 
 import { tpNummerTilNavn } from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
@@ -9,16 +9,16 @@ import { API_BASEURL } from '@/paths'
 import { RootState } from '@/state/store'
 
 import {
-  isInntekt,
-  isAlderspensjonSimulering,
-  isPerson,
-  isPensjonsavtale,
-  isOffentligTp,
-  isUnleashToggle,
   isAlder,
+  isAlderspensjonSimulering,
   isEkskludertStatus,
-  isOmstillingsstoenadOgGjenlevende,
+  isInntekt,
   isLoependeVedtak,
+  isOffentligTp,
+  isOmstillingsstoenadOgGjenlevende,
+  isPensjonsavtale,
+  isPerson,
+  isUnleashToggle,
 } from './typeguards'
 
 export const apiSlice = createApi({

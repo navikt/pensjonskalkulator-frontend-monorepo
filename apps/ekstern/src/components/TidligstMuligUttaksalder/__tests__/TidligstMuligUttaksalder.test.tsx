@@ -1,18 +1,19 @@
 import { describe, it } from 'vitest'
 
-import { TidligstMuligUttaksalder } from '..'
 import {
-  fulfilledGetOmstillingsstoenadOgGjenlevende,
-  fulfilledGetPersonMedOekteAldersgrenser,
-  fulfilledGetPerson,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetOmstillingsstoenadOgGjenlevende,
+  fulfilledGetPerson,
+  fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
+
+import { TidligstMuligUttaksalder } from '..'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {

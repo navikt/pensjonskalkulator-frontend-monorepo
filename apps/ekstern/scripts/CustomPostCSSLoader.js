@@ -1,5 +1,4 @@
 import path from 'path'
-
 import postcss from 'postcss'
 import extractImports from 'postcss-modules-extract-imports'
 import localByDefault from 'postcss-modules-local-by-default'

@@ -1,7 +1,6 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 
 import { LanguageProvider } from '@/context/LanguageProvider'
 import { initializeLogs } from '@/faro'
@@ -10,7 +9,6 @@ import { VeilederInput } from './pages/VeilederInput/VeilederInput'
 import { store } from './state/store'
 
 import './scss/designsystem.scss'
-
 import '@/utils/logging'
 
 const root = document.getElementById('root')

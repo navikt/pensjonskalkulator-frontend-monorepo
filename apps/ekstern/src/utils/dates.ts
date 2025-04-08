@@ -1,6 +1,7 @@
+import { isValid, parse } from 'date-fns'
+
 export const DATE_BACKEND_FORMAT = 'yyyy-MM-dd'
 export const DATE_ENDUSER_FORMAT = 'dd.MM.yyyy'
-import { isValid, parse } from 'date-fns'
 
 export const validateDateEndUserFormat = (
   d: string | null | undefined

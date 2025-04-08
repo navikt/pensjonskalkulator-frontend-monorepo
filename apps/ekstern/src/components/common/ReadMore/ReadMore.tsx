@@ -3,6 +3,7 @@ import React from 'react'
 import { ReadMore as ReadMoreAksel, ReadMoreProps } from '@navikt/ds-react'
 
 import { logger } from '@/utils/logging'
+
 interface IProps extends ReadMoreProps {
   name: string
 }

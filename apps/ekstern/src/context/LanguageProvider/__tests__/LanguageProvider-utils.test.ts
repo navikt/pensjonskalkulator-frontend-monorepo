@@ -3,9 +3,9 @@ import * as nbMessagesModule from '../../../translations/nb'
 import * as nnMessagesModule from '../../../translations/nn'
 import {
   getCookie,
-  setCookie,
   getSelectedLanguage,
   getTranslations,
+  setCookie,
   updateLanguage,
 } from '../utils'
 

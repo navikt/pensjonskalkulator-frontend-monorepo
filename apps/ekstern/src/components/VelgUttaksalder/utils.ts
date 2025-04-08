@@ -1,6 +1,6 @@
 import { IntlShape } from 'react-intl'
 
-import { formatUttaksalder, DEFAULT_SENEST_UTTAKSALDER } from '@/utils/alder'
+import { DEFAULT_SENEST_UTTAKSALDER, formatUttaksalder } from '@/utils/alder'
 
 export const getFormaterteAldere = (
   intl: IntlShape,

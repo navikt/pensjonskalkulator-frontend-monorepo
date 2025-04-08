@@ -1,7 +1,8 @@
-import { GrunnlagInntekt } from '..'
 import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent } from '@/test-utils'
+
+import { GrunnlagInntekt } from '..'
 
 describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {

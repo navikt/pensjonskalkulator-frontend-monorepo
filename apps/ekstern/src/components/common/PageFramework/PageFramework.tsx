@@ -1,6 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLoaderData, useLocation, Await } from 'react-router'
+import { Await, useLoaderData, useLocation } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { HOST_BASEURL } from '@/paths'

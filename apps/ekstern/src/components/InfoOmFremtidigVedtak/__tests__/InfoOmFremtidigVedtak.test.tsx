@@ -1,12 +1,13 @@
 import { describe, it } from 'vitest'
 
-import { InfoOmFremtidigVedtak } from '..'
 import {
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakFremtidig,
   fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { render, screen } from '@/test-utils'
+
+import { InfoOmFremtidigVedtak } from '..'
 
 describe('InfoOmFremtidigVedtak', () => {
   it('Ved gjeldende vedtak uten fremtidig vedtak, returnerer null', () => {

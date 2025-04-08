@@ -1,7 +1,8 @@
+import { fireEvent, render, screen } from '@/test-utils'
+import * as loggerUtils from '@/utils/logging'
+
 import * as grafNavigationUtils from '../../utils'
 import { SimuleringGrafNavigation } from '../SimuleringGrafNavigation'
-import { render, screen, fireEvent } from '@/test-utils'
-import * as loggerUtils from '@/utils/logging'
 
 describe('SimuleringGrafNavigation', () => {
   it('Når showVisFaerreAarButton og showVisFlereAarButton er false, rendrer ikke knappene.', () => {

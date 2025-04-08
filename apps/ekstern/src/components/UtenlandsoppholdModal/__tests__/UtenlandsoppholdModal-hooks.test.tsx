@@ -1,14 +1,14 @@
+import { add, endOfDay, parse } from 'date-fns'
 import React from 'react'
 import { Provider } from 'react-redux'
-
-import { add, endOfDay, parse } from 'date-fns'
 import { describe, expect, it } from 'vitest'
+
+import { act, renderHook } from '@/test-utils'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import { setupStore } from '../../../state/store'
 import { useUtenlandsoppholdLocalState } from '../hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES } from '../utils'
-import { act, renderHook } from '@/test-utils'
-import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 describe('UtenlandsoppholdModal-hooks', () => {
   const foedselsdato = '1963-04-30'

@@ -2,7 +2,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { RadioGroup, Radio, Alert } from '@navikt/ds-react'
+import { Alert, Radio, RadioGroup } from '@navikt/ds-react'
 
 import styles from './AFP.module.scss'
 

@@ -1,8 +1,9 @@
 import { describe, it } from 'vitest'
 
-import { AlertDelB } from '../AlertDelB'
 import { externalUrls } from '@/router/constants'
-import { render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+import { AlertDelB } from '../AlertDelB'
 
 describe('AlertDelB', () => {
   it('viser alert med riktig melding', () => {

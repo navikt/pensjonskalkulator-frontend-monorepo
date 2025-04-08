@@ -1,13 +1,14 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useParams, useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
-import { Card } from '../../components/common/Card'
-import { externalUrls, paths, henvisningUrlParams } from '@/router/constants'
+import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { wrapLogger } from '@/utils/logging'
+
+import { Card } from '../../components/common/Card'
 
 const gaaTilDetaljertKalkulator = () => {
   window.open(externalUrls.detaljertKalkulator, '_self')
