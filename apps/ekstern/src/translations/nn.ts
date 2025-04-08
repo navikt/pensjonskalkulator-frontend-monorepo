@@ -26,7 +26,7 @@ export default {
   'error.global.ingress': 'Vi jobbar med å rette feilen. Prøv igjen seinare.',
   'error.global.button': 'Avbryt',
   'error.du_kan_ikke_bruke_enkel_kalkulator':
-    'Du kan dessverre ikkje bruke enkel kalkulator',
+    'Du kan dessverre ikkje bruke denne kalkulatoren',
   'error.404.title': 'Oops! Sida du ser etter er ikkje å finne.',
   'error.404.list_item1':
     'Viss du skreiv inn adressa direkte i nettlesaren kan du sjekke om ho er stava riktig.',

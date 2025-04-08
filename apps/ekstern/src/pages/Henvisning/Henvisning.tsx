@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate, useParams } from 'react-router'
 
@@ -14,16 +14,16 @@ const gaaTilDetaljertKalkulator = () => {
   window.open(externalUrls.detaljertKalkulator, '_self')
 }
 
-export const Henvisning: React.FC = () => {
+export const Henvisning = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const intl = useIntl()
 
   const { id } = useParams()
 
-  const [ingress, setIngress] = React.useState<string>('')
+  const [ingress, setIngress] = useState<string>('')
 
-  React.useEffect(() => {
+  useEffect(() => {
     switch (id) {
       case henvisningUrlParams.apotekerne:
         document.title = intl.formatMessage({

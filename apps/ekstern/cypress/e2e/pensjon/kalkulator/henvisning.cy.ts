@@ -13,7 +13,7 @@ describe('Henvisning', () => {
       cy.login()
       cy.wait('@getAuthSession')
       cy.contains('Kom i gang').should('not.exist')
-      cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
+      cy.contains('Du kan dessverre ikke bruke denne kalkulatoren').should(
         'exist'
       )
 

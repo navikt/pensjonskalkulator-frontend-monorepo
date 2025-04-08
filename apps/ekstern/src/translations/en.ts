@@ -33,7 +33,7 @@ export default {
     'We are working to fix the error. Please try again later.',
   'error.global.button': 'Cancel',
   'error.du_kan_ikke_bruke_enkel_kalkulator':
-    'Unfortunately, you cannot use the basic calculator',
+    'Unfortunately, you cannot use this calculator',
   'error.404.title': 'Oops! The page you are looking for does not exist.',
   'error.404.list_item1':
     'If you entered the address directly in your browser, check to see if it is spelled correctly.',
@@ -63,7 +63,7 @@ export default {
     'Personal data used in the pension calculator',
   'henvisning.detaljert_kalkulator': 'Detailed Pension Calculator',
   'henvisning.apotekerne.body':
-    'Since you have the pharmacy scheme, you must use the detailed pension calculator.',
+    'Since you are a member of the Pharmacy Scheme (POA), you must use the detailed pension calculator.',
   'stegvisning.radio_ja': 'Yes',
   'stegvisning.radio_nei': 'No',
   'stegvisning.neste': 'Next',

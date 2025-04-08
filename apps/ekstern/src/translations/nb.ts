@@ -31,7 +31,7 @@ const translations = {
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
   'error.du_kan_ikke_bruke_enkel_kalkulator':
-    'Du kan dessverre ikke bruke enkel kalkulator',
+    'Du kan dessverre ikke bruke denne kalkulatoren',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -61,7 +61,7 @@ const translations = {
     'Personopplysninger som brukes i pensjonskalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'henvisning.apotekerne.body':
-    'Siden du har apotekordningen, må du bruke detaljert pensjonskalkulator.',
+    'Siden du er medlem av Pensjonsordningen for apotekvirksomhet (POA), må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
