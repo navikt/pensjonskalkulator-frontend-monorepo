@@ -111,7 +111,7 @@
     "timers": "^0.1.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.29.0",
-    "vite": "^6.2.4",
+    "vite": "^6.2.5",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-sass-dts": "^1.3.31",
     "vite-plugin-stylelint": "^6.0.0",
