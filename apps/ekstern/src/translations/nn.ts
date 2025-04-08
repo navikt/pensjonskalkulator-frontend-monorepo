@@ -1,4 +1,4 @@
-const translations = {
+export default {
   'application.title': 'Pensjonskalkulator - Pensjon',
   'application.title.stegvisning.start': 'Start - Pensjonskalkulator',
   'application.title.stegvisning.sivilstand': 'Sivilstand - Pensjonskalkulator',
@@ -583,4 +583,3 @@ const translations = {
   'showmore.vis_mindre': 'Vis mindre',
   'showmore.vis_mer': 'Vis meir',
 }
-export const getTranslation_nn = () => translations

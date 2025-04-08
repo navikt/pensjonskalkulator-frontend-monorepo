@@ -1,6 +1,6 @@
-import * as enMessagesModule from '../../../translations/en'
-import * as nbMessagesModule from '../../../translations/nb'
-import * as nnMessagesModule from '../../../translations/nn'
+import translations_en from '../../../translations/en'
+import translations_nb from '../../../translations/nb'
+import translations_nn from '../../../translations/nn'
 import {
   getCookie,
   getSelectedLanguage,
@@ -8,6 +8,10 @@ import {
   setCookie,
   updateLanguage,
 } from '../utils'
+
+const enMessages: Record<string, string> = translations_en
+const nbMessages: Record<string, string> = translations_nb
+const nnMessages: Record<string, string> = translations_nn
 
 describe('LanguageProvider-utils', () => {
   afterEach(() => {
@@ -56,10 +60,8 @@ describe('LanguageProvider-utils', () => {
 
   describe('getTranslations', () => {
     it('returnerer alle keys og tekst i riktig språk for alle lokalene', () => {
-      // Foreløpig er norsk bokmål vår referanse
-      const forventetLength = Object.keys(
-        nbMessagesModule.getTranslation_nb()
-      ).length
+      // Norsk bokmål er vår referanse
+      const forventetLength = Object.keys(nbMessages).length
 
       const nbTranslations = getTranslations('nb')
       expect(nbTranslations['pageframework.title']).toBe('Pensjonskalkulator')
@@ -75,28 +77,6 @@ describe('LanguageProvider-utils', () => {
       expect(nnTranslations['pageframework.title']).toBe('Pensjonskalkulator')
       const nnTranslationsKeys = Object.keys(nnTranslations)
       expect(nnTranslationsKeys).toHaveLength(forventetLength)
-    })
-
-    it('oversettelser for engelsk inneholder alle oversettelser fra bokmål', () => {
-      const nbTranslations = getTranslations('nb')
-      const enTranslations = getTranslations('en')
-
-      const diff = Object.keys(nbTranslations).filter(
-        (nbKey) => !Object.keys(enTranslations).includes(nbKey)
-      )
-
-      expect(diff).toStrictEqual([])
-    })
-
-    it('oversettelser for nynorsk inneholder alle oversettelser fra bokmål', () => {
-      const nbTranslations = getTranslations('nb')
-      const nnTranslations = getTranslations('nn')
-
-      const diff = Object.keys(nbTranslations).filter(
-        (nbKey) => !Object.keys(nnTranslations).includes(nbKey)
-      )
-
-      expect(diff).toStrictEqual([])
     })
 
     it('oversettelser for bokmål inneholder alle oversettelser fra nynorsk', () => {
@@ -122,39 +102,37 @@ describe('LanguageProvider-utils', () => {
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=en', () => {
-      // @ts-ignore
-      vi.spyOn(nbMessagesModule, 'getTranslation_nb').mockReturnValueOnce({
-        commonKey: 'norsk tittel',
-        uniqueNOKey: 'unik norsk key',
-      } as Record<string, string>)
+      nbMessages._commonKey = 'norsk tittel'
+      nbMessages._uniqueNOKey = 'unik norsk key'
+      enMessages._commonKey = 'english title'
+      enMessages._uniqueENKey = 'unique english key'
 
-      // @ts-ignore
-      vi.spyOn(enMessagesModule, 'getTranslation_en').mockReturnValueOnce({
-        commonKey: 'english title',
-        uniqueENKey: 'unique english key',
-      } as Record<string, string>)
       const enTranslations = getTranslations('en')
-      expect(enTranslations.commonKey).toBe('english title')
-      expect(enTranslations.uniqueNOKey).toBe('unik norsk key')
-      expect(enTranslations.uniqueENKey).toBe('unique english key')
+      expect(enTranslations._commonKey).toBe('english title')
+      expect(enTranslations._uniqueNOKey).toBe('unik norsk key')
+      expect(enTranslations._uniqueENKey).toBe('unique english key')
+
+      delete nbMessages._commonKey
+      delete nbMessages._uniqueNOKey
+      delete enMessages._commonKey
+      delete enMessages._uniqueENKey
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=nn', () => {
-      // @ts-ignore
-      vi.spyOn(nbMessagesModule, 'getTranslation_nb').mockReturnValueOnce({
-        commonKey: 'norsk tittel',
-        uniqueNOKey: 'unik norsk key',
-      } as Record<string, string>)
+      nbMessages._commonKey = 'norsk tittel'
+      nbMessages._uniqueNOKey = 'unik norsk key'
+      nnMessages._commonKey = 'nynorsk tittel'
+      nnMessages._uniqueNNKey = 'unik nynorsk key'
 
-      // @ts-ignore
-      vi.spyOn(nnMessagesModule, 'getTranslation_nn').mockReturnValueOnce({
-        commonKey: 'nynorsk tittel',
-        uniqueNNKey: 'unik nynorsk key',
-      } as Record<string, string>)
       const nnTranslations = getTranslations('nn')
-      expect(nnTranslations.commonKey).toBe('nynorsk tittel')
-      expect(nnTranslations.uniqueNOKey).toBe('unik norsk key')
-      expect(nnTranslations.uniqueNNKey).toBe('unik nynorsk key')
+      expect(nnTranslations._commonKey).toBe('nynorsk tittel')
+      expect(nnTranslations._uniqueNOKey).toBe('unik norsk key')
+      expect(nnTranslations._uniqueNNKey).toBe('unik nynorsk key')
+
+      delete nbMessages._commonKey
+      delete nbMessages._uniqueNOKey
+      delete nnMessages._commonKey
+      delete nnMessages._uniqueNNKey
     })
 
     it('returnerer nb som default når locale er ukjent', () => {

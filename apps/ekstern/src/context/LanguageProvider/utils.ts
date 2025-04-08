@@ -1,6 +1,6 @@
-import { getTranslation_en } from '@/translations/en'
-import { getTranslation_nb } from '@/translations/nb'
-import { getTranslation_nn } from '@/translations/nn'
+import translations_en from '@/translations/en'
+import translations_nb from '@/translations/nb'
+import translations_nn from '@/translations/nn'
 
 export function setCookie(
   name: string,
@@ -31,13 +31,12 @@ export function getSelectedLanguage(): Locales {
 }
 
 export function getTranslations(locale: Locales): Record<string, string> {
-  let messages = getTranslation_nb()
   if (locale === 'en') {
-    messages = { ...messages, ...getTranslation_en() }
+    return { ...translations_nb, ...translations_en }
   } else if (locale === 'nn') {
-    messages = { ...messages, ...getTranslation_nn() }
+    return { ...translations_nb, ...translations_nn }
   }
-  return messages
+  return translations_nb
 }
 
 export function updateLanguage(

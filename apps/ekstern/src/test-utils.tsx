@@ -13,7 +13,7 @@ import {
   SanityReadMore,
 } from '@/context/SanityContext/SanityTypes'
 import { authenticationGuard } from '@/router/loaders'
-import { getTranslation_test } from '@/utils/__tests__/test-translations'
+import test_translations from '@/utils/__tests__/test-translations'
 
 import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
 import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
@@ -25,7 +25,7 @@ import {
   RootState,
   setupStore,
 } from './state/store'
-import { getTranslation_nb } from './translations/nb'
+import translations_nb from './translations/nb'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>
@@ -49,9 +49,10 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
 }
 
 function generateMockedTranslations() {
-  const nbTranslations: Record<string, string> = getTranslation_nb()
-  const testTranslations: Record<string, string> = getTranslation_test()
-  const translationsInput = { ...nbTranslations, ...testTranslations }
+  const translationsInput: Record<string, string> = {
+    ...translations_nb,
+    ...test_translations,
+  }
   const translations: Record<string, string> = {}
 
   for (const key in translationsInput) {

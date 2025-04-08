@@ -820,5 +820,5 @@ const translations = {
   'showmore.vis_mindre': 'Vis mindre',
   'showmore.vis_mer': 'Vis mer',
 }
-export const getTranslation_nb = () => translations
+export default translations
 export type Translations = typeof translations

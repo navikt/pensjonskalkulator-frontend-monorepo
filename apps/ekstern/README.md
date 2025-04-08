@@ -50,6 +50,21 @@ npm run cy:test
 npm run cy:open
 ```
 
+### i18n-ally
+
+Vi bruker react-intl for tekster (men noe ligger også i Sanity). Hvis du bruker vscode kan du installere en extension som heter [i18n-ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally), som gjør at tekstene vises inline i editoren. Anbefalte settings:
+
+```json
+"i18n-ally.localesPaths": ["src/translations"],
+"i18n-ally.enabledParsers": ["ts"],
+"i18n-ally.parsers.typescript.compilerOptions": {
+  "moduleResolution": "node"
+},
+"i18n-ally.displayLanguage": "nb",
+"i18n-ally.annotationInPlace": false,
+"i18n-ally.keystyle": "flat"
+```
+
 ## environment variables
 
 VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
