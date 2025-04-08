@@ -61,6 +61,8 @@ spec:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+      external:
+        - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"

@@ -62,6 +62,7 @@ spec:
         - application: pensjonskalkulator-backend
       external:
         - host: www.nav.no
+        - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"

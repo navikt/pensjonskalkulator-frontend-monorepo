@@ -55,7 +55,8 @@ spec:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
-
+      external:
+        - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
     inbound:
       rules:
         - application: wonderwalled-idporten # only in dev
