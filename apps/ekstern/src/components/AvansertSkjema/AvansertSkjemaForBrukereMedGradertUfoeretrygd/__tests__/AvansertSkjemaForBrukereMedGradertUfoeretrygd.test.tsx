@@ -1634,24 +1634,16 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     it('Når brukeren velger uttaksgraden først og etterpå en alder før normert pensjonsalder som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
       render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
+        <BeregningContext.Provider value={{ ...contextMockedValues }}>
           <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
         </BeregningContext.Provider>,
         {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: {
-                ...mockedQueries,
-              },
+              queries: { ...mockedQueries },
             },
-            userInput: {
-              ...userInputInitialState,
-            },
+            userInput: { ...userInputInitialState },
           },
         }
       )
@@ -1659,9 +1651,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       // Velger gradert uttak som etterhvert blir ugyldig
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '80 %' },
-        }
+        { target: { value: '80 %' } }
       )
 
       // Fyller ut uttaksalder
@@ -1669,17 +1659,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
-        {
-          target: { value: '64' },
-        }
+        { target: { value: '64' } }
       )
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         ),
-        {
-          target: { value: '5' },
-        }
+        { target: { value: '5' } }
       )
 
       const selectUttaksgradElement = screen.getByTestId(
@@ -1702,17 +1688,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
-        {
-          target: { value: '70' },
-        }
+        { target: { value: '70' } }
       )
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
-        {
-          target: { value: '5' },
-        }
+        { target: { value: '5' } }
       )
       await user.click(
         screen.getByTestId(
@@ -1723,20 +1705,17 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      const uttaksgradSelect = screen.getByTestId(
-        AVANSERT_FORM_NAMES.uttaksgrad
-      )
-      expect(uttaksgradSelect).toHaveErrorMessage(expect.stringContaining(''))
+      expect(
+        screen.getByText(
+          'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter 67 alder.aar kan du velge 100 % uttak.'
+        )
+      ).toBeVisible()
     })
 
     it('Når brukeren velger en alder etter normert pensjonsalder med en uttaksgrad og endrer til en alder før normert pensjonsalder som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
       render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
+        <BeregningContext.Provider value={{ ...contextMockedValues }}>
           <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
         </BeregningContext.Provider>,
         {
@@ -1748,9 +1727,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                 ...fulfilledGetLoependeVedtak75Ufoeregrad,
               },
             },
-            userInput: {
-              ...userInputInitialState,
-            },
+            userInput: { ...userInputInitialState },
           },
         }
       )
@@ -1760,25 +1737,19 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
-        {
-          target: { value: '72' },
-        }
+        { target: { value: '72' } }
       )
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
-        {
-          target: { value: '5' },
-        }
+        { target: { value: '5' } }
       )
 
       // Velger gradert uttak som etterhvert blir ugyldig
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        {
-          target: { value: '80 %' },
-        }
+        { target: { value: '80 %' } }
       )
 
       // Endrer uttaksalder
@@ -1786,17 +1757,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
-        {
-          target: { value: '66' },
-        }
+        { target: { value: '66' } }
       )
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         ),
-        {
-          target: { value: '5' },
-        }
+        { target: { value: '5' } }
       )
 
       const selectUttaksgradElement = screen.getByTestId(
@@ -1840,10 +1807,11 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       // Feilmelding for ugyldig uttaksgrad
-      const uttaksgradSelect = screen.getByTestId(
-        AVANSERT_FORM_NAMES.uttaksgrad
-      )
-      expect(uttaksgradSelect).toHaveErrorMessage(expect.stringContaining(''))
+      expect(
+        screen.getByText(
+          'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter 70 alder.aar kan du velge 100 % uttak.'
+        )
+      ).toBeVisible()
     })
 
     it('Når brukeren velger en alder før normert pensjonsalder så en avgrenset uttaksgrad så velger en uttaksalder etter normert pensjonsalder, nullstilles uttaksgraden', async () => {

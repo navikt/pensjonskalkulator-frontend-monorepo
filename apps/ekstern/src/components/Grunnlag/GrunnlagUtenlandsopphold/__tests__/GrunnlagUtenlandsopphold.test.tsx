@@ -1,3 +1,5 @@
+import { Accordion } from '@navikt/ds-react'
+
 import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
@@ -13,11 +15,19 @@ vi.mock(import('react-router'), async (importOriginal) => {
   }
 })
 
+const WrappedGrunnlagUtenlandsopphold = (
+  props: React.ComponentProps<typeof GrunnlagUtenlandsopphold>
+) => (
+  <Accordion>
+    <GrunnlagUtenlandsopphold {...props} />
+  </Accordion>
+)
+
 describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har svart "nei" på spørsmålet om opphold i utlandet,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
-      render(<GrunnlagUtenlandsopphold />, {
+      render(<WrappedGrunnlagUtenlandsopphold />, {
         preloadedState: {
           userInput: { ...userInputInitialState, harUtenlandsopphold: false },
         },
@@ -57,7 +67,7 @@ describe('GrunnlagUtenlandsopphold', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
 
-      render(<GrunnlagUtenlandsopphold />, {
+      render(<WrappedGrunnlagUtenlandsopphold />, {
         preloadedState: {
           userInput: { ...userInputInitialState, harUtenlandsopphold: true },
         },
@@ -96,7 +106,7 @@ describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har for lite trygdetid,', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
-      render(<GrunnlagUtenlandsopphold harForLiteTrygdetid={true} />, {
+      render(<WrappedGrunnlagUtenlandsopphold harForLiteTrygdetid={true} />, {
         preloadedState: {
           userInput: { ...userInputInitialState, harUtenlandsopphold: true },
         },
@@ -136,7 +146,10 @@ describe('GrunnlagUtenlandsopphold', () => {
     it('viser riktig informasjon om trygdetid', async () => {
       const user = userEvent.setup()
       render(
-        <GrunnlagUtenlandsopphold harForLiteTrygdetid={false} trygdetid={40} />,
+        <WrappedGrunnlagUtenlandsopphold
+          harForLiteTrygdetid={false}
+          trygdetid={40}
+        />,
         {
           preloadedState: {
             userInput: { ...userInputInitialState, harUtenlandsopphold: true },
@@ -161,7 +174,7 @@ describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises ikke', async () => {
       const user = userEvent.setup()
-      render(<GrunnlagUtenlandsopphold />, {
+      render(<WrappedGrunnlagUtenlandsopphold />, {
         preloadedState: {
           api: {
             //@ts-ignore
@@ -200,7 +213,7 @@ describe('GrunnlagUtenlandsopphold', () => {
   it('Når man klikker på lenken for å endre opphold, sendes man til Utenlandsoppholdsteget', async () => {
     const user = userEvent.setup()
 
-    render(<GrunnlagUtenlandsopphold />, {
+    render(<WrappedGrunnlagUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: false },
       },

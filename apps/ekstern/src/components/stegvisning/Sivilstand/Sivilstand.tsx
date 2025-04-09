@@ -228,7 +228,7 @@ export function Sivilstand({
             error={validationError.sivilstand}
           >
             {isSivilstandUkjent(sivilstandInput) && (
-              <option disabled selected value="">
+              <option disabled value="">
                 {' '}
               </option>
             )}

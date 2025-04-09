@@ -1,14 +1,26 @@
+import { Accordion } from '@navikt/ds-react'
+
 import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
 import { GrunnlagInntekt } from '..'
 
+const WrappedGrunnlagInntekt = (
+  props: React.ComponentProps<typeof GrunnlagInntekt>
+) => (
+  <Accordion>
+    <GrunnlagInntekt {...props} />
+  </Accordion>
+)
+
 describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
     const user = userEvent.setup()
     beforeEach(async () => {
-      const { store } = render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
+      const { store } = render(
+        <WrappedGrunnlagInntekt goToAvansert={vi.fn()} />
+      )
       store.dispatch(apiSlice.endpoints.getInntekt.initiate())
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
       expect(await screen.findAllByText('521 338 kr')).toHaveLength(2)
@@ -72,7 +84,9 @@ describe('GrunnlagInntekt', () => {
         status: 200,
         json: { aar: 2021, beloep: 0 },
       })
-      const { store } = render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
+      const { store } = render(
+        <WrappedGrunnlagInntekt goToAvansert={vi.fn()} />
+      )
       await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
@@ -118,7 +132,7 @@ describe('GrunnlagInntekt', () => {
 
   it('brukeren kan åpne modal for å lese mer om pensjonsgivende inntekt', async () => {
     const user = userEvent.setup()
-    render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
+    render(<WrappedGrunnlagInntekt goToAvansert={vi.fn()} />)
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
@@ -145,7 +159,7 @@ describe('GrunnlagInntekt', () => {
   it('brukeren kan gå videre til avansert kalkulator ', async () => {
     const goToAvansertMock = vi.fn()
     const user = userEvent.setup()
-    render(<GrunnlagInntekt goToAvansert={goToAvansertMock} />)
+    render(<WrappedGrunnlagInntekt goToAvansert={goToAvansertMock} />)
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
