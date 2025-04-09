@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router'
 
 import { Alert, BodyLong, Link } from '@navikt/ds-react'
 
-import { ReadMore } from '@/components/common/ReadMore'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { TelefonLink } from '@/components/common/TelefonLink'
 import { paths } from '@/router/constants'
@@ -158,44 +157,9 @@ export const TidligstMuligUttaksalder = ({
                 : 'om_pensjonsalder_UT_gradert_enkel'
             }
             className={styles.readmore}
-          >
-            <ReadMore
-              name="Om ufoeretrygd og alderspensjon"
-              className={styles.readmore}
-              header={<FormattedMessage id="omufoeretrygd.readmore.title" />}
-            >
-              <FormattedMessage
-                id={
-                  ufoeregrad === 100
-                    ? 'omufoeretrygd.readmore.hel.ingress'
-                    : 'omufoeretrygd.readmore.gradert.ingress'
-                }
-                values={{
-                  ...getFormatMessageValues(),
-                  nedreAldersgrense: formatertNedreAldersgrense,
-                  normertPensjonsalder: formatertNormertPensjonsalder,
-                  link: <TelefonLink />,
-                }}
-              />
-            </ReadMore>
-          </SanityReadmore>
+          />
         ) : (
-          <SanityReadmore id="om_TMU" className={styles.readmore}>
-            <ReadMore
-              name="Om pensjonsalder enkelt"
-              className={styles.readmore}
-              header={
-                <FormattedMessage id="beregning.read_more.pensjonsalder.label" />
-              }
-            >
-              <FormattedMessage
-                id="beregning.read_more.pensjonsalder.body"
-                values={{
-                  ...getFormatMessageValues(),
-                }}
-              />
-            </ReadMore>
-          </SanityReadmore>
+          <SanityReadmore id="om_TMU" className={styles.readmore} />
         )}
       </div>
     </div>

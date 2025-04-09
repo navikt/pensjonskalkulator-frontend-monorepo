@@ -12,7 +12,6 @@ import {
   convertBooleanRadioToBoolean,
   convertBooleanToBooleanRadio,
 } from '@/utils/radio'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import { STEGVISNING_FORM_NAMES } from '../../utils'
 import AFPRadioGroup from '../AFPRadiogroup'
@@ -146,35 +145,7 @@ export function AFPOvergangskullUtenAP({
         <SanityReadmore
           id="om_livsvarig_AFP_i_privat_sektor"
           className={styles.readmorePrivat}
-        >
-          <ReadMore
-            name="Avtalefestet pensjon i privat sektor"
-            className={styles.readmorePrivat}
-            header={
-              <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
-            }
-          >
-            <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
-            <ul className={styles.list}>
-              <li>
-                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
-              </li>
-              <li>
-                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
-              </li>
-              <li>
-                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
-              </li>
-              <li>
-                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item4" />
-              </li>
-            </ul>
-            <FormattedMessage
-              id="stegvisning.afp.readmore_privat_link"
-              values={{ ...getFormatMessageValues() }}
-            />
-          </ReadMore>
-        </SanityReadmore>
+        />
         <AFPRadioGroup
           afp={previousAfp}
           handleRadioChange={handleRadioChange}

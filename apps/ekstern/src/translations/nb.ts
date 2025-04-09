@@ -98,33 +98,6 @@ const translations = {
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
     'Har du bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon? Det kan påvirke alderspensjonen din.',
-  'stegvisning.utenlandsopphold.readmore_1.title':
-    'Hva som er opphold utenfor Norge',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
-    'Som hovedregel er dette opphold utenfor Norge:',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1':
-    'opphold i mer enn 12 måneder',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2':
-    'opphold med jobb for utenlandsk arbeidsgiver uansett varighet',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
-    'Som hovedregel er dette ikke opphold utenfor Norge:',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'ferier',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
-    'opphold uten jobb på under 12 måneder',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
-    'studier på under 12 måneder eller med støtte fra Lånekassen',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
-    'ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
-    'ansatt i Forsvarets tjeneste',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
-    'norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap',
-  'stegvisning.utenlandsopphold.readmore_1.ingress':
-    'Er du usikker på hva som gjelder for deg, les om <trygdetidLink>medlemskap i folketrygden</trygdetidLink>.',
-  'stegvisning.utenlandsopphold.readmore_2.title':
-    'Betydning av opphold utenfor Norge for pensjon',
-  'stegvisning.utenlandsopphold.readmore_2.ingress':
-    'Hvis du er i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet i Norge kortere enn 40 år fra du fylte 16 år til du tar ut alderspensjon? Da kan du få lavere pensjon i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge. ',
   'stegvisning.utenlandsopphold.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
   'stegvisning.utenlandsopphold.radio_label.description':
@@ -216,26 +189,7 @@ const translations = {
   'stegvisning.afpPrivat.title': 'AFP (avtalefestet pensjon) i privat sektor',
   'stegvisning.afp.ingress':
     'For å få AFP må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
-  'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
-  'stegvisning.afp.readmore_privat_list_title': 'AFP i privat sektor:',
-  'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
-  'stegvisning.afp.readmore_privat_list_item2': 'kan tas ut sammen med arbeid',
-  'stegvisning.afp.readmore_privat_list_item3':
-    'må tas ut sammen med alderspensjon fra folketrygden (Nav)',
-  'stegvisning.afp.readmore_privat_list_item4':
-    'kan tas ut sammen med tjenestepensjon',
-  'stegvisning.afp.readmore_privat_link':
-    'Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title':
-    'Om livsvarig AFP i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP i offentlig sektor:',
-  'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
-  'stegvisning.afp.readmore_offentlig_list_item2':
-    'kan tas ut sammen med arbeid',
-  'stegvisning.afp.readmore_offentlig_list_item3':
-    'kan tas ut sammen med alderspensjon fra folketrygden (Nav) og tjenestepensjon',
-  'stegvisning.afp.readmore_offentlig_ingress':
-    'De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om livsvarig AFP. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Hvis du er usikker på hva som gjelder for deg, sjekk hos arbeidsgiveren din.',
   'stegvisning.afpOvergangskull.readmore_offentlig_title':
     'Om AFP i offentlig sektor',
   'stegvisning.afpOvergangskull.readmore_offentlig_list_item1':
@@ -350,10 +304,6 @@ const translations = {
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
-  'beregning.read_more.pensjonsalder.label':
-    'Om tidspunktet for tidligst uttak',
-  'beregning.read_more.pensjonsalder.body':
-    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Aldersgrensene vil øke gradvis fra 1964-kullet med én til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Hvis du har oppgitt AFP og/eller utenlandsopphold, er dette med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.',
   'beregning.alt_tekst': 'Årlig inntekt og pensjon etter uttak i kroner.',
   'omufoeretrygd.hel.ingress':
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
@@ -361,11 +311,6 @@ const translations = {
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress.afp':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon og pensjonsavtaler fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}I {link} kan du beregne kombinasjoner av alderspensjon og uføretrygd før <nowrap>{normertPensjonsalder}</nowrap> eller alderspensjon og AFP fra {nedreAldersgrense}.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
-  'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
-  'omufoeretrygd.readmore.hel.ingress':
-    '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før <nowrap>{normertPensjonsalder}</nowrap> i kalkulatoren. Ved <nowrap>{normertPensjonsalder}</nowrap> går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
-  'omufoeretrygd.readmore.gradert.ingress':
-    'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra <nowrap>{nedreAldersgrense}</nowrap>, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',

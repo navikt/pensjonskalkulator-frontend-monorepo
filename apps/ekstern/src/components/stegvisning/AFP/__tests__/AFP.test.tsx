@@ -1,6 +1,5 @@
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { AFP } from '..'
@@ -48,41 +47,6 @@ describe('stegvisning - AFP - født etter 1963', () => {
       ).toBeVisible()
       expect(
         screen.getByTestId('om_livsvarig_AFP_i_privat_sektor')
-      ).toBeVisible()
-    })
-  })
-
-  it('rendrer slik den skal når tekstene fra sanity ikke kunne hentes', async () => {
-    mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
-    render(
-      <AFP
-        previousAfp={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.afp.title'
-    )
-
-    expect(screen.getByText('stegvisning.afp.ingress')).toBeVisible()
-
-    const radioButtons = await screen.findAllByRole('radio')
-    await waitFor(async () => {
-      expect(radioButtons).toHaveLength(4)
-      expect(radioButtons[0]).not.toBeChecked()
-      expect(radioButtons[1]).not.toBeChecked()
-      expect(radioButtons[2]).not.toBeChecked()
-      expect(radioButtons[3]).not.toBeChecked()
-
-      expect(
-        await screen.getByText('stegvisning.afp.readmore_offentlig_title')
-      ).toBeVisible()
-
-      expect(
-        await screen.getByText('stegvisning.afp.readmore_privat_title')
       ).toBeVisible()
     })
   })

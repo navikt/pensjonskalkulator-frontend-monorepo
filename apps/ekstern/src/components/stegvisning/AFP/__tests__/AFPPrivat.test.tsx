@@ -19,7 +19,6 @@ describe('stegvisning - AFP - født før 1963 og og fylt 67 år, eller født fø
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når afp ikke er oppgitt', async () => {
-    const user = userEvent.setup()
     const result = render(
       <AFPPrivat
         previousAfp={null}
@@ -32,7 +31,9 @@ describe('stegvisning - AFP - født før 1963 og og fylt 67 år, eller født fø
       'stegvisning.afpPrivat.title'
     )
 
-    await user.click(screen.getByText('stegvisning.afp.readmore_privat_title'))
+    expect(
+      screen.queryByTestId('om_livsvarig_AFP_i_privat_sektor')
+    ).toBeVisible()
 
     const radioButtons = await screen.findAllByRole('radio')
     await waitFor(() => {

@@ -97,33 +97,6 @@ export default {
   'stegvisning.utenlandsopphold.title': 'Time abroad',
   'stegvisning.utenlandsopphold.ingress':
     'If you have lived or worked more than 5 years outside Norway between the age of 16 and the withdrawal of your pension, it may affect the amount of your retirement pension.',
-  'stegvisning.utenlandsopphold.readmore_1.title':
-    'What Accounts as Time Spent Outside Norway',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
-    'As a general rule, this includes time spent outside Norway:',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1':
-    'Time spent for more than 12 months.',
-  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2':
-    'Time spent working for a foreign employer regardless of duration.',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
-    'As a general rule, this does not include time spent outside Norway:',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'Holidays',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
-    'Time spent abroad without a job for less than 12 months.',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
-    'Studies for less than 12 months or with support from the Student Loan Fund.',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
-    'Employed by a Norwegian employer depending on which country you are working in.',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
-    'Employed in the Norwegian armed forces.',
-  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
-    'Norwegian citizen and employee on a Norwegian registered ship or in a Norwegian civil aviation company.',
-  'stegvisning.utenlandsopphold.readmore_1.ingress':
-    'The lists are not exhaustive. If you are unsure about what applies to you, see <trygdetidLink>nav.no</trygdetidLink>.',
-  'stegvisning.utenlandsopphold.readmore_2.title':
-    'The Importance of Time Spent Outside Norway for Pension',
-  'stegvisning.utenlandsopphold.readmore_2.ingress':
-    'If you stay abroad for more than 12 months, you will generally not be a member of the National Insurance Scheme during that period. If you have lived or worked outside Norway long enough that you do not get 40 years of insurance time in Norway between ages 16 and the withdrawal of your retirement pension, time spent abroad may result in a lower pension in Norway. <kortBotidLink>More about short insurance time in Norway</kortBotidLink>.{br}{br}There are several factors that determine whether time spent outside Norway affects your pension, including the duration of your stay, social security agreements with the country, and the reason for your stay, such as work, vacation, or studies.{br}{br}For the most accurate calculation, you should therefore include all periods you have spent outside Norway.',
   'stegvisning.utenlandsopphold.radio_label':
     'Have you lived or worked outside Norway for more than 5 years?',
   'stegvisning.utenlandsopphold.radio_label.description':
@@ -210,27 +183,7 @@ export default {
   'stegvisning.afp.title': 'AFP (contractual pension)',
   'stegvisning.afp.ingress':
     'To receive AFP, your employer must have such an agreement, and you must qualify for it.',
-  'stegvisning.afp.readmore_privat_title': 'About AFP in the private sector',
-  'stegvisning.afp.readmore_privat_list_title': 'AFP in the private sector:',
-  'stegvisning.afp.readmore_privat_list_item1': 'is a lifelong pension',
-  'stegvisning.afp.readmore_privat_list_item2':
-    'can be taken out while working',
-  'stegvisning.afp.readmore_privat_list_item3':
-    'must be taken out together with retirement pension from the National Insurance Scheme (Nav)',
-  'stegvisning.afp.readmore_privat_list_item4':
-    'can be taken out together with occupational pension',
-  'stegvisning.afp.readmore_privat_link':
-    'Read about the conditions for <afpLink>AFP in the private sector at afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title':
-    'About lifelong AFP in the public sector',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP in the public sector:',
-  'stegvisning.afp.readmore_offentlig_list_item1': 'is a lifelong pension',
-  'stegvisning.afp.readmore_offentlig_list_item2':
-    'can be taken out while working',
-  'stegvisning.afp.readmore_offentlig_list_item3':
-    'can be taken out together with retirement pension from the National Insurance Scheme (Nav) and occupational pension',
-  'stegvisning.afp.readmore_offentlig_ingress':
-    'Most government, county, and municipal employers have agreements for lifelong AFP. Some private sector employers may have agreements in the public sector. If you are unsure about what applies to you, check with your employer.',
   'stegvisning.afp.radio_label': 'Do you have a right to AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Yes, in the public sector',
   'stegvisning.afp.radio_ja_privat': 'Yes, in the private sector',
@@ -319,10 +272,6 @@ export default {
     'retirement pension cannot be combined with a survivor´s pension or adjustment benefits. If you wish to withdraw retirement pension before 67, you must forfeit the survivor´s pension or adjustment benefit when you withdraw your retirement pension. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'In Advanced, you can choose a more accurate pension age.',
-  'beregning.read_more.pensjonsalder.label':
-    'About the earliest withdrawal date',
-  'beregning.read_more.pensjonsalder.body':
-    'Your earning record in the National Insurance Scheme determines when you can start withdrawing your retirement pension. The retirement age limits will gradually increase from the 1964 birth cohort by one to two months per year, but the pension calculator does not account for this.{br}{br}If you have provided information about AFP (contractual pension) and/or periods spent abroad, this is included in the assessment of when you can withdraw your retirement pension.{br}{br}If you cannot withdraw a full (100%) retirement pension from your desired age, you can adjust the withdrawal percentage to see if you can start earlier. If you withdraw a graded pension, the timing for when you can withdraw 100% may be delayed.',
   'beregning.alt_tekst':
     'Annual income and pension after withdrawal in kroner.',
   'omufoeretrygd.hel.ingress':
@@ -330,11 +279,6 @@ export default {
   'omufoeretrygd.gradert.ingress':
     'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
-  'omufoeretrygd.readmore.title': 'About Pension Age and Disability Benefits',
-  'omufoeretrygd.readmore.hel.ingress':
-    '<nowrap>100 %</nowrap> disability benefits cannot be combined with retirement pension. Therefore, it is not possible to calculate retirement pension before 67 in the calculator. At 67, <nowrap>100 %</nowrap> disability benefits automatically convert to <nowrap>100 %</nowrap> retirement pension. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
-  'omufoeretrygd.readmore.gradert.ingress':
-    'It is possible to combine graded disability benefits and graded retirement pension from 62 as long as you have enough accrual to withdraw retirement pension. The degree of disability and retirement pension cannot exceed <nowrap>100 %</nowrap>. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
   'omufoeretrygd.avansert_link': 'Advanced',
   'velguttaksalder.title': 'When do you want to withdraw retirement pension?',
   'velguttaksalder.endring.title':

@@ -1,6 +1,5 @@
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
 import {
   userInputActions,
@@ -41,43 +40,6 @@ describe('stegvisning - Utenlandsopphold', () => {
       expect(screen.getByTestId('hva_er_opphold_utenfor_norge')).toBeVisible()
       expect(
         screen.getByTestId('betydning_av_opphold_utenfor_norge')
-      ).toBeVisible()
-    })
-
-    expect(
-      screen.queryByText('stegvisning.utenlandsopphold.ingress.bottom')
-    ).not.toBeInTheDocument()
-  })
-
-  it('rendrer slik den skal når tekstene fra sanity ikke skal brukes', async () => {
-    mockErrorResponse('/feature/pensjonskalkulator.hent-tekster-fra-sanity')
-    render(
-      <Utenlandsopphold
-        harUtenlandsopphold={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.utenlandsopphold.title'
-    )
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.ingress')
-    ).toBeVisible()
-
-    const radioButtons = screen.getAllByRole('radio')
-
-    await waitFor(() => {
-      expect(screen.getAllByRole('radio')).toHaveLength(2)
-      expect(radioButtons[0]).not.toBeChecked()
-      expect(radioButtons[1]).not.toBeChecked()
-
-      expect(
-        screen.getByText('stegvisning.utenlandsopphold.readmore_1.title')
-      ).toBeVisible()
-      expect(
-        screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
       ).toBeVisible()
     })
 

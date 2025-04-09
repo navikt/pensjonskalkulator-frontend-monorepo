@@ -18,14 +18,14 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
         stegvisning.afp.ingress
       </p>
       <div
-        class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6"
+        class="navds-read-more navds-read-more--medium _wrapper_11f63f _readmorePrivat_10a2c6"
         data-volume="low"
       >
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
           data-state="closed"
-          data-testid="readmore"
+          data-testid="om_livsvarig_AFP_i_privat_sektor"
           type="button"
         >
           <svg
@@ -47,7 +47,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
             />
           </svg>
           <span>
-            stegvisning.afp.readmore_privat_title
+            Om livsvarig AFP i privat sektor
           </span>
         </button>
         <div
@@ -55,53 +55,9 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
           data-state="closed"
         >
-          stegvisning.afp.readmore_privat_list_title
-          <ul
-            class="_list_10a2c6"
-          >
-            <li>
-              stegvisning.afp.readmore_privat_list_item1
-            </li>
-            <li>
-              stegvisning.afp.readmore_privat_list_item2
-            </li>
-            <li>
-              stegvisning.afp.readmore_privat_list_item3
-            </li>
-            <li>
-              stegvisning.afp.readmore_privat_list_item4
-            </li>
-          </ul>
-          Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til 
-          <a
-            class="navds-link navds-link--action navds-link--inline-text"
-            href="https://www.afp.no"
-            target="_blank"
-          >
-            AFP i privat sektor på afp.no
-            <svg
-              aria-labelledby="title-«rb»"
-              fill="none"
-              focusable="false"
-              height="1.25rem"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1.25rem"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title
-                id="title-«rb»"
-              >
-                application.global.external_link
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </a>
+          <p>
+            Lorem
+          </p>
         </div>
       </div>
       <fieldset
@@ -121,16 +77,16 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="«rf»"
+              aria-labelledby="«rd»"
               class="navds-radio__input"
-              id="radio-«re»"
+              id="radio-«rc»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-«re»"
+              for="radio-«rc»"
             >
               <span
                 class="navds-radio__content"
@@ -138,7 +94,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="«rf»"
+                  id="«rd»"
                 >
                   stegvisning.radio_ja
                 </span>
@@ -149,17 +105,17 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="«ri»"
+              aria-labelledby="«rg»"
               checked=""
               class="navds-radio__input"
-              id="radio-«rh»"
+              id="radio-«rf»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-«rh»"
+              for="radio-«rf»"
             >
               <span
                 class="navds-radio__content"
@@ -167,7 +123,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="«ri»"
+                  id="«rg»"
                 >
                   stegvisning.radio_nei
                 </span>
@@ -179,7 +135,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-«rd»"
+          id="fieldset-error-«rb»"
         />
       </fieldset>
       <button
@@ -235,13 +191,13 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
         stegvisning.afp.ingress
       </p>
       <div
-        class="navds-read-more navds-read-more--medium _wrapper_11f63f _readmorePrivat_10a2c6 navds-read-more--open"
+        class="navds-read-more navds-read-more--medium _wrapper_11f63f _readmorePrivat_10a2c6"
         data-volume="low"
       >
         <button
-          aria-expanded="true"
+          aria-expanded="false"
           class="navds-read-more__button navds-body-short"
-          data-state="open"
+          data-state="closed"
           data-testid="om_livsvarig_AFP_i_privat_sektor"
           type="button"
         >
@@ -268,9 +224,9 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
           </span>
         </button>
         <div
-          aria-hidden="false"
-          class="navds-read-more__content navds-body-long navds-body-long--medium"
-          data-state="open"
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+          data-state="closed"
         >
           <p>
             Lorem
@@ -294,16 +250,16 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="«r5»"
+              aria-labelledby="«r4»"
               class="navds-radio__input"
-              id="radio-«r4»"
+              id="radio-«r3»"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-«r4»"
+              for="radio-«r3»"
             >
               <span
                 class="navds-radio__content"
@@ -311,7 +267,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="«r5»"
+                  id="«r4»"
                 >
                   stegvisning.radio_ja
                 </span>
@@ -322,16 +278,16 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="«r8»"
+              aria-labelledby="«r7»"
               class="navds-radio__input"
-              id="radio-«r7»"
+              id="radio-«r6»"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-«r7»"
+              for="radio-«r6»"
             >
               <span
                 class="navds-radio__content"
@@ -339,7 +295,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="«r8»"
+                  id="«r7»"
                 >
                   stegvisning.radio_nei
                 </span>
@@ -351,7 +307,7 @@ exports[`stegvisning - AFP - født før 1963 og og fylt 67 år, eller født før
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-«r3»"
+          id="fieldset-error-«r2»"
         />
       </fieldset>
       <button
