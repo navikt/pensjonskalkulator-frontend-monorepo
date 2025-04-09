@@ -207,14 +207,16 @@ export function Simulering(props: {
             options={chartOptions}
           />
 
-          <BodyShort
-            size="small"
-            textColor="subtle"
-            className={styles.infoClick}
-          >
-            <HandFingerIcon />
-            <FormattedMessage id="beregning.highcharts.informasjon_klikk" />
-          </BodyShort>
+          {showButtonsAndTable && (
+            <BodyShort
+              size="small"
+              textColor="subtle"
+              className={styles.infoClick}
+            >
+              <HandFingerIcon />
+              <FormattedMessage id="beregning.highcharts.informasjon_klikk" />
+            </BodyShort>
+          )}
         </div>
       </div>
       {showButtonsAndTable && (
