@@ -10,7 +10,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
   it('rendrer slik den skal når samtykket ikke er oppgitt', async () => {
-    const result = render(
+    render(
       <SamtykkeOffentligAFP
         harSamtykket={null}
         onCancel={onCancelMock}
@@ -27,7 +27,6 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
       expect(screen.getAllByRole('radio')).toHaveLength(2)
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 

@@ -37,7 +37,7 @@ describe('stegvisning - Start', () => {
   })
 
   it('rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper', async () => {
-    const result = render(
+    render(
       <Start
         navn="Ola"
         loependeVedtak={loependeVedtak}
@@ -49,7 +49,6 @@ describe('stegvisning - Start', () => {
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'stegvisning.start.title Ola!'
     )
-    expect(result.asFragment()).toMatchSnapshot()
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon', async () => {

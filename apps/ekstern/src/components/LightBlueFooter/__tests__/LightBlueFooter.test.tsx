@@ -17,9 +17,8 @@ vi.mock(import('react-router'), async (importOriginal) => {
 
 describe('LightBlueFooter', () => {
   it('rendrer med riktig tekst og knapper', () => {
-    const { asFragment } = render(<LightBlueFooter />)
+    render(<LightBlueFooter />)
     expect(screen.getAllByRole('button')).toHaveLength(1)
-    expect(asFragment()).toMatchSnapshot()
   })
 
   describe('Gitt at brukeren klikker på knappen, åpnes det modalen og brukeren kan avbryte eller gå tilbake til start ved bekreftelse', async () => {

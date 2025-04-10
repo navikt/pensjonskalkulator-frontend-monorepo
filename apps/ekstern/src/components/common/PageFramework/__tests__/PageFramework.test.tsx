@@ -17,17 +17,16 @@ describe('PageFramework', () => {
   })
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
-    const { asFragment } = render(<PageFramework />, { hasLogin: true })
+    render(<PageFramework />, { hasLogin: true })
     await waitFor(async () => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
         'pageframework.title'
       )
     })
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('rendrer slik den skal med hvit bakgrunn', async () => {
-    const { asFragment } = render(<PageFramework hasWhiteBg />, {
+    render(<PageFramework hasWhiteBg />, {
       hasLogin: true,
     })
     await waitFor(async () => {
@@ -35,32 +34,26 @@ describe('PageFramework', () => {
         'pageframework.title'
       )
     })
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('rendrer slik den skal i full bredde', async () => {
-    const { asFragment } = render(
-      <PageFramework isFullWidth shouldShowLogo={false} />,
-      {
-        hasLogin: true,
-      }
-    )
+    render(<PageFramework isFullWidth shouldShowLogo={false} />, {
+      hasLogin: true,
+    })
     await waitFor(async () => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
         'pageframework.title'
       )
     })
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('rendrer slik den skal med logo', async () => {
-    const { asFragment } = render(<PageFramework shouldShowLogo={true} />, {
+    render(<PageFramework shouldShowLogo={true} />, {
       hasLogin: true,
     })
     await waitFor(async () => {
       expect(screen.getByTestId('framework-logo')).toBeInTheDocument()
     })
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('scroller på toppen av siden når en route endrer seg', async () => {

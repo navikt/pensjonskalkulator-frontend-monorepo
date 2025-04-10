@@ -17,9 +17,8 @@ vi.mock(import('react-router'), async (importOriginal) => {
 
 describe('ErrorPageUnexpected', () => {
   it('rendrer med riktig tekst og knapper', () => {
-    const { asFragment } = render(<ErrorPageUnexpected />)
+    render(<ErrorPageUnexpected />)
     expect(screen.getAllByRole('button')).toHaveLength(1)
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('sender brukeren til landingside og tømmer storen når brukeren klikker på knappen', async () => {

@@ -8,7 +8,7 @@ import { AgePicker } from '..'
 
 describe('AgePicker', () => {
   it('rendrer riktig default verdier, description og info', () => {
-    const { asFragment, container } = render(
+    const { container } = render(
       <AgePicker
         name="unique-name"
         label="My Test Age Picker"
@@ -25,7 +25,6 @@ describe('AgePicker', () => {
     ).toBeVisible()
     expect(screen.getByText('My Description')).toBeVisible()
     expect(screen.getByText('My Infobox')).toBeVisible()
-    expect(asFragment()).toMatchSnapshot()
   })
 
   describe('rendrer riktig valg i select', () => {

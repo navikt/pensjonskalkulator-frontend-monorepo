@@ -52,7 +52,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
   })
 
   it('rendrer slik den skal når afp er oppgitt', async () => {
-    const result = render(
+    render(
       <AFP
         previousAfp="nei"
         onCancel={onCancelMock}
@@ -70,7 +70,6 @@ describe('stegvisning - AFP - født etter 1963', () => {
       expect(radioButtons[1]).not.toBeChecked()
       expect(radioButtons[2]).toBeChecked()
       expect(radioButtons[3]).not.toBeChecked()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 

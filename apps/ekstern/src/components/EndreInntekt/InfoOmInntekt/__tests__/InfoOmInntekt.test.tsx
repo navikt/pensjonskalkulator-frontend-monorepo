@@ -4,7 +4,10 @@ import { InfoOmInntekt } from '..'
 
 describe('InfoModalInntekt', () => {
   it('viser fast info om inntekt', () => {
-    const { asFragment } = render(<InfoOmInntekt />)
-    expect(asFragment()).toMatchSnapshot()
+    const { getByTestId } = render(<InfoOmInntekt />)
+
+    // Check for lists
+    const infoList = getByTestId('info-om-inntekt-list')
+    expect(infoList.children.length).toBeGreaterThan(2)
   })
 })

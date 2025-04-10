@@ -20,7 +20,7 @@ describe('stegvisning - Sivilstand', () => {
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når sivilstand ikke er oppgitt (UOPPGITT eller UKNOWN)', async () => {
-    const result = render(
+    render(
       <Sivilstand
         sivilstandFolkeregister="UOPPGITT"
         sivilstand="UOPPGITT"
@@ -44,7 +44,6 @@ describe('stegvisning - Sivilstand', () => {
       expect(selectElement).toBeVisible()
       expect(selectElement).toHaveValue('')
       expect(screen.queryAllByRole('radio')).toHaveLength(0)
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 

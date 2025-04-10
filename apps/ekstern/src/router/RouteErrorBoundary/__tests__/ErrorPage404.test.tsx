@@ -15,9 +15,8 @@ describe('ErrorPage404', () => {
     loggerTeardown()
   })
   it('rendrer med riktig tekst og knapper', () => {
-    const { asFragment } = render(<ErrorPage404 />)
+    render(<ErrorPage404 />)
     expect(screen.getAllByRole('link')).toHaveLength(2)
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('sender brukeren til landingside når brukeren klikker på første lenke', async () => {

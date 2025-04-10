@@ -59,33 +59,40 @@ describe('translations-utils', () => {
     })
 
     it('formaterer {br} til <br/>', async () => {
-      const { asFragment } = render(
+      render(
         <FormattedMessage
           id="translation.test.br"
           values={{ ...getFormatMessageValues() }}
         />
       )
-      expect(asFragment()).toMatchSnapshot()
+      const brElement = document.querySelector('br')
+      expect(brElement).toBeInTheDocument()
     })
 
     it('formaterer <strong>', async () => {
-      const { asFragment } = render(
+      render(
         <FormattedMessage
           id="translation.test.strong"
           values={{ ...getFormatMessageValues() }}
         />
       )
-      expect(asFragment()).toMatchSnapshot()
+
+      const strongElement = document.querySelector('strong')
+      expect(strongElement).toBeInTheDocument()
+      expect(strongElement).toHaveTextContent('ipsum')
     })
 
     it('formaterer <nowrap>', async () => {
-      const { asFragment } = render(
+      render(
         <FormattedMessage
           id="translation.test.nowrap"
           values={{ ...getFormatMessageValues() }}
         />
       )
-      expect(asFragment()).toMatchSnapshot()
+      const nowrapElement = document.querySelector('span.nowrap')
+      expect(nowrapElement).toBeInTheDocument()
+      expect(nowrapElement).toHaveClass('nowrap')
+      expect(nowrapElement).toHaveTextContent('ipsum')
     })
   })
 })

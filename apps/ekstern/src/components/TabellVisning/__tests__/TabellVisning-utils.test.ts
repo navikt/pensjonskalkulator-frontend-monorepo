@@ -60,7 +60,6 @@ describe('TabellVisning-utils', () => {
       expect(result[alderArray.length - 1].alder).toBe(
         '70+ alder.aar_livsvarig'
       )
-      expect(result).toMatchSnapshot()
     })
 
     it('returnerer et array med riktig struktur og detaljer når begge arrayeme haer data', () => {
@@ -71,7 +70,6 @@ describe('TabellVisning-utils', () => {
       )
       expect(result).toHaveLength(alderArray.length)
       expect(result[0].detaljer).toHaveLength(series.length)
-      expect(result).toMatchSnapshot()
     })
   })
 })

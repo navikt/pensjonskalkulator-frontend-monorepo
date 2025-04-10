@@ -18,7 +18,7 @@ export const InfoOmInntekt = () => {
       <Label as="h2">
         <FormattedMessage id="inntekt.info_om_inntekt.subtitle_1" />
       </Label>
-      <ul>
+      <ul data-testid="info-om-inntekt-list">
         <li>
           <FormattedMessage id="inntekt.info_om_inntekt.list_item1" />
         </li>

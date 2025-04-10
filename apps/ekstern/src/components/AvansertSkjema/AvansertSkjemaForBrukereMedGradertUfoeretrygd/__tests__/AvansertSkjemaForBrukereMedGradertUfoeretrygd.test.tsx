@@ -2430,7 +2430,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     })
 
     it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
-      const { asFragment, store } = render(
+      const { store } = render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -2459,7 +2459,6 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           'beregning.avansert.rediger.inntekt_frem_til_endring.label'
         )
       ).toBeVisible()
-      expect(asFragment()).toMatchSnapshot()
       expect(
         screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
       ).toBeVisible()

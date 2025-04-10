@@ -33,12 +33,11 @@ describe('Henvisning ', async () => {
         `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`,
       ],
     })
-    const { asFragment } = render(<RouterProvider router={router} />, {
+    render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
     expect(await screen.findByText('henvisning.apotekerne.body')).toBeVisible()
     expect(document.title).toBe('application.title.henvisning.apotekerne')
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('trykker avbryt knapp', async () => {

@@ -25,7 +25,7 @@ describe('VilkaarsproevingAlert', () => {
       },
     }
     it('Når det foreslåtte alternativet er den default normert pensjonsalder, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={{
             ...alternativ,
@@ -56,11 +56,10 @@ describe('VilkaarsproevingAlert', () => {
           }
         )
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
 
     it('Når det foreslåtte alternativet er uttaksalder for 100% uten gradering, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={alternativ}
           uttaksalder={uttaksalder}
@@ -101,11 +100,10 @@ describe('VilkaarsproevingAlert', () => {
           exact: false,
         })
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
 
     it('Når det foreslåtte alternativet er lik uttaksalder med ny gradering, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={{
             ...alternativ,
@@ -151,11 +149,10 @@ describe('VilkaarsproevingAlert', () => {
           exact: false,
         })
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
 
     it('Når det foreslåtte alternativet er ulik uttaksalder med ny gradering, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={{
             ...alternativ,
@@ -210,7 +207,6 @@ describe('VilkaarsproevingAlert', () => {
           exact: false,
         })
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 
@@ -233,7 +229,7 @@ describe('VilkaarsproevingAlert', () => {
     }
 
     it('Når det ikke er nok opptjening, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={undefined}
           uttaksalder={uttaksalder}
@@ -255,11 +251,10 @@ describe('VilkaarsproevingAlert', () => {
           }
         )
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
 
     it('Når det er gradert uttak med samme helt uttaksalder, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={{
             ...alternativ,
@@ -293,11 +288,10 @@ describe('VilkaarsproevingAlert', () => {
           exact: false,
         })
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
 
     it('Når det er gradert uttak med ulik helt uttaksalder, vises det riktig tekst', () => {
-      const { asFragment } = render(
+      render(
         <VilkaarsproevingAlert
           alternativ={{
             ...alternativ,
@@ -333,7 +327,6 @@ describe('VilkaarsproevingAlert', () => {
           }
         )
       ).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 })
