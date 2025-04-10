@@ -21,6 +21,7 @@ import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 import {
   StepSivilstandAccessGuardLoader,
+  StepStartAccessGuardLoader,
   authenticationGuard,
   directAccessGuard,
   landingPageAccessGuard,
@@ -129,7 +130,8 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await stepStartAccessGuard()
+      const returnedFromLoader =
+        (await stepStartAccessGuard()) as StepStartAccessGuardLoader
       const getPersonQueryResponse = await returnedFromLoader.getPersonQuery
       const getLoependeVedtakQueryResponse =
         await returnedFromLoader.getLoependeVedtakQuery
@@ -170,7 +172,8 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await stepStartAccessGuard()
+      const returnedFromLoader =
+        (await stepStartAccessGuard()) as StepStartAccessGuardLoader
 
       const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
@@ -190,7 +193,8 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await stepStartAccessGuard()
+      const returnedFromLoader =
+        (await stepStartAccessGuard()) as StepStartAccessGuardLoader
 
       const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
@@ -210,7 +214,8 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await stepStartAccessGuard()
+      const returnedFromLoader =
+        (await stepStartAccessGuard()) as StepStartAccessGuardLoader
 
       const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
@@ -233,7 +238,8 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await stepStartAccessGuard()
+      const returnedFromLoader =
+        (await stepStartAccessGuard()) as StepStartAccessGuardLoader
       await returnedFromLoader.getPersonQuery
       const shouldRedirectToResponse = await returnedFromLoader.shouldRedirectTo
 
@@ -242,6 +248,28 @@ describe('Loaders', () => {
           `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
         )
       })
+    })
+
+    it('Når vedlikeholdsmodus er aktivert blir man redirigert', async () => {
+      mockResponse('/feature/pensjonskalkulator.vedlikeholdsmodus', {
+        json: {
+          enabled: true,
+        },
+      })
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = (await stepStartAccessGuard()) as Response
+
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader.headers.get('location')).toBe(
+        '/kalkulatoren-virker-ikke'
+      )
+      expect(returnedFromLoader.status).toBe(302)
     })
   })
 

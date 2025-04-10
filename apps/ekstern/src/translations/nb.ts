@@ -12,6 +12,8 @@ const translations = {
   'application.title.stegvisning.samtykke': 'Samtykke – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
+  'application.title.stegvisning.kalkulator_virker_ikke':
+    'Kalkulatoren virker ikke – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.henvisning.apotekerne':
@@ -39,6 +41,11 @@ const translations = {
     'Hvis du klikket på en lenke er den feil eller utdatert.',
   'error.404.button.link_1': 'Gå til pensjonskalkulator',
   'error.404.button.link_2': 'Les om pensjon',
+  'error.virker_ikke.title': 'Beklager, kalkulatoren virker ikke akkurat nå',
+  'error.virker_ikke.ingress':
+    'En feil har skjedd hos oss som gjør at du dessverre ikke kan bruke kalkulatoren. Vi jobber med å rette feilen. Prøv igjen senere.{br}{br}Hvis problemet vedvarer, kan du {kontaktoss} ',
+  'error.virker_ikke.link': 'kontakte oss',
+  'error.virker_ikke.button': 'Gå til Din pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Den gir deg et estimat på',

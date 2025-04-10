@@ -60,101 +60,110 @@ export type StepStartAccessGuardLoader = {
   shouldRedirectTo: Promise<string>
 }
 
-export const stepStartAccessGuard =
-  async (): Promise<StepStartAccessGuardLoader> => {
-    // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
-    const getPersonQuery = store.dispatch(
-      apiSlice.endpoints.getPerson.initiate()
-    )
-    // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
-    const getEkskludertStatusQuery = store.dispatch(
-      apiSlice.endpoints.getEkskludertStatus.initiate()
-    )
-    // Henter løpende vedtak for endring
-    const getLoependeVedtakQuery = store.dispatch(
-      apiSlice.endpoints.getLoependeVedtak.initiate()
-    )
+export const stepStartAccessGuard = async (): Promise<
+  Response | StepStartAccessGuardLoader
+> => {
+  const featureToggle = await store
+    .dispatch(apiSlice.endpoints.getVedlikeholdsmodusFeatureToggle.initiate())
+    .unwrap()
+    .then((result) => result.enabled)
+    .catch(() => false)
 
-    // Henter inntekt til senere
-    store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-    // Henter omstillingsstønad-og-gjenlevende til senere
-    store.dispatch(
-      apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
-    )
+  if (featureToggle) {
+    return redirect(paths.kalkulatorVirkerIkke)
+  }
 
-    const shouldRedirectTo = Promise.all([
-      getLoependeVedtakQuery,
-      getPersonQuery,
-      getEkskludertStatusQuery,
-    ]).then(([getLoependeVedtakRes, getPersonRes, getEkskludertStatusRes]) => {
-      if (
-        getEkskludertStatusRes?.data?.ekskludert &&
-        getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
-      ) {
-        return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+  // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
+  const getEkskludertStatusQuery = store.dispatch(
+    apiSlice.endpoints.getEkskludertStatus.initiate()
+  )
+  // Henter løpende vedtak for endring
+  const getLoependeVedtakQuery = store.dispatch(
+    apiSlice.endpoints.getLoependeVedtak.initiate()
+  )
+
+  // Henter inntekt til senere
+  store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+  // Henter omstillingsstønad-og-gjenlevende til senere
+  store.dispatch(
+    apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+  )
+
+  const shouldRedirectTo = Promise.all([
+    getLoependeVedtakQuery,
+    getPersonQuery,
+    getEkskludertStatusQuery,
+  ]).then(([getLoependeVedtakRes, getPersonRes, getEkskludertStatusRes]) => {
+    if (
+      getEkskludertStatusRes?.data?.ekskludert &&
+      getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+    ) {
+      return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+    }
+
+    if (getLoependeVedtakRes.isError) {
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${(getLoependeVedtakRes.error as FetchBaseQueryError).status}`,
+      })
+      return paths.uventetFeil
+    }
+    if (getLoependeVedtakRes.isSuccess) {
+      logger('info', {
+        tekst: 'hent uføregrad',
+        data:
+          getLoependeVedtakRes.data?.ufoeretrygd.grad === 0
+            ? 'Ingen uføretrygd'
+            : getLoependeVedtakRes.data?.ufoeretrygd.grad === 100
+              ? 'Hel uføretrygd'
+              : `Gradert uføretrygd`,
+      })
+
+      if (getLoependeVedtakRes.data?.alderspensjon) {
+        logger('info', {
+          tekst: 'Vedtak alderspensjon',
+          data: getLoependeVedtakRes.data?.alderspensjon.grad,
+        })
       }
+      if (getLoependeVedtakRes.data?.afpPrivat) {
+        logger('info', {
+          tekst: 'Vedtak AFP Privat',
+        })
+      }
+      if (getLoependeVedtakRes.data?.afpOffentlig) {
+        logger('info', {
+          tekst: 'Vedtak AFP Offentlig',
+        })
+      }
+      if (getLoependeVedtakRes.data?.fremtidigAlderspensjon) {
+        logger('info', {
+          tekst: 'Fremtidig vedtak',
+        })
+      }
+    }
 
-      if (getLoependeVedtakRes.isError) {
+    if (getPersonRes.isError) {
+      if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
+        return paths.ingenTilgang
+      } else {
         logger('info', {
           tekst: 'Redirect til /uventet-feil',
-          data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${(getLoependeVedtakRes.error as FetchBaseQueryError).status}`,
+          data: `fra Step Start Loader pga. feil med getPerson med status: ${(getPersonRes.error as FetchBaseQueryError).status}`,
         })
         return paths.uventetFeil
       }
-      if (getLoependeVedtakRes.isSuccess) {
-        logger('info', {
-          tekst: 'hent uføregrad',
-          data:
-            getLoependeVedtakRes.data?.ufoeretrygd.grad === 0
-              ? 'Ingen uføretrygd'
-              : getLoependeVedtakRes.data?.ufoeretrygd.grad === 100
-                ? 'Hel uføretrygd'
-                : `Gradert uføretrygd`,
-        })
-
-        if (getLoependeVedtakRes.data?.alderspensjon) {
-          logger('info', {
-            tekst: 'Vedtak alderspensjon',
-            data: getLoependeVedtakRes.data?.alderspensjon.grad,
-          })
-        }
-        if (getLoependeVedtakRes.data?.afpPrivat) {
-          logger('info', {
-            tekst: 'Vedtak AFP Privat',
-          })
-        }
-        if (getLoependeVedtakRes.data?.afpOffentlig) {
-          logger('info', {
-            tekst: 'Vedtak AFP Offentlig',
-          })
-        }
-        if (getLoependeVedtakRes.data?.fremtidigAlderspensjon) {
-          logger('info', {
-            tekst: 'Fremtidig vedtak',
-          })
-        }
-      }
-
-      if (getPersonRes.isError) {
-        if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
-          return paths.ingenTilgang
-        } else {
-          logger('info', {
-            tekst: 'Redirect til /uventet-feil',
-            data: `fra Step Start Loader pga. feil med getPerson med status: ${(getPersonRes.error as FetchBaseQueryError).status}`,
-          })
-          return paths.uventetFeil
-        }
-      }
-      return ''
-    })
-
-    return {
-      getPersonQuery,
-      getLoependeVedtakQuery,
-      shouldRedirectTo,
     }
+    return ''
+  })
+
+  return {
+    getPersonQuery,
+    getLoependeVedtakQuery,
+    shouldRedirectTo,
   }
+}
 
 // ///////////////////////////////////////////
 

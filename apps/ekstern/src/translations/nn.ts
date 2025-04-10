@@ -10,6 +10,7 @@ export default {
   'application.title.stegvisning.samtykke': 'Samtykke - Penjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
+  'application.title.stegvisning.kalkulator_virker_ikke': 'MANGLER_TEKST',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
   'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
@@ -34,6 +35,10 @@ export default {
     'Viss du klikka på ei lenkje er ho feil eller utdatert.',
   'error.404.button.link_1': 'Gå til pensjonskalkulator',
   'error.404.button.link_2': 'Les om pensjon',
+  'error.virker_ikke.title': 'MANGLER_TEKST',
+  'error.virker_ikke.ingress': 'MANGLER_TEKST',
+  'error.virker_ikke.link': 'MANGLER_TEKST',
+  'error.virker_ikke.button': 'MANGLER_TEKST',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (Nav), avtalefesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',

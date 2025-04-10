@@ -13,6 +13,7 @@ export default {
   'application.title.stegvisning.samtykke': 'Consent – Pension Calculator',
   'application.title.stegvisning.uventet_feil':
     'Unexpected Error – Pension Calculator',
+  'application.title.stegvisning.kalkulator_virker_ikke': 'MANGLER_TEKST',
   'application.title.beregning': 'Calculation – Pension Calculator',
   'application.title.forbehold': 'Reservation – Pension Calculator',
   'application.title.henvisning.apotekerne':
@@ -41,6 +42,10 @@ export default {
     'If you clicked on a link, it is incorrect or outdated.',
   'error.404.button.link_1': 'Go to the pension calculator',
   'error.404.button.link_2': 'Read about pensions',
+  'error.virker_ikke.title': 'MANGLER_TEKST',
+  'error.virker_ikke.ingress': 'MANGLER_TEKST',
+  'error.virker_ikke.link': 'MANGLER_TEKST',
+  'error.virker_ikke.button': 'MANGLER_TEKST',
   'landingsside.for.deg.foedt.foer.1963': 'For those born before 1963',
   'landingsside.du.maa.bruke.detaljert':
     'You must use our detailed calculator. It provides an estimate of',

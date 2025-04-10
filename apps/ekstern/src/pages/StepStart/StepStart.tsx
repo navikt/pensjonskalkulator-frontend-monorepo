@@ -52,7 +52,7 @@ export function StepStart() {
           0: getPersonQueryResponse,
           1: getLoependeVedtakQueryResponse,
           2: shouldRedirectToResponse,
-        }: [GetPersonQuery, GetLoependeVedtakQuery, string]) => {
+        }: [GetPersonQuery, GetLoependeVedtakQuery, string, boolean]) => {
           return (
             <Start
               shouldRedirectTo={shouldRedirectToResponse}

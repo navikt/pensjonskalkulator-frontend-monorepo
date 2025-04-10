@@ -8,6 +8,7 @@ import { IngenTilgang } from '@/pages/IngenTilgang'
 import { LandingPage } from '@/pages/LandingPage'
 import { StepAFP } from '@/pages/StepAFP'
 import { StepFeil } from '@/pages/StepFeil'
+import { StepKalkulatorVirkerIkke } from '@/pages/StepKalkulatorVirkerIkke'
 import { StepSamtykkeOffentligAFP } from '@/pages/StepSamtykkeOffentligAFP'
 import { StepSamtykkePensjonsavtaler } from '@/pages/StepSamtykkePensjonsavtaler'
 import { StepSivilstand } from '@/pages/StepSivilstand'
@@ -110,6 +111,11 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.uventetFeil,
         element: <StepFeil />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.kalkulatorVirkerIkke,
+        element: <StepKalkulatorVirkerIkke />,
       },
       {
         loader: directAccessGuard,
