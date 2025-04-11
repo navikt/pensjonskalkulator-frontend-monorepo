@@ -18,6 +18,7 @@ import enableSanityToggleResponse from './data/unleash-enable-sanity.json' with 
 import enableGradertUfoereAfpFeatureToggleResponse from './data/unleash-gradert-ufoere-afp.json' with { type: 'json' }
 import enableOtpFraKlpToggleResponse from './data/unleash-otp-fra-klp.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
+import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -202,6 +203,13 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(enableGradertUfoereAfpFeatureToggleResponse)
+    }
+  ),
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.vedlikeholdsmodus`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(enableVedlikeholdsmodusToggleResponse)
     }
   ),
 

@@ -169,6 +169,27 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
   })
 
+  it('rendrer informasjonsside når vedlikeholdsmodus er på uten a11y-feil', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.vedlikeholdsmodus',
+      },
+      {
+        statusCode: 200,
+        body: {
+          enabled: true,
+        },
+      }
+    ).as('fetchVedlikeholdsmodus')
+    cy.visit('/pensjon/kalkulator/')
+    cy.wait('@getAuthSession')
+    cy.contains('button', 'Pensjonskalkulator').click()
+    cy.wait('@fetchVedlikeholdsmodus')
+    cy.injectAxe()
+    cy.checkA11y('main')
+  })
+
   it('rendrer andre sider uten a11y-feil.', () => {
     // Navigate til forbehold
     cy.visit('/pensjon/kalkulator/forbehold')

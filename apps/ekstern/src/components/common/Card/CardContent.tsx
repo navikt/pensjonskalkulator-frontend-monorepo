@@ -1,6 +1,6 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Loader } from '@/components/common/Loader'
 import { externalUrls } from '@/router/constants'
@@ -58,12 +58,11 @@ export function CardContent({
             values={{
               br: <br />,
               kontaktoss: (
-                <Link href={externalUrls.planleggePensjon} target="_blank">
+                <ExternalLink href={externalUrls.planleggePensjon}>
                   {intl.formatMessage({
                     id: 'error.virker_ikke.link',
                   })}
-                  <ExternalLink />
-                </Link>
+                </ExternalLink>
               ),
             }}
           />
