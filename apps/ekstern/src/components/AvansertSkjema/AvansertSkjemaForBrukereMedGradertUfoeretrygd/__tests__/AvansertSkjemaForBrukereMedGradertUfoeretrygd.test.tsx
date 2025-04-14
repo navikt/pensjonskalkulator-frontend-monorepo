@@ -2428,44 +2428,9 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
       ).toBeVisible()
     })
-
-    it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
-      const { store } = render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
-      expect(
-        await screen.findByText(
-          'beregning.avansert.rediger.inntekt_frem_til_endring.label'
-        )
-      ).toBeVisible()
-      expect(
-        screen.queryByTestId('om_uttaksgrad_UT_gradert_endring')
-      ).toBeVisible()
-    })
   })
 
-  describe('Gitt at feature toggle for gradert uføretrygd og AFP er enabled', () => {
+  describe('Gitt at brukeren kan simulere AFP, og feature toggle for gradert uføretrygd og AFP er enabled', () => {
     beforeEach(() => {
       mockResponse('/feature/pensjonskalkulator.gradert-ufoere-afp', {
         status: 200,
@@ -2486,10 +2451,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
+              queries: mockedQueries,
             },
             userInput: {
               ...userInputInitialState,
@@ -2518,10 +2480,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
+              queries: mockedQueries,
             },
             userInput: {
               ...userInputInitialState,
@@ -2562,10 +2521,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
+              queries: mockedQueries,
             },
             userInput: {
               ...userInputInitialState,
@@ -2593,10 +2549,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           preloadedState: {
             api: {
               // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
+              queries: mockedQueries,
             },
             userInput: {
               ...userInputInitialState,
@@ -2637,6 +2590,52 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       expect(
         screen.queryByTestId('om_uttaksgrad_UT_gradert')
       ).not.toBeInTheDocument()
+    })
+
+    it('Aldersvelger for fullt uttak får riktig minAlder når man har valgt beregning med AFP og gradert uttak', () => {
+      // Minimum alder skal være gradert uttaksalder + 1 mnd, i praksis nedreAldersgrense + 1 mnd.
+      render(
+        <BeregningContext.Provider value={{ ...contextMockedValues }}>
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: mockedQueries,
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_privat',
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                beregningsvalg: 'med_afp',
+                gradertUttaksperiode: {
+                  grad: 50,
+                  uttaksalder: {
+                    aar: 62,
+                    maaneder: 0,
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+
+      const aarSelect = screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      expect(aarSelect.children.item(0)?.innerHTML).toBe(' ')
+      expect(aarSelect.children.item(1)?.innerHTML).toBe('62 alder.aar')
+
+      fireEvent.change(aarSelect, { target: { value: '62' } })
+
+      const mndSelect = screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+      )
+      expect(mndSelect.children.item(0)?.innerHTML).toBe(' ')
+      expect(mndSelect.children.item(1)?.innerHTML).toBe('1 alder.md (juni)')
     })
   })
 })
