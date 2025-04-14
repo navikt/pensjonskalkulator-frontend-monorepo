@@ -15,7 +15,7 @@ languageIds:
 # To help with this, you can use https://www.freeformatter.com/json-escape.html
 usageMatchRegex:
   # JSX
-  - '<FormattedMessage id="({key})"'
+  - '<FormattedMessage\s+id="({key})"'
   # Hooks
   - "[^\\w\\d]formatMessage\\({\\s*id:\\s*['\"`]({key})['\"`]"
   # Mer inspirasjon: https://github.com/lokalise/i18n-ally/blob/4c504c93cec6c4697134eca379f1476d0eb1c9f6/src/frameworks/react-intl.ts
