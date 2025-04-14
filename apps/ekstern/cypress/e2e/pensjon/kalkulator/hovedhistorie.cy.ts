@@ -28,7 +28,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
         cy.origin('https://www.nav.no', () => {
-          cy.on('uncaught:exception', (e) => {
+          cy.on('uncaught:exception', () => {
             return false
           })
         })
