@@ -24,6 +24,7 @@ import {
   AFP_UFOERE_OPPSIGELSESALDER,
   isFoedselsdatoOverAlder,
 } from '@/utils/alder'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagSection } from '../GrunnlagSection'
@@ -160,6 +161,9 @@ const GoToAFP = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger('button klikk', {
+      tekst: 'Grunnlag AFP: Gå til AFP',
+    })
     dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.afp)
   }
@@ -178,6 +182,9 @@ const GoToAvansert = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger('button klikk', {
+      tekst: 'Grunnlag AFP: Gå til avansert',
+    })
     if (avansertSkjemaModus === 'resultat') {
       setAvansertSkjemaModus('redigering')
     } else {
@@ -197,6 +204,9 @@ const GoToStart = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger('button klikk', {
+      tekst: 'Grunnlag AFP: Gå til start',
+    })
     dispatch(userInputActions.flush())
     navigate(paths.start)
   }

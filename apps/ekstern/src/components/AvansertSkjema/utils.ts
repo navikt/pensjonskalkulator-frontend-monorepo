@@ -584,6 +584,14 @@ export const onAvansertBeregningSubmit = (
       maaneder: parseInt(heltUttakMaanederFormData as string, 10),
     })
   )
+
+  if (beregningsvalgFormData) {
+    logger('radiogroup valgt', {
+      tekst: 'Beregningsvalg: Med eller uten AFP',
+      valg: beregningsvalgFormData,
+    })
+  }
+
   logger('valg av uttaksalder for 100 % alderspensjon', {
     tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
   })
