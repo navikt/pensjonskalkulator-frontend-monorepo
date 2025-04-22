@@ -7,6 +7,7 @@ import {
   fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetPerson,
@@ -507,6 +508,10 @@ describe('BeregningAvansert', () => {
         await waitFor(() => {
           expect(initiateMock).toHaveBeenCalledTimes(1)
         })
+
+        expect(screen.getByText('beregning.intro.title')).toBeVisible()
+        expect(screen.getByText('beregning.intro.description_1')).toBeVisible()
+
         expect(
           screen.getByText('beregning.avansert.resultatkort.tittel')
         ).toBeVisible()
@@ -710,7 +715,7 @@ describe('BeregningAvansert', () => {
     })
   })
 
-  describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
     it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbehold uten Pensjonsavtaler', async () => {
       const user = userEvent.setup()
       const initiateMock = vi.spyOn(
@@ -756,6 +761,12 @@ describe('BeregningAvansert', () => {
       await waitFor(() => {
         expect(initiateMock).toHaveBeenCalledTimes(1)
       })
+
+      expect(screen.getByText('beregning.intro.title.endring')).toBeVisible()
+      expect(
+        screen.getByText('beregning.intro.description_1.endring')
+      ).toBeVisible()
+
       expect(
         screen.getByText('beregning.avansert.resultatkort.tittel')
       ).toBeVisible()
@@ -904,5 +915,112 @@ describe('BeregningAvansert', () => {
         })
       ).toBeInTheDocument()
     })
+  })
+
+  describe('Gitt at brukeren har gradert uføretrygd', () => {
+    it('Når brukeren har valgt å beregne med AFP, vises riktig intro', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <BeregningAvansert />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                beregningsvalg: 'med_afp',
+              },
+            },
+          },
+        }
+      )
+
+      expect(
+        screen.getByText('beregning.intro.description_2.gradert_UT.med_afp')
+      ).toBeVisible()
+    })
+
+    it('Når AFP ikke er med i beregningen, vises riktig intro', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <BeregningAvansert />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                beregningsvalg: 'uten_afp',
+              },
+            },
+          },
+        }
+      )
+      // beregning.intro.description_2.gradert_UT.uten_afp
+      expect(
+        screen.getByText(
+          'Du har 75 % uføretrygd. Den kommer i tillegg til inntekt og pensjon frem til du blir 67 alder.aar. Uføretrygd vises ikke i beregningen.',
+          {
+            exact: false,
+          }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  it('Når brukeren har 100 % uføretrygd, vises riktig intro', async () => {
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <BeregningAvansert />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak100Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
+    )
+    expect(
+      screen.getByText('beregning.intro.description_2.hel_UT')
+    ).toBeVisible()
   })
 })

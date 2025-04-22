@@ -2513,6 +2513,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     })
 
     it('Viser riktig innhold når man har valgt beregning uten AFP', async () => {
+      const user = userEvent.setup()
       render(
         <BeregningContext.Provider value={{ ...contextMockedValues }}>
           <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
@@ -2526,17 +2527,52 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
             userInput: {
               ...userInputInitialState,
               afp: 'ja_privat',
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-                beregningsvalg: 'uten_afp',
-              },
             },
           },
         }
       )
 
+      await user.click(await screen.findByTestId('uten_afp'))
+
       // Viser AgePicker
       expect(screen.getByRole('combobox', { name: 'Velg år' })).toBeVisible()
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '66' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      // Velger gradert uttak
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '20 %' },
+        }
+      )
+
+      // Viser riktig beskrivelse på spørsmålet om inntekt vsa. gradert uttak
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
+        )
+      ).toBeVisible()
+      // Viser riktig beskrivelse om inntektsgrense
+      expect(
+        screen.getByTestId('om_alderspensjon_inntektsgrense_UT')
+      ).toBeVisible()
     })
 
     it('Setter uttaksalder fast og viser riktig innhold når man velger beregning med AFP', async () => {
@@ -2589,6 +2625,25 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       ).not.toBeInTheDocument()
       expect(
         screen.queryByTestId('om_uttaksgrad_UT_gradert')
+      ).not.toBeInTheDocument()
+
+      // Velger gradert uttak
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '80 %' },
+        }
+      )
+      // Viser riktig beskrivelse på spørsmålet om inntekt vsa. gradert uttak
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description'
+        )
+      ).toBeVisible()
+
+      // Ikke vis readmore om inntektsgrense
+      expect(
+        screen.queryByTestId('om_alderspensjon_inntektsgrense_UT')
       ).not.toBeInTheDocument()
     })
 

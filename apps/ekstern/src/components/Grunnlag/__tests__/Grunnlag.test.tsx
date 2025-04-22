@@ -51,7 +51,6 @@ describe('Grunnlag', () => {
     renderGrunnlagMedPreloadedState('3', 'enkel')
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(1)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
-    expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
@@ -68,7 +67,6 @@ describe('Grunnlag', () => {
     renderGrunnlagMedPreloadedState('2', 'avansert')
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
-    expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
       screen.queryByText('grunnlag.uttaksgrad.title')
     ).not.toBeInTheDocument()

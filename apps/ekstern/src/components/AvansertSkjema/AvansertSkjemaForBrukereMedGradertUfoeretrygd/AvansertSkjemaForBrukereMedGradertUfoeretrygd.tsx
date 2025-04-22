@@ -622,8 +622,9 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                         description={
                           <FormattedMessage
                             id={
+                              localBeregningsTypeRadio !== 'med_afp' &&
                               localGradertUttak.uttaksalder.aar <
-                              normertPensjonsalder.aar
+                                normertPensjonsalder.aar
                                 ? 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
                                 : 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description'
                             }
@@ -684,10 +685,11 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                         </Radio>
                       </RadioGroup>
 
-                      {localGradertUttak.uttaksalder.aar <
-                      normertPensjonsalder.aar ? (
-                        <SanityReadmore id="om_alderspensjon_inntektsgrense_UT" />
-                      ) : null}
+                      {localBeregningsTypeRadio !== 'med_afp' &&
+                        localGradertUttak.uttaksalder.aar <
+                          normertPensjonsalder.aar && (
+                          <SanityReadmore id="om_alderspensjon_inntektsgrense_UT" />
+                        )}
                     </div>
 
                     {localHarInntektVsaGradertUttakRadio && (

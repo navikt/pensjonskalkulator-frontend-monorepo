@@ -1,11 +1,11 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
-import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { useContext, useEffect, useMemo } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { ArrowLeftIcon } from '@navikt/aksel-icons'
-import { Heading, Link } from '@navikt/ds-react'
+import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
@@ -34,20 +34,24 @@ import {
   selectEpsHarPensjon,
   selectIsEndring,
   selectLoependeVedtak,
+  selectNormertPensjonsalder,
   selectSamtykkeOffentligAFP,
   selectSivilstand,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
+import { formatUttaksalder } from '@/utils/alder'
 import { logger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './BeregningAvansert.module.scss'
 
-export const BeregningAvansert: React.FC = () => {
+export const BeregningAvansert = () => {
+  const intl = useIntl()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
-    React.useContext(BeregningContext)
+    useContext(BeregningContext)
 
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
@@ -62,6 +66,7 @@ export const BeregningAvansert: React.FC = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
 
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
   const {
     uttaksalder,
@@ -70,12 +75,12 @@ export const BeregningAvansert: React.FC = () => {
     beregningsvalg,
   } = useAppSelector(selectCurrentSimulation)
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   const alderspensjonRequestBody: AlderspensjonRequestBody | undefined =
-    React.useMemo(() => {
+    useMemo(() => {
       if (uttaksalder) {
         return generateAlderspensjonRequestBody({
           loependeVedtak,
@@ -116,7 +121,7 @@ export const BeregningAvansert: React.FC = () => {
     { skip: !alderspensjonRequestBody }
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
         logger('alert vist', {
@@ -132,7 +137,7 @@ export const BeregningAvansert: React.FC = () => {
     }
   }, [uttaksalder, isError, alderspensjon])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       error &&
       ((error as FetchBaseQueryError).status === 503 ||
@@ -147,7 +152,7 @@ export const BeregningAvansert: React.FC = () => {
   }, [error])
 
   // Skal redigerer tilbake når alderspensjon er refetchet ferdig, og
-  React.useEffect(() => {
+  useEffect(() => {
     if (alderspensjon && !alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
@@ -169,12 +174,18 @@ export const BeregningAvansert: React.FC = () => {
     }
   }
 
-  if (avansertSkjemaModus === 'redigering')
+  if (avansertSkjemaModus === 'redigering') {
     return (
       <RedigerAvansertBeregning
         vilkaarsproeving={alderspensjon?.vilkaarsproeving}
       />
     )
+  }
+
+  const harHelUT = loependeVedtak?.ufoeretrygd.grad === 100
+  const harGradertUT =
+    loependeVedtak?.ufoeretrygd.grad > 0 &&
+    loependeVedtak?.ufoeretrygd.grad < 100
 
   return (
     <>
@@ -189,7 +200,7 @@ export const BeregningAvansert: React.FC = () => {
       >
         {isError ? (
           <>
-            <Heading level="2" size="small">
+            <Heading level="2" size="medium">
               <FormattedMessage id="beregning.title" />
             </Heading>
 
@@ -226,9 +237,65 @@ export const BeregningAvansert: React.FC = () => {
               />
             </Link>
 
+            <div
+              className={clsx(styles.intro, {
+                [styles.intro__endring]: isEndring,
+              })}
+            >
+              <Heading level="2" size="medium" className={styles.introTitle}>
+                <FormattedMessage
+                  id={
+                    isEndring
+                      ? 'beregning.intro.title.endring'
+                      : 'beregning.intro.title'
+                  }
+                />
+              </Heading>
+
+              <VStack gap="2">
+                <BodyLong>
+                  <FormattedMessage
+                    id={
+                      isEndring
+                        ? 'beregning.intro.description_1.endring'
+                        : 'beregning.intro.description_1'
+                    }
+                  />
+                </BodyLong>
+
+                {harGradertUT &&
+                  (beregningsvalg === 'med_afp' ? (
+                    <BodyLong>
+                      <FormattedMessage id="beregning.intro.description_2.gradert_UT.med_afp" />
+                    </BodyLong>
+                  ) : (
+                    <BodyLong>
+                      <FormattedMessage
+                        id="beregning.intro.description_2.gradert_UT.uten_afp"
+                        values={{
+                          ...getFormatMessageValues(),
+                          grad: loependeVedtak.ufoeretrygd.grad,
+                          normertPensjonsalder: formatUttaksalder(
+                            intl,
+                            normertPensjonsalder
+                          ),
+                        }}
+                      />
+                    </BodyLong>
+                  ))}
+
+                {harHelUT && (
+                  <BodyLong>
+                    <FormattedMessage id="beregning.intro.description_2.hel_UT" />
+                  </BodyLong>
+                )}
+              </VStack>
+            </div>
+
             <Simulering
+              visning="avansert"
               isLoading={isFetching}
-              headingLevel="2"
+              headingLevel="3"
               aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? '0'}
               alderspensjonListe={alderspensjon?.alderspensjon}
               afpPrivatListe={
@@ -270,6 +337,7 @@ export const BeregningAvansert: React.FC = () => {
               <SanityGuidePanel
                 id="vurderer_du_a_velge_afp"
                 className={styles.guidePanel}
+                hasSection
               />
             )}
 

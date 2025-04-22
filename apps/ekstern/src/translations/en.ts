@@ -277,8 +277,6 @@ export default {
     'retirement pension cannot be combined with a survivor´s pension or adjustment benefits. If you wish to withdraw retirement pension before 67, you must forfeit the survivor´s pension or adjustment benefit when you withdraw your retirement pension. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'In Advanced, you can choose a more accurate pension age.',
-  'beregning.alt_tekst':
-    'Annual income and pension after withdrawal in kroner.',
   'omufoeretrygd.hel.ingress':
     'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
@@ -288,6 +286,13 @@ export default {
   'velguttaksalder.title': 'When do you want to withdraw retirement pension?',
   'velguttaksalder.endring.title':
     'When do you want to change your retirement pension?',
+  'beregning.intro.title': 'MANGLER_TEKST',
+  'beregning.intro.title.endring': 'MANGLER_TEKST',
+  'beregning.intro.description_1': 'MANGLER_TEKST',
+  'beregning.intro.description_1.endring': 'MANGLER_TEKST',
+  'beregning.intro.description_2.gradert_UT.med_afp': 'MANGLER_TEKST',
+  'beregning.intro.description_2.gradert_UT.uten_afp': 'MANGLER_TEKST',
+  'beregning.intro.description_2.hel_UT': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.om_valget_link': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.beregningsvalg.label': 'MANGLER_TEKST',
@@ -323,11 +328,14 @@ export default {
     'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'You have pension agreements that start before the age you selected. See periods under <scrollTo>Pension Agreements</scrollTo>.',
-  'beregning.title': 'Calculation',
+  'beregning.title': 'MANGLER_TEKST',
   'beregning.alert.inntekt':
     'Because you have changed your income, your pension accrual changes.',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
+  'beregning.highcharts.ingress': 'MANGLER_TEKST',
+  'beregning.highcharts.alt_tekst':
+    'Annual income and pension after withdrawal in kroner.',
   'beregning.highcharts.xaxis': 'Annual Income and Pension after Withdrawal',
   'beregning.highcharts.yaxis': 'Currency',
   'beregning.highcharts.yaxis.mobile': 'Thousand currency',
@@ -446,8 +454,6 @@ export default {
     'You currently have <strong><nowrap>{grad} %</nowrap> retirement pension</strong>. ',
   'beregning.endring.rediger.vedtak_betaling_status':
     'In {maaned}, this was <strong><nowrap>{beloep} kr</nowrap></strong> before tax.',
-  'grunnlag.ingress':
-    'The amounts are shown in today’s currency value before tax.',
   'grunnlag.uttaksgrad.title': 'Withdrawal Degree',
   'grunnlag.uttaksgrad.avansert_link': 'Go to advanced calculator',
   'grunnlag.uttaksgrad.ingress':

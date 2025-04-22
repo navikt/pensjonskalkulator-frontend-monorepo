@@ -12,6 +12,19 @@
   }
 }
 
+.intro {
+  margin-bottom: var(--a-spacing-10);
+  max-width: variables.$container-max-width;
+
+  &__endring {
+    margin-bottom: var(--a-spacing-3);
+  }
+
+  &Title {
+    margin-bottom: var(--a-spacing-1);
+  }
+}
+
 .background {
   display: inline-block;
   width: 100%;
@@ -29,5 +42,5 @@
 }
 
 .guidePanel {
-  margin-bottom: calc(var(--a-spacing-8) + var(--a-spacing-10));
+  margin-bottom: var(--a-spacing-8);
 }

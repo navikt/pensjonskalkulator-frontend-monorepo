@@ -53,6 +53,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
         <Heading size="xsmall" level="2">
           <FormattedMessage id="velguttaksalder.title" />
         </Heading>
+
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >

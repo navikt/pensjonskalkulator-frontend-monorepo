@@ -1,0 +1,10 @@
+@use '../../../scss/variables';
+
+.section {
+  display: flex;
+  margin-bottom: var(--a-spacing-10);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+}

@@ -21,13 +21,17 @@ export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
   const intl = useIntl()
 
   const formatertMaaned = React.useMemo(() => {
-    if (
-      !loependeVedtak ||
-      !loependeVedtak.alderspensjon ||
-      !loependeVedtak.alderspensjon.sisteUtbetaling
-    ) {
+    if (!loependeVedtak?.alderspensjon?.sisteUtbetaling) {
       return ''
     }
+
+    let locale = nb
+    if ((intl.locale as Locales) === 'en') {
+      locale = enGB
+    } else if ((intl.locale as Locales) === 'nn') {
+      locale = nn
+    }
+
     return format(
       parse(
         loependeVedtak.alderspensjon.sisteUtbetaling.utbetalingsdato,
@@ -35,18 +39,11 @@ export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
         new Date()
       ),
       'LLLL',
-      {
-        locale:
-          (intl.locale as Locales) === 'en'
-            ? enGB
-            : (intl.locale as Locales) === 'nn'
-              ? nn
-              : nb,
-      }
+      { locale }
     )
   }, [loependeVedtak])
 
-  if (!loependeVedtak || !loependeVedtak?.alderspensjon) {
+  if (!loependeVedtak?.alderspensjon) {
     return null
   }
 
@@ -74,6 +71,7 @@ export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
             />
           )}
       </BodyLong>
+
       <Divider smallMargin />
     </div>
   )

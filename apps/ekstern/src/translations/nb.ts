@@ -311,7 +311,6 @@ const translations = {
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
-  'beregning.alt_tekst': 'Årlig inntekt og pensjon etter uttak i kroner.',
   'omufoeretrygd.hel.ingress':
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress':
@@ -321,6 +320,17 @@ const translations = {
   'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',
+  'beregning.intro.title': 'Estimert pensjon',
+  'beregning.intro.title.endring': 'Beregning',
+  'beregning.intro.description_1': 'Alle beløp vises i dagens verdi før skatt.',
+  'beregning.intro.description_1.endring':
+    'Estimerte beløp i dagens verdi før skatt',
+  'beregning.intro.description_2.gradert_UT.med_afp':
+    'Hvis du velger AFP, får du ikke uføretrygd etter at du blir 62 år. Uføretrygd vises ikke i beregningen.',
+  'beregning.intro.description_2.gradert_UT.uten_afp':
+    'Du har {grad} % uføretrygd. Den kommer i tillegg til inntekt og pensjon frem til du blir {normertPensjonsalder}. Uføretrygd vises ikke i beregningen.',
+  'beregning.intro.description_2.hel_UT':
+    'Du har 100 % uføretrygd. Uføretrygd vises ikke i beregningen.',
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Avansert',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
@@ -346,11 +356,14 @@ const translations = {
     'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
-  'beregning.title': 'Beregning',
+  'beregning.title': 'Årlig inntekt og pensjon',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.highcharts.informasjon_klikk': 'Klikk på søylene for detaljer',
-  'beregning.highcharts.title': 'Beregning',
+  'beregning.highcharts.title': 'Årlig inntekt og pensjon',
+  'beregning.highcharts.ingress': 'Estimerte beløp i dagens verdi før skatt',
+  'beregning.highcharts.alt_tekst':
+    'Årlig inntekt og pensjon etter uttak i kroner.',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
@@ -485,7 +498,6 @@ const translations = {
     'Du har i dag <strong><nowrap>{grad} %</nowrap> alderspensjon</strong>. ',
   'beregning.endring.rediger.vedtak_betaling_status':
     'I {maaned} var dette <strong><nowrap>{beloep} kr</nowrap></strong> før skatt.',
-  'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
   'grunnlag.uttaksgrad.ingress':

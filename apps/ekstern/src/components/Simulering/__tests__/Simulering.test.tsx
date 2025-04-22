@@ -91,7 +91,7 @@ describe('Simulering', () => {
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
-    it('viser banner om info for endret alderspensjon', () => {
+    it('viser banner om info for endret alderspensjon, og viser ikke tittel.', () => {
       render(
         <Simulering
           isLoading={false}
@@ -120,6 +120,9 @@ describe('Simulering', () => {
           },
         }
       )
+      expect(
+        screen.queryByText('beregning.highcharts.title')
+      ).not.toBeInTheDocument()
       expect(
         screen.getByText('beregning.avansert.endring_banner.title', {
           exact: false,
@@ -1120,6 +1123,39 @@ describe('Simulering', () => {
     )
     await waitFor(() => {
       expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
+    })
+  })
+
+  describe('Gitt at simuleringen er i enkel visning', () => {
+    it('viser tittel og riktig ingress', async () => {
+      render(
+        <Simulering
+          visning="enkel"
+          isLoading={false}
+          headingLevel="3"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpPrivatListe={afpPrivatData.afpPrivat}
+          showButtonsAndTable={true}
+          aarligInntektFoerUttakBeloep="500 000"
+        />,
+        {
+          preloadedState: {
+            api: {
+              /* @ts-ignore */
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(screen.getByText('beregning.highcharts.title')).toBeVisible()
+      expect(screen.getByText('beregning.highcharts.ingress')).toBeVisible()
     })
   })
 })
