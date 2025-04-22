@@ -37,9 +37,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const navigate = useNavigate()
   const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
-  const { formatertUttaksalderReadOnly } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const isEndring = useAppSelector(selectIsEndring)
 
   const oppholdUtenforNorge = React.useMemo(():
@@ -68,7 +66,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
         data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
       })
     }
-  }, [formatertUttaksalderReadOnly])
+  }, [uttaksalder?.aar, uttaksalder?.maaneder])
 
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (
     e

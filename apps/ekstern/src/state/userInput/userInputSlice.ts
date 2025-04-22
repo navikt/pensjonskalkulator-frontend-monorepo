@@ -3,7 +3,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { formatInntekt } from '@/utils/inntekt'
 
 export interface Simulation {
-  formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
   uttaksalder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
   aarligInntektFoerUttakBeloep: string | null // inntekt før uttak av pensjon - formatert string i nok - overskriver beløp fra Skatteetaten
   aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
@@ -40,7 +39,6 @@ export const userInputInitialState: UserInputState = {
   epsHarPensjon: null,
   currentSimulation: {
     beregningsvalg: null,
-    formatertUttaksalderReadOnly: null,
     uttaksalder: null,
     aarligInntektFoerUttakBeloep: null,
     gradertUttaksperiode: null,
@@ -154,15 +152,6 @@ export const userInputSlice = createSlice({
               : undefined,
           }
         : null
-    },
-    syncCurrentSimulationFormatertUttaksalderReadOnly: (
-      state,
-      action: PayloadAction<string | null>
-    ) => {
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        formatertUttaksalderReadOnly: action.payload,
-      }
     },
     flush: (state) => {
       state.harUtenlandsopphold = null

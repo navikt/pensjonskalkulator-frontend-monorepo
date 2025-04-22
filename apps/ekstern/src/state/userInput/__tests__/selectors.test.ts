@@ -19,7 +19,6 @@ import {
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
   selectFoedselsdato,
-  selectFormatertUttaksalderReadOnly,
   selectHarUtenlandsopphold,
   selectIsEndring,
   selectIsVeileder,
@@ -38,7 +37,6 @@ describe('userInput selectors', () => {
 
   const currentSimulation: Simulation = {
     beregningsvalg: null,
-    formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     uttaksalder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
@@ -336,21 +334,6 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectUtenlandsperioder(state)).toStrictEqual([utenlandsperiode])
-  })
-
-  it('selectFormatertUttaksalder', () => {
-    const state: RootState = {
-      ...initialState,
-      userInput: {
-        ...initialState.userInput,
-        currentSimulation: {
-          ...currentSimulation,
-        },
-      },
-    }
-    expect(selectFormatertUttaksalderReadOnly(state)).toBe(
-      '62 alder.aar string.og 5 alder.maaneder'
-    )
   })
 
   it('selectCurrentSimulation', () => {

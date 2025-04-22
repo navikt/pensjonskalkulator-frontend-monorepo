@@ -1,14 +1,10 @@
 import {
-  ListenerEffectAPI,
-  TypedAddListener,
-  TypedStartListening,
   combineReducers,
   configureStore,
   createListenerMiddleware,
 } from '@reduxjs/toolkit'
 
 import { apiSlice } from './api/apiSlice'
-import { createUttaksalderListener } from './listeners/uttaksalderListener'
 import userInputReducer, {
   userInputInitialState,
 } from './userInput/userInputSlice'
@@ -40,14 +36,6 @@ export function setupStore(preloadedState?: Partial<RootState>, isDev = false) {
 
 export const store = setupStore()
 
-createUttaksalderListener(
-  listenerMiddleware.startListening as AppStartListening
-)
-
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
-
-export type AppListenerEffectAPI = ListenerEffectAPI<RootState, AppDispatch>
-export type AppStartListening = TypedStartListening<RootState, AppDispatch>
-export type AppAddListener = TypedAddListener<RootState, AppDispatch>

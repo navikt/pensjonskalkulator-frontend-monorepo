@@ -1,5 +1,4 @@
 /* eslint-disable import/export */
-import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { RenderOptions, render } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
@@ -18,13 +17,7 @@ import test_translations from '@/utils/__tests__/test-translations'
 import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
 import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
-import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
-import {
-  AppStartListening,
-  AppStore,
-  RootState,
-  setupStore,
-} from './state/store'
+import { AppStore, RootState, setupStore } from './state/store'
 import translations_nb from './translations/nb'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
@@ -124,11 +117,6 @@ export function renderWithProviders(
       </Provider>
     )
   }
-
-  const listenerMiddleware = createListenerMiddleware()
-  createUttaksalderListener(
-    listenerMiddleware.startListening as AppStartListening
-  )
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }

@@ -17,7 +17,6 @@ import { ResultatkortAvansertBeregning } from '../ResultatkortAvansertBeregning'
 describe('ResultatkortAvansertBeregning', () => {
   const currentSimulation: Simulation = {
     beregningsvalg: null,
-    formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttakBeloep: null,
     gradertUttaksperiode: null,

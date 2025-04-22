@@ -40,9 +40,7 @@ export function UtenlandsoppholdListe({
   const avbrytModalRef = useRef<HTMLDialogElement>(null)
   const utenlandsoppholdModalRef = useRef<HTMLDialogElement>(null)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
-  const { formatertUttaksalderReadOnly } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const dispatch = useAppDispatch()
   const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
     useState<string>('')
@@ -93,7 +91,7 @@ export function UtenlandsoppholdListe({
         })
       })
     }
-  }, [formatertUttaksalderReadOnly, utenlandsperioder])
+  }, [uttaksalder?.aar, uttaksalder?.maaneder, utenlandsperioder])
 
   return (
     <section className={styles.section}>

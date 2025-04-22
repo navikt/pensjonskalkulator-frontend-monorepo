@@ -56,7 +56,6 @@ describe('SavnerDuNoe', () => {
               ...userInputInitialState,
               currentSimulation: {
                 beregningsvalg: null,
-                formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
                 uttaksalder: { aar: 67, maaneder: 1 },
                 aarligInntektFoerUttakBeloep: '0',
                 gradertUttaksperiode: null,
@@ -71,7 +70,6 @@ describe('SavnerDuNoe', () => {
       expect(store.getState().userInput.currentSimulation).toStrictEqual({
         aarligInntektFoerUttakBeloep: null,
         beregningsvalg: null,
-        formatertUttaksalderReadOnly: null,
         gradertUttaksperiode: null,
         uttaksalder: null,
       })

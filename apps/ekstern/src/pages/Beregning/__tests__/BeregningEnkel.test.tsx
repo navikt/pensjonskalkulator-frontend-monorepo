@@ -353,7 +353,6 @@ describe('BeregningEnkel', () => {
             afp: 'ja_offentlig',
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
@@ -446,7 +445,6 @@ describe('BeregningEnkel', () => {
             afp: 'ja_offentlig',
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
@@ -539,7 +537,6 @@ describe('BeregningEnkel', () => {
             afp: 'ja_privat',
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
@@ -632,7 +629,6 @@ describe('BeregningEnkel', () => {
             afp: 'ja_privat',
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
@@ -818,7 +814,6 @@ describe('BeregningEnkel', () => {
             samtykke: true,
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,
@@ -981,7 +976,6 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             currentSimulation: {
               beregningsvalg: null,
-              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '100 000',
               gradertUttaksperiode: null,

@@ -104,11 +104,6 @@ export const selectAarligInntektFoerUttakBeloep = (
   return aarligInntektFoerUttakBeloepFraBrukerInput
 }
 
-export const selectFormatertUttaksalderReadOnly = (
-  state: RootState
-): string | null =>
-  state.userInput.currentSimulation.formatertUttaksalderReadOnly
-
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation
 
