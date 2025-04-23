@@ -155,7 +155,6 @@ export const AgePicker = ({
           }}
           aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
           aria-invalid={hasError.aar}
-          aria-required
         >
           <option disabled value="">
             {' '}
@@ -194,7 +193,6 @@ export const AgePicker = ({
           disabled={!valgtAlder.aar}
           aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
           aria-invalid={hasError.maaneder}
-          aria-required
         >
           <option disabled value="">
             {' '}

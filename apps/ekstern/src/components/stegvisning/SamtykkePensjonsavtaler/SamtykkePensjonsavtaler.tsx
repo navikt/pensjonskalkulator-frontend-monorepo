@@ -98,8 +98,6 @@ export function SamtykkePensjonsavtaler({
           }
           onChange={handleRadioChange}
           error={validationError}
-          role="radiogroup"
-          aria-required="true"
         >
           <Radio value="ja">
             <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_ja" />

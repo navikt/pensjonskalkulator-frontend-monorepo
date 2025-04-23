@@ -167,8 +167,6 @@ export function AFPOvergangskullUtenAP({
               })
             }
             error={validationError.skalBeregneAfpError}
-            role="radiogroup"
-            aria-required="true"
           >
             <Radio value="ja">
               <FormattedMessage id="stegvisning.afp.overgangskullUtenAP.radio_ja" />

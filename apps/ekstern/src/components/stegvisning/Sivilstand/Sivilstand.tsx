@@ -253,8 +253,6 @@ export function Sivilstand({
               value={epsHarPensjonInput}
               onChange={setEpsHarPensjonInput}
               error={validationError.epsHarPensjon}
-              role="radiogroup"
-              aria-required="true"
             >
               <Radio value="ja">
                 <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
@@ -284,8 +282,6 @@ export function Sivilstand({
               onChange={(value) => setEpsHarInntektOver2GInput(value)}
               name="epsHarInntektOver2G"
               error={validationError.epsHarInntektOver2G}
-              role="radiogroup"
-              aria-required="true"
             >
               <Radio value="ja">
                 <FormattedMessage id="stegvisning.sivilstand.radio_ja" />

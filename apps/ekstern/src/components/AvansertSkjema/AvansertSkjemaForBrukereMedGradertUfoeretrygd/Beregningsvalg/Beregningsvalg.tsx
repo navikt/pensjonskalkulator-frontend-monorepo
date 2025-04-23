@@ -29,8 +29,6 @@ export const Beregningsvalg = ({
         legend={intl.formatMessage({
           id: 'beregning.avansert.rediger.radio.beregningsvalg.label',
         })}
-        role="radiogroup"
-        aria-required="true"
         name={AVANSERT_FORM_NAMES.beregningsTypeRadio}
         data-testid={AVANSERT_FORM_NAMES.beregningsTypeRadio}
         value={localBeregningsTypeRadio}

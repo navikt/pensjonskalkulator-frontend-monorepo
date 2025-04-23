@@ -83,17 +83,15 @@ describe('stegvisning - Sivilstand', () => {
             onNext={onNextMock}
           />
         )
-        const epsHarPensjonRadioGroup = screen.queryByRole('radiogroup', {
-          name: /Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
+        const epsHarPensjonRadioGroup = screen.queryByRole('group', {
+          name: 'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
         })
-        const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /epsHarInntektOver2G/i,
+        const epsHarInntektOver2GRadioGroup = screen.queryByRole('group', {
+          name: 'epsHarInntektOver2G',
         })
 
-        await waitFor(() => {
-          expect(epsHarPensjonRadioGroup).toBeVisible()
-          expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
-        })
+        expect(epsHarPensjonRadioGroup).toBeVisible()
+        expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
       })
       describe('når sivilstanden din er gift, ', async () => {
         it('skal teksten for epsHarPensjon endres til "ektefellen din"', async () => {
@@ -109,13 +107,11 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          await waitFor(() => {
-            expect(
-              screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
-              })
-            ).toBeInTheDocument()
-          })
+          expect(
+            screen.queryByRole('group', {
+              name: 'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+            })
+          ).toBeVisible()
         })
       })
       describe('når sivilstanden din er samboer, ', async () => {
@@ -132,13 +128,11 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          await waitFor(() => {
-            expect(
-              screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.samboeren motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
-              })
-            ).toBeInTheDocument()
-          })
+          expect(
+            screen.queryByRole('group', {
+              name: 'Vil stegvisning.sivilstand.samboeren motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+            })
+          ).toBeVisible()
         })
       })
       describe('når sivilstanden din er registrert partner, ', async () => {
@@ -155,13 +149,11 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          await waitFor(() => {
-            expect(
-              screen.queryByRole('radiogroup', {
-                name: /Vil stegvisning.sivilstand.partneren motta pensjon eller uføretrygd fra folketrygden, eller AFP?/i,
-              })
-            ).toBeInTheDocument()
-          })
+          expect(
+            screen.queryByRole('group', {
+              name: 'Vil stegvisning.sivilstand.partneren motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
+            })
+          ).toBeVisible()
         })
       })
     })
@@ -185,14 +177,12 @@ describe('stegvisning - Sivilstand', () => {
         const radioButtonJa = radioButtons[0]
         fireEvent.click(radioButtonJa)
 
-        const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /epsHarInntektOver2G/i,
+        const epsHarInntektOver2GRadioGroup = screen.queryByRole('group', {
+          name: 'epsHarInntektOver2G',
         })
 
-        await waitFor(() => {
-          expect(radioButtonJa).toBeChecked()
-          expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
-        })
+        expect(radioButtonJa).toBeChecked()
+        expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
       })
       it('validerer epsHarPensjon, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
         const user = userEvent.setup()
@@ -255,14 +245,12 @@ describe('stegvisning - Sivilstand', () => {
         )
         fireEvent.click(epsHarPensjonRadioButtonNei)
 
-        const epsHarInntektOver2GRadioGroup = screen.queryByRole('radiogroup', {
-          name: /Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G?/i,
+        const epsHarInntektOver2GRadioGroup = screen.queryByRole('group', {
+          name: 'Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G?',
         })
 
-        await waitFor(() => {
-          expect(epsHarPensjonRadioButtonNei).toBeChecked()
-          expect(epsHarInntektOver2GRadioGroup).toBeVisible()
-        })
+        expect(epsHarPensjonRadioButtonNei).toBeChecked()
+        expect(epsHarInntektOver2GRadioGroup).toBeVisible()
       })
     })
   })

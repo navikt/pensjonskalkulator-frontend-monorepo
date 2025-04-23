@@ -91,8 +91,6 @@ export function SamtykkeOffentligAFP({
           }
           onChange={handleRadioChange}
           error={validationError}
-          role="radiogroup"
-          aria-required="true"
         >
           <Radio value="ja">
             <FormattedMessage id="stegvisning.samtykke_offentlig_afp.radio_ja" />

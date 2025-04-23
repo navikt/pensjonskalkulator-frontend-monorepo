@@ -458,7 +458,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                     )
                   : ''
               }
-              aria-required="true"
             >
               <option disabled value="">
                 {' '}
@@ -537,8 +536,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                           )
                         : ''
                     }
-                    role="radiogroup"
-                    aria-required="true"
                   >
                     <Radio
                       form={AVANSERT_FORM_NAMES.form}
@@ -609,7 +606,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                     }
                     onChange={handleInntektVsaGradertUttakChange}
                     value={localGradertUttak.aarligInntektVsaPensjonBeloep}
-                    aria-required="true"
                   />
                 )}
 
@@ -667,8 +663,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                       )
                     : ''
                 }
-                role="radiogroup"
-                aria-required="true"
               >
                 <Radio
                   form={AVANSERT_FORM_NAMES.form}
@@ -728,7 +722,6 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                   }
                   onChange={handleInntektVsaHeltUttakChange}
                   value={localHeltUttak.aarligInntektVsaPensjon?.beloep}
-                  aria-required="true"
                 />
 
                 <AgePicker

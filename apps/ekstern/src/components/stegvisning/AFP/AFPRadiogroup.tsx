@@ -26,8 +26,6 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
     defaultValue={afp}
     onChange={handleRadioChange}
     error={validationError}
-    role="radiogroup"
-    aria-required="true"
   >
     <Radio value="ja_offentlig">
       <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />

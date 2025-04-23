@@ -576,7 +576,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                         )
                       : ''
                   }
-                  aria-required="true"
                 >
                   <option disabled value="">
                     {' '}
@@ -660,8 +659,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                               )
                             : ''
                         }
-                        role="radiogroup"
-                        aria-required="true"
                       >
                         <Radio
                           form={AVANSERT_FORM_NAMES.form}
@@ -732,7 +729,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                         }
                         onChange={handleInntektVsaGradertUttakChange}
                         value={localGradertUttak.aarligInntektVsaPensjonBeloep}
-                        aria-required="true"
                       />
                     )}
 
@@ -796,8 +792,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                           )
                         : ''
                     }
-                    role="radiogroup"
-                    aria-required="true"
                   >
                     <Radio
                       form={AVANSERT_FORM_NAMES.form}
@@ -859,7 +853,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       }
                       onChange={handleInntektVsaHeltUttakChange}
                       value={localHeltUttak.aarligInntektVsaPensjon?.beloep}
-                      aria-required="true"
                     />
 
                     <AgePicker

@@ -79,8 +79,6 @@ export function AFPPrivat({
           defaultValue={previousAfp}
           onChange={() => setValidationError('')}
           error={validationError}
-          role="radiogroup"
-          aria-required="true"
         >
           <Radio value="ja_privat">
             <FormattedMessage id="stegvisning.radio_ja" />

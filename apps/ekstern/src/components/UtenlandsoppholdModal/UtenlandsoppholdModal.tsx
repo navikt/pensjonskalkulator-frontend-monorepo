@@ -144,7 +144,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     )
                   : ''
               }
-              aria-required="true"
             >
               <option disabled value="">
                 {' '}
@@ -220,8 +219,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                           )
                         : ''
                     }
-                    role="radiogroup"
-                    aria-required="true"
                   >
                     <Radio
                       value="ja"

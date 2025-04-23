@@ -110,8 +110,6 @@ export function Utenlandsopphold({
         }
         onChange={handleRadioChange}
         error={validationErrors.top}
-        role="radiogroup"
-        aria-required="true"
       >
         <Radio form="har-utenlandsopphold" value="ja">
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
