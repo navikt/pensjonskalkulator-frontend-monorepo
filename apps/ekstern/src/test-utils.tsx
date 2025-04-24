@@ -83,6 +83,7 @@ export function renderWithProviders(
         loader: authenticationGuard,
         path: '/',
         element: children,
+        hydrateFallbackElement: <div />, // For å unngå error "No `HydrateFallback` element provided to render during initial hydration"
       },
     ])
 

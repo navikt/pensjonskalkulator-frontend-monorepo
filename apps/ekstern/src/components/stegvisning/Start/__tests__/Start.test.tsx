@@ -21,21 +21,6 @@ describe('stegvisning - Start', () => {
     ufoeretrygd: { grad: 0 },
   }
 
-  it('kaller navigate når shouldRedirectTo er angitt', async () => {
-    const randomPath = '/random-path'
-
-    render(
-      <Start
-        shouldRedirectTo={randomPath}
-        navn=""
-        loependeVedtak={loependeVedtak}
-        onCancel={onCancelMock}
-        onNext={onNextMock}
-      />
-    )
-    expect(navigateMock).toHaveBeenCalledWith(randomPath)
-  })
-
   it('rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper', async () => {
     render(
       <Start

@@ -4,8 +4,6 @@ import { describe, it, vi } from 'vitest'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
-  rejectedGetLoependeVedtak,
-  rejectedGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
@@ -35,7 +33,7 @@ describe('StepStart', () => {
     store.getState = initialGetState
   })
 
-  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
+  it('har riktig sidetittel', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -45,9 +43,6 @@ describe('StepStart', () => {
     })
     await waitFor(async () => {
       expect(document.title).toBe('application.title.stegvisning.start')
-    })
-    await waitFor(async () => {
-      expect(screen.getByTestId('start-loader')).toBeVisible()
     })
   })
 
@@ -76,17 +71,10 @@ describe('StepStart', () => {
     it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
       mockErrorResponse('/v4/person')
       const mockedState = {
-        api: {
-          queries: {
-            ...rejectedGetPerson,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
+        api: { queries: { mock: 'mock' } },
         userInput: { ...userInputInitialState, samtykke: null },
       }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
+      store.getState = vi.fn().mockImplementation(() => mockedState)
 
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
@@ -100,10 +88,10 @@ describe('StepStart', () => {
         hasRouter: false,
       })
 
-      await waitFor(async () => {
-        expect(await screen.findByText('pageframework.title')).toBeVisible()
-        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
-      })
+      expect(await screen.findByText('pageframework.title')).toBeVisible()
+      expect(
+        router.state.location.pathname.endsWith(paths.uventetFeil)
+      ).toBeTruthy()
     })
   })
 
@@ -142,17 +130,10 @@ describe('StepStart', () => {
     it('rendrer ikke siden når henting av loepende vedtak feiler og redirigerer til /uventet-feil', async () => {
       mockErrorResponse('/v4/vedtak/loepende-vedtak')
       const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-            ...rejectedGetLoependeVedtak,
-          },
-        },
+        api: { queries: { mock: 'mock' } },
         userInput: { ...userInputInitialState, samtykke: null },
       }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
+      store.getState = vi.fn().mockImplementation(() => mockedState)
 
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
@@ -166,10 +147,10 @@ describe('StepStart', () => {
         hasRouter: false,
       })
 
-      await waitFor(async () => {
-        expect(await screen.findByText('pageframework.title')).toBeVisible()
-        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
-      })
+      expect(await screen.findByText('pageframework.title')).toBeVisible()
+      expect(
+        router.state.location.pathname.endsWith(paths.uventetFeil)
+      ).toBeTruthy()
     })
   })
 

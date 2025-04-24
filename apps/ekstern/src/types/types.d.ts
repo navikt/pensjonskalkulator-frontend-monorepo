@@ -31,11 +31,6 @@ declare global {
   type Ansatt = components['schemas']['AnsattV1']
 
   // /person
-  export type GetPersonQuery = TypedUseQueryStateResult<
-    Person,
-    void,
-    BaseQueryFn<Record<string, unknown>, Person>
-  >
   type Person = components['schemas']['PersonResultV4']
   type Sivilstand =
     components['schemas']['AlderspensjonDetaljerV4']['sivilstand']
@@ -63,11 +58,6 @@ declare global {
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
   // /v4/vedtak/loepende-vedtak
-  export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
-    LoependeVedtak,
-    void,
-    BaseQueryFn<Record<string, unknown>, LoependeVedtak>
-  >
   type LoependeVedtak = components['schemas']['LoependeVedtakV4']
 
   // /tidligste-uttaksalder

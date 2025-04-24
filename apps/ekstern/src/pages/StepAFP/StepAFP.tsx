@@ -1,8 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { Await, useLoaderData } from 'react-router'
+import { useLoaderData } from 'react-router'
 
-import { Loader } from '@/components/common/Loader'
 import {
   AFP,
   AFPOvergangskullUtenAP,
@@ -10,7 +9,7 @@ import {
 } from '@/components/stegvisning/AFP'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { StepAFPAccessGuardLoader } from '@/router/loaders'
+import { stepAFPAccessGuard } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -24,8 +23,7 @@ import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 export function StepAFP() {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const stepAFPAccessGuard =
-    useLoaderData() as Promise<StepAFPAccessGuardLoader>
+  const { person, loependeVedtak } = useLoaderData<typeof stepAFPAccessGuard>()
   const previousAfp = useAppSelector(selectAfp)
   const previousSkalBeregneAfp = useAppSelector(selectSkalBeregneAfp)
   const isVeileder = useAppSelector(selectIsVeileder)
@@ -50,59 +48,42 @@ export function StepAFP() {
     }
   }
 
+  if (
+    isFoedtFoer1963(person.foedselsdato) &&
+    (isAlderOver67(person.foedselsdato) ||
+      isLoependeVedtakEndring(loependeVedtak))
+  ) {
+    return (
+      <AFPPrivat
+        previousAfp={previousAfp}
+        onCancel={isVeileder ? undefined : onStegvisningCancel}
+        onPrevious={onStegvisningPrevious}
+        onNext={onNext}
+      />
+    )
+  }
+
+  if (
+    isOvergangskull(person.foedselsdato) &&
+    !isLoependeVedtakEndring(loependeVedtak)
+  ) {
+    return (
+      <AFPOvergangskullUtenAP
+        previousAfp={previousAfp}
+        previousSkalBeregneAfp={previousSkalBeregneAfp}
+        onCancel={isVeileder ? undefined : onStegvisningCancel}
+        onPrevious={onStegvisningPrevious}
+        onNext={onNext}
+      />
+    )
+  }
+
   return (
-    <React.Suspense
-      fallback={
-        <div style={{ width: '100%' }}>
-          <Loader
-            data-testid="afp-loader"
-            size="3xlarge"
-            title={intl.formatMessage({ id: 'pageframework.loading' })}
-            isCentered
-          />
-        </div>
-      }
-    >
-      <Await resolve={stepAFPAccessGuard}>
-        {({ person, loependeVedtak }) => {
-          if (
-            isFoedtFoer1963(person.foedselsdato) &&
-            (isAlderOver67(person.foedselsdato) ||
-              isLoependeVedtakEndring(loependeVedtak))
-          ) {
-            return (
-              <AFPPrivat
-                previousAfp={previousAfp}
-                onCancel={isVeileder ? undefined : onStegvisningCancel}
-                onPrevious={onStegvisningPrevious}
-                onNext={onNext}
-              />
-            )
-          } else if (
-            isOvergangskull(person.foedselsdato) &&
-            !isLoependeVedtakEndring(loependeVedtak)
-          ) {
-            return (
-              <AFPOvergangskullUtenAP
-                previousAfp={previousAfp}
-                previousSkalBeregneAfp={previousSkalBeregneAfp}
-                onCancel={isVeileder ? undefined : onStegvisningCancel}
-                onPrevious={onStegvisningPrevious}
-                onNext={onNext}
-              />
-            )
-          } else {
-            return (
-              <AFP
-                previousAfp={previousAfp}
-                onCancel={isVeileder ? undefined : onStegvisningCancel}
-                onPrevious={onStegvisningPrevious}
-                onNext={onNext}
-              />
-            )
-          }
-        }}
-      </Await>
-    </React.Suspense>
+    <AFP
+      previousAfp={previousAfp}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onStegvisningPrevious}
+      onNext={onNext}
+    />
   )
 }

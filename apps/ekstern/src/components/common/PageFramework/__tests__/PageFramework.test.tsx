@@ -1,8 +1,10 @@
-import { Link } from 'react-router'
+import { Link, RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
+import { BASE_PATH, paths } from '@/router/constants'
+import { routes } from '@/router/routes'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { PageFramework } from '../PageFramework'
@@ -14,6 +16,22 @@ function TestComponent() {
 describe('PageFramework', () => {
   afterEach(() => {
     window.scrollTo = () => vi.fn()
+  })
+
+  it('viser loader mens loaderen fetcher data', async () => {
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+    const button = await screen.findByTestId(
+      'landingside-enkel-kalkulator-button'
+    )
+    user.click(button)
+    expect(await screen.findByTestId('pageframework-loader')).toBeVisible()
   })
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
@@ -78,12 +96,9 @@ describe('PageFramework', () => {
   })
 
   it('redirigerer til id-porten hvis shouldRedirectNonAuthenticated prop er satt og at brukeren ikke er authenticated', async () => {
-    const addEventListener = vi.fn()
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })
-
-    vi.stubGlobal('addEventListener', addEventListener)
 
     const windowSpy = vi.spyOn(window, 'open')
 
@@ -101,11 +116,5 @@ describe('PageFramework', () => {
         '_self'
       )
     )
-    await waitFor(async () => {
-      expect(addEventListener).toHaveBeenCalledWith(
-        'pageshow',
-        expect.any(Function)
-      )
-    })
   })
 })

@@ -1,12 +1,11 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { Await, useLoaderData } from 'react-router'
+import { useLoaderData } from 'react-router'
 
-import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { StepSivilstandAccessGuardLoader } from '@/router/loaders'
+import { stepSivilstandAccessGuard } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectEpsHarInntektOver2G,
@@ -25,8 +24,8 @@ export function StepSivilstand() {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
 
-  const { getPersonQuery, getGrunnbelopQuery } =
-    useLoaderData<StepSivilstandAccessGuardLoader>()
+  const { person, grunnbelop } =
+    useLoaderData<typeof stepSivilstandAccessGuard>()
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
     useStegvisningNavigation(paths.sivilstand)
@@ -49,34 +48,15 @@ export function StepSivilstand() {
   }
 
   return (
-    <React.Suspense
-      fallback={
-        <div style={{ width: '100%' }}>
-          <Loader
-            data-testid="sivilstand-loader"
-            size="3xlarge"
-            title={intl.formatMessage({ id: 'pageframework.loading' })}
-            isCentered
-          />
-        </div>
-      }
-    >
-      <Await resolve={Promise.all([getPersonQuery, getGrunnbelopQuery])}>
-        {([personData, grunnbelopData]) => {
-          return (
-            <Sivilstand
-              sivilstandFolkeregister={personData.sivilstand}
-              grunnbelop={grunnbelopData}
-              sivilstand={sivilstand!}
-              epsHarInntektOver2G={epsHarInntektOver2G}
-              epsHarPensjon={epsHarPensjon}
-              onCancel={isVeileder ? undefined : onStegvisningCancel}
-              onPrevious={onStegvisningPrevious}
-              onNext={onNext}
-            />
-          )
-        }}
-      </Await>
-    </React.Suspense>
+    <Sivilstand
+      sivilstandFolkeregister={person.sivilstand}
+      grunnbelop={grunnbelop}
+      sivilstand={sivilstand!}
+      epsHarInntektOver2G={epsHarInntektOver2G}
+      epsHarPensjon={epsHarPensjon}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onStegvisningPrevious}
+      onNext={onNext}
+    />
   )
 }
