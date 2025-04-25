@@ -72,7 +72,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     })
   })
 
-  it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
+  it('viser infomelding når brukeren velger "Vet ikke"', async () => {
     const user = userEvent.setup()
     render(
       <AFPOvergangskullUtenAP
@@ -111,9 +111,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
 
     await user.click(radioButtons[3])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).toBeInTheDocument()
+    expect(screen.queryByText('stegvisning.afp.alert_vet_ikke')).toBeVisible()
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
@@ -127,28 +125,39 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
         onNext={onNextMock}
       />
     )
-    const radioButtons = screen.getAllByRole('radio')
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(
-        screen.getByText('stegvisning.afp.validation_error')
-      ).toBeInTheDocument()
-      expect(onNextMock).not.toHaveBeenCalled()
-    })
+    expect(screen.getByText('stegvisning.afp.validation_error')).toBeVisible()
+    expect(onNextMock).not.toHaveBeenCalled()
 
-    await user.click(radioButtons[0])
+    await user.click(
+      screen.getByRole('radio', { name: 'stegvisning.afp.radio_ja_offentlig' })
+    )
+
+    expect(
+      screen.queryByText('stegvisning.afp.validation_error')
+    ).not.toBeInTheDocument()
+
+    await user.click(screen.getByText('stegvisning.neste'))
+
+    expect(
+      screen.getByText('stegvisning.afpOverganskull.validation_error')
+    ).toBeVisible()
+    expect(onNextMock).not.toHaveBeenCalled()
+
+    await user.click(
+      screen.getByRole('radio', {
+        name: 'stegvisning.afp.overgangskullUtenAP.radio_ja',
+      })
+    )
 
     expect(
       screen.queryByText('stegvisning.afpOverganskull.validation_error')
     ).not.toBeInTheDocument()
 
     await user.click(screen.getByText('stegvisning.neste'))
-
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onNext når brukeren klikker på Neste', async () => {

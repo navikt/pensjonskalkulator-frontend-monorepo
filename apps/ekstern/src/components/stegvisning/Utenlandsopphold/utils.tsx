@@ -9,7 +9,7 @@ export const onSubmit = (
   data: FormDataEntryValue | null,
   intl: IntlShape,
   setValidationErrors: React.Dispatch<
-    React.SetStateAction<Record<string, string>>
+    React.SetStateAction<{ top: string; bottom: string }>
   >,
   utenlandsperioderLength: number,
   onNext: (utenlandsoppholdData: BooleanRadio) => void

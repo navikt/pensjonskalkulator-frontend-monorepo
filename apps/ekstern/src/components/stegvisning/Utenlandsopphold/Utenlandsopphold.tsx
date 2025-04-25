@@ -1,17 +1,16 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
-import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectUtenlandsperioder } from '@/state/userInput/selectors'
-import { wrapLogger } from '@/utils/logging'
 
+import Navigation from '../Navigation/Navigation'
 import { onSubmit } from './utils'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -33,24 +32,20 @@ export function Utenlandsopphold({
 
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
-  const [validationErrors, setValidationErrors] = React.useState<
-    Record<'top' | 'bottom', string>
-  >({
+  const [validationErrors, setValidationErrors] = useState({
     top: '',
     bottom: '',
   })
 
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
-    React.useState<boolean>(!!harUtenlandsopphold)
+    useState<boolean>(!!harUtenlandsopphold)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {
-      setValidationErrors((prevState) => {
-        return {
-          ...prevState,
-          bottom: '',
-        }
-      })
+      setValidationErrors((prevState) => ({
+        ...prevState,
+        bottom: '',
+      }))
     }
   }, [utenlandsperioder])
 
@@ -132,35 +127,11 @@ export function Utenlandsopphold({
         </>
       )}
 
-      <Button
+      <Navigation
+        onPrevious={onPrevious}
+        onCancel={onCancel}
         form="har-utenlandsopphold"
-        type="submit"
-        className={styles.button}
-      >
-        <FormattedMessage id="stegvisning.neste" />
-      </Button>
-
-      <Button
-        type="button"
-        className={styles.button}
-        variant="secondary"
-        onClick={wrapLogger('button klikk', {
-          tekst: `Tilbake fra ${paths.utenlandsopphold}`,
-        })(onPrevious)}
-      >
-        <FormattedMessage id="stegvisning.tilbake" />
-      </Button>
-
-      {onCancel && (
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
-      )}
+      />
     </Card>
   )
 }

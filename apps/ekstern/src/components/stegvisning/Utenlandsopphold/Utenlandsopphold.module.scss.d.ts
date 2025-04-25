@@ -3,6 +3,5 @@ declare const classNames: {
   readonly readmore2: "readmore2";
   readonly radiogroup: "radiogroup";
   readonly ingressBottom: "ingressBottom";
-  readonly button: "button";
 };
 export = classNames;

@@ -4,6 +4,5 @@ declare const classNames: {
   readonly list: "list";
   readonly radiogroup: "radiogroup";
   readonly alert: "alert";
-  readonly button: "button";
 };
 export = classNames;

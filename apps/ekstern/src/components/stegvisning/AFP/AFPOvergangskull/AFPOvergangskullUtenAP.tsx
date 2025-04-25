@@ -1,18 +1,19 @@
 import React, { FormEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { paths } from '@/router/constants'
-import { logger, wrapLogger } from '@/utils/logging'
+import { logger } from '@/utils/logging'
 import {
   convertBooleanRadioToBoolean,
   convertBooleanToBooleanRadio,
 } from '@/utils/radio'
 
+import Navigation from '../../Navigation/Navigation'
 import { STEGVISNING_FORM_NAMES } from '../../utils'
 import AFPRadioGroup from '../AFPRadiogroup'
 
@@ -35,12 +36,9 @@ export function AFPOvergangskullUtenAP({
 }: Props) {
   const intl = useIntl()
 
-  const [validationError, setValidationError] = React.useState<{
-    afpError?: string
-    skalBeregneAfpError?: string
-  }>({
-    afpError: undefined,
-    skalBeregneAfpError: undefined,
+  const [validationError, setValidationError] = React.useState({
+    afp: '',
+    skalBeregneAfp: '',
   })
   const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
     previousAfp === 'vet_ikke'
@@ -101,7 +99,7 @@ export function AFPOvergangskullUtenAP({
   }
 
   const handleRadioChange = (value: AfpRadio): void => {
-    setValidationError((prev) => ({ ...prev, afp: undefined }))
+    setValidationError((prev) => ({ ...prev, afp: '' }))
     setShowVetIkkeAlert(value === 'vet_ikke')
     setJaAFPOffentlig(value === 'ja_offentlig')
     if (value === 'vet_ikke') {
@@ -149,7 +147,7 @@ export function AFPOvergangskullUtenAP({
         <AFPRadioGroup
           afp={previousAfp}
           handleRadioChange={handleRadioChange}
-          validationError={validationError.afpError}
+          validationError={validationError.afp}
           showVetIkkeAlert={showVetIkkeAlert}
         />
         {jaAFPOffentlig && (
@@ -160,13 +158,8 @@ export function AFPOvergangskullUtenAP({
             }
             name="skalBeregneAfp"
             defaultValue={convertBooleanToBooleanRadio(previousSkalBeregneAfp)}
-            onChange={() =>
-              setValidationError({
-                afpError: undefined,
-                skalBeregneAfpError: undefined,
-              })
-            }
-            error={validationError.skalBeregneAfpError}
+            onChange={() => setValidationError({ afp: '', skalBeregneAfp: '' })}
+            error={validationError.skalBeregneAfp}
           >
             <Radio value="ja">
               <FormattedMessage id="stegvisning.afp.overgangskullUtenAP.radio_ja" />
@@ -176,29 +169,8 @@ export function AFPOvergangskullUtenAP({
             </Radio>
           </RadioGroup>
         )}
-        <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
-        </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="secondary"
-          onClick={wrapLogger('button klikk', {
-            tekst: `Tilbake fra ${paths.afp}`,
-          })(onPrevious)}
-        >
-          <FormattedMessage id="stegvisning.tilbake" />
-        </Button>
-        {onCancel && (
-          <Button
-            type="button"
-            className={styles.button}
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
-        )}
+
+        <Navigation onPrevious={onPrevious} onCancel={onCancel} />
       </form>
     </Card>
   )

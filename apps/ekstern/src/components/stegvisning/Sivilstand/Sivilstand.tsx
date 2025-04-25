@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
   BodyLong,
-  Button,
   Heading,
   Radio,
   RadioGroup,
@@ -14,7 +13,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { formatInntekt } from '@/utils/inntekt'
-import { logger, wrapLogger } from '@/utils/logging'
+import { logger } from '@/utils/logging'
 import {
   convertBooleanRadioToBoolean,
   convertBooleanToBooleanRadio,
@@ -26,6 +25,7 @@ import {
   sivilstandOptions,
 } from '@/utils/sivilstand'
 
+import Navigation from '../Navigation/Navigation'
 import { STEGVISNING_FORM_NAMES } from '../utils'
 
 import styles from './Sivilstand.module.scss'
@@ -292,29 +292,12 @@ export function Sivilstand({
             </RadioGroup>
           )}
         </VStack>
-        <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
-        </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="secondary"
-          onClick={wrapLogger('button klikk', {
-            tekst: `Tilbake fra ${paths.sivilstand}`,
-          })(onPrevious)}
-        >
-          <FormattedMessage id="stegvisning.tilbake" />
-        </Button>
-        {onCancel && (
-          <Button
-            type="button"
-            className={styles.button}
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
-        )}
+
+        <Navigation
+          onPrevious={onPrevious}
+          onCancel={onCancel}
+          className={styles.navigation}
+        />
       </form>
     </Card>
   )
