@@ -157,16 +157,17 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
           ? prevState?.aarligInntektVsaPensjon?.sluttAlder.aar * 12 +
             (prevState?.aarligInntektVsaPensjon?.sluttAlder.maaneder ?? 0)
           : 0
-      const shouldDeleteInntektVsaPensjon =
+      const shouldClearInntektSluttAlder =
         alder?.aar &&
         alder?.aar * 12 + (alder?.maaneder ?? 0) >= sluttAlderAntallMaaneder
       return {
-        ...prevState,
         uttaksalder: alder,
-        aarligInntektVsaPensjon:
-          shouldDeleteInntektVsaPensjon || !prevState?.aarligInntektVsaPensjon
+        aarligInntektVsaPensjon: {
+          ...prevState?.aarligInntektVsaPensjon,
+          sluttAlder: shouldClearInntektSluttAlder
             ? undefined
-            : { ...prevState?.aarligInntektVsaPensjon },
+            : { ...prevState?.aarligInntektVsaPensjon?.sluttAlder },
+        },
       }
     })
   }
@@ -174,7 +175,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
-    // Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal gradert uttak nullstilles
+    // Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal alle påfølgende felter nullstilles
     const shouldResetGradertUttak =
       alder?.aar &&
       alder?.maaneder !== undefined &&
@@ -182,16 +183,17 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     setValidationErrorUttaksalderGradertUttak('')
     if (shouldResetGradertUttak) {
       // Overfører verdien tilbake til helt uttak
-      setLocalHeltUttak((previous) => ({
-        ...previous,
+      setLocalHeltUttak({
         uttaksalder: alder,
-      }))
+        aarligInntektVsaPensjon: undefined,
+      })
+      setLocalHarInntektVsaHeltUttakRadio(null)
       setLocalHarInntektVsaGradertUttakRadio(null)
-      setLocalGradertUttak(() => ({
+      setLocalGradertUttak({
         uttaksalder: undefined,
         grad: undefined,
         aarligInntektVsaPensjonBeloep: undefined,
-      }))
+      })
     } else {
       setLocalGradertUttak((previous) => ({
         ...previous,
@@ -728,7 +730,9 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                             : ''
                         }
                         onChange={handleInntektVsaGradertUttakChange}
-                        value={localGradertUttak.aarligInntektVsaPensjonBeloep}
+                        value={
+                          localGradertUttak.aarligInntektVsaPensjonBeloep ?? ''
+                        }
                       />
                     )}
 
@@ -852,7 +856,9 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                           : undefined
                       }
                       onChange={handleInntektVsaHeltUttakChange}
-                      value={localHeltUttak.aarligInntektVsaPensjon?.beloep}
+                      value={
+                        localHeltUttak.aarligInntektVsaPensjon?.beloep ?? ''
+                      }
                     />
 
                     <AgePicker

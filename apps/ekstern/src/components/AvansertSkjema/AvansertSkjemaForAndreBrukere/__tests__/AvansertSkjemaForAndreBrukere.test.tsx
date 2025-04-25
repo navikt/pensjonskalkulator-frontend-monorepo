@@ -266,7 +266,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     ).toBeVisible()
   })
 
-  it('Når alle feltene fylles ut og resetForm kalles, nullstilles det alle feltene', async () => {
+  it('Når alle feltene fylles ut og resetForm kalles, nullstilles alle feltene', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -534,7 +534,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     ).not.toBeChecked()
   })
 
-  it('Når alle feltene for 100 % uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inntekt og sluttAlder', async () => {
+  it('Når alle feltene for 100 % uttak fylles ut og radioknappen for inntekt endres til nei, skjules inntekt og sluttAlder', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -624,7 +624,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('Når alle feltene for gradert uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inputfeltet for inntekt', async () => {
+  it('Når alle feltene for gradert uttak fylles ut og radioknappen for inntekt endres til nei, skjules inputfeltet for inntekt', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -745,7 +745,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('Når feltene for 100 % uttak fylles ut og uttaksalder endres til en alder større enn sluttAlder for inntekt, nullstilles det sluttAlder feltet', async () => {
+  it('Når feltene for 100 % uttak fylles ut og uttaksalder endres til en alder større enn sluttAlder for inntekt, nullstilles sluttAlder', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -774,24 +774,18 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await screen.findByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
-      {
-        target: { value: '67' },
-      }
+      { target: { value: '67' } }
     )
     fireEvent.change(
       await screen.findByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
-      {
-        target: { value: '2' },
-      }
+      { target: { value: '2' } }
     )
     // Endrer uttaksgrad
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-      {
-        target: { value: '100 %' },
-      }
+      { target: { value: '100 %' } }
     )
     await user.click(
       screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
@@ -823,17 +817,13 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await screen.findByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
-      {
-        target: { value: '73' },
-      }
+      { target: { value: '73' } }
     )
     fireEvent.change(
       await screen.findByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
-      {
-        target: { value: '2' },
-      }
+      { target: { value: '2' } }
     )
 
     // Sjekker at feltet for sluttAlder er nullstilt, men ikke de andre feltene
