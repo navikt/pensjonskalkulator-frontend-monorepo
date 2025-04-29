@@ -90,7 +90,7 @@ describe('StepUtenlandsopphold', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
-  it('nullstiller input fra brukeren og navigerer tilbake når brukeren klikker på Tilbake', async () => {
+  it('nullstiller input fra brukeren og navigerer tilbake til /sivilstand når brukeren klikker på Tilbake', async () => {
     mockResponse('/v4/person', {
       status: 200,
       json: {
@@ -123,6 +123,6 @@ describe('StepUtenlandsopphold', () => {
     expect(radioButtons[0]).toBeChecked()
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(store.getState().userInput.harUtenlandsopphold).toBeNull()
-    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
   })
 })

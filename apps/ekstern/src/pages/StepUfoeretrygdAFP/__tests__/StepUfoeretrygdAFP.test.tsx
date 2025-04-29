@@ -61,7 +61,7 @@ describe('StepUfoeretrygdAFP', () => {
       },
     })
     await user.click(await screen.findByText('stegvisning.tilbake'))
-    expect(navigateMock).toHaveBeenCalledWith(-1)
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {
