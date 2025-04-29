@@ -315,7 +315,7 @@ describe('StepAFP', () => {
     await waitFor(async () => {
       await user.click(await screen.findByText('stegvisning.tilbake'))
     })
-    expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+    expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {

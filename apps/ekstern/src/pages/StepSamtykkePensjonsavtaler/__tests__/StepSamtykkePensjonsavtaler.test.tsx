@@ -104,7 +104,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
     })
 
     await user.click(screen.getByText('stegvisning.tilbake'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+    expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {
