@@ -1,4 +1,4 @@
-function expect_afp_og_pensjonsavtaler_i_graf_og_tabell() {
+export function expect_afp_og_pensjonsavtaler_i_graf_og_tabell() {
   cy.contains('Pensjonsgivende inntekt').should('be.visible')
   cy.contains('AFP (avtalefestet pensjon)').should('be.visible')
   cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('be.visible')

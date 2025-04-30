@@ -182,7 +182,7 @@ describe('Avansert', () => {
         ).should('not.exist')
       })
 
-      it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel.', () => {
+      it('forventer jeg kunne forlate siden med tilbakeknapp og gå tilbake til Enkel.', () => {
         cy.go('back')
         cy.contains(
           'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
