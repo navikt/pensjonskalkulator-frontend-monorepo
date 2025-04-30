@@ -14,20 +14,9 @@ import personResponse from '../../../mocks/data/person.json' with { type: 'json'
 import tidligstMuligHeltUttakResponse from '../../../mocks/data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import spraakvelgerToggleResponse from '../../../mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableSanityToggleResponse from '../../../mocks/data/unleash-enable-sanity.json' with { type: 'json' }
-import enableOtpFraKlpToggleResponse from '../../../mocks/data/unleash-otp-fra-klp.json' with { type: 'json' }
 import utvidetSimuleringsresultatToggleResponse from '../../../mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 describe('apiSlice', () => {
-  it('eksponerer riktig endepunkter', async () => {
-    expect(apiSlice.endpoints).toHaveProperty('getInntekt')
-    expect(apiSlice.endpoints).toHaveProperty('getPerson')
-    expect(apiSlice.endpoints).toHaveProperty('offentligTp')
-    expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
-    expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHeltUttak')
-    expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
-    expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
-  })
-
   describe('getInntekt', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
@@ -235,60 +224,6 @@ describe('apiSlice', () => {
         .then((result) => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toMatchObject(offentligTpResponse)
-        })
-    })
-
-    it('fjerner simulert TP fra responsen hvis leverandør er KLP og feature-toggle er av', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/simuler-oftp', {
-        status: 200,
-        method: 'post',
-        json: {
-          ...offentligTpResponse,
-          simulertTjenestepensjon: {
-            ...offentligTpResponse.simulertTjenestepensjon,
-            tpLeverandoer: 'Kommunal Landspensjonskasse',
-            tpNummer: '4080',
-          },
-        },
-      })
-      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
-        status: 200,
-        json: { enabled: false },
-      })
-      return storeRef
-        .dispatch(apiSlice.endpoints.offentligTp.initiate())
-        .then((result) => {
-          expect(result.data?.simuleringsresultatStatus).toBe(
-            'TP_ORDNING_STOETTES_IKKE'
-          )
-          expect(result.data?.simulertTjenestepensjon).toBeUndefined()
-        })
-    })
-
-    it('fjerner IKKE simulert TP fra responsen hvis leverandør er KLP og feature-toggle er PÅ', async () => {
-      const storeRef = setupStore(undefined, true)
-      const json = {
-        ...offentligTpResponse,
-        simulertTjenestepensjon: {
-          ...offentligTpResponse.simulertTjenestepensjon,
-          tpLeverandoer: 'Kommunal Landspensjonskasse',
-          tpNummer: '4080',
-        },
-      }
-      mockResponse('/v2/simuler-oftp', {
-        status: 200,
-        method: 'post',
-        json,
-      })
-      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
-        status: 200,
-        json: { enabled: true },
-      })
-      return storeRef
-        .dispatch(apiSlice.endpoints.offentligTp.initiate())
-        .then((result) => {
-          expect(result.data).toMatchObject(json)
         })
     })
 
@@ -711,48 +646,6 @@ describe('apiSlice', () => {
           .dispatch(
             apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
           )
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
-  describe('getOtpKlpFeatureToggle', () => {
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore(undefined, true)
-      return storeRef
-        .dispatch(apiSlice.endpoints.getOtpKlpFeatureToggle.initiate())
-        .then((result) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(enableOtpFraKlpToggleResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/feature/pensjonskalkulator.vis-otp-fra-klp')
-      return storeRef
-        .dispatch(apiSlice.endpoints.getOtpKlpFeatureToggle.initiate())
-        .then((result) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/feature/pensjonskalkulator.vis-otp-fra-klp', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.getOtpKlpFeatureToggle.initiate())
           .then((result) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')

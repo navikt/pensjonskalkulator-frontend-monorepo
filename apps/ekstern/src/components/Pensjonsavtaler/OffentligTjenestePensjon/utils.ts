@@ -2,7 +2,7 @@ import type { IntlShape } from 'react-intl'
 
 import type { Translations } from '@/translations/nb'
 
-export const tpNummerTilNavn: Record<string, 'spk' | 'klp'> = {
+const tpNummerTilNavn: Record<string, 'spk' | 'klp'> = {
   '3010': 'spk',
   '3060': 'spk',
   '4080': 'klp',

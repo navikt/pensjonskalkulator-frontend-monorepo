@@ -131,14 +131,6 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.vis-otp-fra-klp',
-    },
-    { fixture: 'toggle-otp-fra-klp.json' }
-  ).as('getFeatureToggleOtpFraKlp')
-
-  cy.intercept(
-    {
-      method: 'GET',
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.gradert-ufoere-afp',
     },
     { fixture: 'toggle-gradert-ufoere-afp.json' }
