@@ -22,6 +22,7 @@ import { fireEvent, render, screen, userEvent } from '@/test-utils'
 import * as alderUtils from '@/utils/alder'
 
 import { AvansertSkjemaForAndreBrukere } from '..'
+import { getPreviousMonth } from '../../test-utils'
 import { AVANSERT_FORM_NAMES } from '../../utils'
 import * as AvansertSkjemaForAndreBrukereUtils from '../../utils'
 
@@ -41,6 +42,8 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     ...fulfilledGetPerson,
     ...fulfilledGetLoependeVedtak0Ufoeregrad,
   }
+
+  const agePickerMonth = getPreviousMonth()
 
   it('vises informasjon om inntekt, uttaksgrad og pensjonsalder', async () => {
     render(
@@ -1954,7 +1957,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
-          target: { value: '0' },
+          target: { value: agePickerMonth },
         }
       )
 

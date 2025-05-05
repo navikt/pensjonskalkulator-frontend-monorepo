@@ -105,7 +105,7 @@ describe('Loaders', () => {
         throw new Error('person not in returnedFromLoader')
       }
 
-      expect(returnedFromLoader.person.foedselsdato).toBe('1963-04-30')
+      expect(returnedFromLoader.person.foedselsdato).toBe('1964-04-30')
       expect(returnedFromLoader.loependeVedtak.ufoeretrygd.grad).toBe(0)
     })
 
@@ -460,7 +460,7 @@ describe('Loaders', () => {
       await expect(returnedFromLoader).resolves.not.toThrow()
       await expect(returnedFromLoader).resolves.toMatchObject({
         person: {
-          foedselsdato: '1963-04-30',
+          foedselsdato: '1964-04-30',
         },
       })
     })

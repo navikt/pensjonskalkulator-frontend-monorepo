@@ -20,6 +20,7 @@ import { fireEvent, render, screen, userEvent } from '@/test-utils'
 import * as alderUtils from '@/utils/alder'
 
 import { AvansertSkjemaForBrukereMedGradertUfoeretrygd } from '..'
+import { getPreviousMonth } from '../../test-utils'
 import { AVANSERT_FORM_NAMES } from '../../utils'
 import * as AvansertSkjemaForBrukereMedGradertUfoeretrygdUtils from '../../utils'
 
@@ -34,6 +35,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     harAvansertSkjemaUnsavedChanges: false,
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
+
+  const agePickerMonth = getPreviousMonth()
 
   const mockedQueries = {
     ...fulfilledGetPerson,
@@ -2252,13 +2255,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
-          target: { value: '0' },
+          target: { value: agePickerMonth },
         }
       )
 
       // Velger gradert uttak
       fireEvent.change(
-        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        await screen.getByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
           target: { value: '40 %' },
         }

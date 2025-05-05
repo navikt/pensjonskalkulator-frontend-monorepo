@@ -251,7 +251,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Valgene dine').click({ force: true })
-        cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('65 år og 3 md. (01.08.2029)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
         cy.contains(
           'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
@@ -263,7 +263,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Valgene dine').click({ force: true })
-        cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('65 år og 3 md. (01.08.2029)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
 
@@ -612,12 +612,12 @@ describe('Avansert', () => {
       it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
         cy.contains('Beregning').should('exist')
         cy.contains('Valgene dine').click({ force: true })
-        cy.contains('62 år og 3 md. (01.08.2025)').should('exist')
+        cy.contains('62 år og 3 md. (01.08.2026)').should('exist')
         cy.contains('Alderspensjon: 40 %').should('exist')
         cy.contains('Pensjonsgivende årsinntekt: 300 000 kr før skatt').should(
           'exist'
         )
-        cy.contains('67 år (01.05.2030)').should('exist')
+        cy.contains('67 år (01.05.2031)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
         cy.contains(
           'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
@@ -728,9 +728,9 @@ describe('Avansert', () => {
         cy.contains('Pensjonsgivende årsinntekt: 550 000 kr før skatt').should(
           'exist'
         )
-        cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
+        cy.contains('65 år og 5 md. (01.10.2029)').should('exist')
         cy.contains('Alderspensjon: 20 %').should('exist')
-        cy.contains('68 år og 8 md. (01.01.2032)').should('exist')
+        cy.contains('68 år og 8 md. (01.01.2033)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
         cy.contains(
           'Pensjonsgivende årsinntekt t.o.m. 70 år og 6 md.: 150 000 kr før skatt'

@@ -124,7 +124,7 @@ describe('ResultatkortAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect(
-      await screen.findByText('(01.05.2030)', {
+      await screen.findByText('(01.05.2031)', {
         exact: false,
       })
     ).toBeVisible()
@@ -165,7 +165,7 @@ describe('ResultatkortAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect(
-      await screen.findByText('(01.05.2030)', {
+      await screen.findByText('(01.05.2031)', {
         exact: false,
       })
     ).toBeVisible()
@@ -220,7 +220,7 @@ describe('ResultatkortAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect(
-      await screen.findByText('(01.08.2028)', {
+      await screen.findByText('(01.08.2029)', {
         exact: false,
       })
     ).toBeVisible()
@@ -235,7 +235,7 @@ describe('ResultatkortAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect(
-      await screen.findByText('(01.05.2030)', {
+      await screen.findByText('(01.05.2031)', {
         exact: false,
       })
     ).toBeVisible()

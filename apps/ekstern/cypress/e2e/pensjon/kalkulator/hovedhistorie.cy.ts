@@ -419,6 +419,24 @@ describe('Hovedhistorie', () => {
     // 13
     describe('Når jeg er kommet til beregningssiden,', () => {
       it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
+        cy.intercept(
+          { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+          {
+            navn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1963-04-30',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
+          }
+        ).as('getPerson')
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')

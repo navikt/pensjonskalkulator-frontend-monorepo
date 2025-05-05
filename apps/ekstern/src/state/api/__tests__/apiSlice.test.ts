@@ -66,7 +66,7 @@ describe('apiSlice', () => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toMatchObject({
             ...personResponse,
-            foedselsdato: '1963-04-30',
+            foedselsdato: '1964-04-30',
           })
         })
     })
@@ -409,7 +409,7 @@ describe('apiSlice', () => {
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
       simuleringstype: 'ALDERSPENSJON',
-      foedselsdato: '1963-04-30',
+      foedselsdato: '1964-04-30',
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: false,
       epsHarPensjon: false,
