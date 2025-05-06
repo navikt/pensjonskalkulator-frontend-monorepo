@@ -33,6 +33,7 @@ interface Props {
   harForLiteTrygdetid?: boolean
   trygdetid?: number
   pensjonsbeholdning?: number
+  isEndring: boolean
 }
 
 export const Grunnlag: React.FC<Props> = ({
@@ -41,6 +42,7 @@ export const Grunnlag: React.FC<Props> = ({
   harForLiteTrygdetid,
   trygdetid,
   pensjonsbeholdning,
+  isEndring,
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -133,7 +135,7 @@ export const Grunnlag: React.FC<Props> = ({
                   ...getFormatMessageValues(),
                 }}
               />
-              {pensjonsbeholdning && (
+              {!isEndring && pensjonsbeholdning && pensjonsbeholdning >= 0 && (
                 <FormattedMessage
                   id="grunnlag.alderspensjon.ingress.pensjonsbeholdning"
                   values={{

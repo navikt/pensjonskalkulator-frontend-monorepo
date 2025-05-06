@@ -30,6 +30,7 @@ describe('Grunnlag', () => {
         headingLevel={headingLevel}
         visning={visning}
         pensjonsbeholdning={pensjonsbeholdning}
+        isEndring={false}
       />,
       {
         preloadedState: {
@@ -147,19 +148,22 @@ describe('Grunnlag', () => {
     it('viser riktig tekst og lenke når henting av sivilstand fra vedtaket er vellykket', async () => {
       const user = userEvent.setup()
 
-      render(<Grunnlag headingLevel="2" visning="avansert" />, {
-        preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+      render(
+        <Grunnlag headingLevel="2" visning="avansert" isEndring={false} />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
             },
           },
-          userInput: {
-            ...userInputInitialState,
-          },
-        },
-      })
+        }
+      )
 
       expect(
         await screen.findByText('grunnlag.sivilstand.title')

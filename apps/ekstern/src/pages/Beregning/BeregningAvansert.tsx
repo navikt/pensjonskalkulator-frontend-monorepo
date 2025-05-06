@@ -345,6 +345,7 @@ export const BeregningAvansert = () => {
                       .pensjonBeholdningFoerUttakBeloep
                   : undefined
               }
+              isEndring={isEndring}
             />
           </>
         )}
