@@ -325,12 +325,6 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Beregn ny pensjon').click()
 
             cy.contains('Beregning').should('exist')
-            cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-            cy.contains('Alderspensjon: 100 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-            ).should('exist')
           })
         })
 
@@ -416,7 +410,7 @@ describe('Endring av alderspensjon', () => {
               cy.contains('67 år (100 %): 28 513 kr/md.')
             })
 
-            it('forventer jeg en knapp for å endre mine valg.', () => {
+            it('forventer jeg en lenke for å endre mine valg.', () => {
               cy.contains('Endre valgene dine')
             })
 
@@ -431,21 +425,6 @@ describe('Endring av alderspensjon', () => {
               cy.contains('Tusen kroner').should('exist')
               cy.contains('65').should('exist')
               cy.contains('77+').should('exist')
-            })
-
-            it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
-              cy.contains('Beregning').should('exist')
-              cy.contains('Valgene dine').click({ force: true })
-              cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-              cy.contains('Alderspensjon: 40 %').should('exist')
-              cy.contains(
-                'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
-              ).should('exist')
-              cy.contains('67 år (01.05.2031)').should('exist')
-              cy.contains('Alderspensjon: 100 %').should('exist')
-              cy.contains(
-                'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
-              ).should('exist')
             })
 
             it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {
@@ -653,12 +632,6 @@ describe('Endring av alderspensjon', () => {
           cy.contains('Beregn ny pensjon').click()
 
           cy.contains('Beregning').should('exist')
-          cy.contains('Valgene dine').click({ force: true })
-          cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-          cy.contains('Alderspensjon: 100 %').should('exist')
-          cy.contains(
-            'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-          ).should('exist')
         })
       })
 
@@ -745,7 +718,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
-          it('forventer jeg en knapp for å endre mine valg.', () => {
+          it('forventer jeg en lenke for å endre mine valg.', () => {
             cy.contains('Endre valgene dine')
           })
 
@@ -760,21 +733,6 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Tusen kroner').should('exist')
             cy.contains('65').should('exist')
             cy.contains('77+').should('exist')
-          })
-
-          it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
-            cy.contains('Beregning').should('exist')
-            cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-            cy.contains('Alderspensjon: 40 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
-            ).should('exist')
-            cy.contains('67 år (01.05.2031)').should('exist')
-            cy.contains('Alderspensjon: 100 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
-            ).should('exist')
           })
 
           it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {
@@ -981,12 +939,6 @@ describe('Endring av alderspensjon', () => {
           cy.contains('Beregn ny pensjon').click()
 
           cy.contains('Beregning').should('exist')
-          cy.contains('Valgene dine').click({ force: true })
-          cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-          cy.contains('Alderspensjon: 100 %').should('exist')
-          cy.contains(
-            'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-          ).should('exist')
         })
       })
 
@@ -1071,7 +1023,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
-          it('forventer jeg en knapp for å endre mine valg.', () => {
+          it('forventer jeg en lenke for å endre mine valg.', () => {
             cy.contains('Endre valgene dine')
           })
 
@@ -1087,21 +1039,6 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Tusen kroner').should('exist')
             cy.contains('65').should('exist')
             cy.contains('77+').should('exist')
-          })
-
-          it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
-            cy.contains('Beregning').should('exist')
-            cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-            cy.contains('Alderspensjon: 40 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
-            ).should('exist')
-            cy.contains('67 år (01.05.2031)').should('exist')
-            cy.contains('Alderspensjon: 100 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
-            ).should('exist')
           })
 
           it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {
@@ -1370,7 +1307,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
 
-          it('forventer jeg en knapp for å endre mine valg.', () => {
+          it('forventer jeg en lenke for å endre mine valg.', () => {
             cy.contains('Endre valgene dine')
           })
 
@@ -1385,21 +1322,6 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Tusen kroner').should('exist')
             cy.contains('65').should('exist')
             cy.contains('77+').should('exist')
-          })
-
-          it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
-            cy.contains('Beregning').should('exist')
-            cy.contains('Valgene dine').click({ force: true })
-            cy.contains('65 år og 4 md. (01.09.2029)').should('exist')
-            cy.contains('Alderspensjon: 40 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
-            ).should('exist')
-            cy.contains('67 år (01.05.2031)').should('exist')
-            cy.contains('Alderspensjon: 100 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
-            ).should('exist')
           })
 
           it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {
@@ -1603,12 +1525,6 @@ describe('Endring av alderspensjon', () => {
           cy.contains('Beregn ny pensjon').click()
 
           cy.contains('Beregning').should('exist')
-          cy.contains('Valgene dine').click({ force: true })
-          cy.contains('67 år og 4 md. (01.09.2031)').should('exist')
-          cy.contains('Alderspensjon: 100 %').should('exist')
-          cy.contains(
-            'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-          ).should('exist')
         })
       })
 
@@ -1695,7 +1611,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains('70 år (100 %): 28 513 kr/md.')
           })
 
-          it('forventer jeg en knapp for å endre mine valg.', () => {
+          it('forventer jeg en lenke for å endre mine valg.', () => {
             cy.contains('Endre valgene dine')
           })
 
@@ -1710,21 +1626,6 @@ describe('Endring av alderspensjon', () => {
             cy.contains('Tusen kroner').should('exist')
             cy.contains('65').should('exist')
             cy.contains('77+').should('exist')
-          })
-
-          it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
-            cy.contains('Beregning').should('exist')
-            cy.contains('Valgene dine').click({ force: true })
-            cy.contains('67 år og 4 md. (01.09.2031)').should('exist')
-            cy.contains('Alderspensjon: 40 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt: 300 000 kr før skatt'
-            ).should('exist')
-            cy.contains('70 år (01.05.2034)').should('exist')
-            cy.contains('Alderspensjon: 100 %').should('exist')
-            cy.contains(
-              'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
-            ).should('exist')
           })
 
           it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {

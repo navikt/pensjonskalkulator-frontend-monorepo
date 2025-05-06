@@ -270,9 +270,6 @@ export default {
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',
   'beregning.error':
     'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
-  'beregning.fra': 'MANGLER_TEKST',
-  'beregning.til': 'MANGLER_TEKST',
-  'beregning.tom': ' MANGLER_TEKST',
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
@@ -310,14 +307,12 @@ export default {
   'beregning.avansert.link.endre_avanserte_valg': 'MANGLER_TEKST',
   'beregning.avansert.endring_banner.title': 'MANGLER_TEKST',
   'beregning.avansert.endring_banner.kr_md': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.tittel': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.frem_til_uttak': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.frem_til_endring': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.table_title': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.box_title': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.afp': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.pensjonsavtaler': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.sum': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_endring.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
@@ -386,6 +381,7 @@ export default {
   'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
     'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
+  'maanedsbeloep.title': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.ingress':

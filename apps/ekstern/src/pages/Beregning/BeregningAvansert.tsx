@@ -12,7 +12,6 @@ import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
-import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
@@ -198,6 +197,28 @@ export const BeregningAvansert = () => {
           styles.container__hasTopMargin
         )}
       >
+        <Link
+          href="#"
+          className={styles.link}
+          onClick={(e) => {
+            e?.preventDefault()
+            logger('button klikk', {
+              tekst: isEndring
+                ? 'Beregning avansert: Endre valgene dine'
+                : 'Beregning avansert: Endre avanserte valg',
+            })
+            setAvansertSkjemaModus('redigering')
+          }}
+        >
+          <ArrowLeftIcon aria-hidden fontSize="1.5rem" />
+          <FormattedMessage
+            id={
+              isEndring
+                ? 'beregning.avansert.link.endre_valgene_dine'
+                : 'beregning.avansert.link.endre_avanserte_valg'
+            }
+          />
+        </Link>
         {isError ? (
           <>
             <Heading level="2" size="medium">
@@ -207,36 +228,9 @@ export const BeregningAvansert = () => {
             <AlertDashBorder onRetry={isError ? onRetry : undefined}>
               {isError && <FormattedMessage id="beregning.error" />}
             </AlertDashBorder>
-
-            <ResultatkortAvansertBeregning
-              onButtonClick={() => setAvansertSkjemaModus('redigering')}
-            />
           </>
         ) : (
           <>
-            <Link
-              href="#"
-              className={styles.link}
-              onClick={(e) => {
-                e?.preventDefault()
-                logger('button klikk', {
-                  tekst: isEndring
-                    ? 'Beregning avansert: Endre valgene dine'
-                    : 'Beregning avansert: Endre avanserte valg',
-                })
-                setAvansertSkjemaModus('redigering')
-              }}
-            >
-              <ArrowLeftIcon aria-hidden fontSize="1.5rem" />
-              <FormattedMessage
-                id={
-                  isEndring
-                    ? 'beregning.avansert.link.endre_valgene_dine'
-                    : 'beregning.avansert.link.endre_avanserte_valg'
-                }
-              />
-            </Link>
-
             <div
               className={clsx(styles.intro, {
                 [styles.intro__endring]: isEndring,
@@ -327,10 +321,6 @@ export const BeregningAvansert = () => {
                     }
                   : undefined
               }
-            />
-
-            <ResultatkortAvansertBeregning
-              onButtonClick={() => setAvansertSkjemaModus('redigering')}
             />
 
             {beregningsvalg === 'med_afp' && (

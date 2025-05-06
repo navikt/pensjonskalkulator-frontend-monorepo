@@ -2,59 +2,73 @@
   "afpPrivat": [
     {
       "alder": 64,
-      "beloep": 20000
+      "beloep": 20000,
+      "maanedligBeloep": 1667
     },
     {
       "alder": 65,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 66,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 67,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 68,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 69,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 70,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 71,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 72,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 73,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 74,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 75,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 76,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     },
     {
       "alder": 77,
-      "beloep": 80000
+      "beloep": 80000,
+      "maanedligBeloep": 6667
     }
   ]
 }

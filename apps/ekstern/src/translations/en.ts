@@ -308,9 +308,6 @@ export default {
   'beregning.loading': 'Please wait while we calculate your pension.',
   'beregning.error':
     'Unfortunately, we could not calculate your pension right now.',
-  'beregning.fra': 'from ',
-  'beregning.til': ' to ',
-  'beregning.tom': ' to ',
   'beregning.livsvarig': 'lifelong',
   'beregning.lav_opptjening.aar':
     'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
@@ -355,15 +352,12 @@ export default {
   'beregning.avansert.endring_banner.title':
     'retirement pension before tax when you are ',
   'beregning.avansert.endring_banner.kr_md': 'kr/mo.',
-  'beregning.avansert.resultatkort.tittel': 'Your Choices',
-  'beregning.avansert.resultatkort.description':
-    'Income, withdrawal degree, and pension age',
-  'beregning.avansert.resultatkort.button': 'Change your choices',
-  'beregning.avansert.resultatkort.frem_til_uttak':
-    'Until withdrawal of pension',
-  'beregning.avansert.resultatkort.inntekt_1': 'Pension-eligible annual income',
-  'beregning.avansert.resultatkort.inntekt_2': ' kr before tax',
-  'beregning.avansert.resultatkort.alderspensjon': 'retirement pension: ',
+  'beregning.avansert.maanedsbeloep.table_title': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.box_title': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.afp': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.pensjonsavtaler': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.maanedsbeloep.sum': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
     'Pensionable income until pension',
   'beregning.avansert.rediger.inntekt_frem_til_endring.label':
@@ -440,6 +434,7 @@ export default {
   'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
     'MANGLER_TEKST',
   'grunnlag.title': 'Other Basis for Calculation',
+  'maanedsbeloep.title': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.title':
     'If you exit Advanced, you will lose all your choices.',
   'beregning.avansert.avbryt_modal.endring.title':

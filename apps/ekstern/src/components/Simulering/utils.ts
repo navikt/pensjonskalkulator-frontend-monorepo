@@ -123,7 +123,7 @@ export const processInntektArray = (args: {
 }
 
 export const processPensjonsberegningArray = (
-  pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
+  pensjonsberegninger: AfpPensjonsberegning[] = [],
   isEndring: boolean,
   xAxisLength: number
 ): number[] => {
@@ -151,7 +151,7 @@ export const processPensjonsberegningArray = (
 export const processAfpPensjonsberegningArray = (
   xAxisStartAar: number, // uttaksaar, (uttaksaar minus 1 for førstegangsøkere)
   xAxisLength: number,
-  pensjonsberegninger: AfpPrivatPensjonsberegning[] = [],
+  pensjonsberegninger: AfpPensjonsberegning[] = [],
   isEndring: boolean
 ): number[] => {
   if (pensjonsberegninger.length === 0) {

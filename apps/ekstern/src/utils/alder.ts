@@ -199,10 +199,10 @@ export const getBrukerensAlderISluttenAvMaaneden = (
     : nedreAldersgrense
 }
 
-export const transformUttaksalderToDate = (
+export const calculateUttaksalderAsDate = (
   alder: Alder,
   foedselsdato: string
-) => {
+): Date => {
   const foedselsdatoDate = new Date(foedselsdato)
   const antallMaaneder = foedselsdatoDate.getMonth() + alder.maaneder + 1
   const oppdatertAar =
@@ -210,7 +210,15 @@ export const transformUttaksalderToDate = (
 
   const calculatedDate = new Date(oppdatertAar, antallMaaneder % 12, 1)
 
-  return format(startOfMonth(calculatedDate), DATE_ENDUSER_FORMAT)
+  return startOfMonth(calculatedDate)
+}
+
+export const transformUttaksalderToDate = (
+  alder: Alder,
+  foedselsdato: string
+): string => {
+  const calculatedDate = calculateUttaksalderAsDate(alder, foedselsdato)
+  return format(calculatedDate, DATE_ENDUSER_FORMAT)
 }
 
 export const transformMaanedToDate = (

@@ -622,6 +622,8 @@ export interface components {
       alder: number
       /** Format: int32 */
       beloep: number
+      /** Format: int32 */
+      maanedligBeloep?: number
     }
     PersonligSimuleringAlderResultV8: {
       /** Format: int32 */
@@ -884,6 +886,8 @@ export interface components {
       sluttAlder?: components['schemas']['Alder']
       /** Format: int32 */
       aarligUtbetaling: number
+      /** Format: int32 */
+      maanedligUtbetaling?: number
     }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */

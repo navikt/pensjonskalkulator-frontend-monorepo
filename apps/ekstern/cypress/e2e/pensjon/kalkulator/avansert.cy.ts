@@ -250,21 +250,12 @@ describe('Avansert', () => {
 
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
-        cy.contains('Valgene dine').click({ force: true })
-        cy.contains('65 år og 3 md. (01.08.2029)').should('exist')
-        cy.contains('Alderspensjon: 100 %').should('exist')
-        cy.contains(
-          'Pensjonsgivende årsinntekt t.o.m. 75 år og 3 md.: 100 000 kr før skatt'
-        ).should('exist')
       })
 
       it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. 100 % alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
-        cy.contains('Valgene dine').click({ force: true })
-        cy.contains('65 år og 3 md. (01.08.2029)').should('exist')
-        cy.contains('Alderspensjon: 100 %').should('exist')
       })
 
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp etter å ha begynt utfyllingen.', () => {
@@ -609,19 +600,38 @@ describe('Avansert', () => {
         cy.contains('AFP:').click({ force: true })
       })
 
-      it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
+      it('forventer jeg en månedlig oversikt over pensjon ved uttaksmåneden', () => {
         cy.contains('Beregning').should('exist')
-        cy.contains('Valgene dine').click({ force: true })
-        cy.contains('62 år og 3 md. (01.08.2026)').should('exist')
-        cy.contains('Alderspensjon: 40 %').should('exist')
-        cy.contains('Pensjonsgivende årsinntekt: 300 000 kr før skatt').should(
+        cy.contains('Månedlig pensjon').should('exist')
+        cy.contains('Ved 62 år og 3 måneder').should('exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('exist')
+        cy.contains('Alderspensjon (Nav) 40 %').should('exist')
+        cy.contains('Sum pensjon').should('exist')
+      })
+
+      it('ved gradert uttak forventer jeg en månedlig oversikt over pensjon både ved gradert uttak og helt uttak', () => {
+        cy.contains('Beregning').should('exist')
+        cy.contains('Månedlig pensjon').should('exist')
+        cy.contains('Ved 67 år').should('exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('exist')
+        cy.contains('Alderspensjon (Nav) 100 %').should('exist')
+        cy.contains('Sum pensjon').should('exist')
+      })
+
+      it('forventer jeg en lenke for å "endre avanserte valg"', () => {
+        cy.contains('Endre avanserte valg').should('exist')
+        cy.contains('Endre avanserte valg').click({ force: true })
+        cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
           'exist'
         )
-        cy.contains('67 år (01.05.2031)').should('exist')
-        cy.contains('Alderspensjon: 100 %').should('exist')
-        cy.contains(
-          'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
+        cy.get('[data-testid="inntekt-textfield"]').should('exist')
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').should(
+          'exist'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
         ).should('exist')
+        cy.get('[data-testid="uttaksgrad"]').should('exist')
       })
     })
 
@@ -723,18 +733,6 @@ describe('Avansert', () => {
           '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
         ).select('6')
         cy.contains('Oppdater pensjon').click()
-
-        cy.contains('Valgene dine').click({ force: true })
-        cy.contains('Pensjonsgivende årsinntekt: 550 000 kr før skatt').should(
-          'exist'
-        )
-        cy.contains('65 år og 5 md. (01.10.2029)').should('exist')
-        cy.contains('Alderspensjon: 20 %').should('exist')
-        cy.contains('68 år og 8 md. (01.01.2033)').should('exist')
-        cy.contains('Alderspensjon: 100 %').should('exist')
-        cy.contains(
-          'Pensjonsgivende årsinntekt t.o.m. 70 år og 6 md.: 150 000 kr før skatt'
-        ).should('exist')
       })
 
       it('forventer jeg å kunne nullstille mine valg.', () => {

@@ -2,7 +2,8 @@
   "afpPrivat": [
     {
       "alder": 65,
-      "beloep": 123000
+      "beloep": 123000,
+      "maanedligBeloep": 10250
     }
   ]
 }

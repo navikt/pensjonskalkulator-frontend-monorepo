@@ -98,11 +98,10 @@ declare global {
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
-  type AfpPrivatPensjonsberegning =
+  type AfpPensjonsberegning =
     components['schemas']['PersonligSimuleringAarligPensjonResultV8']
   type AlderspensjonPensjonsberegning =
     components['schemas']['PersonligSimuleringAlderspensjonResultV8']
-
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
     components['schemas']['PensjonsavtaleSpecV3']
@@ -128,6 +127,8 @@ declare global {
     components['schemas']['IngressSimuleringOffentligTjenestepensjonSpecV2']
   type OffentligTp =
     components['schemas']['OffentligTjenestepensjonSimuleringsresultatDtoV2']
+  type SimulertTjenestepensjon =
+    components['schemas']['SimulertTjenestepensjonV2']
 }
 
 declare module 'react/jsx-runtime' {

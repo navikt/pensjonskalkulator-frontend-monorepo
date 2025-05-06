@@ -11,17 +11,32 @@
     "simuleringsresultat": {
       "utbetalingsperioder": [
         {
-          "startAlder": { "aar": 67, "maaneder": 0 },
-          "sluttAlder": { "aar": 69, "maaneder": 11 },
+          "startAlder": {
+            "aar": 67,
+            "maaneder": 0
+          },
+          "sluttAlder": {
+            "aar": 69,
+            "maaneder": 11
+          },
           "aarligUtbetaling": 64340
         },
         {
-          "startAlder": { "aar": 70, "maaneder": 0 },
-          "sluttAlder": { "aar": 74, "maaneder": 11 },
+          "startAlder": {
+            "aar": 70,
+            "maaneder": 0
+          },
+          "sluttAlder": {
+            "aar": 74,
+            "maaneder": 11
+          },
           "aarligUtbetaling": 53670
         },
         {
-          "startAlder": { "aar": 75, "maaneder": 0 },
+          "startAlder": {
+            "aar": 75,
+            "maaneder": 0
+          },
           "aarligUtbetaling": 48900
         }
       ],

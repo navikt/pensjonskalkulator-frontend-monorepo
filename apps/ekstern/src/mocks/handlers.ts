@@ -122,8 +122,8 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
     const data = await import(`./data/alderspensjon/${aar}.json`)
     const mergedData = JSON.parse(JSON.stringify(data.default))
-    let afpPrivat: AfpPrivatPensjonsberegning[] = []
-    let afpOffentlig: AfpPrivatPensjonsberegning[] = []
+    let afpPrivat: AfpPensjonsberegning[] = []
+    let afpOffentlig: AfpPensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
         'ALDERSPENSJON_MED_AFP_PRIVAT' ||

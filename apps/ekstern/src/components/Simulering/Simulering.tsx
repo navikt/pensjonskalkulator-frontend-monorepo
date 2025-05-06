@@ -31,6 +31,7 @@ import {
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 
+import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
@@ -47,8 +48,8 @@ interface Props {
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
   alderspensjonListe?: AlderspensjonPensjonsberegning[]
-  afpPrivatListe?: AfpPrivatPensjonsberegning[]
-  afpOffentligListe?: AfpPrivatPensjonsberegning[]
+  afpPrivatListe?: AfpPensjonsberegning[]
+  afpOffentligListe?: AfpPensjonsberegning[]
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   showButtonsAndTable?: boolean
   detaljer?: {
@@ -276,6 +277,20 @@ export const Simulering = ({
           detaljer={detaljer}
         />
       )}
+
+      {!isOffentligTpLoading &&
+        !isLoading &&
+        !isPensjonsavtalerLoading &&
+        !isEndring &&
+        visning === 'avansert' && (
+          <MaanedsbeloepAvansertBeregning
+            alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
+            afpPrivatListe={afpPrivatListe}
+            afpOffentligListe={afpOffentligListe}
+            pensjonsavtaler={pensjonsavtalerData?.avtaler}
+            simulertTjenestepensjon={offentligTpData?.simulertTjenestepensjon}
+          />
+        )}
     </section>
   )
 }

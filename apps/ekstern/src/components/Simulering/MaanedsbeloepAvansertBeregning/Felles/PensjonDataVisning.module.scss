@@ -1,0 +1,35 @@
+@use '../../../../scss/variables';
+
+.container {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.row {
+  th,
+  td {
+    padding: 0;
+    text-align: left;
+    font-size: var(--a-font-size-large);
+  }
+
+  @media screen and (max-width: variables.$a-breakpoint-sm) {
+    th > p,
+    td {
+      font-size: var(--a-font-size-medium);
+    }
+  }
+
+  td {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+.sum {
+  font-weight: var(--a-font-weight-bold);
+
+  * {
+    font-weight: var(--a-font-weight-bold);
+  }
+}
