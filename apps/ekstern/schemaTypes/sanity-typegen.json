@@ -1,0 +1,4 @@
+{
+  "schema": "./schemaTypes/sanity-schema.json",
+  "generates": "./src/types/sanity.types.ts"
+}

@@ -12,7 +12,7 @@ export const nameField = defineField({
   name: 'name',
   type: 'string',
   description: 'Denne brukes som ID i koden',
-  validation: (rule) => rule.required().error(`Påkrevd`),
+  validation: (rule) => rule.required().error('Påkrevd'),
 })
 
 export const overskriftField = defineField({
@@ -52,4 +52,5 @@ export const innholdField = defineField({
       },
     },
   ],
+  validation: (rule) => rule.required().error('Påkrevd'),
 })

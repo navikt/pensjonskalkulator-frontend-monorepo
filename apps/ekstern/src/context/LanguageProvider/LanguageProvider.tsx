@@ -1,3 +1,4 @@
+import { defineQuery } from 'groq'
 import { ReactNode, useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 
@@ -9,11 +10,6 @@ import {
 } from '@navikt/nav-dekoratoren-moduler'
 
 import { SanityContext } from '@/context/SanityContext'
-import {
-  SanityForbeholdAvsnitt,
-  SanityGuidePanel,
-  SanityReadMore,
-} from '@/context/SanityContext/SanityTypes'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logger } from '@/utils/logging'
 import { sanityClient } from '@/utils/sanity'
@@ -23,9 +19,26 @@ import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
 import '@formatjs/intl-numberformat/locale-data/nn'
 
+import {
+  ForbeholdAvsnittQueryResult,
+  GuidePanelQueryResult,
+  ReadMoreQueryResult,
+} from '@/types/sanity.types'
+
 import { getCookie, getTranslations, setCookie, updateLanguage } from './utils'
 
 const akselLocales: Record<Locales, typeof nb> = { nb, nn, en }
+
+// Kjør `npm run sanity-typegen` for å generere typer for Sanity-data
+const forbeholdAvsnittQuery = defineQuery(
+  `*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}`
+)
+const guidePanelQuery = defineQuery(
+  `*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}`
+)
+const readMoreQuery = defineQuery(
+  `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
+)
 
 interface Props {
   children: ReactNode
@@ -34,14 +47,13 @@ interface Props {
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
 
-  const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] = useState<
-    SanityForbeholdAvsnitt[]
-  >([])
+  const [sanityForbeholdAvsnittData, setSanityForbeholdAvsnittData] =
+    useState<ForbeholdAvsnittQueryResult>([])
   const [sanityGuidePanelData, setSanityGuidePanelData] = useState<
-    Record<string, SanityGuidePanel>
+    Record<string, GuidePanelQueryResult[number]>
   >({})
   const [sanityReadMoreData, setSanityReadMoreData] = useState<
-    Record<string, SanityReadMore>
+    Record<string, ReadMoreQueryResult[number]>
   >({})
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
@@ -52,9 +64,7 @@ export function LanguageProvider({ children }: Props) {
     const logData = `Språk: ${locale}`
 
     sanityClient
-      .fetch(
-        `*[_type == "forbeholdAvsnitt" && language == "${locale}"] | order(order asc) | {overskrift,innhold}`
-      )
+      .fetch(forbeholdAvsnittQuery, { locale })
       .then((sanityForbeholdAvsnittResponse) => {
         setSanityForbeholdAvsnittData(sanityForbeholdAvsnittResponse || [])
       })
@@ -65,15 +75,14 @@ export function LanguageProvider({ children }: Props) {
         })
       })
     sanityClient
-      .fetch(
-        `*[_type == "guidepanel" && language == "${locale}"] | {name,overskrift,innhold}`
-      )
+      .fetch(guidePanelQuery, { locale })
       .then((sanityGuidePanelResponse) => {
         setSanityGuidePanelData(
           Object.fromEntries(
-            (sanityGuidePanelResponse || []).map(
-              (guidepanel: SanityGuidePanel) => [guidepanel.name, guidepanel]
-            )
+            (sanityGuidePanelResponse || []).map((guidepanel) => [
+              guidepanel.name,
+              guidepanel,
+            ])
           )
         )
       })
@@ -84,13 +93,11 @@ export function LanguageProvider({ children }: Props) {
         })
       })
     sanityClient
-      .fetch(
-        `*[_type == "readmore" && language == "${locale}"] | {name,overskrift,innhold}`
-      )
+      .fetch(readMoreQuery, { locale })
       .then((sanityReadMoreResponse) => {
         setSanityReadMoreData(
           Object.fromEntries(
-            (sanityReadMoreResponse || []).map((readmore: SanityReadMore) => [
+            (sanityReadMoreResponse || []).map((readmore) => [
               readmore.name,
               readmore,
             ])

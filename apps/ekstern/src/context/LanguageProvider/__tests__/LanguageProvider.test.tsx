@@ -129,24 +129,30 @@ describe('LanguageProvider', () => {
     await waitFor(() => {
       expect(sanityClientFetchMock).toHaveBeenCalledTimes(6)
 
-      expect(sanityClientFetchMock.mock.calls[0][0]).toBe(
-        '*[_type == "forbeholdAvsnitt" && language == "nb"] | order(order asc) | {overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[1][0]).toBe(
-        '*[_type == "guidepanel" && language == "nb"] | {name,overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[2][0]).toBe(
-        '*[_type == "readmore" && language == "nb"] | {name,overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[3][0]).toBe(
-        '*[_type == "forbeholdAvsnitt" && language == "en"] | order(order asc) | {overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[4][0]).toBe(
-        '*[_type == "guidepanel" && language == "en"] | {name,overskrift,innhold}'
-      )
-      expect(sanityClientFetchMock.mock.calls[5][0]).toBe(
-        '*[_type == "readmore" && language == "en"] | {name,overskrift,innhold}'
-      )
+      expect(sanityClientFetchMock.mock.calls[0]).toStrictEqual([
+        '*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}',
+        { locale: 'nb' },
+      ])
+      expect(sanityClientFetchMock.mock.calls[1]).toStrictEqual([
+        '*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}',
+        { locale: 'nb' },
+      ])
+      expect(sanityClientFetchMock.mock.calls[2]).toStrictEqual([
+        '*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}',
+        { locale: 'nb' },
+      ])
+      expect(sanityClientFetchMock.mock.calls[3]).toStrictEqual([
+        '*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}',
+        { locale: 'en' },
+      ])
+      expect(sanityClientFetchMock.mock.calls[4]).toStrictEqual([
+        '*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}',
+        { locale: 'en' },
+      ])
+      expect(sanityClientFetchMock.mock.calls[5]).toStrictEqual([
+        '*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}',
+        { locale: 'en' },
+      ])
     })
 
     await waitFor(() => {

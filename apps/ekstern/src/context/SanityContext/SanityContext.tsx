@@ -1,16 +1,15 @@
 import React from 'react'
 
 import {
-  SanityForbeholdAvsnitt,
-  SanityGuidePanel,
-  SanityReadMore,
-} from './SanityTypes'
+  ForbeholdAvsnittQueryResult,
+  GuidePanelQueryResult,
+  ReadMoreQueryResult,
+} from '@/types/sanity.types'
 
 interface SanityContext {
-  // TODO forbedringsmulighet: få generert akkurat riktig type: https://www.sanity.io/docs/sanity-typegen (eventuelt https://www.sanity.io/plugins/sanity-typed-types)
-  guidePanelData: Record<string, SanityGuidePanel>
-  readMoreData: Record<string, SanityReadMore>
-  forbeholdAvsnittData: SanityForbeholdAvsnitt[]
+  guidePanelData: Record<string, GuidePanelQueryResult[number]>
+  readMoreData: Record<string, ReadMoreQueryResult[number]>
+  forbeholdAvsnittData: ForbeholdAvsnittQueryResult
 }
 
 export const SanityContext = React.createContext<SanityContext>({
