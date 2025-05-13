@@ -13,6 +13,13 @@
   }
 }
 
+.wrapperFlexColumn {
+  @media (min-width: variables.$a-breakpoint-md) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .image {
   text-align: center;
   margin-bottom: var(--a-spacing-4);

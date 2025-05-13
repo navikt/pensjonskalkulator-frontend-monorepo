@@ -1,6 +1,7 @@
 declare const classNames: {
   readonly wrapper: "wrapper";
   readonly wrapperText: "wrapperText";
+  readonly wrapperFlexColumn: "wrapperFlexColumn";
   readonly image: "image";
   readonly list: "list";
   readonly ellipse: "ellipse";

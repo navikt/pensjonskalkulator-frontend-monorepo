@@ -93,6 +93,7 @@ export const isAlderOver =
   }
 
 export const isAlderOver67 = isAlderOver(67)
+export const isAlderOver75 = isAlderOver(75)
 
 export const isOvergangskull = (foedselsdato: string) => {
   const DATE_START = new Date(1954, 0, 0)

@@ -25,7 +25,12 @@ interface Props {
   onNext?: () => void
 }
 
-export function Start({ navn, loependeVedtak, onCancel, onNext }: Props) {
+export function StartForBrukereUnder75({
+  navn,
+  loependeVedtak,
+  onCancel,
+  onNext,
+}: Props) {
   const intl = useIntl()
   const isEndring = isLoependeVedtakEndring(loependeVedtak)
   const fremtidigAlderspensjon = loependeVedtak.fremtidigAlderspensjon

@@ -46,6 +46,61 @@ describe('StepStart', () => {
     })
   })
 
+  describe('Gitt at brukeren er innlogget', () => {
+    it('henter personopplysninger og viser hilsen med navnet til brukeren når bruker er yngre enn 75 år', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+
+      render(<RouterProvider router={router} />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+            },
+          },
+        },
+        hasRouter: false,
+      })
+      expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
+    })
+
+    it('henter personopplysninger og viser at brukeren kan ikke beregne alderspensjon i kalkulatoren siden bruker har fyllt 75 år', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+
+      mockResponse('/v4/person', {
+        json: {
+          navn: 'Aprikos',
+          sivilstand: 'UGIFT',
+          foedselsdato: '1948-10-02',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+          },
+        },
+      })
+
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+
+      expect(
+        await screen.findByTestId('start-brukere-fyllt-75-title')
+      ).toBeVisible()
+    })
+  })
+
   describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
     it('henter personopplysninger og viser hilsen med navnet til brukeren', async () => {
       const router = createMemoryRouter(routes, {
@@ -64,6 +119,7 @@ describe('StepStart', () => {
         },
         hasRouter: false,
       })
+
       expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
       expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })

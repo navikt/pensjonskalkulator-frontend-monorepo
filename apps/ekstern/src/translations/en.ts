@@ -99,6 +99,10 @@ export default {
     'To get an estimate of your pension, you must answer all the following questions.',
   'stegvisning.start.button': 'Get Started',
   'stegvisning.start.link': 'Personal data used in the pension calculator',
+  'stegvisning.start_brukere_fyllt_75.title': 'MANGLER_TEKST',
+  'stegvisning.start_brukere_fyllt_75.ingress': 'MANGLER_TEKST',
+  'stegvisning.start_brukere_fyllt_75.button': 'MANGLER_TEKST',
+  'stegvisning.start_brukere_fyllt_75.avbryt': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.title': 'Time abroad',
   'stegvisning.utenlandsopphold.ingress':
     'If you have lived or worked more than 5 years outside Norway between the age of 16 and the withdrawal of your pension, it may affect the amount of your retirement pension.',
