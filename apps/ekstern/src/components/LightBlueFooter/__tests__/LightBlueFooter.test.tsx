@@ -25,7 +25,7 @@ describe('LightBlueFooter', () => {
     it('Når brukeren bekrefter, nullstiller input fra brukeren og redirigerer til første steg av stegvisning', async () => {
       const user = userEvent.setup()
 
-      const { store } = render(<LightBlueFooter />, {
+      const { store } = await render(<LightBlueFooter />, {
         preloadedState: {
           userInput: { ...userInputInitialState, samtykke: true },
         },

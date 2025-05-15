@@ -51,8 +51,8 @@ describe('MobilePensjonVisning', () => {
     expect(readMoreElements.length).toBe(0)
   })
 
-  it('returnerer null når ingen pensjonsdata er tilgjengelig', () => {
-    const { container } = render(
+  it('returnerer null når ingen pensjonsdata er tilgjengelig', async () => {
+    const { container } = await render(
       <PensjonVisningMobil
         pensjonsdata={[]}
         summerYtelser={mockSummerYtelser}

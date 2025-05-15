@@ -58,8 +58,8 @@ describe('DesktopPensjonVisning', () => {
     expect(screen.getByText('6 000 kr')).toBeVisible()
   })
 
-  it('returnerer null når ingen pensjonsdata oppføringer er tilgjengelige', () => {
-    const { container } = render(
+  it('returnerer null når ingen pensjonsdata oppføringer er tilgjengelige', async () => {
+    const { container } = await render(
       <PensjonVisningDesktop
         pensjonsdata={[]}
         summerYtelser={mockSummerYtelser}

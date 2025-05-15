@@ -40,7 +40,7 @@ describe('VelgUttaksalder', () => {
       tidligstMuligUttak: uttaksalder,
     })
 
-    const { rerender } = render(<VelgUttaksalder {...getProps()} />, {
+    const { rerender } = await render(<VelgUttaksalder {...getProps()} />, {
       // @ts-ignore
       preloadedState: {
         ...mockedState,

@@ -18,7 +18,7 @@ describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
     const user = userEvent.setup()
     beforeEach(async () => {
-      const { store } = render(
+      const { store } = await render(
         <WrappedGrunnlagInntekt goToAvansert={vi.fn()} />
       )
       store.dispatch(apiSlice.endpoints.getInntekt.initiate())
@@ -84,7 +84,7 @@ describe('GrunnlagInntekt', () => {
         status: 200,
         json: { aar: 2021, beloep: 0 },
       })
-      const { store } = render(
+      const { store } = await render(
         <WrappedGrunnlagInntekt goToAvansert={vi.fn()} />
       )
       await store.dispatch(apiSlice.endpoints.getInntekt.initiate())

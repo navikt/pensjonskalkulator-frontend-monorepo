@@ -11,13 +11,13 @@ import { render, screen } from '@/test-utils'
 import { InfoOmLoependeVedtak } from '..'
 
 describe('InfoOmLoependeVedtak', () => {
-  it('Når vedtaket ikke er oppgitt, returnerer null', () => {
-    const { asFragment } = render(<InfoOmLoependeVedtak />)
+  it('Når vedtaket ikke er oppgitt, returnerer null', async () => {
+    const { asFragment } = await render(<InfoOmLoependeVedtak />)
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
-  it('Når vedtaket ikke gjelder alderspensjon, returnerer null', () => {
-    const { asFragment } = render(
+  it('Når vedtaket ikke gjelder alderspensjon, returnerer null', async () => {
+    const { asFragment } = await render(
       <InfoOmLoependeVedtak
         loependeVedtak={
           fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']

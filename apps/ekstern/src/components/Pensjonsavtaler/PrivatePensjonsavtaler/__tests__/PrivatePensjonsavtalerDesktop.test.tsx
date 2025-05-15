@@ -47,7 +47,7 @@ describe('PrivatePensjonsavtalerDesktop', () => {
   })
 
   it('rendrer riktig med avtaler som bare har start dato', async () => {
-    const { container } = render(
+    const { container } = await render(
       <PrivatePensjonsavtalerDesktop
         headingLevel="4"
         pensjonsavtaler={avtaler}
@@ -103,7 +103,7 @@ describe('PrivatePensjonsavtalerDesktop', () => {
       ],
     }
 
-    const { container } = render(
+    const { container } = await render(
       <PrivatePensjonsavtalerDesktop
         headingLevel="4"
         pensjonsavtaler={[avtaleMedStartOgSlutt]}

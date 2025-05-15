@@ -40,8 +40,8 @@ describe('veileder - feilmeldinger', () => {
     expect(screen.getByTestId('alert-annet')).toBeInTheDocument()
   })
 
-  it('Ingen feil', () => {
-    const { container } = render(
+  it('Ingen feil', async () => {
+    const { container } = await render(
       <VeilederInputRequestError personError={undefined} />
     )
     expect(container).toBeEmptyDOMElement()

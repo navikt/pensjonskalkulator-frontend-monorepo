@@ -82,8 +82,8 @@ describe('Beregningsvalg', () => {
       expect(medAfpRadio).toBeChecked()
     })
 
-    it('Håndterer nullstilling korrekt', () => {
-      const { rerender } = renderWithDefaultState({
+    it('Håndterer nullstilling korrekt', async () => {
+      const { rerender } = await renderWithDefaultState({
         localBeregningsTypeRadio: 'med_afp',
       })
       expect(screen.getByTestId('med_afp')).toBeChecked()

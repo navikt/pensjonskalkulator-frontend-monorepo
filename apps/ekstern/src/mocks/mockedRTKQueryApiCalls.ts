@@ -1,24 +1,25 @@
+export const personMock: Person = {
+  navn: 'Aprikos',
+  sivilstand: 'UGIFT',
+  foedselsdato: '1963-04-30',
+  pensjoneringAldre: {
+    normertPensjoneringsalder: {
+      aar: 67,
+      maaneder: 0,
+    },
+    nedreAldersgrense: {
+      aar: 62,
+      maaneder: 0,
+    },
+  },
+}
 export const fulfilledGetPerson = {
   ['getPerson(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getPerson',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
-    data: {
-      navn: 'Aprikos',
-      sivilstand: 'UGIFT',
-      foedselsdato: '1963-04-30',
-      pensjoneringAldre: {
-        normertPensjoneringsalder: {
-          aar: 67,
-          maaneder: 0,
-        },
-        nedreAldersgrense: {
-          aar: 62,
-          maaneder: 0,
-        },
-      },
-    },
+    data: personMock,
     fulfilledTimeStamp: 1688046412103,
   },
 }
@@ -205,17 +206,18 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   },
 }
 
+export const loependeVedtak0UfoeregradMock: LoependeVedtak = {
+  ufoeretrygd: {
+    grad: 0,
+  },
+}
 export const fulfilledGetLoependeVedtak0Ufoeregrad = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getLoependeVedtak',
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
-    data: {
-      ufoeretrygd: {
-        grad: 0,
-      },
-    } satisfies LoependeVedtak,
+    data: loependeVedtak0UfoeregradMock,
     fulfilledTimeStamp: 1688046412103,
   },
 }
@@ -499,44 +501,5 @@ export const fulfilledAlderspensjonForLiteTrygdetid = {
     },
 
     fulfilledTimeStamp: 1688046412103,
-  },
-}
-
-export const rejectedGetInntekt = {
-  ['getInntekt(undefined)']: {
-    status: 'rejected',
-    endpointName: 'getInntekt',
-    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-    startedTimeStamp: 1714725265404,
-    error: {
-      status: 'FETCH_ERROR',
-      error: 'TypeError: Failed to fetch',
-    },
-  },
-}
-
-export const rejectedGetEkskludertStatus = {
-  ['getEkskludertStatus(undefined)']: {
-    status: 'rejected',
-    endpointName: 'getEkskludertStatus',
-    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-    startedTimeStamp: 1714725265404,
-    error: {
-      status: 'FETCH_ERROR',
-      error: 'TypeError: Failed to fetch',
-    },
-  },
-}
-
-export const rejectedGetOmstillingsstoenadOgGjenlevende = {
-  ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-    status: 'rejected',
-    endpointName: 'getOmstillingsstoenadOgGjenlevende',
-    requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-    startedTimeStamp: 1714725265404,
-    error: {
-      status: 'FETCH_ERROR',
-      error: 'TypeError: Failed to fetch',
-    },
   },
 }

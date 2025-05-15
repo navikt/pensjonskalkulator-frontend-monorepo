@@ -290,7 +290,7 @@ describe('BeregningEnkel', () => {
   describe('Når brukeren velger uttaksalder', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Pensjonsavtaler, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
-      const { container } = render(<BeregningEnkel />, {
+      const { container } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -336,7 +336,7 @@ describe('BeregningEnkel', () => {
         'initiate'
       )
       const user = userEvent.setup()
-      const { store } = render(<BeregningEnkel />, {
+      const { store } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -428,7 +428,7 @@ describe('BeregningEnkel', () => {
         'initiate'
       )
       const user = userEvent.setup()
-      const { store } = render(<BeregningEnkel />, {
+      const { store } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -521,7 +521,7 @@ describe('BeregningEnkel', () => {
       )
 
       const user = userEvent.setup()
-      const { store } = render(<BeregningEnkel />, {
+      const { store } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -613,7 +613,7 @@ describe('BeregningEnkel', () => {
       )
 
       const user = userEvent.setup()
-      const { store } = render(<BeregningEnkel />, {
+      const { store } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -910,7 +910,7 @@ describe('BeregningEnkel', () => {
   describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Pensjonsavtaler, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
-      const { container } = render(<BeregningEnkel />, {
+      const { container } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -961,7 +961,7 @@ describe('BeregningEnkel', () => {
       )
 
       const user = userEvent.setup()
-      const { store } = render(<BeregningEnkel />, {
+      const { store } = await render(<BeregningEnkel />, {
         preloadedState: {
           api: {
             // @ts-ignore

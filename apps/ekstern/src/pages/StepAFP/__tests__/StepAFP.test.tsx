@@ -4,9 +4,7 @@ import { describe, it, vi } from 'vitest'
 import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
   fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-  rejectedGetInntekt,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
@@ -54,11 +52,7 @@ describe('StepAFP', () => {
   it('har riktig sidetittel', async () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
-        queries: {
-          ...rejectedGetInntekt,
-          ...fulfilledGetPerson,
-          ...fulfilledGetLoependeVedtak0Ufoeregrad,
-        },
+        queries: { mock: 'mock' },
       },
       userInput: {
         ...userInputReducerUtils.userInputInitialState,

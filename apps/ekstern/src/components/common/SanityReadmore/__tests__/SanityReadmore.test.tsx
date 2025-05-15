@@ -18,8 +18,12 @@ describe('SanityReadmore', () => {
   })
 
   it('kaster runtime error når id ikke finnes i readMoreData', async () => {
-    expect(() => {
-      render(<SanityReadmore id="non-existent-id" />)
-    }).toThrow()
+    let error
+    try {
+      await render(<SanityReadmore id="non-existent-id" />)
+    } catch (err) {
+      error = err
+    }
+    expect(error).toBeInstanceOf(Error)
   })
 })

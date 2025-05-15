@@ -43,7 +43,7 @@ describe('Pensjonsavtaler', () => {
     it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress, tabell og info om offentlig tjenestepensjon.', async () => {
       const user = userEvent.setup()
 
-      const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
+      const { store } = await render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
             // @ts-ignore

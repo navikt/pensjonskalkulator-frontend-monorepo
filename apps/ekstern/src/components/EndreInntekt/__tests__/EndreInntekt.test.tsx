@@ -154,7 +154,7 @@ describe('EndreInntekt', () => {
           ufoeretrygd: { grad: 100 },
         } satisfies LoependeVedtak,
       })
-      const { store } = render(
+      const { store } = await render(
         <EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
