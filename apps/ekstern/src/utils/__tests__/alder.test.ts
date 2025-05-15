@@ -15,6 +15,7 @@ import {
   getMaanedString,
   isAlderLikEllerOverAnnenAlder,
   isAlderOver,
+  isAlderOver75Plus1Maaned,
   isAlderOverAnnenAlder,
   isFoedselsdatoOverAlder,
   isFoedtFoer1963,
@@ -754,6 +755,45 @@ describe('alder-utils', () => {
     it('ikke over 63 år', () => {
       const foedselsdato = '1967-06-06' // 58 today
       const actual = isAlderOver(63)(foedselsdato)
+      expect(actual).toBe(false)
+    })
+  })
+
+  describe('isAlderOver75Plus1Maaned', () => {
+    beforeAll(() => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-05-01'))
+    })
+
+    afterAll(() => {
+      vi.useRealTimers()
+    })
+
+    it('forventer at faketimer setter riktig dato', () => {
+      const today = new Date()
+      expect(format(today, 'yyyy-MM-dd')).toBe('2025-05-01')
+    })
+
+    it('returnerer false når alder er 75, men ikke over 75 år og 1 måned', () => {
+      const foedselsdato = '1950-05-01' // Still in the month user filled 75
+      const actual = isAlderOver75Plus1Maaned(foedselsdato)
+      expect(actual).toBe(false)
+    })
+
+    it('returnerer true når alder er 75 år og 1 måned', () => {
+      const foedselsdato = '1950-04-30' // Month after user filled 75 today
+      const actual = isAlderOver75Plus1Maaned(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('returnerer true når alder er over 75 år og 1 måned', () => {
+      const foedselsdato = '1949-04-30'
+      const actual = isAlderOver75Plus1Maaned(foedselsdato)
+      expect(actual).toBe(true)
+    })
+
+    it('returnerer false når alder er under 75 år og 1 måned', () => {
+      const foedselsdato = '1967-05-01'
+      const actual = isAlderOver75Plus1Maaned(foedselsdato)
       expect(actual).toBe(false)
     })
   })

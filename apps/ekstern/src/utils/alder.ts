@@ -1,7 +1,9 @@
 import {
+  addYears,
   differenceInMonths,
   differenceInYears,
   endOfDay,
+  endOfMonth,
   format,
   isAfter,
   isBefore,
@@ -93,7 +95,19 @@ export const isAlderOver =
   }
 
 export const isAlderOver67 = isAlderOver(67)
-export const isAlderOver75 = isAlderOver(75)
+
+export const isAlderOver75Plus1Maaned = (foedselsdato: string) => {
+  const parsedFoedselsdato = parse(
+    foedselsdato,
+    DATE_BACKEND_FORMAT,
+    new Date()
+  )
+
+  const foedselsdato75 = addYears(parsedFoedselsdato, 75)
+  const sisteDagIMaanedenFyllt75 = endOfMonth(foedselsdato75)
+
+  return isAfter(new Date(), sisteDagIMaanedenFyllt75)
+}
 
 export const isOvergangskull = (foedselsdato: string) => {
   const DATE_START = new Date(1954, 0, 0)

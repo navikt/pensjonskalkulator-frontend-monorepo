@@ -11,7 +11,7 @@ import { paths } from '@/router/constants'
 import { stepStartAccessGuard } from '@/router/loaders'
 import { useAppSelector } from '@/state/hooks'
 import { selectIsVeileder } from '@/state/userInput/selectors'
-import { isAlderOver75 } from '@/utils/alder'
+import { isAlderOver75Plus1Maaned } from '@/utils/alder'
 
 export function StepStart() {
   const intl = useIntl()
@@ -31,7 +31,7 @@ export function StepStart() {
 
   const isVeileder = useAppSelector(selectIsVeileder)
 
-  if (isAlderOver75(person.foedselsdato)) {
+  if (isAlderOver75Plus1Maaned(person.foedselsdato)) {
     return <StartForBrukereFyllt75 />
   }
 

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, HStack, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { externalUrls, paths } from '@/router/constants'
@@ -45,11 +45,10 @@ export function StartForBrukereFyllt75() {
             }}
           />
         </BodyLong>
-        <div className={styles.wrapperText}>
+        <HStack gap="4" marginBlock="6 0">
           <Button
             data-testid="start-brukere-fyllt-75-din-pensjon-button"
             type="submit"
-            className={styles.button}
             variant="primary"
             onClick={wrapLogger('button klikk', {
               tekst: 'Go til Din pensjon',
@@ -66,7 +65,7 @@ export function StartForBrukereFyllt75() {
           >
             <FormattedMessage id="stegvisning.start_brukere_fyllt_75.avbryt" />
           </Button>
-        </div>
+        </HStack>
       </div>
     </Card>
   )

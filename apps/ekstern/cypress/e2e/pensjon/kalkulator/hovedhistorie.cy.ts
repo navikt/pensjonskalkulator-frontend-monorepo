@@ -76,7 +76,7 @@ describe('Hovedhistorie', () => {
       'yyyy-MM-dd'
     )
 
-    const foedselsdato75Plus = format(
+    const foedselsdato75Plus1Maaned = format(
       sub(new Date(), { years: 75, months: 1, days: 5 }),
       'yyyy-MM-dd'
     )
@@ -121,7 +121,7 @@ describe('Hovedhistorie', () => {
     })
 
     // 5
-    describe('Når jeg navigerer videre fra /login til /start og har fyllt 75 år,', () => {
+    describe('Når jeg navigerer videre fra /login til /start og har fyllt 75 år plus 1 måned,', () => {
       beforeEach(() => {
         cy.visit('/pensjon/kalkulator/')
         cy.wait('@getAuthSession')
@@ -129,7 +129,7 @@ describe('Hovedhistorie', () => {
           { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
           {
             ...personMock,
-            foedselsdato: foedselsdato75Plus,
+            foedselsdato: foedselsdato75Plus1Maaned,
           }
         ).as('getPerson')
         cy.contains('button', 'Detaljert pensjonskalkulator').should(
