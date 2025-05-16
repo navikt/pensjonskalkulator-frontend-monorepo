@@ -14,6 +14,8 @@ const translations = {
     'Uventet feil – Pensjonskalkulator',
   'application.title.stegvisning.kalkulator_virker_ikke':
     'Kalkulatoren virker ikke – Pensjonskalkulator',
+  'application.title.securityLevel_feil':
+    'For lavt sikkerhetsnivå – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.henvisning.apotekerne':
@@ -24,6 +26,11 @@ const translations = {
   'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
   'pageframework.loading': 'Vent litt mens vi henter informasjon.',
+  'error.securityLevel.title': 'Du kan ikke logge inn i kalkulatoren med MinID',
+  'error.securityLevel.ingress':
+    'For å bruke kalkulatoren må du logge inn med et høyere sikkerhetsnivå, f.eks. BankID, Buypass eller Commfides.',
+  'error.securityLevel.primary_button': 'Logg inn på nytt',
+  'error.securityLevel.secondary_button': 'Avbryt',
   'error.fullmakt.title':
     'Du kan ikke bruke kalkulatoren på vegne av denne brukeren',
   'error.fullmakt.ingress':

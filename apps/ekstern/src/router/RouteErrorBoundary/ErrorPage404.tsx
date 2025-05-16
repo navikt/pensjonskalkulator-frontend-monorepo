@@ -9,13 +9,13 @@ import { FrameComponent } from '@/components/common/PageFramework'
 import { externalUrls, paths } from '@/router/constants'
 import { logOpenLink, logger } from '@/utils/logging'
 
-export function ErrorPage404() {
+export const ErrorPage404 = () => {
   React.useEffect(() => {
     logger('feilside', {
       feil: '404 Not found',
     })
     window.scrollTo(0, 0)
-  })
+  }, [])
 
   return (
     <FrameComponent>

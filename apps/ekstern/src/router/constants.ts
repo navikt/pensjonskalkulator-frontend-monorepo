@@ -48,6 +48,7 @@ export const paths = {
   beregningAvansert: '/beregning-detaljert',
   forbehold: '/forbehold',
   kalkulatorVirkerIkke: '/kalkulatoren-virker-ikke',
+  lavtSikkerhetsnivaa: '/for-lavt-sikkerhetsnivaa',
 } as const
 
 export const henvisningUrlParams = {

@@ -14,6 +14,7 @@ export default {
   'application.title.stegvisning.uventet_feil':
     'Unexpected Error – Pension Calculator',
   'application.title.stegvisning.kalkulator_virker_ikke': 'MANGLER_TEKST',
+  'application.title.securityLevel_feil': 'MANGLER_TEKST',
   'application.title.beregning': 'Calculation – Pension Calculator',
   'application.title.forbehold': 'Reservation – Pension Calculator',
   'application.title.henvisning.apotekerne':
@@ -24,6 +25,10 @@ export default {
   'application.global.retry': 'Try Again',
   'pageframework.title': 'Pension Calculator',
   'pageframework.loading': 'Please wait while we retrieve the information.',
+  'error.securityLevel.title': 'MANGLER_TEKST',
+  'error.securityLevel.ingress': 'MANGLER_TEKST',
+  'error.securityLevel.primary_button': 'MANGLER_TEKST',
+  'error.securityLevel.secondary_button': 'MANGLER_TEKST',
   'error.fullmakt.title':
     'You cannot use the calculator on behalf of this user',
   'error.fullmakt.ingress':

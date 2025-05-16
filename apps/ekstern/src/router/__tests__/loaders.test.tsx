@@ -7,6 +7,7 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { henvisningUrlParams, paths } from '@/router/constants'
+import type { Reason } from '@/router/loaders'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import {
@@ -119,9 +120,12 @@ describe('Loaders', () => {
       expectRedirectResponse(await stepStartAccessGuard(), paths.uventetFeil)
     })
 
-    it('Når /person kall feiler med 403 status redirigeres bruker til ingen-tilgang', async () => {
+    it('Når /person kall feiler med 403 status og reason er INVALID_REPRESENTASJON, redirigeres bruker til ingen-tilgang', async () => {
       mockErrorResponse('/v4/person', {
         status: 403,
+        json: {
+          reason: 'INVALID_REPRESENTASJON' as Reason,
+        },
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
@@ -129,6 +133,24 @@ describe('Loaders', () => {
       }))
 
       expectRedirectResponse(await stepStartAccessGuard(), paths.ingenTilgang)
+    })
+
+    it('Når /person kall feiler med 403 status og reason er INSUFFICIENT_LEVEL_OF_ASSURANCE, redirigeres bruker til uventet-feil', async () => {
+      mockErrorResponse('/v4/person', {
+        status: 403,
+        json: {
+          reason: 'INSUFFICIENT_LEVEL_OF_ASSURANCE' as Reason,
+        },
+      })
+
+      store.getState = vi.fn().mockImplementation(() => ({
+        userInput: { ...userInputInitialState },
+      }))
+
+      expectRedirectResponse(
+        await stepStartAccessGuard(),
+        paths.lavtSikkerhetsnivaa
+      )
     })
 
     it('Når /person kall feiler med annen status redirigeres bruker til uventet-feil side', async () => {

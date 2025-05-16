@@ -43,11 +43,11 @@ export const mockErrorResponse = (
   const method = inputOptions.method ?? 'get'
   const baseUrl = inputOptions.baseUrl ?? API_BASEURL
   const status = inputOptions.status ?? 500
+  const json = inputOptions.json ?? ''
 
   server.use(
     http[method](`${baseUrl}${path}`, async () => {
-      // Må sende tom streng slik at ikke rtk-query prøver å parse JSON
-      return HttpResponse.text('', { status })
+      return HttpResponse.json(json, { status })
     })
   )
 }

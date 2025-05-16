@@ -6,7 +6,7 @@ import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-h
 import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
 
-export function ErrorPageUnexpected() {
+export const ErrorPageUnexpected = () => {
   const [{ onStegvisningCancel }] = useStegvisningNavigation(paths.uventetFeil)
 
   React.useEffect(() => {

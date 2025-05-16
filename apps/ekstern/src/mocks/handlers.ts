@@ -79,10 +79,22 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     await delay(TEST_DELAY)
     if (request.headers.get('fnr') === '40100000000') {
       return HttpResponse.json({}, { status: 401 })
+    } else if (request.headers.get('fnr') === '40300000001') {
+      return HttpResponse.json(
+        {
+          reason: 'INVALID_REPRESENTASJON',
+        },
+        { status: 403 }
+      )
+    } else if (request.headers.get('fnr') === '40300000002') {
+      return HttpResponse.json(
+        {
+          reason: 'INSUFFICIENT_LEVEL_OF_ASSURANCE',
+        },
+        { status: 403 }
+      )
     } else if (request.headers.get('fnr') === '40400000000') {
       return HttpResponse.json({}, { status: 404 })
-    } else if (request.headers.get('fnr') === '40300000000') {
-      return HttpResponse.json({}, { status: 403 })
     }
     return HttpResponse.json(personResponse)
   }),

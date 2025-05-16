@@ -4,6 +4,7 @@ import { Navigate, Outlet, RouteObject } from 'react-router'
 import { Loader } from '@/components/common/Loader'
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
+import { ErrorSecurityLevel } from '@/pages/ErrorSecurityLevel'
 import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
 import { IngenTilgang } from '@/pages/IngenTilgang'
@@ -132,6 +133,11 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.ingenTilgang,
         element: <IngenTilgang />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.lavtSikkerhetsnivaa,
+        element: <ErrorSecurityLevel />,
       },
     ],
   },
