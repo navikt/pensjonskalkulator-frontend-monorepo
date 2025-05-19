@@ -15,7 +15,6 @@ import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with {
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableSanityToggleResponse from './data/unleash-enable-sanity.json' with { type: 'json' }
-import enableGradertUfoereAfpFeatureToggleResponse from './data/unleash-gradert-ufoere-afp.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
 
@@ -201,13 +200,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     )
   }),
 
-  http.get(
-    `${baseUrl}/feature/pensjonskalkulator.gradert-ufoere-afp`,
-    async () => {
-      await delay(TEST_DELAY)
-      return HttpResponse.json(enableGradertUfoereAfpFeatureToggleResponse)
-    }
-  ),
   http.get(
     `${baseUrl}/feature/pensjonskalkulator.vedlikeholdsmodus`,
     async () => {

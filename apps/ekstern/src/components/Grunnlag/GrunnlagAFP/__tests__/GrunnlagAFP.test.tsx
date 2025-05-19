@@ -58,7 +58,7 @@ describe('Grunnlag - AFP', () => {
     await user.click(buttons[6])
 
     expect(
-      await screen.findByText('grunnlag.afp.ingress.ja_offentlig.gammel')
+      await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
     ).toBeVisible()
   })
 
@@ -146,9 +146,7 @@ describe('Grunnlag - AFP', () => {
 
     await user.click(buttons[6])
 
-    expect(
-      await screen.findByTestId('grunnlag.afp.ingress.nei.gammel')
-    ).toBeVisible()
+    expect(await screen.findByTestId('grunnlag.afp.ingress.nei')).toBeVisible()
     expect(await screen.findByTestId('grunnlag.afp.reset_link')).toBeVisible()
     await user.click(await screen.findByTestId('grunnlag.afp.reset_link'))
     expect(navigateMock).toHaveBeenCalledWith(paths.start)
@@ -177,7 +175,7 @@ describe('Grunnlag - AFP', () => {
     await user.click(buttons[6])
 
     expect(
-      await screen.findByText('grunnlag.afp.ingress.vet_ikke.gammel')
+      await screen.findByText('grunnlag.afp.ingress.vet_ikke')
     ).toBeVisible()
   })
 
@@ -286,7 +284,7 @@ describe('Grunnlag - AFP', () => {
         ).toBeVisible()
         expect(
           screen.getByText(
-            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
+            'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP.',
             { exact: false }
           )
         ).toBeInTheDocument()
@@ -311,7 +309,7 @@ describe('Grunnlag - AFP', () => {
         ).toBeVisible()
         expect(
           screen.getByText(
-            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
+            'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP.',
             { exact: false }
           )
         ).toBeInTheDocument()
@@ -333,7 +331,7 @@ describe('Grunnlag - AFP', () => {
         expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
         expect(screen.getByText('afp.nei')).toBeVisible()
         expect(
-          screen.getByText('grunnlag.afp.ingress.nei.ufoeretrygd.gammel')
+          screen.getByText('grunnlag.afp.ingress.nei.ufoeretrygd')
         ).toBeInTheDocument()
       })
 
@@ -353,7 +351,7 @@ describe('Grunnlag - AFP', () => {
         expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
         expect(screen.getByText('afp.vet_ikke')).toBeVisible()
         expect(
-          screen.getByText('grunnlag.afp.ingress.vet_ikke.ufoeretrygd.gammel')
+          screen.getByText('grunnlag.afp.ingress.vet_ikke.ufoeretrygd')
         ).toBeInTheDocument()
       })
     })
@@ -435,7 +433,7 @@ describe('Grunnlag - AFP', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.ja_offentlig.gammel')
+        await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
       ).toBeVisible()
     })
 
@@ -525,7 +523,7 @@ describe('Grunnlag - AFP', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.vet_ikke.gammel')
+        await screen.findByText('grunnlag.afp.ingress.vet_ikke')
       ).toBeVisible()
     })
   })

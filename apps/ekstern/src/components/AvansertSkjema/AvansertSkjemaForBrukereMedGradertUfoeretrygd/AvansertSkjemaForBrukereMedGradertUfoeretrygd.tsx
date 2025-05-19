@@ -9,7 +9,6 @@ import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { BeregningContext } from '@/pages/Beregning/context'
-import { useGetGradertUfoereAfpFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
@@ -53,12 +52,6 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const dispatch = useAppDispatch()
 
   const { setAvansertSkjemaModus } = React.useContext(BeregningContext)
-
-  const { data: getGradertUfoereAfpFeatureToggle } =
-    useGetGradertUfoereAfpFeatureToggleQuery()
-
-  const isGradertUfoereAfpToggleEnabled =
-    getGradertUfoereAfpFeatureToggle?.enabled
 
   const valgtAFP = useAppSelector(selectAfp)
   const isSamtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
@@ -371,8 +364,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     (valgtAFP === 'ja_offentlig' && isSamtykkeOffentligAFP) ||
     valgtAFP === 'ja_privat'
 
-  const showFormFields =
-    hasSelectedBeregning || !hasSelectedAFP || !isGradertUfoereAfpToggleEnabled
+  const showFormFields = hasSelectedBeregning || !hasSelectedAFP
 
   return (
     <>
@@ -406,7 +398,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
         <div className={styles.form}>
           {isEndring && <AvansertSkjemaIntroEndring />}
 
-          {isGradertUfoereAfpToggleEnabled && hasSelectedAFP && (
+          {hasSelectedAFP && (
             <>
               <IntroAFP />
 

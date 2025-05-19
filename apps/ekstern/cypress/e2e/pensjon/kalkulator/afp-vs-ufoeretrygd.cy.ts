@@ -29,18 +29,6 @@ describe('AFP vs uføretrygd', () => {
           ufoeretrygd: { grad: 40 },
         } satisfies LoependeVedtak
       ).as('getLoependeVedtak')
-      cy.intercept(
-        {
-          method: 'GET',
-          url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.gradert-ufoere-afp',
-        },
-        {
-          statusCode: 200,
-          body: {
-            enabled: true,
-          },
-        }
-      ).as('getVedlikeholdsmodusFeatureToggle')
       cy.login()
     })
 

@@ -212,15 +212,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getGradertUfoereAfpFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.gradert-ufoere-afp',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
     getVedlikeholdsmodusFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.vedlikeholdsmodus',
       transformResponse: (response: UnleashToggle) => {
@@ -250,7 +241,6 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetSanityFeatureToggleQuery,
-  useGetGradertUfoereAfpFeatureToggleQuery,
   useGetVedlikeholdsmodusFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

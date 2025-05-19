@@ -91,7 +91,6 @@ export const stepStartAccessGuard = async () => {
     apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
   )
   store.dispatch(apiSlice.endpoints.getGrunnbelop.initiate())
-  store.dispatch(apiSlice.endpoints.getGradertUfoereAfpFeatureToggle.initiate())
 
   const [
     vedlikeholdsmodusFeatureToggle,
@@ -294,13 +293,14 @@ export const stepUfoeretrygdAFPAccessGuard = async () => {
   const loependeVedtak = await store
     .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
     .unwrap()
+  const showStep = loependeVedtak.ufoeretrygd.grad && afp && afp !== 'nei'
 
   const stepArrays = isLoependeVedtakEndring(loependeVedtak)
     ? stegvisningOrderEndring
     : stegvisningOrder
 
   // Brukere med uføretrygd som har svart ja eller vet_ikke til AFP kan se steget
-  if (loependeVedtak.ufoeretrygd.grad && afp && afp !== 'nei') {
+  if (showStep) {
     return
   }
   return redirect(stepArrays[stepArrays.indexOf(paths.ufoeretrygdAFP) + 1])
@@ -318,15 +318,7 @@ export const stepSamtykkeOffentligAFPAccessGuard = async () => {
   const loependeVedtak = await store
     .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
     .unwrap()
-  const gradertUfoereAfpToggleEnabled = await store
-    .dispatch(apiSlice.endpoints.getGradertUfoereAfpFeatureToggle.initiate())
-    .unwrap()
-    .then((result) => result.enabled)
-    .catch(() => false)
-
-  const showStep = gradertUfoereAfpToggleEnabled
-    ? afp === 'ja_offentlig'
-    : loependeVedtak.ufoeretrygd.grad === 0 && afp === 'ja_offentlig'
+  const showStep = afp === 'ja_offentlig'
 
   // Bruker uten uføretrygd som svarer ja_offentlig til AFP kan se steget
   if (showStep) {

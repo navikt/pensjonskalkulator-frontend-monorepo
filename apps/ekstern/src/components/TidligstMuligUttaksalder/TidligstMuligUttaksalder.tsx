@@ -7,10 +7,7 @@ import { Alert, BodyLong, Link } from '@navikt/ds-react'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { TelefonLink } from '@/components/common/TelefonLink'
 import { paths } from '@/router/constants'
-import {
-  useGetGradertUfoereAfpFeatureToggleQuery,
-  useGetOmstillingsstoenadOgGjenlevendeQuery,
-} from '@/state/api/apiSlice'
+import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -39,8 +36,6 @@ export const TidligstMuligUttaksalder = ({
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const { data: getGradertUfoereAfpFeatureToggle } =
-    useGetGradertUfoereAfpFeatureToggleQuery()
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
 
@@ -55,11 +50,8 @@ export const TidligstMuligUttaksalder = ({
     normertPensjonsalder
   )
 
-  const isGradertUfoereAfpToggleEnabled =
-    getGradertUfoereAfpFeatureToggle?.enabled
   const hasAFP =
-    isGradertUfoereAfpToggleEnabled &&
-    ((afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat')
+    (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()

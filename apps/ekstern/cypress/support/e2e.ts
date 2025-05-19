@@ -131,14 +131,6 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.gradert-ufoere-afp',
-    },
-    { fixture: 'toggle-gradert-ufoere-afp.json' }
-  ).as('getGradertUfoereAfpFeatureToggle')
-
-  cy.intercept(
-    {
-      method: 'GET',
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.vedlikeholdsmodus',
     },
     { enabled: false }

@@ -7,7 +7,6 @@ import { BodyLong, Link } from '@navikt/ds-react'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
-import { useGetGradertUfoereAfpFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -39,12 +38,6 @@ export const GrunnlagAFP: React.FC = () => {
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const { beregningsvalg } = useAppSelector(selectCurrentSimulation)
-
-  const { data: getGradertUfoereAfpFeatureToggle } =
-    useGetGradertUfoereAfpFeatureToggleQuery()
-
-  const isGradertUfoereAfpToggleEnabled =
-    getGradertUfoereAfpFeatureToggle?.enabled
 
   const hasAFP = afp === 'ja_offentlig' || afp === 'ja_privat'
   const hasOffentligAFP = afp === 'ja_offentlig'
@@ -108,9 +101,6 @@ export const GrunnlagAFP: React.FC = () => {
 
     const ufoeregradString = isUfoerAndDontWantAfp ? '.ufoeretrygd' : ''
 
-    if (!isGradertUfoereAfpToggleEnabled) {
-      return `grunnlag.afp.ingress.${afp}${ufoeregradString}.gammel`
-    }
     return `grunnlag.afp.ingress.${afp}${ufoeregradString}`
   }, [
     afp,
@@ -118,7 +108,6 @@ export const GrunnlagAFP: React.FC = () => {
     samtykkeOffentligAFP,
     isEndring,
     isUfoerAndDontWantAfp,
-    isGradertUfoereAfpToggleEnabled,
     loependeVedtak,
     ufoeregrad,
   ])

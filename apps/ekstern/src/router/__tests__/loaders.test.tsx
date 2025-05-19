@@ -793,7 +793,7 @@ describe('Loaders', () => {
       expect(returnedFromLoader).toBeUndefined()
     })
 
-    it('Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert', async () => {
+    it('Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen ikke redirigert', async () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -809,10 +809,8 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      expectRedirectResponse(
-        await stepSamtykkeOffentligAFPAccessGuard(),
-        paths.samtykke
-      )
+      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
+      expect(returnedFromLoader).toBeUndefined()
     })
 
     it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {

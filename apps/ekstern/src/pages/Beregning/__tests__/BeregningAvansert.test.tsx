@@ -65,7 +65,6 @@ describe('BeregningAvansert', () => {
       userInput: {
         ...userInputInitialState,
         samtykke: true,
-        samboer: false,
         afp: 'ja_privat',
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
@@ -209,16 +208,9 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
+            // @ts-ignore
             preloadedState: {
               ...preloadedState,
-              api: {
-                // @ts-ignore
-                queries: {
-                  ...fulfilledGetPerson,
-                  ...fulfilledGetInntekt,
-                  ...fulfilledGetLoependeVedtak75Ufoeregrad,
-                },
-              },
             },
           }
         )
@@ -268,7 +260,7 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
-            simuleringstype: 'ALDERSPENSJON',
+            simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
           },

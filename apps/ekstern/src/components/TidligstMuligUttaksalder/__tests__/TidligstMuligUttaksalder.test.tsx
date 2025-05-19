@@ -6,7 +6,6 @@ import {
   fulfilledGetPerson,
   fulfilledGetPersonMedOekteAldersgrenser,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
@@ -306,12 +305,7 @@ describe('TidligstMuligUttaksalder', () => {
       })
     })
 
-    it('viser riktig ingress med gradert ufoeretrygd når AFP er valgt og featureToggle er på.', async () => {
-      mockResponse('/feature/pensjonskalkulator.gradert-ufoere-afp', {
-        status: 200,
-        json: { enabled: true },
-      })
-
+    it('viser riktig ingress med gradert ufoeretrygd når AFP er valgt.', async () => {
       render(
         <TidligstMuligUttaksalder
           tidligstMuligUttak={undefined}
