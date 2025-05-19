@@ -52,7 +52,7 @@ describe('MobilePensjonVisning', () => {
   })
 
   it('returnerer null når ingen pensjonsdata er tilgjengelig', async () => {
-    const { container } = await render(
+    const { container } = render(
       <PensjonVisningMobil
         pensjonsdata={[]}
         summerYtelser={mockSummerYtelser}

@@ -86,7 +86,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
   })
 
   it('returnerer null når uttaksalder ikke er definert', async () => {
-    const { container } = await render(
+    const { container } = render(
       <MaanedsbeloepAvansertBeregning
         alderspensjonMaanedligVedEndring={{
           heltUttakMaanedligBeloep: 20000,

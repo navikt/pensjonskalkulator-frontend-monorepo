@@ -41,7 +41,7 @@ describe('veileder - feilmeldinger', () => {
   })
 
   it('Ingen feil', async () => {
-    const { container } = await render(
+    const { container } = render(
       <VeilederInputRequestError personError={undefined} />
     )
     expect(container).toBeEmptyDOMElement()

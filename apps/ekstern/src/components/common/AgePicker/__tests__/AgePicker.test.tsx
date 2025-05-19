@@ -8,7 +8,7 @@ import { AgePicker } from '..'
 
 describe('AgePicker', () => {
   it('rendrer riktig default verdier, description og info', async () => {
-    const { container } = await render(
+    const { container } = render(
       <AgePicker
         name="unique-name"
         label="My Test Age Picker"
@@ -29,7 +29,7 @@ describe('AgePicker', () => {
 
   describe('rendrer riktig valg i select', () => {
     it('med default min og max', async () => {
-      const { container } = await render(
+      const { container } = render(
         <AgePicker name="unique-name" label="My Test Age Picker" />,
         {
           preloadedState: {
@@ -76,7 +76,7 @@ describe('AgePicker', () => {
     })
 
     it('med custom min og max', async () => {
-      const { container } = await render(
+      const { container } = render(
         <AgePicker
           name="unique-name"
           label="My Test Age Picker"
@@ -128,7 +128,7 @@ describe('AgePicker', () => {
 
     describe('Når min/maxAlder er oppgitt og år er valgt', () => {
       it('viser bare månedene som kan velges basert mellom min og max mellom to år', async () => {
-        const { container } = await render(
+        const { container } = render(
           <AgePicker
             name="unique-name"
             label="My Test Age Picker"
@@ -170,7 +170,7 @@ describe('AgePicker', () => {
       })
 
       it('viser bare månedene som kan velges basert mellom min og max innen samme år', async () => {
-        const { container } = await render(
+        const { container } = render(
           <AgePicker
             name="unique-name"
             label="My Test Age Picker"
@@ -285,7 +285,7 @@ describe('AgePicker', () => {
 
   it('kaller onChange når option velges i år eller måneder, og Select for måneder enables når år er valgt', async () => {
     const onChangeMock = vi.fn()
-    const { container } = await render(
+    const { container } = render(
       <AgePicker
         name="unique-name"
         label="My Test Age Picker"

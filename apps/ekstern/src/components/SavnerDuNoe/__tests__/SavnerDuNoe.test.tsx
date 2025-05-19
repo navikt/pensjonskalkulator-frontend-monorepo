@@ -48,7 +48,7 @@ describe('SavnerDuNoe', () => {
     it('nullstiller input fra brukeren og redirigerer til avansert beregning når brukeren klikker på knappen', async () => {
       const user = userEvent.setup()
 
-      const { store } = await render(
+      const { store } = render(
         <SavnerDuNoe headingLevel="2" isEndring={false} showAvansert />,
         {
           preloadedState: {

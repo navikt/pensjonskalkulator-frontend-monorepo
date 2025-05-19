@@ -28,7 +28,7 @@ describe('StepSamtykkeOffentligAFP', () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
 
-      const { store } = await render(<StepSamtykkeOffentligAFP />, {
+      const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -52,7 +52,7 @@ describe('StepSamtykkeOffentligAFP', () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
 
-      const { store } = await render(<StepSamtykkeOffentligAFP />, {
+      const { store } = render(<StepSamtykkeOffentligAFP />, {
         preloadedState: {
           api: {
             // @ts-ignore

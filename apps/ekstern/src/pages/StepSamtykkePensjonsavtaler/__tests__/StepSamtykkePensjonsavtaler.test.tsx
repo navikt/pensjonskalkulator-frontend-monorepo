@@ -33,7 +33,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
 
-      const { store } = await render(<StepSamtykkePensjonsavtaler />, {
+      const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           api: {
             // @ts-ignore
@@ -63,7 +63,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
 
       const user = userEvent.setup()
 
-      const { store } = await render(<StepSamtykkePensjonsavtaler />, {
+      const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           api: {
             // @ts-ignore

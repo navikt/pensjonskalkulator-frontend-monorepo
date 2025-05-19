@@ -17,13 +17,9 @@ describe('SanityReadmore', () => {
     expect(screen.getByText('Lorem')).toBeInTheDocument()
   })
 
-  it('kaster runtime error når id ikke finnes i readMoreData', async () => {
-    let error
-    try {
-      await render(<SanityReadmore id="non-existent-id" />)
-    } catch (err) {
-      error = err
-    }
-    expect(error).toBeInstanceOf(Error)
+  it('kaster runtime error når id ikke finnes i readMoreData', () => {
+    expect(() => {
+      render(<SanityReadmore id="non-existent-id" />)
+    }).toThrow()
   })
 })

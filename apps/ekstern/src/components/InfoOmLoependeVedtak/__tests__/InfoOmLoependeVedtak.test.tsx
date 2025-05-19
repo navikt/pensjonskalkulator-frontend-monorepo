@@ -12,12 +12,12 @@ import { InfoOmLoependeVedtak } from '..'
 
 describe('InfoOmLoependeVedtak', () => {
   it('Når vedtaket ikke er oppgitt, returnerer null', async () => {
-    const { asFragment } = await render(<InfoOmLoependeVedtak />)
+    const { asFragment } = render(<InfoOmLoependeVedtak />)
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
   it('Når vedtaket ikke gjelder alderspensjon, returnerer null', async () => {
-    const { asFragment } = await render(
+    const { asFragment } = render(
       <InfoOmLoependeVedtak
         loependeVedtak={
           fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']

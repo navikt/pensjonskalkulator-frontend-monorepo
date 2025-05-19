@@ -44,7 +44,7 @@ describe('PrivatePensjonsavtalerMobile', () => {
   })
 
   it('rendrer riktig med avtaler som bare har start dato', async () => {
-    const { container } = await render(
+    const { container } = render(
       <PrivatePensjonsavtalerMobile
         headingLevel="4"
         pensjonsavtaler={avtaler}
@@ -92,7 +92,7 @@ describe('PrivatePensjonsavtalerMobile', () => {
       ],
     }
 
-    const { container } = await render(
+    const { container } = render(
       <PrivatePensjonsavtalerMobile
         headingLevel="4"
         pensjonsavtaler={[avtaleMedStartOgSlutt]}

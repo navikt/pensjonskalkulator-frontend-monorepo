@@ -946,7 +946,7 @@ describe('AvansertSkjema-hooks', () => {
       })
 
       // gradertAgePickerError
-      const gradertAgePickerError = await render(
+      const gradertAgePickerError = render(
         result.current[1] as React.ReactElement
       )
       expect(gradertAgePickerError.asFragment()).toMatchInlineSnapshot(`
@@ -962,9 +962,7 @@ describe('AvansertSkjema-hooks', () => {
       `)
 
       // heltAgePickerError
-      const heltAgePickerError = await render(
-        result.current[2] as React.ReactElement
-      )
+      const heltAgePickerError = render(result.current[2] as React.ReactElement)
       expect(heltAgePickerError.asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           id4

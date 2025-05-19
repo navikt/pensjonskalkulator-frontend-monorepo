@@ -216,7 +216,7 @@ describe('Grunnlag - AFP', () => {
       }
 
       it('returneres null', async () => {
-        const { asFragment } = await render(<GrunnlagAFP />, {
+        const { asFragment } = render(<GrunnlagAFP />, {
           preloadedState: {
             api: {
               // @ts-ignore

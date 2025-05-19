@@ -29,7 +29,7 @@ describe('StepUtenlandsopphold', () => {
   it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
     const user = userEvent.setup()
 
-    const { store } = await render(<StepUtenlandsopphold />, {
+    const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
           // @ts-ignore
@@ -52,7 +52,7 @@ describe('StepUtenlandsopphold', () => {
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
     const user = userEvent.setup()
 
-    const { store } = await render(<StepUtenlandsopphold />, {
+    const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         api: {
           // @ts-ignore
@@ -112,7 +112,7 @@ describe('StepUtenlandsopphold', () => {
 
     const user = userEvent.setup()
 
-    const { store } = await render(<StepUtenlandsopphold />, {
+    const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
         userInput: { ...userInputInitialState, harUtenlandsopphold: null },
       },

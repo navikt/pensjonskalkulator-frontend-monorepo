@@ -4,7 +4,7 @@ import { InfoOmInntekt } from '..'
 
 describe('InfoModalInntekt', () => {
   it('viser fast info om inntekt', async () => {
-    const { getByTestId } = await render(<InfoOmInntekt />)
+    const { getByTestId } = render(<InfoOmInntekt />)
 
     // Check for lists
     const infoList = getByTestId('info-om-inntekt-list')

@@ -48,7 +48,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
   const agePickerMonth = getPreviousMonth()
 
   it('vises informasjon om inntekt, uttaksgrad og pensjonsalder', async () => {
-    await render(
+    render(
       <BeregningContext.Provider
         value={{
           ...contextMockedValues,
@@ -273,7 +273,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
 
   it('Når alle feltene fylles ut og resetForm kalles, nullstilles alle feltene', async () => {
     const user = userEvent.setup()
-    const { store } = await render(
+    const { store } = render(
       <BeregningContext.Provider
         value={{
           ...contextMockedValues,
@@ -541,7 +541,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
 
   it('Når alle feltene for 100 % uttak fylles ut og radioknappen for inntekt endres til nei, skjules inntekt og sluttAlder', async () => {
     const user = userEvent.setup()
-    const { store } = await render(
+    const { store } = render(
       <BeregningContext.Provider
         value={{
           ...contextMockedValues,
@@ -631,7 +631,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
 
   it('Når alle feltene for gradert uttak fylles ut og radioknappen for inntekt endres til nei, skjules inputfeltet for inntekt', async () => {
     const user = userEvent.setup()
-    const { store } = await render(
+    const { store } = render(
       <BeregningContext.Provider
         value={{
           ...contextMockedValues,
@@ -752,7 +752,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
 
   it('Når feltene for 100 % uttak fylles ut og uttaksalder endres til en alder større enn sluttAlder for inntekt, nullstilles sluttAlder', async () => {
     const user = userEvent.setup()
-    const { store } = await render(
+    const { store } = render(
       <BeregningContext.Provider
         value={{
           ...contextMockedValues,
@@ -1440,7 +1440,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
 
   describe('Når en bruker som mottar 100 % uføretrygd legger inn et gradert uttak, ', () => {
     it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra normert pensjonsalder', async () => {
-      const { store } = await render(
+      const { store } = render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -1816,7 +1816,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     })
 
     it('vises det riktig label på feltene', async () => {
-      const { store } = await render(
+      const { store } = render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -1871,7 +1871,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     })
 
     it('Når brukeren har 100 % uføretrygd, vises riktig tekst i readmore om uttaksgrad', async () => {
-      const { store } = await render(
+      const { store } = render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,

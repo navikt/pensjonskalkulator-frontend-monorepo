@@ -59,7 +59,7 @@ describe('DesktopPensjonVisning', () => {
   })
 
   it('returnerer null når ingen pensjonsdata oppføringer er tilgjengelige', async () => {
-    const { container } = await render(
+    const { container } = render(
       <PensjonVisningDesktop
         pensjonsdata={[]}
         summerYtelser={mockSummerYtelser}

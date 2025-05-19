@@ -33,7 +33,7 @@ describe('Step Feil', () => {
   it('redirigerer til landingssiden når brukeren klikker på knappen', async () => {
     const user = userEvent.setup()
 
-    const { store } = await render(<StepFeil />, {
+    const { store } = render(<StepFeil />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,

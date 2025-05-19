@@ -7,7 +7,7 @@ import { Card } from '..'
 describe('Card', () => {
   it('viser innhold korrekt uten className', async () => {
     const testContent = 'lorem ipsum'
-    const { getByText } = await render(
+    const { getByText } = render(
       <Card>
         <p>{testContent}</p>
       </Card>
@@ -17,7 +17,7 @@ describe('Card', () => {
 
   it('bruker egendefinert className når det er gitt', async () => {
     const customClass = 'className'
-    const { container } = await render(
+    const { container } = render(
       <Card className={customClass}>
         <p>lorem ipsum</p>
       </Card>
@@ -27,7 +27,7 @@ describe('Card', () => {
   })
 
   it('bruker stor padding når hasLargePadding er satt til true', async () => {
-    const { container } = await render(
+    const { container } = render(
       <Card hasLargePadding>
         <p>lorem ipsum</p>
       </Card>
@@ -37,7 +37,7 @@ describe('Card', () => {
   })
 
   it('bruker margin når hasMargin er satt til true', async () => {
-    const { container } = await render(
+    const { container } = render(
       <Card hasMargin>
         <p>lorem ipsum</p>
       </Card>
@@ -48,7 +48,7 @@ describe('Card', () => {
 
   it('kombinerer alle props korrekt', async () => {
     const customClass = 'customClassName'
-    const { container } = await render(
+    const { container } = render(
       <Card className={customClass} hasLargePadding hasMargin>
         <p>lorem ipsum</p>
       </Card>

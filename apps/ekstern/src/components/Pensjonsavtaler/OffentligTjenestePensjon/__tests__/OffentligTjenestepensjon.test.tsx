@@ -139,7 +139,7 @@ describe('OffentligTjenestepensjon', () => {
     it('Når simuleringen er vellykket og brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {
       vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
 
-      const { container } = await render(
+      const { container } = render(
         <OffentligTjenestepensjon
           isLoading={false}
           isError={false}
@@ -199,7 +199,7 @@ describe('OffentligTjenestepensjon', () => {
 
     it('Når simuleringen er vellykket og brukeren er på mobil, viser riktig informasjon og liste over offentlige avtaler.', async () => {
       vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(true)
-      const { container } = await render(
+      const { container } = render(
         <OffentligTjenestepensjon
           isLoading={false}
           isError={false}

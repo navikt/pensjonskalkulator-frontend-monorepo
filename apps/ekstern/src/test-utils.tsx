@@ -73,7 +73,7 @@ function generateMockedTranslations() {
 }
 
 // Return an object with the store and all of RTL's query functions
-export async function renderWithProviders(
+export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
@@ -84,13 +84,17 @@ export async function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  const promises = Object.entries(preloadedApiState).map(([key, data]) =>
+  const preloadedApiStateEntries = Object.entries(preloadedApiState)
+  if (preloadedApiStateEntries.length) {
     store.dispatch(
-      apiSlice.util.upsertQueryData(key as QueryKeys, undefined, data)
+      apiSlice.util.upsertQueryEntries(
+        preloadedApiStateEntries.map(([key, value]) => ({
+          endpointName: key as QueryKeys,
+          arg: undefined,
+          value,
+        }))
+      )
     )
-  )
-  if (promises.length) {
-    await Promise.all(promises)
   }
 
   function Wrapper({

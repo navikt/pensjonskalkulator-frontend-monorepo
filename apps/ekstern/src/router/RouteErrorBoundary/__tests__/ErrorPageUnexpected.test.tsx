@@ -24,7 +24,7 @@ describe('ErrorPageUnexpected', () => {
   it('sender brukeren til landingside og tømmer storen når brukeren klikker på knappen', async () => {
     const user = userEvent.setup()
 
-    const { store } = await render(<ErrorPageUnexpected />, {
+    const { store } = render(<ErrorPageUnexpected />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,

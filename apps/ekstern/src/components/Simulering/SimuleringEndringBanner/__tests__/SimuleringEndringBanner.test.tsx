@@ -40,7 +40,7 @@ describe('SimuleringEndringBanner', () => {
     })
 
     it('Når heltUttaksalder er satt, skal banneren vises med riktig tekst.', async () => {
-      const { asFragment } = await render(
+      const { asFragment } = render(
         <SimuleringEndringBanner
           isLoading={false}
           heltUttaksalder={{ aar: 67, maaneder: 0 }}
@@ -98,7 +98,7 @@ describe('SimuleringEndringBanner', () => {
     })
 
     it('Når heltUttaksalder er satt med alderspensjonMaanedligVedEndring, skal banneren vises med riktig tekst.', async () => {
-      const { asFragment } = await render(
+      const { asFragment } = render(
         <SimuleringEndringBanner
           isLoading={false}
           heltUttaksalder={{ aar: 67, maaneder: 0 }}
@@ -159,7 +159,7 @@ describe('SimuleringEndringBanner', () => {
     })
 
     it('Når heltUttaksalder og gradertUttaksperiode er satt, skal banneren vises med riktig tekst.', async () => {
-      const { asFragment } = await render(
+      const { asFragment } = render(
         <SimuleringEndringBanner
           isLoading={false}
           heltUttaksalder={{ aar: 67, maaneder: 0 }}

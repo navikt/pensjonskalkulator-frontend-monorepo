@@ -205,7 +205,7 @@ describe('stegvisning - Utenlandsopphold', () => {
 
     it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren legger til en periode', async () => {
       const user = userEvent.setup()
-      const { store } = await render(
+      const { store } = render(
         <Utenlandsopphold
           harUtenlandsopphold={true}
           onCancel={onCancelMock}

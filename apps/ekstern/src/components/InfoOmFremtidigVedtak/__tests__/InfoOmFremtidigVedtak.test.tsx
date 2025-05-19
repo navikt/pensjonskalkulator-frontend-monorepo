@@ -11,7 +11,7 @@ import { InfoOmFremtidigVedtak } from '..'
 
 describe('InfoOmFremtidigVedtak', () => {
   it('Ved gjeldende vedtak uten fremtidig vedtak, returnerer null', async () => {
-    const { asFragment } = await render(
+    const { asFragment } = render(
       <InfoOmFremtidigVedtak
         loependeVedtak={
           fulfilledGetLoependeVedtakLoependeAlderspensjon[
@@ -24,7 +24,7 @@ describe('InfoOmFremtidigVedtak', () => {
   })
 
   it('Ved både gjeldende og fremtidig vedtak, returnerer null', async () => {
-    const { asFragment } = await render(
+    const { asFragment } = render(
       <InfoOmFremtidigVedtak
         loependeVedtak={
           fulfilledGetLoependeVedtakFremtidigMedAlderspensjon[
