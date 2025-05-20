@@ -53,7 +53,7 @@ vi.mock(
   }
 )
 
-beforeAll(async () => {
+beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })
 })
 beforeEach(() => {

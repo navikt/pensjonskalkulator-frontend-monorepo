@@ -162,9 +162,7 @@ describe('stegvisning - Utenlandsopphold', () => {
 
       await user.click(screen.getByText('stegvisning.neste'))
 
-      waitFor(() => {
-        expect(onNextMock).toHaveBeenCalled()
-      })
+      expect(onNextMock).toHaveBeenCalled()
     })
 
     it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren setter harUtenlandsopphold til false', async () => {
@@ -268,9 +266,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
     await user.click(screen.getByText('stegvisning.tilbake'))
-    waitFor(() => {
-      expect(onPreviousMock).toHaveBeenCalled()
-    })
+    expect(onPreviousMock).toHaveBeenCalled()
   })
 
   it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
@@ -285,9 +281,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     )
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-    waitFor(() => {
-      expect(onCancelMock).toHaveBeenCalled()
-    })
+    expect(onCancelMock).toHaveBeenCalled()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

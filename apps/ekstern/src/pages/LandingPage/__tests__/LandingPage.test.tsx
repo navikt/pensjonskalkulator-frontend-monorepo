@@ -5,10 +5,7 @@ import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
-import { store } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
-
-const initialGetState = store.getState
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
@@ -23,7 +20,6 @@ describe('LandingPage', () => {
   afterEach(() => {
     vi.clearAllMocks()
     vi.resetAllMocks()
-    store.getState = initialGetState
   })
 
   it('har riktig sidetittel', async () => {

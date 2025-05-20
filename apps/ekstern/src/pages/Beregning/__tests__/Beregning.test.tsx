@@ -283,7 +283,7 @@ describe('Beregning', () => {
 
   describe('Gitt at brukeren navigerer tilbake', () => {
     beforeEach(() => {
-      global.window = Object.create(window)
+      global.window = Object.create(window) // eslint-disable-line @typescript-eslint/no-unsafe-assignment
       Object.defineProperty(window, 'location', {
         value: {
           href: paths.beregningAvansert,
@@ -317,7 +317,7 @@ describe('Beregning', () => {
     }
 
     it('når brukeren har gjort en Enkel simulering og trykker på tilbakeknappen, vises ikke Avbryt-Modalen', async () => {
-      global.window = Object.create(window)
+      global.window = Object.create(window) // eslint-disable-line @typescript-eslint/no-unsafe-assignment
       Object.defineProperty(window, 'location', {
         value: {
           href: paths.beregningEnkel,

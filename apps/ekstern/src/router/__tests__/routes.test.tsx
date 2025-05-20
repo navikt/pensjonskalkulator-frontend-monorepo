@@ -3,7 +3,6 @@ import { describe, vi } from 'vitest'
 
 import {
   fulfilledGetEkskludertStatus,
-  fulfilledGetGrunnbelop,
   fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
@@ -21,8 +20,6 @@ import { render, screen, waitFor } from '@/test-utils'
 
 import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
 import { routes } from '../routes'
-
-const initialGetState = store.getState
 
 const fakeApiCalls = {
   queries: {
@@ -45,7 +42,6 @@ describe('routes', () => {
     vi.clearAllMocks()
     vi.resetAllMocks()
     vi.resetModules()
-    store.getState = initialGetState
   })
 
   describe(`Gitt at siden er åpen uten pålogging`, () => {
@@ -225,17 +221,6 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.forbehold}`],
         })
         render(<RouterProvider router={router} />, {
-          preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
           hasRouter: false,
         })
         expect(await screen.findByText('forbehold.title')).toBeInTheDocument()
@@ -264,7 +249,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -280,11 +266,10 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
-            queries: {
-              ...fulfilledGetPerson,
-            },
+            // @ts-ignore
+            queries: { ...fulfilledGetPerson },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -293,16 +278,6 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
         })
         render(<RouterProvider router={router} />, {
-          preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetGrunnbelop,
-              },
-            },
-            userInput: { ...userInputInitialState },
-          },
           hasRouter: false,
         })
         expect(
@@ -333,7 +308,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -349,12 +325,9 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
       it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            queries: {
-              ...fakeApiCalls,
-            },
-          },
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
+          api: { ...fakeApiCalls },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -392,7 +365,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -408,8 +382,9 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
       it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /ekskludert ikke har feilet', async () => {
-        const mockedState = {
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
+            // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
@@ -419,10 +394,7 @@ describe('routes', () => {
             },
           },
           userInput: { ...userInputInitialState, samtykke: null },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
+        }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.afp}`],
@@ -458,7 +430,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -477,7 +450,8 @@ describe('routes', () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: { ufoeretrygd: { grad: 75 } } satisfies LoependeVedtak,
         })
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: { queries: { mock: 'mock' } },
           userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
         }))
@@ -517,7 +491,8 @@ describe('routes', () => {
       })
 
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -534,20 +509,10 @@ describe('routes', () => {
       })
 
       it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises steget', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
-            queries: {
-              ['getLoependeVedtak(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getLoependeVedtak',
-                requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: {
-                  ufoeretrygd: { grad: 0 },
-                } satisfies LoependeVedtak,
-                startedTimeStamp: 1714725797072,
-                fulfilledTimeStamp: 1714725797669,
-              },
-            },
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -602,10 +567,9 @@ describe('routes', () => {
       })
 
       it('viser steget når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            ...fakeApiCalls,
-          },
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
+          api: { ...fakeApiCalls },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -643,7 +607,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -659,12 +624,9 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            queries: {
-              ...fakeApiCalls,
-            },
-          },
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
+          api: { ...fakeApiCalls },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -702,7 +664,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -719,10 +682,10 @@ describe('routes', () => {
       })
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
+            // @ts-ignore
             queries: {
-              ...fakeApiCalls,
               ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
@@ -739,7 +702,6 @@ describe('routes', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fakeApiCalls,
                 ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
@@ -753,14 +715,12 @@ describe('routes', () => {
           },
         })
 
-        await waitFor(async () => {
-          expect(
-            screen.queryByTestId('uttaksalder-loader')
-          ).not.toBeInTheDocument()
-          expect(
-            await screen.findByText('velguttaksalder.title')
-          ).toBeInTheDocument()
-        })
+        expect(
+          await screen.findByText('velguttaksalder.title')
+        ).toBeInTheDocument()
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
       })
     })
 
@@ -786,7 +746,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
+          // @ts-ignore
           api: {},
           userInput: { ...userInputInitialState },
         }))
@@ -803,10 +764,10 @@ describe('routes', () => {
       })
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+        vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
+            // @ts-ignore
             queries: {
-              ...fakeApiCalls,
               ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
@@ -823,7 +784,6 @@ describe('routes', () => {
             api: {
               // @ts-ignore
               queries: {
-                ...fakeApiCalls,
                 ...fulfilledGetPerson,
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },

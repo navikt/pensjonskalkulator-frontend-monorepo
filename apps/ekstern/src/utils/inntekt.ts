@@ -55,7 +55,7 @@ export const validateInntekt = (
           'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
     }
-  } else if (parseInt((input as string).replace(/\D+/g, ''), 10) > 100000000) {
+  } else if (parseInt(input.replace(/\D+/g, ''), 10) > 100000000) {
     isValid = false
     if (updateValidationErrorMessage) {
       updateValidationErrorMessage(

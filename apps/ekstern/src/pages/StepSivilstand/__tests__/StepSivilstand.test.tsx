@@ -13,8 +13,6 @@ import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
-const initialGetState = store.getState
-
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
   const actual = await importOriginal()
@@ -44,7 +42,6 @@ describe('StepSivilstand', () => {
     vi.clearAllMocks()
     vi.resetAllMocks()
     vi.resetModules()
-    store.getState = initialGetState
   })
 
   it('har riktig sidetittel', async () => {

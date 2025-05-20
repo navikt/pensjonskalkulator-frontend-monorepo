@@ -22,8 +22,8 @@ describe('RouteErrorBoundary', () => {
 
     render(<RouterProvider router={router} />, { hasRouter: false })
 
-    act(() => {
-      router.navigate('/denne/siden/finnes/ikke')
+    await act(async () => {
+      await router.navigate('/denne/siden/finnes/ikke')
     })
 
     expect(screen.queryByTestId('error-boundary')).not.toBeInTheDocument()

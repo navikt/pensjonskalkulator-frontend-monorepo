@@ -61,7 +61,7 @@ export const AccordionItem: React.FC<IProps> = ({
 
   const wrappedOnClick = React.useCallback(() => {
     // Inversert da det er en antagelse at onClick endrer state
-    logIsOpen(name, !isOpenFromProps as boolean)
+    logIsOpen(name, !isOpenFromProps)
     if (onClick) {
       onClick()
     }

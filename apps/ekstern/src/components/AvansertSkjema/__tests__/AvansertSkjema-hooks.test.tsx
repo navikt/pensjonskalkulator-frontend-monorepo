@@ -850,8 +850,8 @@ describe('AvansertSkjema-hooks', () => {
   describe('useFormValidationErrors', () => {
     const mockedFormatMessageFunction = vi
       .fn()
-      .mockImplementation(({ id: string }) => {
-        return string
+      .mockImplementation(({ id }: { id: string }) => {
+        return id
       })
     const mockedIntlShape = {
       formatMessage: mockedFormatMessageFunction,

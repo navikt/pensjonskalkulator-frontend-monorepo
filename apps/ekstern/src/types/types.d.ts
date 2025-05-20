@@ -1,4 +1,3 @@
-import { paths } from './router/constants'
 import { components } from './schema'
 
 declare global {
@@ -7,8 +6,6 @@ declare global {
   }
 
   type Locales = 'nb' | 'nn' | 'en'
-
-  type Path = (typeof paths)[number]
 
   type BooleanRadio = 'ja' | 'nei'
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'

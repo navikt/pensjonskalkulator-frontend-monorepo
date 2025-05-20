@@ -36,7 +36,7 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
 
   const maxDate = React.useMemo(() => {
     return foedselsdato
-      ? add(parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()), {
+      ? add(parse(foedselsdato, DATE_BACKEND_FORMAT, new Date()), {
           years: 100,
         })
       : add(new Date(), { years: 100 })
@@ -44,7 +44,7 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
 
   const datepickerStartdato = useDatepicker({
     fromDate: foedselsdato
-      ? parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+      ? parse(foedselsdato, DATE_BACKEND_FORMAT, new Date())
       : add(new Date(), { years: -100 }),
     toDate: maxDate,
     defaultSelected: localUtenlandsperiode?.startdato
@@ -80,7 +80,7 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
             new Date()
           )
         : foedselsdato
-          ? parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+          ? parse(foedselsdato, DATE_BACKEND_FORMAT, new Date())
           : new Date(),
     toDate: maxDate,
     defaultSelected: localUtenlandsperiode?.sluttdato

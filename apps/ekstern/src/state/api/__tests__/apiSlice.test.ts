@@ -345,7 +345,7 @@ describe('apiSlice', () => {
       const storeRef = setupStore(undefined, true)
       mockResponse('/v3/pensjonsavtaler', {
         status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
+        json: { 'tullete svar': 'lorem' },
         method: 'post',
       })
       await swallowErrorsAsync(async () => {
@@ -391,7 +391,7 @@ describe('apiSlice', () => {
       const storeRef = setupStore(undefined, true)
       mockResponse('/v2/tidligste-hel-uttaksalder', {
         status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
+        json: { 'tullete svar': 'lorem' },
         method: 'post',
       })
       await swallowErrorsAsync(async () => {
@@ -448,7 +448,7 @@ describe('apiSlice', () => {
       const storeRef = setupStore(undefined, true)
       mockResponse('/v8/alderspensjon/simulering', {
         status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
+        json: { 'tullete svar': 'lorem' },
         method: 'post',
       })
       await swallowErrorsAsync(async () => {

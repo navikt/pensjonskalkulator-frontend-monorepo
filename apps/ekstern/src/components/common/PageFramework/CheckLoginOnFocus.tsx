@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react'
 
 import { HOST_BASEURL } from '@/paths'

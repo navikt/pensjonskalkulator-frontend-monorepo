@@ -157,7 +157,7 @@ const validateEndringGradertUttak = (
       logger('skjema validering feilet', {
         skjemanavn: AVANSERT_FORM_NAMES.form,
         data: 'Avansert - For tidlig endring av gradert uttak',
-        tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`,
+        tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`, // eslint-disable-line @typescript-eslint/restrict-template-expressions
       })
       window.scrollTo(0, 0)
       return false
@@ -519,6 +519,7 @@ export const onAvansertBeregningSubmit = (
     harAvansertSkjemaUnsavedChanges,
   } = previousData
 
+  // TODO: Vurder å sende inn verdiene fra controlled state i stedet for direkte fra skjemaet, for bedre typer (kan unngå `as string` o.l.)
   const beregningsvalgFormData = data.get(
     AVANSERT_FORM_NAMES.beregningsTypeRadio
   ) as Beregningsvalg | null
@@ -593,7 +594,7 @@ export const onAvansertBeregningSubmit = (
   }
 
   logger('valg av uttaksalder for 100 % alderspensjon', {
-    tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
+    tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`, // eslint-disable-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
   })
 
   if (uttaksgradFormData === '100 %') {
@@ -604,10 +605,10 @@ export const onAvansertBeregningSubmit = (
     })
   } else {
     logger('valg av uttaksgrad', {
-      tekst: `${uttaksgradFormData}`,
+      tekst: `${uttaksgradFormData}`, // eslint-disable-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
     })
     logger('valg av uttaksalder for gradert alderspensjon', {
-      tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+      tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`, // eslint-disable-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
     })
     if (inntektVsaGradertUttakFormData) {
       logger('radiogroup valgt', {

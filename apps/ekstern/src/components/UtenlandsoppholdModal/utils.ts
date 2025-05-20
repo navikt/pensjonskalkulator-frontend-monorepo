@@ -227,10 +227,7 @@ export const validateOpphold = (
     } else if (
       foedselsdato &&
       isBefore(
-        addYears(
-          parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()),
-          100
-        ),
+        addYears(parse(foedselsdato, DATE_BACKEND_FORMAT, new Date()), 100),
         parse(sluttdatoFormData as string, DATE_ENDUSER_FORMAT, new Date())
       )
     ) {

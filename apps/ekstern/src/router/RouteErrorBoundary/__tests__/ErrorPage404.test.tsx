@@ -45,7 +45,7 @@ describe('ErrorPage404', () => {
     const windowSpy = vi.spyOn(window, 'open')
     render(<ErrorPage404 />)
     const user = userEvent.setup()
-    const dinPensjonLink = await screen.getByText('error.404.button.link_2')
+    const dinPensjonLink = screen.getByText('error.404.button.link_2')
     await user.click(dinPensjonLink)
     expect(logOpenLinkSpy).toHaveBeenCalledTimes(1)
     expect(windowSpy).toHaveBeenCalledTimes(1)

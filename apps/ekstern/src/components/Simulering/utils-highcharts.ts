@@ -124,7 +124,7 @@ export function tooltipFormatter(
   styles: Partial<typeof globalClassNames>,
   intl: IntlShape
 ): string {
-  const chart = point.series.chart as Chart
+  const chart = point.series.chart
   const points: ExtendedPoint[] = []
 
   chart.series.forEach(function (serie: Series) {
@@ -178,7 +178,7 @@ export function tooltipFormatter(
       }
       pointsFormat +=
         `<tr>` +
-        `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${localPoint.series.color}"></span>${localPoint.series.name}</td>` +
+        `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${localPoint.series.color as string}"></span>${localPoint.series.name}</td>` +
         `<td class="${styles.tooltipTableCell} ${
           styles.tooltipTableCell__right
         }"><span class="nowrap">${formatInntekt(localPoint.y)} kr</span></td>` +
@@ -390,8 +390,7 @@ export const getChartOptions = (
       itemHoverStyle: { color: '#000000' },
       itemMarginBottom: 5,
       events: {
-        itemClick: function (e) {
-          e.preventDefault()
+        itemClick: function () {
           return false
         },
       },
@@ -404,13 +403,6 @@ export const getChartOptions = (
         states: {
           inactive: {
             enabled: false,
-          },
-        },
-        events: {
-          /* c8 ignore next 3 */
-          legendItemClick: function (e) {
-            e.preventDefault()
-            return false
           },
         },
       },

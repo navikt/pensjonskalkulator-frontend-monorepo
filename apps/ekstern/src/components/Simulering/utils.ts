@@ -91,7 +91,7 @@ export const processInntektArray = (args: {
   ]
 
   const sluttAlder = xAxisStartAar + xAxisLength - 1
-  const result = new Array(sluttAlder - xAxisStartAar + 1).fill(0)
+  const result = new Array<number>(sluttAlder - xAxisStartAar + 1).fill(0)
 
   utbetalingsperioder.forEach((utbetalingsperiode) => {
     const periodeStartYear = Math.max(
@@ -131,7 +131,7 @@ export const processPensjonsberegningArray = (
     xAxisLength,
     isEndring ? pensjonsberegninger.length + 1 : pensjonsberegninger.length + 2
   )
-  const dataArray = isEndring ? [] : new Array(1).fill(0)
+  const dataArray = isEndring ? [] : new Array<number>(1).fill(0)
 
   const livsvarigPensjonsbeloep =
     pensjonsberegninger[pensjonsberegninger.length - 1]?.beloep ?? 0
@@ -164,7 +164,7 @@ export const processAfpPensjonsberegningArray = (
 
   const startYear = pensjonsberegninger[0].alder
   const emptyYearsBeforeStart = startYear - xAxisStartAar
-  const dataArray = isEndring ? [] : new Array(1).fill(0)
+  const dataArray = isEndring ? [] : new Array<number>(1).fill(0)
   const startIndex = emptyYearsBeforeStart ?? (isEndring ? 0 : 1)
 
   const livsvarigPensjonsbeloep =
@@ -213,7 +213,7 @@ export const processPensjonsavtalerArray = (
   offentligTpUtbetalingsperioder: UtbetalingsperiodeOffentligTP[]
 ): number[] => {
   const sluttAlder = xAxisStartAar + xAxisLength - 1
-  const result = new Array(sluttAlder - xAxisStartAar + 1).fill(0)
+  const result = new Array<number>(sluttAlder - xAxisStartAar + 1).fill(0)
 
   const samledeUtbetalingsperioder = [
     ...privatePensjonsavtaler.flatMap((avtale) => avtale.utbetalingsperioder),

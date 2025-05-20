@@ -160,16 +160,7 @@ describe('VeilederInput', () => {
       })
     })
 
-    it('Når veilederen klikker på tittelen', async () => {
-      const user = userEvent.setup()
-      global.window = Object.create(window)
-      Object.defineProperty(window, 'location', {
-        value: {
-          href: 'before',
-          pathname: 'before',
-        },
-        writable: true,
-      })
+    it('tittelen er klikkbar', async () => {
       render(<VeilederInput />, {
         hasRouter: false,
         preloadedState: {
@@ -179,10 +170,10 @@ describe('VeilederInput', () => {
           },
         },
       })
-      expect(window.location.href).toBe('before')
 
-      await user.click(screen.getByText('Pensjonskalkulator', { exact: true }))
-      expect(window.location.href).toBe(`${BASE_PATH}/veileder`)
+      expect(
+        screen.getByRole('link', { name: 'Pensjonskalkulator' })
+      ).toHaveProperty('href', `${window.location.origin}${BASE_PATH}/veileder`)
     })
 
     it('viser inaktiv-alert', async () => {

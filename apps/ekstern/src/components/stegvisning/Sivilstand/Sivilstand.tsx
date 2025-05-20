@@ -279,7 +279,9 @@ export function Sivilstand({
                 id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_description',
               })}
               value={epsHarInntektOver2GInput}
-              onChange={(value) => setEpsHarInntektOver2GInput(value)}
+              onChange={(value: 'ja' | 'nei') =>
+                setEpsHarInntektOver2GInput(value)
+              }
               name="epsHarInntektOver2G"
               error={validationError.epsHarInntektOver2G}
             >

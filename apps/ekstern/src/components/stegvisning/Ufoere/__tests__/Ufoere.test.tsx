@@ -45,9 +45,7 @@ describe('stegvisning - Ufoere', () => {
     )
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
@@ -80,9 +78,7 @@ describe('stegvisning - Ufoere', () => {
     )
 
     await user.click(screen.getByText('stegvisning.avbryt'))
-    waitFor(() => {
-      expect(onCancelMock).toHaveBeenCalled()
-    })
+    expect(onCancelMock).toHaveBeenCalled()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

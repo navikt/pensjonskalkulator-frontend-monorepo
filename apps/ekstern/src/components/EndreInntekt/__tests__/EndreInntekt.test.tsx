@@ -2,7 +2,7 @@ import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 import { EndreInntekt } from '..'
 
@@ -159,13 +159,11 @@ describe('EndreInntekt', () => {
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByText(
-            'inntekt.endre_inntekt_modal.textfield.description.ufoere'
-          )
-        ).toBeInTheDocument()
-      })
+      expect(
+        await screen.findByText(
+          'inntekt.endre_inntekt_modal.textfield.description.ufoere'
+        )
+      ).toBeInTheDocument()
     })
   })
 

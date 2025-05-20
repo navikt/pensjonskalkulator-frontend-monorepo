@@ -367,7 +367,7 @@ export const useHighchartsRegressionPlugin = () => {
         column: Column
       }
     }
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
+    /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
     ;(function (H: ExtendedHighchartsType) {
       const { isArray, fireEvent, seriesTypes } = H
 
@@ -448,6 +448,6 @@ export const useHighchartsRegressionPlugin = () => {
         }
       }
     })(Highcharts)
-    /* eslint-enable @typescript-eslint/ban-ts-comment */
+    /* eslint-enable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
   }, [])
 }

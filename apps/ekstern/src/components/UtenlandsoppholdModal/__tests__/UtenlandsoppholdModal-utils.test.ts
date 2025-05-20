@@ -591,22 +591,16 @@ describe('UtenlandsoppholdModal-utils', () => {
           }
         )
 
-        expect(dispatchMock.mock.calls[0][0].type).toStrictEqual(
-          'userInputSlice/setUtenlandsperiode'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.id).toBeDefined()
-        expect(
-          dispatchMock.mock.calls[0][0].payload.arbeidetUtenlands
-        ).toStrictEqual(true)
-        expect(dispatchMock.mock.calls[0][0].payload.landkode).toStrictEqual(
-          'SWE'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.startdato).toStrictEqual(
-          '21.12.2012'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.sluttdato).toStrictEqual(
-          '18.03.2015'
-        )
+        expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
+          type: 'userInputSlice/setUtenlandsperiode',
+          payload: {
+            id: expect.any(String), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            arbeidetUtenlands: true,
+            landkode: 'SWE',
+            startdato: '21.12.2012',
+            sluttdato: '18.03.2015',
+          },
+        })
 
         expect(onSubmitCallbackMock).toHaveBeenCalled()
         expect(closeMock).toHaveBeenCalled()
@@ -666,22 +660,16 @@ describe('UtenlandsoppholdModal-utils', () => {
           }
         )
 
-        expect(dispatchMock.mock.calls[0][0].type).toStrictEqual(
-          'userInputSlice/setUtenlandsperiode'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.id).toBeDefined()
-        expect(
-          dispatchMock.mock.calls[0][0].payload.arbeidetUtenlands
-        ).toStrictEqual(true)
-        expect(dispatchMock.mock.calls[0][0].payload.landkode).toStrictEqual(
-          'SWE'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.startdato).toStrictEqual(
-          '21.12.2012'
-        )
-        expect(dispatchMock.mock.calls[0][0].payload.sluttdato).toStrictEqual(
-          undefined
-        )
+        expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
+          type: 'userInputSlice/setUtenlandsperiode',
+          payload: {
+            id: expect.any(String), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            arbeidetUtenlands: true,
+            landkode: 'SWE',
+            startdato: '21.12.2012',
+            sluttdato: undefined,
+          },
+        })
 
         expect(onSubmitCallbackMock).toHaveBeenCalled()
         expect(closeMock).toHaveBeenCalled()

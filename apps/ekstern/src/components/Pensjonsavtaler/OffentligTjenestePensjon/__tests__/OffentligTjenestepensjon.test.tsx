@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, waitFor } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
 
 import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
@@ -74,14 +74,12 @@ describe('OffentligTjenestepensjon', () => {
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'pensjonsavtaler.offentligtp.title'
     )
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning',
-          { exact: false }
-        )
-      ).toBeVisible()
-    })
+    expect(
+      screen.getByText(
+        'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning',
+        { exact: false }
+      )
+    ).toBeVisible()
   })
 
   describe('Gitt at brukeren er medlem av SPK, ', async () => {
@@ -102,14 +100,12 @@ describe('OffentligTjenestepensjon', () => {
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
         'pensjonsavtaler.offentligtp.title'
       )
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
+      expect(
+        screen.getByText(
+          'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt',
+          { exact: false }
+        )
+      ).toBeVisible()
     })
 
     it('Når simuleringen er tom, viser riktig heading på riktig level og riktig infomelding.', async () => {
@@ -129,11 +125,9 @@ describe('OffentligTjenestepensjon', () => {
       expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
         'pensjonsavtaler.offentligtp.title'
       )
-      await waitFor(() => {
-        expect(
-          screen.getByText('pensjonsavtaler.offentligtp.empty')
-        ).toBeVisible()
-      })
+      expect(
+        screen.getByText('pensjonsavtaler.offentligtp.empty')
+      ).toBeVisible()
     })
 
     it('Når simuleringen er vellykket og brukeren er på desktop, viser riktig informasjon og liste over offentlige avtaler.', async () => {

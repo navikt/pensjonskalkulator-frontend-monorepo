@@ -221,9 +221,9 @@ describe('UtenlandsoppholdModal', () => {
       ).toBeVisible()
       expect(
         (
-          (await screen.findByTestId(
+          await screen.findByTestId<HTMLSelectElement>(
             utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
-          )) as HTMLSelectElement
+          )
         ).value
       ).toBe('FRA')
       expect(
@@ -242,9 +242,9 @@ describe('UtenlandsoppholdModal', () => {
       ).toBeVisible()
       expect(
         (
-          (await screen.findByTestId(
+          await screen.findByTestId<HTMLSelectElement>(
             utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.startdato
-          )) as HTMLSelectElement
+          )
         ).value
       ).toBe('20.01.2001')
       expect(
@@ -254,9 +254,9 @@ describe('UtenlandsoppholdModal', () => {
       ).toBeVisible()
       expect(
         (
-          (await screen.findByTestId(
+          await screen.findByTestId<HTMLSelectElement>(
             utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.sluttdato
-          )) as HTMLSelectElement
+          )
         ).value
       ).toBe('20.01.2011')
       expect(

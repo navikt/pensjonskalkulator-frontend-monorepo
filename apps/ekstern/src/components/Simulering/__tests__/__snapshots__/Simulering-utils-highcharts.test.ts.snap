@@ -66,9 +66,6 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     },
     "series": {
       "animation": false,
-      "events": {
-        "legendItemClick": [Function],
-      },
       "stacking": "normal",
       "states": {
         "inactive": {

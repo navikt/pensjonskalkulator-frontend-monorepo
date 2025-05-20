@@ -281,11 +281,9 @@ describe('Grunnlag', () => {
       mockErrorResponse('/v4/person')
       renderGrunnlagMedPreloadedState('2', 'enkel')
 
-      await waitFor(() => {
-        expect(
-          screen.queryByText('grunnlag.sivilstand.title')
-        ).toBeInTheDocument()
-      })
+      expect(
+        screen.queryByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[3])

@@ -187,7 +187,7 @@ export const getAlderMinus1Maaned = (alder: Alder) => {
 
 export const transformFoedselsdatoToAlder = (foedselsdato: string): Alder => {
   const birtdateJs = startOfMonth(
-    parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+    parse(foedselsdato, DATE_BACKEND_FORMAT, new Date())
   )
   const currentDate = endOfDay(new Date())
   const aar = differenceInYears(currentDate, birtdateJs)

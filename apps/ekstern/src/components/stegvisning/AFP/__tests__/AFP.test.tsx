@@ -130,12 +130,10 @@ describe('stegvisning - AFP - født etter 1963', () => {
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(
-        screen.getByText('stegvisning.afp.validation_error')
-      ).toBeInTheDocument()
-      expect(onNextMock).not.toHaveBeenCalled()
-    })
+    expect(
+      screen.getByText('stegvisning.afp.validation_error')
+    ).toBeInTheDocument()
+    expect(onNextMock).not.toHaveBeenCalled()
 
     await user.click(radioButtons[0])
 
@@ -145,9 +143,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onNext når brukeren klikker på Neste', async () => {
@@ -163,9 +159,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
     const radioButtons = screen.getAllByRole('radio')
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
@@ -197,9 +191,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
 
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-    waitFor(() => {
-      expect(onCancelMock).toHaveBeenCalled()
-    })
+    expect(onCancelMock).toHaveBeenCalled()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

@@ -80,12 +80,10 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(
-        screen.getByText('stegvisning.samtykke_offentlig_afp.validation_error')
-      ).toBeInTheDocument()
-      expect(onNextMock).not.toHaveBeenCalled()
-    })
+    expect(
+      screen.getByText('stegvisning.samtykke_offentlig_afp.validation_error')
+    ).toBeInTheDocument()
+    expect(onNextMock).not.toHaveBeenCalled()
 
     await user.click(radioButtons[0])
 
@@ -95,9 +93,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
@@ -118,9 +114,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
     await user.click(screen.getByText('stegvisning.tilbake'))
-    waitFor(() => {
-      expect(onPreviousMock).toHaveBeenCalled()
-    })
+    expect(onPreviousMock).toHaveBeenCalled()
   })
 
   it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
@@ -135,9 +129,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
     )
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-    waitFor(() => {
-      expect(onCancelMock).toHaveBeenCalled()
-    })
+    expect(onCancelMock).toHaveBeenCalled()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

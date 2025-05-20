@@ -12,7 +12,7 @@ import {
   Simulation,
   userInputInitialState,
 } from '@/state/userInput/userInputSlice'
-import { act, render, screen, waitFor } from '@/test-utils'
+import { act, render, screen } from '@/test-utils'
 
 import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { type: 'json' }
 import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
@@ -811,11 +811,8 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
         await new Promise((r) => setTimeout(r, 500))
@@ -1029,9 +1026,7 @@ describe('Simulering', () => {
       expect(
         screen.getByText('beregning.highcharts.serie.tp.name')
       ).toBeVisible()
-      await waitFor(async () => {
-        expect(screen.getByTestId('pensjonsavtaler-alert')).toBeVisible()
-      })
+      expect(screen.getByTestId('pensjonsavtaler-alert')).toBeVisible()
     })
 
     it('Når brukeren med offentlig-tp ikke har noe privat pensjonsavtale, viser inntekt, alderspensjon og pensjonsavtaler.', async () => {
@@ -1120,9 +1115,7 @@ describe('Simulering', () => {
     const highChartsWrapper = await screen.findByTestId(
       'highcharts-aria-wrapper'
     )
-    await waitFor(() => {
-      expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
-    })
+    expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
   })
 
   describe('Gitt at simuleringen er i enkel visning', () => {

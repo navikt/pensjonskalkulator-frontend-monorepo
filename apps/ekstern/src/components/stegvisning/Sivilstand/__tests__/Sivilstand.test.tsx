@@ -200,14 +200,12 @@ describe('stegvisning - Sivilstand', () => {
 
         await user.click(screen.getByText('stegvisning.neste'))
 
-        waitFor(() => {
-          expect(
-            screen.getByText(
-              'stegvisning.sivilstand.epsHarPensjon.validation_error'
-            )
-          ).toBeInTheDocument()
-          expect(onNextMock).not.toHaveBeenCalled()
-        })
+        expect(
+          screen.getByText(
+            'Du må svare på om stegvisning.sivilstand.ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
+          )
+        ).toBeInTheDocument()
+        expect(onNextMock).not.toHaveBeenCalled()
 
         const epsHarPensjonRadioButtonJa = screen.getByLabelText(
           /stegvisning.sivilstand.radio_ja/i
@@ -216,15 +214,13 @@ describe('stegvisning - Sivilstand', () => {
 
         expect(
           screen.queryByText(
-            'stegvisning.sivilstand.epsHarPensjon.validation_error'
+            'Du må svare på om stegvisning.sivilstand.ektefellen vil motta pensjon eller uføretrygd fra folketrygden, eller AFP.'
           )
         ).not.toBeInTheDocument()
 
         await user.click(screen.getByText('stegvisning.neste'))
 
-        waitFor(() => {
-          expect(onNextMock).toHaveBeenCalled()
-        })
+        expect(onNextMock).toHaveBeenCalled()
       })
     })
     describe('gitt radio button for epsHarPensjon settes til "Nei" ', async () => {
@@ -256,6 +252,7 @@ describe('stegvisning - Sivilstand', () => {
   })
 
   it('validerer epsHarPensjon, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+    onNextMock.mockClear()
     const user = userEvent.setup()
     render(
       <Sivilstand
@@ -276,29 +273,25 @@ describe('stegvisning - Sivilstand', () => {
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(
-        screen.getByText(
-          'stegvisning.sivilstand.epsHarInntektOver2G.validation_error'
-        )
-      ).toBeInTheDocument()
-      expect(onNextMock).not.toHaveBeenCalled()
-    })
+    expect(
+      screen.getByText(
+        'Du må svare på om stegvisning.sivilstand.ektefellen vil ha inntekt over 2G.'
+      )
+    ).toBeInTheDocument()
+    expect(onNextMock).not.toHaveBeenCalled()
 
     const epsHarInntektOver2GRadioButtonNei = screen.getAllByRole('radio')
     fireEvent.click(epsHarInntektOver2GRadioButtonNei[3])
 
     expect(
       screen.queryByText(
-        'stegvisning.sivilstand.epsHarInntektOver2G.validation_error'
+        'Du må svare på om stegvisning.sivilstand.ektefellen vil ha inntekt over 2G.'
       )
     ).not.toBeInTheDocument()
 
     await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
-    })
+    expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
@@ -320,9 +313,7 @@ describe('stegvisning - Sivilstand', () => {
 
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    waitFor(() => {
-      expect(onPreviousMock).toHaveBeenCalled()
-    })
+    expect(onPreviousMock).toHaveBeenCalled()
   })
 
   it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
@@ -340,9 +331,7 @@ describe('stegvisning - Sivilstand', () => {
     )
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-    waitFor(() => {
-      expect(onCancelMock).toHaveBeenCalled()
-    })
+    expect(onCancelMock).toHaveBeenCalled()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

@@ -20,7 +20,9 @@ import {
 } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 
-export const useStegvisningNavigation = (currentPath: Path) => {
+export const useStegvisningNavigation = (
+  currentPath: (typeof stegvisningOrder)[number] | typeof paths.uventetFeil
+) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -31,7 +33,7 @@ export const useStegvisningNavigation = (currentPath: Path) => {
   const { isFetching, data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   const onStegvisningNext = () => {
-    const stepArrays =
+    const stepArrays: readonly string[] =
       loependeVedtak && isLoependeVedtakEndring(loependeVedtak)
         ? stegvisningOrderEndring
         : stegvisningOrder
@@ -41,7 +43,9 @@ export const useStegvisningNavigation = (currentPath: Path) => {
   const onStegvisningPrevious = () => {
     let antallStepTilbake = 1
     const isEndring = loependeVedtak && isLoependeVedtakEndring(loependeVedtak)
-    const stepArrays = isEndring ? stegvisningOrderEndring : stegvisningOrder
+    const stepArrays: readonly string[] = isEndring
+      ? stegvisningOrderEndring
+      : stegvisningOrder
 
     const currentPathIndex = stepArrays.indexOf(currentPath)
 

@@ -402,9 +402,9 @@ describe('UtenlandsoppholdListe', () => {
       ).toBeVisible()
       expect(
         (
-          (await screen.findByTestId(
+          await screen.findByTestId<HTMLSelectElement>(
             UTENLANDSOPPHOLD_FORM_NAMES.land
-          )) as HTMLSelectElement
+          )
         ).value
       ).toBe('DZA')
     })

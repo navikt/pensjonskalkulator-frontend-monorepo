@@ -94,10 +94,6 @@ export const VeilederInput = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  const onTitleClick = () => {
-    window.location.href = `${BASE_PATH}/veileder`
-  }
-
   const encryptFnr = (fnr: string) => {
     setEncryptedRequestLoading('LOADING')
     return fetch(`${API_BASEURL}/v1/encrypt`, {
@@ -197,7 +193,7 @@ export const VeilederInput = () => {
     return (
       <div data-testid="veileder-med-borger">
         <InternalHeader>
-          <InternalHeader.Title onClick={onTitleClick}>
+          <InternalHeader.Title href={`${BASE_PATH}/veileder`}>
             Pensjonskalkulator
           </InternalHeader.Title>
           <Spacer />

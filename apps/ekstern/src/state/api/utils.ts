@@ -50,17 +50,13 @@ export const transformUtenlandsperioderArray = (
         landkode: utenlandsperiode.landkode,
         arbeidetUtenlands: !!utenlandsperiode.arbeidetUtenlands,
         fom: format(
-          parse(
-            utenlandsperiode.startdato as string,
-            DATE_ENDUSER_FORMAT,
-            new Date()
-          ),
+          parse(utenlandsperiode.startdato, DATE_ENDUSER_FORMAT, new Date()),
           DATE_BACKEND_FORMAT
         ),
         tom: utenlandsperiode.sluttdato
           ? format(
               parse(
-                utenlandsperiode.sluttdato as string,
+                utenlandsperiode.sluttdato,
                 DATE_ENDUSER_FORMAT,
                 new Date()
               ),
