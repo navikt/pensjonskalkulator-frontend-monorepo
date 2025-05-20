@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-attributes": "^7.26.0",
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.27.0",
     "@formatjs/intl-numberformat": "^8.15.4",
     "@grafana/faro-web-sdk": "^1.18.1",
     "@grafana/faro-web-tracing": "^1.15.0",
@@ -82,7 +82,7 @@
     "cypress": "^14.3.3",
     "cypress-axe": "^1.6.0",
     "date-fns": "^4.1.0",
-    "eslint": "^9.26.0",
+    "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.37.5",
