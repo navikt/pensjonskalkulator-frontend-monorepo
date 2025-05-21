@@ -5,7 +5,7 @@ import type { Translations } from '@/translations/nb'
 const tpNummerTilNavn: Record<string, 'spk' | 'klp'> = {
   '3010': 'spk',
   '3060': 'spk',
-  '4080': 'klp',
+  '4082': 'klp',
   '3200': 'klp',
 }
 

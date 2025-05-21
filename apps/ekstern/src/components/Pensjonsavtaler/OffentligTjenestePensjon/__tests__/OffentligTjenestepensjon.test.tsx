@@ -489,7 +489,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
               tpLeverandoer: 'Kommunal Landspensjonskasse',
-              tpNummer: '4080',
+              tpNummer: '4082',
             },
           }}
           headingLevel="3"
@@ -518,7 +518,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
               tpLeverandoer: 'Kommunal Landspensjonskasse',
-              tpNummer: '4080',
+              tpNummer: '4082',
             },
           }}
           headingLevel="3"
@@ -545,7 +545,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
-                tpNummer: '4080',
+                tpNummer: '4082',
               },
             }}
             headingLevel="3"
@@ -585,7 +585,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
-                tpNummer: '4080',
+                tpNummer: '4082',
               },
             }}
             headingLevel="3"
@@ -625,7 +625,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
-                tpNummer: '4080',
+                tpNummer: '4082',
               },
             }}
             headingLevel="3"
@@ -665,7 +665,7 @@ describe('OffentligTjenestepensjon', () => {
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
-                tpNummer: '4080',
+                tpNummer: '4082',
               },
             }}
             headingLevel="3"

@@ -34,7 +34,7 @@ describe('getLeverandoerHeading', () => {
   })
 
   it('Returnerer riktig overskrift for KLP.', () => {
-    const heading = wrappedGetLeverandoerHeading('4080', 'Fallback')
+    const heading = wrappedGetLeverandoerHeading('4082', 'Fallback')
     expect(heading).toBe('Alderspensjon fra Kommunal Landspensjonskasse (KLP)')
   })
 
@@ -48,7 +48,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
   describe('Gitt at leverandør er KLP,', () => {
     it('returnerer riktig infotekst når AFP==ja_offentlig.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        '4080',
+        '4082',
         'ja_offentlig',
         false
       )
@@ -56,7 +56,7 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
     })
     it('returnerer riktig infotekst når AFP==ja_privat.', () => {
       const heading = getInfoOmAfpOgBetingetTjenestepensjon(
-        '4080',
+        '4082',
         'ja_privat',
         false
       )

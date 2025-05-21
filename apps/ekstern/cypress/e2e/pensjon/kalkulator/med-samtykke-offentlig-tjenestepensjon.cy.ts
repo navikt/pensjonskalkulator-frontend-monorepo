@@ -381,7 +381,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
             simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
             simulertTjenestepensjon: {
-              tpNummer: '4080',
+              tpNummer: '4082',
               tpLeverandoer: 'Kommunal Landspensjonskasse',
               simuleringsresultat: {
                 utbetalingsperioder: [
