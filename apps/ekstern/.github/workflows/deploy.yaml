@@ -424,3 +424,33 @@ jobs:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-prod.yml
+
+      - name: Notify Slack of successful production deploy
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_PROD_DEPLOY_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          PR_NUMBER=$(echo "$COMMIT_MSG" | grep -oE "#[0-9]+" | tr -d '#')
+
+          if [ -z "$PR_NUMBER" ]; then
+            # No PR number found, send notification with just commit info
+            COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
+            curl -X POST -H 'Content-type: application/json' --data "{
+              \"text\": \"🚀 *Production deploy complete!*\n*Commit Message:* $COMMIT_MSG\n*Author:* $COMMIT_AUTHOR\n*Commit:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\" 
+            }" $SLACK_WEBHOOK_URL
+          else
+            # PR number found, get PR details and send notification
+            PR_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER)
+
+            PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+            PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+            PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
+
+            curl -X POST -H 'Content-type: application/json' --data "{
+              \"text\": \"🚀 *Production deploy complete!*\n*PR:* <$PR_URL|$PR_TITLE> by \`@$PR_AUTHOR\`\n*Commit:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\" 
+            }" $SLACK_WEBHOOK_URL
+          fi
