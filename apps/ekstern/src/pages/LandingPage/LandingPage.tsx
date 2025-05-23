@@ -79,12 +79,14 @@ export const LandingPage = () => {
               id: 'landingsside.for.deg.foedt.etter.1963',
             })}
           </Heading>
+
           <div>
             <BodyLong>
               {intl.formatMessage({
                 id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
             </BodyLong>
+
             <ul className={styles.list}>
               <li>
                 <BodyLong>
@@ -112,6 +114,7 @@ export const LandingPage = () => {
               </li>
             </ul>
           </div>
+
           <HStack gap="4">
             <Button
               data-testid="landingside-enkel-kalkulator-button"
@@ -123,6 +126,7 @@ export const LandingPage = () => {
               {enkelKalkulatorButtonText}
             </Button>
           </HStack>
+
           <Link
             onClick={logOpenLink}
             className={styles.link}
@@ -147,6 +151,7 @@ export const LandingPage = () => {
               })}
             </BodyLong>
           </div>
+
           <div>
             <HStack gap="4">
               <Button

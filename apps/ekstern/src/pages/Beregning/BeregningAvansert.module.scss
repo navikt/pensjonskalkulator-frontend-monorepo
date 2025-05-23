@@ -10,6 +10,12 @@
   &__hasTopMargin {
     margin-top: var(--a-spacing-4) !important;
   }
+
+  &__endring {
+    section {
+      padding-top: 0 !important;
+    }
+  }
 }
 
 .intro {

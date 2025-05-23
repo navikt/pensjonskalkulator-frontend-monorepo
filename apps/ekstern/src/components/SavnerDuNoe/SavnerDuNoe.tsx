@@ -11,12 +11,17 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './SavnerDuNoe.module.scss'
 
-export function SavnerDuNoe(props: {
+interface Props {
   headingLevel: HeadingProps['level']
   isEndring: boolean
   showAvansert?: boolean
-}) {
-  const { headingLevel, isEndring, showAvansert } = props
+}
+
+export const SavnerDuNoe = ({
+  headingLevel,
+  isEndring,
+  showAvansert,
+}: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -32,11 +37,13 @@ export function SavnerDuNoe(props: {
           id={isEndring ? 'savnerdunoe.title.endring' : 'savnerdunoe.title'}
         />
       </Heading>
+
       {showAvansert && !isEndring && (
-        <div className={styles.paragraph}>
+        <>
           <BodyLong size="large">
             <FormattedMessage id="savnerdunoe.ingress" />
           </BodyLong>
+
           <Button
             variant="secondary"
             className={styles.button}
@@ -46,16 +53,19 @@ export function SavnerDuNoe(props: {
           >
             <FormattedMessage id="savnerdunoe.button" />
           </Button>
-        </div>
+        </>
       )}
-      <BodyLong>
-        <FormattedMessage
-          id={isEndring ? 'savnerdunoe.body.endring' : 'savnerdunoe.body'}
-          values={{
-            ...getFormatMessageValues(),
-          }}
-        />
-      </BodyLong>
+
+      {isEndring && (
+        <BodyLong>
+          <FormattedMessage
+            id="savnerdunoe.body.endring"
+            values={{
+              ...getFormatMessageValues(),
+            }}
+          />
+        </BodyLong>
+      )}
     </section>
   )
 }

@@ -639,9 +639,6 @@ describe('Hovedhistorie', () => {
         cy.contains('a', 'Alle forbehold')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/forbehold')
-        cy.contains('a', 'detaljert pensjonskalkulator')
-          .should('have.attr', 'href')
-          .and('include', '/pensjon/kalkulator/redirect/detaljert-kalkulator')
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {

@@ -50,8 +50,7 @@ export default {
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller seinare',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert pensjonskalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
-  'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Enkel kalkulator er under utvikling. Du må du bruke detaljert pensjonskalkulator viss du:',
+  'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -457,7 +456,6 @@ export default {
   'savnerdunoe.title.endring': 'MANGLER_TEKST',
   'savnerdunoe.ingress': 'MANGLER_TEKST',
   'savnerdunoe.button': 'MANGLER_TEKST',
-  'savnerdunoe.body': 'MANGLER_TEKST',
   'savnerdunoe.body.endring': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',

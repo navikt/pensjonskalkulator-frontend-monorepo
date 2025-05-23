@@ -57,8 +57,7 @@ export default {
   'landingsside.for.deg.foedt.etter.1963': 'For those born in 1963 or later',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'In the pension calculator, you can get an estimate of',
-  'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'If you need to save your calculation or view detailed calculations, you can use the detailed pension calculator. It does not show lifelong AFP in the public sector.',
+  'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Log in to the detailed pension calculator',
   'landingsside.button.detaljert_kalkulator': 'Detailed Pension Calculator',
@@ -541,8 +540,7 @@ export default {
   'savnerdunoe.ingress':
     'More choices for withdrawal degree, pension age, and income can be found in Advanced.',
   'savnerdunoe.button': 'Go to Advanced',
-  'savnerdunoe.body':
-    'This calculator is under development. If you need to save calculations and see more details, you can do it in the <detaljertKalkulatorLink>detailed pension calculator</detaljertKalkulatorLink>',
+  'savnerdunoe.body.endring': 'MANGLER_TEKST',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
   'pensjonsavtaler.private.title.ingen': 'Private pension agreements',

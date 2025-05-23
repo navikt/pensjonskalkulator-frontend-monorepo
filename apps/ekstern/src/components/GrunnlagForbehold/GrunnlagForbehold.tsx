@@ -8,16 +8,19 @@ import { paths } from '@/router/constants'
 
 import styles from './GrunnlagForbehold.module.scss'
 
-export function GrunnlagForbehold(props: {
+interface Props {
   headingLevel: HeadingProps['level']
-}) {
-  const { headingLevel } = props
+}
+
+export const GrunnlagForbehold = ({ headingLevel }: Props) => {
   const intl = useIntl()
+
   return (
     <section className={styles.section}>
       <Heading level={headingLevel} size="medium" className={styles.heading}>
         <FormattedMessage id="grunnlag.forbehold.title" />
       </Heading>
+
       <BodyLong className={styles.text}>
         <FormattedMessage id="grunnlag.forbehold.ingress_1" />
         <Link
