@@ -16,6 +16,7 @@ const ignoredFiles = [
   '**/vite.config.ts*',
   '**/.stylelintrc.cjs',
   '**/tsconfig.json',
+  'server/server.ts',
   '**/tsconfig.node.json',
   '**/*.scss.d.ts',
   '**/style.d.ts',

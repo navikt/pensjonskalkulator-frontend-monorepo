@@ -138,6 +138,14 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => {
+  if (unleash.isEnabled('g-regulering')) {
+    return res.redirect(307, 'https://stengt-for-g-regulering.nav.no')
+  } else {
+    return next()
+  }
+})
+
 app.use(
   '/pensjon/kalkulator/redirect/detaljert-kalkulator',
   express.urlencoded({ extended: true }),
