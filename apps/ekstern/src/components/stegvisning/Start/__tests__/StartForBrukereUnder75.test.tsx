@@ -235,6 +235,31 @@ describe('stegvisning - Start', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('rendrer slik den skal med vedtak om pre2025 offentlig Afp', async () => {
+    render(
+      <StartForBrukereUnder75
+        navn="Ola"
+        loependeVedtak={{
+          ufoeretrygd: {
+            grad: 0,
+          },
+          pre2025OffentligAfp: {
+            fom: '2024-08-01',
+          },
+        }}
+        onCancel={onCancelMock}
+        onNext={onNextMock}
+      />
+    )
+
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'stegvisning.start.title Ola!'
+    )
+    expect(
+      screen.getByTestId('stegvisning-start-ingress-pre2025-offentlig-afp')
+    ).toBeVisible()
+  })
+
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLoaderData } from 'react-router'
+import { useLoaderData, useNavigate } from 'react-router'
 
 import {
   StartForBrukereFyllt75,
@@ -15,6 +15,7 @@ import { isAlderOver75Plus1Maaned } from '@/utils/alder'
 
 export function StepStart() {
   const intl = useIntl()
+  const navigate = useNavigate()
 
   const { person, loependeVedtak } =
     useLoaderData<typeof stepStartAccessGuard>()
@@ -31,6 +32,18 @@ export function StepStart() {
 
   const isVeileder = useAppSelector(selectIsVeileder)
 
+  const onNext = () => {
+    //Hvis du har løpende vedtak om gammel offentlig AFP, men tidligere har hatt vedtak om alderspensjon så skal man bli redirigert til avansert beregning.
+    if (
+      loependeVedtak.pre2025OffentligAfp &&
+      loependeVedtak.alderspensjon?.grad === 0
+    ) {
+      navigate(paths.beregningAvansert)
+    } else if (onStegvisningNext) {
+      onStegvisningNext()
+    }
+  }
+
   if (isAlderOver75Plus1Maaned(person.foedselsdato)) {
     return <StartForBrukereFyllt75 />
   }
@@ -39,7 +52,7 @@ export function StepStart() {
     <StartForBrukereUnder75
       navn={person.navn}
       onCancel={isVeileder ? undefined : onStegvisningCancel}
-      onNext={onStegvisningNext}
+      onNext={onNext}
       loependeVedtak={loependeVedtak}
     />
   )

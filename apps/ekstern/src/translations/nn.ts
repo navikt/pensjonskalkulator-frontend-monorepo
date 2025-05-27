@@ -79,6 +79,7 @@ export default {
   'stegvisning.start.endring.ingress_1a': 'MANGLER_TEKST',
   'stegvisning.start.endring.ingress_1b.uten_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
+  'stegvisning.start.ingress.pre2025_offentlig_afp': 'MANGLER_TEKST',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.list_item1': 'MANGLER_TEKST',
   'stegvisning.start.list_item2': 'MANGLER_TEKST',
@@ -247,6 +248,8 @@ export default {
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du ventar, dess meir får du i året.',
   'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',
+  'tidligstmuliguttak.pre2025OffentligAfp.ingress': 'MANGLER_TEKST',
+  'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'MANGLER_TEKST',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende': 'MANGLER_TEKST',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
@@ -272,6 +275,7 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
+  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',

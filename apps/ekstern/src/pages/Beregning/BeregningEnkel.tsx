@@ -86,7 +86,10 @@ export const BeregningEnkel = () => {
     isLoading: isTidligstMuligUttakLoading,
     isSuccess: isTidligstMuligUttakSuccess,
   } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody || !!ufoeregrad,
+    skip:
+      !tidligstMuligHeltUttakRequestBody ||
+      Boolean(ufoeregrad) ||
+      Boolean(loependeVedtak.pre2025OffentligAfp),
   })
 
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
@@ -98,12 +101,13 @@ export const BeregningEnkel = () => {
   useEffect(() => {
     // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
     setShowInntektAlert(
-      !!aarligInntektFoerUttakBeloepFraBrukerInput && uttaksalder === null
+      Boolean(aarligInntektFoerUttakBeloepFraBrukerInput) &&
+        uttaksalder === null
     )
   }, [aarligInntektFoerUttakBeloepFraBrukerInput, uttaksalder])
 
   useEffect(() => {
-    if (!ufoeregrad) {
+    if (!ufoeregrad && !loependeVedtak.pre2025OffentligAfp) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
         loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
@@ -230,6 +234,11 @@ export const BeregningEnkel = () => {
     )
   }
 
+  const tidligstMuligUttakPre2025OffentligAfp = {
+    aar: 67,
+    maaneder: 0,
+  }
+
   return (
     <>
       {showInntektAlert && (
@@ -250,28 +259,43 @@ export const BeregningEnkel = () => {
         <div className={styles.container}>
           <TidligstMuligUttaksalder
             tidligstMuligUttak={
-              isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+              isTidligstMuligUttakSuccess
+                ? tidligstMuligUttak
+                : loependeVedtak.pre2025OffentligAfp
+                  ? tidligstMuligUttakPre2025OffentligAfp
+                  : undefined
             }
             ufoeregrad={ufoeregrad}
             show1963Text={show1963Text}
+            loependeVedtakPre2025OffentligAfp={Boolean(
+              loependeVedtak.pre2025OffentligAfp
+            )}
           />
         </div>
       </div>
 
-      <div className={styles.container}>
-        <VelgUttaksalder
-          tidligstMuligUttak={
-            ufoeregrad
-              ? normertPensjonsalder
-              : isTidligstMuligUttakSuccess
-                ? tidligstMuligUttak
-                : getBrukerensAlderISluttenAvMaaneden(
-                    person?.foedselsdato,
-                    nedreAldersgrense
-                  )
-          }
-        />
-      </div>
+      {loependeVedtak.pre2025OffentligAfp ? (
+        <div className={styles.container}>
+          <VelgUttaksalder
+            tidligstMuligUttak={tidligstMuligUttakPre2025OffentligAfp}
+          />
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <VelgUttaksalder
+            tidligstMuligUttak={
+              ufoeregrad
+                ? normertPensjonsalder
+                : isTidligstMuligUttakSuccess
+                  ? tidligstMuligUttak
+                  : getBrukerensAlderISluttenAvMaaneden(
+                      person?.foedselsdato,
+                      nedreAldersgrense
+                    )
+            }
+          />
+        </div>
+      )}
 
       {uttaksalder !== null && (
         <div

@@ -97,6 +97,10 @@ const translations = {
     'Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',
   'stegvisning.start.endring.ingress_1b.med_fremtidig':
     'Du har endret til <strong>{grad} % alderspensjon fra {fom}</strong>. Du kan ikke gjøre en ny beregning her før denne datoen.{br}{br}Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
+  'stegvisning.start.ingress.pre2025_offentlig_afp':
+    'Du har nå <strong>AFP i offentlig sektor</strong>. Her kan du sjekke hva du kan få i alderspensjon.{br}{br}',
+  'stegvisning.start.endring.ingress.pre2025_offentlig_afp':
+    'Du har nå <strong>{grad} % alderspensjon</strong> og <strong>AFP i offentlig sektor</strong>. Her kan du sjekke hva du kan få i alderspensjon.{br}{br}',
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'alderspensjon (Nav)',
@@ -318,6 +322,9 @@ const translations = {
     ' Hvis du venter lenger med uttaket, vil den årlige pensjonen din øke.',
   'tidligstmuliguttak.1964.ingress_2':
     ' Det kan bli senere pga. økt pensjonsalder.',
+  'tidligstmuliguttak.pre2025OffentligAfp.ingress':
+    'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
+  'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Avansert',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
@@ -407,6 +414,8 @@ const translations = {
     'Uten uføretrygd og uførepensjon.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
+  'beregning.avansert.rediger.pre2025_offentlig_afp.alert':
+    'Du beregner nå uttak av alderspensjon før 67 år. AFP i offentlig sektor kan ikke kombineres med alderspensjon. Beregningen forutsetter derfor at du sier fra deg AFP. Kontakt tjenestepensjonsordningen din hvis du vurderer dette.',
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',

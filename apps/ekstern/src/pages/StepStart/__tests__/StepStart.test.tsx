@@ -207,6 +207,81 @@ describe('StepStart', () => {
     })
   })
 
+  describe('Gitt at brukeren har et vedtak om pre2025OffentligAfp', () => {
+    it('viser informasjon om gammel Afp, i tillegg til hilsen med navnet til brukeren', async () => {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            grad: 50,
+            fom: '2025-10-02',
+            sivilstand: 'UGIFT',
+          },
+          ufoeretrygd: { grad: 0 },
+          pre2025OffentligAfp: {
+            fom: '2020-10-02',
+          },
+        } satisfies LoependeVedtak,
+      })
+
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+        expect(screen.getByText('Du har nå', { exact: false })).toBeVisible()
+        expect(
+          screen.getByText('AFP i offentlig sektor', { exact: false })
+        ).toBeVisible()
+      })
+    })
+  })
+
+  describe('Gitt at brukeren har et vedtak om 0 % alderspensjon og pre2025OffentligAfp', () => {
+    it('viser informasjon om gammel Afp, i tillegg til hilsen med navnet til brukeren', async () => {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            grad: 0,
+            fom: '2025-10-02',
+            sivilstand: 'UGIFT',
+          },
+          ufoeretrygd: { grad: 0 },
+          pre2025OffentligAfp: {
+            fom: '2020-10-02',
+          },
+        } satisfies LoependeVedtak,
+      })
+
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+        expect(screen.getByText('Du har nå', { exact: false })).toBeVisible()
+        expect(
+          screen.getByText('0 % alderspensjon', { exact: false })
+        ).toBeVisible()
+        expect(
+          screen.getByText('AFP i offentlig sektor', { exact: false })
+        ).toBeVisible()
+      })
+    })
+  })
+
   it('sender videre til neste steg når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
 
@@ -230,6 +305,47 @@ describe('StepStart', () => {
       const startButton = await screen.findByText('stegvisning.start.button')
       await user.click(startButton)
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
+    })
+  })
+
+  it('sender videre til avansert beregning når brukeren klikker på neste, og har vedtak om 0 % alderspensjon og pre2025OffentligAfp', async () => {
+    mockResponse('/v4/vedtak/loepende-vedtak', {
+      status: 200,
+      json: {
+        alderspensjon: {
+          grad: 0,
+          fom: '2025-10-02',
+          sivilstand: 'UGIFT',
+        },
+        ufoeretrygd: { grad: 0 },
+        pre2025OffentligAfp: {
+          fom: '2020-10-02',
+        },
+      } satisfies LoependeVedtak,
+    })
+
+    const user = userEvent.setup()
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.start}`],
+    })
+    render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetPerson,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
+      hasRouter: false,
+    })
+    await waitFor(async () => {
+      const startButton = await screen.findByText('stegvisning.start.button')
+      await user.click(startButton)
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
     })
   })
 

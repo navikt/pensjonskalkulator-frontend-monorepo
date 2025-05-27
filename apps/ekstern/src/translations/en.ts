@@ -92,6 +92,7 @@ export default {
   'stegvisning.start.endring.ingress_1b.uten_fremtidig':
     'Here you can check what you can receive if you want to change your retirement pension.{br}{br}',
   'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
+  'stegvisning.start.ingress.pre2025_offentlig_afp': 'MANGLER_TEKST',
   'stegvisning.start.ingress':
     'Welcome to the pension calculator which can show you:',
   'stegvisning.start.list_item1': 'retirement pension (Nav)',
@@ -279,6 +280,8 @@ export default {
     ' If you delay your withdrawal, your annual pension will increase.',
   'tidligstmuliguttak.1964.ingress_2':
     ' It may be later due to the increased retirement age.',
+  'tidligstmuliguttak.pre2025OffentligAfp.ingress': 'MANGLER_TEKST',
+  'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'MANGLER_TEKST',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'retirement pension cannot be combined with a survivor´s pension or adjustment benefits. If you wish to withdraw retirement pension before 67, you must forfeit the survivor´s pension or adjustment benefit when you withdraw your retirement pension. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
@@ -309,6 +312,7 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
+  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',

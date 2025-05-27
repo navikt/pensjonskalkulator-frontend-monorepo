@@ -81,6 +81,18 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     ? normertPensjonsalder
     : getBrukerensAlderISluttenAvMaaneden(foedselsdato, nedreAldersgrense)
 
+  const TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP = 67
+
+  // Når bruker velger "Endre avansert valg" og hadde uttaks alder satt til mindre enn 67 år som er tidligst uttaks alder for bruker med pre2025 offentlig AFP, da kan alert være stående.
+  const [showPre2025OffentligAfpAlert, setShowPre2025OffentligAfpAlert] =
+    React.useState<boolean>(
+      Boolean(
+        uttaksalder &&
+          uttaksalder?.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+          loependeVedtak.pre2025OffentligAfp
+      )
+    )
+
   const [
     localInntektFremTilUttak,
     localHeltUttak,
@@ -126,6 +138,16 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
   })
 
   const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
+    if (localGradertUttak?.grad === 100 || !localGradertUttak?.grad) {
+      setShowPre2025OffentligAfpAlert(
+        Boolean(
+          alder &&
+            alder.aar !== undefined &&
+            alder.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+            loependeVedtak.pre2025OffentligAfp
+        )
+      )
+    }
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
       const sluttAlderAntallMaaneder =
@@ -151,6 +173,14 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
+    setShowPre2025OffentligAfpAlert(
+      Boolean(
+        alder &&
+          alder.aar !== undefined &&
+          alder.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+          loependeVedtak.pre2025OffentligAfp
+      )
+    )
     setLocalGradertUttak((previous) => ({
       ...previous,
       uttaksalder: alder,
@@ -306,6 +336,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     setLocalHeltUttak(undefined)
     setLocalHarInntektVsaGradertUttakRadio(null)
     setLocalHarInntektVsaHeltUttakRadio(null)
+    setShowPre2025OffentligAfpAlert(false)
   }
 
   return (
@@ -425,6 +456,17 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               isEndring={isEndring}
             />
           </div>
+
+          {showPre2025OffentligAfpAlert && (
+            <Alert
+              data-testid="pre2025OffentligAfp-alert"
+              variant="info"
+              aria-live="polite"
+              style={{ marginTop: '-1rem' }}
+            >
+              <FormattedMessage id="beregning.avansert.rediger.pre2025_offentlig_afp.alert" />
+            </Alert>
+          )}
 
           <div>
             <Select

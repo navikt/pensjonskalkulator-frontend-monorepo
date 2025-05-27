@@ -1228,6 +1228,7 @@ export interface components {
       ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV4']
       afpPrivat?: components['schemas']['LoependeFraV4']
       afpOffentlig?: components['schemas']['LoependeFraV4']
+      pre2025OffentligAfp?: components['schemas']['LoependeFraV4']
     }
     UfoeretrygdDetaljerV4: {
       /** Format: int32 */

@@ -1,20 +1,18 @@
-import clsx from 'clsx'
-import { format } from 'date-fns'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { Button, Heading, Link } from '@navikt/ds-react'
 
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { Card } from '@/components/common/Card'
-import { TelefonLink } from '@/components/common/TelefonLink'
 import { externalUrls } from '@/router/constants'
-import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import { FridaPortrett } from './FridaPortrett'
+import { StartIngress } from './StartIngress'
+import { StartIngressEndring } from './StartIngressEndring'
+import { StartIngressPre2025OffentligAfp } from './StartIngressPre2025OffentligAfp'
 
 import styles from './Start.module.scss'
 
@@ -52,87 +50,11 @@ export function StartForBrukereUnder75({
               })} ${navn}!`}
             </Heading>
 
-            {isEndring ? (
-              <>
-                <BodyLong size="large">
-                  <FormattedMessage
-                    id="stegvisning.start.endring.ingress_1a"
-                    values={{
-                      ...getFormatMessageValues(),
-                      grad: loependeVedtak.alderspensjon?.grad,
-                      ufoeretrygd: loependeVedtak.ufoeretrygd.grad,
-                      afpPrivat: !!loependeVedtak.afpPrivat,
-                      afpOffentlig: !!loependeVedtak.afpOffentlig,
-                    }}
-                  />
-                  {fremtidigAlderspensjon ? (
-                    <FormattedMessage
-                      id="stegvisning.start.endring.ingress_1b.med_fremtidig"
-                      values={{
-                        ...getFormatMessageValues(),
-                        grad: fremtidigAlderspensjon.grad,
-                        fom: format(
-                          fremtidigAlderspensjon.fom,
-                          DATE_ENDUSER_FORMAT
-                        ),
-                        link: <TelefonLink />,
-                      }}
-                    />
-                  ) : (
-                    <FormattedMessage
-                      id="stegvisning.start.endring.ingress_1b.uten_fremtidig"
-                      values={getFormatMessageValues()}
-                    />
-                  )}
-                </BodyLong>
-
-                {!fremtidigAlderspensjon && (
-                  <BodyLong size="medium">
-                    <FormattedMessage id="stegvisning.start.endring.ingress_2" />
-                  </BodyLong>
-                )}
-              </>
-            ) : (
-              <>
-                <BodyLong size="large">
-                  <FormattedMessage id="stegvisning.start.ingress" />
-                </BodyLong>
-
-                <ul className={styles.list}>
-                  <li>
-                    <BodyLong size="large">
-                      <span
-                        className={clsx(styles.ellipse, styles.ellipse__blue)}
-                      />
-                      <FormattedMessage id="stegvisning.start.list_item1" />
-                    </BodyLong>
-                  </li>
-                  <li>
-                    <BodyLong size="large">
-                      <span
-                        className={clsx(styles.ellipse, styles.ellipse__purple)}
-                      />
-                      <FormattedMessage id="stegvisning.start.list_item2" />{' '}
-                    </BodyLong>
-                  </li>
-                  <li>
-                    <BodyLong size="large">
-                      <span
-                        className={clsx(styles.ellipse, styles.ellipse__green)}
-                      />
-                      <FormattedMessage id="stegvisning.start.list_item3" />{' '}
-                    </BodyLong>
-                  </li>
-                </ul>
-
-                <BodyLong size="medium">
-                  <FormattedMessage id="stegvisning.start.ingress_2" />
-                </BodyLong>
-              </>
-            )}
+            {getIngressComponent()}
 
             {onNext && !isEndringAndFremtidigVedtak && (
               <Button
+                data-testid="stegvisning-start-button"
                 type="submit"
                 className={styles.button}
                 onClick={wrapLogger('button klikk', {
@@ -145,6 +67,7 @@ export function StartForBrukereUnder75({
 
             {onCancel && (
               <Button
+                data-testid="stegvisning-avbryt-button"
                 type="button"
                 className={styles.button}
                 variant="tertiary"
@@ -177,4 +100,13 @@ export function StartForBrukereUnder75({
       </Card>
     </>
   )
+
+  function getIngressComponent() {
+    if (loependeVedtak.pre2025OffentligAfp) {
+      return <StartIngressPre2025OffentligAfp loependeVedtak={loependeVedtak} />
+    } else if (isEndring) {
+      return <StartIngressEndring loependeVedtak={loependeVedtak} />
+    }
+    return <StartIngress />
+  }
 }
