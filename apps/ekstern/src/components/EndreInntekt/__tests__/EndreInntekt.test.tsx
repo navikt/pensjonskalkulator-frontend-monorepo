@@ -151,6 +151,7 @@ describe('EndreInntekt', () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          harLoependeVedtak: true,
           ufoeretrygd: { grad: 100 },
         } satisfies LoependeVedtak,
       })

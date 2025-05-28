@@ -448,7 +448,10 @@ describe('routes', () => {
       })
       it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises steget', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
-          json: { ufoeretrygd: { grad: 75 } } satisfies LoependeVedtak,
+          json: {
+            harLoependeVedtak: true,
+            ufoeretrygd: { grad: 75 },
+          } satisfies LoependeVedtak,
         })
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore

@@ -147,7 +147,7 @@ describe('AFP vs uføretrygd', () => {
 
           cy.contains('Beregn pensjon').click()
 
-          cy.contains('AFP: Offentlig (Ikke beregnet)').should('exist')
+          cy.contains('AFP: Offentlig (ikke beregnet)').should('exist')
           cy.contains(
             'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.'
           ).should('exist')
@@ -671,7 +671,7 @@ describe('AFP vs uføretrygd', () => {
         })
 
         it('forventer jeg informasjon i grunnlag om at AFP ikke er beregnet.', () => {
-          cy.contains('AFP: Privat (Ikke beregnet)').should('be.visible')
+          cy.contains('AFP: Privat (ikke beregnet)').should('be.visible')
         })
 
         it('forventer jeg å kunne endre avanserte valg.', () => {

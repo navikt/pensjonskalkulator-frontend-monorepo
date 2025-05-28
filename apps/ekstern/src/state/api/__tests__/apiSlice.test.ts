@@ -182,6 +182,7 @@ describe('apiSlice', () => {
 
       mockResponse('/v4/vedtak/loepende-vedtak', {
         json: {
+          harLoependeVedtak: true,
           alderspensjon: {
             grad: 1000,
             fom: '2020-10-02',

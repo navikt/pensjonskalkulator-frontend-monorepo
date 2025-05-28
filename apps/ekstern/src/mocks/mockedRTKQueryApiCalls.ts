@@ -207,6 +207,7 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
 }
 
 export const loependeVedtak0UfoeregradMock: LoependeVedtak = {
+  harLoependeVedtak: false,
   ufoeretrygd: {
     grad: 0,
   },
@@ -229,6 +230,7 @@ export const fulfilledGetLoependeVedtak100Ufoeregrad = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       ufoeretrygd: {
         grad: 100,
       },
@@ -244,6 +246,7 @@ export const fulfilledGetLoependeVedtak75Ufoeregrad = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       ufoeretrygd: {
         grad: 75,
       },
@@ -259,6 +262,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
@@ -280,6 +284,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling =
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
+        harLoependeVedtak: true,
         alderspensjon: {
           grad: 100,
           fom: '2020-10-02',
@@ -304,6 +309,7 @@ export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 50,
         fom: '2020-10-02',
@@ -324,6 +330,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
@@ -344,6 +351,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
@@ -367,10 +375,30 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       ufoeretrygd: {
         grad: 0,
       },
       afpOffentlig: {
+        fom: '2020-10-02',
+      },
+    } satisfies LoependeVedtak,
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakPre2025OffentligAfp = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      harLoependeVedtak: true,
+      ufoeretrygd: {
+        grad: 0,
+      },
+      pre2025OffentligAfp: {
         fom: '2020-10-02',
       },
     } satisfies LoependeVedtak,
@@ -385,6 +413,7 @@ export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
@@ -405,6 +434,7 @@ export const fulfilledGetLoependeVedtakFremtidig = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       ufoeretrygd: {
         grad: 0,
       },
@@ -424,6 +454,7 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',

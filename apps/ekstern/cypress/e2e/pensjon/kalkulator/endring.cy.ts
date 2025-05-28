@@ -40,6 +40,7 @@ describe('Endring av alderspensjon', () => {
               url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
+              harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
                 fom: '2010-10-10',
@@ -191,7 +192,7 @@ describe('Endring av alderspensjon', () => {
         it('forventer jeg å se resultatet for alderspensjon i graf og tabell uten AFP.', () => {
           cy.contains('Beregning').should('exist')
           cy.contains('Pensjonsgivende inntekt').should('exist')
-          cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('not.be.visible')
           cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )
@@ -417,7 +418,7 @@ describe('Endring av alderspensjon', () => {
             it('forventer jeg å se resultatet for alderspensjon i graf og tabell uten AFP.', () => {
               cy.contains('Beregning').should('exist')
               cy.contains('Pensjonsgivende inntekt').should('exist')
-              cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
+              cy.contains('AFP (avtalefestet pensjon)').should('not.be.visible')
               cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
                 'not.exist'
               )
@@ -465,6 +466,7 @@ describe('Endring av alderspensjon', () => {
             url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
           },
           {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
               fom: '2010-10-10',
@@ -503,6 +505,7 @@ describe('Endring av alderspensjon', () => {
               url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
+              harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
                 fom: '2010-10-10',
@@ -751,7 +754,7 @@ describe('Endring av alderspensjon', () => {
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
             cy.contains('AFP:').click({ force: true })
-            cy.contains('Privat (Uendret)').should('exist')
+            cy.contains('Privat (uendret)').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
@@ -773,6 +776,7 @@ describe('Endring av alderspensjon', () => {
             url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
           },
           {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
               fom: '2010-10-10',
@@ -809,6 +813,7 @@ describe('Endring av alderspensjon', () => {
               url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
+              harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
                 fom: '2010-10-10',
@@ -1057,7 +1062,7 @@ describe('Endring av alderspensjon', () => {
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
             cy.contains('AFP:').click({ force: true })
-            cy.contains('Offentlig (Uendret)').should('exist')
+            cy.contains('Offentlig (uendret)').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
@@ -1078,6 +1083,7 @@ describe('Endring av alderspensjon', () => {
             url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
           },
           {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 50,
               fom: '2010-10-10',
@@ -1115,6 +1121,7 @@ describe('Endring av alderspensjon', () => {
               url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
+              harLoependeVedtak: true,
               alderspensjon: {
                 grad: 50,
                 fom: '2010-10-10',
@@ -1330,7 +1337,7 @@ describe('Endring av alderspensjon', () => {
             ).should('exist')
           })
 
-          it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at info om AFP er skjult.', () => {
+          it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Øvrig grunnlag for beregningen').should('exist')
             cy.contains('Sivilstand:').click({ force: true })
@@ -1339,7 +1346,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains(
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
-            cy.contains('AFP:').should('not.exist')
+            cy.contains('AFP: Nei').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
@@ -1360,6 +1367,7 @@ describe('Endring av alderspensjon', () => {
             url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
           },
           {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
               fom: '2010-10-10',
@@ -1397,6 +1405,7 @@ describe('Endring av alderspensjon', () => {
               url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
             },
             {
+              harLoependeVedtak: true,
               alderspensjon: {
                 grad: 0,
                 fom: '2010-10-10',
@@ -1634,7 +1643,7 @@ describe('Endring av alderspensjon', () => {
             ).should('exist')
           })
 
-          it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP Privat er uendret ', () => {
+          it('forventer jeg tilpasset informasjon i grunnlag: at opphold utenfor Norge er hentet fra vedtak og at AFP: Nei vises', () => {
             cy.contains('Beregning').should('exist')
             cy.contains('Øvrig grunnlag for beregningen').should('exist')
             cy.contains('Sivilstand:').click({ force: true })
@@ -1643,7 +1652,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains(
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
-            cy.contains('AFP:').should('not.exist')
+            cy.contains('AFP: Nei').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {

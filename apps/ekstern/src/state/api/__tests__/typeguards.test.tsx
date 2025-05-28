@@ -805,6 +805,7 @@ describe('Typeguards', () => {
 
   describe('isLoependeVedtak', () => {
     const correctResponse: LoependeVedtak = {
+      harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',

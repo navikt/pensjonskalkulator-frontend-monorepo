@@ -153,6 +153,7 @@ describe('StepStart', () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
@@ -212,6 +213,7 @@ describe('StepStart', () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
             fom: '2025-10-02',
@@ -248,6 +250,7 @@ describe('StepStart', () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          harLoependeVedtak: true,
           alderspensjon: {
             grad: 0,
             fom: '2025-10-02',
@@ -312,6 +315,7 @@ describe('StepStart', () => {
     mockResponse('/v4/vedtak/loepende-vedtak', {
       status: 200,
       json: {
+        harLoependeVedtak: true,
         alderspensjon: {
           grad: 0,
           fom: '2025-10-02',

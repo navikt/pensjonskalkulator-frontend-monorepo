@@ -303,6 +303,7 @@ describe('Loaders', () => {
 
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
           } satisfies LoependeVedtak,
         })
@@ -346,6 +347,7 @@ describe('Loaders', () => {
 
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
           } satisfies LoependeVedtak,
         })
@@ -379,6 +381,7 @@ describe('Loaders', () => {
       it('brukere med vedtak om afp-offentlig, er redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: {
               grad: 0,
             },
@@ -399,6 +402,7 @@ describe('Loaders', () => {
       it('brukere med vedtak om afp-privat, er redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
               fom: '2020-10-02',
@@ -424,6 +428,7 @@ describe('Loaders', () => {
       it('brukere med 100 % uføretrygd er redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
               fom: '2020-10-02',
@@ -709,6 +714,7 @@ describe('Loaders', () => {
       it('Når hen har svart ja til spørsmål om afp, er hen ikke redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
           } satisfies LoependeVedtak,
         })
@@ -726,6 +732,7 @@ describe('Loaders', () => {
       it('Når hen har svart nei til spørsmål om afp, er hen redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
           } satisfies LoependeVedtak,
         })
@@ -747,6 +754,7 @@ describe('Loaders', () => {
       it('Når hen ikke har fått afp-steget (og dermed ikke har svart på spørsmål om afp), er hen redirigert', async () => {
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
+            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
           } satisfies LoependeVedtak,
         })
@@ -797,6 +805,7 @@ describe('Loaders', () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          harLoependeVedtak: true,
           ufoeretrygd: { grad: 50 },
         } satisfies LoependeVedtak,
       })

@@ -1099,6 +1099,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
+          harLoependeVedtak: false,
           ufoeretrygd: { grad: 0 },
         } satisfies LoependeVedtak,
         normertPensjonsalder: {
@@ -1424,6 +1425,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
+          harLoependeVedtak: false,
           ufoeretrygd: { grad: 0 },
         } satisfies LoependeVedtak,
         normertPensjonsalder: {
@@ -1929,6 +1931,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
                       sivilstand: 'UGIFT',
                     },
                     ufoeretrygd: { grad: 0 },
+                    harLoependeVedtak: true,
                   } satisfies LoependeVedtak,
                   fulfilledTimeStamp: 1688046412103,
                 },

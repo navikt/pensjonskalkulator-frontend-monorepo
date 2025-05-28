@@ -9,6 +9,7 @@ import {
   fulfilledGetLoependeVedtakLoepende50Alderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakPre2025OffentligAfp,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -147,9 +148,9 @@ describe('Grunnlag - AFP', () => {
     await user.click(buttons[6])
 
     expect(await screen.findByTestId('grunnlag.afp.ingress.nei')).toBeVisible()
-    expect(await screen.findByTestId('grunnlag.afp.reset_link')).toBeVisible()
-    await user.click(await screen.findByTestId('grunnlag.afp.reset_link'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.start)
+    expect(await screen.findByTestId('grunnlag.afp.afp_link')).toBeVisible()
+    await user.click(await screen.findByTestId('grunnlag.afp.afp_link'))
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
@@ -175,18 +176,17 @@ describe('Grunnlag - AFP', () => {
     await user.click(buttons[6])
 
     expect(
-      await screen.findByText('grunnlag.afp.ingress.vet_ikke')
+      await screen.findByText(
+        'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din.',
+        {
+          exact: false,
+        }
+      )
     ).toBeVisible()
   })
 
   describe('Gitt at brukeren har gradert uføretrygd,', () => {
-    describe('Gitt at brukeren er eldre enn AFP-Uføre oppsigelsesalder,', () => {
-      const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
-        years: -63,
-        months: -1,
-      })
-      const foedselsdato = format(minAlderYearsBeforeNow, DATE_BACKEND_FORMAT)
-
+    describe('Når brukeren er eldre enn AFP-Uføre oppsigelsesalder,', () => {
       const mockedQueries = {
         ...fulfilledGetLoependeVedtak75Ufoeregrad,
         ['getPerson(undefined)']: {
@@ -197,7 +197,7 @@ describe('Grunnlag - AFP', () => {
           data: {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
-            foedselsdato,
+            foedselsdato: '1963-01-01',
             pensjoneringAldre: {
               normertPensjoneringsalder: {
                 aar: 67,
@@ -213,8 +213,8 @@ describe('Grunnlag - AFP', () => {
         },
       }
 
-      it('returneres null', async () => {
-        const { asFragment } = render(<GrunnlagAFP />, {
+      it('Skal riktig tittel og tekst vises', async () => {
+        render(<WrappedGrunnlagAFP />, {
           preloadedState: {
             api: {
               // @ts-ignore
@@ -222,15 +222,22 @@ describe('Grunnlag - AFP', () => {
             },
             userInput: {
               ...userInputInitialState,
-              afp: 'ja_offentlig',
             },
           },
         })
-        expect(asFragment()).toMatchInlineSnapshot('<DocumentFragment />')
+
+        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(screen.getByText('afp.nei')).toBeVisible()
+        expect(
+          screen.getByText(
+            'For å ha rett til AFP, må du være ansatt i offentlig sektor eller i en bedrift med AFP-ordning i privat sektor. Det gjelder de siste årene og helt fram til du tar ut AFP. Hvis du mottar full uføretrygd, har du derfor normalt ikke rett til AFP.',
+            { exact: false }
+          )
+        ).toBeInTheDocument()
       })
     })
 
-    describe('Gitt at brukeren er yngre enn AFP-Uføre oppsigelsesalder,', () => {
+    describe('Når brukeren er yngre enn AFP-Uføre oppsigelsesalder,', () => {
       const minAlderYearsBeforeNow = add(endOfDay(new Date()), {
         years: -61,
         months: -11,
@@ -263,7 +270,7 @@ describe('Grunnlag - AFP', () => {
         },
       }
 
-      it('Når hen har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
+      it('Skal riktig tittel med formatert inntekt og tekst vises når brukeren har valgt AFP offentlig', async () => {
         render(<WrappedGrunnlagAFP />, {
           preloadedState: {
             api: {
@@ -290,7 +297,7 @@ describe('Grunnlag - AFP', () => {
         ).toBeInTheDocument()
       })
 
-      it('Når hen har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
+      it('Skal riktig tittel med formatert inntekt og tekst vises når brukeren har valgt AFP privat', async () => {
         render(<WrappedGrunnlagAFP />, {
           preloadedState: {
             api: {
@@ -315,7 +322,7 @@ describe('Grunnlag - AFP', () => {
         ).toBeInTheDocument()
       })
 
-      it('Når hen har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+      it('Skal riktig tittel med formatert inntekt og tekst vises når brukeren har valgt uten AFP', async () => {
         render(<WrappedGrunnlagAFP />, {
           preloadedState: {
             api: {
@@ -331,11 +338,13 @@ describe('Grunnlag - AFP', () => {
         expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
         expect(screen.getByText('afp.nei')).toBeVisible()
         expect(
-          screen.getByText('grunnlag.afp.ingress.nei.ufoeretrygd')
+          screen.getByText('Du har svart at du ikke har rett til AFP.', {
+            exact: false,
+          })
         ).toBeInTheDocument()
       })
 
-      it('Når hen har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+      it('Skal riktig tittel med formatert inntekt og tekst vises når brukeren har valgt "vet ikke" på AFP', async () => {
         render(<WrappedGrunnlagAFP />, {
           preloadedState: {
             api: {
@@ -359,11 +368,36 @@ describe('Grunnlag - AFP', () => {
 
   describe('Gitt at brukeren har 100% uføretrygd,', () => {
     it('Viser riktig tittel og tekst', () => {
+      const mockedQueries = {
+        ...fulfilledGetLoependeVedtak100Ufoeregrad,
+        ['getPerson(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getPerson',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            navn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1965-01-01',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      }
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
+            queries: { ...mockedQueries },
           },
           userInput: { ...userInputInitialState },
         },
@@ -493,7 +527,9 @@ describe('Grunnlag - AFP', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.nei.endring')
+        await screen.findByText('Du har svart at du ikke har rett til AFP.', {
+          exact: false,
+        })
       ).toBeVisible()
       expect(
         screen.queryByText('grunnlag.afp.reset_link')
@@ -523,7 +559,12 @@ describe('Grunnlag - AFP', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.vet_ikke')
+        await screen.findByText(
+          'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din.',
+          {
+            exact: false,
+          }
+        )
       ).toBeVisible()
     })
   })
@@ -587,6 +628,96 @@ describe('Grunnlag - AFP', () => {
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig.endring')
       ).toBeVisible()
+    })
+  })
+
+  describe('Gitt at brukeren er født før 1963,', () => {
+    it('får brukeren riktig tittel og tekst når hen har vedtak om gradert uføretrygd,', () => {
+      const mockedQueries = {
+        ...fulfilledGetLoependeVedtak75Ufoeregrad,
+        ['getPerson(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getPerson',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            navn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1960-01-01',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      }
+      render(<WrappedGrunnlagAFP />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...mockedQueries },
+          },
+          userInput: { ...userInputInitialState },
+        },
+      })
+
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.nei')).toBeVisible()
+      expect(
+        screen.getByText(
+          'Når du mottar uføretrygd eller alderspensjon kan du ikke beregne AFP i kalkulatoren.',
+          { exact: false }
+        )
+      ).toBeInTheDocument()
+    })
+
+    it('får brukeren riktig tittel og tekst når hen har vedtak om AFP etterfulgt av AP,', () => {
+      const mockedQueries = {
+        ...fulfilledGetLoependeVedtakPre2025OffentligAfp,
+        ['getPerson(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getPerson',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            navn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1960-01-01',
+            pensjoneringAldre: {
+              normertPensjoneringsalder: {
+                aar: 67,
+                maaneder: 0,
+              },
+              nedreAldersgrense: {
+                aar: 62,
+                maaneder: 0,
+              },
+            },
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      }
+      render(<WrappedGrunnlagAFP />, {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...mockedQueries },
+          },
+          userInput: { ...userInputInitialState },
+        },
+      })
+
+      expect(
+        screen.getByText('grunnlag.afp.ingress.overgangskull')
+      ).toBeVisible()
+      expect(screen.getByText('afp.offentlig')).toBeVisible()
     })
   })
 })

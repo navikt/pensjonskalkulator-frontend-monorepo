@@ -1262,6 +1262,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
+          harLoependeVedtak: true,
           ufoeretrygd: { grad: 75 },
         } satisfies LoependeVedtak,
         normertPensjonsalder: {
@@ -1294,6 +1295,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                   requestId: 'xTaE6mOydr5ZI75UXq4Wi',
                   startedTimeStamp: 1688046411971,
                   data: {
+                    harLoependeVedtak: true,
                     ufoeretrygd: { grad: 40 },
                   } satisfies LoependeVedtak,
                   fulfilledTimeStamp: 1688046412103,
@@ -1601,6 +1603,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
         loependeVedtak: {
+          harLoependeVedtak: true,
           ufoeretrygd: { grad: 75 },
         } satisfies LoependeVedtak,
         normertPensjonsalder: {
@@ -2209,6 +2212,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                   requestId: 'xTaE6mOydr5ZI75UXq4Wi',
                   startedTimeStamp: 1688046411971,
                   data: {
+                    harLoependeVedtak: true,
                     alderspensjon: {
                       grad: 100,
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd

@@ -224,6 +224,7 @@ describe('userInput selectors', () => {
               requestId: 'xTaE6mOydr5ZI75UXq4Wi',
               startedTimeStamp: 1688046411971,
               data: {
+                harLoependeVedtak: true,
                 alderspensjon: {
                   grad: 100,
                   fom: '2020-10-02',
@@ -421,6 +422,7 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectLoependeVedtak(state)).toStrictEqual({
+        harLoependeVedtak: true,
         ufoeretrygd: { grad: 75 },
       })
     })
