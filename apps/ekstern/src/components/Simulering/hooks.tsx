@@ -7,6 +7,7 @@ import Highcharts, {
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useIntl } from 'react-intl'
+import { Form } from 'react-router'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputSlice'
@@ -17,6 +18,12 @@ import {
 import { formatInntektToNumber } from '@/utils/inntekt'
 
 import { SERIES_DEFAULT } from './constants'
+import {
+  AarligUtbetaling,
+  generateSeries,
+  mergeAarligUtbetalinger,
+  parseStartSluttUtbetaling,
+} from './data/data'
 import {
   generateXAxis,
   getChartDefaults,
@@ -204,6 +211,120 @@ export const useSimuleringChartLocalState = (initialValues: {
       : gradertUttaksperiode
         ? gradertUttaksperiode.uttaksalder.maaneder
         : uttaksalder?.maaneder
+
+    // WOrking here
+    // afpPrivatListe er alder, beløp
+    // afpOffentligList er alder, beløp
+
+    const parsedAfpOffentligData = afpOffentligListe
+      ? parseStartSluttUtbetaling({
+          startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+          aarligUtbetaling: afpOffentligListe[0].beloep,
+        })
+      : []
+
+    console.log('alderspensjonsListe', alderspensjonListe)
+
+    const parsedAlderspensjonListe = ((localAlderspensjonListe) => {
+      if (!localAlderspensjonListe) return []
+      return localAlderspensjonListe.map(({ alder, beloep }) => ({
+        alder,
+        beloep,
+      }))
+    })(alderspensjonListe)
+
+    console.log('parsedAlderspensjonListe', parsedAlderspensjonListe)
+
+    const parsedPensjonsavltalerListe = ((localPensjonsavltalerListe) => {
+      if (!localPensjonsavltalerListe.data?.avtaler) return []
+      const parsedAvtaler = localPensjonsavltalerListe.data.avtaler.map(
+        (avtale) => {
+          return avtale.utbetalingsperioder.flatMap((periode) => {
+            return parseStartSluttUtbetaling({
+              startAlder: periode.startAlder,
+              sluttAlder: periode.sluttAlder,
+              aarligUtbetaling: periode.aarligUtbetaling,
+            })
+          })
+        }
+      )
+
+      const mergedAarligUtbetalinger = mergeAarligUtbetalinger(parsedAvtaler)
+      return mergedAarligUtbetalinger
+    })(pensjonsavtaler)
+
+    console.log('parsedPensjonsavltalerListe', parsedPensjonsavltalerListe)
+
+    const parsedInntekt = ((localInntekt): AarligUtbetaling[] => {
+      const aarFoerStart = (startAar ?? 0) - 1 // TODO: Håndter dette
+      const inntektUtbetaling = parseStartSluttUtbetaling({
+        startAlder: {
+          aar: aarFoerStart,
+          maaneder: 0,
+        },
+        sluttAlder: {
+          aar: startAar ?? 0,
+          maaneder: startMaaned ? startMaaned - 1 : 0,
+        },
+        aarligUtbetaling: formatInntektToNumber(aarligInntektFoerUttakBeloep),
+      })
+      debugger
+
+      const inntektVsaPensjon =
+        aarligInntektVsaHelPensjon && startAar && startMaaned
+          ? parseStartSluttUtbetaling({
+              startAlder: {
+                aar: startAar,
+                maaneder: startMaaned,
+              },
+              sluttAlder: {
+                aar: startAar ?? 0,
+                maaneder: startMaaned ? startMaaned - 1 : 0,
+              },
+              aarligUtbetaling: formatInntektToNumber(
+                aarligInntektVsaHelPensjon.beloep
+              ),
+            })
+          : []
+
+      return mergeAarligUtbetalinger([inntektUtbetaling, inntektVsaPensjon])
+    })()
+
+    const { xAxis: newXAxis, series: newSeries } = generateSeries([
+      {
+        data: parsedInntekt,
+        ...SERIES_DEFAULT.SERIE_INNTEKT,
+        name: `${intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_INNTEKT.name,
+        })} - ny data`,
+      },
+      {
+        data: parsedAfpOffentligData,
+        ...SERIES_DEFAULT.SERIE_AFP,
+        name: `${intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_AFP.name,
+        })} - ny data`,
+      },
+      {
+        data: parsedPensjonsavltalerListe,
+        ...SERIES_DEFAULT.SERIE_TP,
+        name: `${intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_TP.name,
+        })} - ny data`,
+      },
+      {
+        data: parsedAlderspensjonListe,
+        ...SERIES_DEFAULT.SERIE_ALDERSPENSJON,
+        name: `${intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+        })} - ny data`,
+      },
+    ])
+
+    console.log('newXAxis', newXAxis)
+    console.log('newSeries', newSeries)
+
+    // Stop working
 
     if (startAar && startMaaned !== undefined && alderspensjonListe) {
       setChartOptions({
