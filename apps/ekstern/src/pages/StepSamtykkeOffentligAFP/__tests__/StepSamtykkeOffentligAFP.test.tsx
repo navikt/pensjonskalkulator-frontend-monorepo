@@ -86,7 +86,11 @@ describe('StepSamtykkeOffentligAFP', () => {
 
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+    expect(navigateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        search: expect.stringContaining('back=true') as string,
+      })
+    )
   })
 
   describe('Gitt at brukeren er logget på som veileder', async () => {

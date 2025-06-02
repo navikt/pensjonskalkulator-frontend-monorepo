@@ -1,4 +1,5 @@
 import { add, endOfDay, format } from 'date-fns'
+import { LoaderFunctionArgs } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
@@ -43,6 +44,16 @@ function expectRedirectResponse(
 
   expect(returnedFromLoader.status).toBe(302)
   expect(returnedFromLoader.headers.get('location')).toBe(expectedLocation)
+}
+
+export function createMockRequest(
+  url = 'https://example.com'
+): LoaderFunctionArgs {
+  return {
+    request: new Request(url),
+    params: {},
+    context: {},
+  }
 }
 
 describe('Loaders', () => {
@@ -277,7 +288,10 @@ describe('Loaders', () => {
         userInput: { ...userInputInitialState, samtykke: null },
       }))
 
-      expectRedirectResponse(await stepAFPAccessGuard(), '/start')
+      expectRedirectResponse(
+        await stepAFPAccessGuard(createMockRequest()),
+        '/start'
+      )
     })
 
     describe('Gitt at alle kallene er vellykket, ', () => {
@@ -288,7 +302,7 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        const returnedFromLoader = stepAFPAccessGuard()
+        const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
         await expect(returnedFromLoader).resolves.toMatchObject({
           loependeVedtak: { ufoeretrygd: { grad: 0 } },
         })
@@ -303,8 +317,8 @@ describe('Loaders', () => {
 
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
-            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
+            harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
         mockResponse('/v4/person', {
@@ -331,7 +345,7 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        const returnedFromLoader = stepAFPAccessGuard()
+        const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
         await expect(returnedFromLoader).resolves.toMatchObject({
           person: { foedselsdato },
           loependeVedtak: { ufoeretrygd: { grad: 75 } },
@@ -347,8 +361,8 @@ describe('Loaders', () => {
 
         mockResponse('/v4/vedtak/loepende-vedtak', {
           json: {
-            harLoependeVedtak: true,
             ufoeretrygd: { grad: 75 },
+            harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
         mockResponse('/v4/person', {
@@ -375,7 +389,10 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        expectRedirectResponse(await stepAFPAccessGuard(), paths.ufoeretrygdAFP)
+        expectRedirectResponse(
+          await stepAFPAccessGuard(createMockRequest()),
+          paths.ufoeretrygdAFP
+        )
       })
 
       it('brukere med vedtak om afp-offentlig, er redirigert', async () => {
@@ -396,7 +413,10 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        expectRedirectResponse(await stepAFPAccessGuard(), paths.ufoeretrygdAFP)
+        expectRedirectResponse(
+          await stepAFPAccessGuard(createMockRequest()),
+          paths.ufoeretrygdAFP
+        )
       })
 
       it('brukere med vedtak om afp-privat, er redirigert', async () => {
@@ -422,7 +442,10 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        expectRedirectResponse(await stepAFPAccessGuard(), paths.ufoeretrygdAFP)
+        expectRedirectResponse(
+          await stepAFPAccessGuard(createMockRequest()),
+          paths.ufoeretrygdAFP
+        )
       })
 
       it('brukere med 100 % uføretrygd er redirigert', async () => {
@@ -448,7 +471,10 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        expectRedirectResponse(await stepAFPAccessGuard(), paths.ufoeretrygdAFP)
+        expectRedirectResponse(
+          await stepAFPAccessGuard(createMockRequest()),
+          paths.ufoeretrygdAFP
+        )
       })
     })
 
@@ -483,7 +509,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).resolves.not.toThrow()
       await expect(returnedFromLoader).resolves.toMatchObject({
         person: {
@@ -516,7 +542,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       // Når denne kaster så blir den fanget opp av ErrorBoundary som viser uventet feil
       await expect(returnedFromLoader).rejects.toThrow()
     })
@@ -551,7 +577,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).resolves.not.toThrow()
     })
 
@@ -581,7 +607,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).rejects.toThrow()
     })
 
@@ -617,7 +643,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
       expectRedirectResponse(
-        await stepAFPAccessGuard(),
+        await stepAFPAccessGuard(createMockRequest()),
         `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
     })
@@ -653,7 +679,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).resolves.not.toThrow()
     })
 
@@ -681,7 +707,7 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = stepAFPAccessGuard()
+      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).rejects.toThrow()
     })
   })
@@ -694,7 +720,10 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      expectRedirectResponse(await stepUfoeretrygdAFPAccessGuard(), paths.start)
+      expectRedirectResponse(
+        await stepUfoeretrygdAFPAccessGuard(createMockRequest()),
+        paths.start
+      )
     })
 
     it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
@@ -705,7 +734,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
       expectRedirectResponse(
-        await stepUfoeretrygdAFPAccessGuard(),
+        await stepUfoeretrygdAFPAccessGuard(createMockRequest()),
         paths.samtykkeOffentligAFP
       )
     })
@@ -725,7 +754,8 @@ describe('Loaders', () => {
         }
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
-        const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
+        const returnedFromLoader =
+          await stepUfoeretrygdAFPAccessGuard(createMockRequest())
         expect(returnedFromLoader).toBeUndefined()
       })
 
@@ -746,7 +776,7 @@ describe('Loaders', () => {
         })
 
         expectRedirectResponse(
-          await stepUfoeretrygdAFPAccessGuard(),
+          await stepUfoeretrygdAFPAccessGuard(createMockRequest()),
           paths.samtykkeOffentligAFP
         )
       })
@@ -766,7 +796,7 @@ describe('Loaders', () => {
         store.getState = vi.fn().mockImplementation(() => mockedState)
 
         expectRedirectResponse(
-          await stepUfoeretrygdAFPAccessGuard(),
+          await stepUfoeretrygdAFPAccessGuard(createMockRequest()),
           paths.samtykkeOffentligAFP
         )
       })
@@ -782,7 +812,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
       expectRedirectResponse(
-        await stepSamtykkeOffentligAFPAccessGuard(),
+        await stepSamtykkeOffentligAFPAccessGuard(createMockRequest()),
         paths.start
       )
     })
@@ -797,7 +827,8 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
+      const returnedFromLoader =
+        await stepSamtykkeOffentligAFPAccessGuard(createMockRequest())
       expect(returnedFromLoader).toBeUndefined()
     })
 
@@ -818,7 +849,8 @@ describe('Loaders', () => {
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
-      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
+      const returnedFromLoader =
+        await stepSamtykkeOffentligAFPAccessGuard(createMockRequest())
       expect(returnedFromLoader).toBeUndefined()
     })
 
@@ -833,7 +865,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
       expectRedirectResponse(
-        await stepSamtykkeOffentligAFPAccessGuard(),
+        await stepSamtykkeOffentligAFPAccessGuard(createMockRequest()),
         paths.samtykke
       )
     })
