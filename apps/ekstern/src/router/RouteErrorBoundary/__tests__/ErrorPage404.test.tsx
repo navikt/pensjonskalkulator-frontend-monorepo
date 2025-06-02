@@ -42,12 +42,15 @@ describe('ErrorPage404', () => {
   })
 
   it('logger når bruker går til Din pensjon', async () => {
-    const windowSpy = vi.spyOn(window, 'open')
+    const windowOpenMock = vi.fn()
+    vi.stubGlobal('open', windowOpenMock)
+
     render(<ErrorPage404 />)
     const user = userEvent.setup()
     const dinPensjonLink = screen.getByText('error.404.button.link_2')
     await user.click(dinPensjonLink)
+
     expect(logOpenLinkSpy).toHaveBeenCalledTimes(1)
-    expect(windowSpy).toHaveBeenCalledTimes(1)
+    expect(windowOpenMock).toHaveBeenCalledTimes(1)
   })
 })

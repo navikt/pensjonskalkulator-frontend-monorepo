@@ -92,7 +92,8 @@ describe('PageFramework', () => {
       baseUrl: `${HOST_BASEURL}`,
     })
 
-    const windowSpy = vi.spyOn(window, 'open')
+    const windowOpenMock = vi.fn()
+    vi.stubGlobal('open', windowOpenMock)
 
     render(
       <PageFramework shouldRedirectNonAuthenticated>
@@ -103,7 +104,7 @@ describe('PageFramework', () => {
     await Promise.resolve()
 
     await waitFor(() =>
-      expect(windowSpy).toHaveBeenCalledWith(
+      expect(windowOpenMock).toHaveBeenCalledWith(
         'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
         '_self'
       )
