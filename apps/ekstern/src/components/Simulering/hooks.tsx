@@ -8,6 +8,8 @@ import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import {
   getAlderMinus1Maaned,
   transformFoedselsdatoToAlder,
@@ -52,6 +54,8 @@ export const useSimuleringChartLocalState = (initialValues: {
     data?: OffentligTp
   }
 }) => {
+  const dispatch = useAppDispatch()
+  const xAxis = useAppSelector((state) => state.userInput.xAxis)
   const {
     styles,
     chartRef,
@@ -76,7 +80,7 @@ export const useSimuleringChartLocalState = (initialValues: {
     offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
       .utbetalingsperioder
   const intl = useIntl()
-  const [xAxis, setXAxis] = React.useState<string[]>([])
+
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
@@ -115,7 +119,7 @@ export const useSimuleringChartLocalState = (initialValues: {
     }
   }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 
-  // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
+  // Update the useEffect that calculates x-axis length
   React.useEffect(() => {
     const startAar =
       isEndring && foedselsdato
@@ -127,32 +131,29 @@ export const useSimuleringChartLocalState = (initialValues: {
     if (startAar) {
       // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler or offentligTp
       if (!isLoading && (isPensjonsavtalerLoading || isOffentligTpLoading)) {
-        setXAxis(
-          generateXAxis(
-            startAar,
-            isEndring,
-            [],
-            offentligTpUtbetalingsperioder
-              ? [...offentligTpUtbetalingsperioder]
-              : [],
-
-            setIsPensjonsavtaleFlagVisible
-          )
+        const newXAxis = generateXAxis(
+          startAar,
+          isEndring,
+          [],
+          offentligTpUtbetalingsperioder
+            ? [...offentligTpUtbetalingsperioder]
+            : [],
+          setIsPensjonsavtaleFlagVisible
         )
+        dispatch(userInputActions.setXAxis(newXAxis))
       }
-      // recalculates correclty when alderspensjon AND pensjonsavtaler AND offentligTp are done loading
+      // recalculates correctly when alderspensjon AND pensjonsavtaler AND offentligTp are done loading
       if (!isLoading && !isPensjonsavtalerLoading && !isOffentligTpLoading) {
-        setXAxis(
-          generateXAxis(
-            startAar,
-            isEndring,
-            pensjonsavtalerData?.avtaler ?? [],
-            offentligTpUtbetalingsperioder
-              ? [...offentligTpUtbetalingsperioder]
-              : [],
-            setIsPensjonsavtaleFlagVisible
-          )
+        const newXAxis = generateXAxis(
+          startAar,
+          isEndring,
+          pensjonsavtalerData?.avtaler ?? [],
+          offentligTpUtbetalingsperioder
+            ? [...offentligTpUtbetalingsperioder]
+            : [],
+          setIsPensjonsavtaleFlagVisible
         )
+        dispatch(userInputActions.setXAxis(newXAxis))
       }
     }
   }, [
@@ -162,6 +163,15 @@ export const useSimuleringChartLocalState = (initialValues: {
     offentligTpUtbetalingsperioder,
     isOffentligTpLoading,
   ])
+
+  // Maintain x-axis values during loading states
+  React.useEffect(() => {
+    if (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) {
+      if (xAxis.length > 0) {
+        dispatch(userInputActions.setXAxis(xAxis))
+      }
+    }
+  }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {

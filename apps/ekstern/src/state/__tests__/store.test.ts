@@ -32,6 +32,7 @@ describe('store', () => {
         aarligInntektFoerUttakBeloep: '500 000',
         gradertUttaksperiode: null,
       },
+      xAxis: [],
     }
 
     const store = setupStore({ userInput: state }, true)
