@@ -567,9 +567,9 @@ describe('Hovedhistorie', () => {
           'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
-        cy.contains('Det kan bli senere pga. økt pensjonsalder.').should(
-          'exist'
-        )
+        cy.contains(
+          'Det kan bli senere fordi pensjonsalderen i Norge øker.'
+        ).should('exist')
       })
       it('må jeg kunne trykke på Readmore for å få mer informasjon om tidspunktet for tidligst uttak.', () => {
         cy.login()

@@ -13,6 +13,7 @@ import {
   getAlderPlus1Maaned,
   getBrukerensAlderISluttenAvMaaneden,
   getMaanedString,
+  isAlder75MaanedenFylt,
   isAlderLikEllerOverAnnenAlder,
   isAlderOver,
   isAlderOver75Plus1Maaned,
@@ -756,6 +757,44 @@ describe('alder-utils', () => {
       const foedselsdato = '1967-06-06' // 58 today
       const actual = isAlderOver(63)(foedselsdato)
       expect(actual).toBe(false)
+    })
+  })
+
+  describe('isAlder75MaanedenFylt', () => {
+    it('når bruker fyller 75 år og har bursdag etter dags dato i inneværende måned, returnerer true', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-06-01'))
+      const foedselsdato = '1950-06-15'
+      const actual = isAlder75MaanedenFylt(foedselsdato)
+      expect(actual).toBe(true)
+      vi.useRealTimers()
+    })
+    it('når bruker fyller 75 år og har bursdag samme dag i inneværende måned, returnerer true', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-06-15'))
+      const foedselsdato = '1950-06-15'
+      const actual = isAlder75MaanedenFylt(foedselsdato)
+      expect(actual).toBe(true)
+      vi.useRealTimers()
+    })
+    it('når bruker fyller 75 år og har hatt bursdag i inneværende måned, returnerer true', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-06-31'))
+      const foedselsdato = '1950-06-15'
+      const actual = isAlder75MaanedenFylt(foedselsdato)
+      expect(actual).toBe(true)
+      vi.useRealTimers()
+    })
+    it('når bruker er over 76 år, returnerer false', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-05-31'))
+      const foedselsdato = '1949-06-15'
+      const actual = isAlder75MaanedenFylt(foedselsdato)
+      expect(actual).toBe(true)
+      vi.useRealTimers()
+    })
+    it('når bruker er under 75 år og ikke i inneværende måned, returnerer false', () => {
+      vi.useFakeTimers().setSystemTime(new Date('2025-05-31'))
+      const foedselsdato = '1950-06-15'
+      const actual = isAlder75MaanedenFylt(foedselsdato)
+      expect(actual).toBe(false)
+      vi.useRealTimers()
     })
   })
 

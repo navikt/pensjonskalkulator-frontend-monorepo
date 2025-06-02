@@ -26,6 +26,7 @@ interface Props {
   ufoeregrad?: number
   show1963Text: boolean
   loependeVedtakPre2025OffentligAfp?: boolean
+  isOver75AndNoLoependeVedtak?: boolean
 }
 
 export const TidligstMuligUttaksalder = ({
@@ -33,6 +34,7 @@ export const TidligstMuligUttaksalder = ({
   ufoeregrad,
   show1963Text,
   loependeVedtakPre2025OffentligAfp,
+  isOver75AndNoLoependeVedtak,
 }: Props) => {
   const intl = useIntl()
   const navigate = useNavigate()
@@ -61,28 +63,26 @@ export const TidligstMuligUttaksalder = ({
     navigate(paths.beregningAvansert)
   }
 
-  const tidligstMuligUttakIngressPre2025OffentligAFP = () => {
-    return (
-      <BodyLong size="medium" className={styles.ingress}>
-        <FormattedMessage
-          id="tidligstmuliguttak.pre2025OffentligAfp.ingress"
-          values={{
-            ...getFormatMessageValues(),
-            link: (
-              <Link href="#" onClick={goToAvansert}>
-                <FormattedMessage
-                  id="tidligstmuliguttak.pre2025OffentligAfp.avansert_link"
-                  values={{
-                    ...getFormatMessageValues(),
-                  }}
-                />
-              </Link>
-            ),
-          }}
-        />
-      </BodyLong>
-    )
-  }
+  const tidligstMuligUttakIngressPre2025OffentligAFP = () => (
+    <BodyLong size="medium" className={styles.ingress}>
+      <FormattedMessage
+        id="tidligstmuliguttak.pre2025OffentligAfp.ingress"
+        values={{
+          ...getFormatMessageValues(),
+          link: (
+            <Link href="#" onClick={goToAvansert}>
+              <FormattedMessage
+                id="tidligstmuliguttak.pre2025OffentligAfp.avansert_link"
+                values={{
+                  ...getFormatMessageValues(),
+                }}
+              />
+            </Link>
+          ),
+        }}
+      />
+    </BodyLong>
+  )
 
   const gradertIngress = hasAFP
     ? 'omufoeretrygd.gradert.ingress.afp'
@@ -143,16 +143,18 @@ export const TidligstMuligUttaksalder = ({
                 {formatUttaksalder(intl, tidligstMuligUttak)}.
               </BodyLong>
 
-              <BodyLong size="medium" className={styles.ingress}>
-                <FormattedMessage
-                  id={`tidligstmuliguttak.${
-                    show1963Text ? '1963' : '1964'
-                  }.ingress_2`}
-                  values={{
-                    ...getFormatMessageValues(),
-                  }}
-                />
-              </BodyLong>
+              {!isOver75AndNoLoependeVedtak && (
+                <BodyLong size="medium" className={styles.ingress}>
+                  <FormattedMessage
+                    id={`tidligstmuliguttak.${
+                      show1963Text ? '1963' : '1964'
+                    }.ingress_2`}
+                    values={{
+                      ...getFormatMessageValues(),
+                    }}
+                  />
+                </BodyLong>
+              )}
             </>
           ))}
 

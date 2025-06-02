@@ -321,7 +321,7 @@ const translations = {
   'tidligstmuliguttak.1963.ingress_2':
     ' Hvis du venter lenger med uttaket, vil den årlige pensjonen din øke.',
   'tidligstmuliguttak.1964.ingress_2':
-    ' Det kan bli senere pga. økt pensjonsalder.',
+    ' Det kan bli senere fordi pensjonsalderen i Norge øker.',
   'tidligstmuliguttak.pre2025OffentligAfp.ingress':
     'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Avansert',

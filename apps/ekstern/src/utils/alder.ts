@@ -79,11 +79,7 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
 
 export const getAlderFromFoedselsdato = (foedselsdato: string) => {
   const TODAY = new Date()
-  const parsedFoedselsdato = parse(
-    foedselsdato,
-    DATE_BACKEND_FORMAT,
-    new Date()
-  )
+  const parsedFoedselsdato = parse(foedselsdato, DATE_BACKEND_FORMAT, TODAY)
   return differenceInYears(TODAY, parsedFoedselsdato)
 }
 
@@ -96,7 +92,16 @@ export const isAlderOver =
 
 export const isAlderOver67 = isAlderOver(67)
 
-export const isAlderOver75Plus1Maaned = (foedselsdato: string) => {
+export const isAlder75MaanedenFylt = (foedselsdato: string): boolean => {
+  const TODAY = new Date()
+  const parsedFoedselsdato = parse(foedselsdato, DATE_BACKEND_FORMAT, TODAY)
+
+  const foedselsdato75 = addYears(parsedFoedselsdato, 75)
+  const foersteDagIMaanedenFylt75 = startOfMonth(foedselsdato75)
+
+  return !isBefore(TODAY, foersteDagIMaanedenFylt75)
+}
+export const isAlderOver75Plus1Maaned = (foedselsdato: string): boolean => {
   const parsedFoedselsdato = parse(
     foedselsdato,
     DATE_BACKEND_FORMAT,
@@ -109,7 +114,7 @@ export const isAlderOver75Plus1Maaned = (foedselsdato: string) => {
   return isAfter(new Date(), sisteDagIMaanedenFyllt75)
 }
 
-export const isOvergangskull = (foedselsdato: string) => {
+export const isOvergangskull = (foedselsdato: string): boolean => {
   const DATE_START = new Date(1954, 0, 0)
   const DATE_STOP = new Date(1963, 0, 1)
   const parsedFoedselsdato = parse(
@@ -126,7 +131,7 @@ export const isOvergangskull = (foedselsdato: string) => {
 export const isAlderOverAnnenAlder = (
   stoersteAlder: Alder,
   minsteAlder: Alder
-) => {
+): boolean => {
   if (stoersteAlder.aar > minsteAlder.aar) {
     return true
   } else if (
@@ -142,7 +147,7 @@ export const isAlderOverAnnenAlder = (
 export const isAlderLikEllerOverAnnenAlder = (
   stoersteAlder: Alder | Partial<Alder>,
   minsteAlder: Alder
-) => {
+): boolean => {
   if (!stoersteAlder.aar) {
     return false
   }

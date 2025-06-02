@@ -46,6 +46,7 @@ import {
 } from '@/state/userInput/selectors'
 import {
   getBrukerensAlderISluttenAvMaaneden,
+  isAlder75MaanedenFylt,
   isFoedtFoer1964,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -239,6 +240,11 @@ export const BeregningEnkel = () => {
     maaneder: 0,
   }
 
+  const isOver75AndNoLoependeVedtak =
+    !loependeVedtak.harLoependeVedtak &&
+    !!person?.foedselsdato &&
+    isAlder75MaanedenFylt(person.foedselsdato)
+
   return (
     <>
       {showInntektAlert && (
@@ -270,6 +276,7 @@ export const BeregningEnkel = () => {
             loependeVedtakPre2025OffentligAfp={Boolean(
               loependeVedtak.pre2025OffentligAfp
             )}
+            isOver75AndNoLoependeVedtak={isOver75AndNoLoependeVedtak}
           />
         </div>
       </div>
