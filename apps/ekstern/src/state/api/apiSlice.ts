@@ -200,15 +200,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getSanityFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.hent-tekster-fra-sanity',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
     getUtvidetSimuleringsresultatFeatureToggle: builder.query<
       UnleashToggle,
       void
@@ -249,7 +240,6 @@ export const {
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
-  useGetSanityFeatureToggleQuery,
   useGetVedlikeholdsmodusFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice
