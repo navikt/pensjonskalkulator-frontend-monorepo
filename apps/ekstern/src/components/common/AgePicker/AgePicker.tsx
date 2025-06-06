@@ -107,6 +107,7 @@ export const AgePicker = ({
   return (
     <div data-testid={`age-picker-${name}`}>
       <Label className={!description ? styles.label : ''}>{label}</Label>
+
       {description && (
         <BodyShort
           className={styles.description}
@@ -233,6 +234,7 @@ export const AgePicker = ({
 
         <span className={styles.date}>{transformertDate}</span>
       </div>
+
       {error && (
         <div
           id={`${name}-error`}
@@ -244,6 +246,7 @@ export const AgePicker = ({
           </ErrorMessage>
         </div>
       )}
+
       {info && <AlertDashBorder>{info}</AlertDashBorder>}
     </div>
   )

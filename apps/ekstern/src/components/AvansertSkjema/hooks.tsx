@@ -101,13 +101,14 @@ export const useFormLocalState = ({
   )
 
   const muligeUttaksgrad = React.useMemo(() => {
-    // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
-    // Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
+    // * Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
+    // * Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
     const valgtAlder =
       localGradertUttak?.uttaksalder?.aar &&
       localGradertUttak?.uttaksalder?.maaneder !== undefined
         ? { ...localGradertUttak?.uttaksalder }
         : { ...localHeltUttak?.uttaksalder }
+
     const filtrerteUttaksgrad = isEndring
       ? [...ALLE_UTTAKSGRAD_AS_NUMBER]
       : [...ALLE_UTTAKSGRAD_AS_NUMBER].slice(1)

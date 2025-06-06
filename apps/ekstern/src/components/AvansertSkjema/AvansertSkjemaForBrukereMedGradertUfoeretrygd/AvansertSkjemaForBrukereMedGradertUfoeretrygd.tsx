@@ -143,6 +143,12 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   })
 
   const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.uttaksgrad]: '',
+      }
+    })
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
       const sluttAlderAntallMaaneder =
@@ -168,14 +174,24 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
-    // Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal alle påfølgende felter nullstilles
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [AVANSERT_FORM_NAMES.uttaksgrad]: '',
+        [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
+      }
+    })
+    setValidationErrorUttaksalderGradertUttak('')
+
+    // * Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal alle påfølgende felter nullstilles
     const shouldResetGradertUttak =
       alder?.aar &&
       alder?.maaneder !== undefined &&
       alder?.aar >= normertPensjonsalder.aar
-    setValidationErrorUttaksalderGradertUttak('')
+
     if (shouldResetGradertUttak) {
-      // Overfører verdien tilbake til helt uttak
+      // * Overfører verdien tilbake til helt uttak
       setLocalHeltUttak({
         uttaksalder: alder,
         aarligInntektVsaPensjon: undefined,
@@ -199,10 +215,12 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     setValidationErrors((prevState) => {
       return {
         ...prevState,
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
         [AVANSERT_FORM_NAMES.uttaksgrad]: '',
         [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
-        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
-        [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+        [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
@@ -257,8 +275,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const handleInntektVsaHeltUttakRadioChange = (s: BooleanRadio) => {
     setLocalHarInntektVsaHeltUttakRadio(s === 'ja')
     setValidationErrors({
-      [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
       [AVANSERT_FORM_NAMES.inntektVsaHeltUttak]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
       [AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder]: '',
     })
     if (s === 'nei') {
@@ -274,8 +292,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   const handleInntektVsaGradertUttakRadioChange = (s: BooleanRadio) => {
     setLocalHarInntektVsaGradertUttakRadio(s === 'ja')
     setValidationErrors({
-      [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
       [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
     })
     if (s === 'nei') {
       setLocalGradertUttak((previous) => {

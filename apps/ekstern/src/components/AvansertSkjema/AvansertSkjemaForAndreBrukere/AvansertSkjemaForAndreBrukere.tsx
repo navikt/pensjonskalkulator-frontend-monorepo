@@ -127,6 +127,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     heltUttakAgePickerError,
     {
       setValidationErrors,
+      setValidationErrorUttaksalderGradertUttak,
       setValidationErrorUttaksalderHeltUttak,
       setValidationErrorInntektVsaHeltUttak,
       setValidationErrorInntektVsaHeltUttakSluttAlder,
@@ -181,6 +182,14 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
           loependeVedtak.pre2025OffentligAfp
       )
     )
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
+      }
+    })
+    setValidationErrorUttaksalderGradertUttak('')
     setLocalGradertUttak((previous) => ({
       ...previous,
       uttaksalder: alder,
@@ -191,10 +200,11 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     setValidationErrors((prevState) => {
       return {
         ...prevState,
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
         [AVANSERT_FORM_NAMES.uttaksgrad]: '',
         [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
-        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
-        [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+        [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
