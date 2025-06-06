@@ -1,386 +1,1184 @@
 {
   "result": [
     {
-      "name": "hva_er_opphold_utenfor_norge",
-      "overskrift": "Hva som er opphold utenfor Norge",
       "innhold": [
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "cfdef3c4e17e",
+          "_type": "block",
           "children": [
             {
+              "_key": "9c6e3abdf6e5",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Hvis du samtykker, sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du har vært medlem hos flere, utveksler vi opplysninger for å finne ut hvor du sist var medlem. "
             }
           ],
-          "_type": "block",
+          "markDefs": [],
           "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "betydning_av_opphold_utenfor_norge",
-      "overskrift": "Betydning av opphold utenfor Norge for pensjon",
-      "innhold": [
+        },
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "be36f1a1b74e",
+          "_type": "block",
           "children": [
             {
+              "_key": "29a50487dd49",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Du samtykker også til at tjenestepensjonsordningen din kan utlevere en beregning av tjenestepensjonen din til Nav. Beregningen inkluderer eventuell medlemstid fra andre offentlige tjenestepensjonsordninger du tidligere har vært medlem i."
             }
           ],
-          "_type": "block",
+          "markDefs": [],
           "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_livsvarig_AFP_i_offentlig_sektor",
-      "overskrift": "Om livsvarig AFP i offentlig sektor",
-      "innhold": [
+        },
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "c74fa5531556",
+          "_type": "block",
           "children": [
             {
+              "_key": "6f57e7e428b7",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Vi kan bare hente inn pensjonsavtaler fra enkelte tjenestepensjonsordninger, bl.a. Kommunal Landspensjonskasse (KLP) og Statens pensjonskasse (SPK)."
             }
           ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_livsvarig_AFP_i_privat_sektor",
-      "overskrift": "Om livsvarig AFP i privat sektor",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
           "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
           "style": "normal"
         }
-      ]
-    },
-    {
-      "name": "om_pensjonsalder_UT_hel",
-      "overskrift": "Om uføretrygd og alderspensjon (hel)",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_pensjonsalder_UT_gradert_enkel",
-      "overskrift": "Om uføretrygd og alderspensjon (gradert)",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_TMU",
-      "overskrift": "Om pensjonsalder",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_UT_AFP",
-      "overskrift": "Om uføretrygd og avtalefestet pensjon",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
+      ],
       "name": "dette_henter_vi_OFTP",
-      "overskrift": "Dette henter vi fra offentlige tjenestepensjonsordninger",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
+      "overskrift": "Dette henter vi fra offentlige tjenestepensjonsordninger"
     },
     {
-      "name": "dette_henter_vi_NP",
-      "overskrift": "Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor",
       "innhold": [
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "3801468594a9",
+          "_type": "block",
           "children": [
             {
+              "_key": "94b2a4521c4d",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %)."
             }
           ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_uttaksgrad",
-      "overskrift": "Om uttaksgrad",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
           "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
           "style": "normal"
         }
-      ]
-    },
-    {
-      "name": "om_uttaksgrad_endring",
-      "overskrift": "Om uttaksgrad",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_alderspensjon_inntektsgrense_UT",
-      "overskrift": "Om alderspensjon og inntektsgrensen for uføretrygd",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
-      "name": "om_uttaksgrad_UT_gradert_endring",
-      "overskrift": "Om uttaksgrad og uføretrygd",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
-    },
-    {
+      ],
       "name": "om_uttaksgrad_UT_gradert",
-      "overskrift": "Om uttaksgrad og uføretrygd",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
+      "overskrift": "Om uttaksgrad og uføretrygd"
     },
     {
-      "name": "om_pensjonsalder_UT_hel",
-      "overskrift": "Om pensjonsalder og uføretrygd",
       "innhold": [
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "fe52edc80565",
+          "_type": "block",
           "children": [
             {
+              "_key": "9a1b9818bd9d",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Opptjeningen din i folketrygden bestemmer når du kan ta ut alderspensjon. Aldersgrensene vil øke gradvis med én til to måneder per årskull. Kalkulatoren oppdateres når Stortinget har bestemt når endringene kommer."
             }
           ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "2494630523fb",
           "_type": "block",
+          "children": [
+            {
+              "_key": "fe39340a22a4",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du har oppgitt AFP og/eller utenlandsopphold, er dette med i vurderingen av når du kan ta ut alderspensjon. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "bf60b610ae89",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0bb38db2a178",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet for når du kan ta ut 100 % forskyves."
+            }
+          ],
+          "markDefs": [],
           "style": "normal"
         }
-      ]
+      ],
+      "name": "om_TMU",
+      "overskrift": "Om tidspunktet for tidligst uttak"
     },
     {
+      "innhold": [
+        {
+          "_key": "487e18d25695",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "934c6df24ebb0",
+              "_type": "span",
+              "marks": [],
+              "text": "Som hovedregel er dette opphold utenfor Norge:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c92f05b8e9ca",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "f6377469b6b10",
+              "_type": "span",
+              "marks": [],
+              "text": "opphold i mer enn 12 måneder"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a3ff13c001f6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "5a2170539c060",
+              "_type": "span",
+              "marks": [],
+              "text": "opphold med jobb for utenlandsk arbeidsgiver uansett varighet"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "d9621183e2b0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ab82668f71f70",
+              "_type": "span",
+              "marks": [],
+              "text": "Som hovedregel er dette ikke opphold utenfor Norge:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f86105951ccf",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ac340ae83b9d0",
+              "_type": "span",
+              "marks": [],
+              "text": "ferier"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8fe7b46d90d1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d1417a9a09dd0",
+              "_type": "span",
+              "marks": [],
+              "text": "opphold uten jobb på under 12 måneder"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "9ce30059abdd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b471491421e40",
+              "_type": "span",
+              "marks": [],
+              "text": "studier på under 12 måneder eller med støtte fra Lånekassen"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c8c25b87e9d4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "360b588100d70",
+              "_type": "span",
+              "marks": [],
+              "text": "ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "21ce84092d9f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4276072a8c090",
+              "_type": "span",
+              "marks": [],
+              "text": "ansatt i Forsvarets tjeneste"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7c6e422c2605",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "cdb1ac6049b50",
+              "_type": "span",
+              "marks": [],
+              "text": "norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "95267fac3892",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "553475223f9e0",
+              "_type": "span",
+              "marks": [],
+              "text": "Er du usikker på hva som gjelder for deg, les om "
+            },
+            {
+              "_key": "553475223f9e1",
+              "_type": "span",
+              "marks": ["a077657a6b1b"],
+              "text": "medlemskap i folketrygden"
+            },
+            {
+              "_key": "553475223f9e2",
+              "_type": "span",
+              "marks": [],
+              "text": "."
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "a077657a6b1b",
+              "_type": "link",
+              "blank": true,
+              "href": "https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden"
+            }
+          ],
+          "style": "normal"
+        }
+      ],
+      "name": "hva_er_opphold_utenfor_norge",
+      "overskrift": "Hva som er opphold utenfor Norge"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "9179994ea28c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "096f24e68091",
+              "_type": "span",
+              "marks": [],
+              "text": "Opptjeningen din i folketrygden bestemmer når og hvor mye alderspensjon du kan ta ut. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c5c97078f415",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d6fc27e7fc51",
+              "_type": "span",
+              "marks": [],
+              "text": "Ved 67 år går gradert uføretrygd automatisk over til gradert alderspensjon med nærmeste uttaksgrad. Hvis du vil ha 100 % alderspensjon må du selv søke om dette."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
       "name": "om_pensjonsalder_UT_gradert_avansert",
-      "overskrift": "Om pensjonsalder og uføretrygd",
-      "innhold": [
-        {
-          "_key": "95267fac3892",
-          "markDefs": [],
-          "children": [
-            {
-              "_type": "span",
-              "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
-            }
-          ],
-          "_type": "block",
-          "style": "normal"
-        }
-      ]
+      "overskrift": "Om pensjonsalder og uføretrygd"
     },
     {
-      "name": "om_TMU_endring",
-      "overskrift": "Om tidspunktet for tidligst uttak",
       "innhold": [
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "31612230b38d",
+          "_type": "block",
           "children": [
             {
+              "_key": "1609a69d6b43",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %)."
             }
           ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ac044ae74c9b",
           "_type": "block",
+          "children": [
+            {
+              "_key": "6088107895c7",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 0 % når du vil."
+            }
+          ],
+          "markDefs": [],
           "style": "normal"
         }
-      ]
+      ],
+      "name": "om_uttaksgrad_UT_gradert_endring",
+      "overskrift": "Om uttaksgrad og uføretrygd"
     },
     {
+      "innhold": [
+        {
+          "_key": "2277f64df99f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b8abd9e7d7ad",
+              "_type": "span",
+              "marks": [],
+              "text": "AFP i privat sektor:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3971b0125024",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c741cc419b1a",
+              "_type": "span",
+              "marks": [],
+              "text": "er en livsvarig pensjon"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "83b5229f0a49",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7e43e421aebd",
+              "_type": "span",
+              "marks": [],
+              "text": "kan tas ut sammen med arbeid"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "70a20f8a934f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1b0d92d56015",
+              "_type": "span",
+              "marks": [],
+              "text": "må tas ut sammen med alderspensjon fra folketrygden (Nav)"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "79a37aac90d9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "137b490842b4",
+              "_type": "span",
+              "marks": [],
+              "text": "kan tas ut sammen med tjenestepensjon"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a41f6c2836f7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7317db18fbeb",
+              "_type": "span",
+              "marks": [],
+              "text": "Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Sjekk hos arbeidsgiveren din hva som gjelder for deg. Les om vilkårene til "
+            },
+            {
+              "_key": "9ad0d4999165",
+              "_type": "span",
+              "marks": ["f12954f94a2b"],
+              "text": "AFP i privat sektor på afp.no"
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "f12954f94a2b",
+              "_type": "link",
+              "blank": true,
+              "href": "https://www.afp.no/"
+            }
+          ],
+          "style": "normal"
+        }
+      ],
+      "name": "om_livsvarig_AFP_i_privat_sektor",
+      "overskrift": "Om AFP i privat sektor"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "5e1ce1bc8768",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bbdfe4442a48",
+              "_type": "span",
+              "marks": [],
+              "text": "Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "79d5d35a58bf",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "fe1b2dd00a03",
+              "_type": "span",
+              "marks": [],
+              "text": "Dette er pensjonsgivende inntekt:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3c7713a57eef",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c3597896e3b7",
+              "_type": "span",
+              "marks": [],
+              "text": "all lønnsinntekt for lønnstakere"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "30da03203bbd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4923f38b07b1",
+              "_type": "span",
+              "marks": [],
+              "text": "personinntekt fra næring for selvstendige"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "9e115c1ed36b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "65c71ef3b5f5",
+              "_type": "span",
+              "marks": [],
+              "text": "foreldrepenger"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c5b5a1a371af",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1986baef1ae6",
+              "_type": "span",
+              "marks": [],
+              "text": "sykepenger"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "26778267c371",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "f53da1eba0e1",
+              "_type": "span",
+              "marks": [],
+              "text": "dagpenger"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "de6f92341591",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "5e5c413e02e3",
+              "_type": "span",
+              "marks": [],
+              "text": "arbeidsavklaringspenger"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "366d72ed2309",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e4c1e621e4f7",
+              "_type": "span",
+              "marks": [],
+              "text": "omstillingsstønad"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "52f2732b1f64",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a2f31de96951",
+              "_type": "span",
+              "marks": [],
+              "text": "omsorgsstønad"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ffdb5048995e",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "5c90a67b8d6b",
+              "_type": "span",
+              "marks": [],
+              "text": "fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "dc94a72ce08c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b8f9c330ab3a",
+              "_type": "span",
+              "marks": [],
+              "text": "Dette er ikke pensjonsgivende inntekt:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "9aa1f757674d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e9c7cfab84d1",
+              "_type": "span",
+              "marks": [],
+              "text": "uføretrygd fra Nav gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b1a29ae4e0c9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "2cdb1dea5c5d",
+              "_type": "span",
+              "marks": [],
+              "text": "uførepensjon og annen pensjon fra tjenestepensjonsordning"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "fe60b42f0527",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1a67482f6363",
+              "_type": "span",
+              "marks": [],
+              "text": "inntekt og pensjon fra utlandet"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "efaa6f612197",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "048e9446768f",
+              "_type": "span",
+              "marks": [],
+              "text": "førstegangstjeneste (hvis påbegynt tidligst i 2010) gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "4a058da71f1b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3cea5108d905",
+              "_type": "span",
+              "marks": [],
+              "text": "Listen er ikke uttømmende. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "0558301270e0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d73eb77c684b",
+              "_type": "span",
+              "marks": [],
+              "text": "Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
       "name": "om_pensjonsgivende_inntekt",
-      "overskrift": "Om pensjonsgivende inntekt",
+      "overskrift": "Om pensjonsgivende inntekt"
+    },
+    {
       "innhold": [
         {
-          "_key": "95267fac3892",
-          "markDefs": [],
+          "_key": "a11767666144",
+          "_type": "block",
           "children": [
             {
+              "_key": "a1cc54d53adf",
               "_type": "span",
               "marks": [],
-              "text": "Lorem",
-              "_key": "553475223f9e2"
+              "text": "Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden."
             }
           ],
-          "_type": "block",
+          "markDefs": [],
           "style": "normal"
         }
-      ]
+      ],
+      "name": "om_alderspensjon_inntektsgrense_UT",
+      "overskrift": "Om alderspensjon og inntektsgrensen for uføretrygd"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "6ec40e9cad37",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "8a74261908ec0",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet i Norge kortere enn 40 år fra du fylte 16 år til du tar ut alderspensjon? Da kan du få lavere pensjon i Norge. "
+            },
+            {
+              "_key": "8a74261908ec1",
+              "_type": "span",
+              "marks": ["02719d679004"],
+              "text": "Mer om kort botid i Norge"
+            },
+            {
+              "_key": "8a74261908ec2",
+              "_type": "span",
+              "marks": [],
+              "text": "."
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "02719d679004",
+              "_type": "link",
+              "blank": true,
+              "href": "https://www.nav.no/alderspensjon#kort-botid"
+            }
+          ],
+          "style": "normal"
+        },
+        {
+          "_key": "37fb9f692ad4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "fcc412d0592d",
+              "_type": "span",
+              "marks": [],
+              "text": "Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e4f9b2f08bc5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a33beb26135e",
+              "_type": "span",
+              "marks": [],
+              "text": "For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "betydning_av_opphold_utenfor_norge",
+      "overskrift": "Betydning av opphold utenfor Norge for pensjon"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "4e2235b1e409",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d8562ec848b0",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du samtykker, henter vi beregning av pensjonsavtaler i privat sektor fra Norsk Pensjon:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "50f5987db039",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "85a209c85e51",
+              "_type": "span",
+              "marks": [],
+              "text": "tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8479a289bc25",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "100ed5d0709d",
+              "_type": "span",
+              "marks": [],
+              "text": "fripoliser"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "270494d7b331",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d88bd0dbb433",
+              "_type": "span",
+              "marks": [],
+              "text": "enkelte pensjonssparingsavtaler som du har tegnet selv"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "dette_henter_vi_NP",
+      "overskrift": "Dette henter vi fra Norsk Pensjon om pensjonsavtaler fra privat sektor"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "de0b51b43753",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c73cf31a69cc",
+              "_type": "span",
+              "marks": [],
+              "text": "100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_pensjonsalder_UT_hel",
+      "overskrift": "Om pensjonsalder og uføretrygd"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "24792b663556",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b2a15b1d60bc",
+              "_type": "span",
+              "marks": [],
+              "text": "AFP i offentlig sektor:"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "df650696de1d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "28b88fc5a1d7",
+              "_type": "span",
+              "marks": [],
+              "text": "er en livsvarig pensjon"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "884b144a85a6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "be958e31d0dd",
+              "_type": "span",
+              "marks": [],
+              "text": "kan tas ut sammen med arbeid"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ae6edefb4444",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4e9d02260693",
+              "_type": "span",
+              "marks": [],
+              "text": "kan tas ut sammen med alderspensjon fra folketrygden (Nav) og tjenestepensjon"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3650c07bbcd3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bafe33699775",
+              "_type": "span",
+              "marks": [],
+              "text": "De fleste statlige, fylkeskommunale og kommunale arbeidsgivere har avtale om livsvarig AFP. Enkelte arbeidsgivere i privat sektor kan ha avtaler i offentlig sektor. Hvis du er usikker på hva som gjelder for deg, sjekk hos arbeidsgiveren din."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_livsvarig_AFP_i_offentlig_sektor",
+      "overskrift": "Om livsvarig AFP i offentlig sektor"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "30f06b3ca39f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "57db634bb382",
+              "_type": "span",
+              "marks": [],
+              "text": "Opptjeningen din i folketrygden bestemmer når og hvor mye alderspensjon du kan ta ut. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "6aa371091721",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "206094710833",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du har AFP, er AFP med i vurderingen av hvor mye alderspensjon du kan ta ut."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_TMU_endring",
+      "overskrift": "Om tidspunktet for tidligst uttak"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "f767843337a7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1b2e41500e5f",
+              "_type": "span",
+              "marks": [],
+              "text": "Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Hvis du vil endre gradering til 20, 40, 50, 60 eller 80 % må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan endre til 0 % og 100 % så ofte du vil."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_uttaksgrad_endring",
+      "overskrift": "Om uttaksgrad"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "0b8ba37e78bb",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b69a5c5d6a8a",
+              "_type": "span",
+              "marks": [],
+              "text": "Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %)."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_uttaksgrad",
+      "overskrift": "Om uttaksgrad"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "8d997fc97b71",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4e940a6ccc1e",
+              "_type": "span",
+              "marks": [],
+              "text": "Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "om_pensjonsalder_UT_gradert_enkel",
+      "overskrift": "Om pensjonsalder og uføretrygd"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "db685b5d06b1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ce02087b94b3",
+              "_type": "span",
+              "marks": [],
+              "text": "For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra Nav etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "5c7879ea224f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "2ed0c26859f8",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "68cc6ad65d04",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4668b6d68f8c",
+              "_type": "span",
+              "marks": ["7fe006eeab50"],
+              "text": "Om valget mellom uføretrygd og AFP"
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "7fe006eeab50",
+              "_type": "link",
+              "blank": true,
+              "href": "https://www.nav.no/ufor-til-pensjon#afp"
+            }
+          ],
+          "style": "normal"
+        }
+      ],
+      "name": "om_UT_AFP",
+      "overskrift": "Om uføretrygd og AFP"
     }
-  ],
-  "syncTags": ["s1:EmCcjQ"],
-  "ms": 4
+  ]
 }

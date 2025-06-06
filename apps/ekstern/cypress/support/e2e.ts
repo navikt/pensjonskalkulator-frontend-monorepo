@@ -209,38 +209,6 @@ beforeEach(() => {
   ).as('getGrunnbeløp')
 
   cy.intercept(
-    {
-      method: 'GET',
-      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%24locale%5D+%7C+%7Bname%2Coverskrift%2Cinnhold%7D&%24locale=%22nb%22&returnQuery=false',
-    },
-    { fixture: 'sanity-readmore-nb-data.json' }
-  ).as('fetchSanityReadMoreDataNb')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26+language+%3D%3D+%24locale%5D+%7C+%7Bname%2Coverskrift%2Cinnhold%7D&%24locale=%22en%22&returnQuery=false',
-    },
-    { fixture: 'sanity-readmore-en-data.json' }
-  ).as('fetchSanityReadMoreDataEn')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22guidepanel%22+%26%26+language+%3D%3D+%24locale%5D+%7C+%7Bname%2Coverskrift%2Cinnhold%7D&%24locale=%22nb%22&returnQuery=false',
-    },
-    { fixture: 'sanity-guidepanel-nb-data.json' }
-  ).as('fetchSanityGuidePanelDataNb')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26*',
-    },
-    { fixture: 'sanity-forbehold-avsnitt-data.json' }
-  ).as('fetchSanityForbeholdAvsnittData')
-
-  cy.intercept(
     { url: 'https://api.uxsignals.com/v2/study/id/*/active' },
     { active: false }
   ).as('getUxSignalsActive')

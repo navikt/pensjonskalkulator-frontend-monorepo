@@ -11,9 +11,6 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
-import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
-import sanityGuidePanelDataResponse from './data/sanity-guidepanel-data.json' with { type: 'json' }
-import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
@@ -24,23 +21,6 @@ const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const testHandlers =
   process.env.NODE_ENV === 'test'
     ? [
-        http.get(
-          'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development',
-          ({ request }) => {
-            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22readmore%22+%26%26'
-            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22guidepanel%22+%26%26'
-            // 'https://g2by7q6m.apicdn.sanity.io/v2023-05-03/data/query/development?query=*%5B_type+%3D%3D+%22forbeholdAvsnitt%22+%26%26',
-            const url = new URL(request.url)
-            const type = url.searchParams.get('_type')
-            if (type === 'readmore') {
-              return HttpResponse.json(sanityReadMoreDataResponse)
-            } else if (type === 'guidepanel') {
-              return HttpResponse.json(sanityGuidePanelDataResponse)
-            } else if (type === 'forbeholdAvsnitt') {
-              return HttpResponse.json(sanityForbeholdAvsnittDataResponse)
-            }
-          }
-        ),
         http.get('https://api.uxsignals.com/v2/study/id/*/active', () =>
           HttpResponse.json({ active: false })
         ),

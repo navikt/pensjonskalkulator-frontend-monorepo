@@ -20,7 +20,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "api/server.cjs"],
+  "include": ["src", "api/server.cjs", "scripts"],
   "exclude": ["cypress", "src/nais.js", "schemaTypes", "static"],
   "references": [
     {
