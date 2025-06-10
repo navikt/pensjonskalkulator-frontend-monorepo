@@ -275,7 +275,7 @@ const translations = {
   'stegvisning.sivilstand.radio_epsHarPensjon_description':
     'Når du skal ta ut pensjon',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_label':
-    'Vil {sivilstand} ha inntekt over 2G{grunnbelop}?',
+    'Vil {sivilstand} ha inntekt over 2G{grunnbeloep}?',
   'stegvisning.sivilstand.radio_epsHarInntektOver2G_description':
     'Gjelder kalenderåret du tar ut pensjon. Alle inntekter skal regnes med, også kapitalinntekter og pensjon fra andre enn Nav.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer eller ektefelle?',
@@ -338,6 +338,7 @@ const translations = {
   'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',
+  'velguttaksalderafp.title': 'Når vil du ta ut AFP?',
   'beregning.intro.title': 'Estimert pensjon',
   'beregning.intro.title.endring': 'Beregning',
   'beregning.intro.description_1': 'Alle beløp vises i dagens verdi før skatt.',
@@ -395,6 +396,7 @@ const translations = {
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.link.endre_valgene_dine': 'Endre valgene dine',
   'beregning.avansert.link.endre_avanserte_valg': 'Endre avanserte valg',
+  'beregning.avansert.link.om_vilkaar_for_afp': 'Om vilkår for uttak av AFP',
   'beregning.avansert.endring_banner.title':
     'Alderspensjon før skatt når du er ',
   'beregning.avansert.endring_banner.kr_md': 'kr/md.',
@@ -421,12 +423,20 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
   'beregning.avansert.rediger.uttaksgrad.endring.description':
     'Velg ny uttaksgrad',
+  'beregning.avansert.rediger.radio.afp_inntekt_maaned_foer_uttak':
+    'Forventer du å ha inntekt på minst {afpInntektMaanedFoerUttak} før skatt den siste måneden før du tar ut AFP?',
+  'beregning.avansert.rediger.radio.afp_inntekt_maaned_foer_uttak.description':
+    'Dette er ett av vilkårene for å få AFP.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
     'Du kan tjene så mye du vil samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_afp':
+    'Forventer du å ha inntekt samtidig som du tar ut AFP?',
+  'beregning.avansert.rediger.radio.inntekt_vsa_afp.description':
+    'AFP-graden du får, beregnes etter hvilken inntekt du har i tillegg.',
   'beregning.avansert.rediger.uttaksgrad.validation_error':
     'Du må velge hvor mye alderspensjon du vil ta ut.',
   'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
@@ -439,6 +449,12 @@ const translations = {
     'Du kan tjene så mye du vil samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
     'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.',
+  'beregning.avansert.rediger.radio.afp_inntekt_maaned_foer_uttak.validation_error':
+    'Du må svare på om du forventer å ha inntekt på minst {grunnbeloep} før skatt den siste måneden før du tar ut AFP.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_afp.validation_error':
+    'Du må svare på om du forventer å ha inntekt samtidig som du tar ut AFP.',
+  'beregning.avansert.rediger.inntekt_vsa_afp.validation_error':
+    'Du må fylle ut forventet årsinntekt samtidig som du tar ut AFP.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
@@ -450,6 +466,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut alderspensjon.',
+  'beregning.avansert.rediger.agepicker.afp.validation_error':
+    ' for når du vil ta ut AFP.',
   'beregning.avansert.rediger.agepicker.grad.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
   'beregning.avansert.rediger.agepicker.validation_error.maxAlder':
@@ -466,6 +484,8 @@ const translations = {
     'Alderspensjon og uføretrygd, uten AFP.',
   'beregning.avansert.rediger.radio.beregningsvalg.med_afp.label':
     'Alderspensjon og AFP, uten uføretrygd fra <nowrap>{nedreAldersgrense}</nowrap>',
+  'beregning.avansert.rediger.afp_etterfulgt_av_ap.title':
+    'Beregn AFP (avtalefestet pensjon)',
   'beregning.avansert.rediger.beregningsvalg.med_afp.title':
     'Alderspensjon og AFP fra <nowrap>{nedreAldersgrense}</nowrap>',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
@@ -507,6 +527,12 @@ const translations = {
   'beregning.avansert.avbryt_modal.endring.button.avslutt':
     'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
+  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
+    'Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP. {vilkaarForUttakAvAfp}. Du kan også beregne {alderspensjonUtenAFP}.',
+  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak':
+    'Du kan bare beregne AFP hvis du har en inntekt {grunnbeloepstekst}. Beregn i stedet {alderspensjonUtenAFP}.',
+  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
+    'alderspensjon uten AFP',
   'beregning.endring.alert.uttaksdato':
     'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
   'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',
@@ -682,6 +708,8 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
     'Hva er din forventede årsinntekt samtidig som du tar ut <nowrap>100 %</nowrap> alderspensjon?',
+  'inntekt.endre_inntekt_vsa_afp_modal.textfield.label':
+    'Hva er din forventede årsinntekt samtidig som du tar ut AFP?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label':

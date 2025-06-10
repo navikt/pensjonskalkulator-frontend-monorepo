@@ -24,6 +24,8 @@ import {
   processInntektArray,
   processPensjonsavtalerArray,
   processPensjonsberegningArray,
+  processPensjonsberegningArrayForKap19,
+  processPre2025OffentligAfpPensjonsberegningArray,
 } from './utils'
 import { getChartOptions, onPointUnclick } from './utils-highcharts'
 
@@ -40,6 +42,7 @@ export const useSimuleringChartLocalState = (initialValues: {
   aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
   isLoading: boolean
   alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
   afpPrivatListe?: AfpPensjonsberegning[]
   afpOffentligListe?: AfpPensjonsberegning[]
   pensjonsavtaler: {
@@ -67,6 +70,7 @@ export const useSimuleringChartLocalState = (initialValues: {
     aarligInntektVsaHelPensjon,
     isLoading,
     alderspensjonListe,
+    pre2025OffentligAfp,
     afpPrivatListe,
     afpOffentligListe,
     pensjonsavtaler,
@@ -87,6 +91,20 @@ export const useSimuleringChartLocalState = (initialValues: {
     React.useState<boolean>(false)
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
     React.useState<boolean>(false)
+
+  const pre2025OffentligAfpListe: AfpPensjonsberegning[] = pre2025OffentligAfp
+    ? Array.from(
+        Array(67 - pre2025OffentligAfp.alderAar).keys(),
+        (_, index) => ({
+          alder: pre2025OffentligAfp.alderAar + index,
+          beloep:
+            index === 0
+              ? pre2025OffentligAfp.totaltAfpBeloep *
+                (12 - (uttaksalder?.maaneder ?? 0))
+              : pre2025OffentligAfp.totaltAfpBeloep * 12,
+        })
+      )
+    : []
 
   const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
     getChartOptions(
@@ -209,7 +227,12 @@ export const useSimuleringChartLocalState = (initialValues: {
                       gradertUttaksperiode && uttaksalder
                         ? {
                             fra: gradertUttaksperiode?.uttaksalder,
-                            til: getAlderMinus1Maaned(uttaksalder),
+                            til:
+                              // Vis inntekt ved siden av pre2025 offentlig AFP frem til 67
+                              pre2025OffentligAfp &&
+                              gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                                ? getAlderMinus1Maaned({ aar: 67, maaneder: 0 })
+                                : getAlderMinus1Maaned(uttaksalder),
                             beloep: formatInntektToNumber(
                               gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
                             ),
@@ -230,6 +253,23 @@ export const useSimuleringChartLocalState = (initialValues: {
                       : undefined,
                     xAxisLength: xAxis.length,
                   }),
+                } as SeriesOptionsType,
+              ]
+            : []),
+
+          ...(pre2025OffentligAfp
+            ? [
+                {
+                  ...SERIES_DEFAULT.SERIE_AFP,
+                  name: intl.formatMessage({
+                    id: SERIES_DEFAULT.SERIE_AFP.name,
+                  }),
+                  /* c8 ignore next 1 */
+                  data: processPre2025OffentligAfpPensjonsberegningArray(
+                    pre2025OffentligAfpListe.length - 1,
+                    pre2025OffentligAfpListe,
+                    isEndring
+                  ),
                 } as SeriesOptionsType,
               ]
             : []),
@@ -295,11 +335,18 @@ export const useSimuleringChartLocalState = (initialValues: {
             name: intl.formatMessage({
               id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
             }),
-            data: processPensjonsberegningArray(
-              alderspensjonListe,
-              isEndring,
-              xAxis.length
-            ),
+            data: pre2025OffentligAfpListe
+              ? processPensjonsberegningArrayForKap19(
+                  alderspensjonListe,
+                  isEndring,
+                  xAxis.length,
+                  startAar
+                )
+              : processPensjonsberegningArray(
+                  alderspensjonListe,
+                  isEndring,
+                  xAxis.length
+                ),
           } as SeriesOptionsType,
         ],
       })

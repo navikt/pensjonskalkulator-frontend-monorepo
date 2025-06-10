@@ -179,7 +179,7 @@ export function TabellVisning({ series, aarArray }: Props) {
                       intl.formatMessage({
                         id: SERIES_DEFAULT.SERIE_AFP.name,
                       }) // Skal vise 0 kr, BARE hvis det er AFP som har 0 kr., ikke for andre felter med 0 kr.
-                      ? `${formatInntekt(subSum)} kr`
+                      ? `${subSum ? formatInntekt(subSum) : 0} kr`
                       : ''}
                   </Table.DataCell>
                 ))}

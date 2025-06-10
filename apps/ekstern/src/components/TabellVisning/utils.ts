@@ -31,7 +31,7 @@ export function formatSeriesToTableData(
     for (const obj of series) {
       const { name, data } = obj
       if (data && name) {
-        const temporarySum = data[i] as number
+        const temporarySum = !isNaN(data[i] as number) ? (data[i] as number) : 0
         sum += temporarySum
 
         detaljer.push({ name, subSum: temporarySum })

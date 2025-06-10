@@ -8,8 +8,9 @@ export function Simuleringsdetaljer(props: {
     trygdetid?: number
     opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
   }
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
 }) {
-  const { alderspensjonListe, detaljer } = props
+  const { alderspensjonListe, detaljer, pre2025OffentligAfp } = props
 
   return (
     <ReadMoreAksel name="Tabell av beregningen" header="Detaljer (dev only)">
@@ -143,6 +144,116 @@ export function Simuleringsdetaljer(props: {
             'Ingen alderspensjon'
           )}
         </dd>
+        {pre2025OffentligAfp ? (
+          <>
+            <dt>
+              <strong>AFP etterfulgt av alderspensjon:</strong>
+            </dt>
+            <dd>
+              <ul>
+                <li>
+                  <strong>Alder: </strong> {pre2025OffentligAfp.alderAar}
+                </li>
+                <br />
+                <li>
+                  <strong>Totalt AFP beløp: </strong>{' '}
+                  {`${
+                    pre2025OffentligAfp.totaltAfpBeloep
+                      ? formatInntekt(pre2025OffentligAfp.totaltAfpBeloep)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Tidligere arbeidsinntekt: </strong>{' '}
+                  {`${
+                    pre2025OffentligAfp.tidligereArbeidsinntekt
+                      ? formatInntekt(
+                          pre2025OffentligAfp.tidligereArbeidsinntekt
+                        )
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Grunnebeløp: </strong>{' '}
+                  {`${
+                    pre2025OffentligAfp.grunnbeloep
+                      ? formatInntekt(pre2025OffentligAfp.grunnbeloep)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Sluttpoengtall: </strong>{' '}
+                  {pre2025OffentligAfp.sluttpoengtall}
+                </li>
+                <br />
+                <li>
+                  <strong>Trygdetid: </strong> {pre2025OffentligAfp.trygdetid}
+                </li>
+                <br />
+                <li>
+                  <strong>Poengår til og med 1991: </strong>{' '}
+                  {pre2025OffentligAfp.poengaarTom1991}
+                </li>
+                <br />
+                <li>
+                  <strong>Poengår fra og med 1992: </strong>{' '}
+                  {pre2025OffentligAfp.poengaarFom1992}
+                </li>
+                <br />
+                <li>
+                  <strong>Grunnpensjon: </strong>
+                  {`${
+                    pre2025OffentligAfp.grunnpensjon
+                      ? formatInntekt(pre2025OffentligAfp.grunnpensjon)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Tillegspensjon: </strong>
+                  {`${
+                    pre2025OffentligAfp.tilleggspensjon
+                      ? formatInntekt(pre2025OffentligAfp.tilleggspensjon)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>AFP tillegg: </strong>
+                  {`${
+                    pre2025OffentligAfp.afpTillegg
+                      ? formatInntekt(pre2025OffentligAfp.afpTillegg)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Særtillegg: </strong>
+                  {`${
+                    pre2025OffentligAfp.saertillegg
+                      ? formatInntekt(pre2025OffentligAfp.saertillegg)
+                      : '0'
+                  } NOK`}
+                </li>
+                <br />
+                <li>
+                  <strong>Afp grad: </strong>{' '}
+                  {`${pre2025OffentligAfp.afpGrad} %`}
+                </li>
+                <br />
+                <li>
+                  <strong>70 prosent regelen: </strong>{' '}
+                  {`${pre2025OffentligAfp.afpAvkortetTil70Prosent}`}
+                </li>
+              </ul>
+            </dd>
+          </>
+        ) : (
+          'Ingen gammel AFP data'
+        )}
       </dl>
     </ReadMoreAksel>
   )

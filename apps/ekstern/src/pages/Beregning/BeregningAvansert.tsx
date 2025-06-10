@@ -28,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
+  selectAfpInntektMaanedFoerUttak,
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
@@ -36,6 +37,7 @@ import {
   selectNormertPensjonsalder,
   selectSamtykkeOffentligAFP,
   selectSivilstand,
+  selectSkalBeregneAfpKap19,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
@@ -54,6 +56,7 @@ export const BeregningAvansert = () => {
 
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
+  const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
@@ -64,6 +67,9 @@ export const BeregningAvansert = () => {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
+  const afpInntektMaanedFoerUttak = useAppSelector(
+    selectAfpInntektMaanedFoerUttak
+  )
 
   const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
@@ -84,6 +90,7 @@ export const BeregningAvansert = () => {
         return generateAlderspensjonRequestBody({
           loependeVedtak,
           afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
+          skalBeregneAfpKap19: skalBeregneAfpKap19,
           sivilstand: sivilstand,
           epsHarPensjon: epsHarPensjon,
           epsHarInntektOver2G: epsHarInntektOver2G,
@@ -96,6 +103,7 @@ export const BeregningAvansert = () => {
           },
           utenlandsperioder,
           beregningsvalg,
+          afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak,
         })
       }
     }, [
@@ -293,6 +301,7 @@ export const BeregningAvansert = () => {
               headingLevel="3"
               aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? '0'}
               alderspensjonListe={alderspensjon?.alderspensjon}
+              pre2025OffentligAfp={alderspensjon?.pre2025OffentligAfp}
               afpPrivatListe={
                 (afp === 'ja_privat' || loependeVedtak.afpPrivat) &&
                 alderspensjon?.afpPrivat

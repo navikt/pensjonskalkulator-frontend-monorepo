@@ -130,6 +130,7 @@ describe('Simuleringsdetaljer', () => {
               <dd>
                 Ingen alderspensjon
               </dd>
+              Ingen gammel AFP data
             </dl>
           </div>
         </div>
@@ -333,6 +334,7 @@ describe('Simuleringsdetaljer', () => {
                   </li>
                 </ul>
               </dd>
+              Ingen gammel AFP data
             </dl>
           </div>
         </div>
@@ -531,6 +533,7 @@ describe('Simuleringsdetaljer', () => {
                   </li>
                 </ul>
               </dd>
+              Ingen gammel AFP data
             </dl>
           </div>
         </div>

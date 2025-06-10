@@ -195,7 +195,7 @@ describe('StepAFP', () => {
     })
   })
 
-  it('Når brukeren som er i overgangskullet uten vedtak om alderspensjon velger afp og klikker på Neste, registrerer afp og skalBeregneAfp, og navigerer videre til neste steg', async () => {
+  it('Når brukeren som er i overgangskullet uten vedtak om alderspensjon velger afp og klikker på Neste, registrerer afp og skalBeregneAfpKap19, og navigerer videre til neste steg', async () => {
     mockResponse('/v4/person', {
       status: 200,
       json: {
@@ -219,9 +219,9 @@ describe('StepAFP', () => {
       userInputReducerUtils.userInputActions,
       'setAfp'
     )
-    const setSkalBeregneAfpMock = vi.spyOn(
+    const setSkalBeregneAfpKap19Mock = vi.spyOn(
       userInputReducerUtils.userInputActions,
-      'setSkalBeregneAfp'
+      'setAfpUtregningValg'
     )
     const user = userEvent.setup()
 
@@ -243,12 +243,14 @@ describe('StepAFP', () => {
 
     const radioButtonsAfp = await screen.findAllByRole('radio')
     await user.click(radioButtonsAfp[0])
-    const radioButtonsSkalBeregneAfp = await screen.findAllByRole('radio')
-    await user.click(radioButtonsSkalBeregneAfp[4])
+    const radioButtonsSkalBeregneAfpKap19 = await screen.findAllByRole('radio')
+    await user.click(radioButtonsSkalBeregneAfpKap19[4])
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(setAfpMock).toHaveBeenCalledWith('ja_offentlig')
-    expect(setSkalBeregneAfpMock).toHaveBeenCalledWith(true)
+    expect(setSkalBeregneAfpKap19Mock).toHaveBeenCalledWith(
+      'AFP_ETTERFULGT_AV_ALDERSPENSJON'
+    )
     expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
   })
 

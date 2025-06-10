@@ -397,4 +397,42 @@ describe('VilkaarsproevingAlert', () => {
       ).toBeInTheDocument()
     })
   })
+  describe('Gitt at brukeren har valgt å beregne AFP etterfulgt av alderspensjon', () => {
+    const uttaksalder = { aar: 63, maaneder: 3 }
+    const mockedState = {
+      api: {
+        queries: {
+          ...fulfilledGetPerson,
+        },
+      },
+      userInput: {
+        ...userInputInitialState,
+        afpUtregningValg: 'AFP_ETTERFULGT_AV_ALDERSPENSJON',
+      },
+    }
+
+    it('Når brukerens vilkaar ikke er oppfylt', () => {
+      render(
+        <VilkaarsproevingAlert
+          alternativ={undefined}
+          uttaksalder={uttaksalder}
+        />,
+        {
+          // @ts-ignore
+          preloadedState: {
+            ...mockedState,
+          },
+        }
+      )
+
+      expect(
+        screen.getByText(
+          'Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP.',
+          {
+            exact: false,
+          }
+        )
+      ).toBeInTheDocument()
+    })
+  })
 })

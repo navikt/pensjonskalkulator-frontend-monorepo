@@ -220,7 +220,7 @@ describe('Loaders', () => {
       expectRedirectResponse(await stepSivilstandAccessGuard(), '/start')
     })
 
-    it('returnerer person og grunnbelop', async () => {
+    it('returnerer person og grunnbeloep', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
         api: { queries: { mock: 'mock' } },
         userInput: { ...userInputInitialState },
@@ -233,10 +233,10 @@ describe('Loaders', () => {
       }
 
       expect(returnedFromLoader.person.sivilstand).toBe('UGIFT')
-      expect(returnedFromLoader.grunnbelop).toBe(100000)
+      expect(returnedFromLoader.grunnbeloep).toBe(100000)
     })
 
-    it('returner undefined som grunnbelop dersom g.nav.no feiler', async () => {
+    it('returner undefined som grunnbeloep dersom g.nav.no feiler', async () => {
       mockErrorResponse('/api/v1/grunnbel%C3%B8p', {
         baseUrl: 'https://g.nav.no',
       })
@@ -246,11 +246,11 @@ describe('Loaders', () => {
       }))
 
       const returnedFromLoader = await stepSivilstandAccessGuard()
-      expect(returnedFromLoader).toHaveProperty('grunnbelop')
-      if (!('grunnbelop' in returnedFromLoader)) {
-        throw new Error('grunnbelop not in returnedFromLoader')
+      expect(returnedFromLoader).toHaveProperty('grunnbeloep')
+      if (!('grunnbeloep' in returnedFromLoader)) {
+        throw new Error('grunnbeloep not in returnedFromLoader')
       }
-      expect(returnedFromLoader.grunnbelop).toBeUndefined()
+      expect(returnedFromLoader.grunnbeloep).toBeUndefined()
     })
   })
 

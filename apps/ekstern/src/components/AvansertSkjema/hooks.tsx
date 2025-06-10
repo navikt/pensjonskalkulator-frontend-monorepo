@@ -8,7 +8,7 @@ import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
 import { AVANSERT_FORM_NAMES, AvansertFormNames } from './utils'
 
-interface UseFormLocalStateProps {
+export const useFormLocalState = (initialValues: {
   isEndring: boolean
   ufoeregrad: number
   aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: string | undefined
@@ -17,20 +17,22 @@ interface UseFormLocalStateProps {
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
   normertPensjonsalder: Alder
+  afpInntektMaanedFoerUttak: boolean | null
   beregningsvalg: Beregningsvalg | null
-}
+}) => {
+  const {
+    isEndring,
+    ufoeregrad,
+    aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
+    aarligInntektFoerUttakBeloepFraBrukerInput,
+    uttaksalder,
+    aarligInntektVsaHelPensjon,
+    gradertUttaksperiode,
+    normertPensjonsalder,
+    afpInntektMaanedFoerUttak = null,
+    beregningsvalg,
+  } = initialValues
 
-export const useFormLocalState = ({
-  isEndring,
-  ufoeregrad,
-  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
-  aarligInntektFoerUttakBeloepFraBrukerInput,
-  uttaksalder,
-  aarligInntektVsaHelPensjon,
-  gradertUttaksperiode,
-  normertPensjonsalder,
-  beregningsvalg,
-}: UseFormLocalStateProps) => {
   const { setHarAvansertSkjemaUnsavedChanges } =
     React.useContext(BeregningContext)
 
@@ -41,6 +43,11 @@ export const useFormLocalState = ({
     useState<boolean | null>(
       !uttaksalder ? null : aarligInntektVsaHelPensjon ? true : false
     )
+
+  const [
+    localHarAfpInntektMaanedFoerUttakRadio,
+    setHarAfpInntektMaanedFoerUttakRadio,
+  ] = useState<boolean | null>(afpInntektMaanedFoerUttak)
 
   const [
     localHarInntektVsaGradertUttakRadio,
@@ -62,6 +69,7 @@ export const useFormLocalState = ({
     uttaksalder: uttaksalder ?? undefined,
     aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
   })
+
   const [localGradertUttak, setGradertUttak] = useState<
     RecursivePartial<GradertUttak> | undefined
   >({
@@ -149,6 +157,9 @@ export const useFormLocalState = ({
           aarligInntektFoerUttakBeloepFraBrukerSkattBeloep)
     const hasGradChanged =
       (localGradertUttak?.grad ?? 100) !== (gradertUttaksperiode?.grad ?? 100)
+    const hasAfpInntektMaanedFoerUttakChanged =
+      afpInntektMaanedFoerUttak !== undefined &&
+      localHarAfpInntektMaanedFoerUttakRadio !== afpInntektMaanedFoerUttak
     const hasGradertUttaksalderChanged =
       JSON.stringify(localGradertUttak?.uttaksalder) !==
       JSON.stringify(gradertUttaksperiode?.uttaksalder)
@@ -175,7 +186,8 @@ export const useFormLocalState = ({
       hasAarligInntektVsaGradertPensjonChanged ||
       hasUttaksalderChanged ||
       hasAarligInntektBeloepVsaHelPensjonChanged ||
-      hasAarligInntektSluttAlderVsaHelPensjonChanged
+      hasAarligInntektSluttAlderVsaHelPensjonChanged ||
+      hasAfpInntektMaanedFoerUttakChanged
 
     setHarAvansertSkjemaUnsavedChanges((previous) => {
       return previous !== updatedHasUnsavedChanges
@@ -192,6 +204,8 @@ export const useFormLocalState = ({
     localInntektFremTilUttak,
     localGradertUttak,
     localHeltUttak,
+    localHarAfpInntektMaanedFoerUttakRadio,
+    afpInntektMaanedFoerUttak,
   ])
 
   const handlers = React.useMemo(
@@ -202,24 +216,34 @@ export const useFormLocalState = ({
       setLocalHarInntektVsaHeltUttakRadio: setHarInntektVsaHeltUttakRadio,
       setLocalHarInntektVsaGradertUttakRadio: setHarInntektVsaGradertUttakRadio,
       setLocalBeregningsTypeRadio: setBeregningsTypeRadio,
+      ...(afpInntektMaanedFoerUttak !== undefined && {
+        setLocalHarAfpInntektMaanedFoerUttakRadio:
+          setHarAfpInntektMaanedFoerUttakRadio,
+      }),
     }),
-    []
+    [afpInntektMaanedFoerUttak]
   )
 
-  return [
+  return {
     localInntektFremTilUttak,
     localHeltUttak,
     localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
+    ...(afpInntektMaanedFoerUttak !== undefined && {
+      localHarAfpInntektMaanedFoerUttakRadio,
+    }),
     minAlderInntektSluttAlder,
     muligeUttaksgrad,
     handlers,
     localBeregningsTypeRadio,
-  ] as const
+  } as const
 }
 
-export const useFormValidationErrors = (initialValues: { grad?: number }) => {
+export const useFormValidationErrors = (initialValues: {
+  grad?: number
+  afp?: boolean
+}) => {
   const intl = useIntl()
 
   const [validationErrors, setValidationErrors] = useState<
@@ -228,6 +252,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
     [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
     [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
     [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+    [AVANSERT_FORM_NAMES.inntektVsaAfpRadio]: '',
   })
 
   React.useEffect(() => {
@@ -280,9 +305,11 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
             'agepicker.validation_error.maaneder') && (
           <FormattedMessage
             id={
-              initialValues.grad !== undefined
-                ? 'beregning.avansert.rediger.agepicker.grad.validation_error'
-                : 'beregning.avansert.rediger.agepicker.validation_error'
+              initialValues.afp
+                ? 'beregning.avansert.rediger.agepicker.afp.validation_error'
+                : initialValues.grad !== undefined
+                  ? 'beregning.avansert.rediger.agepicker.grad.validation_error'
+                  : 'beregning.avansert.rediger.agepicker.validation_error'
             }
             values={{ ...getFormatMessageValues(), grad: 100 }}
           />
@@ -336,12 +363,22 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           }
         })
       },
+      setValidationErrorInntektVsaAfp: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [AVANSERT_FORM_NAMES.inntektVsaAfp]: s,
+          }
+        })
+      },
+
       resetValidationErrors: () => {
         setValidationErrors(() => {
           return {
             [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
             [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
             [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+            [AVANSERT_FORM_NAMES.inntektVsaAfp]: '',
           }
         })
       },
@@ -349,10 +386,10 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
     []
   )
 
-  return [
+  return {
     validationErrors,
     gradertUttakAgePickerError,
     heltUttakAgePickerError,
     handlers,
-  ] as const
+  } as const
 }

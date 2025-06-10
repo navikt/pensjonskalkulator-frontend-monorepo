@@ -30,6 +30,9 @@ export const AVANSERT_FORM_NAMES = {
   inntektVsaHeltUttak: 'inntekt-vsa-helt-uttak',
   inntektVsaHeltUttakRadio: 'inntekt-vsa-helt-uttak-radio',
   inntektVsaHeltUttakSluttAlder: 'inntekt-vsa-helt-uttak-slutt-alder',
+  afpInntektMaanedFoerUttakRadio: 'afp-inntekt-maaned-foer-uttak-radio',
+  inntektVsaAfpRadio: 'inntekt-vsa-afp-radio',
+  inntektVsaAfp: 'inntekt-vsa-afp',
   uttaksgrad: 'uttaksgrad',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
@@ -180,13 +183,17 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaHeltUttakSluttAlderAarFormData: FormDataEntryValue | null
     inntektVsaHeltUttakSluttAlderMaanederFormData: FormDataEntryValue | null
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
+    afpInntektMaanedFoerUttakRadioFormData: FormDataEntryValue | null
+    inntektVsaAfpRadioFormData: FormDataEntryValue | null
+    inntektVsaAfpFormData: FormDataEntryValue | null
   },
   foedselsdato: string,
   normertPensjonsalder: Alder,
   loependeVedtak: LoependeVedtak,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
-  >
+  >,
+  validerKap19Afp: boolean = false
 ) => {
   const {
     beregningsvalgFormData,
@@ -201,6 +208,9 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaHeltUttakSluttAlderAarFormData,
     inntektVsaHeltUttakSluttAlderMaanederFormData,
     inntektVsaGradertUttakFormData,
+    afpInntektMaanedFoerUttakRadioFormData,
+    inntektVsaAfpRadioFormData,
+    inntektVsaAfpFormData,
   } = inputData
 
   let isValid = true
@@ -230,6 +240,46 @@ export const validateAvansertBeregningSkjema = (
     )
   ) {
     isValid = false
+  }
+
+  if (validerKap19Afp) {
+    // Sjekker at radio for afpInntektMaanedFoerUttak er fylt ut
+    if (!afpInntektMaanedFoerUttakRadioFormData) {
+      isValid = false
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio]:
+            'beregning.avansert.rediger.radio.afp_inntekt_maaned_foer_uttak.validation_error',
+        }
+      })
+    }
+
+    // Sjekker at radio for InntektVsaAfpRadio er fylt ut
+    if (!inntektVsaAfpRadioFormData) {
+      isValid = false
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.inntektVsaAfpRadio]:
+            'beregning.avansert.rediger.radio.inntekt_vsa_afp.validation_error',
+        }
+      })
+    }
+
+    // Sjekker at radio for InntektVsaAfp er fylt ut
+    if (inntektVsaAfpRadioFormData === 'ja' && !inntektVsaAfpFormData) {
+      isValid = false
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.inntektVsaAfp]:
+            'beregning.avansert.rediger.inntekt_vsa_afp.validation_error',
+        }
+      })
+    }
+
+    return isValid
   }
 
   // Sjekker at uttaksgrad er fylt ut med en prosent
@@ -508,7 +558,8 @@ export const onAvansertBeregningSubmit = (
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
-  }
+  },
+  validerKap19Afp: boolean = false
 ): void => {
   const {
     foedselsdato,
@@ -554,6 +605,13 @@ export const onAvansertBeregningSubmit = (
   const inntektVsaGradertUttakFormData = data.get(
     AVANSERT_FORM_NAMES.inntektVsaGradertUttak
   )
+  const afpInntektMaanedFoerUttakRadioFormData = data.get(
+    AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio
+  )
+  const inntektVsaAfpRadioFormData = data.get(
+    AVANSERT_FORM_NAMES.inntektVsaAfpRadio
+  )
+  const inntektVsaAfpFormData = data.get(AVANSERT_FORM_NAMES.inntektVsaAfp)
   if (
     !validateAvansertBeregningSkjema(
       {
@@ -569,11 +627,15 @@ export const onAvansertBeregningSubmit = (
         inntektVsaHeltUttakSluttAlderAarFormData,
         inntektVsaHeltUttakSluttAlderMaanederFormData,
         inntektVsaGradertUttakFormData,
+        afpInntektMaanedFoerUttakRadioFormData,
+        inntektVsaAfpRadioFormData,
+        inntektVsaAfpFormData,
       },
       foedselsdato,
       normertPensjonsalder,
       loependeVedtak,
-      setValidationErrors
+      setValidationErrors,
+      validerKap19Afp
     )
   ) {
     return
@@ -603,6 +665,40 @@ export const onAvansertBeregningSubmit = (
       tekst: 'Inntekt vsa. helt uttak',
       valg: inntektVsaHeltUttakRadioFormData ? 'ja' : 'nei',
     })
+  } else if (afpInntektMaanedFoerUttakRadioFormData) {
+    //afp etterfulgt av AP
+    const afpInntektMaanedFoerUttak =
+      afpInntektMaanedFoerUttakRadioFormData === 'ja'
+        ? true
+        : afpInntektMaanedFoerUttakRadioFormData === 'nei'
+          ? false
+          : null
+    dispatch(
+      userInputActions.setAfpInntektMaanedFoerUttak(afpInntektMaanedFoerUttak)
+    )
+    if (inntektVsaAfpRadioFormData === 'ja') {
+      dispatch(
+        userInputActions.setCurrentSimulationGradertUttaksperiode({
+          uttaksalder: {
+            aar: parseInt(heltUttakAarFormData as string, 10),
+            maaneder: parseInt(heltUttakMaanederFormData as string, 10),
+          },
+          grad: 100,
+          aarligInntektVsaPensjonBeloep: inntektVsaAfpFormData as string,
+        })
+      )
+    } else {
+      dispatch(
+        userInputActions.setCurrentSimulationGradertUttaksperiode({
+          uttaksalder: {
+            aar: parseInt(heltUttakAarFormData as string, 10),
+            maaneder: parseInt(heltUttakMaanederFormData as string, 10),
+          },
+          grad: 100,
+          aarligInntektVsaPensjonBeloep: undefined,
+        })
+      )
+    }
   } else {
     logger('valg av uttaksgrad', {
       tekst: `${uttaksgradFormData}`, // eslint-disable-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions

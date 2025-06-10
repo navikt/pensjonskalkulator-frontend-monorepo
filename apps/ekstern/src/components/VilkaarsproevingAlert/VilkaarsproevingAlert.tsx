@@ -1,15 +1,20 @@
 /* c8 disable */
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router'
 
-import { Alert } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { Alert, Link } from '@navikt/ds-react'
 
-import { useAppSelector } from '@/state/hooks'
+import { paths } from '@/router/constants'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
+  selectSkalBeregneAfpKap19,
 } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -25,9 +30,12 @@ export const VilkaarsproevingAlert = ({
   withAFP = false,
 }: Props) => {
   const intl = useIntl()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { gradertUttaksperiode } = useAppSelector(selectCurrentSimulation)
   const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
 
   const harIkkeNokOpptjening = React.useMemo(() => {
     return (
@@ -109,6 +117,58 @@ export const VilkaarsproevingAlert = ({
             }}
           />
         )}
+      </Alert>
+    )
+  }
+
+  if (skalBeregneAfpKap19) {
+    return (
+      <Alert variant="warning">
+        <FormattedMessage
+          id="beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak"
+          values={{
+            ...getFormatMessageValues(),
+            vilkaarForUttakAvAfp: (
+              <Link
+                href="https://www.nav.no/afp-offentlig#hvem-kan-fa"
+                target="_blank"
+                rel="noopener noreferrer"
+                inlineText
+              >
+                <FormattedMessage id="Om vilkår for uttak av AFP" />
+                <ExternalLinkIcon
+                  title={intl.formatMessage({
+                    id: 'application.global.external_link',
+                  })}
+                  width="1.25rem"
+                  height="1.25rem"
+                />
+              </Link>
+            ),
+            alderspensjonUtenAFP: (
+              <Link
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  dispatch(userInputActions.setAfpInntektMaanedFoerUttak(null))
+                  dispatch(
+                    userInputActions.setCurrentSimulationGradertUttaksperiode(
+                      null
+                    )
+                  )
+                  dispatch(
+                    userInputActions.setCurrentSimulationUttaksalder(null)
+                  )
+                  navigate(paths.afp)
+                }}
+              >
+                {intl.formatMessage({
+                  id: 'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text',
+                })}
+              </Link>
+            ),
+          }}
+        />
       </Alert>
     )
   }

@@ -31,9 +31,18 @@ export const selectIsVeileder = (state: RootState) =>
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
-export const selectSkalBeregneAfp = (state: RootState): boolean | null =>
-  state.userInput.skalBeregneAfp
+export const selectAfpInntektMaanedFoerUttak = (
+  state: RootState
+): boolean | null => state.userInput.afpInntektMaanedFoerUttak
+
+export const selectAfpUtregningValg = (state: RootState): AfpUtregningValg =>
+  state.userInput.afpUtregningValg
+
+export const selectSkalBeregneAfpKap19 = (state: RootState): boolean | null =>
+  state.userInput.afpUtregningValg === 'AFP_ETTERFULGT_AV_ALDERSPENSJON'
+
 const selectPersonResponse = apiSlice.endpoints.getPerson.select()
+const selectGrunnbeloepResponse = apiSlice.endpoints.getGrunnbeloep.select()
 const selectInntektResponse = apiSlice.endpoints.getInntekt.select()
 const selectLoependeVedtakResponse =
   apiSlice.endpoints.getLoependeVedtak.select()
@@ -41,6 +50,11 @@ const selectLoependeVedtakResponse =
 export const selectFoedselsdato = createSelector(
   selectPersonResponse,
   (personResponse) => personResponse.data?.foedselsdato
+)
+
+export const selectGrunnbeloep = createSelector(
+  selectGrunnbeloepResponse,
+  (grunnbeloepResponse) => grunnbeloepResponse.data
 )
 
 export const selectNedreAldersgrense = createSelector(

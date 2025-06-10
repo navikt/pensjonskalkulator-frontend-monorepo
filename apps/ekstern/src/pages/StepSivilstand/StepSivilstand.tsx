@@ -24,7 +24,7 @@ export function StepSivilstand() {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
 
-  const { person, grunnbelop } =
+  const { person, grunnbeloep } =
     useLoaderData<typeof stepSivilstandAccessGuard>()
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
@@ -50,7 +50,7 @@ export function StepSivilstand() {
   return (
     <Sivilstand
       sivilstandFolkeregister={person.sivilstand}
-      grunnbelop={grunnbelop}
+      grunnbeloep={grunnbeloep}
       sivilstand={sivilstand!}
       epsHarInntektOver2G={epsHarInntektOver2G}
       epsHarPensjon={epsHarPensjon}

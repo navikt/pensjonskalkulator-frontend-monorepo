@@ -54,9 +54,9 @@ export const apiSlice = createApi({
         }
       },
     }),
-    getGrunnbelop: builder.query<number, void, { grunnbeløp: number }>({
+    getGrunnbeloep: builder.query<number, void>({
       query: () => 'https://g.nav.no/api/v1/grunnbel%C3%B8p',
-      transformResponse: (response) => {
+      transformResponse: (response: { grunnbeløp: number }) => {
         if (!response.grunnbeløp) {
           throw new Error(
             `Mottok ugyldig grunnbeløp: ${JSON.stringify(response)}`
@@ -231,7 +231,7 @@ export const {
   useGetAnsattIdQuery,
   useGetInntektQuery,
   useGetPersonQuery,
-  useGetGrunnbelopQuery,
+  useGetGrunnbeloepQuery,
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetLoependeVedtakQuery,

@@ -63,7 +63,8 @@ describe('AvansertSkjema-utils', () => {
             aar: 67,
             maaneder: 0,
           },
-        }
+        },
+        false
       )
       expect(dispatchMock).not.toHaveBeenCalled()
       expect(gaaTilResultatMock).not.toHaveBeenCalled()
@@ -161,7 +162,8 @@ describe('AvansertSkjema-utils', () => {
               aar: 67,
               maaneder: 0,
             },
-          }
+          },
+          false
         )
 
         expect(dispatchMock).toHaveBeenCalledTimes(5)
@@ -370,6 +372,9 @@ describe('AvansertSkjema-utils', () => {
       inntektVsaHeltUttakSluttAlderAarFormData: '75',
       inntektVsaHeltUttakSluttAlderMaanederFormData: '0',
       inntektVsaGradertUttakFormData: '99000',
+      afpInntektMaanedFoerUttakRadioFormData: null,
+      inntektVsaAfpRadioFormData: null,
+      inntektVsaAfpFormData: null,
     }
 
     const mockedFoedselsdato = '1963-04-30'

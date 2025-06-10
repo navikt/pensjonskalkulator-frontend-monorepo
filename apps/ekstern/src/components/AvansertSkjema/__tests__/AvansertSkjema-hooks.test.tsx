@@ -33,6 +33,7 @@ describe('AvansertSkjema-hooks', () => {
         aarligInntektVsaPensjonBeloep: '100 000',
       },
       normertPensjonsalder: { aar: 67, maaneder: 0 },
+      afpInntektMaanedFoerUttak: null,
     }
 
     const wrapper = ({ children }: { children: React.ReactNode }) => {
@@ -70,6 +71,7 @@ describe('AvansertSkjema-hooks', () => {
           aarligInntektVsaHelPensjon: undefined,
           gradertUttaksperiode: null,
           normertPensjonsalder: { aar: 67, maaneder: 0 },
+          afpInntektMaanedFoerUttak: null,
           beregningsvalg: null,
         },
       })
@@ -79,26 +81,26 @@ describe('AvansertSkjema-hooks', () => {
         await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
       ).toHaveTextContent('FALSE')
       // localInntektFremTilUttak
-      expect(result.current[0]).toBe(null)
+      expect(result.current.localInntektFremTilUttak).toBe(null)
       // localHeltUttak
-      expect(result.current[1]).toStrictEqual({
+      expect(result.current.localHeltUttak).toStrictEqual({
         aarligInntektVsaPensjon: undefined,
         uttaksalder: undefined,
       })
       // localHarInntektVsaHeltUttakRadio
-      expect(result.current[2]).toBe(null)
+      expect(result.current.localHarInntektVsaHeltUttakRadio).toBe(null)
       // localGradertUttak
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current.localGradertUttak).toStrictEqual({
         aarligInntektVsaPensjonBeloep: undefined,
         grad: undefined,
         uttaksalder: undefined,
       })
       // localHarInntektVsaGradertUttakRadio
-      expect(result.current[4]).toBe(null)
+      expect(result.current.localHarInntektVsaGradertUttakRadio).toBe(null)
       // minAlderInntektSluttAlder
-      expect(result.current[5]).toBe(undefined)
+      expect(result.current.minAlderInntektSluttAlder).toBe(undefined)
       // muligeUttaksgrad
-      expect(result.current[6]).toHaveLength(6)
+      expect(result.current.muligeUttaksgrad).toHaveLength(6)
     })
 
     it('Når Redux store inneholder alle verdier fra før av, returnerer riktig initial values', async () => {
@@ -113,9 +115,9 @@ describe('AvansertSkjema-hooks', () => {
         await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
       ).toHaveTextContent('FALSE')
       // localInntektFremTilUttak
-      expect(result.current[0]).toBe('300 000')
+      expect(result.current.localInntektFremTilUttak).toBe('300 000')
       // localHeltUttak
-      expect(result.current[1]).toStrictEqual({
+      expect(result.current.localHeltUttak).toStrictEqual({
         uttaksalder: { aar: 70, maaneder: 0 },
         aarligInntektVsaPensjon: {
           beloep: '100 000',
@@ -123,22 +125,22 @@ describe('AvansertSkjema-hooks', () => {
         },
       })
       // localHarInntektVsaHeltUttakRadio
-      expect(result.current[2]).toBe(true)
+      expect(result.current.localHarInntektVsaHeltUttakRadio).toBe(true)
       // localGradertUttak
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current.localGradertUttak).toStrictEqual({
         grad: 40,
         uttaksalder: { aar: 67, maaneder: 0 },
         aarligInntektVsaPensjonBeloep: '100 000',
       })
       // localHarInntektVsaGradertUttakRadio
-      expect(result.current[4]).toBe(true)
+      expect(result.current.localHarInntektVsaGradertUttakRadio).toBe(true)
       // minAlderInntektSluttAlder
-      expect(result.current[5]).toStrictEqual({
+      expect(result.current.minAlderInntektSluttAlder).toStrictEqual({
         aar: 70,
         maaneder: 1,
       })
       // muligeUttaksgrad
-      expect(result.current[6]).toHaveLength(6)
+      expect(result.current.muligeUttaksgrad).toHaveLength(6)
     })
 
     it('Når Redux store inneholder alle verdier utenom inntekt vsa. pensjon fra før av, returnerer riktig initial values', async () => {
@@ -158,29 +160,29 @@ describe('AvansertSkjema-hooks', () => {
         await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
       ).toHaveTextContent('FALSE')
       // localInntektFremTilUttak
-      expect(result.current[0]).toBe('300 000')
+      expect(result.current.localInntektFremTilUttak).toBe('300 000')
       // localHeltUttak
-      expect(result.current[1]).toStrictEqual({
+      expect(result.current.localHeltUttak).toStrictEqual({
         uttaksalder: { aar: 70, maaneder: 0 },
         aarligInntektVsaPensjon: undefined,
       })
       // localHarInntektVsaHeltUttakRadio
-      expect(result.current[2]).toBe(false)
+      expect(result.current.localHarInntektVsaHeltUttakRadio).toBe(false)
       // localGradertUttak
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current.localGradertUttak).toStrictEqual({
         grad: 40,
         uttaksalder: { aar: 67, maaneder: 0 },
         aarligInntektVsaPensjonBeloep: undefined,
       })
       // localHarInntektVsaGradertUttakRadio
-      expect(result.current[4]).toBe(false)
+      expect(result.current.localHarInntektVsaGradertUttakRadio).toBe(false)
       // minAlderInntektSluttAlder
-      expect(result.current[5]).toStrictEqual({
+      expect(result.current.minAlderInntektSluttAlder).toStrictEqual({
         aar: 70,
         maaneder: 1,
       })
       // muligeUttaksgrad
-      expect(result.current[6]).toHaveLength(6)
+      expect(result.current.muligeUttaksgrad).toHaveLength(6)
     })
 
     describe('Når brukeren har vedtak om alderspensjon,', () => {
@@ -199,8 +201,8 @@ describe('AvansertSkjema-hooks', () => {
         ).toHaveTextContent('FALSE')
 
         // muligeUttaksgrad
-        expect(result.current[6]).toHaveLength(7)
-        expect(result.current[6]).toStrictEqual([
+        expect(result.current.muligeUttaksgrad).toHaveLength(7)
+        expect(result.current.muligeUttaksgrad).toStrictEqual([
           '0 %',
           '20 %',
           '40 %',
@@ -225,7 +227,9 @@ describe('AvansertSkjema-hooks', () => {
         await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
       ).toHaveTextContent('FALSE')
 
-      const { setLocalBeregningsTypeRadio } = result.current[7]
+      const {
+        handlers: { setLocalBeregningsTypeRadio },
+      } = result.current
 
       act(() => {
         setLocalBeregningsTypeRadio('uten_afp')
@@ -235,7 +239,7 @@ describe('AvansertSkjema-hooks', () => {
         await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
       ).toHaveTextContent('TRUE')
       // localInntektFremTilUttak
-      expect(result.current[8]).toBe('uten_afp')
+      expect(result.current.localBeregningsTypeRadio).toBe('uten_afp')
     })
 
     describe('Når inntekt frem til uttak endrer seg,', () => {
@@ -252,7 +256,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalInntektFremTilUttak } = result.current[7]
+        const {
+          handlers: { setLocalInntektFremTilUttak },
+        } = result.current
 
         act(() => {
           setLocalInntektFremTilUttak('800000')
@@ -262,7 +268,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localInntektFremTilUttak
-        expect(result.current[0]).toBe('800000')
+        expect(result.current.localInntektFremTilUttak).toBe('800000')
       })
 
       it('Når aarligInntektFoerUttakBeloepFraBrukerInput er null og inntekt frem til uttak endrer seg, oppdateres verdien og hasUnsavedChanges', async () => {
@@ -279,7 +285,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalInntektFremTilUttak } = result.current[7]
+        const {
+          handlers: { setLocalInntektFremTilUttak },
+        } = result.current
 
         act(() => {
           setLocalInntektFremTilUttak('800000')
@@ -289,7 +297,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localInntektFremTilUttak
-        expect(result.current[0]).toBe('800000')
+        expect(result.current.localInntektFremTilUttak).toBe('800000')
       })
 
       it('Når inntekt frem til uttak lagres på nytt med samme verdi, oppdateres IKKE hasUnsavedChanges', async () => {
@@ -305,7 +313,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalInntektFremTilUttak } = result.current[7]
+        const {
+          handlers: { setLocalInntektFremTilUttak },
+        } = result.current
 
         act(() => {
           setLocalInntektFremTilUttak('300 000')
@@ -329,7 +339,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalHeltUttak } = result.current[7]
+        const {
+          handlers: { setLocalHeltUttak },
+        } = result.current
 
         act(() => {
           setLocalHeltUttak({
@@ -345,7 +357,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localHeltUttak (obs, sluttAlder nullstilles i handler)
-        expect(result.current[1]).toStrictEqual({
+        expect(result.current.localHeltUttak).toStrictEqual({
           uttaksalder: { aar: 69, maaneder: 11 },
           aarligInntektVsaPensjon: {
             beloep: '100 000',
@@ -353,14 +365,14 @@ describe('AvansertSkjema-hooks', () => {
           },
         })
         // localHarInntektVsaHeltUttakRadio
-        expect(result.current[2]).toBe(true)
+        expect(result.current.localHarInntektVsaHeltUttakRadio).toBe(true)
         // minAlderInntektSluttAlder
-        expect(result.current[5]).toStrictEqual({
+        expect(result.current.minAlderInntektSluttAlder).toStrictEqual({
           aar: 70,
           maaneder: 0,
         })
         // muligeUttaksgrad
-        expect(result.current[6]).toHaveLength(6)
+        expect(result.current.muligeUttaksgrad).toHaveLength(6)
       })
 
       it('Når beløp til aarligInntektVsaPensjon endrer seg, oppdateres verdien og hasUnsavedChanges', async () => {
@@ -374,7 +386,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalHeltUttak } = result.current[7]
+        const {
+          handlers: { setLocalHeltUttak },
+        } = result.current
 
         act(() => {
           setLocalHeltUttak({
@@ -390,7 +404,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localHeltUttak
-        expect(result.current[1]).toStrictEqual({
+        expect(result.current.localHeltUttak).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: {
             beloep: '90000',
@@ -410,7 +424,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalHeltUttak } = result.current[7]
+        const {
+          handlers: { setLocalHeltUttak },
+        } = result.current
 
         act(() => {
           setLocalHeltUttak({
@@ -426,7 +442,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localHeltUttak
-        expect(result.current[1]).toStrictEqual({
+        expect(result.current.localHeltUttak).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: {
             beloep: '100000',
@@ -446,7 +462,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalHeltUttak } = result.current[7]
+        const {
+          handlers: { setLocalHeltUttak },
+        } = result.current
 
         act(() => {
           setLocalHeltUttak({
@@ -459,7 +477,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localHeltUttak
-        expect(result.current[1]).toStrictEqual({
+        expect(result.current.localHeltUttak).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: undefined,
         })
@@ -476,7 +494,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalHeltUttak } = result.current[7]
+        const {
+          handlers: { setLocalHeltUttak },
+        } = result.current
 
         act(() => {
           setLocalHeltUttak({
@@ -508,7 +528,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -523,13 +545,13 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localGradertUttak
-        expect(result.current[3]).toStrictEqual({
+        expect(result.current.localGradertUttak).toStrictEqual({
           grad: 20,
           uttaksalder: { aar: 67, maaneder: 0 },
           aarligInntektVsaPensjonBeloep: '100 000',
         })
         // muligeUttaksgrad
-        expect(result.current[6]).toHaveLength(6)
+        expect(result.current.muligeUttaksgrad).toHaveLength(6)
       })
 
       it('Når uttaksalder endrer seg, oppdateres verdien og hasUnsavedChanges', async () => {
@@ -545,7 +567,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -560,7 +584,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localGradertUttak
-        expect(result.current[3]).toStrictEqual({
+        expect(result.current.localGradertUttak).toStrictEqual({
           grad: 40,
           uttaksalder: { aar: 68, maaneder: 1 },
           aarligInntektVsaPensjonBeloep: '100 000',
@@ -580,7 +604,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -595,7 +621,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localHeltUttak
-        expect(result.current[1]).toStrictEqual({
+        expect(result.current.localHeltUttak).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: {
             beloep: '100 000',
@@ -606,7 +632,7 @@ describe('AvansertSkjema-hooks', () => {
           },
         })
         // localGradertUttak
-        expect(result.current[3]).toStrictEqual({
+        expect(result.current.localGradertUttak).toStrictEqual({
           grad: 40,
           uttaksalder: { aar: 70, maaneder: 6 },
           aarligInntektVsaPensjonBeloep: '100 000',
@@ -625,7 +651,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -639,7 +667,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localGradertUttak
-        expect(result.current[3]).toStrictEqual({
+        expect(result.current.localGradertUttak).toStrictEqual({
           grad: 40,
           uttaksalder: { aar: 67, maaneder: 0 },
           aarligInntektVsaPensjonBeloep: '50000',
@@ -658,7 +686,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -672,7 +702,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localGradertUttak
-        expect(result.current[3]).toStrictEqual({
+        expect(result.current.localGradertUttak).toStrictEqual({
           grad: 40,
           uttaksalder: { aar: 67, maaneder: 0 },
           aarligInntektVsaPensjonBeloep: undefined,
@@ -692,7 +722,9 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
 
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak(undefined)
@@ -702,7 +734,7 @@ describe('AvansertSkjema-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('TRUE')
         // localGradertUttak
-        expect(result.current[3]).toBe(undefined)
+        expect(result.current.localGradertUttak).toBe(undefined)
       })
 
       it('Når den graderte perioden lagres på nytt med samme verdi, oppdateres IKKE hasUnsavedChanges', async () => {
@@ -716,7 +748,9 @@ describe('AvansertSkjema-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent('FALSE')
-        const { setLocalGradertUttak } = result.current[7]
+        const {
+          handlers: { setLocalGradertUttak },
+        } = result.current
 
         act(() => {
           setLocalGradertUttak({
@@ -742,7 +776,9 @@ describe('AvansertSkjema-hooks', () => {
             },
           })
 
-          const { setLocalGradertUttak } = result.current[7]
+          const {
+            handlers: { setLocalGradertUttak },
+          } = result.current
 
           act(() => {
             setLocalGradertUttak({
@@ -754,8 +790,11 @@ describe('AvansertSkjema-hooks', () => {
           })
 
           // muligeUttaksgrad
-          expect(result.current[6]).toHaveLength(2)
-          expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
+          expect(result.current.muligeUttaksgrad).toHaveLength(2)
+          expect(result.current.muligeUttaksgrad).toStrictEqual([
+            '20 %',
+            '40 %',
+          ])
         })
 
         it('Når beregningsvalg=med_afp avgrenses ikke muligeUttaksgrad selv om uttaksalder endres til en alder før normert pensjonsalder', async () => {
@@ -765,11 +804,13 @@ describe('AvansertSkjema-hooks', () => {
               ...initialProps,
               beregningsvalg: 'med_afp',
               gradertUttaksperiode: null,
-              ufoeregrad: 60,
+              ufoeregrad: 0,
             },
           })
 
-          const { setLocalGradertUttak } = result.current[7]
+          const {
+            handlers: { setLocalGradertUttak },
+          } = result.current
 
           act(() => {
             setLocalGradertUttak({
@@ -781,8 +822,8 @@ describe('AvansertSkjema-hooks', () => {
           })
 
           // muligeUttaksgrad
-          expect(result.current[6]).toHaveLength(6)
-          expect(result.current[6]).toStrictEqual([
+          expect(result.current.muligeUttaksgrad).toHaveLength(6)
+          expect(result.current.muligeUttaksgrad).toStrictEqual([
             '20 %',
             '40 %',
             '50 %',
@@ -803,7 +844,9 @@ describe('AvansertSkjema-hooks', () => {
             },
           })
 
-          const { setLocalGradertUttak } = result.current[7]
+          const {
+            handlers: { setLocalGradertUttak },
+          } = result.current
 
           act(() => {
             setLocalGradertUttak({
@@ -815,8 +858,12 @@ describe('AvansertSkjema-hooks', () => {
           })
 
           // muligeUttaksgrad
-          expect(result.current[6]).toHaveLength(3)
-          expect(result.current[6]).toStrictEqual(['0 %', '20 %', '40 %'])
+          expect(result.current.muligeUttaksgrad).toHaveLength(3)
+          expect(result.current.muligeUttaksgrad).toStrictEqual([
+            '0 %',
+            '20 %',
+            '40 %',
+          ])
         })
 
         it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før normert pensjonsalder som gjør denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
@@ -829,7 +876,9 @@ describe('AvansertSkjema-hooks', () => {
             },
           })
 
-          const { setLocalGradertUttak } = result.current[7]
+          const {
+            handlers: { setLocalGradertUttak },
+          } = result.current
 
           act(() => {
             setLocalGradertUttak({
@@ -841,7 +890,7 @@ describe('AvansertSkjema-hooks', () => {
           })
 
           // muligeUttaksgrad
-          expect(result.current[6]).toHaveLength(6)
+          expect(result.current.muligeUttaksgrad).toHaveLength(6)
         })
       })
     })
@@ -865,15 +914,16 @@ describe('AvansertSkjema-hooks', () => {
         },
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
       // gradertUttakAgePickerError
-      expect(result.current[1]).toEqual('')
+      expect(result.current.gradertUttakAgePickerError).toEqual('')
       // heltAgeUttakPickerError
-      expect(result.current[2]).toEqual('')
+      expect(result.current.heltUttakAgePickerError).toEqual('')
     })
 
     it('Når grad er oppgitt, returnerer riktig initial values', () => {
@@ -883,15 +933,16 @@ describe('AvansertSkjema-hooks', () => {
         },
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
       // gradertUttakAgePickerError
-      expect(result.current[1]).toEqual('')
+      expect(result.current.gradertUttakAgePickerError).toEqual('')
       // heltUttakAgePickerError
-      expect(result.current[2]).toEqual('')
+      expect(result.current.heltUttakAgePickerError).toEqual('')
     })
 
     it('Når validationErrors endrer seg, oppdaterer gradertAgePickerError og heltAgePickerError', async () => {
@@ -900,17 +951,20 @@ describe('AvansertSkjema-hooks', () => {
       })
 
       const {
-        setValidationErrors,
-        setValidationErrorUttaksalderHeltUttak,
-        setValidationErrorUttaksalderGradertUttak,
-        setValidationErrorInntektVsaGradertUttak,
-        resetValidationErrors,
-      } = result.current[3]
+        handlers: {
+          setValidationErrors,
+          setValidationErrorUttaksalderHeltUttak,
+          setValidationErrorUttaksalderGradertUttak,
+          setValidationErrorInntektVsaGradertUttak,
+          resetValidationErrors,
+        },
+      } = result.current
       act(() => {
         setValidationErrorUttaksalderHeltUttak('id1')
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': 'id1',
@@ -919,7 +973,8 @@ describe('AvansertSkjema-hooks', () => {
         setValidationErrorUttaksalderGradertUttak('id2')
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
@@ -928,7 +983,8 @@ describe('AvansertSkjema-hooks', () => {
         setValidationErrorInntektVsaGradertUttak('id3')
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
@@ -939,7 +995,8 @@ describe('AvansertSkjema-hooks', () => {
         })
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id4',
@@ -947,7 +1004,7 @@ describe('AvansertSkjema-hooks', () => {
 
       // gradertAgePickerError
       const gradertAgePickerError = render(
-        result.current[1] as React.ReactElement
+        result.current.gradertUttakAgePickerError as React.ReactElement
       )
       expect(gradertAgePickerError.asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
@@ -962,7 +1019,9 @@ describe('AvansertSkjema-hooks', () => {
       `)
 
       // heltAgePickerError
-      const heltAgePickerError = render(result.current[2] as React.ReactElement)
+      const heltAgePickerError = render(
+        result.current.heltUttakAgePickerError as React.ReactElement
+      )
       expect(heltAgePickerError.asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           id4
@@ -973,7 +1032,8 @@ describe('AvansertSkjema-hooks', () => {
         resetValidationErrors()
       })
       // validationErrors
-      expect(result.current[0]).toStrictEqual({
+      expect(result.current.validationErrors).toStrictEqual({
+        'inntekt-vsa-afp': '',
         'inntekt-vsa-gradert-uttak': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',

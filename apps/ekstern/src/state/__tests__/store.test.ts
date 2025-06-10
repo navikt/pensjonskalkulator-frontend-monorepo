@@ -22,10 +22,11 @@ describe('store', () => {
       samtykke: true,
       samtykkeOffentligAFP: true,
       afp: null,
-      skalBeregneAfp: null,
+      afpUtregningValg: null,
       sivilstand: null,
       epsHarPensjon: null,
       epsHarInntektOver2G: null,
+      afpInntektMaanedFoerUttak: null,
       currentSimulation: {
         beregningsvalg: null,
         uttaksalder: null,

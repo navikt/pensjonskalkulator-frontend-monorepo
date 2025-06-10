@@ -14,6 +14,7 @@ import {
   selectCurrentSimulation,
   selectIsEndring,
   selectLoependeVedtak,
+  selectSkalBeregneAfpKap19,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
@@ -44,6 +45,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
+  const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -196,7 +198,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
         </div>
 
-        {!isEndring && (
+        {!isEndring && !skalBeregneAfpKap19 && (
           <div className={styles.toggle}>
             <div className={styles.container} data-testid="toggle-avansert">
               <ToggleGroup

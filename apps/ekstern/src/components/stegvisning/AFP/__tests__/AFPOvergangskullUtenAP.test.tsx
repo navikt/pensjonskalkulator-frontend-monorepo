@@ -18,11 +18,11 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
-  it('rendrer slik den skal når afp og skalBeregneAfp ikke er oppgitt', async () => {
+  it('rendrer slik den skal når afp og skalBeregneAfpKap19 ikke er oppgitt', async () => {
     render(
       <AFPOvergangskullUtenAP
         previousAfp={null}
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -53,7 +53,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp="nei"
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -77,7 +77,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp={null}
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -119,7 +119,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp={null}
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -165,7 +165,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp={null}
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -182,7 +182,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp="ja_privat"
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -197,7 +197,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp="ja_privat"
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -215,7 +215,7 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     render(
       <AFPOvergangskullUtenAP
         previousAfp={null}
-        previousSkalBeregneAfp={null}
+        previousAfpUtregningValg={null}
         onCancel={undefined}
         onPrevious={onPreviousMock}
         onNext={onNextMock}

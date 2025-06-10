@@ -13,8 +13,8 @@ import { stepAFPAccessGuard } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
+  selectAfpUtregningValg,
   selectIsVeileder,
-  selectSkalBeregneAfp,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { isAlderOver67, isFoedtFoer1963, isOvergangskull } from '@/utils/alder'
@@ -25,7 +25,7 @@ export function StepAFP() {
   const dispatch = useAppDispatch()
   const { person, loependeVedtak } = useLoaderData<typeof stepAFPAccessGuard>()
   const previousAfp = useAppSelector(selectAfp)
-  const previousSkalBeregneAfp = useAppSelector(selectSkalBeregneAfp)
+  const previousAfpUtregningValg = useAppSelector(selectAfpUtregningValg)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
@@ -37,10 +37,10 @@ export function StepAFP() {
     })
   }, [])
 
-  const onNext = (afp: AfpRadio, skalBeregneAfp?: boolean | null): void => {
+  const onNext = (afp: AfpRadio, afpUtregningValg?: AfpUtregningValg) => {
     dispatch(userInputActions.setAfp(afp))
-    if (skalBeregneAfp && skalBeregneAfp !== null) {
-      dispatch(userInputActions.setSkalBeregneAfp(skalBeregneAfp))
+    if (afpUtregningValg || afpUtregningValg === null) {
+      dispatch(userInputActions.setAfpUtregningValg(afpUtregningValg))
     }
 
     if (onStegvisningNext) {
@@ -70,7 +70,7 @@ export function StepAFP() {
     return (
       <AFPOvergangskullUtenAP
         previousAfp={previousAfp}
-        previousSkalBeregneAfp={previousSkalBeregneAfp}
+        previousAfpUtregningValg={previousAfpUtregningValg}
         onCancel={isVeileder ? undefined : onStegvisningCancel}
         onPrevious={onStegvisningPrevious}
         onNext={onNext}

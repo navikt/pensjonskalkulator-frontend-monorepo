@@ -32,7 +32,7 @@ import styles from './Sivilstand.module.scss'
 
 interface Props {
   sivilstandFolkeregister: Sivilstand
-  grunnbelop?: number
+  grunnbeloep?: number
   sivilstand: Sivilstand
   epsHarInntektOver2G: boolean | null
   epsHarPensjon: boolean | null
@@ -47,7 +47,7 @@ interface Props {
 
 export function Sivilstand({
   sivilstandFolkeregister,
-  grunnbelop,
+  grunnbeloep,
   sivilstand,
   epsHarInntektOver2G,
   epsHarPensjon,
@@ -270,8 +270,8 @@ export function Sivilstand({
                 },
                 {
                   sivilstand: getSivilstandTekst(intl, sivilstandInput),
-                  grunnbelop: grunnbelop
-                    ? ` (${formatInntekt(grunnbelop * 2)} kr)`
+                  grunnbeloep: grunnbeloep
+                    ? ` (${formatInntekt(grunnbeloep * 2)} kr)`
                     : '',
                 }
               )}
