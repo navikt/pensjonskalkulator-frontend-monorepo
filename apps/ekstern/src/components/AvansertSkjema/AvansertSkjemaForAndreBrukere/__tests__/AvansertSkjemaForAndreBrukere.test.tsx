@@ -1611,7 +1611,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     // Feilmelding for inntekt vsa 100 % uttak
     expect(
       screen.getByText(
-        'Du må fylle ut forventet inntekt samtidig som du tar ut',
+        'Du må fylle ut forventet årsinntekt samtidig som du tar ut',
         {
           exact: false,
         }
@@ -1712,7 +1712,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     // Feilmelding for inntekt vsa gradert uttak
     expect(
       screen.getByText(
-        'Du må fylle ut forventet inntekt samtidig som du tar ut',
+        'Du må fylle ut forventet årsinntekt samtidig som du tar ut',
         { exact: false }
       )
     ).toBeVisible()
