@@ -35,22 +35,24 @@ function TestComponent() {
 
 describe('LanguageProvider', () => {
   let defaultFetchSpy: ReturnType<typeof vi.spyOn>
+
   beforeAll(() => {
     defaultFetchSpy = vi
       .spyOn(sanityClient, 'fetch')
       .mockResolvedValue([] as unknown as RawQuerylessQueryResponse<unknown>)
   })
 
-  afterAll(() => {
-    defaultFetchSpy.mockRestore()
-  })
-
   afterEach(() => {
+    // Clear cookies
     document.cookie.split(';').forEach(function (c) {
       document.cookie = c
         .replace(/^ +/, '')
         .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
     })
+  })
+
+  afterAll(() => {
+    defaultFetchSpy.mockRestore()
   })
 
   it('gir tilgang til react-intl translations', async () => {
