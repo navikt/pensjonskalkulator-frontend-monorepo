@@ -1,5 +1,7 @@
 import { defineField } from 'sanity'
 
+import { NameFieldWithWarning } from '../components/NameFieldWithWarning'
+
 export const languageField = defineField({
   title: 'Language',
   name: 'language',
@@ -13,6 +15,18 @@ export const nameField = defineField({
   type: 'string',
   description: 'Denne brukes som ID i koden',
   validation: (rule) => rule.required().error('Påkrevd'),
+  readOnly: ({ document }) => {
+    if (!document?._createdAt) return false
+
+    const createdAt = new Date(document._createdAt)
+    const now = new Date()
+    const fiveMinutesInMs = 5 * 60 * 1000
+
+    return now.getTime() - createdAt.getTime() > fiveMinutesInMs
+  },
+  components: {
+    field: NameFieldWithWarning,
+  },
 })
 
 export const overskriftField = defineField({

@@ -52,7 +52,11 @@ export default [
       // Needed for typed linting
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['schemaTypes/*', 'schemaTypes/common/*'],
+          allowDefaultProject: [
+            'schemaTypes/*',
+            'schemaTypes/common/*',
+            'schemaTypes/components/*',
+          ],
         },
         tsconfigRootDir: import.meta.dirname,
       },
