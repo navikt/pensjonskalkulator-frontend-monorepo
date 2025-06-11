@@ -362,8 +362,7 @@ export default {
   'beregning.avansert.link.endre_valgene_dine': 'Change your choices',
   'beregning.avansert.link.endre_avanserte_valg': 'Change advanced choices',
   'beregning.avansert.link.om_vilkaar_for_afp': 'MANGLER_TEKST',
-  'beregning.avansert.endring_banner.title':
-    'retirement pension before tax when you are ',
+  'beregning.avansert.endring_banner.title': 'MANGLER_TEKST',
   'beregning.avansert.endring_banner.kr_md': 'kr/mo.',
   'beregning.avansert.maanedsbeloep.table_title': 'MANGLER_TEKST',
   'beregning.avansert.maanedsbeloep.box_title': 'MANGLER_TEKST',

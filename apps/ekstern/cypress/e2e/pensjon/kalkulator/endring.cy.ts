@@ -406,7 +406,7 @@ describe('Endring av alderspensjon', () => {
             })
 
             it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
-              cy.contains('Alderspensjon før skatt når du er')
+              cy.contains('Alderspensjon når du er')
               cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
               cy.contains('67 år (100 %): 28 513 kr/md.')
             })
@@ -716,7 +716,7 @@ describe('Endring av alderspensjon', () => {
           })
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
-            cy.contains('Alderspensjon før skatt når du er')
+            cy.contains('Alderspensjon når du er')
             cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
@@ -1023,7 +1023,7 @@ describe('Endring av alderspensjon', () => {
           })
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
-            cy.contains('Alderspensjon før skatt når du er')
+            cy.contains('Alderspensjon når du er')
             cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
@@ -1309,7 +1309,7 @@ describe('Endring av alderspensjon', () => {
           })
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
-            cy.contains('Alderspensjon før skatt når du er')
+            cy.contains('Alderspensjon når du er')
             cy.contains('65 år og 4 md. (40 %): 12 342 kr/md.')
             cy.contains('67 år (100 %): 28 513 kr/md.')
           })
@@ -1615,7 +1615,7 @@ describe('Endring av alderspensjon', () => {
           })
 
           it('forventer jeg informasjon om hva siste månedlige utbetaling var og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
-            cy.contains('Alderspensjon før skatt når du er')
+            cy.contains('Alderspensjon når du er')
             cy.contains('67 år og 4 md. (40 %): 12 342 kr/md.')
             cy.contains('70 år (100 %): 28 513 kr/md.')
           })
