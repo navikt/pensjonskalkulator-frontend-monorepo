@@ -594,7 +594,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
           type: 'userInputSlice/setUtenlandsperiode',
           payload: {
-            id: expect.any(String), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            id: expect.any(String) as string,
             arbeidetUtenlands: true,
             landkode: 'SWE',
             startdato: '21.12.2012',
@@ -663,7 +663,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
           type: 'userInputSlice/setUtenlandsperiode',
           payload: {
-            id: expect.any(String), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            id: expect.any(String) as string,
             arbeidetUtenlands: true,
             landkode: 'SWE',
             startdato: '21.12.2012',

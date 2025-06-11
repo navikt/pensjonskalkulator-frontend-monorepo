@@ -24,14 +24,24 @@ describe('PageFramework', () => {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.login}`],
     })
+
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
+
     const button = await screen.findByTestId(
       'landingside-enkel-kalkulator-button'
     )
     await user.click(button)
-    expect(screen.getByTestId('pageframework-loader')).toBeVisible()
+
+    // * Wait for the loader to appear
+    await waitFor(
+      () => {
+        const loader = screen.queryByTestId('pageframework-loader')
+        expect(loader).toBeVisible()
+      },
+      { timeout: 2000 }
+    )
   })
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {

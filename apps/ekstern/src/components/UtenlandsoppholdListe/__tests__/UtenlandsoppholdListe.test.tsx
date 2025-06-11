@@ -78,14 +78,14 @@ describe('UtenlandsoppholdListe', () => {
       const utenlandsperiodeListe = screen.getByTestId('utenlandsperiode-liste')
       expect(utenlandsperiodeListe).toMatchInlineSnapshot(`
         <dl
-          class="_utenlandsperioder_6a3650"
+          class="_utenlandsperioder_acac21"
           data-testid="utenlandsperiode-liste"
         >
           <div
-            class="_utenlandsperioderItem_6a3650"
+            class="_utenlandsperioderItem_acac21"
           >
             <div
-              class="_utenlandsperioderText_6a3650"
+              class="_utenlandsperioderText_acac21"
             >
               <dd>
                 <b>
@@ -104,10 +104,10 @@ describe('UtenlandsoppholdListe', () => {
             </div>
           </div>
           <div
-            class="_utenlandsperioderItem_6a3650"
+            class="_utenlandsperioderItem_acac21"
           >
             <div
-              class="_utenlandsperioderText_6a3650"
+              class="_utenlandsperioderText_acac21"
             >
               <dd>
                 <b>
@@ -208,14 +208,14 @@ describe('UtenlandsoppholdListe', () => {
       const utenlandsperiodeListe = screen.getByTestId('utenlandsperiode-liste')
       expect(utenlandsperiodeListe).toMatchInlineSnapshot(`
         <dl
-          class="_utenlandsperioder_6a3650"
+          class="_utenlandsperioder_acac21"
           data-testid="utenlandsperiode-liste"
         >
           <div
-            class="_utenlandsperioderItem_6a3650"
+            class="_utenlandsperioderItem_acac21"
           >
             <div
-              class="_utenlandsperioderText_6a3650"
+              class="_utenlandsperioderText_acac21"
             >
               <dd>
                 <b>
@@ -233,10 +233,10 @@ describe('UtenlandsoppholdListe', () => {
               </dd>
             </div>
             <dd
-              class="_utenlandsperioderButtons_6a3650"
+              class="_utenlandsperioderButtons_acac21"
             >
               <button
-                class="_utenlandsperioderButtons__endre_6a3650 navds-button navds-button--tertiary navds-button--small"
+                class="_utenlandsperioderButtons__endre_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="endre-utenlandsopphold"
               >
                 <span
@@ -267,7 +267,7 @@ describe('UtenlandsoppholdListe', () => {
                 </span>
               </button>
               <button
-                class="_utenlandsperioderButtons__slette_6a3650 navds-button navds-button--tertiary navds-button--small"
+                class="_utenlandsperioderButtons__slette_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="slett-utenlandsopphold"
               >
                 <span
@@ -279,10 +279,10 @@ describe('UtenlandsoppholdListe', () => {
             </dd>
           </div>
           <div
-            class="_utenlandsperioderItem_6a3650"
+            class="_utenlandsperioderItem_acac21"
           >
             <div
-              class="_utenlandsperioderText_6a3650"
+              class="_utenlandsperioderText_acac21"
             >
               <dd>
                 <b>
@@ -296,10 +296,10 @@ describe('UtenlandsoppholdListe', () => {
               </dd>
             </div>
             <dd
-              class="_utenlandsperioderButtons_6a3650"
+              class="_utenlandsperioderButtons_acac21"
             >
               <button
-                class="_utenlandsperioderButtons__endre_6a3650 navds-button navds-button--tertiary navds-button--small"
+                class="_utenlandsperioderButtons__endre_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="endre-utenlandsopphold"
               >
                 <span
@@ -330,7 +330,7 @@ describe('UtenlandsoppholdListe', () => {
                 </span>
               </button>
               <button
-                class="_utenlandsperioderButtons__slette_6a3650 navds-button navds-button--tertiary navds-button--small"
+                class="_utenlandsperioderButtons__slette_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="slett-utenlandsopphold"
               >
                 <span
@@ -494,14 +494,14 @@ describe('UtenlandsoppholdListe', () => {
     expect(titles[2]).toHaveTextContent('Finland')
     expect(utenlandsperiodeListe).toMatchInlineSnapshot(`
       <dl
-        class="_utenlandsperioder_6a3650"
+        class="_utenlandsperioder_acac21"
         data-testid="utenlandsperiode-liste"
       >
         <div
-          class="_utenlandsperioderItem_6a3650"
+          class="_utenlandsperioderItem_acac21"
         >
           <div
-            class="_utenlandsperioderText_6a3650"
+            class="_utenlandsperioderText_acac21"
           >
             <dd>
               <b>
@@ -520,10 +520,10 @@ describe('UtenlandsoppholdListe', () => {
           </div>
         </div>
         <div
-          class="_utenlandsperioderItem_6a3650"
+          class="_utenlandsperioderItem_acac21"
         >
           <div
-            class="_utenlandsperioderText_6a3650"
+            class="_utenlandsperioderText_acac21"
           >
             <dd>
               <b>
@@ -538,10 +538,10 @@ describe('UtenlandsoppholdListe', () => {
           </div>
         </div>
         <div
-          class="_utenlandsperioderItem_6a3650"
+          class="_utenlandsperioderItem_acac21"
         >
           <div
-            class="_utenlandsperioderText_6a3650"
+            class="_utenlandsperioderText_acac21"
           >
             <dd>
               <b>

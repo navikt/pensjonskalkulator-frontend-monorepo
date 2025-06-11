@@ -58,7 +58,7 @@ describe('SimuleringEndringBanner', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <aside
-            class="_wrapper_d239c3"
+            class="_wrapper_6cd2a9"
           >
             <p
               class="navds-body-long navds-body-long--medium"
@@ -119,7 +119,7 @@ describe('SimuleringEndringBanner', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <aside
-            class="_wrapper_d239c3"
+            class="_wrapper_6cd2a9"
           >
             <p
               class="navds-body-long navds-body-long--medium"
@@ -185,7 +185,7 @@ describe('SimuleringEndringBanner', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <aside
-            class="_wrapper_d239c3"
+            class="_wrapper_6cd2a9"
           >
             <p
               class="navds-body-long navds-body-long--medium"
@@ -193,7 +193,7 @@ describe('SimuleringEndringBanner', () => {
               beregning.avansert.endring_banner.title
             </p>
             <ul
-              class="_list_d239c3"
+              class="_list_6cd2a9"
             >
               <li>
                 62 alder.aar 

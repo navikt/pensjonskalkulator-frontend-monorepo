@@ -43,7 +43,7 @@ export const PageFramework: React.FC<{
     window.scrollTo(0, 0)
   }, [pathname])
 
-  if (state === 'loading' && showLoader)
+  if (state === 'loading' && showLoader) {
     return (
       <FrameComponent {...rest}>
         <Loader
@@ -53,9 +53,10 @@ export const PageFramework: React.FC<{
         />
       </FrameComponent>
     )
+  }
 
-  // Når det oppstår en feil ved fetch: Hvis det er påkrevd å være pålogget rediriger til login,
-  // hvis ikke "fail silently", vis siden som vanlig og sett isLoggedIn til false.
+  // * Når det oppstår en feil ved fetch: Hvis det er påkrevd å være pålogget rediriger til login,
+  // * hvis ikke "fail silently", vis siden som vanlig og sett isLoggedIn til false.
   if (!authResponse.ok) {
     if (shouldRedirectNonAuthenticated) {
       return <RedirectElement />
