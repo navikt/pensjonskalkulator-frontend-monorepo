@@ -33,6 +33,7 @@ import {
   stepSivilstandAccessGuard,
   stepStartAccessGuard,
   stepUfoeretrygdAFPAccessGuard,
+  stepUtenlandsoppholdAccessGuard,
 } from './loaders'
 
 const fallback = (
@@ -97,7 +98,7 @@ export const routes: RouteObject[] = [
         element: <StepSivilstand />,
       },
       {
-        loader: directAccessGuard,
+        loader: stepUtenlandsoppholdAccessGuard,
         path: paths.utenlandsopphold,
         element: <StepUtenlandsopphold />,
       },

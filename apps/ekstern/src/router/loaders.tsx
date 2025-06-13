@@ -219,7 +219,9 @@ export const stepStartAccessGuard = async () => {
 
 ////////////////////////////////////////////////////////////////////////
 
-export const stepSivilstandAccessGuard = async () => {
+export const stepSivilstandAccessGuard = async ({
+  request,
+}: LoaderFunctionArgs) => {
   if (directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -233,12 +235,52 @@ export const stepSivilstandAccessGuard = async () => {
     .then((grunnbeloepRes) => grunnbeloepRes)
     .catch(() => undefined)
 
+  const loependeVedtak = await store
+    .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+    .unwrap()
+
   const [person, grunnbeloep] = await Promise.all([
     getPersonQuery,
     getGrunnbeloepQuery,
   ])
 
+  const isEndring = isLoependeVedtakEndring(loependeVedtak)
+  const isKap19 = isFoedtFoer1963(person.foedselsdato)
+
+  const stepArrays = getStepArrays(isEndring, isKap19)
+
+  if (isEndring && isKap19) {
+    return skip(stepArrays, paths.sivilstand, request)
+  }
+
   return { person, grunnbeloep }
+}
+
+////////////////////////////////////////////////////////////////////////
+
+export const stepUtenlandsoppholdAccessGuard = async ({
+  request,
+}: LoaderFunctionArgs) => {
+  if (directAccessGuard()) {
+    return redirect(paths.start)
+  }
+
+  const person = await store
+    .dispatch(apiSlice.endpoints.getPerson.initiate())
+    .unwrap()
+
+  const loependeVedtak = await store
+    .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+    .unwrap()
+
+  const isEndring = isLoependeVedtakEndring(loependeVedtak)
+  const isKap19 = isFoedtFoer1963(person.foedselsdato)
+
+  const stepArrays = getStepArrays(isEndring, isKap19)
+
+  if (isEndring && isKap19) {
+    return skip(stepArrays, paths.utenlandsopphold, request)
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////
