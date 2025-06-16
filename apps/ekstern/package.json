@@ -65,7 +65,7 @@
     "@navikt/ds-react": "^7.22.0",
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "@reduxjs/toolkit": "^2.8.2",
-    "@sanity/client": "^7.5.0",
+    "@sanity/client": "^7.6.0",
     "@sanity/document-internationalization": "^3.3.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
