@@ -238,6 +238,7 @@ describe('UtenlandsoppholdListe', () => {
               <button
                 class="_utenlandsperioderButtons__endre_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="endre-utenlandsopphold"
+                data-variant="tertiary"
               >
                 <span
                   class="navds-button__icon"
@@ -269,6 +270,7 @@ describe('UtenlandsoppholdListe', () => {
               <button
                 class="_utenlandsperioderButtons__slette_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="slett-utenlandsopphold"
+                data-variant="tertiary"
               >
                 <span
                   class="navds-label navds-label--small"
@@ -301,6 +303,7 @@ describe('UtenlandsoppholdListe', () => {
               <button
                 class="_utenlandsperioderButtons__endre_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="endre-utenlandsopphold"
+                data-variant="tertiary"
               >
                 <span
                   class="navds-button__icon"
@@ -332,6 +335,7 @@ describe('UtenlandsoppholdListe', () => {
               <button
                 class="_utenlandsperioderButtons__slette_acac21 navds-button navds-button--tertiary navds-button--small"
                 data-testid="slett-utenlandsopphold"
+                data-variant="tertiary"
               >
                 <span
                   class="navds-label navds-label--small"
