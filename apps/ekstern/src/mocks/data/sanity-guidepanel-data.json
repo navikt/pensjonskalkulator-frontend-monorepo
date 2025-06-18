@@ -46,13 +46,13 @@
               "text": "Hvis du jobber i privat sektor, anbefaler vi at du kontakter Nav på telefon "
             },
             {
-              "_key": "3b3c28c86cf4",
+              "_key": "30883b408113",
               "_type": "span",
-              "marks": ["21181f1137af"],
+              "marks": ["92cc758af4e1"],
               "text": "55 55 33 34"
             },
             {
-              "_key": "adf0b78a90df",
+              "_key": "58c57602dcff",
               "_type": "span",
               "marks": [],
               "text": " for veiledning. Eller at du kontakter tjenestepensjonsordningen din, hvis du jobber i offentlig sektor."
@@ -60,8 +60,9 @@
           ],
           "markDefs": [
             {
-              "_key": "21181f1137af",
+              "_key": "92cc758af4e1",
               "_type": "link",
+              "blank": false,
               "className": "nowrap",
               "href": "tel:55553334"
             }

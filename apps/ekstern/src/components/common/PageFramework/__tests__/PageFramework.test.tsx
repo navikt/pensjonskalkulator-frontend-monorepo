@@ -1,10 +1,8 @@
-import { Link, RouterProvider, createMemoryRouter } from 'react-router'
+import { Link } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
-import { BASE_PATH, paths } from '@/router/constants'
-import { routes } from '@/router/routes'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { PageFramework } from '../PageFramework'
