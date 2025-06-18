@@ -29,7 +29,7 @@ export const getSanityPortableTextComponents = (
         value,
         children,
       }: {
-        value?: { blank: boolean; href: string }
+        value?: { blank: boolean; href: string; className?: string }
         children?: React.ReactNode
       }) => {
         return value?.blank ? (
@@ -38,6 +38,7 @@ export const getSanityPortableTextComponents = (
             href={value?.href}
             target="_blank"
             inlineText
+            className={value?.className}
           >
             {children}
             <ExternalLinkIcon
@@ -49,7 +50,12 @@ export const getSanityPortableTextComponents = (
             />
           </Link>
         ) : (
-          <Link onClick={logOpenLink} href={value?.href} inlineText>
+          <Link
+            onClick={logOpenLink}
+            href={value?.href}
+            inlineText
+            className={value?.className}
+          >
             {children}
           </Link>
         )

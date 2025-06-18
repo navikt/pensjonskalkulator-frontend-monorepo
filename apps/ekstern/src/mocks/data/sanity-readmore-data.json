@@ -777,6 +777,26 @@
     {
       "innhold": [
         {
+          "_key": "1b61aba33373",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d902685bf6d2",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du samtykker sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Vi viser at du kan ha rettigheter, uten å hente avtalene."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "dette_sjekker_vi_OFTP",
+      "overskrift": "Vi sjekker om du kan ha rett til offentlig tjenestepensjon"
+    },
+    {
+      "innhold": [
+        {
           "_key": "a11767666144",
           "_type": "block",
           "children": [
