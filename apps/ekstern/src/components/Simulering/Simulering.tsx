@@ -291,6 +291,7 @@ export const Simulering = ({
             alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
             afpPrivatListe={afpPrivatListe}
             afpOffentligListe={afpOffentligListe}
+            pre2025OffentligAfp={pre2025OffentligAfp}
             pensjonsavtaler={pensjonsavtalerData?.avtaler}
             simulertTjenestepensjon={offentligTpData?.simulertTjenestepensjon}
           />

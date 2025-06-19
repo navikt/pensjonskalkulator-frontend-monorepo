@@ -20,11 +20,13 @@ export interface Pensjonsdata {
   afp: number | undefined
   pensjonsavtale: number
   alderspensjon: number | undefined
+  pre2025OffentligAfp?: number
 }
 
 interface PensjonBeregningerProps {
   afpPrivatListe?: AfpPensjonsberegning[]
   afpOffentligListe?: AfpPensjonsberegning[]
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   pensjonsavtaler?: Pensjonsavtale[]
   simulertTjenestepensjon?: SimulertTjenestepensjon
@@ -34,6 +36,7 @@ export const usePensjonBeregninger = ({
   alderspensjonMaanedligVedEndring,
   afpPrivatListe,
   afpOffentligListe,
+  pre2025OffentligAfp,
   pensjonsavtaler,
   simulertTjenestepensjon,
 }: PensjonBeregningerProps) => {
@@ -95,6 +98,7 @@ export const usePensjonBeregninger = ({
         sumPensjonsavtaler(gradertAlder) + sumTjenestepensjon(gradertAlder),
       alderspensjon:
         alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep,
+      pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
     })
   }
 
@@ -108,6 +112,7 @@ export const usePensjonBeregninger = ({
       pensjonsavtale:
         sumPensjonsavtaler(uttaksalder) + sumTjenestepensjon(uttaksalder),
       alderspensjon: alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep,
+      pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
     })
   }
 

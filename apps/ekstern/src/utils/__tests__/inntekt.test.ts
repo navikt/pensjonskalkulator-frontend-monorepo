@@ -4,6 +4,7 @@ import { waitFor } from '@/test-utils'
 
 import {
   formatInntekt,
+  formatInntektMedKr,
   formatInntektToNumber,
   updateAndFormatInntektFromInputField,
   validateInntekt,
@@ -381,6 +382,21 @@ describe('inntekt-utils', () => {
         validateInntekt('100 000 000', updateValidationErrorMessageMock)
       ).toBeTruthy()
       expect(updateValidationErrorMessageMock).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('formatInntektMedKr', () => {
+    it('returnerer formattert beløp med "kr" for gitt beløp', () => {
+      expect(formatInntektMedKr(12345)).toMatch(/12\s345\s*kr/)
+      expect(formatInntektMedKr(0)).toBe('0\u00A0kr')
+    })
+
+    it('returnerer tom streng når beløp er undefined', () => {
+      expect(formatInntektMedKr(undefined)).toBe('')
+    })
+
+    it('returnerer tom streng når beløp er null', () => {
+      expect(formatInntektMedKr(null as unknown as number)).toBe('')
     })
   })
 })

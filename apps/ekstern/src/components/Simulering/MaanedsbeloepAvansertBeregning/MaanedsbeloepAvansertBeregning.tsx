@@ -12,6 +12,7 @@ interface Props {
   afpPrivatListe?: AfpPensjonsberegning[]
   afpOffentligListe?: AfpPensjonsberegning[]
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
   pensjonsavtaler?: Pensjonsavtale[]
   simulertTjenestepensjon?: SimulertTjenestepensjon
 }

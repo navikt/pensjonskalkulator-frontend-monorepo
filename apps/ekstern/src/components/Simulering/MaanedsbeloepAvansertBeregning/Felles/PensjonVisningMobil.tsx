@@ -3,7 +3,10 @@ import { useIntl } from 'react-intl'
 
 import { Box, ReadMore, VStack } from '@navikt/ds-react'
 
-import { formatUttaksalder } from '@/utils/alder'
+import {
+  UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
+  formatUttaksalder,
+} from '@/utils/alder'
 
 import { Pensjonsdata } from '../hooks'
 import { PensjonDataVisning } from './PensjonDataVisning'
@@ -44,29 +47,43 @@ export const PensjonVisningMobil: React.FC<Props> = ({
       background="bg-subtle"
     >
       <VStack gap="2">
-        {pensjonsdata.map((data, index) => (
-          <ReadMore
-            key={`mobile-${index}`}
-            defaultOpen={index === 0}
-            header={
-              intl.formatMessage({
-                id: 'beregning.avansert.maanedsbeloep.box_title',
-              }) +
-              formatUttaksalder(intl, data.alder) +
-              ((data.alderspensjon &&
-                !data.afp &&
-                !data.pensjonsavtale &&
-                ` (${hentUttaksmaanedOgAar(data.alder)})`) ||
-                '')
-            }
-          >
-            <PensjonDataVisning
-              pensjonsdata={data}
-              summerYtelser={summerYtelser}
-              hentUttaksMaanedOgAar={hentUttaksmaanedOgAar}
-            />
-          </ReadMore>
-        ))}
+        {pensjonsdata.map((data, index) => {
+          const isKapittel20AP =
+            data.alderspensjon &&
+            !data.afp &&
+            !data.pensjonsavtale &&
+            !data.pre2025OffentligAfp
+
+          const isKapittel19OffentligAFP =
+            data.pre2025OffentligAfp && !data.alderspensjon
+
+          const formattedUttaksalder =
+            data.alderspensjon && data.pre2025OffentligAfp
+              ? `${UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar} år`
+              : formatUttaksalder(intl, data.alder)
+
+          return (
+            <ReadMore
+              key={`mobile-${index}`}
+              defaultOpen={index === 0}
+              header={
+                intl.formatMessage({
+                  id: 'beregning.avansert.maanedsbeloep.box_title',
+                }) +
+                formattedUttaksalder +
+                (((isKapittel20AP || isKapittel19OffentligAFP) &&
+                  ` (${hentUttaksmaanedOgAar(data.alder)})`) ||
+                  '')
+              }
+            >
+              <PensjonDataVisning
+                pensjonsdata={data}
+                summerYtelser={summerYtelser}
+                hentUttaksMaanedOgAar={hentUttaksmaanedOgAar}
+              />
+            </ReadMore>
+          )
+        })}
       </VStack>
     </Box>
   )

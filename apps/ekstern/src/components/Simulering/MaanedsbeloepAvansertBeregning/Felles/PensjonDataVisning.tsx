@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong } from '@navikt/ds-react'
 
 import { formatUttaksalder } from '@/utils/alder'
-import { formatInntekt } from '@/utils/inntekt'
+import { formatInntektMedKr } from '@/utils/inntekt'
 
 import { Pensjonsdata } from '../hooks'
 
@@ -23,8 +23,17 @@ export const PensjonDataVisning: React.FC<Props> = ({
   hentUttaksMaanedOgAar,
 }) => {
   const intl = useIntl()
-  const { alder, grad, afp, pensjonsavtale, alderspensjon } = pensjonsdata
+  const {
+    alder,
+    grad,
+    afp,
+    pensjonsavtale,
+    alderspensjon,
+    pre2025OffentligAfp,
+  } = pensjonsdata
+
   const harKunAlderspensjon = alderspensjon && !afp && !pensjonsavtale
+  const harAFP = afp || (pre2025OffentligAfp && !alderspensjon)
   const captionTitle = (
     intl.formatMessage({ id: 'beregning.avansert.maanedsbeloep.table_title' }) +
     ' ' +
@@ -38,14 +47,18 @@ export const PensjonDataVisning: React.FC<Props> = ({
         {captionTitle}
       </BodyLong>
       <tbody>
-        {afp && (
+        {harAFP && (
           <tr className={styles.row}>
             <th scope="row">
               <BodyLong>
                 <FormattedMessage id="beregning.avansert.maanedsbeloep.afp" />:
               </BodyLong>
             </th>
-            <td>{formatInntekt(afp)} kr</td>
+            <td data-testid="maanedsbeloep-avansert-afp">
+              {pre2025OffentligAfp
+                ? formatInntektMedKr(pre2025OffentligAfp)
+                : formatInntektMedKr(afp)}
+            </td>
           </tr>
         )}
 
@@ -57,7 +70,9 @@ export const PensjonDataVisning: React.FC<Props> = ({
                 :
               </BodyLong>
             </th>
-            <td>{formatInntekt(pensjonsavtale)} kr</td>
+            <td data-testid="maanedsbeloep-avansert-pensjonsavtale">
+              {formatInntektMedKr(pensjonsavtale)}
+            </td>
           </tr>
         )}
 
@@ -72,11 +87,13 @@ export const PensjonDataVisning: React.FC<Props> = ({
                 :
               </BodyLong>
             </th>
-            <td>{formatInntekt(alderspensjon)} kr</td>
+            <td data-testid="maanedsbeloep-avansert-alderspensjon">
+              {formatInntektMedKr(alderspensjon)}
+            </td>
           </tr>
         )}
 
-        {!harKunAlderspensjon && (
+        {!harKunAlderspensjon && !pre2025OffentligAfp && (
           <tr
             className={clsx(styles.row, styles.sum)}
             data-testid="maanedsbeloep-avansert-sum"
@@ -90,7 +107,7 @@ export const PensjonDataVisning: React.FC<Props> = ({
                 :
               </BodyLong>
             </th>
-            <td>{formatInntekt(summerYtelser(pensjonsdata))} kr</td>
+            <td>{formatInntektMedKr(summerYtelser(pensjonsdata))}</td>
           </tr>
         )}
       </tbody>

@@ -53,9 +53,9 @@ describe('DesktopPensjonVisning', () => {
       maaneder: 0,
     })
 
-    expect(screen.getByText('10 000 kr')).toBeVisible()
+    expect(screen.getByText(/10 000\s*kr/)).toBeVisible()
     expect(screen.getByText('5 000 kr')).toBeVisible()
-    expect(screen.getByText('12 000 kr')).toBeVisible()
+    expect(screen.getByText(/12 000\s*kr/)).toBeVisible()
     expect(screen.getByText('6 000 kr')).toBeVisible()
   })
 
@@ -92,5 +92,61 @@ describe('DesktopPensjonVisning', () => {
 
     const dateText = screen.getByTestId('maanedsbeloep-desktop-title')
     expect(dateText).toContainElement(screen.queryByText(/(januar 2030)/))
+  })
+
+  describe('vise månedsbeløp for gammel AFP - pre2025OffentligAfp', () => {
+    const mockPensjonsdataPre2025OffentligAfp = [
+      {
+        alder: { aar: 65, maaneder: 3 },
+        grad: 100,
+        afp: 0,
+        pensjonsavtale: 0,
+        alderspensjon: undefined,
+        pre2025OffentligAfp: 15000,
+      },
+      {
+        alder: { aar: 65, maaneder: 3 },
+        grad: 100,
+        afp: 0,
+        pensjonsavtale: 0,
+        alderspensjon: 20000,
+        pre2025OffentligAfp: 15000,
+      },
+    ]
+
+    beforeEach(() => {
+      render(
+        <PensjonVisningDesktop
+          pensjonsdata={mockPensjonsdataPre2025OffentligAfp}
+          summerYtelser={mockSummerYtelser}
+          hentUttaksmaanedOgAar={mockHentUttaksmaanedOgAar}
+        />
+      )
+    })
+
+    it('viser kun AFP og Alerdspensjon for pre2025OffentligAfp', () => {
+      expect(mockSummerYtelser).toHaveBeenCalledTimes(2)
+      const sumText = screen.queryByTestId('maanedsbeloep-desktop-sum')
+      expect(sumText).not.toBeInTheDocument()
+    })
+
+    it('viser dato i parantes i tittel for pre2025OffentligAfp', () => {
+      const pre2025OffentligAfpMaanedsBeloepTittel = screen.getAllByTestId(
+        'maanedsbeloep-desktop-title'
+      )[0]
+
+      expect(pre2025OffentligAfpMaanedsBeloepTittel).toContainElement(
+        screen.queryByText(/(januar 2030)/)
+      )
+    })
+
+    it('viser bare tidligst uttaks alder for AP i tittel for pre2025OffentligAfp', () => {
+      const afpMaanedsBeloepTittel = screen.getAllByTestId(
+        'maanedsbeloep-desktop-title'
+      )[1]
+      expect(afpMaanedsBeloepTittel).toContainElement(
+        screen.queryByText(/67 år/)
+      )
+    })
   })
 })

@@ -107,3 +107,11 @@ export const updateAndFormatInntektFromInputField = (
     updateValidationErrors('')
   }
 }
+
+export const formatInntektMedKr = (amount?: number): string => {
+  if (amount === undefined || amount === null) {
+    return ''
+  }
+
+  return `${formatInntekt(amount)}\u00A0kr`
+}

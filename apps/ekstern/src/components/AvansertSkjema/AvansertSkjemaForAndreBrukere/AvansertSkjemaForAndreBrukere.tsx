@@ -23,6 +23,7 @@ import {
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_MAX_OPPTJENINGSALDER,
+  UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
   formatUttaksalder,
   getBrukerensAlderISluttenAvMaaneden,
 } from '@/utils/alder'
@@ -81,14 +82,12 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     ? normertPensjonsalder
     : getBrukerensAlderISluttenAvMaaneden(foedselsdato, nedreAldersgrense)
 
-  const TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP = 67
-
   // Når bruker velger "Endre avansert valg" og hadde uttaks alder satt til mindre enn 67 år som er tidligst uttaks alder for bruker med pre2025 offentlig AFP, da kan alert være stående.
   const [showPre2025OffentligAfpAlert, setShowPre2025OffentligAfpAlert] =
     React.useState<boolean>(
       Boolean(
         uttaksalder &&
-          uttaksalder?.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+          uttaksalder?.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
           loependeVedtak.pre2025OffentligAfp
       )
     )
@@ -145,7 +144,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
         Boolean(
           alder &&
             alder.aar !== undefined &&
-            alder.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+            alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
             loependeVedtak.pre2025OffentligAfp
         )
       )
@@ -179,7 +178,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
       Boolean(
         alder &&
           alder.aar !== undefined &&
-          alder.aar < TIDLIGST_UTTAKSALDER_FOR_PRE2025_OFFENTLIG_AFP &&
+          alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
           loependeVedtak.pre2025OffentligAfp
       )
     )
