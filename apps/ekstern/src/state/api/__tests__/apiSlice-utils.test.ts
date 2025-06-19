@@ -935,20 +935,13 @@ describe('apiSlice - utils', () => {
         uttaksperioder: [
           {
             startAlder: { aar: 62, maaneder: 4 },
-            grad: 20,
+            grad: 100, // * Denne er hardkodet til 100 pga private pensjonsavtaler ikke har gradert uttak
             aarligInntektVsaPensjon: {
               beloep: 123000,
               sluttAlder: { aar: 67, maaneder: 0 },
             },
           },
-          {
-            startAlder: { aar: 67, maaneder: 0 },
-            grad: 100,
-            aarligInntektVsaPensjon: {
-              beloep: 99000,
-              sluttAlder: { aar: 75, maaneder: 0 },
-            },
-          },
+          // * Vi sender ikke inn heltUttak når brukeren har valgt gradert uttak
         ],
       })
     })

@@ -151,21 +151,10 @@ describe('Pensjonsavtaler', () => {
                 beloep: 300000,
                 sluttAlder: { aar: 70, maaneder: 0 },
               },
-              grad: 50,
+              grad: 100, // * Denne er hardkodet til 100 pga private pensjonsavtaler ikke har gradert uttak
               startAlder: {
                 aar: 67,
                 maaneder: 1,
-              },
-            },
-            {
-              aarligInntektVsaPensjon: {
-                beloep: 500000,
-                sluttAlder: { aar: 75, maaneder: 0 },
-              },
-              grad: 100,
-              startAlder: {
-                aar: 70,
-                maaneder: 0,
               },
             },
           ],
