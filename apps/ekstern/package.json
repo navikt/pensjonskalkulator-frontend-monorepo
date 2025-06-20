@@ -41,7 +41,7 @@
     "@elastic/ecs-winston-format": "^1.5.3",
     "@navikt/oasis": "^3.8.0",
     "@portabletext/react": "^3.2.1",
-    "@sanity/icons": "^3.7.0",
+    "@sanity/icons": "^3.7.3",
     "@sanity/ui": "^2.16.2",
     "@sanity/vision": "^3.93.0",
     "express": "^4.21.2",
