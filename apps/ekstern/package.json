@@ -112,7 +112,7 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.89.2",
     "start-server-and-test": "^2.0.12",
-    "stylelint": "^16.20.0",
+    "stylelint": "^16.21.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "timers": "^0.1.1",
     "typescript": "^5.8.3",
