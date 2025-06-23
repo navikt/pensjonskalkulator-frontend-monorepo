@@ -101,10 +101,14 @@ declare global {
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
+  type AfpPrivatPensjonsberegning =
+    components['schemas']['PersonligSimuleringAfpPrivatResultV8']
   type AfpPensjonsberegning =
     components['schemas']['PersonligSimuleringAarligPensjonResultV8']
   type AlderspensjonPensjonsberegning =
     components['schemas']['PersonligSimuleringAlderspensjonResultV8']
+  type pre2025OffentligPensjonsberegning =
+    components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV8']
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
     components['schemas']['PensjonsavtaleSpecV3']

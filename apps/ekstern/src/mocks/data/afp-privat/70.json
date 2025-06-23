@@ -3,41 +3,65 @@
     {
       "alder": 70,
       "beloep": 20000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 1667
     },
     {
       "alder": 71,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 72,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 73,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 74,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 75,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 76,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     },
     {
       "alder": 77,
       "beloep": 80000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
       "maanedligBeloep": 6667
     }
   ]

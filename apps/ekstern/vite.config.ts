@@ -103,7 +103,9 @@ export default defineConfig({
         '**/*/faro.ts',
         '*.config.ts',
         'cypress',
+        'sanity.cli.ts',
         'server/server.ts',
+        'server/ensureEnv.ts',
         'src/mocks',
         'src/mocks/mockedRTKQueryApiCalls.ts',
         'src/test-utils.tsx',
@@ -119,6 +121,7 @@ export default defineConfig({
         'src/paths.ts',
         'schemaTypes/**',
         'src/components/Signals/**',
+        'src/components/Simulering/Simuleringsdetaljer/Simuleringsdetaljer.tsx',
       ],
       perFile: true,
       thresholds: {

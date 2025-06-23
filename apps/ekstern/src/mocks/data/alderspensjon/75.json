@@ -3,7 +3,23 @@
     {
       "alder": 75,
       "beloep": 384120,
-      "pensjonBeholdningFoerUttakBeloep": 2345186
+      "inntektspensjonBeloep": 220194,
+      "garantipensjonBeloep": -12533,
+      "delingstall": 15.88,
+      "pensjonBeholdningFoerUttakBeloep": 4995261,
+      "andelsbroekKap19": 0.3,
+      "andelsbroekKap20": 0.7,
+      "sluttpoengtall": 3.91,
+      "trygdetidKap19": 40,
+      "trygdetidKap20": 40,
+      "poengaarFoer92": 12,
+      "poengaarEtter91": 28,
+      "forholdstall": 1.108,
+      "grunnpensjon": 33581,
+      "tilleggspensjon": 56329,
+      "pensjonstillegg": -10670,
+      "skjermingstillegg": 0,
+      "kapittel19Gjenlevendetillegg": 342
     },
     {
       "alder": 76,
