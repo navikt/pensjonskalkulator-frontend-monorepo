@@ -240,6 +240,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
   epsHarPensjon: boolean | null
   heltUttak: HeltUttak
   gradertUttak?: GradertUttak
+  skalBeregneAfpKap19?: boolean | null
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
@@ -250,6 +251,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
     epsHarInntektOver2G,
     heltUttak,
     gradertUttak,
+    skalBeregneAfpKap19,
   } = args
   return {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -280,14 +282,18 @@ export const generatePensjonsavtalerRequestBody = (args: {
             },
           ]
         : []),
+
       // * Case 2: User has chosen full pension
       ...(!gradertUttak
         ? [
             {
               startAlder: {
-                aar: heltUttak.uttaksalder.aar ?? 0,
-                maaneder:
-                  heltUttak.uttaksalder.maaneder > 0
+                aar: skalBeregneAfpKap19
+                  ? 67
+                  : (heltUttak.uttaksalder.aar ?? 0),
+                maaneder: skalBeregneAfpKap19
+                  ? 0
+                  : heltUttak.uttaksalder.maaneder > 0
                     ? heltUttak.uttaksalder.maaneder
                     : 0,
               },
@@ -321,6 +327,7 @@ export const generateOffentligTpRequestBody = (args: {
   gradertUttak?: GradertUttak
   heltUttak?: HeltUttak
   utenlandsperioder: Utenlandsperiode[]
+  erApoteker?: boolean
 }): OffentligTpRequestBody | undefined => {
   const {
     afp,
@@ -332,6 +339,7 @@ export const generateOffentligTpRequestBody = (args: {
     gradertUttak,
     heltUttak,
     utenlandsperioder,
+    erApoteker,
   } = args
 
   if (!foedselsdato || !heltUttak) {
@@ -366,5 +374,6 @@ export const generateOffentligTpRequestBody = (args: {
     epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
     epsHarPensjon: !!epsHarPensjon,
     brukerBaOmAfp: afp === 'ja_offentlig' || afp === 'ja_privat',
+    erApoteker: erApoteker,
   }
 }

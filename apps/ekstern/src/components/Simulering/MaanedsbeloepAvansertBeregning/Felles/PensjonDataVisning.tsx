@@ -15,12 +15,14 @@ interface Props {
   pensjonsdata: Pensjonsdata
   summerYtelser: (data: Pensjonsdata) => number
   hentUttaksMaanedOgAar: (alder: Alder) => string
+  harGradering?: boolean
 }
 
 export const PensjonDataVisning: React.FC<Props> = ({
   pensjonsdata,
   summerYtelser,
   hentUttaksMaanedOgAar,
+  harGradering,
 }) => {
   const intl = useIntl()
   const {
@@ -33,7 +35,11 @@ export const PensjonDataVisning: React.FC<Props> = ({
   } = pensjonsdata
 
   const harKunAlderspensjon = alderspensjon && !afp && !pensjonsavtale
-  const harAFP = afp || (pre2025OffentligAfp && !alderspensjon)
+  const harAFP = Boolean(afp || (pre2025OffentligAfp && !alderspensjon))
+  const harPre2025OffentligAfpOgPensjonsavtale = Boolean(
+    pre2025OffentligAfp && pensjonsavtale
+  )
+
   const captionTitle = (
     intl.formatMessage({ id: 'beregning.avansert.maanedsbeloep.table_title' }) +
     ' ' +
@@ -49,7 +55,14 @@ export const PensjonDataVisning: React.FC<Props> = ({
       <tbody>
         {harAFP && (
           <tr className={styles.row}>
-            <th scope="row">
+            <th
+              scope="row"
+              className={clsx(
+                styles.monthlyPayoutElement,
+                styles.monthlyPayoutElement__purple,
+                !harGradering && styles.noGradering
+              )}
+            >
               <BodyLong>
                 <FormattedMessage id="beregning.avansert.maanedsbeloep.afp" />:
               </BodyLong>
@@ -64,7 +77,14 @@ export const PensjonDataVisning: React.FC<Props> = ({
 
         {pensjonsavtale > 0 && (
           <tr className={styles.row}>
-            <th scope="row">
+            <th
+              scope="row"
+              className={clsx(
+                styles.monthlyPayoutElement,
+                styles.monthlyPayoutElement__green,
+                !harGradering && styles.noGradering
+              )}
+            >
               <BodyLong>
                 <FormattedMessage id="beregning.avansert.maanedsbeloep.pensjonsavtaler" />
                 :
@@ -78,7 +98,14 @@ export const PensjonDataVisning: React.FC<Props> = ({
 
         {alderspensjon && (
           <tr className={styles.row}>
-            <th scope="row">
+            <th
+              scope="row"
+              className={clsx(
+                styles.monthlyPayoutElement,
+                styles.monthlyPayoutElement__blue,
+                !harGradering && styles.noGradering
+              )}
+            >
               <BodyLong>
                 <FormattedMessage
                   id="beregning.avansert.maanedsbeloep.alderspensjon"
@@ -93,23 +120,27 @@ export const PensjonDataVisning: React.FC<Props> = ({
           </tr>
         )}
 
-        {!harKunAlderspensjon && !pre2025OffentligAfp && (
-          <tr
-            className={clsx(styles.row, styles.sum)}
-            data-testid="maanedsbeloep-avansert-sum"
-          >
-            <th scope="row">
-              <BodyLong>
-                <FormattedMessage
-                  id="beregning.avansert.maanedsbeloep.sum"
-                  values={{ maanedOgAar: hentUttaksMaanedOgAar(alder) }}
-                />
-                :
-              </BodyLong>
-            </th>
-            <td>{formatInntektMedKr(summerYtelser(pensjonsdata))}</td>
-          </tr>
-        )}
+        {!harKunAlderspensjon &&
+          (!pre2025OffentligAfp || harPre2025OffentligAfpOgPensjonsavtale) && (
+            <tr
+              className={clsx(styles.row, styles.sum)}
+              data-testid="maanedsbeloep-avansert-sum"
+            >
+              <th
+                scope="row"
+                className={clsx(!harGradering && styles.noGradering)}
+              >
+                <BodyLong>
+                  <FormattedMessage
+                    id="beregning.avansert.maanedsbeloep.sum"
+                    values={{ maanedOgAar: hentUttaksMaanedOgAar(alder) }}
+                  />
+                  :
+                </BodyLong>
+              </th>
+              <td>{formatInntektMedKr(summerYtelser(pensjonsdata))}</td>
+            </tr>
+          )}
       </tbody>
     </table>
   )

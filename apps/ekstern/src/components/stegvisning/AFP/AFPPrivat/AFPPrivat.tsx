@@ -66,13 +66,16 @@ export function AFPPrivat({
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afpPrivat.title" />
         </Heading>
+
         <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
+
         <SanityReadmore
           id="om_livsvarig_AFP_i_privat_sektor"
           className={styles.readmorePrivat}
         />
+
         <RadioGroup
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afpPrivat.radio_label" />}

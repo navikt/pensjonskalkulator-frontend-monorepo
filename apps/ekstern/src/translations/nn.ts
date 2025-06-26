@@ -44,6 +44,7 @@ export default {
   'error.virker_ikke.ingress': 'MANGLER_TEKST',
   'error.virker_ikke.link': 'MANGLER_TEKST',
   'error.virker_ikke.button': 'MANGLER_TEKST',
+  'error.apoteker_warning': 'MANGELR_TEKST',
   'landingsside.for.deg.som.kan.logge.inn': 'MANGLER_TEKST',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
@@ -476,7 +477,7 @@ export default {
   'grunnlag.afp.endring': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.overgangskull': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.overgangskull.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig.endring': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',

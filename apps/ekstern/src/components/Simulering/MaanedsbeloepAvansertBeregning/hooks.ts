@@ -7,7 +7,10 @@ import {
   selectCurrentSimulation,
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
-import { calculateUttaksalderAsDate } from '@/utils/alder'
+import {
+  UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
+  calculateUttaksalderAsDate,
+} from '@/utils/alder'
 
 import {
   hentSumOffentligTjenestepensjonVedUttak,
@@ -21,6 +24,7 @@ export interface Pensjonsdata {
   pensjonsavtale: number
   alderspensjon: number | undefined
   pre2025OffentligAfp?: number
+  uttaksgrad?: 'helt' | 'gradert'
 }
 
 interface PensjonBeregningerProps {
@@ -71,7 +75,10 @@ export const usePensjonBeregninger = ({
 
   const summerYtelser = (data: Pensjonsdata): number => {
     return (
-      (data.pensjonsavtale || 0) + (data.afp || 0) + (data.alderspensjon || 0)
+      (data.pensjonsavtale || 0) +
+      (data.afp || 0) +
+      (data.alderspensjon || 0) +
+      (data.uttaksgrad === 'gradert' ? data.pre2025OffentligAfp || 0 : 0)
     )
   }
 
@@ -99,6 +106,7 @@ export const usePensjonBeregninger = ({
       alderspensjon:
         alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep,
       pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
+      uttaksgrad: 'gradert',
     })
   }
 
@@ -110,9 +118,19 @@ export const usePensjonBeregninger = ({
         afpVedUttak('offentlig', uttaksalder) ||
         afpVedUttak('privat', uttaksalder),
       pensjonsavtale:
-        sumPensjonsavtaler(uttaksalder) + sumTjenestepensjon(uttaksalder),
+        sumPensjonsavtaler(
+          pre2025OffentligAfp
+            ? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
+            : uttaksalder
+        ) +
+        sumTjenestepensjon(
+          pre2025OffentligAfp
+            ? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
+            : uttaksalder
+        ),
       alderspensjon: alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep,
       pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
+      uttaksgrad: 'helt',
     })
   }
 

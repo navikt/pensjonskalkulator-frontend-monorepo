@@ -195,6 +195,47 @@ describe('StepAFP', () => {
     })
   })
 
+  it('render AFPOvergangskullUtenAP for apotekere født etter 1963', async () => {
+    mockResponse('/v4/person', {
+      status: 200,
+      json: {
+        navn: 'Ola',
+        sivilstand: 'GIFT',
+        foedselsdato: '1967-04-30',
+        pensjoneringAldre: {
+          normertPensjoneringsalder: {
+            aar: 67,
+            maaneder: 0,
+          },
+          nedreAldersgrense: {
+            aar: 62,
+            maaneder: 0,
+          },
+        },
+      },
+    })
+
+    mockResponse('/v2/ekskludert', {
+      status: 200,
+      json: {
+        aarsak: 'ER_APOTEKER',
+        ekskludert: true,
+      },
+    })
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.afp}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByTestId('afp-overganskull')).toBeInTheDocument()
+    })
+  })
+
   it('Når brukeren som er i overgangskullet uten vedtak om alderspensjon velger afp og klikker på Neste, registrerer afp og skalBeregneAfpKap19, og navigerer videre til neste steg', async () => {
     mockResponse('/v4/person', {
       status: 200,

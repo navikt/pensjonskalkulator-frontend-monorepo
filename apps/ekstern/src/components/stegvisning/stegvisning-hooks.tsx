@@ -4,7 +4,10 @@ import { createSearchParams, useNavigate } from 'react-router'
 import { paths } from '@/router/constants'
 import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectFoedselsdato } from '@/state/userInput/selectors'
+import {
+  selectErApoteker,
+  selectFoedselsdato,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { isOvergangskull } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
@@ -18,11 +21,12 @@ export const useStegvisningNavigation = (currentPath: Path) => {
   const dispatch = useAppDispatch()
 
   const foedselsdato = useAppSelector(selectFoedselsdato)
+  const erApoteker = useAppSelector(selectErApoteker)
 
   const { isFetching, data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   const isEndring = loependeVedtak && isLoependeVedtakEndring(loependeVedtak)
-  const isKap19 = foedselsdato && isOvergangskull(foedselsdato)
+  const isKap19 = (foedselsdato && isOvergangskull(foedselsdato)) || erApoteker
 
   const stepArrays = getStepArrays(isEndring, isKap19)
 

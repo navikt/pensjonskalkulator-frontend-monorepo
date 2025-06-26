@@ -4,7 +4,6 @@ import { setupStore } from '@/state/store'
 import { swallowErrorsAsync } from '@/test-utils'
 
 import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
-import ekskludertStatusResponse from '../../../mocks/data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from '../../../mocks/data/loepende-vedtak.json' with { type: 'json' }
 import offentligTpResponse from '../../../mocks/data/offentlig-tp.json' with { type: 'json' }
@@ -99,14 +98,14 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getEkskludertStatus', () => {
+  describe('getErApoteker', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+        .dispatch(apiSlice.endpoints.getErApoteker.initiate())
         .then((result) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(ekskludertStatusResponse)
+          expect(result.data).toBe(false)
         })
     })
 
@@ -120,7 +119,7 @@ describe('apiSlice', () => {
       })
       await swallowErrorsAsync(async () => {
         return storeRef
-          .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+          .dispatch(apiSlice.endpoints.getErApoteker.initiate())
           .then((result) => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)

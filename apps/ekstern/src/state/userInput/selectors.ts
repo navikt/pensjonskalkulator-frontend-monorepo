@@ -44,12 +44,18 @@ export const selectSkalBeregneAfpKap19 = (state: RootState): boolean | null =>
 const selectPersonResponse = apiSlice.endpoints.getPerson.select()
 const selectGrunnbeloepResponse = apiSlice.endpoints.getGrunnbeloep.select()
 const selectInntektResponse = apiSlice.endpoints.getInntekt.select()
+const selectErApotekerResponse = apiSlice.endpoints.getErApoteker.select()
 const selectLoependeVedtakResponse =
   apiSlice.endpoints.getLoependeVedtak.select()
 
 export const selectFoedselsdato = createSelector(
   selectPersonResponse,
   (personResponse) => personResponse.data?.foedselsdato
+)
+
+export const selectErApoteker = createSelector(
+  selectErApotekerResponse,
+  (erApotekerResponse) => erApotekerResponse.data
 )
 
 export const selectGrunnbeloep = createSelector(

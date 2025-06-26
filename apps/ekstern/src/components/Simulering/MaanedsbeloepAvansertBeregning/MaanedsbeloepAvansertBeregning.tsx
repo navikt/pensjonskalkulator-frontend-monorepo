@@ -41,6 +41,7 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
           pensjonsdata={pensjonsdata}
           summerYtelser={summerYtelser}
           hentUttaksmaanedOgAar={hentUttaksmaanedOgAar}
+          harGradering={harGradering}
         />
       </div>
 

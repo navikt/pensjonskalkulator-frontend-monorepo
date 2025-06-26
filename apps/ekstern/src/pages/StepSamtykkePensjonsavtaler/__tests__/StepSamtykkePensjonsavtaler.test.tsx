@@ -1,18 +1,20 @@
+import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetPerson,
   fulfilledPensjonsavtaler,
   fulfilledsimulerOffentligTp,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { paths } from '@/router/constants'
+import { BASE_PATH, paths } from '@/router/constants'
+import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
+import { apiSlice } from '@/state/api/apiSlice'
+import { store } from '@/state/store'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent } from '@/test-utils'
-
-import { StepSamtykkePensjonsavtaler } from '..'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
@@ -24,28 +26,67 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('StepSamtykkePensjonsavtaler', () => {
+  beforeEach(() => {
+    store.getState = vi.fn().mockImplementation(() => ({
+      api: {
+        queries: {
+          ...fulfilledGetPerson,
+        },
+      },
+      userInput: {
+        ...userInputReducerUtils.userInputInitialState,
+        samtykke: true,
+      },
+    }))
+  })
+
+  afterEach(() => {
+    store.dispatch(apiSlice.util.resetApiState())
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+    vi.resetModules()
+  })
+
   it('har riktig sidetittel', async () => {
-    render(<StepSamtykkePensjonsavtaler />)
-    expect(document.title).toBe('application.title.stegvisning.samtykke')
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+    })
+
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: { mock: 'mock' },
+        },
+      },
+    })
+    await waitFor(async () => {
+      expect(document.title).toBe('application.title.stegvisning.samtykke')
+    })
   })
 
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
 
-      const { store } = render(<StepSamtykkePensjonsavtaler />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
-        },
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
       })
-      const radioButtons = screen.getAllByRole('radio')
 
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
+
+      const radioButtons = screen.getAllByRole('radio')
+      expect(radioButtons).toHaveLength(2)
       await user.click(radioButtons[0])
       await user.click(screen.getByText('stegvisning.neste'))
 
@@ -62,8 +103,13 @@ describe('StepSamtykkePensjonsavtaler', () => {
       )
 
       const user = userEvent.setup()
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+      })
 
-      const { store } = render(<StepSamtykkePensjonsavtaler />, {
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
         preloadedState: {
           api: {
             // @ts-ignore
@@ -80,29 +126,52 @@ describe('StepSamtykkePensjonsavtaler', () => {
           },
         },
       })
-      expect(Object.keys(store.getState().api.queries).length).toEqual(4)
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
 
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[1])
       await user.click(screen.getByText('stegvisning.neste'))
 
-      expect(store.getState().userInput.samtykke).toBe(false)
-      expect(invalidateMock).toHaveBeenCalledTimes(3)
-
+      expect(invalidateMock).toHaveBeenCalledWith({
+        payload: ['OffentligTp', 'Pensjonsavtaler'],
+        type: 'api/invalidateTags',
+      })
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
-
-    render(<StepSamtykkePensjonsavtaler />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, afp: 'nei' },
-      },
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.samtykke}`],
     })
 
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+      preloadedState: {
+        api: {
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetPerson,
+          },
+        },
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+        },
+      },
+    })
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.samtykke_pensjonsavtaler.title'
+      )
+    })
     await user.click(screen.getByText('stegvisning.tilbake'))
     expect(navigateMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -113,22 +182,35 @@ describe('StepSamtykkePensjonsavtaler', () => {
 
   describe('Gitt at brukeren er logget på som veileder', async () => {
     it('vises ikke Avbryt knapp', async () => {
-      render(<StepSamtykkePensjonsavtaler />, {
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+      })
+
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
         preloadedState: {
           api: {
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
             ...userInputInitialState,
+            samtykke: true,
             veilederBorgerFnr: '81549300',
           },
         },
       })
-      expect(await screen.findAllByRole('button')).toHaveLength(4)
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
+      expect(await screen.findByText('stegvisning.neste')).toBeVisible()
+      expect(await screen.findByText('stegvisning.tilbake')).toBeVisible()
+      expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
     })
   })
 })

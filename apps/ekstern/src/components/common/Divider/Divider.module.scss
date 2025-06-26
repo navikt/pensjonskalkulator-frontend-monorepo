@@ -8,11 +8,19 @@
     margin: var(--a-spacing-4) 0;
   }
 
+  &__mediumMargin {
+    margin: var(--a-spacing-6) 0;
+  }
+
   &__noMargin {
     margin: 0;
   }
 
   &__noMarginBottom {
     margin-bottom: 0;
+  }
+
+  &__noMarginTop {
+    margin-top: 0;
   }
 }

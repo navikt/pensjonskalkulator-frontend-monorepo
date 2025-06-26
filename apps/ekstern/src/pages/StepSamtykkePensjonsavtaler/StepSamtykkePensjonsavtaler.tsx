@@ -1,9 +1,11 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
+import { useLoaderData } from 'react-router'
 
 import { SamtykkePensjonsavtaler } from '@/components/stegvisning/SamtykkePensjonsavtaler'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
+import { stepSamtykkePensjonsavtaler } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectIsVeileder, selectSamtykke } from '@/state/userInput/selectors'
@@ -14,6 +16,9 @@ export function StepSamtykkePensjonsavtaler() {
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const isVeileder = useAppSelector(selectIsVeileder)
+
+  const { erApoteker, isKap19 } =
+    useLoaderData<typeof stepSamtykkePensjonsavtaler>()
 
   const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
     useStegvisningNavigation(paths.samtykke)
@@ -41,6 +46,8 @@ export function StepSamtykkePensjonsavtaler() {
       onCancel={isVeileder ? undefined : onStegvisningCancel}
       onPrevious={onStegvisningPrevious}
       onNext={onNext}
+      erApoteker={erApoteker}
+      isKap19={isKap19}
     />
   )
 }

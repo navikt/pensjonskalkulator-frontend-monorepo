@@ -51,6 +51,7 @@ export default {
   'error.virker_ikke.ingress': 'MANGLER_TEKST',
   'error.virker_ikke.link': 'MANGLER_TEKST',
   'error.virker_ikke.button': 'MANGLER_TEKST',
+  'error.apoteker_warning': 'MANGELR_TEKST',
   'landingsside.for.deg.som.kan.logge.inn': 'MANGLER_TEKST',
   'landingsside.for.deg.foedt.foer.1963': 'For those born before 1963',
   'landingsside.du.maa.bruke.detaljert':
@@ -553,7 +554,7 @@ export default {
   'grunnlag.afp.endring': 'Unchanged',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.overgangskull': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.overgangskull.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig':
     'You have indicated AFP in the public sector. Nav has not assessed whether you meet the conditions for AFP, but assumes that you do. For more information on the conditions, check with your occupational pension scheme.',
   'grunnlag.afp.ingress.ja_offentlig.endring':

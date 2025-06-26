@@ -33,3 +33,4 @@ vite.config.ts.*
 *.sw?
 .qodo
 .fleet
+.zed

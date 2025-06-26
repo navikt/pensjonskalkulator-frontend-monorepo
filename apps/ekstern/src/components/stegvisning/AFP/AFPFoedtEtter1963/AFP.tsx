@@ -76,6 +76,7 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
+
         <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
@@ -89,6 +90,7 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
           id="om_livsvarig_AFP_i_privat_sektor"
           className={styles.readmorePrivat}
         />
+
         <AFPRadioGroup
           afp={previousAfp}
           handleRadioChange={handleRadioChange}

@@ -30,6 +30,37 @@ describe('PensjonDataVisning', () => {
     expect(screen.getByText('35 000 kr')).toBeInTheDocument()
   })
 
+  it('setter ikke class "noGradering" når "harGradering" er true', () => {
+    render(
+      <PensjonDataVisning
+        pensjonsdata={mockPensjonsdata}
+        summerYtelser={mockSummerYtelser}
+        hentUttaksMaanedOgAar={mockHentUttaksmaanedOgAar}
+        harGradering={true}
+      />
+    )
+    expect(
+      screen
+        .queryAllByRole('rowheader')
+        .some((th) => th.className.includes('noGradering'))
+    ).toBe(false)
+  })
+
+  it('setter class "noGradering" når "harGradering" er undefined', () => {
+    render(
+      <PensjonDataVisning
+        pensjonsdata={mockPensjonsdata}
+        summerYtelser={mockSummerYtelser}
+        hentUttaksMaanedOgAar={mockHentUttaksmaanedOgAar}
+      />
+    )
+    expect(
+      screen
+        .getAllByRole('rowheader')
+        .every((th) => th.className.includes('noGradering'))
+    ).toBe(true)
+  })
+
   it('viser ikke AFP når den ikke er tilstede', () => {
     render(
       <PensjonDataVisning

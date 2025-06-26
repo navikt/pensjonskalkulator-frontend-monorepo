@@ -40,12 +40,7 @@ export const PensjonVisningMobil: React.FC<Props> = ({
   }
 
   return (
-    <Box
-      marginBlock="2 0"
-      borderRadius="medium"
-      padding="3"
-      background="bg-subtle"
-    >
+    <Box marginBlock="2 0" borderRadius="medium">
       <VStack gap="2">
         {pensjonsdata.map((data, index) => {
           const isKapittel20AP =

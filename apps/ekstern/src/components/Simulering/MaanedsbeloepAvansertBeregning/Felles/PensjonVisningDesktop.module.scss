@@ -1,0 +1,11 @@
+@use '../../../../scss/variables';
+
+.dividerWrapper {
+  display: none;
+}
+
+@media screen and (min-width: variables.$a-breakpoint-lg) {
+  .dividerWrapper {
+    display: block;
+  }
+}

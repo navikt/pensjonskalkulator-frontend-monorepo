@@ -6,6 +6,7 @@ import {
   selectAfp,
   selectAfpUtregningValg,
   selectCurrentSimulation,
+  selectErApoteker,
   selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
@@ -29,6 +30,7 @@ export const useFormatertAfpHeader = () => {
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const isEndring = useAppSelector(selectIsEndring)
+  const erApoteker = useAppSelector(selectErApoteker)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const { beregningsvalg } = useAppSelector(selectCurrentSimulation)
@@ -48,7 +50,7 @@ export const useFormatertAfpHeader = () => {
       loependeVedtak &&
       loependeVedtak.pre2025OffentligAfp &&
       foedselsdato &&
-      isFoedtFoer1963(foedselsdato)
+      (isFoedtFoer1963(foedselsdato) || erApoteker)
     ) {
       return formatAfp(intl, 'ja_offentlig')
     }
@@ -71,7 +73,9 @@ export const useFormatertAfpHeader = () => {
 
     if (
       ufoeregrad === 100 ||
-      (ufoeregrad > 0 && foedselsdato && isFoedtFoer1963(foedselsdato)) ||
+      ((ufoeregrad > 0 || isEndring) &&
+        foedselsdato &&
+        (isFoedtFoer1963(foedselsdato) || erApoteker)) ||
       (ufoeregrad > 0 &&
         foedselsdato &&
         !isFoedtFoer1963(foedselsdato) &&

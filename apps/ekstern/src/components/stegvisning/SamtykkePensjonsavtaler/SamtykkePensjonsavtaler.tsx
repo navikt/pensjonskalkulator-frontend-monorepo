@@ -19,6 +19,8 @@ interface Props {
   onCancel?: () => void
   onPrevious: () => void
   onNext: (samtykkeData: BooleanRadio) => void
+  erApoteker: boolean
+  isKap19: boolean
 }
 
 export function SamtykkePensjonsavtaler({
@@ -26,8 +28,11 @@ export function SamtykkePensjonsavtaler({
   onCancel,
   onPrevious,
   onNext,
+  erApoteker,
+  isKap19,
 }: Props) {
   const intl = useIntl()
+
   const [validationError, setValidationError] = useState<string>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -76,14 +81,32 @@ export function SamtykkePensjonsavtaler({
             values={getFormatMessageValues()}
           />
         </BodyLong>
-        <SanityReadmore
-          id="dette_henter_vi_OFTP"
-          className={styles.readmoreOffentlig}
-        />
-        <SanityReadmore
-          id="dette_henter_vi_NP"
-          className={styles.readmorePrivat}
-        />
+
+        {isKap19 || erApoteker ? (
+          <>
+            <SanityReadmore
+              id="dette_henter_vi_NP"
+              className={styles.readmoreOffentlig}
+            />
+            <SanityReadmore
+              id="dette_sjekker_vi_OFTP"
+              data-testid="dette_sjekker_vi_OFTP"
+              className={styles.readmorePrivat}
+            />
+          </>
+        ) : (
+          <>
+            <SanityReadmore
+              id="dette_henter_vi_OFTP"
+              data-testid="dette_henter_vi_OFTP"
+              className={styles.readmoreOffentlig}
+            />
+            <SanityReadmore
+              id="dette_henter_vi_NP"
+              className={styles.readmorePrivat}
+            />
+          </>
+        )}
 
         <RadioGroup
           className={styles.radiogroup}

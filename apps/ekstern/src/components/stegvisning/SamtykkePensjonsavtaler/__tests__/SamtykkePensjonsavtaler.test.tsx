@@ -16,6 +16,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
       />
     )
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -37,6 +39,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
           onNext={onNextMock}
+          erApoteker={false}
+          isKap19={false}
         />
       )
       const radioButtons = screen.getAllByRole('radio')
@@ -54,6 +58,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
           onNext={onNextMock}
+          erApoteker={false}
+          isKap19={false}
         />
       )
       const radioButtons = screen.getAllByRole('radio')
@@ -73,6 +79,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
       />
     )
     const radioButtons = screen.getAllByRole('radio')
@@ -105,6 +113,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
       />,
       {
         preloadedState: { userInput: { samtykke: true } } as RootState,
@@ -124,6 +134,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
       />
     )
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
@@ -138,8 +150,65 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onCancel={undefined}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
       />
     )
     expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
+  })
+
+  it('viser "dette_henter_vi_OFTP" hvis person ikke er apoteker eller kap19', () => {
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={false}
+        isKap19={false}
+      />
+    )
+    expect(screen.getByTestId('dette_henter_vi_OFTP')).toBeInTheDocument()
+  })
+  it('viser "dette_sjekker_vi_OFTP" er kap19', () => {
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={false}
+        isKap19={true}
+      />
+    )
+    expect(screen.getByTestId('dette_sjekker_vi_OFTP')).toBeInTheDocument()
+  })
+
+  it('viser "dette_sjekker_vi_OFTP" er apoteker og ikke kap19', () => {
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={true}
+        isKap19={false}
+      />
+    )
+    expect(screen.getByTestId('dette_sjekker_vi_OFTP')).toBeInTheDocument()
+  })
+
+  it('viser "dette_sjekker_vi_OFTP" er apoteker og kap19', () => {
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={true}
+        isKap19={true}
+      />
+    )
+    expect(screen.getByTestId('dette_sjekker_vi_OFTP')).toBeInTheDocument()
   })
 })

@@ -117,9 +117,11 @@ export function AFPOvergangskullUtenAP({
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
+
         <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
+
         <ReadMore
           name="Avtalefestet pensjon i offentlig sektor"
           className={styles.readmoreOffentlig}
@@ -141,16 +143,19 @@ export function AFPOvergangskullUtenAP({
           </ul>
           <FormattedMessage id="stegvisning.afpOvergangskull.readmore_offentlig_ingress" />
         </ReadMore>
+
         <SanityReadmore
           id="om_livsvarig_AFP_i_privat_sektor"
           className={styles.readmorePrivat}
         />
+
         <AFPRadioGroup
           afp={previousAfp}
           handleRadioChange={handleRadioChange}
           validationError={validationError.afp}
           showVetIkkeAlert={showVetIkkeAlert}
         />
+
         {jaAFPOffentlig && (
           <RadioGroup
             className={styles.radiogroup}

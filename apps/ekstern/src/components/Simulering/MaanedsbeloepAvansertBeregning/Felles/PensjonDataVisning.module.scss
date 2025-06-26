@@ -1,14 +1,19 @@
 @use '../../../../scss/variables';
 
 .container {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
+
+  @media screen and (min-width: variables.$a-breakpoint-sm) {
+    border-spacing: 0 var(--a-spacing-2);
+  }
 }
 
 .row {
   th,
   td {
-    padding: 0;
+    padding: 0 0 0 var(--a-spacing-3);
     text-align: left;
     font-size: var(--a-font-size-large);
   }
@@ -18,6 +23,10 @@
     td {
       font-size: var(--a-font-size-medium);
     }
+
+    th.noGradering {
+      padding: 0;
+    }
   }
 
   td {
@@ -26,10 +35,33 @@
   }
 }
 
+@media screen and (min-width: variables.$a-breakpoint-sm) {
+  .monthlyPayoutElement {
+    box-sizing: border-box;
+    border-left: var(--a-spacing-1-alt) solid transparent;
+
+    &__blue {
+      border-color: var(--a-deepblue-500);
+    }
+
+    &__purple {
+      border-color: var(--a-purple-400);
+    }
+
+    &__green {
+      border-color: var(--a-data-surface-5);
+    }
+  }
+}
+
 .sum {
   font-weight: var(--a-font-weight-bold);
 
   * {
     font-weight: var(--a-font-weight-bold);
+  }
+
+  th {
+    padding: 0;
   }
 }

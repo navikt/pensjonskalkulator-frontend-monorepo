@@ -11,6 +11,7 @@ import {
   selectAfp,
   selectAfpUtregningValg,
   selectCurrentSimulation,
+  selectErApoteker,
   selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
@@ -31,6 +32,7 @@ import { useFormatertAfpHeader } from './hooks'
 export const GrunnlagAFP: React.FC = () => {
   const afp = useAppSelector(selectAfp) ?? 'vet_ikke' // Vi har fallback for å unngå "missing translation" error ved flush() i GoToStart
   const afpUtregningValg = useAppSelector(selectAfpUtregningValg)
+  const erApoteker = useAppSelector(selectErApoteker)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const isEndring = useAppSelector(selectIsEndring)
@@ -56,7 +58,7 @@ export const GrunnlagAFP: React.FC = () => {
       loependeVedtak &&
       loependeVedtak.pre2025OffentligAfp &&
       foedselsdato &&
-      isFoedtFoer1963(foedselsdato)
+      (isFoedtFoer1963(foedselsdato) || erApoteker)
     ) {
       return 'grunnlag.afp.ingress.overgangskull'
     }
@@ -78,8 +80,12 @@ export const GrunnlagAFP: React.FC = () => {
       return 'grunnlag.afp.ingress.ufoeretrygd'
     }
 
-    if (ufoeregrad > 0 && foedselsdato && isFoedtFoer1963(foedselsdato)) {
-      return 'grunnlag.afp.ingress.overgangskull.ufoeretrygd'
+    if (
+      (ufoeregrad > 0 || isEndring) &&
+      foedselsdato &&
+      (isFoedtFoer1963(foedselsdato) || erApoteker)
+    ) {
+      return 'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap'
     }
 
     if (afp === 'nei') {

@@ -155,6 +155,35 @@ describe('TidligstMuligUttaksalder', () => {
       ).not.toBeInTheDocument()
     })
 
+    it('når brukeren har loependeVedtakPre2025OffentligAfp vises riktig ingress.', async () => {
+      render(
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
+          ufoeregrad={0}
+          show1963Text={false}
+          loependeVedtakPre2025OffentligAfp={true}
+        />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+      expect(
+        await screen.findByTestId(
+          'tidligstmuliguttak.pre2025OffentligAfp.ingress'
+        )
+      ).toBeInTheDocument()
+    })
+
     it('når brukeren er over 75 år, vises riktig ingress.', async () => {
       render(
         <TidligstMuligUttaksalder

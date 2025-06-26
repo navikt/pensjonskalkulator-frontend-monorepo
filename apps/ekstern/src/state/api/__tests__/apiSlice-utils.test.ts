@@ -808,6 +808,7 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
+          skalBeregneAfpKap19: false,
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -828,28 +829,33 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
+          skalBeregneAfpKap19: false,
         })?.epsHarPensjon
       ).toBeFalsy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
           epsHarPensjon: true,
+          skalBeregneAfpKap19: false,
         })?.epsHarPensjon
       ).toBeTruthy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
+          skalBeregneAfpKap19: false,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
+          skalBeregneAfpKap19: false,
         })?.epsHarInntektOver2G
       ).toBeFalsy()
       expect(
         generatePensjonsavtalerRequestBody({
           ...requestBody,
           epsHarInntektOver2G: true,
+          skalBeregneAfpKap19: false,
         })?.epsHarInntektOver2G
       ).toBeTruthy()
     })
@@ -859,6 +865,7 @@ describe('apiSlice - utils', () => {
           ...requestBody,
           ufoeregrad: 50,
           afp: 'ja_privat',
+          skalBeregneAfpKap19: false,
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -884,10 +891,11 @@ describe('apiSlice - utils', () => {
           heltUttak: {
             uttaksalder: { aar: 62, maaneder: 4 },
             aarligInntektVsaPensjon: {
-              beloep: '99 000',
+              beloep: '99 000',
               sluttAlder: { aar: 75, maaneder: 0 },
             },
           },
+          skalBeregneAfpKap19: false,
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -916,15 +924,16 @@ describe('apiSlice - utils', () => {
           heltUttak: {
             uttaksalder: { aar: 67, maaneder: 0 },
             aarligInntektVsaPensjon: {
-              beloep: '99 000',
+              beloep: '99 000',
               sluttAlder: { aar: 75, maaneder: 0 },
             },
           },
           gradertUttak: {
             uttaksalder: { aar: 62, maaneder: 4 },
             grad: 20,
-            aarligInntektVsaPensjonBeloep: '123 000',
+            aarligInntektVsaPensjonBeloep: '123 000',
           },
+          skalBeregneAfpKap19: false,
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -942,6 +951,39 @@ describe('apiSlice - utils', () => {
             },
           },
           // * Vi sender ikke inn heltUttak når brukeren har valgt gradert uttak
+        ],
+      })
+    })
+    it('returnerer riktig requestBody når skalBeregneAfpKap19 er true', () => {
+      expect(
+        generatePensjonsavtalerRequestBody({
+          ...requestBody,
+          afp: 'ja_privat',
+          sivilstand: 'GIFT',
+          heltUttak: {
+            uttaksalder: { aar: 62, maaneder: 4 },
+            aarligInntektVsaPensjon: {
+              beloep: '99 000',
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
+          },
+          skalBeregneAfpKap19: true,
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        harAfp: true,
+        epsHarPensjon: false,
+        epsHarInntektOver2G: false,
+        sivilstand: 'GIFT',
+        uttaksperioder: [
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            grad: 100,
+            aarligInntektVsaPensjon: {
+              beloep: 99000,
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
+          },
         ],
       })
     })

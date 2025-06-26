@@ -23,7 +23,8 @@ import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 export function StepAFP() {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const { person, loependeVedtak } = useLoaderData<typeof stepAFPAccessGuard>()
+  const { person, loependeVedtak, erApoteker } =
+    useLoaderData<typeof stepAFPAccessGuard>()
   const previousAfp = useAppSelector(selectAfp)
   const previousAfpUtregningValg = useAppSelector(selectAfpUtregningValg)
   const isVeileder = useAppSelector(selectIsVeileder)
@@ -64,7 +65,7 @@ export function StepAFP() {
   }
 
   if (
-    isOvergangskull(person.foedselsdato) &&
+    (isOvergangskull(person.foedselsdato) || erApoteker) &&
     !isLoependeVedtakEndring(loependeVedtak)
   ) {
     return (

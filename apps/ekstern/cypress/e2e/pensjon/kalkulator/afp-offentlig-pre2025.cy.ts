@@ -53,6 +53,8 @@ describe('AFP offentlig etterfulgt av AP', () => {
         cy.contains('button', 'Neste').click() // -> Sivilstand
         cy.get('[type="radio"]').last().check()
         cy.contains('button', 'Neste').click() // -> Opphold utenfor Norge
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click() // -> Samtykke Pensjonsavtaler
       })
       it('forventer jeg å komme til beregningsside', () => {
         cy.location('href').should('include', '/pensjon/kalkulator/beregning')
