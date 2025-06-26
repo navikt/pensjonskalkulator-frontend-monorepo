@@ -213,15 +213,17 @@ export const Grunnlag: React.FC<Props> = ({
                       ...getFormatMessageValues(),
                     }}
                   />
-                  {pensjonsbeholdning && pensjonsbeholdning >= 0 && (
-                    <FormattedMessage
-                      id="grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning"
-                      values={{
-                        ...getFormatMessageValues(),
-                        sum: formatInntekt(pensjonsbeholdning),
-                      }}
-                    />
-                  )}
+                  {loependeVedtak.alderspensjon &&
+                    pensjonsbeholdning &&
+                    pensjonsbeholdning >= 0 && (
+                      <FormattedMessage
+                        id="grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning"
+                        values={{
+                          ...getFormatMessageValues(),
+                          sum: formatInntekt(pensjonsbeholdning),
+                        }}
+                      />
+                    )}
                 </>
               ) : (
                 <FormattedMessage

@@ -210,13 +210,25 @@ export function useBeregningsdetaljer(
         return []
       }
 
-      const afpIndices: number[] = [0]
+      const afpIndices: number[] = []
       const currentAge =
         gradertUttaksperiode?.uttaksalder?.aar ?? uttaksalder!.aar
 
+      // Find index for current age
+      const currentAgeIndex = afpPrivatListe.findIndex(
+        (afp) => afp.alder === currentAge
+      )
+      if (currentAgeIndex !== -1) {
+        afpIndices.push(currentAgeIndex)
+      } else {
+        // If no exact age match, fallback to first element (usually the earliest available age)
+        afpIndices.push(0)
+      }
+
+      // If current age is less than 67, also include age 67 data
       if (currentAge < 67) {
         const afp67Index = afpPrivatListe.findIndex((afp) => afp.alder === 67)
-        if (afp67Index !== -1 && afp67Index !== 0) {
+        if (afp67Index !== -1 && !afpIndices.includes(afp67Index)) {
           afpIndices.push(afp67Index)
         }
       }
