@@ -69,14 +69,14 @@ describe('Gitt at AfpDetaljer rendres', () => {
     { tekst: 'Kompensasjonstillegg', verdi: '8 000 kr' },
     { tekst: 'Kronetillegg', verdi: '5 000 kr' },
     { tekst: 'Livsvarig del', verdi: '2 000 kr' },
-    { tekst: 'Sum månedlig AFP', verdi: '15 000 kr' },
+    { tekst: 'Sum AFP', verdi: '15 000 kr' },
   ]
 
   const mockAfpPrivatAt67Data: DetaljRad[] = [
     { tekst: 'Kompensasjonstillegg', verdi: '9 000 kr' },
     { tekst: 'Kronetillegg', verdi: '6 000 kr' },
     { tekst: 'Livsvarig del', verdi: '3 000 kr' },
-    { tekst: 'Sum månedlig AFP', verdi: '18 000 kr' },
+    { tekst: 'Sum AFP', verdi: '18 000 kr' },
   ]
 
   const mockPre2025OffentligAfpData: DetaljRad[] = [
@@ -117,7 +117,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     expect(screen.getByText('6 000 kr')).toBeVisible()
     expect(screen.getByText('Livsvarig del:')).toBeVisible()
     expect(screen.getByText('3 000 kr')).toBeVisible()
-    expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+    expect(screen.getByText('Sum AFP:')).toBeVisible()
     expect(screen.getByText('18 000 kr')).toBeVisible()
   })
 
@@ -140,7 +140,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     expect(screen.getAllByText('Kompensasjonstillegg:')).toHaveLength(2)
     expect(screen.getAllByText('Kronetillegg:')).toHaveLength(2)
     expect(screen.getAllByText('Livsvarig del:')).toHaveLength(2)
-    expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+    expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
 
     // Sjekker unike verdier for å verifisere at begge seksjoner er tilstede
     expect(screen.getByText('8 000 kr')).toBeVisible() // Kompensasjonstillegg ved uttaksalder
@@ -151,7 +151,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     expect(screen.getByText('9 000 kr')).toBeVisible() // Kompensasjonstillegg ved 67
     expect(screen.getByText('6 000 kr')).toBeVisible() // Kronetillegg ved 67
     expect(screen.getByText('3 000 kr')).toBeVisible() // Livsvarig del ved 67
-    expect(screen.getByText('18 000 kr')).toBeVisible() // Sum månedlig AFP ved 67
+    expect(screen.getByText('18 000 kr')).toBeVisible() // Sum AFP ved 67
   })
 
   it('rendrer ikke AFP privat ved uttaksalder når uttaksalder er 67 eller høyere', () => {
@@ -174,7 +174,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     expect(screen.queryByText('15 000 kr')).not.toBeInTheDocument()
 
     // Men skal vise AFP ved 67
-    expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+    expect(screen.getByText('Sum AFP:')).toBeVisible()
     expect(screen.getByText('18 000 kr')).toBeVisible()
   })
 
@@ -205,7 +205,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
     // AFP privat
     expect(screen.getByText('Kompensasjonstillegg:')).toBeVisible()
-    expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+    expect(screen.getByText('Sum AFP:')).toBeVisible()
 
     // Pre-2025 offentlig AFP
     expect(screen.getByText('AFP grad:')).toBeVisible()
@@ -256,7 +256,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       stateWith62
     )
 
-    const headings = screen.getAllByRole('heading', { level: 3 })
+    const headings = screen.getAllByRole('heading', { level: 4 })
     expect(headings).toHaveLength(2) // En for AFP ved uttaksalder og en for AFP ved 67
   })
 
@@ -285,7 +285,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     )
 
     // Skal vise begge seksjoner siden uttaksalder er under 67
-    expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+    expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     expect(screen.getByText('15 000 kr')).toBeVisible() // Ved uttaksalder
     expect(screen.getByText('18 000 kr')).toBeVisible() // Ved 67
   })
@@ -322,7 +322,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     )
 
     // Skal bare vise AFP ved 67 (siden det kun er ett element)
-    expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+    expect(screen.getByText('Sum AFP:')).toBeVisible()
     expect(screen.getByText('18 000 kr')).toBeVisible()
     expect(screen.queryByText('15 000 kr')).not.toBeInTheDocument() // Ikke uttaksalder data
   })
@@ -348,7 +348,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner siden gradertUttak alder (62) er under 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
       expect(screen.getByText('15 000 kr')).toBeVisible() // Ved gradert uttaksalder
       expect(screen.getByText('18 000 kr')).toBeVisible() // Ved 67
     })
@@ -397,7 +397,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Begge seksjoner skal vises siden gradert alder (63) er under 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('viser 67 år i "heltUttak" heading når gradertUttaksperiode alder er under 67', () => {
@@ -420,7 +420,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('viser gradertUttaksperiode alder i "heltUttak" heading når den er 67 eller høyere', () => {
@@ -443,7 +443,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal bare vise AFP ved 67 seksjonen (siden gradert alder er over 67)
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
       expect(screen.getByText('18 000 kr')).toBeVisible() // Bare ved 67
     })
 
@@ -467,7 +467,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner siden gradert alder (64) er under 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('fallback til uttaksalder når gradertUttaksperiode mangler uttaksalder', () => {
@@ -489,7 +489,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal falle tilbake til uttaksalder (65) og vise begge seksjoner
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
   })
 
@@ -549,7 +549,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
       // AFP privat
       expect(screen.getByText('Kompensasjonstillegg:')).toBeVisible()
-      expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+      expect(screen.getByText('Sum AFP:')).toBeVisible()
 
       // AFP offentlig
       expect(
@@ -581,13 +581,13 @@ describe('Gitt at AfpDetaljer rendres', () => {
     it('håndterer tom afpPrivatDetaljerListe array', () => {
       renderWithProviders(<AfpDetaljer afpPrivatDetaljerListe={[]} />)
 
-      expect(screen.queryByText('Sum månedlig AFP:')).not.toBeInTheDocument()
+      expect(screen.queryByText('Sum AFP:')).not.toBeInTheDocument()
     })
 
     it('håndterer afpPrivatDetaljerListe med kun ett tomt array', () => {
       renderWithProviders(<AfpDetaljer afpPrivatDetaljerListe={[[]]} />)
 
-      expect(screen.queryByText('Sum månedlig AFP:')).not.toBeInTheDocument()
+      expect(screen.queryByText('Sum AFP:')).not.toBeInTheDocument()
     })
 
     it('håndterer afpPrivatDetaljerListe med to tomme arrays', () => {
@@ -595,7 +595,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
       // Skal ikke vise AFP ved uttaksalder (tom array)
       // Men skal vise AFP ved 67 (tom array blir ikke vist)
-      expect(screen.queryByText('Sum månedlig AFP:')).not.toBeInTheDocument()
+      expect(screen.queryByText('Sum AFP:')).not.toBeInTheDocument()
     })
 
     it('rendrer kun første array når afpPrivatDetaljerListe har ett element og uttaksalder under 67', () => {
@@ -611,7 +611,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal bare vise AFP ved 67 (siden det kun er ett element i array)
-      expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+      expect(screen.getByText('Sum AFP:')).toBeVisible()
       expect(screen.getByText('15 000 kr')).toBeVisible()
     })
 
@@ -631,7 +631,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('håndterer undefined uttaksalder', () => {
@@ -650,7 +650,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder (currentAge er undefined)
-      expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+      expect(screen.getByText('Sum AFP:')).toBeVisible()
       expect(screen.getByText('18 000 kr')).toBeVisible() // Kun AFP ved 67
       expect(screen.queryByText('15 000 kr')).not.toBeInTheDocument()
     })
@@ -671,7 +671,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder (currentAge er undefined)
-      expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+      expect(screen.getByText('Sum AFP:')).toBeVisible()
       expect(screen.getByText('18 000 kr')).toBeVisible() // Kun AFP ved 67
       expect(screen.queryByText('15 000 kr')).not.toBeInTheDocument()
     })
@@ -742,7 +742,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
         stateWith64
       )
 
-      const headings = screen.getAllByRole('heading', { level: 3 })
+      const headings = screen.getAllByRole('heading', { level: 4 })
       expect(headings).toHaveLength(2) // To headings for AFP privat seksjoner
     })
   })
@@ -764,7 +764,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Test at begge seksjoner vises
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('sender riktige verdier til FormattedMessage for heltUttak tittel når alder er over 67', () => {
@@ -783,7 +783,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal bare vise AFP ved 67/heltUttak siden uttaksalder er over 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
       expect(screen.getByText('18 000 kr')).toBeVisible()
       expect(screen.queryByText('15 000 kr')).not.toBeInTheDocument()
     })
@@ -872,7 +872,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
       // AFP privat
       expect(screen.getByText('Kompensasjonstillegg:')).toBeVisible()
-      expect(screen.getByText('Sum månedlig AFP:')).toBeVisible()
+      expect(screen.getByText('Sum AFP:')).toBeVisible()
 
       // Pre-2025 offentlig AFP
       expect(screen.getByText('AFP grad:')).toBeVisible()
@@ -954,7 +954,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner siden uttaksalder er under 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('viser ikke måneder i gradert uttak heading når currentMonths er 0', () => {
@@ -973,7 +973,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal vise begge seksjoner
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(2)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(2)
     })
 
     it('viser måneder i heltUttak heading når currentAge er 67 eller høyere og har måneder', () => {
@@ -992,7 +992,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder siden uttaksalder er 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
       expect(screen.getByText('18 000 kr')).toBeVisible()
     })
 
@@ -1012,14 +1012,14 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder siden uttaksalder er 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
     })
 
     it('rendrer pre2025OffentligAfpDetaljerListe når tilgjengelig', () => {
       const mockPre2025AfpDetaljerData: DetaljRad[] = [
         { tekst: 'Grunnpensjon (kap. 19)', verdi: '10 000 kr' },
         { tekst: 'Tilleggspensjon (kap. 19)', verdi: '7 000 kr' },
-        { tekst: 'Sum månedlig AFP', verdi: '17 000 kr' },
+        { tekst: 'Sum AFP', verdi: '17 000 kr' },
       ]
 
       const stateWithUttaksalder = {
@@ -1043,7 +1043,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     it('håndterer pre2025OffentligAfpDetaljerListe med siste element strong styling', () => {
       const mockPre2025AfpDetaljerData: DetaljRad[] = [
         { tekst: 'Grunnpensjon (kap. 19)', verdi: '10 000 kr' },
-        { tekst: 'Sum månedlig AFP', verdi: '10 000 kr' },
+        { tekst: 'Sum AFP', verdi: '10 000 kr' },
       ]
 
       const { container } = renderWithProviders(
@@ -1081,7 +1081,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder siden currentAge er undefined
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
       expect(screen.getByText('18 000 kr')).toBeVisible()
     })
 
@@ -1109,20 +1109,20 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       // Skal ikke vise AFP ved uttaksalder siden uttaksalder er over 67
-      expect(screen.getAllByText('Sum månedlig AFP:')).toHaveLength(1)
+      expect(screen.getAllByText('Sum AFP:')).toHaveLength(1)
       expect(screen.getByText('18 000 kr')).toBeVisible()
     })
 
     it('håndterer tom afpPrivatDetaljerListe med length 0', () => {
       renderWithProviders(<AfpDetaljer afpPrivatDetaljerListe={[]} />)
 
-      expect(screen.queryByText('Sum månedlig AFP:')).not.toBeInTheDocument()
+      expect(screen.queryByText('Sum AFP:')).not.toBeInTheDocument()
     })
 
     it('kombinerer pre2025OffentligAfpDetaljerListe med andre AFP typer', () => {
       const mockPre2025AfpDetaljerData: DetaljRad[] = [
         { tekst: 'Grunnpensjon (kap. 19)', verdi: '8 000 kr' },
-        { tekst: 'Sum månedlig AFP', verdi: '8 000 kr' },
+        { tekst: 'Sum AFP', verdi: '8 000 kr' },
       ]
 
       renderWithProviders(

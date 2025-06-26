@@ -1,1 +1,2 @@
-export { BeregningsdetaljerForOvergangskull } from './BeregningsdetaljerForOvergangskull'
+export { AlderspensjonDetaljerGrunnlag } from './AlderspensjonDetaljerGrunnlag'
+export { AfpDetaljerGrunnlag } from './AfpDetaljerGrunnlag'

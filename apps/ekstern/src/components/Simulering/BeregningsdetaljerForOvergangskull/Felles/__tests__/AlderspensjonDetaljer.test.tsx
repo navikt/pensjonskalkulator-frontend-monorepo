@@ -66,7 +66,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
     { tekst: 'Pensjonstillegg (kap. 19)', verdi: '1 000 kr' },
     { tekst: 'Inntektspensjon (kap. 20)', verdi: '15 000 kr' },
     { tekst: 'Garantipensjon (kap. 20)', verdi: '3 000 kr' },
-    { tekst: 'Sum månedlig alderspensjon', verdi: '41 000 kr' },
+    { tekst: 'Sum alderspensjon', verdi: '41 000 kr' },
   ]
 
   const mockGradertUttakData: DetaljRad[] = [
@@ -75,7 +75,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
     { tekst: 'Skjermingstillegg (kap. 19)', verdi: '1 000 kr' },
     { tekst: 'Inntektspensjon (kap. 20)', verdi: '7 500 kr' },
     { tekst: 'Garantipensjon (kap. 20)', verdi: '1 500 kr' },
-    { tekst: 'Sum månedlig alderspensjon', verdi: '20 000 kr' },
+    { tekst: 'Sum alderspensjon', verdi: '20 000 kr' },
   ]
 
   it('rendrer komponenten med kun helt uttak', () => {
@@ -92,7 +92,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
     expect(screen.getByText('8 000 kr')).toBeVisible()
     expect(screen.getByText('Inntektspensjon (kap. 20):')).toBeVisible()
     expect(screen.getByText('15 000 kr')).toBeVisible()
-    expect(screen.getByText('Sum månedlig alderspensjon:')).toBeVisible()
+    expect(screen.getByText('Sum alderspensjon:')).toBeVisible()
     expect(screen.getByText('41 000 kr')).toBeVisible()
   })
 
@@ -124,7 +124,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
 
     // Sjekker at begge seksjoner eksisterer
     expect(screen.getAllByText('Grunnpensjon (kap. 19):')).toHaveLength(2)
-    expect(screen.getAllByText('Sum månedlig alderspensjon:')).toHaveLength(2)
+    expect(screen.getAllByText('Sum alderspensjon:')).toHaveLength(2)
   })
 
   it('rendrer kun helt uttak når gradertUttaksperiode er null', () => {
@@ -169,7 +169,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
       stateWithGradertUttak
     )
 
-    const headings = screen.getAllByRole('heading', { level: 3 })
+    const headings = screen.getAllByRole('heading', { level: 4 })
     expect(headings).toHaveLength(2) // En for gradert og en for helt uttak
   })
 
@@ -265,7 +265,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
 
     // Skal fungere korrekt med 2 arrays - gradert og helt uttak
     expect(screen.getAllByText('Grunnpensjon (kap. 19):')).toHaveLength(2)
-    expect(screen.getAllByText('Sum månedlig alderspensjon:')).toHaveLength(2)
+    expect(screen.getAllByText('Sum alderspensjon:')).toHaveLength(2)
     expect(screen.getByText('6 000 kr')).toBeVisible() // Gradert uttak
     expect(screen.getByText('12 000 kr')).toBeVisible() // Helt uttak
   })
@@ -289,7 +289,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
 
     // Skal kun vise gradert uttak seksjon
     expect(screen.getAllByText('Grunnpensjon (kap. 19):')).toHaveLength(1)
-    expect(screen.getAllByText('Sum månedlig alderspensjon:')).toHaveLength(1)
+    expect(screen.getAllByText('Sum alderspensjon:')).toHaveLength(1)
 
     // Skal vise gradert uttak data
     expect(screen.getByText('6 000 kr')).toBeVisible() // Gradert uttak beløp
@@ -321,7 +321,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
 
     // Skal kun vise helt uttak seksjon siden hasPre2025OffentligAfpUttaksalder er true
     expect(screen.getAllByText('Grunnpensjon (kap. 19):')).toHaveLength(1)
-    expect(screen.getAllByText('Sum månedlig alderspensjon:')).toHaveLength(1)
+    expect(screen.getAllByText('Sum alderspensjon:')).toHaveLength(1)
 
     // Skal vise helt uttak data
     expect(screen.getByText('12 000 kr')).toBeVisible() // Helt uttak beløp

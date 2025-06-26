@@ -31,6 +31,7 @@ interface Props {
   buttonLabel?: string
   value: string | null
   onSubmit: (inntekt: string) => void
+  variant?: 'secondary' | 'tertiary'
 }
 
 const ENDRE_INNTEKT_FORM_NAME = 'endre-inntekt'
@@ -41,6 +42,7 @@ export const EndreInntekt: React.FC<Props> = ({
   buttonLabel,
   value,
   onSubmit: onSubmitCallback,
+  variant = 'tertiary',
 }) => {
   const intl = useIntl()
 
@@ -197,8 +199,8 @@ export const EndreInntekt: React.FC<Props> = ({
       <Button
         type="button"
         className={className ? className : ''}
-        variant="tertiary"
-        size="small"
+        variant={variant}
+        size="medium"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
       >

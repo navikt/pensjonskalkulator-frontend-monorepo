@@ -519,7 +519,9 @@ describe('BeregningAvansert', () => {
           await screen.findByTestId('highcharts-done-drawing')
         ).toBeVisible()
 
-        expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+        expect(
+          await screen.findByText('grunnlag.endring.title')
+        ).toBeInTheDocument()
         expect(
           await screen.findByText('grunnlag.forbehold.title')
         ).toBeInTheDocument()
@@ -756,7 +758,9 @@ describe('BeregningAvansert', () => {
       })
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.endring.title')
+      ).toBeInTheDocument()
       expect(
         await screen.findByText('grunnlag.forbehold.title')
       ).toBeInTheDocument()

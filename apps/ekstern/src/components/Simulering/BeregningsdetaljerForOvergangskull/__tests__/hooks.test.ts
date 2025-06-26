@@ -126,7 +126,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '29 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig alderspensjon',
+            tekst: 'Sum alderspensjon',
             verdi: '429 kr',
           }),
         ]),
@@ -348,7 +348,7 @@ describe('useBeregningsdetaljer', () => {
           expect.objectContaining({ tekst: 'Andelsbrøk', verdi: '7/10' }),
           expect.objectContaining({ tekst: 'Trygdetid', verdi: 7 }),
           expect.objectContaining({
-            tekst: 'Pensjonsbeholdning før uttak',
+            tekst: 'Pensjonsbeholdning',
             verdi: '80000 kr',
           }),
         ]),
@@ -389,7 +389,7 @@ describe('useBeregningsdetaljer', () => {
         expect(result.current.opptjeningKap20Liste).toEqual([
           expect.arrayContaining([
             expect.objectContaining({
-              tekst: 'Pensjonsbeholdning før uttak',
+              tekst: 'Pensjonsbeholdning',
               verdi: '0 kr',
             }),
           ]),
@@ -435,7 +435,7 @@ describe('useBeregningsdetaljer', () => {
           expect.arrayContaining([
             expect.objectContaining({ tekst: 'Trygdetid', verdi: 7 }),
             expect.objectContaining({
-              tekst: 'Pensjonsbeholdning før uttak',
+              tekst: 'Pensjonsbeholdning',
               verdi: '80000 kr',
             }),
           ])
@@ -544,7 +544,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '12000 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '15000 kr',
           }),
         ])
@@ -588,7 +588,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '500 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '15000 kr',
           }),
         ])
@@ -602,7 +602,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '600 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '20000 kr',
           }),
         ])
@@ -652,7 +652,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '12000 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '15000 kr',
           }),
         ])
@@ -756,7 +756,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '500 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '3500 kr',
           }),
         ])
@@ -792,7 +792,7 @@ describe('useBeregningsdetaljer', () => {
             verdi: '500 kr',
           }),
           expect.objectContaining({
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: '1500 kr',
           }),
         ])
@@ -849,7 +849,7 @@ describe('useBeregningsdetaljer', () => {
       )
 
       const sumRad = result.current.pre2025OffentligAfpDetaljerListe.find(
-        (rad) => rad.tekst === 'Sum månedlig AFP'
+        (rad) => rad.tekst === 'Sum AFP'
       )
       expect(sumRad).toBeDefined()
       expect(sumRad?.verdi).toBe('3500 kr')

@@ -139,7 +139,7 @@ export const Pensjonsavtaler = (props: {
 
   return (
     <section className={styles.section}>
-      <Heading id="pensjonsavtaler-heading" level={headingLevel} size="medium">
+      <Heading id="pensjonsavtaler-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
 

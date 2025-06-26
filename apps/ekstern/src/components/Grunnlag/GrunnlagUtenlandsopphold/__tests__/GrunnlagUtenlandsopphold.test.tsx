@@ -160,10 +160,6 @@ describe('GrunnlagUtenlandsopphold', () => {
       await user.click(await screen.findByTestId('accordion-header'))
 
       expect(
-        await screen.findByText('Din trygdetid ved uttak:', { exact: false })
-      ).toBeVisible()
-      expect(await screen.findByText('40', { exact: false })).toBeVisible()
-      expect(
         screen.getByRole('link', {
           name: 'Om trygdetid application.global.external_link',
         })

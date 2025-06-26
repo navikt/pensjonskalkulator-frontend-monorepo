@@ -316,6 +316,8 @@ export default {
   'beregning.tabell.lukk': 'Lukk tabell av utrekninga',
   'beregning.tabell.vis': 'Vis tabell av utrekninga',
   'beregning.tabell.sum': 'Sum',
+  'beregning.detaljer.lukk': 'MANGLER_TEKST',
+  'beregning.detaljer.vis': 'MANGLER_TEKST',
   'beregning.detaljer.grunnpensjon.heltUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.grunnpensjon.gradertUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.grunnpensjon.afp.table.title': 'MANGLER_TEKST',
@@ -427,6 +429,7 @@ export default {
   'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
     'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
+  'grunnlag.endring.title': 'MANGLER_TEKST',
   'maanedsbeloep.title': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'MANGLER_TEKST',
@@ -461,9 +464,10 @@ export default {
   'grunnlag.opphold.avbryt_modal.avbryt': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
-  'grunnlag.alderspensjon.ingress':
+  'grunnlag.alderspensjon.ingress': 'MANGLER_TEKST',
+  'grunnlag.alderspensjon.endring.ingress':
     'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.',
-  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
+  'grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning':
     '{br}{br}MANGLER_TEKST: {sum} kr',
   'grunnlag.alderspensjon.ingress.link':
     '{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
@@ -487,6 +491,9 @@ export default {
   'grunnlag.afp.ingress.nei':
     'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei <goToStart>ny utrekning</goToStart>.',
   'grunnlag.afp.ingress.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.70prosentregel': 'MANGLER_TEKST',
+  'grunnlag.afp.avkortet.til.70.prosent': 'MANGLER_TEKST',
+  'grunnlag.afp.link.text': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
   'grunnlag.forbehold.link': 'Alle atterhald',

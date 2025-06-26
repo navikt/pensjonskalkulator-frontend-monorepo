@@ -142,7 +142,7 @@ export function useBeregningsdetaljer(
           verdi: `${formatInntekt(garantipensjonBeloep)} kr`,
         },
         {
-          tekst: 'Sum månedlig alderspensjon',
+          tekst: 'Sum alderspensjon',
           verdi: `${formatInntekt(
             grunnpensjon +
               tilleggspensjon +
@@ -196,7 +196,7 @@ export function useBeregningsdetaljer(
               verdi: `${formatInntekt(saertillegg)} kr`,
             },
             {
-              tekst: 'Sum månedlig AFP',
+              tekst: 'Sum AFP',
               verdi: `${formatInntekt(
                 grunnpensjon + tilleggspensjon + afpTillegg + saertillegg
               )} kr`,
@@ -239,7 +239,7 @@ export function useBeregningsdetaljer(
             verdi: `${formatInntekt(afp.livsvarig)} kr`,
           },
           {
-            tekst: 'Sum månedlig AFP',
+            tekst: 'Sum AFP',
             verdi: `${formatInntekt(afp.maanedligBeloep)} kr`,
           },
         ].filter((rad) => rad.verdi !== '0 kr')
@@ -285,14 +285,14 @@ export function useBeregningsdetaljer(
         },
         { tekst: 'Trygdetid', verdi: ap.trygdetidKap20 },
         {
-          tekst: 'Pensjonsbeholdning før uttak',
+          tekst: 'Pensjonsbeholdning',
           verdi: `${formatInntekt(ap.pensjonBeholdningFoerUttakBeloep)} kr`,
         },
       ].filter(
         (rad) =>
           rad.verdi !== undefined &&
           (rad.tekst === 'Trygdetid' ||
-            rad.tekst === 'Pensjonsbeholdning før uttak' ||
+            rad.tekst === 'Pensjonsbeholdning' ||
             (rad.verdi !== 0 && rad.verdi !== '10/10'))
       )
     })

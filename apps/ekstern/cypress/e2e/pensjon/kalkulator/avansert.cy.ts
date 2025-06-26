@@ -16,17 +16,17 @@ describe('Avansert', () => {
         )
       })
 
-      it('forventer også å kunne gå til Avansert fra «Uttaksgrad» og «Inntekt frem til uttak» i Grunnlaget.', () => {
+      it('forventer også å kunne gå til Avansert fra «Alderspensjon (Nav)» og «Pensjonsgivende inntekt frem til uttak» i Grunnlaget.', () => {
         cy.contains('button', '70').click()
-        cy.contains('Uttaksgrad:').click({ force: true })
-        cy.contains('Gå til avansert kalkulator').click({ force: true })
+        cy.contains('Alderspensjon (Nav)')
+        cy.contains('avansert kalkulator').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
           'exist'
         )
         cy.contains('Enkel').click()
         cy.contains('button', '70').click()
-        cy.contains('Inntekt frem til uttak:').click({ force: true })
-        cy.contains('Gå til avansert kalkulator').click({ force: true })
+        cy.contains('Pensjonsgivende inntekt frem til uttak')
+        cy.contains('avansert kalkulator').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
           'exist'
         )
@@ -590,10 +590,9 @@ describe('Avansert', () => {
         cy.contains('Vis mindre').should('exist')
       })
 
-      it('forventer jeg å få informasjon om øvrig grunnlag for beregningen uten "Uttaksgrad" og "Inntekt".', () => {
+      it('forventer jeg å få informasjon om pensjonen min for beregningen uten "Inntekt".', () => {
         cy.contains('Beregning').should('exist')
-        cy.contains('Øvrig grunnlag for beregningen').should('exist')
-        cy.contains('Uttaksgrad:').should('not.exist')
+        cy.contains('Om pensjonen din').should('exist')
         cy.contains('Inntekt frem til uttak:').should('not.exist')
         cy.contains('Sivilstand:').click({ force: true })
         cy.contains('Opphold utenfor Norge:').click({ force: true })

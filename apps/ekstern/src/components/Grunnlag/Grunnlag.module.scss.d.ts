@@ -1,4 +1,7 @@
 declare const classNames: {
+  readonly visListekomponenter: "visListekomponenter";
+  readonly "navds-read-more__content": "navds-read-more__content";
+  readonly wideDetailedView: "wideDetailedView";
   readonly section: "section";
   readonly sectionHeader: "sectionHeader";
 };

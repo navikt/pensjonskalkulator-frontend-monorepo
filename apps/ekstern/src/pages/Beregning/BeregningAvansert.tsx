@@ -10,7 +10,6 @@ import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
-import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
@@ -341,8 +340,6 @@ export const BeregningAvansert = () => {
               />
             )}
 
-            {!isEndring && <Pensjonsavtaler headingLevel="2" />}
-
             <Grunnlag
               visning="avansert"
               headingLevel="2"
@@ -356,6 +353,10 @@ export const BeregningAvansert = () => {
                   : undefined
               }
               isEndring={isEndring}
+              alderspensjonListe={alderspensjon?.alderspensjon}
+              afpPrivatListe={alderspensjon?.afpPrivat}
+              afpOffentligListe={alderspensjon?.afpOffentlig}
+              pre2025OffentligAfp={alderspensjon?.pre2025OffentligAfp}
             />
           </>
         )}

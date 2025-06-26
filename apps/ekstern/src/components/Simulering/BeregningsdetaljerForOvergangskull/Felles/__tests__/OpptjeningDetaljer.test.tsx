@@ -29,15 +29,24 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
 
   const mockOpptjeningKap20Liste: DetaljRad[][] = [
     [
-      { tekst: 'Pensjonsbeholdning før uttak', verdi: '500 000 kr' },
+      { tekst: 'Pensjonsbeholdning', verdi: '500 000 kr' },
       { tekst: 'Trygdetid', verdi: 40 },
       { tekst: 'Alderspensjon', verdi: '200 000 kr' },
     ],
   ]
 
+  const mockAlderspensjonDetaljerListe: DetaljRad[][] = [
+    [
+      { tekst: 'Grunnpensjon', verdi: '150 000 kr' },
+      { tekst: 'Tilleggspensjon', verdi: '50 000 kr' },
+    ],
+    [{ tekst: 'Alderspensjon', verdi: '200 000 kr' }],
+  ]
+
   const defaultProps = {
     opptjeningKap19Liste: mockOpptjeningKap19Liste,
     opptjeningKap20Liste: mockOpptjeningKap20Liste,
+    alderspensjonDetaljerListe: mockAlderspensjonDetaljerListe,
   }
 
   it('rendrer komponenten med påkrevde props', () => {
@@ -45,8 +54,8 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       <OpptjeningDetaljer {...defaultProps} />
     )
 
-    const section = container.querySelector('section')
-    expect(section).toBeInTheDocument()
+    const container_element = container.firstChild
+    expect(container_element).toBeInTheDocument()
   })
 
   it('rendrer kap19 OpptjeningDetaljer når data er tilgjengelig', () => {
@@ -63,7 +72,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
   it('rendrer kap20 OpptjeningDetaljer når data er tilgjengelig', () => {
     renderWithIntl(<OpptjeningDetaljer {...defaultProps} />)
 
-    expect(screen.getByText('Pensjonsbeholdning før uttak:')).toBeVisible()
+    expect(screen.getByText('Pensjonsbeholdning:')).toBeVisible()
     expect(screen.getByText('500 000 kr')).toBeVisible()
     expect(screen.getByText('Trygdetid:')).toBeVisible()
     expect(screen.getByText('40')).toBeVisible()
@@ -76,6 +85,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       <OpptjeningDetaljer
         opptjeningKap19Liste={[]}
         opptjeningKap20Liste={mockOpptjeningKap20Liste}
+        alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
       />
     )
 
@@ -88,26 +98,27 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       <OpptjeningDetaljer
         opptjeningKap19Liste={mockOpptjeningKap19Liste}
         opptjeningKap20Liste={[]}
+        alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
       />
     )
 
-    expect(
-      screen.queryByText('Pensjonsbeholdning før uttak:')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByText('Pensjonsbeholdning:')).not.toBeInTheDocument()
     expect(screen.queryByText('Trygdetid:')).not.toBeInTheDocument()
   })
 
   it('håndterer tomme arrays for begge objekter', () => {
     const { container } = renderWithIntl(
-      <OpptjeningDetaljer opptjeningKap19Liste={[]} opptjeningKap20Liste={[]} />
+      <OpptjeningDetaljer
+        opptjeningKap19Liste={[]}
+        opptjeningKap20Liste={[]}
+        alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+      />
     )
 
-    const section = container.querySelector('section')
-    expect(section).toBeVisible()
+    const container_element = container.firstChild
+    expect(container_element).toBeVisible()
     expect(screen.queryByText('Andelsbrøk:')).not.toBeInTheDocument()
-    expect(
-      screen.queryByText('Pensjonsbeholdning før uttak:')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByText('Pensjonsbeholdning:')).not.toBeInTheDocument()
   })
 
   it('håndterer undefined verdier i DetaljRad objekter', () => {
@@ -119,6 +130,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       <OpptjeningDetaljer
         opptjeningKap19Liste={objektMedUndefined}
         opptjeningKap20Liste={[]}
+        alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
       />
     )
 
@@ -168,6 +180,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={kap19MedTomForsteArray}
           opptjeningKap20Liste={[]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
@@ -191,6 +204,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={kap19MedTomAndreArray}
           opptjeningKap20Liste={[]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
@@ -217,6 +231,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={kap19MedBeggeArrays}
           opptjeningKap20Liste={[]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
@@ -242,7 +257,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
 
       const kap20MedMixedData: DetaljRad[][] = [
         [
-          { tekst: 'Pensjonsbeholdning før uttak', verdi: '300 000 kr' },
+          { tekst: 'Pensjonsbeholdning', verdi: '300 000 kr' },
           { tekst: 'Trygdetid', verdi: 25 },
         ], // Kap20 data for gradert periode
         [], // Ingen kap20 data for helt uttak periode
@@ -252,6 +267,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={kap19MedMixedData}
           opptjeningKap20Liste={kap20MedMixedData}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
@@ -266,7 +282,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       expect(screen.getByText('6.5')).toBeVisible()
 
       // Skal vise kap20 data fra første array (gradert periode)
-      expect(screen.getByText('Pensjonsbeholdning før uttak:')).toBeVisible()
+      expect(screen.getByText('Pensjonsbeholdning:')).toBeVisible()
       expect(screen.getByText('300 000 kr')).toBeVisible()
       expect(screen.getByText('Trygdetid:')).toBeVisible()
       expect(screen.getByText('25')).toBeVisible()
@@ -277,11 +293,12 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={[[], []]}
           opptjeningKap20Liste={[[], []]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
-      const section = container.querySelector('section')
-      expect(section).toBeVisible()
+      const container_element = container.firstChild
+      expect(container_element).toBeVisible()
 
       // Skal ikke ha noen definition lists
       const definitionLists = container.querySelectorAll('dl')
@@ -289,9 +306,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
 
       // Skal ikke vise noen detaljer
       expect(screen.queryByText('Andelsbrøk:')).not.toBeInTheDocument()
-      expect(
-        screen.queryByText('Pensjonsbeholdning før uttak:')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('Pensjonsbeholdning:')).not.toBeInTheDocument()
     })
 
     it('korrekt key generation for arrays med mixed tomme/fulle arrays', () => {
@@ -306,6 +321,7 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
         <OpptjeningDetaljer
           opptjeningKap19Liste={kap19MedMixedData}
           opptjeningKap20Liste={[]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
         />
       )
 
@@ -318,6 +334,142 @@ describe('Gitt at OpptjeningDetaljer rendres', () => {
       expect(screen.getByText('test')).toBeVisible()
       expect(screen.getByText('Annen test verdi:')).toBeVisible()
       expect(screen.getByText('test2')).toBeVisible()
+    })
+  })
+
+  describe('HStack/VStack betinget rendering basert på totalt antall elementer', () => {
+    it('bruker VStack når totalt antall elementer er mindre enn 4', () => {
+      const kap19Liste: DetaljRad[][] = [[{ tekst: 'Test 1', verdi: 'value1' }]]
+      const kap20Liste: DetaljRad[][] = [[{ tekst: 'Test 2', verdi: 'value2' }]]
+
+      renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={kap19Liste}
+          opptjeningKap20Liste={kap20Liste}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      // Totalt antall elementer = 2, skal bruke VStack
+      expect(screen.getByText('Test 1:')).toBeVisible()
+      expect(screen.getByText('Test 2:')).toBeVisible()
+    })
+
+    it('bruker VStack når totalt antall elementer er mer enn 4', () => {
+      const kap19Liste: DetaljRad[][] = [
+        [{ tekst: 'Test 1', verdi: 'value1' }],
+        [{ tekst: 'Test 2', verdi: 'value2' }],
+        [{ tekst: 'Test 3', verdi: 'value3' }],
+      ]
+      const kap20Liste: DetaljRad[][] = [
+        [{ tekst: 'Test 4', verdi: 'value4' }],
+        [{ tekst: 'Test 5', verdi: 'value5' }],
+        [{ tekst: 'Test 6', verdi: 'value6' }],
+      ]
+
+      renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={kap19Liste}
+          opptjeningKap20Liste={kap20Liste}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      expect(screen.getByText('Test 1:')).toBeVisible()
+      expect(screen.getByText('Test 4:')).toBeVisible()
+      expect(screen.getByText('Test 6:')).toBeVisible()
+    })
+
+    it('bruker HStack når totalt antall elementer er nøyaktig 4', () => {
+      const kap19Liste: DetaljRad[][] = [
+        [{ tekst: 'Kap19 Test 1', verdi: 'value1' }],
+        [{ tekst: 'Kap19 Test 2', verdi: 'value2' }],
+      ]
+      const kap20Liste: DetaljRad[][] = [
+        [{ tekst: 'Kap20 Test 1', verdi: 'value3' }],
+        [{ tekst: 'Kap20 Test 2', verdi: 'value4' }],
+      ]
+
+      renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={kap19Liste}
+          opptjeningKap20Liste={kap20Liste}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      expect(screen.getByText('Kap19 Test 1:')).toBeVisible()
+      expect(screen.getByText('Kap19 Test 2:')).toBeVisible()
+      expect(screen.getByText('Kap20 Test 1:')).toBeVisible()
+      expect(screen.getByText('Kap20 Test 2:')).toBeVisible()
+    })
+
+    it('bruker HStack når en liste er tom men totalt er 4', () => {
+      const kap19Liste: DetaljRad[][] = [
+        [{ tekst: 'Kap19 Test 1', verdi: 'value1' }],
+        [{ tekst: 'Kap19 Test 2', verdi: 'value2' }],
+        [{ tekst: 'Kap19 Test 3', verdi: 'value3' }],
+        [{ tekst: 'Kap19 Test 4', verdi: 'value4' }],
+      ]
+      const kap20Liste: DetaljRad[][] = []
+
+      renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={kap19Liste}
+          opptjeningKap20Liste={kap20Liste}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      // Totalt antall elementer = 4, skal bruke HStack
+      expect(screen.getByText('Kap19 Test 1:')).toBeVisible()
+      expect(screen.getByText('Kap19 Test 2:')).toBeVisible()
+      expect(screen.getByText('Kap19 Test 3:')).toBeVisible()
+      expect(screen.getByText('Kap19 Test 4:')).toBeVisible()
+    })
+
+    it('bruker VStack når totalt antall elementer er 0', () => {
+      const { container } = renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={[]}
+          opptjeningKap20Liste={[]}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      const container_element = container.firstChild
+      expect(container_element).toBeVisible()
+
+      // Skal ikke rendre noen definisjonslister
+      const definitionLists = container.querySelectorAll('dl')
+      expect(definitionLists).toHaveLength(0)
+    })
+
+    it('teller korrekt elementer når arrays inneholder tomme underarrays', () => {
+      const kap19Liste: DetaljRad[][] = [
+        [], // Tom underarray - skal ikke telle mot rendering
+        [{ tekst: 'Kap19 Test 1', verdi: 'value1' }], // Teller som 1
+        [{ tekst: 'Kap19 Test 2', verdi: 'value2' }], // Teller som 1
+      ]
+      const kap20Liste: DetaljRad[][] = [
+        [{ tekst: 'Kap20 Test 1', verdi: 'value3' }], // Teller som 1
+        [], // Tom underarray - skal ikke telle mot rendering
+      ]
+
+      const { container } = renderWithIntl(
+        <OpptjeningDetaljer
+          opptjeningKap19Liste={kap19Liste}
+          opptjeningKap20Liste={kap20Liste}
+          alderspensjonDetaljerListe={mockAlderspensjonDetaljerListe}
+        />
+      )
+
+      const definitionLists = container.querySelectorAll('dl')
+      expect(definitionLists).toHaveLength(3)
+
+      expect(screen.getByText('Kap19 Test 1:')).toBeVisible()
+      expect(screen.getByText('Kap19 Test 2:')).toBeVisible()
+      expect(screen.getByText('Kap20 Test 1:')).toBeVisible()
     })
   })
 })

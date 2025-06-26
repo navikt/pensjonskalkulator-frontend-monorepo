@@ -35,7 +35,6 @@ const WrappedGrunnlagAFP = () => (
 
 describe('Grunnlag - AFP', () => {
   it('Når brukeren har valgt AFP offentlig og samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
-    const user = userEvent.setup()
     render(<WrappedGrunnlagAFP />, {
       preloadedState: {
         api: {
@@ -51,12 +50,10 @@ describe('Grunnlag - AFP', () => {
         },
       },
     })
-    expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
     expect(screen.getByText('afp.offentlig')).toBeVisible()
-
-    const buttons = screen.getAllByRole('button')
-
-    await user.click(buttons[6])
 
     expect(
       await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
@@ -64,7 +61,6 @@ describe('Grunnlag - AFP', () => {
   })
 
   it('Når brukeren har valgt AFP offentlig og ikke samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
-    const user = userEvent.setup()
     render(<WrappedGrunnlagAFP />, {
       preloadedState: {
         api: {
@@ -80,14 +76,12 @@ describe('Grunnlag - AFP', () => {
         },
       },
     })
-    expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
     expect(
       screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
     ).toBeVisible()
-
-    const buttons = screen.getAllByRole('button')
-
-    await user.click(buttons[6])
 
     expect(
       await screen.findByTestId(
@@ -97,7 +91,6 @@ describe('Grunnlag - AFP', () => {
   })
 
   it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
-    const user = userEvent.setup()
     render(<WrappedGrunnlagAFP />, {
       preloadedState: {
         api: {
@@ -112,11 +105,10 @@ describe('Grunnlag - AFP', () => {
         },
       },
     })
-    expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
     expect(screen.getByText('afp.privat')).toBeVisible()
-    const buttons = screen.getAllByRole('button')
-
-    await user.click(buttons[6])
 
     expect(
       await screen.findByText('Du har oppgitt AFP i privat sektor.', {
@@ -141,11 +133,10 @@ describe('Grunnlag - AFP', () => {
         },
       },
     })
-    expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
     expect(screen.getByText('afp.nei')).toBeVisible()
-    const buttons = screen.getAllByRole('button')
-
-    await user.click(buttons[6])
 
     expect(await screen.findByTestId('grunnlag.afp.ingress.nei')).toBeVisible()
     expect(await screen.findByTestId('grunnlag.afp.afp_link')).toBeVisible()
@@ -154,7 +145,6 @@ describe('Grunnlag - AFP', () => {
   })
 
   it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
-    const user = userEvent.setup()
     render(<WrappedGrunnlagAFP />, {
       preloadedState: {
         api: {
@@ -169,11 +159,10 @@ describe('Grunnlag - AFP', () => {
         },
       },
     })
-    expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
     expect(screen.getByText('afp.vet_ikke')).toBeVisible()
-    const buttons = screen.getAllByRole('button')
-
-    await user.click(buttons[6])
 
     expect(
       await screen.findByText(
@@ -226,7 +215,9 @@ describe('Grunnlag - AFP', () => {
           },
         })
 
-        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.afp.title', { exact: false })
+        ).toBeVisible()
         expect(screen.getByText('afp.nei')).toBeVisible()
         expect(
           screen.getByText(
@@ -285,7 +276,9 @@ describe('Grunnlag - AFP', () => {
           },
         })
 
-        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.afp.title', { exact: false })
+        ).toBeVisible()
         expect(
           screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
         ).toBeVisible()
@@ -310,7 +303,9 @@ describe('Grunnlag - AFP', () => {
             },
           },
         })
-        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.afp.title', { exact: false })
+        ).toBeVisible()
         expect(
           screen.getByText('afp.privat (grunnlag.afp.ikke_beregnet)')
         ).toBeVisible()
@@ -335,7 +330,9 @@ describe('Grunnlag - AFP', () => {
             },
           },
         })
-        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.afp.title', { exact: false })
+        ).toBeVisible()
         expect(screen.getByText('afp.nei')).toBeVisible()
         expect(
           screen.getByText('Du har svart at du ikke har rett til AFP.', {
@@ -357,7 +354,9 @@ describe('Grunnlag - AFP', () => {
             },
           },
         })
-        expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.afp.title', { exact: false })
+        ).toBeVisible()
         expect(screen.getByText('afp.vet_ikke')).toBeVisible()
         expect(
           screen.getByText('grunnlag.afp.ingress.vet_ikke.ufoeretrygd')
@@ -403,7 +402,9 @@ describe('Grunnlag - AFP', () => {
         },
       })
 
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.nei')).toBeVisible()
       expect(
         screen.getByText(
@@ -416,7 +417,6 @@ describe('Grunnlag - AFP', () => {
 
   describe('Gitt at brukeren har vedtak om alderspensjon,', () => {
     it('Når hen har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -429,11 +429,10 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.privat')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText('Du har oppgitt AFP i privat sektor.', {
@@ -443,7 +442,6 @@ describe('Grunnlag - AFP', () => {
     })
 
     it('Når hen har valgt AFP offentlig og samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -459,12 +457,10 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.offentlig')).toBeVisible()
-
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
@@ -472,7 +468,6 @@ describe('Grunnlag - AFP', () => {
     })
 
     it('Når hen har valgt AFP offentlig og ikke samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -488,14 +483,12 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(
         screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
       ).toBeVisible()
-
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByTestId(
@@ -505,7 +498,6 @@ describe('Grunnlag - AFP', () => {
     })
 
     it('Når hen har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -520,11 +512,10 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.nei')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText('Du har svart at du ikke har rett til AFP.', {
@@ -537,7 +528,6 @@ describe('Grunnlag - AFP', () => {
     })
 
     it('Når hen har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -552,11 +542,10 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.vet_ikke')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText(
@@ -571,7 +560,6 @@ describe('Grunnlag - AFP', () => {
 
   describe('Gitt at brukeren har vedtak om AFP-privat,', () => {
     it('hen får ikke velge AFP, og det vises riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -586,13 +574,12 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(
         screen.getByText('afp.privat (grunnlag.afp.endring)')
       ).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_privat.endring')
@@ -602,7 +589,6 @@ describe('Grunnlag - AFP', () => {
 
   describe('Gitt at brukeren har vedtak om AFP-offentlig,', () => {
     it('hen får ikke velge AFP, og det vises riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<WrappedGrunnlagAFP />, {
         preloadedState: {
           api: {
@@ -617,13 +603,12 @@ describe('Grunnlag - AFP', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(
         screen.getByText('afp.offentlig (grunnlag.afp.endring)')
       ).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
 
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig.endring')
@@ -668,7 +653,9 @@ describe('Grunnlag - AFP', () => {
         },
       })
 
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
       expect(screen.getByText('afp.nei')).toBeVisible()
       expect(
         screen.getByText(

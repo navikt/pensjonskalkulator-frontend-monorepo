@@ -481,7 +481,7 @@ describe('AFP vs uføretrygd', () => {
         })
 
         it('forventer jeg informasjon i grunnlag om hvilken AFP som er beregnet.', () => {
-          cy.contains('Øvrig grunnlag for beregningen').should('be.visible')
+          cy.contains('Om pensjonen din').should('be.visible')
           cy.contains('AFP: Privat').should('be.visible')
         })
 

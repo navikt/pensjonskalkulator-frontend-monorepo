@@ -943,7 +943,9 @@ describe('BeregningEnkel', () => {
       expect(
         await screen.findByText('beregning.tabell.vis')
       ).toBeInTheDocument()
-      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.endring.title')
+      ).toBeInTheDocument()
       expect(
         await screen.findByText('grunnlag.forbehold.title')
       ).toBeInTheDocument()

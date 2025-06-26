@@ -394,6 +394,8 @@ const translations = {
   'beregning.tabell.lukk': 'Lukk tabell av beregningen',
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
+  'beregning.detaljer.lukk': 'Skjul detaljer om din {ytelse}',
+  'beregning.detaljer.vis': 'Vis detaljer om din {ytelse}',
   'beregning.detaljer.grunnpensjon.heltUttak.title':
     'Ved {alderAar} {alderMd} ({grad} %)',
   'beregning.detaljer.grunnpensjon.gradertUttak.title':
@@ -407,9 +409,9 @@ const translations = {
   'beregning.detaljer.afpPrivat.heltUttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.afpPrivat.gradertUttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
-    'Opptjening alderspensjon etter kapittel 19',
+    'Opptjening kapittel 19',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':
-    'Opptjening alderspensjon etter kapittel 20',
+    'Opptjening kapittel 20',
   'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title':
     'Månedlig avtalefestet pensjon (AFP)',
   'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title':
@@ -536,7 +538,8 @@ const translations = {
     '{br}{br}Et alternativ er at du ved {nedreAldersgrense} kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
     'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved {nedreAldersgrense}.{br}{br}Kalkulatoren kan ikke beregne uttak etter {nedreAldersgrense}. Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.{br}{br}Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.',
-  'grunnlag.title': 'Øvrig grunnlag for beregningen',
+  'grunnlag.title': 'Om inntekten og pensjonen din',
+  'grunnlag.endring.title': 'Om pensjonen din',
   'maanedsbeloep.title': 'Månedlig pensjon',
   'beregning.avansert.avbryt_modal.title':
     'Hvis du går ut av Avansert, mister du alle valgene dine.',
@@ -570,7 +573,7 @@ const translations = {
     'Du kan legge til inntekt ved siden av pensjon i ',
   'grunnlag.inntekt.avansert_link': 'avansert kalkulator',
   'grunnlag.inntekt.ingress':
-    'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>. Du kan legge til inntekt ved siden av pensjon i ',
   'grunnlag.inntekt.info_om_inntekt': 'Hva er pensjonsgivende inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',
@@ -595,7 +598,7 @@ const translations = {
   'grunnlag.opphold.ingress.endring':
     'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.',
   'grunnlag.opphold.ingress.trygdetid':
-    'Din trygdetid ved uttak: {aar} år{br}{br}<kortBotidLink>Om trygdetid</kortBotidLink>',
+    '<kortBotidLink>Om trygdetid</kortBotidLink>',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.opphold.avbryt_modal.title':
@@ -605,9 +608,11 @@ const translations = {
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (Nav)',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.',
-  'grunnlag.alderspensjon.ingress.pensjonsbeholdning':
-    '{br}{br}Din pensjonsbeholdning før uttak: {sum} kr',
+    'Alderspensjon beregnes ut ifra din opptjening i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke. Enkel beregning viser 100 % uttak av alderspensjon. I {avansert} kan du beregne alderspensjon med andre uttaksgrader.',
+  'grunnlag.alderspensjon.endring.ingress':
+    'Alderspensjon beregnes ut ifra din opptjening i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.',
+  'grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning':
+    '{br}{br}Din pensjonsopptjening før uttak: {sum} kr',
   'grunnlag.alderspensjon.ingress.link':
     '{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
@@ -640,10 +645,17 @@ const translations = {
     'Du har svart at du ikke har rett til AFP. Derfor vises ikke AFP i beregningen.{br}{br} Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.ufoeretrygd':
     'For å ha rett til AFP, må du være ansatt i offentlig sektor eller i en bedrift med AFP-ordning i privat sektor. Det gjelder de siste årene og helt fram til du tar ut AFP. Hvis du mottar full uføretrygd, har du derfor normalt ikke rett til AFP.{br}{br}Du kan ikke kombinere AFP og uføretrygd. Får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.{br}{br}Vil du vite mer? Les mer om <ufoeretrygdOgAfpLink>Uføretrygd og AFP</ufoeretrygdOgAfpLink>.',
+  'grunnlag.afp.70prosentregel':
+    'Din AFP er redusert fordi den oversteg 70 % av din tidligere inntekt.',
+  'grunnlag.afp.avkortet.til.70.prosent':
+    'Din AFP er avkortet til 70 prosent av tidligere arbeidsinntekt.',
+  'grunnlag.afp.link.text': 'Om inntekt og AFP på nav.no',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat på hva du kan forvente deg i pensjon. Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
+  'om_deg.title': 'Om deg',
+  'grunnlag2.endre_inntekt.title': 'Pensjonsgivende inntekt frem til uttak',
   'savnerdunoe.title': 'Savner du noe?',
   'savnerdunoe.title.endring': 'Klar til å søke om endring?',
   'savnerdunoe.ingress':

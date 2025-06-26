@@ -236,7 +236,9 @@
     "grunnpensjon": 10336,
     "tilleggspensjon": 17337,
     "afpTillegg": 1700,
-    "saertillegg": 0
+    "saertillegg": 0,
+    "afpGrad": 60,
+    "afpAvkortetTil70Prosent": true
   },
   "afpPrivat": [],
   "afpOffentlig": [],

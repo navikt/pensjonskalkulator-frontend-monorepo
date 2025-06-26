@@ -8,7 +8,6 @@ import { Alert, Heading } from '@navikt/ds-react'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
-import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
@@ -368,11 +367,9 @@ export const BeregningEnkel = () => {
                 }
               />
 
-              {!isEndring && <Pensjonsavtaler headingLevel="3" />}
-
               <Grunnlag
                 visning="enkel"
-                headingLevel="3"
+                headingLevel="2"
                 harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
                 trygdetid={alderspensjon?.trygdetid}
                 pensjonsbeholdning={
@@ -383,6 +380,10 @@ export const BeregningEnkel = () => {
                     : undefined
                 }
                 isEndring={isEndring}
+                alderspensjonListe={alderspensjon?.alderspensjon}
+                afpPrivatListe={alderspensjon?.afpPrivat}
+                afpOffentligListe={alderspensjon?.afpOffentlig}
+                pre2025OffentligAfp={alderspensjon?.pre2025OffentligAfp}
               />
             </>
           )}
