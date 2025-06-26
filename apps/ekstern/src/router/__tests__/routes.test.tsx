@@ -56,7 +56,7 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, { hasRouter: false })
         expect(
-          await screen.findByText('landingsside.for.deg.foedt.foer.1963')
+          await screen.findByText('landingsside.for.deg.som.kan.logge.inn')
         ).toBeVisible()
       })
     })
@@ -74,7 +74,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('landingsside.for.deg.foedt.foer.1963')
+          await screen.findByText('landingsside.for.deg.som.kan.logge.inn')
         ).toBeVisible()
       })
 
@@ -86,9 +86,6 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
         })
-        expect(
-          await screen.findByText('landingsside.for.deg.foedt.etter.1963')
-        ).toBeVisible()
         expect(
           screen.queryByText('landingsside.for.deg.foedt.foer.1963')
         ).not.toBeInTheDocument()
@@ -103,9 +100,6 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
         })
-        expect(
-          await screen.findByText('landingsside.for.deg.foedt.etter.1963')
-        ).toBeVisible()
         expect(
           screen.queryByText('landingsside.for.deg.foedt.foer.1963')
         ).not.toBeInTheDocument()

@@ -53,14 +53,14 @@ const translations = {
     'En feil har skjedd hos oss som gjør at du dessverre ikke kan bruke kalkulatoren. Vi jobber med å rette feilen. Prøv igjen senere.{br}{br}Hvis problemet vedvarer, kan du {kontaktoss} ',
   'error.virker_ikke.link': 'kontakte oss',
   'error.virker_ikke.button': 'Gå til Din pensjon',
+  'landingsside.for.deg.som.kan.logge.inn': 'For deg som kan logge inn',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Den gir deg et estimat på',
-  'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du få et estimat på ',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Hvis du trenger å se detaljert beregning kan du bruke detaljert pensjonskalkulator. Den viser ikke livsvarig AFP eller tjenestepensjon i offentlig sektor.',
+    'Hvis du er født før 1963 og har offentlig tjenestepensjon fra Statens pensjonskasse, kan du foreløpig kun se denne i detaljert pensjonskalkulator.',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',

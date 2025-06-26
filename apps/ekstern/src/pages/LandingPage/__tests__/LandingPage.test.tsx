@@ -45,10 +45,7 @@ describe('LandingPage', () => {
     })
 
     await waitFor(() => {
-      // Viser TopSection
-      expect(
-        screen.getByText('landingsside.for.deg.foedt.etter.1963')
-      ).toBeVisible()
+      // Viser TopSection uten fødselsårbegrensning
       expect(
         screen.getByText('landingsside.velge_mellom_detaljert_og_enkel')
       ).toBeVisible()
@@ -86,9 +83,9 @@ describe('LandingPage', () => {
     })
 
     await waitFor(() => {
-      // Viser TopSection
+      // Viser TopSection med innloggingsprompt
       expect(
-        screen.getByText('landingsside.for.deg.foedt.etter.1963')
+        screen.getByText('landingsside.for.deg.som.kan.logge.inn')
       ).toBeVisible()
       expect(
         screen.getByText('landingsside.velge_mellom_detaljert_og_enkel')
@@ -107,18 +104,6 @@ describe('LandingPage', () => {
       // Viser riktig tekst på Detaljert kalkulator knappen
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
-          .textContent
-      ).toBe('landingsside.button.detaljert_kalkulator_utlogget')
-      // Viser info for brukere født før 1963
-      expect(
-        screen.getByText('landingsside.for.deg.foedt.foer.1963')
-      ).toBeVisible()
-      expect(
-        screen.getByText('landingsside.du.maa.bruke.detaljert')
-      ).toBeVisible()
-      // Viser riktig tekst på den tilleggsknappen som går til detaljert
-      expect(
-        screen.getByTestId('landingside-detaljert-kalkulator-second-button')
           .textContent
       ).toBe('landingsside.button.detaljert_kalkulator_utlogget')
       // Viser info om Uinnlogget kalkulator
@@ -188,37 +173,6 @@ describe('LandingPage', () => {
     })
 
     expect(navigateMock).toHaveBeenCalledWith(`${paths.start}`)
-  })
-
-  it('går til detaljert kalkulator når brukeren klikker på tilleggsknappen i det andre avsnittet', async () => {
-    mockErrorResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
-
-    const user = userEvent.setup()
-
-    const open = vi.fn()
-    vi.stubGlobal('open', open)
-
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.login}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    await waitFor(() => {
-      expect(
-        screen.getByTestId('landingside-detaljert-kalkulator-second-button')
-      ).toBeDefined()
-    })
-
-    await user.click(
-      screen.getByTestId('landingside-detaljert-kalkulator-second-button')
-    )
-
-    expect(open).toHaveBeenCalledWith(externalUrls.detaljertKalkulator, '_self')
   })
 
   it('går til uinnlogget kalkulator når brukeren klikker på uinnlogget kalkulator knappen', async () => {

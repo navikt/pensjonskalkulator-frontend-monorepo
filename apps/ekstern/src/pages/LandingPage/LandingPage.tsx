@@ -74,11 +74,13 @@ export const LandingPage = () => {
     return (
       <section>
         <VStack gap="4">
-          <Heading size="medium" level="2">
-            {intl.formatMessage({
-              id: 'landingsside.for.deg.foedt.etter.1963',
-            })}
-          </Heading>
+          {!isLoggedIn && (
+            <Heading size="medium" level="2">
+              {intl.formatMessage({
+                id: 'landingsside.for.deg.som.kan.logge.inn',
+              })}
+            </Heading>
+          )}
 
           <div>
             <BodyLong>
@@ -180,60 +182,6 @@ export const LandingPage = () => {
     <div className={styles.landingPage}>
       <VStack gap="10">
         <TopSection />
-        <section>
-          <VStack gap="2">
-            <Heading size="medium" level="2">
-              {intl.formatMessage({
-                id: 'landingsside.for.deg.foedt.foer.1963',
-              })}
-            </Heading>
-            <div>
-              <BodyLong>
-                {intl.formatMessage({
-                  id: 'landingsside.du.maa.bruke.detaljert',
-                })}
-              </BodyLong>
-              <ul className={styles.list}>
-                <li>
-                  <BodyLong>
-                    <span
-                      className={clsx(styles.ellipse, styles.ellipse__blue)}
-                    />
-                    <FormattedMessage id="stegvisning.start.list_item1" />
-                  </BodyLong>
-                </li>
-                <li>
-                  <BodyLong>
-                    <span
-                      className={clsx(styles.ellipse, styles.ellipse__purple)}
-                    />
-                    <FormattedMessage id="stegvisning.start.list_item2" />{' '}
-                  </BodyLong>
-                </li>
-                <li>
-                  <BodyLong>
-                    <span
-                      className={clsx(styles.ellipse, styles.ellipse__green)}
-                    />
-                    <FormattedMessage id="stegvisning.start.list_item3" />{' '}
-                  </BodyLong>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <Button
-                className={styles.button}
-                data-testid="landingside-detaljert-kalkulator-second-button"
-                variant="secondary"
-                onClick={gaaTilDetaljertKalkulator}
-              >
-                {intl.formatMessage({
-                  id: 'landingsside.button.detaljert_kalkulator_utlogget',
-                })}
-              </Button>
-            </div>
-          </VStack>
-        </section>
 
         <section>
           <VStack gap="2">

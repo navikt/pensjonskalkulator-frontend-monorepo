@@ -51,10 +51,10 @@ export default {
   'error.virker_ikke.ingress': 'MANGLER_TEKST',
   'error.virker_ikke.link': 'MANGLER_TEKST',
   'error.virker_ikke.button': 'MANGLER_TEKST',
+  'landingsside.for.deg.som.kan.logge.inn': 'MANGLER_TEKST',
   'landingsside.for.deg.foedt.foer.1963': 'For those born before 1963',
   'landingsside.du.maa.bruke.detaljert':
     'You must use our detailed calculator. It provides an estimate of',
-  'landingsside.for.deg.foedt.etter.1963': 'For those born in 1963 or later',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'In the pension calculator, you can get an estimate of',
   'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
