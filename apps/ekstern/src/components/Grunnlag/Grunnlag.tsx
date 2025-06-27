@@ -22,7 +22,6 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
-import { formatInntekt } from '@/utils/inntekt'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -44,7 +43,6 @@ interface Props {
   headingLevel: HeadingProps['level']
   harForLiteTrygdetid?: boolean
   trygdetid?: number
-  pensjonsbeholdning?: number
   isEndring: boolean
   alderspensjonListe?: AlderspensjonPensjonsberegning[]
   afpPrivatListe?: AfpPrivatPensjonsberegning[]
@@ -57,7 +55,6 @@ export const Grunnlag: React.FC<Props> = ({
   headingLevel,
   harForLiteTrygdetid,
   trygdetid,
-  pensjonsbeholdning,
   isEndring,
   alderspensjonListe,
   afpPrivatListe,
@@ -206,25 +203,12 @@ export const Grunnlag: React.FC<Props> = ({
             </Heading>
             <BodyLong>
               {loependeVedtak.alderspensjon || visning === 'avansert' ? (
-                <>
-                  <FormattedMessage
-                    id="grunnlag.alderspensjon.endring.ingress"
-                    values={{
-                      ...getFormatMessageValues(),
-                    }}
-                  />
-                  {loependeVedtak.alderspensjon &&
-                    pensjonsbeholdning &&
-                    pensjonsbeholdning >= 0 && (
-                      <FormattedMessage
-                        id="grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning"
-                        values={{
-                          ...getFormatMessageValues(),
-                          sum: formatInntekt(pensjonsbeholdning),
-                        }}
-                      />
-                    )}
-                </>
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.endring.ingress"
+                  values={{
+                    ...getFormatMessageValues(),
+                  }}
+                />
               ) : (
                 <FormattedMessage
                   id="grunnlag.alderspensjon.ingress"

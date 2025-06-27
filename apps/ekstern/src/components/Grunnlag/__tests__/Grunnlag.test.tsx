@@ -22,14 +22,12 @@ describe('Grunnlag', () => {
   const renderGrunnlagMedPreloadedState = (
     headingLevel: '1' | '2' | '3',
     visning: 'avansert' | 'enkel',
-    userInputState?: userInputReducerUtils.UserInputState,
-    pensjonsbeholdning?: number
+    userInputState?: userInputReducerUtils.UserInputState
   ) => {
     render(
       <Grunnlag
         headingLevel={headingLevel}
         visning={visning}
-        pensjonsbeholdning={pensjonsbeholdning}
         isEndring={false}
         alderspensjonListe={undefined}
         afpPrivatListe={undefined}
@@ -297,44 +295,6 @@ describe('Grunnlag', () => {
           'Alderspensjon beregnes ut ifra din opptjening i folketrygden',
           { exact: false }
         )
-      ).toBeVisible()
-    })
-
-    it('viser pensjonsbeholdning når den er oppgitt', async () => {
-      const user = userEvent.setup()
-      render(
-        <Grunnlag
-          headingLevel="2"
-          visning="enkel"
-          pensjonsbeholdning={2345678}
-          isEndring={false}
-          alderspensjonListe={undefined}
-          afpPrivatListe={undefined}
-          afpOffentligListe={undefined}
-          pre2025OffentligAfp={undefined}
-        />,
-        {
-          preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[3])
-
-      expect(
-        await screen.findByText('Din pensjonsopptjening før uttak:', {
-          exact: false,
-        })
       ).toBeVisible()
     })
   })
