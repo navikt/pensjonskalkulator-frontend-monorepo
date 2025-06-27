@@ -67,7 +67,12 @@ export const GrunnlagAFP: React.FC = () => {
       return 'grunnlag.afp.ingress.ja_offentlig.endring'
     }
 
-    if (ufoeregrad === 100 && foedselsdato && !isFoedtFoer1963(foedselsdato)) {
+    if (
+      ufoeregrad === 100 &&
+      foedselsdato &&
+      !isFoedtFoer1963(foedselsdato) &&
+      !erApoteker
+    ) {
       return 'grunnlag.afp.ingress.ufoeretrygd'
     }
 
@@ -75,7 +80,8 @@ export const GrunnlagAFP: React.FC = () => {
       ufoeregrad > 0 &&
       foedselsdato &&
       !isFoedtFoer1963(foedselsdato) &&
-      isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER)
+      isFoedselsdatoOverAlder(foedselsdato, AFP_UFOERE_OPPSIGELSESALDER) &&
+      !erApoteker
     ) {
       return 'grunnlag.afp.ingress.ufoeretrygd'
     }
