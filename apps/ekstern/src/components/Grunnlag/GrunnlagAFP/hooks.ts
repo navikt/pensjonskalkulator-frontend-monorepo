@@ -46,6 +46,10 @@ export const useFormatertAfpHeader = () => {
       return formatAfp(intl, 'nei')
     }
 
+    if (afp === 'nei') {
+      return formatAfp(intl, 'nei')
+    }
+
     if (
       loependeVedtak &&
       loependeVedtak.pre2025OffentligAfp &&
@@ -53,6 +57,16 @@ export const useFormatertAfpHeader = () => {
       (isFoedtFoer1963(foedselsdato) || erApoteker)
     ) {
       return formatAfp(intl, 'ja_offentlig')
+    }
+
+    if (
+      afp === 'ja_privat' &&
+      loependeVedtak &&
+      loependeVedtak.alderspensjon &&
+      foedselsdato &&
+      isFoedtFoer1963(foedselsdato)
+    ) {
+      return formatAfp(intl, 'ja_privat')
     }
 
     if (isEndring && loependeVedtak.afpPrivat) {

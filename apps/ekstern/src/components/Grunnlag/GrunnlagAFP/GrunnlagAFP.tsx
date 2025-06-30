@@ -46,12 +46,26 @@ export const GrunnlagAFP: React.FC = () => {
   const formatertAfpHeader = useFormatertAfpHeader()
 
   const formatertAfpIngress = React.useMemo(() => {
+    if (afp === 'nei') {
+      return 'grunnlag.afp.ingress.nei'
+    }
+
     if (isEndring && loependeVedtak.afpPrivat) {
       return 'grunnlag.afp.ingress.ja_privat.endring'
     }
 
     if (afpUtregningValg === 'KUN_ALDERSPENSJON') {
       return 'grunnlag.afp.ingress.nei'
+    }
+
+    if (
+      afp === 'ja_privat' &&
+      loependeVedtak &&
+      loependeVedtak.alderspensjon &&
+      foedselsdato &&
+      isFoedtFoer1963(foedselsdato)
+    ) {
+      return 'grunnlag.afp.ingress.ja_privat'
     }
 
     if (
@@ -92,20 +106,6 @@ export const GrunnlagAFP: React.FC = () => {
       (isFoedtFoer1963(foedselsdato) || erApoteker)
     ) {
       return 'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap'
-    }
-
-    if (afp === 'nei') {
-      return 'grunnlag.afp.ingress.nei'
-    }
-
-    if (
-      afp === 'ja_privat' &&
-      loependeVedtak &&
-      loependeVedtak.alderspensjon &&
-      foedselsdato &&
-      isFoedtFoer1963(foedselsdato)
-    ) {
-      return 'grunnlag.afp.ingress.ja_privat'
     }
 
     if (
