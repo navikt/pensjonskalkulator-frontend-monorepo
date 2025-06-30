@@ -10,7 +10,7 @@
               "_key": "ce5aec10e2df",
               "_type": "span",
               "marks": [],
-              "text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+              "text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av minstepensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
             }
           ],
           "markDefs": [],
@@ -104,21 +104,21 @@
               "_key": "172826e1a90c",
               "_type": "span",
               "marks": [],
-              "text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon."
+              "text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
             }
           ],
           "markDefs": [],
           "style": "normal"
         },
         {
-          "_key": "7c8d339abc4e",
+          "_key": "d3ba62ec57d6",
           "_type": "block",
           "children": [
             {
-              "_key": "891ef91692f2",
+              "_key": "5f9a76bb290a",
               "_type": "span",
               "marks": [],
-              "text": "Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge."
+              "text": "Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
             }
           ],
           "markDefs": [],
@@ -132,7 +132,7 @@
               "_key": "96f7c43e34dc",
               "_type": "span",
               "marks": [],
-              "text": "Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i periodene. Får du pensjonsgivende inntekt fra Norge i periodene vil den bli med i beregningen når du tar ut pensjonen din."
+              "text": "Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i disse periodene. "
             }
           ],
           "markDefs": [],
@@ -198,7 +198,7 @@
               "_key": "997568ca3492",
               "_type": "span",
               "marks": [],
-              "text": "Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne."
+              "text": "Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller alle inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne."
             }
           ],
           "markDefs": [],
@@ -217,37 +217,70 @@
           ],
           "markDefs": [],
           "style": "normal"
-        },
+        }
+      ],
+      "overskrift": "AFP (avtalefestet pensjon)"
+    },
+    {
+      "innhold": [
         {
-          "_key": "d61cb8b5d8c0",
+          "_key": "5ddb51665b1b",
           "_type": "block",
           "children": [
             {
-              "_key": "af70734f2ee9",
+              "_key": "f3e36bf1873f",
               "_type": "span",
               "marks": [],
-              "text": "For livsvarig AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+              "text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
             }
           ],
           "markDefs": [],
           "style": "normal"
         },
         {
-          "_key": "3c0b071eed9c",
+          "_key": "4c90d4807747",
           "_type": "block",
           "children": [
             {
-              "_key": "bbe37f654de1",
+              "_key": "d7ba850ee496",
               "_type": "span",
               "marks": [],
-              "text": "Hvis du allerede har startet uttak av livsvarig AFP i offentlig sektor, og beregner det på nytt i kalkulatoren, kan beregningen bli feil. AFP-beløpet kan bli for høyt og tidspunktet for når du kan ta ut alderspensjon vises for tidlig."
+              "text": "Hvis du har vedtak om AFP i offentlig sektor, kan ny beregning av AFP og alderspensjon bli feil, hvis vi ikke har opplysninger om vedtak om AFP fra din tjenestepensjonsordning."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "97310a242808",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bda537d58e63",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "26230a701228",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1c8188e44e93",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
             }
           ],
           "markDefs": [],
           "style": "normal"
         }
       ],
-      "overskrift": "AFP"
+      "overskrift": "AFP i offentlig sektor"
     },
     {
       "innhold": [
@@ -402,6 +435,25 @@
     {
       "innhold": [
         {
+          "_key": "c8ea8dd1f062",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c796e8e93b5e",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP i kalkulatoren. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "overskrift": "Uførepensjon fra tjenestepensjonsordninger"
+    },
+    {
+      "innhold": [
+        {
           "_key": "c07e110c9b7c",
           "_type": "block",
           "children": [
@@ -417,6 +469,25 @@
         }
       ],
       "overskrift": "Gjenlevendepensjon og omstillingsstønad"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "59b4ae1af628",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "80d7f72e3e0d",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er født før 1963 og har gjenlevenderettigheter, kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Kalkulatoren tar ikke høyde dette."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "overskrift": "Gjenlevendetillegg i alderspensjon"
     },
     {
       "innhold": [

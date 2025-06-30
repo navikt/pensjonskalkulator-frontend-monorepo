@@ -16,14 +16,16 @@
     margin-bottom: var(--a-spacing-3);
     padding-bottom: var(--a-spacing-3);
   }
-}
 
-.alderspensjonDetaljer {
-  flex: 1.1;
-  min-width: 0;
-}
+  dl {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 1 1 0px;
+    min-width: calc(var(--a-spacing-24) * 3 + var(--a-spacing-4));
+  }
 
-.opptjeningDetaljer {
-  flex: 1.9;
-  min-width: 0;
+  dd {
+    margin-left: 0;
+    text-align: right;
+  }
 }

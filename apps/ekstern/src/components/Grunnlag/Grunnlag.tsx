@@ -96,8 +96,6 @@ export const Grunnlag: React.FC<Props> = ({
   const {
     alderspensjonDetaljerListe,
     pre2025OffentligAfpDetaljerListe,
-    opptjeningKap19Liste,
-    opptjeningKap20Liste,
     afpPrivatDetaljerListe,
     afpOffentligDetaljerListe,
     opptjeningPre2025OffentligAfpListe,
@@ -182,15 +180,19 @@ export const Grunnlag: React.FC<Props> = ({
                 )}
               {/* TODO: hvis pre2025OffentligAfp.afpAvkortetTil70Prosent eller
               prosent afp redusert, så rendre linken  */}
+              {/* TODO: Flyttes inn i samme text som grunnlag.afp.avkortet.til.70.prosent hvis den er kun brukt her */}
               {pre2025OffentligAfp &&
                 pre2025OffentligAfp.afpAvkortetTil70Prosent && (
-                  <Link
-                    href="https://www.nav.no/afp-offentlig#beregning"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FormattedMessage id="grunnlag.afp.link.text" />
-                  </Link>
+                  <span>
+                    &nbsp;
+                    <Link
+                      href="https://www.nav.no/afp-offentlig#beregning"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FormattedMessage id="grunnlag.afp.link.text" />
+                    </Link>
+                  </span>
                 )}
             </ReadMore>
           )}
@@ -251,8 +253,6 @@ export const Grunnlag: React.FC<Props> = ({
               >
                 <AlderspensjonDetaljerGrunnlag
                   alderspensjonDetaljerListe={alderspensjonDetaljerListe}
-                  opptjeningKap19Liste={opptjeningKap19Liste}
-                  opptjeningKap20Liste={opptjeningKap20Liste}
                   hasPre2025OffentligAfpUttaksalder={Boolean(
                     opptjeningPre2025OffentligAfpListe?.length
                   )}

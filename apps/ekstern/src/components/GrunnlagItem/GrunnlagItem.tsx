@@ -15,7 +15,6 @@ export const GrunnlagItem: React.FC<GrunnlagItemProps> = ({
   color,
 }) => {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     <Box className={clsx(styles.border, styles[color])}>
       <Box paddingInline="4 0" paddingBlock="4">
         {children}

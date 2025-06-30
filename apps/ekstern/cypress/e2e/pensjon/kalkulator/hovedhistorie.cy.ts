@@ -11,6 +11,7 @@ describe('Hovedhistorie', () => {
     it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
       cy.visit('https://www.nav.no/planlegger-pensjon')
       cy.contains('a', 'Prøv pensjonskalkulatoren')
+        .should('be.visible')
         .should('have.attr', 'href')
         .and('include', 'https://www.nav.no/pensjon/kalkulator/login')
     })
