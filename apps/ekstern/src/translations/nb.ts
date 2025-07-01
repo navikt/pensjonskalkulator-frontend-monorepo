@@ -410,6 +410,7 @@ const translations = {
     'Ved {alderAar} {alderMd}',
   'beregning.detaljer.afpPrivat.heltUttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.afpPrivat.gradertUttak.title': 'Ved {alderAar} {alderMd}',
+  'beregning.detaljer.afpOffentlig.uttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
     'Opptjening kapittel 19',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':

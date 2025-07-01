@@ -743,7 +743,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       const headings = screen.getAllByRole('heading', { level: 4 })
-      expect(headings).toHaveLength(2) // To headings for AFP privat seksjoner
+      expect(headings).toHaveLength(3) // To headings for AFP privat seksjoner og AFP offentlig seksjon
     })
   })
 
