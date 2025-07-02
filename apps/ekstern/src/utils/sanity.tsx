@@ -1,9 +1,10 @@
 import { PortableTextReactComponents } from '@portabletext/react'
 import { createClient } from '@sanity/client'
+import { type ReactNode } from 'react'
 import { IntlShape } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { Link } from '@navikt/ds-react'
+import { Link, List } from '@navikt/ds-react'
 
 import { logOpenLink } from './logging'
 
@@ -17,20 +18,31 @@ export const sanityClient = createClient({
   projectId: 'g2by7q6m',
   dataset,
   useCdn: true, // set to `false` to bypass the edge cache
-  apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
+  apiVersion: '2025-07-02', // use current date (YYYY-MM-DD) to target the latest API version
 })
 
 export const getSanityPortableTextComponents = (
   intl: IntlShape
 ): Partial<PortableTextReactComponents> => {
   return {
+    list: {
+      bullet: ({ children }) => <List as="ul">{children}</List>,
+      number: ({ children }) => <List as="ol">{children}</List>,
+    },
+    listItem: {
+      bullet: ({ children }) => <List.Item>{children}</List.Item>,
+      number: ({ children }) => <List.Item>{children}</List.Item>,
+    },
+    block: {
+      listTitle: ({ children }) => <p className="list-title">{children}</p>,
+    },
     marks: {
       link: ({
         value,
         children,
       }: {
         value?: { blank: boolean; href: string; className?: string }
-        children?: React.ReactNode
+        children?: ReactNode
       }) => {
         return value?.blank ? (
           <Link

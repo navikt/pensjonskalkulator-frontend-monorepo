@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { FormattedMessage } from 'react-intl'
 
 import { Alert } from '@navikt/ds-react'
@@ -31,7 +31,7 @@ export const InfoOmFremtidigVedtak = ({
         values={{
           grad: loependeVedtak.fremtidigAlderspensjon.grad,
           fom: format(
-            loependeVedtak.fremtidigAlderspensjon.fom,
+            parseISO(loependeVedtak.fremtidigAlderspensjon.fom),
             DATE_ENDUSER_FORMAT
           ),
         }}

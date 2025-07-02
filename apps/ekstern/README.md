@@ -1,8 +1,6 @@
 # pensjonskalkulator-frontend
 
-[
-![Build and deploy](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy-dev.yaml/badge.svg)
-](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy-dev.yaml)
+[![Build and deploy](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy.yaml/badge.svg)](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy.yaml)
 
 Frontend-applikasjon for pensjonskalkulator for brukere født 1963 eller senere.
 
@@ -11,7 +9,7 @@ pensjonsregelverket (ikke kapittel 19).
 
 ## Teknologi
 
-Prosjektet kjører med Node > v22 og Npm > v10.1.0
+Prosjektet kjører med Node > v22.16.0 og Npm > v11.4.2
 
 ## Komme i gang
 
@@ -83,12 +81,11 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 1. `source .env.development-q2`
 1. Kjør `npm run start:q2`
 
-Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes fra environment. For å bytte bruker må man logge ut med https://logout.ekstern.nav.no/oauth2/logout
+Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes fra environment. For å bytte bruker må man logge ut med <https://logout.ekstern.nav.no/oauth2/logout>
 
 ## Systemdokumentasjon og beslutninger
 
 - [Frontend](https://confluence.adeo.no/display/PEN/Pensjonskalkulator+frontend)
-- [Overordnet](#TODO)
 
 ## Henvendelser
 

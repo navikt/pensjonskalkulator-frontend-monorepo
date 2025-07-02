@@ -7,7 +7,7 @@ const sanityClient = createClient({
   projectId: 'g2by7q6m',
   dataset: 'development',
   useCdn: true,
-  apiVersion: '2023-05-03',
+  apiVersion: '2025-07-02',
 })
 
 const forbeholdAvsnittQuery = defineQuery(

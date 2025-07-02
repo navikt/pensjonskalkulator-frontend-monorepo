@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { FormattedMessage } from 'react-intl'
 
 import { BodyLong } from '@navikt/ds-react'
@@ -32,7 +32,10 @@ export function StartIngressEndring({ loependeVedtak }: Props) {
             values={{
               ...getFormatMessageValues(),
               grad: fremtidigAlderspensjon.grad,
-              fom: format(fremtidigAlderspensjon.fom, DATE_ENDUSER_FORMAT),
+              fom: format(
+                parseISO(fremtidigAlderspensjon.fom),
+                DATE_ENDUSER_FORMAT
+              ),
               link: <TelefonLink />,
             }}
           />
