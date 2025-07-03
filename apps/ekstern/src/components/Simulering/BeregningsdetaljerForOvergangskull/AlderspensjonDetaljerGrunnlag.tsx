@@ -19,6 +19,10 @@ export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
   alderspensjonDetaljerListe,
   hasPre2025OffentligAfpUttaksalder,
 }) => {
+  const { uttaksalder, gradertUttaksperiode } = useAppSelector(
+    selectCurrentSimulation
+  )
+
   const renderDetaljer = (
     alderspensjonDetaljForValgtUttak: AlderspensjonDetaljerListe
   ) => (
@@ -43,15 +47,13 @@ export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
   )
 
   function renderHeading(index: number = 0) {
-    const { uttaksalder, gradertUttaksperiode } = useAppSelector(
-      selectCurrentSimulation
-    )
     const isGradertUttak = Boolean(
       gradertUttaksperiode &&
         !hasPre2025OffentligAfpUttaksalder &&
         gradertUttaksperiode?.uttaksalder.aar !== uttaksalder?.aar &&
         gradertUttaksperiode.grad > 0
     )
+
     return index === 0 && isGradertUttak ? (
       <Heading size="small" level="4">
         <FormattedMessage

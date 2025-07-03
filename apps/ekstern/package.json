@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "start:q2": "concurrently \"NODE_ENV=production npm run start\" \"nodemon --watch server/ --exec 'npm run build:server && NODE_ENV=development node dist/server/server.js'\"",
+    "start:q2": "concurrently \"NODE_ENV=development npm run start\" \"nodemon --watch server/ --exec 'npm run build:server && NODE_ENV=development node dist/server/server.js'\"",
     "start:production": "vite --mode production",
     "sanity-dev": "sanity dev -- --port 3333",
     "sanity-start": "sanity start dist-sanity/",
