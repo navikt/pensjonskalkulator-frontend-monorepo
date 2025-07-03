@@ -25,8 +25,7 @@ export const AlertDelB: React.FC<IAlertDelBProps> = ({ fnr }) => {
         <HStack>
           <div>
             Bruker er født før 1963. Gå til detaljert pensjonskalkulator (Del B)
-            for å beregne AFP i offentlig sektor, lagre og se
-            beregningsdetaljer.
+            for å beregne offentlig tjenestepensjon fra Statens pensjonskasse.
           </div>
           <Button size="small" variant="secondary-neutral" type="submit">
             Gå til detaljert pensjonskalkulator
