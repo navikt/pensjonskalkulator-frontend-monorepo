@@ -29,6 +29,8 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import { useFormatertAfpHeader } from './hooks'
 
+import styles from '../Grunnlag.module.scss'
+
 export const GrunnlagAFP: React.FC = () => {
   const afp = useAppSelector(selectAfp) ?? 'vet_ikke' // Vi har fallback for å unngå "missing translation" error ved flush() i GoToStart
   const afpUtregningValg = useAppSelector(selectAfpUtregningValg)
@@ -140,7 +142,10 @@ export const GrunnlagAFP: React.FC = () => {
         <FormattedMessage id="grunnlag.afp.title" />:{' '}
         <span style={{ fontWeight: 'normal' }}>{formatertAfpHeader}</span>
       </Heading>
-      <BodyLong data-testid={formatertAfpIngress}>
+      <BodyLong
+        data-testid={formatertAfpIngress}
+        className={styles.alderspensjonDetaljer}
+      >
         <FormattedMessage
           id={formatertAfpIngress}
           values={{

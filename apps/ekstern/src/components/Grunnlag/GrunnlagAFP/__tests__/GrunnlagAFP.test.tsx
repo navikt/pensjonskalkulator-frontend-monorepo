@@ -495,6 +495,10 @@ describe('Grunnlag - AFP', () => {
           'grunnlag.afp.ingress.ja_offentlig_utilgjengelig'
         )
       ).toBeVisible()
+
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
+      ).not.toBeInTheDocument()
     })
 
     it('Når hen har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
@@ -524,6 +528,10 @@ describe('Grunnlag - AFP', () => {
       ).toBeVisible()
       expect(
         screen.queryByText('grunnlag.afp.reset_link')
+      ).not.toBeInTheDocument()
+
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
       ).not.toBeInTheDocument()
     })
 
@@ -555,6 +563,10 @@ describe('Grunnlag - AFP', () => {
           }
         )
       ).toBeVisible()
+
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
+      ).not.toBeInTheDocument()
     })
   })
 

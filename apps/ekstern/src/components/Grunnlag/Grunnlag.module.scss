@@ -30,6 +30,12 @@
   }
 }
 
+.alderspensjonDetaljer {
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+}
+
 .section {
   display: flex;
   flex-direction: column;

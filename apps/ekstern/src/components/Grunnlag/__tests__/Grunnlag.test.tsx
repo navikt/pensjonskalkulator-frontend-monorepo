@@ -5,8 +5,8 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
-import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -318,9 +318,35 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByTestId('grunnlag.afp.ingress.nei', { exact: false })
       ).toBeVisible()
+
       expect(await screen.findByTestId('grunnlag.afp.afp_link')).toBeVisible()
+
       await user.click(await screen.findByTestId('grunnlag.afp.afp_link'))
       expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
+      ).not.toBeInTheDocument()
+    })
+
+    it('Når brukeren har valgt offentlig AFP men uten samtykket, ikke vis Readmore knapp', async () => {
+      const user = userEvent.setup()
+      renderGrunnlagMedPreloadedState('2', 'avansert', {
+        ...userInputInitialState,
+        samtykke: false,
+        samtykkeOffentligAFP: false,
+      })
+
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
+
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[4])
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
+      ).not.toBeInTheDocument()
     })
 
     describe('Detaljer for pre2025OffentligAfp', () => {
@@ -513,6 +539,50 @@ describe('Grunnlag', () => {
             })
           ).not.toBeInTheDocument()
         }
+      })
+    })
+
+    describe('Grunnlag - Read more', () => {
+      it('viser ikke Readmore knapp når afp er "nei"', async () => {
+        renderGrunnlagMedPreloadedState('2', 'enkel', {
+          ...userInputInitialState,
+          afp: 'nei',
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser ikke Readmore knapp når afp er null', async () => {
+        renderGrunnlagMedPreloadedState('2', 'enkel', {
+          ...userInputInitialState,
+          afp: null,
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser ikke Readmore knapp når samtykkeOffentligAFP er false og afp er ja_offentlig', async () => {
+        renderGrunnlagMedPreloadedState('2', 'avansert', {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+          samtykkeOffentligAFP: false,
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser Readmore knapp når samtykkeOffentligAFP er true og afp er ja_offentlig', async () => {
+        renderGrunnlagMedPreloadedState('2', 'avansert', {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+          samtykkeOffentligAFP: true,
+        })
+        expect(
+          screen.getByRole('button', { name: /vis detaljer om din afp/i })
+        ).toBeVisible()
       })
     })
   })
