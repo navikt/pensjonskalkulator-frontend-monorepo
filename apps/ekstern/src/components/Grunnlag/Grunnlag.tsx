@@ -32,7 +32,6 @@ import { AlderspensjonDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerF
 import { useBeregningsdetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/hooks'
 import { Pensjonsgivendeinntekt } from '../Simulering/Pensjonsgivendeinntekt'
 import { GrunnlagAFP } from './GrunnlagAFP'
-import { useFormatertAfpHeader } from './GrunnlagAFP/hooks'
 import { GrunnlagSection } from './GrunnlagSection'
 import { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'
 
@@ -85,16 +84,6 @@ export const Grunnlag: React.FC<Props> = ({
     [sivilstand]
   )
 
-  const formatertAfpHeader = useFormatertAfpHeader()
-
-  const afpNei = intl.formatMessage({ id: 'afp.nei' })
-  const afpVetIkke = intl.formatMessage({ id: 'afp.vet_ikke' })
-  const afpOffentligIkkeSamtykke = `${intl.formatMessage({ id: 'afp.offentlig' })} (${intl.formatMessage(
-    {
-      id: 'grunnlag.afp.ikke_beregnet',
-    }
-  )})`
-
   const {
     alderspensjonDetaljerListe,
     pre2025OffentligAfpDetaljerListe,
@@ -108,10 +97,11 @@ export const Grunnlag: React.FC<Props> = ({
     pre2025OffentligAfp
   )
 
-  const shouldShowAfpReadMore =
-    formatertAfpHeader !== afpNei &&
-    formatertAfpHeader !== afpVetIkke &&
-    formatertAfpHeader !== afpOffentligIkkeSamtykke
+  // Når det ikke er noen detaljer for AFP, så er "Les mer" lenken skjult.
+  const shouldHideAfpReadMore =
+    !afpOffentligDetaljerListe.length &&
+    !afpPrivatDetaljerListe.length &&
+    !pre2025OffentligAfpDetaljerListe.length
 
   return (
     <section className={styles.section}>
@@ -138,7 +128,7 @@ export const Grunnlag: React.FC<Props> = ({
 
         <GrunnlagItem color="purple">
           <GrunnlagAFP />
-          {shouldShowAfpReadMore && (
+          {!shouldHideAfpReadMore && (
             <ReadMore
               name="Listekomponenter for AFP"
               open={isAFPDokumentasjonVisible}

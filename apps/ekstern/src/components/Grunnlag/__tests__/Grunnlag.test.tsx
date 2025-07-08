@@ -574,15 +574,15 @@ describe('Grunnlag', () => {
         ).not.toBeInTheDocument()
       })
 
-      it('viser Readmore knapp når samtykkeOffentligAFP er true og afp er ja_offentlig', async () => {
+      it('viser ikke Readmore knapp når samtykkeOffentligAFP er true og afp er ja_offentlig', async () => {
         renderGrunnlagMedPreloadedState('2', 'avansert', {
           ...userInputInitialState,
           afp: 'ja_offentlig',
           samtykkeOffentligAFP: true,
         })
         expect(
-          screen.getByRole('button', { name: /vis detaljer om din afp/i })
-        ).toBeVisible()
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
       })
     })
   })
