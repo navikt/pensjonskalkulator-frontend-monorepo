@@ -582,10 +582,10 @@ export default {
   'grunnlag.forbehold.link': 'All reservations',
   'grunnlag.forbehold.title': 'Reservation',
   'savnerdunoe.title': 'Missing something?',
+  'savnerdunoe.title.endring': 'MANGLER_TEKST',
   'savnerdunoe.ingress':
     'More choices for withdrawal degree, pension age, and income can be found in Advanced.',
-  'savnerdunoe.button': 'Go to Advanced',
-  'savnerdunoe.body.endring': 'MANGLER_TEKST',
+  'savnerdunoe.ingress.endring': 'MANGLER_TEKST',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
   'pensjonsavtaler.private.title.ingen': 'Private pension agreements',

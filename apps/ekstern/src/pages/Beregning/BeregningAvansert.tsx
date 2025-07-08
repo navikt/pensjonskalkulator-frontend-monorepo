@@ -358,20 +358,12 @@ export const BeregningAvansert = () => {
       {!isError && (
         <>
           {isEndring && (
-            <div
-              className={clsx(styles.background, styles.background__lightblue)}
-            >
-              <div className={styles.container}>
-                <SavnerDuNoe headingLevel="3" isEndring={isEndring} />
-              </div>
+            <div className={styles.container}>
+              <SavnerDuNoe isEndring={isEndring} />
             </div>
           )}
 
-          <div
-            className={clsx(styles.container, {
-              [styles.container__endring]: !isEndring,
-            })}
-          >
+          <div className={styles.container}>
             <GrunnlagForbehold headingLevel="3" />
           </div>
         </>

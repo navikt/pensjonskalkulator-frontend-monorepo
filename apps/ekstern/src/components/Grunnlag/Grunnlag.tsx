@@ -222,6 +222,7 @@ export const Grunnlag: React.FC<Props> = ({
                 />
               )}
             </BodyLong>
+
             <ReadMore
               name="Listekomponenter for alderspensjon"
               open={isAlderspensjonDetaljerVisible}

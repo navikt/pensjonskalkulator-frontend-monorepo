@@ -663,9 +663,8 @@ const translations = {
   'savnerdunoe.title.endring': 'Klar til å søke om endring?',
   'savnerdunoe.ingress':
     'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
-  'savnerdunoe.button': 'Gå til Avansert',
-  'savnerdunoe.body.endring':
-    'Send søknad om endring av alderspensjon i <dinPensjonEndreSoeknadLink>Din pensjon</dinPensjonEndreSoeknadLink>',
+  'savnerdunoe.ingress.endring':
+    'Send søknad om endring av alderspensjon i Din pensjon (åpner i en ny fane)',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
   'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',

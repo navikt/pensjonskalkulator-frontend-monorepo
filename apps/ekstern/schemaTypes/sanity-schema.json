@@ -329,6 +329,10 @@
                     },
                     {
                       "type": "string",
+                      "value": "listTitle"
+                    },
+                    {
+                      "type": "string",
                       "value": "h1"
                     },
                     {
@@ -597,6 +601,10 @@
                     },
                     {
                       "type": "string",
+                      "value": "listTitle"
+                    },
+                    {
+                      "type": "string",
                       "value": "h1"
                     },
                     {
@@ -855,6 +863,10 @@
                     {
                       "type": "string",
                       "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "listTitle"
                     },
                     {
                       "type": "string",

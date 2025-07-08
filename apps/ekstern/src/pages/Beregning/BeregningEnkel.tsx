@@ -387,16 +387,8 @@ export const BeregningEnkel = () => {
         alderspensjon &&
         alderspensjon?.vilkaarsproeving.vilkaarErOppfylt && (
           <>
-            <div
-              className={clsx(styles.background, styles.background__lightblue)}
-            >
-              <div className={styles.container}>
-                <SavnerDuNoe
-                  headingLevel="3"
-                  isEndring={isEndring}
-                  showAvansert
-                />
-              </div>
+            <div className={styles.container}>
+              <SavnerDuNoe isEndring={isEndring} />
             </div>
 
             <div className={styles.container}>
