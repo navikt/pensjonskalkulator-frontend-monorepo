@@ -94,6 +94,32 @@ describe('DesktopPensjonVisning', () => {
     expect(dateText).toContainElement(screen.queryByText(/(januar 2030)/))
   })
 
+  it('viser ikke kalender måned når det er mer enn en ytelse', () => {
+    const singlePensjonData = [
+      {
+        alder: { aar: 67, maaneder: 0 },
+        grad: 100,
+        afp: 0,
+        alderspensjon: 20000,
+        pensjonsavtale: 0,
+        pre2025OffentligAFP: 10000,
+      },
+    ]
+
+    render(
+      <PensjonVisningDesktop
+        pensjonsdata={singlePensjonData}
+        summerYtelser={mockSummerYtelser}
+        hentUttaksmaanedOgAar={mockHentUttaksmaanedOgAar}
+        harGradering={false}
+      />
+    )
+
+    expect(
+      screen.getByTestId('maanedsbeloep-desktop-title').textContent
+    ).not.toContain(/(januar 2030)/)
+  })
+
   describe('vise månedsbeløp for gammel AFP - pre2025OffentligAfp', () => {
     const mockPensjonsdataPre2025OffentligAfp = [
       {

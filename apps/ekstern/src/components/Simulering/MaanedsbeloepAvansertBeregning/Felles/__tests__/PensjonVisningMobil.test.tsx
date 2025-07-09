@@ -88,6 +88,32 @@ describe('MobilePensjonVisning', () => {
     expect(screen.getByText(/januar 2030/)).toBeVisible()
   })
 
+  it('viser ikke kalender måned når det er mer enn en ytelse', () => {
+    const singlePensjonData = [
+      {
+        alder: { aar: 67, maaneder: 0 },
+        grad: 100,
+        afp: 0,
+        alderspensjon: 20000,
+        pensjonsavtale: 0,
+        pre2025OffentligAFP: 10000,
+      },
+    ]
+
+    render(
+      <PensjonVisningMobil
+        pensjonsdata={singlePensjonData}
+        summerYtelser={mockSummerYtelser}
+        hentUttaksmaanedOgAar={mockHentUttaksmaanedOgAar}
+        harGradering={false}
+      />
+    )
+
+    expect(
+      screen.getByTestId('maanedsbeloep-desktop-title').textContent
+    ).not.toContain(/(januar 2030)/)
+  })
+
   it('renderer med ReadMore komponenter når harGradering er true', () => {
     const mockMultiplePensjonsdata = [
       {

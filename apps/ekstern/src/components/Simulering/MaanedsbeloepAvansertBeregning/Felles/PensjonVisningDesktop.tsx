@@ -34,19 +34,19 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
   return (
     <HStack gap="4 12" width="100%" marginBlock="2 0">
       {pensjonsdata.map((data, index) => {
-        const isKapittel20AldersPensjon =
-          data.alderspensjon &&
-          !data.afp &&
-          !data.pensjonsavtale &&
-          !data.pre2025OffentligAfp
-
-        const isKapittel19OffentligAFP =
-          data.pre2025OffentligAfp && !data.alderspensjon
-
         const formattedUttaksalder =
           data.alderspensjon && data.pre2025OffentligAfp
             ? `${UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar} år`
             : formatUttaksalder(intl, data.alder)
+
+        // Vis kalender maaned når det er bare en ytelse
+        const showKalenderMaaned =
+          [
+            data.alderspensjon,
+            data.afp,
+            data.pensjonsavtale,
+            data.pre2025OffentligAfp,
+          ].filter(Boolean).length === 1
 
         return (
           <Box
@@ -73,9 +73,9 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
                 })}
               ${formattedUttaksalder}
               ${
-                ((isKapittel20AldersPensjon || isKapittel19OffentligAFP) &&
-                  ` (${hentUttaksmaanedOgAar(data.alder)})`) ||
-                ''
+                showKalenderMaaned
+                  ? ` (${hentUttaksmaanedOgAar(data.alder)})`
+                  : ''
               }`}
               </Heading>
 
