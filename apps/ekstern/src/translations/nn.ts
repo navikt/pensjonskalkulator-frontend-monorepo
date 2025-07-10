@@ -439,6 +439,8 @@ export default {
     'Denne utrekninga syner 100 % uttak av alderspensjon. I avansert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.',
   'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.ingress':
+    'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>. Du kan òg legge inntekta i tillegg til pensjonsbehaldninga di i',
+  'grunnlag.inntekt.ingress.endring':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.info_om_inntekt': 'Kva er pensjonsgjevande inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',

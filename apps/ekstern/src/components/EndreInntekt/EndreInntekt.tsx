@@ -139,7 +139,7 @@ export const EndreInntekt: React.FC<Props> = ({
           {visning === 'avansert' && (
             <BodyLong>
               <FormattedMessage
-                id="grunnlag.inntekt.ingress"
+                id="grunnlag.inntekt.ingress.endring"
                 values={{
                   ...getFormatMessageValues(),
                   beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,

@@ -509,6 +509,8 @@ export default {
     'You can add income alongside pension in ',
   'grunnlag.inntekt.avansert_link': 'advanced calculator',
   'grunnlag.inntekt.ingress':
+    'Your last pensionable income from the Tax Administration is <nowrap>{beloep} kr</nowrap> from {aar}. See previous incomes in <dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink>. You can add income alongside pension in',
+  'grunnlag.inntekt.ingress.endring':
     'Your last pensionable income from the Tax Administration is <nowrap>{beloep} kr</nowrap> from {aar}. See previous incomes in <dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink>',
   'grunnlag.inntekt.info_om_inntekt': 'What is Pensionable income?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Close',
