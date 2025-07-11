@@ -14,10 +14,6 @@ import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
-// TODO PEK-1026 - utvide AVANSERT_FORM_NAMES for de 3 skjemaene:
-// AVANSERT_SKJEMA_FOR_BRUKERE_MED_GRADERT_UFOERETRYGD
-// AVANSERT_SKJEMA_FOR_ANDRE_BRUKERE
-// AVANSERT_SKJEMA_FOR_BRUKERE_MED_KAP19_AFP
 export type AvansertFormNames =
   (typeof AVANSERT_FORM_NAMES)[keyof typeof AVANSERT_FORM_NAMES]
 
@@ -215,7 +211,7 @@ export const validateAvansertBeregningSkjema = (
 
   let isValid = true
 
-  // Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
+  // * Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
   if (
     !validateAlderFromForm(
       {
@@ -243,7 +239,7 @@ export const validateAvansertBeregningSkjema = (
   }
 
   if (validerKap19Afp) {
-    // Sjekker at radio for afpInntektMaanedFoerUttak er fylt ut
+    // * Sjekker at radio for afpInntektMaanedFoerUttak er fylt ut
     if (!afpInntektMaanedFoerUttakRadioFormData) {
       isValid = false
       updateValidationErrorMessage((prevState) => {
@@ -255,7 +251,7 @@ export const validateAvansertBeregningSkjema = (
       })
     }
 
-    // Sjekker at radio for InntektVsaAfpRadio er fylt ut
+    // * Sjekker at radio for InntektVsaAfpRadio er fylt ut
     if (!inntektVsaAfpRadioFormData) {
       isValid = false
       updateValidationErrorMessage((prevState) => {
@@ -267,22 +263,41 @@ export const validateAvansertBeregningSkjema = (
       })
     }
 
-    // Sjekker at radio for InntektVsaAfp er fylt ut
-    if (inntektVsaAfpRadioFormData === 'ja' && !inntektVsaAfpFormData) {
-      isValid = false
-      updateValidationErrorMessage((prevState) => {
-        return {
-          ...prevState,
-          [AVANSERT_FORM_NAMES.inntektVsaAfp]:
-            'beregning.avansert.rediger.inntekt_vsa_afp.validation_error',
-        }
-      })
+    // * Sjekker at radio for InntektVsaAfp er fylt ut
+    if (inntektVsaAfpRadioFormData === 'ja') {
+      if (
+        !validateInntekt(
+          inntektVsaAfpFormData as string,
+          (tekst: string) => {
+            if (tekst) {
+              logger('skjema validering feilet', {
+                skjemanavn: AVANSERT_FORM_NAMES.form,
+                data: 'Avansert -  Inntekt vsa. AFP',
+                tekst,
+              })
+            }
+            updateValidationErrorMessage((prevState) => {
+              return {
+                ...prevState,
+                [AVANSERT_FORM_NAMES.inntektVsaAfp]: tekst,
+              }
+            })
+          },
+          true,
+          {
+            required:
+              'beregning.avansert.rediger.inntekt_vsa_afp.validation_error',
+          }
+        )
+      ) {
+        isValid = false
+      }
     }
 
     return isValid
   }
 
-  // Sjekker at uttaksgrad er fylt ut med en prosent
+  // * Sjekker at uttaksgrad er fylt ut med en prosent
   if (
     !uttaksgradFormData ||
     /^(?!(0 %|100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
@@ -302,7 +317,7 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
-  // Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
+  // * Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
   if (
     uttaksgradFormData !== '100 %' &&
     !validateAlderForGradertUttak(
@@ -320,8 +335,8 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
-  // Gitt at brukeren har uføretrygd, og at heltUttaksalder, gradertUttaksalder og uttaksgradFormData er valid
-  // Sjekker at uttaksgraden er iht uføregraden (med mindre brukeren har valgt å simulere med AFP)
+  // * Gitt at brukeren har uføretrygd, og at heltUttaksalder, gradertUttaksalder og uttaksgradFormData er valid
+  // * Sjekker at uttaksgraden er iht uføregraden (med mindre brukeren har valgt å simulere med AFP)
   if (isValid && loependeVedtak.ufoeretrygd.grad) {
     if (loependeVedtak.ufoeretrygd.grad === 100) {
       // Dette kan i teorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra normert pensjonsalder allerede
@@ -344,8 +359,8 @@ export const validateAvansertBeregningSkjema = (
           ))
       isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
     } else if (beregningsvalgFormData !== 'med_afp') {
-      // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
-      // Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
+      // * Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
+      // * Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
       const valgtAlder =
         uttaksgradFormData === '100 %'
           ? { aar: heltUttakAarFormData, maaneder: heltUttakMaanederFormData }
@@ -354,7 +369,7 @@ export const validateAvansertBeregningSkjema = (
               maaneder: gradertUttakMaanederFormData,
             }
 
-      // Hvis brukeren har valgt uttaksalder før normert pensjonsalder
+      // * Hvis brukeren har valgt uttaksalder før normert pensjonsalder
       if (
         valgtAlder.aar &&
         valgtAlder.maaneder &&
@@ -392,7 +407,7 @@ export const validateAvansertBeregningSkjema = (
     }
   }
 
-  // Sjekker at radio for inntekt vsa helt uttak er fylt ut (gitt at uttaksalder er fylt ut)
+  // * Sjekker at radio for inntekt vsa helt uttak er fylt ut (gitt at uttaksalder er fylt ut)
   if (
     heltUttakAarFormData &&
     heltUttakMaanederFormData &&
@@ -414,7 +429,7 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
-  // Sjekker at inntekt vsa helt uttak og sluttAlder for inntekt er gyldige (gitt at radioknappen er på "ja")
+  // * Sjekker at inntekt vsa helt uttak og sluttAlder for inntekt er gyldige (gitt at radioknappen er på "ja")
   if (inntektVsaHeltUttakRadioFormData === 'ja') {
     const isInntektValid = validateInntekt(
       inntektVsaHeltUttakFormData as string,
@@ -465,7 +480,7 @@ export const validateAvansertBeregningSkjema = (
     isValid = isValid && isInntektValid && isSluttAlderValid
   }
 
-  // Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
+  // * Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
   if (uttaksgradFormData !== '100 %' && !inntektVsaGradertUttakRadioFormData) {
     isValid = false
     logger('skjema validering feilet', {
@@ -483,7 +498,7 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
-  // Sjekker at inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 % og radioknappen er på "ja")
+  // * Sjekker at inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 % og radioknappen er på "ja")
   if (
     uttaksgradFormData !== '100 %' &&
     inntektVsaGradertUttakRadioFormData === 'ja'
@@ -517,8 +532,8 @@ export const validateAvansertBeregningSkjema = (
     }
   }
 
-  // Hvis alle feltene er gyldige,
-  // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
+  // * Hvis alle feltene er gyldige,
+  // * Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
   if (isValid) {
     if (
       isLoependeVedtakEndring(loependeVedtak) &&
@@ -666,7 +681,7 @@ export const onAvansertBeregningSubmit = (
       valg: inntektVsaHeltUttakRadioFormData ? 'ja' : 'nei',
     })
   } else if (afpInntektMaanedFoerUttakRadioFormData) {
-    //afp etterfulgt av AP
+    // * AFP etterfulgt av AP
     const afpInntektMaanedFoerUttak =
       afpInntektMaanedFoerUttakRadioFormData === 'ja'
         ? true
@@ -764,10 +779,10 @@ export const onAvansertBeregningSubmit = (
   )
 
   dispatch(
-    userInputActions.setCurrentSimulationBeregningsvalg(beregningsvalgFormData) // Bare relevant for brukere med gradert uføretrygd
+    userInputActions.setCurrentSimulationBeregningsvalg(beregningsvalgFormData) // * Bare relevant for brukere med gradert uføretrygd
   )
 
-  // Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
+  // * Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
   if (
     !hasVilkaarIkkeOppfylt ||
     (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)

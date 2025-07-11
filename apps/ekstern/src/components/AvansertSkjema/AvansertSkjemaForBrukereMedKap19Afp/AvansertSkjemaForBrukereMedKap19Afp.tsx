@@ -154,12 +154,25 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     })
   }
 
-  const handleInntektVsaGradertUttakRadioChange = (s: BooleanRadio) => {
-    setLocalHarInntektVsaGradertUttakRadio(s === 'ja')
-    setValidationErrors({
-      [AVANSERT_FORM_NAMES.inntektVsaAfpRadio]: '',
-      [AVANSERT_FORM_NAMES.inntektVsaAfp]: '',
+  const handleAfpInntektMaanedFoerUttakRadioChange = (s: BooleanRadio) => {
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio]: '',
+      }
     })
+    setLocalHarAfpInntektMaanedFoerUttakRadio?.(s === 'ja')
+  }
+
+  const handleInntektVsaGradertUttakRadioChange = (s: BooleanRadio) => {
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.inntektVsaAfpRadio]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaAfp]: '',
+      }
+    })
+    setLocalHarInntektVsaGradertUttakRadio(s === 'ja')
   }
 
   const handleInntektVsaGradertUttakChange = (
@@ -176,13 +189,6 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
       },
       setValidationErrorInntektVsaAfp
     )
-  }
-
-  const handleAfpInntektMaanedFoerUttakRadioChange = (s: BooleanRadio) => {
-    setLocalHarAfpInntektMaanedFoerUttakRadio?.(s === 'ja')
-    setValidationErrors({
-      [AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio]: '',
-    })
   }
 
   const resetForm = (): void => {
@@ -340,6 +346,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
               >
                 <FormattedMessage id="stegvisning.radio_nei" />
               </Radio>
+
               {localHarAfpInntektMaanedFoerUttakRadio === false && (
                 <Alert
                   variant="info"
