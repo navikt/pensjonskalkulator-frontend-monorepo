@@ -48,6 +48,13 @@ export const GrunnlagAFP: React.FC = () => {
   const formatertAfpHeader = useFormatertAfpHeader()
 
   const formatertAfpIngress = React.useMemo(() => {
+    if (
+      (erApoteker || isFoedtFoer1963(foedselsdato!)) &&
+      loependeVedtak.fremtidigAlderspensjon &&
+      !loependeVedtak.alderspensjon
+    ) {
+      return 'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap'
+    }
     if (afp === 'nei') {
       return 'grunnlag.afp.ingress.nei'
     }

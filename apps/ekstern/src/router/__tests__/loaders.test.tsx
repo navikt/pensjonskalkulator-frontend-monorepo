@@ -814,6 +814,83 @@ describe('Loaders', () => {
     expectRedirectResponse(returnedFromLoader)
   })
 
+  describe('Brukere med fremtidig vedtak uten gjeldene vedtak og AP', () => {
+    beforeEach(() => {
+      mockResponse('/v4/vedtak/loepende-vedtak', {
+        json: {
+          harLoependeVedtak: true,
+          fremtidigAlderspensjon: {
+            grad: 75,
+            fom: '2025-01-01',
+          },
+          ufoeretrygd: { grad: 0 },
+        } satisfies LoependeVedtak,
+      })
+    })
+    const mockedState = {
+      api: { queries: { mock: 'mock' } },
+    }
+    it('Apotekere skal hoppe over AFP steg', async () => {
+      mockResponse('/v2/ekskludert', {
+        status: 200,
+        json: {
+          ekskludert: true,
+          aarsak: 'ER_APOTEKER',
+        },
+      })
+      store.getState = vi.fn().mockImplementation(() => mockedState)
+
+      const returnedFromLoader = await stepAFPAccessGuard(createMockRequest())
+
+      expectRedirectResponse(returnedFromLoader)
+    })
+
+    it('Født før 1963 skal hoppe over AFP steg', async () => {
+      mockResponse('/v2/ekskludert', {
+        status: 200,
+        json: {
+          ekskludert: true,
+          aarsak: 'ER_APOTEKER',
+        },
+      })
+      store.getState = vi.fn().mockImplementation(() => mockedState)
+
+      const returnedFromLoader = await stepAFPAccessGuard(createMockRequest())
+
+      expectRedirectResponse(returnedFromLoader)
+    })
+
+    it('Født etter 1963 skal vise AFP steg', async () => {
+      mockResponse('/v4/person', {
+        status: 200,
+        json: {
+          foedselsdato: '1965-01-01',
+          navn: 'Test Person',
+          sivilstand: 'GIFT',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+            nedreAldersgrense: { aar: 62, maaneder: 0 },
+          },
+        } satisfies Person,
+      })
+      mockResponse('/v2/ekskludert', {
+        status: 200,
+        json: {
+          ekskludert: false,
+          aarsak: 'NONE',
+        },
+      })
+      store.getState = vi.fn().mockImplementation(() => mockedState)
+
+      const returnedFromLoader = await stepAFPAccessGuard(createMockRequest())
+
+      expect(returnedFromLoader instanceof Response).toBe(false)
+      if (!(returnedFromLoader instanceof Response) && returnedFromLoader) {
+        expect(returnedFromLoader.erApoteker).toBe(false)
+      }
+    })
+  })
+
   it('Apotekere med vedtak om alderspensjon skal ikke få AFP steg', async () => {
     mockResponse('/v2/ekskludert', {
       status: 200,

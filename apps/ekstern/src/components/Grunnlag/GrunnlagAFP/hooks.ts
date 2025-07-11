@@ -42,6 +42,14 @@ export const useFormatertAfpHeader = () => {
   const formatertAfpHeader = React.useMemo(() => {
     const afpString = formatAfp(intl, afp ?? 'vet_ikke')
 
+    if (
+      (erApoteker || isFoedtFoer1963(foedselsdato!)) &&
+      loependeVedtak.fremtidigAlderspensjon &&
+      !loependeVedtak.alderspensjon
+    ) {
+      return formatAfp(intl, 'nei')
+    }
+
     if (afpUtregningValg === 'KUN_ALDERSPENSJON') {
       return formatAfp(intl, 'nei')
     }
