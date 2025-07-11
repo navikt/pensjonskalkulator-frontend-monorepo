@@ -619,7 +619,7 @@ const translations = {
   'grunnlag.alderspensjon.endring.ingress.pensjonsbeholdning':
     '{br}{br}Din pensjonsopptjening før uttak: {sum} kr',
   'grunnlag.alderspensjon.ingress.link':
-    '{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
+    '<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> <span><alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink></span>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ikke_beregnet': 'ikke beregnet',
   'grunnlag.afp.endring': 'uendret',
@@ -637,7 +637,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.{br}{br} Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.ja_privat':
-    'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP og hvordan du søker hos <afpLink>Fellesordningen for AFP</afpLink>.{br}{br} Ved uttak av AFP, kan beløpet inkludere et kronetillegg på 1600 kr per måned frem til og med måneden du fyller 67 år.',
+    'Du har oppgitt AFP i privat sektor. Nav har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP og hvordan du søker hos <afpLink>Fellesordningen for AFP</afpLink>.<span>Ved uttak av AFP, kan beløpet inkludere et kronetillegg på 1600 kr per måned frem til og med måneden du fyller 67 år.</span>',
   'grunnlag.afp.ingress.ja_privat.endring':
     'Du har AFP i privat sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':

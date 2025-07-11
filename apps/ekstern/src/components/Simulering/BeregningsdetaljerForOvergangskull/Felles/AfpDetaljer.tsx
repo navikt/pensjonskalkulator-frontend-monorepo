@@ -50,7 +50,7 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
   return (
     <section>
       {afpPrivatDetaljerListe && afpPrivatDetaljerListe.length > 0 && (
-        <VStack gap="6">
+        <VStack gap="4 8" width="100%" marginBlock="6 0">
           {afpPrivatAtUttaksalder.length > 0 &&
             currentAge &&
             currentAge < 67 && (

@@ -19,3 +19,11 @@
 .gray {
   border-color: var(--a-gray-500);
 }
+
+.grunnlagItem {
+  position: relative;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+}
