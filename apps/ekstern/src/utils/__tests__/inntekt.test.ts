@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { waitFor } from '@/test-utils'
 
 import {
+  formatDecimalWithComma,
   formatInntekt,
   formatInntektMedKr,
   formatInntektToNumber,
@@ -397,6 +398,32 @@ describe('inntekt-utils', () => {
 
     it('returnerer tom streng når beløp er null', () => {
       expect(formatInntektMedKr(null as unknown as number)).toBe('')
+    })
+  })
+
+  describe('formatDecimalWithComma', () => {
+    it('returnerer tom string når value er null eller undefined', () => {
+      expect(formatDecimalWithComma(null)).toBe('')
+      expect(formatDecimalWithComma(undefined)).toBe('')
+    })
+
+    it('returnerer string med komma som desimalseparator for desimaltall', () => {
+      expect(formatDecimalWithComma(5.4)).toBe('5,4')
+      expect(formatDecimalWithComma(3.14159)).toBe('3,14159')
+      expect(formatDecimalWithComma(0.5)).toBe('0,5')
+      expect(formatDecimalWithComma(12.345)).toBe('12,345')
+    })
+
+    it('returnerer string uten komma når value er heltall', () => {
+      expect(formatDecimalWithComma(3)).toBe('3')
+      expect(formatDecimalWithComma(0)).toBe('0')
+      expect(formatDecimalWithComma(100)).toBe('100')
+      expect(formatDecimalWithComma(-5)).toBe('-5')
+    })
+
+    it('returnerer string med komma for negative desimaltall', () => {
+      expect(formatDecimalWithComma(-5.4)).toBe('-5,4')
+      expect(formatDecimalWithComma(-0.5)).toBe('-0,5')
     })
   })
 })

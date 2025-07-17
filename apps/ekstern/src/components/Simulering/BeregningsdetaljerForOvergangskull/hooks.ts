@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { formatInntekt } from '@/utils/inntekt'
+import { formatDecimalWithComma, formatInntekt } from '@/utils/inntekt'
 
 export interface DetaljRad {
   tekst: string
@@ -143,7 +143,10 @@ function getAlderspensjonDetaljerListe(
         tekst: 'Andelsbrøk',
         verdi: ap.andelsbroekKap19 ? `${ap.andelsbroekKap19 * 10}/10` : 0,
       },
-      { tekst: 'Sluttpoengtall', verdi: ap.sluttpoengtall },
+      {
+        tekst: 'Sluttpoengtall',
+        verdi: formatDecimalWithComma(ap.sluttpoengtall),
+      },
       {
         tekst: 'Poengår',
         verdi: (ap.poengaarFoer92 ?? 0) + (ap.poengaarEtter91 ?? 0),
@@ -345,7 +348,7 @@ export function useBeregningsdetaljer(
           { tekst: 'AFP grad', verdi: pre2025OffentligAfp.afpGrad },
           {
             tekst: 'Sluttpoengtall',
-            verdi: pre2025OffentligAfp.sluttpoengtall,
+            verdi: formatDecimalWithComma(pre2025OffentligAfp.sluttpoengtall),
           },
           {
             tekst: 'Poengår',
