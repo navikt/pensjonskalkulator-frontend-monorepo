@@ -387,7 +387,7 @@ describe('inntekt-utils', () => {
   })
 
   describe('formatInntektMedKr', () => {
-    it('returnerer formatert beløp med "kr" for gitt beløp', () => {
+    it('returnerer formattert beløp med "kr" for gitt beløp', () => {
       expect(formatInntektMedKr(12345)).toMatch(/12\s345\s*kr/)
       expect(formatInntektMedKr(0)).toBe('0\u00A0kr')
     })

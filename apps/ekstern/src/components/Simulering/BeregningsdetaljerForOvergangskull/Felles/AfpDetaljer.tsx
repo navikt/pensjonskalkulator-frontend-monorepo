@@ -18,27 +18,6 @@ export interface AfpDetaljerProps {
   opptjeningPre2025OffentligAfpListe?: DetaljRad[]
 }
 
-const formatDetaljVerdi = (
-  detalj: DetaljRad,
-  isBold: boolean
-): React.ReactNode => {
-  let formatertVerdi
-
-  switch (detalj.tekst) {
-    case 'Poengår':
-    case 'Trygdetid':
-      formatertVerdi = `${detalj.verdi} år`
-      break
-    case 'AFP grad':
-      formatertVerdi = `${detalj.verdi} %`
-      break
-    default:
-      formatertVerdi = detalj.verdi
-  }
-
-  return isBold ? <strong>{formatertVerdi}</strong> : formatertVerdi
-}
-
 export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
   afpPrivatDetaljerListe,
   afpOffentligDetaljerListe,
@@ -95,28 +74,29 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
                       <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title" />
                     </strong>
                   </div>
-                  {afpPrivatAtUttaksalder.map((detalj, index) => {
-                    const isBold = index === afpPrivatAtUttaksalder.length - 1
-                    const formatertVerdi = formatDetaljVerdi(detalj, isBold)
-
-                    return (
-                      <Fragment key={index}>
-                        <HStack
-                          justify="space-between"
-                          className={styles.hstackRow}
-                        >
-                          <dt>
-                            {isBold ? (
-                              <strong>{detalj.tekst}:</strong>
-                            ) : (
-                              `${detalj.tekst}:`
-                            )}
-                          </dt>
-                          <dd>{formatertVerdi}</dd>
-                        </HStack>
-                      </Fragment>
-                    )
-                  })}
+                  {afpPrivatAtUttaksalder.map((detalj, index) => (
+                    <Fragment key={index}>
+                      <HStack
+                        justify="space-between"
+                        className={styles.hstackRow}
+                      >
+                        <dt>
+                          {index === afpPrivatAtUttaksalder.length - 1 ? (
+                            <strong>{detalj.tekst}:</strong>
+                          ) : (
+                            `${detalj.tekst}:`
+                          )}
+                        </dt>
+                        <dd>
+                          {index === afpPrivatAtUttaksalder.length - 1 ? (
+                            <strong>{detalj.verdi}</strong>
+                          ) : (
+                            detalj.verdi
+                          )}
+                        </dd>
+                      </HStack>
+                    </Fragment>
+                  ))}
                 </dl>
               </div>
             )}
@@ -144,27 +124,26 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
                   <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title" />
                 </strong>
               </div>
-              {afpPrivatAt67.map((detalj, index) => {
-                const isBold = index === afpPrivatAt67.length - 1
-                const formatertVerdi = formatDetaljVerdi(detalj, isBold)
-                return (
-                  <Fragment key={index}>
-                    <HStack
-                      justify="space-between"
-                      className={styles.hstackRow}
-                    >
-                      <dt>
-                        {isBold ? (
-                          <strong>{detalj.tekst}:</strong>
-                        ) : (
-                          `${detalj.tekst}:`
-                        )}
-                      </dt>
-                      <dd>{formatertVerdi}</dd>
-                    </HStack>
-                  </Fragment>
-                )
-              })}
+              {afpPrivatAt67.map((detalj, index) => (
+                <Fragment key={index}>
+                  <HStack justify="space-between" className={styles.hstackRow}>
+                    <dt>
+                      {index === afpPrivatAt67.length - 1 ? (
+                        <strong>{detalj.tekst}:</strong>
+                      ) : (
+                        `${detalj.tekst}:`
+                      )}
+                    </dt>
+                    <dd>
+                      {index === afpPrivatAt67.length - 1 ? (
+                        <strong>{detalj.verdi}</strong>
+                      ) : (
+                        detalj.verdi
+                      )}
+                    </dd>
+                  </HStack>
+                </Fragment>
+              ))}
             </dl>
           </div>
         </VStack>
@@ -191,29 +170,31 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
                       <FormattedMessage id="beregning.detaljer.grunnpensjon.afp.table.title" />
                     </strong>
                   </div>
-                  {pre2025OffentligAfpDetaljerListe.map((detalj, index) => {
-                    const isBold =
-                      index === pre2025OffentligAfpDetaljerListe.length - 1
-                    const formatertVerdi = formatDetaljVerdi(detalj, isBold)
-
-                    return (
-                      <React.Fragment key={index}>
-                        <HStack
-                          justify="space-between"
-                          className={styles.hstackRow}
-                        >
-                          <dt>
-                            {isBold ? (
-                              <strong>{detalj.tekst}:</strong>
-                            ) : (
-                              `${detalj.tekst}:`
-                            )}
-                          </dt>
-                          <dd>{formatertVerdi}</dd>
-                        </HStack>
-                      </React.Fragment>
-                    )
-                  })}
+                  {pre2025OffentligAfpDetaljerListe.map((detalj, index) => (
+                    <React.Fragment key={index}>
+                      <HStack
+                        justify="space-between"
+                        className={styles.hstackRow}
+                      >
+                        <dt>
+                          {index ===
+                          pre2025OffentligAfpDetaljerListe.length - 1 ? (
+                            <strong>{detalj.tekst}:</strong>
+                          ) : (
+                            `${detalj.tekst}:`
+                          )}
+                        </dt>
+                        <dd>
+                          {index ===
+                          pre2025OffentligAfpDetaljerListe.length - 1 ? (
+                            <strong>{detalj.verdi}</strong>
+                          ) : (
+                            detalj.verdi
+                          )}
+                        </dd>
+                      </HStack>
+                    </React.Fragment>
+                  ))}
                 </dl>
               </div>
             )}
@@ -226,20 +207,17 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
                     <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title" />
                   </strong>
                 </div>
-                {opptjeningPre2025OffentligAfpListe.map((detalj, index) => {
-                  const formatertVerdi = formatDetaljVerdi(detalj, false)
-                  return (
-                    <Fragment key={index}>
-                      <HStack
-                        justify="space-between"
-                        className={styles.hstackRow}
-                      >
-                        <dt>{`${detalj.tekst}:`}</dt>
-                        <dd>{formatertVerdi}</dd>
-                      </HStack>
-                    </Fragment>
-                  )
-                })}
+                {opptjeningPre2025OffentligAfpListe.map((detalj, index) => (
+                  <Fragment key={index}>
+                    <HStack
+                      justify="space-between"
+                      className={styles.hstackRow}
+                    >
+                      <dt>{`${detalj.tekst}:`}</dt>
+                      <dd>{detalj.verdi}</dd>
+                    </HStack>
+                  </Fragment>
+                ))}
               </dl>
             )}
         </HStack>
@@ -260,19 +238,18 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
               }}
             />
           </Heading>
-          {afpOffentligDetaljerListe.map((detalj, index) => {
-            const formatertVerdi = formatDetaljVerdi(detalj, true)
-            return (
-              <Fragment key={index}>
-                <HStack justify="space-between" className={styles.hstackRow}>
-                  <dt>
-                    <strong>{`${detalj.tekst}: `}</strong>
-                  </dt>
-                  <dd>{formatertVerdi}</dd>
-                </HStack>
-              </Fragment>
-            )
-          })}
+          {afpOffentligDetaljerListe.map((detalj, index) => (
+            <Fragment key={index}>
+              <HStack justify="space-between" className={styles.hstackRow}>
+                <dt>
+                  <strong>{`${detalj.tekst}: `}</strong>
+                </dt>
+                <dd>
+                  <strong>{detalj.verdi}</strong>
+                </dd>
+              </HStack>
+            </Fragment>
+          ))}
         </dl>
       )}
     </section>
