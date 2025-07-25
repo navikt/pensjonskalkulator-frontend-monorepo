@@ -35,8 +35,8 @@ describe('AfpDetaljerGrunnlag', () => {
   const defaultProps = {
     afpPrivatDetaljerListe: [
       [
-        { tekst: 'AFP grad', verdi: 100 },
-        { tekst: 'Kompensasjonsgrad', verdi: 0.76 },
+        { tekst: 'AFP grad', verdi: '100 %' },
+        { tekst: 'Kompensasjonsgrad', verdi: '76 %' },
       ],
     ],
     afpOffentligDetaljerListe: [
@@ -48,7 +48,7 @@ describe('AfpDetaljerGrunnlag', () => {
       { tekst: 'Sum alderspensjon', verdi: '28 000 kr' },
     ],
     opptjeningPre2025OffentligAfpListe: [
-      { tekst: 'AFP grad', verdi: 100 },
+      { tekst: 'AFP grad', verdi: '100 år' },
       { tekst: 'Sluttpoengtall', verdi: 6.5 },
     ],
   }

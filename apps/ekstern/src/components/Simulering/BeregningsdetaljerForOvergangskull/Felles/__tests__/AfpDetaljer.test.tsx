@@ -80,10 +80,10 @@ describe('Gitt at AfpDetaljer rendres', () => {
   ]
 
   const mockPre2025OffentligAfpData: DetaljRad[] = [
-    { tekst: 'AFP grad', verdi: 100 },
+    { tekst: 'AFP grad', verdi: '100 %' },
     { tekst: 'Sluttpoengtall', verdi: 6.5 },
-    { tekst: 'Poengår', verdi: 35 },
-    { tekst: 'Trygdetid', verdi: 40 },
+    { tekst: 'Poengår', verdi: '35 år' },
+    { tekst: 'Trygdetid', verdi: '40 år' },
   ]
 
   const mockAfpOffentligData: DetaljRad[] = [
@@ -186,13 +186,13 @@ describe('Gitt at AfpDetaljer rendres', () => {
     )
 
     expect(screen.getByText('AFP grad:')).toBeVisible()
-    expect(screen.getByText('100')).toBeVisible()
+    expect(screen.getByText('100 %')).toBeVisible()
     expect(screen.getByText('Sluttpoengtall:')).toBeVisible()
     expect(screen.getByText('6.5')).toBeVisible()
     expect(screen.getByText('Poengår:')).toBeVisible()
-    expect(screen.getByText('35')).toBeVisible()
+    expect(screen.getByText('35 år')).toBeVisible()
     expect(screen.getByText('Trygdetid:')).toBeVisible()
-    expect(screen.getByText('40')).toBeVisible()
+    expect(screen.getByText('40 år')).toBeVisible()
   })
 
   it('rendrer både AFP privat og pre-2025 offentlig AFP samtidig', () => {
@@ -718,7 +718,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
       // Pre-2025 offentlig AFP
       expect(screen.getByText('AFP grad:')).toBeVisible()
-      expect(screen.getByText('100')).toBeVisible()
+      expect(screen.getByText('100 %')).toBeVisible()
 
       // Totalt skal det være 3 forskjellige seksjoner med AFP data
       const definitionLists = container.querySelectorAll('dl')
@@ -798,13 +798,13 @@ describe('Gitt at AfpDetaljer rendres', () => {
       )
 
       expect(screen.getByText('AFP grad:')).toBeVisible()
-      expect(screen.getByText('100')).toBeVisible()
+      expect(screen.getByText('100 %')).toBeVisible()
       expect(screen.getByText('Sluttpoengtall:')).toBeVisible()
       expect(screen.getByText('6.5')).toBeVisible()
       expect(screen.getByText('Poengår:')).toBeVisible()
-      expect(screen.getByText('35')).toBeVisible()
+      expect(screen.getByText('35 år')).toBeVisible()
       expect(screen.getByText('Trygdetid:')).toBeVisible()
-      expect(screen.getByText('40')).toBeVisible()
+      expect(screen.getByText('40 år')).toBeVisible()
     })
 
     it('rendrer ikke pre-2025 offentlig AFP når data er tom', () => {
@@ -847,7 +847,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       const mockDataWithUndefined: DetaljRad[] = [
         { tekst: 'AFP grad', verdi: undefined },
         { tekst: 'Sluttpoengtall' },
-        { tekst: 'Poengår', verdi: 35 },
+        { tekst: 'Poengår', verdi: '35 år' },
       ]
 
       renderWithProviders(
@@ -859,7 +859,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       expect(screen.getByText('AFP grad:')).toBeVisible()
       expect(screen.getByText('Sluttpoengtall:')).toBeVisible()
       expect(screen.getByText('Poengår:')).toBeVisible()
-      expect(screen.getByText('35')).toBeVisible()
+      expect(screen.getByText('35 år')).toBeVisible()
     })
 
     it('rendrer pre-2025 offentlig AFP sammen med AFP privat', () => {
@@ -929,7 +929,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
 
       // Pre-2025 offentlig AFP
       expect(screen.getByText('AFP grad:')).toBeVisible()
-      expect(screen.getByText('100')).toBeVisible()
+      expect(screen.getByText('100 %')).toBeVisible()
 
       // Skal ha minst 3 definition lists (AFP privat x2, AFP offentlig, pre-2025)
       const definitionLists = container.querySelectorAll('dl')

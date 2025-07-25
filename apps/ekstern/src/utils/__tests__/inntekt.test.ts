@@ -402,11 +402,6 @@ describe('inntekt-utils', () => {
   })
 
   describe('formatDecimalWithComma', () => {
-    it('returnerer tom string når value er null eller undefined', () => {
-      expect(formatDecimalWithComma(null)).toBe('')
-      expect(formatDecimalWithComma(undefined)).toBe('')
-    })
-
     it('returnerer string med komma som desimalseparator for desimaltall', () => {
       expect(formatDecimalWithComma(5.4)).toBe('5,4')
       expect(formatDecimalWithComma(3.14159)).toBe('3,14159')

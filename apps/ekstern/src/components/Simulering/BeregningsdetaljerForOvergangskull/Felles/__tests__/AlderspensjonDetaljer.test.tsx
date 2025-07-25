@@ -71,8 +71,8 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
     opptjeningKap19: [
       { tekst: 'Andelsbrøk', verdi: '10/10' },
       { tekst: 'Sluttpoengtall', verdi: 6.5 },
-      { tekst: 'Poengår', verdi: 35 },
-      { tekst: 'Trygdetid', verdi: 40 },
+      { tekst: 'Poengår', verdi: '35 år' },
+      { tekst: 'Trygdetid', verdi: '40 år' },
     ],
     opptjeningKap20: [
       { tekst: 'Andelsbrøk', verdi: '10/10' },
