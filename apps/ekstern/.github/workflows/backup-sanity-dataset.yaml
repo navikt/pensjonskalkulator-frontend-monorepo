@@ -1,4 +1,4 @@
-name: Backup Routine
+name: Sanity Backup
 on:
   workflow_dispatch:
   schedule:
@@ -23,7 +23,7 @@ jobs:
         run: mkdir -p backups
 
       - name: Export dataset
-        uses: sanity-io/github-action-sanity@v0.7-alpha
+        uses: sanity-io/github-action-sanity@cdeffd046eefb565a2ae8c2333f593a5f4012ec2 #with Node v20 required by Sanity-cli
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
         with:
