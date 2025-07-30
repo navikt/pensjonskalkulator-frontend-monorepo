@@ -16,17 +16,18 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Set backup file name
-        run: echo "FILE_NAME=backup-$(date +%F-%H%M).tar.gz" >> $GITHUB_ENV
+        run: |
+          export TZ=Europe/Oslo
+          echo "FILE_NAME=backup-$(date +%F-%H-%M-%S).tar.gz" >> $GITHUB_ENV
 
       - name: Create backups directory
         run: mkdir -p backups
 
-      - name: Export dataset
-        uses: sanity-io/github-action-sanity@cdeffd046eefb565a2ae8c2333f593a5f4012ec2 #with Node v20 required by Sanity-cli
-        env:
-          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
-        with:
-          args: dataset export production backups/${{ env.FILE_NAME }} --project ${{ secrets.SANITY_PROJECT_ID }}
+      - name: Export dataset via Sanity API
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.SANITY_AUTH_TOKEN }}" \
+             -o backups/${{ env.FILE_NAME }} \
+             "https://${{ secrets.SANITY_PROJECT_ID }}.api.sanity.io/v2025-07-02/data/export/production"
 
       - name: Authenticate to Google Cloud (WIF)
         uses: google-github-actions/auth@v2
