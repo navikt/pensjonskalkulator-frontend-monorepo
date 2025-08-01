@@ -131,7 +131,7 @@ describe('DesktopPensjonVisning', () => {
         pre2025OffentligAfp: 15000,
       },
       {
-        alder: { aar: 65, maaneder: 3 },
+        alder: { aar: 67, maaneder: 3 },
         grad: 100,
         afp: 0,
         pensjonsavtale: 0,
@@ -157,12 +157,16 @@ describe('DesktopPensjonVisning', () => {
     })
 
     it('viser dato i parantes i tittel for pre2025OffentligAfp', () => {
-      const pre2025OffentligAfpMaanedsBeloepTittel = screen.getAllByTestId(
+      const pre2025OffentligAfpMaanedsBeloepTittelList = screen.getAllByTestId(
         'maanedsbeloep-desktop-title'
-      )[0]
+      )
 
-      expect(pre2025OffentligAfpMaanedsBeloepTittel).toContainElement(
-        screen.queryByText(/(januar 2030)/)
+      expect(pre2025OffentligAfpMaanedsBeloepTittelList[0]).toHaveTextContent(
+        'beregning.avansert.maanedsbeloep.box_title 65 alder.aar string.og 3 alder.maaneder (januar 2030)'
+      )
+
+      expect(pre2025OffentligAfpMaanedsBeloepTittelList[1]).toHaveTextContent(
+        '67 år (januar 2030)'
       )
     })
 
