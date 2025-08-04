@@ -39,4 +39,4 @@ jobs:
         with:
           path: ./backups/${{ env.FILE_NAME }}
           destination: pkf/sanity-backups/
-          if-no-files-found: error
+          process_gcloudignore: false
