@@ -1,5 +1,4 @@
 import React from 'react'
-import { isRouteErrorResponse } from 'react-router'
 
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework'
@@ -7,38 +6,16 @@ import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-h
 import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
 
-export interface ErrorPageUnexpectedProps {
-  error?: unknown
-}
-
-export const ErrorPageUnexpected: React.FC<ErrorPageUnexpectedProps> = ({
-  error,
-}) => {
+export const ErrorPageUnexpected = () => {
   const [{ onStegvisningCancel }] = useStegvisningNavigation(paths.uventetFeil)
 
   React.useEffect(() => {
-    let errorData = 'fra RouteErrorBoundary'
-
-    if (error) {
-      if (isRouteErrorResponse(error)) {
-        errorData = `fra RouteErrorBoundary. Route Error ${error.status}: ${error.statusText || 'Unknown route error'} `
-      } else if (error instanceof Error) {
-        errorData = `fra RouteErrorBoundary. Unexpected Error: ${error.message}${error.stack ? `\nStack: ${error.stack}` : ''} `
-      } else {
-        try {
-          errorData = `fra RouteErrorBoundary. Unknown Error: ${JSON.stringify(error)} `
-        } catch {
-          errorData = `fra RouteErrorBoundary. Unknown Error: ${typeof error} `
-        }
-      }
-    }
-
     logger('info', {
       tekst: 'Redirect til /uventet-feil',
-      data: errorData,
+      data: 'fra RouteErrorBoundary',
     })
     window.scrollTo(0, 0)
-  }, [error])
+  }, [])
 
   return (
     <FrameComponent>

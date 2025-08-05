@@ -9,10 +9,12 @@ import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
 
 import { store } from './state/store'
+import { applyGoogleTranslateFix } from './utils/googleTranslateWorkaround'
 
 import './scss/designsystem.scss'
 import '@/utils/logging'
 
+applyGoogleTranslateFix()
 const root = document.getElementById('root')
 
 if (!root) {

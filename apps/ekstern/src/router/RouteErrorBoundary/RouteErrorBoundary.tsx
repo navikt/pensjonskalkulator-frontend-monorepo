@@ -10,5 +10,5 @@ export const RouteErrorBoundary = () => {
     return <ErrorPage404 />
   }
 
-  return <ErrorPageUnexpected error={error} />
+  return <ErrorPageUnexpected />
 }
