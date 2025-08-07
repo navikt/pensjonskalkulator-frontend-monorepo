@@ -130,8 +130,11 @@ export const BeregningAvansert = () => {
   useEffect(() => {
     if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
+        const tekst = skalBeregneAfpKap19
+          ? 'Beregning AFP: Oppfyller ikke vilkår for AFP'
+          : 'Beregning avansert: Ikke høy nok opptjening'
         logger('alert vist', {
-          tekst: 'Beregning avansert: Ikke høy nok opptjening',
+          tekst,
           variant: 'warning',
         })
       } else if (isError) {

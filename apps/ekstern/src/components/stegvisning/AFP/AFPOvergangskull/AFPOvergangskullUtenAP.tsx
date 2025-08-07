@@ -88,12 +88,17 @@ export function AFPOvergangskullUtenAP({
         tekst: `Neste fra ${paths.afp}`,
       })
 
-      if (
-        !jaAFPOffentlig &&
-        simuleringstypeInput === 'AFP_ETTERFULGT_AV_ALDERSPENSJON'
-      ) {
+      if (!jaAFPOffentlig) {
+        // If the user does not select AFPOffentlig then send only afpInput
         onNext(afpInput, null)
       } else {
+        logger('radiogroup valgt', {
+          tekst: 'Hva vil du beregne',
+          valg:
+            simuleringstypeInput && simuleringstypeInput === 'KUN_ALDERSPENSJON'
+              ? 'Kun Alderspensjon'
+              : 'AFP etterfulgt av Alderspensjon',
+        })
         onNext(afpInput, simuleringstypeInput)
       }
     }

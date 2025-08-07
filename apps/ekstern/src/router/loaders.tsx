@@ -229,6 +229,11 @@ export const stepSivilstandAccessGuard = async ({
     .dispatch(apiSlice.endpoints.getErApoteker.initiate())
     .unwrap()
 
+  logger('info', {
+    tekst: 'Er apoteker',
+    data: erApoteker ? 'Ja' : 'Nei',
+  })
+
   const [person, grunnbeloep] = await Promise.all([
     getPersonQuery,
     getGrunnbeloepQuery,
@@ -236,6 +241,11 @@ export const stepSivilstandAccessGuard = async ({
 
   const isEndring = isLoependeVedtakEndring(loependeVedtak)
   const isKap19 = isFoedtFoer1963(person.foedselsdato)
+
+  logger('info', {
+    tekst: 'Født før 1963',
+    data: isKap19 ? 'Ja' : 'Nei',
+  })
 
   const stepArrays = getStepArrays(isEndring, isKap19 || erApoteker)
 

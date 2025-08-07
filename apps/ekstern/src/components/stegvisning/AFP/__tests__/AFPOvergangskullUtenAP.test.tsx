@@ -173,6 +173,11 @@ describe('stegvisning - AFP - født mellom 1954-1962 uten vedtak om alderspensjo
     )
     const radioButtons = screen.getAllByRole('radio')
     await user.click(radioButtons[0])
+    await user.click(
+      screen.getByRole('radio', {
+        name: 'stegvisning.afp.overgangskullUtenAP.radio_ja',
+      })
+    )
     await user.click(screen.getByText('stegvisning.neste'))
     expect(onNextMock).toHaveBeenCalled()
   })
