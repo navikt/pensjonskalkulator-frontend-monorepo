@@ -1,13 +1,11 @@
 import { IntlShape } from 'react-intl'
 
-import { DEFAULT_SENEST_UTTAKSALDER, formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder } from '@/utils/alder'
 
 export const getFormaterteAldere = (
   intl: IntlShape,
   start: Alder,
-  end: Alder = {
-    ...DEFAULT_SENEST_UTTAKSALDER,
-  }
+  end: Alder
 ): string[] => {
   if (end.aar < start.aar) {
     return []

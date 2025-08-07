@@ -12,7 +12,7 @@ describe('Med ufoeretrygd', () => {
   describe('Som bruker som har logget inn på kalkulatoren, mottar uføretrygd og er eldre enn 62 år', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
         {
           ...personMock,
           foedselsdato: fødselsdatoEldreEnn62,
@@ -189,7 +189,7 @@ describe('Med ufoeretrygd', () => {
   describe('Som bruker som har logget inn på kalkulatoren, mottar uføretrygd og er eldre enn 62 år', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
         {
           ...personMock,
           foedselsdato: fødselsdatoEldreEnn62,

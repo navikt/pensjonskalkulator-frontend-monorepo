@@ -32,11 +32,11 @@ declare global {
   type Ansatt = components['schemas']['AnsattV1']
 
   // /person
-  type Person = components['schemas']['PersonResultV4']
+  type Person = components['schemas']['PersonResultV5']
   type Sivilstand =
     components['schemas']['AlderspensjonDetaljerV4']['sivilstand']
   type pensjoneringAldre =
-    components['schemas']['PersonResultV4']['pensjoneringAldre']
+    components['schemas']['PersonResultV5']['pensjoneringAldre']
 
   // /inntekt
   export type GetInntektQuery = TypedUseQueryStateResult<

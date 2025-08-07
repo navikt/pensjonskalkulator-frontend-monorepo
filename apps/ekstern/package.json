@@ -65,7 +65,7 @@
     "@navikt/ds-react": "^7.26.0",
     "@navikt/nav-dekoratoren-moduler": "^3.4.0",
     "@reduxjs/toolkit": "^2.8.2",
-    "@sanity/client": "^7.6.0",
+    "@sanity/client": "^7.8.2",
     "@sanity/document-internationalization": "^4.0.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
@@ -110,7 +110,7 @@
     "react-redux": "^9.2.0",
     "react-router": "7.7.1",
     "rollup-plugin-visualizer": "^6.0.3",
-    "sass": "^1.89.2",
+    "sass-embedded": "^1.90.0",
     "start-server-and-test": "^2.0.13",
     "stylelint": "^16.23.0",
     "stylelint-config-standard-scss": "^15.0.1",
@@ -123,6 +123,11 @@
     "vite-plugin-stylelint": "^6.0.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "3.2.4"
+  },
+  "optionalDependencies": {
+    "sass-embedded-linux-x64": "^1.90.0",
+    "sass-embedded-darwin-arm64": "^1.90.0",
+    "sass-embedded-win32-x64": "^1.90.0"
   },
   "msw": {
     "workerDirectory": "public"

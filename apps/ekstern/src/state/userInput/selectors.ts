@@ -63,16 +63,33 @@ export const selectGrunnbeloep = createSelector(
   (grunnbeloepResponse) => grunnbeloepResponse.data
 )
 
+export const selectNormertPensjonsalder = createSelector(
+  selectPersonResponse,
+  (personResponse) =>
+    personResponse.data?.pensjoneringAldre.normertPensjoneringsalder as Alder
+)
+
 export const selectNedreAldersgrense = createSelector(
   selectPersonResponse,
   (personResponse) =>
     personResponse.data?.pensjoneringAldre.nedreAldersgrense as Alder
 )
 
-export const selectNormertPensjonsalder = createSelector(
+export const selectOevreAldersgrense = createSelector(
   selectPersonResponse,
   (personResponse) =>
-    personResponse.data?.pensjoneringAldre.normertPensjoneringsalder as Alder
+    personResponse.data?.pensjoneringAldre.oevreAldersgrense as Alder
+)
+
+export const selectMaxOpptjeningsalder = createSelector(
+  selectPersonResponse,
+  (personResponse) => {
+    const oevre = (
+      personResponse.data?.pensjoneringAldre as { oevreAldersgrense?: Alder }
+    )?.oevreAldersgrense
+    if (!oevre) return undefined
+    return { aar: oevre.aar, maaneder: 11 } as Alder
+  }
 )
 
 export const selectSivilstand = (state: RootState) => {

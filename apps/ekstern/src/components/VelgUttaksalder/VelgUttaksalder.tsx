@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectNedreAldersgrense,
+  selectOevreAldersgrense,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { unformatUttaksalder } from '@/utils/alder'
@@ -30,9 +31,10 @@ export const VelgUttaksalder: React.FC<Props> = ({
 
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
 
+  const oevreAldersgrense = useAppSelector(selectOevreAldersgrense)
+
   const formaterteAldere = React.useMemo(
-    () =>
-      getFormaterteAldere(intl, tidligstMuligUttak, { aar: 75, maaneder: 0 }),
+    () => getFormaterteAldere(intl, tidligstMuligUttak, oevreAldersgrense),
     [tidligstMuligUttak]
   )
 

@@ -19,12 +19,12 @@ import {
   selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
+  selectMaxOpptjeningsalder,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
   selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import {
-  DEFAULT_MAX_OPPTJENINGSALDER,
   formatUttaksalder,
   getAlderPlus1Maaned,
   getBrukerensAlderISluttenAvMaaneden,
@@ -82,6 +82,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     normertPensjonsalder
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
+
+  const maxOpptjeningsalder = useAppSelector(selectMaxOpptjeningsalder)
 
   const gaaTilResultat = () => {
     setAvansertSkjemaModus('resultat')
@@ -878,7 +880,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       })}
                       value={localHeltUttak.aarligInntektVsaPensjon?.sluttAlder}
                       minAlder={minAlderInntektSluttAlder}
-                      maxAlder={DEFAULT_MAX_OPPTJENINGSALDER}
+                      maxAlder={maxOpptjeningsalder}
                       onChange={handleInntektVsaHeltUttakSluttAlderChange}
                       error={
                         validationErrors[

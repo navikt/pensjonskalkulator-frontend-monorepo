@@ -7,9 +7,11 @@ import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import {
-  DEFAULT_SENEST_UTTAKSALDER,
+  selectNedreAldersgrense,
+  selectOevreAldersgrense,
+} from '@/state/userInput/selectors'
+import {
   formatUttaksalder,
   transformMaanedToDate,
   transformUttaksalderToDate,
@@ -37,7 +39,7 @@ export const AgePicker = ({
   description,
   value,
   minAlder = { ...useAppSelector(selectNedreAldersgrense) },
-  maxAlder = { ...DEFAULT_SENEST_UTTAKSALDER },
+  maxAlder = { ...useAppSelector(selectOevreAldersgrense) },
   info,
   onChange,
   error,

@@ -17,16 +17,6 @@ import { IntlShape } from 'react-intl'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { capitalize } from '@/utils/string'
 
-export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
-  aar: 75,
-  maaneder: 0,
-}
-
-export const DEFAULT_MAX_OPPTJENINGSALDER: Alder = {
-  aar: 75,
-  maaneder: 11,
-}
-
 export const AFP_UFOERE_OPPSIGELSESALDER: Alder = {
   aar: 62,
   maaneder: 0,

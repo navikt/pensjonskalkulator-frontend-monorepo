@@ -196,6 +196,10 @@ describe('Grunnlag - AFP', () => {
                 aar: 62,
                 maaneder: 0,
               },
+              oevreAldersgrense: {
+                aar: 75,
+                maaneder: 0,
+              },
             },
           },
           fulfilledTimeStamp: 1688046412103,
@@ -253,6 +257,10 @@ describe('Grunnlag - AFP', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },
@@ -385,6 +393,10 @@ describe('Grunnlag - AFP', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },
@@ -650,6 +662,10 @@ describe('Grunnlag - AFP', () => {
                 aar: 62,
                 maaneder: 0,
               },
+              oevreAldersgrense: {
+                aar: 75,
+                maaneder: 0,
+              },
             },
           },
           fulfilledTimeStamp: 1688046412103,
@@ -701,6 +717,10 @@ describe('Grunnlag - AFP', () => {
                 aar: 62,
                 maaneder: 0,
               },
+              oevreAldersgrense: {
+                aar: 75,
+                maaneder: 0,
+              },
             },
           },
           fulfilledTimeStamp: 1688046412103,
@@ -749,6 +769,10 @@ describe('Grunnlag - AFP', () => {
                 aar: 62,
                 maaneder: 0,
               },
+              oevreAldersgrense: {
+                aar: 75,
+                maaneder: 0,
+              },
             },
           },
           fulfilledTimeStamp: 1688046412103,
@@ -785,6 +809,10 @@ describe('Grunnlag - AFP', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },
@@ -829,6 +857,10 @@ describe('Grunnlag - AFP', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },

@@ -138,7 +138,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med 403 status og reason er INVALID_REPRESENTASJON, redirigeres bruker til ingen-tilgang', async () => {
-      mockErrorResponse('/v4/person', {
+      mockErrorResponse('/v5/person', {
         status: 403,
         json: {
           reason: 'INVALID_REPRESENTASJON' as Reason,
@@ -153,7 +153,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med 403 status og reason er INSUFFICIENT_LEVEL_OF_ASSURANCE, redirigeres bruker til uventet-feil', async () => {
-      mockErrorResponse('/v4/person', {
+      mockErrorResponse('/v5/person', {
         status: 403,
         json: {
           reason: 'INSUFFICIENT_LEVEL_OF_ASSURANCE' as Reason,
@@ -171,7 +171,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med annen status redirigeres bruker til uventet-feil side', async () => {
-      mockErrorResponse('/v4/person', {
+      mockErrorResponse('/v5/person', {
         status: 503,
       })
 
@@ -247,7 +247,7 @@ describe('Loaders', () => {
     })
 
     it('redirigerer brukere født før 1963 med vedtak om alderspensjon', async () => {
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         json: {
           navn: 'Test Person',
           sivilstand: 'UGIFT',
@@ -255,6 +255,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         },
       })
@@ -300,7 +301,7 @@ describe('Loaders', () => {
       )
     })
     it('redirigerer brukere født før 1963 med vedtak om alderspensjon', async () => {
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         json: {
           navn: 'Test Person',
           sivilstand: 'UGIFT',
@@ -308,6 +309,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         },
       })
@@ -407,7 +409,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
-        mockResponse('/v4/person', {
+        mockResponse('/v5/person', {
           json: {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
@@ -419,6 +421,10 @@ describe('Loaders', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },
@@ -451,7 +457,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
-        mockResponse('/v4/person', {
+        mockResponse('/v5/person', {
           json: {
             navn: 'Aprikos',
             sivilstand: 'UGIFT',
@@ -463,6 +469,10 @@ describe('Loaders', () => {
               },
               nedreAldersgrense: {
                 aar: 62,
+                maaneder: 0,
+              },
+              oevreAldersgrense: {
+                aar: 75,
                 maaneder: 0,
               },
             },
@@ -861,7 +871,7 @@ describe('Loaders', () => {
     })
 
     it('Født etter 1963 skal vise AFP steg', async () => {
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           foedselsdato: '1965-01-01',
@@ -870,6 +880,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         } satisfies Person,
       })
@@ -1082,7 +1093,7 @@ describe('Loaders', () => {
   })
   describe('stepSamtykkePensjonsavtaler', () => {
     it('Når bruker som ikke er kap19 er i endringsløp blir bruker ikke redirigert', async () => {
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           foedselsdato: '1965-01-01',
@@ -1091,6 +1102,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         } satisfies Person,
       })
@@ -1113,7 +1125,7 @@ describe('Loaders', () => {
     })
 
     it('Hopper over steg dersom bruker er kap19 og har alderspensjon vedtak', async () => {
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           foedselsdato: '1962-01-01',
@@ -1122,6 +1134,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         } satisfies Person,
       })
@@ -1152,7 +1165,7 @@ describe('Loaders', () => {
           aarsak: 'ER_APOTEKER',
         },
       })
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           foedselsdato: '1967-01-01',
@@ -1161,6 +1174,7 @@ describe('Loaders', () => {
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
+            oevreAldersgrense: { aar: 75, maaneder: 0 },
           },
         } satisfies Person,
       })

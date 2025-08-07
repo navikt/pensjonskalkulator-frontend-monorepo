@@ -158,7 +158,7 @@ describe('Grunnlag', () => {
 
     it('viser riktig tekst og lenke når henting av sivilstand fra person er vellykket', async () => {
       const user = userEvent.setup()
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           navn: 'Ola',
@@ -171,6 +171,10 @@ describe('Grunnlag', () => {
             },
             nedreAldersgrense: {
               aar: 62,
+              maaneder: 0,
+            },
+            oevreAldersgrense: {
+              aar: 75,
               maaneder: 0,
             },
           },
@@ -204,7 +208,7 @@ describe('Grunnlag', () => {
 
     it('viser riktig tekst og lenke når brukeren har oppgitt samboerskap manuelt', async () => {
       const user = userEvent.setup()
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         status: 200,
         json: {
           navn: 'Ola',
@@ -217,6 +221,10 @@ describe('Grunnlag', () => {
             },
             nedreAldersgrense: {
               aar: 62,
+              maaneder: 0,
+            },
+            oevreAldersgrense: {
+              aar: 75,
               maaneder: 0,
             },
           },
@@ -248,7 +256,7 @@ describe('Grunnlag', () => {
 
     it('viser feilmelding når henting av personopplysninger feiler', async () => {
       const user = userEvent.setup()
-      mockErrorResponse('/v4/person')
+      mockErrorResponse('/v5/person')
       renderGrunnlagMedPreloadedState('2', 'enkel')
 
       expect(

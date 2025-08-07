@@ -605,6 +605,7 @@ describe('Typeguards', () => {
       pensjoneringAldre: {
         normertPensjoneringsalder: { aar: 67, maaneder: 0 },
         nedreAldersgrense: { aar: 67, maaneder: 0 },
+        oevreAldersgrense: { aar: 75, maaneder: 0 },
       },
     }
 
@@ -700,6 +701,15 @@ describe('Typeguards', () => {
               },
             })
           ).toEqual(false)
+
+          expect(
+            isPerson({
+              ...validPerson,
+              pensjoneringAldre: {
+                oevreAldersgrense: { aar: 75, maaneder: 0 },
+              },
+            })
+          ).toEqual(false)
         })
 
         it('returnerer false når alder-objekter mangler maaneder', () => {
@@ -709,6 +719,7 @@ describe('Typeguards', () => {
               pensjoneringAldre: {
                 normertPensjoneringsalder: { aar: 67 },
                 nedreAldersgrense: { aar: 67 },
+                oevreAldersgrense: { aar: 75 },
               },
             })
           ).toEqual(false)

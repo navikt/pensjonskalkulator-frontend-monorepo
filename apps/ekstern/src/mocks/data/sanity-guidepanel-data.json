@@ -3,23 +3,23 @@
     {
       "innhold": [
         {
-          "_key": "66a30b02afdc",
+          "_key": "4e84d9456fb6",
           "_type": "block",
           "children": [
             {
-              "_key": "3e1eca3ec9d1",
+              "_key": "26d6764f69a4",
               "_type": "span",
               "marks": [],
               "text": "Det er flere ting du må ta stilling til før du sier fra deg uføretrygden. "
             },
             {
-              "_key": "18f475476a56",
+              "_key": "90b1f77a7bee",
               "_type": "span",
-              "marks": ["42650d585f2c"],
+              "marks": ["c4e6a91c61da"],
               "text": "Les mer om uføretrygd og AFP"
             },
             {
-              "_key": "d4554bda505b",
+              "_key": "49de78dd58b6",
               "_type": "span",
               "marks": [],
               "text": "."
@@ -27,7 +27,7 @@
           ],
           "markDefs": [
             {
-              "_key": "42650d585f2c",
+              "_key": "c4e6a91c61da",
               "_type": "link",
               "blank": true,
               "href": "https://www.nav.no/ufor-til-pensjon#afp"
@@ -36,23 +36,23 @@
           "style": "normal"
         },
         {
-          "_key": "c73d168f6793",
+          "_key": "cab02c82402c",
           "_type": "block",
           "children": [
             {
-              "_key": "a30f1d5fe860",
+              "_key": "1da969af7a73",
               "_type": "span",
               "marks": [],
               "text": "Hvis du jobber i privat sektor, anbefaler vi at du kontakter Nav på telefon "
             },
             {
-              "_key": "30883b408113",
+              "_key": "05cea430556b",
               "_type": "span",
-              "marks": ["92cc758af4e1"],
+              "marks": ["3e3c2d6333ba"],
               "text": "55 55 33 34"
             },
             {
-              "_key": "58c57602dcff",
+              "_key": "c25c3da5035f",
               "_type": "span",
               "marks": [],
               "text": " for veiledning. Eller at du kontakter tjenestepensjonsordningen din, hvis du jobber i offentlig sektor."
@@ -60,9 +60,8 @@
           ],
           "markDefs": [
             {
-              "_key": "92cc758af4e1",
+              "_key": "3e3c2d6333ba",
               "_type": "link",
-              "blank": false,
               "className": "nowrap",
               "href": "tel:55553334"
             }

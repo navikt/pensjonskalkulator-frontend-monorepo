@@ -13,7 +13,7 @@ describe('AFP vs uføretrygd', () => {
   describe('Som bruker som har logget inn i kalkulatoren, har gradert uføretrygd og er mindre enn 62 år,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v4/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
         {
           ...personMock,
           foedselsdato: fødselsdatoYngreEnn62,

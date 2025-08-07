@@ -251,6 +251,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
             />
           </Heading>
         </div>
+
         <div className={styles.form}>
           {isEndring && <AvansertSkjemaIntroEndring />}
 
