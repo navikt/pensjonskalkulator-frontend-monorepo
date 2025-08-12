@@ -162,7 +162,7 @@ jobs:
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: dist
           path: dist
