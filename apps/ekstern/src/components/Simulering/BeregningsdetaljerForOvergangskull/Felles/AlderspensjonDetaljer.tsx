@@ -89,7 +89,11 @@ function renderDetaljer(
             const isBold = index === row.length - 1 && key === 'alderspensjon'
             return (
               <React.Fragment key={index}>
-                <HStack justify="space-between" className={styles.hstackRow}>
+                <HStack
+                  wrap={false}
+                  justify="space-between"
+                  className={styles.hstackRow}
+                >
                   <dt style={{ marginRight: '1rem' }}>
                     {isBold ? (
                       <strong>{detalj.tekst}:</strong>
