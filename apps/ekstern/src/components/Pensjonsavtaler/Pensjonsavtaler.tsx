@@ -2,7 +2,7 @@ import { MouseEvent, useContext, useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'
+import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
@@ -153,7 +153,7 @@ export const Pensjonsavtaler = ({
       offentligTp?.simulertTjenestepensjon?.tpNummer !== undefined)
 
   return (
-    <section className={styles.section}>
+    <VStack gap="1">
       <Heading id="pensjonsavtaler-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
@@ -206,6 +206,6 @@ export const Pensjonsavtaler = ({
           />
         </BodyLong>
       )}
-    </section>
+    </VStack>
   )
 }

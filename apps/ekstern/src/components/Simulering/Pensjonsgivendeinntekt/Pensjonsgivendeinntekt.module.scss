@@ -10,8 +10,13 @@
   border-spacing: 0;
 }
 
+.ingress {
+  margin-bottom: var(--a-spacing-2);
+}
+
 .endreInntektButton {
   width: fit-content;
   height: 3rem;
   padding: var(--a-spacing-3) var(--a-spacing-5);
+  margin-bottom: var(--a-spacing-2);
 }

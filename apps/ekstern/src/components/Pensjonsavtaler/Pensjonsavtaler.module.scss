@@ -1,21 +1,5 @@
 @use '../../scss/variables';
 
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-4);
-
-  @media (min-width: variables.$a-breakpoint-lg) {
-    max-width: variables.$container-max-width;
-  }
-
-  &Header {
-    font-weight: normal;
-    white-space: nowrap;
-    vertical-align: middle;
-  }
-}
-
 .footnote {
   padding-top: var(--a-spacing-4);
   margin-top: var(--a-spacing-4);

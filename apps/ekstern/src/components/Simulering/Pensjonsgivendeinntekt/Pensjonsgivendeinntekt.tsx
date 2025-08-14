@@ -31,11 +31,12 @@ export const Pensjonsgivendeinntekt: React.FC<Props> = ({ goToAvansert }) => {
   )
 
   return (
-    <VStack gap="3">
+    <VStack gap="1">
       <Heading level="3" size="small">
         <FormattedMessage id="grunnlag2.endre_inntekt.title" />
       </Heading>
-      <BodyLong>
+
+      <BodyLong className={styles.ingress}>
         <FormattedMessage
           id="grunnlag.inntekt.ingress"
           values={{
@@ -49,6 +50,7 @@ export const Pensjonsgivendeinntekt: React.FC<Props> = ({ goToAvansert }) => {
         </Link>
         .
       </BodyLong>
+
       <EndreInntekt
         visning="enkel"
         variant="secondary"
@@ -63,6 +65,7 @@ export const Pensjonsgivendeinntekt: React.FC<Props> = ({ goToAvansert }) => {
           dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
         }}
       />
+
       <SanityReadmore id="om_pensjonsgivende_inntekt" />
     </VStack>
   )
