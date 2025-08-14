@@ -6,6 +6,8 @@ import { getStepArrays } from '@/components/stegvisning/utils'
 import { HOST_BASEURL } from '@/paths'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
+import { selectIsLoggedIn } from '@/state/session/selectors'
+import { sessionActions } from '@/state/session/sessionSlice'
 import { store } from '@/state/store'
 import {
   selectAfp,
@@ -48,17 +50,9 @@ const getErrorData = (
   if ('data' in error) return error.data as ErrorData
 }
 
-export interface LoginContext {
-  isLoggedIn: boolean
-}
-
-export interface AuthenticationGuardData {
-  authResponse: Response
-}
-
 export const authenticationGuard = async () => {
-  const authResponse = await fetch(`${HOST_BASEURL}/oauth2/session`)
-  return { authResponse }
+  const response = await fetch(`${HOST_BASEURL}/oauth2/session`)
+  store.dispatch(sessionActions.setLoggedIn(response.ok))
 }
 
 export const directAccessGuard = (): Response | undefined => {
@@ -103,6 +97,9 @@ export const stepStartAccessGuard = async () => {
     apiSlice.endpoints.getErApoteker.initiate()
   )
 
+  const state = store.getState()
+  const isLoggedIn = selectIsLoggedIn(state)
+
   const [
     vedlikeholdsmodusFeatureToggle,
     getLoependeVedtakRes,
@@ -119,103 +116,106 @@ export const stepStartAccessGuard = async () => {
     return redirect(paths.kalkulatorVirkerIkke)
   }
 
-  if (!getPersonRes.isSuccess) {
-    if (getErrorStatus(getPersonRes.error) === 403) {
-      if (
-        getErrorData(getPersonRes.error)?.reason === 'INVALID_REPRESENTASJON'
-      ) {
-        return redirect(paths.ingenTilgang)
+  if (isLoggedIn) {
+    if (!getPersonRes.isSuccess) {
+      if (getErrorStatus(getPersonRes.error) === 403) {
+        if (
+          getErrorData(getPersonRes.error)?.reason === 'INVALID_REPRESENTASJON'
+        ) {
+          return redirect(paths.ingenTilgang)
+        }
+        if (
+          getErrorData(getPersonRes.error)?.reason ===
+          'INSUFFICIENT_LEVEL_OF_ASSURANCE'
+        ) {
+          return redirect(paths.lavtSikkerhetsnivaa)
+        }
       }
-      if (
-        getErrorData(getPersonRes.error)?.reason ===
-        'INSUFFICIENT_LEVEL_OF_ASSURANCE'
-      ) {
-        return redirect(paths.lavtSikkerhetsnivaa)
+
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: `fra Step Start Loader pga. feil med getPerson med status: ${getErrorStatus(getPersonRes.error)}`,
+      })
+      return redirect(paths.uventetFeil)
+    }
+
+    if (!getLoependeVedtakRes.isSuccess) {
+      if (getErrorStatus(getLoependeVedtakRes.error) === 403) {
+        if (
+          getErrorData(getLoependeVedtakRes.error)?.reason ===
+          'INVALID_REPRESENTASJON'
+        ) {
+          return redirect(paths.ingenTilgang)
+        }
+        if (
+          getErrorData(getLoependeVedtakRes.error)?.reason ===
+          'INSUFFICIENT_LEVEL_OF_ASSURANCE'
+        ) {
+          return redirect(paths.lavtSikkerhetsnivaa)
+        }
       }
+
+      logger('info', {
+        tekst: 'Redirect til /uventet-feil',
+        data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${getErrorStatus(getLoependeVedtakRes.error)}`,
+      })
+      return redirect(paths.uventetFeil)
+    }
+
+    const isKap19 = isFoedtFoer1963(getPersonRes.data.foedselsdato)
+
+    logger('info', {
+      tekst: 'Født før 1963',
+      data: isKap19 ? 'Ja' : 'Nei',
+    })
+
+    if (getErApotekerRes.isSuccess) {
+      logger('info', {
+        tekst: 'Er apoteker',
+        data: getErApotekerRes.data ? 'Ja' : 'Nei',
+      })
     }
 
     logger('info', {
-      tekst: 'Redirect til /uventet-feil',
-      data: `fra Step Start Loader pga. feil med getPerson med status: ${getErrorStatus(getPersonRes.error)}`,
+      tekst: 'hent uføregrad',
+      data:
+        getLoependeVedtakRes.data.ufoeretrygd.grad === 0
+          ? 'Ingen uføretrygd'
+          : getLoependeVedtakRes.data.ufoeretrygd.grad === 100
+            ? 'Hel uføretrygd'
+            : `Gradert uføretrygd`,
     })
-    return redirect(paths.uventetFeil)
-  }
 
-  if (!getLoependeVedtakRes.isSuccess) {
-    if (getErrorStatus(getPersonRes.error) === 403) {
-      if (
-        getErrorData(getPersonRes.error)?.reason === 'INVALID_REPRESENTASJON'
-      ) {
-        return redirect(paths.ingenTilgang)
-      }
-      if (
-        getErrorData(getPersonRes.error)?.reason ===
-        'INSUFFICIENT_LEVEL_OF_ASSURANCE'
-      ) {
-        return redirect(paths.lavtSikkerhetsnivaa)
-      }
+    if (getLoependeVedtakRes.data.alderspensjon) {
+      logger('info', {
+        tekst: 'Vedtak alderspensjon',
+        data: getLoependeVedtakRes.data.alderspensjon.grad,
+      })
     }
 
-    logger('info', {
-      tekst: 'Redirect til /uventet-feil',
-      data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${getErrorStatus(getLoependeVedtakRes.error)}`,
-    })
-    return redirect(paths.uventetFeil)
-  }
+    if (getLoependeVedtakRes.data.afpPrivat) {
+      logger('info', {
+        tekst: 'Vedtak AFP Privat',
+      })
+    }
 
-  const isKap19 = isFoedtFoer1963(getPersonRes.data.foedselsdato)
+    if (getLoependeVedtakRes.data.afpOffentlig) {
+      logger('info', {
+        tekst: 'Vedtak AFP Offentlig',
+      })
+    }
 
-  logger('info', {
-    tekst: 'Født før 1963',
-    data: isKap19 ? 'Ja' : 'Nei',
-  })
+    if (getLoependeVedtakRes.data.fremtidigAlderspensjon) {
+      logger('info', {
+        tekst: 'Fremtidig vedtak',
+      })
+    }
 
-  if (getErApotekerRes.isSuccess) {
-    logger('info', {
-      tekst: 'Er apoteker',
-      data: getErApotekerRes.data ? 'Ja' : 'Nei',
-    })
-  }
-
-  logger('info', {
-    tekst: 'hent uføregrad',
-    data:
-      getLoependeVedtakRes.data.ufoeretrygd.grad === 0
-        ? 'Ingen uføretrygd'
-        : getLoependeVedtakRes.data.ufoeretrygd.grad === 100
-          ? 'Hel uføretrygd'
-          : `Gradert uføretrygd`,
-  })
-
-  if (getLoependeVedtakRes.data.alderspensjon) {
-    logger('info', {
-      tekst: 'Vedtak alderspensjon',
-      data: getLoependeVedtakRes.data.alderspensjon.grad,
-    })
-  }
-
-  if (getLoependeVedtakRes.data.afpPrivat) {
-    logger('info', {
-      tekst: 'Vedtak AFP Privat',
-    })
-  }
-
-  if (getLoependeVedtakRes.data.afpOffentlig) {
-    logger('info', {
-      tekst: 'Vedtak AFP Offentlig',
-    })
-  }
-
-  if (getLoependeVedtakRes.data.fremtidigAlderspensjon) {
-    logger('info', {
-      tekst: 'Fremtidig vedtak',
-    })
-  }
-
-  if (getLoependeVedtakRes.data.pre2025OffentligAfp) {
-    logger('info', {
-      tekst: 'Vedtak om offentlig AFP pre 2025',
-    })
+    if (getLoependeVedtakRes.data.pre2025OffentligAfp) {
+      logger('info', {
+        tekst: 'Vedtak om offentlig AFP pre 2025',
+      })
+    }
   }
 
   return {

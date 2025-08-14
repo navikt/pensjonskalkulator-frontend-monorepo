@@ -130,6 +130,7 @@ describe('StepStart', () => {
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)
@@ -190,6 +191,7 @@ describe('StepStart', () => {
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)

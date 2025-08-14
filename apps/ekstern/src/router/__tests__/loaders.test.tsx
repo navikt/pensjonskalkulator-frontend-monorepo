@@ -115,22 +115,24 @@ describe('Loaders', () => {
     it('returnerer person og loependeVedtak', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
         userInput: { ...userInputInitialState },
+        session: { isLoggedIn: false },
       }))
 
       const returnedFromLoader = await stepStartAccessGuard()
       expect(returnedFromLoader).toHaveProperty('person')
-      if (!('person' in returnedFromLoader)) {
+      if (!returnedFromLoader || !('person' in returnedFromLoader)) {
         throw new Error('person not in returnedFromLoader')
       }
 
-      expect(returnedFromLoader.person.foedselsdato).toBe('1964-04-30')
-      expect(returnedFromLoader.loependeVedtak.ufoeretrygd.grad).toBe(0)
+      expect(returnedFromLoader?.person?.foedselsdato).toBe('1964-04-30')
+      expect(returnedFromLoader?.loependeVedtak?.ufoeretrygd.grad).toBe(0)
     })
 
     it('Når /vedtak/loepende-vedtak kall feiler redirigeres bruker til uventet-feil side', async () => {
       mockErrorResponse('/v4/vedtak/loepende-vedtak')
 
       store.getState = vi.fn().mockImplementation(() => ({
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState },
       }))
 
@@ -146,6 +148,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState },
       }))
 
@@ -161,6 +164,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState },
       }))
 
@@ -176,6 +180,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState },
       }))
 
@@ -188,6 +193,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState },
       }))
 
@@ -220,7 +226,7 @@ describe('Loaders', () => {
       const returnedFromLoader =
         await stepSivilstandAccessGuard(createMockRequest())
       expect(returnedFromLoader).toHaveProperty('person')
-      if (!('person' in returnedFromLoader)) {
+      if (!returnedFromLoader || !('person' in returnedFromLoader)) {
         throw new Error('person not in returnedFromLoader')
       }
 
@@ -240,7 +246,7 @@ describe('Loaders', () => {
       const returnedFromLoader =
         await stepSivilstandAccessGuard(createMockRequest())
       expect(returnedFromLoader).toHaveProperty('grunnbeloep')
-      if (!('grunnbeloep' in returnedFromLoader)) {
+      if (!returnedFromLoader || !('grunnbeloep' in returnedFromLoader)) {
         throw new Error('grunnbeloep not in returnedFromLoader')
       }
       expect(returnedFromLoader.grunnbeloep).toBeUndefined()
@@ -729,7 +735,7 @@ describe('Loaders', () => {
 
       const returnedFromLoader = await stepAFPAccessGuard(createMockRequest())
       expect(returnedFromLoader).toHaveProperty('erApoteker')
-      if (!('erApoteker' in returnedFromLoader)) {
+      if (!returnedFromLoader || !('erApoteker' in returnedFromLoader)) {
         throw new Error('erApoteker not in returnedFromLoader')
       }
 

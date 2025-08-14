@@ -30,7 +30,7 @@ const testHandlers =
 export const getHandlers = (baseUrl: string = API_PATH) => [
   ...testHandlers,
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
-    await delay(500)
+    await delay(TEST_DELAY)
     return HttpResponse.json({
       session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
       tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },

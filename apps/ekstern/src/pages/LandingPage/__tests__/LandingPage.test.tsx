@@ -80,6 +80,9 @@ describe('LandingPage', () => {
 
     render(<RouterProvider router={router} />, {
       hasRouter: false,
+      preloadedState: {
+        session: { isLoggedIn: false },
+      },
     })
 
     await waitFor(() => {
@@ -164,6 +167,9 @@ describe('LandingPage', () => {
     })
     render(<RouterProvider router={router} />, {
       hasRouter: false,
+      preloadedState: {
+        session: { isLoggedIn: false },
+      },
     })
 
     await waitFor(async () => {
@@ -191,6 +197,9 @@ describe('LandingPage', () => {
     })
     render(<RouterProvider router={router} />, {
       hasRouter: false,
+      preloadedState: {
+        session: { isLoggedIn: false },
+      },
     })
 
     await waitFor(() => {
