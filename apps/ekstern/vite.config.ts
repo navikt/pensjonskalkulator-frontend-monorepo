@@ -84,11 +84,7 @@ export default defineConfig({
       },
     },
     preprocessorOptions: {
-      scss: {
-        // @ts-expect-error - Required for Sanity's Vite 6 to use modern API (Vite 7 uses modern by default)
-        // TODO: Remove this once Sanity upgrade to Vite 7
-        api: 'modern-compiler',
-      },
+      scss: {},
     },
   },
   test: {

@@ -16,7 +16,7 @@
     "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/types/schema.d.ts",
     "postfetch-dev-types": "npm run format:types",
     "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
-    "prebuild": "npm run fetch-land-liste && npm run fetch-sanity-data && npm run typecheck && npm run eslint:check && npm run prettier:check && npm run stylelint:check",
+    "prebuild": "npm run fetch-land-liste && npm run fetch-sanity-data && npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "build": "tsc && vite build --mode staging",
     "build:server": "tsc -p tsconfig.server.json",
     "build:production": "tsc && vite build --mode production",
