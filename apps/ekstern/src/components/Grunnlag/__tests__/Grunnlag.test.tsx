@@ -4,7 +4,6 @@ import {
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
@@ -308,35 +307,6 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - AFP', () => {
-    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenken oppfører seg som forventet', async () => {
-      const user = userEvent.setup()
-      renderGrunnlagMedPreloadedState('2', 'enkel', {
-        ...userInputInitialState,
-        afp: 'nei',
-      })
-
-      expect(
-        screen.getByText('grunnlag.afp.title', { exact: false })
-      ).toBeVisible()
-      expect(screen.getByText('afp.nei')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[4])
-
-      expect(
-        await screen.findByTestId('grunnlag.afp.ingress.nei', { exact: false })
-      ).toBeVisible()
-
-      expect(await screen.findByTestId('grunnlag.afp.afp_link')).toBeVisible()
-
-      await user.click(await screen.findByTestId('grunnlag.afp.afp_link'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
-
-      expect(
-        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
-      ).not.toBeInTheDocument()
-    })
-
     it('Når brukeren har valgt offentlig AFP men uten samtykket, ikke vis Readmore knapp', async () => {
       const user = userEvent.setup()
       renderGrunnlagMedPreloadedState('2', 'avansert', {

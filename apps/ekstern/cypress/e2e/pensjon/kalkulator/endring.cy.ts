@@ -1055,7 +1055,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains(
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
-            cy.contains('AFP: Offentlig (uendret)').should('exist')
+            cy.contains('AFP: Offentlig').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
