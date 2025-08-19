@@ -3,6 +3,7 @@ import { LoaderFunctionArgs } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
+  fulfilledGetGrunnbeloep,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   fulfilledPre1963GetPerson,
@@ -219,7 +220,12 @@ describe('Loaders', () => {
 
     it('returnerer person og grunnbeloep', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
-        api: { queries: { mock: 'mock' } },
+        api: {
+          queries: {
+            ...fulfilledGetPerson,
+            ...fulfilledGetGrunnbeloep,
+          },
+        },
         userInput: { ...userInputInitialState },
       }))
 

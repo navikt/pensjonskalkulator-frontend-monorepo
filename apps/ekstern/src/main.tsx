@@ -14,21 +14,35 @@ import { applyGoogleTranslateFix } from './utils/googleTranslateWorkaround'
 import './scss/designsystem.scss'
 import '@/utils/logging'
 
+// Create MSW ready signal for external scripts
+if (process.env.NODE_ENV === 'development') {
+  let resolveMSW: () => void
+  ;(window as unknown as { __MSW_READY__: Promise<void> }).__MSW_READY__ =
+    new Promise<void>((resolve) => {
+      resolveMSW = resolve
+    })
+
+  const { worker } = await import('./mocks/browser')
+  await worker.start({
+    serviceWorker: {
+      url: '/pensjon/kalkulator/mockServiceWorker.js',
+      options: {
+        scope: '/',
+      },
+    },
+    onUnhandledRequest: 'bypass',
+  })
+
+  // Signal that MSW is ready
+  resolveMSW!()
+  console.log('[MSW] Ready - external scripts can now load')
+}
+
 applyGoogleTranslateFix()
 const root = document.getElementById('root')
 
 if (!root) {
   throw Error(`Missing root element`)
-}
-
-if (process.env.NODE_ENV === 'development') {
-  const msw = await import('./mocks/browser')
-  await msw.worker.start({
-    serviceWorker: {
-      url: '/pensjon/kalkulator/mockServiceWorker.js',
-    },
-    onUnhandledRequest: 'bypass',
-  })
 }
 
 const router = createBrowserRouter(routes, { basename: BASE_PATH })

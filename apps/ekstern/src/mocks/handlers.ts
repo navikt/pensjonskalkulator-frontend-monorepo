@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { HttpResponse, delay, http } from 'msw'
+import { HttpResponse, delay, http, passthrough } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
@@ -27,8 +27,91 @@ const testHandlers =
       ]
     : []
 
+// Mock handlers for external services to prevent CORS and auth errors during development
+const externalServiceHandlers = [
+  // Mock NAV login session endpoint to prevent CORS errors
+  http.get('https://login.ekstern.dev.nav.no/oauth2/session', () => {
+    return HttpResponse.json({
+      session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
+      tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
+    })
+  }),
+
+  // Mock Amplitude analytics configuration with query parameters
+  http.get('https://sr-client-cfg.amplitude.com/*', () => {
+    return HttpResponse.json({
+      analyticsSDK: {
+        enabled: false,
+        sampling: 1.0,
+      },
+    })
+  }),
+
+  // Mock specific Hotjar tracking endpoints (not JS files)
+  http.all('https://*.hotjar.com/*', ({ request }) => {
+    if (new URL(request.url).pathname.endsWith('.js')) {
+      return new HttpResponse('console.log("mocked hotjar")', {
+        headers: {
+          'Content-Type': 'application/javascript',
+        },
+      })
+    } else {
+      return passthrough()
+    }
+  }),
+
+  // Mock specific Hotjar tracking endpoints (not JS files)
+  http.all('https://*.taskanalytics.com/*', ({ request }) => {
+    if (new URL(request.url).pathname.endsWith('.js')) {
+      return new HttpResponse('console.log("mocked task analytics")', {
+        headers: {
+          'Content-Type': 'application/javascript',
+        },
+      })
+    } else {
+      return passthrough()
+    }
+  }),
+
+  // Mock NAV representasjon banner API (not the JS file)
+  http.get(
+    'https://representasjon-banner-frontend-borger-q2.ekstern.dev.nav.no/pensjon/selvbetjening/representasjon/api/representasjon/harRepresentasjonsforhold',
+    async () => {
+      await delay(100)
+      return HttpResponse.json({ value: false })
+    }
+  ),
+
+  // Mock specific NAV API endpoints (not static assets) - both encoded and unencoded URLs
+  http.get('https://g.nav.no/api/v1/grunnbeløp', async () => {
+    await delay(100)
+    return HttpResponse.json({
+      dato: '2024-05-01',
+      grunnbeløp: 100000,
+      grunnbeløpPerMåned: 10000,
+      gjennomsnittPerÅr: 120000,
+      omregningsfaktor: 1,
+      virkningstidspunktForMinsteinntekt: '2024-06-03',
+    })
+  }),
+
+  // URL-encoded version of the same endpoint
+  http.get('https://g.nav.no/api/v1/grunnbel%C3%B8p', async () => {
+    await delay(100)
+    return HttpResponse.json({
+      dato: '2024-05-01',
+      grunnbeløp: 100000,
+      grunnbeløpPerMåned: 10000,
+      gjennomsnittPerÅr: 120000,
+      omregningsfaktor: 1,
+      virkningstidspunktForMinsteinntekt: '2024-06-03',
+    })
+  }),
+]
+
 export const getHandlers = (baseUrl: string = API_PATH) => [
   ...testHandlers,
+  ...externalServiceHandlers,
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json({
@@ -194,18 +277,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.post('http://localhost:12347/collect', async ({ request }) => {
     await request.json()
     return HttpResponse.json({ data: 'OK' })
-  }),
-
-  http.get('https://g.nav.no/api/v1/grunnbel%C3%B8p', async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json({
-      dato: '2024-05-01',
-      grunnbeløp: 100000,
-      grunnbeløpPerMåned: 10000,
-      gjennomsnittPerÅr: 120000,
-      omregningsfaktor: 1,
-      virkningstidspunktForMinsteinntekt: '2024-06-03',
-    })
   }),
 
   http.get(
