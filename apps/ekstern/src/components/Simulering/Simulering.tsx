@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useEffect, useRef, useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
 import { BodyLong, BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
@@ -31,11 +31,16 @@ import {
   selectUfoeregrad,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
+import { formatInntektToNumber } from '@/utils/inntekt'
 
+import Graph from './Graph/Graph'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
+import { Simuleringsdetaljer } from './Simuleringsdetaljer/Simuleringsdetaljer'
+import { SERIES_DEFAULT } from './constants'
+import { SeriesConfig, parseStartSluttUtbetaling } from './data/data'
 import {
   useHighchartsRegressionPlugin,
   useSimuleringChartLocalState,
@@ -86,6 +91,7 @@ export const Simulering = ({
     useAppSelector(selectCurrentSimulation)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
   const chartRef = useRef<HighchartsReact.RefObject>(null)
+  const intl = useIntl()
 
   const [offentligTpRequestBody, setOffentligTpRequestBody] = useState<
     OffentligTpRequestBody | undefined
@@ -114,6 +120,61 @@ export const Simulering = ({
       skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
+
+  const data: SeriesConfig[] = [
+    {
+      type: 'column',
+      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name }),
+      color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
+      pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
+      data: alderspensjonListe
+        ? alderspensjonListe.map((it) => ({
+            alder: it.alder,
+            beloep: it.beloep,
+          }))
+        : [],
+    },
+    {
+      type: 'column',
+      name: intl.formatMessage({
+        id: SERIES_DEFAULT.SERIE_AFP.name,
+      }),
+      color: SERIES_DEFAULT.SERIE_AFP.color,
+      data: afpOffentligListe
+        ? parseStartSluttUtbetaling({
+            startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+            aarligUtbetaling: afpOffentligListe[0].beloep,
+          })
+        : [],
+    },
+    {
+      type: 'column',
+      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
+      color: SERIES_DEFAULT.SERIE_INNTEKT.color,
+      data: [],
+      //  aarligInntektFoerUttakBeloep && aarligInntektFoerUttakBeloep
+      //    ? parseStartSluttUtbetaling({
+      //        startAlder: {
+      //          aar: 62, // TODO: Skal ikke hardkodes
+      //          maaneder: 0,
+      //        },
+      //        sluttAlder: {
+      //          aar: 67, // TODO: Skal ikke hardkodes
+      //          maaneder: 0,
+      //        },
+      //        aarligUtbetaling: formatInntektToNumber(
+      //          aarligInntektFoerUttakBeloep
+      //        ),
+      //      })
+      //    : [],
+    },
+    {
+      type: 'column',
+      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
+      color: SERIES_DEFAULT.SERIE_TP.color,
+      data: [],
+    },
+  ]
 
   useEffect(() => {
     if (harSamtykket && uttaksalder) {
@@ -231,6 +292,8 @@ export const Simulering = ({
             highcharts={Highcharts}
             options={chartOptions}
           />
+
+          <Graph data={data} />
 
           {showButtonsAndTable && (
             <BodyShort
