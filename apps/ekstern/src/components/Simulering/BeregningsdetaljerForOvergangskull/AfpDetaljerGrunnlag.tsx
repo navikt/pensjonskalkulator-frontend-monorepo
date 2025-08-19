@@ -38,7 +38,7 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
       </div>
 
       <div className={styles.beregningsdetaljerForOvergangskullMobileOnly}>
-        <VStack gap="4 8" width="100%" marginBlock="2 0">
+        <VStack gap="4 8" width="100%" marginBlock="6 4">
           {renderDetaljer()}
         </VStack>
       </div>

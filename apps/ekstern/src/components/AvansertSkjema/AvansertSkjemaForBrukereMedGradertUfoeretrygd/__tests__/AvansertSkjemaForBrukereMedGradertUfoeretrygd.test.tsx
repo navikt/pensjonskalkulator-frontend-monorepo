@@ -212,8 +212,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     )
     const optionMaanederElements =
       selectMaanederElement?.querySelectorAll('option')
-    expect(optionMaanederElements?.[0].value).toBe('')
-    expect(optionMaanederElements?.[1].value).toBe('5')
+    expect(optionMaanederElements?.[0].value).toBe('5')
 
     fireEvent.change(
       screen.getByTestId(
@@ -280,8 +279,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     )
     const optionMaanederElements2 =
       selectMaanederElement2?.querySelectorAll('option')
-    expect(optionMaanederElements2?.[0].value).toBe('')
-    expect(optionMaanederElements2?.[1].value).toBe('0')
+    expect(optionMaanederElements2?.[0].value).toBe('0')
 
     const selectAarElement3 = screen.getByTestId(
       `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
@@ -304,8 +302,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     )
     const optionMaanederElements3 =
       selectMaanederElement3?.querySelectorAll('option')
-    expect(optionMaanederElements3?.[0].value).toBe('')
-    expect(optionMaanederElements3?.[1].value).toBe('5')
+    expect(optionMaanederElements3?.[0].value).toBe('5')
 
     expect(
       screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
@@ -2700,8 +2697,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       const mndSelect = screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       )
-      expect(mndSelect.children.item(0)?.innerHTML).toBe(' ')
-      expect(mndSelect.children.item(1)?.innerHTML).toBe('1 alder.md (juni)')
+      expect(mndSelect.children.item(0)?.innerHTML).toBe('1 alder.md (juni)')
     })
   })
 })

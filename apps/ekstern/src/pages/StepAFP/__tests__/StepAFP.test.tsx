@@ -84,7 +84,7 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFPPrivat når personen enten er født før 1963 og har vedtak om alderspensjon, eller når personen er født før 1963 og fylt 67 år', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -97,6 +97,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },
@@ -130,7 +134,7 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFPOvergangskullUtenAP når personen er født mellom 1954-1962 (overgangskull) og ikke har vedtak alderspensjon', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -143,6 +147,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },
@@ -163,7 +171,7 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFP når personen er født etter 1963 med og uten vedtak om alderspensjon', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -176,6 +184,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },
@@ -196,7 +208,7 @@ describe('StepAFP', () => {
   })
 
   it('render AFPOvergangskullUtenAP for apotekere født etter 1963', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -209,6 +221,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },
@@ -237,7 +253,7 @@ describe('StepAFP', () => {
   })
 
   it('Når brukeren som er i overgangskullet uten vedtak om alderspensjon velger afp og klikker på Neste, registrerer afp og skalBeregneAfpKap19, og navigerer videre til neste steg', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -250,6 +266,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },
@@ -296,7 +316,7 @@ describe('StepAFP', () => {
   })
 
   it('Når brukeren født etter 1963 velger afp og klikker på Neste, registrerer afp og navigerer videre til neste steg', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -309,6 +329,10 @@ describe('StepAFP', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },

@@ -115,3 +115,7 @@ export const formatInntektMedKr = (amount?: number): string => {
 
   return `${formatInntekt(amount)}\u00A0kr`
 }
+
+export const formatDecimalWithComma = (value: number): string => {
+  return value.toString().replace('.', ',')
+}

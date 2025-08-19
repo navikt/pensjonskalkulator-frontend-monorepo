@@ -370,6 +370,7 @@ export default {
   'beregning.detaljer.afpPrivat.heltUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.afpPrivat.gradertUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.afpOffentlig.uttak.title': 'MANGLER_TEKST',
+  'beregning.detaljer.OpptjeningDetaljer.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title':
@@ -509,6 +510,8 @@ export default {
     'You can add income alongside pension in ',
   'grunnlag.inntekt.avansert_link': 'advanced calculator',
   'grunnlag.inntekt.ingress':
+    'Your last pensionable income from the Tax Administration is <nowrap>{beloep} kr</nowrap> from {aar}. See previous incomes in <dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink>. You can add income alongside pension in',
+  'grunnlag.inntekt.ingress.endring':
     'Your last pensionable income from the Tax Administration is <nowrap>{beloep} kr</nowrap> from {aar}. See previous incomes in <dinPensjonBeholdningLink>Your pension accrual</dinPensjonBeholdningLink>',
   'grunnlag.inntekt.info_om_inntekt': 'What is Pensionable income?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Close',
@@ -582,10 +585,10 @@ export default {
   'grunnlag.forbehold.link': 'All reservations',
   'grunnlag.forbehold.title': 'Reservation',
   'savnerdunoe.title': 'Missing something?',
+  'savnerdunoe.title.endring': 'MANGLER_TEKST',
   'savnerdunoe.ingress':
     'More choices for withdrawal degree, pension age, and income can be found in Advanced.',
-  'savnerdunoe.button': 'Go to Advanced',
-  'savnerdunoe.body.endring': 'MANGLER_TEKST',
+  'savnerdunoe.ingress.endring': 'MANGLER_TEKST',
   'pensjonsavtaler.fra_og_med_forklaring':
     '“From” means “from and including.” “To” means “to and including.”',
   'pensjonsavtaler.private.title.ingen': 'Private pension agreements',

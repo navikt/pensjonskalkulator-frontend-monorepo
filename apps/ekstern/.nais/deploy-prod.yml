@@ -37,6 +37,15 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: nodejs
+  gcp:
+    buckets:
+      - name: pkf
+        retentionPeriodDays: 30
+        lifecycleCondition:
+          age: 7
+          createdBefore: 2020-01-01
+          numNewerVersions: 2
+          withState: ANY
   tokenx:
     enabled: true
   idporten:

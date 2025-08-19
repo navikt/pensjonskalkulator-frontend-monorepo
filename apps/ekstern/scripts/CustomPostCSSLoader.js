@@ -5,16 +5,16 @@ import extractImports from 'postcss-modules-extract-imports'
 import localByDefault from 'postcss-modules-local-by-default'
 import scope from 'postcss-modules-scope'
 import values from 'postcss-modules-values'
-import * as sass from 'sass'
+import * as sass from 'sass-embedded'
 
 const importRegexp = /^:import\((.+)\)$/
 
 // TODO - Denne custom loader er nødvendig for at scss filer som importeres gjennom CSS "compose" blir pre-prosessert
-// Denne koden kan fases ut når bugg'en i vite er løst. "Loader" i vite-config skal også fjernes.
-// https://github.com/vitejs/vite/issues/10340 og https://github.com/vitejs/vite/issues/10079
-// Følgende pakker skal også fjernes fra package.json: postcss-modules-extract-imports, postcss-modules-local-by-default, postcss-modules-scope, postcss-modules-values
+// * Denne koden kan fases ut når bugg'en i vite er løst. "Loader" i vite-config skal også fjernes.
+// * https://github.com/vitejs/vite/issues/10340 og https://github.com/vitejs/vite/issues/10079
+// * Følgende pakker skal også fjernes fra package.json: postcss-modules-extract-imports, postcss-modules-local-by-default, postcss-modules-scope, postcss-modules-values
 
-// Parser class er kopiert fra https://github.com/css-modules/css-modules-loader-core/blob/master/src/parser.js
+// * Parser class er kopiert fra https://github.com/css-modules/css-modules-loader-core/blob/master/src/parser.js
 class Parser {
   constructor(pathFetcher, trace) {
     this.pathFetcher = pathFetcher
@@ -153,7 +153,10 @@ export default class CustomPostCSSLoader {
 
       // Custom kode fs.readFile er erstattet med sass for preprocessing
       sass
-        .compileAsync(fileRelativePath)
+        .compileAsync(fileRelativePath, {
+          style: 'expanded',
+          sourceMap: false,
+        })
         .then((result) => {
           this.core
             .load(

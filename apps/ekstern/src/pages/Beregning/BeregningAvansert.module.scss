@@ -10,12 +10,6 @@
   &__hasTopMargin {
     margin-top: var(--a-spacing-4) !important;
   }
-
-  &__endring {
-    section {
-      padding-top: 0 !important;
-    }
-  }
 }
 
 .intro {
@@ -28,17 +22,6 @@
 
   &Title {
     margin-bottom: var(--a-spacing-1);
-  }
-}
-
-.background {
-  display: inline-block;
-  width: 100%;
-  left: 0;
-  right: 0;
-
-  &__lightblue {
-    background-color: var(--a-deepblue-50);
   }
 }
 

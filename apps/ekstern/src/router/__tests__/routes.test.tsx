@@ -54,7 +54,12 @@ describe('routes', () => {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.root}`],
         })
-        render(<RouterProvider router={router} />, { hasRouter: false })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
+        })
         expect(
           await screen.findByText('landingsside.for.deg.som.kan.logge.inn')
         ).toBeVisible()
@@ -72,6 +77,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         expect(
           await screen.findByText('landingsside.for.deg.som.kan.logge.inn')
@@ -92,7 +100,7 @@ describe('routes', () => {
       })
 
       it('Når brukeren er pålogget og kall til /person feiler, viser pålogget landingssiden', async () => {
-        mockErrorResponse('/v4/person')
+        mockErrorResponse('/v5/person')
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
@@ -121,6 +129,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -162,6 +173,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -201,6 +215,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -234,6 +251,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -246,6 +266,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -265,6 +286,7 @@ describe('routes', () => {
             // @ts-ignore
             queries: { ...fulfilledGetPerson },
           },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -293,6 +315,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -305,6 +330,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -322,6 +348,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -350,6 +377,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -362,6 +392,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -387,6 +418,7 @@ describe('routes', () => {
               ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
             },
           },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState, samtykke: null },
         }))
         const router = createMemoryRouter(routes, {
@@ -415,6 +447,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -427,6 +462,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -450,6 +486,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { queries: { mock: 'mock' } },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
         }))
         const router = createMemoryRouter(routes, {
@@ -478,6 +515,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -491,6 +531,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -511,6 +552,7 @@ describe('routes', () => {
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
+          session: { isLoggedIn: true },
           userInput: {
             ...userInputInitialState,
             afp: 'ja_offentlig',
@@ -542,6 +584,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -567,6 +612,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -595,6 +641,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -607,6 +656,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -624,6 +674,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -652,6 +703,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -664,6 +718,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -687,7 +742,13 @@ describe('routes', () => {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
-          userInput: { ...userInputInitialState },
+          session: { isLoggedIn: true },
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+            },
+          },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -703,6 +764,7 @@ describe('routes', () => {
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
+            session: { isLoggedIn: true },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -734,6 +796,9 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            session: { isLoggedIn: false },
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -746,6 +811,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
+          session: { isLoggedIn: true },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -769,7 +835,15 @@ describe('routes', () => {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
-          userInput: { ...userInputInitialState },
+          session: { isLoggedIn: true },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afp: 'ja_privat',
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+            },
+          },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -785,6 +859,7 @@ describe('routes', () => {
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
+            session: { isLoggedIn: true },
             userInput: {
               ...userInputInitialState,
               samtykke: true,

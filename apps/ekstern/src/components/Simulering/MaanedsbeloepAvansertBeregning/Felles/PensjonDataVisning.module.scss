@@ -61,7 +61,8 @@
     font-weight: var(--a-font-weight-bold);
   }
 
-  th {
-    padding: 0;
+  th,
+  td {
+    padding: var(--a-spacing-2) 0 0 0;
   }
 }

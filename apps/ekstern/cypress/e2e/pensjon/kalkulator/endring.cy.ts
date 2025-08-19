@@ -254,9 +254,9 @@ describe('Endring av alderspensjon', () => {
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
             ).then((selectElements) => {
               const options = selectElements.find('option')
-              expect(options.length).equal(9)
-              expect(options.eq(1).text()).equal('4 md. (sep.)')
-              expect(options.eq(8).text()).equal('11 md. (apr.)')
+              expect(options.length).equal(8)
+              expect(options.eq(0).text()).equal('4 md. (sep.)')
+              expect(options.eq(7).text()).equal('11 md. (apr.)')
             })
             cy.get(
               '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -265,8 +265,8 @@ describe('Endring av alderspensjon', () => {
               '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
             ).then((selectElements) => {
               const options = selectElements.find('option')
-              expect(options.length).equal(2)
-              expect(options.eq(1).text()).equal('0 md. (mai)')
+              expect(options.length).equal(1)
+              expect(options.eq(0).text()).equal('0 md. (mai)')
             })
           })
 
@@ -562,9 +562,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(0).text()).equal('4 md. (sep.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -573,8 +573,8 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(2)
-            expect(options.eq(1).text()).equal('0 md. (mai)')
+            expect(options.length).equal(1)
+            expect(options.eq(0).text()).equal('0 md. (mai)')
           })
         })
 
@@ -870,9 +870,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(0).text()).equal('4 md. (sep.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -881,8 +881,8 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(2)
-            expect(options.eq(1).text()).equal('0 md. (mai)')
+            expect(options.length).equal(1)
+            expect(options.eq(0).text()).equal('0 md. (mai)')
           })
         })
 
@@ -1055,7 +1055,7 @@ describe('Endring av alderspensjon', () => {
             cy.contains(
               'Beregningen bruker trygdetiden du har i Norge fra vedtaket ditt om alderspensjon.'
             ).should('exist')
-            cy.contains('AFP: Offentlig (uendret)').should('exist')
+            cy.contains('AFP: Offentlig').should('exist')
           })
 
           it('forventer jeg lenke til søknad om endring av alderspensjon.', () => {
@@ -1175,9 +1175,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(9)
-            expect(options.eq(1).text()).equal('4 md. (sep.)')
-            expect(options.eq(8).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(8)
+            expect(options.eq(0).text()).equal('4 md. (sep.)')
+            expect(options.eq(7).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -1186,8 +1186,8 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(2)
-            expect(options.eq(1).text()).equal('0 md. (mai)')
+            expect(options.length).equal(1)
+            expect(options.eq(0).text()).equal('0 md. (mai)')
           })
         })
 
@@ -1459,9 +1459,9 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(13)
-            expect(options.eq(1).text()).equal('0 md. (mai)')
-            expect(options.eq(12).text()).equal('11 md. (apr.)')
+            expect(options.length).equal(12)
+            expect(options.eq(0).text()).equal('0 md. (mai)')
+            expect(options.eq(11).text()).equal('11 md. (apr.)')
           })
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -1470,8 +1470,8 @@ describe('Endring av alderspensjon', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).then((selectElements) => {
             const options = selectElements.find('option')
-            expect(options.length).equal(2)
-            expect(options.eq(1).text()).equal('0 md. (mai)')
+            expect(options.length).equal(1)
+            expect(options.eq(0).text()).equal('0 md. (mai)')
           })
         })
 

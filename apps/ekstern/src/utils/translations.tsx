@@ -42,5 +42,8 @@ export const getFormatMessageValues = (): Record<
     nowrap: (chunks: React.ReactNode) => (
       <span className="nowrap">{chunks}</span>
     ),
+    span: (chunks: React.ReactNode) => (
+      <span style={{ marginTop: 16, display: 'block' }}>{chunks}</span>
+    ),
   }
 }

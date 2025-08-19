@@ -38,9 +38,12 @@ import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
-import { Simuleringsdetaljer } from './Simuleringsdetaljer/Simuleringsdetaljer'
 import { SERIES_DEFAULT } from './constants'
-import { SeriesConfig, parseStartSluttUtbetaling } from './data/data'
+import {
+  SeriesConfig,
+  mergeAarligUtbetalinger,
+  parseStartSluttUtbetaling,
+} from './data/data'
 import {
   useHighchartsRegressionPlugin,
   useSimuleringChartLocalState,
@@ -128,10 +131,17 @@ export const Simulering = ({
       color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
       pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
       data: alderspensjonListe
-        ? alderspensjonListe.map((it) => ({
-            alder: it.alder,
-            beloep: it.beloep,
-          }))
+        ? [
+            ...alderspensjonListe.map((it) => ({
+              alder: it.alder,
+              beloep: it.beloep,
+            })),
+            // Alderspensjon fra Nav er livsvarig
+            {
+              alder: Infinity,
+              beloep: alderspensjonListe[alderspensjonListe.length - 1].beloep,
+            },
+          ]
         : [],
     },
     {
@@ -140,33 +150,38 @@ export const Simulering = ({
         id: SERIES_DEFAULT.SERIE_AFP.name,
       }),
       color: SERIES_DEFAULT.SERIE_AFP.color,
-      data: afpOffentligListe
-        ? parseStartSluttUtbetaling({
-            startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
-            aarligUtbetaling: afpOffentligListe[0].beloep,
-          })
-        : [],
+      data: mergeAarligUtbetalinger([
+        afpOffentligListe
+          ? parseStartSluttUtbetaling({
+              startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+              aarligUtbetaling: afpOffentligListe[0].beloep,
+            })
+          : [],
+        afpPrivatListe ? afpPrivatListe : [],
+      ]),
     },
     {
       type: 'column',
       name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
       color: SERIES_DEFAULT.SERIE_INNTEKT.color,
-      data: [],
-      //  aarligInntektFoerUttakBeloep && aarligInntektFoerUttakBeloep
-      //    ? parseStartSluttUtbetaling({
-      //        startAlder: {
-      //          aar: 62, // TODO: Skal ikke hardkodes
-      //          maaneder: 0,
-      //        },
-      //        sluttAlder: {
-      //          aar: 67, // TODO: Skal ikke hardkodes
-      //          maaneder: 0,
-      //        },
-      //        aarligUtbetaling: formatInntektToNumber(
-      //          aarligInntektFoerUttakBeloep
-      //        ),
-      //      })
-      //    : [],
+      data:
+        aarligInntektFoerUttakBeloep &&
+        aarligInntektFoerUttakBeloep &&
+        uttaksalder
+          ? parseStartSluttUtbetaling({
+              startAlder: {
+                aar: uttaksalder.aar - 1, // Viser full inntekt første år
+                maaneder: 0,
+              },
+              sluttAlder: {
+                aar: uttaksalder.aar,
+                maaneder: uttaksalder.maaneder - 1, // Slutte inntekt måned før uttaksalder
+              },
+              aarligUtbetaling: formatInntektToNumber(
+                aarligInntektFoerUttakBeloep // TODO: Må vise livsvarig AFP
+              ),
+            })
+          : [],
     },
     {
       type: 'column',
@@ -175,6 +190,9 @@ export const Simulering = ({
       data: [],
     },
   ]
+  debugger
+
+  console.log('data', data)
 
   useEffect(() => {
     if (harSamtykket && uttaksalder) {

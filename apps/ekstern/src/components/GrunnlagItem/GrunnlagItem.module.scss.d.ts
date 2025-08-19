@@ -4,5 +4,6 @@ declare const classNames: {
   readonly purple: "purple";
   readonly blue: "blue";
   readonly gray: "gray";
+  readonly grunnlagItem: "grunnlagItem";
 };
 export = classNames;

@@ -2,6 +2,9 @@
 
 .beregning {
   width: 100%;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -41,6 +44,7 @@
   width: 100%;
   left: 0;
   right: 0;
+  margin-top: auto;
 
   &__lightblue {
     background-color: var(--a-deepblue-50);

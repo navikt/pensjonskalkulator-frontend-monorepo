@@ -130,8 +130,11 @@ export const BeregningAvansert = () => {
   useEffect(() => {
     if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
+        const tekst = skalBeregneAfpKap19
+          ? 'Beregning AFP: Oppfyller ikke vilkår for AFP'
+          : 'Beregning avansert: Ikke høy nok opptjening'
         logger('alert vist', {
-          tekst: 'Beregning avansert: Ikke høy nok opptjening',
+          tekst,
           variant: 'warning',
         })
       } else if (isError) {
@@ -358,20 +361,12 @@ export const BeregningAvansert = () => {
       {!isError && (
         <>
           {isEndring && (
-            <div
-              className={clsx(styles.background, styles.background__lightblue)}
-            >
-              <div className={styles.container}>
-                <SavnerDuNoe headingLevel="3" isEndring={isEndring} />
-              </div>
+            <div className={styles.container}>
+              <SavnerDuNoe isEndring={isEndring} />
             </div>
           )}
 
-          <div
-            className={clsx(styles.container, {
-              [styles.container__endring]: !isEndring,
-            })}
-          >
+          <div className={styles.container}>
             <GrunnlagForbehold headingLevel="3" />
           </div>
         </>

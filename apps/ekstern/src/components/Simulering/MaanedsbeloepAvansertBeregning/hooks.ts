@@ -111,8 +111,20 @@ export const usePensjonBeregninger = ({
   }
 
   if (uttaksalder) {
+    // Kalkuler maaned for uttaksalder basert på fødselsdato for pre2025OffentligAfp
+    const foedselsdatoMonth = foedselsdato
+      ? new Date(foedselsdato).getMonth() - 1
+      : 0
+
+    const pensjonsDataAlder = pre2025OffentligAfp
+      ? {
+          ...UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
+          maaneder: foedselsdatoMonth,
+        }
+      : uttaksalder
+
     pensjonsdata.push({
-      alder: uttaksalder,
+      alder: pensjonsDataAlder,
       grad: 100,
       afp:
         afpVedUttak('offentlig', uttaksalder) ||

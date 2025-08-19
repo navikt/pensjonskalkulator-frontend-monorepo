@@ -11,6 +11,10 @@ export const personMock: Person = {
       aar: 62,
       maaneder: 0,
     },
+    oevreAldersgrense: {
+      aar: 75,
+      maaneder: 0,
+    },
   },
 }
 export const fulfilledGetPerson = {
@@ -43,6 +47,10 @@ export const fulfilledPre1963GetPerson = {
           aar: 62,
           maaneder: 0,
         },
+        oevreAldersgrense: {
+          aar: 75,
+          maaneder: 0,
+        },
       },
     },
     fulfilledTimeStamp: 1688046412103,
@@ -66,6 +74,10 @@ export const fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder = {
         },
         nedreAldersgrense: {
           aar: 62,
+          maaneder: 0,
+        },
+        oevreAldersgrense: {
+          aar: 75,
           maaneder: 0,
         },
       },
@@ -93,6 +105,10 @@ export const fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder = {
           aar: 62,
           maaneder: 0,
         },
+        oevreAldersgrense: {
+          aar: 75,
+          maaneder: 0,
+        },
       },
     },
     fulfilledTimeStamp: 1688046412103,
@@ -116,6 +132,10 @@ export const fulfilledGetPersonMedOekteAldersgrenser = {
         },
         nedreAldersgrense: {
           aar: 65,
+          maaneder: 0,
+        },
+        oevreAldersgrense: {
+          aar: 75,
           maaneder: 0,
         },
       },
@@ -152,6 +172,10 @@ export const fulfilledGetPersonMedSamboer = {
         },
         nedreAldersgrense: {
           aar: 62,
+          maaneder: 0,
+        },
+        oevreAldersgrense: {
+          aar: 75,
           maaneder: 0,
         },
       },

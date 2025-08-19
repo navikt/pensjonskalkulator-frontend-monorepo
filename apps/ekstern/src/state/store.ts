@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import { apiSlice } from './api/apiSlice'
+import sessionReducer, { sessionInitialState } from './session/sessionSlice'
 import userInputReducer, {
   userInputInitialState,
 } from './userInput/userInputSlice'
@@ -13,11 +14,13 @@ const listenerMiddleware = createListenerMiddleware()
 
 export const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
+  session: sessionReducer,
   userInput: userInputReducer,
 })
 
 export const initialState = {
   api: {},
+  session: sessionInitialState,
   userInput: userInputInitialState,
 } as RootState
 

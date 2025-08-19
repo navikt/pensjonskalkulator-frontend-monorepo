@@ -70,7 +70,7 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
 
-      mockResponse('/v4/person', {
+      mockResponse('/v5/person', {
         json: {
           navn: 'Aprikos',
           sivilstand: 'UGIFT',
@@ -82,6 +82,10 @@ describe('StepStart', () => {
             },
             nedreAldersgrense: {
               aar: 62,
+              maaneder: 0,
+            },
+            oevreAldersgrense: {
+              aar: 75,
               maaneder: 0,
             },
           },
@@ -122,10 +126,11 @@ describe('StepStart', () => {
     })
 
     it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
-      mockErrorResponse('/v4/person')
+      mockErrorResponse('/v5/person')
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)
@@ -186,6 +191,7 @@ describe('StepStart', () => {
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
+        session: { isLoggedIn: true },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)

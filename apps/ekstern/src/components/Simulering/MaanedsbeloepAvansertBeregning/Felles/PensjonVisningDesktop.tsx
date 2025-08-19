@@ -32,33 +32,43 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
   if (!pensjonsdata.length) return null
 
   return (
-    <HStack gap="4 12" width="100%" marginBlock="2 0">
+    <HStack gap="4 12" width="100%">
       {pensjonsdata.map((data, index) => {
-        const isKapittel20AldersPensjon =
-          data.alderspensjon &&
-          !data.afp &&
-          !data.pensjonsavtale &&
-          !data.pre2025OffentligAfp
+        const harPre2025OffentligAFP =
+          data.pre2025OffentligAfp && data.alderspensjon
 
-        const isKapittel19OffentligAFP =
-          data.pre2025OffentligAfp && !data.alderspensjon
+        const uttaksAlder = harPre2025OffentligAFP
+          ? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
+          : data.alder
 
-        const formattedUttaksalder =
-          data.alderspensjon && data.pre2025OffentligAfp
-            ? `${UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar} år`
-            : formatUttaksalder(intl, data.alder)
+        const formattedUttaksalder = harPre2025OffentligAFP
+          ? `${uttaksAlder.aar} år`
+          : formatUttaksalder(intl, uttaksAlder)
+
+        const harKunAPOgPre2025OffentligAFP =
+          harPre2025OffentligAFP && !data.afp && !data.pensjonsavtale
+
+        // Vis kalender maaned når det er bare en ytelse eller gammel AFP med AP
+        const showKalenderMaaned =
+          harKunAPOgPre2025OffentligAFP ||
+          [
+            data.alderspensjon,
+            data.afp,
+            data.pensjonsavtale,
+            data.pre2025OffentligAfp,
+          ].filter(Boolean).length === 1
 
         return (
           <Box
             key={`desktop-${index}`}
             borderRadius="medium"
             paddingInline="0 6"
-            paddingBlock="4 0"
+            paddingBlock="6 0"
             maxWidth={{ sm: '27rem', md: '31rem' }}
             flexGrow="1"
             height="fit-content"
           >
-            <VStack gap="1">
+            <VStack>
               <div className={styles.dividerWrapper}>
                 <Divider mediumMargin noMarginTop />
               </div>
@@ -73,9 +83,9 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
                 })}
               ${formattedUttaksalder}
               ${
-                ((isKapittel20AldersPensjon || isKapittel19OffentligAFP) &&
-                  ` (${hentUttaksmaanedOgAar(data.alder)})`) ||
-                ''
+                showKalenderMaaned
+                  ? ` (${hentUttaksmaanedOgAar(uttaksAlder)})`
+                  : ''
               }`}
               </Heading>
 

@@ -327,6 +327,7 @@ export default {
   'beregning.detaljer.afpPrivat.heltUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.afpPrivat.gradertUttak.title': 'MANGLER_TEKST',
   'beregning.detaljer.afpOffentlig.uttak.title': 'MANGLER_TEKST',
+  'beregning.detaljer.OpptjeningDetaljer.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title': 'MANGLER_TEKST',
   'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title':
@@ -439,6 +440,8 @@ export default {
     'Denne utrekninga syner 100 % uttak av alderspensjon. I avansert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.',
   'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.ingress':
+    'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>. Du kan òg legge inntekta i tillegg til pensjonsbehaldninga di i',
+  'grunnlag.inntekt.ingress.endring':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.info_om_inntekt': 'Kva er pensjonsgjevande inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
@@ -503,8 +506,7 @@ export default {
   'savnerdunoe.title': 'MANGLER_TEKST',
   'savnerdunoe.title.endring': 'MANGLER_TEKST',
   'savnerdunoe.ingress': 'MANGLER_TEKST',
-  'savnerdunoe.button': 'MANGLER_TEKST',
-  'savnerdunoe.body.endring': 'MANGLER_TEKST',
+  'savnerdunoe.ingress.endring': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',

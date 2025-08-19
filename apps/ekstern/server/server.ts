@@ -278,56 +278,19 @@ app.use(
   })
 )
 
-const redirect1963Middleware = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (AUTH_PROVIDER === 'azure') {
-    return next()
-  }
-  const disableRedirectToggle = unleash.isEnabled(
-    'pensjonskalkulator.disable-redirect-1963'
-  )
-
-  if (disableRedirectToggle) {
-    next()
-    return
-  }
-
-  try {
-    const oboToken = await getOboToken(req)
-    const data = await fetch(`${PENSJONSKALKULATOR_BACKEND}/api/v2/person`, {
-      headers: new Headers({
-        Authorization: `Bearer ${oboToken}`,
-      }),
-    })
-
-    const person = (await data.json()) as Person
-    if (isFoedtFoer1963(person.foedselsdato)) {
-      logger.info('Redirecting person born before 1963')
-      res.redirect(`${env.detaljertKalkulatorUrl}`)
-      return
-    }
-    next()
-  } catch {
-    logger.error(
-      'Could not redirect person, missing token or could not get /api/v2/person'
-    )
-    next()
-  }
-}
-
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
-app.get('/pensjon/kalkulator/veileder?*', (_req: Request, res: Response) => {
-  if (AUTH_PROVIDER === 'azure') {
-    return res.sendFile(__dirname + '/veileder/index.html')
-  } else {
-    return res.redirect('/pensjon/kalkulator')
+app.get(
+  '/pensjon/kalkulator/veileder{/*splat}',
+  (_req: Request, res: Response) => {
+    if (AUTH_PROVIDER === 'azure') {
+      return res.sendFile(__dirname + '/veileder/index.html')
+    } else {
+      return res.redirect('/pensjon/kalkulator')
+    }
   }
-})
+)
 
-app.get('*', redirect1963Middleware, async (_req: Request, res: Response) => {
+app.get('/*splat', async (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
     res.sendFile(__dirname + '/index.html')
     return
@@ -337,7 +300,11 @@ app.get('*', redirect1963Middleware, async (_req: Request, res: Response) => {
   }
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, (error) => {
+  if (error) {
+    logger.error('Failed to start server', error)
+    throw error
+  }
   logger.info(
     `Server is running on http://localhost:${PORT} using ${AUTH_PROVIDER} as auth provider`
   )

@@ -36,7 +36,7 @@ export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
       {alderspensjonDetaljerListe.map(
         (alderspensjonDetaljForValgtUttak, index) => (
           <Box key={index}>
-            <VStack gap="4 8" width="100%" marginBlock="2 0">
+            <VStack gap="4 8" width="100%" marginBlock="6 4">
               {renderHeading(index)}
               {renderDetaljer(alderspensjonDetaljForValgtUttak)}
             </VStack>

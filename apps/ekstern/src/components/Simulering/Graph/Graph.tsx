@@ -16,6 +16,9 @@ const Graph = ({ data }: IProps) => {
 
   const { xAxis, series } = generateSeries(data)
 
+  console.log('xAxis', xAxis)
+  console.log('series', series)
+
   const chartOptions = {
     title: {
       text: null,

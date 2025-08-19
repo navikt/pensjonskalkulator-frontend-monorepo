@@ -7,15 +7,48 @@ import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectNedreAldersgrense } from '@/state/userInput/selectors'
 import {
-  DEFAULT_SENEST_UTTAKSALDER,
+  selectNedreAldersgrense,
+  selectOevreAldersgrense,
+} from '@/state/userInput/selectors'
+import {
   formatUttaksalder,
   transformMaanedToDate,
   transformUttaksalderToDate,
 } from '@/utils/alder'
 
 import styles from './AgePicker.module.scss'
+
+const isMonthValidForSelectedYear = (
+  month: number,
+  selectedYear: number | undefined,
+  minAlder: Alder,
+  maxAlder: Alder
+): boolean => {
+  if (!selectedYear) return false
+
+  // Year is between min and max (exclusive)
+  if (selectedYear > minAlder.aar && selectedYear < maxAlder.aar) {
+    return true
+  }
+
+  // Same min and max year
+  if (minAlder.aar === maxAlder.aar && selectedYear === minAlder.aar) {
+    return month >= minAlder.maaneder && month <= maxAlder.maaneder
+  }
+
+  // Selected year is minimum year
+  if (selectedYear === minAlder.aar && minAlder.aar !== maxAlder.aar) {
+    return month >= minAlder.maaneder
+  }
+
+  // Selected year is maximum year
+  if (selectedYear === maxAlder.aar && minAlder.aar !== maxAlder.aar) {
+    return month <= maxAlder.maaneder
+  }
+
+  return false
+}
 
 export interface AgePickerProps {
   form?: string
@@ -37,7 +70,7 @@ export const AgePicker = ({
   description,
   value,
   minAlder = { ...useAppSelector(selectNedreAldersgrense) },
-  maxAlder = { ...DEFAULT_SENEST_UTTAKSALDER },
+  maxAlder = { ...useAppSelector(selectOevreAldersgrense) },
   info,
   onChange,
   error,
@@ -47,11 +80,12 @@ export const AgePicker = ({
   const { data: person, isSuccess } = useGetPersonQuery()
 
   const [valgtAlder, setValgtAlder] = React.useState<Partial<Alder>>(
-    value ? value : { aar: undefined, maaneder: undefined }
+    value ?? { aar: undefined, maaneder: undefined }
   )
+  const [isMonthAutoSelected, setIsMonthAutoSelected] = React.useState(false)
 
   React.useEffect(() => {
-    setValgtAlder(value ? value : { aar: undefined, maaneder: undefined })
+    setValgtAlder(value ?? { aar: undefined, maaneder: undefined })
   }, [value])
 
   const yearsArray = React.useMemo(() => {
@@ -62,36 +96,38 @@ export const AgePicker = ({
     return arr
   }, [minAlder, maxAlder])
 
-  const monthsArray = React.useMemo(() => {
-    const arr = []
-    for (let i = 0; i <= 11; i++) {
-      arr.push(i)
-    }
-    return arr
-  }, [])
+  const monthsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
   const hasError = React.useMemo(() => {
-    if (error) {
-      if (!valgtAlder.aar && valgtAlder.maaneder === undefined) {
-        return { aar: true, maaneder: true }
-      }
-      if (valgtAlder.aar && valgtAlder.maaneder !== undefined) {
-        return { aar: true, maaneder: true }
-      }
-      if (valgtAlder.aar && valgtAlder.maaneder === undefined) {
-        return { aar: false, maaneder: true }
-      }
-      if (!valgtAlder.aar && valgtAlder.maaneder !== undefined) {
-        return { aar: true, maaneder: false }
-      }
+    if (!error) {
+      return { aar: false, maaneder: false }
     }
-    return { aar: false, maaneder: false }
-  }, [error, valgtAlder])
+
+    const hasYear = !!valgtAlder.aar
+    const hasMonth = valgtAlder.maaneder !== undefined
+    const hasManuallySelectedMonth = hasMonth && !isMonthAutoSelected
+
+    // Both fields show error when both are empty
+    if (!hasYear && !hasMonth) {
+      return { aar: true, maaneder: true }
+    }
+
+    // Both fields show error when both are manually filled
+    if (hasYear && hasManuallySelectedMonth) {
+      return { aar: true, maaneder: true }
+    }
+
+    // Only the empty field shows error when one is filled
+    return {
+      aar: !hasYear,
+      maaneder: !hasManuallySelectedMonth,
+    }
+  }, [error, valgtAlder, isMonthAutoSelected])
 
   const transformertDate = React.useMemo(() => {
     if (
       isSuccess &&
-      person.foedselsdato &&
+      person?.foedselsdato &&
       valgtAlder.aar &&
       valgtAlder.maaneder !== undefined
     ) {
@@ -99,10 +135,9 @@ export const AgePicker = ({
         valgtAlder as Alder,
         person.foedselsdato
       )
-    } else {
-      return ''
     }
-  }, [valgtAlder, isSuccess])
+    return ''
+  }, [valgtAlder, isSuccess, person?.foedselsdato])
 
   return (
     <div data-testid={`age-picker-${name}`}>
@@ -133,24 +168,42 @@ export const AgePicker = ({
               ? parseInt(e.target.value, 10)
               : undefined
 
-            const shouldResetMonth =
-              (aar === minAlder.aar &&
-                valgtAlder?.maaneder !== undefined &&
-                valgtAlder?.maaneder < minAlder.maaneder) ||
-              (aar === maxAlder.aar &&
-                valgtAlder?.maaneder !== undefined &&
-                valgtAlder?.maaneder > maxAlder.maaneder)
-
-            setValgtAlder((prevState) => {
-              return {
-                aar,
-                maaneder: shouldResetMonth ? undefined : prevState.maaneder,
+            // Determine the first valid month for the selected year
+            let firstValidMonth: number | undefined = undefined
+            if (aar !== undefined) {
+              if (minAlder?.aar === maxAlder?.aar && aar === minAlder?.aar) {
+                // Same min and max year
+                firstValidMonth = minAlder?.maaneder
+              } else if (aar === minAlder?.aar) {
+                // Selected year is the minimum year
+                firstValidMonth = minAlder?.maaneder
+              } else if (aar === maxAlder?.aar) {
+                // Selected year is the maximum year
+                firstValidMonth = 0
+              } else if (aar > minAlder?.aar && aar < maxAlder?.aar) {
+                // Selected year is between min and max
+                firstValidMonth = 0
               }
+            }
+
+            // Calculate new month value
+            const newMaaneder = aar !== undefined ? firstValidMonth : undefined
+
+            setValgtAlder({
+              aar,
+              maaneder: newMaaneder,
             })
+
+            // Mark month as auto-selected when we auto-select it
+            setIsMonthAutoSelected(
+              aar !== undefined && firstValidMonth !== undefined
+            )
+
+            // Call onChange after state update
             if (onChange) {
               onChange({
                 aar,
-                maaneder: shouldResetMonth ? undefined : valgtAlder.maaneder,
+                maaneder: newMaaneder,
               })
             }
           }}
@@ -168,6 +221,7 @@ export const AgePicker = ({
             )
           })}
         </Select>
+
         <Select
           data-testid={`age-picker-${name}-maaneder`}
           form={form}
@@ -181,12 +235,12 @@ export const AgePicker = ({
             const maaneder = e.target.value
               ? parseInt(e.target.value, 10)
               : undefined
-            setValgtAlder((prevState) => {
-              return {
-                ...prevState,
-                maaneder,
-              }
-            })
+            setValgtAlder((prevState) => ({
+              ...prevState,
+              maaneder,
+            }))
+            // Mark month as manually selected
+            setIsMonthAutoSelected(false)
             if (onChange) {
               onChange({ aar: valgtAlder.aar, maaneder })
             }
@@ -195,33 +249,14 @@ export const AgePicker = ({
           aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
           aria-invalid={hasError.maaneder}
         >
-          <option disabled value="">
-            {' '}
-          </option>
           {monthsArray.map((month) => {
-            const isYearAboveMinAndBelowMax =
-              valgtAlder?.aar &&
-              valgtAlder?.aar > minAlder?.aar &&
-              valgtAlder?.aar < maxAlder?.aar
-            const isMinYearAndMonthAboveOrEqualMin =
-              minAlder?.aar !== maxAlder?.aar &&
-              valgtAlder?.aar === minAlder?.aar &&
-              month >= minAlder?.maaneder
-            const isMaxYearAndMonthBelowOrEqualMax =
-              minAlder?.aar !== maxAlder?.aar &&
-              valgtAlder?.aar === maxAlder?.aar &&
-              month <= maxAlder?.maaneder
-            const isMinAndMaxYearAndMonthBetween =
-              minAlder?.aar === maxAlder?.aar &&
-              month >= minAlder?.maaneder &&
-              month <= maxAlder?.maaneder
-
             if (
-              valgtAlder?.aar &&
-              (isYearAboveMinAndBelowMax ||
-                isMinYearAndMonthAboveOrEqualMin ||
-                isMaxYearAndMonthBelowOrEqualMax ||
-                isMinAndMaxYearAndMonthBetween)
+              isMonthValidForSelectedYear(
+                month,
+                valgtAlder?.aar,
+                minAlder,
+                maxAlder
+              )
             ) {
               return (
                 <option key={month} value={month}>

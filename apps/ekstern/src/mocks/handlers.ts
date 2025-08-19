@@ -30,7 +30,7 @@ const testHandlers =
 export const getHandlers = (baseUrl: string = API_PATH) => [
   ...testHandlers,
   http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
-    await delay(500)
+    await delay(TEST_DELAY)
     return HttpResponse.json({
       session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
       tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
@@ -55,7 +55,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
   ),
 
-  http.get(`${baseUrl}/v4/person`, async ({ request }) => {
+  http.get(`${baseUrl}/v5/person`, async ({ request }) => {
     await delay(TEST_DELAY)
     if (request.headers.get('fnr') === '40100000000') {
       return HttpResponse.json({}, { status: 401 })

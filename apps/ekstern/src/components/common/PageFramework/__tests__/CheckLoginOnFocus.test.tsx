@@ -1,8 +1,8 @@
-import { render as cleanRender, waitFor } from '@testing-library/react'
 import { describe, it, vi } from 'vitest'
 
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
+import { render, waitFor } from '@/test-utils'
 
 import { CheckLoginOnFocus } from '../CheckLoginOnFocus'
 
@@ -14,18 +14,19 @@ describe('CheckLoginOnFocus', () => {
   describe('sjekker igjen om brukeren er authenticated ved focus', () => {
     it('kaller /oauth2/session', async () => {
       const fetchMock = vi.spyOn(global, 'fetch')
-      cleanRender(
+      render(
         <CheckLoginOnFocus shouldRedirectNonAuthenticated={false}>
           <TestComponent />
-        </CheckLoginOnFocus>
+        </CheckLoginOnFocus>,
+        { hasRouter: false }
       )
 
-      expect(fetchMock).toHaveBeenCalledTimes(0)
+      const initialCalls = fetchMock.mock.calls.length
 
       window.dispatchEvent(new Event('focus'))
 
-      expect(fetchMock).toHaveBeenCalledTimes(1)
-      expect(fetchMock).toHaveBeenCalledWith(
+      expect(fetchMock).toHaveBeenCalledTimes(initialCalls + 1)
+      expect(fetchMock).toHaveBeenLastCalledWith(
         'http://localhost:8088/pensjon/kalkulator/oauth2/session'
       )
     })
@@ -38,7 +39,7 @@ describe('CheckLoginOnFocus', () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
-      cleanRender(
+      render(
         <CheckLoginOnFocus shouldRedirectNonAuthenticated>
           <TestComponent />
         </CheckLoginOnFocus>

@@ -91,7 +91,7 @@ describe('StepUtenlandsopphold', () => {
   })
 
   it('nullstiller input fra brukeren og navigerer når brukeren klikker på Tilbake', async () => {
-    mockResponse('/v4/person', {
+    mockResponse('/v5/person', {
       status: 200,
       json: {
         navn: 'Ola',
@@ -104,6 +104,10 @@ describe('StepUtenlandsopphold', () => {
           },
           nedreAldersgrense: {
             aar: 62,
+            maaneder: 0,
+          },
+          oevreAldersgrense: {
+            aar: 75,
             maaneder: 0,
           },
         },

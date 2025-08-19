@@ -44,7 +44,12 @@ describe('PageFramework', () => {
   //   })
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
-    render(<PageFramework />, { hasLogin: true })
+    render(<PageFramework />, {
+      hasLogin: true,
+      preloadedState: {
+        session: { isLoggedIn: true },
+      },
+    })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
       'pageframework.title'
     )
@@ -53,6 +58,9 @@ describe('PageFramework', () => {
   it('rendrer slik den skal med hvit bakgrunn', async () => {
     render(<PageFramework hasWhiteBg />, {
       hasLogin: true,
+      preloadedState: {
+        session: { isLoggedIn: true },
+      },
     })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
       'pageframework.title'
@@ -62,6 +70,9 @@ describe('PageFramework', () => {
   it('rendrer slik den skal i full bredde', async () => {
     render(<PageFramework isFullWidth shouldShowLogo={false} />, {
       hasLogin: true,
+      preloadedState: {
+        session: { isLoggedIn: true },
+      },
     })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
       'pageframework.title'
@@ -71,6 +82,9 @@ describe('PageFramework', () => {
   it('rendrer slik den skal med logo', async () => {
     render(<PageFramework shouldShowLogo={true} />, {
       hasLogin: true,
+      preloadedState: {
+        session: { isLoggedIn: true },
+      },
     })
     expect(await screen.findByTestId('framework-logo')).toBeInTheDocument()
   })
@@ -87,7 +101,12 @@ describe('PageFramework', () => {
       <PageFramework>
         <TestComponent />
       </PageFramework>,
-      { hasLogin: true }
+      {
+        hasLogin: true,
+        preloadedState: {
+          session: { isLoggedIn: true },
+        },
+      }
     )
 
     const button = await screen.findByText('Klikk')
@@ -108,7 +127,12 @@ describe('PageFramework', () => {
       <PageFramework shouldRedirectNonAuthenticated>
         <TestComponent />
       </PageFramework>,
-      { hasLogin: true }
+      {
+        hasLogin: true,
+        preloadedState: {
+          session: { isLoggedIn: false },
+        },
+      }
     )
     await Promise.resolve()
 

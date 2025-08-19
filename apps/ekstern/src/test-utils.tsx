@@ -78,7 +78,14 @@ export function renderWithProviders(
   {
     preloadedState = {},
     preloadedApiState = {},
-    store = setupStore(preloadedState, true),
+    store = setupStore(
+      {
+        // Default to logged-in in tests unless explicitly overridden
+        session: { isLoggedIn: true },
+        ...preloadedState,
+      },
+      true
+    ),
     hasRouter = true,
     hasLogin = false,
     ...renderOptions
