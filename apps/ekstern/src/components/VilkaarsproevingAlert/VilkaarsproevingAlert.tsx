@@ -16,6 +16,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
@@ -159,6 +160,9 @@ export const VilkaarsproevingAlert = ({
                   dispatch(
                     userInputActions.setCurrentSimulationUttaksalder(null)
                   )
+                  logger('button klikk', {
+                    tekst: 'Grunnlag AFP: Gå til AFP',
+                  })
                   navigate(paths.afp)
                 }}
               >

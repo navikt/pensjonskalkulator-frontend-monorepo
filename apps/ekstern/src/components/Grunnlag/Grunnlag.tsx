@@ -211,6 +211,12 @@ export const Grunnlag: React.FC<Props> = ({
                       href="https://www.nav.no/afp-offentlig#beregning"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => {
+                        logger('link åpnet', {
+                          href: `/pensjon/kalkulator${paths.forbehold}`,
+                          target: '_blank',
+                        })
+                      }}
                     >
                       <FormattedMessage id="grunnlag.afp.link.text" />
                     </Link>

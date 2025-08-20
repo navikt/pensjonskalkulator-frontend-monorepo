@@ -17,6 +17,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
@@ -60,6 +61,9 @@ export const TidligstMuligUttaksalder = ({
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
+    logger('button klikk', {
+      tekst: 'Grunnlag AFP: Gå til avansert',
+    })
     navigate(paths.beregningAvansert)
   }
 
