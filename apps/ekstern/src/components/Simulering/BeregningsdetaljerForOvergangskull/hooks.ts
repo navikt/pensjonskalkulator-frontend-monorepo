@@ -15,12 +15,16 @@ export interface AlderspensjonDetaljerListe {
   opptjeningKap20: DetaljRad[]
 }
 
+export interface AfpDetaljerListe {
+  afpPrivat: DetaljRad[]
+  afpOffentlig: DetaljRad[]
+  pre2025OffentligAfp: DetaljRad[]
+  opptjeningPre2025OffentligAfp: DetaljRad[]
+}
+
 export interface BeregningsdetaljerRader {
   alderspensjonDetaljerListe: AlderspensjonDetaljerListe[]
-  pre2025OffentligAfpDetaljerListe: DetaljRad[]
-  afpPrivatDetaljerListe: DetaljRad[][]
-  afpOffentligDetaljerListe: DetaljRad[]
-  opptjeningPre2025OffentligAfpListe: DetaljRad[]
+  afpDetaljerListe: AfpDetaljerListe[]
 }
 
 function getAlderspenListeForValgtUttaksalder(
@@ -228,6 +232,226 @@ function getAlderspensjonDetaljerListe(
   return alderspensjonDetaljerListe
 }
 
+function getAfpDetaljerListe(
+  afpPrivatListe?: AfpPrivatPensjonsberegning[],
+  afpOffentligListe?: AfpPensjonsberegning[],
+  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning,
+  uttaksalder?: { aar: number; maaneder?: number } | null,
+  gradertUttaksperiode?: GradertUttak | null
+): AfpDetaljerListe[] {
+  const afpDetaljerListe: AfpDetaljerListe[] = []
+
+  const getAfpPrivatDetails = (afpPrivat: AfpPrivatPensjonsberegning) => {
+    return [
+      {
+        tekst: 'Kompensasjonstillegg',
+        verdi: afpPrivat.kompensasjonstillegg
+          ? `${formatInntekt(afpPrivat.kompensasjonstillegg)} kr`
+          : 0,
+      },
+      {
+        tekst: 'Kronetillegg',
+        verdi: afpPrivat.kronetillegg
+          ? `${formatInntekt(afpPrivat.kronetillegg)} kr`
+          : 0,
+      },
+      {
+        tekst: 'Livsvarig del',
+        verdi: afpPrivat.livsvarig
+          ? `${formatInntekt(afpPrivat.livsvarig)} kr`
+          : 0,
+      },
+      {
+        tekst: 'Sum AFP',
+        verdi: afpPrivat.maanedligBeloep
+          ? `${formatInntekt(afpPrivat.maanedligBeloep)} kr`
+          : 0,
+      },
+    ].filter((rad) => rad.verdi !== 0)
+  }
+
+  const getAfpOffentligDetails = (afpOffentlig: AfpPensjonsberegning) => {
+    return [
+      {
+        tekst: 'Månedlig livsvarig avtalefestet pensjon (AFP)',
+        verdi: `${formatInntekt(afpOffentlig?.maanedligBeloep ?? 0)} kr`,
+      },
+    ]
+  }
+
+  const getPre2025OffentligAfpDetails = (
+    pre2025OffentligAfpData: pre2025OffentligPensjonsberegning
+  ) => {
+    const grunnpensjon =
+      pre2025OffentligAfpData.grunnpensjon &&
+      pre2025OffentligAfpData.grunnpensjon > 0
+        ? Math.round(pre2025OffentligAfpData.grunnpensjon)
+        : 0
+    const tilleggspensjon =
+      pre2025OffentligAfpData.tilleggspensjon &&
+      pre2025OffentligAfpData.tilleggspensjon > 0
+        ? Math.round(pre2025OffentligAfpData.tilleggspensjon)
+        : 0
+    const afpTillegg =
+      pre2025OffentligAfpData.afpTillegg &&
+      pre2025OffentligAfpData.afpTillegg > 0
+        ? Math.round(pre2025OffentligAfpData.afpTillegg)
+        : 0
+    const saertillegg =
+      pre2025OffentligAfpData.saertillegg &&
+      pre2025OffentligAfpData.saertillegg > 0
+        ? Math.round(pre2025OffentligAfpData.saertillegg)
+        : 0
+
+    return [
+      {
+        tekst: 'Grunnpensjon (kap. 19)',
+        verdi: `${formatInntekt(grunnpensjon)} kr`,
+      },
+      {
+        tekst: 'Tilleggspensjon (kap. 19)',
+        verdi: `${formatInntekt(tilleggspensjon)} kr`,
+      },
+      {
+        tekst: 'AFP-tillegg',
+        verdi: `${formatInntekt(afpTillegg)} kr`,
+      },
+      {
+        tekst: 'Særtillegg',
+        verdi: `${formatInntekt(saertillegg)} kr`,
+      },
+      {
+        tekst: 'Sum AFP',
+        verdi: `${formatInntekt(
+          grunnpensjon + tilleggspensjon + afpTillegg + saertillegg
+        )} kr`,
+      },
+    ].filter((rad) => rad.verdi !== '0 kr')
+  }
+
+  const getOpptjeningPre2025OffentligAfpDetails = (
+    pre2025OffentligAfpData: pre2025OffentligPensjonsberegning
+  ) => {
+    const sumPoengaarPre2025OffentligAfp =
+      (pre2025OffentligAfpData.poengaarTom1991 ?? 0) +
+      (pre2025OffentligAfpData.poengaarFom1992 ?? 0)
+
+    return [
+      {
+        tekst: 'AFP grad',
+        verdi: pre2025OffentligAfpData.afpGrad
+          ? `${pre2025OffentligAfpData.afpGrad} %`
+          : 0,
+      },
+      {
+        tekst: 'Sluttpoengtall',
+        verdi: pre2025OffentligAfpData.sluttpoengtall
+          ? formatDecimalWithComma(pre2025OffentligAfpData.sluttpoengtall)
+          : 0,
+      },
+      {
+        tekst: 'Poengår',
+        verdi: `${sumPoengaarPre2025OffentligAfp} år`,
+      },
+      {
+        tekst: 'Trygdetid',
+        verdi: pre2025OffentligAfpData.trygdetid
+          ? `${pre2025OffentligAfpData.trygdetid} år`
+          : 0,
+      },
+    ].filter(
+      (rad) =>
+        rad.tekst === 'Poengår' || rad.tekst === 'Trygdetid' || rad.verdi !== 0
+    )
+  }
+
+  if (afpPrivatListe && afpPrivatListe.length > 0) {
+    const gradertUttakAge = gradertUttaksperiode?.uttaksalder?.aar
+    const heltUttakAge = uttaksalder?.aar
+
+    // Adder alltid en entry for yngste alder
+    const firstAge = gradertUttakAge ?? heltUttakAge
+
+    if (firstAge) {
+      // Finner AFP data for yngste alder
+      let afpPrivatVedForsteUttak = afpPrivatListe.find(
+        (afp) => afp.alder === firstAge
+      )
+      if (!afpPrivatVedForsteUttak) {
+        // Fallback til første element
+        afpPrivatVedForsteUttak = afpPrivatListe[0]
+      }
+
+      if (afpPrivatVedForsteUttak) {
+        afpDetaljerListe.push({
+          afpPrivat: getAfpPrivatDetails(afpPrivatVedForsteUttak),
+          afpOffentlig: [],
+          pre2025OffentligAfp: [],
+          opptjeningPre2025OffentligAfp: [],
+        })
+      }
+
+      // Hvis første alder er mindre enn 67, inkluder også alder 67 data
+      if (firstAge < 67) {
+        const afp67 = afpPrivatListe.find((afp) => afp.alder === 67)
+        if (afp67) {
+          afpDetaljerListe.push({
+            afpPrivat: getAfpPrivatDetails(afp67),
+            afpOffentlig: [],
+            pre2025OffentligAfp: [],
+            opptjeningPre2025OffentligAfp: [],
+          })
+        } else {
+          // Hvis ikke, bruk den alderen som er nærmeste 67
+          const closestAfp67Plus = afpPrivatListe.find((afp) => afp.alder >= 67)
+          if (closestAfp67Plus) {
+            afpDetaljerListe.push({
+              afpPrivat: getAfpPrivatDetails(closestAfp67Plus),
+              afpOffentlig: [],
+              pre2025OffentligAfp: [],
+              opptjeningPre2025OffentligAfp: [],
+            })
+          }
+        }
+      }
+    }
+  }
+
+  // Handle AFP Offentlig
+  if (afpOffentligListe && afpOffentligListe.length > 0) {
+    const afpAar = Math.min(
+      uttaksalder?.aar ?? Infinity,
+      gradertUttaksperiode?.uttaksalder.aar ?? Infinity
+    )
+
+    const afpOffentligVedUttak = afpOffentligListe.find(
+      (it) => it.alder >= afpAar
+    )
+
+    if (afpOffentligVedUttak) {
+      afpDetaljerListe.push({
+        afpPrivat: [],
+        afpOffentlig: getAfpOffentligDetails(afpOffentligVedUttak),
+        pre2025OffentligAfp: [],
+        opptjeningPre2025OffentligAfp: [],
+      })
+    }
+  }
+
+  // Handle Pre-2025 Offentlig AFP
+  if (pre2025OffentligAfp) {
+    afpDetaljerListe.push({
+      afpPrivat: [],
+      afpOffentlig: [],
+      pre2025OffentligAfp: getPre2025OffentligAfpDetails(pre2025OffentligAfp),
+      opptjeningPre2025OffentligAfp:
+        getOpptjeningPre2025OffentligAfpDetails(pre2025OffentligAfp),
+    })
+  }
+
+  return afpDetaljerListe
+}
+
 export function useBeregningsdetaljer(
   alderspensjonListe?: AlderspensjonPensjonsberegning[],
   afpPrivatListe?: AfpPrivatPensjonsberegning[],
@@ -245,186 +469,22 @@ export function useBeregningsdetaljer(
         gradertUttaksperiode,
         alderspensjonListe
       )
+
     const alderspensjonDetaljerListe = getAlderspensjonDetaljerListe(
       alderspensjonListeForValgtUttaksalder
     )
-    const pre2025OffentligAfpDetaljerListe: DetaljRad[] = pre2025OffentligAfp
-      ? (() => {
-          const grunnpensjon =
-            pre2025OffentligAfp.grunnpensjon &&
-            pre2025OffentligAfp.grunnpensjon > 0
-              ? Math.round(pre2025OffentligAfp.grunnpensjon)
-              : 0
-          const tilleggspensjon =
-            pre2025OffentligAfp.tilleggspensjon &&
-            pre2025OffentligAfp.tilleggspensjon > 0
-              ? Math.round(pre2025OffentligAfp.tilleggspensjon)
-              : 0
-          const afpTillegg =
-            pre2025OffentligAfp.afpTillegg && pre2025OffentligAfp.afpTillegg > 0
-              ? Math.round(pre2025OffentligAfp.afpTillegg)
-              : 0
-          const saertillegg =
-            pre2025OffentligAfp.saertillegg &&
-            pre2025OffentligAfp.saertillegg > 0
-              ? Math.round(pre2025OffentligAfp.saertillegg)
-              : 0
 
-          return [
-            {
-              tekst: 'Grunnpensjon (kap. 19)',
-              verdi: `${formatInntekt(grunnpensjon)} kr`,
-            },
-            {
-              tekst: 'Tilleggspensjon (kap. 19)',
-              verdi: `${formatInntekt(tilleggspensjon)} kr`,
-            },
-            {
-              tekst: 'AFP-tillegg',
-              verdi: `${formatInntekt(afpTillegg)} kr`,
-            },
-            {
-              tekst: 'Særtillegg',
-              verdi: `${formatInntekt(saertillegg)} kr`,
-            },
-            {
-              tekst: 'Sum AFP',
-              verdi: `${formatInntekt(
-                grunnpensjon + tilleggspensjon + afpTillegg + saertillegg
-              )} kr`,
-            },
-          ].filter((rad) => rad.verdi !== '0 kr')
-        })()
-      : []
-
-    const afpPrivatDetaljerListe: DetaljRad[][] = (() => {
-      if (!afpPrivatListe || afpPrivatListe.length === 0) {
-        return []
-      }
-
-      const afpIndices: number[] = []
-      const currentAge =
-        gradertUttaksperiode?.uttaksalder?.aar ?? uttaksalder!.aar
-
-      // Find index for current age
-      const currentAgeIndex = afpPrivatListe.findIndex(
-        (afp) => afp.alder === currentAge
-      )
-      if (currentAgeIndex !== -1) {
-        afpIndices.push(currentAgeIndex)
-      } else {
-        // If no exact age match, fallback to first element (usually the earliest available age)
-        afpIndices.push(0)
-      }
-
-      // If current age is less than 67, also include age 67 data
-      if (currentAge < 67) {
-        const afp67Index = afpPrivatListe.findIndex((afp) => afp.alder === 67)
-        if (afp67Index !== -1 && !afpIndices.includes(afp67Index)) {
-          afpIndices.push(afp67Index)
-        }
-      }
-
-      return afpIndices.map((index) => {
-        const afp = afpPrivatListe[index]
-        if (!afp) return []
-
-        return [
-          {
-            tekst: 'Kompensasjonstillegg',
-            verdi: afp.kompensasjonstillegg
-              ? `${formatInntekt(afp.kompensasjonstillegg)} kr`
-              : 0,
-          },
-          {
-            tekst: 'Kronetillegg',
-            verdi: afp.kronetillegg
-              ? `${formatInntekt(afp.kronetillegg)} kr`
-              : 0,
-          },
-          {
-            tekst: 'Livsvarig del',
-            verdi: afp.livsvarig ? `${formatInntekt(afp.livsvarig)} kr` : 0,
-          },
-          {
-            tekst: 'Sum AFP',
-            verdi: afp.maanedligBeloep
-              ? `${formatInntekt(afp.maanedligBeloep)} kr`
-              : 0,
-          },
-        ].filter((rad) => rad.verdi !== 0)
-      })
-    })()
-
-    const afpOffentligDetaljerListe: DetaljRad[] = (() => {
-      if (!afpOffentligListe || afpOffentligListe.length === 0) {
-        return []
-      }
-
-      const afpAar = Math.min(
-        uttaksalder?.aar ?? Infinity,
-        gradertUttaksperiode?.uttaksalder.aar ?? Infinity
-      )
-
-      const afpOffentligVedUttak = afpOffentligListe.find(
-        (it) => it.alder >= afpAar
-      )
-
-      if (!afpOffentligVedUttak) return []
-
-      return [
-        {
-          tekst: 'Månedlig livsvarig avtalefestet pensjon (AFP)',
-          verdi: `${formatInntekt(afpOffentligVedUttak?.maanedligBeloep ?? 0)} kr`,
-        },
-      ]
-    })()
-
-    const opptjeningPre2025OffentligAfpListe: DetaljRad[] = (() => {
-      if (!pre2025OffentligAfp) {
-        return []
-      }
-      const sumPoengaarPre2025OffentligAfp =
-        (pre2025OffentligAfp.poengaarTom1991 ?? 0) +
-        (pre2025OffentligAfp.poengaarFom1992 ?? 0)
-
-      return [
-        {
-          tekst: 'AFP grad',
-          verdi: pre2025OffentligAfp.afpGrad
-            ? `${pre2025OffentligAfp.afpGrad} %`
-            : 0,
-        },
-        {
-          tekst: 'Sluttpoengtall',
-          verdi: pre2025OffentligAfp.sluttpoengtall
-            ? formatDecimalWithComma(pre2025OffentligAfp.sluttpoengtall)
-            : 0,
-        },
-        {
-          tekst: 'Poengår',
-          verdi: `${sumPoengaarPre2025OffentligAfp} år`,
-        },
-        {
-          tekst: 'Trygdetid',
-          verdi: pre2025OffentligAfp.trygdetid
-            ? `${pre2025OffentligAfp.trygdetid} år`
-            : 0,
-        },
-      ].filter(
-        (rad) =>
-          rad.tekst === 'Poengår' ||
-          rad.tekst === 'Trygdetid' ||
-          rad.verdi !== 0
-      )
-    })()
+    const afpDetaljerListe = getAfpDetaljerListe(
+      afpPrivatListe,
+      afpOffentligListe,
+      pre2025OffentligAfp,
+      uttaksalder,
+      gradertUttaksperiode
+    )
 
     return {
       alderspensjonDetaljerListe,
-      pre2025OffentligAfpDetaljerListe,
-      afpPrivatDetaljerListe,
-      afpOffentligDetaljerListe,
-      opptjeningPre2025OffentligAfpListe,
+      afpDetaljerListe,
     }
   }, [
     alderspensjonListe,

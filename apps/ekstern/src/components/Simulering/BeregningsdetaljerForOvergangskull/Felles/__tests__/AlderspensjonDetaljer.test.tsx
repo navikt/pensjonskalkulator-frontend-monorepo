@@ -20,6 +20,10 @@ const mockMessages = {
   'beregning.detaljer.grunnpensjon.pre2025OffentligAfp.title': 'Pre-2025 AFP',
   'beregning.detaljer.grunnpensjon.table.title': 'Grunnpensjon (kr)',
   'beregning.detaljer.grunnpensjon.afp.table.title': 'AFP (kr)',
+  'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
+    'Opptjening kapittel 19',
+  'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':
+    'Opptjening kapittel 20',
 }
 
 const createMockStore = (customState = {}) => {

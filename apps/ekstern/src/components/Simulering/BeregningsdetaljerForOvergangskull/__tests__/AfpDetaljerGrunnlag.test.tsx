@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
+
+import { render, screen } from '@/test-utils'
 
 import { AfpDetaljerGrunnlag } from '../AfpDetaljerGrunnlag'
 import { DetaljRad } from '../hooks'
@@ -7,23 +8,26 @@ import { DetaljRad } from '../hooks'
 // Mock the child components
 vi.mock('../Felles/AfpDetaljer', () => ({
   AfpDetaljer: ({
-    afpPrivatDetaljerListe,
-    afpOffentligDetaljerListe,
-    pre2025OffentligAfpDetaljerListe,
-    opptjeningPre2025OffentligAfpListe,
+    afpDetaljForValgtUttak,
   }: {
-    afpPrivatDetaljerListe?: DetaljRad[][]
-    afpOffentligDetaljerListe?: DetaljRad[]
-    pre2025OffentligAfpDetaljerListe?: DetaljRad[]
-    opptjeningPre2025OffentligAfpListe?: DetaljRad[]
+    afpDetaljForValgtUttak?: {
+      afpPrivat?: DetaljRad[]
+      afpOffentlig?: DetaljRad[]
+      pre2025OffentligAfp?: DetaljRad[]
+      opptjeningPre2025OffentligAfp?: DetaljRad[]
+    }
   }) => (
     <div
       data-testid="AfpDetaljer"
-      data-afp-privat-length={afpPrivatDetaljerListe?.length ?? ''}
-      data-afp-offentlig-length={afpOffentligDetaljerListe?.length ?? ''}
-      data-pre2025-afp-length={pre2025OffentligAfpDetaljerListe?.length ?? ''}
+      data-afp-privat-length={afpDetaljForValgtUttak?.afpPrivat?.length ?? ''}
+      data-afp-offentlig-length={
+        afpDetaljForValgtUttak?.afpOffentlig?.length ?? ''
+      }
+      data-pre2025-afp-length={
+        afpDetaljForValgtUttak?.pre2025OffentligAfp?.length ?? ''
+      }
       data-pre2025-opptjening-length={
-        opptjeningPre2025OffentligAfpListe?.length ?? ''
+        afpDetaljForValgtUttak?.opptjeningPre2025OffentligAfp?.length ?? ''
       }
     >
       AfpDetaljer Mock
@@ -33,24 +37,27 @@ vi.mock('../Felles/AfpDetaljer', () => ({
 
 describe('AfpDetaljerGrunnlag', () => {
   const defaultProps = {
-    afpPrivatDetaljerListe: [
-      [
-        { tekst: 'AFP grad', verdi: '100 %' },
-        { tekst: 'Kompensasjonsgrad', verdi: '76 %' },
-      ],
+    afpDetaljerListe: [
+      {
+        afpPrivat: [
+          { tekst: 'AFP grad', verdi: 100 },
+          { tekst: 'Kompensasjonsgrad', verdi: 0.76 },
+        ],
+        afpOffentlig: [
+          { tekst: 'AFP-tillegg', verdi: '5 000 kr' },
+          { tekst: 'Sum AFP', verdi: '15 000 kr' },
+        ],
+        pre2025OffentligAfp: [
+          { tekst: 'Grunnpensjon (kap. 19)', verdi: '12 000 kr' },
+          { tekst: 'Sum alderspensjon', verdi: '28 000 kr' },
+        ],
+        opptjeningPre2025OffentligAfp: [
+          { tekst: 'AFP grad', verdi: 100 },
+          { tekst: 'Sluttpoengtall', verdi: 6.5 },
+        ],
+      },
     ],
-    afpOffentligDetaljerListe: [
-      { tekst: 'AFP-tillegg', verdi: '5 000 kr' },
-      { tekst: 'Sum AFP', verdi: '15 000 kr' },
-    ],
-    pre2025OffentligAfpDetaljerListe: [
-      { tekst: 'Grunnpensjon (kap. 19)', verdi: '12 000 kr' },
-      { tekst: 'Sum alderspensjon', verdi: '28 000 kr' },
-    ],
-    opptjeningPre2025OffentligAfpListe: [
-      { tekst: 'AFP grad', verdi: '100 år' },
-      { tekst: 'Sluttpoengtall', verdi: 6.5 },
-    ],
+    alderspensjonColumnsCount: 2,
   }
 
   afterEach(() => {
@@ -67,6 +74,7 @@ describe('AfpDetaljerGrunnlag', () => {
   it('rendrer både desktop og mobil versjon med riktig CSS klasser', () => {
     const { container } = render(<AfpDetaljerGrunnlag {...defaultProps} />)
 
+    // AfpDetaljerGrunnlag doesn't have desktop/mobile classes - AfpDetaljer itself handles this
     const desktopDiv = container.querySelector(
       '[class*="beregningsdetaljerForOvergangskullDesktopOnly"]'
     )
@@ -74,35 +82,34 @@ describe('AfpDetaljerGrunnlag', () => {
       '[class*="beregningsdetaljerForOvergangskullMobileOnly"]'
     )
 
-    expect(desktopDiv).toBeInTheDocument()
-    expect(mobileDiv).toBeInTheDocument()
+    // The CSS classes should be inside the AfpDetaljer component, not in the wrapper
+    expect(desktopDiv).not.toBeInTheDocument()
+    expect(mobileDiv).not.toBeInTheDocument()
   })
 
   it('rendrer HStack for desktop versjon', () => {
     render(<AfpDetaljerGrunnlag {...defaultProps} />)
 
-    const desktopContainer = screen
-      .getByTestId('beregningsdetaljer-for-overgangskull')
-      .querySelector('[class*="beregningsdetaljerForOvergangskullDesktopOnly"]')
-
-    expect(desktopContainer?.firstChild).toHaveClass('navds-stack')
+    // AfpDetaljerGrunnlag doesn't have desktop/mobile structure - that's handled by AfpDetaljer
+    const wrapper = screen.getByTestId('beregningsdetaljer-for-overgangskull')
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper).toHaveClass('navds-stack')
   })
 
   it('rendrer VStack for mobil versjon', () => {
     render(<AfpDetaljerGrunnlag {...defaultProps} />)
 
-    const mobileContainer = screen
-      .getByTestId('beregningsdetaljer-for-overgangskull')
-      .querySelector('[class*="beregningsdetaljerForOvergangskullMobileOnly"]')
-
-    expect(mobileContainer?.firstChild).toHaveClass('navds-stack')
+    // AfpDetaljerGrunnlag doesn't have desktop/mobile structure - that's handled by AfpDetaljer
+    const wrapper = screen.getByTestId('beregningsdetaljer-for-overgangskull')
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper).toHaveClass('navds-stack')
   })
 
   it('rendrer AfpDetaljer komponenten', () => {
     render(<AfpDetaljerGrunnlag {...defaultProps} />)
 
-    // Skal rendre komponenter to ganger (desktop + mobil)
-    expect(screen.getAllByTestId('AfpDetaljer')).toHaveLength(2)
+    // AfpDetaljerGrunnlag renders AfpDetaljer once per item in the list
+    expect(screen.getAllByTestId('AfpDetaljer')).toHaveLength(1)
   })
 
   it('sender korrekte props til AfpDetaljer', () => {
@@ -111,7 +118,7 @@ describe('AfpDetaljerGrunnlag', () => {
     const afpDetaljerComponents = screen.getAllByTestId('AfpDetaljer')
 
     afpDetaljerComponents.forEach((component) => {
-      expect(component).toHaveAttribute('data-afp-privat-length', '1')
+      expect(component).toHaveAttribute('data-afp-privat-length', '2')
       expect(component).toHaveAttribute('data-afp-offentlig-length', '2')
       expect(component).toHaveAttribute('data-pre2025-afp-length', '2')
       expect(component).toHaveAttribute('data-pre2025-opptjening-length', '2')
@@ -120,10 +127,15 @@ describe('AfpDetaljerGrunnlag', () => {
 
   it('håndterer valgfrie props som undefined', () => {
     const minimalProps = {
-      afpPrivatDetaljerListe: undefined,
-      afpOffentligDetaljerListe: undefined,
-      pre2025OffentligAfpDetaljerListe: undefined,
-      opptjeningPre2025OffentligAfpListe: undefined,
+      afpDetaljerListe: [
+        {
+          afpPrivat: [],
+          afpOffentlig: [],
+          pre2025OffentligAfp: [],
+          opptjeningPre2025OffentligAfp: [],
+        },
+      ],
+      alderspensjonColumnsCount: 0,
     }
 
     render(<AfpDetaljerGrunnlag {...minimalProps} />)
@@ -131,19 +143,24 @@ describe('AfpDetaljerGrunnlag', () => {
     const afpDetaljerComponents = screen.getAllByTestId('AfpDetaljer')
 
     afpDetaljerComponents.forEach((component) => {
-      expect(component).toHaveAttribute('data-afp-privat-length', '')
-      expect(component).toHaveAttribute('data-afp-offentlig-length', '')
-      expect(component).toHaveAttribute('data-pre2025-afp-length', '')
-      expect(component).toHaveAttribute('data-pre2025-opptjening-length', '')
+      expect(component).toHaveAttribute('data-afp-privat-length', '0')
+      expect(component).toHaveAttribute('data-afp-offentlig-length', '0')
+      expect(component).toHaveAttribute('data-pre2025-afp-length', '0')
+      expect(component).toHaveAttribute('data-pre2025-opptjening-length', '0')
     })
   })
 
   it('håndterer tomme lister som props', () => {
     const emptyProps = {
-      afpPrivatDetaljerListe: [],
-      afpOffentligDetaljerListe: [],
-      pre2025OffentligAfpDetaljerListe: [],
-      opptjeningPre2025OffentligAfpListe: [],
+      afpDetaljerListe: [
+        {
+          afpPrivat: [],
+          afpOffentlig: [],
+          pre2025OffentligAfp: [],
+          opptjeningPre2025OffentligAfp: [],
+        },
+      ],
+      alderspensjonColumnsCount: 0,
     }
 
     render(<AfpDetaljerGrunnlag {...emptyProps} />)
@@ -162,7 +179,7 @@ describe('AfpDetaljerGrunnlag', () => {
     render(<AfpDetaljerGrunnlag {...defaultProps} />)
 
     // Skal bare rendre AfpDetaljer, ikke AlderspensjonDetaljer eller OpptjeningDetaljer
-    expect(screen.getAllByTestId('AfpDetaljer')).toHaveLength(2)
+    expect(screen.getAllByTestId('AfpDetaljer')).toHaveLength(1)
     expect(
       screen.queryByTestId('AlderspensjonDetaljer')
     ).not.toBeInTheDocument()
@@ -171,12 +188,15 @@ describe('AfpDetaljerGrunnlag', () => {
 
   it('rendrer med delvis definerte props', () => {
     const partialProps = {
-      afpPrivatDetaljerListe: [
-        [{ tekst: 'Test AFP privat', verdi: '1000 kr' }],
+      afpDetaljerListe: [
+        {
+          afpPrivat: [{ tekst: 'Test AFP privat', verdi: '1000 kr' }],
+          afpOffentlig: [],
+          pre2025OffentligAfp: [{ tekst: 'Test pre2025', verdi: 100 }],
+          opptjeningPre2025OffentligAfp: [],
+        },
       ],
-      afpOffentligDetaljerListe: undefined,
-      pre2025OffentligAfpDetaljerListe: [{ tekst: 'Test pre2025', verdi: 100 }],
-      opptjeningPre2025OffentligAfpListe: undefined,
+      alderspensjonColumnsCount: 1,
     }
 
     render(<AfpDetaljerGrunnlag {...partialProps} />)
@@ -185,9 +205,9 @@ describe('AfpDetaljerGrunnlag', () => {
 
     afpDetaljerComponents.forEach((component) => {
       expect(component).toHaveAttribute('data-afp-privat-length', '1')
-      expect(component).toHaveAttribute('data-afp-offentlig-length', '')
+      expect(component).toHaveAttribute('data-afp-offentlig-length', '0')
       expect(component).toHaveAttribute('data-pre2025-afp-length', '1')
-      expect(component).toHaveAttribute('data-pre2025-opptjening-length', '')
+      expect(component).toHaveAttribute('data-pre2025-opptjening-length', '0')
     })
   })
 })
