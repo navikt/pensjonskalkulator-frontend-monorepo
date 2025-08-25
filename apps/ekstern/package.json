@@ -89,6 +89,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-sonarjs": "^3.0.4",
     "globals": "^16.3.0",
     "highcharts": "^12.3.0",
     "highcharts-react-official": "^3.2.2",
@@ -125,8 +126,8 @@
     "vitest": "3.2.4"
   },
   "optionalDependencies": {
-    "sass-embedded-linux-x64": "^1.90.0",
     "sass-embedded-darwin-arm64": "^1.90.0",
+    "sass-embedded-linux-x64": "^1.90.0",
     "sass-embedded-win32-x64": "^1.90.0"
   },
   "msw": {

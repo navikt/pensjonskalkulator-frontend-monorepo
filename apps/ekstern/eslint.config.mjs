@@ -1,6 +1,7 @@
 import eslint from '@eslint/js'
 import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
+import sonarjsPlugin from 'eslint-plugin-sonarjs'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
@@ -26,6 +27,7 @@ const ignoredFiles = [
   'public/src/nais.js',
   'scripts/FetchLandListe.js',
   'sanity.cli.ts',
+  'src/translations/**',
 ]
 
 const defaultEslintConfig = tseslint.config(
@@ -60,6 +62,7 @@ export default [
     ignores: [...ignoredFiles],
     plugins: {
       import: importPlugin,
+      sonarjs: sonarjsPlugin,
     },
     rules: {
       'no-debugger': 'warn',
@@ -81,6 +84,18 @@ export default [
       'import/export': 'error',
       'import/no-extraneous-dependencies': 'error',
       'import/no-duplicates': 'error',
+      // SonarJS rules
+      //TODO: Gå gjennom og fiks warninger (PEK-1435)
+      'sonarjs/no-duplicate-string': 'warn',
+      'sonarjs/no-identical-functions': 'warn',
+      'sonarjs/no-redundant-boolean': 'warn',
+      'sonarjs/no-unused-collection': 'warn',
+      'sonarjs/no-useless-catch': 'warn',
+      'sonarjs/prefer-immediate-return': 'warn',
+      'sonarjs/no-collapsible-if': 'warn',
+      'sonarjs/no-gratuitous-expressions': 'warn',
+      'sonarjs/no-inverted-boolean-check': 'warn',
+      'sonarjs/prefer-while': 'warn',
     },
   },
   {
@@ -100,6 +115,10 @@ export default [
           ],
         },
       ],
+      // Relax SonarJS rules for test files
+      'sonarjs/no-duplicate-string': 'off',
+      'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/no-identical-functions': 'warn',
     },
   },
 ]
