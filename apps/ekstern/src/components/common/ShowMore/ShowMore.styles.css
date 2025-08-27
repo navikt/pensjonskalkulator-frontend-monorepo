@@ -40,7 +40,6 @@
 }
 
 .navds-show-more__content {
-  transition: height cubic-bezier(0, 0.3, 0.15, 1) 400ms;
   overflow: hidden;
   height: max-content;
 }
