@@ -122,15 +122,15 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
     }
 
     // For Pre-2025 Offentlig AFP
-    if (afpDetaljForValgtUttak.pre2025OffentligAfp.length > 0) {
-      if (uttaksalder?.aar) {
-        return renderAfpHeading({
-          messageId:
-            'beregning.detaljer.grunnpensjon.pre2025OffentligAfp.title',
-          age: uttaksalder.aar,
-          months: uttaksalder.maaneder,
-        })
-      }
+    if (
+      afpDetaljForValgtUttak.pre2025OffentligAfp.length > 0 &&
+      uttaksalder?.aar
+    ) {
+      return renderAfpHeading({
+        messageId: 'beregning.detaljer.grunnpensjon.pre2025OffentligAfp.title',
+        age: uttaksalder.aar,
+        months: uttaksalder.maaneder,
+      })
     }
 
     return null

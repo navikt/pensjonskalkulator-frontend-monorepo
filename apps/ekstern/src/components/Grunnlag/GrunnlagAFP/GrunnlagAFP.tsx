@@ -18,6 +18,7 @@ import {
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
+import { BUTTON_KLIKK } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -87,7 +88,7 @@ const GoToAFP = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    logger('button klikk', {
+    logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til AFP',
     })
     dispatch(userInputActions.flushCurrentSimulation())
@@ -108,7 +109,7 @@ const GoToAvansert = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    logger('button klikk', {
+    logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
     if (avansertSkjemaModus === 'resultat') {
@@ -130,7 +131,7 @@ const GoToStart = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    logger('button klikk', {
+    logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til start',
     })
     dispatch(userInputActions.flush())

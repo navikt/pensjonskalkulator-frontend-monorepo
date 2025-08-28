@@ -184,10 +184,11 @@ export const useSimuleringChartLocalState = (initialValues: {
 
   // Maintain x-axis values during loading states
   React.useEffect(() => {
-    if (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) {
-      if (xAxis.length > 0) {
-        dispatch(userInputActions.setXAxis(xAxis))
-      }
+    if (
+      (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) &&
+      xAxis.length > 0
+    ) {
+      dispatch(userInputActions.setXAxis(xAxis))
     }
   }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 

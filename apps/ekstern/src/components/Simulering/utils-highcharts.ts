@@ -12,6 +12,7 @@ import { IntlShape } from 'react-intl'
 
 import { cleanAndAddEventListener } from '@/utils/events'
 import { formatInntekt } from '@/utils/inntekt'
+import { GRAF_TOOLTIP_AAPNET } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import {
@@ -28,6 +29,13 @@ import {
 } from './utils'
 
 import globalClassNames from './Simulering.module.scss'
+
+// CSS Custom Property Constants
+const CSS_VAR_TEXT_DEFAULT = 'var(--a-text-default)'
+const CSS_VAR_TEXT_SUBTLE = 'var(--a-text-subtle)'
+const CSS_VAR_FONT_FAMILY = 'var(--a-font-family)'
+const CSS_VAR_FONT_SIZE_MEDIUM = 'var(--a-font-size-medium)'
+const CSS_VAR_FONT_SIZE_SMALL = 'var(--a-font-size-small)'
 
 export type ExtendedAxis = Axis & {
   height: number
@@ -64,7 +72,7 @@ export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
 }
 
 export function onPointClick(this: Point): void {
-  logger('graf tooltip åpnet', {
+  logger(GRAF_TOOLTIP_AAPNET, {
     data: this.category as string,
   })
   this.series.chart.tooltip.update({
@@ -91,12 +99,12 @@ export function onPointClick(this: Point): void {
   ) {
     if (index === pointIndex) {
       label.style.fontWeight = 'bold'
-      label.style.color = 'var(--a-text-default)'
-      label.style.fill = 'var(--a-text-default)'
+      label.style.color = CSS_VAR_TEXT_DEFAULT
+      label.style.fill = CSS_VAR_TEXT_DEFAULT
     } else {
       label.style.fontWeight = 'normal'
-      label.style.color = 'var(--a-text-subtle)'
-      label.style.fill = 'var(--a-text-subtle)'
+      label.style.color = CSS_VAR_TEXT_SUBTLE
+      label.style.fill = CSS_VAR_TEXT_SUBTLE
     }
   })
   this.series.chart.redraw()
@@ -277,9 +285,9 @@ export const getChartOptions = (
           return this.value.toString()
         },
         style: {
-          fontFamily: 'var(--a-font-family)',
-          fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-text-subtle)',
+          fontFamily: CSS_VAR_FONT_FAMILY,
+          fontSize: CSS_VAR_FONT_SIZE_MEDIUM,
+          color: CSS_VAR_TEXT_SUBTLE,
         },
         y: 20,
       },
@@ -288,12 +296,12 @@ export const getChartOptions = (
         align: 'high',
         y: -5,
         style: {
-          fontFamily: 'var(--a-font-family)',
-          fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-text-subtle)',
+          fontFamily: CSS_VAR_FONT_FAMILY,
+          fontSize: CSS_VAR_FONT_SIZE_MEDIUM,
+          color: CSS_VAR_TEXT_SUBTLE,
         },
       },
-      lineColor: 'var(--a-text-subtle)',
+      lineColor: CSS_VAR_TEXT_SUBTLE,
     },
     yAxis: {
       offset: 10,
@@ -309,8 +317,8 @@ export const getChartOptions = (
         x: -44,
         y: -20,
         style: {
-          fontFamily: 'var(--a-font-family)',
-          fontSize: 'var(--a-font-size-medium)',
+          fontFamily: CSS_VAR_FONT_FAMILY,
+          fontSize: CSS_VAR_FONT_SIZE_MEDIUM,
           zIndex: 0,
         },
       },
@@ -319,9 +327,9 @@ export const getChartOptions = (
         align: 'left',
         formatter: labelFormatterDesktop,
         style: {
-          fontFamily: 'var(--a-font-family)',
-          fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-text-subtle)',
+          fontFamily: CSS_VAR_FONT_FAMILY,
+          fontSize: CSS_VAR_FONT_SIZE_MEDIUM,
+          color: CSS_VAR_TEXT_SUBTLE,
           paddingRight: 'var(--a-spacing-3)',
         },
         x: -55,
@@ -380,8 +388,8 @@ export const getChartOptions = (
       verticalAlign: 'bottom',
       itemDistance: 24,
       itemStyle: {
-        fontFamily: 'var(--a-font-family)',
-        color: 'var(--a-text-default)',
+        fontFamily: CSS_VAR_FONT_FAMILY,
+        color: CSS_VAR_TEXT_DEFAULT,
         fontWeight: 'regular',
         fontSize: '14px',
         cursor: 'default',
@@ -437,7 +445,7 @@ export const getChartOptions = (
               },
               labels: {
                 style: {
-                  fontSize: 'var(--a-font-size-small)',
+                  fontSize: CSS_VAR_FONT_SIZE_SMALL,
                 },
               },
             },
@@ -451,13 +459,13 @@ export const getChartOptions = (
                 x: -73,
                 y: -22,
                 style: {
-                  fontSize: 'var(--a-font-size-small)',
+                  fontSize: CSS_VAR_FONT_SIZE_SMALL,
                 },
               },
               labels: {
                 formatter: labelFormatterMobile,
                 style: {
-                  fontSize: 'var(--a-font-size-small)',
+                  fontSize: CSS_VAR_FONT_SIZE_SMALL,
                   backgroundColor: 'transparent',
                 },
                 x: 0,

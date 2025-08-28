@@ -23,6 +23,11 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
+import {
+  LINK_AAPNET,
+  SHOW_MORE_AAPNET,
+  SHOW_MORE_LUKKET,
+} from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -128,7 +133,7 @@ export const Grunnlag: React.FC<Props> = ({
     }
 
     const name = `Grunnlag: Vis detaljer for ${ytelse}`
-    logger(isOpen ? 'show more åpnet' : 'show more lukket', { tekst: name })
+    logger(isOpen ? SHOW_MORE_AAPNET : SHOW_MORE_LUKKET, { tekst: name })
   }
 
   return (
@@ -215,7 +220,7 @@ export const Grunnlag: React.FC<Props> = ({
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => {
-                        logger('link åpnet', {
+                        logger(LINK_AAPNET, {
                           href: `/pensjon/kalkulator${paths.forbehold}`,
                           target: '_blank',
                         })

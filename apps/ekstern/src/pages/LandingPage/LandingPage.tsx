@@ -16,6 +16,7 @@ import {
 import { externalUrls, paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectIsLoggedIn } from '@/state/session/selectors'
+import { BUTTON_KLIKK } from '@/utils/loggerConstants'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
@@ -121,7 +122,7 @@ export const LandingPage = () => {
             <Button
               data-testid="landingside-enkel-kalkulator-button"
               variant="primary"
-              onClick={wrapLogger('button klikk', {
+              onClick={wrapLogger(BUTTON_KLIKK, {
                 tekst: 'Enkel kalkulator',
               })(gaaTilEnkelKalkulator)}
             >
@@ -159,7 +160,7 @@ export const LandingPage = () => {
               <Button
                 data-testid="landingside-detaljert-kalkulator-button"
                 variant="secondary"
-                onClick={wrapLogger('button klikk', {
+                onClick={wrapLogger(BUTTON_KLIKK, {
                   tekst: 'Detaljert pensjonskalkulator',
                 })(gaaTilDetaljertKalkulator)}
               >
@@ -201,7 +202,7 @@ export const LandingPage = () => {
                 className={styles.button}
                 data-testid="landingside-uinnlogget-kalkulator-button"
                 variant="secondary"
-                onClick={wrapLogger('button klikk', {
+                onClick={wrapLogger(BUTTON_KLIKK, {
                   tekst: 'Uinnlogget kalkulator',
                 })(gaaTilUinnloggetKalkulator)}
               >

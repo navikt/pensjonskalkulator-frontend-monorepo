@@ -23,6 +23,11 @@ import {
   getTranslatedLandFromLandkode,
   harKravOmArbeidFromLandkode,
 } from '@/utils/land'
+import {
+  BUTTON_KLIKK,
+  GRUNNLAG_FOR_BEREGNINGEN,
+  MODAL_AAPNET,
+} from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import styles from './UtenlandsoppholdListe.module.scss'
@@ -48,7 +53,7 @@ export function UtenlandsoppholdListe({
   const locale = getSelectedLanguage()
 
   const openUtenlandsoppholdModal = () => {
-    logger('modal åpnet', {
+    logger(MODAL_AAPNET, {
       tekst: `Modal: Om oppholdet ditt`,
     })
     utenlandsoppholdModalRef.current?.showModal()
@@ -56,7 +61,7 @@ export function UtenlandsoppholdListe({
 
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
-    logger('modal åpnet', {
+    logger(MODAL_AAPNET, {
       tekst: `Modal: Om oppholdet ditt`,
     })
     utenlandsoppholdModalRef.current?.showModal()
@@ -84,7 +89,7 @@ export function UtenlandsoppholdListe({
   useEffect(() => {
     if (erVisningIGrunnlag) {
       utenlandsperioder.forEach((utenlandsperiode) => {
-        logger('grunnlag for beregningen', {
+        logger(GRUNNLAG_FOR_BEREGNINGEN, {
           tekst: 'utenlandsopphold',
           data: utenlandsperiode.landkode,
           valg: utenlandsperiode.arbeidetUtenlands,
@@ -114,7 +119,7 @@ export function UtenlandsoppholdListe({
               dispatch(
                 userInputActions.deleteUtenlandsperiode(valgtUtenlandsperiodeId)
               )
-              logger('button klikk', {
+              logger(BUTTON_KLIKK, {
                 tekst: `sletter utenlandsopphold`,
               })
               avbrytModalRef.current?.close()

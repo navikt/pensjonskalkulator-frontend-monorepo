@@ -98,8 +98,14 @@ export default [
       'sonarjs/prefer-while': 'warn',
     },
   },
+  // Test files configuration
   {
-    files: ['**/*.test.ts', '**/*.test.tsx'],
+    files: [
+      '**/*.test.ts',
+      '**/*.test.tsx',
+      '**/__tests__/**/*.ts',
+      '**/__tests__/**/*.tsx',
+    ],
     rules: {
       '@typescript-eslint/ban-ts-comment': 'off', // Fjern når @ts-ignore ikke lenger er i bruk i testkode
       '@typescript-eslint/require-await': 'off',
@@ -118,7 +124,19 @@ export default [
       // Relax SonarJS rules for test files
       'sonarjs/no-duplicate-string': 'off',
       'sonarjs/cognitive-complexity': 'off',
-      'sonarjs/no-identical-functions': 'warn',
+      'sonarjs/no-identical-functions': 'off',
+      'sonarjs/prefer-immediate-return': 'off',
+    },
+  },
+  // Mock files configuration
+  {
+    files: ['**/mocks/**/*.ts', '**/mocks/**/*.tsx'],
+    rules: {
+      // Relax SonarJS rules for mock files
+      'sonarjs/no-duplicate-string': 'off',
+      'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/no-identical-functions': 'off',
+      'sonarjs/prefer-immediate-return': 'off',
     },
   },
 ]
