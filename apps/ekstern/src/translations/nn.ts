@@ -81,6 +81,8 @@ export default {
   'stegvisning.start.endring.ingress_1b.uten_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.ingress.pre2025_offentlig_afp': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ingress.pre2025_offentlig_afp_fremtidig':
+    'MANGLER_TEKST',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.list_item1': 'MANGLER_TEKST',
   'stegvisning.start.list_item2': 'MANGLER_TEKST',
