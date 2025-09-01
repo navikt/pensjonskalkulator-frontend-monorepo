@@ -61,11 +61,6 @@ const translations = {
     'Du må bruke vår detaljerte kalkulator. Den gir deg et estimat på',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du få et estimat på ',
-  'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Hvis du er født før 1963 og har offentlig tjenestepensjon fra Statens pensjonskasse, kan du foreløpig kun se denne i detaljert pensjonskalkulator.',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Logg inn i detaljert pensjonskalkulator',
-  'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i pensjonskalkulator',
   'landingsside.button.enkel_kalkulator': 'Pensjonskalkulator',
@@ -117,6 +112,9 @@ const translations = {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
+  'stegvisning.start.alert.title': 'Kjenner du deg ikke helt igjen?',
+  'stegvisning.start.alert.description':
+    'Vi har laget ny kalkulator og pensjonert den gamle.',
   'stegvisning.start_brukere_fyllt_75.title':
     'Du kan dessverre ikke beregne alderspensjon i kalkulatoren etter at du har fylt 75 år',
   'stegvisning.start_brukere_fyllt_75.ingress':

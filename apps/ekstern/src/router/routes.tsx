@@ -52,6 +52,7 @@ export const routes: RouteObject[] = [
         shouldShowLogo
         hasWhiteBg
         shouldRedirectNonAuthenticated={false}
+        noMinHeight={true}
       >
         <Outlet />
       </PageFramework>

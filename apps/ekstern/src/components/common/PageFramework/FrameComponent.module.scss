@@ -7,6 +7,10 @@
   &__white {
     background: var(--a-white);
   }
+
+  &__noMinHeight {
+    min-height: 0;
+  }
 }
 
 .content {

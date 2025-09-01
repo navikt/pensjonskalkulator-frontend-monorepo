@@ -50,11 +50,7 @@ export default {
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (Nav), avtalefesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',
   'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert pensjonskalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
-  'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Logg inn i detaljert pensjonskalkulator',
-  'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
+    'I pensjonskalkulatoren kan du få et estimat på',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i pensjonskalkulator',
   'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
@@ -92,6 +88,8 @@ export default {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
+  'stegvisning.start.alert.title': 'MANGLER_TEKST',
+  'stegvisning.start.alert.description': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.title': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.ingress': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.button': 'MANGLER_TEKST',

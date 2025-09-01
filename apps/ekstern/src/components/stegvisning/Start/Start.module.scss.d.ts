@@ -10,5 +10,6 @@ declare const classNames: {
   readonly ellipse__green: "ellipse__green";
   readonly button: "button";
   readonly link: "link";
+  readonly alert: "alert";
 };
 export = classNames;

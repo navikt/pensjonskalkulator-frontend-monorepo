@@ -28,6 +28,7 @@ export const PageFramework: React.FC<{
   shouldShowLogo?: boolean
   shouldRedirectNonAuthenticated?: boolean
   showLoader?: boolean
+  noMinHeight?: boolean
   children?: React.JSX.Element
 }> = ({
   shouldRedirectNonAuthenticated = true,

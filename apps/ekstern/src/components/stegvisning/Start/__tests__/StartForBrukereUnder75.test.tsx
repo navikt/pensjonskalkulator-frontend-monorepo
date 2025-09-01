@@ -72,6 +72,7 @@ describe('stegvisning - Start', () => {
         { exact: false }
       )
     ).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og uføregrad', async () => {
@@ -100,6 +101,7 @@ describe('stegvisning - Start', () => {
       screen.getByText('50 % alderspensjon', { exact: false })
     ).toBeVisible()
     expect(screen.getByText('80 % uføretrygd', { exact: false })).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og AFP privat', async () => {
@@ -135,6 +137,7 @@ describe('stegvisning - Start', () => {
     expect(
       screen.getByText('AFP i privat sektor', { exact: false })
     ).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og AFP offentlig', async () => {
@@ -170,6 +173,7 @@ describe('stegvisning - Start', () => {
     expect(
       screen.getByText('AFP i offentlig sektor', { exact: false })
     ).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med fremtidig vedtak', async () => {
@@ -200,6 +204,7 @@ describe('stegvisning - Start', () => {
       'stegvisning.start.title Ola!'
     )
     expect(screen.getByText('stegvisning.start.button')).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og fremtidig vedtak', async () => {
@@ -240,6 +245,7 @@ describe('stegvisning - Start', () => {
     expect(
       screen.queryByText('stegvisning.start.button')
     ).not.toBeInTheDocument()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('rendrer slik den skal med vedtak om pre2025 offentlig Afp', async () => {
@@ -266,6 +272,7 @@ describe('stegvisning - Start', () => {
     expect(
       screen.getByTestId('stegvisning-start-ingress-pre2025-offentlig-afp')
     ).toBeVisible()
+    expect(screen.getByTestId('stegvisning-start-alert')).toBeVisible()
   })
 
   it('kaller onNext når brukeren klikker på Neste', async () => {

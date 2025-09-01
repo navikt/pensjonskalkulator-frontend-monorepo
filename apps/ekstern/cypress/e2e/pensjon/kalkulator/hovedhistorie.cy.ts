@@ -28,18 +28,13 @@ describe('Hovedhistorie', () => {
 
     describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
       // 2
-      it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
-        cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
-        cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
+      it('forventer jeg tilgang til uinnlogget kalkulator.', () => {
         cy.origin('https://www.nav.no', () => {
           cy.on('uncaught:exception', () => {
             return false
           })
         })
-        cy.location('pathname').should(
-          'eq',
-          '/pensjon/kalkulator/redirect/detaljert-kalkulator'
-        )
+        cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
 
         cy.visit('/pensjon/kalkulator/')
         cy.contains('button', 'Uinnlogget kalkulator').click()
@@ -97,7 +92,6 @@ describe('Hovedhistorie', () => {
       })
 
       it('forventer jeg å se en startside som ønsker meg velkommen.', () => {
-        cy.contains('button', 'Detaljert pensjonskalkulator').should('exist')
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('Hei Aprikos!')
       })
@@ -133,9 +127,6 @@ describe('Hovedhistorie', () => {
             foedselsdato: foedselsdato75Plus1Maaned,
           }
         ).as('getPerson')
-        cy.contains('button', 'Detaljert pensjonskalkulator').should(
-          'be.visible'
-        )
         cy.contains('button', 'Pensjonskalkulator').click()
       })
 
