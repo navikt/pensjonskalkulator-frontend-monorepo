@@ -209,6 +209,17 @@ export const fulfilledGetEkskludertStatus = {
   },
 }
 
+export const fulfilledGetErApoteker = {
+  ['getErApoteker(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getErApoteker',
+    requestId: 't1wLPiRKrfe_vchftk8s8',
+    data: false,
+    startedTimeStamp: 1714725797072,
+    fulfilledTimeStamp: 1714725797669,
+  },
+}
+
 export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',

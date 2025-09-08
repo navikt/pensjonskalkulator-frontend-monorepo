@@ -2,7 +2,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, vi } from 'vitest'
 
 import {
-  fulfilledGetEkskludertStatus,
+  fulfilledGetErApoteker,
   fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
@@ -406,14 +406,14 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
-      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /ekskludert ikke har feilet', async () => {
+      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /apoteker ikke har feilet', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetErApoteker,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
               ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
             },

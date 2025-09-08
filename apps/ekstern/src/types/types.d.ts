@@ -53,6 +53,7 @@ declare global {
     BaseQueryFn<Record<string, unknown>, Person>
   >
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
+  type ApotekerStatusV1 = components['schemas']['ApotekerStatusV1']
 
   // /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   type OmstillingsstoenadOgGjenlevende =

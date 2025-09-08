@@ -424,6 +424,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/er-apoteker': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Om personen er ekskludert fra å bruke kalkulatoren
+     * @description Eksludering skyldes medlemskap i Apotekerforeningen
+     */
+    get: operations['erApotekerV1']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/ekskludert': {
     parameters: {
       query?: never
@@ -1413,6 +1433,11 @@ export interface components {
       nynorskNavn: string
       engelskNavn: string
     }
+    ApotekerStatusV1: {
+      apoteker: boolean
+      /** @enum {string} */
+      aarsak: 'NONE' | 'ER_APOTEKER'
+    }
     EkskluderingStatusV1: {
       ekskludert: boolean
       /** @enum {string} */
@@ -2212,6 +2237,42 @@ export interface operations {
         }
       }
       /** @description Henting av land-liste kunne ikke utføres av tekniske årsaker. */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          /** @example {
+           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+           *       "status": 503,
+           *       "error": "Service Unavailable",
+           *       "message": "En feil inntraff",
+           *       "path": "/api/ressurs"
+           *     } */
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  erApotekerV1: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Sjekking av apoteker utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['ApotekerStatusV1']
+        }
+      }
+      /** @description Sjekking av apoteker kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

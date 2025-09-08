@@ -131,6 +131,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/v1/er-apoteker',
+    },
+    { fixture: 'er-apoteker.json' }
+  ).as('getErApoteker')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }
@@ -212,9 +220,9 @@ Cypress.Commands.add('login', () => {
   // TODO reaktivere når dekoratøren er i produksjon
   // cy.wait('@getDecoratorMainMenu')
   cy.contains('button', 'Pensjonskalkulator').click()
-  // På start steget kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
+  // På start steget kjøres automatisk kall til  /person, /apoteker, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
-  cy.wait('@getEkskludertStatus')
+  cy.wait('@getErApoteker')
   cy.wait('@getInntekt')
   cy.wait('@getOmstillingsstoenadOgGjenlevende')
   cy.wait('@getLoependeVedtak')
