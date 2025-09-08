@@ -83,15 +83,21 @@ describe('stegvisning - Sivilstand', () => {
             onNext={onNextMock}
           />
         )
-        const epsHarPensjonRadioGroup = screen.queryByRole('group', {
-          name: 'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
-        })
-        const epsHarInntektOver2GRadioGroup = screen.queryByRole('group', {
-          name: 'epsHarInntektOver2G',
-        })
+
+        // Find the radio group by finding the legend text first
+        const epsHarPensjonLegend = screen.getByText(
+          'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+        )
+        const epsHarPensjonRadioGroup = epsHarPensjonLegend.closest('fieldset')
+
+        const epsHarInntektOver2GText = screen.queryByText(
+          /Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G/
+        )
+        const epsHarInntektOver2GRadioGroup =
+          epsHarInntektOver2GText?.closest('fieldset') || null
 
         expect(epsHarPensjonRadioGroup).toBeVisible()
-        expect(epsHarInntektOver2GRadioGroup).not.toBeInTheDocument()
+        expect(epsHarInntektOver2GRadioGroup).toBeNull()
       })
       describe('når sivilstanden din er gift, ', async () => {
         it('skal teksten for epsHarPensjon endres til "ektefellen din"', async () => {
@@ -107,11 +113,10 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          expect(
-            screen.queryByRole('group', {
-              name: 'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
-            })
-          ).toBeVisible()
+          const epsHarPensjonLegend = screen.getByText(
+            'Vil stegvisning.sivilstand.ektefellen motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+          )
+          expect(epsHarPensjonLegend).toBeVisible()
         })
       })
       describe('når sivilstanden din er samboer, ', async () => {
@@ -128,11 +133,10 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          expect(
-            screen.queryByRole('group', {
-              name: 'Vil stegvisning.sivilstand.samboeren motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
-            })
-          ).toBeVisible()
+          const epsHarPensjonLegend = screen.getByText(
+            'Vil stegvisning.sivilstand.samboeren motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+          )
+          expect(epsHarPensjonLegend).toBeVisible()
         })
       })
       describe('når sivilstanden din er registrert partner, ', async () => {
@@ -149,11 +153,10 @@ describe('stegvisning - Sivilstand', () => {
             />
           )
 
-          expect(
-            screen.queryByRole('group', {
-              name: 'Vil stegvisning.sivilstand.partneren motta pensjon eller uføretrygd fra folketrygden, eller AFP?',
-            })
-          ).toBeVisible()
+          const epsHarPensjonLegend = screen.getByText(
+            'Vil stegvisning.sivilstand.partneren motta pensjon eller uføretrygd fra folketrygden, eller AFP?'
+          )
+          expect(epsHarPensjonLegend).toBeVisible()
         })
       })
     })
@@ -241,9 +244,11 @@ describe('stegvisning - Sivilstand', () => {
         )
         fireEvent.click(epsHarPensjonRadioButtonNei)
 
-        const epsHarInntektOver2GRadioGroup = screen.queryByRole('group', {
-          name: 'Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G?',
-        })
+        const epsHarInntektOver2GText = screen.queryByText(
+          /Vil stegvisning.sivilstand.ektefellen ha inntekt over 2G/
+        )
+        const epsHarInntektOver2GRadioGroup =
+          epsHarInntektOver2GText?.closest('fieldset')
 
         expect(epsHarPensjonRadioButtonNei).toBeChecked()
         expect(epsHarInntektOver2GRadioGroup).toBeVisible()
