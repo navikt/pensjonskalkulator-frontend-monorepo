@@ -17,6 +17,7 @@ coverage
 .stylelintcache
 cypress/videos
 cypress/screenshots
+overrides.env
 analice.html
 vite.config.ts.*
 .sanity
