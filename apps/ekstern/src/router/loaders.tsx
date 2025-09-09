@@ -97,9 +97,6 @@ export const stepStartAccessGuard = async () => {
     apiSlice.endpoints.getErApoteker.initiate()
   )
 
-  const state = store.getState()
-  const isLoggedIn = selectIsLoggedIn(state)
-
   const [
     vedlikeholdsmodusFeatureToggle,
     getLoependeVedtakRes,
@@ -115,6 +112,9 @@ export const stepStartAccessGuard = async () => {
   if (vedlikeholdsmodusFeatureToggle.data?.enabled) {
     return redirect(paths.kalkulatorVirkerIkke)
   }
+
+  const state = store.getState()
+  const isLoggedIn = selectIsLoggedIn(state)
 
   if (isLoggedIn) {
     if (!getPersonRes.isSuccess) {
