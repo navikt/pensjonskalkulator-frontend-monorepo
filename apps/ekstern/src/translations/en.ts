@@ -323,7 +323,7 @@ export default {
     'Unfortunately, we could not calculate your pension right now.',
   'beregning.livsvarig': 'lifelong',
   'beregning.lav_opptjening.aar':
-    'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
+    'You do not have enough accrual to start withdrawing at {startAar} years{startMaaned}. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
   'beregning.pensjonsavtaler.alert.endring':

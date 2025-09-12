@@ -323,7 +323,13 @@ export const BeregningEnkel = () => {
                 ) : (
                   <FormattedMessage
                     id="beregning.lav_opptjening.aar"
-                    values={{ startAar: uttaksalder.aar }}
+                    values={{
+                      startAar: uttaksalder.aar,
+                      startMaaned:
+                        uttaksalder.maaneder > 0
+                          ? ` og ${uttaksalder.maaneder} måneder`
+                          : '',
+                    }}
                   />
                 )}
               </AlertDashBorder>

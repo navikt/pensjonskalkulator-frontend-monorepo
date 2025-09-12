@@ -286,7 +286,7 @@ export default {
     'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
-    'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
+    'Du har ikkje høg nok opptening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',

@@ -359,7 +359,7 @@ const translations = {
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.livsvarig': 'livsvarig',
   'beregning.lav_opptjening.aar':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
+    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.alert.endring':
