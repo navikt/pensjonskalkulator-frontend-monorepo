@@ -103,8 +103,6 @@ export default {
     'To get an estimate of your pension, you must answer all the following questions.',
   'stegvisning.start.button': 'Get Started',
   'stegvisning.start.link': 'Personal data used in the pension calculator',
-  'stegvisning.start.alert.title': 'MANGLER_TEKST',
-  'stegvisning.start.alert.description': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.title': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.ingress': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.button': 'MANGLER_TEKST',

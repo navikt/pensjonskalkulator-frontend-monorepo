@@ -88,8 +88,6 @@ export default {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'stegvisning.start.alert.title': 'MANGLER_TEKST',
-  'stegvisning.start.alert.description': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.title': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.ingress': 'MANGLER_TEKST',
   'stegvisning.start_brukere_fyllt_75.button': 'MANGLER_TEKST',
