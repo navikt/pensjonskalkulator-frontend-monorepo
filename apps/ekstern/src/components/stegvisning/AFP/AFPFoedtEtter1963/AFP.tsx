@@ -6,6 +6,10 @@ import { BodyLong, Heading } from '@navikt/ds-react'
 import { Card } from '@/components/common/Card'
 import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { paths } from '@/router/constants'
+import { useAppSelector } from '@/state/hooks'
+import { selectHasErApotekerError } from '@/state/session/selectors'
+import { selectFoedselsdato } from '@/state/userInput/selectors'
+import { isFoedtEtter1963 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import Navigation from '../../Navigation/Navigation'
@@ -24,9 +28,18 @@ interface Props {
 export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
 
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
+  const hasErApotekerError = useAppSelector(selectHasErApotekerError)
+
   const [validationError, setValidationError] = React.useState<string>('')
   const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
     previousAfp === 'vet_ikke'
+  )
+  const [showApotekerAlert, setShowApotekerAlert] = React.useState<boolean>(
+    Boolean(
+      previousAfp === 'ja_offentlig' && foedtEtter1963 && hasErApotekerError
+    )
   )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -62,6 +75,13 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
   const handleRadioChange = (value: AfpRadio): void => {
     setValidationError('')
     setShowVetIkkeAlert(value === 'vet_ikke')
+
+    if (value === 'ja_offentlig' && foedtEtter1963 && hasErApotekerError) {
+      setShowApotekerAlert(true)
+    } else {
+      setShowApotekerAlert(false)
+    }
+
     if (value === 'vet_ikke') {
       logger('alert vist', {
         tekst: 'Rett til AFP: Vet ikke',
@@ -95,6 +115,7 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
           afp={previousAfp}
           handleRadioChange={handleRadioChange}
           validationError={validationError}
+          showApotekerAlert={showApotekerAlert}
           showVetIkkeAlert={showVetIkkeAlert}
         />
 

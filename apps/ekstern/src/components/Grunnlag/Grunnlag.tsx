@@ -17,12 +17,15 @@ import {
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
+  selectFoedselsdato,
   selectLoependeVedtak,
   selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
+import { isAlderOver62, isFoedtEtter1963 } from '@/utils/alder'
 import {
   LINK_AAPNET,
   SHOW_MORE_AAPNET,
@@ -79,6 +82,9 @@ export const Grunnlag: React.FC<Props> = ({
   const intl = useIntl()
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const sivilstand = useAppSelector(selectSivilstand)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
+  const hasErApotekerError = useAppSelector(selectHasErApotekerError)
 
   const [isAFPDokumentasjonVisible, setIsAFPDokumentasjonVisible] =
     React.useState<boolean>(false)
@@ -159,80 +165,88 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagItem>
         )}
 
-        <GrunnlagItem color="purple">
-          <GrunnlagAFP />
+        {!(
+          hasErApotekerError &&
+          foedtEtter1963 &&
+          ((loependeVedtak.ufoeretrygd.grad > 0 &&
+            isAlderOver62(foedselsdato!)) ||
+            loependeVedtak.ufoeretrygd.grad === 100)
+        ) && (
+          <GrunnlagItem color="purple">
+            <GrunnlagAFP />
 
-          {!shouldHideAfpReadMore && (
-            <ReadMore
-              name="Listekomponenter for AFP"
-              open={isAFPDokumentasjonVisible}
-              header={
-                isAFPDokumentasjonVisible
-                  ? intl.formatMessage(
-                      {
-                        id: 'beregning.detaljer.lukk',
-                      },
-                      {
-                        ...getFormatMessageValues(),
-                        ytelse: 'AFP',
-                      }
-                    )
-                  : intl.formatMessage(
-                      {
-                        id: 'beregning.detaljer.vis',
-                      },
-                      {
-                        ...getFormatMessageValues(),
-                        ytelse: 'AFP',
-                      }
-                    )
-              }
-              className={clsx(
-                styles.visListekomponenter,
-                styles.wideDetailedView
-              )}
-              onOpenChange={(open) =>
-                handleReadMoreChange({ isOpen: open, ytelse: 'AFP' })
-              }
-            >
-              <AfpDetaljerGrunnlag
-                afpDetaljerListe={afpDetaljerListe}
-                alderspensjonColumnsCount={alderspensjonColumnsCount}
-              />
-              {pre2025OffentligAfp &&
-                pre2025OffentligAfp.afpAvkortetTil70Prosent && (
-                  <FormattedMessage
-                    id="grunnlag.afp.avkortet.til.70.prosent"
-                    values={{
-                      ...getFormatMessageValues(),
-                    }}
-                  />
+            {!shouldHideAfpReadMore && (
+              <ReadMore
+                name="Listekomponenter for AFP"
+                open={isAFPDokumentasjonVisible}
+                header={
+                  isAFPDokumentasjonVisible
+                    ? intl.formatMessage(
+                        {
+                          id: 'beregning.detaljer.lukk',
+                        },
+                        {
+                          ...getFormatMessageValues(),
+                          ytelse: 'AFP',
+                        }
+                      )
+                    : intl.formatMessage(
+                        {
+                          id: 'beregning.detaljer.vis',
+                        },
+                        {
+                          ...getFormatMessageValues(),
+                          ytelse: 'AFP',
+                        }
+                      )
+                }
+                className={clsx(
+                  styles.visListekomponenter,
+                  styles.wideDetailedView
                 )}
-              {/* TODO: hvis pre2025OffentligAfp.afpAvkortetTil70Prosent eller
-              prosent afp redusert, så rendre linken  */}
-              {/* TODO: Flyttes inn i samme text som grunnlag.afp.avkortet.til.70.prosent hvis den er kun brukt her */}
-              {pre2025OffentligAfp &&
-                pre2025OffentligAfp.afpAvkortetTil70Prosent && (
-                  <span>
-                    &nbsp;
-                    <Link
-                      href="https://www.nav.no/afp-offentlig#beregning"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        logger(LINK_AAPNET, {
-                          href: `/pensjon/kalkulator${paths.forbehold}`,
-                          target: '_blank',
-                        })
+                onOpenChange={(open) =>
+                  handleReadMoreChange({ isOpen: open, ytelse: 'AFP' })
+                }
+              >
+                <AfpDetaljerGrunnlag
+                  afpDetaljerListe={afpDetaljerListe}
+                  alderspensjonColumnsCount={alderspensjonColumnsCount}
+                />
+                {pre2025OffentligAfp &&
+                  pre2025OffentligAfp.afpAvkortetTil70Prosent && (
+                    <FormattedMessage
+                      id="grunnlag.afp.avkortet.til.70.prosent"
+                      values={{
+                        ...getFormatMessageValues(),
                       }}
-                    >
-                      <FormattedMessage id="grunnlag.afp.link.text" />
-                    </Link>
-                  </span>
-                )}
-            </ReadMore>
-          )}
-        </GrunnlagItem>
+                    />
+                  )}
+                {/* TODO: hvis pre2025OffentligAfp.afpAvkortetTil70Prosent eller
+              prosent afp redusert, så rendre linken  */}
+                {/* TODO: Flyttes inn i samme text som grunnlag.afp.avkortet.til.70.prosent hvis den er kun brukt her */}
+                {pre2025OffentligAfp &&
+                  pre2025OffentligAfp.afpAvkortetTil70Prosent && (
+                    <span>
+                      &nbsp;
+                      <Link
+                        href="https://www.nav.no/afp-offentlig#beregning"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          logger(LINK_AAPNET, {
+                            href: `/pensjon/kalkulator${paths.forbehold}`,
+                            target: '_blank',
+                          })
+                        }}
+                      >
+                        <FormattedMessage id="grunnlag.afp.link.text" />
+                      </Link>
+                    </span>
+                  )}
+              </ReadMore>
+            )}
+          </GrunnlagItem>
+        )}
 
         <GrunnlagItem color="blue">
           <VStack gap="1">

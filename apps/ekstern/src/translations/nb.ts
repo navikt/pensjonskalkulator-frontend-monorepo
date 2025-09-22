@@ -54,7 +54,7 @@ const translations = {
   'error.virker_ikke.link': 'kontakte oss',
   'error.virker_ikke.button': 'Gå til Din pensjon',
   'error.apoteker_warning':
-    'Hvis du er medlem av Pensjonsordningen for apotekvirksomhet (POA) vil beregning av AFP og alderspensjon for øyeblikket bli feil. Prøv igjen senere.',
+    'Hvis du er medlem av Pensjonsordningen for apotekvirksomhet (POA) er beregning med AFP for øyeblikket feil. Prøv igjen senere.',
   'landingsside.for.deg.som.kan.logge.inn': 'For deg som kan logge inn',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':

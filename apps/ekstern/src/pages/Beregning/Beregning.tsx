@@ -7,17 +7,22 @@ import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
+import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
+  selectAfp,
   selectCurrentSimulation,
+  selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
   selectSkalBeregneAfpKap19,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
+import { isFoedtEtter1963 } from '@/utils/alder'
 import { BUTTON_KLIKK, MODAL_AAPNET } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
@@ -49,6 +54,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
+  const afp = useAppSelector(selectAfp)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
+  const hasErApotekerError = useAppSelector(selectHasErApotekerError)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -199,6 +208,16 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       <div className={styles.beregning}>
         <div className={styles.container}>
           <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
+        </div>
+
+        <div className={styles.container}>
+          <div className={styles.alert}>
+            <ApotekereWarning
+              showWarning={Boolean(
+                afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
+              )}
+            />
+          </div>
         </div>
 
         {!isEndring && !skalBeregneAfpKap19 && (

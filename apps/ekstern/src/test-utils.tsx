@@ -81,7 +81,7 @@ export function renderWithProviders(
     store = setupStore(
       {
         // Default to logged-in in tests unless explicitly overridden
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         ...preloadedState,
       },
       true

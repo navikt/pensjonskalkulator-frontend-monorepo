@@ -3,9 +3,14 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
+import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
 import { SanityReadmore } from '@/components/common/SanityReadmore/SanityReadmore'
 import { paths } from '@/router/constants'
+import { useAppSelector } from '@/state/hooks'
+import { selectHasErApotekerError } from '@/state/session/selectors'
+import { selectAfp, selectFoedselsdato } from '@/state/userInput/selectors'
+import { isFoedtEtter1963 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -32,6 +37,11 @@ export function SamtykkePensjonsavtaler({
   isKap19,
 }: Props) {
   const intl = useIntl()
+
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
+  const hasErApotekerError = useAppSelector(selectHasErApotekerError)
+  const afp = useAppSelector(selectAfp)
 
   const [validationError, setValidationError] = useState<string>('')
 
@@ -71,6 +81,12 @@ export function SamtykkePensjonsavtaler({
 
   return (
     <Card hasLargePadding hasMargin>
+      <ApotekereWarning
+        showWarning={Boolean(
+          afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
+        )}
+      />
+
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.title" />

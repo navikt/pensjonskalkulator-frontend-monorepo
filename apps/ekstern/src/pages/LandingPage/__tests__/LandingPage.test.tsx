@@ -73,7 +73,7 @@ describe('LandingPage', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
       preloadedState: {
-        session: { isLoggedIn: false },
+        session: { isLoggedIn: false, hasErApotekerError: false },
       },
     })
 
@@ -125,7 +125,7 @@ describe('LandingPage', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
       preloadedState: {
-        session: { isLoggedIn: false },
+        session: { isLoggedIn: false, hasErApotekerError: false },
       },
     })
 
@@ -155,7 +155,7 @@ describe('LandingPage', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
       preloadedState: {
-        session: { isLoggedIn: false },
+        session: { isLoggedIn: false, hasErApotekerError: false },
       },
     })
 

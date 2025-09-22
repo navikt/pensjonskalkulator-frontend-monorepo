@@ -158,6 +158,7 @@ export function AFPOvergangskullUtenAP({
           afp={previousAfp}
           handleRadioChange={handleRadioChange}
           validationError={validationError.afp}
+          showApotekerAlert={false}
           showVetIkkeAlert={showVetIkkeAlert}
         />
 
