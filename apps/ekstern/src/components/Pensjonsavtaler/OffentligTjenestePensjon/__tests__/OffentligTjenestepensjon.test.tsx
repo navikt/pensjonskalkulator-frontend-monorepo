@@ -226,25 +226,25 @@ describe('OffentligTjenestepensjon', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'String.fra 67 alder.aar string.til 69 alder.aar:'
+          'String.fra 67 alder.aar string.til 69 alder.aar'
         )
       ).toBeVisible()
       expect(
-        await screen.findAllByText('64 340 pensjonsavtaler.kr_pr_aar')
+        await screen.findAllByText('64 340 pensjonsavtaler_mobil.kr_pr_aar')
       ).toHaveLength(1)
       expect(
         await screen.findByText(
-          'String.fra 70 alder.aar string.til 74 alder.aar:'
+          'String.fra 70 alder.aar string.til 74 alder.aar'
         )
       ).toBeVisible()
       expect(
-        await screen.findAllByText('53 670 pensjonsavtaler.kr_pr_aar')
+        await screen.findAllByText('53 670 pensjonsavtaler_mobil.kr_pr_aar')
       ).toHaveLength(1)
       expect(
-        await screen.findByText('alder.livsvarig 75 alder.aar:')
+        await screen.findByText('alder.livsvarig 75 alder.aar')
       ).toBeVisible()
       expect(
-        await screen.findAllByText('48 900 pensjonsavtaler.kr_pr_aar')
+        await screen.findAllByText('48 900 pensjonsavtaler_mobil.kr_pr_aar')
       ).toHaveLength(1)
       const rows = container.querySelectorAll('tr')
       expect(rows?.length).toBe(3)

@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Heading, HeadingProps, VStack } from '@navikt/ds-react'
+import { BodyShort, Heading, HeadingProps, VStack } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import {
@@ -46,29 +47,39 @@ const AvtaleGruppe: React.FC<AvtaleGruppeProps> = ({
           </Heading>
           <table className={styles.table}>
             <tbody>
-              {pensjonsavtale.utbetalingsperioder.map((utbetalingsperiode) => (
-                <tr key={`${JSON.stringify(utbetalingsperiode)}-mobile`}>
-                  <th style={{ fontWeight: 'normal' }} scope="row" align="left">
-                    {utbetalingsperiode.sluttAlder
-                      ? formaterSluttAlderString(
-                          intl,
-                          utbetalingsperiode.startAlder,
-                          utbetalingsperiode.sluttAlder
-                        )
-                      : formaterLivsvarigString(
-                          intl,
-                          utbetalingsperiode.startAlder
-                        )}
-                    :
-                  </th>
-                  <td align="right">
-                    {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
-                    <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
-                  </td>
-                </tr>
-              ))}
+              {pensjonsavtale.utbetalingsperioder.map(
+                (utbetalingsperiode, utbetalingsperiodeIndex) => (
+                  <tr key={`utbetalingsperiode-${utbetalingsperiodeIndex}`}>
+                    <th
+                      style={{
+                        fontWeight: 'normal',
+                      }}
+                      scope="row"
+                      align="left"
+                    >
+                      <BodyShort>
+                        {utbetalingsperiode.sluttAlder
+                          ? formaterSluttAlderString(
+                              intl,
+                              utbetalingsperiode.startAlder,
+                              utbetalingsperiode.sluttAlder
+                            )
+                          : formaterLivsvarigString(
+                              intl,
+                              utbetalingsperiode.startAlder
+                            )}
+                      </BodyShort>
+                    </th>
+                    <td align="right" className={styles.valueCell}>
+                      {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
+                      <FormattedMessage id="pensjonsavtaler_mobil.kr_pr_aar" />
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
+          <Divider xsmallMargin />
         </div>
       ))}
     </VStack>
@@ -92,14 +103,13 @@ export const PrivatePensjonsavtalerMobile: React.FC<Props> = ({
 
   return (
     <VStack data-testid="private-pensjonsavtaler-mobile">
-      {avtaleGrupper.map(([avtaleGruppe, gruppePensjonsavtaler], index) => (
+      {avtaleGrupper.map(([avtaleGruppe, gruppePensjonsavtaler]) => (
         <div key={`${avtaleGruppe}-gruppe-mobil`}>
           <AvtaleGruppe
             headingLevel={headingLevel}
             avtale={avtaleGruppe}
             pensjonsavtaler={gruppePensjonsavtaler}
           />
-          {index < avtaleGrupper.length - 1 && <Divider />}
         </div>
       ))}
     </VStack>

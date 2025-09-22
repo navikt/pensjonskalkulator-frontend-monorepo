@@ -55,15 +55,15 @@ describe('PrivatePensjonsavtalerMobile', () => {
     ).toBeVisible()
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText('alder.livsvarig 67 alder.aar:')
+      await screen.findByText('alder.livsvarig 67 alder.aar')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'alder.livsvarig 67 alder.aar string.og 6 alder.md:'
+        'alder.livsvarig 67 alder.aar string.og 6 alder.md'
       )
     ).toBeVisible()
     expect(
-      await screen.findAllByText('12 345 pensjonsavtaler.kr_pr_aar')
+      await screen.findAllByText('12 345 pensjonsavtaler_mobil.kr_pr_aar')
     ).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
     expect(rows?.length).toBe(2)
@@ -104,17 +104,15 @@ describe('PrivatePensjonsavtalerMobile', () => {
 
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText(
-        'String.fra 67 alder.aar string.til 77 alder.aar:'
-      )
+      await screen.findByText('String.fra 67 alder.aar string.til 77 alder.aar')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md:'
+        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md'
       )
     ).toBeVisible()
     expect(
-      await screen.findAllByText('12 345 pensjonsavtaler.kr_pr_aar')
+      await screen.findAllByText('12 345 pensjonsavtaler_mobil.kr_pr_aar')
     ).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
     expect(rows?.length).toBe(2)

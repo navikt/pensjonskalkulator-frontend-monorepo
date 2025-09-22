@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -165,11 +166,10 @@ export const OffentligTjenestepensjon = (props: {
                                 intl,
                                 utbetalingsperiode.startAlder
                               )}
-                          :
                         </th>
-                        <td align="right">
+                        <td align="right" className={styles.valueCell}>
                           {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
-                          <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
+                          <FormattedMessage id="pensjonsavtaler_mobil.kr_pr_aar" />
                         </td>
                       </tr>
                     )

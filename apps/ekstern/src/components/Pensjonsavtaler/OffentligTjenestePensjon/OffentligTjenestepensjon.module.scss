@@ -1,6 +1,42 @@
 .mobileTable {
   width: 100%;
   border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: var(--a-spacing-1);
+  padding-bottom: var(--a-spacing-3);
+  border-bottom: 1px solid var(--a-border-divider);
+
+  tr {
+    border-bottom: 1px solid var(--a-border-divider);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:first-child {
+      border-top: 1px solid var(--a-border-divider);
+    }
+  }
+
+  th,
+  td {
+    padding-block: var(--a-spacing-2);
+    vertical-align: middle;
+
+    &.valueCell {
+      white-space: nowrap;
+    }
+  }
+
+  th {
+    padding-right: var(--a-spacing-2);
+    text-align: left;
+  }
+
+  tr:first-child th,
+  tr:first-child td {
+    padding-top: var(--a-spacing-2);
+  }
 }
 
 .desktopTable {
