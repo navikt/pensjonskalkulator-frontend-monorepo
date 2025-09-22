@@ -35,9 +35,10 @@ import { VeilederInputRequestError } from './VeilederInputRequestError'
 
 import styles from './VeilederInput.module.scss'
 
-const router = createBrowserRouter(routes, {
-  basename: `${BASE_PATH}/veileder`,
-})
+const router = () =>
+  createBrowserRouter(routes, {
+    basename: `${BASE_PATH}/veileder`,
+  })
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
@@ -189,12 +190,12 @@ export const VeilederInput = () => {
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
         {veilederBorgerFnr && <BorgerInformasjon fnr={veilederBorgerFnr} />}
-        <RouterProvider router={router} />
+        <RouterProvider router={router()} />
       </div>
     )
   }
 }
 
 if (window.Cypress) {
-  window.router = router
+  window.router = router()
 }
