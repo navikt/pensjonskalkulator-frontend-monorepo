@@ -170,13 +170,6 @@ export const stepStartAccessGuard = async () => {
       data: isKap19 ? 'Ja' : 'Nei',
     })
 
-    if (getErApotekerRes.isSuccess) {
-      logger('info', {
-        tekst: 'Er apoteker',
-        data: getErApotekerRes.data ? 'Ja' : 'Nei',
-      })
-    }
-
     logger('info', {
       tekst: 'hent uføregrad',
       data:
