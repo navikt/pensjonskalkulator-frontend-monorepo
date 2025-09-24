@@ -135,7 +135,8 @@ describe('LandingPage', () => {
       )
     })
 
-    expect(navigateMock).toHaveBeenCalledWith(`${paths.start}`)
+    const expectedRedirect = `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(`${HOST_BASEURL}${paths.start}`)}`
+    expect(open).toHaveBeenCalledWith(expectedRedirect, '_self')
   })
 
   it('går til uinnlogget kalkulator når brukeren klikker på uinnlogget kalkulator knappen', async () => {

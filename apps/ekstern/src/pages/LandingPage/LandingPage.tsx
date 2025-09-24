@@ -13,6 +13,7 @@ import {
   VStack,
 } from '@navikt/ds-react'
 
+import { HOST_BASEURL } from '@/paths'
 import { externalUrls, paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectIsLoggedIn } from '@/state/session/selectors'
@@ -33,7 +34,14 @@ export const LandingPage = () => {
   }, [])
 
   const gaaTilEnkelKalkulator = () => {
-    navigate(paths.start)
+    if (isLoggedIn) {
+      navigate(paths.start)
+    } else {
+      window.open(
+        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(`${HOST_BASEURL}${paths.start}`)}`,
+        '_self'
+      )
+    }
   }
 
   const gaaTilUinnloggetKalkulator = () => {
