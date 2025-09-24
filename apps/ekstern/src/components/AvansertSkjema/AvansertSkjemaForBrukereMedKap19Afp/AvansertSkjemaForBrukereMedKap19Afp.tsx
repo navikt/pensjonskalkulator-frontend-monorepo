@@ -214,7 +214,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     <>
       <form
         id={AVANSERT_FORM_NAMES.form}
-        data-testid="AVANSERT_SKJEMA_FOR_BRUKERE"
+        data-testid="AVANSERT_SKJEMA_FOR_BRUKERE_KAP19"
         method="dialog"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault()
@@ -256,7 +256,6 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
           {isEndring && <AvansertSkjemaIntroEndring />}
 
           <AvansertSkjemaInntekt
-            data-testid="inntekt-avansert-skjemainntekt"
             localInntektFremTilUttak={localInntektFremTilUttak}
             aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep}
             setLocalInntektFremTilUttak={setLocalInntektFremTilUttak}

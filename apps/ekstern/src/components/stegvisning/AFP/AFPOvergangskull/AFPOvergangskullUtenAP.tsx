@@ -169,6 +169,7 @@ export function AFPOvergangskullUtenAP({
               <FormattedMessage id="stegvisning.afp.overgangskullUtenAP.radio_label" />
             }
             name="skalBeregneAfp"
+            data-testid="afp-utregning-valg-radiogroup"
             defaultValue={previousAfpUtregningValg}
             onChange={() => setValidationError({ afp: '', skalBeregneAfp: '' })}
             error={validationError.skalBeregneAfp}
