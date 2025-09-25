@@ -1,6 +1,6 @@
 import { defineField } from 'sanity'
 
-import { NameFieldWithWarning } from '../components/NameFieldWithWarning'
+import { DocumentIdLock } from '../components/DocumentIdLock'
 
 export const languageField = defineField({
   title: 'Language',
@@ -25,7 +25,7 @@ export const nameField = defineField({
     return now.getTime() - createdAt.getTime() > fiveMinutesInMs
   },
   components: {
-    field: NameFieldWithWarning,
+    field: DocumentIdLock,
   },
 })
 

@@ -8,7 +8,7 @@ interface SanityDocument {
   [key: string]: unknown
 }
 
-export const NameFieldWithWarning = (props: FieldProps) => {
+export const DocumentIdLock = (props: FieldProps) => {
   const [showDialog, setShowDialog] = useState(false)
   const [hasShownDialog, setHasShownDialog] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null)

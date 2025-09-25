@@ -5,7 +5,7 @@ import prettier from 'prettier'
 
 const sanityClient = createClient({
   projectId: 'g2by7q6m',
-  dataset: 'development',
+  dataset: 'production',
   useCdn: true,
   apiVersion: '2025-07-02',
 })
