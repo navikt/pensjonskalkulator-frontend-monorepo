@@ -97,9 +97,6 @@ export const stepStartAccessGuard = async () => {
     apiSlice.endpoints.getErApoteker.initiate()
   )
 
-  const state = store.getState()
-  const isLoggedIn = selectIsLoggedIn(state)
-
   const [vedlikeholdsmodusFeatureToggle, getLoependeVedtakRes, getPersonRes] =
     await Promise.all([
       vedlikeholdsmodusFeatureToggleQuery,
@@ -116,6 +113,11 @@ export const stepStartAccessGuard = async () => {
   if (vedlikeholdsmodusFeatureToggle.data?.enabled) {
     return redirect(paths.kalkulatorVirkerIkke)
   }
+
+  // Hent state etter at alle kall er fullført
+  // Dette sikrer at vi har den mest oppdaterte tilstanden og dermed logger riktig informasjon til Umami
+  const state = store.getState()
+  const isLoggedIn = selectIsLoggedIn(state)
 
   if (isLoggedIn) {
     if (!getPersonRes.isSuccess) {
