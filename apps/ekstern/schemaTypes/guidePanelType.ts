@@ -6,8 +6,10 @@ import {
   languageField,
   nameField,
   overskriftField,
+  tagField,
 } from './common/commonSchemaTypes'
-import { supportedLanguages } from './supportedLanguages'
+import TaggedDocumentPreview from './components/TaggedDocumentPreview'
+import { prepareTaggedDocumentPreview } from './components/prepareTaggedDocumentPreview'
 
 export const guidePanelType = defineType({
   name: 'guidepanel',
@@ -19,16 +21,12 @@ export const guidePanelType = defineType({
       title: 'overskrift',
       subtitle: 'name',
       language: 'language',
+      tags: 'tags',
     },
-    prepare(selection) {
-      return {
-        ...selection,
-        title: `${selection.title} (${
-          supportedLanguages.find((lang) => lang.id === selection.language)
-            ?.title
-        })`,
-      }
-    },
+    prepare: prepareTaggedDocumentPreview,
+  },
+  components: {
+    preview: TaggedDocumentPreview,
   },
   fields: [
     languageField,
@@ -38,5 +36,6 @@ export const guidePanelType = defineType({
       description: 'Valgfri overskrift',
     }),
     innholdField,
+    tagField,
   ],
 })

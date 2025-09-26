@@ -6,8 +6,10 @@ import {
   languageField,
   nameField,
   overskriftField,
+  tagField,
 } from './common/commonSchemaTypes'
-import { supportedLanguages } from './supportedLanguages'
+import TaggedDocumentPreview from './components/TaggedDocumentPreview'
+import { prepareTaggedDocumentPreview } from './components/prepareTaggedDocumentPreview'
 
 export const readmoreType = defineType({
   name: 'readmore',
@@ -19,16 +21,12 @@ export const readmoreType = defineType({
       title: 'overskrift',
       subtitle: 'name',
       language: 'language',
+      tags: 'tags',
     },
-    prepare(selection) {
-      return {
-        ...selection,
-        title: `${selection.title} (${
-          supportedLanguages.find((lang) => lang.id === selection.language)
-            ?.title
-        })`,
-      }
-    },
+    prepare: prepareTaggedDocumentPreview,
+  },
+  components: {
+    preview: TaggedDocumentPreview,
   },
   fields: [
     languageField,
@@ -41,5 +39,6 @@ export const readmoreType = defineType({
       ...innholdField,
       description: 'Avsnitt(ene) i ReadMore. Vises når ReadMore er åpent.',
     }),
+    tagField,
   ],
 })

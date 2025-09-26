@@ -1,3 +1,4 @@
+import { colorInput } from '@sanity/color-input'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { RobotIcon, RocketIcon } from '@sanity/icons'
 import { visionTool } from '@sanity/vision'
@@ -6,6 +7,7 @@ import { structureTool } from 'sanity/structure'
 
 import { schemaTypes } from './schemaTypes'
 import auditTimelinePlugin from './schemaTypes/components/audit-timeline'
+import { deskStructure } from './schemaTypes/components/deskStructure'
 import { supportedLanguages } from './schemaTypes/supportedLanguages'
 
 export const projectId = 'g2by7q6m'
@@ -38,8 +40,11 @@ const samlProviders: AuthProvider[] = [
 ]
 
 const pluginsArray = [
-  structureTool(),
+  structureTool({
+    structure: deskStructure,
+  }),
   visionTool(),
+  colorInput(),
   documentInternationalization({
     supportedLanguages,
     schemaTypes: ['readmore', 'forbeholdAvsnitt', 'guidepanel'],

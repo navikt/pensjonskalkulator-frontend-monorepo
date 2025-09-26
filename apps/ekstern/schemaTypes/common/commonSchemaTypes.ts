@@ -118,3 +118,11 @@ export const innholdField = defineField({
   ],
   validation: (rule) => rule.required().error('Påkrevd'),
 })
+
+export const tagField = defineField({
+  name: 'tags',
+  title: 'Tags',
+  type: 'array',
+  of: [{ type: 'reference', to: [{ type: 'tag' }] }],
+  options: { layout: 'tags' },
+})
