@@ -35,7 +35,12 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
         <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
       </Radio>
       {showApotekerAlert && (
-        <Alert className={styles.alert} variant="warning" aria-live="polite">
+        <Alert
+          className={styles.alert}
+          variant="warning"
+          aria-live="polite"
+          data-testid="apotekere-warning"
+        >
           <FormattedMessage id="error.apoteker_warning" />
         </Alert>
       )}

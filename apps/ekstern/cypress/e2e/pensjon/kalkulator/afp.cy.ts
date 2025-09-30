@@ -262,6 +262,84 @@ describe('AFP', () => {
         ).should('exist')
       })
     })
+
+    describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP, er født 1963 eller senere, og kall til /er-apoteker feiler', () => {
+      beforeEach(() => {
+        // Setup intercepts before login
+        cy.setupApotekerError()
+
+        // Navigate through the flow
+        cy.login()
+
+        // Set Redux state after login
+        cy.setApotekerErrorState()
+
+        cy.contains('button', 'Kom i gang').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click()
+
+        // Select "Ja, offentlig"
+        cy.get('[type="radio"]').eq(0).check()
+      })
+
+      it('forventer jeg apoteker-warning på AFP-steget', () => {
+        // Sjekk for apoteker-warning på AFP steget
+        cy.get('[data-testid="apotekere-warning"]').should('exist')
+      })
+
+      it('forventer jeg apoteker-warning på samtykke AFP offentlig steget', () => {
+        // Naviger til samtykke steget
+        cy.contains('button', 'Neste').click()
+
+        // Sjekk for apoteker-warning på samtykke steget
+        cy.get('[data-testid="apotekere-warning"]').should('exist')
+      })
+
+      it('forventer jeg apoteker-warning på pensjonsavtaler steget', () => {
+        // Naviger til pensjonsavtaler steget
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
+        cy.contains('button', 'Neste').click()
+
+        // Sjekk for apoteker-warning på pensjonsavtaler steget
+        cy.get('[data-testid="apotekere-warning"]').should('exist')
+      })
+
+      it('forventer jeg informasjon om at beregning med AFP kan bli feil hvis jeg er medlem av Pensjonsordningen for apotekvirksomhet og at jeg må prøve igjen senere', () => {
+        // Naviger gjennom hele flowet til beregning
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').first().check() // Pensjonsavtaler
+        cy.contains('button', 'Neste').click()
+
+        cy.contains('button', '70').click()
+
+        // Verifiser at vi er på beregningssiden
+        cy.location('pathname').should('include', '/beregning')
+
+        // Sjekk for apoteker-warning på beregningssiden
+        cy.get('[data-testid="apotekere-warning"]').should('exist')
+      })
+
+      it('forventer jeg ingen informasjon om AFP på beregningssiden', () => {
+        // Naviger gjennom hele flowet til beregning
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').first().check() // Pensjonsavtaler
+        cy.contains('button', 'Neste').click()
+
+        cy.contains('button', '70').click()
+
+        // Verifiser at vi er på beregningssiden
+        cy.location('pathname').should('include', '/beregning')
+
+        // Sjekk at AFP-delen er skjult når apoteker error oppstår
+        cy.get('[data-testid="grunnlag-afp"]').should('not.exist')
+      })
+    })
   })
 })
 

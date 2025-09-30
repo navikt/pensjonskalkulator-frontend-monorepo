@@ -882,6 +882,45 @@ describe('Hovedhistorie', () => {
 
     // 12
     describe('Når jeg er kommet til beregningssiden,', () => {
+      describe("Gitt at jeg er født 1963 eller senere, har svart 'Ja, i offentlig' på spørsmål om AFP og kall til /er-apoteker feiler", () => {
+        beforeEach(() => {
+          // Setup apoteker error scenario
+          cy.setupApotekerError()
+
+          cy.login()
+
+          // Set Redux state after login
+          cy.setApotekerErrorState()
+
+          // Verifiser at state er satt riktig
+          cy.window()
+            .its('store')
+            .invoke('getState')
+            .its('session')
+            .should('deep.include', {
+              hasErApotekerError: true,
+            })
+
+          // Bruk fillOutStegvisning helper med riktige parametere for apoteker error scenario
+          cy.fillOutStegvisning({
+            afp: 'ja_offentlig',
+            samtykke: false,
+            samtykkeAfpOffentlig: false,
+          })
+
+          // Venter på at beregningssiden laster
+          cy.wait('@fetchTidligsteUttaksalder')
+        })
+
+        it('forventer jeg informasjon om at beregning med AFP kan bli feil hvis jeg er medlem av Pensjonsordningen for apotekvirksomhet og at jeg må prøve igjen senere', () => {
+          // Verifiser at vi er på beregningssiden
+          cy.location('pathname').should('include', '/beregning')
+
+          // Sjekk for apoteker-warning
+          cy.get('[data-testid="apotekere-warning"]').should('exist')
+        })
+      })
+
       it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
           { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },

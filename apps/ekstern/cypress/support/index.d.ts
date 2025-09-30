@@ -22,6 +22,24 @@ declare global {
        * @example cy.login()
        */
       login(): Chainable<void>
+      /**
+       * Custom command for å sette opp apoteker error scenario
+       *
+       * @example cy.setupApotekerError()
+       */
+      setupApotekerError(): Chainable<void>
+      /**
+       * Custom command for å sette Redux state for apoteker error (call after login)
+       *
+       * @example cy.setApotekerErrorState()
+       */
+      setApotekerErrorState(): Chainable<void>
+      /**
+       * Custom command for å sette opp apoteker success scenario
+       *
+       * @example cy.setupApotekerSuccess()
+       */
+      setupApotekerSuccess(): Chainable<void>
     }
   }
 }

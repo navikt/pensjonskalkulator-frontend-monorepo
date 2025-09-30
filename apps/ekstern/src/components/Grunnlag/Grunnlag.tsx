@@ -172,7 +172,7 @@ export const Grunnlag: React.FC<Props> = ({
             isAlderOver62(foedselsdato!)) ||
             loependeVedtak.ufoeretrygd.grad === 100)
         ) && (
-          <GrunnlagItem color="purple">
+          <GrunnlagItem color="purple" data-testid="grunnlag-afp">
             <GrunnlagAFP />
 
             {!shouldHideAfpReadMore && (
