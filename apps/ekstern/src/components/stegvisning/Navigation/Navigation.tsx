@@ -27,7 +27,7 @@ export default function Navigation({
       <Button
         type="button"
         variant="secondary"
-        onClick={wrapLogger('button klikk', {
+        onClick={wrapLogger('knapp klikket', {
           tekst: `Tilbake fra ${pathname}`,
         })(onPrevious)}
       >
@@ -38,7 +38,7 @@ export default function Navigation({
         <Button
           type="button"
           variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          onClick={wrapLogger('knapp klikket', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>

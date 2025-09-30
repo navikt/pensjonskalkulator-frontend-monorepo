@@ -21,6 +21,11 @@ describe('ReadMore', () => {
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
+        'les mer åpnet',
+        expect.any(Object)
+      )
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        2,
         'readmore åpnet',
         expect.any(Object)
       )
@@ -28,7 +33,12 @@ describe('ReadMore', () => {
       await user.click(screen.getByTestId('readmore'))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
-        2,
+        3,
+        'les mer lukket',
+        expect.any(Object)
+      )
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        4,
         'readmore lukket',
         expect.any(Object)
       )
@@ -55,7 +65,7 @@ describe('ReadMore', () => {
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
-        'readmore åpnet',
+        'les mer åpnet',
         expect.any(Object)
       )
     })
@@ -80,7 +90,7 @@ describe('ReadMore', () => {
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
-        'readmore lukket',
+        'les mer lukket',
         expect.any(Object)
       )
     })

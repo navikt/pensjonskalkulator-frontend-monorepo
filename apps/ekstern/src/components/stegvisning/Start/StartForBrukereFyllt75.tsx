@@ -50,7 +50,7 @@ export function StartForBrukereFyllt75() {
             data-testid="start-brukere-fyllt-75-din-pensjon-button"
             type="submit"
             variant="primary"
-            onClick={wrapLogger('button klikk', {
+            onClick={wrapLogger('knapp klikket', {
               tekst: 'Go til Din pensjon',
             })(navigateToDinPensjon)}
           >
@@ -59,7 +59,7 @@ export function StartForBrukereFyllt75() {
           <Button
             data-testid="start-brukere-fyllt-75-avbryt-button"
             variant="tertiary"
-            onClick={wrapLogger('button klikk', {
+            onClick={wrapLogger('knapp klikket', {
               tekst: 'Avbryt',
             })(onStegvisningCancel)}
           >

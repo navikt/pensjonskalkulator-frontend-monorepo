@@ -51,12 +51,12 @@ export const Henvisning = () => {
           primaryButton: 'henvisning.detaljert_kalkulator',
           secondaryButton: 'stegvisning.avbryt',
         }}
-        onPrimaryButtonClick={wrapLogger('button klikk', {
+        onPrimaryButtonClick={wrapLogger('knapp klikket', {
           tekst: `Tilbake fra ${paths.henvisning}`,
         })(gaaTilDetaljertKalkulator)}
-        onSecondaryButtonClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
-          onAvbryt
-        )}
+        onSecondaryButtonClick={wrapLogger('knapp klikket', {
+          tekst: 'Avbryt',
+        })(onAvbryt)}
       />
     </Card>
   )

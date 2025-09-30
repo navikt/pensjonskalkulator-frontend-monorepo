@@ -160,7 +160,7 @@ export const VilkaarsproevingAlert = ({
                   dispatch(
                     userInputActions.setCurrentSimulationUttaksalder(null)
                   )
-                  logger('button klikk', {
+                  logger('knapp klikket', {
                     tekst: 'Grunnlag AFP: Gå til AFP',
                   })
                   navigate(paths.afp)

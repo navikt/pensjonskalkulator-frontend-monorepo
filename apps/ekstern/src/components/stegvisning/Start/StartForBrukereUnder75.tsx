@@ -57,7 +57,7 @@ export function StartForBrukereUnder75({
                 data-testid="stegvisning-start-button"
                 type="submit"
                 className={styles.button}
-                onClick={wrapLogger('button klikk', {
+                onClick={wrapLogger('knapp klikket', {
                   tekst: 'Kom i gang',
                 })(onNext)}
               >
@@ -71,7 +71,7 @@ export function StartForBrukereUnder75({
                 type="button"
                 className={styles.button}
                 variant="tertiary"
-                onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                onClick={wrapLogger('knapp klikket', { tekst: 'Avbryt' })(
                   onCancel
                 )}
               >

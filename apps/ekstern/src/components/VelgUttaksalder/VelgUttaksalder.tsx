@@ -41,7 +41,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const onAlderClick = (formatertAlder: string) => {
     logger('chip valgt', {
       tekst: 'Velg uttaksalder',
-      data: formatertAlder,
+      chipVerdi: formatertAlder,
     })
     const alder = unformatUttaksalder(formatertAlder)
     dispatch(userInputActions.setCurrentSimulationUttaksalder(alder))

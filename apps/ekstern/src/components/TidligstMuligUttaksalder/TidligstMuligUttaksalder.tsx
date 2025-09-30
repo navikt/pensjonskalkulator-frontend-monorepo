@@ -61,7 +61,7 @@ export const TidligstMuligUttaksalder = ({
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
-    logger('button klikk', {
+    logger('knapp klikket', {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
     navigate(paths.beregningAvansert)

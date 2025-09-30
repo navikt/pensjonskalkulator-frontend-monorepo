@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
-import { LINK_AAPNET } from '@/utils/loggerConstants'
+import { LINK_AAPNET, LINK_AAPNET_OLD } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import styles from './GrunnlagForbehold.module.scss'
@@ -30,6 +30,10 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
           inlineText
           onClick={() => {
             logger(LINK_AAPNET, {
+              href: `/pensjon/kalkulator${paths.forbehold}`,
+              target: '_blank',
+            })
+            logger(LINK_AAPNET_OLD, {
               href: `/pensjon/kalkulator${paths.forbehold}`,
               target: '_blank',
             })

@@ -212,7 +212,7 @@ export const BeregningAvansert = () => {
           className={styles.link}
           onClick={(e) => {
             e?.preventDefault()
-            logger('button klikk', {
+            logger('knapp klikket', {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'
                 : 'Beregning avansert: Endre avanserte valg',

@@ -76,7 +76,8 @@ export const EndreInntekt: React.FC<Props> = ({
 
   const openInntektModal = () => {
     logger('modal åpnet', {
-      tekst: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
+      modalId: 'inntekt-modal',
+      tittel: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
     })
     inntektModalRef.current?.showModal()
   }
@@ -85,7 +86,7 @@ export const EndreInntekt: React.FC<Props> = ({
     const tekst = intl.formatMessage({
       id,
     })
-    logger('skjema validering feilet', {
+    logger('skjemavalidering feilet', {
       skjemanavn: ENDRE_INNTEKT_FORM_NAME,
       data: intl.formatMessage({
         id: 'inntekt.endre_inntekt_modal.textfield.label',
@@ -102,7 +103,7 @@ export const EndreInntekt: React.FC<Props> = ({
     const inntektData = data.get('inntekt') as string | undefined
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
-      logger('button klikk', {
+      logger('knapp klikket', {
         tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })
       window.scrollTo(0, 0)

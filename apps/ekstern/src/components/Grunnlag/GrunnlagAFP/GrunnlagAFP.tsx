@@ -18,7 +18,7 @@ import {
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { BUTTON_KLIKK } from '@/utils/loggerConstants'
+import { BUTTON_KLIKK, KNAPP_KLIKKET } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -88,6 +88,9 @@ const GoToAFP = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger(KNAPP_KLIKKET, {
+      tekst: 'Grunnlag AFP: Gå til AFP',
+    })
     logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til AFP',
     })
@@ -109,6 +112,9 @@ const GoToAvansert = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger(KNAPP_KLIKKET, {
+      tekst: 'Grunnlag AFP: Gå til avansert',
+    })
     logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
@@ -131,6 +137,9 @@ const GoToStart = (chunks: React.ReactNode) => {
 
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    logger(KNAPP_KLIKKET, {
+      tekst: 'Grunnlag AFP: Gå til start',
+    })
     logger(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til start',
     })

@@ -35,7 +35,8 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
   ) => {
     e?.preventDefault()
     logger('modal åpnet', {
-      tekst: 'Grunnlag: info om pensjonsgivende inntekt',
+      modalId: 'info-modal',
+      tittel: 'Grunnlag: info om pensjonsgivende inntekt',
     })
     infoModalRef.current?.showModal()
   }

@@ -36,7 +36,7 @@ export function LightBlueFooter() {
           <Button
             type="button"
             onClick={() => {
-              logger('button klikk', { tekst: 'Tilbake til start' })
+              logger('knapp klikket', { tekst: 'Tilbake til start' })
               dispatch(userInputActions.flush())
               avbrytModalRef.current?.close()
               navigate(paths.start)
@@ -64,7 +64,7 @@ export function LightBlueFooter() {
           <Button
             variant="tertiary"
             className={styles.button}
-            onClick={wrapLogger('button klikk', {
+            onClick={wrapLogger('knapp klikket', {
               tekst: 'Tilbake til start modal',
             })(onClick)}
           >

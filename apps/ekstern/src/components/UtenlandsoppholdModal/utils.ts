@@ -11,7 +11,10 @@ import {
   getTranslatedLandFromLandkode,
   harKravOmArbeidFromLandkode,
 } from '@/utils/land'
-import { SKJEMA_VALIDERING_FEILET } from '@/utils/loggerConstants'
+import {
+  SKJEMA_VALIDERING_FEILET,
+  SKJEMA_VALIDERING_FEILET_OLD,
+} from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 const UTENLANDSOPPHOLD_PREFIX = 'Utenlandsopphold - '
@@ -84,6 +87,11 @@ export const validateOpphold = (
       data: `${UTENLANDSOPPHOLD_PREFIX}land`,
       tekst,
     })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}land`,
+      tekst,
+    })
     // Hvis land ikke er fylt ut return. Det er ikke nødvendig å sjekke resten
     return isValid
   }
@@ -109,6 +117,11 @@ export const validateOpphold = (
       data: `${UTENLANDSOPPHOLD_PREFIX}arbeidet utenlands`,
       tekst,
     })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}arbeidet utenlands`,
+      tekst,
+    })
   }
 
   if (!startdatoFormData) {
@@ -127,6 +140,11 @@ export const validateOpphold = (
       data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
       tekst,
     })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
+      tekst,
+    })
   } else if (!validateDateEndUserFormat(startdatoFormData as string)) {
     isValid = false
     const tekst = DATO_VALIDATION_ERROR_FORMAT
@@ -138,6 +156,11 @@ export const validateOpphold = (
       }
     })
     logger(SKJEMA_VALIDERING_FEILET, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
+      tekst,
+    })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
       skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
       tekst,
@@ -159,6 +182,11 @@ export const validateOpphold = (
       }
     })
     logger(SKJEMA_VALIDERING_FEILET, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
+      tekst,
+    })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
       skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
       data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
       tekst,
@@ -187,6 +215,11 @@ export const validateOpphold = (
       data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
       tekst,
     })
+    logger(SKJEMA_VALIDERING_FEILET_OLD, {
+      skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+      data: `${UTENLANDSOPPHOLD_PREFIX}startdato`,
+      tekst,
+    })
   }
 
   if (sluttdatoFormData) {
@@ -194,6 +227,11 @@ export const validateOpphold = (
       isValid = false
       const tekst = DATO_VALIDATION_ERROR_FORMAT
       logger(SKJEMA_VALIDERING_FEILET, {
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+        data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
+        tekst,
+      })
+      logger(SKJEMA_VALIDERING_FEILET_OLD, {
         skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
         data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
         tekst,
@@ -220,6 +258,11 @@ export const validateOpphold = (
         data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
         tekst,
       })
+      logger(SKJEMA_VALIDERING_FEILET_OLD, {
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+        data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
+        tekst,
+      })
       updateValidationErrorMessage((prevState) => {
         /* c8 ignore next 4 */
         return {
@@ -238,6 +281,11 @@ export const validateOpphold = (
       const tekst =
         'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max'
       logger(SKJEMA_VALIDERING_FEILET, {
+        skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+        data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
+        tekst,
+      })
+      logger(SKJEMA_VALIDERING_FEILET_OLD, {
         skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
         data: `${UTENLANDSOPPHOLD_PREFIX}sluttdato`,
         tekst,
@@ -309,6 +357,11 @@ export const validateOpphold = (
             data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
             tekst,
           })
+          logger(SKJEMA_VALIDERING_FEILET_OLD, {
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+            data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
+            tekst,
+          })
           updateValidationErrorMessage((prevState) => {
             /* c8 ignore next 15 */
             return {
@@ -336,6 +389,11 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land'
           logger(SKJEMA_VALIDERING_FEILET, {
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+            data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
+            tekst,
+          })
+          logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
             tekst,
@@ -374,6 +432,11 @@ export const validateOpphold = (
             data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
             tekst,
           })
+          logger(SKJEMA_VALIDERING_FEILET_OLD, {
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+            data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
+            tekst,
+          })
           updateValidationErrorMessage((prevState) => {
             /* c8 ignore next 15 */
             return {
@@ -404,6 +467,11 @@ export const validateOpphold = (
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus'
           logger(SKJEMA_VALIDERING_FEILET, {
+            skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
+            data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
+            tekst,
+          })
+          logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: UTENLANDSOPPHOLD_FORM_NAMES.form,
             data: `${UTENLANDSOPPHOLD_PREFIX}overlappende perioder`,
             tekst,
@@ -489,7 +557,7 @@ export const onUtenlandsoppholdSubmit = (
       })
     )
 
-    logger('button klikk', {
+    logger('knapp klikket', {
       tekst: utenlandsperiodeId
         ? `endrer utenlandsopphold`
         : `legger til utenlandsopphold`,
