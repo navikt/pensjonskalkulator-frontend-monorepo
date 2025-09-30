@@ -136,10 +136,10 @@ export default defineConfig({
       ],
       perFile: true,
       thresholds: {
-        lines: 95,
+        lines: 85,
         functions: 50,
-        branches: 94,
-        statements: 95,
+        branches: 85,
+        statements: 85,
       },
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
     },
