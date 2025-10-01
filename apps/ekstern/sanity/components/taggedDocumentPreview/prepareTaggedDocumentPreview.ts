@@ -1,4 +1,4 @@
-import { supportedLanguages } from '../supportedLanguages'
+import { supportedLanguages } from '../../supportedLanguages'
 
 type TaggedPreviewSelection = {
   title?: string

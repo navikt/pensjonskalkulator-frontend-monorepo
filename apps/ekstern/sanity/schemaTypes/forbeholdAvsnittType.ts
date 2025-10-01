@@ -1,13 +1,13 @@
 import { BookIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
+import { supportedLanguages } from '../supportedLanguages'
 import {
   innholdField,
   languageField,
   nameField,
   overskriftField,
 } from './common/commonSchemaTypes'
-import { supportedLanguages } from './supportedLanguages'
 
 export const forbeholdAvsnittType = defineType({
   name: 'forbeholdAvsnitt',

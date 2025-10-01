@@ -5,10 +5,10 @@ import { visionTool } from '@sanity/vision'
 import { createAuthStore, defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 
-import { schemaTypes } from './schemaTypes'
-import auditTimelinePlugin from './schemaTypes/components/audit-timeline'
-import { deskStructure } from './schemaTypes/components/deskStructure'
-import { supportedLanguages } from './schemaTypes/supportedLanguages'
+import auditTimelinePlugin from './sanity/components/audit-timeline'
+import { deskStructure } from './sanity/deskStructure'
+import { schemaTypes } from './sanity/schemaTypes'
+import { supportedLanguages } from './sanity/supportedLanguages'
 
 export const projectId = 'g2by7q6m'
 

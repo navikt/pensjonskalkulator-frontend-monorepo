@@ -1,6 +1,6 @@
+import { LocaleString } from '../localeString'
 import { forbeholdAvsnittType } from './forbeholdAvsnittType'
 import { guidePanelType } from './guidePanelType'
-import { LocaleString } from './localeString'
 import { readmoreType } from './readmoreType'
 import { tagType } from './tagType'
 

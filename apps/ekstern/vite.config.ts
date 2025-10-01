@@ -133,6 +133,7 @@ export default defineConfig({
         'schemaTypes/**',
         'src/components/Signals/**',
         'src/components/Simulering/Simuleringsdetaljer/Simuleringsdetaljer.tsx',
+        'sanity',
       ],
       perFile: true,
       thresholds: {

@@ -1,6 +1,6 @@
 import { defineField } from 'sanity'
 
-import { DocumentIdLock } from '../components/DocumentIdLock'
+import { DocumentIdLock } from '../../components/documentIdLock/DocumentIdLock'
 
 export const languageField = defineField({
   title: 'Language',

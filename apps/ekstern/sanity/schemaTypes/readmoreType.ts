@@ -1,6 +1,8 @@
 import { InfoOutlineIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
+import TaggedDocumentPreview from '../components/taggedDocumentPreview/TaggedDocumentPreview'
+import { prepareTaggedDocumentPreview } from '../components/taggedDocumentPreview/prepareTaggedDocumentPreview'
 import {
   innholdField,
   languageField,
@@ -8,8 +10,6 @@ import {
   overskriftField,
   tagField,
 } from './common/commonSchemaTypes'
-import TaggedDocumentPreview from './components/TaggedDocumentPreview'
-import { prepareTaggedDocumentPreview } from './components/prepareTaggedDocumentPreview'
 
 export const readmoreType = defineType({
   name: 'readmore',
