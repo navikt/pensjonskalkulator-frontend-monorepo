@@ -242,7 +242,11 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
         className={clsx(styles.container, styles.container__hasMobilePadding)}
       >
         <div className={styles.container_header}>
-          <Heading level="2" size="medium">
+          <Heading
+            level="2"
+            size="medium"
+            data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"
+          >
             <FormattedMessage
               id="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"
               values={{

@@ -523,36 +523,8 @@ describe('Hovedhistorie', () => {
       describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
         describe('Som bruker som er medlem i Pensjonsordningen for apotekervirksomhet,', () => {
           beforeEach(() => {
-            cy.intercept(
-              { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
-              {
-                navn: 'Aprikos',
-                sivilstand: 'UGIFT',
-                foedselsdato: '1960-04-30',
-                pensjoneringAldre: {
-                  normertPensjoneringsalder: {
-                    aar: 67,
-                    maaneder: 0,
-                  },
-                  nedreAldersgrense: {
-                    aar: 62,
-                    maaneder: 0,
-                  },
-                  oevreAldersgrense: {
-                    aar: 75,
-                    maaneder: 0,
-                  },
-                },
-              }
-            ).as('getPerson')
-
-            cy.intercept(
-              {
-                method: 'GET',
-                url: '/pensjon/kalkulator/api/v1/er-apoteker',
-              },
-              { apoteker: true, aarsak: 'ER_APOTEKER' }
-            ).as('getErApoteker')
+            cy.setupPersonFoedtFoer1963()
+            cy.setupApotekerSuccess()
           })
 
           it('forventer jeg å bli spurt om jeg ønsker å beregne AFP i offentlig sektor etterfulgt av alderspensjon fra 67 år, eller kun alderspensjon', () => {
@@ -638,13 +610,7 @@ describe('Hovedhistorie', () => {
 
         describe('Gitt at bruker er medlem i pensjonsordningen for apotekervirksomheten', () => {
           beforeEach(() => {
-            cy.intercept(
-              {
-                method: 'GET',
-                url: '/pensjon/kalkulator/api/v1/er-apoteker',
-              },
-              { apoteker: true, aarsak: 'ER_APOTEKER' }
-            ).as('getErApoteker')
+            cy.setupApotekerSuccess()
           })
 
           it('forventer å se på informasjon om at jeg kan få sjekket mitt offentlige tjenestepensjonsforhold', () => {
@@ -693,36 +659,8 @@ describe('Hovedhistorie', () => {
         describe('Som bruker som har svart "AFP etterfulgt av alderspensjon fra 67 år"', () => {
           beforeEach(() => {
             // Bruker født før 1963
-            cy.intercept(
-              { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
-              {
-                navn: 'Aprikos',
-                sivilstand: 'UGIFT',
-                foedselsdato: '1962-04-30',
-                pensjoneringAldre: {
-                  normertPensjoneringsalder: {
-                    aar: 67,
-                    maaneder: 0,
-                  },
-                  nedreAldersgrense: {
-                    aar: 62,
-                    maaneder: 0,
-                  },
-                  oevreAldersgrense: {
-                    aar: 75,
-                    maaneder: 0,
-                  },
-                },
-              }
-            ).as('getPerson')
-
-            cy.intercept(
-              {
-                method: 'GET',
-                url: '/pensjon/kalkulator/api/v1/er-apoteker',
-              },
-              { apoteker: true, aarsak: 'ER_APOTEKER' }
-            ).as('getErApoteker')
+            cy.setupPersonFoedtFoer1963()
+            cy.setupApotekerSuccess()
 
             cy.intercept(
               {
@@ -772,7 +710,7 @@ describe('Hovedhistorie', () => {
 
             // Verifiserer at vi er på det avanserte skjemaet for brukere med Kap19 AFP
             cy.get(
-              '[data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"], h2'
+              '[data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"]'
             ).should('exist')
 
             // Sjekker for aldersvelgere i det avanserte skjemaet

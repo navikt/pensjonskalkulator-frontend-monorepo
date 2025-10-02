@@ -65,6 +65,7 @@ export const GrunnlagAFP: React.FC = () => {
         <span style={{ fontWeight: 'normal' }}>{title}</span>
       </Heading>
       <BodyLong
+        data-intl={content}
         data-testid="grunnlag.afp.content"
         className={styles.alderspensjonDetaljer}
       >

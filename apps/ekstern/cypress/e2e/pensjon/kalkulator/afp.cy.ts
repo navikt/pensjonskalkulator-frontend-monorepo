@@ -210,9 +210,9 @@ describe('AFP', () => {
         cy.contains('button', '70').click()
         cy.contains('Om inntekten og pensjonen din').should('exist')
         cy.contains('AFP: Offentlig').should('exist')
-        cy.contains(
-          'Du har oppgitt AFP i offentlig sektor. Nav har ikke vurdert om du fyller alle vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.'
-        ).should('exist')
+        cy.get('[data-intl="grunnlag.afp.ingress.ja_offentlig"]').should(
+          'exist'
+        )
       })
     })
 
@@ -265,13 +265,11 @@ describe('AFP', () => {
 
     describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP, er født 1963 eller senere, og kall til /er-apoteker feiler', () => {
       beforeEach(() => {
-        // Setup intercepts before login
+        cy.setupPersonFoedtEtter1963()
         cy.setupApotekerError()
 
-        // Navigate through the flow
         cy.login()
 
-        // Set Redux state after login
         cy.setApotekerErrorState()
 
         cy.contains('button', 'Kom i gang').click()
@@ -279,65 +277,155 @@ describe('AFP', () => {
         cy.get('[type="radio"]').last().check()
         cy.contains('button', 'Neste').click()
 
-        // Select "Ja, offentlig"
+        // "Ja, offentlig"
         cy.get('[type="radio"]').eq(0).check()
       })
 
       it('forventer jeg apoteker-warning på AFP-steget', () => {
-        // Sjekk for apoteker-warning på AFP steget
         cy.get('[data-testid="apotekere-warning"]').should('exist')
       })
 
       it('forventer jeg apoteker-warning på samtykke AFP offentlig steget', () => {
-        // Naviger til samtykke steget
         cy.contains('button', 'Neste').click()
-
-        // Sjekk for apoteker-warning på samtykke steget
         cy.get('[data-testid="apotekere-warning"]').should('exist')
       })
 
       it('forventer jeg apoteker-warning på pensjonsavtaler steget', () => {
-        // Naviger til pensjonsavtaler steget
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
         cy.contains('button', 'Neste').click()
-
-        // Sjekk for apoteker-warning på pensjonsavtaler steget
         cy.get('[data-testid="apotekere-warning"]').should('exist')
       })
 
       it('forventer jeg informasjon om at beregning med AFP kan bli feil hvis jeg er medlem av Pensjonsordningen for apotekvirksomhet og at jeg må prøve igjen senere', () => {
-        // Naviger gjennom hele flowet til beregning
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check() // Pensjonsavtaler
         cy.contains('button', 'Neste').click()
-
         cy.contains('button', '70').click()
 
-        // Verifiser at vi er på beregningssiden
         cy.location('pathname').should('include', '/beregning')
 
-        // Sjekk for apoteker-warning på beregningssiden
         cy.get('[data-testid="apotekere-warning"]').should('exist')
       })
 
       it('forventer jeg ingen informasjon om AFP på beregningssiden', () => {
-        // Naviger gjennom hele flowet til beregning
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(0).check() // Samtykke til AFP beregning
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check() // Pensjonsavtaler
         cy.contains('button', 'Neste').click()
-
         cy.contains('button', '70').click()
 
-        // Verifiser at vi er på beregningssiden
         cy.location('pathname').should('include', '/beregning')
 
         // Sjekk at AFP-delen er skjult når apoteker error oppstår
         cy.get('[data-testid="grunnlag-afp"]').should('not.exist')
+      })
+    })
+
+    describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP, er født før 1963, og velger "AFP etterfulgt av alderspensjon fra 67 år"', () => {
+      beforeEach(() => {
+        cy.setupPersonFoedtFoer1963()
+
+        cy.login()
+        cy.contains('button', 'Kom i gang').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click()
+
+        // "ja, offentlig"
+        cy.get('[type="radio"]').eq(0).check()
+        cy.contains('button', 'Neste').click()
+
+        // "AFP etterfulgt av alderspensjon fra 67 år"
+        cy.get(
+          '[type="radio"][value="AFP_ETTERFULGT_AV_ALDERSPENSJON"]'
+        ).check()
+        cy.contains('button', 'Neste').click()
+
+        // Pensjonsavtaler
+        cy.get('[type="radio"]').first().check()
+        cy.contains('button', 'Neste').click()
+      })
+
+      it('forventer jeg å kunne gå videre til avansert skjema uten noe samtykke AFP infosteg imellom', () => {
+        cy.location('pathname').should('include', '/beregning-detaljert')
+
+        // Verifiserer at vi er på avansert skjema for brukere med kap.19 AFP
+        cy.get(
+          '[data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"]'
+        ).should('exist')
+      })
+
+      it('forventer jeg å få informasjon i grunnlaget om at Nav ikke har vurdert om jeg fyller alle vilkår for AFP', () => {
+        cy.location('pathname').should('include', '/beregning-detaljert')
+
+        // Velger år og måned
+        cy.get('[data-testid="agepicker-helt-uttaksalder"] select[name*="aar"]')
+          .should('exist')
+          .select('64')
+
+        cy.get(
+          '[data-testid="agepicker-helt-uttaksalder"] select[name*="maaned"]'
+        )
+          .should('exist')
+          .select('0')
+
+        // "ja" til AFP inntekt måneden før uttak spørsmål
+        cy.get('[data-testid="afp-inntekt-maaned-foer-uttak-radio-ja"]')
+          .should('exist')
+          .check()
+
+        // "nei" til inntekt ved siden av AFP
+        cy.get('[data-testid="inntekt-vsa-afp-radio-nei"]')
+          .should('exist')
+          .check()
+
+        cy.get('[data-testid="beregn-pensjon"]').click()
+        cy.contains('AFP: Offentlig').should('exist')
+
+        cy.get('[data-intl="grunnlag.afp.ingress.ja_offentlig"]').should(
+          'exist'
+        )
+      })
+    })
+
+    describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP, er født før 1963, og velger "Kun alderspensjon"', () => {
+      beforeEach(() => {
+        cy.setupPersonFoedtFoer1963()
+
+        cy.login()
+        cy.contains('button', 'Kom i gang').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click()
+
+        // "ja, offentlig"
+        cy.get('[type="radio"]').eq(0).check()
+        cy.contains('button', 'Neste').click()
+
+        // "AFP etterfulgt av alderspensjon fra 67 år"
+        cy.get('[type="radio"][value="KUN_ALDERSPENSJON"]').check()
+        cy.contains('button', 'Neste').click()
+
+        // Pensjonsavtaler
+        cy.get('[type="radio"]').first().check()
+        cy.contains('button', 'Neste').click()
+      })
+
+      it('forventer jeg å kunne gå videre til enkel beregning uten noe infosteg imellom', () => {
+        cy.location('pathname').should('include', '/beregning')
+      })
+
+      it('forventer jeg å få informasjon i grunnlaget om at jeg har svart at jeg ikke har rett til AFP og at AFP derfor ikke vises i beregningen', () => {
+        cy.location('pathname').should('include', '/beregning')
+
+        cy.contains('button', '70').click()
+
+        cy.contains('AFP: Nei').should('exist')
+        cy.contains('a', 'AFP (avtalefestet pensjon)').should('exist')
       })
     })
   })

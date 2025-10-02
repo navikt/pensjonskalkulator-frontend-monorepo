@@ -46,6 +46,7 @@ export const FormButtonRow: React.FC<{
       <div>
         <Button
           form={formId}
+          data-testid="beregn-pensjon"
           className={clsx(styles.button, styles.buttonSubmit)}
         >
           {intl.formatMessage({ id: getButtonMessageId() })}

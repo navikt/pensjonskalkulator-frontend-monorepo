@@ -1,5 +1,6 @@
 import 'cypress-axe'
 import './apoteker-utils'
+import './person-utils'
 
 import { userInputActions } from '../../src/state/userInput/userInputSlice'
 
