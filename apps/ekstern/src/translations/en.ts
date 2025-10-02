@@ -17,8 +17,6 @@ export default {
   'application.title.securityLevel_feil': 'MANGLER_TEKST',
   'application.title.beregning': 'Calculation – Pension Calculator',
   'application.title.forbehold': 'Reservation – Pension Calculator',
-  'application.title.henvisning.apotekerne':
-    'Referral to Pharmacists – Pension Calculator',
   'application.title.personopplysninger':
     'Personal Data in basic calculator – Pension Calculator',
   'application.global.external_link': 'opens in a new tab',
@@ -67,9 +65,6 @@ export default {
     'You can use our unauthenticated calculator. It does not retrieve or store any information about you. You must find and enter all the information yourself. The calculator gives you an estimate of retirement pension from the National Insurance Scheme (Nav) and AFP (contractual early retirement pension) in the private sector.',
   'landingsside.link.personopplysninger':
     'Personal data used in the pension calculator',
-  'henvisning.detaljert_kalkulator': 'Detailed Pension Calculator',
-  'henvisning.apotekerne.body':
-    'Since you are a member of the Pharmacy Scheme (POA), you must use the detailed pension calculator.',
   'stegvisning.radio_ja': 'Yes',
   'stegvisning.radio_nei': 'No',
   'stegvisning.neste': 'Next',

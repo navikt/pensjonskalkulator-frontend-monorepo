@@ -18,8 +18,6 @@ const translations = {
     'For lavt sikkerhetsnivå – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'application.title.henvisning.apotekerne':
-    'Henvisning apotekerne – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
@@ -70,9 +68,6 @@ const translations = {
     'Du kan bruke vår uinnloggede kalkulator. Den henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren gir deg et estimat på alderspensjon fra folketrygden (Nav) og AFP (avtalefestet pensjon) i privat sektor. Hvis du mottar uføretrygd eller andre ytelser, tar vi ikke hensyn til dette i kalkulatoren. Du bør derfor bruke den innloggede kalkulatoren.',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
-  'henvisning.apotekerne.body':
-    'Siden du er medlem av Pensjonsordningen for apotekvirksomhet (POA), må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',

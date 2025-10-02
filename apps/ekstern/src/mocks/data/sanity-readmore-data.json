@@ -1068,10 +1068,29 @@
               "_key": "58da3b7cf588",
               "_type": "span",
               "marks": [],
-              "text": "100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
+              "text": "100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
+            },
+            {
+              "_key": "fc9456d88c89",
+              "_type": "span",
+              "marks": ["026423a264a2"],
+              "text": "55 55 33 34"
+            },
+            {
+              "_key": "3c894e7c468a",
+              "_type": "span",
+              "marks": [],
+              "text": "."
             }
           ],
-          "markDefs": [],
+          "markDefs": [
+            {
+              "_key": "026423a264a2",
+              "_type": "link",
+              "className": "nowrap",
+              "href": "tel:55553334"
+            }
+          ],
           "style": "normal"
         }
       ],
@@ -1190,10 +1209,29 @@
               "_key": "57d6bfb35f0a",
               "_type": "span",
               "marks": [],
-              "text": "Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
+              "text": "Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %. Har du spørsmål, kan du kontakte oss på telefon "
+            },
+            {
+              "_key": "3bac1bd51452",
+              "_type": "span",
+              "marks": ["c6bd2d2788df"],
+              "text": "55 55 33 34"
+            },
+            {
+              "_key": "8c20523d90c5",
+              "_type": "span",
+              "marks": [],
+              "text": "."
             }
           ],
-          "markDefs": [],
+          "markDefs": [
+            {
+              "_key": "c6bd2d2788df",
+              "_type": "link",
+              "className": "nowrap",
+              "href": "tel:55553334"
+            }
+          ],
           "style": "normal"
         }
       ],

@@ -6,7 +6,6 @@ import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { ErrorSecurityLevel } from '@/pages/ErrorSecurityLevel'
 import { Forbehold } from '@/pages/Forbehold'
-import { Henvisning } from '@/pages/Henvisning'
 import { IngenTilgang } from '@/pages/IngenTilgang'
 import { LandingPage } from '@/pages/LandingPage'
 import { StepAFP } from '@/pages/StepAFP'
@@ -84,10 +83,6 @@ export const routes: RouteObject[] = [
         loader: stepStartAccessGuard,
         path: paths.start,
         element: <StepStart />,
-      },
-      {
-        path: `${paths.henvisning}/:id`,
-        element: <Henvisning />,
       },
       {
         path: paths.forbehold,

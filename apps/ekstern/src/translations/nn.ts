@@ -14,7 +14,6 @@ export default {
   'application.title.securityLevel_feil': 'MANGLER_TEKST',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
-  'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
   'application.title.personopplysninger':
     'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
@@ -60,8 +59,6 @@ export default {
     'For deg som ikkje kan logge inn på nav.no. Kalkulatoren hentar ikkje inn og lagrar ikkje  opplysningar om deg. Du må sjølv finne og gje opp alle opplysningane til kalkulatoren, og du får kun svar på kva du kan rekne med å få i alderspensjon frå folketrygda (Nav).',
   'landingsside.link.personopplysninger':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
-  'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',

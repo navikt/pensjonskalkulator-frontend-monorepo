@@ -18,7 +18,7 @@ import {
 } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
 
-import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
+import { BASE_PATH, paths } from '../constants'
 import { routes } from '../routes'
 
 const fakeApiCalls = {
@@ -155,50 +155,6 @@ describe('routes', () => {
             await screen.findByText('stegvisning.start.title Aprikos!')
           ).toBeVisible()
         })
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-          preloadedState: {
-            session: { isLoggedIn: false, hasErApotekerError: false },
-          },
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser henvisning apotekerne', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('henvisning.apotekerne.body')
-        ).toBeVisible()
       })
     })
 

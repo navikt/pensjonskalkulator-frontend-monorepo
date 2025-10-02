@@ -34,7 +34,6 @@ export const externalUrls = {
 export const paths = {
   root: '/',
   login: '/login',
-  henvisning: '/henvisning',
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
@@ -49,11 +48,6 @@ export const paths = {
   forbehold: '/forbehold',
   kalkulatorVirkerIkke: '/kalkulatoren-virker-ikke',
   lavtSikkerhetsnivaa: '/for-lavt-sikkerhetsnivaa',
-} as const
-
-export const henvisningUrlParams = {
-  foedselsdato: '1963',
-  apotekerne: 'apotekerne',
 } as const
 
 export const stegvisningOrder = [
