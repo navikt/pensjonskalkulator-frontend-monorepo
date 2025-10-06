@@ -36,10 +36,7 @@ import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
-import {
-  useHighchartsRegressionPlugin,
-  useSimuleringChartLocalState,
-} from './hooks'
+import { useSimuleringChartLocalState } from './hooks'
 
 import styles from './Simulering.module.scss'
 
@@ -153,8 +150,6 @@ export const Simulering = ({
       )
     }
   }, [harSamtykket, uttaksalder])
-
-  useHighchartsRegressionPlugin()
 
   const [
     chartOptions,
