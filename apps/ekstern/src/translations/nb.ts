@@ -430,7 +430,7 @@ const translations = {
   'beregning.avansert.rediger.inntekt_frem_til_endring.label':
     'Pensjonsgivende årsinntekt frem til endring',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
-    'Uten uføretrygd og uførepensjon.',
+    'Uføretrygd og uførepensjon skal ikke være med.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
   'beregning.avansert.rediger.pre2025_offentlig_afp.alert':
@@ -716,7 +716,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_modal.textfield.description.ufoere':
-    'Ikke uføretrygd og uførepensjon. Dagens kroneverdi før skatt',
+    'Uføretrygd og uførepensjon skal ikke være med. Dagens kroneverdi før skatt.',
   'inntekt.endre_inntekt_modal.paragraph':
     'Når du oppdaterer inntekten, må du velge alder på nytt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
