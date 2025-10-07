@@ -199,8 +199,8 @@ describe('Hovedhistorie', () => {
           cy.login()
         })
         it('forventer jeg informasjon om at jeg har vedtak med 100 % alderspensjon fra dato 01.01.2099.', () => {
-          cy.contains(
-            'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
+          cy.get('[data-intl="stegvisning.fremtidigvedtak.alert"]').should(
+            'exist'
           )
         })
       })

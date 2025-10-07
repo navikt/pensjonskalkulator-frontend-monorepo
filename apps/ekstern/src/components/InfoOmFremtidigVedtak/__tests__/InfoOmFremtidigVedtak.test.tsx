@@ -47,7 +47,7 @@ describe('InfoOmFremtidigVedtak', () => {
     )
     expect(
       screen.getByText(
-        'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Du kan gjøre en ny beregning her frem til uttak.'
+        'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
       )
     ).toBeVisible()
   })
