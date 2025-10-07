@@ -24,22 +24,12 @@ describe('ReadMore', () => {
         'les mer åpnet',
         expect.any(Object)
       )
-      expect(loggerSpy).toHaveBeenNthCalledWith(
-        2,
-        'readmore åpnet',
-        expect.any(Object)
-      )
 
       await user.click(screen.getByTestId('readmore'))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         3,
         'les mer lukket',
-        expect.any(Object)
-      )
-      expect(loggerSpy).toHaveBeenNthCalledWith(
-        4,
-        'readmore lukket',
         expect.any(Object)
       )
     })

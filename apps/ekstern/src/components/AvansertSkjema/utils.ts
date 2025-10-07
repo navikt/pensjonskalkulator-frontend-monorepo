@@ -880,6 +880,12 @@ export const onAvansertBeregningSubmit = (
     !hasVilkaarIkkeOppfylt ||
     (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
   ) {
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', {
+      tekst: harAvansertSkjemaUnsavedChanges
+        ? 'Oppdater avansert pensjon'
+        : 'Beregn avansert pensjon',
+    })
     logger('knapp klikket', {
       tekst: harAvansertSkjemaUnsavedChanges
         ? 'Oppdater avansert pensjon'

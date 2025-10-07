@@ -90,6 +90,8 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
           <Button
             type="button"
             onClick={() => {
+              // TODO: fjern når amplitude er ikke i bruk lenger
+              logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
               logger('knapp klikket', { tekst: 'Tilbake til utenlandsopphold' })
               dispatch(userInputActions.flushCurrentSimulation())
               avbrytModalRef.current?.close()

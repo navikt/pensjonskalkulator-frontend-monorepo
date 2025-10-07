@@ -212,6 +212,12 @@ export const BeregningAvansert = () => {
           className={styles.link}
           onClick={(e) => {
             e?.preventDefault()
+            // TODO: fjern når amplitude er ikke i bruk lenger
+            logger('button klikk', {
+              tekst: isEndring
+                ? 'Beregning avansert: Endre valgene dine'
+                : 'Beregning avansert: Endre avanserte valg',
+            })
             logger('knapp klikket', {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'

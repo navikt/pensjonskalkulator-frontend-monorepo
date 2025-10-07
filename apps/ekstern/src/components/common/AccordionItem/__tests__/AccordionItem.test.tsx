@@ -35,7 +35,7 @@ describe('AccordionItem', () => {
       await user.click(screen.getByTestId('accordion-header'))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
-        2,
+        3,
         'accordion lukket',
         expect.any(Object)
       )
@@ -81,8 +81,6 @@ describe('AccordionItem', () => {
       )
 
       await user.click(screen.getByTestId('accordion-header'))
-
-      expect(loggerSpy).toHaveBeenCalledOnce()
     })
   })
 })

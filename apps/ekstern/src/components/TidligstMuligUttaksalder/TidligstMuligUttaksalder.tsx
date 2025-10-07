@@ -61,6 +61,8 @@ export const TidligstMuligUttaksalder = ({
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', { tekst: 'Grunnlag AFP: Gå til avansert' })
     logger('knapp klikket', {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })

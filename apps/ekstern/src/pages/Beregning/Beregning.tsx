@@ -80,6 +80,11 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   React.useEffect(() => {
     let isEventAdded
     const onPopState = () => {
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger(MODAL_AAPNET, {
+        // eslint-disable-next-line sonarjs/no-duplicate-string
+        tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
+      })
       logger(MODAL_AAPNET, {
         modalId: 'bekreftelses-modal',
         tittel: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
@@ -136,6 +141,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         avansertSkjemaModus === 'resultat' ||
         (avansertSkjemaModus === 'redigering' && uttaksalder))
     ) {
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger(MODAL_AAPNET, {
+        tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
+      })
       logger(MODAL_AAPNET, {
         modalId: 'bekreftelses-modal',
         tittel: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',

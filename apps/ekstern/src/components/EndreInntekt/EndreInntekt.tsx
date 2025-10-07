@@ -75,6 +75,10 @@ export const EndreInntekt: React.FC<Props> = ({
   }
 
   const openInntektModal = () => {
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('modal åpnet', {
+      tekst: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
+    })
     logger('modal åpnet', {
       modalId: 'inntekt-modal',
       tittel: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
@@ -103,6 +107,10 @@ export const EndreInntekt: React.FC<Props> = ({
     const inntektData = data.get('inntekt') as string | undefined
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger('button klikk', {
+        tekst: `endrer pensjonsgivende inntekt ${visning}`,
+      })
       logger('knapp klikket', {
         tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })

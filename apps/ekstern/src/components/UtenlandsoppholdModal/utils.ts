@@ -556,7 +556,12 @@ export const onUtenlandsoppholdSubmit = (
         ...updatedUtenlandsperiode,
       })
     )
-
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', {
+      tekst: utenlandsperiodeId
+        ? `endrer utenlandsopphold`
+        : `legger til utenlandsopphold`,
+    })
     logger('knapp klikket', {
       tekst: utenlandsperiodeId
         ? `endrer utenlandsopphold`

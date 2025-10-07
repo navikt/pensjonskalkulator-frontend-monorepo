@@ -68,6 +68,8 @@ export function SamtykkePensjonsavtaler({
         tekst: 'Samtykke',
         valg: samtykkeData,
       })
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger('button klikk', { tekst: `Neste fra ${paths.samtykke}` })
       logger('knapp klikket', {
         tekst: `Neste fra ${paths.samtykke}`,
       })

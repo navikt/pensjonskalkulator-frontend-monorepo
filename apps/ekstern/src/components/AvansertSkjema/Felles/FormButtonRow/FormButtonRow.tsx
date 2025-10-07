@@ -73,6 +73,10 @@ export const FormButtonRow: React.FC<{
             variant="tertiary"
             className={styles.button}
             onClick={() => {
+              // TODO: fjern når amplitude er ikke i bruk lenger
+              logger('button klikk', {
+                tekst: 'Beregning avansert: Avbryt endring',
+              })
               logger('knapp klikket', {
                 tekst: 'Beregning avansert: Avbryt endring',
               })

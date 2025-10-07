@@ -160,6 +160,8 @@ export const VilkaarsproevingAlert = ({
                   dispatch(
                     userInputActions.setCurrentSimulationUttaksalder(null)
                   )
+                  // TODO: fjern når amplitude er ikke i bruk lenger
+                  logger('button klikk', { tekst: 'Grunnlag AFP: Gå til AFP' })
                   logger('knapp klikket', {
                     tekst: 'Grunnlag AFP: Gå til AFP',
                   })

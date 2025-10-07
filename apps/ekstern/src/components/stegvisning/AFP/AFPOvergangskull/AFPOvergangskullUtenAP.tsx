@@ -84,6 +84,8 @@ export function AFPOvergangskullUtenAP({
         tekst: 'Rett til AFP',
         valg: afpInput,
       })
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger('button klikk', { tekst: `Neste fra ${paths.afp}` })
       logger('knapp klikket', {
         tekst: `Neste fra ${paths.afp}`,
       })

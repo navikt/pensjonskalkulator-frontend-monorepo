@@ -54,7 +54,11 @@ export function UtenlandsoppholdListe({
   const locale = getSelectedLanguage()
 
   const openUtenlandsoppholdModal = () => {
-    logger('MODAL_AAPNET', {
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger(MODAL_AAPNET, {
+      tekst: `Modal: Om oppholdet ditt`,
+    })
+    logger(MODAL_AAPNET, {
       modalId: 'utenlandsopphold-modal',
       tittel: 'Modal: Om oppholdet ditt',
     })
@@ -64,8 +68,11 @@ export function UtenlandsoppholdListe({
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
     logger(MODAL_AAPNET, {
+      tekst: 'Modal: Om oppholdet ditt',
+    })
+    logger(MODAL_AAPNET, {
       modalId: 'edit-utenlandsopphold-modal',
-      tittel: `Modal: Om oppholdet ditt`,
+      tittel: 'Modal: Om oppholdet ditt (rediger)',
     })
     utenlandsoppholdModalRef.current?.showModal()
   }

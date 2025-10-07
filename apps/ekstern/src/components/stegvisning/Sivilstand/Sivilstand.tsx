@@ -170,6 +170,8 @@ export function Sivilstand({
       return
     }
 
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', { tekst: `Neste fra ${paths.sivilstand}` })
     logger('knapp klikket', {
       tekst: `Neste fra ${paths.sivilstand}`,
     })

@@ -48,9 +48,8 @@ export const wrapLogger =
   ) =>
   (func: () => void) =>
   () => {
-    if (name === 'knapp klikket') {
-      logger('button click', properties)
-    }
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', properties)
     logger(name, properties)
     return func()
   }
