@@ -48,6 +48,7 @@ import {
   isAlder75MaanedenFylt,
   isFoedtFoer1964,
 } from '@/utils/alder'
+import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -179,12 +180,12 @@ export const BeregningEnkel = () => {
   useEffect(() => {
     if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-        logger('alert vist', {
+        logger(ALERT_VIST, {
           tekst: 'Beregning enkel: Ikke høy nok opptjening',
           variant: 'warning',
         })
       } else if (isError) {
-        logger('alert vist', {
+        logger(ALERT_VIST, {
           tekst: 'Beregning enkel: Klarte ikke beregne pensjon',
           variant: 'error',
         })
@@ -243,6 +244,14 @@ export const BeregningEnkel = () => {
     !loependeVedtak.harLoependeVedtak &&
     !!person?.foedselsdato &&
     isAlder75MaanedenFylt(person.foedselsdato)
+
+  if (showInntektAlert) {
+    logger(ALERT_VIST, {
+      tekst:
+        'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
+      variant: 'info',
+    })
+  }
 
   return (
     <>

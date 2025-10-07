@@ -37,6 +37,7 @@ import {
   formatInntekt,
   updateAndFormatInntektFromInputField,
 } from '@/utils/inntekt'
+import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -164,7 +165,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     })
     setLocalHarAfpInntektMaanedFoerUttakRadio?.(s === 'ja')
     if (s === 'nei') {
-      logger('alert vist', {
+      logger(ALERT_VIST, {
         tekst: 'Beregning AFP: Ikke høy nok inntekt siste måned',
         variant: 'info',
       })

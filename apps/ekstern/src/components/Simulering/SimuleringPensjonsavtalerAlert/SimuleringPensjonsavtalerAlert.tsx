@@ -92,10 +92,6 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
     if (isEndring) {
       const text = 'beregning.pensjonsavtaler.alert.endring'
       const variant = ALERT_VARIANTS.INLINE_INFO
-      logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant,
-      })
       return {
         variant,
         text,

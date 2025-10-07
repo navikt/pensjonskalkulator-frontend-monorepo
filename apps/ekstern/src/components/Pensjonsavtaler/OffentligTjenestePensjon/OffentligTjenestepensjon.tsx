@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
@@ -21,6 +20,8 @@ import {
   formaterSluttAlderString,
 } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
+import { ALERT_VIST } from '@/utils/loggerConstants'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
@@ -43,6 +44,49 @@ export const OffentligTjenestepensjon = (props: {
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
+  const loggedStatusesRef = React.useRef<Set<string>>(new Set())
+  const isErrorLogRef = React.useRef(false)
+
+  useEffect(() => {
+    const status = offentligTp?.simuleringsresultatStatus
+    if (!status || loggedStatusesRef.current.has(status)) return
+
+    switch (status) {
+      case 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING':
+        logger(ALERT_VIST, {
+          tekst: 'Fant ingen offentlige pensjonsavtaler',
+          variant: 'info',
+        })
+        break
+      case 'TP_ORDNING_STOETTES_IKKE':
+        logger(ALERT_VIST, {
+          tekst: 'Bruker er medlem av en annen tjenestepensjonsordning',
+          variant: 'warning',
+        })
+        break
+      case 'TEKNISK_FEIL':
+        logger(ALERT_VIST, {
+          tekst: 'Kan ikke hente offentlige pensjonsavtaler',
+          variant: 'warning',
+        })
+        break
+      case 'TOM_SIMULERING_FRA_TP_ORDNING':
+        logger(ALERT_VIST, {
+          tekst: 'Fikk ikke svar fra offentlig tjenestepensjonsordning',
+          variant: 'warning',
+        })
+        break
+    }
+    loggedStatusesRef.current.add(status)
+  }, [offentligTp?.simuleringsresultatStatus])
+
+  if (isError && !isErrorLogRef.current) {
+    logger(ALERT_VIST, {
+      tekst: 'Klarte ikke å sjekke offentlige pensjonsavtaler',
+      variant: 'warning',
+    })
+    isErrorLogRef.current = true
+  }
 
   const subHeadingLevel = React.useMemo(() => {
     return (parseInt(headingLevel, 10) + 1).toString() as HeadingProps['level']

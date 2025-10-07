@@ -10,6 +10,7 @@ import { useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'
 import { selectFoedselsdato } from '@/state/userInput/selectors'
 import { isFoedtEtter1963 } from '@/utils/alder'
+import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import Navigation from '../../Navigation/Navigation'
@@ -85,7 +86,7 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
     }
 
     if (value === 'vet_ikke') {
-      logger('alert vist', {
+      logger(ALERT_VIST, {
         tekst: 'Rett til AFP: Vet ikke',
         variant: 'info',
       })

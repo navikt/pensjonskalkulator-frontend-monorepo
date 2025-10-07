@@ -40,6 +40,7 @@ import {
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
+import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -133,12 +134,12 @@ export const BeregningAvansert = () => {
         const tekst = skalBeregneAfpKap19
           ? 'Beregning AFP: Oppfyller ikke vilkår for AFP'
           : 'Beregning avansert: Ikke høy nok opptjening'
-        logger('alert vist', {
+        logger(ALERT_VIST, {
           tekst,
           variant: 'warning',
         })
       } else if (isError) {
-        logger('alert vist', {
+        logger(ALERT_VIST, {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
           variant: 'error',
         })
