@@ -210,6 +210,7 @@ export const BeregningAvansert = () => {
       >
         <Link
           href="#"
+          data-testid="endre-valg"
           className={styles.link}
           onClick={(e) => {
             e?.preventDefault()

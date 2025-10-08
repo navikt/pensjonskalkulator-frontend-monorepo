@@ -52,6 +52,21 @@ declare global {
        * @example cy.setupPersonFoedtEtter1963()
        */
       setupPersonFoedtEtter1963(): Chainable<void>
+      /**
+       * Custom command for å sette opp løpende vedtak med pre-2025 offentlig AFP
+       *
+       * @example cy.setupLoependeVedtakWithPre2025OffentligAFP(80)
+       */
+      setupLoependeVedtakWithPre2025OffentligAFP(grad?: number): Chainable<void>
+      /**
+       * Custom command for å sette opp løpende vedtak med fremtidig alderspensjon
+       *
+       * @example cy.setupLoependeVedtakWithFremtidigAlderspensjon(100, '2099-01-01')
+       */
+      setupLoependeVedtakWithFremtidigAlderspensjon(
+        grad: number,
+        fom?: string
+      ): Chainable<void>
     }
   }
 }

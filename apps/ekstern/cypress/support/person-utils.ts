@@ -12,7 +12,7 @@ Cypress.Commands.add('setupPersonFoedtFoer1963', () => {
     {
       navn: 'Aprikos',
       sivilstand: 'UGIFT',
-      foedselsdato: '1962-04-30', // Born before 1963
+      foedselsdato: '1962-04-30',
       pensjoneringAldre: {
         normertPensjoneringsalder: {
           aar: 67,
@@ -41,7 +41,7 @@ Cypress.Commands.add('setupPersonFoedtEtter1963', () => {
     {
       navn: 'Aprikos',
       sivilstand: 'UGIFT',
-      foedselsdato: '1964-04-30', // Born after 1963
+      foedselsdato: '1964-04-30',
       pensjoneringAldre: {
         normertPensjoneringsalder: {
           aar: 67,

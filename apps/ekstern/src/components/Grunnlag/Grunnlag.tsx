@@ -144,7 +144,7 @@ export const Grunnlag: React.FC<Props> = ({
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium">
+      <Heading level={headingLevel} size="medium" data-intl="grunnlag.title">
         {isEndring || visning === 'avansert' ? (
           <FormattedMessage id="grunnlag.endring.title" />
         ) : (
@@ -339,7 +339,7 @@ export const Grunnlag: React.FC<Props> = ({
             })}
             headerValue={formatertSivilstand}
           >
-            <BodyLong>
+            <BodyLong data-intl="grunnlag-sivilstand">
               <FormattedMessage
                 id="grunnlag.sivilstand.ingress"
                 values={{

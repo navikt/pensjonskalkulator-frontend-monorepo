@@ -49,7 +49,7 @@ export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
 
   return (
     <div className={clsx(styles.container, styles.container__hasMobilePadding)}>
-      <BodyLong>
+      <BodyLong data-intl="beregning.endring.rediger.vedtak_grad_status">
         <FormattedMessage
           id="beregning.endring.rediger.vedtak_grad_status"
           values={{
