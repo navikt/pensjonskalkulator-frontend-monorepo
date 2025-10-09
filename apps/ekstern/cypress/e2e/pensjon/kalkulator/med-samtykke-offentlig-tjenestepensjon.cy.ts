@@ -45,13 +45,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
       // 1
       describe('Som bruker som har svart "ja" på Livsvarig AFP offentlig,', () => {
         beforeEach(() => {
-          cy.intercept(
-            {
-              method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
-            },
-            { fixture: 'alderspensjon_med_afp_offentlig.json' }
-          ).as('fetchAlderspensjon')
+          cy.setupAlderspensjonMedAfpOffentlig()
           cy.fillOutStegvisning({ afp: 'ja_offentlig', samtykke: true })
           cy.wait('@fetchTidligsteUttaksalder')
         })
@@ -166,43 +160,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
         // 4
         describe('Som bruker som ikke har rett til Betinget tjenestepensjon,', () => {
           beforeEach(() => {
-            cy.intercept(
-              {
-                method: 'POST',
-                url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-              },
-              {
-                simuleringsresultatStatus: 'OK',
-                muligeTpLeverandoerListe: [
-                  'Statens pensjonskasse',
-                  'Kommunal Landspensjonskasse',
-                  'Oslo Pensjonsforsikring',
-                ],
-                simulertTjenestepensjon: {
-                  tpLeverandoer: 'Statens pensjonskasse',
-                  tpNummer: '3010',
-                  simuleringsresultat: {
-                    utbetalingsperioder: [
-                      {
-                        startAlder: { aar: 67, maaneder: 0 },
-                        sluttAlder: { aar: 69, maaneder: 11 },
-                        aarligUtbetaling: 64340,
-                      },
-                      {
-                        startAlder: { aar: 70, maaneder: 0 },
-                        sluttAlder: { aar: 74, maaneder: 11 },
-                        aarligUtbetaling: 53670,
-                      },
-                      {
-                        startAlder: { aar: 75, maaneder: 0 },
-                        aarligUtbetaling: 48900,
-                      },
-                    ],
-                    betingetTjenestepensjonErInkludert: false,
-                  },
-                },
-              } satisfies OffentligTp
-            ).as('fetchOffentligTp')
+            cy.setupOffentligTpSpkOk(false)
           })
 
           describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
@@ -289,43 +247,7 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
         // 6
         describe('Som bruker som ikke har rett til Betinget tjenestepensjon,', () => {
           beforeEach(() => {
-            cy.intercept(
-              {
-                method: 'POST',
-                url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-              },
-              {
-                simuleringsresultatStatus: 'OK',
-                muligeTpLeverandoerListe: [
-                  'Statens pensjonskasse',
-                  'Kommunal Landspensjonskasse',
-                  'Oslo Pensjonsforsikring',
-                ],
-                simulertTjenestepensjon: {
-                  tpLeverandoer: 'Statens pensjonskasse',
-                  tpNummer: '3010',
-                  simuleringsresultat: {
-                    utbetalingsperioder: [
-                      {
-                        startAlder: { aar: 67, maaneder: 0 },
-                        sluttAlder: { aar: 69, maaneder: 11 },
-                        aarligUtbetaling: 64340,
-                      },
-                      {
-                        startAlder: { aar: 70, maaneder: 0 },
-                        sluttAlder: { aar: 74, maaneder: 11 },
-                        aarligUtbetaling: 53670,
-                      },
-                      {
-                        startAlder: { aar: 75, maaneder: 0 },
-                        aarligUtbetaling: 48900,
-                      },
-                    ],
-                    betingetTjenestepensjonErInkludert: false,
-                  },
-                },
-              } satisfies OffentligTp
-            ).as('fetchOffentligTp')
+            cy.setupOffentligTpSpkOk(false)
           })
 
           describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
@@ -368,55 +290,13 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
 
     describe('Som bruker som har TPO forhold hos KLP,', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'OK',
-            muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
-            simulertTjenestepensjon: {
-              tpNummer: '4082',
-              tpLeverandoer: 'Kommunal Landspensjonskasse',
-              simuleringsresultat: {
-                utbetalingsperioder: [
-                  {
-                    startAlder: {
-                      aar: 67,
-                      maaneder: 0,
-                    },
-                    sluttAlder: {
-                      aar: 71,
-                      maaneder: 11,
-                    },
-                    aarligUtbetaling: 60000,
-                  },
-                  {
-                    startAlder: {
-                      aar: 72,
-                      maaneder: 0,
-                    },
-                    aarligUtbetaling: 72000,
-                  },
-                ],
-                betingetTjenestepensjonErInkludert: false,
-              },
-            },
-          } satisfies OffentligTp
-        ).as('fetchOffentligTp')
+        cy.setupOffentligTpKlpOk()
       })
 
       // 8
       describe('Som bruker som har svart "ja" på Livsvarig AFP offentlig,', () => {
         beforeEach(() => {
-          cy.intercept(
-            {
-              method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
-            },
-            { fixture: 'alderspensjon_med_afp_offentlig.json' }
-          ).as('fetchAlderspensjon')
+          cy.setupAlderspensjonMedAfpOffentlig()
           cy.fillOutStegvisning({ afp: 'ja_offentlig', samtykke: true })
           cy.wait('@fetchTidligsteUttaksalder')
         })
@@ -566,26 +446,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
     // 13
     describe('Som bruker som har TPO forhold hos en ikke støttet ordning', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-            muligeTpLeverandoerListe: ['Oslo Pensjonsforsikring'],
-          }
-        ).as('fetchOffentligTp')
+        cy.setupPensjonsavtalerEmpty()
+        cy.setupOffentligTpUnsupported(['Oslo Pensjonsforsikring'])
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
       })
@@ -617,26 +479,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
     // 14
     describe('Som bruker som ikke har noe TPO forhold', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
-            muligeTpLeverandoerListe: [],
-          }
-        ).as('fetchOffentligTp')
+        cy.setupPensjonsavtalerEmpty()
+        cy.setupOffentligTpNoMembership()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
       })
@@ -660,20 +504,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
     // 16
     describe('Når kall til TP-registret feiler', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
-        cy.intercept('POST', '/pensjon/kalkulator/api/v2/simuler-oftp', {
-          statusCode: 503,
-        }).as('fetchOffentligTp')
-
+        cy.setupPensjonsavtalerEmpty()
+        cy.setupOffentligTpServerError()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
       })
@@ -705,26 +537,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
     // 17
     describe('Som bruker som har TPO forhold hos en støttet ordning som svarer med teknisk feil', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'TEKNISK_FEIL',
-            muligeTpLeverandoerListe: [],
-          }
-        ).as('fetchOffentligTp')
+        cy.setupPensjonsavtalerEmpty()
+        cy.setupOffentligTpTechnicalError()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
       })
@@ -755,26 +569,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
 
     describe('Som bruker som har TPO forhold hos en støttet ordning som svarer med tom respons feil', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-            muligeTpLeverandoerListe: [],
-          }
-        ).as('fetchOffentligTp')
+        cy.setupPensjonsavtalerEmpty()
+        cy.setupOffentligTpEmptyResponse()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
       })
@@ -810,29 +606,11 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
 
     describe('Som bruker som har TPO-forhold', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-            muligeTpLeverandoerListe: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
-            ],
-          }
-        ).as('fetchOffentligTp')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
+        cy.setupOffentligTpUnsupported([
+          'Statens pensjonskasse',
+          'Kommunal Landspensjonskasse',
+        ])
+        cy.setupPensjonsavtalerEmpty()
         cy.login()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
@@ -849,26 +627,8 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
 
     describe('Som bruker som ikke har TPO-forhold', () => {
       beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
-          },
-          {
-            simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
-            muligeTpLeverandoerListe: [],
-          }
-        ).as('fetchOffentligTp')
-        cy.intercept(
-          {
-            method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
-          },
-          {
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }
-        ).as('fetchPensjonsavtaler')
+        cy.setupOffentligTpNoMembership()
+        cy.setupPensjonsavtalerEmpty()
         cy.login()
         cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')

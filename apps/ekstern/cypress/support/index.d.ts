@@ -67,6 +67,64 @@ declare global {
         grad: number,
         fom?: string
       ): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med OK status og SPK provider
+       *
+       * @example cy.setupOffentligTpSpkOk()
+       * @example cy.setupOffentligTpSpkOk(false)
+       */
+      setupOffentligTpSpkOk(
+        betingetTjenestepensjonErInkludert?: boolean
+      ): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med OK status og KLP provider
+       *
+       * @example cy.setupOffentligTpKlpOk()
+       */
+      setupOffentligTpKlpOk(): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med ikke-støttet ordning
+       *
+       * @example cy.setupOffentligTpUnsupported()
+       * @example cy.setupOffentligTpUnsupported(['Oslo Pensjonsforsikring'])
+       */
+      setupOffentligTpUnsupported(providers?: string[]): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon uten medlemskap
+       *
+       * @example cy.setupOffentligTpNoMembership()
+       */
+      setupOffentligTpNoMembership(): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med teknisk feil
+       *
+       * @example cy.setupOffentligTpTechnicalError()
+       */
+      setupOffentligTpTechnicalError(): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med tom respons
+       *
+       * @example cy.setupOffentligTpEmptyResponse()
+       */
+      setupOffentligTpEmptyResponse(): Chainable<void>
+      /**
+       * Custom command for å sette opp offentlig tjenestepensjon med server feil
+       *
+       * @example cy.setupOffentligTpServerError()
+       */
+      setupOffentligTpServerError(): Chainable<void>
+      /**
+       * Custom command for å sette opp tom pensjonsavtaler respons
+       *
+       * @example cy.setupPensjonsavtalerEmpty()
+       */
+      setupPensjonsavtalerEmpty(): Chainable<void>
+      /**
+       * Custom command for å sette opp alderspensjon simulering med AFP offentlig
+       *
+       * @example cy.setupAlderspensjonMedAfpOffentlig()
+       */
+      setupAlderspensjonMedAfpOffentlig(): Chainable<void>
     }
   }
 }
