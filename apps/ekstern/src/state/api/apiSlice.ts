@@ -3,19 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_BASEURL } from '@/paths'
 import { RootState } from '@/state/store'
 
-import {
-  isAlder,
-  isAlderspensjonSimulering,
-  isApotekerStatus,
-  isInntekt,
-  isLoependeVedtak,
-  isOffentligTp,
-  isOmstillingsstoenadOgGjenlevende,
-  isPensjonsavtale,
-  isPerson,
-  isUnleashToggle,
-} from './typeguards'
-
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
@@ -34,20 +21,11 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
       query: () => '/inntekt',
-      transformResponse: (response) => {
-        if (!isInntekt(response)) {
-          throw new Error(`Mottok ugyldig inntekt: ${JSON.stringify(response)}`)
-        }
-        return response
-      },
     }),
     getPerson: builder.query<Person, void>({
       query: () => '/v5/person',
       providesTags: ['Person'],
-      transformResponse: (response) => {
-        if (!isPerson(response)) {
-          throw new Error(`Mottok ugyldig person: ${JSON.stringify(response)}`)
-        }
+      transformResponse: (response: Person) => {
         return {
           ...response,
           foedselsdato: response.foedselsdato,
@@ -67,13 +45,7 @@ export const apiSlice = createApi({
     }),
     getErApoteker: builder.query<boolean, void>({
       query: () => '/v1/er-apoteker',
-      transformResponse: (response) => {
-        if (!isApotekerStatus(response)) {
-          throw new Error(
-            `Mottok ugyldig ekskludert response:`,
-            response as ErrorOptions
-          )
-        }
+      transformResponse: (response: ApotekerStatusV1) => {
         //TODO: Endre til response.apoteker nar backend er klar
         return response.apoteker && response.aarsak === 'ER_APOTEKER'
       },
@@ -83,27 +55,9 @@ export const apiSlice = createApi({
       void
     >({
       query: () => '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
-      transformResponse: (response) => {
-        if (!isOmstillingsstoenadOgGjenlevende(response)) {
-          throw new Error(
-            `Mottok ugyldig omstillingsstoenad og gjenlevende response:`,
-            response as ErrorOptions
-          )
-        }
-        return response
-      },
     }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
       query: () => '/v4/vedtak/loepende-vedtak',
-      transformResponse: (response) => {
-        if (!isLoependeVedtak(response)) {
-          throw new Error(
-            `Mottok ugyldig løpende vedtak response:`,
-            response as ErrorOptions
-          )
-        }
-        return response
-      },
     }),
 
     offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
@@ -113,14 +67,6 @@ export const apiSlice = createApi({
         body,
       }),
       providesTags: ['OffentligTp'],
-      transformResponse: (response: OffentligTp) => {
-        if (!isOffentligTp(response)) {
-          throw new Error(
-            `Mottok ugyldig offentlig-tp: ${JSON.stringify(response)}`
-          )
-        }
-        return response
-      },
     }),
 
     tidligstMuligHeltUttak: builder.query<
@@ -132,14 +78,6 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: Alder) => {
-        if (!isAlder(response)) {
-          throw new Error(
-            `Mottok ugyldig uttaksalder: ${JSON.stringify(response)}`
-          )
-        }
-        return response
-      },
     }),
     pensjonsavtaler: builder.query<
       { avtaler: Pensjonsavtale[]; partialResponse: boolean },
@@ -152,16 +90,7 @@ export const apiSlice = createApi({
         body,
       }),
       providesTags: ['Pensjonsavtaler'],
-      transformResponse: (response) => {
-        if (
-          !response.avtaler ||
-          !Array.isArray(response.avtaler) ||
-          response.avtaler.some((avtale) => !isPensjonsavtale(avtale))
-        ) {
-          throw new Error(
-            `Mottok ugyldig pensjonsavtale: ${JSON.stringify(response)}`
-          )
-        }
+      transformResponse: (response: PensjonsavtalerResponseBody) => {
         const avtalerWithKeys = response.avtaler.map((avtale, index) => ({
           ...avtale,
           key: index,
@@ -183,44 +112,18 @@ export const apiSlice = createApi({
         body,
       }),
       providesTags: ['Alderspensjon'],
-      transformResponse: (response: AlderspensjonResponseBody) => {
-        if (!isAlderspensjonSimulering(response)) {
-          throw new Error(
-            `Mottok ugyldig alderspensjon: ${JSON.stringify(response)}`
-          )
-        }
-        return response
-      },
     }),
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
     }),
     getUtvidetSimuleringsresultatFeatureToggle: builder.query<
       UnleashToggle,
       void
     >({
       query: () => '/feature/utvidet-simuleringsresultat',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
     }),
     getVedlikeholdsmodusFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.vedlikeholdsmodus',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
     }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
