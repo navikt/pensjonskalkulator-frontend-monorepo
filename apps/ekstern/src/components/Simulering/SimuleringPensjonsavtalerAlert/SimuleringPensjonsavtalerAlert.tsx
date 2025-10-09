@@ -212,6 +212,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
               : alert.variant
           }
           data-testid="pensjonsavtaler-alert"
+          data-intl={alert.text}
           className={styles.alert}
           {...(index === 1 && { style: { margin: '16px 0' } })}
           inline={alert.variant === ALERT_VARIANTS.INLINE_INFO}

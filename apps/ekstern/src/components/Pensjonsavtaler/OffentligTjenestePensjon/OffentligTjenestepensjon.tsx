@@ -125,7 +125,11 @@ export const OffentligTjenestepensjon = (props: {
         // Når brukeren ikke er medlem av noe offentlig tp-ordning
         offentligTp?.simuleringsresultatStatus ===
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' && (
-          <Alert inline variant="info">
+          <Alert
+            inline
+            variant="info"
+            data-testid="ingen-pensjonsavtaler-alert"
+          >
             <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
           </Alert>
         )

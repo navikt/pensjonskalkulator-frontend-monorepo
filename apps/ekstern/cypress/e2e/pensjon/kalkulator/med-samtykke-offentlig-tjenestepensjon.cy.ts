@@ -36,7 +36,7 @@ function expect_IKKE_pensjonsavtaler_i_graf_og_tabell() {
 // https://jira.adeo.no/secure/Tests.jspa#/testCase/PEK-T15
 
 describe('Med samtykke - Offentlig tjenestepensjon', () => {
-  describe('Som bruker som har samtykket til innhenting av avtaler,', () => {
+  describe('Som bruker som er født etter 1963 og har samtykket til innhenting av avtaler,', () => {
     beforeEach(() => {
       cy.login()
     })
@@ -800,6 +800,83 @@ describe('Med samtykke - Offentlig tjenestepensjon', () => {
             'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.'
           ).should('exist')
         })
+      })
+    })
+  })
+  describe('Som bruker som er født før 1963 og har samtykket til innhenting av avtaler,', () => {
+    beforeEach(() => {
+      cy.setupPersonFoedtFoer1963()
+    })
+
+    describe('Som bruker som har TPO-forhold', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+          },
+          {
+            simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
+            muligeTpLeverandoerListe: [
+              'Statens pensjonskasse',
+              'Kommunal Landspensjonskasse',
+            ],
+          }
+        ).as('fetchOffentligTp')
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
+          },
+          {
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }
+        ).as('fetchPensjonsavtaler')
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('button', '67 år').click()
+      })
+
+      it('forventer jeg informasjon i alert under Pensjonsavtaler om hvilke TP-ordninger jeg er medlem av.', () => {
+        cy.get('[data-testid="pensjonsavtaler-alert"]').should('exist')
+        cy.get(
+          '[data-intl="beregning.pensjonsavtaler.alert.stoettes_ikke"]'
+        ).should('exist')
+      })
+    })
+
+    describe('Som bruker som ikke har TPO-forhold', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+          },
+          {
+            simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+            muligeTpLeverandoerListe: [],
+          }
+        ).as('fetchOffentligTp')
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/pensjonsavtaler',
+          },
+          {
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }
+        ).as('fetchPensjonsavtaler')
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'vet_ikke', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('button', '67 år').click()
+      })
+
+      it('forventer jeg informasjon i alert under Pensjonsavtaler om at ingen avtaler ble funnet.', () => {
+        cy.get('[data-testid="ingen-pensjonsavtaler-alert"]').should('exist')
       })
     })
   })
