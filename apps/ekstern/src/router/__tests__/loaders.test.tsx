@@ -64,6 +64,10 @@ export function createMockRequest(
 }
 
 describe('Loaders', () => {
+  beforeEach(() => {
+    sessionStorage.clear()
+  })
+
   afterEach(() => {
     store.dispatch(apiSliceUtils.apiSlice.util.resetApiState())
   })
@@ -99,6 +103,30 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => mockedState)
       const returnedFromLoader = directAccessGuard()
       expect(returnedFromLoader).toBeUndefined()
+    })
+
+    it('returnerer ingenting når sanity-timeout query parameter er satt', async () => {
+      const originalLocation = window.location
+      const mockLocation = new URL('https://example.com?sanity-timeout=1')
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: mockLocation,
+      })
+
+      const mockedState = {
+        api: { queries: {} },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => mockedState)
+
+      const returnedFromLoader = directAccessGuard()
+
+      expect(returnedFromLoader).toBeUndefined()
+
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: originalLocation,
+      })
     })
   })
 

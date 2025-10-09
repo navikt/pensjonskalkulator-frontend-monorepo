@@ -1,3 +1,4 @@
+import { BASE_PATH, paths } from '@/router/constants'
 import translations_en from '@/translations/en'
 import translations_nb from '@/translations/nb'
 import translations_nn from '@/translations/nn'
@@ -45,4 +46,16 @@ export function updateLanguage(
 ) {
   setLanguageCookie(languageLocale)
   document.documentElement.setAttribute('lang', languageLocale)
+}
+
+export function redirectToSanityTimeout() {
+  window.location.assign(`${BASE_PATH}${paths.uventetFeil}?sanity-timeout=1`)
+}
+
+export function isOnSanityTimeoutRoute(): boolean {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return window.location.pathname === `${BASE_PATH}${paths.uventetFeil}`
 }

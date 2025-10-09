@@ -1,9 +1,9 @@
 import { RawQuerylessQueryResponse } from '@sanity/client'
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Provider } from 'react-redux'
-import { vi } from 'vitest'
+import { type MockInstance, vi } from 'vitest'
 
 import { SanityContext } from '@/context/SanityContext'
 import { mockErrorResponse } from '@/mocks/server'
@@ -11,11 +11,32 @@ import { sanityClient } from '@/utils/sanity'
 
 import { setupStore } from '../../../state/store'
 import { LanguageProvider } from '../LanguageProvider'
+import * as languageProviderUtils from '../utils'
+
+type ControllablePromise<T> = {
+  promise: Promise<T>
+  resolve: (value: T) => void
+  reject: (reason?: unknown) => void
+}
+
+const createControllablePromise = <T,>(): ControllablePromise<T> => {
+  let resolve!: (value: T) => void
+  let reject!: (reason?: unknown) => void
+  const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+    resolve = resolvePromise
+    reject = rejectPromise
+  })
+  return { promise, resolve, reject }
+}
 
 function TestComponent() {
   const intl = useIntl()
-  const { forbeholdAvsnittData, guidePanelData, readMoreData } =
-    React.useContext(SanityContext)
+  const {
+    forbeholdAvsnittData,
+    guidePanelData,
+    readMoreData,
+    isSanityLoading,
+  } = React.useContext(SanityContext)
 
   return (
     <div data-testid="test-component">
@@ -29,12 +50,14 @@ function TestComponent() {
       <p data-testid="guidepanel-data-length">
         {Object.keys(guidePanelData).length}
       </p>
+      <p data-testid="sanity-loading">{String(isSanityLoading)}</p>
     </div>
   )
 }
 
 describe('LanguageProvider', () => {
   let defaultFetchSpy: ReturnType<typeof vi.spyOn>
+  let setTimeoutSpy: MockInstance<typeof window.setTimeout> | undefined
 
   beforeAll(() => {
     defaultFetchSpy = vi
@@ -49,6 +72,13 @@ describe('LanguageProvider', () => {
         .replace(/^ +/, '')
         .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
     })
+    defaultFetchSpy.mockReset()
+    defaultFetchSpy.mockResolvedValue(
+      [] as unknown as RawQuerylessQueryResponse<unknown>
+    )
+    setTimeoutSpy?.mockRestore()
+    setTimeoutSpy = undefined
+    vi.useRealTimers()
   })
 
   afterAll(() => {
@@ -198,5 +228,81 @@ describe('LanguageProvider', () => {
         'Pensjonskalkulator'
       )
     })
+  })
+
+  it('setter isSanityLoading til false når alle kaller fullføres før timeout', async () => {
+    vi.useFakeTimers()
+    const controllableFetches = [
+      createControllablePromise<unknown[]>(),
+      createControllablePromise<unknown[]>(),
+      createControllablePromise<unknown[]>(),
+    ]
+
+    controllableFetches.forEach(({ promise }) => {
+      defaultFetchSpy.mockImplementationOnce(() => promise)
+    })
+
+    const storeRef = setupStore(undefined, true)
+    render(
+      <Provider store={storeRef}>
+        <LanguageProvider>
+          <TestComponent />
+        </LanguageProvider>
+      </Provider>
+    )
+
+    expect(screen.getByTestId('sanity-loading')).toHaveTextContent('true')
+
+    await act(async () => {
+      controllableFetches.forEach(({ resolve }) => resolve([]))
+      await Promise.resolve()
+    })
+
+    expect(screen.getByTestId('sanity-loading')).toHaveTextContent('false')
+  })
+
+  it('navigerer til error-siden etter 10 sekunder dersom Sanity ikke svarer', async () => {
+    vi.useFakeTimers()
+    setTimeoutSpy = vi.spyOn(window, 'setTimeout')
+
+    const redirectSpy = vi
+      .spyOn(languageProviderUtils, 'redirectToSanityTimeout')
+      .mockImplementation(() => undefined)
+
+    Array.from({ length: 3 }).forEach(() => {
+      defaultFetchSpy.mockImplementationOnce(
+        () => new Promise<unknown[]>(() => {})
+      )
+    })
+
+    const storeRef = setupStore(undefined, true)
+    render(
+      <Provider store={storeRef}>
+        <LanguageProvider>
+          <TestComponent />
+        </LanguageProvider>
+      </Provider>
+    )
+
+    expect(screen.getByTestId('sanity-loading')).toHaveTextContent('true')
+
+    const timeoutCall = setTimeoutSpy.mock.calls.find(
+      ([, delay]) => delay === 10_000
+    )
+    expect(timeoutCall).toBeDefined()
+
+    const [timeoutFn] = timeoutCall as [() => void, number]
+    expect(typeof timeoutFn).toBe('function')
+
+    expect(screen.getByTestId('sanity-loading')).toHaveTextContent('true')
+
+    await act(async () => {
+      timeoutFn()
+      await Promise.resolve()
+    })
+
+    expect(redirectSpy).toHaveBeenCalledOnce()
+
+    redirectSpy.mockRestore()
   })
 })

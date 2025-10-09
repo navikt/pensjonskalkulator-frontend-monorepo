@@ -56,6 +56,13 @@ export const authenticationGuard = async () => {
 }
 
 export const directAccessGuard = (): Response | undefined => {
+  if (typeof window !== 'undefined') {
+    const url = new URL(window.location.href)
+    if (url.searchParams.has('sanity-timeout')) {
+      return undefined
+    }
+  }
+
   const state = store.getState()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (

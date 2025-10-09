@@ -139,6 +139,7 @@ export function renderWithProviders(
               ),
               forbeholdAvsnittData:
                 sanityForbeholdAvsnittDataResponse.result as ForbeholdAvsnittQueryResult,
+              isSanityLoading: false,
             }}
           >
             {hasRouter ? childrenWithRouter : children}
