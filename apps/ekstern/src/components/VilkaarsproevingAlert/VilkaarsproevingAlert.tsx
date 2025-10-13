@@ -129,11 +129,6 @@ export const VilkaarsproevingAlert = ({
   }
 
   if (skalBeregneAfpKap19) {
-    logger(ALERT_VIST, {
-      tekst: 'Beregning med AFP kapittel 19',
-      variant: 'warning',
-    })
-
     return (
       <Alert variant="warning">
         <FormattedMessage

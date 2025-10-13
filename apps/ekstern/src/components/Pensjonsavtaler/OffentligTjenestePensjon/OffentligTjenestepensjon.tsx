@@ -60,13 +60,13 @@ export const OffentligTjenestepensjon = (props: {
         break
       case 'TP_ORDNING_STOETTES_IKKE':
         logger(ALERT_VIST, {
-          tekst: 'Bruker er medlem av en annen tjenestepensjonsordning',
+          tekst: 'Kan ikke hente offentlige pensjonsavtaler',
           variant: 'warning',
         })
         break
       case 'TEKNISK_FEIL':
         logger(ALERT_VIST, {
-          tekst: 'Kan ikke hente offentlige pensjonsavtaler',
+          tekst: 'Klarte ikke å hente offentlig tjenestepensjon',
           variant: 'warning',
         })
         break

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
@@ -28,6 +28,8 @@ import {
   getBrukerensAlderISluttenAvMaaneden,
 } from '@/utils/alder'
 import { updateAndFormatInntektFromInputField } from '@/utils/inntekt'
+import { ALERT_VIST } from '@/utils/loggerConstants'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import {
@@ -139,6 +141,15 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     grad: localGradertUttak?.grad,
   })
 
+  useEffect(() => {
+    if (validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato]) {
+      logger(ALERT_VIST, {
+        tekst: '12 måneders regel, du kan tidligst endre uttaksgrad',
+        variant: 'warning',
+      })
+    }
+  }, [validationErrors])
+
   const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
     if (localGradertUttak?.grad === 100 || !localGradertUttak?.grad) {
       setShowPre2025OffentligAfpAlert(
@@ -149,6 +160,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
             loependeVedtak.pre2025OffentligAfp
         )
       )
+      logShowPre2025OffentligAfpAlert()
     }
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
@@ -183,6 +195,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
           loependeVedtak.pre2025OffentligAfp
       )
     )
+    logShowPre2025OffentligAfpAlert()
     setValidationErrors((prevState) => {
       return {
         ...prevState,
@@ -197,6 +210,12 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     }))
   }
 
+  const logShowPre2025OffentligAfpAlert = () => {
+    logger(ALERT_VIST, {
+      tekst: 'AFP i offentlig sektor kan ikke kombineres med AP',
+      variant: 'info',
+    })
+  }
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
       return {
