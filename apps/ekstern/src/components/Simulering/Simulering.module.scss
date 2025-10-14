@@ -106,8 +106,9 @@
   &Table {
     position: relative;
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: separate;
+    border-spacing: 0;
     z-index: 4;
 
     @media (min-width: variables.$a-breakpoint-lg) {
@@ -124,7 +125,6 @@
       line-height: 1;
 
       &__left {
-        width: 70%;
         white-space: break-spaces;
         font-weight: var(--a-font-weight-regular);
         font-size: var(--a-font-size-medium) !important;
@@ -132,7 +132,6 @@
         padding-right: var(--a-spacing-3);
 
         @media (width >= 400px) {
-          width: auto;
           white-space: unset;
         }
       }
@@ -141,11 +140,12 @@
         font-size: var(--a-font-size-large) !important;
         font-weight: var(--a-font-weight-bold);
         text-align: right;
+        white-space: nowrap;
+        padding-left: var(--a-spacing-2);
       }
     }
 
     &Cell {
-      width: 70%;
       white-space: break-spaces;
       font-family: var(--a-font-family);
       font-size: var(--a-font-size-small);
@@ -154,7 +154,6 @@
       line-height: 1;
 
       @media (width >= 400px) {
-        width: auto;
         white-space: unset;
       }
 
