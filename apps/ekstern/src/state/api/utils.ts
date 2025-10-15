@@ -155,8 +155,8 @@ export const generateAlderspensjonRequestBody = (args: {
       beregningsvalg
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: epsHarInntektOver2G ?? undefined,
+    epsHarPensjon: epsHarPensjon ?? undefined,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),
@@ -218,8 +218,8 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp
     ),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
-    epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
-    epsHarPensjon: !!epsHarPensjon,
+    epsHarInntektOver2G: epsHarInntektOver2G ?? undefined,
+    epsHarPensjon: epsHarPensjon ?? undefined,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
     ),

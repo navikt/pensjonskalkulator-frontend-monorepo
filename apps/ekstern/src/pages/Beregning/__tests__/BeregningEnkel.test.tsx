@@ -380,8 +380,8 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 100000,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -474,8 +474,8 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 100000,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -566,8 +566,8 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 100000,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -660,8 +660,8 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 100000,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {
@@ -1005,8 +1005,8 @@ describe('BeregningEnkel', () => {
       expect(simuleringsMock).toHaveBeenCalledWith(
         {
           aarligInntektFoerUttakBeloep: 100000,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           heltUttak: {
             uttaksalder: {

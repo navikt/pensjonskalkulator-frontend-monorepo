@@ -641,8 +641,8 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
-      epsHarInntektOver2G: boolean
-      epsHarPensjon: boolean
+      epsHarInntektOver2G?: boolean
+      epsHarPensjon?: boolean
       afpInntektMaanedFoerUttak?: boolean
       /** @enum {string} */
       afpOrdning?:
