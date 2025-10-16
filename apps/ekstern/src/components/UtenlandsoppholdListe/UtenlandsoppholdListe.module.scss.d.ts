@@ -1,8 +1,8 @@
 declare const classNames: {
   readonly section: "section";
   readonly bodyshort: "bodyshort";
-  readonly utenlandsperioderItem: "utenlandsperioderItem";
   readonly utenlandsperioder: "utenlandsperioder";
+  readonly utenlandsperioderItem: "utenlandsperioderItem";
   readonly utenlandsperioderButtons: "utenlandsperioderButtons";
   readonly utenlandsperioderButtons__endre: "utenlandsperioderButtons__endre";
   readonly utenlandsperioderButtons__slette: "utenlandsperioderButtons__slette";

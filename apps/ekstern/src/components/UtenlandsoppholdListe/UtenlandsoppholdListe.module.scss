@@ -10,6 +10,8 @@
 }
 
 .utenlandsperioder {
+  margin-block: var(--a-spacing-4);
+
   &Item {
     display: flex;
     flex-direction: column;
