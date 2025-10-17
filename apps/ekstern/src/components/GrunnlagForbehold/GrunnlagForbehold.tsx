@@ -15,6 +15,9 @@ interface Props {
 
 export const GrunnlagForbehold = ({ headingLevel }: Props) => {
   const intl = useIntl()
+  const basePath = location.pathname.startsWith('/pensjon/kalkulator/veileder')
+    ? '/pensjon/kalkulator/veileder'
+    : '/pensjon/kalkulator'
 
   return (
     <section className={styles.section}>
@@ -25,16 +28,19 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
       <BodyLong className={styles.text}>
         <FormattedMessage id="grunnlag.forbehold.ingress_1" />
         <Link
-          href={`/pensjon/kalkulator${paths.forbehold}`}
+          href={`${basePath}${paths.forbehold}?redirect=${encodeURIComponent(
+            `${basePath}${paths.forbehold}`
+          )}`}
+          rel="noopener noreferrer"
           target="_blank"
           inlineText
           onClick={() => {
             logger(LINK_AAPNET, {
-              href: `/pensjon/kalkulator${paths.forbehold}`,
+              href: `${basePath}${paths.forbehold}`,
               target: '_blank',
             })
             logger(LINK_AAPNET_OLD, {
-              href: `/pensjon/kalkulator${paths.forbehold}`,
+              href: `${basePath}${paths.forbehold}`,
               target: '_blank',
             })
           }}
