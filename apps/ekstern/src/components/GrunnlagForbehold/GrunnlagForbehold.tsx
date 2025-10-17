@@ -15,9 +15,16 @@ interface Props {
 
 export const GrunnlagForbehold = ({ headingLevel }: Props) => {
   const intl = useIntl()
-  const basePath = location.pathname.startsWith('/pensjon/kalkulator/veileder')
+  const isVeileder = location.pathname.startsWith(
+    '/pensjon/kalkulator/veileder'
+  )
+  const basePath = isVeileder
     ? '/pensjon/kalkulator/veileder'
     : '/pensjon/kalkulator'
+
+  const href = isVeileder
+    ? `${basePath}${paths.forbehold}?redirect=${encodeURIComponent(`${basePath}${paths.forbehold}`)}`
+    : `${basePath}${paths.forbehold}`
 
   return (
     <section className={styles.section}>
@@ -28,19 +35,17 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
       <BodyLong className={styles.text}>
         <FormattedMessage id="grunnlag.forbehold.ingress_1" />
         <Link
-          href={`${basePath}${paths.forbehold}?redirect=${encodeURIComponent(
-            `${basePath}${paths.forbehold}`
-          )}`}
+          href={href}
           rel="noopener noreferrer"
           target="_blank"
           inlineText
           onClick={() => {
             logger(LINK_AAPNET, {
-              href: `${basePath}${paths.forbehold}`,
+              href,
               target: '_blank',
             })
             logger(LINK_AAPNET_OLD, {
-              href: `${basePath}${paths.forbehold}`,
+              href,
               target: '_blank',
             })
           }}
