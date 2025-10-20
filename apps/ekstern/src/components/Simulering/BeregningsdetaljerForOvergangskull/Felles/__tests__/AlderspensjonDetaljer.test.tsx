@@ -21,9 +21,9 @@ const mockMessages = {
   'beregning.detaljer.grunnpensjon.table.title': 'Grunnpensjon (kr)',
   'beregning.detaljer.grunnpensjon.afp.table.title': 'AFP (kr)',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
-    'Opptjening kapittel 19',
+    'Opptjening etter gamle regler',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':
-    'Opptjening kapittel 20',
+    'Opptjening etter nye regler',
 }
 
 const createMockStore = (customState = {}) => {

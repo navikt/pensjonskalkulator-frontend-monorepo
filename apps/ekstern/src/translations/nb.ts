@@ -405,9 +405,9 @@ const translations = {
   'beregning.detaljer.afpOffentlig.uttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.OpptjeningDetaljer.table.title': 'Opptjening',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
-    'Opptjening kapittel 19',
+    'Opptjening etter gamle regler',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':
-    'Opptjening kapittel 20',
+    'Opptjening etter nye regler',
   'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title':
     'Månedlig avtalefestet pensjon (AFP)',
   'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title':
@@ -618,7 +618,7 @@ const translations = {
   'grunnlag.afp.endring': 'uendret',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':
-    'Du har oppgitt AFP i offentlig sektor. Nav har ikke vurdert om du fyller alle vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
+    'Du har oppgitt AFP i offentlig sektor. For å ha rett til AFP må du oppfylle vilkår både hos Nav og tjenestepensjonsordningen din. Beregningen forutsetter at vilkårene er oppfylt. For mer informasjon, kontakt tjenestepensjonsordningen din.',
   'grunnlag.afp.ingress.overgangskull':
     'Beregningen av alderspensjon tar høyde for at du mottar AFP. AFP vises ikke i beregningen.',
   'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap':
