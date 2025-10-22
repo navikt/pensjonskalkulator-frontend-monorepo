@@ -57,7 +57,7 @@ export default defineConfig({
 
     process.env.NODE_ENV !== 'test' &&
       visualizer({
-        open: true,
+        open: false,
         gzipSize: true,
         brotliSize: true,
         filename: 'analice.html',
