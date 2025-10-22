@@ -1,4 +1,6 @@
 name: Check pull request
+permissions:
+  contents: read
 
 on: pull_request
 
@@ -82,7 +84,7 @@ jobs:
           name: code-coverage-report
           path: coverage
 
-  run-integration-tests:
+  run-integration-tests-cypress:
     name: Run integration tests
     runs-on: ubuntu-latest
     needs: build
@@ -139,3 +141,105 @@ jobs:
         with:
           name: screenshots
           path: cypress/screenshots
+
+  run-integration-tests-playwright:
+    name: Run Playwright tests
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.1-noble
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v22.16.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Run Playwright tests (shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
+        run: npm run pw:test -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
+
+      - name: Upload Playwright blob report (shard ${{ matrix.shardIndex }})
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: playwright-blob-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
+          path: blob-report
+          retention-days: 7
+
+  merge-playwright-reports:
+    name: Merge Playwright reports
+    runs-on: ubuntu-latest
+    needs: run-integration-tests-playwright
+    if: ${{ always() }}
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.1-noble
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v22.16.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Download all Playwright blob reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: playwright-blob-*
+          path: blob-report
+          merge-multiple: true
+
+      - name: Merge reports into HTML
+        run: npx playwright merge-reports --reporter html ./blob-report
+
+      - name: Upload merged Playwright HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30

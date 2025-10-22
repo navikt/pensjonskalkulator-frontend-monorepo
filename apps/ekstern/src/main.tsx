@@ -59,7 +59,7 @@ ReactDOM.createRoot(root).render(
   </React.StrictMode>
 )
 
-if (window.Cypress) {
+if (window.Cypress || window.Playwright) {
   window.store = store
   window.router = router
 }

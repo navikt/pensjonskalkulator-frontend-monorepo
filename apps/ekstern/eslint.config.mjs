@@ -22,11 +22,13 @@ const ignoredFiles = [
   '**/*.scss.d.ts',
   '**/style.d.ts',
   'cypress.config.ts',
+  'playwright.config.ts',
   '**/mockServiceWorker.js',
   '**/cypress',
   'public/src/nais.js',
   'scripts/FetchLandListe.js',
   'sanity.cli.ts',
+  'sanity.config.ts',
   'src/translations/**',
 ]
 

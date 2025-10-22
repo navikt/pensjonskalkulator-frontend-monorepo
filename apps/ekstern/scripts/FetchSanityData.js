@@ -41,6 +41,10 @@ async function fetchAndSaveSanityData() {
       './src/mocks/data/sanity-forbehold-avsnitt-data.json',
       forbeholdAvsnittFormatted
     )
+    fs.writeFileSync(
+      './playwright/mocks/sanity-forbehold-avsnitt-data.json',
+      forbeholdAvsnittFormatted
+    )
 
     const guidePanelFormatted = await prettier.format(
       JSON.stringify({ result: guidePanelData || [] }),
@@ -50,6 +54,10 @@ async function fetchAndSaveSanityData() {
       './src/mocks/data/sanity-guidepanel-data.json',
       guidePanelFormatted
     )
+    fs.writeFileSync(
+      './playwright/mocks/sanity-guidepanel-data.json',
+      guidePanelFormatted
+    )
 
     const readMoreFormatted = await prettier.format(
       JSON.stringify({ result: readMoreData || [] }),
@@ -57,6 +65,10 @@ async function fetchAndSaveSanityData() {
     )
     fs.writeFileSync(
       './src/mocks/data/sanity-readmore-data.json',
+      readMoreFormatted
+    )
+    fs.writeFileSync(
+      './playwright/mocks/sanity-readmore-data.json',
       readMoreFormatted
     )
   } catch (error) {

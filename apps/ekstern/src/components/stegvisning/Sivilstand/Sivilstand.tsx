@@ -195,7 +195,12 @@ export function Sivilstand({
   return (
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="sivilstand-heading"
+        >
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>

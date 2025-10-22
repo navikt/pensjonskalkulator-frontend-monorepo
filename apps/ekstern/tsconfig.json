@@ -28,7 +28,7 @@
     "sanity.cli.ts",
     "sanity"
   ],
-  "exclude": ["cypress", "src/nais.js", "static"],
+  "exclude": ["cypress", "playwright", "src/nais.js", "static"],
   "references": [
     {
       "path": "./tsconfig.node.json"

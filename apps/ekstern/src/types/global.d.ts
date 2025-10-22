@@ -7,6 +7,7 @@ declare module 'csstype' {
 declare global {
   interface Window {
     Cypress: unknown
+    Playwright: unknown
     router: Router
     store: AppStore
   }
