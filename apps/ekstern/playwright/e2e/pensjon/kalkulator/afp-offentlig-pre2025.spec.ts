@@ -1,27 +1,14 @@
 import { expect, test } from '../../../base'
-import { loadJSONMock } from '../../../utils/mock'
-import { person } from '../../../utils/mocks'
+import { loependeVedtak, person } from '../../../utils/mocks'
 import { fillOutStegvisning } from '../../../utils/navigation'
-
-type LoependeVedtakMock = {
-  pre2025OffentligAfp?: { fom: string }
-} & Record<string, unknown>
 
 test.use({ autoAuth: false })
 
 test.beforeEach(async ({ page }) => {
-  const loependeVedtak = (await loadJSONMock(
-    'loepende-vedtak.json'
-  )) as LoependeVedtakMock
-  loependeVedtak.pre2025OffentligAfp = { fom: '2024-08-01' }
-
   const { authenticate } = await import('../../../utils/auth')
   await authenticate(page, [
     await person({ foedselsdato: '1960-01-01' }),
-    {
-      url: /\/pensjon\/kalkulator\/api\/v4\/vedtak\/loepende-vedtak/,
-      jsonResponse: loependeVedtak,
-    },
+    await loependeVedtak({ pre2025OffentligAfp: { fom: '2024-08-01' } }),
   ])
 })
 
