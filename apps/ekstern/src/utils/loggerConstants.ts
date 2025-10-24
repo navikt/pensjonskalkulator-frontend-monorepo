@@ -20,9 +20,7 @@ export const LINK_AAPNET = 'lenke klikket'
 export const LINK_AAPNET_OLD = 'link åpnet' // TODO: fjern når amplitude er ikke i bruk lenger
 
 // Selection events
-export const VALG_AV_UTTAKSGRAD = 'valg av uttaksgrad'
-export const VALG_AV_UTTAKSALDER_GRADERT =
-  'valg av uttaksalder for gradert alderspensjon'
+export const NEDTREKKSISTE_VALG_ENDRET = 'nedtrekksliste valg endret'
 
 // UI interaction events
 export const GRAF_TOOLTIP_AAPNET = 'graf tooltip åpnet'

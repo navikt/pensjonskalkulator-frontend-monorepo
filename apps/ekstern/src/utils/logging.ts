@@ -15,18 +15,13 @@ type IExtendedAnalyticsEvents =
   | AnalyticsEvent<'button click', { tekst: string }>
   | AnalyticsEvent<'chip valgt', { tekst: string; chipVerdi: string }>
   | AnalyticsEvent<
+      'nedtrekksliste valg endret',
+      { valgtVerdi: string; tekst: string; listeId: string }
+    >
+  | AnalyticsEvent<
       'grunnlag for beregningen',
       { tekst: string; data: string | number }
     >
-  | AnalyticsEvent<
-      'valg av uttaksalder for 100 % alderspensjon',
-      { tekst: string; data: string }
-    >
-  | AnalyticsEvent<
-      'valg av uttaksalder for gradert alderspensjon',
-      { tekst: string; data: string }
-    >
-  | AnalyticsEvent<'valg av uttaksgrad', { tekst: string; data: string }>
   | AnalyticsEvent<'graf tooltip åpnet', { data: string }>
   | AnalyticsEvent<'help text åpnet', { tekst: string }>
   | AnalyticsEvent<'help text lukket', { tekst: string }>
