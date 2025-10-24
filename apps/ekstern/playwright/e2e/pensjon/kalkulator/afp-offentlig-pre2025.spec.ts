@@ -1,11 +1,12 @@
 import { expect, test } from '../../../base'
+import { authenticate } from '../../../utils/auth'
+import { expectElementVisible } from '../../../utils/form'
 import { loependeVedtak, person } from '../../../utils/mocks'
 import { fillOutStegvisning } from '../../../utils/navigation'
 
 test.use({ autoAuth: false })
 
 test.beforeEach(async ({ page }) => {
-  const { authenticate } = await import('../../../utils/auth')
   await authenticate(page, [
     await person({ foedselsdato: '1960-01-01' }),
     await loependeVedtak({ pre2025OffentligAfp: { fom: '2024-08-01' } }),
@@ -18,9 +19,10 @@ test.describe('AFP offentlig etterfulgt av AP', () => {
       test('forventer riktig ingress i start side med vedtak om AFP offentlig', async ({
         page,
       }) => {
-        await expect(
-          page.getByTestId('stegvisning-start-ingress-pre2025-offentlig-afp')
-        ).toBeVisible()
+        await expectElementVisible(
+          page,
+          'stegvisning-start-ingress-pre2025-offentlig-afp'
+        )
       })
     })
 
