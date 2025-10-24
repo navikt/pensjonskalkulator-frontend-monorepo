@@ -1,10 +1,8 @@
-import type { components } from '../../../src/types/schema.d.ts'
 import { type RouteDefinition } from '../../base'
 import { loadJSONMock } from '../mock'
+import type { PensjonsavtaleResultV3 } from './types'
 
-type PensjonsavtalerMockOptions = Partial<
-  components['schemas']['PensjonsavtaleResultV3']
-> & {
+type PensjonsavtalerMockOptions = Partial<PensjonsavtaleResultV3> & {
   delvisSvar?: false
 }
 
@@ -20,7 +18,7 @@ export const pensjonsavtaler = async (
 
   const pensjonsavtalerMock = (await loadJSONMock(
     mockFileName
-  )) as components['schemas']['PensjonsavtaleResultV3']
+  )) as PensjonsavtaleResultV3
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v3\/pensjonsavtaler/,

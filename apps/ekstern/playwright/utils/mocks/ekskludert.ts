@@ -1,10 +1,8 @@
-import type { components } from '../../../src/types/schema.d.ts'
 import { type RouteDefinition } from '../../base'
 import { loadJSONMock } from '../mock'
+import type { EkskluderingStatusV2 } from './types'
 
-type EkskludertMockOptions = Partial<
-  components['schemas']['EkskluderingStatusV2']
->
+type EkskludertMockOptions = Partial<EkskluderingStatusV2>
 
 export const ekskludert = async (
   options: EkskludertMockOptions = {}
@@ -13,7 +11,7 @@ export const ekskludert = async (
 
   const ekskludertMock = (await loadJSONMock(
     'ekskludert-status.json'
-  )) as components['schemas']['EkskluderingStatusV2']
+  )) as EkskluderingStatusV2
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v2\/ekskludert/,

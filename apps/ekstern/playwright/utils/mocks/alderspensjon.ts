@@ -1,10 +1,8 @@
-import type { components } from '../../../src/types/schema.d.ts'
 import { type RouteDefinition } from '../../base'
 import { loadJSONMock } from '../mock'
+import type { PersonligSimuleringResultV8 } from './types'
 
-type AlderspensjonMockOptions = Partial<
-  components['schemas']['PersonligSimuleringResultV8']
-> & {
+type AlderspensjonMockOptions = Partial<PersonligSimuleringResultV8> & {
   preset?: 'endring' | 'for_lite_trygdetid' | 'med_afp_offentlig'
 }
 
@@ -30,7 +28,7 @@ export const alderspensjon = async (
 
   const alderspensjonMock = (await loadJSONMock(
     mockFileName
-  )) as components['schemas']['PersonligSimuleringResultV8']
+  )) as PersonligSimuleringResultV8
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v8\/alderspensjon\/simulering/,
