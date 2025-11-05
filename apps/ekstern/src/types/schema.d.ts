@@ -1308,6 +1308,8 @@ export interface components {
       grad: number
       /** Format: date */
       fom: string
+      /** Format: date */
+      uttaksgradFom: string
       sisteUtbetaling?: components['schemas']['UtbetalingV4']
       /** @enum {string} */
       sivilstand:

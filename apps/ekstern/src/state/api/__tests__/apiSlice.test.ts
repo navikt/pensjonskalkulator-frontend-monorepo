@@ -110,6 +110,7 @@ describe('apiSlice', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 1000,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'SAMBOER',
           },

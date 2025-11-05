@@ -43,6 +43,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -532,6 +533,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
+              uttaksgradFom: '2020-01-01',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -571,6 +573,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -1010,6 +1013,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -1047,6 +1051,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -1316,6 +1321,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 50,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -1354,6 +1360,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 50,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -1600,6 +1607,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -1638,6 +1646,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 0,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },

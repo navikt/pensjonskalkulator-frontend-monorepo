@@ -161,6 +161,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -222,6 +223,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2025-10-02',
             fom: '2025-10-02',
             sivilstand: 'UGIFT',
           },
@@ -259,6 +261,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 0,
+            uttaksgradFom: '2025-10-02',
             fom: '2025-10-02',
             sivilstand: 'UGIFT',
           },
@@ -324,6 +327,7 @@ describe('StepStart', () => {
         harLoependeVedtak: true,
         alderspensjon: {
           grad: 0,
+          uttaksgradFom: '2025-10-02',
           fom: '2025-10-02',
           sivilstand: 'UGIFT',
         },

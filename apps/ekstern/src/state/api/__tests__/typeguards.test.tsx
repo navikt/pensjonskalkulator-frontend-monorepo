@@ -819,6 +819,7 @@ describe('Typeguards', () => {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },

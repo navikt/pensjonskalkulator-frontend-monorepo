@@ -21,8 +21,8 @@ import * as alderUtils from '@/utils/alder'
 
 import { AvansertSkjemaForBrukereMedGradertUfoeretrygd } from '..'
 import { getPreviousMonth } from '../../test-utils'
-import { AVANSERT_FORM_NAMES } from '../../utils'
 import * as AvansertSkjemaForBrukereMedGradertUfoeretrygdUtils from '../../utils'
+import { AVANSERT_FORM_NAMES } from '../../utils'
 
 describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
   afterEach(() => {
@@ -2212,6 +2212,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                     harLoependeVedtak: true,
                     alderspensjon: {
                       grad: 100,
+                      uttaksgradFom: new Date().toLocaleDateString('en-CA'),
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
                       sivilstand: 'UGIFT',
                     },

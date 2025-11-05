@@ -25,8 +25,8 @@ import * as alderUtils from '@/utils/alder'
 
 import { AvansertSkjemaForAndreBrukere } from '..'
 import { getPreviousMonth } from '../../test-utils'
-import { AVANSERT_FORM_NAMES } from '../../utils'
 import * as AvansertSkjemaForAndreBrukereUtils from '../../utils'
+import { AVANSERT_FORM_NAMES } from '../../utils'
 
 describe('AvansertSkjemaForAndreBrukere', () => {
   afterEach(() => {
@@ -1925,6 +1925,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
                     harLoependeVedtak: true,
                     alderspensjon: {
                       grad: 100,
+                      uttaksgradFom: new Date().toLocaleDateString('en-CA'),
                       fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
                       sivilstand: 'UGIFT',
                     },

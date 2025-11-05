@@ -45,6 +45,7 @@ describe('stegvisning - Start', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -82,6 +83,7 @@ describe('stegvisning - Start', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -110,6 +112,7 @@ describe('stegvisning - Start', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -145,6 +148,7 @@ describe('stegvisning - Start', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -210,6 +214,7 @@ describe('stegvisning - Start', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },

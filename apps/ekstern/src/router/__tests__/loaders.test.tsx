@@ -561,6 +561,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2020-10-02',
               fom: '2020-10-02',
               sivilstand: 'UGIFT',
             },
@@ -590,6 +591,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2020-10-02',
               fom: '2020-10-02',
               sivilstand: 'UGIFT',
             },
@@ -927,6 +929,7 @@ describe('Loaders', () => {
         harLoependeVedtak: true,
         alderspensjon: {
           grad: 75,
+          uttaksgradFom: '2020-01-01',
           fom: '2020-01-01',
           sivilstand: 'UGIFT',
         },
@@ -1126,6 +1129,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1158,6 +1162,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1198,6 +1203,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1219,6 +1225,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },

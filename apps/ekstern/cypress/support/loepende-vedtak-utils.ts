@@ -12,6 +12,7 @@ export const setupLoependeVedtakWithPre2025OffentligAFP = (
       ...loependeVedtakMock,
       alderspensjon: {
         grad,
+        uttaksgradFom: '2029-04-30',
         fom: '2029-04-30',
         sivilstand: 'UGIFT',
       },

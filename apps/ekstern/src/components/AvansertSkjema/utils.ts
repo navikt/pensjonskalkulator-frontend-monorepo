@@ -622,7 +622,7 @@ export const validateAvansertBeregningSkjema = (
     loependeVedtak.alderspensjon &&
     !validateEndringGradertUttak(
       loependeVedtak.alderspensjon.grad,
-      loependeVedtak.alderspensjon.fom,
+      loependeVedtak.alderspensjon.uttaksgradFom,
       uttaksgradFormData as string,
       {
         aar: parseInt(gradertUttakAarFormData as string, 10),
