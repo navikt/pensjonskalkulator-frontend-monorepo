@@ -1,9 +1,4 @@
-import Highcharts, {
-  Chart,
-  Point,
-  PointerEventObject,
-  SeriesOptionsType,
-} from 'highcharts'
+import Highcharts, { SeriesOptionsType } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useIntl } from 'react-intl'
@@ -184,10 +179,11 @@ export const useSimuleringChartLocalState = (initialValues: {
 
   // Maintain x-axis values during loading states
   React.useEffect(() => {
-    if (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) {
-      if (xAxis.length > 0) {
-        dispatch(userInputActions.setXAxis(xAxis))
-      }
+    if (
+      (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) &&
+      xAxis.length > 0
+    ) {
+      dispatch(userInputActions.setXAxis(xAxis))
     }
   }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 
@@ -359,152 +355,4 @@ export const useSimuleringChartLocalState = (initialValues: {
     showVisFlereAarButton,
     isPensjonsavtaleFlagVisible,
   ] as const
-}
-
-// Denne pluginen er nødvendig etter oppgradering av Highcharts til v12 pga. regression bug
-// Den kan fjernes når Highcharts har løst bug'en. Saken kan følges opp her: https://github.com/highcharts/highcharts/issues/22489
-export const useHighchartsRegressionPlugin = () => {
-  React.useEffect(() => {
-    type DataLabel = {
-      div: { point: ExtendedPoint }
-      element: { point: ExtendedPoint }
-    }
-    type ExtendedPoint = Point & {
-      dataLabels: DataLabel[]
-      dataLabel: DataLabel
-    }
-    type ExtendedChart = Chart & {
-      scrollablePlotArea?: {
-        scrollingContainer: {
-          offsetWidth: number
-        }
-      }
-      options: {
-        chart: {
-          scrollablePlotArea: {
-            minWidth: number
-          }
-        }
-      }
-      pointer: {
-        isDirectTouch: boolean
-        getPointFromEvent: (e: PointerEventObject) => ExtendedPoint | undefined
-        onTrackerMouseOut: (e: MouseEvent) => void
-      }
-      isInsidePlot: (
-        chartX: number,
-        chartY: number,
-        options?: { visiblePlotOnly: boolean }
-      ) => boolean
-    }
-
-    type Series = {
-      _hasTracking: boolean
-      trackerGroups: string[]
-      points: ExtendedPoint[]
-      options: {
-        enableMouseTracking: boolean
-        cursor?: string
-      }
-      chart: ExtendedChart
-    }
-
-    type Column = {
-      prototype: Series & {
-        drawTracker: (points?: ExtendedPoint[]) => void
-      }
-    }
-
-    type ExtendedHighchartsType = typeof Highcharts & {
-      seriesTypes?: {
-        line: () => void
-        area: () => void
-        spline: () => void
-        areaspline: () => void
-        column: Column
-      }
-    }
-    /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
-    ;(function (H: ExtendedHighchartsType) {
-      const { isArray, fireEvent, seriesTypes } = H
-
-      if (seriesTypes) {
-        seriesTypes.column.prototype.drawTracker = function (this: Series) {
-          /* eslint-disable-next-line @typescript-eslint/no-this-alias */
-          const series = this
-          const { points, chart } = series
-          const pointer = chart.pointer
-          const onMouseOver = function (e: PointerEventObject) {
-            pointer?.normalize(e)
-
-            const point = pointer?.getPointFromEvent(e),
-              // Run point events only for points inside plot area, #21136
-              isInsidePlot =
-                chart.scrollablePlotArea &&
-                chart.scrollablePlotArea.scrollingContainer.offsetWidth <
-                  chart.options.chart.scrollablePlotArea.minWidth
-                  ? chart.isInsidePlot(
-                      e.chartX - chart.plotLeft,
-                      e.chartY - chart.plotTop,
-                      {
-                        visiblePlotOnly: true,
-                      }
-                    )
-                  : true
-            // Undefined on graph in scatterchart
-            if (
-              pointer &&
-              point &&
-              series.options.enableMouseTracking &&
-              isInsidePlot
-            ) {
-              pointer.isDirectTouch = true
-              point.onMouseOver(e)
-            }
-          }
-
-          let dataLabels: DataLabel[]
-          // Add reference to the point
-          points.forEach(function (point: ExtendedPoint) {
-            dataLabels = isArray(point.dataLabels)
-              ? point.dataLabels
-              : point.dataLabel
-                ? [point.dataLabel]
-                : []
-            if (point.graphic) {
-              // @ts-expect-error
-              point.graphic.element.point = point
-            }
-            dataLabels.forEach(function (dataLabel) {
-              ;(dataLabel.div || dataLabel.element).point = point
-            })
-          })
-          // Add the event listeners, we need to do this only once
-          if (!series._hasTracking) {
-            series.trackerGroups.forEach(function (key) {
-              // @ts-expect-error
-              if (series[key]) {
-                // We don't always have dataLabelsGroup
-                // @ts-expect-error
-                series[key]
-                  .addClass('highcharts-tracker')
-                  .on('mouseover', onMouseOver)
-                  .on('mouseout', function (e: MouseEvent) {
-                    pointer?.onTrackerMouseOut(e)
-                  })
-                  .on('touchstart', onMouseOver)
-                if (!chart.styledMode && series.options.cursor) {
-                  // @ts-expect-error
-                  series[key].css({ cursor: series.options.cursor })
-                }
-              }
-            })
-            series._hasTracking = true
-          }
-          fireEvent(this, 'afterDrawTracker')
-        }
-      }
-    })(Highcharts)
-    /* eslint-enable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
-  }, [])
 }

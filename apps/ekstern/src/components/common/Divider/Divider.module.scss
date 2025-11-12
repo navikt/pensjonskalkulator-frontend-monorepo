@@ -4,6 +4,10 @@
   border-bottom: 1px solid var(--a-border-divider);
   margin: var(--a-spacing-8) 0;
 
+  &__xsmallMargin {
+    margin: var(--a-spacing-2) 0;
+  }
+
   &__smallMargin {
     margin: var(--a-spacing-4) 0;
   }

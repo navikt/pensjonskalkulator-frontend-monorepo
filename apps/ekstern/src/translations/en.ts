@@ -17,8 +17,6 @@ export default {
   'application.title.securityLevel_feil': 'MANGLER_TEKST',
   'application.title.beregning': 'Calculation – Pension Calculator',
   'application.title.forbehold': 'Reservation – Pension Calculator',
-  'application.title.henvisning.apotekerne':
-    'Referral to Pharmacists – Pension Calculator',
   'application.title.personopplysninger':
     'Personal Data in basic calculator – Pension Calculator',
   'application.global.external_link': 'opens in a new tab',
@@ -58,10 +56,6 @@ export default {
     'You must use our detailed calculator. It provides an estimate of',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'In the pension calculator, you can get an estimate of',
-  'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Log in to the detailed pension calculator',
-  'landingsside.button.detaljert_kalkulator': 'Detailed Pension Calculator',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Log in to the pension calculator',
   'landingsside.button.enkel_kalkulator': 'Pension Calculator',
@@ -71,9 +65,6 @@ export default {
     'You can use our unauthenticated calculator. It does not retrieve or store any information about you. You must find and enter all the information yourself. The calculator gives you an estimate of retirement pension from the National Insurance Scheme (Nav) and AFP (contractual early retirement pension) in the private sector.',
   'landingsside.link.personopplysninger':
     'Personal data used in the pension calculator',
-  'henvisning.detaljert_kalkulator': 'Detailed Pension Calculator',
-  'henvisning.apotekerne.body':
-    'Since you are a member of the Pharmacy Scheme (POA), you must use the detailed pension calculator.',
   'stegvisning.radio_ja': 'Yes',
   'stegvisning.radio_nei': 'No',
   'stegvisning.neste': 'Next',
@@ -94,6 +85,8 @@ export default {
     'Here you can check what you can receive if you want to change your retirement pension.{br}{br}',
   'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.ingress.pre2025_offentlig_afp': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ingress.pre2025_offentlig_afp_fremtidig':
+    'MANGLER_TEKST',
   'stegvisning.start.ingress':
     'Welcome to the pension calculator which can show you:',
   'stegvisning.start.list_item1': 'retirement pension (Nav)',
@@ -323,7 +316,7 @@ export default {
     'Unfortunately, we could not calculate your pension right now.',
   'beregning.livsvarig': 'lifelong',
   'beregning.lav_opptjening.aar':
-    'You do not have enough accrual to start withdrawing at {startAar} years. Try a higher age.',
+    'You do not have enough accrual to start withdrawing at {startAar} years{startMaaned}. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
   'beregning.pensjonsavtaler.alert.endring':

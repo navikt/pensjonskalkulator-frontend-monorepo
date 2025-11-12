@@ -48,7 +48,7 @@ vi.mock(
 
     return {
       ...mod.default,
-      getAmplitudeInstance: () => vi.fn(),
+      getAnalyticsInstance: () => vi.fn(),
       onLanguageSelect: vi.fn(() => vi.fn()),
       setAvailableLanguages: vi.fn(),
     }

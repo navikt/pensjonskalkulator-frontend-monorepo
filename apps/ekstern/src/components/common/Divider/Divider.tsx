@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import styles from './Divider.module.scss'
 
 interface Props {
+  xsmallMargin?: boolean
   smallMargin?: boolean
   mediumMargin?: boolean
   noMargin?: boolean
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const Divider = ({
+  xsmallMargin,
   smallMargin,
   mediumMargin,
   noMargin,
@@ -19,6 +21,7 @@ export const Divider = ({
 }: Props) => (
   <hr
     className={clsx(styles.divider, {
+      [styles.divider__xsmallMargin]: xsmallMargin,
       [styles.divider__smallMargin]: smallMargin,
       [styles.divider__mediumMargin]: mediumMargin,
       [styles.divider__noMargin]: noMargin,

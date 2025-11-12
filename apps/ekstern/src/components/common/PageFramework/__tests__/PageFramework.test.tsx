@@ -47,7 +47,7 @@ describe('PageFramework', () => {
     render(<PageFramework />, {
       hasLogin: true,
       preloadedState: {
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
       },
     })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
@@ -59,7 +59,7 @@ describe('PageFramework', () => {
     render(<PageFramework hasWhiteBg />, {
       hasLogin: true,
       preloadedState: {
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
       },
     })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
@@ -71,7 +71,7 @@ describe('PageFramework', () => {
     render(<PageFramework isFullWidth shouldShowLogo={false} />, {
       hasLogin: true,
       preloadedState: {
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
       },
     })
     expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(
@@ -83,7 +83,7 @@ describe('PageFramework', () => {
     render(<PageFramework shouldShowLogo={true} />, {
       hasLogin: true,
       preloadedState: {
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
       },
     })
     expect(await screen.findByTestId('framework-logo')).toBeInTheDocument()
@@ -104,7 +104,7 @@ describe('PageFramework', () => {
       {
         hasLogin: true,
         preloadedState: {
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
         },
       }
     )
@@ -130,7 +130,7 @@ describe('PageFramework', () => {
       {
         hasLogin: true,
         preloadedState: {
-          session: { isLoggedIn: false },
+          session: { isLoggedIn: false, hasErApotekerError: false },
         },
       }
     )

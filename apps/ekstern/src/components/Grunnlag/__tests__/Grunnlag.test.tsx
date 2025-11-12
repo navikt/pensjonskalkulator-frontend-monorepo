@@ -1,7 +1,13 @@
 import { Grunnlag } from '@/components/Grunnlag'
 import {
+  fulfilledGetErApoteker,
   fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
+  fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
+  fulfilledPre1963GetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
@@ -307,6 +313,219 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - AFP', () => {
+    it('rendrer GrunnlagAFP når bruker ikke har vedtak om uføretrygd', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetErApoteker,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('rendrer GrunnlagAFP når vi ikke har apoteker error', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetErApoteker,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('rendrer GrunnlagAFP for brukere som er født før 1963', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledPre1963GetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('viser GrunnlagAFP når uføretrygd er 0 selv om andre betingelser er oppfylt', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('viser GrunnlagAFP når bruker har uføretrygd > 0 men er under 62 år, selv om andre betingelser er oppfylt', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder, // This person is born in 1990, making them under 62
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    describe('Skjuleregler', () => {
+      it('skjuler GrunnlagAFP når bruker har 100% uføretrygd og andre betingelser er oppfylt', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
+                  ...fulfilledGetPerson,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: true,
+              },
+            },
+          }
+        )
+
+        expect(
+          screen.queryByTestId('grunnlag.afp.title')
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser GrunnlagAFP når bruker har 100% uføretrygd men apoteker error er false', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
+                  ...fulfilledGetPerson,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: false,
+              },
+            },
+          }
+        )
+
+        expect(
+          await screen.findByText('grunnlag.afp.title', { exact: false })
+        ).toBeInTheDocument()
+      })
+
+      it('skjuler GrunnlagAFP når bruker har uføretrygd > 0, er over 62 år, har apoteker error og født etter 1963', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak75Ufoeregrad,
+                  ...fulfilledGetPerson, // This person is born in 1963, making them over 62
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: true,
+              },
+            },
+          }
+        )
+
+        expect(
+          screen.queryByTestId('grunnlag.afp.title')
+        ).not.toBeInTheDocument()
+      })
+    })
+
     it('Når brukeren har valgt offentlig AFP men uten samtykket, ikke vis Readmore knapp', async () => {
       const user = userEvent.setup()
       renderGrunnlagMedPreloadedState('2', 'avansert', {

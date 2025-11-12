@@ -2,7 +2,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, vi } from 'vitest'
 
 import {
-  fulfilledGetEkskludertStatus,
+  fulfilledGetErApoteker,
   fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
@@ -18,7 +18,7 @@ import {
 } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
 
-import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
+import { BASE_PATH, paths } from '../constants'
 import { routes } from '../routes'
 
 const fakeApiCalls = {
@@ -57,7 +57,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         expect(
@@ -78,7 +78,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         expect(
@@ -130,7 +130,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -158,50 +158,6 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-          preloadedState: {
-            session: { isLoggedIn: false },
-          },
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser henvisning apotekerne', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.apotekerne}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('henvisning.apotekerne.body')
-        ).toBeVisible()
-      })
-    })
-
     describe(`${BASE_PATH}${paths.forbehold}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
@@ -216,7 +172,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -252,7 +208,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -266,7 +222,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -286,7 +242,7 @@ describe('routes', () => {
             // @ts-ignore
             queries: { ...fulfilledGetPerson },
           },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -316,7 +272,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -330,7 +286,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -348,7 +304,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -378,7 +334,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -392,7 +348,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -406,19 +362,19 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
-      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /ekskludert ikke har feilet', async () => {
+      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /apoteker ikke har feilet', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           api: {
             // @ts-ignore
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetErApoteker,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
               ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
             },
           },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState, samtykke: null },
         }))
         const router = createMemoryRouter(routes, {
@@ -448,7 +404,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -462,7 +418,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -486,7 +442,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { queries: { mock: 'mock' } },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
         }))
         const router = createMemoryRouter(routes, {
@@ -516,7 +472,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -531,7 +487,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -552,7 +508,7 @@ describe('routes', () => {
             // @ts-ignore
             queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
           },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
             afp: 'ja_offentlig',
@@ -585,7 +541,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -612,7 +568,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -642,7 +598,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -656,7 +612,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -674,7 +630,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: { ...fakeApiCalls },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -704,7 +660,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -718,7 +674,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -742,7 +698,7 @@ describe('routes', () => {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -764,7 +720,7 @@ describe('routes', () => {
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
-            session: { isLoggedIn: true },
+            session: { isLoggedIn: true, hasErApotekerError: false },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -797,7 +753,7 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            session: { isLoggedIn: false },
+            session: { isLoggedIn: false, hasErApotekerError: false },
           },
         })
         await waitFor(() => {
@@ -811,7 +767,7 @@ describe('routes', () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
           // @ts-ignore
           api: {},
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
@@ -835,7 +791,7 @@ describe('routes', () => {
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
-          session: { isLoggedIn: true },
+          session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -859,7 +815,7 @@ describe('routes', () => {
                 ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
-            session: { isLoggedIn: true },
+            session: { isLoggedIn: true, hasErApotekerError: false },
             userInput: {
               ...userInputInitialState,
               samtykke: true,

@@ -156,18 +156,6 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
   })
 
-  it('rendrer henvisning stegene uten a11y-feil.', () => {
-    // Navigate til henvisning-1963
-    cy.visit('/pensjon/kalkulator/henvisning-1963')
-    cy.injectAxe()
-    cy.checkA11y('main')
-
-    // Navigate til henvisning-utland
-    cy.visit('/pensjon/kalkulator/henvisning-utland')
-    cy.injectAxe()
-    cy.checkA11y('main')
-  })
-
   it('rendrer informasjonsside når vedlikeholdsmodus er på uten a11y-feil', () => {
     cy.intercept(
       {

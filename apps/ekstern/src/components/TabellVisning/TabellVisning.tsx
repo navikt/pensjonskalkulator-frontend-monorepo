@@ -7,7 +7,6 @@ import { Table } from '@navikt/ds-react'
 
 import { SERIES_DEFAULT } from '@/components/Simulering/constants'
 import { formatInntekt } from '@/utils/inntekt'
-import { logger } from '@/utils/logging'
 
 import { ReadMore } from '../common/ReadMore'
 import { useTableData } from './hooks'
@@ -17,20 +16,6 @@ import styles from './TabellVisning.module.scss'
 interface Props {
   series: SeriesColumnOptions[]
   aarArray?: string[]
-}
-
-const logOnExpandOpenAndClose = (alder: string) => (open: boolean) => {
-  if (open) {
-    logger('table expand åpnet', {
-      tekst: 'detaljert beregning',
-      data: alder,
-    })
-  } else {
-    logger('table expand lukket', {
-      tekst: 'detaljert beregning',
-      data: alder,
-    })
-  }
 }
 
 export function TabellVisning({ series, aarArray }: Props) {
@@ -149,7 +134,6 @@ export function TabellVisning({ series, aarArray }: Props) {
                 key={i}
                 content={detaljerGrid}
                 expandOnRowClick
-                onOpenChange={logOnExpandOpenAndClose(alder)}
               >
                 <Table.DataCell>{alder}</Table.DataCell>
                 <Table.DataCell className={styles.detailsItemRight}>

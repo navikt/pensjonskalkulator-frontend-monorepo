@@ -130,7 +130,7 @@ describe('StepStart', () => {
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)
@@ -161,6 +161,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'UGIFT',
           },
@@ -191,7 +192,7 @@ describe('StepStart', () => {
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       vi.spyOn(store, 'getState').mockImplementation(() => mockedState)
@@ -222,6 +223,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 50,
+            uttaksgradFom: '2025-10-02',
             fom: '2025-10-02',
             sivilstand: 'UGIFT',
           },
@@ -259,6 +261,7 @@ describe('StepStart', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 0,
+            uttaksgradFom: '2025-10-02',
             fom: '2025-10-02',
             sivilstand: 'UGIFT',
           },
@@ -324,6 +327,7 @@ describe('StepStart', () => {
         harLoependeVedtak: true,
         alderspensjon: {
           grad: 0,
+          uttaksgradFom: '2025-10-02',
           fom: '2025-10-02',
           sivilstand: 'UGIFT',
         },

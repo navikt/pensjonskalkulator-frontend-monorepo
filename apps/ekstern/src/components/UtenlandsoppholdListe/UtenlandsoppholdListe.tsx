@@ -23,6 +23,12 @@ import {
   getTranslatedLandFromLandkode,
   harKravOmArbeidFromLandkode,
 } from '@/utils/land'
+import {
+  BUTTON_KLIKK,
+  GRUNNLAG_FOR_BEREGNINGEN,
+  KNAPP_KLIKKET,
+  MODAL_AAPNET,
+} from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
 import styles from './UtenlandsoppholdListe.module.scss'
@@ -48,16 +54,25 @@ export function UtenlandsoppholdListe({
   const locale = getSelectedLanguage()
 
   const openUtenlandsoppholdModal = () => {
-    logger('modal åpnet', {
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger(MODAL_AAPNET, {
       tekst: `Modal: Om oppholdet ditt`,
+    })
+    logger(MODAL_AAPNET, {
+      modalId: 'utenlandsopphold-modal',
+      tittel: 'Modal: Om oppholdet ditt',
     })
     utenlandsoppholdModalRef.current?.showModal()
   }
 
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
-    logger('modal åpnet', {
-      tekst: `Modal: Om oppholdet ditt`,
+    logger(MODAL_AAPNET, {
+      tekst: 'Modal: Om oppholdet ditt',
+    })
+    logger(MODAL_AAPNET, {
+      modalId: 'edit-utenlandsopphold-modal',
+      tittel: 'Modal: Om oppholdet ditt (rediger)',
     })
     utenlandsoppholdModalRef.current?.showModal()
   }
@@ -84,7 +99,7 @@ export function UtenlandsoppholdListe({
   useEffect(() => {
     if (erVisningIGrunnlag) {
       utenlandsperioder.forEach((utenlandsperiode) => {
-        logger('grunnlag for beregningen', {
+        logger(GRUNNLAG_FOR_BEREGNINGEN, {
           tekst: 'utenlandsopphold',
           data: utenlandsperiode.landkode,
           valg: utenlandsperiode.arbeidetUtenlands,
@@ -114,7 +129,10 @@ export function UtenlandsoppholdListe({
               dispatch(
                 userInputActions.deleteUtenlandsperiode(valgtUtenlandsperiodeId)
               )
-              logger('button klikk', {
+              logger(KNAPP_KLIKKET, {
+                tekst: `sletter utenlandsopphold`,
+              })
+              logger(BUTTON_KLIKK, {
                 tekst: `sletter utenlandsopphold`,
               })
               avbrytModalRef.current?.close()

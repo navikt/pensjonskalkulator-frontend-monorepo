@@ -209,6 +209,17 @@ export const fulfilledGetEkskludertStatus = {
   },
 }
 
+export const fulfilledGetErApoteker = {
+  ['getErApoteker(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getErApoteker',
+    requestId: 't1wLPiRKrfe_vchftk8s8',
+    data: false,
+    startedTimeStamp: 1714725797072,
+    fulfilledTimeStamp: 1714725797669,
+  },
+}
+
 export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',
@@ -289,6 +300,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },
@@ -311,6 +323,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling =
         harLoependeVedtak: true,
         alderspensjon: {
           grad: 100,
+          uttaksgradFom: '2020-10-02',
           fom: '2020-10-02',
           sisteUtbetaling: {
             beloep: 34000,
@@ -336,6 +349,7 @@ export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 50,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },
@@ -357,6 +371,7 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },
@@ -378,6 +393,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },
@@ -440,6 +456,7 @@ export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 0,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },
@@ -481,6 +498,7 @@ export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
       harLoependeVedtak: true,
       alderspensjon: {
         grad: 100,
+        uttaksgradFom: '2020-10-02',
         fom: '2020-10-02',
         sivilstand: 'UGIFT',
       },

@@ -1,257 +1,169 @@
 import React, { Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { HStack, Heading, VStack } from '@navikt/ds-react'
+import { Box, HGrid, HStack, VStack } from '@navikt/ds-react'
 
-import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { getFormatMessageValues } from '@/utils/translations'
+import { AfpDetaljerListe, DetaljRad } from '../hooks'
 
-import { DetaljRad } from '../hooks'
-
+import beregningsdetaljerStyles from '../BeregningsdetaljerForOvergangskull.module.scss'
 import styles from './Pensjonsdetaljer.module.scss'
 
 export interface AfpDetaljerProps {
-  afpPrivatDetaljerListe?: DetaljRad[][]
-  afpOffentligDetaljerListe?: DetaljRad[]
-  pre2025OffentligAfpDetaljerListe?: DetaljRad[]
-  opptjeningPre2025OffentligAfpListe?: DetaljRad[]
+  afpDetaljForValgtUttak: AfpDetaljerListe
+  alderspensjonColumnsCount: number
 }
 
 export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
-  afpPrivatDetaljerListe,
-  afpOffentligDetaljerListe,
-  pre2025OffentligAfpDetaljerListe,
-  opptjeningPre2025OffentligAfpListe,
+  afpDetaljForValgtUttak,
+  alderspensjonColumnsCount,
 }) => {
-  const { uttaksalder, gradertUttaksperiode } = useAppSelector(
-    selectCurrentSimulation
+  return (
+    <Box data-testid="beregningsdetaljer-for-overgangskull">
+      <div
+        className={
+          beregningsdetaljerStyles.beregningsdetaljerForOvergangskullDesktopOnly
+        }
+      >
+        <HGrid gap="12" columns={alderspensjonColumnsCount}>
+          {renderAfpDetaljer(afpDetaljForValgtUttak)}
+        </HGrid>
+      </div>
+      <div
+        className={
+          beregningsdetaljerStyles.beregningsdetaljerForOvergangskullMobileOnly
+        }
+      >
+        <VStack gap="4 8" width="100%" marginBlock="2 0">
+          {renderAfpDetaljer(afpDetaljForValgtUttak)}
+        </VStack>
+      </div>
+    </Box>
   )
+}
 
-  const afpPrivatAtUttaksalder =
-    afpPrivatDetaljerListe && afpPrivatDetaljerListe.length === 2
-      ? afpPrivatDetaljerListe[0]
-      : []
-  const afpPrivatAt67 =
-    afpPrivatDetaljerListe && afpPrivatDetaljerListe.length === 2
-      ? afpPrivatDetaljerListe[1]
-      : (afpPrivatDetaljerListe?.[0] ?? [])
+interface AfpSectionConfig {
+  key: string
+  data: DetaljRad[]
+  titleId?: string
+  boldLastItem?: boolean
+  allItemsBold?: boolean
+  noBorderBottom?: boolean
+}
 
-  const currentAge = gradertUttaksperiode?.uttaksalder?.aar ?? uttaksalder?.aar
-  const currentMonths =
-    gradertUttaksperiode?.uttaksalder?.maaneder ?? uttaksalder?.maaneder
-
-  const shouldRenderPre2025OffentligAfp =
-    (pre2025OffentligAfpDetaljerListe &&
-      pre2025OffentligAfpDetaljerListe.length > 0) ||
-    (opptjeningPre2025OffentligAfpListe &&
-      opptjeningPre2025OffentligAfpListe.length > 0)
+function renderAfpDetailRow(
+  detalj: DetaljRad,
+  detaljIndex: number,
+  config: {
+    boldLastItem?: boolean
+    allItemsBold?: boolean
+    noBorderBottom?: boolean
+    totalItems: number
+  }
+) {
+  const isBold =
+    config.allItemsBold ||
+    (config.boldLastItem && detaljIndex === config.totalItems - 1)
 
   return (
-    <section>
-      {afpPrivatDetaljerListe && afpPrivatDetaljerListe.length > 0 && (
-        <VStack gap="4 8" width="100%" marginBlock="6 0">
-          {afpPrivatAtUttaksalder.length > 0 &&
-            currentAge &&
-            currentAge < 67 && (
-              <div className="afpPrivatAtUttaksalder">
-                <Heading size="small" level="4">
-                  <FormattedMessage
-                    id="beregning.detaljer.afpPrivat.gradertUttak.title"
-                    values={{
-                      ...getFormatMessageValues(),
-                      alderAar: `${currentAge} år`,
-                      alderMd:
-                        currentMonths && currentMonths > 0
-                          ? `og ${currentMonths} måneder`
-                          : '',
-                    }}
-                  />
-                </Heading>
-                <dl>
-                  <div className={styles.hstackRow}>
-                    <strong>
-                      <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title" />
-                    </strong>
-                  </div>
-                  {afpPrivatAtUttaksalder.map((detalj, index) => (
-                    <Fragment key={index}>
-                      <HStack
-                        justify="space-between"
-                        className={styles.hstackRow}
-                      >
-                        <dt>
-                          {index === afpPrivatAtUttaksalder.length - 1 ? (
-                            <strong>{detalj.tekst}:</strong>
-                          ) : (
-                            `${detalj.tekst}:`
-                          )}
-                        </dt>
-                        <dd>
-                          {index === afpPrivatAtUttaksalder.length - 1 ? (
-                            <strong>{detalj.verdi}</strong>
-                          ) : (
-                            detalj.verdi
-                          )}
-                        </dd>
-                      </HStack>
-                    </Fragment>
-                  ))}
-                </dl>
-              </div>
-            )}
-
-          <div className="afpPrivatAt67">
-            <Heading size="small" level="4">
-              <FormattedMessage
-                id="beregning.detaljer.afpPrivat.heltUttak.title"
-                values={{
-                  ...getFormatMessageValues(),
-                  alderAar: `${currentAge && currentAge < 67 ? 67 : currentAge} år`,
-                  alderMd:
-                    currentAge &&
-                    currentAge >= 67 &&
-                    currentMonths &&
-                    currentMonths > 0
-                      ? `og ${currentMonths} måneder`
-                      : '',
-                }}
-              />
-            </Heading>
-            <dl>
-              <div className={styles.hstackRow}>
-                <strong>
-                  <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title" />
-                </strong>
-              </div>
-              {afpPrivatAt67.map((detalj, index) => (
-                <Fragment key={index}>
-                  <HStack justify="space-between" className={styles.hstackRow}>
-                    <dt>
-                      {index === afpPrivatAt67.length - 1 ? (
-                        <strong>{detalj.tekst}:</strong>
-                      ) : (
-                        `${detalj.tekst}:`
-                      )}
-                    </dt>
-                    <dd>
-                      {index === afpPrivatAt67.length - 1 ? (
-                        <strong>{detalj.verdi}</strong>
-                      ) : (
-                        detalj.verdi
-                      )}
-                    </dd>
-                  </HStack>
-                </Fragment>
-              ))}
-            </dl>
-          </div>
-        </VStack>
-      )}
-
-      {shouldRenderPre2025OffentligAfp && (
-        <HStack gap="20">
-          {pre2025OffentligAfpDetaljerListe &&
-            pre2025OffentligAfpDetaljerListe.length > 0 && (
-              <div className="pre2025OffentligAfpUttak">
-                <Heading size="small" level="4">
-                  <FormattedMessage
-                    id="beregning.detaljer.grunnpensjon.pre2025OffentligAfp.title"
-                    values={{
-                      ...getFormatMessageValues(),
-                      alderAar: `${uttaksalder?.aar} år`,
-                      alderMd: `og ${uttaksalder!.maaneder} måneder`,
-                    }}
-                  />
-                </Heading>
-                <dl>
-                  <div className={styles.hstackRow}>
-                    <strong>
-                      <FormattedMessage id="beregning.detaljer.grunnpensjon.afp.table.title" />
-                    </strong>
-                  </div>
-                  {pre2025OffentligAfpDetaljerListe.map((detalj, index) => (
-                    <React.Fragment key={index}>
-                      <HStack
-                        justify="space-between"
-                        className={styles.hstackRow}
-                      >
-                        <dt>
-                          {index ===
-                          pre2025OffentligAfpDetaljerListe.length - 1 ? (
-                            <strong>{detalj.tekst}:</strong>
-                          ) : (
-                            `${detalj.tekst}:`
-                          )}
-                        </dt>
-                        <dd>
-                          {index ===
-                          pre2025OffentligAfpDetaljerListe.length - 1 ? (
-                            <strong>{detalj.verdi}</strong>
-                          ) : (
-                            detalj.verdi
-                          )}
-                        </dd>
-                      </HStack>
-                    </React.Fragment>
-                  ))}
-                </dl>
-              </div>
-            )}
-
-          {opptjeningPre2025OffentligAfpListe &&
-            opptjeningPre2025OffentligAfpListe.length > 0 && (
-              <dl>
-                <div className={styles.hstackRow}>
-                  <strong>
-                    <FormattedMessage id="beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title" />
-                  </strong>
-                </div>
-                {opptjeningPre2025OffentligAfpListe.map((detalj, index) => (
-                  <Fragment key={index}>
-                    <HStack
-                      justify="space-between"
-                      className={styles.hstackRow}
-                    >
-                      <dt>{`${detalj.tekst}:`}</dt>
-                      <dd>{detalj.verdi}</dd>
-                    </HStack>
-                  </Fragment>
-                ))}
-              </dl>
-            )}
-        </HStack>
-      )}
-
-      {afpOffentligDetaljerListe && afpOffentligDetaljerListe.length > 0 && (
-        <dl>
-          <Heading size="small" level="4" spacing>
-            <FormattedMessage
-              id="beregning.detaljer.afpOffentlig.uttak.title"
-              values={{
-                ...getFormatMessageValues(),
-                alderAar: `${currentAge} år`,
-                alderMd:
-                  currentMonths && currentMonths > 0
-                    ? `og ${currentMonths} måneder`
-                    : '',
-              }}
-            />
-          </Heading>
-          {afpOffentligDetaljerListe.map((detalj, index) => (
-            <Fragment key={index}>
-              <HStack justify="space-between" className={styles.hstackRow}>
-                <dt>
-                  <strong>{`${detalj.tekst}: `}</strong>
-                </dt>
-                <dd>
-                  <strong>{detalj.verdi}</strong>
-                </dd>
-              </HStack>
-            </Fragment>
-          ))}
-        </dl>
-      )}
-    </section>
+    <Fragment key={detaljIndex}>
+      <HStack
+        justify="space-between"
+        className={styles.hstackRow}
+        style={config.noBorderBottom ? { borderBottom: 'none' } : undefined}
+      >
+        <dt style={{ marginRight: '1rem' }}>
+          {isBold ? <strong>{`${detalj.tekst}:`}</strong> : `${detalj.tekst}:`}
+        </dt>
+        <dd>{isBold ? <strong>{detalj.verdi}</strong> : detalj.verdi}</dd>
+      </HStack>
+    </Fragment>
   )
+}
+
+function renderAfpSection({
+  key,
+  data,
+  titleId,
+  boldLastItem,
+  allItemsBold,
+  noBorderBottom,
+}: AfpSectionConfig) {
+  return (
+    <dl key={key}>
+      {titleId && (
+        <div className={styles.hstackRow}>
+          <strong>
+            <FormattedMessage id={titleId} />
+          </strong>
+        </div>
+      )}
+      {data.map((detalj, detaljIndex) =>
+        renderAfpDetailRow(detalj, detaljIndex, {
+          boldLastItem,
+          allItemsBold,
+          noBorderBottom,
+          totalItems: data.length,
+        })
+      )}
+    </dl>
+  )
+}
+
+function renderAfpDetaljer(afpDetaljForValgtUttak?: AfpDetaljerListe) {
+  const sections: React.ReactElement[] = []
+
+  // Early return if no data
+  if (!afpDetaljForValgtUttak) {
+    return sections
+  }
+
+  // AFP Privat
+  if (afpDetaljForValgtUttak.afpPrivat?.length > 0) {
+    sections.push(
+      renderAfpSection({
+        key: 'afpPrivat',
+        data: afpDetaljForValgtUttak.afpPrivat,
+        titleId: 'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title',
+        boldLastItem: true,
+      })
+    )
+  }
+
+  // AFP Offentlig
+  if (afpDetaljForValgtUttak.afpOffentlig?.length > 0) {
+    sections.push(
+      renderAfpSection({
+        key: 'afpOffentlig',
+        data: afpDetaljForValgtUttak.afpOffentlig,
+        allItemsBold: true,
+        noBorderBottom: true,
+      })
+    )
+  }
+
+  // Pre-2025 Offentlig AFP
+  if (afpDetaljForValgtUttak.pre2025OffentligAfp?.length > 0) {
+    sections.push(
+      renderAfpSection({
+        key: 'pre2025OffentligAfp',
+        data: afpDetaljForValgtUttak.pre2025OffentligAfp,
+        titleId: 'beregning.detaljer.grunnpensjon.afp.table.title',
+        boldLastItem: true,
+      })
+    )
+  }
+
+  // Pre-2025 Opptjening Details
+  if (afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp?.length > 0) {
+    sections.push(
+      renderAfpSection({
+        key: 'opptjeningPre2025OffentligAfp',
+        data: afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp,
+        titleId:
+          'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title',
+      })
+    )
+  }
+
+  return sections
 }

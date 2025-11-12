@@ -17,7 +17,13 @@ if (!root) {
   throw Error(`Missing root element`)
 }
 
-if (process.env.NODE_ENV === 'development') {
+declare global {
+  interface Window {
+    __DISABLE_MSW__?: boolean
+  }
+}
+
+if (process.env.NODE_ENV === 'development' && !window.__DISABLE_MSW__) {
   const msw = await import('./mocks/browser')
   await msw.worker.start({
     serviceWorker: {

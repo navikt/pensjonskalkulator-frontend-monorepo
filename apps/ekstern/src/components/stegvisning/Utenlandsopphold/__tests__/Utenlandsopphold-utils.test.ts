@@ -15,7 +15,7 @@ describe('Utenlandsopphold-utils', () => {
       const onNextMock = vi.fn()
       const setValidationErrorsMock = vi.fn()
       onSubmit(null, intlMock, setValidationErrorsMock, 0, onNextMock)
-      expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+      expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
         skjemanavn: 'stegvisning-utenlandsopphold',
         data: 'stegvisning.utenlandsopphold.radio_label',
         tekst: 'stegvisning.utenlandsopphold.validation_error',
@@ -29,7 +29,7 @@ describe('Utenlandsopphold-utils', () => {
       const onNextMock = vi.fn()
       const setValidationErrorsMock = vi.fn()
       onSubmit('ja', intlMock, setValidationErrorsMock, 0, onNextMock)
-      expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
+      expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
         skjemanavn: 'stegvisning-utenlandsopphold',
         data: 'stegvisning.utenlandsopphold.radio_label',
         tekst: 'stegvisning.utenlandsopphold.mangler_opphold.validation_error',

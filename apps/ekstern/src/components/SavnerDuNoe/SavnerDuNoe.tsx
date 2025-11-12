@@ -6,6 +6,7 @@ import { LinkCard } from '@navikt/ds-react'
 import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputSlice'
+import { KNAPP_KLIKKET } from '@/utils/loggerConstants'
 import { wrapLogger } from '@/utils/logging'
 
 import styles from './SavnerDuNoe.module.scss'
@@ -39,7 +40,7 @@ export const SavnerDuNoe = ({ isEndring }: Props) => {
     if (!isPlainLeftClick) return
 
     e.preventDefault()
-    wrapLogger('button klikk', {
+    wrapLogger(KNAPP_KLIKKET, {
       tekst: 'Savner du noe?',
     })(onClick)()
   }

@@ -4,22 +4,19 @@ export const finnAllePensjonsavtalerVedUttak = <
   utbetalingsperioder: T[],
   uttaksalder: Alder
 ) => {
-  const utbetalingsperioderVedUttak = utbetalingsperioder.filter(
-    (utbetalingsperiode) => {
-      const { startAlder, sluttAlder } = utbetalingsperiode
+  return utbetalingsperioder.filter((utbetalingsperiode) => {
+    const { startAlder, sluttAlder } = utbetalingsperiode
 
-      return (
-        (uttaksalder.aar > startAlder.aar ||
-          (uttaksalder.aar === startAlder.aar &&
-            uttaksalder.maaneder >= startAlder.maaneder)) &&
-        (!sluttAlder ||
-          uttaksalder.aar < sluttAlder.aar ||
-          (uttaksalder.aar === sluttAlder.aar &&
-            uttaksalder.maaneder <= sluttAlder.maaneder))
-      )
-    }
-  )
-  return utbetalingsperioderVedUttak
+    return (
+      (uttaksalder.aar > startAlder.aar ||
+        (uttaksalder.aar === startAlder.aar &&
+          uttaksalder.maaneder >= startAlder.maaneder)) &&
+      (!sluttAlder ||
+        uttaksalder.aar < sluttAlder.aar ||
+        (uttaksalder.aar === sluttAlder.aar &&
+          uttaksalder.maaneder <= sluttAlder.maaneder))
+    )
+  })
 }
 
 export const hentSumPensjonsavtalerVedUttak = (

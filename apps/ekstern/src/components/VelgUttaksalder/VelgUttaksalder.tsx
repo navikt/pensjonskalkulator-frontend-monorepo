@@ -39,9 +39,14 @@ export const VelgUttaksalder: React.FC<Props> = ({
   )
 
   const onAlderClick = (formatertAlder: string) => {
+    // TODO: fjern når amplitude er ikke i bruk lenger
     logger('chip valgt', {
       tekst: 'Velg uttaksalder',
       data: formatertAlder,
+    })
+    logger('chip valgt', {
+      tekst: 'Velg uttaksalder',
+      chipVerdi: formatertAlder,
     })
     const alder = unformatUttaksalder(formatertAlder)
     dispatch(userInputActions.setCurrentSimulationUttaksalder(alder))

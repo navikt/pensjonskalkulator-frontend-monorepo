@@ -75,8 +75,13 @@ export const EndreInntekt: React.FC<Props> = ({
   }
 
   const openInntektModal = () => {
+    // TODO: fjern når amplitude er ikke i bruk lenger
     logger('modal åpnet', {
       tekst: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
+    })
+    logger('modal åpnet', {
+      modalId: 'inntekt-modal',
+      tittel: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
     })
     inntektModalRef.current?.showModal()
   }
@@ -85,7 +90,7 @@ export const EndreInntekt: React.FC<Props> = ({
     const tekst = intl.formatMessage({
       id,
     })
-    logger('skjema validering feilet', {
+    logger('skjemavalidering feilet', {
       skjemanavn: ENDRE_INNTEKT_FORM_NAME,
       data: intl.formatMessage({
         id: 'inntekt.endre_inntekt_modal.textfield.label',
@@ -102,7 +107,11 @@ export const EndreInntekt: React.FC<Props> = ({
     const inntektData = data.get('inntekt') as string | undefined
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
+      // TODO: fjern når amplitude er ikke i bruk lenger
       logger('button klikk', {
+        tekst: `endrer pensjonsgivende inntekt ${visning}`,
+      })
+      logger('knapp klikket', {
         tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })
       window.scrollTo(0, 0)

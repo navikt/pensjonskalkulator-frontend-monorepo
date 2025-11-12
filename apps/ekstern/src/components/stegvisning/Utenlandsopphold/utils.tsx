@@ -24,7 +24,7 @@ export const onSubmit = (
         top: tekst,
       }
     })
-    logger('skjema validering feilet', {
+    logger('skjemavalidering feilet', {
       skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
       data: intl.formatMessage({
         id: 'stegvisning.utenlandsopphold.radio_label',
@@ -44,7 +44,7 @@ export const onSubmit = (
           bottom: tekst,
         }
       })
-      logger('skjema validering feilet', {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
         data: intl.formatMessage({
           id: 'stegvisning.utenlandsopphold.radio_label',
@@ -56,7 +56,9 @@ export const onSubmit = (
         tekst: 'Utenlandsopphold',
         valg: utenlandsoppholdData,
       })
-      logger('button klikk', {
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger('button klikk', { tekst: `Neste fra ${paths.utenlandsopphold}` })
+      logger('knapp klikket', {
         tekst: `Neste fra ${paths.utenlandsopphold}`,
       })
       onNext(utenlandsoppholdData)

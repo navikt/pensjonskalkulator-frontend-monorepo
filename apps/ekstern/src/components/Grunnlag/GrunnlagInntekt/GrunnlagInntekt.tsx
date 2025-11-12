@@ -34,8 +34,13 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     e?.preventDefault()
+    // TODO: fjern når amplitude er ikke i bruk lenger
     logger('modal åpnet', {
       tekst: 'Grunnlag: info om pensjonsgivende inntekt',
+    })
+    logger('modal åpnet', {
+      modalId: 'info-modal',
+      tittel: 'Grunnlag: info om pensjonsgivende inntekt',
     })
     infoModalRef.current?.showModal()
   }

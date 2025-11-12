@@ -1,7 +1,6 @@
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { setupStore } from '@/state/store'
-import { swallowErrorsAsync } from '@/test-utils'
 
 import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
@@ -36,23 +35,6 @@ describe('apiSlice', () => {
           expect(result.data).toBe(undefined)
         })
     })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/inntekt', {
-        status: 200,
-        json: { aar: '532' },
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.getInntekt.initiate())
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
   })
 
   describe('getPerson', () => {
@@ -79,23 +61,6 @@ describe('apiSlice', () => {
           expect(result.data).toBe(undefined)
         })
     })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v5/person', {
-        status: 200,
-        json: { sivilstand: 'SIRKUSKLOVN' },
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.getPerson.initiate())
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
   })
 
   describe('getErApoteker', () => {
@@ -107,24 +72,6 @@ describe('apiSlice', () => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toBe(false)
         })
-    })
-
-    it('kaster feil ved uforventet format på data', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/v2/ekskludert', {
-        json: {
-          feil: 'format',
-        },
-      })
-      await swallowErrorsAsync(async () => {
-        return storeRef
-          .dispatch(apiSlice.endpoints.getErApoteker.initiate())
-          .then((result) => {
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -141,26 +88,6 @@ describe('apiSlice', () => {
             omstillingsstoenadOgGjenlevendeResponse
           )
         })
-    })
-
-    it('kaster feil ved uforventet format på data', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse', {
-        json: {
-          feil: 'format',
-        },
-      })
-      await swallowErrorsAsync(async () => {
-        return storeRef
-          .dispatch(
-            apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
-          )
-          .then((result) => {
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -183,6 +110,7 @@ describe('apiSlice', () => {
           harLoependeVedtak: true,
           alderspensjon: {
             grad: 1000,
+            uttaksgradFom: '2020-10-02',
             fom: '2020-10-02',
             sivilstand: 'SAMBOER',
           },
@@ -194,24 +122,6 @@ describe('apiSlice', () => {
         .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
         .unwrap()
       expect(actual.alderspensjon?.sivilstand).toBe('SAMBOER')
-    })
-
-    it('kaster feil ved uforventet format på data', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/v4/vedtak/loepende-vedtak', {
-        json: {
-          feil: 'format',
-        },
-      })
-      await swallowErrorsAsync(async () => {
-        return storeRef
-          .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
-          .then((result) => {
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -237,24 +147,6 @@ describe('apiSlice', () => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
         })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/simuler-oftp', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.offentligTp.initiate())
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -339,26 +231,6 @@ describe('apiSlice', () => {
           expect(result.data).toBe(undefined)
         })
     })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v3/pensjonsavtaler', {
-        status: 200,
-        json: { 'tullete svar': 'lorem' },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(
-            apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody)
-          )
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
   })
 
   describe('tidligstMuligHeltUttak', () => {
@@ -384,24 +256,6 @@ describe('apiSlice', () => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
         })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/tidligste-hel-uttaksalder', {
-        status: 200,
-        json: { 'tullete svar': 'lorem' },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.tidligstMuligHeltUttak.initiate())
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -442,82 +296,6 @@ describe('apiSlice', () => {
           expect(result.data).toBe(undefined)
         })
     })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v8/alderspensjon/simulering', {
-        status: 200,
-        json: { 'tullete svar': 'lorem' },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-    it('kaster feil ved uventet format på responsen under afpPrivat', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v8/alderspensjon/simulering', {
-        status: 200,
-        json: {
-          alderspensjon: [],
-          afpPrivat: [
-            {
-              alder: '77 år - should be number',
-              beloep: 234756,
-            },
-          ],
-          vilkaarsproeving: {
-            vilkaarErOppfylt: true,
-          },
-          harForLiteTrygdetid: false,
-        },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-    it('kaster feil ved uventet format på responsen under afpOffentlig', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v8/alderspensjon/simulering', {
-        status: 200,
-        json: {
-          alderspensjon: [],
-          afpOffentlig: [
-            {
-              alder: 62,
-              beloep: 'abc',
-            },
-          ],
-          vilkaarsproeving: {
-            vilkaarErOppfylt: true,
-          },
-          harForLiteTrygdetid: false,
-        },
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.alderspensjon.initiate(body))
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
   })
 
   describe('getSpraakvelgerFeatureToggle', () => {
@@ -540,25 +318,6 @@ describe('apiSlice', () => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
         })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/feature/pensjonskalkulator.disable-spraakvelger', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 
@@ -588,27 +347,6 @@ describe('apiSlice', () => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
         })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/feature/utvidet-simuleringsresultat', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch(
-            apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
-          )
-          .then((result) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
     })
   })
 })

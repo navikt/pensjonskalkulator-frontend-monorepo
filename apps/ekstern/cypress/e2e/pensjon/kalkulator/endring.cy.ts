@@ -43,6 +43,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -79,6 +80,74 @@ describe('Endring av alderspensjon', () => {
 
       // 4
       describe('Som bruker som har svart "ja, offentlig" på spørsmål om AFP, og navigerer hele veien til resultatssiden', () => {
+        // Apoteker error scenario - egen test for endring context
+        describe('Gitt at bruker er født 1963 eller senere, og kall til /er-apoteker feiler', () => {
+          beforeEach(() => {
+            cy.intercept(
+              {
+                method: 'GET',
+                url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
+              },
+              { fixture: 'loepende-vedtak-endring.json' }
+            ).as('getLoependeVedtak')
+            cy.intercept(
+              {
+                method: 'POST',
+                url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              },
+              { fixture: 'alderspensjon_endring.json' }
+            ).as('fetchAlderspensjon')
+            // Setup apoteker error scenario
+            cy.setupApotekerError()
+
+            cy.clock(new Date(2029, 7, 1, 12, 0, 0), ['Date'])
+            cy.login()
+
+            // Set Redux state after login
+            cy.setApotekerErrorState()
+
+            // Verifiser at state er satt riktig
+            cy.window()
+              .its('store')
+              .invoke('getState')
+              .its('session')
+              .should('deep.include', {
+                hasErApotekerError: true,
+              })
+
+            // Naviger til endring flow - trykk kom i gang
+            cy.contains('button', 'Kom i gang').click()
+
+            // Velg AFP offentlig
+            cy.get('[type="radio"]').eq(0).check()
+            cy.contains('button', 'Neste').click()
+
+            // Huker av "ja" på samtykke steget
+            cy.get('[type="radio"]').first().check()
+            cy.contains('button', 'Neste').click()
+
+            // Fyll ut uttak detaljer og beregn
+            cy.get(
+              '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+            ).select('65')
+            cy.get(
+              '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+            ).select('4')
+            cy.get('[data-testid="uttaksgrad"]').select('100 %')
+            cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+            cy.contains('Beregn ny pensjon').click()
+            cy.contains('Beregning').should('exist')
+          })
+
+          it('forventer jeg informasjon om at beregning med AFP kan bli feil hvis jeg er medlem av Pensjonsordningen for apotekvirksomhet og at jeg må prøve igjen senere', () => {
+            // Verifiser at vi er på beregningssiden
+            cy.location('pathname').should('include', '/beregning')
+
+            // Sjekk for apoteker-warning
+            cy.get('[data-testid="apotekere-warning"]').should('exist')
+          })
+        })
+
         beforeEach(() => {
           cy.contains('button', 'Kom i gang').click()
           cy.get('[type="radio"]').eq(0).check()
@@ -464,6 +533,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
+              uttaksgradFom: '2020-01-01',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -503,6 +573,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -761,6 +832,175 @@ describe('Endring av alderspensjon', () => {
       })
     })
 
+    describe('Som bruker som har gjeldende vedtak på gammel AFP (offentlig)', () => {
+      beforeEach(() => {
+        cy.setupPersonFoedtFoer1963()
+        cy.setupLoependeVedtakWithPre2025OffentligAFP()
+        cy.login()
+      })
+
+      it('forventer jeg informasjon på startsiden om at jeg har gammel AFP og hvilken uttaksgrad.', () => {
+        cy.get(
+          '[data-testid="stegvisning-start-ingress-pre2025-offentlig-afp"]'
+        ).should('exist')
+      })
+      it('forventer jeg å kunne gå videre ved å trykke kom i gang ', () => {
+        cy.get('[data-testid="stegvisning-start-button"]').click()
+        cy.location('pathname').should('include', '/beregning-detaljert')
+      })
+
+      describe('Som bruker som har valgt uttaksalder som er 67 år eller senere,', () => {
+        it('forventer jeg å kunne velge pensjonsalder for endring mellom dagens alder + 1 md og 75 år + 0 md', () => {
+          cy.get('[data-testid="stegvisning-start-button"]').click()
+          cy.location('pathname').should('include', '/beregning-detaljert')
+
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).should('exist')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).should('exist')
+
+          // Sjekker at 75 år er tilgjengelig som maksimum
+          cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]')
+            .select('75')
+            .should('exist')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"] option[value="76"]'
+          ).should('not.exist')
+
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('67')
+
+          //Verifiserer at 0 måned er 1 måned etter dagens måned som er april
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).then((selectElements) => {
+            const options = selectElements.find('option')
+            expect(options.eq(0).text()).equal('0 md. (mai)')
+          })
+        })
+
+        it('forventer jeg å kunne oppgi inntekt ved siden av 100% alderspensjon og beregne ny pensjon', () => {
+          cy.get('[data-testid="stegvisning-start-button"]').click()
+          cy.location('pathname').should('include', '/beregning-detaljert')
+
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('67')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).select('4')
+          cy.get('[data-testid="uttaksgrad"]').select('100 %')
+          cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
+          cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+          ).should('be.visible')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+          ).should('be.visible')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+          ).select('70')
+
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+          ).select('75')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+          ).select('3')
+
+          cy.get('[data-testid="beregn-pensjon"]').click()
+
+          cy.location('pathname').should('include', '/beregning')
+        })
+      })
+    })
+
+    describe('Som bruker som har om 0 % alderspensjon ', () => {
+      beforeEach(() => {
+        cy.setupPersonFoedtFoer1963()
+        cy.setupLoependeVedtakWithPre2025OffentligAFP(0)
+        cy.login()
+      })
+
+      it('forventer jeg informasjon på startsiden om at jeg har 0 % alderspensjon og AFP i offentlig sektor', () => {
+        cy.get(
+          '[data-testid="stegvisning-start-ingress-pre2025-offentlig-afp"]'
+        )
+          .should('exist')
+          .and('contain', '0 %')
+      })
+
+      it('forventer jeg å kunne velge mellom 0, 20, 40, 50, 60, 80, 100 % uttaksgrad', () => {
+        cy.get('[data-testid="stegvisning-start-button"]').click()
+        cy.location('pathname').should('include', '/beregning-detaljert')
+
+        cy.contains('uttaksgrad').should('exist')
+        cy.get('[data-testid="uttaksgrad"]').then((selectElements) => {
+          const options = selectElements.find('option')
+          expect(options.length).equal(8)
+        })
+      })
+      describe('Når jeg har trykket kom i gang og er kommet til beregningssiden i redigeringsmodus,', () => {
+        beforeEach(() => {
+          cy.get('[data-testid="stegvisning-start-button"]').click()
+          cy.location('pathname').should('include', '/beregning-detaljert')
+
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
+          ).select('67')
+          cy.get(
+            '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+          ).select('4')
+          cy.get('[data-testid="uttaksgrad"]').select('100 %')
+          cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
+          cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+          ).should('be.visible')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+          ).should('be.visible')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+          ).select('75')
+          cy.get(
+            '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+          ).select('3')
+
+          cy.get('[data-testid="beregn-pensjon"]').click()
+          cy.location('pathname').should('include', '/beregning')
+        })
+
+        it('forventer jeg informasjon om uttaksgrad,hva siste månedlige utbetaling var, og hva månedlig alderspensjon vil bli de månedene jeg har valgt å endre fra.', () => {
+          cy.get(
+            '[data-intl="beregning.endring.rediger.vedtak_grad_status"]'
+          ).should('exist')
+        })
+
+        it('forventer jeg en lenke for å endre mine valg.', () => {
+          cy.get('[data-testid="endre-valg"]').should('exist')
+        })
+
+        it('forventer jeg informasjon om at pensjonsavtaler ikke er med i beregningen.', () => {
+          cy.get('[data-testid="pensjonsavtaler-alert"]').should('exist')
+        })
+
+        it('forventer jeg tilpasset informasjon i grunnlag: beregningen av alderspensjon tar høyde for at jeg mottar AFP i offentlig sektor, men vises ikke i beregningen.', () => {
+          cy.get('[data-intl="grunnlag.title"]').should('exist')
+          cy.get('[data-intl="grunnlag-sivilstand"]').click({
+            force: true,
+          })
+          cy.get('[data-intl="grunnlag.afp.ingress.overgangskull"]').should(
+            'exist'
+          )
+        })
+      })
+    })
+
     // OBS: Dette er ikke i Jira
     describe('Som bruker som har gjeldende vedtak på alderspensjon og Livsvarig AFP (offentlig)', () => {
       beforeEach(() => {
@@ -773,6 +1013,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 80,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -810,6 +1051,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 80,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -1079,6 +1321,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 50,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -1117,6 +1360,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 50,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },
@@ -1363,6 +1607,7 @@ describe('Endring av alderspensjon', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2010-10-10',
               fom: '2010-10-10',
               sivilstand: 'UGIFT',
             },
@@ -1401,6 +1646,7 @@ describe('Endring av alderspensjon', () => {
               harLoependeVedtak: true,
               alderspensjon: {
                 grad: 0,
+                uttaksgradFom: '2010-10-10',
                 fom: '2010-10-10',
                 sivilstand: 'UGIFT',
               },

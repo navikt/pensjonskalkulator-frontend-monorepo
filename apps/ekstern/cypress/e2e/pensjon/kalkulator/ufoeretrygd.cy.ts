@@ -151,6 +151,69 @@ describe('Med ufoeretrygd', () => {
           'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen.'
         ).should('exist')
       })
+
+      describe('Gitt at bruker er født 1963 eller senere, og kall til /er-apoteker feiler', () => {
+        beforeEach(() => {
+          // Setup intercepts before login
+          cy.setupApotekerError()
+
+          cy.intercept(
+            {
+              method: 'GET',
+              url: '/pensjon/kalkulator/api/v4/vedtak/loepende-vedtak',
+            },
+            {
+              ...loependeVedtakMock,
+              harLoependeVedtak: true,
+              ufoeretrygd: { grad: 90 },
+            } satisfies LoependeVedtak
+          ).as('getLoependeVedtak')
+
+          cy.login()
+
+          // Set Redux state after login
+          cy.setApotekerErrorState()
+
+          // Verifiser at state er satt riktig
+          cy.window()
+            .its('store')
+            .invoke('getState')
+            .its('session')
+            .should('deep.include', {
+              hasErApotekerError: true,
+            })
+
+          cy.contains('button', 'Kom i gang').click()
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').last().check() // Sivilstand
+          cy.contains('button', 'Neste').click()
+          cy.contains('button', 'Neste').click() // Utenlandsopphold
+          cy.get('[type="radio"]').eq(0).check() // AFP Offentlig
+          cy.contains('button', 'Neste').click()
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').last().check() // Pensjonsavtaler
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').first().check() // Samtykke
+          cy.contains('button', 'Neste').click()
+          cy.contains('button', '67 år').click()
+        })
+
+        it('forventer jeg informasjon om at beregning med AFP kan bli feil hvis jeg er medlem av Pensjonsordningen for apotekvirksomhet og at jeg må prøve igjen senere', () => {
+          // Verifiser at vi er på beregningssiden
+          cy.location('pathname').should('include', '/beregning')
+
+          // Sjekk for apoteker-warning
+          cy.get('[data-testid="apotekere-warning"]').should('exist')
+        })
+
+        it('forventer jeg ingen informasjon om AFP på beregningssiden', () => {
+          // Verifiser at vi er på beregningssiden
+          cy.location('pathname').should('include', '/beregning')
+
+          // Sjekk at det ikke finnes noen AFP-relaterte elementer
+          cy.get('[data-testid="grunnlag-afp"]').should('not.exist')
+        })
+      })
     })
 
     describe('Når jeg svarer "ja, privat" på spørsmål om AFP,', () => {

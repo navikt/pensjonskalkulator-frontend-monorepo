@@ -64,6 +64,19 @@ export const isFoedtFoer1963 = (foedselsdato: string): boolean => {
   )
 }
 
+export const isFoedtEtter1963 = (
+  foedselsdato: string | undefined | null
+): boolean | null => {
+  if (!foedselsdato) {
+    return null
+  }
+  const FIRST_DAY_1963 = new Date(1963, 0, 1)
+  return (
+    isAfter(new Date(foedselsdato), FIRST_DAY_1963) ||
+    isSameDay(new Date(foedselsdato), FIRST_DAY_1963)
+  )
+}
+
 export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   const LAST_DAY_1963 = new Date(1963, 11, 31)
   return (
@@ -86,6 +99,8 @@ export const isAlderOver =
   }
 
 export const isAlderOver67 = isAlderOver(67)
+
+export const isAlderOver62 = isAlderOver(62)
 
 export const isAlder75MaanedenFylt = (foedselsdato: string): boolean => {
   const TODAY = new Date()

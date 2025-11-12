@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useLocation, useNavigation } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
+import { SanityContext } from '@/context/SanityContext'
 import { HOST_BASEURL } from '@/paths'
 import { useAppSelector } from '@/state/hooks'
 import { selectIsLoggedIn } from '@/state/session/selectors'
@@ -28,6 +29,7 @@ export const PageFramework: React.FC<{
   shouldShowLogo?: boolean
   shouldRedirectNonAuthenticated?: boolean
   showLoader?: boolean
+  noMinHeight?: boolean
   children?: React.JSX.Element
 }> = ({
   shouldRedirectNonAuthenticated = true,
@@ -39,6 +41,7 @@ export const PageFramework: React.FC<{
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const { pathname } = useLocation()
   const { state } = useNavigation()
+  const { isSanityLoading } = useContext(SanityContext)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -48,7 +51,7 @@ export const PageFramework: React.FC<{
     return <RedirectElement />
   }
 
-  if (state === 'loading' && showLoader) {
+  if (showLoader && (state === 'loading' || isSanityLoading)) {
     return (
       <FrameComponent {...rest}>
         <Loader

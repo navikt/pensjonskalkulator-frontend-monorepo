@@ -203,6 +203,7 @@ describe('afpContent', () => {
       },
       alderspensjon: {
         grad: 100,
+        uttaksgradFom: '2022-01-01',
         fom: '2022-01-01',
         sivilstand: 'UGIFT',
       },
@@ -561,6 +562,7 @@ describe('afpContent', () => {
             grad: 50,
           },
           alderspensjon: {
+            uttaksgradFom: '2022-01-01',
             fom: '2022-01-01',
             grad: 50,
             sivilstand: 'GIFT',
@@ -587,6 +589,7 @@ describe('afpContent', () => {
             grad: 50,
           },
           alderspensjon: {
+            uttaksgradFom: '2022-01-01',
             fom: '2022-01-01',
             grad: 50,
             sivilstand: 'GIFT',
@@ -615,6 +618,7 @@ describe('afpContent', () => {
             grad: 50,
           },
           alderspensjon: {
+            uttaksgradFom: '2022-01-01',
             fom: '2022-01-01',
             grad: 50,
             sivilstand: 'GIFT',
@@ -641,6 +645,7 @@ describe('afpContent', () => {
             grad: 50,
           },
           alderspensjon: {
+            uttaksgradFom: '2022-01-01',
             fom: '2022-01-01',
             grad: 50,
             sivilstand: 'GIFT',
@@ -673,6 +678,7 @@ describe('afpContent', () => {
               fom: '2022-01-01',
             },
             alderspensjon: {
+              uttaksgradFom: '2022-01-01',
               fom: '2022-01-01',
               grad: 50,
               sivilstand: 'GIFT',
@@ -719,6 +725,7 @@ describe('afpContent', () => {
               grad: 0,
             },
             alderspensjon: {
+              uttaksgradFom: '2022-01-01',
               fom: '2022-01-01',
               grad: 0,
               sivilstand: 'GIFT',
@@ -749,6 +756,7 @@ describe('afpContent', () => {
               grad: 0,
             },
             alderspensjon: {
+              uttaksgradFom: '2022-01-01',
               fom: '2022-01-01',
               grad: 100,
               sivilstand: 'GIFT',
@@ -862,6 +870,7 @@ describe('afpContent', () => {
           const loependeVedtak: LoependeVedtak = {
             harLoependeVedtak: false,
             alderspensjon: {
+              uttaksgradFom: '2022-01-01',
               fom: '2022-01-01',
               sivilstand: 'GIFT',
               grad: 100,
@@ -909,6 +918,7 @@ describe('afpContent', () => {
           const loependeVedtak: LoependeVedtak = {
             harLoependeVedtak: false,
             alderspensjon: {
+              uttaksgradFom: '2022-01-01',
               fom: '2022-01-01',
               sivilstand: 'GIFT',
               grad: 50,
@@ -936,6 +946,7 @@ describe('afpContent', () => {
             harLoependeVedtak: false,
             alderspensjon: {
               fom: '2022-01-01',
+              uttaksgradFom: '2022-01-01',
               sivilstand: 'GIFT',
               grad: 0,
             },
@@ -961,6 +972,7 @@ describe('afpContent', () => {
             harLoependeVedtak: false,
             alderspensjon: {
               fom: '2022-01-01',
+              uttaksgradFom: '2022-01-01',
               sivilstand: 'GIFT',
               grad: 0,
             },

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
@@ -30,6 +30,8 @@ import {
   getBrukerensAlderISluttenAvMaaneden,
 } from '@/utils/alder'
 import { updateAndFormatInntektFromInputField } from '@/utils/inntekt'
+import { ALERT_VIST } from '@/utils/loggerConstants'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import {
@@ -384,6 +386,18 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     valgtAFP === 'ja_privat'
 
   const showFormFields = hasSelectedBeregning || !hasSelectedAFP
+
+  useEffect(() => {
+    if (
+      showFormFields &&
+      validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato]
+    ) {
+      logger(ALERT_VIST, {
+        tekst: '12 måneders regel, du kan tidligst endre uttaksgrad',
+        variant: 'warning',
+      })
+    }
+  }, [validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato]])
 
   return (
     <>

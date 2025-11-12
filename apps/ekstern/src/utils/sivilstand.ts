@@ -40,25 +40,30 @@ export const formatSivilstand = (
   intl: IntlShape,
   sivilstand: Sivilstand
 ): string => {
+  const SIVILSTAND_PREFIX = 'sivilstand'
   const sivilstandMap: Record<Sivilstand, string> = {
-    UNKNOWN: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
-    UOPPGITT: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
-    UGIFT: intl.formatMessage({ id: 'sivilstand.UGIFT' }),
-    GIFT: intl.formatMessage({ id: 'sivilstand.GIFT' }),
+    UNKNOWN: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.UGIFT` }),
+    UOPPGITT: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.UGIFT` }),
+    UGIFT: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.UGIFT` }),
+    GIFT: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.GIFT` }),
     ENKE_ELLER_ENKEMANN: intl.formatMessage({
-      id: 'sivilstand.ENKE_ELLER_ENKEMANN',
+      id: `${SIVILSTAND_PREFIX}.ENKE_ELLER_ENKEMANN`,
     }),
-    SKILT: intl.formatMessage({ id: 'sivilstand.SKILT' }),
-    SEPARERT: intl.formatMessage({ id: 'sivilstand.SEPARERT' }),
+    SKILT: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.SKILT` }),
+    SEPARERT: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.SEPARERT` }),
     REGISTRERT_PARTNER: intl.formatMessage({
-      id: 'sivilstand.REGISTRERT_PARTNER',
+      id: `${SIVILSTAND_PREFIX}.REGISTRERT_PARTNER`,
     }),
-    SEPARERT_PARTNER: intl.formatMessage({ id: 'sivilstand.SEPARERT_PARTNER' }),
-    SKILT_PARTNER: intl.formatMessage({ id: 'sivilstand.SKILT_PARTNER' }),
+    SEPARERT_PARTNER: intl.formatMessage({
+      id: `${SIVILSTAND_PREFIX}.SEPARERT_PARTNER`,
+    }),
+    SKILT_PARTNER: intl.formatMessage({
+      id: `${SIVILSTAND_PREFIX}.SKILT_PARTNER`,
+    }),
     GJENLEVENDE_PARTNER: intl.formatMessage({
-      id: 'sivilstand.GJENLEVENDE_PARTNER',
+      id: `${SIVILSTAND_PREFIX}.GJENLEVENDE_PARTNER`,
     }),
-    SAMBOER: intl.formatMessage({ id: 'sivilstand.SAMBOER' }),
+    SAMBOER: intl.formatMessage({ id: `${SIVILSTAND_PREFIX}.SAMBOER` }),
   }
 
   return sivilstandMap[sivilstand]

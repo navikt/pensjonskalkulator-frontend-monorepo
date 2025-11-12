@@ -2,6 +2,18 @@ import { IntlShape } from 'react-intl'
 
 import { isFoedtFoer1963 } from '@/utils/alder'
 
+const getOffentligMessage = (intl: IntlShape) =>
+  intl.formatMessage({ id: 'afp.offentlig' })
+const getIkkeBeregnetMessage = (intl: IntlShape) =>
+  intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })
+const getPrivatMessage = (intl: IntlShape) =>
+  intl.formatMessage({ id: 'afp.privat' })
+const getNeiMessage = (intl: IntlShape) => intl.formatMessage({ id: 'afp.nei' })
+const getVetIkkeMessage = (intl: IntlShape) =>
+  intl.formatMessage({ id: 'afp.vet_ikke' })
+const getEndringMessage = (intl: IntlShape) =>
+  intl.formatMessage({ id: 'grunnlag.afp.endring' })
+
 interface IAfpGrunnlagInput {
   afpUtregning: AfpUtregningValg
   afpValg: AfpRadio | null
@@ -14,60 +26,60 @@ interface IAfpGrunnlagInput {
 
 export const afpContentIntl = (intl: IntlShape) => ({
   offentligIkkeBeregnet_1: {
-    title: `${intl.formatMessage({ id: 'afp.offentlig' })} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`,
+    title: `${getOffentligMessage(intl)} (${getIkkeBeregnetMessage(intl)})`,
     content: 'grunnlag.afp.ingress.ja_offentlig_utilgjengelig',
   },
 
   afpOffentligOppgitt_2: {
-    title: `${intl.formatMessage({ id: 'afp.offentlig' })}`,
+    title: `${getOffentligMessage(intl)}`,
     content: 'grunnlag.afp.ingress.ja_offentlig',
   },
 
   offentligAfpOgUforeKanIkkeBeregnes_3: {
-    title: `${intl.formatMessage({ id: 'afp.offentlig' })} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`,
+    title: `${getOffentligMessage(intl)} (${getIkkeBeregnetMessage(intl)})`,
     content: 'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd',
   },
 
   afpPrivat_4: {
-    title: `${intl.formatMessage({ id: 'afp.privat' })}`,
+    title: `${getPrivatMessage(intl)}`,
     content: 'grunnlag.afp.ingress.ja_privat',
   },
 
   afpPrivatIkkeBeregnet_5: {
-    title: `${intl.formatMessage({ id: 'afp.privat' })} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`,
+    title: `${getPrivatMessage(intl)} (${getIkkeBeregnetMessage(intl)})`,
     content: 'grunnlag.afp.ingress.ja_privat.ufoeretrygd',
   },
 
   afpIkkeSvart_6: {
-    title: `${intl.formatMessage({ id: 'afp.nei' })}`,
+    title: `${getNeiMessage(intl)}`,
     content: 'grunnlag.afp.ingress.nei',
   },
 
   afpVetIkke_7: {
-    title: `${intl.formatMessage({ id: 'afp.vet_ikke' })}`,
+    title: `${getVetIkkeMessage(intl)}`,
     content: 'grunnlag.afp.ingress.vet_ikke',
   },
 
   afpVetIkkeUforetrygd_8: {
-    title: `${intl.formatMessage({ id: 'afp.vet_ikke' })}`,
+    title: `${getVetIkkeMessage(intl)}`,
     content: 'grunnlag.afp.ingress.vet_ikke.ufoeretrygd',
   },
 
   afpUforetrygd_9: {
-    title: `${intl.formatMessage({ id: 'afp.nei' })}`,
+    title: `${getNeiMessage(intl)}`,
     content: 'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap',
   },
 
   afpUforetrygdNei_10: {
-    title: `${intl.formatMessage({ id: 'afp.nei' })}`,
+    title: `${getNeiMessage(intl)}`,
     content: 'grunnlag.afp.ingress.ufoeretrygd',
   },
   afpPrivatUendret_11: {
-    title: `${intl.formatMessage({ id: 'afp.privat' })} (${intl.formatMessage({ id: 'grunnlag.afp.endring' })})`,
+    title: `${getPrivatMessage(intl)} (${getEndringMessage(intl)})`,
     content: 'grunnlag.afp.ingress.ja_privat.endring',
   },
   harAfpOffentlig_12: {
-    title: `${intl.formatMessage({ id: 'afp.offentlig' })}`,
+    title: `${getOffentligMessage(intl)}`,
     content: 'grunnlag.afp.ingress.overgangskull',
   },
 })
@@ -171,10 +183,7 @@ export const generateAfpContent =
           }
 
           default: {
-            // Tilfelle for null/undefined
-            if (!isKap19OrApoteker && (hasLoependeVedtak || hasAlderspensjon)) {
-              return content.afpUforetrygdNei_10
-            }
+            // Tilfelle for null/undefined - alltid return content.afpUforetrygdNei_10
             return content.afpUforetrygdNei_10
           }
         }

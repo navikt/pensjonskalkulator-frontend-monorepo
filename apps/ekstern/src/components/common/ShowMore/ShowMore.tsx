@@ -84,7 +84,7 @@ export interface ShowMoreProps
   scrollBackOnCollapse?: boolean
   /**
    * Navn på på innhold.
-   * Brukes til logging i amplitude
+   * Brukes til logging i Umami
    */
   name: string
 }

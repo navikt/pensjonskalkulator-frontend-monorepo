@@ -231,11 +231,11 @@ describe('StepAFP', () => {
       },
     })
 
-    mockResponse('/v2/ekskludert', {
+    mockResponse('/v1/er-apoteker', {
       status: 200,
       json: {
         aarsak: 'ER_APOTEKER',
-        ekskludert: true,
+        apoteker: true,
       },
     })
 

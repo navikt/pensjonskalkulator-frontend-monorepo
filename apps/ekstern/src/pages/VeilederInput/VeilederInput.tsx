@@ -30,16 +30,15 @@ import {
   selectVeilederBorgerFnr,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { isFoedtFoer1963 } from '@/utils/alder'
 
-import { AlertDelB } from './AlertDelB'
 import { VeilederInputRequestError } from './VeilederInputRequestError'
 
 import styles from './VeilederInput.module.scss'
 
-const router = createBrowserRouter(routes, {
-  basename: `${BASE_PATH}/veileder`,
-})
+const router = () =>
+  createBrowserRouter(routes, {
+    basename: `${BASE_PATH}/veileder`,
+  })
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
@@ -54,18 +53,9 @@ export const VeilederInput = () => {
     isSuccess: personSuccess,
     isFetching: personLoading,
     error: personError,
-    data: personData,
   } = useGetPersonQuery(undefined, {
     skip: !veilederBorgerFnr || !veilederBorgerEncryptedFnr,
   })
-
-  const showDelbWarning = React.useMemo(
-    () =>
-      personData?.foedselsdato &&
-      isFoedtFoer1963(personData?.foedselsdato) &&
-      veilederBorgerFnr,
-    [veilederBorgerFnr, personData?.foedselsdato]
-  )
 
   const [encryptedRequestLoading, setEncryptedRequestLoading] = React.useState<
     'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'
@@ -200,15 +190,12 @@ export const VeilederInput = () => {
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
         {veilederBorgerFnr && <BorgerInformasjon fnr={veilederBorgerFnr} />}
-        <div className={styles.alert}>
-          {showDelbWarning && <AlertDelB fnr={veilederBorgerFnr!} />}
-        </div>
-        <RouterProvider router={router} />
+        <RouterProvider router={router()} />
       </div>
     )
   }
 }
 
 if (window.Cypress) {
-  window.router = router
+  window.router = router()
 }

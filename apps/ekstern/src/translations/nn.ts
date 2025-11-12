@@ -14,7 +14,6 @@ export default {
   'application.title.securityLevel_feil': 'MANGLER_TEKST',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
-  'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
   'application.title.personopplysninger':
     'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
@@ -50,11 +49,7 @@ export default {
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (Nav), avtalefesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',
   'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert pensjonskalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
-  'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Logg inn i detaljert pensjonskalkulator',
-  'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
+    'I pensjonskalkulatoren kan du få et estimat på',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i pensjonskalkulator',
   'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
@@ -64,8 +59,6 @@ export default {
     'For deg som ikkje kan logge inn på nav.no. Kalkulatoren hentar ikkje inn og lagrar ikkje  opplysningar om deg. Du må sjølv finne og gje opp alle opplysningane til kalkulatoren, og du får kun svar på kva du kan rekne med å få i alderspensjon frå folketrygda (Nav).',
   'landingsside.link.personopplysninger':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
-  'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -81,6 +74,8 @@ export default {
   'stegvisning.start.endring.ingress_1b.uten_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.endring.ingress_1b.med_fremtidig': 'MANGLER_TEKST',
   'stegvisning.start.ingress.pre2025_offentlig_afp': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ingress.pre2025_offentlig_afp_fremtidig':
+    'MANGLER_TEKST',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.list_item1': 'MANGLER_TEKST',
   'stegvisning.start.list_item2': 'MANGLER_TEKST',
@@ -286,7 +281,7 @@ export default {
     'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
-    'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
+    'Du har ikkje høg nok opptening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',

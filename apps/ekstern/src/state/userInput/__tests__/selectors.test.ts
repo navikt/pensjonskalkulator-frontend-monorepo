@@ -227,6 +227,7 @@ describe('userInput selectors', () => {
                 harLoependeVedtak: true,
                 alderspensjon: {
                   grad: 100,
+                  uttaksgradFom: '2020-10-02',
                   fom: '2020-10-02',
                   sivilstand: 'GIFT',
                 },

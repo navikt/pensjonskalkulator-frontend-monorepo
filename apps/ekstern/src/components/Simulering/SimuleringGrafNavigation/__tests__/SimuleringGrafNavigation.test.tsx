@@ -50,7 +50,7 @@ describe('SimuleringGrafNavigation', () => {
       />
     )
     fireEvent.click(screen.getByText('beregning.button.faerre_aar'))
-    expect(wrapLoggerMock).toHaveBeenCalledWith('button klikk', {
+    expect(wrapLoggerMock).toHaveBeenCalledWith('knapp klikket', {
       tekst: 'Vis færre år',
     })
     expect(onVisFaerreAarClickMock).toHaveBeenCalled()
@@ -66,7 +66,7 @@ describe('SimuleringGrafNavigation', () => {
     )
 
     fireEvent.click(screen.getByText('beregning.button.flere_aar'))
-    expect(wrapLoggerMock).toHaveBeenCalledWith('button klikk', {
+    expect(wrapLoggerMock).toHaveBeenCalledWith('knapp klikket', {
       tekst: 'Vis flere år',
     })
   })

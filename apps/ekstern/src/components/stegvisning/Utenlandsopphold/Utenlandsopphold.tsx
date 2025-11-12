@@ -71,7 +71,12 @@ export function Utenlandsopphold({
         }}
       />
 
-      <Heading level="2" size="medium" spacing>
+      <Heading
+        level="2"
+        size="medium"
+        spacing
+        data-testid="utenlandsopphold-heading"
+      >
         <FormattedMessage id="stegvisning.utenlandsopphold.title" />
       </Heading>
 

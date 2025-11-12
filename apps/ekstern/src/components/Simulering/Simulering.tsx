@@ -40,14 +40,11 @@ import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringG
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
 import { SERIES_DEFAULT } from './constants'
 import {
-  SeriesConfig,
+  type SeriesConfig,
   mergeAarligUtbetalinger,
   parseStartSluttUtbetaling,
 } from './data/data'
-import {
-  useHighchartsRegressionPlugin,
-  useSimuleringChartLocalState,
-} from './hooks'
+import { useSimuleringChartLocalState } from './hooks'
 
 import styles from './Simulering.module.scss'
 
@@ -190,8 +187,6 @@ export const Simulering = ({
       data: [],
     },
   ]
-  debugger
-
   console.log('data', data)
 
   useEffect(() => {
@@ -232,8 +227,6 @@ export const Simulering = ({
       )
     }
   }, [harSamtykket, uttaksalder])
-
-  useHighchartsRegressionPlugin()
 
   const [
     chartOptions,

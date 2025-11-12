@@ -28,6 +28,9 @@ import { UTENLANDSOPPHOLD_FORM_NAMES, onUtenlandsoppholdSubmit } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
 
+const MODAL_DESCRIPTION =
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold'
+
 interface Props {
   modalRef: React.RefObject<HTMLDialogElement | null>
   utenlandsperiode?: Utenlandsperiode
@@ -138,7 +141,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                 .overlappende_periodeslutt
                             ]
                           : intl.formatMessage({
-                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
+                              id: MODAL_DESCRIPTION,
                             }),
                       }
                     )
@@ -213,7 +216,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
+                                    id: MODAL_DESCRIPTION,
                                   }),
                             }
                           )
@@ -278,7 +281,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
+                                    id: MODAL_DESCRIPTION,
                                   }),
                             }
                           )

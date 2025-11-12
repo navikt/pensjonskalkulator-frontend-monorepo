@@ -41,7 +41,7 @@ export function AFPPrivat({
         id: 'stegvisning.afpPrivat.validation_error',
       })
       setValidationError(tekst)
-      logger('skjema validering feilet', {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.afp,
         data: intl.formatMessage({
           id: 'stegvisning.afp.radio_label',
@@ -53,7 +53,9 @@ export function AFPPrivat({
         tekst: 'Rett til AFP',
         valg: afpInput,
       })
-      logger('button klikk', {
+      // TODO: fjern når amplitude er ikke i bruk lenger
+      logger('button klikk', { tekst: `Neste fra ${paths.afp}` })
+      logger('knapp klikket', {
         tekst: `Neste fra ${paths.afp}`,
       })
       onNext(afpInput)

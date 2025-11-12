@@ -18,8 +18,6 @@ const translations = {
     'For lavt sikkerhetsnivå – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'application.title.henvisning.apotekerne':
-    'Henvisning apotekerne – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
@@ -54,18 +52,13 @@ const translations = {
   'error.virker_ikke.link': 'kontakte oss',
   'error.virker_ikke.button': 'Gå til Din pensjon',
   'error.apoteker_warning':
-    'Hvis du er medlem av Pensjonsordningen for apotekvirksomhet (POA) vil beregning av AFP og alderspensjon for øyeblikket bli feil. Prøv igjen senere.',
+    'Hvis du er medlem av Pensjonsordningen for apotekvirksomhet (POA) er beregning med AFP for øyeblikket feil. Prøv igjen senere.',
   'landingsside.for.deg.som.kan.logge.inn': 'For deg som kan logge inn',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Den gir deg et estimat på',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du få et estimat på ',
-  'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Hvis du er født før 1963 og har offentlig tjenestepensjon fra Statens pensjonskasse, kan du foreløpig kun se denne i detaljert pensjonskalkulator.',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Logg inn i detaljert pensjonskalkulator',
-  'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i pensjonskalkulator',
   'landingsside.button.enkel_kalkulator': 'Pensjonskalkulator',
@@ -75,9 +68,6 @@ const translations = {
     'Du kan bruke vår uinnloggede kalkulator. Den henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren gir deg et estimat på alderspensjon fra folketrygden (Nav) og AFP (avtalefestet pensjon) i privat sektor. Hvis du mottar uføretrygd eller andre ytelser, tar vi ikke hensyn til dette i kalkulatoren. Du bør derfor bruke den innloggede kalkulatoren.',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
-  'henvisning.apotekerne.body':
-    'Siden du er medlem av Pensjonsordningen for apotekvirksomhet (POA), må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -89,7 +79,7 @@ const translations = {
   'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.fremtidigvedtak.alert':
-    'Du har vedtak om {grad} % alderspensjon fra {fom}. Du kan gjøre en ny beregning her frem til uttak.',
+    'Du har vedtak om {grad} % alderspensjon fra {fom}. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress_1a': `Du har nå <strong>{grad} % alderspensjon</strong>{
       ufoeretrygd,  select,     0 {} other { og <strong>{ufoeretrygd} % uføretrygd</strong>}}{
@@ -103,6 +93,8 @@ const translations = {
     'Du har nå <strong>AFP i offentlig sektor</strong>. Her kan du sjekke hva du kan få i alderspensjon.{br}{br}',
   'stegvisning.start.endring.ingress.pre2025_offentlig_afp':
     'Du har nå <strong>{grad} % alderspensjon</strong> og <strong>AFP i offentlig sektor</strong>. Her kan du sjekke hva du kan få i alderspensjon.{br}{br}',
+  'stegvisning.start.endring.ingress.pre2025_offentlig_afp_fremtidig':
+    'Du har nå <strong>0 % alderspensjon</strong>. Du har endret til <strong>{grad} % alderspensjon fra {fom}</strong>. Du kan ikke gjøre en ny beregning her før denne datoen.{br}{br}Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'alderspensjon (Nav)',
@@ -359,7 +351,7 @@ const translations = {
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.livsvarig': 'livsvarig',
   'beregning.lav_opptjening.aar':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
+    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.alert.endring':
@@ -413,9 +405,9 @@ const translations = {
   'beregning.detaljer.afpOffentlig.uttak.title': 'Ved {alderAar} {alderMd}',
   'beregning.detaljer.OpptjeningDetaljer.table.title': 'Opptjening',
   'beregning.detaljer.OpptjeningDetaljer.kap19.table.title':
-    'Opptjening kapittel 19',
+    'Opptjening etter gamle regler',
   'beregning.detaljer.OpptjeningDetaljer.kap20.table.title':
-    'Opptjening kapittel 20',
+    'Opptjening etter nye regler',
   'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title':
     'Månedlig avtalefestet pensjon (AFP)',
   'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title':
@@ -438,7 +430,7 @@ const translations = {
   'beregning.avansert.rediger.inntekt_frem_til_endring.label':
     'Pensjonsgivende årsinntekt frem til endring',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
-    'Uten uføretrygd og uførepensjon.',
+    'Uføretrygd og uførepensjon skal ikke være med.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
   'beregning.avansert.rediger.pre2025_offentlig_afp.alert':
@@ -626,7 +618,7 @@ const translations = {
   'grunnlag.afp.endring': 'uendret',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':
-    'Du har oppgitt AFP i offentlig sektor. Nav har ikke vurdert om du fyller alle vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
+    'Du har oppgitt AFP i offentlig sektor. For å ha rett til AFP må du oppfylle vilkår både hos Nav og tjenestepensjonsordningen din. Beregningen forutsetter at vilkårene er oppfylt. For mer informasjon, kontakt tjenestepensjonsordningen din.',
   'grunnlag.afp.ingress.overgangskull':
     'Beregningen av alderspensjon tar høyde for at du mottar AFP. AFP vises ikke i beregningen.',
   'grunnlag.afp.ingress.overgangskull.ufoeretrygd_eller_ap':
@@ -684,6 +676,7 @@ const translations = {
     'hvis du ønsker å få dette i beregningen.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
+  'pensjonsavtaler_mobil.kr_pr_aar': 'kr/år',
   'alder.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
@@ -723,7 +716,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_modal.textfield.description.ufoere':
-    'Ikke uføretrygd og uførepensjon. Dagens kroneverdi før skatt',
+    'Uføretrygd og uførepensjon skal ikke være med. Dagens kroneverdi før skatt.',
   'inntekt.endre_inntekt_modal.paragraph':
     'Når du oppdaterer inntekten, må du velge alder på nytt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':

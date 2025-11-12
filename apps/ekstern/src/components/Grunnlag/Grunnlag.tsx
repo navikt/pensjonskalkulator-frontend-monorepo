@@ -17,12 +17,20 @@ import {
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
+  selectFoedselsdato,
   selectLoependeVedtak,
   selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
+import { isAlderOver62, isFoedtEtter1963 } from '@/utils/alder'
+import {
+  LINK_AAPNET,
+  SHOW_MORE_AAPNET,
+  SHOW_MORE_LUKKET,
+} from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -74,6 +82,9 @@ export const Grunnlag: React.FC<Props> = ({
   const intl = useIntl()
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const sivilstand = useAppSelector(selectSivilstand)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
+  const hasErApotekerError = useAppSelector(selectHasErApotekerError)
 
   const [isAFPDokumentasjonVisible, setIsAFPDokumentasjonVisible] =
     React.useState<boolean>(false)
@@ -86,24 +97,33 @@ export const Grunnlag: React.FC<Props> = ({
     [sivilstand]
   )
 
-  const {
-    alderspensjonDetaljerListe,
-    pre2025OffentligAfpDetaljerListe,
-    afpPrivatDetaljerListe,
-    afpOffentligDetaljerListe,
-    opptjeningPre2025OffentligAfpListe,
-  } = useBeregningsdetaljer(
-    alderspensjonListe,
-    afpPrivatListe,
-    afpOffentligListe,
-    pre2025OffentligAfp
-  )
+  const { alderspensjonDetaljerListe, afpDetaljerListe } =
+    useBeregningsdetaljer(
+      alderspensjonListe,
+      afpPrivatListe,
+      afpOffentligListe,
+      pre2025OffentligAfp
+    )
+
+  // Antall kolonner for AP detaljer som bestemmer hvor mange kolonner AFP detaljer skal ha.
+  const alderspensjonColumnsCount =
+    alderspensjonDetaljerListe.length === 0
+      ? 0
+      : [
+          alderspensjonDetaljerListe[0].alderspensjon,
+          alderspensjonDetaljerListe[0].opptjeningKap19,
+          alderspensjonDetaljerListe[0].opptjeningKap20,
+        ].filter((arr) => arr.length > 0).length
 
   // Når det ikke er noen detaljer for AFP, så er "Les mer" lenken skjult.
   const shouldHideAfpReadMore =
-    !afpOffentligDetaljerListe.length &&
-    !afpPrivatDetaljerListe.length &&
-    !pre2025OffentligAfpDetaljerListe.length
+    afpDetaljerListe.length === 0 ||
+    afpDetaljerListe.every(
+      (afpDetaljer) =>
+        afpDetaljer.afpPrivat.length === 0 &&
+        afpDetaljer.afpOffentlig.length === 0 &&
+        afpDetaljer.pre2025OffentligAfp.length === 0
+    )
 
   const handleReadMoreChange = ({
     isOpen,
@@ -119,12 +139,12 @@ export const Grunnlag: React.FC<Props> = ({
     }
 
     const name = `Grunnlag: Vis detaljer for ${ytelse}`
-    logger(isOpen ? 'show more åpnet' : 'show more lukket', { tekst: name })
+    logger(isOpen ? SHOW_MORE_AAPNET : SHOW_MORE_LUKKET, { tekst: name })
   }
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium">
+      <Heading level={headingLevel} size="medium" data-intl="grunnlag.title">
         {isEndring || visning === 'avansert' ? (
           <FormattedMessage id="grunnlag.endring.title" />
         ) : (
@@ -145,80 +165,88 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagItem>
         )}
 
-        <GrunnlagItem color="purple">
-          <GrunnlagAFP />
+        {!(
+          hasErApotekerError &&
+          foedtEtter1963 &&
+          ((loependeVedtak.ufoeretrygd.grad > 0 &&
+            isAlderOver62(foedselsdato!)) ||
+            loependeVedtak.ufoeretrygd.grad === 100)
+        ) && (
+          <GrunnlagItem color="purple" data-testid="grunnlag-afp">
+            <GrunnlagAFP />
 
-          {!shouldHideAfpReadMore && (
-            <ReadMore
-              name="Listekomponenter for AFP"
-              open={isAFPDokumentasjonVisible}
-              header={
-                isAFPDokumentasjonVisible
-                  ? intl.formatMessage(
-                      {
-                        id: 'beregning.detaljer.lukk',
-                      },
-                      {
-                        ...getFormatMessageValues(),
-                        ytelse: 'AFP',
-                      }
-                    )
-                  : intl.formatMessage(
-                      {
-                        id: 'beregning.detaljer.vis',
-                      },
-                      {
-                        ...getFormatMessageValues(),
-                        ytelse: 'AFP',
-                      }
-                    )
-              }
-              className={clsx(
-                styles.visListekomponenter,
-                styles.wideDetailedView
-              )}
-              onOpenChange={(open) =>
-                handleReadMoreChange({ isOpen: open, ytelse: 'AFP' })
-              }
-            >
-              <AfpDetaljerGrunnlag
-                afpPrivatDetaljerListe={afpPrivatDetaljerListe}
-                afpOffentligDetaljerListe={afpOffentligDetaljerListe}
-                pre2025OffentligAfpDetaljerListe={
-                  pre2025OffentligAfpDetaljerListe
+            {!shouldHideAfpReadMore && (
+              <ReadMore
+                name="Listekomponenter for AFP"
+                open={isAFPDokumentasjonVisible}
+                header={
+                  isAFPDokumentasjonVisible
+                    ? intl.formatMessage(
+                        {
+                          id: 'beregning.detaljer.lukk',
+                        },
+                        {
+                          ...getFormatMessageValues(),
+                          ytelse: 'AFP',
+                        }
+                      )
+                    : intl.formatMessage(
+                        {
+                          id: 'beregning.detaljer.vis',
+                        },
+                        {
+                          ...getFormatMessageValues(),
+                          ytelse: 'AFP',
+                        }
+                      )
                 }
-                opptjeningPre2025OffentligAfpListe={
-                  opptjeningPre2025OffentligAfpListe
-                }
-              />
-              {pre2025OffentligAfp &&
-                pre2025OffentligAfp.afpAvkortetTil70Prosent && (
-                  <FormattedMessage
-                    id="grunnlag.afp.avkortet.til.70.prosent"
-                    values={{
-                      ...getFormatMessageValues(),
-                    }}
-                  />
+                className={clsx(
+                  styles.visListekomponenter,
+                  styles.wideDetailedView
                 )}
-              {/* TODO: hvis pre2025OffentligAfp.afpAvkortetTil70Prosent eller
+                onOpenChange={(open) =>
+                  handleReadMoreChange({ isOpen: open, ytelse: 'AFP' })
+                }
+              >
+                <AfpDetaljerGrunnlag
+                  afpDetaljerListe={afpDetaljerListe}
+                  alderspensjonColumnsCount={alderspensjonColumnsCount}
+                />
+                {pre2025OffentligAfp &&
+                  pre2025OffentligAfp.afpAvkortetTil70Prosent && (
+                    <FormattedMessage
+                      id="grunnlag.afp.avkortet.til.70.prosent"
+                      values={{
+                        ...getFormatMessageValues(),
+                      }}
+                    />
+                  )}
+                {/* TODO: hvis pre2025OffentligAfp.afpAvkortetTil70Prosent eller
               prosent afp redusert, så rendre linken  */}
-              {/* TODO: Flyttes inn i samme text som grunnlag.afp.avkortet.til.70.prosent hvis den er kun brukt her */}
-              {pre2025OffentligAfp &&
-                pre2025OffentligAfp.afpAvkortetTil70Prosent && (
-                  <span>
-                    &nbsp;
-                    <Link
-                      href="https://www.nav.no/afp-offentlig#beregning"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FormattedMessage id="grunnlag.afp.link.text" />
-                    </Link>
-                  </span>
-                )}
-            </ReadMore>
-          )}
-        </GrunnlagItem>
+                {/* TODO: Flyttes inn i samme text som grunnlag.afp.avkortet.til.70.prosent hvis den er kun brukt her */}
+                {pre2025OffentligAfp &&
+                  pre2025OffentligAfp.afpAvkortetTil70Prosent && (
+                    <span>
+                      &nbsp;
+                      <Link
+                        href="https://www.nav.no/afp-offentlig#beregning"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          logger(LINK_AAPNET, {
+                            href: `/pensjon/kalkulator${paths.forbehold}`,
+                            target: '_blank',
+                          })
+                        }}
+                      >
+                        <FormattedMessage id="grunnlag.afp.link.text" />
+                      </Link>
+                    </span>
+                  )}
+              </ReadMore>
+            )}
+          </GrunnlagItem>
+        )}
 
         <GrunnlagItem color="blue">
           <VStack gap="1">
@@ -284,9 +312,7 @@ export const Grunnlag: React.FC<Props> = ({
           >
             <AlderspensjonDetaljerGrunnlag
               alderspensjonDetaljerListe={alderspensjonDetaljerListe}
-              hasPre2025OffentligAfpUttaksalder={Boolean(
-                opptjeningPre2025OffentligAfpListe?.length
-              )}
+              hasPre2025OffentligAfpUttaksalder={Boolean(pre2025OffentligAfp)}
             />
             <FormattedMessage
               id="grunnlag.alderspensjon.ingress.link"
@@ -313,7 +339,7 @@ export const Grunnlag: React.FC<Props> = ({
             })}
             headerValue={formatertSivilstand}
           >
-            <BodyLong>
+            <BodyLong data-intl="grunnlag-sivilstand">
               <FormattedMessage
                 id="grunnlag.sivilstand.ingress"
                 values={{

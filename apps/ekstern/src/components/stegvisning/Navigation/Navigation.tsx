@@ -20,14 +20,15 @@ export default function Navigation({
 
   return (
     <HStack gap="4" marginBlock="4 0" className={className}>
-      <Button type="submit" form={form}>
+      <Button type="submit" form={form} data-testid="stegvisning-neste-button">
         <FormattedMessage id="stegvisning.neste" />
       </Button>
 
       <Button
         type="button"
         variant="secondary"
-        onClick={wrapLogger('button klikk', {
+        data-testid="stegvisning-tilbake-button"
+        onClick={wrapLogger('knapp klikket', {
           tekst: `Tilbake fra ${pathname}`,
         })(onPrevious)}
       >
@@ -38,7 +39,8 @@ export default function Navigation({
         <Button
           type="button"
           variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          data-testid="stegvisning-avbryt-button"
+          onClick={wrapLogger('knapp klikket', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>

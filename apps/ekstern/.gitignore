@@ -17,6 +17,7 @@ coverage
 .stylelintcache
 cypress/videos
 cypress/screenshots
+overrides.env
 analice.html
 vite.config.ts.*
 .sanity
@@ -34,3 +35,9 @@ vite.config.ts.*
 .qodo
 .fleet
 .zed
+
+# Playwright
+/playwright/test-results/
+/playwright/report/
+/blob-report/
+/playwright/.cache/

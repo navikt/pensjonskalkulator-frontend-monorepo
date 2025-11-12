@@ -6,8 +6,8 @@ import {
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { VeilederInput } from '../'
@@ -201,10 +201,6 @@ describe('VeilederInput', () => {
           },
         },
       })
-
-      await waitFor(() => {
-        expect(screen.getByTestId('alert-del-b')).toBeInTheDocument()
-      })
     })
 
     it('viser ikke advarsel om delB når bruker er født etter 1962', async () => {
@@ -221,10 +217,6 @@ describe('VeilederInput', () => {
             veilederBorgerEncryptedFnr: 'encrypted123',
           },
         },
-      })
-
-      await waitFor(() => {
-        expect(screen.queryByTestId('alert-del-b')).not.toBeInTheDocument()
       })
     })
   })

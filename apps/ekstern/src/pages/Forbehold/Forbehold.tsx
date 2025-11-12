@@ -26,7 +26,7 @@ export function Forbehold() {
       <>
         {forbeholdAvsnittData.map((forbeholdAvsnitt, i) => {
           return forbeholdAvsnitt.overskrift ? (
-            <section key={i}>
+            <section data-testid="forbehold-avsnitt" key={i}>
               <Heading level="3" size="small" spacing>
                 {forbeholdAvsnitt.overskrift}
               </Heading>
@@ -38,7 +38,7 @@ export function Forbehold() {
               </BodyLong>
             </section>
           ) : (
-            <BodyLong key={i} spacing as="div">
+            <BodyLong data-testid="forbehold-avsnitt" key={i} spacing as="div">
               <PortableText
                 value={forbeholdAvsnitt.innhold}
                 components={getSanityPortableTextComponents(intl)}

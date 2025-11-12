@@ -15,11 +15,13 @@ export const FrameComponent: React.FC<{
   hasWhiteBg?: boolean
   shouldShowLogo?: boolean
   children?: React.JSX.Element
+  noMinHeight?: boolean
 }> = ({
   isFullWidth,
   hasWhiteBg = false,
   shouldShowLogo = false,
   children,
+  noMinHeight = false,
 }) => {
   const intl = useIntl()
 
@@ -27,6 +29,7 @@ export const FrameComponent: React.FC<{
     <div
       className={clsx(styles.main, {
         [styles.main__white]: hasWhiteBg,
+        [styles.main__noMinHeight]: noMinHeight,
       })}
     >
       <div

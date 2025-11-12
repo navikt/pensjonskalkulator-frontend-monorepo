@@ -150,7 +150,7 @@ export function Sivilstand({
       }
       setValidationError(validationErrorText)
       if (validationErrorText.epsHarPensjon) {
-        logger('skjema validering feilet', {
+        logger('skjemavalidering feilet', {
           skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
           data: intl.formatMessage({
             id: 'stegvisning.sivilstand.radio_epsHarPensjon_label',
@@ -159,7 +159,7 @@ export function Sivilstand({
         })
       }
       if (validationErrorText.epsHarInntektOver2G) {
-        logger('skjema validering feilet', {
+        logger('skjemavalidering feilet', {
           skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
           data: intl.formatMessage({
             id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_label',
@@ -170,7 +170,9 @@ export function Sivilstand({
       return
     }
 
-    logger('button klikk', {
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('button klikk', { tekst: `Neste fra ${paths.sivilstand}` })
+    logger('knapp klikket', {
       tekst: `Neste fra ${paths.sivilstand}`,
     })
 
@@ -193,7 +195,12 @@ export function Sivilstand({
   return (
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="sivilstand-heading"
+        >
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <BodyLong size="large" className={styles.ingress}>

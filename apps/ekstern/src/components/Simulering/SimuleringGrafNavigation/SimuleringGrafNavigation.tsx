@@ -37,7 +37,7 @@ export const SimuleringGrafNavigation: React.FC<Props> = ({
             iconPosition="left"
             size="xsmall"
             variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Vis færre år' })(
+            onClick={wrapLogger('knapp klikket', { tekst: 'Vis færre år' })(
               onVisFaerreAarClick
             )}
           >
@@ -57,7 +57,7 @@ export const SimuleringGrafNavigation: React.FC<Props> = ({
             iconPosition="right"
             size="xsmall"
             variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Vis flere år' })(
+            onClick={wrapLogger('knapp klikket', { tekst: 'Vis flere år' })(
               onVisFlereAarClick
             )}
           >

@@ -3,6 +3,7 @@ import { LoaderFunctionArgs } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
+  fulfilledGetGrunnbeloep,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   fulfilledPre1963GetPerson,
@@ -63,6 +64,10 @@ export function createMockRequest(
 }
 
 describe('Loaders', () => {
+  beforeEach(() => {
+    sessionStorage.clear()
+  })
+
   afterEach(() => {
     store.dispatch(apiSliceUtils.apiSlice.util.resetApiState())
   })
@@ -99,6 +104,30 @@ describe('Loaders', () => {
       const returnedFromLoader = directAccessGuard()
       expect(returnedFromLoader).toBeUndefined()
     })
+
+    it('returnerer ingenting når sanity-timeout query parameter er satt', async () => {
+      const originalLocation = window.location
+      const mockLocation = new URL('https://example.com?sanity-timeout=1')
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: mockLocation,
+      })
+
+      const mockedState = {
+        api: { queries: {} },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => mockedState)
+
+      const returnedFromLoader = directAccessGuard()
+
+      expect(returnedFromLoader).toBeUndefined()
+
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: originalLocation,
+      })
+    })
   })
 
   describe('authenticationGuard', () => {
@@ -115,7 +144,7 @@ describe('Loaders', () => {
     it('returnerer person og loependeVedtak', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
         userInput: { ...userInputInitialState },
-        session: { isLoggedIn: false },
+        session: { isLoggedIn: false, hasErApotekerError: false },
       }))
 
       const returnedFromLoader = await stepStartAccessGuard()
@@ -132,7 +161,7 @@ describe('Loaders', () => {
       mockErrorResponse('/v4/vedtak/loepende-vedtak')
 
       store.getState = vi.fn().mockImplementation(() => ({
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState },
       }))
 
@@ -148,7 +177,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState },
       }))
 
@@ -164,7 +193,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState },
       }))
 
@@ -180,7 +209,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState },
       }))
 
@@ -193,7 +222,7 @@ describe('Loaders', () => {
       })
 
       store.getState = vi.fn().mockImplementation(() => ({
-        session: { isLoggedIn: true },
+        session: { isLoggedIn: true, hasErApotekerError: false },
         userInput: { ...userInputInitialState },
       }))
 
@@ -219,7 +248,12 @@ describe('Loaders', () => {
 
     it('returnerer person og grunnbeloep', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
-        api: { queries: { mock: 'mock' } },
+        api: {
+          queries: {
+            ...fulfilledGetPerson,
+            ...fulfilledGetGrunnbeloep,
+          },
+        },
         userInput: { ...userInputInitialState },
       }))
 
@@ -366,11 +400,11 @@ describe('Loaders', () => {
         startedTimeStamp: 1714725797072,
         fulfilledTimeStamp: 1714725797669,
       },
-      ['getEkskludertStatus(undefined)']: {
+      ['getApotekerStatus(undefined)']: {
         status: 'fulfilled',
-        endpointName: 'getEkskludertStatus',
+        endpointName: 'getApotekerStatus',
         requestId: 't1wLPiRKrfe_vchftk8s8',
-        data: { ekskludert: false, aarsak: 'NONE' },
+        data: { apoteker: false, aarsak: 'NONE' },
         startedTimeStamp: 1714725797072,
         fulfilledTimeStamp: 1714725797669,
       },
@@ -527,6 +561,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2020-10-02',
               fom: '2020-10-02',
               sivilstand: 'UGIFT',
             },
@@ -556,6 +591,7 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
             alderspensjon: {
               grad: 0,
+              uttaksgradFom: '2020-10-02',
               fom: '2020-10-02',
               sivilstand: 'UGIFT',
             },
@@ -714,10 +750,10 @@ describe('Loaders', () => {
     })
 
     it('Gitt at bruker er apoteker settes `erApoteker`', async () => {
-      mockResponse('/v2/ekskludert', {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: true,
+          apoteker: true,
           aarsak: 'ER_APOTEKER',
         },
       })
@@ -742,11 +778,11 @@ describe('Loaders', () => {
       expect(returnedFromLoader.erApoteker).toBe(true)
     })
 
-    it('Gitt at getEkskludertStatus har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene kastes ikke feil', async () => {
-      mockResponse('/v2/ekskludert', {
+    it('Gitt at getApotekerStatus har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene kastes ikke feil', async () => {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: false,
+          apoteker: false,
           aarsak: 'NONE',
         },
       })
@@ -756,9 +792,9 @@ describe('Loaders', () => {
           queries: {
             ...mockedVellykketQueries,
             ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            ['getEkskludertStatus(undefined)']: {
+            ['getApotekerStatus(undefined)']: {
               status: 'rejected',
-              endpointName: 'getEkskludertStatus',
+              endpointName: 'getApotekerStatus',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               error: {
                 status: 'FETCH_ERROR',
@@ -776,41 +812,13 @@ describe('Loaders', () => {
       const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
       await expect(returnedFromLoader).resolves.not.toThrow()
     })
-
-    it('Gitt at getEkskludertStatus har tidligere feilet og at den feiler igjen ved nytt kall, loader kaster feil', async () => {
-      mockErrorResponse('/v2/ekskludert')
-
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            ['getEkskludertStatus(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getEkskludertStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => mockedState)
-
-      const returnedFromLoader = stepAFPAccessGuard(createMockRequest())
-      await expect(returnedFromLoader).rejects.toThrow()
-    })
   })
 
   it('Apotekere med uføretrygd skal ikke få AFP steg', async () => {
-    mockResponse('/v2/ekskludert', {
+    mockResponse('/v1/er-apoteker', {
       status: 200,
       json: {
-        ekskludert: true,
+        apoteker: true,
         aarsak: 'ER_APOTEKER',
       },
     })
@@ -847,10 +855,10 @@ describe('Loaders', () => {
       api: { queries: { mock: 'mock' } },
     }
     it('Apotekere skal hoppe over AFP steg', async () => {
-      mockResponse('/v2/ekskludert', {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: true,
+          apoteker: true,
           aarsak: 'ER_APOTEKER',
         },
       })
@@ -862,10 +870,10 @@ describe('Loaders', () => {
     })
 
     it('Født før 1963 skal hoppe over AFP steg', async () => {
-      mockResponse('/v2/ekskludert', {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: true,
+          apoteker: true,
           aarsak: 'ER_APOTEKER',
         },
       })
@@ -890,10 +898,10 @@ describe('Loaders', () => {
           },
         } satisfies Person,
       })
-      mockResponse('/v2/ekskludert', {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: false,
+          apoteker: false,
           aarsak: 'NONE',
         },
       })
@@ -909,10 +917,10 @@ describe('Loaders', () => {
   })
 
   it('Apotekere med vedtak om alderspensjon skal ikke få AFP steg', async () => {
-    mockResponse('/v2/ekskludert', {
+    mockResponse('/v1/er-apoteker', {
       status: 200,
       json: {
-        ekskludert: true,
+        apoteker: true,
         aarsak: 'ER_APOTEKER',
       },
     })
@@ -921,6 +929,7 @@ describe('Loaders', () => {
         harLoependeVedtak: true,
         alderspensjon: {
           grad: 75,
+          uttaksgradFom: '2020-01-01',
           fom: '2020-01-01',
           sivilstand: 'UGIFT',
         },
@@ -1120,6 +1129,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1152,6 +1162,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1164,10 +1175,10 @@ describe('Loaders', () => {
     })
 
     it('Hopper over steg dersom bruker er apoteker og har alderspensjon vedtak', async () => {
-      mockResponse('/v2/ekskludert', {
+      mockResponse('/v1/er-apoteker', {
         status: 200,
         json: {
-          ekskludert: true,
+          apoteker: true,
           aarsak: 'ER_APOTEKER',
         },
       })
@@ -1192,6 +1203,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },
@@ -1213,6 +1225,7 @@ describe('Loaders', () => {
           ufoeretrygd: { grad: 0 },
           alderspensjon: {
             grad: 100,
+            uttaksgradFom: '2023-01-01',
             fom: '2023-01-01',
             sivilstand: 'GIFT',
           },

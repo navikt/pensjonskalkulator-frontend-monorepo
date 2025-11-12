@@ -163,8 +163,8 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             afpInntektMaanedFoerUttak: undefined,
-            epsHarInntektOver2G: false,
-            epsHarPensjon: false,
+            epsHarInntektOver2G: undefined,
+            epsHarPensjon: undefined,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -251,8 +251,8 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             afpInntektMaanedFoerUttak: undefined,
-            epsHarInntektOver2G: false,
-            epsHarPensjon: false,
+            epsHarInntektOver2G: undefined,
+            epsHarPensjon: undefined,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -344,8 +344,8 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             afpInntektMaanedFoerUttak: undefined,
-            epsHarInntektOver2G: false,
-            epsHarPensjon: false,
+            epsHarInntektOver2G: undefined,
+            epsHarPensjon: undefined,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -437,8 +437,8 @@ describe('BeregningAvansert', () => {
           {
             aarligInntektFoerUttakBeloep: 521338,
             afpInntektMaanedFoerUttak: undefined,
-            epsHarInntektOver2G: false,
-            epsHarPensjon: false,
+            epsHarInntektOver2G: undefined,
+            epsHarPensjon: undefined,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
             heltUttak: {
@@ -831,8 +831,8 @@ describe('BeregningAvansert', () => {
         {
           aarligInntektFoerUttakBeloep: 521338,
           afpInntektMaanedFoerUttak: undefined,
-          epsHarInntektOver2G: false,
-          epsHarPensjon: false,
+          epsHarInntektOver2G: undefined,
+          epsHarPensjon: undefined,
           foedselsdato: '1963-04-30',
           gradertUttak: {
             aarligInntektVsaPensjonBeloep: 0,

@@ -18,11 +18,6 @@
       crossorigin
     />
     <title>Pensjonskalkulator - Pensjon</title>
-    <style>
-      #root {
-        min-height: 55vh;
-      }
-    </style>
   </head>
   <body>
     <div id="decorator-header"></div>
@@ -34,16 +29,38 @@
       id="decorator-env"
       data-src="%VITE_DECORATOR_URL%/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start"
     ></div>
-    <script
-      type="text/javascript"
-      src="%VITE_DECORATOR_URL%/client.js"
-      async
-    ></script>
     <script type="module" src="/src/main.tsx" defer></script>
-    <script
-      type="module"
-      src="%VITE_REPRESENTASJON_BANNER%/banner.js"
-      defer
-    ></script>
+    <script type="module">
+      // Wait for MSW to be ready before loading external scripts in development
+      if (import.meta.env.DEV) {
+        // Wait for MSW initialization
+        document.addEventListener('DOMContentLoaded', async () => {
+          // Wait for MSW ready signal from main.tsx
+          while (!window.__MSW_READY__) {
+            await new Promise((resolve) => setTimeout(resolve, 50))
+          }
+          await window.__MSW_READY__
+          console.log('[MSW] External scripts loading after MSW ready')
+          loadExternalScripts()
+        })
+      } else {
+        // In production, load immediately
+        document.addEventListener('DOMContentLoaded', loadExternalScripts)
+      }
+
+      function loadExternalScripts() {
+        // Load NAV decorator
+        const decoratorScript = document.createElement('script')
+        decoratorScript.type = 'text/javascript'
+        decoratorScript.src = '%VITE_DECORATOR_URL%/client.js'
+        document.head.appendChild(decoratorScript)
+
+        // Load representasjon banner
+        const bannerScript = document.createElement('script')
+        bannerScript.type = 'module'
+        bannerScript.src = '%VITE_REPRESENTASJON_BANNER%/banner.js'
+        document.head.appendChild(bannerScript)
+      }
+    </script>
   </body>
 </html>

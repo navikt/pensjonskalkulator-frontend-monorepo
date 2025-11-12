@@ -262,6 +262,16 @@ export const isEkskludertStatus = (data?: any): data is EkskludertStatus => {
   )
 }
 
+export const isApotekerStatus = (data?: any): data is ApotekerStatusV1 => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.apoteker === 'boolean' &&
+    ['NONE', 'ER_APOTEKER'].includes(data?.aarsak)
+  )
+}
+
 export const isOmstillingsstoenadOgGjenlevende = (
   data?: any
 ): data is OmstillingsstoenadOgGjenlevende => {

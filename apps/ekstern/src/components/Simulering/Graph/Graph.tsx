@@ -1,4 +1,4 @@
-import Highcharts, { ChartOptions } from 'highcharts'
+import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useRef } from 'react'
 import { useIntl } from 'react-intl'
@@ -41,6 +41,7 @@ const Graph = ({ data }: IProps) => {
         x: -44,
         y: -20,
         style: {
+          // eslint-disable-next-line sonarjs/no-duplicate-string
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
           zIndex: 0,
