@@ -46,6 +46,7 @@ spec:
         - /pensjon/kalkulator
         - /pensjon/kalkulator/login
         - /pensjon/kalkulator/personopplysninger
+        - /pensjon/kalkulator/forbehold
         - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
