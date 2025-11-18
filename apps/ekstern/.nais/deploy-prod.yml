@@ -63,6 +63,7 @@ spec:
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
         - /pensjon/kalkulator/personopplysninger
+        - /pensjon/kalkulator/forbehold
         - /pensjon/kalkulator/src/*
         - /pensjon/kalkulator/v3/api-docs/current
   accessPolicy:

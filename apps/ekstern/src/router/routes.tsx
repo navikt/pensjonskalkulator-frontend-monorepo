@@ -44,6 +44,19 @@ const fallback = (
 
 export const routes: RouteObject[] = [
   {
+    path: paths.forbehold,
+    element: (
+      <PageFramework
+        shouldRedirectNonAuthenticated={false}
+        noMinHeight={true}
+        showLoader={false}
+      >
+        <Forbehold />
+      </PageFramework>
+    ),
+    ErrorBoundary: RouteErrorBoundary,
+  },
+  {
     loader: authenticationGuard,
     hydrateFallbackElement: fallback,
     element: (
@@ -83,10 +96,6 @@ export const routes: RouteObject[] = [
         loader: stepStartAccessGuard,
         path: paths.start,
         element: <StepStart />,
-      },
-      {
-        path: paths.forbehold,
-        element: <Forbehold />,
       },
       {
         loader: stepSivilstandAccessGuard,
