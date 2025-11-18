@@ -1,4 +1,4 @@
-import { SeriesOptionsType } from 'highcharts'
+import type { SeriesOptionsType } from 'highcharts'
 
 type Alder = {
   aar: number
@@ -17,7 +17,8 @@ export type AarligUtbetaling = {
 }
 
 export const parseStartSluttUtbetaling = (
-  data: AarligUtbetalingStartSlutt
+  data: AarligUtbetalingStartSlutt,
+  maxAlder?: number
 ): AarligUtbetaling[] => {
   const erLivsvarig = !data.sluttAlder
 
@@ -38,25 +39,28 @@ export const parseStartSluttUtbetaling = (
     alder: startAlder.aar,
     beloep: aarligUtbetaling * forsteAarAndel,
   }
+
+  // For livsvarig utbetaling, extend to maxAlder or use a default high value
+  const effectiveSluttAar = erLivsvarig
+    ? (maxAlder ?? 100)
+    : (sluttAlder?.aar ?? 0)
+
   const sisteUtbetaling: AarligUtbetaling = {
-    alder: sluttAlder?.aar ?? 100,
-    beloep: Math.round(aarligUtbetaling * sisteAarAndel),
+    alder: effectiveSluttAar,
+    beloep: erLivsvarig
+      ? aarligUtbetaling
+      : Math.round(aarligUtbetaling * sisteAarAndel),
   }
-  const sisteAar = sluttAlder?.aar ?? Infinity
 
-  // Hvis den er livsvarig må vi sjekke om forsteAarAndel er < 1, om det er dette må man returnere 2 elementer,
-  // hvis ikke 1, me
+  const years = Array.from(
+    { length: effectiveSluttAar - startAlder.aar + 1 },
+    (_, i) => startAlder.aar + i
+  )
 
-  const years = erLivsvarig
-    ? [startAlder.aar, startAlder.aar + 1, Infinity]
-    : Array.from(
-        { length: sisteAar - startAlder.aar + 1 },
-        (_, i) => startAlder.aar + i
-      )
   const utbetalinger: AarligUtbetaling[] = years.map((year) => {
     if (year === forsteUtbetaling.alder) {
       return forsteUtbetaling
-    } else if (year === sisteUtbetaling.alder) {
+    } else if (year === sisteUtbetaling.alder && !erLivsvarig) {
       return sisteUtbetaling
     } else {
       return {
@@ -95,28 +99,29 @@ export const mergeAarligUtbetalinger = (
 
 type XAxis = Record<number, number>
 export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
-  const { min, max, hasInfinite } = utbetalinger.reduce(
+  const { min, max } = utbetalinger.reduce(
     (acc, curr) => {
       if (curr.length === 0) return acc
 
-      const utebetalingMin = curr
+      // Filter out Infinity to find real min/max ages
+      const finiteAges = curr
         .map((it) => it.alder)
-        .reduce((a, b) => Math.min(a, b), Infinity)
+        .filter((alder) => alder !== Infinity)
 
-      const utebetalingMax = curr
-        .map((it) => it.alder)
-        .reduce((a, b) => Math.max(a, b), -Infinity)
+      if (finiteAges.length === 0) {
+        // Only Infinity values in this series
+        return acc
+      }
+
+      const utebetalingMin = Math.min(...finiteAges)
+      const utebetalingMax = Math.max(...finiteAges)
 
       return {
         min: Math.min(acc.min, utebetalingMin),
-        max:
-          utebetalingMax === Infinity
-            ? acc.max
-            : Math.max(acc.max, utebetalingMax),
-        hasInfinite: acc.hasInfinite || utebetalingMax === Infinity,
+        max: Math.max(acc.max, utebetalingMax),
       }
     },
-    { min: Infinity, max: -Infinity, hasInfinite: false }
+    { min: Infinity, max: -Infinity }
   )
 
   // No valid min/max found (e.g., empty arrays)
@@ -124,15 +129,13 @@ export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
     return {}
   }
 
-  const xAxis = Array.from({ length: max - min + 1 }, (_, i) => min + i).reduce(
+  return Array.from({ length: max - min + 1 }, (_, i) => min + i).reduce(
     (acc, alder) => {
       acc[alder] = 0
       return acc
     },
     {} as XAxis
   )
-
-  return hasInfinite ? { ...xAxis, ...{ Infinity: 0 } } : xAxis
 }
 
 export const fillYAxis = (
@@ -140,24 +143,17 @@ export const fillYAxis = (
   utbetalinger: AarligUtbetaling[]
 ): number[] => {
   const result: number[] = []
-  // Find infinite payment if exists
-  const infinitePayment =
-    utbetalinger.find((u) => u.alder === Infinity)?.beloep || 0
+  const xAxisKeys = Object.keys(xAxis)
 
-  for (const alder in xAxis) {
+  for (let i = 0; i < xAxisKeys.length; i++) {
+    const alder = xAxisKeys[i]
     const alderNum = Number(alder)
-    // First check for exact match
+
+    // Find exact match
     const exactUtbetaling = utbetalinger.find((u) => u.alder === alderNum)
 
     if (exactUtbetaling) {
       result.push(exactUtbetaling.beloep)
-    } else if (infinitePayment > 0) {
-      // If there's an infinite payment and we're past all defined ages, add it
-      const maxDefinedAge = utbetalinger
-        .filter((u) => u.alder !== Infinity)
-        .reduce((max, u) => Math.max(max, u.alder), -Infinity)
-
-      result.push(alderNum > maxDefinedAge ? infinitePayment : 0)
     } else {
       result.push(0)
     }
@@ -182,17 +178,33 @@ interface SeriesReturn {
 export const generateSeries = (seriesConfig: SeriesConfig[]): SeriesReturn => {
   const xAxisSkeleton = generateXAxis(seriesConfig.map((it) => it.data))
 
-  const series = seriesConfig
+  const series: SeriesOptionsType[] = seriesConfig
     .filter((it) => it.data.length > 0)
     .map((it) => ({
-      type: it.type,
+      type: it.type as 'column',
       name: it.name,
       color: it.color,
       pointWidth: it.pointWidth ?? 25,
+      stacking: 'normal',
       data: fillYAxis(xAxisSkeleton, it.data),
     }))
 
   const xAxis = Object.keys(xAxisSkeleton)
+
+  // Always add "age+" label for the last age to indicate continuation
+  if (xAxis.length > 0) {
+    const lastAge = xAxis[xAxis.length - 1]
+    xAxis.push(`${lastAge}+`)
+
+    // Add one more data point to each series for the "age+" position
+    series.forEach((serie) => {
+      // Use the last value for the "age+" position
+      const columnSerie = serie as { data: number[] }
+      const lastValue = columnSerie.data[columnSerie.data.length - 1]
+      columnSerie.data.push(lastValue)
+    })
+  }
+
   return {
     xAxis,
     series,

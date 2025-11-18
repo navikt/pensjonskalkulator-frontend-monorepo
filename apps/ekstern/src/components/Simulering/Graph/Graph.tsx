@@ -3,7 +3,8 @@ import HighchartsReact from 'highcharts-react-official'
 import { useRef } from 'react'
 import { useIntl } from 'react-intl'
 
-import { SeriesConfig, generateSeries } from '../data/data'
+import type { SeriesConfig } from '../data/data'
+import { generateSeries } from '../data/data'
 import { labelFormatterDesktop } from '../utils-highcharts'
 
 interface IProps {
@@ -14,16 +15,17 @@ const Graph = ({ data }: IProps) => {
   const chartRef = useRef<HighchartsReact.RefObject>(null)
   const intl = useIntl()
 
+  const FONT_FAMILY = 'var(--a-font-family)'
+
   const { xAxis, series } = generateSeries(data)
 
-  console.log('xAxis', xAxis)
-  console.log('series', series)
-
-  const chartOptions = {
-    title: {
-      text: null,
+  const chartOptions: Highcharts.Options = {
+    chart: {
+      type: 'column',
     },
-    type: 'column',
+    title: {
+      text: undefined,
+    },
     xAxis: {
       categories: xAxis,
     },
@@ -33,6 +35,9 @@ const Graph = ({ data }: IProps) => {
       tickInterval: 100000,
       allowDecimals: false,
       min: 0,
+      stackLabels: {
+        enabled: false,
+      },
       title: {
         text: intl.formatMessage({ id: 'beregning.highcharts.yaxis' }),
         align: 'high',
@@ -41,10 +46,8 @@ const Graph = ({ data }: IProps) => {
         x: -44,
         y: -20,
         style: {
-          // eslint-disable-next-line sonarjs/no-duplicate-string
-          fontFamily: 'var(--a-font-family)',
+          fontFamily: FONT_FAMILY,
           fontSize: 'var(--a-font-size-medium)',
-          zIndex: 0,
         },
       },
       labels: {
@@ -52,7 +55,7 @@ const Graph = ({ data }: IProps) => {
         align: 'left',
         formatter: labelFormatterDesktop,
         style: {
-          fontFamily: 'var(--a-font-family)',
+          fontFamily: FONT_FAMILY,
           fontSize: 'var(--a-font-size-medium)',
           color: 'var(--a-text-subtle)',
           paddingRight: 'var(--a-spacing-3)',
@@ -62,6 +65,12 @@ const Graph = ({ data }: IProps) => {
       gridLineColor: 'var(--a-gray-400)',
       gridLineWidth: 1,
       minorGridLineWidth: 0,
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        pointWidth: 25,
+      },
     },
     legend: {
       accessibility: {
@@ -78,19 +87,16 @@ const Graph = ({ data }: IProps) => {
       verticalAlign: 'bottom',
       itemDistance: 24,
       itemStyle: {
-        fontFamily: 'var(--a-font-family)',
+        fontFamily: FONT_FAMILY,
         color: 'var(--a-text-default)',
-        fontWeight: 'regular',
+        fontWeight: 'normal',
         fontSize: '14px',
         cursor: 'default',
-        zIndex: 0,
       },
       itemHoverStyle: { color: '#000000' },
       itemMarginBottom: 5,
       events: {
-        itemClick: function () {
-          return false
-        },
+        itemClick: () => false,
       },
     },
     series: series,

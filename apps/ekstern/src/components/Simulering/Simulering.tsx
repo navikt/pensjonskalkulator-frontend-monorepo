@@ -1,11 +1,13 @@
 import clsx from 'clsx'
-import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
+import type { SeriesColumnOptions, XAxisOptions } from 'highcharts'
+import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useEffect, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
-import { BodyLong, BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
+import type { HeadingProps } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
 import {
@@ -121,25 +123,79 @@ export const Simulering = ({
     }
   )
 
+  // Find max age across all data sources for extending lifetime payments
+  // Only consider actual end dates, not lifetime payments (exclude undefined sluttAlder)
+  const maxAgeFromAlderspensjon = alderspensjonListe
+    ? Math.max(...alderspensjonListe.map((it) => it.alder))
+    : 0
+  const maxAgeFromAfpOffentlig = afpOffentligListe?.[0]?.alder ?? 0
+
+  const pensjonsavtalerEndDates = (pensjonsavtalerData?.avtaler ?? []).flatMap(
+    (avtale) =>
+      avtale.utbetalingsperioder
+        .filter((p) => p.sluttAlder !== undefined)
+        .map((p) => p.sluttAlder!.aar)
+  )
+
+  const offentligTpEndDates = (
+    offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+      .utbetalingsperioder ?? []
+  )
+    .filter((p) => p.sluttAlder !== undefined)
+    .map((p) => p.sluttAlder!.aar)
+
+  const maxAgeFromPensjonsavtaler = Math.max(
+    ...pensjonsavtalerEndDates,
+    ...offentligTpEndDates,
+    77 // Default minimum
+  )
+
+  const maxAlder = Math.max(
+    maxAgeFromAlderspensjon,
+    maxAgeFromAfpOffentlig,
+    maxAgeFromPensjonsavtaler
+  )
+
+  // Calculate the start age for the x-axis (same logic as old implementation)
+  const xAxisStartAar = isEndring
+    ? (uttaksalder?.aar ?? 67)
+    : (uttaksalder?.aar ?? 67) - 1
+
   const data: SeriesConfig[] = [
     {
       type: 'column',
-      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name }),
-      color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
-      pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
-      data: alderspensjonListe
-        ? [
-            ...alderspensjonListe.map((it) => ({
-              alder: it.alder,
-              beloep: it.beloep,
-            })),
-            // Alderspensjon fra Nav er livsvarig
-            {
-              alder: Infinity,
-              beloep: alderspensjonListe[alderspensjonListe.length - 1].beloep,
-            },
-          ]
-        : [],
+      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
+      color: SERIES_DEFAULT.SERIE_INNTEKT.color,
+      data:
+        aarligInntektFoerUttakBeloep &&
+        aarligInntektFoerUttakBeloep &&
+        uttaksalder &&
+        !isEndring // Only show income for førstegangssøknad
+          ? parseStartSluttUtbetaling(
+              {
+                startAlder: {
+                  aar: uttaksalder.aar - 1, // Viser full inntekt første år
+                  maaneder: 0,
+                },
+                sluttAlder:
+                  uttaksalder.maaneder === 0
+                    ? {
+                        // Hvis uttak starter i januar (måned 0), slutt inntekt i desember året før
+                        aar: uttaksalder.aar - 1,
+                        maaneder: 11,
+                      }
+                    : {
+                        // Ellers, slutt inntekt måneden før uttak i samme år
+                        aar: uttaksalder.aar,
+                        maaneder: uttaksalder.maaneder - 1,
+                      },
+                aarligUtbetaling: formatInntektToNumber(
+                  aarligInntektFoerUttakBeloep // TODO: Må vise livsvarig AFP
+                ),
+              },
+              maxAlder
+            ).filter((item) => item.alder >= xAxisStartAar)
+          : [],
     },
     {
       type: 'column',
@@ -149,45 +205,83 @@ export const Simulering = ({
       color: SERIES_DEFAULT.SERIE_AFP.color,
       data: mergeAarligUtbetalinger([
         afpOffentligListe
-          ? parseStartSluttUtbetaling({
-              startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
-              aarligUtbetaling: afpOffentligListe[0].beloep,
-            })
+          ? parseStartSluttUtbetaling(
+              {
+                startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+                aarligUtbetaling: afpOffentligListe[0].beloep,
+              },
+              maxAlder
+            )
           : [],
         afpPrivatListe ? afpPrivatListe : [],
-      ]),
-    },
-    {
-      type: 'column',
-      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
-      color: SERIES_DEFAULT.SERIE_INNTEKT.color,
-      data:
-        aarligInntektFoerUttakBeloep &&
-        aarligInntektFoerUttakBeloep &&
-        uttaksalder
-          ? parseStartSluttUtbetaling({
-              startAlder: {
-                aar: uttaksalder.aar - 1, // Viser full inntekt første år
-                maaneder: 0,
-              },
-              sluttAlder: {
-                aar: uttaksalder.aar,
-                maaneder: uttaksalder.maaneder - 1, // Slutte inntekt måned før uttaksalder
-              },
-              aarligUtbetaling: formatInntektToNumber(
-                aarligInntektFoerUttakBeloep // TODO: Må vise livsvarig AFP
-              ),
-            })
-          : [],
+      ]).filter((item) => item.alder >= xAxisStartAar),
     },
     {
       type: 'column',
       name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
       color: SERIES_DEFAULT.SERIE_TP.color,
-      data: [],
+      data: (() => {
+        const privatePensjonsParsed = (
+          pensjonsavtalerData?.avtaler ?? []
+        ).flatMap((avtale) =>
+          avtale.utbetalingsperioder.map((periode) =>
+            parseStartSluttUtbetaling(
+              {
+                startAlder: periode.startAlder,
+                sluttAlder: periode.sluttAlder,
+                aarligUtbetaling: periode.aarligUtbetaling,
+              },
+              maxAlder
+            )
+          )
+        )
+
+        const offentligTpParsed = (
+          offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+            .utbetalingsperioder ?? []
+        ).map((periode) =>
+          parseStartSluttUtbetaling(
+            {
+              startAlder: periode.startAlder,
+              sluttAlder: periode.sluttAlder,
+              aarligUtbetaling: periode.aarligUtbetaling,
+            },
+            maxAlder
+          )
+        )
+
+        return mergeAarligUtbetalinger([
+          ...privatePensjonsParsed,
+          ...offentligTpParsed,
+        ]).filter((item) => item.alder >= xAxisStartAar)
+      })(),
+    },
+    {
+      type: 'column',
+      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name }),
+      color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
+      pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
+      data: alderspensjonListe
+        ? (() => {
+            const lastBeloep =
+              alderspensjonListe[alderspensjonListe.length - 1].beloep
+            const lastAlder =
+              alderspensjonListe[alderspensjonListe.length - 1].alder
+            const result = alderspensjonListe
+              .filter((it) => it.alder >= xAxisStartAar)
+              .map((it) => ({
+                alder: it.alder,
+                beloep: it.beloep,
+              }))
+            // Alderspensjon fra Nav er livsvarig - extend to maxAlder
+            for (let alder = lastAlder + 1; alder <= maxAlder; alder++) {
+              result.push({ alder, beloep: lastBeloep })
+            }
+            return result
+          })()
+        : [],
     },
   ]
-  console.log('data', data)
 
   useEffect(() => {
     if (harSamtykket && uttaksalder) {
@@ -226,7 +320,22 @@ export const Simulering = ({
         })
       )
     }
-  }, [harSamtykket, uttaksalder])
+  }, [
+    harSamtykket,
+    uttaksalder,
+    gradertUttaksperiode,
+    aarligInntektFoerUttakBeloep,
+    aarligInntektVsaHelPensjon,
+    epsHarInntektOver2G,
+    utenlandsperioder,
+    sivilstand,
+    epsHarPensjon,
+    afp,
+    ufoeregrad,
+    erApoteker,
+    foedselsdato,
+    skalBeregneAfpKap19,
+  ])
 
   const [
     chartOptions,
