@@ -1,7 +1,7 @@
 import {
-  AarligUtbetaling,
-  AarligUtbetalingStartSlutt,
-  SeriesConfig,
+  type AarligUtbetaling,
+  type AarligUtbetalingStartSlutt,
+  type SeriesConfig,
   fillYAxis,
   generateSeries,
   generateXAxis,
@@ -96,16 +96,14 @@ describe('Simulering data', () => {
         aarligUtbetaling: 120000,
       }
 
-      const actual = parseStartSluttUtbetaling(testdataIngenSluttDato)
+      const expected = [
+        { alder: 50, beloep: 60000 },
+        { alder: 51, beloep: 120000 },
+        { alder: Infinity, beloep: 120000 },
+      ]
 
-      // Should extend to default maxAlder of 100
-      expect(actual.length).toBe(51) // 50 to 100 inclusive
-      expect(actual[0]).toStrictEqual({ alder: 50, beloep: 60000 }) // Partial first year
-      expect(actual[1]).toStrictEqual({ alder: 51, beloep: 120000 }) // Full year
-      expect(actual[actual.length - 1]).toStrictEqual({
-        alder: 100,
-        beloep: 120000,
-      }) // Last year
+      const actual = parseStartSluttUtbetaling(testdataIngenSluttDato)
+      expect(actual).toStrictEqual(expected)
     })
   })
 
@@ -199,7 +197,7 @@ describe('Simulering data', () => {
             beloep: 12,
           },
           {
-            alder: 87,
+            alder: Infinity,
             beloep: 10,
           },
         ],
@@ -219,7 +217,8 @@ describe('Simulering data', () => {
         ],
       ]
       // Min = 50
-      // Max = 87 (no longer Infinity, uses concrete max age)
+      // Max = 60
+      // Infinity is included in xAxis skeleton when present in data
 
       const expected = {
         50: 0,
@@ -233,33 +232,7 @@ describe('Simulering data', () => {
         58: 0,
         59: 0,
         60: 0,
-        61: 0,
-        62: 0,
-        63: 0,
-        64: 0,
-        65: 0,
-        66: 0,
-        67: 0,
-        68: 0,
-        69: 0,
-        70: 0,
-        71: 0,
-        72: 0,
-        73: 0,
-        74: 0,
-        75: 0,
-        76: 0,
-        77: 0,
-        78: 0,
-        79: 0,
-        80: 0,
-        81: 0,
-        82: 0,
-        83: 0,
-        84: 0,
-        85: 0,
-        86: 0,
-        87: 0,
+        Infinity: 0,
       }
 
       const actual = generateXAxis(testdata)
@@ -355,12 +328,12 @@ describe('Simulering data', () => {
       ]
 
       const actual = generateSeries(testdata)
-      const xAxis = ['57', '58', '59', '60', '60+']
+      const xAxis = ['57', '58', '59', '60']
       expect(actual).toStrictEqual({
         xAxis,
         series: [
           {
-            data: [0, 10, 10, 10, 10],
+            data: [0, 10, 10, 10],
             name: 'Series 1',
             pointWidth: 25,
             stacking: 'normal',
@@ -368,7 +341,7 @@ describe('Simulering data', () => {
             color: 'red',
           },
           {
-            data: [50, 50, 50, 0, 0],
+            data: [50, 50, 50, 0],
             name: 'Series 2',
             type: 'column',
             pointWidth: 25,
@@ -434,7 +407,7 @@ describe('Simulering data', () => {
     })
   })
 
-  it('should handle data without gaps correctly', () => {
+  it('should fill yAxis with Infinity (livsvarig) data', () => {
     const xAxis = {
       56: 0,
       57: 0,
@@ -443,12 +416,32 @@ describe('Simulering data', () => {
       60: 0,
     }
     const testdata = [
-      { alder: 57, beloep: 10 },
-      { alder: 58, beloep: 20 },
-      { alder: 60, beloep: 30 },
+      { alder: 57, beloep: 7 },
+      { alder: Infinity, beloep: 50 },
     ]
 
-    const expected = [0, 10, 20, 0, 30]
+    const expected = [0, 7, 50, 50, 50]
+
+    const actual = fillYAxis(xAxis, testdata)
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('should fill yAxis with Infinity (livsvarig) data, but only after ages after highest age', () => {
+    const xAxis = {
+      56: 0,
+      57: 0,
+      58: 0,
+      59: 0,
+      60: 0,
+      Infinity: 0,
+    }
+    const testdata = [
+      { alder: 57, beloep: 10 },
+      { alder: 58, beloep: 10 },
+      { alder: Infinity, beloep: 50 },
+    ]
+
+    const expected = [0, 10, 10, 50, 50, 50]
 
     const actual = fillYAxis(xAxis, testdata)
     expect(actual).toStrictEqual(expected)

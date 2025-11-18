@@ -42,6 +42,7 @@ import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringG
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
 import { SERIES_DEFAULT } from './constants'
 import {
+  type AarligUtbetaling,
   type SeriesConfig,
   mergeAarligUtbetalinger,
   parseStartSluttUtbetaling,
@@ -123,43 +124,14 @@ export const Simulering = ({
     }
   )
 
-  // Find max age across all data sources for extending lifetime payments
-  // Only consider actual end dates, not lifetime payments (exclude undefined sluttAlder)
-  const maxAgeFromAlderspensjon = alderspensjonListe
-    ? Math.max(...alderspensjonListe.map((it) => it.alder))
-    : 0
-  const maxAgeFromAfpOffentlig = afpOffentligListe?.[0]?.alder ?? 0
-
-  const pensjonsavtalerEndDates = (pensjonsavtalerData?.avtaler ?? []).flatMap(
-    (avtale) =>
-      avtale.utbetalingsperioder
-        .filter((p) => p.sluttAlder !== undefined)
-        .map((p) => p.sluttAlder!.aar)
-  )
-
-  const offentligTpEndDates = (
-    offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
-      .utbetalingsperioder ?? []
-  )
-    .filter((p) => p.sluttAlder !== undefined)
-    .map((p) => p.sluttAlder!.aar)
-
-  const maxAgeFromPensjonsavtaler = Math.max(
-    ...pensjonsavtalerEndDates,
-    ...offentligTpEndDates,
-    77 // Default minimum
-  )
-
-  const maxAlder = Math.max(
-    maxAgeFromAlderspensjon,
-    maxAgeFromAfpOffentlig,
-    maxAgeFromPensjonsavtaler
-  )
-
-  // Calculate the start age for the x-axis (same logic as old implementation)
-  const xAxisStartAar = isEndring
-    ? (uttaksalder?.aar ?? 67)
-    : (uttaksalder?.aar ?? 67) - 1
+  // Calculate the start age for the x-axis
+  // If gradual withdrawal exists, start from the year before; otherwise use standard logic
+  const xAxisStartAar = (() => {
+    if (gradertUttaksperiode?.uttaksalder) {
+      return gradertUttaksperiode.uttaksalder.aar - 1
+    }
+    return isEndring ? (uttaksalder?.aar ?? 67) : (uttaksalder?.aar ?? 67) - 1
+  })()
 
   const data: SeriesConfig[] = [
     {
@@ -167,34 +139,82 @@ export const Simulering = ({
       name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
       color: SERIES_DEFAULT.SERIE_INNTEKT.color,
       data:
-        aarligInntektFoerUttakBeloep &&
-        aarligInntektFoerUttakBeloep &&
-        uttaksalder &&
-        !isEndring // Only show income for førstegangssøknad
-          ? parseStartSluttUtbetaling(
-              {
-                startAlder: {
-                  aar: uttaksalder.aar - 1, // Viser full inntekt første år
-                  maaneder: 0,
-                },
-                sluttAlder:
-                  uttaksalder.maaneder === 0
-                    ? {
-                        // Hvis uttak starter i januar (måned 0), slutt inntekt i desember året før
-                        aar: uttaksalder.aar - 1,
-                        maaneder: 11,
-                      }
-                    : {
-                        // Ellers, slutt inntekt måneden før uttak i samme år
-                        aar: uttaksalder.aar,
-                        maaneder: uttaksalder.maaneder - 1,
-                      },
-                aarligUtbetaling: formatInntektToNumber(
-                  aarligInntektFoerUttakBeloep // TODO: Må vise livsvarig AFP
-                ),
-              },
-              maxAlder
-            ).filter((item) => item.alder >= xAxisStartAar)
+        !isEndring && uttaksalder // Only show income for førstegangssøknad
+          ? (() => {
+              const inntektPerioder: AarligUtbetaling[][] = []
+
+              // Period 1: Income before withdrawal (starts 1 year before pension/gradual withdrawal)
+              if (aarligInntektFoerUttakBeloep) {
+                const pensjonStartAlder =
+                  gradertUttaksperiode?.uttaksalder || uttaksalder
+
+                inntektPerioder.push(
+                  parseStartSluttUtbetaling({
+                    startAlder: {
+                      aar: pensjonStartAlder.aar - 1,
+                      maaneder: 0,
+                    },
+                    sluttAlder:
+                      pensjonStartAlder.maaneder === 0
+                        ? {
+                            aar: pensjonStartAlder.aar - 1,
+                            maaneder: 11,
+                          }
+                        : {
+                            aar: pensjonStartAlder.aar,
+                            maaneder: pensjonStartAlder.maaneder - 1,
+                          },
+                    aarligUtbetaling: formatInntektToNumber(
+                      aarligInntektFoerUttakBeloep
+                    ),
+                  })
+                )
+              }
+
+              // Period 2: Income during gradual withdrawal (ends when full pension starts)
+              if (
+                gradertUttaksperiode?.uttaksalder &&
+                gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+              ) {
+                inntektPerioder.push(
+                  parseStartSluttUtbetaling({
+                    startAlder: gradertUttaksperiode.uttaksalder,
+                    sluttAlder:
+                      uttaksalder.maaneder === 0
+                        ? {
+                            // If full pension starts in January, end gradual income in December of previous year
+                            aar: uttaksalder.aar - 1,
+                            maaneder: 11,
+                          }
+                        : {
+                            // Otherwise, end gradual income the month before full pension starts
+                            aar: uttaksalder.aar,
+                            maaneder: uttaksalder.maaneder - 1,
+                          },
+                    aarligUtbetaling: formatInntektToNumber(
+                      gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                    ),
+                  })
+                )
+              }
+
+              // Period 3: Income during full pension (starts after gradual withdrawal ends, if any)
+              if (aarligInntektVsaHelPensjon?.beloep) {
+                inntektPerioder.push(
+                  parseStartSluttUtbetaling({
+                    startAlder: uttaksalder,
+                    sluttAlder: aarligInntektVsaHelPensjon.sluttAlder,
+                    aarligUtbetaling: formatInntektToNumber(
+                      aarligInntektVsaHelPensjon.beloep
+                    ),
+                  })
+                )
+              }
+
+              return mergeAarligUtbetalinger(inntektPerioder).filter(
+                (item) => item.alder === Infinity || item.alder >= xAxisStartAar
+              )
+            })()
           : [],
     },
     {
@@ -205,16 +225,15 @@ export const Simulering = ({
       color: SERIES_DEFAULT.SERIE_AFP.color,
       data: mergeAarligUtbetalinger([
         afpOffentligListe
-          ? parseStartSluttUtbetaling(
-              {
-                startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
-                aarligUtbetaling: afpOffentligListe[0].beloep,
-              },
-              maxAlder
-            )
+          ? parseStartSluttUtbetaling({
+              startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+              aarligUtbetaling: afpOffentligListe[0].beloep,
+            })
           : [],
         afpPrivatListe ? afpPrivatListe : [],
-      ]).filter((item) => item.alder >= xAxisStartAar),
+      ]).filter(
+        (item) => item.alder === Infinity || item.alder >= xAxisStartAar
+      ),
     },
     {
       type: 'column',
@@ -225,14 +244,11 @@ export const Simulering = ({
           pensjonsavtalerData?.avtaler ?? []
         ).flatMap((avtale) =>
           avtale.utbetalingsperioder.map((periode) =>
-            parseStartSluttUtbetaling(
-              {
-                startAlder: periode.startAlder,
-                sluttAlder: periode.sluttAlder,
-                aarligUtbetaling: periode.aarligUtbetaling,
-              },
-              maxAlder
-            )
+            parseStartSluttUtbetaling({
+              startAlder: periode.startAlder,
+              sluttAlder: periode.sluttAlder,
+              aarligUtbetaling: periode.aarligUtbetaling,
+            })
           )
         )
 
@@ -240,20 +256,19 @@ export const Simulering = ({
           offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
             .utbetalingsperioder ?? []
         ).map((periode) =>
-          parseStartSluttUtbetaling(
-            {
-              startAlder: periode.startAlder,
-              sluttAlder: periode.sluttAlder,
-              aarligUtbetaling: periode.aarligUtbetaling,
-            },
-            maxAlder
-          )
+          parseStartSluttUtbetaling({
+            startAlder: periode.startAlder,
+            sluttAlder: periode.sluttAlder,
+            aarligUtbetaling: periode.aarligUtbetaling,
+          })
         )
 
         return mergeAarligUtbetalinger([
           ...privatePensjonsParsed,
           ...offentligTpParsed,
-        ]).filter((item) => item.alder >= xAxisStartAar)
+        ]).filter(
+          (item) => item.alder === Infinity || item.alder >= xAxisStartAar
+        )
       })(),
     },
     {
@@ -262,23 +277,19 @@ export const Simulering = ({
       color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
       pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
       data: alderspensjonListe
-        ? (() => {
-            const lastBeloep =
-              alderspensjonListe[alderspensjonListe.length - 1].beloep
-            const lastAlder =
-              alderspensjonListe[alderspensjonListe.length - 1].alder
-            const result = alderspensjonListe
+        ? [
+            ...alderspensjonListe
               .filter((it) => it.alder >= xAxisStartAar)
               .map((it) => ({
                 alder: it.alder,
                 beloep: it.beloep,
-              }))
-            // Alderspensjon fra Nav er livsvarig - extend to maxAlder
-            for (let alder = lastAlder + 1; alder <= maxAlder; alder++) {
-              result.push({ alder, beloep: lastBeloep })
-            }
-            return result
-          })()
+              })),
+            // Alderspensjon fra Nav er livsvarig
+            {
+              alder: Infinity,
+              beloep: alderspensjonListe[alderspensjonListe.length - 1].beloep,
+            },
+          ]
         : [],
     },
   ]

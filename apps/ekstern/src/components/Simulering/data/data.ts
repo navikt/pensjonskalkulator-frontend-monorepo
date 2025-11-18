@@ -17,8 +17,7 @@ export type AarligUtbetaling = {
 }
 
 export const parseStartSluttUtbetaling = (
-  data: AarligUtbetalingStartSlutt,
-  maxAlder?: number
+  data: AarligUtbetalingStartSlutt
 ): AarligUtbetaling[] => {
   const erLivsvarig = !data.sluttAlder
 
@@ -40,27 +39,44 @@ export const parseStartSluttUtbetaling = (
     beloep: aarligUtbetaling * forsteAarAndel,
   }
 
-  // For livsvarig utbetaling, extend to maxAlder or use a default high value
-  const effectiveSluttAar = erLivsvarig
-    ? (maxAlder ?? 100)
-    : (sluttAlder?.aar ?? 0)
+  if (erLivsvarig) {
+    // For livsvarig utbetaling, vis første år med delårsbeløp hvis nødvendig,
+    // deretter full utbetaling, og avslutt med Infinity for å indikere livsvarig
+    const utbetalinger: AarligUtbetaling[] = [forsteUtbetaling]
 
+    // Legg til neste år med full utbetaling hvis første år er delårsbeløp
+    if (forsteAarAndel < 1) {
+      utbetalinger.push({
+        alder: startAlder.aar + 1,
+        beloep: aarligUtbetaling,
+      })
+    }
+
+    // Legg til Infinity for å indikere livsvarig utbetaling
+    utbetalinger.push({
+      alder: Infinity,
+      beloep: aarligUtbetaling,
+    })
+
+    return utbetalinger
+  }
+
+  // For tidsavgrenset utbetaling
+  const sisteAar = sluttAlder?.aar ?? 0
   const sisteUtbetaling: AarligUtbetaling = {
-    alder: effectiveSluttAar,
-    beloep: erLivsvarig
-      ? aarligUtbetaling
-      : Math.round(aarligUtbetaling * sisteAarAndel),
+    alder: sisteAar,
+    beloep: Math.round(aarligUtbetaling * sisteAarAndel),
   }
 
   const years = Array.from(
-    { length: effectiveSluttAar - startAlder.aar + 1 },
+    { length: sisteAar - startAlder.aar + 1 },
     (_, i) => startAlder.aar + i
   )
 
   const utbetalinger: AarligUtbetaling[] = years.map((year) => {
     if (year === forsteUtbetaling.alder) {
       return forsteUtbetaling
-    } else if (year === sisteUtbetaling.alder && !erLivsvarig) {
+    } else if (year === sisteUtbetaling.alder) {
       return sisteUtbetaling
     } else {
       return {
@@ -73,6 +89,47 @@ export const parseStartSluttUtbetaling = (
   return utbetalinger
 }
 
+/**
+ * Expands lifetime payments (those with Infinity) to fill all years up to maxAge.
+ * This ensures that when merging, the lifetime payment is added to every year.
+ */
+const expandLifetimePayments = (
+  utbetalinger: AarligUtbetaling[],
+  maxAge: number
+): AarligUtbetaling[] => {
+  const infiniteEntry = utbetalinger.find((u) => u.alder === Infinity)
+
+  if (!infiniteEntry) {
+    // No lifetime payment, return as-is
+    return utbetalinger
+  }
+
+  // Find the last defined age before Infinity
+  const finiteEntries = utbetalinger.filter((u) => u.alder !== Infinity)
+  const lastDefinedAge = finiteEntries.reduce(
+    (max, u) => Math.max(max, u.alder),
+    -Infinity
+  )
+
+  // If there's no defined age, start from the first entry's age
+  const startAge = finiteEntries.length > 0 ? lastDefinedAge + 1 : 0
+
+  // Generate entries for all years from (lastDefinedAge + 1) to maxAge
+  const expandedEntries: AarligUtbetaling[] = []
+  for (let age = startAge; age <= maxAge; age++) {
+    // Only add if not already defined
+    if (!utbetalinger.some((u) => u.alder === age)) {
+      expandedEntries.push({
+        alder: age,
+        beloep: infiniteEntry.beloep,
+      })
+    }
+  }
+
+  // Return original entries (excluding Infinity) + expanded entries + Infinity
+  return [...finiteEntries, ...expandedEntries, infiniteEntry]
+}
+
 export const mergeAarligUtbetalinger = (
   utbetalinger: AarligUtbetaling[][]
 ): AarligUtbetaling[] => {
@@ -80,16 +137,27 @@ export const mergeAarligUtbetalinger = (
     return []
   }
 
+  // First, find the maximum age across all series to know how far to expand
   const allUtbetalinger = utbetalinger.flat()
+  const maxFiniteAge = allUtbetalinger
+    .filter((u) => u.alder !== Infinity)
+    .reduce((max, u) => Math.max(max, u.alder), 0)
+
+  // Expand lifetime payments in each series before merging
+  const expandedUtbetalinger = utbetalinger.map((serie) =>
+    expandLifetimePayments(serie, maxFiniteAge)
+  )
+
+  const allExpanded = expandedUtbetalinger.flat()
 
   // Get all unique years
-  const years = [...new Set(allUtbetalinger.map((u) => u.alder))].sort(
+  const years = [...new Set(allExpanded.map((u) => u.alder))].sort(
     (a, b) => a - b
   )
 
   // Group by year and sum up the amounts
   return years.map((year) => {
-    const beloep = allUtbetalinger
+    const beloep = allExpanded
       .filter((u) => u.alder === year)
       .reduce((sum, curr) => sum + curr.beloep, 0)
 
@@ -99,7 +167,7 @@ export const mergeAarligUtbetalinger = (
 
 type XAxis = Record<number, number>
 export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
-  const { min, max } = utbetalinger.reduce(
+  const { min, max, hasInfinite } = utbetalinger.reduce(
     (acc, curr) => {
       if (curr.length === 0) return acc
 
@@ -108,9 +176,14 @@ export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
         .map((it) => it.alder)
         .filter((alder) => alder !== Infinity)
 
+      const hasInfiniteInCurr = curr.some((it) => it.alder === Infinity)
+
       if (finiteAges.length === 0) {
         // Only Infinity values in this series
-        return acc
+        return {
+          ...acc,
+          hasInfinite: acc.hasInfinite || hasInfiniteInCurr,
+        }
       }
 
       const utebetalingMin = Math.min(...finiteAges)
@@ -119,9 +192,10 @@ export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
       return {
         min: Math.min(acc.min, utebetalingMin),
         max: Math.max(acc.max, utebetalingMax),
+        hasInfinite: acc.hasInfinite || hasInfiniteInCurr,
       }
     },
-    { min: Infinity, max: -Infinity }
+    { min: Infinity, max: -Infinity, hasInfinite: false }
   )
 
   // No valid min/max found (e.g., empty arrays)
@@ -129,13 +203,20 @@ export const generateXAxis = (utbetalinger: AarligUtbetaling[][]) => {
     return {}
   }
 
-  return Array.from({ length: max - min + 1 }, (_, i) => min + i).reduce(
+  const xAxis = Array.from({ length: max - min + 1 }, (_, i) => min + i).reduce(
     (acc, alder) => {
       acc[alder] = 0
       return acc
     },
     {} as XAxis
   )
+
+  // Add Infinity if any series has lifetime payments
+  if (hasInfinite) {
+    xAxis[Infinity] = 0
+  }
+
+  return xAxis
 }
 
 export const fillYAxis = (
@@ -143,17 +224,39 @@ export const fillYAxis = (
   utbetalinger: AarligUtbetaling[]
 ): number[] => {
   const result: number[] = []
+
+  // Find infinite payment if exists
+  const infinitePayment =
+    utbetalinger.find((u) => u.alder === Infinity)?.beloep || 0
+
+  // Find the min and max defined age (excluding Infinity)
+  const finiteUtbetalinger = utbetalinger.filter((u) => u.alder !== Infinity)
+  const minDefinedAge = finiteUtbetalinger.reduce(
+    (min, u) => Math.min(min, u.alder),
+    Infinity
+  )
+  const maxDefinedAge = finiteUtbetalinger.reduce(
+    (max, u) => Math.max(max, u.alder),
+    -Infinity
+  )
+
   const xAxisKeys = Object.keys(xAxis)
 
   for (let i = 0; i < xAxisKeys.length; i++) {
     const alder = xAxisKeys[i]
     const alderNum = Number(alder)
 
-    // Find exact match
+    // First check for exact match
     const exactUtbetaling = utbetalinger.find((u) => u.alder === alderNum)
 
     if (exactUtbetaling) {
       result.push(exactUtbetaling.beloep)
+    } else if (
+      infinitePayment > 0 &&
+      (alder === 'Infinity' || alderNum > maxDefinedAge)
+    ) {
+      // Use infinite payment if we're at the Infinity position or past the last defined age
+      result.push(infinitePayment)
     } else {
       result.push(0)
     }
@@ -189,21 +292,15 @@ export const generateSeries = (seriesConfig: SeriesConfig[]): SeriesReturn => {
       data: fillYAxis(xAxisSkeleton, it.data),
     }))
 
-  const xAxis = Object.keys(xAxisSkeleton)
-
-  // Always add "age+" label for the last age to indicate continuation
-  if (xAxis.length > 0) {
-    const lastAge = xAxis[xAxis.length - 1]
-    xAxis.push(`${lastAge}+`)
-
-    // Add one more data point to each series for the "age+" position
-    series.forEach((serie) => {
-      // Use the last value for the "age+" position
-      const columnSerie = serie as { data: number[] }
-      const lastValue = columnSerie.data[columnSerie.data.length - 1]
-      columnSerie.data.push(lastValue)
-    })
-  }
+  // Convert x-axis keys to strings, and replace "Infinity" with "max+" label
+  const xAxisKeys = Object.keys(xAxisSkeleton)
+  const xAxis = xAxisKeys.map((key) => {
+    if (key === 'Infinity') {
+      const lastFiniteAge = xAxisKeys[xAxisKeys.length - 2]
+      return `${lastFiniteAge}+`
+    }
+    return key
+  })
 
   return {
     xAxis,
