@@ -42,7 +42,6 @@ import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringG
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
 import { SERIES_DEFAULT } from './constants'
 import {
-  type AarligUtbetaling,
   type SeriesConfig,
   mergeAarligUtbetalinger,
   parseStartSluttUtbetaling,
@@ -141,15 +140,12 @@ export const Simulering = ({
       data:
         !isEndring && uttaksalder // Only show income for førstegangssøknad
           ? (() => {
-              const inntektPerioder: AarligUtbetaling[][] = []
+              const pensjonStartAlder =
+                gradertUttaksperiode?.uttaksalder || uttaksalder
 
               // Period 1: Income before withdrawal (starts 1 year before pension/gradual withdrawal)
-              if (aarligInntektFoerUttakBeloep) {
-                const pensjonStartAlder =
-                  gradertUttaksperiode?.uttaksalder || uttaksalder
-
-                inntektPerioder.push(
-                  parseStartSluttUtbetaling({
+              const inntektFoerUttak = aarligInntektFoerUttakBeloep
+                ? parseStartSluttUtbetaling({
                     startAlder: {
                       aar: pensjonStartAlder.aar - 1,
                       maaneder: 0,
@@ -168,50 +164,48 @@ export const Simulering = ({
                       aarligInntektFoerUttakBeloep
                     ),
                   })
-                )
-              }
+                : []
 
               // Period 2: Income during gradual withdrawal (ends when full pension starts)
-              if (
+              const inntektVedGradertUttak =
                 gradertUttaksperiode?.uttaksalder &&
                 gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
-              ) {
-                inntektPerioder.push(
-                  parseStartSluttUtbetaling({
-                    startAlder: gradertUttaksperiode.uttaksalder,
-                    sluttAlder:
-                      uttaksalder.maaneder === 0
-                        ? {
-                            // If full pension starts in January, end gradual income in December of previous year
-                            aar: uttaksalder.aar - 1,
-                            maaneder: 11,
-                          }
-                        : {
-                            // Otherwise, end gradual income the month before full pension starts
-                            aar: uttaksalder.aar,
-                            maaneder: uttaksalder.maaneder - 1,
-                          },
-                    aarligUtbetaling: formatInntektToNumber(
-                      gradertUttaksperiode.aarligInntektVsaPensjonBeloep
-                    ),
-                  })
-                )
-              }
+                  ? parseStartSluttUtbetaling({
+                      startAlder: gradertUttaksperiode.uttaksalder,
+                      sluttAlder:
+                        uttaksalder.maaneder === 0
+                          ? {
+                              // If full pension starts in January, end gradual income in December of previous year
+                              aar: uttaksalder.aar - 1,
+                              maaneder: 11,
+                            }
+                          : {
+                              // Otherwise, end gradual income the month before full pension starts
+                              aar: uttaksalder.aar,
+                              maaneder: uttaksalder.maaneder - 1,
+                            },
+                      aarligUtbetaling: formatInntektToNumber(
+                        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                      ),
+                    })
+                  : []
 
               // Period 3: Income during full pension (starts after gradual withdrawal ends, if any)
-              if (aarligInntektVsaHelPensjon?.beloep) {
-                inntektPerioder.push(
-                  parseStartSluttUtbetaling({
+              const inntektVedHelPensjon = aarligInntektVsaHelPensjon?.beloep
+                ? parseStartSluttUtbetaling({
                     startAlder: uttaksalder,
                     sluttAlder: aarligInntektVsaHelPensjon.sluttAlder,
                     aarligUtbetaling: formatInntektToNumber(
                       aarligInntektVsaHelPensjon.beloep
                     ),
                   })
-                )
-              }
+                : []
 
-              return mergeAarligUtbetalinger(inntektPerioder).filter(
+              return mergeAarligUtbetalinger([
+                inntektFoerUttak,
+                inntektVedGradertUttak,
+                inntektVedHelPensjon,
+              ]).filter(
                 (item) => item.alder === Infinity || item.alder >= xAxisStartAar
               )
             })()
