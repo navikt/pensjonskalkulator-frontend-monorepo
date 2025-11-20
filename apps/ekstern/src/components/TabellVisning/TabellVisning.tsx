@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { SeriesColumnOptions } from 'highcharts'
+import type { SeriesColumnOptions } from 'highcharts'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -31,7 +31,7 @@ export function TabellVisning({ series, aarArray }: Props) {
           id: SERIES_DEFAULT.SERIE_INNTEKT.name,
         })
     )
-  }, [series])
+  }, [series, intl])
 
   const showAfp = React.useMemo(() => {
     return series.some(
@@ -41,7 +41,7 @@ export function TabellVisning({ series, aarArray }: Props) {
           id: SERIES_DEFAULT.SERIE_AFP.name,
         })
     )
-  }, [series])
+  }, [series, intl])
 
   const showPensjonsavtaler = React.useMemo(() => {
     return series.some(
@@ -51,7 +51,7 @@ export function TabellVisning({ series, aarArray }: Props) {
           id: SERIES_DEFAULT.SERIE_TP.name,
         })
     )
-  }, [series])
+  }, [series, intl])
 
   return (
     <ReadMore
@@ -116,11 +116,11 @@ export function TabellVisning({ series, aarArray }: Props) {
           </Table.Row>
         </Table.Header>
         <Table.Body className={styles.tableMobileOnly}>
-          {tableData.map(({ alder, sum, detaljer }, i) => {
+          {tableData.map(({ alder, sum, detaljer }) => {
             const detaljerGrid = (
-              <dl key={i} className={styles.details}>
-                {detaljer.map(({ name, subSum }, j) => (
-                  <React.Fragment key={j}>
+              <dl className={styles.details}>
+                {detaljer.map(({ name, subSum }) => (
+                  <React.Fragment key={name}>
                     <dt>{name}</dt>
                     <dd className={styles.detailsItemRight}>
                       <span className="nowrap">{formatInntekt(subSum)}</span>
@@ -131,7 +131,7 @@ export function TabellVisning({ series, aarArray }: Props) {
             )
             return (
               <Table.ExpandableRow
-                key={i}
+                key={alder}
                 content={detaljerGrid}
                 expandOnRowClick
               >
@@ -144,9 +144,9 @@ export function TabellVisning({ series, aarArray }: Props) {
           })}
         </Table.Body>
         <Table.Body className={styles.tableDesktopOnly}>
-          {tableData.map(({ alder, sum, detaljer }, i) => {
+          {tableData.map(({ alder, sum, detaljer }) => {
             return (
-              <Table.Row key={i}>
+              <Table.Row key={alder}>
                 <Table.HeaderCell>{alder}</Table.HeaderCell>
                 <Table.DataCell
                   className={clsx(
@@ -156,8 +156,11 @@ export function TabellVisning({ series, aarArray }: Props) {
                 >
                   {sum > 0 ? `${formatInntekt(sum)} kr` : ''}
                 </Table.DataCell>
-                {detaljer.map(({ subSum, name }, j) => (
-                  <Table.DataCell key={j} className={styles.detailsItemRight}>
+                {detaljer.map(({ subSum, name }) => (
+                  <Table.DataCell
+                    key={name}
+                    className={styles.detailsItemRight}
+                  >
                     {subSum > 0 ||
                     name ===
                       intl.formatMessage({

@@ -1,8 +1,6 @@
 import clsx from 'clsx'
-import type { SeriesColumnOptions, XAxisOptions } from 'highcharts'
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import { useEffect, useRef, useState } from 'react'
+import type { SeriesColumnOptions, SeriesOptionsType } from 'highcharts'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
@@ -35,7 +33,7 @@ import {
 } from '@/state/userInput/selectors'
 import { formatInntektToNumber } from '@/utils/inntekt'
 
-import Graph from './Graph/Graph'
+import { Graph } from './Graph'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
@@ -46,7 +44,6 @@ import {
   mergeAarligUtbetalinger,
   parseStartSluttUtbetaling,
 } from './data/data'
-import { useSimuleringChartLocalState } from './hooks'
 
 import styles from './Simulering.module.scss'
 
@@ -92,7 +89,6 @@ export const Simulering = ({
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
-  const chartRef = useRef<HighchartsReact.RefObject>(null)
   const intl = useIntl()
 
   const [offentligTpRequestBody, setOffentligTpRequestBody] = useState<
@@ -125,168 +121,189 @@ export const Simulering = ({
 
   // Calculate the start age for the x-axis
   // If gradual withdrawal exists, start from the year before; otherwise use standard logic
-  const xAxisStartAar = (() => {
+  const xAxisStartAar = useMemo(() => {
     if (gradertUttaksperiode?.uttaksalder) {
       return gradertUttaksperiode.uttaksalder.aar - 1
     }
     return isEndring ? (uttaksalder?.aar ?? 67) : (uttaksalder?.aar ?? 67) - 1
-  })()
+  }, [gradertUttaksperiode, uttaksalder, isEndring])
 
-  const data: SeriesConfig[] = [
-    {
-      type: 'column',
-      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
-      color: SERIES_DEFAULT.SERIE_INNTEKT.color,
-      data:
-        !isEndring && uttaksalder // Only show income for førstegangssøknad
-          ? (() => {
-              const pensjonStartAlder =
-                gradertUttaksperiode?.uttaksalder || uttaksalder
+  const graphData: SeriesConfig[] = useMemo(
+    () => [
+      {
+        type: 'column',
+        name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
+        color: SERIES_DEFAULT.SERIE_INNTEKT.color,
+        data:
+          !isEndring && uttaksalder // Only show income for førstegangssøknad
+            ? (() => {
+                const pensjonStartAlder =
+                  gradertUttaksperiode?.uttaksalder || uttaksalder
 
-              // Period 1: Income before withdrawal (starts 1 year before pension/gradual withdrawal)
-              const inntektFoerUttak = aarligInntektFoerUttakBeloep
-                ? parseStartSluttUtbetaling({
-                    startAlder: {
-                      aar: pensjonStartAlder.aar - 1,
-                      maaneder: 0,
-                    },
-                    sluttAlder:
-                      pensjonStartAlder.maaneder === 0
-                        ? {
-                            aar: pensjonStartAlder.aar - 1,
-                            maaneder: 11,
-                          }
-                        : {
-                            aar: pensjonStartAlder.aar,
-                            maaneder: pensjonStartAlder.maaneder - 1,
-                          },
-                    aarligUtbetaling: formatInntektToNumber(
-                      aarligInntektFoerUttakBeloep
-                    ),
-                  })
-                : []
-
-              // Period 2: Income during gradual withdrawal (ends when full pension starts)
-              const inntektVedGradertUttak =
-                gradertUttaksperiode?.uttaksalder &&
-                gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                // Period 1: Income before withdrawal (starts 1 year before pension/gradual withdrawal)
+                const inntektFoerUttak = aarligInntektFoerUttakBeloep
                   ? parseStartSluttUtbetaling({
-                      startAlder: gradertUttaksperiode.uttaksalder,
+                      startAlder: {
+                        aar: pensjonStartAlder.aar - 1,
+                        maaneder: 0,
+                      },
                       sluttAlder:
-                        uttaksalder.maaneder === 0
+                        pensjonStartAlder.maaneder === 0
                           ? {
-                              // If full pension starts in January, end gradual income in December of previous year
-                              aar: uttaksalder.aar - 1,
+                              aar: pensjonStartAlder.aar - 1,
                               maaneder: 11,
                             }
                           : {
-                              // Otherwise, end gradual income the month before full pension starts
-                              aar: uttaksalder.aar,
-                              maaneder: uttaksalder.maaneder - 1,
+                              aar: pensjonStartAlder.aar,
+                              maaneder: pensjonStartAlder.maaneder - 1,
                             },
                       aarligUtbetaling: formatInntektToNumber(
-                        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                        aarligInntektFoerUttakBeloep
                       ),
                     })
                   : []
 
-              // Period 3: Income during full pension (starts after gradual withdrawal ends, if any)
-              const inntektVedHelPensjon = aarligInntektVsaHelPensjon?.beloep
-                ? parseStartSluttUtbetaling({
-                    startAlder: uttaksalder,
-                    sluttAlder: aarligInntektVsaHelPensjon.sluttAlder,
-                    aarligUtbetaling: formatInntektToNumber(
-                      aarligInntektVsaHelPensjon.beloep
-                    ),
-                  })
-                : []
+                // Period 2: Income during gradual withdrawal (ends when full pension starts)
+                const inntektVedGradertUttak =
+                  gradertUttaksperiode?.uttaksalder &&
+                  gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                    ? parseStartSluttUtbetaling({
+                        startAlder: gradertUttaksperiode.uttaksalder,
+                        sluttAlder:
+                          uttaksalder.maaneder === 0
+                            ? {
+                                // If full pension starts in January, end gradual income in December of previous year
+                                aar: uttaksalder.aar - 1,
+                                maaneder: 11,
+                              }
+                            : {
+                                // Otherwise, end gradual income the month before full pension starts
+                                aar: uttaksalder.aar,
+                                maaneder: uttaksalder.maaneder - 1,
+                              },
+                        aarligUtbetaling: formatInntektToNumber(
+                          gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                        ),
+                      })
+                    : []
 
-              return mergeAarligUtbetalinger([
-                inntektFoerUttak,
-                inntektVedGradertUttak,
-                inntektVedHelPensjon,
-              ]).filter(
-                (item) => item.alder === Infinity || item.alder >= xAxisStartAar
-              )
-            })()
-          : [],
-    },
-    {
-      type: 'column',
-      name: intl.formatMessage({
-        id: SERIES_DEFAULT.SERIE_AFP.name,
-      }),
-      color: SERIES_DEFAULT.SERIE_AFP.color,
-      data: mergeAarligUtbetalinger([
-        afpOffentligListe
-          ? parseStartSluttUtbetaling({
-              startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
-              aarligUtbetaling: afpOffentligListe[0].beloep,
-            })
-          : [],
-        afpPrivatListe ? afpPrivatListe : [],
-      ]).filter(
-        (item) => item.alder === Infinity || item.alder >= xAxisStartAar
-      ),
-    },
-    {
-      type: 'column',
-      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
-      color: SERIES_DEFAULT.SERIE_TP.color,
-      data: (() => {
-        const privatePensjonsParsed = (
-          pensjonsavtalerData?.avtaler ?? []
-        ).flatMap((avtale) =>
-          avtale.utbetalingsperioder.map((periode) =>
+                // Period 3: Income during full pension (starts after gradual withdrawal ends, if any)
+                const inntektVedHelPensjon = aarligInntektVsaHelPensjon?.beloep
+                  ? parseStartSluttUtbetaling({
+                      startAlder: uttaksalder,
+                      sluttAlder: aarligInntektVsaHelPensjon.sluttAlder,
+                      aarligUtbetaling: formatInntektToNumber(
+                        aarligInntektVsaHelPensjon.beloep
+                      ),
+                    })
+                  : []
+
+                return mergeAarligUtbetalinger([
+                  inntektFoerUttak,
+                  inntektVedGradertUttak,
+                  inntektVedHelPensjon,
+                ]).filter(
+                  (item) =>
+                    item.alder === Infinity || item.alder >= xAxisStartAar
+                )
+              })()
+            : [],
+      },
+      {
+        type: 'column',
+        name: intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_AFP.name,
+        }),
+        color: SERIES_DEFAULT.SERIE_AFP.color,
+        data: mergeAarligUtbetalinger([
+          afpOffentligListe
+            ? parseStartSluttUtbetaling({
+                startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
+                aarligUtbetaling: afpOffentligListe[0].beloep,
+              })
+            : [],
+          afpPrivatListe ? afpPrivatListe : [],
+        ]).filter(
+          (item) => item.alder === Infinity || item.alder >= xAxisStartAar
+        ),
+      },
+      {
+        type: 'column',
+        name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
+        color: SERIES_DEFAULT.SERIE_TP.color,
+        data: (() => {
+          const privatePensjonsParsed = (
+            pensjonsavtalerData?.avtaler ?? []
+          ).flatMap((avtale) =>
+            avtale.utbetalingsperioder.map((periode) =>
+              parseStartSluttUtbetaling({
+                startAlder: periode.startAlder,
+                sluttAlder: periode.sluttAlder,
+                aarligUtbetaling: periode.aarligUtbetaling,
+              })
+            )
+          )
+
+          const offentligTpParsed = (
+            offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+              .utbetalingsperioder ?? []
+          ).map((periode) =>
             parseStartSluttUtbetaling({
               startAlder: periode.startAlder,
               sluttAlder: periode.sluttAlder,
               aarligUtbetaling: periode.aarligUtbetaling,
             })
           )
-        )
 
-        const offentligTpParsed = (
-          offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
-            .utbetalingsperioder ?? []
-        ).map((periode) =>
-          parseStartSluttUtbetaling({
-            startAlder: periode.startAlder,
-            sluttAlder: periode.sluttAlder,
-            aarligUtbetaling: periode.aarligUtbetaling,
-          })
-        )
-
-        return mergeAarligUtbetalinger([
-          ...privatePensjonsParsed,
-          ...offentligTpParsed,
-        ]).filter(
-          (item) => item.alder === Infinity || item.alder >= xAxisStartAar
-        )
-      })(),
-    },
-    {
-      type: 'column',
-      name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name }),
-      color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
-      pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
-      data: alderspensjonListe
-        ? [
-            ...alderspensjonListe
-              .filter((it) => it.alder >= xAxisStartAar)
-              .map((it) => ({
-                alder: it.alder,
-                beloep: it.beloep,
-              })),
-            // Alderspensjon fra Nav er livsvarig
-            {
-              alder: Infinity,
-              beloep: alderspensjonListe[alderspensjonListe.length - 1].beloep,
-            },
-          ]
-        : [],
-    },
-  ]
+          return mergeAarligUtbetalinger([
+            ...privatePensjonsParsed,
+            ...offentligTpParsed,
+          ]).filter(
+            (item) => item.alder === Infinity || item.alder >= xAxisStartAar
+          )
+        })(),
+      },
+      {
+        type: 'column',
+        name: intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+        }),
+        color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
+        pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
+        data: alderspensjonListe
+          ? [
+              ...alderspensjonListe
+                .filter((it) => it.alder >= xAxisStartAar)
+                .map((it) => ({
+                  alder: it.alder,
+                  beloep: it.beloep,
+                })),
+              // Alderspensjon fra Nav er livsvarig
+              {
+                alder: Infinity,
+                beloep:
+                  alderspensjonListe[alderspensjonListe.length - 1].beloep,
+              },
+            ]
+          : [],
+      },
+    ],
+    [
+      intl,
+      isEndring,
+      uttaksalder,
+      gradertUttaksperiode,
+      aarligInntektFoerUttakBeloep,
+      aarligInntektVsaHelPensjon,
+      xAxisStartAar,
+      afpOffentligListe,
+      afpPrivatListe,
+      pensjonsavtalerData?.avtaler,
+      offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+        .utbetalingsperioder,
+      alderspensjonListe,
+    ]
+  )
 
   useEffect(() => {
     if (harSamtykket && uttaksalder) {
@@ -342,34 +359,35 @@ export const Simulering = ({
     skalBeregneAfpKap19,
   ])
 
-  const [
-    chartOptions,
-    showVisFaerreAarButton,
-    showVisFlereAarButton,
-    isPensjonsavtaleFlagVisible,
-  ] = useSimuleringChartLocalState({
-    styles,
-    chartRef,
-    foedselsdato,
-    isEndring,
-    uttaksalder,
-    gradertUttaksperiode,
-    aarligInntektFoerUttakBeloep,
-    aarligInntektVsaHelPensjon,
-    isLoading,
-    alderspensjonListe,
-    pre2025OffentligAfp,
-    afpPrivatListe,
-    afpOffentligListe,
-    pensjonsavtaler: {
-      isLoading: isPensjonsavtalerLoading,
-      data: pensjonsavtalerData,
+  const [showVisFaerreAarButton, setShowVisFaerreAarButton] = useState(false)
+  const [showVisFlereAarButton, setShowVisFlereAarButton] = useState(false)
+  const [tableXAxis, setTableXAxis] = useState<string[]>([])
+  const [tableSeries, setTableSeries] = useState<SeriesOptionsType[]>([])
+
+  const handleButtonVisibilityChange = useCallback(
+    (state: {
+      showVisFaerreAarButton: boolean
+      showVisFlereAarButton: boolean
+    }) => {
+      setShowVisFaerreAarButton(state.showVisFaerreAarButton)
+      setShowVisFlereAarButton(state.showVisFlereAarButton)
     },
-    offentligTp: {
-      isLoading: isOffentligTpLoading,
-      data: offentligTpData,
+    []
+  )
+
+  const handleSeriesDataChange = useCallback(
+    (xAxis: string[], series: SeriesOptionsType[]) => {
+      setTableXAxis(xAxis)
+      setTableSeries(series)
     },
-  })
+    []
+  )
+
+  const isPensjonsavtaleFlagVisible =
+    (pensjonsavtalerData?.partialResponse ||
+      offentligTpData?.simulertTjenestepensjon?.simuleringsresultat
+        ?.betingetTjenestepensjonErInkludert) ??
+    false
 
   const isEnkel = visning === 'enkel'
 
@@ -412,13 +430,11 @@ export const Simulering = ({
           data-testid="highcharts-aria-wrapper"
           aria-hidden={true}
         >
-          <HighchartsReact
-            ref={chartRef}
-            highcharts={Highcharts}
-            options={chartOptions}
+          <Graph
+            data={graphData}
+            onButtonVisibilityChange={handleButtonVisibilityChange}
+            onSeriesDataChange={handleSeriesDataChange}
           />
-
-          <Graph data={data} />
 
           {showButtonsAndTable && (
             <BodyShort
@@ -456,8 +472,8 @@ export const Simulering = ({
 
       {showButtonsAndTable && (
         <TabellVisning
-          series={chartOptions.series as SeriesColumnOptions[]}
-          aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+          series={tableSeries as SeriesColumnOptions[]}
+          aarArray={tableXAxis}
         />
       )}
 

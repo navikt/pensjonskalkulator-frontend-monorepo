@@ -1,108 +1,68 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { useRef } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import type { SeriesConfig } from '../data/data'
 import { generateSeries } from '../data/data'
-import { labelFormatterDesktop } from '../utils-highcharts'
+import { getChartOptions } from '../utils-highcharts'
+
+import styles from '../Simulering.module.scss'
 
 interface IProps {
   data: SeriesConfig[]
+  onButtonVisibilityChange?: (state: {
+    showVisFaerreAarButton: boolean
+    showVisFlereAarButton: boolean
+  }) => void
+  onSeriesDataChange?: (
+    xAxis: string[],
+    series: Highcharts.SeriesOptionsType[]
+  ) => void
 }
 
-const Graph = ({ data }: IProps) => {
+const Graph = ({
+  data,
+  onButtonVisibilityChange,
+  onSeriesDataChange,
+}: IProps) => {
   const chartRef = useRef<HighchartsReact.RefObject>(null)
   const intl = useIntl()
+  const [showVisFaerreAarButton, setShowVisFaerreAarButton] = useState(false)
+  const [showVisFlereAarButton, setShowVisFlereAarButton] = useState(false)
 
-  const FONT_FAMILY = 'var(--a-font-family)'
+  // Notify parent of button visibility changes
+  React.useEffect(() => {
+    onButtonVisibilityChange?.({
+      showVisFaerreAarButton,
+      showVisFlereAarButton,
+    })
+  }, [showVisFaerreAarButton, showVisFlereAarButton, onButtonVisibilityChange])
 
-  const { xAxis, series } = generateSeries(data)
+  const { xAxis, series } = useMemo(() => generateSeries(data), [data])
+
+  // Notify parent of series data changes for TabellVisning
+  React.useEffect(() => {
+    onSeriesDataChange?.(xAxis, series)
+  }, [xAxis, series, onSeriesDataChange])
 
   const chartOptions: Highcharts.Options = {
-    chart: {
-      type: 'column',
-    },
-    title: {
-      text: undefined,
-    },
+    ...getChartOptions(
+      styles,
+      setShowVisFlereAarButton,
+      setShowVisFaerreAarButton,
+      intl
+    ),
     xAxis: {
+      ...getChartOptions(
+        styles,
+        setShowVisFlereAarButton,
+        setShowVisFaerreAarButton,
+        intl
+      ).xAxis,
       categories: xAxis,
     },
-    yAxis: {
-      offset: 10,
-      minorTickInterval: 50000,
-      tickInterval: 100000,
-      allowDecimals: false,
-      min: 0,
-      stackLabels: {
-        enabled: false,
-      },
-      title: {
-        text: intl.formatMessage({ id: 'beregning.highcharts.yaxis' }),
-        align: 'high',
-        rotation: 0,
-        textAlign: 'left',
-        x: -44,
-        y: -20,
-        style: {
-          fontFamily: FONT_FAMILY,
-          fontSize: 'var(--a-font-size-medium)',
-        },
-      },
-      labels: {
-        useHTML: true,
-        align: 'left',
-        formatter: labelFormatterDesktop,
-        style: {
-          fontFamily: FONT_FAMILY,
-          fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-text-subtle)',
-          paddingRight: 'var(--a-spacing-3)',
-        },
-        x: -55,
-      },
-      gridLineColor: 'var(--a-gray-400)',
-      gridLineWidth: 1,
-      minorGridLineWidth: 0,
-    },
-    plotOptions: {
-      column: {
-        stacking: 'normal',
-        pointWidth: 25,
-      },
-    },
-    legend: {
-      accessibility: {
-        enabled: true,
-        keyboardNavigation: { enabled: false },
-      },
-      useHTML: true,
-      x: 0,
-      y: -25,
-      padding: 0,
-      margin: 0,
-      layout: 'horizontal',
-      align: 'left',
-      verticalAlign: 'bottom',
-      itemDistance: 24,
-      itemStyle: {
-        fontFamily: FONT_FAMILY,
-        color: 'var(--a-text-default)',
-        fontWeight: 'normal',
-        fontSize: '14px',
-        cursor: 'default',
-      },
-      itemHoverStyle: { color: '#000000' },
-      itemMarginBottom: 5,
-      events: {
-        itemClick: () => false,
-      },
-    },
     series: series,
-    credits: {
-      enabled: false,
-    },
   }
 
   return (
