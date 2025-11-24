@@ -125,7 +125,6 @@ export const Simulering = ({
   const graphData: SeriesConfig[] = useMemo(
     () => [
       {
-        type: 'column',
         name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
         color: SERIES_DEFAULT.SERIE_INNTEKT.color,
         data: uttaksalder
@@ -143,6 +142,10 @@ export const Simulering = ({
               // Period 1: Income before withdrawal
               // Førstegangssøknad: starts 1 year before pension
               // Endring: starts from pension year
+              // sluttAlder: ends just before the user's chosen uttaksalder (or gradual withdrawal start)
+              const userChosenStartAlder =
+                gradertUttaksperiode?.uttaksalder || uttaksalder
+
               const inntektFoerUttak = aarligInntektFoerUttakBeloep
                 ? parseStartSluttUtbetaling({
                     startAlder: {
@@ -152,14 +155,14 @@ export const Simulering = ({
                       maaneder: 0,
                     },
                     sluttAlder:
-                      pensjonStartAlder.maaneder === 0
+                      userChosenStartAlder.maaneder === 0
                         ? {
-                            aar: pensjonStartAlder.aar - 1,
+                            aar: userChosenStartAlder.aar - 1,
                             maaneder: 11,
                           }
                         : {
-                            aar: pensjonStartAlder.aar,
-                            maaneder: pensjonStartAlder.maaneder - 1,
+                            aar: userChosenStartAlder.aar,
+                            maaneder: userChosenStartAlder.maaneder - 1,
                           },
                     aarligUtbetaling: formatInntektToNumber(
                       aarligInntektFoerUttakBeloep
@@ -211,7 +214,6 @@ export const Simulering = ({
           : [],
       },
       {
-        type: 'column',
         name: intl.formatMessage({
           id: SERIES_DEFAULT.SERIE_AFP.name,
         }),
@@ -243,7 +245,6 @@ export const Simulering = ({
         ]),
       },
       {
-        type: 'column',
         name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
         color: SERIES_DEFAULT.SERIE_TP.color,
         data: (() => {
@@ -277,12 +278,10 @@ export const Simulering = ({
         })(),
       },
       {
-        type: 'column',
         name: intl.formatMessage({
           id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
         }),
         color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
-        pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
         data:
           alderspensjonListe && alderspensjonListe.length > 0
             ? [
