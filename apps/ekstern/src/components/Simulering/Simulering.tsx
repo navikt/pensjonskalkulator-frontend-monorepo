@@ -121,12 +121,6 @@ export const Simulering = ({
 
   // Calculate the start age for the x-axis
   // If gradual withdrawal exists, start from the year before; otherwise use standard logic
-  const xAxisStartAar = useMemo(() => {
-    if (gradertUttaksperiode?.uttaksalder) {
-      return gradertUttaksperiode.uttaksalder.aar - 1
-    }
-    return isEndring ? (uttaksalder?.aar ?? 67) : (uttaksalder?.aar ?? 67) - 1
-  }, [gradertUttaksperiode, uttaksalder, isEndring])
 
   const graphData: SeriesConfig[] = useMemo(
     () => [
@@ -202,10 +196,7 @@ export const Simulering = ({
                   inntektFoerUttak,
                   inntektVedGradertUttak,
                   inntektVedHelPensjon,
-                ]).filter(
-                  (item) =>
-                    item.alder === Infinity || item.alder >= xAxisStartAar
-                )
+                ])
               })()
             : [],
       },
@@ -239,9 +230,7 @@ export const Simulering = ({
                 ]
             : [],
           afpPrivatListe ? afpPrivatListe : [],
-        ]).filter(
-          (item) => item.alder === Infinity || item.alder >= xAxisStartAar
-        ),
+        ]),
       },
       {
         type: 'column',
@@ -274,9 +263,7 @@ export const Simulering = ({
           return mergeAarligUtbetalinger([
             ...privatePensjonsParsed,
             ...offentligTpParsed,
-          ]).filter(
-            (item) => item.alder === Infinity || item.alder >= xAxisStartAar
-          )
+          ])
         })(),
       },
       {
@@ -289,12 +276,10 @@ export const Simulering = ({
         data:
           alderspensjonListe && alderspensjonListe.length > 0
             ? [
-                ...alderspensjonListe
-                  .filter((it) => it.alder >= xAxisStartAar)
-                  .map((it) => ({
-                    alder: it.alder,
-                    beloep: it.beloep,
-                  })),
+                ...alderspensjonListe.map((it) => ({
+                  alder: it.alder,
+                  beloep: it.beloep,
+                })),
                 // Alderspensjon fra Nav er livsvarig
                 {
                   alder: Infinity,
@@ -312,7 +297,6 @@ export const Simulering = ({
       gradertUttaksperiode,
       aarligInntektFoerUttakBeloep,
       aarligInntektVsaHelPensjon,
-      xAxisStartAar,
       afpOffentligListe,
       afpPrivatListe,
       pensjonsavtalerData?.avtaler,
