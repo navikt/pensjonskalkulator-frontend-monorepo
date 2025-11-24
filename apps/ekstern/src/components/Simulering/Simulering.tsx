@@ -133,30 +133,32 @@ export const Simulering = ({
               const pensjonStartAlder =
                 gradertUttaksperiode?.uttaksalder || uttaksalder
 
-              // Period 1: Income before withdrawal (starts 1 year before pension/gradual withdrawal)
-              // Only show this period for førstegangssøknad (not endring)
-              const inntektFoerUttak =
-                !isEndring && aarligInntektFoerUttakBeloep
-                  ? parseStartSluttUtbetaling({
-                      startAlder: {
-                        aar: pensjonStartAlder.aar - 1,
-                        maaneder: 0,
-                      },
-                      sluttAlder:
-                        pensjonStartAlder.maaneder === 0
-                          ? {
-                              aar: pensjonStartAlder.aar - 1,
-                              maaneder: 11,
-                            }
-                          : {
-                              aar: pensjonStartAlder.aar,
-                              maaneder: pensjonStartAlder.maaneder - 1,
-                            },
-                      aarligUtbetaling: formatInntektToNumber(
-                        aarligInntektFoerUttakBeloep
-                      ),
-                    })
-                  : []
+              // Period 1: Income before withdrawal
+              // For førstegangssøknad: starts 1 year before pension/gradual withdrawal
+              // For endring: starts from the same year as uttaksalder
+              const inntektFoerUttak = aarligInntektFoerUttakBeloep
+                ? parseStartSluttUtbetaling({
+                    startAlder: {
+                      aar: isEndring
+                        ? pensjonStartAlder.aar
+                        : pensjonStartAlder.aar - 1,
+                      maaneder: 0,
+                    },
+                    sluttAlder:
+                      pensjonStartAlder.maaneder === 0
+                        ? {
+                            aar: pensjonStartAlder.aar - 1,
+                            maaneder: 11,
+                          }
+                        : {
+                            aar: pensjonStartAlder.aar,
+                            maaneder: pensjonStartAlder.maaneder - 1,
+                          },
+                    aarligUtbetaling: formatInntektToNumber(
+                      aarligInntektFoerUttakBeloep
+                    ),
+                  })
+                : []
 
               // Period 2: Income during gradual withdrawal (ends when full pension starts)
               const inntektVedGradertUttak =
