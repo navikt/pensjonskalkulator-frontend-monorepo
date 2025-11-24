@@ -47,6 +47,9 @@ const defaultEslintConfig = tseslint.config(
 )
 
 export default [
+  {
+    ignores: ['playwright/**/*'],
+  },
   ...defaultEslintConfig,
   {
     settings: { react: { version: 'detect' } }, // eslint-plugin-react needs this
