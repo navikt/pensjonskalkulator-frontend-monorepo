@@ -130,12 +130,19 @@ export const Simulering = ({
         color: SERIES_DEFAULT.SERIE_INNTEKT.color,
         data: uttaksalder
           ? (() => {
-              const pensjonStartAlder =
-                gradertUttaksperiode?.uttaksalder || uttaksalder
+              const pensjonStartAlder = isEndring
+                ? {
+                    aar:
+                      alderspensjonListe && alderspensjonListe.length > 0
+                        ? alderspensjonListe[0].alder
+                        : uttaksalder.aar,
+                    maaneder: 0,
+                  }
+                : gradertUttaksperiode?.uttaksalder || uttaksalder
 
               // Period 1: Income before withdrawal
-              // For førstegangssøknad: starts 1 year before pension/gradual withdrawal
-              // For endring: starts from the same year as uttaksalder
+              // Førstegangssøknad: starts 1 year before pension
+              // Endring: starts from pension year
               const inntektFoerUttak = aarligInntektFoerUttakBeloep
                 ? parseStartSluttUtbetaling({
                     startAlder: {
