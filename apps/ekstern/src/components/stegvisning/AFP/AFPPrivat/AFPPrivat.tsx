@@ -82,6 +82,7 @@ export function AFPPrivat({
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afpPrivat.radio_label" />}
           name="afp"
+          data-testid="stegvisning.afpPrivat.radio_label"
           defaultValue={previousAfp}
           onChange={() => setValidationError('')}
           error={validationError}

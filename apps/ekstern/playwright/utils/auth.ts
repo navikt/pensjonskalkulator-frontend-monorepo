@@ -7,7 +7,7 @@ export const authenticate = async (
   overwrites: RouteDefinition[] = []
 ) => {
   await setupInterceptions(page, overwrites)
-  await page.goto('/pensjon/kalkulator/', { waitUntil: 'load' })
+  await page.goto('/pensjon/kalkulator/', { waitUntil: 'domcontentloaded' })
 
   const btn = page.getByTestId('landingside-enkel-kalkulator-button')
   await btn.waitFor({ state: 'visible' })

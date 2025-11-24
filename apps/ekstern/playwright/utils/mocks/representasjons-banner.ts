@@ -14,7 +14,7 @@ export const representasjonBanner = async (
 
   return {
     url: /\/representasjon\/api\/representasjon\/harRepresentasjonsforhold/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...representasjonBannerMock,
       ...options,
     },

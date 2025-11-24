@@ -14,7 +14,7 @@ export const toggleConfig = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/feature\//,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...toggleConfigMock,
       ...options,
     },

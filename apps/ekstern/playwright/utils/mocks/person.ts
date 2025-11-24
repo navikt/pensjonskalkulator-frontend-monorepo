@@ -4,7 +4,7 @@ import { loadJSONMock } from '../mock'
 type PersonMockOptions = {
   alder?: {
     aar: number
-    maander?: number
+    maaneder?: number
     dager?: number
   }
   foedselsdato?: string
@@ -44,7 +44,7 @@ export const person = async (
   } else if (options.alder) {
     personMock.foedselsdato = calculateFoedselsdato(
       options.alder.aar,
-      options.alder.maander,
+      options.alder.maaneder,
       options.alder.dager
     )
   }
@@ -63,6 +63,6 @@ export const person = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v5\/person/,
-    jsonResponse: personMock,
+    overrideJsonResponse: personMock,
   }
 }

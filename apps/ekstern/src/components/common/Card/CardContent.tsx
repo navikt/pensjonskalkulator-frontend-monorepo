@@ -47,7 +47,7 @@ export function CardContent({
   }
   return (
     <>
-      <Heading level="2" size="medium" spacing>
+      <Heading level="2" size="medium" spacing data-testid={text?.header}>
         <FormattedMessage id={text?.header} />
       </Heading>
 

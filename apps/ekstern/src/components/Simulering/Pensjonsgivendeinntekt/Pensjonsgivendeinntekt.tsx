@@ -32,11 +32,18 @@ export const Pensjonsgivendeinntekt: React.FC<Props> = ({ goToAvansert }) => {
 
   return (
     <VStack gap="1">
-      <Heading level="3" size="small">
+      <Heading
+        level="3"
+        size="small"
+        data-testid="grunnlag2.endre_inntekt.title"
+      >
         <FormattedMessage id="grunnlag2.endre_inntekt.title" />
       </Heading>
 
-      <BodyLong className={styles.ingress}>
+      <BodyLong
+        className={styles.ingress}
+        data-testid="grunnlag.inntekt.ingress"
+      >
         <FormattedMessage
           id="grunnlag.inntekt.ingress"
           values={{

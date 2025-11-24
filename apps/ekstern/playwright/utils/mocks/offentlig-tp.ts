@@ -14,7 +14,7 @@ export const offentligTp = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...offentligTpMock,
       ...options,
     },

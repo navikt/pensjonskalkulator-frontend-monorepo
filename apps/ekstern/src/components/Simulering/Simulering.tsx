@@ -190,6 +190,7 @@ export const Simulering = ({
             className={clsx({ [styles.introTitle]: isEnkel })}
             level={headingLevel}
             size={headingLevel === '2' ? 'medium' : 'small'}
+            data-testid="beregning-title"
           >
             <FormattedMessage id="beregning.highcharts.title" />
           </Heading>

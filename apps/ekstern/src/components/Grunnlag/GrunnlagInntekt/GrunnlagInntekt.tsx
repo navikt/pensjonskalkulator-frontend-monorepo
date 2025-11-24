@@ -64,7 +64,7 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
         headerValue={`${aarligInntektFoerUttakBeloep} kr`}
       >
         <>
-          <BodyLong>
+          <BodyLong data-testid="grunnlag.inntekt.ingress">
             <FormattedMessage
               id="grunnlag.inntekt.ingress"
               values={{

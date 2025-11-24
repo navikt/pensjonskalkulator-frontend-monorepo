@@ -15,7 +15,7 @@ export const apoteker = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v1\/er-apoteker/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...apotekerMock,
       ...overrides,
     },

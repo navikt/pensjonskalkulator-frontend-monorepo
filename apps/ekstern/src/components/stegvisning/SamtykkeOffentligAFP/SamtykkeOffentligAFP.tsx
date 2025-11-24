@@ -106,6 +106,7 @@ export function SamtykkeOffentligAFP({
             <FormattedMessage id="stegvisning.samtykke_offentlig_afp.radio_description" />
           }
           name="samtykke-offentlig-afp"
+          data-testid="stegvisning.samtykke_offentlig_afp.radio_label"
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
           }

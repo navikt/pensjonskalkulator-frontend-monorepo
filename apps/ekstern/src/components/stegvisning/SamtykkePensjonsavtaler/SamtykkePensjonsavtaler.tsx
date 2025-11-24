@@ -90,7 +90,12 @@ export function SamtykkePensjonsavtaler({
       />
 
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="stegvisning.samtykke_pensjonsavtaler.title"
+        >
           <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.title" />
         </Heading>
         <BodyLong size="large">
@@ -135,6 +140,7 @@ export function SamtykkePensjonsavtaler({
             <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_description" />
           }
           name="samtykke"
+          data-testid="stegvisning.samtykke_pensjonsavtaler.radio_label"
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
           }

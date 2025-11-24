@@ -75,12 +75,12 @@ export function Utenlandsopphold({
         level="2"
         size="medium"
         spacing
-        data-testid="utenlandsopphold-heading"
+        data-testid="stegvisning.utenlandsopphold.title"
       >
         <FormattedMessage id="stegvisning.utenlandsopphold.title" />
       </Heading>
 
-      <BodyLong size="large">
+      <BodyLong size="large" data-testid="stegvisning.utenlandsopphold.ingress">
         <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
       </BodyLong>
 
@@ -101,6 +101,7 @@ export function Utenlandsopphold({
         description={
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_label.description" />
         }
+        data-testid="stegvisning.utenlandsopphold.radio_label"
         defaultValue={
           harUtenlandsopphold
             ? 'ja'

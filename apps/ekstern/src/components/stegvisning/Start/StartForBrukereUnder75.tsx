@@ -44,7 +44,12 @@ export function StartForBrukereUnder75({
             <FridaPortrett />
           </div>
           <div className={styles.wrapperText}>
-            <Heading level="2" size="medium" spacing>
+            <Heading
+              level="2"
+              size="medium"
+              spacing
+              data-testid="stegvisning.start.title"
+            >
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
               })} ${navn}!`}

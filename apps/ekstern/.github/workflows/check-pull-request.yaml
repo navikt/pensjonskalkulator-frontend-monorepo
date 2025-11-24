@@ -2,7 +2,20 @@ name: Check pull request
 permissions:
   contents: read
 
-on: pull_request
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run-firefox:
+        description: 'Run Firefox tests'
+        required: false
+        default: false
+        type: boolean
+      run-webkit:
+        description: 'Run WebKit tests'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build:
@@ -142,17 +155,12 @@ jobs:
           name: screenshots
           path: cypress/screenshots
 
-  run-integration-tests-playwright:
-    name: Run Playwright tests
+  run-playwright-chromium:
+    name: Playwright Chromium tests
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: mcr.microsoft.com/playwright:v1.54.1-noble
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -184,24 +192,124 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Run Playwright tests (shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
-        run: npm run pw:test -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
+      - name: Run Chromium tests
+        run: npx playwright test --project=chromium --workers=6 --reporter=blob
 
-      - name: Upload Playwright blob report (shard ${{ matrix.shardIndex }})
+      - name: Upload Chromium blob report
         uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: playwright-blob-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
+          name: chromium-blob-report
+          path: blob-report
+          retention-days: 7
+
+  run-playwright-firefox:
+    name: Playwright Firefox tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ github.event.inputs.run-firefox == 'true' }}
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v22.16.0
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Run Firefox tests
+        run: npx playwright test --project=firefox --workers=6 --reporter=blob
+        env:
+          HOME: /root
+
+      - name: Upload Firefox blob report
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: firefox-blob-report
+          path: blob-report
+          retention-days: 7
+
+  run-playwright-webkit:
+    name: Playwright WebKit tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ github.event.inputs.run-webkit == 'true' }}
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v22.16.0
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Run WebKit tests
+        run: npx playwright test --project=webkit --workers=6 --reporter=blob
+
+      - name: Upload WebKit blob report
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: webkit-blob-report
           path: blob-report
           retention-days: 7
 
   merge-playwright-reports:
     name: Merge Playwright reports
     runs-on: ubuntu-latest
-    needs: run-integration-tests-playwright
-    if: ${{ always() }}
+    needs: [run-playwright-chromium, run-playwright-firefox, run-playwright-webkit]
+    if: ${{ always() && !cancelled() }}
     container:
-      image: mcr.microsoft.com/playwright:v1.54.1-noble
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -230,7 +338,7 @@ jobs:
       - name: Download all Playwright blob reports
         uses: actions/download-artifact@v4
         with:
-          pattern: playwright-blob-*
+          pattern: '*-blob-report'
           path: blob-report
           merge-multiple: true
 

@@ -15,7 +15,7 @@ export const ekskludert = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v2\/ekskludert/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...ekskludertMock,
       ...overrides,
     },

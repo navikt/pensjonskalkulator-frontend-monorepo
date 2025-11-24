@@ -88,11 +88,16 @@ export function AFP({ previousAfp, onCancel, onPrevious, onNext }: Props) {
   return (
     <Card hasLargePadding hasMargin data-testid="afp-etter-1963">
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="stegvisning.afp.title"
+        >
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
 
-        <BodyLong size="large">
+        <BodyLong size="large" data-testid="stegvisning.afp.ingress">
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
 

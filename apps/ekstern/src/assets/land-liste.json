@@ -1558,5 +1558,29 @@
     "bokmaalNavn": "Åland",
     "nynorskNavn": "Åland",
     "engelskNavn": "Åland"
+  },
+  {
+    "landkode": "XUK",
+    "bokmaalNavn": "uoppgitt",
+    "nynorskNavn": "uoppgitt",
+    "engelskNavn": "unspecified"
+  },
+  {
+    "landkode": "P_PANAMAKANALSONEN",
+    "bokmaalNavn": "Panamakanalsonen",
+    "nynorskNavn": "Panamakanalsonen",
+    "engelskNavn": "Panama Canal Zone"
+  },
+  {
+    "landkode": "P_SPANSKE_OMR_AFRIKA",
+    "bokmaalNavn": "Spansk Nord-Afrika",
+    "nynorskNavn": "Spansk Nord-Afrika",
+    "engelskNavn": "Spanish North Africa"
+  },
+  {
+    "landkode": "P_UKJENT",
+    "bokmaalNavn": "ukjent",
+    "nynorskNavn": "ukjent",
+    "engelskNavn": "unknown"
   }
 ]

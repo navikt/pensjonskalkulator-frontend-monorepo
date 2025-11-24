@@ -1,4 +1,4 @@
-import { Page, test as baseTest } from '@playwright/test'
+import { Browser, Page, test as baseTest } from '@playwright/test'
 import { authenticate } from 'utils/auth'
 
 import { loadHTMLMock, loadJSONMock } from './utils/mock'
@@ -9,10 +9,31 @@ type TestOptions = {
   autoAuth: boolean
 }
 
+let sharedBrowser: Browser
+
 export const test = baseTest.extend<TestOptions>({
   autoAuth: [true, { option: true }],
 
-  page: async ({ page, autoAuth }, use) => {
+  browser: [
+    async ({ playwright }, use, workerInfo) => {
+      if (!sharedBrowser) {
+        sharedBrowser = await playwright.chromium.launch(
+          workerInfo.project.use.launchOptions
+        )
+      }
+      await use(sharedBrowser)
+    },
+    { scope: 'worker' },
+  ],
+
+  context: async ({ browser }, use, workerInfo) => {
+    const context = await browser.newContext(workerInfo.project.use)
+    await use(context)
+    await context.close()
+  },
+
+  page: async ({ context, autoAuth }, use) => {
+    const page = await context.newPage()
     if (autoAuth) {
       await authenticate(page)
     }
@@ -23,10 +44,9 @@ export const test = baseTest.extend<TestOptions>({
 export type RouteDefinition = {
   url: RegExp | string
   method?: 'GET' | 'POST'
-  mockName?: string
-  jsonResponse?: Record<string, unknown> | unknown[]
+  mockFileName?: string
+  overrideJsonResponse?: Record<string, unknown> | unknown[]
   status?: number
-  isHTML?: boolean
 }
 
 export async function setupInterceptions(
@@ -61,29 +81,47 @@ export async function setupInterceptions(
   ])
 
   const routes: RouteDefinition[] = [
-    { url: /\/auth\?/, mockName: 'decorator-auth.json' },
+    {
+      url: /^https?:\/\/cdn\.nav\.no\/personbruker\/decorator-next\/public\/assets\/.*\.(js|css|svg)/,
+      status: 200,
+    },
+    {
+      url: /^https?:\/\/cdn\.nav\.no\/aksel\/fonts\/SourceSans3-normal\.woff2/,
+      status: 200,
+    },
+    {
+      url: /^https?:\/\/dekoratoren\.ekstern\.dev\.nav\.no\/css\/client\.css/,
+      status: 200,
+    },
+    {
+      url: /^https?:\/\/representasjon-banner-frontend-borger-q2\.ekstern\.dev\.nav\.no\/pensjon\/selvbetjening\/representasjon\/banner\.js/,
+      status: 200,
+    },
+    {
+      url: /^https?:\/\/in2\.taskanalytics\.com\/tm\.js/,
+      status: 200,
+    },
+    { url: /\/auth\?/, mockFileName: 'decorator-auth.json' },
     { url: 'https://login.ekstern.dev.nav.no/oauth2/session', status: 200 },
     { url: 'https://login.nav.no/oauth2/session', status: 200 },
     {
       url: /representasjon\/harRepresentasjonsforhold/,
-      mockName: 'representasjon-banner.json',
+      mockFileName: 'representasjon-banner.json',
     },
     { url: /\/collect$/, status: 200 },
-    { url: /\/api\/ta/, mockName: 'decorator-ta.json' },
+    { url: /\/api\/ta/, mockFileName: 'decorator-ta.json' },
     {
       url: /main-menu\?/,
-      mockName: 'decorator-main-menu.html',
-      isHTML: true,
+      mockFileName: 'decorator-main-menu.html',
     },
     {
       url: /user-menu\?/,
-      mockName: 'decorator-user-menu.html',
-      isHTML: true,
+      mockFileName: 'decorator-user-menu.html',
     },
-    { url: /ops-messages/, jsonResponse: [] },
+    { url: /ops-messages/, overrideJsonResponse: [] },
     {
       url: /\/env\?chatbot=false&logoutWarning=true&redirectToUrl=/,
-      mockName: 'decorator-env-features.json',
+      mockFileName: 'decorator-env-features.json',
     },
     {
       url: 'https://amplitude.nav.no/collect-auto',
@@ -93,52 +131,59 @@ export async function setupInterceptions(
     { url: /pensjon\/kalkulator\/oauth2\/session/, status: 200 },
     {
       url: /\/pensjon\/kalkulator\/api\/feature\//,
-      mockName: 'toggle-config.json',
+      mockFileName: 'toggle-config.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v1\/er-apoteker/,
-      mockName: 'er-apoteker.json',
+      mockFileName: 'er-apoteker.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v2\/ekskludert/,
-      mockName: 'ekskludert-status.json',
+      mockFileName: 'ekskludert-status.json',
+    },
+    {
+      url: /\/pensjon\/kalkulator\/api\/v1\/ansatt-id/,
+      overrideJsonResponse: { id: 'mock-ansatt-id' },
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v1\/loepende-omstillingsstoenad-eller-gjenlevendeytelse/,
-      mockName: 'omstillingsstoenad-og-gjenlevende.json',
+      mockFileName: 'omstillingsstoenad-og-gjenlevende.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v4\/vedtak\/loepende-vedtak/,
-      mockName: 'loepende-vedtak.json',
+      mockFileName: 'loepende-vedtak.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v5\/person/,
-      mockName: 'person.json',
+      mockFileName: 'person.json',
     },
-    { url: /\/pensjon\/kalkulator\/api\/inntekt/, mockName: 'inntekt.json' },
+    {
+      url: /\/pensjon\/kalkulator\/api\/inntekt/,
+      mockFileName: 'inntekt.json',
+    },
     {
       url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
       method: 'POST',
-      mockName: 'offentlig-tp.json',
+      mockFileName: 'offentlig-tp.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v2\/tidligste-hel-uttaksalder/,
       method: 'POST',
-      mockName: 'tidligste-uttaksalder.json',
+      mockFileName: 'tidligste-uttaksalder.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v3\/pensjonsavtaler/,
       method: 'POST',
-      mockName: 'pensjonsavtaler.json',
+      mockFileName: 'pensjonsavtaler.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v8\/alderspensjon\/simulering/,
       method: 'POST',
-      mockName: 'alderspensjon.json',
+      mockFileName: 'alderspensjon.json',
     },
     {
       url: 'https://g.nav.no/api/v1/grunnbel%C3%B8p',
-      jsonResponse: {
+      overrideJsonResponse: {
         dato: '2024-05-01',
         grunnbeløp: 100000,
         grunnbeløpPerMåned: 10000,
@@ -149,19 +194,23 @@ export async function setupInterceptions(
     },
     {
       url: /^https?:\/\/api\.uxsignals\.com\/v2\/study\/id\/.*\/active/,
-      jsonResponse: { active: false },
+      overrideJsonResponse: { active: false },
     },
     {
       url: /^https?:\/\/g2by7q6m\.apicdn\.sanity\.io.*readmore/,
-      mockName: 'sanity-readmore-data.json',
+      mockFileName: 'sanity-readmore-data.json',
     },
     {
       url: /^https?:\/\/g2by7q6m\.apicdn\.sanity\.io.*guidepanel/,
-      mockName: 'sanity-guidepanel-data.json',
+      mockFileName: 'sanity-guidepanel-data.json',
     },
     {
       url: /^https?:\/\/g2by7q6m\.apicdn\.sanity\.io.*forbeholdAvsnitt/,
-      mockName: 'sanity-forbehold-avsnitt-data.json',
+      mockFileName: 'sanity-forbehold-avsnitt-data.json',
+    },
+    {
+      url: 'https://www.nav.no/pensjon/selvbetjening/dinpensjon',
+      mockFileName: 'dinpensjon.html',
     },
   ]
 
@@ -215,10 +264,9 @@ export async function setupInterceptions(
   for (const {
     url,
     method,
-    mockName,
-    jsonResponse,
+    mockFileName: mockName,
+    overrideJsonResponse: jsonResponse,
     status = 200,
-    isHTML,
   } of finalRoutes) {
     const JSON_CONTENT_TYPE = 'application/json; charset=utf-8'
 
@@ -231,7 +279,7 @@ export async function setupInterceptions(
       }
 
       if (mockName) {
-        if (isHTML) {
+        if (mockName.includes('.html')) {
           const body = await loadHTMLMock(mockName)
           return route.fulfill({
             status,

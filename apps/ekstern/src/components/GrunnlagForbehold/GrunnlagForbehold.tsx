@@ -28,7 +28,12 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium" className={styles.heading}>
+      <Heading
+        level={headingLevel}
+        size="medium"
+        className={styles.heading}
+        data-testid="forbehold-heading"
+      >
         <FormattedMessage id="grunnlag.forbehold.title" />
       </Heading>
 

@@ -192,7 +192,10 @@ export const EndreInntekt: React.FC<Props> = ({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button form="oppdatere-inntekt">
+          <Button
+            form="oppdatere-inntekt"
+            data-testid="inntekt.endre_inntekt_modal.button"
+          >
             {intl.formatMessage({
               id: 'inntekt.endre_inntekt_modal.button',
             })}
@@ -212,6 +215,7 @@ export const EndreInntekt: React.FC<Props> = ({
         size="medium"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
+        data-testid={buttonLabel ?? 'inntekt.endre_inntekt_modal.open.button'}
       >
         {intl.formatMessage({
           id: buttonLabel ?? 'inntekt.endre_inntekt_modal.open.button',
