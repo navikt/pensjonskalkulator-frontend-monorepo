@@ -1,0 +1,136 @@
+import { useEffect, useMemo, useState } from 'react'
+
+import {
+  useGetPersonQuery,
+  useTidligstMuligHeltUttakQuery,
+} from '@/state/api/apiSlice'
+import { generateTidligstMuligHeltUttakRequestBody } from '@/state/api/utils'
+import { useAppSelector } from '@/state/hooks'
+import {
+  selectAarligInntektFoerUttakBeloep,
+  selectAfp,
+  selectEpsHarInntektOver2G,
+  selectEpsHarPensjon,
+  selectNedreAldersgrense,
+  selectNormertPensjonsalder,
+  selectSamtykkeOffentligAFP,
+  selectSivilstand,
+  selectUtenlandsperioder,
+} from '@/state/userInput/selectors'
+import { isAlder75MaanedenFylt, isFoedtFoer1964 } from '@/utils/alder'
+
+/**
+ * Custom hook for pension-related calculations and conditions
+ * @returns Common pension calculation values
+ */
+export const useTidligstMuligUttakConditions = (
+  loependeVedtak?: LoependeVedtak
+) => {
+  const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
+  const afp = useAppSelector(selectAfp)
+  const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+
+  const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
+
+  const hasAFP =
+    (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
+  const isOver75AndNoLoependeVedtak =
+    !loependeVedtak?.harLoependeVedtak &&
+    !!person?.foedselsdato &&
+    isAlder75MaanedenFylt(person.foedselsdato)
+
+  const show1963Text = useMemo(() => {
+    return isPersonSuccess && isFoedtFoer1964(person?.foedselsdato)
+  }, [isPersonSuccess, person?.foedselsdato])
+
+  const loependeVedtakPre2025OffentligAfp = Boolean(
+    loependeVedtak?.pre2025OffentligAfp
+  )
+  return {
+    normertPensjonsalder,
+    nedreAldersgrense,
+    isOver75AndNoLoependeVedtak,
+    show1963Text,
+    loependeVedtakPre2025OffentligAfp,
+    loependeVedtak,
+    person,
+    isPersonSuccess,
+    hasAFP,
+  }
+}
+
+/**
+ * Custom hook for fetching tidligst mulig uttak data with automatic request body generation
+ * @param ufoeregrad Optional ufoeregrad parameter
+ * @returns The data from the API call, loading state, and success state
+ */
+export const useTidligstMuligUttak = (
+  loependeVedtak?: LoependeVedtak,
+  ufoeregrad?: number
+) => {
+  const afp = useAppSelector(selectAfp)
+  const sivilstand = useAppSelector(selectSivilstand)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+
+  const [
+    tidligstMuligHeltUttakRequestBody,
+    setTidligstMuligHeltUttakRequestBody,
+  ] = useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
+
+  // Generate request body when dependencies change
+  useEffect(() => {
+    if (!ufoeregrad && loependeVedtak && !loependeVedtak?.pre2025OffentligAfp) {
+      const requestBody = generateTidligstMuligHeltUttakRequestBody({
+        loependeVedtak,
+        afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
+        sivilstand: sivilstand,
+        epsHarPensjon,
+        epsHarInntektOver2G,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+        utenlandsperioder,
+      })
+      setTidligstMuligHeltUttakRequestBody(requestBody)
+    } else {
+      setTidligstMuligHeltUttakRequestBody(undefined)
+    }
+  }, [
+    ufoeregrad,
+    loependeVedtak,
+    afp,
+    harSamtykketOffentligAFP,
+    sivilstand,
+    epsHarPensjon,
+    epsHarInntektOver2G,
+    aarligInntektFoerUttakBeloep,
+    utenlandsperioder,
+  ])
+
+  // Make API call
+  const {
+    data: tidligstMuligUttak,
+    isLoading: isTidligstMuligUttakLoading,
+    isSuccess: isTidligstMuligUttakSuccess,
+    ...rest
+  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
+    skip:
+      !tidligstMuligHeltUttakRequestBody ||
+      Boolean(ufoeregrad) ||
+      Boolean(loependeVedtak?.pre2025OffentligAfp),
+  })
+
+  return {
+    data: tidligstMuligUttak,
+    isLoading: isTidligstMuligUttakLoading,
+    isSuccess: isTidligstMuligUttakSuccess,
+    requestBody: tidligstMuligHeltUttakRequestBody,
+    setRequestBody: setTidligstMuligHeltUttakRequestBody,
+    ...rest,
+  }
+}

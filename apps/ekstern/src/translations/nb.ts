@@ -412,6 +412,9 @@ const translations = {
     'Månedlig avtalefestet pensjon (AFP)',
   'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title':
     'Opptjening avtalefestet pensjon (AFP)',
+  'beregning.pdf.ingress':
+    'Beregningen din blir ikke lagret hos Nav. Hvis du har behov for å ta vare på eller skrive ut beregningen, kan du laste den ned.',
+  'beregning.pdf.button': 'Last ned beregningen som PDF',
   'beregning.avansert.link.endre_valgene_dine': 'Endre valgene dine',
   'beregning.avansert.link.endre_avanserte_valg': 'Endre avanserte valg',
   'beregning.avansert.link.om_vilkaar_for_afp': 'Om vilkår for uttak av AFP',
@@ -650,6 +653,8 @@ const translations = {
   'grunnlag.afp.link.text': 'Om inntekt og AFP på nav.no',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat på hva du kan forvente deg i pensjon. Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
+  'grunnlag.forbehold.ingress_2':
+    'Det kan skje endringer i regelverket og i opptjeningen din. Vi anbefaler at du gjør en ny beregning når du nærmer deg ønsket pensjonsalder.',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
   'om_deg.title': 'Om deg',

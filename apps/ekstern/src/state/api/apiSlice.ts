@@ -132,6 +132,9 @@ export const apiSlice = createApi({
     getVedlikeholdsmodusFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.vedlikeholdsmodus',
     }),
+    getShowDownloadPdfFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.show-download-pdf',
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -153,5 +156,6 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetVedlikeholdsmodusFeatureToggleQuery,
+  useGetShowDownloadPdfFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

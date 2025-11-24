@@ -1,14 +1,18 @@
 import clsx from 'clsx'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { useEffect, useRef, useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
 import { BodyLong, BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
+import { BeregningContext } from '@/pages/Beregning/context'
 import {
+  useGetOmstillingsstoenadOgGjenlevendeQuery,
+  useGetPersonQuery,
+  useGetShowDownloadPdfFeatureToggleQuery,
   useOffentligTpQuery,
   usePensjonsavtalerQuery,
 } from '@/state/api/apiSlice'
@@ -25,18 +29,35 @@ import {
   selectErApoteker,
   selectFoedselsdato,
   selectIsEndring,
+  selectLoependeVedtak,
   selectSamtykke,
   selectSivilstand,
   selectSkalBeregneAfpKap19,
   selectUfoeregrad,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
+import { formatUttaksalder } from '@/utils/alder'
+import {
+  useTidligstMuligUttak,
+  useTidligstMuligUttakConditions,
+} from '@/utils/hooks/useTidligstMuligUttakData'
 
+import { useTableData } from '../TabellVisning/hooks'
+import { useBeregningsdetaljer } from './BeregningsdetaljerForOvergangskull/hooks'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
 import { useSimuleringChartLocalState } from './hooks'
+import {
+  getChartTable,
+  getCurrentDateTimeFormatted,
+  getDetaljerHtmlTable,
+  getForbeholdAvsnitt,
+  getOmstillingsstoenadAlert,
+  getPdfHeadingWithLogo,
+  getTidligstMuligUttakIngressContent,
+} from './pdf-utils'
 
 import styles from './Simulering.module.scss'
 
@@ -69,6 +90,7 @@ export const Simulering = ({
   showButtonsAndTable,
   visning,
 }: Props) => {
+  const { showPDFRef, setIsPdfReady } = useContext(BeregningContext)
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
@@ -111,6 +133,7 @@ export const Simulering = ({
       skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
+  const { data: showPDF } = useGetShowDownloadPdfFeatureToggleQuery()
 
   useEffect(() => {
     if (harSamtykket && uttaksalder) {
@@ -180,7 +203,149 @@ export const Simulering = ({
     },
   })
 
+  const { data: person } = useGetPersonQuery()
   const isEnkel = visning === 'enkel'
+  const series = chartOptions.series as SeriesColumnOptions[]
+  const aarArray = (chartOptions?.xAxis as XAxisOptions).categories
+  const tableData = useTableData(series, aarArray)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
+  const intl = useIntl()
+
+  const { alderspensjonDetaljerListe } = useBeregningsdetaljer(
+    alderspensjonListe,
+    afpPrivatListe,
+    afpOffentligListe,
+    pre2025OffentligAfp
+  )
+
+  const { data: tidligstMuligUttak } = useTidligstMuligUttak(
+    loependeVedtak,
+    ufoeregrad
+  )
+  const { data: omstillingsstoenadOgGjenlevende } =
+    useGetOmstillingsstoenadOgGjenlevendeQuery()
+
+  useEffect(() => {
+    window.addEventListener('beforeprint', () => {
+      const locationUrl = window.location.href
+      if (locationUrl.includes('beregning') && showPDF?.enabled) {
+        handlePDF()
+      }
+    })
+    return () => {
+      window.removeEventListener('beforeprint', handlePDF)
+    }
+  })
+
+  const isSafari = (): boolean => {
+    return /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent)
+  }
+
+  const {
+    normertPensjonsalder,
+    nedreAldersgrense,
+    loependeVedtakPre2025OffentligAfp,
+    isOver75AndNoLoependeVedtak,
+    show1963Text,
+    hasAFP,
+  } = useTidligstMuligUttakConditions(loependeVedtak)
+
+  const handlePDF = () => {
+    const appContentElement = document.getElementById('app-content')
+    if (appContentElement) {
+      appContentElement.classList.add('hideAppContent')
+    }
+
+    const printContentElement = document.getElementById('print-content')
+    if (printContentElement) {
+      printContentElement.classList.add('showPrintContent')
+    }
+    const pdfHeadingWithLogo = getPdfHeadingWithLogo(isEnkel)
+
+    const personalInfo = `<div 
+      class="pdf-metadata"
+    >
+      ${person?.navn}
+      <span 
+        style="padding: 0 8px; font-size: 16px; font-weight: 800;"
+      >\u2022</span>
+      Dato opprettet: ${getCurrentDateTimeFormatted()}
+    </div>`
+
+    const forbeholdAvsnitt = getForbeholdAvsnitt(intl)
+
+    const uttakstidspunkt = uttaksalder && formatUttaksalder(intl, uttaksalder)
+    const helUttaksAlder = `<h2>Beregning av 100% alderspensjon ved ${uttakstidspunkt} </h2>`
+    const chartTableWithHeading = getChartTable({ tableData, intl })
+
+    const tidligstMuligUttakIngress = getTidligstMuligUttakIngressContent({
+      intl,
+      normertPensjonsalder,
+      nedreAldersgrense,
+      loependeVedtakPre2025OffentligAfp,
+      isOver75AndNoLoependeVedtak,
+      show1963Text,
+      ufoeregrad,
+      hasAFP,
+      tidligstMuligUttak,
+    })
+    const omstillingsstoenadAlert =
+      omstillingsstoenadOgGjenlevende?.harLoependeSak
+        ? getOmstillingsstoenadAlert(intl, normertPensjonsalder)
+        : ''
+    const detaljerTable = getDetaljerHtmlTable(alderspensjonDetaljerListe)
+    const finalPdfContent =
+      pdfHeadingWithLogo +
+      personalInfo +
+      forbeholdAvsnitt +
+      tidligstMuligUttakIngress +
+      omstillingsstoenadAlert +
+      helUttaksAlder +
+      chartTableWithHeading +
+      detaljerTable
+
+    // Set the print content in the hidden div
+    const printContentDiv = document.getElementById('print-content')
+    if (printContentDiv) {
+      printContentDiv.innerHTML = finalPdfContent
+    }
+
+    const documentTitle = document.title
+    document.title = '' // Ikke vis document title i print preview/PDF
+
+    window.onafterprint = () => {
+      if (printContentDiv) {
+        // Reset to original content after printing
+        printContentDiv.innerHTML = ''
+        document.title = documentTitle
+      }
+    }
+
+    if (isSafari()) {
+      setTimeout(() => window.print(), 100)
+    } else {
+      window.print()
+    }
+  }
+
+  const handlePDFRef = useRef(handlePDF)
+
+  useEffect(() => {
+    handlePDFRef.current = handlePDF
+  })
+
+  // Set up the context ref connection
+  useEffect(() => {
+    if (showPDFRef) {
+      showPDFRef.current = {
+        handlePDF: () => handlePDFRef.current(),
+      }
+      setIsPdfReady?.(true)
+    }
+    return () => {
+      setIsPdfReady?.(false)
+    }
+  }, [showPDFRef, setIsPdfReady])
 
   return (
     <section className={styles.section}>

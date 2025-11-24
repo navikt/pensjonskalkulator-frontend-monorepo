@@ -65,6 +65,10 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
           />
         </Link>
       </BodyLong>
+
+      <BodyLong className={styles.text}>
+        <FormattedMessage id="grunnlag.forbehold.ingress_2" />
+      </BodyLong>
     </section>
   )
 }
