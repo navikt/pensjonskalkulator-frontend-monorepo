@@ -1,16 +1,19 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import type { SeriesConfig } from '../data/data'
 import { generateSeries } from '../data/data'
-import { getChartOptions } from '../utils-highcharts'
+import { getChartOptions, onPointUnclick } from '../utils-highcharts'
 
 import styles from '../Simulering.module.scss'
 
 interface IProps {
   data: SeriesConfig[]
+  isLoading?: boolean
+  isPensjonsavtalerLoading?: boolean
+  isOffentligTpLoading?: boolean
   onButtonVisibilityChange?: (state: {
     showVisFaerreAarButton: boolean
     showVisFlereAarButton: boolean
@@ -23,6 +26,9 @@ interface IProps {
 
 const Graph = ({
   data,
+  isLoading = false,
+  isPensjonsavtalerLoading = false,
+  isOffentligTpLoading = false,
   onButtonVisibilityChange,
   onSeriesDataChange,
 }: IProps) => {
@@ -46,6 +52,17 @@ const Graph = ({
     onSeriesDataChange?.(xAxis, series)
   }, [xAxis, series, onSeriesDataChange])
 
+  // Handle click outside tooltip to close it
+  useEffect(() => {
+    function onPointUnclickEventHandler(e: Event) {
+      onPointUnclick(e, chartRef.current?.chart)
+    }
+    document.addEventListener('click', onPointUnclickEventHandler)
+    return () => {
+      document.removeEventListener('click', onPointUnclickEventHandler)
+    }
+  }, [])
+
   const chartOptions: Highcharts.Options = {
     ...getChartOptions(
       styles,
@@ -64,6 +81,19 @@ const Graph = ({
     },
     series: series,
   }
+
+  // Handle loading state
+  useEffect(() => {
+    if (chartRef.current?.chart) {
+      if (isLoading || isPensjonsavtalerLoading || isOffentligTpLoading) {
+        chartRef.current.chart.showLoading(
+          `<div class="${styles.loader}"><div></div><div></div><div></div><div></div></div>`
+        )
+      } else {
+        chartRef.current.chart.hideLoading()
+      }
+    }
+  }, [isLoading, isPensjonsavtalerLoading, isOffentligTpLoading])
 
   return (
     <HighchartsReact

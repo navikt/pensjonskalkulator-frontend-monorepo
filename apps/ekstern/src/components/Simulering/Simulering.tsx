@@ -216,11 +216,27 @@ export const Simulering = ({
         }),
         color: SERIES_DEFAULT.SERIE_AFP.color,
         data: mergeAarligUtbetalinger([
-          afpOffentligListe
-            ? parseStartSluttUtbetaling({
-                startAlder: { aar: afpOffentligListe[0].alder, maaneder: 0 },
-                aarligUtbetaling: afpOffentligListe[0].beloep,
-              })
+          afpOffentligListe && afpOffentligListe.length > 0
+            ? afpOffentligListe.length === 1
+              ? // Single element: show same for all ages (livsvarig)
+                parseStartSluttUtbetaling({
+                  startAlder: {
+                    aar: afpOffentligListe[0].alder,
+                    maaneder: 0,
+                  },
+                  aarligUtbetaling: afpOffentligListe[0].beloep,
+                })
+              : // Multiple elements: first at set age, second till infinity
+                [
+                  {
+                    alder: afpOffentligListe[0].alder,
+                    beloep: afpOffentligListe[0].beloep,
+                  },
+                  {
+                    alder: Infinity,
+                    beloep: afpOffentligListe[1].beloep,
+                  },
+                ]
             : [],
           afpPrivatListe ? afpPrivatListe : [],
         ]).filter(
@@ -270,22 +286,23 @@ export const Simulering = ({
         }),
         color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
         pointWidth: SERIES_DEFAULT.SERIE_ALDERSPENSJON.pointWidth,
-        data: alderspensjonListe
-          ? [
-              ...alderspensjonListe
-                .filter((it) => it.alder >= xAxisStartAar)
-                .map((it) => ({
-                  alder: it.alder,
-                  beloep: it.beloep,
-                })),
-              // Alderspensjon fra Nav er livsvarig
-              {
-                alder: Infinity,
-                beloep:
-                  alderspensjonListe[alderspensjonListe.length - 1].beloep,
-              },
-            ]
-          : [],
+        data:
+          alderspensjonListe && alderspensjonListe.length > 0
+            ? [
+                ...alderspensjonListe
+                  .filter((it) => it.alder >= xAxisStartAar)
+                  .map((it) => ({
+                    alder: it.alder,
+                    beloep: it.beloep,
+                  })),
+                // Alderspensjon fra Nav er livsvarig
+                {
+                  alder: Infinity,
+                  beloep:
+                    alderspensjonListe[alderspensjonListe.length - 1].beloep,
+                },
+              ]
+            : [],
       },
     ],
     [
@@ -432,6 +449,9 @@ export const Simulering = ({
         >
           <Graph
             data={graphData}
+            isLoading={isLoading}
+            isPensjonsavtalerLoading={isPensjonsavtalerLoading}
+            isOffentligTpLoading={isOffentligTpLoading}
             onButtonVisibilityChange={handleButtonVisibilityChange}
             onSeriesDataChange={handleSeriesDataChange}
           />
