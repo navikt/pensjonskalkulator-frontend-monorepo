@@ -179,12 +179,10 @@ export const Simulering = ({
                       sluttAlder:
                         uttaksalder.maaneder === 0
                           ? {
-                              // If full pension starts in January, end gradual income in December of previous year
                               aar: uttaksalder.aar - 1,
                               maaneder: 11,
                             }
                           : {
-                              // Otherwise, end gradual income the month before full pension starts
                               aar: uttaksalder.aar,
                               maaneder: uttaksalder.maaneder - 1,
                             },
@@ -198,7 +196,18 @@ export const Simulering = ({
               const inntektVedHelPensjon = aarligInntektVsaHelPensjon?.beloep
                 ? parseStartSluttUtbetaling({
                     startAlder: uttaksalder,
-                    sluttAlder: aarligInntektVsaHelPensjon.sluttAlder,
+                    sluttAlder:
+                      aarligInntektVsaHelPensjon.sluttAlder.maaneder === 0
+                        ? {
+                            aar: aarligInntektVsaHelPensjon.sluttAlder.aar - 1,
+                            maaneder: 11,
+                          }
+                        : {
+                            aar: aarligInntektVsaHelPensjon.sluttAlder.aar,
+                            maaneder:
+                              aarligInntektVsaHelPensjon.sluttAlder.maaneder -
+                              1,
+                          },
                     aarligUtbetaling: formatInntektToNumber(
                       aarligInntektVsaHelPensjon.beloep
                     ),
