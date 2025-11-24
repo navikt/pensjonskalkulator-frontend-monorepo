@@ -303,7 +303,6 @@ describe('Simulering data', () => {
             },
           ],
           name: 'Series 1',
-          type: 'column',
           color: 'red',
         },
         {
@@ -322,7 +321,6 @@ describe('Simulering data', () => {
             },
           ],
           name: 'Series 2',
-          type: 'column',
           color: 'blue',
         },
       ]

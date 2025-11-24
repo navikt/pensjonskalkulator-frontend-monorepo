@@ -263,10 +263,8 @@ export const fillYAxis = (
 
 export interface SeriesConfig {
   data: AarligUtbetaling[]
-  type: string
   name: string
   color: string
-  pointWidth?: number
 }
 
 interface SeriesReturn {
@@ -274,16 +272,18 @@ interface SeriesReturn {
   series: SeriesOptionsType[]
 }
 
+const POINTER_WIDTH = 25
+
 export const generateSeries = (seriesConfig: SeriesConfig[]): SeriesReturn => {
   const xAxisSkeleton = generateXAxis(seriesConfig.map((it) => it.data))
 
   const series: SeriesOptionsType[] = seriesConfig
     .filter((it) => it.data.length > 0)
     .map((it) => ({
-      type: it.type as 'column',
+      type: 'column',
       name: it.name,
       color: it.color,
-      pointWidth: it.pointWidth ?? 25,
+      pointWidth: POINTER_WIDTH,
       stacking: 'normal',
       data: fillYAxis(xAxisSkeleton, it.data),
     }))
