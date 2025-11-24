@@ -231,10 +231,6 @@ export const fillYAxis = (
 
   // Find the min and max defined age (excluding Infinity)
   const finiteUtbetalinger = utbetalinger.filter((u) => u.alder !== Infinity)
-  const minDefinedAge = finiteUtbetalinger.reduce(
-    (min, u) => Math.min(min, u.alder),
-    Infinity
-  )
   const maxDefinedAge = finiteUtbetalinger.reduce(
     (max, u) => Math.max(max, u.alder),
     -Infinity
