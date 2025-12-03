@@ -314,7 +314,7 @@ export const BeregningEnkel = () => {
             uttaksalder &&
             uttaksalder.aar < normertPensjonsalder.aar) ? (
             <>
-              <Heading level="2" size="medium">
+              <Heading level="2" size="medium" data-testid="beregning-heading">
                 <FormattedMessage id="beregning.title" />
               </Heading>
 

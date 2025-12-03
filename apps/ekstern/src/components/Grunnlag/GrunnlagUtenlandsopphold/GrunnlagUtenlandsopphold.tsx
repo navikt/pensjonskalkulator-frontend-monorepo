@@ -123,10 +123,11 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
           headerValue={intl.formatMessage({
             id: `grunnlag.opphold.value.${oppholdUtenforNorge}`,
           })}
+          headerValueTestId={`grunnlag.opphold.value.${oppholdUtenforNorge}`}
         >
           <>
             {oppholdUtenforNorge === 'endring' && (
-              <BodyLong>
+              <BodyLong data-testid="grunnlag.opphold.ingress.endring">
                 <FormattedMessage
                   id="grunnlag.opphold.ingress.endring"
                   values={{

@@ -65,7 +65,12 @@ export function AFPPrivat({
   return (
     <Card hasLargePadding hasMargin data-testid="afp-privat">
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="stegvisning.afp.title"
+        >
           <FormattedMessage id="stegvisning.afpPrivat.title" />
         </Heading>
 

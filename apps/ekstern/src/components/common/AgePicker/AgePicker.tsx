@@ -61,6 +61,7 @@ export interface AgePickerProps {
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
   error?: string | React.JSX.Element
+  testId?: string
 }
 
 export const AgePicker = ({
@@ -74,6 +75,7 @@ export const AgePicker = ({
   info,
   onChange,
   error,
+  testId,
 }: AgePickerProps) => {
   const intl = useIntl()
 
@@ -140,7 +142,7 @@ export const AgePicker = ({
   }, [valgtAlder, isSuccess, person?.foedselsdato])
 
   return (
-    <div data-testid={`age-picker-${name}`}>
+    <div data-testid={testId || `age-picker-${name}`}>
       <Label className={!description ? styles.label : ''}>{label}</Label>
 
       {description && (

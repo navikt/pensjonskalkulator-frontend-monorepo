@@ -13,7 +13,7 @@ export default defineConfig({
   outputDir: './playwright/test-results',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   workers,
   reporter: process.env.CI
     ? 'line'

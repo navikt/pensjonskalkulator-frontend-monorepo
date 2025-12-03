@@ -160,7 +160,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -209,7 +209,7 @@ jobs:
     needs: build
     if: ${{ github.event.inputs.run-firefox == 'true' }}
     container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -260,7 +260,7 @@ jobs:
     needs: build
     if: ${{ github.event.inputs.run-webkit == 'true' }}
     container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -309,7 +309,7 @@ jobs:
     needs: [run-playwright-chromium, run-playwright-firefox, run-playwright-webkit]
     if: ${{ always() && !cancelled() }}
     container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4

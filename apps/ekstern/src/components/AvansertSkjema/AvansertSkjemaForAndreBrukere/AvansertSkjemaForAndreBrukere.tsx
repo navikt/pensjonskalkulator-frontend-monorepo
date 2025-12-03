@@ -445,6 +445,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               <AgePicker
                 form={AVANSERT_FORM_NAMES.form}
                 name={AVANSERT_FORM_NAMES.uttaksalderGradertUttak}
+                testId="velguttaksalder.endring.title"
                 label={
                   <FormattedMessage
                     id={
@@ -463,6 +464,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               <AgePicker
                 form={AVANSERT_FORM_NAMES.form}
                 name={AVANSERT_FORM_NAMES.uttaksalderHeltUttak}
+                testId="velguttaksalder.endring.title"
                 label={
                   <FormattedMessage
                     id={
@@ -498,7 +500,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
             </Alert>
           )}
 
-          <div>
+          <div data-testid="beregning.avansert.rediger.uttaksgrad.label">
             <Select
               form={AVANSERT_FORM_NAMES.form}
               name={AVANSERT_FORM_NAMES.uttaksgrad}

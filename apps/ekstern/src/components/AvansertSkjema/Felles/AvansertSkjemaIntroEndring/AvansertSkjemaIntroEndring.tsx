@@ -13,11 +13,15 @@ export const AvansertSkjemaIntroEndring = () => {
 
   return (
     <div>
-      <Heading level="2" size="medium">
+      <Heading
+        level="2"
+        size="medium"
+        data-testid="beregning.endring.rediger.title"
+      >
         <FormattedMessage id="beregning.endring.rediger.title" />
       </Heading>
 
-      <BodyLong>
+      <BodyLong data-testid="beregning.endring.rediger.vedtak_status">
         <FormattedMessage
           id="beregning.endring.rediger.vedtak_status"
           values={{

@@ -31,7 +31,10 @@ export const AvansertSkjemaInntekt = ({
 
   return (
     <div>
-      <Label className={styles.label}>
+      <Label
+        className={styles.label}
+        data-testid="beregning.avansert.rediger.inntekt_frem_til_endring.label"
+      >
         <FormattedMessage
           id={
             isEndring
