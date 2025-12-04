@@ -112,7 +112,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '20 %' },
+        target: { value: '20' },
       }
     )
 
@@ -225,7 +225,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -250,7 +250,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
     expect(
@@ -378,7 +378,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     // Endrer uttaksgrad
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-      { target: { value: '60 %' } }
+      { target: { value: '60' } }
     )
 
     await user.click(
@@ -537,7 +537,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
     // sjekker at radio knappen for gradert uttak er nullstilt
@@ -622,7 +622,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
     await user.click(
@@ -713,7 +713,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
 
@@ -828,7 +828,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     // Endrer uttaksgrad
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-      { target: { value: '100 %' } }
+      { target: { value: '100' } }
     )
     await user.click(
       screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
@@ -951,7 +951,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '20 %' },
+        target: { value: '20' },
       }
     )
 
@@ -995,8 +995,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     const optionUttaksgradElements =
       selectUttaksgradElement?.querySelectorAll('option')
     expect(optionUttaksgradElements?.[0].value).toBe('')
-    expect(optionUttaksgradElements?.[1].value).toBe('20 %')
-    expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+    expect(optionUttaksgradElements?.[1].value).toBe('20')
+    expect(optionUttaksgradElements?.[6].value).toBe('100')
     expect(optionUttaksgradElements?.length).toBe(7)
 
     // Fyller ut uttaksalder
@@ -1023,7 +1023,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     const optionOppdatertUttaksgradElements =
       selectOppdatertUttaksgradElement?.querySelectorAll('option')
     expect(optionOppdatertUttaksgradElements?.[0].value).toBe('')
-    expect(optionOppdatertUttaksgradElements?.[1].value).toBe('20 %')
+    expect(optionOppdatertUttaksgradElements?.[1].value).toBe('20')
     expect(optionOppdatertUttaksgradElements?.length).toBe(2)
   })
 
@@ -1069,7 +1069,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '20 %' },
+          target: { value: '20' },
         }
       )
 
@@ -1152,7 +1152,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1213,7 +1213,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '100 %' },
+          target: { value: '100' },
         }
       )
 
@@ -1328,7 +1328,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1365,7 +1365,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '40 %' },
+          target: { value: '40' },
         }
       )
 
@@ -1493,7 +1493,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1630,7 +1630,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       // Velger gradert uttak som etterhvert blir ugyldig
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        { target: { value: '80 %' } }
+        { target: { value: '80' } }
       )
 
       // Fyller ut uttaksalder
@@ -1653,8 +1653,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.[0].value).toBe('')
-      expect(optionUttaksgradElements?.[1].value).toBe('20 %')
-      expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionUttaksgradElements?.[1].value).toBe('20')
+      expect(optionUttaksgradElements?.[6].value).toBe('100')
       expect(optionUttaksgradElements?.length).toBe(7)
 
       // Fyller ut de andre påkrevde feltene
@@ -1728,7 +1728,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       // Velger gradert uttak som etterhvert blir ugyldig
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        { target: { value: '80 %' } }
+        { target: { value: '80' } }
       )
 
       // Endrer uttaksalder
@@ -1751,8 +1751,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.[0].value).toBe('')
-      expect(optionUttaksgradElements?.[1].value).toBe('20 %')
-      expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionUttaksgradElements?.[1].value).toBe('20')
+      expect(optionUttaksgradElements?.[6].value).toBe('100')
       expect(optionUttaksgradElements?.length).toBe(7)
 
       // Fyller ut de andre påkrevde feltene
@@ -1834,7 +1834,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       // Velger gradert uttak
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-        { target: { value: '20 %' } }
+        { target: { value: '20' } }
       )
 
       const uttaksgradOptions = screen
@@ -1889,8 +1889,8 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         .getByTestId(AVANSERT_FORM_NAMES.uttaksgrad)
         .querySelectorAll('option')
       expect(newUttaksgradOptions[0].value).toBe('')
-      expect(newUttaksgradOptions[1].value).toBe('20 %')
-      expect(newUttaksgradOptions[6].value).toBe('100 %')
+      expect(newUttaksgradOptions[1].value).toBe('20')
+      expect(newUttaksgradOptions[6].value).toBe('100')
       expect(newUttaksgradOptions.length).toBe(7)
 
       // Sjekk at resten av feltene er borte
@@ -1950,7 +1950,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '50 %' },
+          target: { value: '50' },
         }
       )
       fireEvent.change(
@@ -2046,7 +2046,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -2109,7 +2109,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
 
@@ -2249,7 +2249,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
 
       // Velger gradert uttak
       fireEvent.change(screen.getByTestId(AVANSERT_FORM_NAMES.uttaksgrad), {
-        target: { value: '40 %' },
+        target: { value: '40' },
       })
 
       await user.click(
@@ -2568,7 +2568,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '20 %' },
+          target: { value: '20' },
         }
       )
 
@@ -2640,7 +2640,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '80 %' },
+          target: { value: '80' },
         }
       )
       // Viser riktig beskrivelse på spørsmålet om inntekt vsa. gradert uttak

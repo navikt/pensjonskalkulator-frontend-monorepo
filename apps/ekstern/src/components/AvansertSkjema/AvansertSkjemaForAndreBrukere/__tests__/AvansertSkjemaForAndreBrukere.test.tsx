@@ -76,7 +76,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
 
@@ -174,7 +174,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -199,7 +199,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
     expect(
@@ -332,7 +332,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
 
@@ -496,7 +496,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
     // sjekker at radio knappen for gradert uttak er nullstilt
@@ -581,7 +581,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
     await user.click(
@@ -672,7 +672,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
 
@@ -787,7 +787,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     // Endrer uttaksgrad
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-      { target: { value: '100 %' } }
+      { target: { value: '100' } }
     )
     await user.click(
       screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
@@ -906,7 +906,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '80 %' },
+          target: { value: '80' },
         }
       )
 
@@ -989,7 +989,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1050,7 +1050,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '100 %' },
+          target: { value: '100' },
         }
       )
 
@@ -1151,7 +1151,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1188,7 +1188,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '40 %' },
+          target: { value: '40' },
         }
       )
 
@@ -1315,7 +1315,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1496,7 +1496,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '50 %' },
+          target: { value: '50' },
         }
       )
 
@@ -1585,7 +1585,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -1648,7 +1648,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
 
@@ -1964,7 +1964,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '40 %' },
+          target: { value: '40' },
         }
       )
 

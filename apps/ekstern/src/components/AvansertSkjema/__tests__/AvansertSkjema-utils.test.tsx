@@ -21,7 +21,7 @@ describe('AvansertSkjema-utils', () => {
         case 'uttaksalder-helt-uttak-maaneder':
           return '0'
         case 'uttaksgrad':
-          return '80 %'
+          return '80'
         case 'inntekt-vsa-helt-uttak-radio':
           return 'ja'
         case 'inntekt-vsa-gradert-uttak-radio':
@@ -220,7 +220,7 @@ describe('AvansertSkjema-utils', () => {
             case 'uttaksalder-helt-uttak-maaneder':
               return '0'
             case 'uttaksgrad':
-              return '100 %'
+              return '100'
             case 'inntekt-vsa-helt-uttak-radio':
               return 'ja'
             case 'inntekt-vsa-gradert-uttak-radio':
@@ -365,7 +365,7 @@ describe('AvansertSkjema-utils', () => {
       gradertUttakMaanederFormData: '5',
       heltUttakAarFormData: '67',
       heltUttakMaanederFormData: '0',
-      uttaksgradFormData: '40 %',
+      uttaksgradFormData: '40',
       inntektVsaHeltUttakRadioFormData: 'ja',
       inntektVsaGradertUttakRadioFormData: 'ja',
       inntektVsaHeltUttakFormData: '300000',
@@ -476,7 +476,7 @@ describe('AvansertSkjema-utils', () => {
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
-          { ...correctInputData, uttaksgradFormData: '0 %' },
+          { ...correctInputData, uttaksgradFormData: '0' },
           mockedFoedselsdato,
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
@@ -485,7 +485,7 @@ describe('AvansertSkjema-utils', () => {
       ).toBeTruthy()
       expect(
         validateAvansertBeregningSkjema(
-          { ...correctInputData, uttaksgradFormData: '100 %' },
+          { ...correctInputData, uttaksgradFormData: '100' },
           mockedFoedselsdato,
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
@@ -524,7 +524,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '0 %',
+            uttaksgradFormData: '0',
             gradertUttakAarFormData: '62',
             gradertUttakMaanederFormData: '0',
           },
@@ -538,7 +538,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: '62',
             gradertUttakMaanederFormData: '0',
           },
@@ -676,7 +676,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: 'abc',
           },
           mockedFoedselsdato,
@@ -689,7 +689,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakMaanederFormData: null,
           },
           mockedFoedselsdato,
@@ -722,7 +722,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: null,
             gradertUttakMaanederFormData: null,
           },
@@ -736,7 +736,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: '68',
             gradertUttakMaanederFormData: '3',
           },
@@ -770,7 +770,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             heltUttakAarFormData: '63',
             heltUttakMaanederFormData: '0',
             gradertUttakAarFormData: null,
@@ -787,7 +787,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '50 %',
+            uttaksgradFormData: '50',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -802,7 +802,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '40 %',
+            uttaksgradFormData: '40',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -819,7 +819,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '40 %',
+            uttaksgradFormData: '40',
             gradertUttakAarFormData: '67',
             gradertUttakMaanederFormData: '0',
             heltUttakAarFormData: '67',
@@ -842,7 +842,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'med_afp',
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             heltUttakAarFormData: '63',
             heltUttakMaanederFormData: '0',
             gradertUttakAarFormData: null,
@@ -859,7 +859,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'med_afp',
-            uttaksgradFormData: '50 %',
+            uttaksgradFormData: '50',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -957,7 +957,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             inntektVsaGradertUttakRadioFormData: null,
           },
           mockedFoedselsdato,

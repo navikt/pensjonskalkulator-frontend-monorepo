@@ -227,15 +227,9 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
         [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
-    const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
-      e.target.value.match(/\d+/)?.[0] as string,
-      10
-    )
+    const uttaksgradAsNumber = parseInt(e.target.value, 10)
 
-    if (
-      avansertBeregningFormatertUttaksgradAsNumber === 100 ||
-      isNaN(avansertBeregningFormatertUttaksgradAsNumber)
-    ) {
+    if (uttaksgradAsNumber === 100 || isNaN(uttaksgradAsNumber)) {
       const prevUttaksalder = localGradertUttak?.uttaksalder
         ? { ...localGradertUttak?.uttaksalder }
         : undefined
@@ -270,7 +264,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
             previous?.uttaksalder === undefined
               ? localHeltUttak?.uttaksalder
               : previous?.uttaksalder,
-          grad: avansertBeregningFormatertUttaksgradAsNumber,
+          grad: uttaksgradAsNumber,
         }
       })
     }
@@ -516,7 +510,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               })}
               value={
                 localGradertUttak?.grad !== undefined
-                  ? `${localGradertUttak.grad} %`
+                  ? localGradertUttak.grad.toString()
                   : ''
               }
               onChange={handleUttaksgradChange}
@@ -539,7 +533,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               </option>
               {muligeUttaksgrad.map((grad) => (
                 <option key={grad} value={grad}>
-                  {grad}
+                  {grad} %
                 </option>
               ))}
             </Select>

@@ -681,7 +681,7 @@ describe('Avansert', () => {
         cy.get(
           '[data-testid="age-picker-uttaksalder-gradert-uttak-maaneder"]'
         ).should('have.value', '3')
-        cy.get('[data-testid="uttaksgrad"]').should('have.value', '40 %')
+        cy.get('[data-testid="uttaksgrad"]').should('have.value', '40')
         cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').should(
           'be.checked'
         )

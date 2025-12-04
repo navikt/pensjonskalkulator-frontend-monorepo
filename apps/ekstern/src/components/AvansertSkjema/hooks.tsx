@@ -139,10 +139,10 @@ export const useFormLocalState = (initialValues: {
         (localGradertUttak?.grad !== undefined &&
           avgrensetUttaksgrad.includes(localGradertUttak?.grad))
       ) {
-        return avgrensetUttaksgrad.map((grad) => `${grad} %`)
+        return avgrensetUttaksgrad
       }
     }
-    return filtrerteUttaksgrad.map((grad) => `${grad} %`)
+    return filtrerteUttaksgrad
   }, [ufoeregrad, localBeregningsTypeRadio, localGradertUttak, localHeltUttak])
 
   React.useEffect(() => {
