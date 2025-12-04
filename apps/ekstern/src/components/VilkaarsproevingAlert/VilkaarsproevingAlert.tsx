@@ -60,7 +60,9 @@ export const VilkaarsproevingAlert = ({
   if (withAFP) {
     if (!alternativ) {
       logger(ALERT_VIST, {
-        tekst: 'Beregning med AFP - ikke nok opptjening',
+        tekst: intl.formatMessage({
+          id: 'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening',
+        }),
         variant: 'warning',
       })
     } else {

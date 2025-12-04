@@ -306,7 +306,8 @@ jobs:
   merge-playwright-reports:
     name: Merge Playwright reports
     runs-on: ubuntu-latest
-    needs: [run-playwright-chromium, run-playwright-firefox, run-playwright-webkit]
+    needs:
+      [run-playwright-chromium, run-playwright-firefox, run-playwright-webkit]
     if: ${{ always() && !cancelled() }}
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy

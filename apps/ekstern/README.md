@@ -84,7 +84,9 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes fra environment. For å bytte bruker må man logge ut med <https://logout.ekstern.nav.no/oauth2/logout>
 
 ## Gjenopprettelse av Sanity dataset
-   OBS. Ikke gjenopprett med mindre det er helt nødvendig. Backup er kun snapshot fra production, og gjenoppretting vil slette alle historiske endringer i datasetet.
+
+OBS. Ikke gjenopprett med mindre det er helt nødvendig. Backup er kun snapshot fra production, og gjenoppretting vil slette alle historiske endringer i datasetet.
+
 1. Sørg for at Sanity CLI er installert. Bruk Confluence for veiledning: https://confluence.adeo.no/spaces/PEN/pages/657873346/Pensjonskalkulator+CMS+-+Sanity
 1. Last ned siste backup fra Google Cloud Storage: gs://pkf/sanity-backups/
 1. Lag en mappe med følgende struktur, og kopier backup-filen til data.ndjson:
@@ -95,7 +97,7 @@ Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes
           # └── images
    ```
 1. Pakk mappen som en .tar.gz-fil.
-1. Gjenopprett dataset via Sanity CLI (OBS: Dette kan ikke reverseres): 
+1. Gjenopprett dataset via Sanity CLI (OBS: Dette kan ikke reverseres):
    ```bash
    sanity dataset import backup-mappe.tar.gz production --replace
    ```

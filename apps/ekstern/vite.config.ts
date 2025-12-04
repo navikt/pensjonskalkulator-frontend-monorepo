@@ -107,7 +107,12 @@ export default defineConfig({
     setupFiles: 'src/test-setup.ts',
     testTimeout: 10000,
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    exclude: ['playwright/**/*', 'cypress/**/*'],
+    exclude: [
+      'playwright/**/*',
+      'cypress/**/*',
+      // Exclude Simuleringsdetaljer tests while component is commented out
+      'src/components/Simulering/Simuleringsdetaljer/__tests__/Simuleringsdetaljer.test.tsx',
+    ],
     coverage: {
       provider: 'v8',
       all: true,

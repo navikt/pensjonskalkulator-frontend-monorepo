@@ -155,7 +155,7 @@ export const isAlderOverAnnenAlder = (
 }
 
 export const isAlderLikEllerOverAnnenAlder = (
-  stoersteAlder: Alder | Partial<Alder>,
+  stoersteAlder: Partial<Alder>,
   minsteAlder: Alder
 ): boolean => {
   if (!stoersteAlder.aar) {

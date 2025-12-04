@@ -6,8 +6,18 @@ import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { formatInntekt } from '@/utils/inntekt'
 
 import { TableDataRow } from '../TabellVisning/utils'
-import { AlderspensjonDetaljerListe } from './BeregningsdetaljerForOvergangskull/hooks'
+import { getAfpHeading } from './BeregningsdetaljerForOvergangskull/AfpDetaljerGrunnlag'
+import { getAlderspensjonHeading } from './BeregningsdetaljerForOvergangskull/AlderspensjonDetaljerGrunnlag'
+import {
+  AfpSectionConfig,
+  getAfpSectionsToRender,
+} from './BeregningsdetaljerForOvergangskull/Felles/AfpDetaljer'
+import {
+  AfpDetaljerListe,
+  AlderspensjonDetaljerListe,
+} from './BeregningsdetaljerForOvergangskull/hooks'
 
+const DIN_PENSJON_OPPTJENING_URL = 'https://www.nav.no/pensjon/opptjening'
 export const getCurrentDateTimeFormatted = (): string => {
   const now = new Date()
 
@@ -32,7 +42,7 @@ export const getPdfHeadingWithLogo = (isEnkel: boolean): string => {
   return `<table role='presentation' style='width: 100%; margin-bottom: 1em;'>
     <tr class="header-with-logo">
       <td style='width: 70%;'>
-        <h1>Pensjonskalkulator, <span style='font-weight: 200;'>${isEnkel ? 'Enkel' : 'Avansert'} beregning</span></h1>
+        <h1>Pensjonskalkulator: <span style='font-weight: 200;'>${isEnkel ? 'Enkel' : 'Avansert'} beregning</span></h1>
       </td>
       <td style='text-align: right; width: 30%;'>
         <span class='logoContainer'>
@@ -47,19 +57,187 @@ export const getPdfLink = ({
   url,
   displayText,
 }: {
-  url: string
+  url?: string
   displayText: string
 }): string => {
-  //const strippedUrl = url.replace(/^(https?:\/\/)?(www\.)?/, '')
-
+  if (!url) return displayText
   return `<a href="${url}">${displayText}</a>`
 }
 
-export function getDetaljerHtmlTable(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  alderspensjonListe: AlderspensjonDetaljerListe[]
+function getAfpIngress(
+  intl: IntlShape,
+  title: string,
+  content: string
 ): string {
-  return ''
+  return `
+  <h3>${intl.formatMessage({ id: 'grunnlag.afp.title' })}: ${title}</h3>
+  <p>${intl.formatMessage(
+    { id: content },
+    {
+      ...pdfFormatMessageValues,
+      afpLink: (chunks: string[]) =>
+        getPdfLink({
+          url: 'https://www.afp.no',
+          displayText: chunks.join('') || 'Fellesordningen for AFP',
+        }),
+      ufoeretrygdOgAfpLink: (chunks: string[]) =>
+        getPdfLink({
+          url: 'https://www.nav.no/ufor-til-pensjon#afp',
+          displayText: chunks.join('') || 'Uføretrygd og AFP',
+        }),
+      goToAFP: (chunks: string[]) =>
+        getPdfLink({
+          displayText: chunks.join('') || 'AFP (avtalefestet pensjon)',
+        }),
+      goToAvansert: () => '',
+    }
+  )}
+  </p>`
+}
+
+export function getAfpDetaljerHtmlTable({
+  afpDetaljerListe,
+  intl,
+  uttaksalder,
+  gradertUttaksperiode,
+}: {
+  afpDetaljerListe: AfpDetaljerListe[] | undefined
+  intl: IntlShape
+  uttaksalder: Alder | null
+  gradertUttaksperiode: GradertUttak | null
+}): string {
+  if (!afpDetaljerListe) {
+    return ''
+  }
+
+  // For each AfpDetaljer entry, render its sections and concatenate HTML
+  return afpDetaljerListe
+    .map((afpDetaljForValgtUttak, index) => {
+      const afpHeading = getAfpHeading({
+        afpDetaljForValgtUttak,
+        index,
+        uttaksalder,
+        gradertUttaksperiode,
+      })
+
+      const headingHtml = afpHeading
+        ? `<h4>${intl.formatMessage(
+            { id: afpHeading.messageId },
+            {
+              alderAar: `${afpHeading.age} år`,
+              alderMd:
+                afpHeading.months && afpHeading.months > 0
+                  ? `og ${afpHeading.months} måneder`
+                  : '',
+            }
+          )}</h4>`
+        : ''
+      const sections = getAfpSectionsToRender(afpDetaljForValgtUttak)
+      const sectionHtml = sections
+        .map((afpSection) => {
+          const sectionWithTitle: AfpSectionConfig = {
+            ...afpSection,
+            titleId: afpSection.titleId
+              ? intl.formatMessage({ id: afpSection.titleId })
+              : '',
+          }
+          return getAfpTable(sectionWithTitle)
+        })
+        .join('')
+
+      return `${headingHtml}${sectionHtml}`
+    })
+    .join('')
+}
+
+function getAfpTable(afpSection: AfpSectionConfig): string {
+  if (!Array.isArray(afpSection.data) || afpSection.data.length === 0) return ''
+
+  const { titleId, boldLastItem, data, noBorderBottom, allItemsBold } =
+    afpSection
+  const rows = afpSection.data
+    .map((detalj) => {
+      const lastItem = detalj === data[data.length - 1]
+      const label = detalj?.tekst ?? ''
+      const value = detalj?.verdi ?? ''
+      const boldStyle =
+        allItemsBold || (boldLastItem && lastItem) ? 'font-weight: bold;' : ''
+      const noBorderBottomStyle =
+        noBorderBottom || lastItem ? 'border-bottom: none;' : ''
+      return `<tr style='${noBorderBottomStyle}'><td style='text-align:left; ${boldStyle}'>${escapeHtml(String(label))}:</td><td style='text-align:right; ${boldStyle}'>${escapeHtml(
+        String(value)
+      )}</td></tr>`
+    })
+    .join('\n')
+
+  return `<div style='margin:0; width: 33%;'>
+        ${titleId ? `<h4 class="afp-grunnlag-title">${titleId}</h4>` : ''}
+      <table role='presentation'>${rows}</table>
+    </div>`
+}
+
+export function getAldersPensjonDetaljerHtmlTable(
+  alderspensjonListe: AlderspensjonDetaljerListe | undefined
+): string {
+  if (!alderspensjonListe) {
+    return ''
+  }
+  const alderspensjon = alderspensjonListe.alderspensjon ?? []
+  const opptjeningKap19 = alderspensjonListe.opptjeningKap19 ?? []
+  const opptjeningKap20 = alderspensjonListe.opptjeningKap20 ?? []
+
+  const getTableRows = (arr: { tekst?: string; verdi?: string | number }[]) =>
+    arr
+      .map((item) => {
+        const label = item?.tekst ?? ''
+        const value = item?.verdi != null ? String(item.verdi) : ''
+        return `<tr><td style='text-align: left;'>${escapeHtml(label)}:</td><td style="text-align: right;">${escapeHtml(value)}</td></tr>`
+      })
+      .join('\n')
+
+  const tableARows = getTableRows(alderspensjon)
+  const tableBRows = getTableRows(opptjeningKap19)
+  const tableCRows = getTableRows(opptjeningKap20)
+
+  const tableA = tableARows
+    ? `<table class="pdf-table-type2"><thead><tr><th colspan="2" style='text-align: left;'>Månedlig alderspensjon (Nav)</th></tr></thead><tbody>${tableARows}</tbody></table>`
+    : null
+
+  const tableB = tableBRows
+    ? `<table><thead><tr><th colspan="2" style='text-align: left;'>Opptjening etter gamle regler</th></tr></thead><tbody>${tableBRows}</tbody></table>`
+    : null
+
+  const tableC = tableCRows
+    ? `<table><thead><tr><th colspan="2" style='text-align: left;'>Opptjening etter nye regler</th></tr></thead><tbody>${tableCRows}</tbody></table>`
+    : null
+
+  // If none of the tables have rows, return an empty string
+  if (!tableA && !tableB && !tableC) return ''
+
+  // Build an array of non-empty table cells so we only render columns that exist
+  const cells: string[] = []
+  if (tableA) cells.push(`<td class="pdf-td-type2">${tableA}</td>`)
+  if (tableB)
+    cells.push(
+      `<td class="pdf-td-type2" style='padding-left: 8px;'>${tableB}</td>`
+    )
+  if (tableC) cells.push(`<td class="pdf-td-type2">${tableC}</td>`)
+
+  return `<table role='presentation' style='width:100%;'>
+      <tr class="pdf-table-wrapper-row">
+        ${cells.join('\n')}
+      </tr>
+    </table>`
+}
+
+function escapeHtml(input: string): string {
+  if (input === null || input === undefined) return ''
+  return String(input)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 export function getForbeholdAvsnitt(intl: IntlShape): string {
@@ -67,15 +245,15 @@ export function getForbeholdAvsnitt(intl: IntlShape): string {
   const kalkulatorUrl = 'https://nav.no/pensjon/kalkulator'
 
   return `<div>
-    <p class="pdf-metadata">
-      <b>${intl.formatMessage({ id: 'grunnlag.forbehold.title' })}: </b>
-      ${intl.formatMessage({ id: 'grunnlag.forbehold.ingress_1' })}
-      <br/>${getPdfLink({ url: forbeholdUrl, displayText: intl.formatMessage({ id: 'grunnlag.forbehold.link' }) })}
-    </p>
     <p>
       <b>NB: </b>
       ${intl.formatMessage({ id: 'grunnlag.forbehold.ingress_2' })}
       ${getPdfLink({ url: kalkulatorUrl, displayText: 'Gå til pensjonskalkulator' })}
+    </p>
+    <p class="pdf-metadata">
+      <b>${intl.formatMessage({ id: 'grunnlag.forbehold.title' })}: </b>
+      ${intl.formatMessage({ id: 'grunnlag.forbehold.ingress_1' })}
+      <br/>${getPdfLink({ url: forbeholdUrl, displayText: intl.formatMessage({ id: 'grunnlag.forbehold.link' }) })}
     </p>
   </div>`
 }
@@ -162,10 +340,7 @@ export function getTidligstMuligUttakIngressContent({
         nedreAldersgrense: formatertNedreAldersgrense,
         normertPensjonsalder: formatertNormertPensjonsalder,
         link: getPdfLink({
-          url: 'https://nav.no/pensjon/kalkulator/beregning-detaljer',
-          displayText: intl.formatMessage({
-            id: 'omufoeretrygd.avansert_link',
-          }),
+          displayText: 'Avansert',
         }),
       }
     )
@@ -185,8 +360,8 @@ export function getTidligstMuligUttakIngressContent({
       ${intl.formatMessage(
         { id: 'tidligstmuliguttak.pre2025OffentligAfp.ingress' },
         {
+          ...pdfFormatMessageValues,
           link: getPdfLink({
-            url: 'https://nav.no/pensjon/kalkulator/beregning-detaljer',
             displayText: intl.formatMessage({
               id: 'tidligstmuliguttak.pre2025OffentligAfp.avansert_link',
             }),
@@ -198,10 +373,9 @@ export function getTidligstMuligUttakIngressContent({
       const under75Ingress = !isOver75AndNoLoependeVedtak
         ? intl.formatMessage({ id: messageId })
         : ''
-      const tmuIngress = `<p>${intl.formatMessage({
+      return `<p>${intl.formatMessage({
         id: 'tidligstmuliguttak.ingress_1',
       })}<b>${formatUttaksalder(intl, tidligstMuligUttak)}.</b>${under75Ingress}</p>`
-      return tmuIngress
     }
   }
 
@@ -247,4 +421,99 @@ export function getOmstillingsstoenadAlert(
       </td>
     </tr>
   </table>`
+}
+
+export function getGrunnlagIngress({
+  intl,
+  alderspensjonDetaljerListe,
+  aarligInntektFoerUttakBeloepFraSkatt,
+  afpDetaljerListe,
+  title,
+  content,
+  hasPre2025OffentligAfpUttaksalder,
+  uttaksalder,
+  gradertUttaksperiode,
+}: {
+  intl: IntlShape
+  alderspensjonDetaljerListe: AlderspensjonDetaljerListe[]
+  afpDetaljerListe: AfpDetaljerListe[]
+  aarligInntektFoerUttakBeloepFraSkatt?: {
+    beloep: string
+    aar: number
+  }
+  title?: string
+  content?: string
+  hasPre2025OffentligAfpUttaksalder: boolean
+  uttaksalder: Alder | null
+  gradertUttaksperiode: GradertUttak | null
+}): string {
+  const beloepRaw = aarligInntektFoerUttakBeloepFraSkatt?.beloep
+  const aarRaw = aarligInntektFoerUttakBeloepFraSkatt?.aar
+
+  const beloepFormatted = beloepRaw
+    ? formatInntekt(String(beloepRaw)).replace(/\u00A0/g, ' ')
+    : ''
+  const aarFormatted = aarRaw != null ? String(aarRaw) : ''
+
+  const inntektBeloepOgÅr = intl.formatMessage(
+    { id: 'grunnlag.inntekt.ingress' },
+    {
+      ...pdfFormatMessageValues,
+      beloep: beloepFormatted,
+      aar: aarFormatted,
+      dinPensjonBeholdningLink: (chunks: string[]) =>
+        getPdfLink({
+          url: DIN_PENSJON_OPPTJENING_URL,
+          displayText: chunks.join('') || 'Din pensjonsopptjening',
+        }),
+    }
+  )
+  return `<h2>${intl.formatMessage({ id: 'grunnlag.title' })}</h2>
+  <h3>${intl.formatMessage({ id: 'grunnlag2.endre_inntekt.title' })}</h3>
+  <p>${inntektBeloepOgÅr} avansert kalkulator.</p>
+  <h3>Alderspensjon (Nav)</h3>
+  <p>
+    ${intl.formatMessage(
+      { id: 'grunnlag.alderspensjon.ingress' },
+      {
+        avansert: '',
+      }
+    )}
+  </p>
+  
+  ${alderspensjonDetaljerListe
+    .map((alderspensjonVedUttaksValg, index) => {
+      const apHeading = getAlderspensjonHeading({
+        index,
+        hasPre2025OffentligAfpUttaksalder,
+        uttaksalder,
+        gradertUttaksperiode,
+      })
+      const headingHtml = `<h4>${intl.formatMessage(
+        {
+          id: apHeading.messageId,
+        },
+        {
+          alderAar: apHeading.age,
+          alderMd: apHeading.months,
+          grad: apHeading.grad,
+        }
+      )}
+    </h4>`
+      return `${headingHtml}${getAldersPensjonDetaljerHtmlTable(alderspensjonVedUttaksValg)}`
+    })
+    .join('')}
+  
+  <div>${getPdfLink({
+    url: 'https://www.nav.no/alderspensjon#beregning',
+    displayText: 'Om reglene for alderspensjon ',
+  })}
+  </div>
+  <div>${getPdfLink({
+    url: DIN_PENSJON_OPPTJENING_URL,
+    displayText: 'Din pensjonsopptjening',
+  })}</div>
+  ${getAfpIngress(intl, title || '', content || '')}
+  ${getAfpDetaljerHtmlTable({ afpDetaljerListe, intl, uttaksalder, gradertUttaksperiode })}
+  `
 }

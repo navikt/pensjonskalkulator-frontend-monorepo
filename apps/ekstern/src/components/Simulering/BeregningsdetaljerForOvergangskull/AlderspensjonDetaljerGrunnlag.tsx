@@ -15,6 +15,13 @@ interface Props {
   hasPre2025OffentligAfpUttaksalder: boolean
 }
 
+interface ApHeadingProps {
+  messageId: string
+  age: string
+  months: string
+  grad?: number
+}
+
 export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
   alderspensjonDetaljerListe,
   hasPre2025OffentligAfpUttaksalder,
@@ -47,47 +54,70 @@ export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
   )
 
   function renderHeading(index: number = 0) {
-    const isGradertUttak = Boolean(
-      gradertUttaksperiode &&
-        !hasPre2025OffentligAfpUttaksalder &&
-        gradertUttaksperiode?.uttaksalder.aar !== uttaksalder?.aar &&
-        gradertUttaksperiode.grad > 0
-    )
+    const apHeading = getAlderspensjonHeading({
+      index,
+      hasPre2025OffentligAfpUttaksalder,
+      uttaksalder,
+      gradertUttaksperiode,
+    })
 
-    return index === 0 && isGradertUttak ? (
+    return (
       <Heading size="small" level="4">
         <FormattedMessage
-          id="beregning.detaljer.grunnpensjon.gradertUttak.title"
+          id={apHeading.messageId}
           values={{
             ...getFormatMessageValues(),
-            alderAar: `${gradertUttaksperiode?.uttaksalder.aar} år`,
-            alderMd:
-              gradertUttaksperiode?.uttaksalder.maaneder &&
-              gradertUttaksperiode.uttaksalder.maaneder > 0
-                ? `og ${gradertUttaksperiode.uttaksalder.maaneder} måneder`
-                : '',
-            grad: gradertUttaksperiode?.grad,
-          }}
-        />
-      </Heading>
-    ) : (
-      <Heading size="small" level="4">
-        <FormattedMessage
-          id="beregning.detaljer.grunnpensjon.heltUttak.title"
-          values={{
-            ...getFormatMessageValues(),
-            alderAar: hasPre2025OffentligAfpUttaksalder
-              ? '67 år'
-              : `${uttaksalder?.aar} år`,
-            alderMd: hasPre2025OffentligAfpUttaksalder
-              ? ''
-              : uttaksalder?.maaneder && uttaksalder.maaneder > 0
-                ? `og ${uttaksalder.maaneder} måneder`
-                : '',
-            grad: 100,
+            alderAar: apHeading.age,
+            alderMd: apHeading.months,
+            grad: apHeading.grad,
           }}
         />
       </Heading>
     )
+  }
+}
+
+export function getAlderspensjonHeading({
+  index,
+  hasPre2025OffentligAfpUttaksalder,
+  uttaksalder,
+  gradertUttaksperiode,
+}: {
+  index: number
+  hasPre2025OffentligAfpUttaksalder: boolean
+  uttaksalder: Alder | null
+  gradertUttaksperiode: GradertUttak | null
+}): ApHeadingProps {
+  const isGradertUttak = Boolean(
+    gradertUttaksperiode &&
+    !hasPre2025OffentligAfpUttaksalder &&
+    gradertUttaksperiode?.uttaksalder.aar !== uttaksalder?.aar &&
+    gradertUttaksperiode.grad > 0
+  )
+
+  if (index === 0 && isGradertUttak) {
+    return {
+      messageId: 'beregning.detaljer.grunnpensjon.gradertUttak.title',
+      age: `${gradertUttaksperiode?.uttaksalder.aar} år`,
+      months:
+        gradertUttaksperiode?.uttaksalder.maaneder &&
+        gradertUttaksperiode.uttaksalder.maaneder > 0
+          ? `og ${gradertUttaksperiode.uttaksalder.maaneder} måneder`
+          : '',
+      grad: gradertUttaksperiode?.grad,
+    }
+  } else {
+    return {
+      messageId: 'beregning.detaljer.grunnpensjon.heltUttak.title',
+      age: hasPre2025OffentligAfpUttaksalder
+        ? '67 år'
+        : `${uttaksalder?.aar} år`,
+      months: hasPre2025OffentligAfpUttaksalder
+        ? ''
+        : uttaksalder?.maaneder && uttaksalder.maaneder > 0
+          ? `og ${uttaksalder.maaneder} måneder`
+          : '',
+      grad: 100,
+    }
   }
 }

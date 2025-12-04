@@ -90,8 +90,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     React.useState<boolean>(
       Boolean(
         uttaksalder &&
-          uttaksalder?.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
-          loependeVedtak.pre2025OffentligAfp
+        uttaksalder?.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
+        loependeVedtak.pre2025OffentligAfp
       )
     )
 
@@ -155,9 +155,9 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
       setShowPre2025OffentligAfpAlert(
         Boolean(
           alder &&
-            alder.aar !== undefined &&
-            alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
-            loependeVedtak.pre2025OffentligAfp
+          alder.aar !== undefined &&
+          alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
+          loependeVedtak.pre2025OffentligAfp
         )
       )
       logShowPre2025OffentligAfpAlert()
@@ -190,9 +190,9 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     setShowPre2025OffentligAfpAlert(
       Boolean(
         alder &&
-          alder.aar !== undefined &&
-          alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
-          loependeVedtak.pre2025OffentligAfp
+        alder.aar !== undefined &&
+        alder.aar < UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP.aar &&
+        loependeVedtak.pre2025OffentligAfp
       )
     )
     logShowPre2025OffentligAfpAlert()

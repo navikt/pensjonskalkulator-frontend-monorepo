@@ -56,12 +56,23 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: auto;
+    margin: 0;
   }
 
   th,
   tr,
-  h2 {
+  h2,
+  .afp-grunnlag-title {
     border-bottom: 1px solid rgb(128 128 128);
+  }
+
+  .pdf-table-wrapper-row,
+  .pdf-table-type2 tbody > tr:last-child {
+    border-bottom: none;
+  }
+
+  .pdf-table-type2 tbody > tr:last-child {
+    font-weight: bold;
   }
 
   th,
@@ -88,5 +99,12 @@
 
   tr.header-with-logo td {
     padding: 0;
+  }
+
+  td.pdf-td-type2 {
+    vertical-align: top;
+    width: 33%;
+    padding-top: 0;
+    padding-right: 8px;
   }
 }

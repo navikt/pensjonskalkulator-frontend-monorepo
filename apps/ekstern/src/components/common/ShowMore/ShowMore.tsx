@@ -29,8 +29,10 @@ export type ShowMoreRef = {
   focus: () => void
 }
 
-export interface ShowMoreProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, 'onClick'> {
+export interface ShowMoreProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  'onClick'
+> {
   /**
    * Override what element to render the wrapper as.
    *

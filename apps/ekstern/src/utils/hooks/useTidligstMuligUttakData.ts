@@ -11,6 +11,7 @@ import {
   selectAfp,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectLoependeVedtak,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
   selectSamtykkeOffentligAFP,
@@ -23,16 +24,14 @@ import { isAlder75MaanedenFylt, isFoedtFoer1964 } from '@/utils/alder'
  * Custom hook for pension-related calculations and conditions
  * @returns Common pension calculation values
  */
-export const useTidligstMuligUttakConditions = (
-  loependeVedtak?: LoependeVedtak
-) => {
+export const useTidligstMuligUttakConditions = () => {
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
   const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
 
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
   const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
-
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const hasAFP =
     (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
   const isOver75AndNoLoependeVedtak =
@@ -65,10 +64,7 @@ export const useTidligstMuligUttakConditions = (
  * @param ufoeregrad Optional ufoeregrad parameter
  * @returns The data from the API call, loading state, and success state
  */
-export const useTidligstMuligUttak = (
-  loependeVedtak?: LoependeVedtak,
-  ufoeregrad?: number
-) => {
+export const useTidligstMuligUttak = (ufoeregrad?: number) => {
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
@@ -77,6 +73,7 @@ export const useTidligstMuligUttak = (
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [
