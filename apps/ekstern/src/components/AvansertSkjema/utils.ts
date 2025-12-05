@@ -347,7 +347,6 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
     logger(SKJEMA_VALIDERING_FEILET, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      // eslint-disable-next-line sonarjs/no-duplicate-string
       data: 'Avansert - Uttaksgrad',
       tekst: UTTAKSGRAD_VALIDATION_ERROR,
     })
@@ -439,7 +438,6 @@ export const validateAvansertBeregningSkjema = (
             skjemanavn: AVANSERT_FORM_NAMES.form,
             data: 'Avansert - Uttaksgrad',
             tekst:
-              // eslint-disable-next-line sonarjs/no-duplicate-string
               'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
@@ -472,7 +470,6 @@ export const validateAvansertBeregningSkjema = (
       skjemanavn: AVANSERT_FORM_NAMES.form,
       data: 'Avansert - Radio inntekt vsa. helt uttak',
       tekst:
-        // eslint-disable-next-line sonarjs/no-duplicate-string
         'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
     })
     logger(SKJEMA_VALIDERING_FEILET_OLD, {
@@ -558,7 +555,6 @@ export const validateAvansertBeregningSkjema = (
       skjemanavn: AVANSERT_FORM_NAMES.form,
       data: 'Avansert -  Radio inntekt vsa. gradert uttak',
       tekst:
-        // eslint-disable-next-line sonarjs/no-duplicate-string
         'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
     })
     logger(SKJEMA_VALIDERING_FEILET_OLD, {

@@ -23,7 +23,7 @@ export const apiSlice = createApi({
       query: () => '/inntekt',
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v5/person',
+      query: () => '/v6/person',
       providesTags: ['Person'],
       transformResponse: (response: Person) => {
         return {

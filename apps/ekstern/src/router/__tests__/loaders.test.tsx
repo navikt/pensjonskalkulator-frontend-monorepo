@@ -169,7 +169,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med 403 status og reason er INVALID_REPRESENTASJON, redirigeres bruker til ingen-tilgang', async () => {
-      mockErrorResponse('/v5/person', {
+      mockErrorResponse('/v6/person', {
         status: 403,
         json: {
           reason: 'INVALID_REPRESENTASJON' as Reason,
@@ -185,7 +185,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med 403 status og reason er INSUFFICIENT_LEVEL_OF_ASSURANCE, redirigeres bruker til uventet-feil', async () => {
-      mockErrorResponse('/v5/person', {
+      mockErrorResponse('/v6/person', {
         status: 403,
         json: {
           reason: 'INSUFFICIENT_LEVEL_OF_ASSURANCE' as Reason,
@@ -204,7 +204,7 @@ describe('Loaders', () => {
     })
 
     it('Når /person kall feiler med annen status redirigeres bruker til uventet-feil side', async () => {
-      mockErrorResponse('/v5/person', {
+      mockErrorResponse('/v6/person', {
         status: 503,
       })
 
@@ -287,9 +287,9 @@ describe('Loaders', () => {
     })
 
     it('redirigerer brukere født før 1963 med vedtak om alderspensjon', async () => {
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         json: {
-          navn: 'Test Person',
+          fornavn: 'Test Person',
           sivilstand: 'UGIFT',
           foedselsdato: '1960-04-30',
           pensjoneringAldre: {
@@ -341,9 +341,9 @@ describe('Loaders', () => {
       )
     })
     it('redirigerer brukere født før 1963 med vedtak om alderspensjon', async () => {
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         json: {
-          navn: 'Test Person',
+          fornavn: 'Test Person',
           sivilstand: 'UGIFT',
           foedselsdato: '1960-04-30',
           pensjoneringAldre: {
@@ -449,9 +449,10 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
-        mockResponse('/v5/person', {
+        mockResponse('/v6/person', {
           json: {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
+            navn: 'Aprikos Normann',
             sivilstand: 'UGIFT',
             foedselsdato,
             pensjoneringAldre: {
@@ -497,9 +498,10 @@ describe('Loaders', () => {
             harLoependeVedtak: true,
           } satisfies LoependeVedtak,
         })
-        mockResponse('/v5/person', {
+        mockResponse('/v6/person', {
           json: {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
+            navn: 'Aprikos Normann',
             sivilstand: 'UGIFT',
             foedselsdato,
             pensjoneringAldre: {
@@ -885,11 +887,12 @@ describe('Loaders', () => {
     })
 
     it('Født etter 1963 skal vise AFP steg', async () => {
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         status: 200,
         json: {
           foedselsdato: '1965-01-01',
-          navn: 'Test Person',
+          fornavn: 'Test Person',
+          navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
@@ -1108,11 +1111,12 @@ describe('Loaders', () => {
   })
   describe('stepSamtykkePensjonsavtaler', () => {
     it('Når bruker som ikke er kap19 er i endringsløp blir bruker ikke redirigert', async () => {
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         status: 200,
         json: {
           foedselsdato: '1965-01-01',
-          navn: 'Test Person',
+          fornavn: 'Test Person',
+          navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
@@ -1141,11 +1145,12 @@ describe('Loaders', () => {
     })
 
     it('Hopper over steg dersom bruker er kap19 og har alderspensjon vedtak', async () => {
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         status: 200,
         json: {
           foedselsdato: '1962-01-01',
-          navn: 'Test Person',
+          fornavn: 'Test Person',
+          navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
@@ -1182,11 +1187,12 @@ describe('Loaders', () => {
           aarsak: 'ER_APOTEKER',
         },
       })
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         status: 200,
         json: {
           foedselsdato: '1967-01-01',
-          navn: 'Test Person',
+          fornavn: 'Test Person',
+          navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },

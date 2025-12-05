@@ -20,7 +20,7 @@ export const presetStates = {
   async brukerGift1963() {
     return [
       await person({
-        navn: 'Aprikos',
+        fornavn: 'Aprikos',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
         pensjoneringAldre: {
@@ -35,7 +35,8 @@ export const presetStates = {
   async brukerEldreEnn67() {
     return [
       await person({
-        navn: 'Aprikos',
+        fornavn: 'Aprikos',
+        navn: 'Aprikos Nordmann',
         sivilstand: 'UGIFT',
         foedselsdato: '1956-04-30',
         pensjoneringAldre: {
@@ -50,7 +51,8 @@ export const presetStates = {
   async apotekerMedlem() {
     return [
       await person({
-        navn: 'Aprikos',
+        fornavn: 'Aprikos',
+        navn: 'Aprikos Nordmann',
         sivilstand: 'UGIFT',
         foedselsdato: '1962-04-30',
         pensjoneringAldre: {

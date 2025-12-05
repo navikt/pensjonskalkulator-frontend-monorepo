@@ -53,7 +53,7 @@ describe('Hovedhistorie', () => {
         cy.visit('/pensjon/kalkulator/')
         cy.wait('@getAuthSession')
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
             ...personMock,
             foedselsdato: foedselsdatoMindreEnn75,
@@ -118,7 +118,7 @@ describe('Hovedhistorie', () => {
         cy.visit('/pensjon/kalkulator/')
         cy.wait('@getAuthSession')
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
             ...personMock,
             foedselsdato: foedselsdato75Plus1Maaned,
@@ -244,9 +244,9 @@ describe('Hovedhistorie', () => {
       describe('Når jeg navigerer videre fra /start til neste steg,', () => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+            { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
             {
-              navn: 'Aprikos',
+              fornavn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
               pensjoneringAldre: {
@@ -315,9 +315,9 @@ describe('Hovedhistorie', () => {
     describe('Når jeg navigerer videre fra sivilstand til neste steg,', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1963-04-30',
             pensjoneringAldre: {
@@ -435,9 +435,9 @@ describe('Hovedhistorie', () => {
         describe('Som bruker som er 67 år eller eldre', () => {
           beforeEach(() => {
             cy.intercept(
-              { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+              { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
               {
-                navn: 'Aprikos',
+                fornavn: 'Aprikos',
                 sivilstand: 'UGIFT',
                 foedselsdato: '1956-04-30', // Born before 1963 and over 67 years old
                 pensjoneringAldre: {
@@ -861,9 +861,9 @@ describe('Hovedhistorie', () => {
 
       it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1963-04-30',
             pensjoneringAldre: {
@@ -895,9 +895,9 @@ describe('Hovedhistorie', () => {
       })
       it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1964-04-30',
             pensjoneringAldre: {
@@ -945,9 +945,9 @@ describe('Hovedhistorie', () => {
 
       it('ønsker jeg som har vedtak om gammel AFP offentlig å kunne velge alder fra 67 år til 75 år.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
           {
-            navn: 'Aprikos',
+            fornavn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1962-04-30',
             pensjoneringAldre: {

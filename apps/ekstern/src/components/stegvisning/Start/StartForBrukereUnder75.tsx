@@ -17,14 +17,14 @@ import { StartIngressPre2025OffentligAfp } from './StartIngressPre2025OffentligA
 import styles from './Start.module.scss'
 
 interface Props {
-  navn: string
+  fornavn: string
   loependeVedtak: LoependeVedtak
   onCancel?: () => void
   onNext?: () => void
 }
 
 export function StartForBrukereUnder75({
-  navn,
+  fornavn,
   loependeVedtak,
   onCancel,
   onNext,
@@ -52,7 +52,7 @@ export function StartForBrukereUnder75({
             >
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
-              })} ${navn}!`}
+              })} ${fornavn}!`}
             </Heading>
 
             {getIngressComponent()}

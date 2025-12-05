@@ -84,10 +84,10 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFPPrivat når personen enten er født før 1963 og har vedtak om alderspensjon, eller når personen er født før 1963 og fylt 67 år', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1960-04-30',
         pensjoneringAldre: {
@@ -134,10 +134,10 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFPOvergangskullUtenAP når personen er født mellom 1954-1962 (overgangskull) og ikke har vedtak alderspensjon', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1960-04-30',
         pensjoneringAldre: {
@@ -171,10 +171,10 @@ describe('StepAFP', () => {
   })
 
   it('rendrer AFP når personen er født etter 1963 med og uten vedtak om alderspensjon', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1964-04-30',
         pensjoneringAldre: {
@@ -208,10 +208,10 @@ describe('StepAFP', () => {
   })
 
   it('render AFPOvergangskullUtenAP for apotekere født etter 1963', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1967-04-30',
         pensjoneringAldre: {
@@ -253,10 +253,10 @@ describe('StepAFP', () => {
   })
 
   it('Når brukeren som er i overgangskullet uten vedtak om alderspensjon velger afp og klikker på Neste, registrerer afp og skalBeregneAfpKap19, og navigerer videre til neste steg', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1960-04-30',
         pensjoneringAldre: {
@@ -316,10 +316,10 @@ describe('StepAFP', () => {
   })
 
   it('Når brukeren født etter 1963 velger afp og klikker på Neste, registrerer afp og navigerer videre til neste steg', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1964-04-30',
         pensjoneringAldre: {

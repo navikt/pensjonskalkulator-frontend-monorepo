@@ -1,5 +1,6 @@
 export const personMock: Person = {
-  navn: 'Aprikos',
+  navn: 'Aprikos Nordmann',
+  fornavn: 'Aprikos',
   sivilstand: 'UGIFT',
   foedselsdato: '1963-04-30',
   pensjoneringAldre: {
@@ -35,7 +36,7 @@ export const fulfilledPre1963GetPerson = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1960-04-30',
       pensjoneringAldre: {
@@ -64,7 +65,7 @@ export const fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1963-01-30',
       pensjoneringAldre: {
@@ -93,7 +94,7 @@ export const fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1990-01-30',
       pensjoneringAldre: {
@@ -122,7 +123,7 @@ export const fulfilledGetPersonMedOekteAldersgrenser = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1963-04-30',
       pensjoneringAldre: {
@@ -162,7 +163,7 @@ export const fulfilledGetPersonMedSamboer = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'GIFT',
       foedselsdato: '1963-04-30',
       pensjoneringAldre: {

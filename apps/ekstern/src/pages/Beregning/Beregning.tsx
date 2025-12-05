@@ -85,7 +85,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     const onPopState = () => {
       // TODO: fjern når amplitude er ikke i bruk lenger
       logger(MODAL_AAPNET, {
-        // eslint-disable-next-line sonarjs/no-duplicate-string
         tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       logger(MODAL_AAPNET, {

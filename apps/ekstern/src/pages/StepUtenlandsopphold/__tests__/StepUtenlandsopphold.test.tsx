@@ -91,10 +91,10 @@ describe('StepUtenlandsopphold', () => {
   })
 
   it('nullstiller input fra brukeren og navigerer når brukeren klikker på Tilbake', async () => {
-    mockResponse('/v5/person', {
+    mockResponse('/v6/person', {
       status: 200,
       json: {
-        navn: 'Ola',
+        fornavn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
         pensjoneringAldre: {

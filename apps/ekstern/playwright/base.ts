@@ -154,7 +154,7 @@ export async function setupInterceptions(
       mockFileName: 'loepende-vedtak.json',
     },
     {
-      url: /\/pensjon\/kalkulator\/api\/v5\/person/,
+      url: /\/pensjon\/kalkulator\/api\/v6\/person/,
       mockFileName: 'person.json',
     },
     {

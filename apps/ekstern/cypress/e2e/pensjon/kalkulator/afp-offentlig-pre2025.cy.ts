@@ -14,7 +14,7 @@ describe('AFP offentlig etterfulgt av AP', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v5/person',
+          url: '/pensjon/kalkulator/api/v6/person',
         },
         {
           ...personMock,

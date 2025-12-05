@@ -12,7 +12,7 @@ import { fillOutStegvisning } from '../../../utils/navigation'
 import { presetStates } from '../../../utils/presetStates'
 
 const defaultPersonOptions = {
-  navn: 'Aprikos',
+  fornavn: 'Aprikos',
   sivilstand: 'UGIFT',
   foedselsdato: '1964-04-30',
   pensjoneringAldre: {

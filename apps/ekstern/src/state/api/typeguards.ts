@@ -174,6 +174,8 @@ export const isPerson = (data?: any): data is Person => {
     ].includes(data?.sivilstand) &&
     data.navn &&
     typeof data.navn === 'string' &&
+    data.fornavn &&
+    typeof data.fornavn === 'string' &&
     data.foedselsdato &&
     data.foedselsdato !== undefined &&
     new Date(data.foedselsdato).toString() !== 'Invalid Date' &&
