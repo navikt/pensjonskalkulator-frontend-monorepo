@@ -4,6 +4,7 @@ import { HttpResponse, delay, http, passthrough } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
+import afpOffentligLivsvarigResponse from './data/afp-offentlig-livsvarig.json' with { type: 'json' }
 import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
 import erApotekerResponse from './data/er-apoteker.json' with { type: 'json' }
@@ -137,6 +138,11 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(erApotekerResponse)
   }),
 
+  http.get(`${baseUrl}/v2/tpo-livsvarig-offentlig-afp`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(afpOffentligLivsvarigResponse)
+  }),
+
   http.get(
     `${baseUrl}/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse`,
     async () => {
@@ -184,7 +190,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(loependeVedtakResponse)
   }),
 
-  http.post(`${baseUrl}/v2/tidligste-hel-uttaksalder`, async () => {
+  http.post(`${baseUrl}/v3/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
@@ -198,7 +204,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data.default as object)
   }),
 
-  http.post(`${baseUrl}/v8/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v9/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar

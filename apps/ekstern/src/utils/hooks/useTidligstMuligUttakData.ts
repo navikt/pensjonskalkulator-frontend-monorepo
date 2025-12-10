@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import {
+  useGetAfpOffentligLivsvarigQuery,
   useGetPersonQuery,
   useTidligstMuligHeltUttakQuery,
 } from '@/state/api/apiSlice'
@@ -11,6 +12,7 @@ import {
   selectAfp,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectFoedselsdato,
   selectLoependeVedtak,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
@@ -18,7 +20,11 @@ import {
   selectSivilstand,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
-import { isAlder75MaanedenFylt, isFoedtFoer1964 } from '@/utils/alder'
+import {
+  isAlder75MaanedenFylt,
+  isAlderOver62,
+  isFoedtFoer1964,
+} from '@/utils/alder'
 
 /**
  * Custom hook for pension-related calculations and conditions
@@ -75,7 +81,16 @@ export const useTidligstMuligUttak = (ufoeregrad?: number) => {
   )
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
-
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const {
+    isSuccess: isAfpOffentligLivsvarigSuccess,
+    data: loependeLivsvarigAfpOffentlig,
+  } = useGetAfpOffentligLivsvarigQuery(undefined, {
+    skip:
+      !harSamtykketOffentligAFP ||
+      !foedselsdato ||
+      !isAlderOver62(foedselsdato),
+  })
   const [
     tidligstMuligHeltUttakRequestBody,
     setTidligstMuligHeltUttakRequestBody,
@@ -92,6 +107,9 @@ export const useTidligstMuligUttak = (ufoeregrad?: number) => {
         epsHarInntektOver2G,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         utenlandsperioder,
+        loependeLivsvarigAfpOffentlig: isAfpOffentligLivsvarigSuccess
+          ? loependeLivsvarigAfpOffentlig
+          : null,
       })
       setTidligstMuligHeltUttakRequestBody(requestBody)
     } else {

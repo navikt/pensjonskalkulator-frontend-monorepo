@@ -167,7 +167,7 @@ export async function setupInterceptions(
       mockFileName: 'offentlig-tp.json',
     },
     {
-      url: /\/pensjon\/kalkulator\/api\/v2\/tidligste-hel-uttaksalder/,
+      url: /\/pensjon\/kalkulator\/api\/v3\/tidligste-hel-uttaksalder/,
       method: 'POST',
       mockFileName: 'tidligste-uttaksalder.json',
     },
@@ -177,7 +177,7 @@ export async function setupInterceptions(
       mockFileName: 'pensjonsavtaler.json',
     },
     {
-      url: /\/pensjon\/kalkulator\/api\/v8\/alderspensjon\/simulering/,
+      url: /\/pensjon\/kalkulator\/api\/v9\/alderspensjon\/simulering/,
       method: 'POST',
       mockFileName: 'alderspensjon.json',
     },

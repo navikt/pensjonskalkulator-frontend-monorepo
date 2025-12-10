@@ -2306,7 +2306,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         },
       }
 
-      mockResponse('/v8/alderspensjon/simulering', {
+      mockResponse('/v9/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {

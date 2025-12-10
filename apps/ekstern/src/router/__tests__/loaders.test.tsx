@@ -1253,4 +1253,95 @@ describe('Loaders', () => {
     const returnedFromLoader = await beregningEnkelAccessGuard()
     expectRedirectResponse(returnedFromLoader, paths.beregningAvansert)
   })
+
+  it('burde kalle getAfpOffentligLivsvarig når bruker har samtykket til AFP offentlig', async () => {
+    const initiateMock = vi.spyOn(
+      apiSliceUtils.apiSlice.endpoints.getAfpOffentligLivsvarig,
+      'initiate'
+    )
+    const mockedState = {
+      api: { queries: { mock: 'mock' } },
+      userInput: {
+        ...userInputInitialState,
+        samtykkeOffentligAFP: true,
+      },
+    }
+    store.getState = vi.fn().mockImplementation(() => mockedState)
+
+    mockResponse('/v6/person', {
+      status: 200,
+      json: {
+        navn: 'Test Person',
+        sivilstand: 'UGIFT',
+        foedselsdato: '1960-04-30',
+        pensjoneringAldre: {
+          normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+          nedreAldersgrense: { aar: 62, maaneder: 0 },
+          oevreAldersgrense: { aar: 75, maaneder: 0 },
+        },
+      },
+    })
+
+    mockResponse('/v4/vedtak/loepende-vedtak', {
+      status: 200,
+      json: {
+        harLoependeVedtak: false,
+        ufoeretrygd: { grad: 0 },
+      } satisfies LoependeVedtak,
+    })
+
+    mockResponse('/v2/tpo-livsvarig-offentlig-afp', {
+      status: 200,
+      json: {
+        afpStatus: false,
+        maanedligBeloep: 0,
+        virkningFom: '2023-01-01',
+        sistBenyttetGrunnbeloep: 118620,
+      } satisfies AfpOffentligLivsvarig,
+    })
+
+    await beregningEnkelAccessGuard()
+    expect(initiateMock).toHaveBeenCalled()
+  })
+
+  it('burde ikke kalle getAfpOffentligLivsvarig når bruker ikke har samtykket til AFP offentlig', async () => {
+    const initiateMock = vi.spyOn(
+      apiSliceUtils.apiSlice.endpoints.getAfpOffentligLivsvarig,
+      'initiate'
+    )
+    const mockedState = {
+      api: { queries: { mock: 'mock' } },
+      userInput: {
+        ...userInputInitialState,
+        samtykkeOffentligAFP: false,
+      },
+    }
+    store.getState = vi.fn().mockImplementation(() => mockedState)
+
+    mockResponse('/v6/person', {
+      status: 200,
+      json: {
+        navn: 'Test Person',
+        fornavn: 'Test',
+        sivilstand: 'UGIFT',
+        foedselsdato: '1960-04-30',
+        pensjoneringAldre: {
+          normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+          nedreAldersgrense: { aar: 62, maaneder: 0 },
+          oevreAldersgrense: { aar: 75, maaneder: 0 },
+        },
+      },
+    })
+
+    mockResponse('/v4/vedtak/loepende-vedtak', {
+      status: 200,
+      json: {
+        harLoependeVedtak: false,
+        ufoeretrygd: { grad: 0 },
+      } satisfies LoependeVedtak,
+    })
+
+    await beregningEnkelAccessGuard()
+    expect(initiateMock).not.toHaveBeenCalled()
+  })
 })

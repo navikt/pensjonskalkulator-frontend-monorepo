@@ -50,9 +50,9 @@ describe('AFP vs uføretrygd', () => {
 
       it('forventer jeg å må samtykke til å beregne AFP.', () => {
         cy.contains('button', 'Neste').click() // -> AFP Info
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('be.visible')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
+          'be.visible'
+        )
       })
 
       it('forventer jeg å kunne gå videre til beregningssiden', () => {
@@ -322,7 +322,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],
@@ -367,7 +367,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],
@@ -413,7 +413,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],

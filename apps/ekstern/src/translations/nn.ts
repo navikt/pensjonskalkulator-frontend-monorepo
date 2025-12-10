@@ -190,6 +190,13 @@ export default {
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.nav_info.readmore': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.nav_info.readmore.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'MANGLER_TEKST',
@@ -295,6 +302,8 @@ export default {
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'MANGLER_TEKST',
   'beregning.alert.inntekt': 'MANGLER_TEKST',
+  'beregning.alert.feil.afp-offentlig-livsvarig': 'MANGLER_TEKST',
+  'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'MANGLER_TEKST',
   'beregning.highcharts.ingress': 'MANGLER_TEKST',

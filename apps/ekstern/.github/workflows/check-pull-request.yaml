@@ -192,6 +192,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run Chromium tests
         run: npx playwright test --project=chromium --workers=6 --reporter=blob
 

@@ -78,6 +78,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaPensjon?: { beloep: string; sluttAlder: Alder }
   utenlandsperioder: Utenlandsperiode[]
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): TidligstMuligHeltUttakRequestBody => {
   const {
     loependeVedtak,
@@ -88,6 +89,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     aarligInntektFoerUttakBeloep,
     aarligInntektVsaPensjon,
     utenlandsperioder,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   return {
@@ -108,6 +110,20 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
         }
       : undefined,
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 
@@ -125,6 +141,7 @@ export const generateAlderspensjonRequestBody = (args: {
   utenlandsperioder: Utenlandsperiode[]
   beregningsvalg?: Beregningsvalg | null
   afpInntektMaanedFoerUttak?: boolean | null
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     loependeVedtak,
@@ -140,6 +157,7 @@ export const generateAlderspensjonRequestBody = (args: {
     utenlandsperioder,
     beregningsvalg,
     afpInntektMaanedFoerUttak,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   if (!foedselsdato || !heltUttak) {
@@ -181,6 +199,20 @@ export const generateAlderspensjonRequestBody = (args: {
     },
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
     afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak ?? undefined,
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 
@@ -194,6 +226,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
   utenlandsperioder: Utenlandsperiode[]
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     loependeVedtak,
@@ -205,6 +238,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     aarligInntektFoerUttakBeloep,
     uttaksalder,
     utenlandsperioder,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   if (!foedselsdato || !uttaksalder) {
@@ -227,6 +261,20 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       uttaksalder,
     },
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 

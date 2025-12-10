@@ -143,6 +143,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/v2/tpo-livsvarig-offentlig-afp',
+    },
+    { fixture: 'afp-offentlig-livsvarig.json' }
+  ).as('getTpoAfpOffentligLivsvarig')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }
@@ -182,7 +190,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
+      url: '/pensjon/kalkulator/api/v3/tidligste-hel-uttaksalder',
     },
     { fixture: 'tidligste-uttaksalder.json' }
   ).as('fetchTidligsteUttaksalder')
@@ -195,7 +203,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+      url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')

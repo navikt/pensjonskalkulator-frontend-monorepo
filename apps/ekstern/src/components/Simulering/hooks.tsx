@@ -40,6 +40,7 @@ export const useSimuleringChartLocalState = (initialValues: {
   pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
   afpPrivatListe?: AfpPensjonsberegning[]
   afpOffentligListe?: AfpPensjonsberegning[]
+  loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig
   pensjonsavtaler: {
     isLoading: boolean
     data?: {
@@ -68,6 +69,7 @@ export const useSimuleringChartLocalState = (initialValues: {
     pre2025OffentligAfp,
     afpPrivatListe,
     afpOffentligListe,
+    loependeLivsvarigAfpOffentlig,
     pensjonsavtaler,
     offentligTp,
   } = initialValues
@@ -202,6 +204,15 @@ export const useSimuleringChartLocalState = (initialValues: {
         : uttaksalder?.maaneder
 
     if (startAar && startMaaned !== undefined && alderspensjonListe) {
+      // Sjekk om vi skal vise simulert offentlig AFP når løpende offentlig AFP er definert
+      const shouldShowAfpOffentlig =
+        !loependeLivsvarigAfpOffentlig ||
+        loependeLivsvarigAfpOffentlig.afpStatus === false ||
+        (loependeLivsvarigAfpOffentlig.afpStatus === true &&
+          loependeLivsvarigAfpOffentlig.maanedligBeloep === 0) ||
+        (loependeLivsvarigAfpOffentlig.afpStatus === null &&
+          loependeLivsvarigAfpOffentlig.maanedligBeloep === null)
+
       setChartOptions({
         ...getChartDefaults(xAxis),
         series: [
@@ -286,7 +297,9 @@ export const useSimuleringChartLocalState = (initialValues: {
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(afpOffentligListe && afpOffentligListe.length > 0
+          ...(shouldShowAfpOffentlig &&
+          afpOffentligListe &&
+          afpOffentligListe.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,

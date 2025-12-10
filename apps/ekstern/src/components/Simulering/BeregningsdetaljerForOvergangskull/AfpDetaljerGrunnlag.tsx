@@ -3,8 +3,14 @@ import { FormattedMessage } from 'react-intl'
 
 import { Box, Heading, VStack } from '@navikt/ds-react'
 
+import { useGetAfpOffentligLivsvarigQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectFoedselsdato,
+  selectSamtykkeOffentligAFP,
+} from '@/state/userInput/selectors'
+import { isAlderOver62 } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { AfpDetaljer } from './Felles/AfpDetaljer'
@@ -22,6 +28,14 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
   const { uttaksalder, gradertUttaksperiode } = useAppSelector(
     selectCurrentSimulation
   )
+  const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+
+  const { data: loependeLivsvarigAfpOffentlig } =
+    useGetAfpOffentligLivsvarigQuery(undefined, {
+      skip:
+        !samtykkeOffentligAFP || !foedselsdato || !isAlderOver62(foedselsdato),
+    })
 
   const renderAfpHeading = (
     afpDetaljForValgtUttak: AfpDetaljerListe,
@@ -60,6 +74,19 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
     />
   )
 
+  const shouldRenderHeading = (afpDetaljForValgtUttak: AfpDetaljerListe) => {
+    // If there's løpende livsvarig AFP offentlig with a positive amount, don't render heading for AFP Offentlig
+    if (
+      afpDetaljForValgtUttak.afpOffentlig.length > 0 &&
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig.maanedligBeloep > 0
+    ) {
+      return false
+    }
+    return true
+  }
+
   return (
     <VStack
       gap="14"
@@ -69,7 +96,8 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
       {afpDetaljerListe.map((afpDetaljForValgtUttak, index) => (
         <Box key={index}>
           <VStack gap="4 8" width="100%" marginBlock="6 4">
-            {renderAfpHeading(afpDetaljForValgtUttak, index)}
+            {shouldRenderHeading(afpDetaljForValgtUttak) &&
+              renderAfpHeading(afpDetaljForValgtUttak, index)}
             {renderDetaljer(afpDetaljForValgtUttak)}
           </VStack>
         </Box>

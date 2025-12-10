@@ -19,6 +19,7 @@ import { paths } from '@/router/constants'
 import {
   apiSlice,
   useAlderspensjonQuery,
+  useGetAfpOffentligLivsvarigQuery,
   useGetPersonQuery,
   useTidligstMuligHeltUttakQuery,
 } from '@/state/api/apiSlice'
@@ -34,6 +35,7 @@ import {
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
   selectNedreAldersgrense,
@@ -46,6 +48,7 @@ import {
 import {
   getBrukerensAlderISluttenAvMaaneden,
   isAlder75MaanedenFylt,
+  isAlderOver62,
   isFoedtFoer1964,
 } from '@/utils/alder'
 import { ALERT_VIST } from '@/utils/loggerConstants'
@@ -76,6 +79,16 @@ export const BeregningEnkel = () => {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const {
+    isSuccess: isAfpOffentligLivsvarigSuccess,
+    data: loependeLivsvarigAfpOffentlig,
+  } = useGetAfpOffentligLivsvarigQuery(undefined, {
+    skip:
+      !harSamtykketOffentligAFP ||
+      !foedselsdato ||
+      !isAlderOver62(foedselsdato),
+  })
 
   const [
     tidligstMuligHeltUttakRequestBody,
@@ -117,6 +130,9 @@ export const BeregningEnkel = () => {
         epsHarInntektOver2G,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         utenlandsperioder,
+        loependeLivsvarigAfpOffentlig: isAfpOffentligLivsvarigSuccess
+          ? loependeLivsvarigAfpOffentlig
+          : null,
       })
       setTidligstMuligHeltUttakRequestBody(requestBody)
     }
@@ -141,6 +157,9 @@ export const BeregningEnkel = () => {
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder,
         utenlandsperioder,
+        loependeLivsvarigAfpOffentlig: isAfpOffentligLivsvarigSuccess
+          ? loependeLivsvarigAfpOffentlig
+          : null,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }
@@ -152,6 +171,8 @@ export const BeregningEnkel = () => {
     sivilstand,
     epsHarPensjon,
     epsHarInntektOver2G,
+    isAfpOffentligLivsvarigSuccess,
+    loependeLivsvarigAfpOffentlig,
   ])
 
   // Hent alderspensjon + AFP

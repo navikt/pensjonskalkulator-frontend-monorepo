@@ -54,8 +54,9 @@ declare global {
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
   type ApotekerStatusV1 = components['schemas']['ApotekerStatusV1']
 
-  // /v1/afp-offentlig-livsvarig
-  type AfpOffentligLivsvarig = components['schemas']['AfpOffentligLivsvarigDto']
+  // /v2/tpo-livsvarig-offentlig-afp
+  type AfpOffentligLivsvarig =
+    components['schemas']['LivsvarigOffentligAfpResultV2']
 
   // /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   type OmstillingsstoenadOgGjenlevende =
@@ -66,52 +67,52 @@ declare global {
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
-    components['schemas']['UttaksalderSpecV2']
+    components['schemas']['UttaksalderSpecV3']
   type TidligstMuligGradertUttakRequestBody =
-    components['schemas']['UttaksalderResultV2']
+    components['schemas']['UttaksalderResultV3']
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
-    components['schemas']['PersonligSimuleringSpecV8']
+    components['schemas']['PersonligSimuleringSpecV9']
   type AlderspensjonSimuleringstype =
-    components['schemas']['PersonligSimuleringSpecV8']['simuleringstype']
+    components['schemas']['PersonligSimuleringSpecV9']['simuleringstype']
   type AlderspensjonResponseBody =
-    components['schemas']['PersonligSimuleringResultV8']
+    components['schemas']['PersonligSimuleringResultV9']
   type Vilkaarsproeving =
-    components['schemas']['PersonligSimuleringVilkaarsproevingResultV8']
+    components['schemas']['PersonligSimuleringVilkaarsproevingResultV9']
   type VilkaarsproevingAlternativ =
-    components['schemas']['PersonligSimuleringAlternativResultV8']
+    components['schemas']['PersonligSimuleringAlternativResultV9']
   type SimulertOpptjeningGrunnlag =
-    components['schemas']['PersonligSimuleringAarligInntektResultV8']
+    components['schemas']['PersonligSimuleringAarligInntektResultV9']
   type AlderspensjonMaanedligVedEndring =
-    components['schemas']['PersonligSimuleringMaanedligPensjonResultV8']
+    components['schemas']['PersonligSimuleringMaanedligPensjonResultV9']
   type AfpEtterfulgtAvAlderspensjon =
-    components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV8']
+    components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV9']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
   }
   type HeltUttak = Omit<
-    components['schemas']['PersonligSimuleringHeltUttakSpecV8'],
+    components['schemas']['PersonligSimuleringHeltUttakSpecV9'],
     'aarligInntektVsaPensjon'
   > & {
     aarligInntektVsaPensjon?: AarligInntektVsaPensjon
   }
 
   type GradertUttak = Omit<
-    components['schemas']['PersonligSimuleringGradertUttakSpecV8'],
+    components['schemas']['PersonligSimuleringGradertUttakSpecV9'],
     'aarligInntektVsaPensjonBeloep'
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
   type AfpPrivatPensjonsberegning =
-    components['schemas']['PersonligSimuleringAfpPrivatResultV8']
+    components['schemas']['PersonligSimuleringAfpPrivatResultV9']
   type AfpPensjonsberegning =
-    components['schemas']['PersonligSimuleringAarligPensjonResultV8']
+    components['schemas']['PersonligSimuleringAarligPensjonResultV9']
   type AlderspensjonPensjonsberegning =
-    components['schemas']['PersonligSimuleringAlderspensjonResultV8']
+    components['schemas']['PersonligSimuleringAlderspensjonResultV9']
   type pre2025OffentligPensjonsberegning =
-    components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV8']
+    components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV9']
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
     components['schemas']['PensjonsavtaleSpecV3']

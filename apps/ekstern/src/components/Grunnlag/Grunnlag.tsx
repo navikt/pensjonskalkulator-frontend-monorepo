@@ -16,11 +16,13 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
+import { useGetAfpOffentligLivsvarigQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
   selectFoedselsdato,
   selectLoependeVedtak,
+  selectSamtykkeOffentligAFP,
   selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
@@ -85,6 +87,15 @@ export const Grunnlag: React.FC<Props> = ({
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
   const hasErApotekerError = useAppSelector(selectHasErApotekerError)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+
+  const { data: loependeLivsvarigAfpOffentlig } =
+    useGetAfpOffentligLivsvarigQuery(undefined, {
+      skip:
+        !harSamtykketOffentligAFP ||
+        !foedselsdato ||
+        !isAlderOver62(foedselsdato),
+    })
 
   const [isAFPDokumentasjonVisible, setIsAFPDokumentasjonVisible] =
     React.useState<boolean>(false)
@@ -102,7 +113,8 @@ export const Grunnlag: React.FC<Props> = ({
       alderspensjonListe,
       afpPrivatListe,
       afpOffentligListe,
-      pre2025OffentligAfp
+      pre2025OffentligAfp,
+      loependeLivsvarigAfpOffentlig
     )
 
   // Antall kolonner for AP detaljer som bestemmer hvor mange kolonner AFP detaljer skal ha.
@@ -123,7 +135,10 @@ export const Grunnlag: React.FC<Props> = ({
         afpDetaljer.afpPrivat.length === 0 &&
         afpDetaljer.afpOffentlig.length === 0 &&
         afpDetaljer.pre2025OffentligAfp.length === 0
-    )
+    ) ||
+    (loependeLivsvarigAfpOffentlig?.afpStatus &&
+      (loependeLivsvarigAfpOffentlig?.maanedligBeloep === undefined ||
+        loependeLivsvarigAfpOffentlig?.maanedligBeloep === null))
 
   const handleReadMoreChange = ({
     isOpen,

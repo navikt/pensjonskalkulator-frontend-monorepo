@@ -577,3 +577,19 @@ export const fulfilledAlderspensjonForLiteTrygdetid = {
     fulfilledTimeStamp: 1688046412103,
   },
 }
+
+export const fulfilledGetAfpOffentligLivsvarigFalse = {
+  ['getAfpOffentligLivsvarig(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getAfpOffentligLivsvarig',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      afpStatus: false,
+      maanedligBeloep: null,
+      virkningFom: undefined,
+      sistBenyttetGrunnbeloep: undefined,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}

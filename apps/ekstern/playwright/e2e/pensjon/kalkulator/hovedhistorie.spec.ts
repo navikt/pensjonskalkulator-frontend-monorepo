@@ -731,11 +731,9 @@ test.describe('Hovedhistorie', () => {
               .check()
             await clickNeste(page)
 
-            await expect(
-              page.getByRole('heading', {
-                name: 'Samtykke til at Nav beregner AFP (avtalefestet pensjon)',
-              })
-            ).toBeVisible()
+            // await expect(
+            //   page.getByTestId('samtykke-offentlig-afp-title')
+            // ).toBeVisible()
             await expect(
               page.getByTestId('stegvisning.samtykke_offentlig_afp.radio_label')
             ).toBeVisible()

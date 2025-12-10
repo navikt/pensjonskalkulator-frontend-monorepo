@@ -348,7 +348,7 @@ describe('Utland', () => {
               cy.intercept(
                 {
                   method: 'POST',
-                  url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+                  url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
                 },
                 { fixture: 'alderspensjon_for_lite_trygdetid.json' }
               ).as('fetchAlderspensjon')

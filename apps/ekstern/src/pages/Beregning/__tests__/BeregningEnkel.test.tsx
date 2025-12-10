@@ -2,6 +2,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+  fulfilledGetAfpOffentligLivsvarigFalse,
   fulfilledGetInntekt,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
@@ -156,10 +157,10 @@ describe('BeregningEnkel', () => {
 
     describe('Når kallet til TMU feiler,', () => {
       beforeEach(() => {
-        mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
+        mockErrorResponse('/v3/tidligste-hel-uttaksalder', {
           method: 'post',
         })
-        mockResponse('/v8/alderspensjon/simulering', {
+        mockResponse('/v9/alderspensjon/simulering', {
           status: 200,
           method: 'post',
           json: {
@@ -344,6 +345,7 @@ describe('BeregningEnkel', () => {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
               ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetAfpOffentligLivsvarigFalse,
             },
           },
           userInput: {
@@ -708,7 +710,7 @@ describe('BeregningEnkel', () => {
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/v8/alderspensjon/simulering', {
+      mockErrorResponse('/v9/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -744,7 +746,7 @@ describe('BeregningEnkel', () => {
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v8/alderspensjon/simulering', {
+      mockResponse('/v9/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
@@ -780,7 +782,7 @@ describe('BeregningEnkel', () => {
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
       const user = userEvent.setup()
-      mockResponse('/v8/alderspensjon/simulering', {
+      mockResponse('/v9/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
@@ -795,7 +797,7 @@ describe('BeregningEnkel', () => {
           harForLiteTrygdetid: false,
         },
       })
-      mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
+      mockErrorResponse('/v3/tidligste-hel-uttaksalder', {
         method: 'post',
       })
       render(<BeregningEnkel />, {

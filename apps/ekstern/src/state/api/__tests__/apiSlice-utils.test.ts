@@ -224,6 +224,7 @@ describe('apiSlice - utils', () => {
       epsHarInntektOver2G: null,
       aarligInntektFoerUttakBeloep: '0',
       utenlandsperioder: [],
+      loependeLivsvarigAfpOffentlig: null,
     }
     it('returnerer riktig simuleringstype', () => {
       expect(
@@ -413,6 +414,7 @@ describe('apiSlice - utils', () => {
       uttaksalder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
       utenlandsperioder: [],
+      loependeLivsvarigAfpOffentlig: null,
     }
     it('returnerer undefined når foedselsdato, eller startAlder er null', () => {
       expect(
@@ -613,6 +615,7 @@ describe('apiSlice - utils', () => {
         },
       },
       utenlandsperioder: [],
+      loependeLivsvarigAfpOffentlig: null,
     }
     it('returnerer undefined når foedselsdato, eller heltUttak er null/undefined', () => {
       expect(

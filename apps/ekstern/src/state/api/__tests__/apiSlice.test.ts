@@ -1,4 +1,5 @@
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { Reason } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import { setupStore } from '@/state/store'
 
@@ -246,15 +247,23 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/tidligste-hel-uttaksalder', {
+      // Return an error JSON payload so the test can assert the error body
+      mockErrorResponse('/v3/tidligste-hel-uttaksalder', {
         status: 500,
         method: 'post',
+        json: {
+          reason: 'AFP_IKKE_I_VILKAARSPROEVING' as Reason,
+        },
       })
       return storeRef
         .dispatch(apiSlice.endpoints.tidligstMuligHeltUttak.initiate())
         .then((result) => {
           expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
+          if (result.error && 'data' in result.error) {
+            expect((result.error.data as { reason: Reason }).reason).toBe(
+              'AFP_IKKE_I_VILKAARSPROEVING'
+            )
+          }
         })
     })
   })
@@ -286,7 +295,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v8/alderspensjon/simulering', {
+      mockErrorResponse('/v9/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef

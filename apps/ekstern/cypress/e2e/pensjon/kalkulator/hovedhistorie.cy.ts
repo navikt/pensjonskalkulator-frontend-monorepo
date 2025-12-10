@@ -566,11 +566,7 @@ describe('Hovedhistorie', () => {
             cy.contains('button', 'Neste').click()
           })
           it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
-            cy.contains(
-              'h2',
-              'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-            ).should('exist')
-            cy.contains('Vil du at Nav skal beregne AFP for deg?').should(
+            cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
               'exist'
             )
             cy.contains('button', 'Neste').click()
@@ -805,7 +801,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v3/tidligste-hel-uttaksalder',
           },
           (req) => {
             req.on('response', (res) => {
@@ -983,7 +979,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon.json' }
         ).as('getAlderspensjon')
@@ -1114,7 +1110,7 @@ describe('Hovedhistorie', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/tidligste-hel-uttaksalder',
+            url: '/pensjon/kalkulator/api/v3/tidligste-hel-uttaksalder',
           },
           {
             aar: 67,
