@@ -216,6 +216,7 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           className={styles.alert}
           {...(index === 1 && { style: { margin: '16px 0' } })}
           inline={alert.variant === ALERT_VARIANTS.INLINE_INFO}
+          role="alert"
         >
           <FormattedMessage
             id={alert.text}

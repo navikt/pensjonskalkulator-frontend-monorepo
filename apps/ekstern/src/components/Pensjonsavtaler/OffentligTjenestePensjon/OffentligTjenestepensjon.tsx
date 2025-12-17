@@ -116,7 +116,7 @@ export const OffentligTjenestepensjon = (props: {
       {
         // Ved feil når /simuler-oftp kalles
         isError && (
-          <Alert inline variant="warning">
+          <Alert inline variant="warning" role="alert">
             <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
           </Alert>
         )
@@ -129,6 +129,7 @@ export const OffentligTjenestepensjon = (props: {
             inline
             variant="info"
             data-testid="ingen-pensjonsavtaler-alert"
+            role="alert"
           >
             <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
           </Alert>
@@ -138,7 +139,7 @@ export const OffentligTjenestepensjon = (props: {
         // Når brukeren er medlem av en annen ordning
         offentligTp?.simuleringsresultatStatus ===
           'TP_ORDNING_STOETTES_IKKE' && (
-          <Alert inline variant="warning">
+          <Alert inline variant="warning" role="alert">
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
               values={{
@@ -154,7 +155,7 @@ export const OffentligTjenestepensjon = (props: {
       {
         // Ved feil hos TP-leverandør
         offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
-          <Alert inline variant="warning">
+          <Alert inline variant="warning" role="alert">
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.teknisk_feil"
               values={{
@@ -171,7 +172,7 @@ export const OffentligTjenestepensjon = (props: {
         // Ved tomt svar fra TP-leverandør
         offentligTp?.simuleringsresultatStatus ===
           'TOM_SIMULERING_FRA_TP_ORDNING' && (
-          <Alert inline variant="warning">
+          <Alert inline variant="warning" role="alert">
             <FormattedMessage
               id="pensjonsavtaler.offentligtp.empty"
               values={getFormatMessageValues()}

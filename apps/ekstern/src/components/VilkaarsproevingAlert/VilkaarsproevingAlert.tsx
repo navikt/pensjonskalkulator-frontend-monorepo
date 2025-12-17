@@ -73,7 +73,7 @@ export const VilkaarsproevingAlert = ({
     }
 
     return (
-      <Alert variant="warning">
+      <Alert variant="warning" role="alert">
         {alternativ ? (
           <>
             <FormattedMessage id="beregning.vilkaarsproeving.medAFP.intro" />
@@ -139,7 +139,7 @@ export const VilkaarsproevingAlert = ({
 
   if (skalBeregneAfpKap19) {
     return (
-      <Alert variant="warning">
+      <Alert variant="warning" role="alert">
         <FormattedMessage
           id="beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak"
           values={{
@@ -195,7 +195,7 @@ export const VilkaarsproevingAlert = ({
   }
 
   return (
-    <Alert variant="warning">
+    <Alert variant="warning" role="alert">
       <FormattedMessage id="beregning.vilkaarsproeving.intro" />
       <FormattedMessage
         id={

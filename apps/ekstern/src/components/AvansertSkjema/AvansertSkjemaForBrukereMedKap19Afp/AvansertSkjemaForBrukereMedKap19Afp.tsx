@@ -268,7 +268,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
 
           <Divider noMargin />
 
-          <div className={styles.alertWrapper} aria-live="polite">
+          <div className={styles.alertWrapper}>
             {vilkaarsproeving &&
               !vilkaarsproeving?.vilkaarErOppfylt &&
               uttaksalder && (
@@ -363,6 +363,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
                 <Alert
                   variant="info"
                   data-testid="afp-etterfulgt-ap-informasjon"
+                  role="alert"
                 >
                   <FormattedMessage
                     id="beregning.avansert.alert.afp_inntekt_maaned_foer_uttak"

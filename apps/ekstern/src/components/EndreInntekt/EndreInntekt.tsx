@@ -103,8 +103,12 @@ export const EndreInntekt: React.FC<Props> = ({
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const data = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const data = new FormData(form)
     const inntektData = data.get('inntekt') as string | undefined
+    const input = form.elements.namedItem('inntekt') as HTMLInputElement | null
+    // Set focus on input field to show error message to screen reader users
+    input?.focus()
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       // TODO: fjern når amplitude er ikke i bruk lenger

@@ -33,6 +33,7 @@ export const InfoOmFremtidigVedtak = ({
       className={clsx(styles.alert, { [styles.alert__centered]: isCentered })}
       variant="info"
       data-intl="stegvisning.fremtidigvedtak.alert"
+      role="alert"
     >
       <FormattedMessage
         id="stegvisning.fremtidigvedtak.alert"

@@ -14,27 +14,31 @@ export const VeilederInputRequestError = ({ personError }: Props) => {
     switch (personError.status) {
       case 403:
         return (
-          <Alert variant="warning" data-testid="alert-ikke-tilgang">
+          <Alert
+            variant="warning"
+            data-testid="alert-ikke-tilgang"
+            role="alert"
+          >
             Du har ikke tilgang til brukeren eller pensjonskalkulatoren. Hvis du
             mener du skal ha tilgang, kontakt din lokale IT-ansvarlig.
           </Alert>
         )
       case 404:
         return (
-          <Alert variant="warning" data-testid="alert-ikke-gyldig">
+          <Alert variant="warning" data-testid="alert-ikke-gyldig" role="alert">
             Fødselsnummeret er ikke gyldig.
           </Alert>
         )
       default:
         return (
-          <Alert variant="warning" data-testid="alert-annet">
+          <Alert variant="warning" data-testid="alert-annet" role="alert">
             Feil ved henting av person.
           </Alert>
         )
     }
   } else {
     return (
-      <Alert variant="warning" data-testid="alert-annet">
+      <Alert variant="warning" data-testid="alert-annet" role="alert">
         Feil ved henting av person.
       </Alert>
     )

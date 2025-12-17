@@ -78,7 +78,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
               <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
             </Heading>
 
-            <Alert inline variant="info">
+            <Alert inline variant="info" role="alert">
               <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
             </Alert>
           </>
@@ -93,7 +93,7 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
               <FormattedMessage id="pensjonsavtaler.private.title.ingen" />
             </Heading>
 
-            <Alert inline variant="warning">
+            <Alert inline variant="warning" role="alert">
               <FormattedMessage id="pensjonsavtaler.private.ingress.error.pensjonsavtaler" />
             </Alert>
           </>
@@ -103,7 +103,12 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
       {
         // Når private pensjonsavtaler er partial med noen avtaler
         partialPrivatePensjonsavtaler && (
-          <Alert inline variant="warning" className={styles.alert__margin}>
+          <Alert
+            inline
+            variant="warning"
+            className={styles.alert__margin}
+            role="alert"
+          >
             <FormattedMessage id="pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial" />
           </Alert>
         )

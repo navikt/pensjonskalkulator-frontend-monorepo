@@ -276,6 +276,7 @@ export const BeregningEnkel = () => {
             variant="info"
             closeButton={true}
             onClose={dismissAlert}
+            role="alert"
           >
             <FormattedMessage id="beregning.alert.inntekt" />
           </Alert>

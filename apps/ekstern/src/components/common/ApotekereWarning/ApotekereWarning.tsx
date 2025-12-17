@@ -21,6 +21,7 @@ export const ApotekereWarning = ({ showWarning }: { showWarning: boolean }) => {
       className={styles.alertWrapper}
       variant="warning"
       data-testid="apotekere-warning"
+      role="alert"
     >
       <FormattedMessage id="error.apoteker_warning" />
     </Alert>
