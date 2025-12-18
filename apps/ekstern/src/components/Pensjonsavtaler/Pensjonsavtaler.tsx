@@ -6,14 +6,8 @@ import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
-import {
-  useOffentligTpQuery,
-  usePensjonsavtalerQuery,
-} from '@/state/api/apiSlice'
-import {
-  generateOffentligTpRequestBody,
-  generatePensjonsavtalerRequestBody,
-} from '@/state/api/utils'
+import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
+import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
@@ -21,17 +15,15 @@ import {
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
-  selectErApoteker,
-  selectFoedselsdato,
   selectSamtykke,
   selectSivilstand,
   selectSkalBeregneAfpKap19,
   selectUfoeregrad,
-  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import { useOffentligTpData } from '../Simulering/hooks'
 import ShowMore from '../common/ShowMore/ShowMore'
 import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
 import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
@@ -54,48 +46,18 @@ export const Pensjonsavtaler = ({
   )
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
-  const foedselsdato = useAppSelector(selectFoedselsdato)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
-  const erApoteker = useAppSelector(selectErApoteker)
-  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
-
-  const [offentligTpRequestBody, setOffentligTpRequestBody] = useState<
-    OffentligTpRequestBody | undefined
-  >(undefined)
 
   const {
     data: offentligTp,
     isLoading: isOffentligTpLoading,
     isError: isOffentligTpError,
-  } = useOffentligTpQuery(offentligTpRequestBody as OffentligTpRequestBody, {
-    skip: !offentligTpRequestBody || !harSamtykket || !uttaksalder,
-  })
-
-  // Hent Offentlig Tjenestepensjon
-  useEffect(() => {
-    if (harSamtykket && uttaksalder) {
-      const requestBody = generateOffentligTpRequestBody({
-        afp,
-        foedselsdato,
-        sivilstand,
-        epsHarInntektOver2G,
-        epsHarPensjon,
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
-        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
-        heltUttak: {
-          uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
-        },
-        utenlandsperioder,
-        erApoteker,
-      })
-      setOffentligTpRequestBody(requestBody)
-    }
-  }, [harSamtykket, uttaksalder])
+    erOffentligTpFoer1963,
+  } = useOffentligTpData()
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
     PensjonsavtalerRequestBody | undefined
@@ -186,6 +148,7 @@ export const Pensjonsavtaler = ({
               isError={isOffentligTpError}
               offentligTp={offentligTp}
               headingLevel={subHeadingLevel}
+              erOffentligTpFoer1963={erOffentligTpFoer1963}
             />
 
             {showExplanation && (

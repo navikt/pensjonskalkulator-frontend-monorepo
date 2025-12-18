@@ -126,6 +126,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     afpInntektMaanedFoerUttak: null,
     normertPensjonsalder,
     beregningsvalg,
+    stillingsprosentVsaGradertPensjon: null,
+    stillingsprosentVsaHelPensjon: null,
   })
 
   const {

@@ -15,6 +15,7 @@ import { AfpDetaljer } from '../AfpDetaljer'
 const createAfpDetaljerListe = (options: {
   afpPrivat?: DetaljRad[]
   afpOffentlig?: DetaljRad[]
+  afpOffentligSpk?: DetaljRad[]
   pre2025OffentligAfp?: DetaljRad[]
   opptjeningPre2025OffentligAfp?: DetaljRad[]
 }) => ({
@@ -22,6 +23,7 @@ const createAfpDetaljerListe = (options: {
   afpOffentlig: options.afpOffentlig || [],
   pre2025OffentligAfp: options.pre2025OffentligAfp || [],
   opptjeningPre2025OffentligAfp: options.opptjeningPre2025OffentligAfp || [],
+  afpOffentligSpk: options.afpOffentligSpk || [],
 })
 
 const mockMessages = {

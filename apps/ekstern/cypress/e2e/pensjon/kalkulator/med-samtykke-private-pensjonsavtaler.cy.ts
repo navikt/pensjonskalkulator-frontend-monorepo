@@ -7,7 +7,7 @@ describe('Med samtykke - Private pensjonsavtaler', () => {
       cy.intercept(
         {
           method: 'POST',
-          url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+          url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
         },
         {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',

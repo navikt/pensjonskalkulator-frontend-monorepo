@@ -13,8 +13,11 @@ interface Props {
   afpOffentligListe?: AfpPensjonsberegning[]
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
   pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
+  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[]
   pensjonsavtaler?: Pensjonsavtale[]
   simulertTjenestepensjon?: SimulertTjenestepensjon
+  skalViseNullOffentligTjenestepensjon?: boolean
+  erTpFoer1963?: boolean
 }
 
 export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
@@ -42,6 +45,10 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
           summerYtelser={summerYtelser}
           hentUttaksmaanedOgAar={hentUttaksmaanedOgAar}
           harGradering={harGradering}
+          erTpFoer1963={props.erTpFoer1963}
+          skalViseNullOffentligTjenestepensjon={
+            props.skalViseNullOffentligTjenestepensjon
+          }
         />
       </div>
 
@@ -51,6 +58,9 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
           summerYtelser={summerYtelser}
           hentUttaksmaanedOgAar={hentUttaksmaanedOgAar}
           harGradering={harGradering}
+          skalViseNullOffentligTjenestepensjon={
+            props.skalViseNullOffentligTjenestepensjon
+          }
         />
       </div>
     </Box>

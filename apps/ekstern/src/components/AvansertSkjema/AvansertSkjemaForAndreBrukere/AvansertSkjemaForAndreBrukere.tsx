@@ -21,6 +21,10 @@ import {
   selectMaxOpptjeningsalder,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
+  selectSamtykke,
+  selectSkalBeregneKunAlderspensjon,
+  selectStillingsprosentVsaGradertPensjon,
+  selectStillingsprosentVsaPensjon,
 } from '@/state/userInput/selectors'
 import {
   UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
@@ -59,6 +63,10 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
   const maxOpptjeningsalder = useAppSelector(selectMaxOpptjeningsalder)
+  const skalBeregneKunAlderspensjon = useAppSelector(
+    selectSkalBeregneKunAlderspensjon
+  )
+  const harSamtykketPensjonsavtaler = useAppSelector(selectSamtykke)
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
@@ -74,12 +82,22 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     intl,
     normertPensjonsalder
   )
+  const stillingsprosentVsaHelPensjon = useAppSelector(
+    selectStillingsprosentVsaPensjon
+  )
+  const stillingsprosentVsaGradertPensjon = useAppSelector(
+    selectStillingsprosentVsaGradertPensjon
+  )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
   const gaaTilResultat = () => {
     setAvansertSkjemaModus('resultat')
     window.scrollTo(0, 0)
   }
+
+  const skalValidereStillingsprosentVsaPensjon = Boolean(
+    skalBeregneKunAlderspensjon && harSamtykketPensjonsavtaler === true
+  )
 
   const agePickerMinAlder = loependeVedtak.ufoeretrygd.grad
     ? normertPensjonsalder
@@ -101,6 +119,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
+    localStillingsprosentVsaHelPensjon,
+    localStillingsprosentVsaGradertPensjon,
     minAlderInntektSluttAlder,
     muligeUttaksgrad,
     handlers: {
@@ -109,6 +129,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
       setLocalGradertUttak,
       setLocalHarInntektVsaHeltUttakRadio,
       setLocalHarInntektVsaGradertUttakRadio,
+      setLocalStillingsprosentVsaHelPensjon,
+      setLocalStillingsprosentVsaGradertPensjon,
     },
   } = useFormLocalState({
     isEndring,
@@ -122,6 +144,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     afpInntektMaanedFoerUttak: null,
     normertPensjonsalder,
     beregningsvalg: null,
+    stillingsprosentVsaGradertPensjon,
+    stillingsprosentVsaHelPensjon,
   })
 
   const {
@@ -135,6 +159,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
       setValidationErrorInntektVsaHeltUttak,
       setValidationErrorInntektVsaHeltUttakSluttAlder,
       setValidationErrorInntektVsaGradertUttak,
+      setValidationErrorStillingsprosentVsaGradertPensjon,
+      setValidationErrorStillingsprosentVsaHelPensjon,
       resetValidationErrors,
     },
   } = useFormValidationErrors({
@@ -225,6 +251,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
         [AVANSERT_FORM_NAMES.uttaksgrad]: '',
         [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
         [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon]: '',
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon]: '',
       }
     })
     const uttaksgradAsNumber = parseInt(e.target.value, 10)
@@ -247,6 +275,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
         grad: 100,
       })
       setLocalHarInntektVsaGradertUttakRadio(null)
+      setLocalStillingsprosentVsaGradertPensjon(null)
     } else {
       // if there was no gradert uttak from before, empty the value for helt
       if (localGradertUttak?.uttaksalder === undefined) {
@@ -276,6 +305,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
       [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
       [AVANSERT_FORM_NAMES.inntektVsaHeltUttak]: '',
       [AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder]: '',
+      [AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon]: '',
     })
     if (s === 'nei') {
       setLocalHeltUttak((previous) => {
@@ -284,6 +314,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
           aarligInntektVsaPensjon: undefined,
         }
       })
+      setLocalStillingsprosentVsaHelPensjon(null)
     }
   }
 
@@ -292,6 +323,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     setValidationErrors({
       [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
       [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
+      [AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon]: '',
     })
     if (s === 'nei') {
       setLocalGradertUttak((previous) => {
@@ -300,6 +332,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
           aarligInntektVsaPensjonBeloep: undefined,
         }
       })
+      setLocalStillingsprosentVsaGradertPensjon(null)
     }
   }
 
@@ -351,6 +384,35 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     )
   }
 
+  const handleStillingsprosentVsaGradertPensjonChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setValidationErrorStillingsprosentVsaGradertPensjon('')
+    setLocalStillingsprosentVsaGradertPensjon(
+      e.target.value === '' ? null : Number(e.target.value)
+    )
+  }
+
+  const handleStillingsprosentVsaHelPensjonChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setValidationErrorStillingsprosentVsaHelPensjon('')
+    setLocalStillingsprosentVsaHelPensjon(
+      e.target.value === '' ? null : Number(e.target.value)
+    )
+  }
+
+  useEffect(() => {
+    if (!skalValidereStillingsprosentVsaPensjon) {
+      setValidationErrorStillingsprosentVsaGradertPensjon('')
+      setValidationErrorStillingsprosentVsaHelPensjon('')
+    }
+  }, [
+    skalValidereStillingsprosentVsaPensjon,
+    setValidationErrorStillingsprosentVsaGradertPensjon,
+    setValidationErrorStillingsprosentVsaHelPensjon,
+  ])
+
   const resetForm = (): void => {
     resetValidationErrors()
     setLocalInntektFremTilUttak(
@@ -361,6 +423,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     setLocalHarInntektVsaGradertUttakRadio(null)
     setLocalHarInntektVsaHeltUttakRadio(null)
     setShowPre2025OffentligAfpAlert(false)
+    setLocalStillingsprosentVsaGradertPensjon(null)
+    setLocalStillingsprosentVsaHelPensjon(null)
   }
 
   return (
@@ -385,6 +449,9 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               hasVilkaarIkkeOppfylt:
                 vilkaarsproeving?.vilkaarErOppfylt === false,
               harAvansertSkjemaUnsavedChanges,
+            },
+            {
+              skalValidereStillingsprosentVsaPensjon,
             }
           )
         }}
@@ -636,48 +703,95 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                 </div>
 
                 {localHarInntektVsaGradertUttakRadio && (
-                  <TextField
-                    ref={inntektVsaGradertUttakInputRef}
-                    form={AVANSERT_FORM_NAMES.form}
-                    name={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
-                    data-testid={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
-                    type="text"
-                    inputMode="numeric"
-                    className={styles.textfield}
-                    label={
-                      <FormattedMessage
-                        id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
-                        values={{
-                          ...getFormatMessageValues(),
-                          grad: localGradertUttak.grad,
-                        }}
-                      />
-                    }
-                    description={intl.formatMessage({
-                      id: 'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description',
-                    })}
-                    error={
-                      validationErrors[
-                        AVANSERT_FORM_NAMES.inntektVsaGradertUttak
-                      ]
-                        ? intl.formatMessage(
-                            {
-                              id: validationErrors[
-                                AVANSERT_FORM_NAMES.inntektVsaGradertUttak
-                              ],
-                            },
-                            {
-                              ...getFormatMessageValues(),
-                              grad: localGradertUttak.grad,
-                            }
+                  <>
+                    <TextField
+                      ref={inntektVsaGradertUttakInputRef}
+                      form={AVANSERT_FORM_NAMES.form}
+                      name={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
+                      data-testid={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
+                      type="text"
+                      inputMode="numeric"
+                      className={styles.textfield}
+                      label={
+                        <FormattedMessage
+                          id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
+                          values={{
+                            ...getFormatMessageValues(),
+                            grad: localGradertUttak.grad,
+                          }}
+                        />
+                      }
+                      description={intl.formatMessage({
+                        id: 'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description',
+                      })}
+                      error={
+                        validationErrors[
+                          AVANSERT_FORM_NAMES.inntektVsaGradertUttak
+                        ]
+                          ? intl.formatMessage(
+                              {
+                                id: validationErrors[
+                                  AVANSERT_FORM_NAMES.inntektVsaGradertUttak
+                                ],
+                              },
+                              {
+                                ...getFormatMessageValues(),
+                                grad: localGradertUttak.grad,
+                              }
+                            )
+                          : ''
+                      }
+                      onChange={handleInntektVsaGradertUttakChange}
+                      value={
+                        localGradertUttak.aarligInntektVsaPensjonBeloep ?? ''
+                      }
+                    />
+                    {skalValidereStillingsprosentVsaPensjon && (
+                      <Select
+                        label={intl.formatMessage(
+                          {
+                            id: 'inntekt.stillingsprosent_vsa_pensjon.textfield.label',
+                          },
+                          { grad: localGradertUttak.grad }
+                        )}
+                        form={AVANSERT_FORM_NAMES.form}
+                        value={localStillingsprosentVsaGradertPensjon ?? ''}
+                        name={
+                          AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon
+                        }
+                        data-testid={
+                          AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon
+                        }
+                        className={styles.select}
+                        onChange={handleStillingsprosentVsaGradertPensjonChange}
+                        error={
+                          validationErrors[
+                            AVANSERT_FORM_NAMES
+                              .stillingsprosentVsaGradertPensjon
+                          ]
+                            ? intl.formatMessage(
+                                {
+                                  id: validationErrors[
+                                    AVANSERT_FORM_NAMES
+                                      .stillingsprosentVsaGradertPensjon
+                                  ],
+                                },
+                                { grad: localGradertUttak.grad }
+                              )
+                            : ''
+                        }
+                      >
+                        <option disabled value="">
+                          {' '}
+                        </option>
+                        {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(
+                          (p) => (
+                            <option key={p} value={p}>{`${p} %`}</option>
                           )
-                        : ''
-                    }
-                    onChange={handleInntektVsaGradertUttakChange}
-                    value={
-                      localGradertUttak.aarligInntektVsaPensjonBeloep ?? ''
-                    }
-                  />
+                        )}
+                      </Select>
+                    )}
+                  </>
                 )}
 
                 <Divider noMargin />
@@ -794,6 +908,47 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                   onChange={handleInntektVsaHeltUttakChange}
                   value={localHeltUttak.aarligInntektVsaPensjon?.beloep ?? ''}
                 />
+
+                {skalValidereStillingsprosentVsaPensjon && (
+                  <Select
+                    label={intl.formatMessage(
+                      {
+                        id: 'inntekt.stillingsprosent_vsa_pensjon.textfield.label',
+                      },
+                      { grad: 100 }
+                    )}
+                    form={AVANSERT_FORM_NAMES.form}
+                    value={localStillingsprosentVsaHelPensjon ?? ''}
+                    name={AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon}
+                    data-testid={
+                      AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon
+                    }
+                    className={styles.select}
+                    onChange={handleStillingsprosentVsaHelPensjonChange}
+                    error={
+                      validationErrors[
+                        AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon
+                      ]
+                        ? intl.formatMessage(
+                            {
+                              id: validationErrors[
+                                AVANSERT_FORM_NAMES
+                                  .stillingsprosentVsaHelPensjon
+                              ],
+                            },
+                            { grad: 100 }
+                          )
+                        : ''
+                    }
+                  >
+                    <option disabled value="">
+                      {' '}
+                    </option>
+                    {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((p) => (
+                      <option key={p} value={p}>{`${p} %`}</option>
+                    ))}
+                  </Select>
+                )}
 
                 <AgePicker
                   form={AVANSERT_FORM_NAMES.form}

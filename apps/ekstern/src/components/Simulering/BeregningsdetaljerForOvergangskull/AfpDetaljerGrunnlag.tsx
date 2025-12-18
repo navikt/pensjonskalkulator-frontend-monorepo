@@ -19,6 +19,7 @@ import { AfpDetaljerListe } from './hooks'
 interface Props {
   afpDetaljerListe: AfpDetaljerListe[]
   alderspensjonColumnsCount: number
+  erOffentligTpFoer1963: boolean
 }
 
 export const AfpDetaljerGrunnlag: React.FC<Props> = ({
@@ -179,5 +180,13 @@ export function getAfpHeading({
     }
   }
 
+  // For AFP Offentlig SPK
+  if (afpDetaljForValgtUttak.afpOffentligSpk.length > 0 && uttaksalder?.aar) {
+    return {
+      messageId: 'beregning.detaljer.afp_fra_spk.table.title',
+      age: Math.max(65, uttaksalder?.aar ?? 65),
+      months: (uttaksalder?.aar ?? 0) < 65 ? 0 : (uttaksalder?.maaneder ?? 0),
+    }
+  }
   return null
 }

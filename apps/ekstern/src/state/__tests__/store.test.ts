@@ -27,6 +27,8 @@ describe('store', () => {
       epsHarPensjon: null,
       epsHarInntektOver2G: null,
       afpInntektMaanedFoerUttak: null,
+      stillingsprosentVsaPensjon: null,
+      stillingsprosentVsaGradertPensjon: null,
       currentSimulation: {
         beregningsvalg: null,
         uttaksalder: null,

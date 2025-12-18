@@ -203,6 +203,8 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
+  'stegvisning.samtykke_pensjonsavtaler.alert':
+    'Du har valgt AFP i offentlig sektor. Hvis du er medlem av Statens pensjonskasse (SPK), kan du få en mer fullstendig beregning hvis vi henter pensjonsavtalene dine. {br}{br} Du kan likevel fortsette uten å samtykke. Beregningen vil da bare vise folketrygdberegnet AFP.',
   'stegvisning.afp.title': 'AFP (avtalefestet pensjon)',
   'stegvisning.afpPrivat.title': 'AFP (avtalefestet pensjon) i privat sektor',
   'stegvisning.afp.ingress':
@@ -304,6 +306,7 @@ const translations = {
   'alder.maaneder': 'måneder',
   'alder.aar': 'år',
   'alder.aar_livsvarig': 'år (livsvarig)',
+  'alder.fra': 'Fra',
   'afp.offentlig': 'Offentlig',
   'afp.privat': 'Privat',
   'afp.nei': 'Nei',
@@ -370,6 +373,8 @@ const translations = {
     'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat.error':
     'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.alert.afp_offentlig.error':
+    'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
   'beregning.pensjonsavtaler.alert.offentlig.error':
     'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
@@ -428,6 +433,7 @@ const translations = {
     'Månedlig avtalefestet pensjon (AFP)',
   'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title':
     'Opptjening avtalefestet pensjon (AFP)',
+  'beregning.detaljer.afp_fra_spk.table.title': 'Ved {alderAar} {alderMd}',
   'beregning.pdf.ingress':
     'Beregningen din blir ikke lagret hos Nav. Hvis du har behov for å ta vare på eller skrive ut beregningen, kan du laste den ned.',
   'beregning.pdf.button': 'Last ned beregningen som PDF',
@@ -668,6 +674,8 @@ const translations = {
     'Din AFP er redusert fordi den oversteg 70 % av din tidligere inntekt.',
   'grunnlag.afp.avkortet.til.70.prosent':
     'Din AFP er avkortet til 70 prosent av tidligere arbeidsinntekt.',
+  'grunnlag.afp.spk.foer1963.text':
+    'Vi har hentet AFP mellom 65 og 67 år fra SPK.{br}',
   'grunnlag.afp.link.text': 'Om inntekt og AFP på nav.no',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er et foreløpig estimat på hva du kan forvente deg i pensjon. Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
@@ -718,6 +726,10 @@ const translations = {
     'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
+  'pensjonsavtaler.offentligtp.subtitle.afp_fra_spk':
+    'AFP fra Statens pensjonskasse (SPK)',
+  'pensjonsavtaler.offentligtp.text.afp_fra_spk':
+    'For eventuell AFP fra SPK, se detaljer under <scrollTo>AFP: Offentlig.</scrollTo>',
   'pensjonsavtaler.offentligtp.subtitle.klp':
     'Alderspensjon fra Kommunal Landspensjonskasse (KLP)',
   'pensjonsavtaler.offentligtp.spk.afp_ja':
@@ -730,6 +742,10 @@ const translations = {
     'Du har oppgitt at du ikke vet om du har rett til livsvarig AFP. Beløpet kan derfor inkludere betinget tjenestepensjon. Sjekk <spkLink>SPK</spkLink> for detaljer.',
   'pensjonsavtaler.offentligtp.klp.afp_ja':
     'Livsvarig AFP eller eventuell betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.foer1963.info':
+    'Sjekk <spkLink>SPK</spkLink> for detaljer.',
+  'pensjonsavtaler.offentligtp.foer1963.info_ikke_afp':
+    'Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
   'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke':
     'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
@@ -762,6 +778,14 @@ const translations = {
     'Hva er din forventede årsinntekt samtidig som du tar ut <nowrap>100 %</nowrap> alderspensjon?',
   'inntekt.endre_inntekt_vsa_afp_modal.textfield.label':
     'Hva er din forventede årsinntekt samtidig som du tar ut AFP?',
+  'inntekt.stillingsprosent_vsa_afp.textfield.label':
+    'Hva er stillingsprosenten din i offentlig sektor samtidig som du tar ut AFP?',
+  'inntekt.stillingsprosent_vsa_pensjon.textfield.label':
+    'Hva er stillingsprosenten din i offentlig sektor samtidig som du tar ut {grad} % pensjon?',
+  'inntekt.stillingsprosent_vsa_pensjon.validation_error':
+    'Du må velge stillingsprosenten din i offentlig sektor samtidig som du tar ut {grad} % pensjon.',
+  'inntekt.stillingsprosent_vsa_afp.validation_error':
+    'Du må velge stillingsprosenten din i offentlig sektor samtidig som du tar ut AFP.',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label':

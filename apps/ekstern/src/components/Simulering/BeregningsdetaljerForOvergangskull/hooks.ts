@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { isAlderOverAnnenAlder } from '@/utils/alder'
 import { formatDecimalWithComma, formatInntekt } from '@/utils/inntekt'
 
 export interface DetaljRad {
@@ -18,6 +19,7 @@ export interface AlderspensjonDetaljerListe {
 export interface AfpDetaljerListe {
   afpPrivat: DetaljRad[]
   afpOffentlig: DetaljRad[]
+  afpOffentligSpk: DetaljRad[]
   pre2025OffentligAfp: DetaljRad[]
   opptjeningPre2025OffentligAfp: DetaljRad[]
 }
@@ -236,11 +238,27 @@ function getAfpDetaljerListe(
   afpPrivatListe?: AfpPrivatPensjonsberegning[],
   afpOffentligListe?: AfpPensjonsberegning[],
   pre2025OffentligAfp?: pre2025OffentligPensjonsberegning,
+  tpAfpPeriode?: UtbetalingsperiodeFoer1963,
   uttaksalder?: { aar: number; maaneder?: number } | null,
   gradertUttaksperiode?: GradertUttak | null,
+  erSpkBesteberegning?: boolean,
+
   loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig
 ): AfpDetaljerListe[] {
   const afpDetaljerListe: AfpDetaljerListe[] = []
+
+  const getAfpOffentligSpkDetails = (tpAfpData: UtbetalingsperiodeFoer1963) => {
+    return [
+      {
+        tekst: 'AFP fra Statens pensjonskasse (SPK)',
+        verdi: `${formatInntekt((tpAfpData.aarligUtbetaling ?? 0) / 12)} kr`,
+      },
+      {
+        tekst: 'Sum AFP',
+        verdi: `${formatInntekt((tpAfpData.aarligUtbetaling ?? 0) / 12)} kr`,
+      },
+    ]
+  }
 
   const getAfpPrivatDetails = (afpPrivat: AfpPrivatPensjonsberegning) => {
     return [
@@ -389,6 +407,7 @@ function getAfpDetaljerListe(
         afpDetaljerListe.push({
           afpPrivat: getAfpPrivatDetails(afpPrivatVedForsteUttak),
           afpOffentlig: [],
+          afpOffentligSpk: [],
           pre2025OffentligAfp: [],
           opptjeningPre2025OffentligAfp: [],
         })
@@ -401,6 +420,7 @@ function getAfpDetaljerListe(
           afpDetaljerListe.push({
             afpPrivat: getAfpPrivatDetails(afp67),
             afpOffentlig: [],
+            afpOffentligSpk: [],
             pre2025OffentligAfp: [],
             opptjeningPre2025OffentligAfp: [],
           })
@@ -411,6 +431,7 @@ function getAfpDetaljerListe(
             afpDetaljerListe.push({
               afpPrivat: getAfpPrivatDetails(closestAfp67Plus),
               afpOffentlig: [],
+              afpOffentligSpk: [],
               pre2025OffentligAfp: [],
               opptjeningPre2025OffentligAfp: [],
             })
@@ -438,20 +459,39 @@ function getAfpDetaljerListe(
       afpDetaljerListe.push({
         afpPrivat: [],
         afpOffentlig: getAfpOffentligDetails(afpOffentligVedUttak),
+        afpOffentligSpk: [],
         pre2025OffentligAfp: [],
         opptjeningPre2025OffentligAfp: [],
       })
     }
   }
-
   // Handle Pre-2025 Offentlig AFP
-  if (pre2025OffentligAfp) {
+  if (
+    pre2025OffentligAfp &&
+    ((erSpkBesteberegning &&
+      isAlderOverAnnenAlder(
+        { aar: 65, maaneder: 0 },
+        { aar: uttaksalder!.aar, maaneder: uttaksalder!.maaneder ?? 0 }
+      )) ||
+      !erSpkBesteberegning)
+  ) {
     afpDetaljerListe.push({
       afpPrivat: [],
       afpOffentlig: [],
+      afpOffentligSpk: [],
       pre2025OffentligAfp: getPre2025OffentligAfpDetails(pre2025OffentligAfp),
       opptjeningPre2025OffentligAfp:
         getOpptjeningPre2025OffentligAfpDetails(pre2025OffentligAfp),
+    })
+  }
+
+  if (erSpkBesteberegning && tpAfpPeriode) {
+    afpDetaljerListe.push({
+      afpPrivat: [],
+      afpOffentlig: [],
+      afpOffentligSpk: getAfpOffentligSpkDetails(tpAfpPeriode),
+      pre2025OffentligAfp: [],
+      opptjeningPre2025OffentligAfp: [],
     })
   }
 
@@ -463,7 +503,9 @@ export function useBeregningsdetaljer(
   afpPrivatListe?: AfpPrivatPensjonsberegning[],
   afpOffentligListe?: AfpPensjonsberegning[],
   pre2025OffentligAfp?: pre2025OffentligPensjonsberegning,
-  loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig
+  loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig,
+  tpAfpPeriode?: UtbetalingsperiodeFoer1963,
+  erSpkBesteberegning?: boolean
 ): BeregningsdetaljerRader {
   const { uttaksalder, gradertUttaksperiode } = useAppSelector(
     selectCurrentSimulation
@@ -485,8 +527,10 @@ export function useBeregningsdetaljer(
       afpPrivatListe,
       afpOffentligListe,
       pre2025OffentligAfp,
+      tpAfpPeriode,
       uttaksalder,
       gradertUttaksperiode,
+      erSpkBesteberegning,
       loependeLivsvarigAfpOffentlig
     )
 
@@ -500,6 +544,7 @@ export function useBeregningsdetaljer(
     afpOffentligListe,
     pre2025OffentligAfp,
     uttaksalder,
+    tpAfpPeriode,
     gradertUttaksperiode,
     loependeLivsvarigAfpOffentlig,
   ])

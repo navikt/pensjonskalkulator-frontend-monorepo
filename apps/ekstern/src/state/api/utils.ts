@@ -364,6 +364,81 @@ export const generatePensjonsavtalerRequestBody = (args: {
   }
 }
 
+export const generateOffentligTpFoer1963RequestBody = (args: {
+  foedselsdato: string | null | undefined
+  sivilstand?: Sivilstand | null | undefined
+  epsHarPensjon: boolean | null
+  epsHarInntektOver2G: boolean | null
+  aarligInntektFoerUttakBeloep: string
+  gradertUttak?: GradertUttak
+  heltUttak?: HeltUttak
+  utenlandsperioder: Utenlandsperiode[]
+  afpInntektMaanedFoerUttak?: boolean | null
+  stillingsprosentOffGradertUttak?: number | null
+  stillingsprosentOffHeltUttak?: number | null
+  skalBeregneAfpKap19: boolean
+}): OffentligTpFoer1963RequestBody | undefined => {
+  const {
+    foedselsdato,
+    aarligInntektFoerUttakBeloep,
+    sivilstand,
+    epsHarPensjon,
+    epsHarInntektOver2G,
+    gradertUttak,
+    heltUttak,
+    utenlandsperioder,
+    afpInntektMaanedFoerUttak,
+    stillingsprosentOffGradertUttak,
+    stillingsprosentOffHeltUttak,
+    skalBeregneAfpKap19,
+  } = args
+
+  if (!foedselsdato || !heltUttak) {
+    return undefined
+  }
+
+  return {
+    simuleringstype: skalBeregneAfpKap19
+      ? 'PRE2025_OFFENTLIG_AFP_ETTERFULGT_AV_ALDERSPENSJON'
+      : 'ALDERSPENSJON',
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
+    gradertUttak: gradertUttak
+      ? {
+          ...gradertUttak,
+          aarligInntektVsaPensjonBeloep: formatInntektToNumber(
+            gradertUttak?.aarligInntektVsaPensjonBeloep
+          ),
+        }
+      : undefined,
+    heltUttak: {
+      ...heltUttak,
+      aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon
+        ? {
+            beloep: formatInntektToNumber(
+              heltUttak.aarligInntektVsaPensjon?.beloep
+            ),
+            sluttAlder: heltUttak.aarligInntektVsaPensjon?.sluttAlder,
+          }
+        : undefined,
+    },
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    sivilstand: sivilstand ?? 'UOPPGITT',
+    epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
+    epsHarPensjon: !!epsHarPensjon,
+    afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak ?? undefined,
+    stillingsprosentOffHeltUttak: stillingsprosentOffHeltUttak
+      ? String(stillingsprosentOffHeltUttak)
+      : '0',
+    stillingsprosentOffGradertUttak: stillingsprosentOffGradertUttak
+      ? String(stillingsprosentOffGradertUttak)
+      : undefined,
+    afpOrdning: skalBeregneAfpKap19 ? 'AFPSTAT' : undefined,
+  }
+}
+
 export const generateOffentligTpRequestBody = (args: {
   afp: AfpRadio | null
   foedselsdato: string | null | undefined

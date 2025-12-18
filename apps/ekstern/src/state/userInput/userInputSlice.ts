@@ -23,6 +23,8 @@ export interface UserInputState {
   epsHarPensjon: boolean | null
   epsHarInntektOver2G: boolean | null
   afpInntektMaanedFoerUttak: boolean | null
+  stillingsprosentVsaPensjon: number | null
+  stillingsprosentVsaGradertPensjon: number | null
   currentSimulation: Simulation
   xAxis: string[]
 }
@@ -40,6 +42,8 @@ export const userInputInitialState: UserInputState = {
   epsHarInntektOver2G: null,
   epsHarPensjon: null,
   afpInntektMaanedFoerUttak: null,
+  stillingsprosentVsaPensjon: null,
+  stillingsprosentVsaGradertPensjon: null,
   currentSimulation: {
     beregningsvalg: null,
     uttaksalder: null,
@@ -100,6 +104,18 @@ export const userInputSlice = createSlice({
       action: PayloadAction<boolean | null>
     ) => {
       state.afpInntektMaanedFoerUttak = action.payload
+    },
+    setStillingsprosentVsaPensjon: (
+      state,
+      action: PayloadAction<number | null>
+    ) => {
+      state.stillingsprosentVsaPensjon = action.payload
+    },
+    setStillingsprosentVsaGradertPensjon: (
+      state,
+      action: PayloadAction<number | null>
+    ) => {
+      state.stillingsprosentVsaGradertPensjon = action.payload
     },
     setSivilstand: (
       state,
@@ -179,6 +195,8 @@ export const userInputSlice = createSlice({
       state.afpInntektMaanedFoerUttak = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
       state.xAxis = []
+      state.stillingsprosentVsaPensjon = null
+      state.stillingsprosentVsaGradertPensjon = null
     },
     flushCurrentSimulation: (state) => {
       state.currentSimulation = userInputInitialState.currentSimulation

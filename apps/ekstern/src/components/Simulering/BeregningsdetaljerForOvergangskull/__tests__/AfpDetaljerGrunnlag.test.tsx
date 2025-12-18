@@ -47,6 +47,10 @@ describe('AfpDetaljerGrunnlag', () => {
           { tekst: 'AFP-tillegg', verdi: '5 000 kr' },
           { tekst: 'Sum AFP', verdi: '15 000 kr' },
         ],
+        afpOffentligSpk: [
+          { tekst: 'AFP SPK', verdi: '3 000 kr' },
+          { tekst: 'Sum AFP SPK', verdi: '8 000 kr' },
+        ],
         pre2025OffentligAfp: [
           { tekst: 'Grunnpensjon (kap. 19)', verdi: '12 000 kr' },
           { tekst: 'Sum alderspensjon', verdi: '28 000 kr' },
@@ -58,6 +62,7 @@ describe('AfpDetaljerGrunnlag', () => {
       },
     ],
     alderspensjonColumnsCount: 2,
+    erOffentligTpFoer1963: false,
   }
 
   afterEach(() => {
@@ -131,11 +136,13 @@ describe('AfpDetaljerGrunnlag', () => {
         {
           afpPrivat: [],
           afpOffentlig: [],
+          afpOffentligSpk: [],
           pre2025OffentligAfp: [],
           opptjeningPre2025OffentligAfp: [],
         },
       ],
       alderspensjonColumnsCount: 0,
+      erOffentligTpFoer1963: false,
     }
 
     render(<AfpDetaljerGrunnlag {...minimalProps} />)
@@ -156,11 +163,13 @@ describe('AfpDetaljerGrunnlag', () => {
         {
           afpPrivat: [],
           afpOffentlig: [],
+          afpOffentligSpk: [],
           pre2025OffentligAfp: [],
           opptjeningPre2025OffentligAfp: [],
         },
       ],
       alderspensjonColumnsCount: 0,
+      erOffentligTpFoer1963: false,
     }
 
     render(<AfpDetaljerGrunnlag {...emptyProps} />)
@@ -192,11 +201,13 @@ describe('AfpDetaljerGrunnlag', () => {
         {
           afpPrivat: [{ tekst: 'Test AFP privat', verdi: '1000 kr' }],
           afpOffentlig: [],
+          afpOffentligSpk: [],
           pre2025OffentligAfp: [{ tekst: 'Test pre2025', verdi: 100 }],
           opptjeningPre2025OffentligAfp: [],
         },
       ],
       alderspensjonColumnsCount: 1,
+      erOffentligTpFoer1963: false,
     }
 
     render(<AfpDetaljerGrunnlag {...partialProps} />)

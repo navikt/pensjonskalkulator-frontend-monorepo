@@ -35,11 +35,23 @@ export const selectAfpInntektMaanedFoerUttak = (
   state: RootState
 ): boolean | null => state.userInput.afpInntektMaanedFoerUttak
 
+export const selectStillingsprosentVsaPensjon = (
+  state: RootState
+): number | null => state.userInput.stillingsprosentVsaPensjon
+
+export const selectStillingsprosentVsaGradertPensjon = (
+  state: RootState
+): number | null => state.userInput.stillingsprosentVsaGradertPensjon
+
 export const selectAfpUtregningValg = (state: RootState): AfpUtregningValg =>
   state.userInput.afpUtregningValg
 
 export const selectSkalBeregneAfpKap19 = (state: RootState): boolean | null =>
   state.userInput.afpUtregningValg === 'AFP_ETTERFULGT_AV_ALDERSPENSJON'
+
+export const selectSkalBeregneKunAlderspensjon = (
+  state: RootState
+): boolean | null => state.userInput.afpUtregningValg === 'KUN_ALDERSPENSJON'
 
 const selectPersonResponse = apiSlice.endpoints.getPerson.select()
 const selectGrunnbeloepResponse = apiSlice.endpoints.getGrunnbeloep.select()

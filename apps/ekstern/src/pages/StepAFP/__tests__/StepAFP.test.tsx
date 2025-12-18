@@ -203,7 +203,7 @@ describe('StepAFP', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('afp-etter-1963')).toBeInTheDocument()
+      expect(screen.getByTestId('afp-fra-1963')).toBeInTheDocument()
     })
   })
 

@@ -70,6 +70,7 @@ function renderAfpDetailRow(
         justify="space-between"
         className={styles.hstackRow}
         style={config.noBorderBottom ? { borderBottom: 'none' } : undefined}
+        wrap={false}
       >
         <dt style={{ marginRight: '1rem' }}>
           {isBold ? <strong>{`${detalj.tekst}:`}</strong> : `${detalj.tekst}:`}
@@ -156,6 +157,16 @@ export function getAfpSectionsToRender(
       data: afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp,
       titleId:
         'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title',
+    })
+  }
+
+  // AFP fra SPK mellom 65 og 67 år
+  if (afpDetaljForValgtUttak.afpOffentligSpk.length > 0) {
+    sections.push({
+      key: 'afpFraSpk65Til67',
+      data: afpDetaljForValgtUttak.afpOffentligSpk,
+      titleId: 'beregning.detaljer.grunnpensjon.afp.table.title',
+      boldLastItem: true,
     })
   }
 

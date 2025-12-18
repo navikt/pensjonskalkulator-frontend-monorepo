@@ -24,26 +24,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v8/alderspensjon/simulering': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Simuler alderspensjon
-     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
-     */
-    post: operations['simulerAlderspensjonV8']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v3/tidligste-hel-uttaksalder': {
     parameters: {
       query?: never
@@ -84,26 +64,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/tidligste-hel-uttaksalder': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Tidligst mulige uttaksalder ved helt uttak
-     * @description Finn tidligst mulige uttaksalder for innlogget bruker ved helt (100 %) uttak.
-     */
-    post: operations['finnTidligsteHelUttaksalderV2']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v2/simuler-oftp': {
     parameters: {
       query?: never
@@ -138,26 +98,6 @@ export interface paths {
      * @description Simulerer offentlig tjenestepensjon hos TP-leverandør som har ansvar for brukers tjenestepensjon
      */
     post: operations['simulerOffentligTjenestepensjonFoer1963V1']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v2/pensjonsavtaler': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Hent pensjonsavtaler (versjon 2)
-     * @description Henter pensjonsavtalene til den innloggede/angitte brukeren. I request må verdi av 'maaneder' være 0..11.
-     */
-    post: operations['fetchAvtalerV2']
     delete?: never
     options?: never
     head?: never
@@ -224,26 +164,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v5/person': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Hent personinformasjon
-     * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
-     */
-    get: operations['personV5']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v4/vedtak/loepende-vedtak': {
     parameters: {
       query?: never
@@ -264,7 +184,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v3/vedtak/loepende-vedtak': {
+  '/api/v3/tpo-livsvarig-offentlig-afp': {
     parameters: {
       query?: never
       header?: never
@@ -272,30 +192,10 @@ export interface paths {
       cookie?: never
     }
     /**
-     * Har løpende vedtak
-     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
+     * Hent løpende livsvarig offentlig AFP
+     * @description Henter detaljer om løpende livsvarig AFP i offentlig sektor for brukeren
      */
-    get: operations['hentLoependeVedtakV3']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v2/vedtak/loepende-vedtak': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Har løpende vedtak
-     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
-     */
-    get: operations['hentLoependeVedtakV2']
+    get: operations['hentLivsvarigOffentligAfpDetaljerV3']
     put?: never
     post?: never
     delete?: never
@@ -376,26 +276,6 @@ export interface paths {
      * @description Henter både aktive og inaktive medlemskap til brukeren i offentlige tjenestepensjonsordninger
      */
     get: operations['hentMedlemskapITjenestepensjonsordninger']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v1/tpo-afp-offentlig-livsvarig': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Hent loepende livsvarig afp offentlig
-     * @description Henter detaljer om løpende livsvarig AFP offentlig for brukeren
-     */
-    get: operations['hentAfpOffentligLivsvarigDetaljer']
     put?: never
     post?: never
     delete?: never
@@ -822,216 +702,11 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['PersonligSimuleringAlternativResultV9']
     }
-    PersonligSimuleringAlderSpecV8: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    PersonligSimuleringGradertUttakSpecV8: {
-      /** Format: int32 */
-      grad: number
-      uttaksalder: components['schemas']['PersonligSimuleringAlderSpecV8']
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    PersonligSimuleringHeltUttakSpecV8: {
-      uttaksalder: components['schemas']['PersonligSimuleringAlderSpecV8']
-      aarligInntektVsaPensjon?: components['schemas']['PersonligSimuleringInntektSpecV8']
-    }
-    PersonligSimuleringInntektSpecV8: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['PersonligSimuleringAlderSpecV8']
-    }
-    PersonligSimuleringSpecV8: {
-      /** @enum {string} */
-      simuleringstype:
-        | 'ALDERSPENSJON'
-        | 'PRE2025_OFFENTLIG_AFP_ETTERFULGT_AV_ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-        | 'ENDRING_ALDERSPENSJON'
-        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: date */
-      foedselsdato: string
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      gradertUttak?: components['schemas']['PersonligSimuleringGradertUttakSpecV8']
-      heltUttak: components['schemas']['PersonligSimuleringHeltUttakSpecV8']
-      utenlandsperiodeListe?: components['schemas']['PersonligSimuleringUtenlandsperiodeSpecV8'][]
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      epsHarInntektOver2G?: boolean
-      epsHarPensjon?: boolean
-      afpInntektMaanedFoerUttak?: boolean
-      /** @enum {string} */
-      afpOrdning?:
-        | 'AFPKOM'
-        | 'AFPSTAT'
-        | 'FINANS'
-        | 'KONV_K'
-        | 'KONV_O'
-        | 'LONHO'
-        | 'NAVO'
-    }
-    PersonligSimuleringUtenlandsperiodeSpecV8: {
-      /** Format: date */
-      fom: string
-      /** Format: date */
-      tom?: string
-      landkode: string
-      arbeidetUtenlands: boolean
-    }
-    PersonligSimuleringAarligInntektResultV8: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      pensjonsgivendeInntektBeloep: number
-    }
-    PersonligSimuleringAarligPensjonResultV8: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-      /** Format: int32 */
-      maanedligBeloep?: number
-    }
-    PersonligSimuleringAfpPrivatResultV8: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-      /** Format: int32 */
-      kompensasjonstillegg: number
-      /** Format: int32 */
-      kronetillegg: number
-      /** Format: int32 */
-      livsvarig: number
-      /** Format: int32 */
-      maanedligBeloep?: number
-    }
-    PersonligSimuleringAlderResultV8: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    PersonligSimuleringAlderspensjonResultV8: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-      /** Format: int32 */
-      inntektspensjonBeloep?: number
-      /** Format: int32 */
-      garantipensjonBeloep?: number
-      /** Format: double */
-      delingstall?: number
-      /** Format: int32 */
-      pensjonBeholdningFoerUttakBeloep?: number
-      /** Format: double */
-      andelsbroekKap19?: number
-      /** Format: double */
-      andelsbroekKap20?: number
-      /** Format: double */
-      sluttpoengtall?: number
-      /** Format: int32 */
-      trygdetidKap19?: number
-      /** Format: int32 */
-      trygdetidKap20?: number
-      /** Format: int32 */
-      poengaarFoer92?: number
-      /** Format: int32 */
-      poengaarEtter91?: number
-      /** Format: double */
-      forholdstall?: number
-      /** Format: int32 */
-      grunnpensjon?: number
-      /** Format: int32 */
-      tilleggspensjon?: number
-      /** Format: int32 */
-      pensjonstillegg?: number
-      /** Format: int32 */
-      skjermingstillegg?: number
-      /** Format: int32 */
-      kapittel19Gjenlevendetillegg?: number
-    }
-    PersonligSimuleringAlternativResultV8: {
-      gradertUttaksalder?: components['schemas']['PersonligSimuleringAlderResultV8']
-      /** Format: int32 */
-      uttaksgrad?: number
-      heltUttaksalder: components['schemas']['PersonligSimuleringAlderResultV8']
-    }
-    PersonligSimuleringMaanedligPensjonResultV8: {
-      /** Format: int32 */
-      gradertUttakMaanedligBeloep?: number
-      /** Format: int32 */
-      heltUttakMaanedligBeloep: number
-    }
-    PersonligSimuleringPre2025OffentligAfpResultV8: {
-      /** Format: int32 */
-      alderAar: number
-      /** Format: int32 */
-      totaltAfpBeloep: number
-      /** Format: int32 */
-      tidligereArbeidsinntekt: number
-      /** Format: int32 */
-      grunnbeloep: number
-      /** Format: double */
-      sluttpoengtall: number
-      /** Format: int32 */
-      trygdetid: number
-      /** Format: int32 */
-      poengaarTom1991: number
-      /** Format: int32 */
-      poengaarFom1992: number
-      /** Format: int32 */
-      grunnpensjon: number
-      /** Format: int32 */
-      tilleggspensjon: number
-      /** Format: int32 */
-      afpTillegg: number
-      /** Format: int32 */
-      saertillegg: number
-      /** Format: int32 */
-      afpGrad: number
-      afpAvkortetTil70Prosent: boolean
-    }
-    PersonligSimuleringResultV8: {
-      alderspensjon: components['schemas']['PersonligSimuleringAlderspensjonResultV8'][]
-      alderspensjonMaanedligVedEndring?: components['schemas']['PersonligSimuleringMaanedligPensjonResultV8']
-      pre2025OffentligAfp?: components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV8']
-      afpPrivat?: components['schemas']['PersonligSimuleringAfpPrivatResultV8'][]
-      afpOffentlig?: components['schemas']['PersonligSimuleringAarligPensjonResultV8'][]
-      vilkaarsproeving: components['schemas']['PersonligSimuleringVilkaarsproevingResultV8']
-      harForLiteTrygdetid?: boolean
-      /** Format: int32 */
-      trygdetid?: number
-      opptjeningGrunnlagListe?: components['schemas']['PersonligSimuleringAarligInntektResultV8'][]
-    }
-    PersonligSimuleringVilkaarsproevingResultV8: {
-      vilkaarErOppfylt: boolean
-      alternativ?: components['schemas']['PersonligSimuleringAlternativResultV8']
-    }
     PersonligSimuleringInnvilgetLivsvarigOffentligAfpSpecV3: {
       /** Format: double */
-      aarligBruttoBeloep: number
+      aarligBruttoBeloep?: number
       /** Format: date */
-      uttakFom: string
+      uttakFom?: string
       /** Format: int32 */
       sistRegulertGrunnbeloep?: number
     }
@@ -1080,16 +755,11 @@ export interface components {
     }
     UttaksalderUtenlandsperiodeSpecV3: {
       /** Format: date */
-      fom: string
+      fom?: string
       /** Format: date */
       tom?: string
-      landkode: string
-      arbeidetUtenlands: boolean
-    }
-    UttaksalderError: {
-      /** @enum {string} */
-      errorCode: 'AFP_IKKE_I_VILKAARSPROEVING'
-      cause?: string
+      landkode?: string
+      arbeidetUtenlands?: boolean
     }
     UttaksalderResultV3: {
       /** Format: int32 */
@@ -1168,62 +838,6 @@ export interface components {
       /** Format: int32 */
       grad: number
     }
-    UttaksalderAlderSpecV2: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    UttaksalderInntektSpecV2: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder?: components['schemas']['UttaksalderAlderSpecV2']
-    }
-    UttaksalderSpecV2: {
-      /** @enum {string} */
-      simuleringstype?:
-        | 'ALDERSPENSJON'
-        | 'PRE2025_OFFENTLIG_AFP_ETTERFULGT_AV_ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-        | 'ENDRING_ALDERSPENSJON'
-        | 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      aarligInntektVsaPensjon?: components['schemas']['UttaksalderInntektSpecV2']
-      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV2'][]
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      epsHarInntektOver2G: boolean
-      epsHarPensjon: boolean
-    }
-    UttaksalderUtenlandsperiodeSpecV2: {
-      /** Format: date */
-      fom: string
-      /** Format: date */
-      tom?: string
-      landkode: string
-      arbeidetUtenlands: boolean
-    }
-    UttaksalderResultV2: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
     SimuleringOffentligTjenestepensjonAlderV2: {
       /** Format: int32 */
       aar: number
@@ -1292,7 +906,7 @@ export interface components {
       /** Format: int32 */
       maanedligUtbetaling?: number
     }
-    SimuleringOffentligTjenestepensjonFoer1963SpecV2: {
+    SimuleringOffentligTjenestepensjonFoer1963SpecV1: {
       /** @enum {string} */
       simuleringstype:
         | 'ALDERSPENSJON'
@@ -1306,9 +920,9 @@ export interface components {
       foedselsdato: string
       /** Format: int32 */
       aarligInntektFoerUttakBeloep?: number
-      gradertUttak?: components['schemas']['PersonligSimuleringGradertUttakSpecV8']
-      heltUttak: components['schemas']['PersonligSimuleringHeltUttakSpecV8']
-      utenlandsperiodeListe?: components['schemas']['PersonligSimuleringUtenlandsperiodeSpecV8'][]
+      gradertUttak?: components['schemas']['PersonligSimuleringGradertUttakSpecV9']
+      heltUttak: components['schemas']['PersonligSimuleringHeltUttakSpecV9']
+      utenlandsperiodeListe?: components['schemas']['PersonligSimuleringUtenlandsperiodeSpecV9'][]
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -1338,7 +952,7 @@ export interface components {
       stillingsprosentOffHeltUttak: string
       stillingsprosentOffGradertUttak?: string
     }
-    OffentligTjenestepensjonSimuleringFoer1963ResultV2: {
+    OffentligTjenestepensjonSimuleringFoer1963ResultV1: {
       /** @enum {string} */
       simuleringsresultatStatus:
         | 'OK'
@@ -1347,26 +961,25 @@ export interface components {
         | 'TOM_SIMULERING_FRA_TP_ORDNING'
         | 'TEKNISK_FEIL'
       muligeTpLeverandoerListe: string[]
-      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonFoer1963V2']
+      simulertTjenestepensjon?: components['schemas']['SimulertTjenestepensjonFoer1963V1']
       serviceData?: string[]
       /** @enum {string} */
       feilkode?:
-        | 'KUNNE_IKKE_SIMULERE'
-        | 'UKJENT_PRODUKT'
-        | 'MIDLERTIDIG_TEKNISK_FEIL'
+        | 'TEKNISK_FEIL'
         | 'BEREGNING_GIR_NULL_UTBETALING'
+        | 'BRUKER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
         | 'OPPFYLLER_IKKE_INNGANGSVILKAAR'
-        | 'ANNEN_FEIL'
     }
-    SimuleringsresultatFoer1963V2: {
-      utbetalingsperioder: components['schemas']['UtbetalingsperiodeFoer1963V2'][]
+    SimuleringsresultatFoer1963V1: {
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeFoer1963V1'][]
     }
-    SimulertTjenestepensjonFoer1963V2: {
+    SimulertTjenestepensjonFoer1963V1: {
       tpLeverandoer: string
       tpNummer: string
-      simuleringsresultat: components['schemas']['SimuleringsresultatFoer1963V2']
+      simuleringsresultat: components['schemas']['SimuleringsresultatFoer1963V1']
     }
-    UtbetalingsperiodeFoer1963V2: {
+    UtbetalingsperiodeFoer1963V1: {
       startAlder: components['schemas']['Alder']
       sluttAlder?: components['schemas']['Alder']
       /** Format: int32 */
@@ -1378,72 +991,6 @@ export interface components {
       mangelfullSimuleringkode?: string
       /** Format: int32 */
       maanedligUtbetaling?: number
-    }
-    PensjonsavtaleAlderSpecV2: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    PensjonsavtaleInntektSpecV2: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder?: components['schemas']['PensjonsavtaleAlderSpecV2']
-    }
-    PensjonsavtaleOppholdSpecV2: {
-      /** Format: date */
-      fom: string
-      /** Format: date */
-      tom?: string
-    }
-    PensjonsavtaleSpecV2: {
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep: number
-      uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV2'][]
-      harAfp?: boolean
-      harEpsPensjon?: boolean
-      harEpsPensjonsgivendeInntektOver2G?: boolean
-      /** Format: int32 */
-      antallAarIUtlandetEtter16?: number
-      utenlandsperioder?: components['schemas']['PensjonsavtaleOppholdSpecV2'][]
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-    }
-    PensjonsavtaleUttaksperiodeSpecV2: {
-      startAlder: components['schemas']['PensjonsavtaleAlderSpecV2']
-      /** Format: int32 */
-      grad: number
-      aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV2']
-    }
-    PensjonsavtaleResultV2: {
-      avtaler: components['schemas']['PensjonsavtaleV2'][]
-      utilgjengeligeSelskap: components['schemas']['SelskapV2'][]
-    }
-    PensjonsavtaleV2: {
-      produktbetegnelse: string
-      /** @enum {string} */
-      kategori: 'UNKNOWN' | 'INDIVIDUELL_ORDNING' | 'PRIVAT_TJENESTEPENSJON'
-      /** Format: int32 */
-      startAar: number
-      /** Format: int32 */
-      sluttAar?: number
-      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV2'][]
-    }
-    SelskapV2: {
-      navn: string
-      heltUtilgjengelig: boolean
     }
     AnonymSimuleringAlderV1: {
       /** Format: int32 */
@@ -1554,36 +1101,6 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
       pensjoneringAldre: components['schemas']['PersonPensjonsaldreV6']
     }
-    PersonAlderV5: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    PersonPensjoneringAldreV5: {
-      normertPensjoneringsalder: components['schemas']['PersonAlderV5']
-      nedreAldersgrense: components['schemas']['PersonAlderV5']
-      oevreAldersgrense: components['schemas']['PersonAlderV5']
-    }
-    PersonResultV5: {
-      navn: string
-      /** Format: date */
-      foedselsdato: string
-      /** @enum {string} */
-      sivilstand:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-      pensjoneringAldre: components['schemas']['PersonPensjoneringAldreV5']
-    }
     AlderspensjonDetaljerV4: {
       /** Format: int32 */
       grad: number
@@ -1635,71 +1152,19 @@ export interface components {
       /** Format: date */
       utbetalingsdato: string
     }
-    AlderspensjonDetaljerV3: {
+    LivsvarigOffentligAfpResultV3: {
+      afpStatus?: boolean
+      maanedligBeloepListe?: components['schemas']['MaanedligBeloepV3'][]
+      /** Format: date */
+      virkningFom?: string
       /** Format: int32 */
-      grad: number
+      sistBenyttetGrunnbeloep?: number
+    }
+    MaanedligBeloepV3: {
       /** Format: date */
-      fom: string
-      sisteUtbetaling?: components['schemas']['UtbetalingV3']
-      /** @enum {string} */
-      sivilstand:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-    }
-    LoependeFraV3: {
-      /** Format: date */
-      fom: string
-    }
-    LoependeVedtakV3: {
-      alderspensjon?: components['schemas']['AlderspensjonDetaljerV3']
-      harFremtidigLoependeVedtak: boolean
-      ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV3']
-      afpPrivat?: components['schemas']['LoependeFraV3']
-    }
-    UfoeretrygdDetaljerV3: {
+      virkningFom?: string
       /** Format: int32 */
-      grad: number
-    }
-    UtbetalingV3: {
-      beloep: number
-      /** Format: date */
-      utbetalingsdato: string
-    }
-    AlderspensjonDetaljerV2: {
-      /** Format: int32 */
-      grad: number
-      /** Format: date */
-      fom: string
-      sisteUtbetaling?: components['schemas']['UtbetalingV2']
-    }
-    LoependeFraV2: {
-      /** Format: date */
-      fom: string
-    }
-    LoependeVedtakV2: {
-      alderspensjon?: components['schemas']['AlderspensjonDetaljerV2']
-      harFremtidigLoependeVedtak: boolean
-      ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV2']
-      afpPrivat?: components['schemas']['LoependeFraV2']
-    }
-    UfoeretrygdDetaljerV2: {
-      /** Format: int32 */
-      grad: number
-    }
-    UtbetalingV2: {
-      beloep: number
-      /** Format: date */
-      utbetalingsdato: string
+      beloep?: number
     }
     LivsvarigOffentligAfpResultV2: {
       afpStatus?: boolean
@@ -1721,11 +1186,6 @@ export interface components {
     }
     MedlemskapITjenestepensjonsordningDto: {
       tpLeverandoerListe: string[]
-    }
-    AfpOffentligLivsvarigDto: {
-      afpStatus?: boolean
-      /** Format: int32 */
-      maanedligBeloep?: number
     }
     BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse: {
       harLoependeSak: boolean
@@ -1809,53 +1269,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  simulerAlderspensjonV8: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PersonligSimuleringSpecV8']
-      }
-    }
-    responses: {
-      /** @description Simulering utført */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['PersonligSimuleringResultV8']
-        }
-      }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          /** @example {
-           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-           *       "status": 503,
-           *       "error": "Service Unavailable",
-           *       "message": "En feil inntraff",
-           *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -1889,7 +1311,16 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['UttaksalderError']
+          /**
+           * @example {
+           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+           *       "status": 503,
+           *       "error": "Service Unavailable",
+           *       "message": "En feil inntraff",
+           *       "path": "/api/ressurs"
+           *     }
+           */
+          '*/*': unknown
         }
       }
     }
@@ -1922,47 +1353,16 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
-        }
-      }
-    }
-  }
-  finnTidligsteHelUttaksalderV2: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UttaksalderSpecV2']
-      }
-    }
-    responses: {
-      /** @description Søk etter uttaksalder utført. I resultatet er verdi av 'maaneder' 0..11. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['UttaksalderResultV2']
-        }
-      }
-      /** @description Søk etter uttaksalder kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['UttaksalderError']
         }
       }
     }
@@ -2000,7 +1400,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['SimuleringOffentligTjenestepensjonFoer1963SpecV2']
+        'application/json': components['schemas']['SimuleringOffentligTjenestepensjonFoer1963SpecV1']
       }
     }
     responses: {
@@ -2010,47 +1410,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringFoer1963ResultV2']
-        }
-      }
-    }
-  }
-  fetchAvtalerV2: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PensjonsavtaleSpecV2']
-      }
-    }
-    responses: {
-      /** @description Henting av pensjonsavtaler utført. I respons er verdi av 'maaneder' 0..11. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['PensjonsavtaleResultV2']
-        }
-      }
-      /** @description Henting av pensjonsavtaler kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          /** @example {
-           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-           *       "status": 503,
-           *       "error": "Service Unavailable",
-           *       "message": "En feil inntraff",
-           *       "path": "/api/ressurs"
-           *     } */
-          '*/*': unknown
+          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringFoer1963ResultV1']
         }
       }
     }
@@ -2083,13 +1443,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2161,58 +1523,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  personV5: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Henting av personinformasjon utført. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['PersonResultV5']
-        }
-      }
-      /** @description Personen ble ikke funnet. */
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['PersonResultV5']
-        }
-      }
-      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          /** @example {
-           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-           *       "status": 503,
-           *       "error": "Service Unavailable",
-           *       "message": "En feil inntraff",
-           *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2242,19 +1561,21 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
     }
   }
-  hentLoependeVedtakV3: {
+  hentLivsvarigOffentligAfpDetaljerV3: {
     parameters: {
       query?: never
       header?: never
@@ -2263,65 +1584,13 @@ export interface operations {
     }
     requestBody?: never
     responses: {
-      /** @description Henting av løpende vedtak utført */
+      /** @description OK */
       200: {
         headers: {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['LoependeVedtakV3']
-        }
-      }
-      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          /** @example {
-           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-           *       "status": 503,
-           *       "error": "Service Unavailable",
-           *       "message": "En feil inntraff",
-           *       "path": "/api/ressurs"
-           *     } */
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  hentLoependeVedtakV2: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Henting av løpende vedtak utført */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['LoependeVedtakV2']
-        }
-      }
-      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          /** @example {
-           *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-           *       "status": 503,
-           *       "error": "Service Unavailable",
-           *       "message": "En feil inntraff",
-           *       "path": "/api/ressurs"
-           *     } */
-          '*/*': unknown
+          '*/*': components['schemas']['LivsvarigOffentligAfpResultV3']
         }
       }
     }
@@ -2370,13 +1639,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2406,13 +1677,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2434,26 +1707,6 @@ export interface operations {
         }
         content: {
           '*/*': components['schemas']['MedlemskapITjenestepensjonsordningDto']
-        }
-      }
-    }
-  }
-  hentAfpOffentligLivsvarigDetaljer: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['AfpOffentligLivsvarigDto']
         }
       }
     }
@@ -2482,13 +1735,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2518,13 +1773,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2554,13 +1811,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2590,13 +1849,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2626,13 +1887,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2702,13 +1965,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2738,13 +2003,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }
@@ -2776,13 +2043,15 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          /** @example {
+          /**
+           * @example {
            *       "timestamp": "2023-09-12T10:37:47.056+00:00",
            *       "status": 503,
            *       "error": "Service Unavailable",
            *       "message": "En feil inntraff",
            *       "path": "/api/ressurs"
-           *     } */
+           *     }
+           */
           '*/*': unknown
         }
       }

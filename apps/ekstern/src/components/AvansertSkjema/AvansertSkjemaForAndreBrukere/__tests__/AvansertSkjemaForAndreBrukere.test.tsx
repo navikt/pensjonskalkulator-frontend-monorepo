@@ -1104,6 +1104,9 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           maaneder: 0,
         },
       })
+      expect(onSubmitMock.mock.calls[0][5]).toStrictEqual({
+        skalValidereStillingsprosentVsaPensjon: false,
+      })
     })
 
     it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
@@ -1430,6 +1433,9 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           maaneder: 0,
         },
       })
+      expect(onSubmitMock.mock.calls[0][5]).toStrictEqual({
+        skalValidereStillingsprosentVsaPensjon: false,
+      })
     })
   })
 
@@ -1717,6 +1723,77 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
       AVANSERT_FORM_NAMES.inntektVsaGradertUttak
     )
+  })
+
+  it('viser valideringsfeil for stillingsprosent ved helt uttak når samtykke er gitt', async () => {
+    const user = userEvent.setup()
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <AvansertSkjemaForAndreBrukere />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...mockedQueries },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afpUtregningValg: 'KUN_ALDERSPENSJON',
+          },
+        },
+      }
+    )
+
+    await user.click(screen.getByText('beregning.avansert.button.beregn'))
+
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
+      {
+        target: { value: '67' },
+      }
+    )
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+      ),
+      {
+        target: { value: '0' },
+      }
+    )
+
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
+    )
+
+    await user.click(
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    )
+
+    const inputField = await screen.findByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
+    await user.type(inputField, '123000')
+
+    await user.click(screen.getByTestId('beregn-pensjon'))
+
+    const stillingsSelect = await screen.findByTestId(
+      AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon
+    )
+    expect(stillingsSelect).toHaveAttribute('aria-invalid', 'true')
+    expect(document.activeElement).toBe(stillingsSelect)
+
+    await user.selectOptions(stillingsSelect, '100')
   })
 
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt, ', () => {

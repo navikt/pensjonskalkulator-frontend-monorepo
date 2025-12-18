@@ -139,7 +139,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/simuler-oftp', {
+      mockErrorResponse('/v2/simuler-oftp/fra-1963', {
         method: 'post',
       })
       return storeRef

@@ -9,6 +9,7 @@ import {
   Link,
   Radio,
   RadioGroup,
+  Select,
   TextField,
 } from '@navikt/ds-react'
 
@@ -30,6 +31,8 @@ import {
   selectLoependeVedtak,
   selectNedreAldersgrense,
   selectNormertPensjonsalder,
+  selectSamtykke,
+  selectStillingsprosentVsaGradertPensjon,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { getBrukerensAlderISluttenAvMaaneden } from '@/utils/alder'
@@ -67,6 +70,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
   const inntektVsaGradertUttakInputRef = React.useRef<HTMLInputElement>(null)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const samtykkePensjonsavtaler = useAppSelector(selectSamtykke)
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
@@ -81,6 +85,11 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
   const afpInntektMaanedFoerUttak = useAppSelector(
     selectAfpInntektMaanedFoerUttak
   )
+
+  const stillingsprosentVsaPensjon = useAppSelector(
+    selectStillingsprosentVsaGradertPensjon
+  )
+
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
   const gaaTilResultat = () => {
@@ -98,6 +107,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
     localHarAfpInntektMaanedFoerUttakRadio,
+    localStillingsprosentVsaGradertPensjon,
     handlers: {
       setLocalInntektFremTilUttak,
       setLocalHeltUttak,
@@ -105,6 +115,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
       setLocalHarInntektVsaHeltUttakRadio,
       setLocalHarInntektVsaGradertUttakRadio,
       setLocalHarAfpInntektMaanedFoerUttakRadio,
+      setLocalStillingsprosentVsaGradertPensjon,
     },
   } = useFormLocalState({
     isEndring,
@@ -118,6 +129,8 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     normertPensjonsalder,
     afpInntektMaanedFoerUttak,
     beregningsvalg: null,
+    stillingsprosentVsaHelPensjon: null,
+    stillingsprosentVsaGradertPensjon: stillingsprosentVsaPensjon,
   })
 
   const {
@@ -127,6 +140,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
       setValidationErrors,
       setValidationErrorUttaksalderHeltUttak,
       setValidationErrorInntektVsaAfp,
+      setValidationErrorStillingsprosentVsaAfp,
       resetValidationErrors,
     },
   } = useFormValidationErrors({
@@ -178,9 +192,11 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
         ...prevState,
         [AVANSERT_FORM_NAMES.inntektVsaAfpRadio]: '',
         [AVANSERT_FORM_NAMES.inntektVsaAfp]: '',
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaAfp]: '',
       }
     })
     setLocalHarInntektVsaGradertUttakRadio(s === 'ja')
+    if (s === 'nei') setLocalStillingsprosentVsaGradertPensjon(null)
   }
 
   const handleInntektVsaGradertUttakChange = (
@@ -199,6 +215,25 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     )
   }
 
+  const handleStillingsprosentVsaAfpChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setValidationErrorStillingsprosentVsaAfp('')
+    setLocalStillingsprosentVsaGradertPensjon(() => {
+      const value = e.target.value === '' ? null : Number(e.target.value)
+      if (value === null) {
+        return null
+      }
+      if (value < 0) {
+        return 0
+      }
+      if (value > 100) {
+        return 100
+      }
+      return value
+    })
+  }
+
   const resetForm = (): void => {
     resetValidationErrors()
     setLocalInntektFremTilUttak(
@@ -209,6 +244,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
     setLocalHarInntektVsaGradertUttakRadio(null)
     setLocalHarInntektVsaHeltUttakRadio(null)
     setLocalHarAfpInntektMaanedFoerUttakRadio?.(null)
+    setLocalStillingsprosentVsaGradertPensjon(null)
   }
 
   return (
@@ -234,7 +270,11 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
                 vilkaarsproeving?.vilkaarErOppfylt === false,
               harAvansertSkjemaUnsavedChanges,
             },
-            true
+            {
+              isKap19Afp: true,
+              skalValidereStillingsprosentVsaPensjon:
+                samtykkePensjonsavtaler === true,
+            }
           )
         }}
       />
@@ -499,10 +539,40 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
                   : undefined
               }
               onChange={handleInntektVsaGradertUttakChange}
-              value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
+              value={localGradertUttak?.aarligInntektVsaPensjonBeloep ?? ''}
               aria-required="true"
             />
           )}
+          {localHarInntektVsaGradertUttakRadio &&
+            samtykkePensjonsavtaler === true && (
+              <Select
+                label={intl.formatMessage({
+                  id: 'inntekt.stillingsprosent_vsa_afp.textfield.label',
+                })}
+                name={AVANSERT_FORM_NAMES.stillingsprosentVsaAfp}
+                value={localStillingsprosentVsaGradertPensjon ?? ''}
+                form={AVANSERT_FORM_NAMES.form}
+                data-testid={AVANSERT_FORM_NAMES.stillingsprosentVsaAfp}
+                className={styles.select}
+                onChange={handleStillingsprosentVsaAfpChange}
+                error={
+                  validationErrors[AVANSERT_FORM_NAMES.stillingsprosentVsaAfp]
+                    ? intl.formatMessage({
+                        id: validationErrors[
+                          AVANSERT_FORM_NAMES.stillingsprosentVsaAfp
+                        ],
+                      })
+                    : ''
+                }
+              >
+                <option disabled value="">
+                  {' '}
+                </option>
+                {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((p) => (
+                  <option key={p} value={p}>{`${p} %`}</option>
+                ))}
+              </Select>
+            )}
 
           <FormButtonRow
             formId={AVANSERT_FORM_NAMES.form}

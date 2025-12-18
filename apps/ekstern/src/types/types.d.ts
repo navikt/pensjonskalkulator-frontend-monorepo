@@ -139,7 +139,17 @@ declare global {
   type OffentligTp =
     components['schemas']['OffentligTjenestepensjonSimuleringResultV2']
   type SimulertTjenestepensjon =
-    components['schemas']['SimulertTjenestepensjonV2']
+    | components['schemas']['SimulertTjenestepensjonV2']
+    | components['schemas']['SimulertTjenestepensjonFoer1963V1']
+  // /simuler-oftp/foer-1963
+  type OffentligTpFoer1963RequestBody =
+    components['schemas']['SimuleringOffentligTjenestepensjonFoer1963SpecV1']
+  type OffentligTpFoer1963 =
+    components['schemas']['OffentligTjenestepensjonSimuleringFoer1963ResultV1']
+  // Union type for both offentlig tp responses
+  type OffentligTpResponse = OffentligTp | OffentligTpFoer1963
+  type UtbetalingsperiodeFoer1963 =
+    components['schemas']['UtbetalingsperiodeFoer1963V1']
 }
 
 declare module 'react/jsx-runtime' {

@@ -238,14 +238,14 @@
           "style": "normal"
         },
         {
-          "_key": "9bebd6676420",
+          "_key": "4b5d41916893",
           "_type": "block",
           "children": [
             {
-              "_key": "b9ccc683030b",
+              "_key": "5fc2f82892df",
               "_type": "span",
               "marks": [],
-              "text": "Hvis du har vedtak om AFP i offentlig sektor, kan ny beregning av AFP og alderspensjon bli feil, hvis vi ikke har opplysninger om vedtak om AFP fra din tjenestepensjonsordning."
+              "text": "Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
             }
           ],
           "markDefs": [],

@@ -1,5 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
+import { fulfilledGetLoependeVedtak75Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { RootState } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
@@ -157,7 +158,7 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
     expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 
-  it('viser "dette_henter_vi_OFTP" hvis person ikke er apoteker eller kap19', () => {
+  it('viser "dette_henter_vi_OFTP" når person ikke er apoteker, men har loepende vedtak og ikke er kap19', () => {
     render(
       <SamtykkePensjonsavtaler
         harSamtykket
@@ -166,11 +167,74 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onNext={onNextMock}
         erApoteker={false}
         isKap19={false}
-      />
+      />,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+          },
+        },
+      }
     )
     expect(screen.getByTestId('dette_henter_vi_OFTP')).toBeInTheDocument()
   })
-  it('viser "dette_sjekker_vi_OFTP" er kap19', () => {
+
+  it('viser info-alert når kap19-bruker uten loepende vedtak svarer nei', async () => {
+    const user = userEvent.setup()
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket={null}
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={false}
+        isKap19
+      />,
+      {
+        preloadedState: {
+          userInput: {
+            afpUtregningValg: 'AFP_ETTERFULGT_AV_ALDERSPENSJON',
+          },
+        } as RootState,
+      }
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    await user.click(radioButtons[1])
+    await waitFor(() => {
+      expect(
+        screen.getByTestId('samtykke-pensjonsavtaler-alert')
+      ).toBeInTheDocument()
+    })
+  })
+
+  it('viser ikke info-alert når kap19-bruker svarer ja', async () => {
+    const user = userEvent.setup()
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket={null}
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={false}
+        isKap19
+      />,
+      {
+        preloadedState: {
+          userInput: {
+            afpUtregningValg: 'AFP_ETTERFULGT_AV_ALDERSPENSJON',
+          },
+        } as RootState,
+      }
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    await user.click(radioButtons[0])
+    expect(
+      screen.queryByTestId('samtykke-pensjonsavtaler-alert')
+    ).not.toBeInTheDocument()
+  })
+
+  it('viser "dette_sjekker_vi_OFTP" når person er kap19 med loepende vedtak', () => {
     render(
       <SamtykkePensjonsavtaler
         harSamtykket
@@ -179,9 +243,31 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         onNext={onNextMock}
         erApoteker={false}
         isKap19={true}
-      />
+      />,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+          },
+        },
+      }
     )
     expect(screen.getByTestId('dette_sjekker_vi_OFTP')).toBeInTheDocument()
+  })
+
+  it('viser "dette_henter_vi_OFTP" når person er kap19 uten loepende vedtak', () => {
+    render(
+      <SamtykkePensjonsavtaler
+        harSamtykket
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+        erApoteker={false}
+        isKap19
+      />
+    )
+    expect(screen.getByTestId('dette_henter_vi_OFTP')).toBeInTheDocument()
   })
 
   it('viser "dette_sjekker_vi_OFTP" er apoteker og ikke kap19', () => {

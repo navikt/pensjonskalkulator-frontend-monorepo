@@ -506,7 +506,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
         })
         expect(screen.getByText('beregning.intro.title')).toBeVisible()
         expect(screen.getByText('beregning.intro.description_1')).toBeVisible()
@@ -589,7 +589,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledTimes(1)
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledWith('redigering')
         })
@@ -640,7 +640,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
           expect(
             screen.getByText('beregning.avansert.link.endre_avanserte_valg')
           ).toBeVisible()
@@ -651,7 +651,7 @@ describe('BeregningAvansert', () => {
           variant: 'error',
         })
         await user.click(await screen.findByText('application.global.retry'))
-        expect(initiateMock).toHaveBeenCalledTimes(3)
+        expect(initiateMock).toHaveBeenCalledTimes(6)
       })
 
       it('Når simulering svarer med errorcode 503, vises ErrorPageUnexpected ', async () => {
@@ -742,7 +742,7 @@ describe('BeregningAvansert', () => {
       )
 
       await waitFor(() => {
-        expect(initiateMock).toHaveBeenCalledTimes(1)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
       })
       expect(screen.getByText('beregning.intro.title.endring')).toBeVisible()
       expect(
@@ -819,7 +819,7 @@ describe('BeregningAvansert', () => {
       )
 
       await waitFor(() => {
-        expect(initiateMock).toHaveBeenCalledTimes(1)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
       })
 
       expect(

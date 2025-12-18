@@ -64,6 +64,13 @@ describe('Simulering', () => {
       />,
       {
         preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: {
+              ...preloadedQueries,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -340,6 +347,13 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
+            api: {
+              // @ts-ignore
+              queries: {
+                ...preloadedQueries,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -421,6 +435,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -498,6 +513,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -565,6 +581,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -630,6 +647,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fakeApiCallUfoere,
                 ...fulfilledGetPerson,
               },
@@ -708,6 +726,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fakeApiCallUfoere,
                 ...fulfilledGetPerson,
               },
@@ -768,7 +787,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler (private og offentlige), viser inntekt og alderspensjon (uten pensjonsavtaler).', async () => {
-      mockResponse('/v2/simuler-oftp', {
+      mockResponse('/v2/simuler-oftp/fra-1963', {
         status: 200,
         json: {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -799,6 +818,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -831,7 +851,10 @@ describe('Simulering', () => {
     })
 
     it('Når henting av pensjonsavtaler (private og offentlige) feiler, viser inntekt og alderspensjon (uten pensjonsavtaler) og alert.', async () => {
-      mockErrorResponse('/v2/simuler-oftp', {
+      mockErrorResponse('/v2/simuler-oftp/fra-1963', {
+        method: 'post',
+      })
+      mockErrorResponse('/v2/simuler-oftp/foer-1963', {
         method: 'post',
       })
       mockErrorResponse('/v3/pensjonsavtaler', {
@@ -851,6 +874,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -905,7 +929,7 @@ describe('Simulering', () => {
         },
         method: 'post',
       })
-      mockResponse('/v2/simuler-oftp', {
+      mockResponse('/v2/simuler-oftp/fra-1963', {
         status: 200,
         json: {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -927,6 +951,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -997,6 +1022,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -1053,6 +1079,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -1101,7 +1128,8 @@ describe('Simulering', () => {
           api: {
             /* @ts-ignore */
             queries: {
-              ...fulfilledGetPerson,
+              ...preloadedQueries,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -1136,6 +1164,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },
@@ -1169,6 +1198,7 @@ describe('Simulering', () => {
             api: {
               /* @ts-ignore */
               queries: {
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
                 ...fulfilledGetPerson,
               },
             },

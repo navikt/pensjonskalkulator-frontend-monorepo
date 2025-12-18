@@ -183,7 +183,10 @@ beforeEach(() => {
   ).as('getInntekt')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
+    {
+      method: 'POST',
+      url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
+    },
     { fixture: 'offentlig-tp.json' }
   ).as('fetchOffentligTp')
 

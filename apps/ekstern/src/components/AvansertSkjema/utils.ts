@@ -43,6 +43,9 @@ export const AVANSERT_FORM_NAMES = {
   afpInntektMaanedFoerUttakRadio: 'afp-inntekt-maaned-foer-uttak-radio',
   inntektVsaAfpRadio: 'inntekt-vsa-afp-radio',
   inntektVsaAfp: 'inntekt-vsa-afp',
+  stillingsprosentVsaAfp: 'stillingsprosent-vsa-afp',
+  stillingsprosentVsaGradertPensjon: 'stillingsprosent-vsa-gradert-pensjon',
+  stillingsprosentVsaHelPensjon: 'stillingsprosent-vsa-hel-pensjon',
   uttaksgrad: 'uttaksgrad',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
@@ -216,6 +219,9 @@ export const validateAvansertBeregningSkjema = (
     afpInntektMaanedFoerUttakRadioFormData: FormDataEntryValue | null
     inntektVsaAfpRadioFormData: FormDataEntryValue | null
     inntektVsaAfpFormData: FormDataEntryValue | null
+    stillingsprosentVsaAfpFormData: FormDataEntryValue | null
+    stillingsprosentVsaGradertPensjonFormData: FormDataEntryValue | null
+    stillingsprosentVsaHelPensjonFormData: FormDataEntryValue | null
   },
   foedselsdato: string,
   normertPensjonsalder: Alder,
@@ -223,7 +229,8 @@ export const validateAvansertBeregningSkjema = (
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >,
-  validerKap19Afp: boolean = false
+  validerKap19Afp: boolean = false,
+  validerStillingsprosentVsaPensjon: boolean = false
 ) => {
   const {
     beregningsvalgFormData,
@@ -241,6 +248,9 @@ export const validateAvansertBeregningSkjema = (
     afpInntektMaanedFoerUttakRadioFormData,
     inntektVsaAfpRadioFormData,
     inntektVsaAfpFormData,
+    stillingsprosentVsaAfpFormData,
+    stillingsprosentVsaGradertPensjonFormData,
+    stillingsprosentVsaHelPensjonFormData,
   } = inputData
 
   let isValid = true
@@ -335,6 +345,22 @@ export const validateAvansertBeregningSkjema = (
       )
     ) {
       isValid = false
+    }
+
+    if (
+      inntektVsaAfpRadioFormData === 'ja' &&
+      (!stillingsprosentVsaAfpFormData ||
+        (typeof stillingsprosentVsaAfpFormData === 'string' &&
+          stillingsprosentVsaAfpFormData.trim() === ''))
+    ) {
+      isValid = false
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.stillingsprosentVsaAfp]:
+            'inntekt.stillingsprosent_vsa_afp.validation_error',
+        }
+      })
     }
     return isValid
   }
@@ -546,6 +572,20 @@ export const validateAvansertBeregningSkjema = (
     )
 
     isValid = isValid && isInntektValid && isSluttAlderValid
+
+    if (
+      validerStillingsprosentVsaPensjon &&
+      !stillingsprosentVsaHelPensjonFormData
+    ) {
+      isValid = false
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon]:
+            'inntekt.stillingsprosent_vsa_pensjon.validation_error',
+        }
+      })
+    }
   }
 
   // * Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
@@ -608,6 +648,22 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
+  if (
+    validerStillingsprosentVsaPensjon &&
+    uttaksgradFormData !== '100 %' &&
+    inntektVsaGradertUttakRadioFormData === 'ja' &&
+    !stillingsprosentVsaGradertPensjonFormData
+  ) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon]:
+          'inntekt.stillingsprosent_vsa_pensjon.validation_error',
+      }
+    })
+  }
+
   // * Hvis alle feltene er gyldige,
   // * Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
   if (
@@ -649,7 +705,10 @@ export const onAvansertBeregningSubmit = (
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   },
-  isKap19Afp: boolean = false
+  options?: {
+    isKap19Afp?: boolean
+    skalValidereStillingsprosentVsaPensjon?: boolean
+  }
 ): void => {
   const {
     foedselsdato,
@@ -659,6 +718,8 @@ export const onAvansertBeregningSubmit = (
     hasVilkaarIkkeOppfylt,
     harAvansertSkjemaUnsavedChanges,
   } = previousData
+
+  const { isKap19Afp, skalValidereStillingsprosentVsaPensjon } = options || {}
 
   // TODO: Vurder å sende inn verdiene fra controlled state i stedet for direkte fra skjemaet, for bedre typer (kan unngå `as string` o.l.)
   const beregningsvalgFormData = data.get(
@@ -702,6 +763,16 @@ export const onAvansertBeregningSubmit = (
     AVANSERT_FORM_NAMES.inntektVsaAfpRadio
   )
   const inntektVsaAfpFormData = data.get(AVANSERT_FORM_NAMES.inntektVsaAfp)
+  const stillingsprosentVsaAfpFormData = data.get(
+    AVANSERT_FORM_NAMES.stillingsprosentVsaAfp
+  )
+  const stillingsprosentVsaGradertPensjonFormData =
+    data.get(AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon) ??
+    stillingsprosentVsaAfpFormData
+
+  const stillingsprosentVsaHelPensjonFormData = data.get(
+    AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon
+  )
   if (
     !validateAvansertBeregningSkjema(
       {
@@ -720,17 +791,20 @@ export const onAvansertBeregningSubmit = (
         afpInntektMaanedFoerUttakRadioFormData,
         inntektVsaAfpRadioFormData,
         inntektVsaAfpFormData,
+        stillingsprosentVsaAfpFormData,
+        stillingsprosentVsaGradertPensjonFormData,
+        stillingsprosentVsaHelPensjonFormData,
       },
       foedselsdato,
       normertPensjonsalder,
       loependeVedtak,
       setValidationErrors,
-      isKap19Afp
+      isKap19Afp,
+      skalValidereStillingsprosentVsaPensjon
     )
   ) {
     return
   }
-
   dispatch(
     userInputActions.setCurrentSimulationUttaksalder({
       aar: parseInt(heltUttakAarFormData as string, 10),
@@ -874,6 +948,22 @@ export const onAvansertBeregningSubmit = (
   dispatch(
     userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
       localInntektFremTilUttak
+    )
+  )
+
+  dispatch(
+    userInputActions.setStillingsprosentVsaGradertPensjon(
+      stillingsprosentVsaGradertPensjonFormData
+        ? parseInt(stillingsprosentVsaGradertPensjonFormData as string, 10)
+        : null
+    )
+  )
+
+  dispatch(
+    userInputActions.setStillingsprosentVsaPensjon(
+      stillingsprosentVsaHelPensjonFormData
+        ? parseInt(stillingsprosentVsaHelPensjonFormData as string, 10)
+        : null
     )
   )
 

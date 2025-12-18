@@ -1,6 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
@@ -99,6 +103,8 @@ describe('Pensjonsavtaler', () => {
           api: {
             // @ts-ignore
             queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
             },
           },
@@ -238,6 +244,7 @@ describe('Pensjonsavtaler', () => {
           api: {
             // @ts-ignore
             queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
               ...fulfilledGetInntekt,
             },
           },

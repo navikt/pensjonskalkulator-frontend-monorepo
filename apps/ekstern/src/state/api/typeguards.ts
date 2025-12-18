@@ -352,3 +352,37 @@ export const isSomeEnumKey =
 export const isAnchorTag = (target?: any): target is HTMLAnchorElement => {
   return target && target?.tagName === 'A' && target?.href
 }
+
+export const isOffentligTpFoer1963 = (
+  offentligTp?: OffentligTp | OffentligTpFoer1963
+): offentligTp is OffentligTpFoer1963 => {
+  if (!offentligTp || typeof offentligTp !== 'object') {
+    return false
+  }
+
+  // OffentligTpFoer1963 har et 'feilkode' felt på rot-nivå
+  if ('feilkode' in offentligTp) {
+    return true
+  }
+
+  // UtbetalingsperiodeFoer1963V2 har feltet 'ytelsekode'
+
+  if (
+    offentligTp.simulertTjenestepensjon?.simuleringsresultat
+      ?.utbetalingsperioder &&
+    Array.isArray(
+      offentligTp.simulertTjenestepensjon.simuleringsresultat
+        .utbetalingsperioder
+    ) &&
+    offentligTp.simulertTjenestepensjon.simuleringsresultat.utbetalingsperioder
+      .length > 0
+  ) {
+    return (
+      'ytelsekode' in
+      offentligTp.simulertTjenestepensjon.simuleringsresultat
+        .utbetalingsperioder[0]
+    )
+  }
+
+  return false
+}

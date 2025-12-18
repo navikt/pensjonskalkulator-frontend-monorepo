@@ -19,6 +19,8 @@ interface Props {
   summerYtelser: (data: Pensjonsdata) => number
   hentUttaksmaanedOgAar: (alder: Alder) => string
   harGradering?: boolean
+  skalViseNullOffentligTjenestepensjon?: boolean
+  erTpFoer1963?: boolean
 }
 
 export const PensjonVisningDesktop: React.FC<Props> = ({
@@ -26,6 +28,8 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
   summerYtelser,
   hentUttaksmaanedOgAar,
   harGradering,
+  skalViseNullOffentligTjenestepensjon,
+  erTpFoer1963,
 }) => {
   const intl = useIntl()
 
@@ -37,13 +41,15 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
         const harPre2025OffentligAFP =
           data.pre2025OffentligAfp && data.alderspensjon
 
-        const uttaksAlder = harPre2025OffentligAFP
-          ? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
-          : data.alder
+        const uttaksAlder =
+          harPre2025OffentligAFP || (erTpFoer1963 && index === 1)
+            ? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
+            : data.alder
 
-        const formattedUttaksalder = harPre2025OffentligAFP
-          ? `${uttaksAlder.aar} år`
-          : formatUttaksalder(intl, uttaksAlder)
+        const formattedUttaksalder =
+          harPre2025OffentligAFP || (erTpFoer1963 && index === 1)
+            ? `${uttaksAlder.aar} år`
+            : formatUttaksalder(intl, uttaksAlder)
 
         const harKunAPOgPre2025OffentligAFP =
           harPre2025OffentligAFP && !data.afp && !data.pensjonsavtale
@@ -51,6 +57,7 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
         // Vis kalender maaned når det er bare en ytelse eller gammel AFP med AP
         const showKalenderMaaned =
           harKunAPOgPre2025OffentligAFP ||
+          erTpFoer1963 ||
           [
             data.alderspensjon,
             data.afp,
@@ -94,6 +101,9 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
                 summerYtelser={summerYtelser}
                 hentUttaksMaanedOgAar={hentUttaksmaanedOgAar}
                 harGradering={harGradering}
+                skalViseNullOffentligTjenestepensjon={
+                  skalViseNullOffentligTjenestepensjon
+                }
               />
               <div className={styles.dividerWrapper}>
                 <Divider mediumMargin noMarginBottom />

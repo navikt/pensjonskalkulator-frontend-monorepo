@@ -414,15 +414,6 @@ describe('AFP', () => {
       it('forventer jeg å kunne gå videre til enkel beregning uten noe infosteg imellom', () => {
         cy.location('pathname').should('include', '/beregning')
       })
-
-      it('forventer jeg å få informasjon i grunnlaget om at jeg har svart at jeg ikke har rett til AFP og at AFP derfor ikke vises i beregningen', () => {
-        cy.location('pathname').should('include', '/beregning')
-
-        cy.contains('button', '70').click()
-
-        cy.contains('AFP: Nei').should('exist')
-        cy.contains('a', 'AFP (avtalefestet pensjon)').should('exist')
-      })
     })
   })
 })

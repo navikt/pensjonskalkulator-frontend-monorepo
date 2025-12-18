@@ -14,6 +14,7 @@ describe('OffentligTjenestepensjon', () => {
         isLoading={true}
         isError={false}
         headingLevel="3"
+        erOffentligTpFoer1963={false}
       />
     )
 
@@ -26,6 +27,7 @@ describe('OffentligTjenestepensjon', () => {
         isLoading={false}
         isError={true}
         headingLevel="3"
+        erOffentligTpFoer1963={false}
       />
     )
 
@@ -47,6 +49,7 @@ describe('OffentligTjenestepensjon', () => {
           muligeTpLeverandoerListe: [],
         }}
         headingLevel="3"
+        erOffentligTpFoer1963={false}
       />
     )
 
@@ -67,6 +70,7 @@ describe('OffentligTjenestepensjon', () => {
           muligeTpLeverandoerListe: ['KLP'],
         }}
         headingLevel="3"
+        erOffentligTpFoer1963={false}
       />
     )
 
@@ -93,6 +97,7 @@ describe('OffentligTjenestepensjon', () => {
             muligeTpLeverandoerListe: ['SPK'],
           }}
           headingLevel="3"
+          erOffentligTpFoer1963={false}
         />
       )
 
@@ -118,6 +123,7 @@ describe('OffentligTjenestepensjon', () => {
             muligeTpLeverandoerListe: ['SPK'],
           }}
           headingLevel="3"
+          erOffentligTpFoer1963={false}
         />
       )
 
@@ -147,6 +153,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
           }}
           headingLevel="3"
+          erOffentligTpFoer1963={false}
         />
       )
       expect(
@@ -207,6 +214,7 @@ describe('OffentligTjenestepensjon', () => {
             simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
           }}
           headingLevel="4"
+          erOffentligTpFoer1963={false}
         />
       )
       expect(
@@ -268,6 +276,7 @@ describe('OffentligTjenestepensjon', () => {
                 },
               },
             }}
+            erOffentligTpFoer1963={false}
             headingLevel="3"
           />,
           {
@@ -309,6 +318,7 @@ describe('OffentligTjenestepensjon', () => {
               },
             }}
             headingLevel="3"
+            erOffentligTpFoer1963={false}
           />,
           {
             preloadedState: {
@@ -348,6 +358,7 @@ describe('OffentligTjenestepensjon', () => {
                 },
               },
             }}
+            erOffentligTpFoer1963={false}
             headingLevel="3"
           />,
           {
@@ -391,6 +402,7 @@ describe('OffentligTjenestepensjon', () => {
                 },
               },
             }}
+            erOffentligTpFoer1963={false}
             headingLevel="3"
           />,
           {
@@ -442,6 +454,7 @@ describe('OffentligTjenestepensjon', () => {
                 },
               },
             }}
+            erOffentligTpFoer1963={false}
             headingLevel="3"
           />,
           {
@@ -493,6 +506,7 @@ describe('OffentligTjenestepensjon', () => {
             },
           }}
           headingLevel="3"
+          erOffentligTpFoer1963={false}
         />
       )
       expect(
@@ -522,6 +536,7 @@ describe('OffentligTjenestepensjon', () => {
             },
           }}
           headingLevel="3"
+          erOffentligTpFoer1963={false}
         />
       )
 
@@ -549,6 +564,7 @@ describe('OffentligTjenestepensjon', () => {
               },
             }}
             headingLevel="3"
+            erOffentligTpFoer1963={false}
           />,
           {
             preloadedState: {
@@ -589,6 +605,7 @@ describe('OffentligTjenestepensjon', () => {
               },
             }}
             headingLevel="3"
+            erOffentligTpFoer1963={false}
           />,
           {
             preloadedState: {
@@ -629,6 +646,7 @@ describe('OffentligTjenestepensjon', () => {
               },
             }}
             headingLevel="3"
+            erOffentligTpFoer1963={false}
           />,
           {
             preloadedState: {
@@ -669,6 +687,7 @@ describe('OffentligTjenestepensjon', () => {
               },
             }}
             headingLevel="3"
+            erOffentligTpFoer1963={false}
           />,
           {
             preloadedState: {

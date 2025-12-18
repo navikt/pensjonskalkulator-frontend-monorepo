@@ -34,6 +34,8 @@ describe('AvansertSkjema-hooks', () => {
       },
       normertPensjonsalder: { aar: 67, maaneder: 0 },
       afpInntektMaanedFoerUttak: null,
+      stillingsprosentVsaGradertPensjon: null,
+      stillingsprosentVsaHelPensjon: null,
     }
 
     const wrapper = ({ children }: { children: React.ReactNode }) => {
@@ -73,6 +75,8 @@ describe('AvansertSkjema-hooks', () => {
           normertPensjonsalder: { aar: 67, maaneder: 0 },
           afpInntektMaanedFoerUttak: null,
           beregningsvalg: null,
+          stillingsprosentVsaGradertPensjon: null,
+          stillingsprosentVsaHelPensjon: null,
         },
       })
 
@@ -899,6 +903,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
@@ -918,6 +925,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
@@ -948,6 +958,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -958,6 +971,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -968,6 +984,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -980,6 +999,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id4',
       })
@@ -1017,6 +1039,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })

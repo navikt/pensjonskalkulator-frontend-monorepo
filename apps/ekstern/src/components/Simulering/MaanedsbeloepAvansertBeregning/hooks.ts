@@ -48,7 +48,6 @@ export const usePensjonBeregninger = ({
     selectCurrentSimulation
   )
   const foedselsdato = useAppSelector(selectFoedselsdato)
-
   const sumPensjonsavtaler = (alder?: Alder): number => {
     if (!pensjonsavtaler || !alder) return 0
     return hentSumPensjonsavtalerVedUttak(pensjonsavtaler, alder)

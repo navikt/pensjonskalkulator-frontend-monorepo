@@ -20,7 +20,9 @@ import {
   selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
+  selectSamtykke,
   selectSkalBeregneAfpKap19,
+  selectSkalBeregneKunAlderspensjon,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
@@ -61,6 +63,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
+  const harSamtykketPensjonsavtaler = useAppSelector(selectSamtykke)
+  const skalBeregneKunAlderspensjon = useAppSelector(
+    selectSkalBeregneKunAlderspensjon
+  )
   const afp = useAppSelector(selectAfp)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
@@ -233,44 +239,44 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
         </div>
 
-        <div className={styles.container}>
-          <div className={styles.alert}>
-            <ApotekereWarning
-              showWarning={Boolean(
-                afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
-              )}
-            />
-          </div>
-        </div>
-
-        {!isEndring && !skalBeregneAfpKap19 && (
-          <div className={styles.toggle}>
-            <div className={styles.container} data-testid="toggle-avansert">
-              <ToggleGroup
-                value={visning}
-                variant="neutral"
-                onChange={onToggleChange}
-              >
-                <ToggleGroup.Item value="enkel">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.enkel',
-                  })}
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item value="avansert">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.avansert',
-                  })}
-                </ToggleGroup.Item>
-              </ToggleGroup>
+        {afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963 && (
+          <div className={styles.container}>
+            <div className={styles.alert}>
+              <ApotekereWarning
+                showWarning={Boolean(
+                  afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
+                )}
+              />
             </div>
           </div>
         )}
+        {!isEndring &&
+          !skalBeregneAfpKap19 &&
+          !(skalBeregneKunAlderspensjon && harSamtykketPensjonsavtaler) && (
+            <div className={styles.toggle}>
+              <div className={styles.container} data-testid="toggle-avansert">
+                <ToggleGroup
+                  value={visning}
+                  variant="neutral"
+                  onChange={onToggleChange}
+                >
+                  <ToggleGroup.Item value="enkel">
+                    {intl.formatMessage({
+                      id: 'beregning.toggle.enkel',
+                    })}
+                  </ToggleGroup.Item>
 
+                  <ToggleGroup.Item value="avansert">
+                    {intl.formatMessage({
+                      id: 'beregning.toggle.avansert',
+                    })}
+                  </ToggleGroup.Item>
+                </ToggleGroup>
+              </div>
+            </div>
+          )}
         {visning === 'enkel' && <BeregningEnkel />}
-
         {visning === 'avansert' && <BeregningAvansert />}
-
         {isPdfReady && showPDF?.enabled && (
           <div className={styles.container}>
             <section className={styles.section}>
@@ -289,7 +295,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             </section>
           </div>
         )}
-
         <div className={clsx(styles.background, styles.background__lightblue)}>
           <div className={styles.container}>
             <LightBlueFooter />
