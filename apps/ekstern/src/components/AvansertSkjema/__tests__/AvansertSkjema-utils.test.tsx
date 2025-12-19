@@ -1114,6 +1114,7 @@ describe('AvansertSkjema-utils', () => {
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock,
+          true,
           true
         )
       ).toBeFalsy()
@@ -1146,7 +1147,30 @@ describe('AvansertSkjema-utils', () => {
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
           updateErrorMessageMock,
+          true,
           true
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer true når Kap19 AFP mangler stillingsprosent men validerStillingsprosentVsaPensjon er false', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            afpInntektMaanedFoerUttakRadioFormData: 'ja',
+            inntektVsaAfpRadioFormData: 'ja',
+            inntektVsaAfpFormData: '250000',
+            stillingsprosentVsaAfpFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          true,
+          false
         )
       ).toBeTruthy()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()

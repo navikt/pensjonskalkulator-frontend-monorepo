@@ -348,6 +348,7 @@ export const validateAvansertBeregningSkjema = (
     }
 
     if (
+      validerStillingsprosentVsaPensjon &&
       inntektVsaAfpRadioFormData === 'ja' &&
       (!stillingsprosentVsaAfpFormData ||
         (typeof stillingsprosentVsaAfpFormData === 'string' &&
