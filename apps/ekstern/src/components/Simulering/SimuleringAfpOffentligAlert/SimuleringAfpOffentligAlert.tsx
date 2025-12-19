@@ -68,8 +68,8 @@ export const SimuleringAfpOffentligAlert: React.FC<Props> = ({
   // Håndterer også tilfelle hvor backend returnerer tom respons (undefined/null verdier)
   if (
     isAfpOffentligLivsvarigSuccess &&
-    (loependeLivsvarigAfpOffentlig?.afpStatus === null ||
-      loependeLivsvarigAfpOffentlig?.afpStatus === undefined)
+    !loependeLivsvarigAfpOffentlig?.afpStatus &&
+    !loependeLivsvarigAfpOffentlig?.maanedligBeloep
   ) {
     return null
   }
