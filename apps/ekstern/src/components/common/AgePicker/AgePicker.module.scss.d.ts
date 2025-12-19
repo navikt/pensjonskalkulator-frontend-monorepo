@@ -1,5 +1,5 @@
 declare const classNames: {
-  readonly label: "label";
+  readonly legend: "legend";
   readonly description: "description";
   readonly selectWrapper: "selectWrapper";
   readonly selectAar: "selectAar";

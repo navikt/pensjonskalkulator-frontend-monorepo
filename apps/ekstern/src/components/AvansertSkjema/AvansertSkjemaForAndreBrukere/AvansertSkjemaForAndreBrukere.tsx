@@ -471,10 +471,8 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
 
           <Divider noMargin />
 
-          <div className={styles.alertWrapper}>
-            {validationErrors[
-              AVANSERT_FORM_NAMES.endringAlertFremtidigDato
-            ] && (
+          {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
+            <div className={styles.alertWrapper}>
               <Alert variant="warning" role="alert">
                 <FormattedMessage
                   id="beregning.endring.alert.uttaksdato"
@@ -486,19 +484,19 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
                   }}
                 />
               </Alert>
-            )}
-          </div>
+            </div>
+          )}
 
-          <div className={styles.alertWrapper}>
-            {vilkaarsproeving &&
-              !vilkaarsproeving?.vilkaarErOppfylt &&
-              uttaksalder && (
+          {vilkaarsproeving &&
+            !vilkaarsproeving?.vilkaarErOppfylt &&
+            uttaksalder && (
+              <div className={styles.alertWrapper}>
                 <VilkaarsproevingAlert
                   alternativ={vilkaarsproeving?.alternativ}
                   uttaksalder={uttaksalder}
                 />
-              )}
-          </div>
+              </div>
+            )}
 
           <div>
             {localGradertUttak?.grad !== undefined &&

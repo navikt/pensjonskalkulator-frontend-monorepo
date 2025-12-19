@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
+import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
@@ -143,8 +143,6 @@ export const AgePicker = ({
 
   return (
     <div data-testid={testId || `age-picker-${name}`}>
-      <Label className={!description ? styles.label : ''}>{label}</Label>
-
       {description && (
         <BodyShort
           className={styles.description}
@@ -154,8 +152,9 @@ export const AgePicker = ({
           {description}
         </BodyShort>
       )}
+      <fieldset className={styles.selectWrapper}>
+        <legend className={!description ? styles.legend : ''}>{label}</legend>
 
-      <div className={styles.selectWrapper}>
         <Select
           data-testid={`age-picker-${name}-aar`}
           form={form}
@@ -270,7 +269,7 @@ export const AgePicker = ({
         </Select>
 
         <span className={styles.date}>{transformertDate}</span>
-      </div>
+      </fieldset>
 
       {error && (
         <div
