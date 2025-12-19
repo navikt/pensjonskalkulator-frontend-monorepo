@@ -204,7 +204,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/tpo-livsvarig-offentlig-afp': {
+  '/api/v3/tpo-livsvarig-offentlig-afp': {
     parameters: {
       query?: never
       header?: never

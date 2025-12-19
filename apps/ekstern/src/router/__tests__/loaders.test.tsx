@@ -1290,7 +1290,7 @@ describe('Loaders', () => {
       } satisfies LoependeVedtak,
     })
 
-    mockResponse('/v2/tpo-livsvarig-offentlig-afp', {
+    mockResponse('/v3/tpo-livsvarig-offentlig-afp', {
       status: 200,
       json: {
         afpStatus: false,

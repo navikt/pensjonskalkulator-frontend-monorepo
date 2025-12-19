@@ -139,7 +139,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(erApotekerResponse)
   }),
 
-  http.get(`${baseUrl}/v2/tpo-livsvarig-offentlig-afp`, async () => {
+  http.get(`${baseUrl}/v3/tpo-livsvarig-offentlig-afp`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(afpOffentligLivsvarigResponse)
   }),
