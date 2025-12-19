@@ -248,8 +248,8 @@ export const useSimuleringChartLocalState = (initialValues: {
         loependeLivsvarigAfpOffentlig.afpStatus === false ||
         (loependeLivsvarigAfpOffentlig.afpStatus === true &&
           loependeLivsvarigAfpOffentlig.maanedligBeloep === 0) ||
-        (loependeLivsvarigAfpOffentlig.afpStatus === null &&
-          loependeLivsvarigAfpOffentlig.maanedligBeloep === null)
+        (loependeLivsvarigAfpOffentlig.afpStatus == null &&
+          loependeLivsvarigAfpOffentlig.maanedligBeloep == null)
 
       setChartOptions({
         ...getChartDefaults(xAxis),

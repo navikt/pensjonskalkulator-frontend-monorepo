@@ -65,9 +65,11 @@ export const SimuleringAfpOffentligAlert: React.FC<Props> = ({
   }
 
   // Viser ikke alert hvis bruker ikke har løpende livsvarig afp offentlig
+  // Håndterer også tilfelle hvor backend returnerer tom respons (undefined/null verdier)
   if (
-    loependeLivsvarigAfpOffentlig?.afpStatus === null &&
-    loependeLivsvarigAfpOffentlig?.maanedligBeloep === null
+    isAfpOffentligLivsvarigSuccess &&
+    (loependeLivsvarigAfpOffentlig?.afpStatus === null ||
+      loependeLivsvarigAfpOffentlig?.afpStatus === undefined)
   ) {
     return null
   }
