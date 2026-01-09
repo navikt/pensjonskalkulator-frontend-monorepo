@@ -13,7 +13,7 @@ jobs:
 
     name: Backup Sanity dataset
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set backup file name
         run: |

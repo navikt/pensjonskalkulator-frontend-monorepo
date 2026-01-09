@@ -2025,7 +2025,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '62' },
+          target: { value: '63' },
         }
       )
       fireEvent.change(

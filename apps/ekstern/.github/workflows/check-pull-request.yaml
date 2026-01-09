@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22
         uses: actions/setup-node@v6
@@ -33,7 +33,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -50,7 +50,7 @@ jobs:
         run: npm run build
 
       - name: Save build folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: dist
@@ -65,7 +65,7 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -75,7 +75,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -92,7 +92,7 @@ jobs:
         run: npm run test
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: code-coverage-report
           path: coverage
@@ -105,7 +105,7 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -115,7 +115,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -124,13 +124,13 @@ jobs:
 
       - name: Cache Cypress binary
         id: cache-cypress
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
@@ -149,7 +149,7 @@ jobs:
         run: npm run cy:test
 
       - name: Archive Cypress artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: screenshots
@@ -163,7 +163,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -173,7 +173,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -181,7 +181,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
@@ -199,7 +199,7 @@ jobs:
         run: npx playwright test --project=chromium --workers=6 --reporter=blob
 
       - name: Upload Chromium blob report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: chromium-blob-report
@@ -215,7 +215,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -225,7 +225,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -233,7 +233,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
@@ -250,7 +250,7 @@ jobs:
           HOME: /root
 
       - name: Upload Firefox blob report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: firefox-blob-report
@@ -266,7 +266,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -276,7 +276,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -284,7 +284,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
@@ -299,7 +299,7 @@ jobs:
         run: npx playwright test --project=webkit --workers=6 --reporter=blob
 
       - name: Upload WebKit blob report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: webkit-blob-report
@@ -316,7 +316,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js v22.16.0
         uses: actions/setup-node@v6
@@ -326,7 +326,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -340,7 +340,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Download all Playwright blob reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           pattern: '*-blob-report'
           path: blob-report
@@ -350,7 +350,7 @@ jobs:
         run: npx playwright merge-reports --reporter html ./blob-report
 
       - name: Upload merged Playwright HTML report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: playwright-report
           path: playwright-report
