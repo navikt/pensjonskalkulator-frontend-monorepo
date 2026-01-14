@@ -32,10 +32,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -97,10 +97,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -137,10 +137,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
