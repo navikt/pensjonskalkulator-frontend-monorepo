@@ -70,7 +70,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', '70 år').click()
     cy.injectAxe()
     cy.wait('@fetchAlderspensjon')
-    cy.contains('Pensjonsgivende inntekt frem til uttak')
+    cy.contains('Årlig inntekt frem til uttak:')
     cy.contains('Alderspensjon')
     cy.contains('AFP')
     cy.contains('button', 'Sivilstand').click({ force: true })

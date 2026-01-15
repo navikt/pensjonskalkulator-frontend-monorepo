@@ -221,14 +221,14 @@ describe('OffentligTjenestepensjon', () => {
         await screen.findByTestId('offentlig-tjenestepensjon-mobile')
       ).toBeVisible()
       expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(
-        1
+        2
       )
       expect(
         await screen.findByText('pensjonsavtaler.offentligtp.title')
       ).toBeVisible()
-      expect(await screen.findAllByRole('heading', { level: 5 })).toHaveLength(
-        1
-      )
+      expect(
+        screen.queryByTestId('tpo-subheading-Statens pensjonskasse')
+      ).toBeInTheDocument()
       expect(
         await screen.findByText('pensjonsavtaler.offentligtp.subtitle.spk')
       ).toBeVisible()
@@ -541,10 +541,7 @@ describe('OffentligTjenestepensjon', () => {
       )
 
       expect(
-        await screen.findByRole('heading', {
-          level: 4,
-          name: 'pensjonsavtaler.offentligtp.subtitle.klp',
-        })
+        screen.getByTestId('tpo-subheading-Kommunal Landspensjonskasse')
       ).toBeVisible()
     })
 

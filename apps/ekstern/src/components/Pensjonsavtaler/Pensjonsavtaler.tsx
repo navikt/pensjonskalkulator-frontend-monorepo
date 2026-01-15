@@ -1,4 +1,4 @@
-import { MouseEvent, useContext, useEffect, useMemo, useState } from 'react'
+import { MouseEvent, useContext, useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
@@ -27,6 +27,7 @@ import { useOffentligTpData } from '../Simulering/hooks'
 import ShowMore from '../common/ShowMore/ShowMore'
 import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
 import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
+import { useNextHeadingLevel } from './hooks'
 
 import styles from './Pensjonsavtaler.module.scss'
 
@@ -95,11 +96,7 @@ export const Pensjonsavtaler = ({
     }
   )
 
-  const subHeadingLevel = useMemo(() => {
-    return (
-      headingLevel ? (parseInt(headingLevel, 10) + 1).toString() : '4'
-    ) as Exclude<HeadingProps['level'], undefined>
-  }, [headingLevel])
+  const subHeadingLevel = useNextHeadingLevel(headingLevel)
 
   const onCancel = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()

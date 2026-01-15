@@ -1237,7 +1237,7 @@ test.describe('Hovedhistorie', () => {
           page.getByRole('heading', { name: /Årlig inntekt og pensjon/i })
         ).toBeVisible()
         await expect(
-          page.getByRole('heading', { name: 'Pensjonsgivende inntekt' })
+          page.getByRole('heading', { name: /Årlig inntekt frem til uttak:/i })
         ).toBeVisible()
         await expect(
           page

@@ -1038,7 +1038,7 @@ describe('Hovedhistorie', () => {
       it('forventer jeg å få informasjon om inntekten og pensjonen din. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
         cy.contains('Om inntekten og pensjonen din').should('exist')
-        cy.contains('Pensjonsgivende inntekt frem til uttak').should('exist')
+        cy.contains('Årlig inntekt frem til uttak:').should('exist')
         cy.contains('Sivilstand:').click({ force: true })
         cy.contains('Opphold utenfor Norge:').click({ force: true })
         cy.contains('AFP:').should('exist')
@@ -1101,7 +1101,7 @@ describe('Hovedhistorie', () => {
         cy.get('.highcharts-series-group .highcharts-series-0 path')
           .first()
           .click()
-        cy.contains('Pensjonsgivende inntekt frem til uttak').should('exist')
+        cy.contains('Årlig inntekt frem til uttak:').should('exist')
         cy.contains('521 338 kr').should('exist')
         cy.contains(
           'Beregningen din viser at du kan ta ut 100 % alderspensjon fra du er 62 år og 10 måneder'
@@ -1117,7 +1117,7 @@ describe('Hovedhistorie', () => {
             maaneder: 0,
           }
         ).as('fetchTidligsteUttaksalder')
-        cy.contains('Pensjonsgivende inntekt frem til uttak')
+        cy.contains('Årlig inntekt frem til uttak:')
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').type('0')
         cy.contains('button', 'Oppdater inntekt').click()

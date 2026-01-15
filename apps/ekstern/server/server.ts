@@ -141,7 +141,7 @@ app.get(
 // Unntak for feature toggle, trenger ikke autentisering
 app.get(
   '/pensjon/kalkulator/api/feature/:toggle',
-  async (req: Request, res: Response) => {
+  async (req: Request<{ toggle: string }>, res: Response) => {
     const toggle = req.params.toggle
 
     res.send({

@@ -684,7 +684,8 @@ const translations = {
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
   'om_deg.title': 'Om deg',
-  'grunnlag2.endre_inntekt.title': 'Pensjonsgivende inntekt frem til uttak',
+  'grunnlag2.endre_inntekt.title':
+    'Årlig inntekt frem til uttak: <nowrap>{beloep} kr</nowrap>',
   'savnerdunoe.title': 'Savner du noe?',
   'savnerdunoe.title.endring': 'Klar til å søke om endring?',
   'savnerdunoe.ingress':

@@ -43,6 +43,20 @@
           ],
           "markDefs": [],
           "style": "normal"
+        },
+        {
+          "_key": "c2c0aedd04a0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "556c5ac56d4d",
+              "_type": "span",
+              "marks": [],
+              "text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
         }
       ],
       "overskrift": null
@@ -252,20 +266,6 @@
           "style": "normal"
         },
         {
-          "_key": "df738ec9cb57",
-          "_type": "block",
-          "children": [
-            {
-              "_key": "7fb193b592fb",
-              "_type": "span",
-              "marks": [],
-              "text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år."
-            }
-          ],
-          "markDefs": [],
-          "style": "normal"
-        },
-        {
           "_key": "f6dbbcdbbf78",
           "_type": "block",
           "children": [
@@ -274,6 +274,20 @@
               "_type": "span",
               "marks": [],
               "text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "df738ec9cb57",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7fb193b592fb",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
             }
           ],
           "markDefs": [],
@@ -555,7 +569,7 @@
               "_key": "191409c5ce0b",
               "_type": "span",
               "marks": [],
-              "text": "Pensjonsavtaler beregnes kun med 100 % uttaksgrad. Dette gjelder selv om du har beregnet gradert alderspensjon fra Nav."
+              "text": "Pensjonsavtaler vises med 100 % uttaksgrad. Dette gjelder selv om du har beregnet gradert alderspensjon fra Nav. Hvis du er født før 1963 og har pensjonsavtaler fra Statens pensjonskasse (SPK), kan tjenestepensjonen i noen tilfeller være gradert."
             }
           ],
           "markDefs": [],

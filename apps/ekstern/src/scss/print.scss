@@ -35,6 +35,10 @@
     padding: 1.5em 0 0.5em;
   }
 
+  h4.utenlandsopphold-title {
+    padding : 0;
+  }
+
   table.alert-box {
     border: 2px solid #0214317d !important;
     border-radius: 8px !important;
@@ -52,6 +56,10 @@
     display: block !important;
   }
 
+  p {
+    width: 75%;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -61,9 +69,12 @@
 
   th,
   tr,
-  h2,
   .afp-grunnlag-title {
     border-bottom: 1px solid rgb(128 128 128);
+  }
+
+  h2 {
+    margin-top: 1em;
   }
 
   .pdf-table-wrapper-row,
@@ -106,5 +117,12 @@
     width: 33%;
     padding-top: 0;
     padding-right: 8px;
+  }
+
+  div.utenlandsopphold-land-item {
+    border: 1px solid rgb(2 20 49 / 49%);
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 1em;
   }
 }

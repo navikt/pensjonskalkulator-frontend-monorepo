@@ -13,13 +13,13 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectHarUtenlandsopphold,
-  selectIsEndring,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagSection } from '../GrunnlagSection'
+import { useOppholdUtenforNorge } from './hooks'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
@@ -38,21 +38,8 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
-  const isEndring = useAppSelector(selectIsEndring)
 
-  const oppholdUtenforNorge = React.useMemo(():
-    | 'mindre_enn_5_aar'
-    | 'mer_enn_5_aar'
-    | 'for_lite_trygdetid'
-    | 'endring' => {
-    if (isEndring) {
-      return 'endring'
-    }
-    if (harForLiteTrygdetid) {
-      return 'for_lite_trygdetid'
-    }
-    return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
-  }, [isEndring, harForLiteTrygdetid, harUtenlandsopphold])
+  const oppholdUtenforNorge = useOppholdUtenforNorge({ harForLiteTrygdetid })
 
   React.useEffect(() => {
     if (oppholdUtenforNorge === 'for_lite_trygdetid') {

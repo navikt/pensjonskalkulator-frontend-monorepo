@@ -1,13 +1,9 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Alert, Link } from '@navikt/ds-react'
 
-import { useAppSelector } from '@/state/hooks'
-import { selectFoedselsdato } from '@/state/userInput/selectors'
-import { isAlderOver62 } from '@/utils/alder'
-import { ALERT_VIST } from '@/utils/loggerConstants'
-import { logger } from '@/utils/logging'
+import { useAfpOffentligAlerts } from '../hooks'
 
 import styles from './SimuleringAfpOffentligAlert.module.scss'
 
@@ -22,9 +18,6 @@ export const SimuleringAfpOffentligAlert: React.FC<Props> = ({
   isAfpOffentligLivsvarigSuccess,
   loependeLivsvarigAfpOffentlig,
 }) => {
-  const intl = useIntl()
-  const foedselsdato = useAppSelector(selectFoedselsdato)
-
   const handleAfpOffentligLinkClick: React.MouseEventHandler<
     HTMLAnchorElement
   > = (e): void => {
@@ -47,55 +40,22 @@ export const SimuleringAfpOffentligAlert: React.FC<Props> = ({
     }
   }
 
-  // Viser ikke alert hvis kallet aldri ble forsøkt (query ble skippet)
-  if (
-    !harSamtykketOffentligAFP ||
-    !foedselsdato ||
-    !isAlderOver62(foedselsdato)
-  ) {
-    return null
-  }
+  const afpOffentligAlert = useAfpOffentligAlerts({
+    harSamtykketOffentligAFP,
+    isAfpOffentligLivsvarigSuccess,
+    loependeLivsvarigAfpOffentlig,
+  })
 
-  // Viser ikke alert hvis bruker ikke har vedtak om afp offentlig
-  if (
-    isAfpOffentligLivsvarigSuccess &&
-    loependeLivsvarigAfpOffentlig?.afpStatus === false
-  ) {
-    return null
-  }
-
-  // Viser ikke alert hvis bruker ikke har løpende livsvarig afp offentlig
-  // Håndterer også tilfelle hvor backend returnerer tom respons (undefined/null verdier)
-  if (
-    isAfpOffentligLivsvarigSuccess &&
-    !loependeLivsvarigAfpOffentlig?.afpStatus &&
-    !loependeLivsvarigAfpOffentlig?.maanedligBeloep
-  ) {
-    return null
-  }
-
-  // Vellykket kall
-  if (
-    loependeLivsvarigAfpOffentlig?.afpStatus &&
-    loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
-    loependeLivsvarigAfpOffentlig?.maanedligBeloep > 0
-  ) {
-    const alertText = 'beregning.alert.info.afp-offentlig-livsvarig'
-
-    logger(ALERT_VIST, {
-      tekst: `AFP Offentlig: ${intl.formatMessage({ id: alertText })}`,
-      variant: 'info',
-    })
-
+  if (afpOffentligAlert?.variant === 'info') {
     return (
       <Alert
         variant="info"
         data-testid="alert-afp-offentlig-livsvarig-info"
-        data-intl={alertText}
+        data-intl={afpOffentligAlert.text}
         className={styles.alert}
       >
         <FormattedMessage
-          id={alertText}
+          id={afpOffentligAlert.text}
           values={{
             // eslint-disable-next-line react/no-unstable-nested-components
             scrollTo: (chunk) => (
@@ -113,54 +73,17 @@ export const SimuleringAfpOffentligAlert: React.FC<Props> = ({
     )
   }
 
-  // Kall feilet
-  if (
-    !isAfpOffentligLivsvarigSuccess ||
-    (loependeLivsvarigAfpOffentlig?.afpStatus &&
-      loependeLivsvarigAfpOffentlig?.maanedligBeloep === 0)
-  ) {
-    const alertText = 'beregning.alert.feil.afp-offentlig-livsvarig'
-
-    logger(ALERT_VIST, {
-      tekst: `AFP Offentlig: ${intl.formatMessage({ id: alertText })}`,
-      variant: 'warning',
-    })
-
+  if (afpOffentligAlert?.variant === 'warning') {
     return (
       <Alert
         variant="warning"
-        data-testid="alert-afp-offentlig-livsvarig-failed"
-        data-intl={alertText}
+        data-testid={`${afpOffentligAlert?.dataTestId ?? 'alert-afp-offentlig-livsvarig-failed'}`}
+        data-intl={afpOffentligAlert.text}
         className={styles.alert}
       >
-        <FormattedMessage id={alertText} />
+        <FormattedMessage id={afpOffentligAlert.text} />
       </Alert>
     )
   }
-
-  // Kall var vellykket, men beløp er ikke definert
-  if (
-    isAfpOffentligLivsvarigSuccess &&
-    !loependeLivsvarigAfpOffentlig?.maanedligBeloep
-  ) {
-    const alertText = 'beregning.alert.success.afp-offentlig-livsvarig'
-
-    logger(ALERT_VIST, {
-      tekst: `AFP Offentlig: ${intl.formatMessage({ id: alertText })}`,
-      variant: 'warning',
-    })
-
-    return (
-      <Alert
-        variant="warning"
-        data-testid="alert-afp-offentlig-livsvarig-success"
-        data-intl={alertText}
-        className={styles.alert}
-      >
-        <FormattedMessage id={alertText} />
-      </Alert>
-    )
-  }
-
   return null
 }

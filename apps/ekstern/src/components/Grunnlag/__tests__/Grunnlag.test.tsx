@@ -60,7 +60,7 @@ describe('Grunnlag', () => {
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(6)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(
-      await screen.findByText('grunnlag2.endre_inntekt.title')
+      await screen.findByText('Årlig inntekt frem til uttak:')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
     expect(
@@ -107,14 +107,14 @@ describe('Grunnlag', () => {
     it('vises i enkel visning', async () => {
       renderGrunnlagMedPreloadedState('2', 'enkel')
       expect(
-        screen.queryByText('grunnlag2.endre_inntekt.title')
+        screen.queryByText('Årlig inntekt frem til uttak:')
       ).toBeInTheDocument()
     })
 
     it('vises ikke avansert visning', async () => {
       renderGrunnlagMedPreloadedState('2', 'avansert')
       expect(
-        screen.queryByText('grunnlag2.endre_inntekt.title')
+        screen.queryByText('Årlig inntekt frem til uttak:')
       ).not.toBeInTheDocument()
     })
   })

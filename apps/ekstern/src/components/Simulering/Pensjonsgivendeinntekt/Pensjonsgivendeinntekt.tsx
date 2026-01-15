@@ -37,7 +37,15 @@ export const Pensjonsgivendeinntekt: React.FC<Props> = ({ goToAvansert }) => {
         size="small"
         data-testid="grunnlag2.endre_inntekt.title"
       >
-        <FormattedMessage id="grunnlag2.endre_inntekt.title" />
+        <FormattedMessage
+          id="grunnlag2.endre_inntekt.title"
+          values={{
+            ...getFormatMessageValues(),
+            beloep:
+              aarligInntektFoerUttakBeloepFraBrukerInput ??
+              aarligInntektFoerUttakBeloepFraSkatt?.beloep,
+          }}
+        />
       </Heading>
 
       <BodyLong

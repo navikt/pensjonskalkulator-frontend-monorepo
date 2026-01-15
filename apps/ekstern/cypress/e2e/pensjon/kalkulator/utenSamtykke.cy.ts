@@ -45,7 +45,7 @@ describe('Uten samtykke', () => {
         it('forventer jeg å få informasjon om inntekten og pensjonen min for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
           cy.contains('button', '70').click()
           cy.contains('Om inntekten og pensjonen din').should('exist')
-          cy.contains('Pensjonsgivende inntekt frem til uttak').should('exist')
+          cy.contains('Årlig inntekt frem til uttak:').should('exist')
           cy.contains('AFP:').should('exist')
           cy.contains('Sivilstand:').click({ force: true })
           cy.contains('Opphold utenfor Norge:').click({ force: true })

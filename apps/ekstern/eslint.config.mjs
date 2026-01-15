@@ -123,6 +123,7 @@ export default [
       ...vitest.configs.recommended.rules,
       'vitest/valid-title': 'off',
       'vitest/expect-expect': 'off',
+      'vitest/no-standalone-expect': 'off',
       'vitest/no-identical-title': 'off',
       'vitest/no-commented-out-tests': 'warn',
       '@typescript-eslint/ban-ts-comment': 'off', // Fjern når @ts-ignore ikke lenger er i bruk i testkode

@@ -10,6 +10,20 @@ import { BodyLong, BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
 import { TabellVisning } from '@/components/TabellVisning'
 import { BeregningContext } from '@/pages/Beregning/context'
 import {
+  getAfpOffentligAlertsText,
+  getOffentligTjenestePensjonAlertsText,
+  getOmstillingsstoenadAlert,
+  getPrivatePensjonsavtalerAlertsText,
+} from '@/pdf-view/alerts'
+import { getChartTable } from '@/pdf-view/chartTable'
+import { getForbeholdAvsnitt } from '@/pdf-view/forbehold'
+import { getGrunnlagIngress } from '@/pdf-view/grunnlag'
+import { getPdfHeader } from '@/pdf-view/header'
+import { getUtenlandsOppholdIngress } from '@/pdf-view/opphold'
+import { getPensjonsavtaler } from '@/pdf-view/pensjonsavtaler'
+import { getSivilstandIngress } from '@/pdf-view/sivilstand'
+import { getTidligstMuligUttakIngress } from '@/pdf-view/tidligtMuligUttak'
+import {
   useGetAfpOffentligLivsvarigQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetPersonQuery,
@@ -20,6 +34,7 @@ import { isOffentligTpFoer1963 } from '@/state/api/typeguards'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
+  selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAfp,
   selectAfpUtregningValg,
@@ -28,6 +43,7 @@ import {
   selectEpsHarPensjon,
   selectErApoteker,
   selectFoedselsdato,
+  selectHarUtenlandsopphold,
   selectIsEndring,
   selectLoependeVedtak,
   selectSamtykke,
@@ -35,14 +51,26 @@ import {
   selectSivilstand,
   selectSkalBeregneAfpKap19,
   selectUfoeregrad,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, isAlderOver62 } from '@/utils/alder'
 import {
   useTidligstMuligUttak,
   useTidligstMuligUttakConditions,
 } from '@/utils/hooks/useTidligstMuligUttakData'
+import { formatSivilstand } from '@/utils/sivilstand'
 
+import { PRINT_STYLES } from '../../pdf-view/printStyles'
 import { generateAfpContent } from '../Grunnlag/GrunnlagAFP/utils'
+import {
+  useOppholdUtenforNorge,
+  useSortedUtenlandsperioder,
+} from '../Grunnlag/GrunnlagUtenlandsopphold/hooks'
+import {
+  useOffentligTjenestePensjonAlertList,
+  usePrivatePensjonsAvtalerAlertList,
+} from '../Pensjonsavtaler/hooks'
+import { groupPensjonsavtalerByType } from '../Pensjonsavtaler/utils'
 import { useTableData } from '../TabellVisning/hooks'
 import { useBeregningsdetaljer } from './BeregningsdetaljerForOvergangskull/hooks'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
@@ -50,16 +78,11 @@ import { SimuleringAfpOffentligAlert } from './SimuleringAfpOffentligAlert/Simul
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
-import { useOffentligTpData, useSimuleringChartLocalState } from './hooks'
 import {
-  getChartTable,
-  getCurrentDateTimeFormatted,
-  getForbeholdAvsnitt,
-  getGrunnlagIngress,
-  getOmstillingsstoenadAlert,
-  getPdfHeadingWithLogo,
-  getTidligstMuligUttakIngressContent,
-} from './pdf-utils'
+  useAfpOffentligAlerts,
+  useOffentligTpData,
+  useSimuleringChartLocalState,
+} from './hooks'
 
 import styles from './Simulering.module.scss'
 
@@ -76,6 +99,7 @@ interface Props {
   detaljer?: {
     trygdetid?: number
     opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
+    harForLiteTrygdetid?: boolean
   }
   visning?: BeregningVisning
 }
@@ -89,6 +113,7 @@ export const Simulering = ({
   afpPrivatListe,
   afpOffentligListe,
   alderspensjonMaanedligVedEndring,
+  detaljer,
   showButtonsAndTable,
   visning,
 }: Props) => {
@@ -101,6 +126,11 @@ export const Simulering = ({
   const isEndring = useAppSelector(selectIsEndring)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
+  const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
+  const sortedUtenlandsperioder = harUtenlandsopphold
+    ? useSortedUtenlandsperioder(utenlandsperioder)
+    : []
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
   const erApoteker = useAppSelector(selectErApoteker)
@@ -109,6 +139,9 @@ export const Simulering = ({
   const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afpUtregningValg = useAppSelector(selectAfpUtregningValg)
   const { beregningsvalg } = useAppSelector(selectCurrentSimulation)
+  const oppholdUtenforNorge = useOppholdUtenforNorge({
+    harForLiteTrygdetid: detaljer?.harForLiteTrygdetid,
+  })
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
     PensjonsavtalerRequestBody | undefined
@@ -218,21 +251,17 @@ export const Simulering = ({
   const { data: tidligstMuligUttak } = useTidligstMuligUttak(ufoeregrad)
   const { data: omstillingsstoenadOgGjenlevende } =
     useGetOmstillingsstoenadOgGjenlevendeQuery()
-  useEffect(() => {
-    window.addEventListener('beforeprint', () => {
-      const locationUrl = window.location.href
-      if (locationUrl.includes('beregning') && showPDF?.enabled) {
-        handlePDF()
-      }
-    })
-    return () => {
-      window.removeEventListener('beforeprint', handlePDF)
-    }
-  })
 
-  const isSafari = (): boolean => {
-    return /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent)
-  }
+  const handlePDFRef = useRef<(() => void) | null>(null)
+
+  // Detect mobile once - user agent doesn't change during session
+  const isMobile = React.useMemo(
+    () =>
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        window.navigator.userAgent
+      ),
+    []
+  )
 
   const {
     normertPensjonsalder,
@@ -269,36 +298,47 @@ export const Simulering = ({
     selectAarligInntektFoerUttakBeloepFraSkatt
   )
 
-  const handlePDF = () => {
-    const appContentElement = document.getElementById('app-content')
-    if (appContentElement) {
-      appContentElement.classList.add('hideAppContent')
-    }
+  const privatPensjonsAvtalerAlertsList = usePrivatePensjonsAvtalerAlertList({
+    isPartialResponse: pensjonsavtalerData?.partialResponse || false,
+    isError: isPensjonsavtalerError,
+    isSuccess: isPensjonsavtalerSuccess,
+    headingLevel,
+    privatePensjonsavtaler: pensjonsavtalerData?.avtaler,
+  })
 
-    const printContentElement = document.getElementById('print-content')
-    if (printContentElement) {
-      printContentElement.classList.add('showPrintContent')
-    }
-    const pdfHeadingWithLogo = getPdfHeadingWithLogo(isEnkel)
+  const offentligTjenestePensjonsAvtalerAlertsList =
+    useOffentligTjenestePensjonAlertList({
+      isError: isOffentligTpError,
+      offentligTp,
+    })
 
-    const personalInfo = `<div 
-      class="pdf-metadata"
-    >
-      ${person?.navn}
-      <span 
-        style="padding: 0 8px; font-size: 16px; font-weight: 800;"
-      >\u2022</span>
-      Dato opprettet: ${getCurrentDateTimeFormatted()}
-    </div>`
+  const afpOffentligAlertsList = useAfpOffentligAlerts({
+    harSamtykketOffentligAFP,
+    isAfpOffentligLivsvarigSuccess,
+    loependeLivsvarigAfpOffentlig,
+  })
+
+  const formatertSivilstand = React.useMemo(
+    () => formatSivilstand(intl, sivilstand!),
+    [sivilstand]
+  )
+
+  const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
+  )
+  const generatePdfContent = () => {
+    const pdfHeader = getPdfHeader({ isEnkel, person })
 
     const forbeholdAvsnitt = getForbeholdAvsnitt(intl)
 
     const uttakstidspunkt = uttaksalder && formatUttaksalder(intl, uttaksalder)
-    const helUttaksAlder = `<h2>Beregning av 100 % alderspensjon ved ${uttakstidspunkt} </h2>`
+    const helUttaksAlder = isEnkel
+      ? `<h2>Beregning av 100 % alderspensjon ved ${uttakstidspunkt} </h2>`
+      : ''
     const chartTableWithHeading = getChartTable({ tableData, intl })
 
     const tidligstMuligUttakIngress = isEnkel
-      ? getTidligstMuligUttakIngressContent({
+      ? getTidligstMuligUttakIngress({
           intl,
           normertPensjonsalder,
           nedreAldersgrense,
@@ -315,15 +355,18 @@ export const Simulering = ({
       omstillingsstoenadOgGjenlevende?.harLoependeSak
         ? getOmstillingsstoenadAlert(intl, normertPensjonsalder)
         : ''
+
     const shouldHideAfpHeading = Boolean(
       afpDetaljerListe.length > 0 &&
       loependeLivsvarigAfpOffentlig?.afpStatus &&
       loependeLivsvarigAfpOffentlig?.maanedligBeloep
     )
+
     const grunnlagIngress = getGrunnlagIngress({
       intl,
       alderspensjonDetaljerListe: alderspensjonDetaljerListe,
       aarligInntektFoerUttakBeloepFraSkatt,
+      aarligInntektFoerUttakBeloepFraBrukerInput,
       afpDetaljerListe,
       title,
       content,
@@ -333,51 +376,193 @@ export const Simulering = ({
       shouldHideAfpHeading,
     })
 
-    const finalPdfContent =
-      pdfHeadingWithLogo +
-      personalInfo +
+    const gruppertePensjonsavtaler = pensjonsavtalerData?.avtaler
+      ? groupPensjonsavtalerByType(pensjonsavtalerData?.avtaler)
+      : undefined
+
+    const privatePensjonsavtalerAlertsMessage =
+      getPrivatePensjonsavtalerAlertsText({
+        pensjonsavtalerAlertsList: privatPensjonsAvtalerAlertsList,
+        intl,
+      })
+
+    const offentligTjenestePensjonAlertsMessage =
+      getOffentligTjenestePensjonAlertsText({
+        offentligTpAlertsList: offentligTjenestePensjonsAvtalerAlertsList,
+        offentligTp,
+        intl,
+      })
+
+    const afpOffentligAlertsMessage = afpOffentligAlertsList
+      ? getAfpOffentligAlertsText({
+          afpOffentligAlertsList,
+          intl,
+        })
+      : ''
+
+    const pensjonsavtaler = harSamtykket
+      ? getPensjonsavtaler({
+          intl,
+          privatePensjonsAvtaler: gruppertePensjonsavtaler,
+          offentligTp,
+        })
+      : `<h3>Pensjonsavtaler (arbeidsgivere m.m.)</h3>${intl.formatMessage({ id: 'pensjonsavtaler.ingress.error.samtykke_ingress' })}`
+
+    const omDegIngress = `<h2>${intl.formatMessage({ id: 'om_deg.title' })}</h2>
+        ${getSivilstandIngress({ intl, formatertSivilstand })}
+        ${getUtenlandsOppholdIngress({ intl, oppholdUtenforNorge, sortedUtenlandsperioder })}`
+
+    return (
+      pdfHeader +
       forbeholdAvsnitt +
       tidligstMuligUttakIngress +
       omstillingsstoenadAlert +
       helUttaksAlder +
       chartTableWithHeading +
-      grunnlagIngress
+      grunnlagIngress +
+      pensjonsavtaler +
+      afpOffentligAlertsMessage +
+      privatePensjonsavtalerAlertsMessage +
+      offentligTjenestePensjonAlertsMessage +
+      omDegIngress
+    )
+  }
 
-    // Set the print content in the hidden div
-    const printContentDiv = document.getElementById('print-content')
-    if (printContentDiv) {
-      printContentDiv.innerHTML = finalPdfContent
+  // Prepare mobile print content (used by both button and native browser print)
+  const prepareMobilePrintContent = () => {
+    const appContentElement = document.getElementById('app-content')
+    const printContentElement = document.getElementById('print-content')
+
+    // Skip if already prepared
+    if (printContentElement?.classList.contains('showPrintContent')) {
+      return
+    }
+
+    const finalPdfContent = generatePdfContent()
+
+    if (appContentElement) {
+      appContentElement.classList.add('hideAppContent')
+    }
+
+    if (printContentElement) {
+      printContentElement.classList.add('showPrintContent')
+      printContentElement.innerHTML = `<style>${PRINT_STYLES}</style>${finalPdfContent}`
     }
 
     const documentTitle = document.title
-    document.title = '' // Ikke vis document title i print preview/PDF
+    document.title = ''
 
-    window.onafterprint = () => {
-      if (printContentDiv) {
-        // Reset to original content after printing
-        printContentDiv.innerHTML = ''
-        document.title = documentTitle
+    const cleanup = () => {
+      if (printContentElement) {
+        printContentElement.innerHTML = ''
+        printContentElement.classList.remove('showPrintContent')
       }
+      if (appContentElement) {
+        appContentElement.classList.remove('hideAppContent')
+      }
+      document.title = documentTitle
+      window.removeEventListener('afterprint', cleanup)
     }
 
-    if (isSafari()) {
-      setTimeout(() => window.print(), 100)
-    } else {
-      window.print()
-    }
+    window.addEventListener('afterprint', cleanup)
   }
 
-  const handlePDFRef = useRef(handlePDF)
+  const prepareMobilePrintContentRef = useRef(prepareMobilePrintContent)
+  prepareMobilePrintContentRef.current = prepareMobilePrintContent
+
+  const handlePDF = () => {
+    // Mobile: Use div replacement approach (works better on mobile)
+    if (isMobile) {
+      prepareMobilePrintContent()
+
+      setTimeout(() => {
+        window.print()
+      }, 100)
+
+      return
+    }
+
+    // Desktop: Use popup window approach (avoids mc-ref artifacts for JAWS users)
+    const finalPdfContent = generatePdfContent()
+    const printWindow = window.open('', 'printWindow', 'status')
+    if (!printWindow) {
+      console.error('Could not open print window - popup may be blocked')
+      return
+    }
+
+    // Set document content using modern DOM APIs instead of deprecated document.write
+    const doc = printWindow.document
+    doc.documentElement.innerHTML = `
+      <head>
+        <meta charset="UTF-8">
+  
+        <title>Pensjonskalkulator beregning</title>
+        <style>${PRINT_STYLES}</style>
+      </head>
+      <body>
+        <div class="print-overlay">Laster ...</div>
+        ${finalPdfContent}
+      </body>
+    `
+    doc.documentElement.setAttribute('lang', 'nb')
+
+    // Close window immediately when print dialog closes (print or cancel)
+    printWindow.onafterprint = () => {
+      printWindow.close()
+    }
+
+    // Wait for fonts to load before printing to ensure consistent font rendering
+    printWindow.document.fonts.ready.then(() => {
+      printWindow.focus()
+      printWindow.print()
+    })
+  }
 
   useEffect(() => {
     handlePDFRef.current = handlePDF
   })
 
+  useEffect(() => {
+    const locationUrl = window.location.href
+    if (!locationUrl.includes('beregning') || !showPDF?.enabled) {
+      return
+    }
+
+    // Intercept Cmd+P / Ctrl+P to use our custom print
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
+        e.preventDefault()
+        e.stopPropagation()
+        e.stopImmediatePropagation()
+        handlePDFRef.current?.()
+        return false
+      }
+    }
+
+    // On mobile, intercept native browser print via beforeprint event
+    const handleBeforePrint = () => {
+      prepareMobilePrintContentRef.current?.()
+    }
+
+    window.addEventListener('keydown', handleKeyDown, true)
+
+    if (isMobile) {
+      window.addEventListener('beforeprint', handleBeforePrint)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown, true)
+      if (isMobile) {
+        window.removeEventListener('beforeprint', handleBeforePrint)
+      }
+    }
+  }, [showPDF?.enabled, isMobile])
+
   // Set up the context ref connection
   useEffect(() => {
     if (showPDFRef) {
       showPDFRef.current = {
-        handlePDF: () => handlePDFRef.current(),
+        handlePDF: () => handlePDFRef.current?.(),
       }
       setIsPdfReady?.(true)
     }

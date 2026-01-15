@@ -185,7 +185,7 @@ export function SamtykkePensjonsavtaler({
           jaPensjonsavtaler === false && (
             <Alert
               data-testid="samtykke-pensjonsavtaler-alert"
-              className={styles.pensjonsavtaleAlert as string}
+              className={styles.pensjonsavtaleAlert}
               variant="info"
               size="medium"
             >

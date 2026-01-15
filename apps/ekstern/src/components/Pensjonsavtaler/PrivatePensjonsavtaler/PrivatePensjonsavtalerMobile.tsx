@@ -11,6 +11,7 @@ import {
 import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
+import { useNextHeadingLevel } from '../hooks'
 import { groupPensjonsavtalerByType } from '../utils'
 
 import styles from './PrivatePensjonsavtalerMobile.module.scss'
@@ -28,11 +29,7 @@ const AvtaleGruppe: React.FC<AvtaleGruppeProps> = ({
 }) => {
   const intl = useIntl()
 
-  const subHeadingLevel = headingLevel
-    ? ((
-        parseInt(headingLevel as string, 10) + 1
-      ).toString() as HeadingProps['level'])
-    : '4'
+  const subHeadingLevel = useNextHeadingLevel(headingLevel)
 
   return (
     <VStack gap="3">

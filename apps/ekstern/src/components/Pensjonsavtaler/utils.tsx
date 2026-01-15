@@ -1,3 +1,5 @@
+import { HeadingProps } from '@navikt/ds-react'
+
 import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 export const groupPensjonsavtalerByType = (
@@ -18,4 +20,12 @@ export const groupPensjonsavtalerByType = (
     }
   }
   return record
+}
+
+export interface PrivatePensjonsavtalerProps {
+  isPartialResponse: boolean
+  isError?: boolean
+  isSuccess: boolean
+  headingLevel: HeadingProps['level']
+  privatePensjonsavtaler?: Pensjonsavtale[]
 }

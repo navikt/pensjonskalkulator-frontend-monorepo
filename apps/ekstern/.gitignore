@@ -21,6 +21,7 @@ overrides.env
 analice.html
 vite.config.ts.*
 .sanity
+*.module.d.scss.ts
 
 # Editor directories and files
 .vscode/*

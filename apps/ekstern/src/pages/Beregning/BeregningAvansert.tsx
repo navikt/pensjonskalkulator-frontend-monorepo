@@ -360,6 +360,7 @@ export const BeregningAvansert = () => {
                       trygdetid: alderspensjon?.trygdetid,
                       opptjeningsgrunnlag:
                         alderspensjon?.opptjeningGrunnlagListe,
+                      harForLiteTrygdetid: alderspensjon?.harForLiteTrygdetid,
                     }
                   : undefined
               }

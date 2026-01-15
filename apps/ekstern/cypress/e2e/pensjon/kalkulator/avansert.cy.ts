@@ -25,7 +25,7 @@ describe('Avansert', () => {
         )
         cy.contains('Enkel').click()
         cy.contains('button', '70').click()
-        cy.contains('Pensjonsgivende inntekt frem til uttak')
+        cy.contains('Årlig inntekt frem til uttak:')
         cy.contains('avansert kalkulator').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
           'exist'
