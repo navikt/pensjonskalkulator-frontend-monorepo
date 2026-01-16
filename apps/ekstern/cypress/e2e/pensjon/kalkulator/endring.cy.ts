@@ -14,7 +14,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_endring.json' }
         ).as('fetchAlderspensjon')
@@ -93,7 +93,7 @@ describe('Endring av alderspensjon', () => {
             cy.intercept(
               {
                 method: 'POST',
-                url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+                url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
               },
               { fixture: 'alderspensjon_endring.json' }
             ).as('fetchAlderspensjon')
@@ -544,7 +544,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_endring.json' }
         ).as('fetchAlderspensjon')
@@ -1024,7 +1024,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_endring.json' }
         ).as('fetchAlderspensjon')
@@ -1331,7 +1331,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_endring.json' }
         ).as('fetchAlderspensjon')
@@ -1617,7 +1617,7 @@ describe('Endring av alderspensjon', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_endring.json' }
         ).as('fetchAlderspensjon')

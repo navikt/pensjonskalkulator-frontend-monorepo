@@ -1,4 +1,5 @@
 import eslint from '@eslint/js'
+import vitest from '@vitest/eslint-plugin'
 import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
 import sonarjsPlugin from 'eslint-plugin-sonarjs'
@@ -25,6 +26,7 @@ const ignoredFiles = [
   'playwright.config.ts',
   '**/mockServiceWorker.js',
   '**/cypress',
+  'playwright/**',
   'public/src/nais.js',
   'scripts/FetchLandListe.js',
   'sanity.cli.ts',
@@ -46,6 +48,9 @@ const defaultEslintConfig = tseslint.config(
 )
 
 export default [
+  {
+    ignores: ['playwright/**/*'],
+  },
   ...defaultEslintConfig,
   {
     settings: { react: { version: 'detect' } }, // eslint-plugin-react needs this
@@ -87,10 +92,6 @@ export default [
       'import/no-extraneous-dependencies': 'error',
       'import/no-duplicates': 'error',
       // SonarJS rules
-      'sonarjs/no-duplicate-string': 'error',
-      'sonarjs/no-identical-functions': 'error',
-      'sonarjs/no-redundant-boolean': 'warn',
-      'sonarjs/no-unused-collection': 'error',
       'sonarjs/no-useless-catch': 'warn',
       'sonarjs/prefer-immediate-return': 'warn',
       'sonarjs/no-collapsible-if': 'error',
@@ -110,8 +111,21 @@ export default [
       '**/cypress/**/*.tsx',
       '**/*.cy.ts',
       '**/*.cy.tsx',
+      '**/*.spec.ts',
+      '**/*.spec.tsx',
+      '**/playwright/**/*.ts',
+      '**/playwright/**/*.tsx',
     ],
+    plugins: {
+      vitest,
+    },
     rules: {
+      ...vitest.configs.recommended.rules,
+      'vitest/valid-title': 'off',
+      'vitest/expect-expect': 'off',
+      'vitest/no-standalone-expect': 'off',
+      'vitest/no-identical-title': 'off',
+      'vitest/no-commented-out-tests': 'warn',
       '@typescript-eslint/ban-ts-comment': 'off', // Fjern når @ts-ignore ikke lenger er i bruk i testkode
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-floating-promises': [
@@ -131,6 +145,11 @@ export default [
       'sonarjs/cognitive-complexity': 'off',
       'sonarjs/no-identical-functions': 'off',
       'sonarjs/prefer-immediate-return': 'off',
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
   // Mock files configuration

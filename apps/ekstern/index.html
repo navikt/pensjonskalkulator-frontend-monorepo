@@ -20,15 +20,18 @@
     <title>Pensjonskalkulator - Pensjon</title>
   </head>
   <body>
-    <div id="decorator-header"></div>
-    <main id="maincontent" tabindex="-1">
-      <div id="root"></div>
-    </main>
-    <div id="decorator-footer"></div>
-    <div
-      id="decorator-env"
-      data-src="%VITE_DECORATOR_URL%/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/selvbetjening/dinpensjon"
-    ></div>
+    <div id="print-content"></div>
+    <div id="app-content">
+      <div id="decorator-header"></div>
+      <main id="maincontent" tabindex="-1">
+        <div id="root"></div>
+      </main>
+      <div id="decorator-footer"></div>
+      <div
+        id="decorator-env"
+        data-src="%VITE_DECORATOR_URL%/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start"
+      ></div>
+    </div>
     <script type="module" src="/src/main.tsx" defer></script>
     <script type="module">
       // Wait for MSW to be ready before loading external scripts in development

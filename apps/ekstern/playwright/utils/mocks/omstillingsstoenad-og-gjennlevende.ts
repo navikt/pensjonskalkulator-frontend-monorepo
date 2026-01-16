@@ -14,7 +14,7 @@ export const omstillingsstoenadOgGjenlevende = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v1\/loepende-omstillingsstoenad-eller-gjenlevendeytelse/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...omstillingsstoenadOgGjenlevendeMock,
       ...options,
     },

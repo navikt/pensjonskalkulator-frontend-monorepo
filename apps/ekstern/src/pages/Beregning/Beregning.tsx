@@ -1,15 +1,17 @@
 import clsx from 'clsx'
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import { DownloadIcon } from '@navikt/aksel-icons'
+import { BodyLong, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
 import { InfoOmFremtidigVedtak } from '@/components/InfoOmFremtidigVedtak'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
+import { useGetShowDownloadPdfFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
@@ -18,7 +20,9 @@ import {
   selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
+  selectSamtykke,
   selectSkalBeregneAfpKap19,
+  selectSkalBeregneKunAlderspensjon,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { BeregningVisning } from '@/types/common-types'
@@ -32,7 +36,7 @@ import { logger } from '@/utils/logging'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
-import { AvansertBeregningModus, BeregningContext } from './context'
+import { AvansertBeregningModus, BeregningContext, ShowPDFRef } from './context'
 
 import styles from './Beregning.module.scss'
 
@@ -54,10 +58,15 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     React.useState<AvansertBeregningModus>('redigering')
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
     React.useState<boolean>(false)
+  const [isPdfReady, setIsPdfReady] = React.useState(false)
 
   const isEndring = useAppSelector(selectIsEndring)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
+  const harSamtykketPensjonsavtaler = useAppSelector(selectSamtykke)
+  const skalBeregneKunAlderspensjon = useAppSelector(
+    selectSkalBeregneKunAlderspensjon
+  )
   const afp = useAppSelector(selectAfp)
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
@@ -82,7 +91,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     const onPopState = () => {
       // TODO: fjern når amplitude er ikke i bruk lenger
       logger(MODAL_AAPNET, {
-        // eslint-disable-next-line sonarjs/no-duplicate-string
         tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       logger(MODAL_AAPNET, {
@@ -156,7 +164,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }
 
   const pensjonsavtalerShowMoreRef = React.useRef<ShowMoreRef>(null)
-
+  const showPDFRef = React.useRef<ShowPDFRef>(null)
+  const { data: showPDF } = useGetShowDownloadPdfFeatureToggleQuery()
   return (
     <BeregningContext.Provider
       value={{
@@ -165,6 +174,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         harAvansertSkjemaUnsavedChanges,
         setHarAvansertSkjemaUnsavedChanges,
         pensjonsavtalerShowMoreRef,
+        showPDFRef,
+        setIsPdfReady,
       }}
     >
       <Modal
@@ -228,44 +239,62 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <InfoOmFremtidigVedtak loependeVedtak={loependeVedtak} />
         </div>
 
-        <div className={styles.container}>
-          <div className={styles.alert}>
-            <ApotekereWarning
-              showWarning={Boolean(
-                afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
-              )}
-            />
-          </div>
-        </div>
-
-        {!isEndring && !skalBeregneAfpKap19 && (
-          <div className={styles.toggle}>
-            <div className={styles.container} data-testid="toggle-avansert">
-              <ToggleGroup
-                value={visning}
-                variant="neutral"
-                onChange={onToggleChange}
-              >
-                <ToggleGroup.Item value="enkel">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.enkel',
-                  })}
-                </ToggleGroup.Item>
-
-                <ToggleGroup.Item value="avansert">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.avansert',
-                  })}
-                </ToggleGroup.Item>
-              </ToggleGroup>
+        {afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963 && (
+          <div className={styles.container}>
+            <div className={styles.alert}>
+              <ApotekereWarning
+                showWarning={Boolean(
+                  afp === 'ja_offentlig' && hasErApotekerError && foedtEtter1963
+                )}
+              />
             </div>
           </div>
         )}
+        {!isEndring &&
+          !skalBeregneAfpKap19 &&
+          !(skalBeregneKunAlderspensjon && harSamtykketPensjonsavtaler) && (
+            <div className={styles.toggle}>
+              <div className={styles.container} data-testid="toggle-avansert">
+                <ToggleGroup
+                  value={visning}
+                  variant="neutral"
+                  onChange={onToggleChange}
+                >
+                  <ToggleGroup.Item value="enkel">
+                    {intl.formatMessage({
+                      id: 'beregning.toggle.enkel',
+                    })}
+                  </ToggleGroup.Item>
 
+                  <ToggleGroup.Item value="avansert">
+                    {intl.formatMessage({
+                      id: 'beregning.toggle.avansert',
+                    })}
+                  </ToggleGroup.Item>
+                </ToggleGroup>
+              </div>
+            </div>
+          )}
         {visning === 'enkel' && <BeregningEnkel />}
-
         {visning === 'avansert' && <BeregningAvansert />}
-
+        {isPdfReady && showPDF?.enabled && (
+          <div className={styles.container}>
+            <section className={styles.section}>
+              <BodyLong size="medium" className={styles.text}>
+                {intl.formatMessage({ id: 'beregning.pdf.ingress' })}
+              </BodyLong>
+              <Button
+                variant="secondary"
+                icon={<DownloadIcon aria-hidden />}
+                onClick={() => {
+                  showPDFRef.current?.handlePDF()
+                }}
+              >
+                <FormattedMessage id="beregning.pdf.button" />
+              </Button>
+            </section>
+          </div>
+        )}
         <div className={clsx(styles.background, styles.background__lightblue)}>
           <div className={styles.container}>
             <LightBlueFooter />

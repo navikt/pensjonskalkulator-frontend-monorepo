@@ -25,7 +25,7 @@ describe('Avansert', () => {
         )
         cy.contains('Enkel').click()
         cy.contains('button', '70').click()
-        cy.contains('Pensjonsgivende inntekt frem til uttak')
+        cy.contains('Årlig inntekt frem til uttak:')
         cy.contains('avansert kalkulator').click({ force: true })
         cy.contains('Pensjonsgivende årsinntekt frem til pensjon').should(
           'exist'
@@ -380,7 +380,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -407,7 +407,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -430,7 +430,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -453,7 +453,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -479,7 +479,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -519,7 +519,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon.json' }
         ).as('fetchAlderspensjon')
@@ -681,7 +681,7 @@ describe('Avansert', () => {
         cy.get(
           '[data-testid="age-picker-uttaksalder-gradert-uttak-maaneder"]'
         ).should('have.value', '3')
-        cy.get('[data-testid="uttaksgrad"]').should('have.value', '40 %')
+        cy.get('[data-testid="uttaksgrad"]').should('have.value', '40')
         cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').should(
           'be.checked'
         )

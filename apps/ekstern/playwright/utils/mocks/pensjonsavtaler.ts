@@ -22,7 +22,8 @@ export const pensjonsavtaler = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v3\/pensjonsavtaler/,
-    jsonResponse: {
+    method: 'POST',
+    overrideJsonResponse: {
       ...pensjonsavtalerMock,
       ...overrides,
     },

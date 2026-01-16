@@ -103,7 +103,7 @@ describe('StepSamtykkeOffentligAFP', () => {
           },
         },
       })
-      expect(await screen.findAllByRole('button')).toHaveLength(2)
+      expect(await screen.findAllByRole('button')).toHaveLength(4)
     })
   })
 })

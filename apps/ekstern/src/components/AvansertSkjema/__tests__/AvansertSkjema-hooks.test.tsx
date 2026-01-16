@@ -34,6 +34,8 @@ describe('AvansertSkjema-hooks', () => {
       },
       normertPensjonsalder: { aar: 67, maaneder: 0 },
       afpInntektMaanedFoerUttak: null,
+      stillingsprosentVsaGradertPensjon: null,
+      stillingsprosentVsaHelPensjon: null,
     }
 
     const wrapper = ({ children }: { children: React.ReactNode }) => {
@@ -73,6 +75,8 @@ describe('AvansertSkjema-hooks', () => {
           normertPensjonsalder: { aar: 67, maaneder: 0 },
           afpInntektMaanedFoerUttak: null,
           beregningsvalg: null,
+          stillingsprosentVsaGradertPensjon: null,
+          stillingsprosentVsaHelPensjon: null,
         },
       })
 
@@ -203,13 +207,7 @@ describe('AvansertSkjema-hooks', () => {
         // muligeUttaksgrad
         expect(result.current.muligeUttaksgrad).toHaveLength(7)
         expect(result.current.muligeUttaksgrad).toStrictEqual([
-          '0 %',
-          '20 %',
-          '40 %',
-          '50 %',
-          '60 %',
-          '80 %',
-          '100 %',
+          0, 20, 40, 50, 60, 80, 100,
         ])
       })
     })
@@ -791,10 +789,7 @@ describe('AvansertSkjema-hooks', () => {
 
           // muligeUttaksgrad
           expect(result.current.muligeUttaksgrad).toHaveLength(2)
-          expect(result.current.muligeUttaksgrad).toStrictEqual([
-            '20 %',
-            '40 %',
-          ])
+          expect(result.current.muligeUttaksgrad).toStrictEqual([20, 40])
         })
 
         it('Når beregningsvalg=med_afp avgrenses ikke muligeUttaksgrad selv om uttaksalder endres til en alder før normert pensjonsalder', async () => {
@@ -824,12 +819,7 @@ describe('AvansertSkjema-hooks', () => {
           // muligeUttaksgrad
           expect(result.current.muligeUttaksgrad).toHaveLength(6)
           expect(result.current.muligeUttaksgrad).toStrictEqual([
-            '20 %',
-            '40 %',
-            '50 %',
-            '60 %',
-            '80 %',
-            '100 %',
+            20, 40, 50, 60, 80, 100,
           ])
         })
 
@@ -859,11 +849,7 @@ describe('AvansertSkjema-hooks', () => {
 
           // muligeUttaksgrad
           expect(result.current.muligeUttaksgrad).toHaveLength(3)
-          expect(result.current.muligeUttaksgrad).toStrictEqual([
-            '0 %',
-            '20 %',
-            '40 %',
-          ])
+          expect(result.current.muligeUttaksgrad).toStrictEqual([0, 20, 40])
         })
 
         it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før normert pensjonsalder som gjør denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
@@ -917,6 +903,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
@@ -936,6 +925,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })
@@ -966,6 +958,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -976,6 +971,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -986,6 +984,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id1',
       })
@@ -998,6 +999,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp-radio': '',
         'inntekt-vsa-gradert-uttak': 'id3',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': 'id2',
         'uttaksalder-helt-uttak': 'id4',
       })
@@ -1035,6 +1039,9 @@ describe('AvansertSkjema-hooks', () => {
       expect(result.current.validationErrors).toStrictEqual({
         'inntekt-vsa-afp': '',
         'inntekt-vsa-gradert-uttak': '',
+        'stillingsprosent-vsa-afp': '',
+        'stillingsprosent-vsa-gradert-pensjon': '',
+        'stillingsprosent-vsa-hel-pensjon': '',
         'uttaksalder-gradert-uttak': '',
         'uttaksalder-helt-uttak': '',
       })

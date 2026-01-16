@@ -16,11 +16,13 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
+import { useGetAfpOffentligLivsvarigQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'
 import {
   selectFoedselsdato,
   selectLoependeVedtak,
+  selectSamtykkeOffentligAFP,
   selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
@@ -41,6 +43,7 @@ import { AfpDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergang
 import { AlderspensjonDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergangskull/AlderspensjonDetaljerGrunnlag'
 import { useBeregningsdetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/hooks'
 import { Pensjonsgivendeinntekt } from '../Simulering/Pensjonsgivendeinntekt'
+import { useOffentligTpData } from '../Simulering/temp-hooks'
 import { GrunnlagAFP } from './GrunnlagAFP'
 import { GrunnlagSection } from './GrunnlagSection'
 import { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'
@@ -85,6 +88,15 @@ export const Grunnlag: React.FC<Props> = ({
   const foedselsdato = useAppSelector(selectFoedselsdato)
   const foedtEtter1963 = isFoedtEtter1963(foedselsdato)
   const hasErApotekerError = useAppSelector(selectHasErApotekerError)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+
+  const { data: loependeLivsvarigAfpOffentlig } =
+    useGetAfpOffentligLivsvarigQuery(undefined, {
+      skip:
+        !harSamtykketOffentligAFP ||
+        !foedselsdato ||
+        !isAlderOver62(foedselsdato),
+    })
 
   const [isAFPDokumentasjonVisible, setIsAFPDokumentasjonVisible] =
     React.useState<boolean>(false)
@@ -97,12 +109,18 @@ export const Grunnlag: React.FC<Props> = ({
     [sivilstand]
   )
 
+  const { erOffentligTpFoer1963, erSpkBesteberegning, tpAfpPeriode } =
+    useOffentligTpData()
+
   const { alderspensjonDetaljerListe, afpDetaljerListe } =
     useBeregningsdetaljer(
       alderspensjonListe,
       afpPrivatListe,
       afpOffentligListe,
-      pre2025OffentligAfp
+      pre2025OffentligAfp,
+      loependeLivsvarigAfpOffentlig,
+      tpAfpPeriode,
+      erSpkBesteberegning
     )
 
   // Antall kolonner for AP detaljer som bestemmer hvor mange kolonner AFP detaljer skal ha.
@@ -122,8 +140,12 @@ export const Grunnlag: React.FC<Props> = ({
       (afpDetaljer) =>
         afpDetaljer.afpPrivat.length === 0 &&
         afpDetaljer.afpOffentlig.length === 0 &&
+        afpDetaljer.afpOffentligSpk.length === 0 &&
         afpDetaljer.pre2025OffentligAfp.length === 0
-    )
+    ) ||
+    (loependeLivsvarigAfpOffentlig?.afpStatus &&
+      (loependeLivsvarigAfpOffentlig?.maanedligBeloep === undefined ||
+        loependeLivsvarigAfpOffentlig?.maanedligBeloep === null))
 
   const handleReadMoreChange = ({
     isOpen,
@@ -144,7 +166,12 @@ export const Grunnlag: React.FC<Props> = ({
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium" data-intl="grunnlag.title">
+      <Heading
+        level={headingLevel}
+        size="medium"
+        data-intl="grunnlag.title"
+        data-testid="grunnlag.title"
+      >
         {isEndring || visning === 'avansert' ? (
           <FormattedMessage id="grunnlag.endring.title" />
         ) : (
@@ -211,7 +238,16 @@ export const Grunnlag: React.FC<Props> = ({
                 <AfpDetaljerGrunnlag
                   afpDetaljerListe={afpDetaljerListe}
                   alderspensjonColumnsCount={alderspensjonColumnsCount}
+                  erOffentligTpFoer1963={erOffentligTpFoer1963}
                 />
+                {erSpkBesteberegning && (
+                  <FormattedMessage
+                    id="grunnlag.afp.spk.foer1963.text"
+                    values={{
+                      ...getFormatMessageValues(),
+                    }}
+                  />
+                )}
                 {pre2025OffentligAfp &&
                   pre2025OffentligAfp.afpAvkortetTil70Prosent && (
                     <FormattedMessage

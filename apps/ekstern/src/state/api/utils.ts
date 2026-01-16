@@ -78,6 +78,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaPensjon?: { beloep: string; sluttAlder: Alder }
   utenlandsperioder: Utenlandsperiode[]
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): TidligstMuligHeltUttakRequestBody => {
   const {
     loependeVedtak,
@@ -88,6 +89,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     aarligInntektFoerUttakBeloep,
     aarligInntektVsaPensjon,
     utenlandsperioder,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   return {
@@ -108,6 +110,20 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
         }
       : undefined,
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 
@@ -125,6 +141,7 @@ export const generateAlderspensjonRequestBody = (args: {
   utenlandsperioder: Utenlandsperiode[]
   beregningsvalg?: Beregningsvalg | null
   afpInntektMaanedFoerUttak?: boolean | null
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     loependeVedtak,
@@ -140,6 +157,7 @@ export const generateAlderspensjonRequestBody = (args: {
     utenlandsperioder,
     beregningsvalg,
     afpInntektMaanedFoerUttak,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   if (!foedselsdato || !heltUttak) {
@@ -181,6 +199,20 @@ export const generateAlderspensjonRequestBody = (args: {
     },
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
     afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak ?? undefined,
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 
@@ -194,6 +226,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
   utenlandsperioder: Utenlandsperiode[]
+  loependeLivsvarigAfpOffentlig: AfpOffentligLivsvarig | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     loependeVedtak,
@@ -205,6 +238,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     aarligInntektFoerUttakBeloep,
     uttaksalder,
     utenlandsperioder,
+    loependeLivsvarigAfpOffentlig,
   } = args
 
   if (!foedselsdato || !uttaksalder) {
@@ -227,6 +261,20 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       uttaksalder,
     },
     utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    innvilgetLivsvarigOffentligAfp:
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep &&
+      loependeLivsvarigAfpOffentlig?.virkningFom
+        ? [
+            {
+              aarligBruttoBeloep:
+                loependeLivsvarigAfpOffentlig.maanedligBeloep * 12,
+              uttakFom: loependeLivsvarigAfpOffentlig.virkningFom,
+              sistRegulertGrunnbeloep:
+                loependeLivsvarigAfpOffentlig.sistBenyttetGrunnbeloep,
+            },
+          ]
+        : undefined,
   }
 }
 
@@ -313,6 +361,81 @@ export const generatePensjonsavtalerRequestBody = (args: {
     epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
     epsHarPensjon: !!epsHarPensjon,
     sivilstand,
+  }
+}
+
+export const generateOffentligTpFoer1963RequestBody = (args: {
+  foedselsdato: string | null | undefined
+  sivilstand?: Sivilstand | null | undefined
+  epsHarPensjon: boolean | null
+  epsHarInntektOver2G: boolean | null
+  aarligInntektFoerUttakBeloep: string
+  gradertUttak?: GradertUttak
+  heltUttak?: HeltUttak
+  utenlandsperioder: Utenlandsperiode[]
+  afpInntektMaanedFoerUttak?: boolean | null
+  stillingsprosentOffGradertUttak?: number | null
+  stillingsprosentOffHeltUttak?: number | null
+  skalBeregneAfpKap19: boolean
+}): OffentligTpFoer1963RequestBody | undefined => {
+  const {
+    foedselsdato,
+    aarligInntektFoerUttakBeloep,
+    sivilstand,
+    epsHarPensjon,
+    epsHarInntektOver2G,
+    gradertUttak,
+    heltUttak,
+    utenlandsperioder,
+    afpInntektMaanedFoerUttak,
+    stillingsprosentOffGradertUttak,
+    stillingsprosentOffHeltUttak,
+    skalBeregneAfpKap19,
+  } = args
+
+  if (!foedselsdato || !heltUttak) {
+    return undefined
+  }
+
+  return {
+    simuleringstype: skalBeregneAfpKap19
+      ? 'PRE2025_OFFENTLIG_AFP_ETTERFULGT_AV_ALDERSPENSJON'
+      : 'ALDERSPENSJON',
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
+    gradertUttak: gradertUttak
+      ? {
+          ...gradertUttak,
+          aarligInntektVsaPensjonBeloep: formatInntektToNumber(
+            gradertUttak?.aarligInntektVsaPensjonBeloep
+          ),
+        }
+      : undefined,
+    heltUttak: {
+      ...heltUttak,
+      aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon
+        ? {
+            beloep: formatInntektToNumber(
+              heltUttak.aarligInntektVsaPensjon?.beloep
+            ),
+            sluttAlder: heltUttak.aarligInntektVsaPensjon?.sluttAlder,
+          }
+        : undefined,
+    },
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
+    sivilstand: sivilstand ?? 'UOPPGITT',
+    epsHarInntektOver2G: epsHarInntektOver2G ?? checkHarSamboer(sivilstand),
+    epsHarPensjon: !!epsHarPensjon,
+    afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak ?? undefined,
+    stillingsprosentOffHeltUttak: stillingsprosentOffHeltUttak
+      ? String(stillingsprosentOffHeltUttak)
+      : '0',
+    stillingsprosentOffGradertUttak: stillingsprosentOffGradertUttak
+      ? String(stillingsprosentOffGradertUttak)
+      : undefined,
+    afpOrdning: skalBeregneAfpKap19 ? 'AFPSTAT' : undefined,
   }
 }
 

@@ -46,7 +46,7 @@ export const SavnerDuNoe = ({ isEndring }: Props) => {
   }
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-testid="savnerdunoe">
       <LinkCard>
         <LinkCard.Title>
           <LinkCard.Anchor
@@ -54,6 +54,7 @@ export const SavnerDuNoe = ({ isEndring }: Props) => {
             onClick={handleClick}
             target={isEndring ? '_blank' : undefined}
             rel={isEndring ? 'noopener' : undefined}
+            data-testid="savnerdunoe-title"
           >
             <FormattedMessage
               id={isEndring ? 'savnerdunoe.title.endring' : 'savnerdunoe.title'}

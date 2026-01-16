@@ -46,7 +46,7 @@ describe('Pensjonskalkulator', () => {
     // Hopper over AFP + Uføre steg
 
     // Sjekker AFP Samtykke steg
-    cy.contains('Samtykke til at Nav beregner AFP (avtalefestet pensjon)')
+    cy.get('[data-testid="samtykke-offentlig-afp-title"]').should('exist')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
@@ -70,7 +70,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', '70 år').click()
     cy.injectAxe()
     cy.wait('@fetchAlderspensjon')
-    cy.contains('Pensjonsgivende inntekt frem til uttak')
+    cy.contains('Årlig inntekt frem til uttak:')
     cy.contains('Alderspensjon')
     cy.contains('AFP')
     cy.contains('button', 'Sivilstand').click({ force: true })
@@ -133,7 +133,7 @@ describe('Pensjonskalkulator', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+        url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
       },
       {
         alderspensjon: [],

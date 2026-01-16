@@ -65,7 +65,12 @@ export function AFPPrivat({
   return (
     <Card hasLargePadding hasMargin data-testid="afp-privat">
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="stegvisning.afp.title"
+        >
           <FormattedMessage id="stegvisning.afpPrivat.title" />
         </Heading>
 
@@ -82,6 +87,7 @@ export function AFPPrivat({
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afpPrivat.radio_label" />}
           name="afp"
+          data-testid="stegvisning.afpPrivat.radio_label"
           defaultValue={previousAfp}
           onChange={() => setValidationError('')}
           error={validationError}

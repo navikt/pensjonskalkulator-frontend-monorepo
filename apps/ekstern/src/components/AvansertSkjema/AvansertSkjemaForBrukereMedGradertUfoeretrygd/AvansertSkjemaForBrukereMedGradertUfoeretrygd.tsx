@@ -126,6 +126,8 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     afpInntektMaanedFoerUttak: null,
     normertPensjonsalder,
     beregningsvalg,
+    stillingsprosentVsaGradertPensjon: null,
+    stillingsprosentVsaHelPensjon: null,
   })
 
   const {
@@ -226,15 +228,9 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
         [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
-    const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
-      e.target.value.match(/\d+/)?.[0] as string,
-      10
-    )
+    const uttaksgradAsNumber = parseInt(e.target.value, 10)
 
-    if (
-      avansertBeregningFormatertUttaksgradAsNumber === 100 ||
-      isNaN(avansertBeregningFormatertUttaksgradAsNumber)
-    ) {
+    if (uttaksgradAsNumber === 100 || isNaN(uttaksgradAsNumber)) {
       const prevUttaksalder = localGradertUttak?.uttaksalder
         ? { ...localGradertUttak?.uttaksalder }
         : undefined
@@ -269,7 +265,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
             previous?.uttaksalder === undefined
               ? localHeltUttak?.uttaksalder
               : previous?.uttaksalder,
-          grad: avansertBeregningFormatertUttaksgradAsNumber,
+          grad: uttaksgradAsNumber,
         }
       })
     }
@@ -454,11 +450,11 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
 
               <Divider noMargin />
 
-              <div className={styles.alertWrapper} aria-live="polite">
+              <div className={styles.alertWrapper}>
                 {validationErrors[
                   AVANSERT_FORM_NAMES.endringAlertFremtidigDato
                 ] && (
-                  <Alert variant="warning">
+                  <Alert variant="warning" role="alert">
                     <FormattedMessage
                       id="beregning.endring.alert.uttaksdato"
                       values={{
@@ -472,7 +468,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                 )}
               </div>
 
-              <div className={styles.alertWrapper} aria-live="polite">
+              <div className={styles.alertWrapper}>
                 {vilkaarsproeving &&
                   !vilkaarsproeving.vilkaarErOppfylt &&
                   uttaksalder &&
@@ -525,6 +521,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                     <AgePicker
                       form={AVANSERT_FORM_NAMES.form}
                       name={AVANSERT_FORM_NAMES.uttaksalderGradertUttak}
+                      testId="velguttaksalder.endring.title"
                       label={
                         <FormattedMessage
                           id={
@@ -543,6 +540,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                     <AgePicker
                       form={AVANSERT_FORM_NAMES.form}
                       name={AVANSERT_FORM_NAMES.uttaksalderHeltUttak}
+                      testId="velguttaksalder.endring.title"
                       label={
                         <FormattedMessage
                           id={
@@ -568,7 +566,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                 </div>
               )}
 
-              <div>
+              <div data-testid="beregning.avansert.rediger.uttaksgrad.label">
                 <Select
                   form={AVANSERT_FORM_NAMES.form}
                   name={AVANSERT_FORM_NAMES.uttaksgrad}
@@ -584,7 +582,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                   })}
                   value={
                     localGradertUttak?.grad !== undefined
-                      ? `${localGradertUttak.grad} %`
+                      ? localGradertUttak.grad.toString()
                       : ''
                   }
                   onChange={handleUttaksgradChange}
@@ -609,7 +607,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                   </option>
                   {muligeUttaksgrad.map((grad) => (
                     <option key={grad} value={grad}>
-                      {grad}
+                      {grad} %
                     </option>
                   ))}
                 </Select>

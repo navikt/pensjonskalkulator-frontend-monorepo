@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # Kjøres kl. 06:00 hver dag
-    - cron: "0 6 * * *"
+    - cron: '0 6 * * *'
 jobs:
   backup-sanity:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
 
     name: Backup Sanity dataset
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set backup file name
         run: |

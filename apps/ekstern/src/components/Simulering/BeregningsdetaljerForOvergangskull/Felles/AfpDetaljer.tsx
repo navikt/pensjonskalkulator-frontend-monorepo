@@ -41,7 +41,7 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
   )
 }
 
-interface AfpSectionConfig {
+export interface AfpSectionConfig {
   key: string
   data: DetaljRad[]
   titleId?: string
@@ -70,6 +70,7 @@ function renderAfpDetailRow(
         justify="space-between"
         className={styles.hstackRow}
         style={config.noBorderBottom ? { borderBottom: 'none' } : undefined}
+        wrap={false}
       >
         <dt style={{ marginRight: '1rem' }}>
           {isBold ? <strong>{`${detalj.tekst}:`}</strong> : `${detalj.tekst}:`}
@@ -109,8 +110,10 @@ function renderAfpSection({
   )
 }
 
-function renderAfpDetaljer(afpDetaljForValgtUttak?: AfpDetaljerListe) {
-  const sections: React.ReactElement[] = []
+export function getAfpSectionsToRender(
+  afpDetaljForValgtUttak?: AfpDetaljerListe
+) {
+  const sections: AfpSectionConfig[] = []
 
   // Early return if no data
   if (!afpDetaljForValgtUttak) {
@@ -119,51 +122,59 @@ function renderAfpDetaljer(afpDetaljForValgtUttak?: AfpDetaljerListe) {
 
   // AFP Privat
   if (afpDetaljForValgtUttak.afpPrivat?.length > 0) {
-    sections.push(
-      renderAfpSection({
-        key: 'afpPrivat',
-        data: afpDetaljForValgtUttak.afpPrivat,
-        titleId: 'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title',
-        boldLastItem: true,
-      })
-    )
+    sections.push({
+      key: 'afpPrivat',
+      data: afpDetaljForValgtUttak.afpPrivat,
+      titleId: 'beregning.detaljer.OpptjeningDetaljer.afpPrivat.table.title',
+      boldLastItem: true,
+    })
   }
 
   // AFP Offentlig
   if (afpDetaljForValgtUttak.afpOffentlig?.length > 0) {
-    sections.push(
-      renderAfpSection({
-        key: 'afpOffentlig',
-        data: afpDetaljForValgtUttak.afpOffentlig,
-        allItemsBold: true,
-        noBorderBottom: true,
-      })
-    )
+    sections.push({
+      key: 'afpOffentlig',
+      data: afpDetaljForValgtUttak.afpOffentlig,
+      allItemsBold: true,
+      noBorderBottom: true,
+    })
   }
 
   // Pre-2025 Offentlig AFP
   if (afpDetaljForValgtUttak.pre2025OffentligAfp?.length > 0) {
-    sections.push(
-      renderAfpSection({
-        key: 'pre2025OffentligAfp',
-        data: afpDetaljForValgtUttak.pre2025OffentligAfp,
-        titleId: 'beregning.detaljer.grunnpensjon.afp.table.title',
-        boldLastItem: true,
-      })
-    )
+    sections.push({
+      key: 'pre2025OffentligAfp',
+      data: afpDetaljForValgtUttak.pre2025OffentligAfp,
+      titleId: 'beregning.detaljer.grunnpensjon.afp.table.title',
+      boldLastItem: true,
+    })
   }
 
   // Pre-2025 Opptjening Details
   if (afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp?.length > 0) {
-    sections.push(
-      renderAfpSection({
-        key: 'opptjeningPre2025OffentligAfp',
-        data: afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp,
-        titleId:
-          'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title',
-      })
-    )
+    sections.push({
+      key: 'opptjeningPre2025OffentligAfp',
+      data: afpDetaljForValgtUttak.opptjeningPre2025OffentligAfp,
+      titleId:
+        'beregning.detaljer.OpptjeningDetaljer.pre2025OffentligAfp.table.title',
+    })
+  }
+
+  // AFP fra SPK mellom 65 og 67 år
+  if (afpDetaljForValgtUttak.afpOffentligSpk.length > 0) {
+    sections.push({
+      key: 'afpFraSpk65Til67',
+      data: afpDetaljForValgtUttak.afpOffentligSpk,
+      titleId: 'beregning.detaljer.grunnpensjon.afp.table.title',
+      boldLastItem: true,
+    })
   }
 
   return sections
+}
+
+function renderAfpDetaljer(afpDetaljForValgtUttak?: AfpDetaljerListe) {
+  const sections = getAfpSectionsToRender(afpDetaljForValgtUttak)
+
+  return sections.map((section) => renderAfpSection(section))
 }

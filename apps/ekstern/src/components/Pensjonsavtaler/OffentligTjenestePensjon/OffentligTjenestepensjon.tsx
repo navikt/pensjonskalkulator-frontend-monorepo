@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
@@ -7,14 +7,19 @@ import {
   BodyLong,
   Heading,
   HeadingProps,
+  Link,
   Table,
   VStack,
 } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { Loader } from '@/components/common/Loader'
+import { isOffentligTpFoer1963 } from '@/state/api/typeguards'
 import { useAppSelector } from '@/state/hooks'
-import { selectAfp } from '@/state/userInput/selectors'
+import {
+  selectAfp,
+  selectSkalBeregneAfpKap19,
+} from '@/state/userInput/selectors'
 import {
   formaterLivsvarigString,
   formaterSluttAlderString,
@@ -26,6 +31,10 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
 import {
+  useNextHeadingLevel,
+  useOffentligTjenestePensjonAlertList,
+} from '../hooks'
+import {
   formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
@@ -36,61 +45,59 @@ import styles from './OffentligTjenestepensjon.module.scss'
 export const OffentligTjenestepensjon = (props: {
   isLoading: boolean
   isError: boolean
-  offentligTp?: OffentligTp
-  headingLevel: Exclude<HeadingProps['level'], undefined>
+  headingLevel: HeadingProps['level']
+  erOffentligTpFoer1963?: boolean
+  offentligTp?: OffentligTp | OffentligTpFoer1963
 }) => {
-  const { isLoading, isError, offentligTp, headingLevel } = props
+  const {
+    isLoading,
+    isError,
+    offentligTp,
+    headingLevel,
+    erOffentligTpFoer1963,
+  } = props
+
   const { tpLeverandoer, tpNummer } = offentligTp?.simulertTjenestepensjon || {}
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
+  const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
   const loggedStatusesRef = React.useRef<Set<string>>(new Set())
-  const isErrorLogRef = React.useRef(false)
 
-  useEffect(() => {
-    const status = offentligTp?.simuleringsresultatStatus
-    if (!status || loggedStatusesRef.current.has(status)) return
+  const offentligTpGirNullIUtbetaling =
+    erOffentligTpFoer1963 && isOffentligTpFoer1963(offentligTp)
+      ? offentligTp?.feilkode === 'BEREGNING_GIR_NULL_UTBETALING'
+      : false
 
-    switch (status) {
-      case 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING':
-        logger(ALERT_VIST, {
-          tekst: 'Fant ingen offentlige pensjonsavtaler',
-          variant: 'info',
-        })
-        break
-      case 'TP_ORDNING_STOETTES_IKKE':
-        logger(ALERT_VIST, {
-          tekst: 'Kan ikke hente offentlige pensjonsavtaler',
-          variant: 'warning',
-        })
-        break
-      case 'TEKNISK_FEIL':
-        logger(ALERT_VIST, {
-          tekst: 'Klarte ikke å hente offentlig tjenestepensjon',
-          variant: 'warning',
-        })
-        break
-      case 'TOM_SIMULERING_FRA_TP_ORDNING':
-        logger(ALERT_VIST, {
-          tekst: 'Fikk ikke svar fra offentlig tjenestepensjonsordning',
-          variant: 'warning',
-        })
-        break
+  const tekstInfoIkkeAfP = intl.formatMessage({
+    id: 'pensjonsavtaler.offentligtp.foer1963.info_ikke_afp',
+  })
+
+  const handleAfpOffentligLinkClick: React.MouseEventHandler<
+    HTMLAnchorElement
+  > = (e): void => {
+    e.preventDefault()
+    const afpOffentligHeader = document.getElementById('afp-offentlig-heading')
+    if (afpOffentligHeader) {
+      // Get absolute position from top of document
+      let element = afpOffentligHeader
+      let offsetTop = 0
+
+      while (element) {
+        offsetTop += element.offsetTop
+        element = element.offsetParent as HTMLElement
+      }
+
+      window.scrollTo({
+        top: offsetTop - 15,
+        behavior: 'smooth',
+      })
     }
-    loggedStatusesRef.current.add(status)
-  }, [offentligTp?.simuleringsresultatStatus])
-
-  if (isError && !isErrorLogRef.current) {
-    logger(ALERT_VIST, {
-      tekst: 'Klarte ikke å sjekke offentlige pensjonsavtaler',
-      variant: 'warning',
-    })
-    isErrorLogRef.current = true
   }
 
-  const subHeadingLevel = React.useMemo(() => {
-    return (parseInt(headingLevel, 10) + 1).toString() as HeadingProps['level']
-  }, [headingLevel])
+  const alerts = useOffentligTjenestePensjonAlertList({ isError, offentligTp })
+
+  const subHeadingLevel = useNextHeadingLevel(headingLevel)
 
   if (isLoading) {
     return (
@@ -113,72 +120,37 @@ export const OffentligTjenestepensjon = (props: {
       <Heading id="tpo-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
       </Heading>
-      {
-        // Ved feil når /simuler-oftp kalles
-        isError && (
-          <Alert inline variant="warning">
-            <FormattedMessage id="pensjonsavtaler.offentligtp.error" />
-          </Alert>
-        )
-      }
-      {
-        // Når brukeren ikke er medlem av noe offentlig tp-ordning
-        offentligTp?.simuleringsresultatStatus ===
-          'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING' && (
-          <Alert
-            inline
-            variant="info"
-            data-testid="ingen-pensjonsavtaler-alert"
-          >
-            <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
-          </Alert>
-        )
-      }
-      {
-        // Når brukeren er medlem av en annen ordning
-        offentligTp?.simuleringsresultatStatus ===
-          'TP_ORDNING_STOETTES_IKKE' && (
-          <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.er_medlem_annen_ordning"
-              values={{
-                chunk: formatLeverandoerList(
-                  intl.locale,
-                  offentligTp.muligeTpLeverandoerListe
-                ),
-              }}
-            />
-          </Alert>
-        )
-      }
-      {
-        // Ved feil hos TP-leverandør
-        offentligTp?.simuleringsresultatStatus === 'TEKNISK_FEIL' && (
-          <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.teknisk_feil"
-              values={{
-                chunk: formatLeverandoerList(
-                  intl.locale,
-                  offentligTp.muligeTpLeverandoerListe
-                ),
-              }}
-            />
-          </Alert>
-        )
-      }
-      {
-        // Ved tomt svar fra TP-leverandør
-        offentligTp?.simuleringsresultatStatus ===
-          'TOM_SIMULERING_FRA_TP_ORDNING' && (
-          <Alert inline variant="warning">
-            <FormattedMessage
-              id="pensjonsavtaler.offentligtp.empty"
-              values={getFormatMessageValues()}
-            />
-          </Alert>
-        )
-      }
+
+      {alerts &&
+        alerts.map((alert, index) => {
+          if (!loggedStatusesRef.current.has(alert.status)) {
+            logger(ALERT_VIST, {
+              tekst: alert.logTekst,
+              variant: 'warning',
+            })
+            loggedStatusesRef.current.add(alert.status)
+          }
+
+          const leverandoerList = offentligTp?.muligeTpLeverandoerListe
+          const chunk =
+            alert.hasLeverandoerList && leverandoerList
+              ? formatLeverandoerList(intl.locale, leverandoerList)
+              : undefined
+
+          return (
+            <Alert
+              key={`offentligtp-alert-${index}`}
+              inline
+              variant={alert.variant}
+              data-testid={alert.testId}
+            >
+              <FormattedMessage
+                id={alert.alertTextId}
+                values={chunk ? { chunk } : undefined}
+              />
+            </Alert>
+          )
+        })}
 
       {showResults && (
         <>
@@ -186,8 +158,9 @@ export const OffentligTjenestepensjon = (props: {
             <>
               <Heading
                 id="tpo-subheading"
-                level={subHeadingLevel}
+                level={headingLevel}
                 size="xsmall"
+                data-testid={`tpo-subheading-${tpLeverandoer}`}
               >
                 {getLeverandoerHeading(intl, tpNummer, tpLeverandoer)}
               </Heading>
@@ -212,7 +185,8 @@ export const OffentligTjenestepensjon = (props: {
                               )
                             : formaterLivsvarigString(
                                 intl,
-                                utbetalingsperiode.startAlder
+                                utbetalingsperiode.startAlder,
+                                offentligTpGirNullIUtbetaling
                               )}
                         </th>
                         <td align="right" className={styles.valueCell}>
@@ -278,7 +252,8 @@ export const OffentligTjenestepensjon = (props: {
                               )
                             : formaterLivsvarigString(
                                 intl,
-                                utbetalingsperiode.startAlder
+                                utbetalingsperiode.startAlder,
+                                offentligTpGirNullIUtbetaling
                               )}
                         </Table.DataCell>
                         <Table.DataCell
@@ -294,17 +269,63 @@ export const OffentligTjenestepensjon = (props: {
               </Table.Body>
             </Table>
           )}
-          <BodyLong size="small">
-            <FormattedMessage
-              id={getInfoOmAfpOgBetingetTjenestepensjon(
-                tpNummer,
-                afp,
-                offentligTp.simulertTjenestepensjon?.simuleringsresultat
-                  .betingetTjenestepensjonErInkludert
-              )}
-              values={getFormatMessageValues()}
-            />
-          </BodyLong>
+          {isOffentligTpFoer1963(offentligTp) &&
+            (offentligTp.simulertTjenestepensjon?.simuleringsresultat
+              .utbetalingsperioder.length ?? 0) > 0 &&
+            !offentligTp.feilkode && (
+              <>
+                <BodyLong size="small">
+                  {tekstInfoIkkeAfP}
+                  <FormattedMessage
+                    id="pensjonsavtaler.offentligtp.foer1963.info"
+                    values={{ ...getFormatMessageValues() }}
+                  />
+                </BodyLong>
+                {skalBeregneAfpKap19 && (
+                  <div>
+                    <Heading level={subHeadingLevel} size="xsmall">
+                      <FormattedMessage
+                        id="pensjonsavtaler.offentligtp.subtitle.afp_fra_spk"
+                        values={{
+                          ...getFormatMessageValues(),
+                        }}
+                      />
+                    </Heading>
+                    <BodyLong size="medium">
+                      <FormattedMessage
+                        id="pensjonsavtaler.offentligtp.text.afp_fra_spk"
+                        values={{
+                          // eslint-disable-next-line react/no-unstable-nested-components
+                          scrollTo: (chunk) => (
+                            <Link
+                              href="#"
+                              data-testid="afp-offentlig-alert-link"
+                              onClick={handleAfpOffentligLinkClick}
+                            >
+                              {chunk}
+                            </Link>
+                          ),
+                        }}
+                      />
+                    </BodyLong>
+                  </div>
+                )}
+              </>
+            )}
+
+          {!isOffentligTpFoer1963(offentligTp) && (
+            <BodyLong size="small">
+              <FormattedMessage
+                id={getInfoOmAfpOgBetingetTjenestepensjon(
+                  tpNummer,
+                  afp,
+                  offentligTp.simulertTjenestepensjon?.simuleringsresultat
+                    .betingetTjenestepensjonErInkludert
+                )}
+                values={getFormatMessageValues()}
+              />
+            </BodyLong>
+          )}
         </>
       )}
     </VStack>

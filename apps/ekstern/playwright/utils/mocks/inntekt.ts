@@ -11,7 +11,7 @@ export const inntekt = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/inntekt/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...inntektMock,
       ...options,
     },

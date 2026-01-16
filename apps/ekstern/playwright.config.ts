@@ -13,11 +13,11 @@ export default defineConfig({
   outputDir: './playwright/test-results',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   workers,
   reporter: process.env.CI
-    ? [['line']]
-    : [['html', { outputFolder: './playwright/report' }]],
+    ? 'line'
+    : [['html', { outputFolder: 'playwright/report', open: 'never' }]],
   timeout: 30000,
   expect: {
     timeout: 5000,
@@ -64,6 +64,20 @@ export default defineConfig({
             '--max_old_space_size=4096',
           ],
         },
+      },
+    },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        headless: true,
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        headless: true,
       },
     },
   ],

@@ -11,6 +11,12 @@ import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './LightBlueFooter.module.scss'
 
+const TEST_IDS = {
+  trigger: 'stegvisning.tilbake_start',
+  confirm: 'stegvisning.tilbake_start.modal.bekreft',
+  cancel: 'stegvisning.tilbake_start.modal.avbryt',
+}
+
 export function LightBlueFooter() {
   const intl = useIntl()
   const dispatch = useAppDispatch()
@@ -34,6 +40,7 @@ export function LightBlueFooter() {
       >
         <Modal.Footer>
           <Button
+            data-testid={TEST_IDS.confirm}
             type="button"
             onClick={() => {
               // TODO: fjern når amplitude er ikke i bruk lenger
@@ -49,6 +56,7 @@ export function LightBlueFooter() {
             })}
           </Button>
           <Button
+            data-testid={TEST_IDS.cancel}
             type="button"
             variant="secondary"
             onClick={() => {
@@ -64,6 +72,7 @@ export function LightBlueFooter() {
       <section className={styles.section}>
         <div className={styles.innerwrapper}>
           <Button
+            data-testid={TEST_IDS.trigger}
             variant="tertiary"
             className={styles.button}
             onClick={wrapLogger('knapp klikket', {

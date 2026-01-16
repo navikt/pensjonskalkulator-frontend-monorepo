@@ -355,6 +355,13 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
+            innvilgetLivsvarigOffentligAfp: [
+              {
+                aarligBruttoBeloep: 300000,
+                sistRegulertGrunnbeloep: 118620,
+                uttakFom: '2023-01-01',
+              },
+            ],
             simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
@@ -499,7 +506,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
         })
         expect(screen.getByText('beregning.intro.title')).toBeVisible()
         expect(screen.getByText('beregning.intro.description_1')).toBeVisible()
@@ -533,7 +540,7 @@ describe('BeregningAvansert', () => {
 
       it('Når simuleringen svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockResponse('/v8/alderspensjon/simulering', {
+        mockResponse('/v9/alderspensjon/simulering', {
           status: 200,
           method: 'post',
           json: {
@@ -582,7 +589,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledTimes(1)
           expect(setAvansertSkjemaModusMock).toHaveBeenCalledWith('redigering')
         })
@@ -595,7 +602,7 @@ describe('BeregningAvansert', () => {
       it('Når simuleringen feiler, logges det alert og vises resultatkort med informasjon om feilen og mulighet til å prøve på nytt', async () => {
         const user = userEvent.setup()
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        mockErrorResponse('/v8/alderspensjon/simulering', {
+        mockErrorResponse('/v9/alderspensjon/simulering', {
           method: 'post',
         })
 
@@ -633,7 +640,7 @@ describe('BeregningAvansert', () => {
         )
 
         await waitFor(() => {
-          expect(initiateMock).toHaveBeenCalledTimes(1)
+          expect(initiateMock).toHaveBeenCalledTimes(4)
           expect(
             screen.getByText('beregning.avansert.link.endre_avanserte_valg')
           ).toBeVisible()
@@ -644,12 +651,12 @@ describe('BeregningAvansert', () => {
           variant: 'error',
         })
         await user.click(await screen.findByText('application.global.retry'))
-        expect(initiateMock).toHaveBeenCalledTimes(3)
+        expect(initiateMock).toHaveBeenCalledTimes(6)
       })
 
       it('Når simulering svarer med errorcode 503, vises ErrorPageUnexpected ', async () => {
         // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-        mockResponse('/v8/alderspensjon/simulering', {
+        mockResponse('/v9/alderspensjon/simulering', {
           status: 503,
           method: 'post',
         })
@@ -735,7 +742,7 @@ describe('BeregningAvansert', () => {
       )
 
       await waitFor(() => {
-        expect(initiateMock).toHaveBeenCalledTimes(1)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
       })
       expect(screen.getByText('beregning.intro.title.endring')).toBeVisible()
       expect(
@@ -812,7 +819,7 @@ describe('BeregningAvansert', () => {
       )
 
       await waitFor(() => {
-        expect(initiateMock).toHaveBeenCalledTimes(1)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
       })
 
       expect(

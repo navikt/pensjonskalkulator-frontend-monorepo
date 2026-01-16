@@ -1,0 +1,1 @@
+export { SimuleringAfpOffentligAlert } from './SimuleringAfpOffentligAlert'

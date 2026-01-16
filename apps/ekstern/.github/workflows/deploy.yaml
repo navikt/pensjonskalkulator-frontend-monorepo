@@ -30,17 +30,17 @@ jobs:
       id-token: 'write'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -71,7 +71,7 @@ jobs:
         run: npm run build:server
 
       - name: Save build folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: dist
@@ -95,17 +95,17 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -122,7 +122,7 @@ jobs:
         run: npm run test
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: code-coverage-report
           path: coverage
@@ -135,17 +135,17 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - name: Use Node.js v22.16.0
+      - name: Use Node.js v22.22.0
         uses: actions/setup-node@v6
         with:
-          node-version: '22.16.0'
+          node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             node_modules
@@ -154,13 +154,13 @@ jobs:
 
       - name: Cache Cypress binary
         id: cache-cypress
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
@@ -184,7 +184,7 @@ jobs:
         run: npm run cy:test:production
 
       - name: Archive Cypress artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: screenshots
@@ -203,7 +203,7 @@ jobs:
       github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
@@ -234,7 +234,7 @@ jobs:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to sandbox
         uses: nais/deploy/actions/deploy@v2
@@ -263,7 +263,7 @@ jobs:
       github.ref == 'refs/heads/catbox'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to catbox
         uses: nais/deploy/actions/deploy@v2
@@ -292,7 +292,7 @@ jobs:
       github.ref == 'refs/heads/magicbox'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to magicbox
         uses: nais/deploy/actions/deploy@v2
@@ -321,7 +321,7 @@ jobs:
       github.ref == 'refs/heads/dreambox'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to dreambox
         uses: nais/deploy/actions/deploy@v2
@@ -350,7 +350,7 @@ jobs:
       github.ref == 'refs/heads/coffeebox'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to coffeebox
         uses: nais/deploy/actions/deploy@v2
@@ -379,7 +379,7 @@ jobs:
       github.ref == 'refs/heads/codebox'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to codebox
         uses: nais/deploy/actions/deploy@v2
@@ -407,7 +407,7 @@ jobs:
       github.event.inputs.prod == 'true'
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy to prod-gcp
         uses: nais/deploy/actions/deploy@v2

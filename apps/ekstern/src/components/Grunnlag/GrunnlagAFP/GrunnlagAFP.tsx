@@ -6,6 +6,7 @@ import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
+import { useGetAfpOffentligLivsvarigQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -18,6 +19,7 @@ import {
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
+import { isAlderOver62 } from '@/utils/alder'
 import { BUTTON_KLIKK, KNAPP_KLIKKET } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -28,11 +30,16 @@ import styles from '../Grunnlag.module.scss'
 
 export const GrunnlagAFP: React.FC = () => {
   const intl = useIntl()
+  const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const { data: loependeLivsvarigAfpOffentlig } =
+    useGetAfpOffentligLivsvarigQuery(undefined, {
+      skip:
+        !samtykkeOffentligAFP || !foedselsdato || !isAlderOver62(foedselsdato),
+    })
   const afp = useAppSelector(selectAfp)
   const afpUtregningValg = useAppSelector(selectAfpUtregningValg)
   const erApoteker = useAppSelector(selectErApoteker)
-  const foedselsdato = useAppSelector(selectFoedselsdato)
-  const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const { beregningsvalg } = useAppSelector(selectCurrentSimulation)
@@ -46,6 +53,7 @@ export const GrunnlagAFP: React.FC = () => {
       foedselsdato: foedselsdato!,
       samtykkeOffentligAFP: samtykkeOffentligAFP,
       beregningsvalg: beregningsvalg,
+      loependeLivsvarigAfpOffentlig: loependeLivsvarigAfpOffentlig,
     })
   }, [
     intl,
@@ -56,11 +64,17 @@ export const GrunnlagAFP: React.FC = () => {
     ufoeregrad,
     beregningsvalg,
     foedselsdato,
+    loependeLivsvarigAfpOffentlig,
   ])
 
   return (
     <VStack gap="1">
-      <Heading level="3" size="small" data-testid="grunnlag.afp.title">
+      <Heading
+        level="3"
+        size="small"
+        id="afp-offentlig-heading"
+        data-testid="grunnlag.afp.title"
+      >
         <FormattedMessage id="grunnlag.afp.title" />:{' '}
         <span style={{ fontWeight: 'normal' }}>{title}</span>
       </Heading>

@@ -13,7 +13,7 @@ describe('AFP vs uføretrygd', () => {
   describe('Som bruker som har logget inn i kalkulatoren, har gradert uføretrygd og er mindre enn 62 år,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
         {
           ...personMock,
           foedselsdato: fødselsdatoYngreEnn62,
@@ -50,9 +50,9 @@ describe('AFP vs uføretrygd', () => {
 
       it('forventer jeg å må samtykke til å beregne AFP.', () => {
         cy.contains('button', 'Neste').click() // -> AFP Info
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('be.visible')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
+          'be.visible'
+        )
       })
 
       it('forventer jeg å kunne gå videre til beregningssiden', () => {
@@ -322,7 +322,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],
@@ -367,7 +367,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],
@@ -413,7 +413,7 @@ describe('AFP vs uføretrygd', () => {
           cy.intercept(
             {
               method: 'POST',
-              url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+              url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
             },
             {
               alderspensjon: [],

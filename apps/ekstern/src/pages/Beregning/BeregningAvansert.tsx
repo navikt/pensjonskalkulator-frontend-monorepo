@@ -20,6 +20,7 @@ import { paths } from '@/router/constants'
 import {
   apiSlice,
   useAlderspensjonQuery,
+  useGetAfpOffentligLivsvarigQuery,
   useGetPersonQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
@@ -31,6 +32,7 @@ import {
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectFoedselsdato,
   selectIsEndring,
   selectLoependeVedtak,
   selectNormertPensjonsalder,
@@ -39,7 +41,7 @@ import {
   selectSkalBeregneAfpKap19,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, isAlderOver62 } from '@/utils/alder'
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -67,6 +69,16 @@ export const BeregningAvansert = () => {
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: person } = useGetPersonQuery()
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const {
+    isSuccess: isAfpOffentligLivsvarigSuccess,
+    data: loependeLivsvarigAfpOffentlig,
+  } = useGetAfpOffentligLivsvarigQuery(undefined, {
+    skip:
+      !harSamtykketOffentligAFP ||
+      !foedselsdato ||
+      !isAlderOver62(foedselsdato),
+  })
   const afpInntektMaanedFoerUttak = useAppSelector(
     selectAfpInntektMaanedFoerUttak
   )
@@ -104,6 +116,9 @@ export const BeregningAvansert = () => {
           utenlandsperioder,
           beregningsvalg,
           afpInntektMaanedFoerUttak: afpInntektMaanedFoerUttak,
+          loependeLivsvarigAfpOffentlig: isAfpOffentligLivsvarigSuccess
+            ? loependeLivsvarigAfpOffentlig
+            : null,
         })
       }
     }, [
@@ -115,6 +130,8 @@ export const BeregningAvansert = () => {
       epsHarPensjon,
       epsHarInntektOver2G,
       beregningsvalg,
+      isAfpOffentligLivsvarigSuccess,
+      loependeLivsvarigAfpOffentlig,
     ])
 
   // Hent alderspensjon + AFP
@@ -240,7 +257,7 @@ export const BeregningAvansert = () => {
 
         {isError ? (
           <>
-            <Heading level="2" size="medium">
+            <Heading level="2" size="medium" data-testid="beregning-heading">
               <FormattedMessage id="beregning.title" />
             </Heading>
 
@@ -255,7 +272,12 @@ export const BeregningAvansert = () => {
                 [styles.intro__endring]: isEndring,
               })}
             >
-              <Heading level="2" size="medium" className={styles.introTitle}>
+              <Heading
+                level="2"
+                size="medium"
+                className={styles.introTitle}
+                data-testid="beregning-heading"
+              >
                 <FormattedMessage
                   id={
                     isEndring
@@ -338,6 +360,7 @@ export const BeregningAvansert = () => {
                       trygdetid: alderspensjon?.trygdetid,
                       opptjeningsgrunnlag:
                         alderspensjon?.opptjeningGrunnlagListe,
+                      harForLiteTrygdetid: alderspensjon?.harForLiteTrygdetid,
                     }
                   : undefined
               }

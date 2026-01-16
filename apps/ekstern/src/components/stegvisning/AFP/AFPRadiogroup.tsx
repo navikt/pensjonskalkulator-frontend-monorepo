@@ -42,7 +42,7 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
       onChange={handleRadioChange}
       error={validationError}
     >
-      <Radio value="ja_offentlig">
+      <Radio value="ja_offentlig" data-testid="afp-radio-ja-offentlig">
         <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
       </Radio>
       {showApotekerAlert && (
@@ -55,13 +55,13 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
           <FormattedMessage id="error.apoteker_warning" />
         </Alert>
       )}
-      <Radio value="ja_privat">
+      <Radio value="ja_privat" data-testid="afp-radio-ja-privat">
         <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
       </Radio>
-      <Radio value="nei">
+      <Radio value="nei" data-testid="afp-radio-nei">
         <FormattedMessage id="stegvisning.afp.radio_nei" />
       </Radio>
-      <Radio value="vet_ikke">
+      <Radio value="vet_ikke" data-testid="afp-radio-vet-ikke">
         <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
       </Radio>
       {showVetIkkeAlert && (

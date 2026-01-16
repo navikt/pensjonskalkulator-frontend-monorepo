@@ -44,7 +44,7 @@ describe('StepStart', () => {
   })
 
   describe('Gitt at brukeren er innlogget', () => {
-    it('henter personopplysninger og viser hilsen med navnet til brukeren når bruker er yngre enn 75 år', async () => {
+    it('henter personopplysninger og viser hilsen med fornavnet til brukeren når bruker er yngre enn 75 år', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -70,9 +70,9 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
 
-      mockResponse('/v5/person', {
+      mockResponse('/v6/person', {
         json: {
-          navn: 'Aprikos',
+          fornavn: 'Aprikos',
           sivilstand: 'UGIFT',
           foedselsdato: '1948-10-02',
           pensjoneringAldre: {
@@ -103,7 +103,7 @@ describe('StepStart', () => {
   })
 
   describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
-    it('henter personopplysninger og viser hilsen med navnet til brukeren', async () => {
+    it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -126,7 +126,7 @@ describe('StepStart', () => {
     })
 
     it('rendrer ikke siden når henting av personopplysninger feiler og redirigerer til /uventet-feil', async () => {
-      mockErrorResponse('/v5/person')
+      mockErrorResponse('/v6/person')
       const mockedState: RootState = {
         // @ts-ignore
         api: { queries: { mock: 'mock' } },
@@ -154,7 +154,7 @@ describe('StepStart', () => {
   })
 
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
-    it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
+    it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med fornavnet til brukeren', async () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -216,7 +216,7 @@ describe('StepStart', () => {
   })
 
   describe('Gitt at brukeren har et vedtak om pre2025OffentligAfp', () => {
-    it('viser informasjon om gammel Afp, i tillegg til hilsen med navnet til brukeren', async () => {
+    it('viser informasjon om gammel Afp, i tillegg til hilsen med fornavnet til brukeren', async () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -254,7 +254,7 @@ describe('StepStart', () => {
   })
 
   describe('Gitt at brukeren har et vedtak om 0 % alderspensjon og pre2025OffentligAfp', () => {
-    it('viser informasjon om gammel Afp, i tillegg til hilsen med navnet til brukeren', async () => {
+    it('viser informasjon om gammel Afp, i tillegg til hilsen med fornavnet til brukeren', async () => {
       mockResponse('/v4/vedtak/loepende-vedtak', {
         status: 200,
         json: {

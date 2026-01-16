@@ -19,7 +19,7 @@ export const loependeVedtak = async (
 
   return {
     url: /\/pensjon\/kalkulator\/api\/v4\/vedtak\/loepende-vedtak/,
-    jsonResponse: {
+    overrideJsonResponse: {
       ...loependeVedtakMock,
       ...overrides,
     },

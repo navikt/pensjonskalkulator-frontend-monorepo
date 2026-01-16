@@ -23,9 +23,9 @@ describe('AFP', () => {
 
       it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('not.exist')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
+          'not.exist'
+        )
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
         )
@@ -70,9 +70,9 @@ describe('AFP', () => {
       it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('not.exist')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
+          'not.exist'
+        )
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
         )
@@ -119,9 +119,9 @@ describe('AFP', () => {
       it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('not.exist')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should(
+          'not.exist'
+        )
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
         )
@@ -169,16 +169,14 @@ describe('AFP', () => {
       it('forventer jeg å bli spurt om samtykke før jeg kan gå videre til neste steg.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('exist')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should('exist')
       })
 
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, AFP, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt.', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon_med_afp_offentlig.json' }
         ).as('fetchAlderspensjon')
@@ -224,9 +222,7 @@ describe('AFP', () => {
       it('forventer jeg å bli spurt om samtykke før jeg kan gå videre til neste steg', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Samtykke til at Nav beregner AFP (avtalefestet pensjon)'
-        ).should('exist')
+        cy.get('[data-testid="samtykke-offentlig-afp-title"]').should('exist')
       })
 
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
@@ -417,15 +413,6 @@ describe('AFP', () => {
 
       it('forventer jeg å kunne gå videre til enkel beregning uten noe infosteg imellom', () => {
         cy.location('pathname').should('include', '/beregning')
-      })
-
-      it('forventer jeg å få informasjon i grunnlaget om at jeg har svart at jeg ikke har rett til AFP og at AFP derfor ikke vises i beregningen', () => {
-        cy.location('pathname').should('include', '/beregning')
-
-        cy.contains('button', '70').click()
-
-        cy.contains('AFP: Nei').should('exist')
-        cy.contains('a', 'AFP (avtalefestet pensjon)').should('exist')
       })
     })
   })

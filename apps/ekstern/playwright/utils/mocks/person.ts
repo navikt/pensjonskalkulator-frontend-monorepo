@@ -4,12 +4,13 @@ import { loadJSONMock } from '../mock'
 type PersonMockOptions = {
   alder?: {
     aar: number
-    maander?: number
+    maaneder?: number
     dager?: number
   }
   foedselsdato?: string
   sivilstand?: string
   navn?: string
+  fornavn?: string
   pensjoneringAldre?: Record<string, unknown>
 }
 
@@ -44,7 +45,7 @@ export const person = async (
   } else if (options.alder) {
     personMock.foedselsdato = calculateFoedselsdato(
       options.alder.aar,
-      options.alder.maander,
+      options.alder.maaneder,
       options.alder.dager
     )
   }
@@ -53,8 +54,8 @@ export const person = async (
     personMock.sivilstand = options.sivilstand
   }
 
-  if (options.navn) {
-    personMock.navn = options.navn
+  if (options.fornavn) {
+    personMock.fornavn = options.fornavn
   }
 
   if (options.pensjoneringAldre) {
@@ -62,7 +63,7 @@ export const person = async (
   }
 
   return {
-    url: /\/pensjon\/kalkulator\/api\/v5\/person/,
-    jsonResponse: personMock,
+    url: /\/pensjon\/kalkulator\/api\/v6\/person/,
+    overrideJsonResponse: personMock,
   }
 }

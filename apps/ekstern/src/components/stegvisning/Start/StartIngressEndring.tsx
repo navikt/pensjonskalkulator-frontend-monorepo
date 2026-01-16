@@ -15,7 +15,7 @@ export function StartIngressEndring({ loependeVedtak }: Props) {
   const fremtidigAlderspensjon = loependeVedtak.fremtidigAlderspensjon
   return (
     <>
-      <BodyLong size="large">
+      <BodyLong size="large" data-testid="stegvisning-start-ingress-endring">
         <FormattedMessage
           id="stegvisning.start.endring.ingress_1a"
           values={{
@@ -28,6 +28,7 @@ export function StartIngressEndring({ loependeVedtak }: Props) {
         />
         {fremtidigAlderspensjon ? (
           <FormattedMessage
+            data-testid="stegvisning-start-ingress-endring-fremtidig"
             id="stegvisning.start.endring.ingress_1b.med_fremtidig"
             values={{
               ...getFormatMessageValues(),
@@ -48,7 +49,10 @@ export function StartIngressEndring({ loependeVedtak }: Props) {
       </BodyLong>
 
       {!fremtidigAlderspensjon && (
-        <BodyLong size="medium">
+        <BodyLong
+          size="medium"
+          data-testid="stegvisning-start-ingress-endring-info"
+        >
           <FormattedMessage id="stegvisning.start.endring.ingress_2" />
         </BodyLong>
       )}

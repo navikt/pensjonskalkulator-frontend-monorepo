@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { BodyShort, ErrorMessage, Label, Select } from '@navikt/ds-react'
+import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
@@ -61,6 +61,7 @@ export interface AgePickerProps {
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
   error?: string | React.JSX.Element
+  testId?: string
 }
 
 export const AgePicker = ({
@@ -74,6 +75,7 @@ export const AgePicker = ({
   info,
   onChange,
   error,
+  testId,
 }: AgePickerProps) => {
   const intl = useIntl()
 
@@ -140,9 +142,7 @@ export const AgePicker = ({
   }, [valgtAlder, isSuccess, person?.foedselsdato])
 
   return (
-    <div data-testid={`age-picker-${name}`}>
-      <Label className={!description ? styles.label : ''}>{label}</Label>
-
+    <div data-testid={testId || `age-picker-${name}`}>
       {description && (
         <BodyShort
           className={styles.description}
@@ -152,8 +152,9 @@ export const AgePicker = ({
           {description}
         </BodyShort>
       )}
+      <fieldset className={styles.selectWrapper}>
+        <legend className={!description ? styles.legend : ''}>{label}</legend>
 
-      <div className={styles.selectWrapper}>
         <Select
           data-testid={`age-picker-${name}-aar`}
           form={form}
@@ -268,7 +269,7 @@ export const AgePicker = ({
         </Select>
 
         <span className={styles.date}>{transformertDate}</span>
-      </div>
+      </fieldset>
 
       {error && (
         <div

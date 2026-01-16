@@ -60,6 +60,7 @@ export const InfoOmLoependeVedtak = ({ loependeVedtak }: Props) => {
         {loependeVedtak.alderspensjon.grad > 0 &&
           loependeVedtak.alderspensjon.sisteUtbetaling && (
             <FormattedMessage
+              data-testid="beregning-endring-siste-utbetaling"
               id="beregning.endring.rediger.vedtak_betaling_status"
               values={{
                 ...getFormatMessageValues(),

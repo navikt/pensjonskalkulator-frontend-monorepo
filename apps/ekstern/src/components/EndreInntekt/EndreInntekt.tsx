@@ -103,8 +103,12 @@ export const EndreInntekt: React.FC<Props> = ({
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const data = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const data = new FormData(form)
     const inntektData = data.get('inntekt') as string | undefined
+    const input = form.elements.namedItem('inntekt') as HTMLInputElement | null
+    // Set focus on input field to show error message to screen reader users
+    input?.focus()
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       // TODO: fjern når amplitude er ikke i bruk lenger
@@ -192,7 +196,10 @@ export const EndreInntekt: React.FC<Props> = ({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button form="oppdatere-inntekt">
+          <Button
+            form="oppdatere-inntekt"
+            data-testid="inntekt.endre_inntekt_modal.button"
+          >
             {intl.formatMessage({
               id: 'inntekt.endre_inntekt_modal.button',
             })}
@@ -212,6 +219,7 @@ export const EndreInntekt: React.FC<Props> = ({
         size="medium"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
+        data-testid={buttonLabel ?? 'inntekt.endre_inntekt_modal.open.button'}
       >
         {intl.formatMessage({
           id: buttonLabel ?? 'inntekt.endre_inntekt_modal.open.button',

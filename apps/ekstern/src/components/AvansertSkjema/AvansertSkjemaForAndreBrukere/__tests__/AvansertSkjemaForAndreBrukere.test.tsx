@@ -76,7 +76,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
 
@@ -174,7 +174,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -199,7 +199,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
     expect(
@@ -332,7 +332,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
 
@@ -496,7 +496,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
     // sjekker at radio knappen for gradert uttak er nullstilt
@@ -581,7 +581,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
     await user.click(
@@ -672,7 +672,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '60 %' },
+        target: { value: '60' },
       }
     )
 
@@ -787,7 +787,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     // Endrer uttaksgrad
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
-      { target: { value: '100 %' } }
+      { target: { value: '100' } }
     )
     await user.click(
       screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
@@ -906,7 +906,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '80 %' },
+          target: { value: '80' },
         }
       )
 
@@ -989,7 +989,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1050,7 +1050,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '100 %' },
+          target: { value: '100' },
         }
       )
 
@@ -1104,6 +1104,9 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           maaneder: 0,
         },
       })
+      expect(onSubmitMock.mock.calls[0][5]).toStrictEqual({
+        skalValidereStillingsprosentVsaPensjon: false,
+      })
     })
 
     it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
@@ -1151,7 +1154,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1188,7 +1191,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '40 %' },
+          target: { value: '40' },
         }
       )
 
@@ -1315,7 +1318,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '60 %' },
+          target: { value: '60' },
         }
       )
 
@@ -1430,6 +1433,9 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           maaneder: 0,
         },
       })
+      expect(onSubmitMock.mock.calls[0][5]).toStrictEqual({
+        skalValidereStillingsprosentVsaPensjon: false,
+      })
     })
   })
 
@@ -1496,7 +1502,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '50 %' },
+          target: { value: '50' },
         }
       )
 
@@ -1585,7 +1591,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '100 %' },
+        target: { value: '100' },
       }
     )
 
@@ -1648,7 +1654,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     fireEvent.change(
       await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
       {
-        target: { value: '80 %' },
+        target: { value: '80' },
       }
     )
 
@@ -1719,6 +1725,77 @@ describe('AvansertSkjemaForAndreBrukere', () => {
     )
   })
 
+  it('viser valideringsfeil for stillingsprosent ved helt uttak når samtykke er gitt', async () => {
+    const user = userEvent.setup()
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <AvansertSkjemaForAndreBrukere />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            // @ts-ignore
+            queries: { ...mockedQueries },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afpUtregningValg: 'KUN_ALDERSPENSJON',
+          },
+        },
+      }
+    )
+
+    await user.click(screen.getByText('beregning.avansert.button.beregn'))
+
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
+      {
+        target: { value: '67' },
+      }
+    )
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+      ),
+      {
+        target: { value: '0' },
+      }
+    )
+
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
+    )
+
+    await user.click(
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    )
+
+    const inputField = await screen.findByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
+    await user.type(inputField, '123000')
+
+    await user.click(screen.getByTestId('beregn-pensjon'))
+
+    const stillingsSelect = await screen.findByTestId(
+      AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon
+    )
+    expect(stillingsSelect).toHaveAttribute('aria-invalid', 'true')
+    expect(document.activeElement).toBe(stillingsSelect)
+
+    await user.selectOptions(stillingsSelect, '100')
+  })
+
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt, ', () => {
     it('viser alert med informasjon om alternativer', async () => {
       const vilkaarsproevingMock = {
@@ -1728,7 +1805,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         },
       }
 
-      mockResponse('/v8/alderspensjon/simulering', {
+      mockResponse('/v9/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
@@ -1948,7 +2025,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '62' },
+          target: { value: '63' },
         }
       )
       fireEvent.change(
@@ -1964,7 +2041,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       fireEvent.change(
         await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
         {
-          target: { value: '40 %' },
+          target: { value: '40' },
         }
       )
 

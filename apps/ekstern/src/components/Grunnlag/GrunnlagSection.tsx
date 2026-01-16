@@ -9,13 +9,14 @@ import styles from './GrunnlagSection.module.scss'
 interface Props {
   headerTitle: string
   headerValue?: string
+  headerValueTestId?: string
   isLoading?: boolean
   children: React.ReactNode
 }
 
 export const GrunnlagSection = React.forwardRef(
   (
-    { headerTitle, headerValue, isLoading, children }: Props,
+    { headerTitle, headerValue, headerValueTestId, isLoading, children }: Props,
     ref: React.ForwardedRef<HTMLSpanElement>
   ) => {
     const forwardedRef = ref
@@ -41,7 +42,10 @@ export const GrunnlagSection = React.forwardRef(
             </>
           ) : (
             <>
-              : <span className={styles.header}>{headerValue}</span>
+              :{' '}
+              <span className={styles.header} data-testid={headerValueTestId}>
+                {headerValue}
+              </span>
             </>
           )}
         </Accordion.Header>

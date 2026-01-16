@@ -17,6 +17,8 @@ interface Props {
   summerYtelser: (data: Pensjonsdata) => number
   hentUttaksmaanedOgAar: (alder: Alder) => string
   harGradering: boolean
+  skalViseNullOffentligTjenestepensjon?: boolean
+  erTpFoer1963?: boolean
 }
 
 export const PensjonVisningMobil: React.FC<Props> = ({
@@ -24,6 +26,8 @@ export const PensjonVisningMobil: React.FC<Props> = ({
   summerYtelser,
   hentUttaksmaanedOgAar,
   harGradering,
+  skalViseNullOffentligTjenestepensjon,
+  erTpFoer1963,
 }) => {
   const intl = useIntl()
 
@@ -35,6 +39,10 @@ export const PensjonVisningMobil: React.FC<Props> = ({
         pensjonsdata={pensjonsdata}
         summerYtelser={summerYtelser}
         hentUttaksmaanedOgAar={hentUttaksmaanedOgAar}
+        skalViseNullOffentligTjenestepensjon={
+          skalViseNullOffentligTjenestepensjon
+        }
+        erTpFoer1963={erTpFoer1963}
       />
     )
   }
@@ -74,6 +82,9 @@ export const PensjonVisningMobil: React.FC<Props> = ({
                 pensjonsdata={data}
                 summerYtelser={summerYtelser}
                 hentUttaksMaanedOgAar={hentUttaksmaanedOgAar}
+                skalViseNullOffentligTjenestepensjon={
+                  skalViseNullOffentligTjenestepensjon
+                }
               />
             </ReadMore>
           )

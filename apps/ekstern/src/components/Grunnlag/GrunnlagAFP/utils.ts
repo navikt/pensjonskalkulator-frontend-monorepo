@@ -22,6 +22,7 @@ interface IAfpGrunnlagInput {
   foedselsdato: string
   loependeVedtak: LoependeVedtak
   samtykkeOffentligAFP: boolean | null
+  loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig
 }
 
 export const afpContentIntl = (intl: IntlShape) => ({
@@ -33,6 +34,11 @@ export const afpContentIntl = (intl: IntlShape) => ({
   afpOffentligOppgitt_2: {
     title: `${getOffentligMessage(intl)}`,
     content: 'grunnlag.afp.ingress.ja_offentlig',
+  },
+
+  afpOffentligTpo: {
+    title: `${getOffentligMessage(intl)} (${getEndringMessage(intl)})`,
+    content: 'grunnlag.afp.ingress.ja_offentlig.tpo',
   },
 
   offentligAfpOgUforeKanIkkeBeregnes_3: {
@@ -95,6 +101,7 @@ export const generateAfpContent =
       loependeVedtak,
       beregningsvalg,
       erApoteker,
+      loependeLivsvarigAfpOffentlig,
     } = input
 
     const hasUfoeregradGreaterThanZero = loependeVedtak?.ufoeretrygd?.grad > 0
@@ -116,6 +123,13 @@ export const generateAfpContent =
     // Prioritet 1: Håndter eksisterende AFP-vedtak
     if (hasAfpOffentlig) {
       return content.harAfpOffentlig_12
+    }
+    if (
+      loependeLivsvarigAfpOffentlig?.afpStatus &&
+      loependeLivsvarigAfpOffentlig?.maanedligBeloep !== 0 &&
+      samtykkeOffentligAFP
+    ) {
+      return content.afpOffentligTpo
     }
     if (hasAfpPrivat) {
       return content.afpPrivatUendret_11

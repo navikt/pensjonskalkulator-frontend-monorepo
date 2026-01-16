@@ -8,9 +8,9 @@
  */
 Cypress.Commands.add('setupPersonFoedtFoer1963', () => {
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
     {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1962-04-30',
       pensjoneringAldre: {
@@ -37,9 +37,9 @@ Cypress.Commands.add('setupPersonFoedtFoer1963', () => {
  */
 Cypress.Commands.add('setupPersonFoedtEtter1963', () => {
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v5/person' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v6/person' },
     {
-      navn: 'Aprikos',
+      fornavn: 'Aprikos',
       sivilstand: 'UGIFT',
       foedselsdato: '1964-04-30',
       pensjoneringAldre: {

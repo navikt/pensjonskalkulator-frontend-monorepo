@@ -22,10 +22,10 @@ describe('stegvisning - Start', () => {
     ufoeretrygd: { grad: 0 },
   }
 
-  it('rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper', async () => {
+  it('rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={loependeVedtak}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -40,7 +40,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om alderspensjon', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           alderspensjon: {
@@ -78,7 +78,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om alderspensjon og uføregrad', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           alderspensjon: {
@@ -107,7 +107,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om alderspensjon og AFP privat', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           alderspensjon: {
@@ -143,7 +143,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om alderspensjon og AFP offentlig', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           alderspensjon: {
@@ -179,7 +179,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med fremtidig vedtak', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           ufoeretrygd: {
@@ -209,7 +209,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om alderspensjon og fremtidig vedtak', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           alderspensjon: {
@@ -250,7 +250,7 @@ describe('stegvisning - Start', () => {
   it('rendrer slik den skal med vedtak om pre2025 offentlig Afp', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={{
           harLoependeVedtak: true,
           ufoeretrygd: {
@@ -277,7 +277,7 @@ describe('stegvisning - Start', () => {
     const user = userEvent.setup()
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={loependeVedtak}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -290,7 +290,7 @@ describe('stegvisning - Start', () => {
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={loependeVedtak}
         onCancel={undefined}
         onNext={onNextMock}
@@ -302,7 +302,7 @@ describe('stegvisning - Start', () => {
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={loependeVedtak}
         onCancel={undefined}
         onNext={onNextMock}
@@ -315,7 +315,7 @@ describe('stegvisning - Start', () => {
     const user = userEvent.setup()
     render(
       <StartForBrukereUnder75
-        navn="Ola"
+        fornavn="Ola"
         loependeVedtak={loependeVedtak}
         onCancel={onCancelMock}
         onNext={onNextMock}

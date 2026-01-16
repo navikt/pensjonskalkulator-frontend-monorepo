@@ -1,7 +1,14 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import {
+  Alert,
+  BodyLong,
+  Heading,
+  Radio,
+  RadioGroup,
+  ReadMore,
+} from '@navikt/ds-react'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -38,6 +45,9 @@ export function SamtykkeOffentligAFP({
   const afp = useAppSelector(selectAfp)
 
   const [validationError, setValidationError] = useState<string>('')
+  const [localSamtykke, setLocalSamtykke] = useState<BooleanRadio | null>(
+    harSamtykket === null ? null : harSamtykket ? 'ja' : 'nei'
+  )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -75,8 +85,9 @@ export function SamtykkeOffentligAFP({
     }
   }
 
-  const handleRadioChange = (): void => {
+  const handleRadioChange = (value: BooleanRadio | null): void => {
     setValidationError('')
+    setLocalSamtykke(value)
   }
 
   return (
@@ -87,15 +98,47 @@ export function SamtykkeOffentligAFP({
         )}
       />
       <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
+        <Heading
+          level="2"
+          size="medium"
+          spacing
+          data-testid="samtykke-offentlig-afp-title"
+        >
           <FormattedMessage id="stegvisning.samtykke_offentlig_afp.title" />
         </Heading>
+
         <BodyLong size="large">
           <FormattedMessage
             id="stegvisning.samtykke_offentlig_afp.ingress"
             values={{ ...getFormatMessageValues() }}
           />
         </BodyLong>
+
+        <ReadMore
+          header={intl.formatMessage({
+            id: 'stegvisning.samtykke_offentlig_afp.nav_info.readmore',
+          })}
+        >
+          <BodyLong size="large">
+            <FormattedMessage
+              id="stegvisning.samtykke_offentlig_afp.nav_info.readmore.ingress"
+              values={{ ...getFormatMessageValues() }}
+            />
+          </BodyLong>
+        </ReadMore>
+
+        <ReadMore
+          header={intl.formatMessage({
+            id: 'stegvisning.samtykke_offentlig_afp.tpo_info.readmore',
+          })}
+        >
+          <BodyLong size="large">
+            <FormattedMessage
+              id="stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress"
+              values={{ ...getFormatMessageValues() }}
+            />
+          </BodyLong>
+        </ReadMore>
 
         <RadioGroup
           className={styles.radiogroup}
@@ -106,6 +149,7 @@ export function SamtykkeOffentligAFP({
             <FormattedMessage id="stegvisning.samtykke_offentlig_afp.radio_description" />
           }
           name="samtykke-offentlig-afp"
+          data-testid="stegvisning.samtykke_offentlig_afp.radio_label"
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
           }
@@ -119,6 +163,12 @@ export function SamtykkeOffentligAFP({
             <FormattedMessage id="stegvisning.samtykke_offentlig_afp.radio_nei" />
           </Radio>
         </RadioGroup>
+
+        {localSamtykke === 'nei' && (
+          <Alert className={styles.alert} variant="info">
+            <FormattedMessage id="stegvisning.samtykke_offentlig_afp.alert" />
+          </Alert>
+        )}
 
         <Navigation onPrevious={onPrevious} onCancel={onCancel} />
       </form>

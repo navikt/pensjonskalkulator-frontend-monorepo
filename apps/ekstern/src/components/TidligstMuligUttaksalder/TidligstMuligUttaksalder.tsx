@@ -108,7 +108,11 @@ export const TidligstMuligUttaksalder = ({
 
   return (
     <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
-      <div className={styles.wrapperCard} aria-live="polite">
+      <div
+        className={styles.wrapperCard}
+        aria-live="polite"
+        data-testid="tidligst-mulig-uttak-result"
+      >
         {!ufoeregrad && !tidligstMuligUttak && (
           <BodyLong size="medium" className={styles.ingress}>
             <FormattedMessage
@@ -148,7 +152,11 @@ export const TidligstMuligUttaksalder = ({
             tidligstMuligUttakIngressPre2025OffentligAFP()
           ) : (
             <>
-              <BodyLong size="medium" className={styles.ingress}>
+              <BodyLong
+                size="medium"
+                className={styles.ingress}
+                data-testid="tidligstmuliguttak-ingress"
+              >
                 <FormattedMessage
                   id="tidligstmuliguttak.ingress_1"
                   values={{

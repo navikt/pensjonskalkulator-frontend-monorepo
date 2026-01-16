@@ -1,13 +1,12 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { Alert, Link } from '@navikt/ds-react'
 
 import { BeregningContext } from '@/pages/Beregning/context'
-import { useAppSelector } from '@/state/hooks'
-import { selectIsEndring } from '@/state/userInput/selectors'
-import { ALERT_VIST } from '@/utils/loggerConstants'
-import { logger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
+
+import { PensjonsAvtalerAlertProps, usePensjonsavtalerAlerts } from '../temp-hooks'
 
 import styles from './SimuleringPensjonsavtalerAlert.module.scss'
 
@@ -17,166 +16,22 @@ const ALERT_VARIANTS = {
   INLINE_INFO: 'inline-info',
 } as const
 
-type AlertVariant = (typeof ALERT_VARIANTS)[keyof typeof ALERT_VARIANTS]
-
-interface Props {
-  pensjonsavtaler: {
-    isLoading: boolean
-    isSuccess: boolean
-    isError: boolean
-    data?: {
-      avtaler: Pensjonsavtale[]
-      partialResponse: boolean
-    }
-  }
-  offentligTp: {
-    isError: boolean
-    data?: OffentligTp
-  }
-  isPensjonsavtaleFlagVisible: boolean
-}
-
-export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
+export const SimuleringPensjonsavtalerAlert: React.FC<
+  PensjonsAvtalerAlertProps
+> = ({
   pensjonsavtaler,
   offentligTp,
   isPensjonsavtaleFlagVisible,
+  erOffentligTpFoer1963,
 }) => {
-  const intl = useIntl()
   const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
-  const isEndring = useAppSelector(selectIsEndring)
-  const {
-    isLoading: isPensjonsavtalerLoading,
-    isSuccess: isPensjonsavtalerSuccess,
-    isError: isPensjonsavtalerError,
-    data: pensjonsavtalerData,
-  } = pensjonsavtaler
-  const { isError: isOffentligTpError, data: offentligTpData } = offentligTp
 
-  const alertsList: Array<{
-    variant: AlertVariant
-    text: string
-  }> = []
-
-  // Varselet om at avtaler starter tidligere enn uttakstidspunkt skal være øverst av varslene
-  if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
-    const text = 'beregning.pensjonsavtaler.alert.avtaler_foer_alder'
-    const variant = ALERT_VARIANTS.INLINE_INFO
-    logger(ALERT_VIST, {
-      tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-      variant,
-    })
-    alertsList.push({
-      variant,
-      text,
-    })
-  }
-
-  const pensjonsavtaleAlert = React.useMemo(():
-    | { variant: AlertVariant; text: string }
-    | undefined => {
-    const isPartialWith0Avtaler =
-      pensjonsavtalerData?.partialResponse &&
-      pensjonsavtalerData?.avtaler.length === 0
-
-    const isOffentligTpUkomplett =
-      offentligTpData?.simuleringsresultatStatus ===
-        'TOM_SIMULERING_FRA_TP_ORDNING' ||
-      offentligTpData?.simuleringsresultatStatus === 'TEKNISK_FEIL'
-
-    const isOffentligTpOK =
-      offentligTpData &&
-      (offentligTpData.simuleringsresultatStatus === 'OK' ||
-        offentligTpData.simuleringsresultatStatus ===
-          'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING')
-
-    if (isEndring) {
-      const text = 'beregning.pensjonsavtaler.alert.endring'
-      const variant = ALERT_VARIANTS.INLINE_INFO
-      return {
-        variant,
-        text,
-      }
-    }
-
-    // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
-    if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
-      const text = 'beregning.pensjonsavtaler.alert.privat.error'
-      const variant = ALERT_VARIANTS.WARNING
-      logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant,
-      })
-      return {
-        variant,
-        text,
-      }
-    }
-
-    // Offentlig-TP FEIL/UKOMPLETT eller at TP_ORDNING støttes ikke + Private pensjonsavtaler FEIL/UKOMPLETT
-    if (
-      (isOffentligTpError ||
-        isOffentligTpUkomplett ||
-        offentligTpData?.simuleringsresultatStatus ===
-          'TP_ORDNING_STOETTES_IKKE') &&
-      (isPensjonsavtalerError || isPartialWith0Avtaler)
-    ) {
-      const text = 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error'
-      const variant = ALERT_VARIANTS.WARNING
-      logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant,
-      })
-      return {
-        variant,
-        text,
-      }
-    }
-
-    // Offentlig-TP FEIL/UKOMPLETT + Private pensjonsavtaler OK
-    if (
-      (isOffentligTpError || isOffentligTpUkomplett) &&
-      isPensjonsavtalerSuccess
-    ) {
-      const text = 'beregning.pensjonsavtaler.alert.offentlig.error'
-      const variant = ALERT_VARIANTS.WARNING
-      logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant,
-      })
-      return {
-        variant,
-        text,
-      }
-    }
-
-    // Offentlig-TP OK + Ordning støttes ikke
-    if (
-      offentligTpData &&
-      offentligTpData.simuleringsresultatStatus === 'TP_ORDNING_STOETTES_IKKE'
-    ) {
-      const text = 'beregning.pensjonsavtaler.alert.stoettes_ikke'
-      const variant = ALERT_VARIANTS.INFO
-      logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-        variant,
-      })
-      return {
-        variant,
-        text,
-      }
-    }
-  }, [
+  const alertsList = usePensjonsavtalerAlerts({
+    pensjonsavtaler,
+    offentligTp,
     isPensjonsavtaleFlagVisible,
-    isPensjonsavtalerSuccess,
-    isPensjonsavtalerError,
-    pensjonsavtalerData,
-    isOffentligTpError,
-    offentligTpData,
-  ])
-
-  if (pensjonsavtaleAlert) {
-    alertsList.push(pensjonsavtaleAlert)
-  }
+    erOffentligTpFoer1963,
+  })
 
   const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
     HTMLAnchorElement
@@ -216,10 +71,12 @@ export const SimuleringPensjonsavtalerAlert: React.FC<Props> = ({
           className={styles.alert}
           {...(index === 1 && { style: { margin: '16px 0' } })}
           inline={alert.variant === ALERT_VARIANTS.INLINE_INFO}
+          role="alert"
         >
           <FormattedMessage
             id={alert.text}
             values={{
+              ...getFormatMessageValues(),
               // eslint-disable-next-line react/no-unstable-nested-components
               scrollTo: (chunk) => (
                 <Link

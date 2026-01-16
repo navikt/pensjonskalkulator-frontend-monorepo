@@ -8,10 +8,10 @@ test.describe('Språkvelger', () => {
     await expectElementVisible(page, 'stegvisning-start-button')
     await page.getByTestId('stegvisning-start-button').click()
 
-    await expectElementVisible(page, 'sivilstand-heading')
+    await expectElementVisible(page, 'stegvisning.sivilstand.title')
     await page.getByTestId('stegvisning-neste-button').click()
 
-    await expectElementVisible(page, 'utenlandsopphold-heading')
+    await expectElementVisible(page, 'stegvisning.utenlandsopphold.title')
     await expectElementVisible(page, 'hva_er_opphold_utenfor_norge')
   })
 })

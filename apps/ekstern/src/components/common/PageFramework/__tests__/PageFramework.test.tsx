@@ -1,8 +1,10 @@
-import { Link } from 'react-router'
+import { Link, RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
+import { BASE_PATH, paths } from '@/router/constants'
+import { routes } from '@/router/routes'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { PageFramework } from '../PageFramework'
@@ -16,32 +18,31 @@ describe('PageFramework', () => {
     window.scrollTo = () => vi.fn()
   })
 
-  // * TODO: Fiks this test so it does not stop the pipeline
-  //   it('viser loader mens loaderen fetcher data', async () => {
-  //     const user = userEvent.setup()
-  //     const router = createMemoryRouter(routes, {
-  //       basename: BASE_PATH,
-  //       initialEntries: [`${BASE_PATH}${paths.login}`],
-  //     })
+  it.skip('viser loader mens loaderen fetcher data', async () => {
+    const user = userEvent.setup()
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
 
-  //     render(<RouterProvider router={router} />, {
-  //       hasRouter: false,
-  //     })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
-  //     const button = await screen.findByTestId(
-  //       'landingside-enkel-kalkulator-button'
-  //     )
-  //     await user.click(button)
+    const button = await screen.findByTestId(
+      'landingside-enkel-kalkulator-button'
+    )
+    await user.click(button)
 
-  //     // * Wait for the loader to appear
-  //     await waitFor(
-  //       () => {
-  //         const loader = screen.queryByTestId('pageframework-loader')
-  //         expect(loader).toBeVisible()
-  //       },
-  //       { timeout: 2000 }
-  //     )
-  //   })
+    // * Wait for the loader to appear
+    await waitFor(
+      () => {
+        const loader = screen.queryByTestId('pageframework-loader')
+        expect(loader).toBeVisible()
+      },
+      { timeout: 2000 }
+    )
+  })
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
     render(<PageFramework />, {

@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong } from '@navikt/ds-react'
 
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, isAlderOverAnnenAlder } from '@/utils/alder'
 import { formatInntektMedKr } from '@/utils/inntekt'
 
 import { Pensjonsdata } from '../hooks'
@@ -16,6 +16,7 @@ interface Props {
   summerYtelser: (data: Pensjonsdata) => number
   hentUttaksMaanedOgAar: (alder: Alder) => string
   harGradering?: boolean
+  skalViseNullOffentligTjenestepensjon?: boolean
 }
 
 export const PensjonDataVisning: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const PensjonDataVisning: React.FC<Props> = ({
   summerYtelser,
   hentUttaksMaanedOgAar,
   harGradering,
+  skalViseNullOffentligTjenestepensjon,
 }) => {
   const intl = useIntl()
   const {
@@ -34,8 +36,15 @@ export const PensjonDataVisning: React.FC<Props> = ({
     pre2025OffentligAfp,
   } = pensjonsdata
 
-  const harKunAlderspensjon = alderspensjon && !afp && !pensjonsavtale
-  const harAFP = Boolean(afp || (pre2025OffentligAfp && !alderspensjon))
+  const skalVisePensjonsavtaler =
+    pensjonsavtale > 0 || skalViseNullOffentligTjenestepensjon
+  const harKunAlderspensjon = alderspensjon && !afp && !skalVisePensjonsavtaler
+  const harAFP = Boolean(
+    afp ||
+    (pre2025OffentligAfp && !alderspensjon) ||
+    (skalViseNullOffentligTjenestepensjon &&
+      !isAlderOverAnnenAlder(alder, { aar: 67, maaneder: 0 }))
+  )
   const harPre2025OffentligAfpOgPensjonsavtale = Boolean(
     pre2025OffentligAfp && pensjonsavtale
   )
@@ -68,14 +77,14 @@ export const PensjonDataVisning: React.FC<Props> = ({
               </BodyLong>
             </th>
             <td data-testid="maanedsbeloep-avansert-afp">
-              {pre2025OffentligAfp
+              {skalViseNullOffentligTjenestepensjon || pre2025OffentligAfp
                 ? formatInntektMedKr(pre2025OffentligAfp)
                 : formatInntektMedKr(afp)}
             </td>
           </tr>
         )}
 
-        {pensjonsavtale > 0 && (
+        {skalVisePensjonsavtaler && (
           <tr className={styles.row}>
             <th
               scope="row"

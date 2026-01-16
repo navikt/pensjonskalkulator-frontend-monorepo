@@ -4,6 +4,7 @@ import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
 import {
+  AVANSERT_FORM_NAMES,
   onAvansertBeregningSubmit,
   validateAvansertBeregningSkjema,
 } from '../utils'
@@ -21,7 +22,7 @@ describe('AvansertSkjema-utils', () => {
         case 'uttaksalder-helt-uttak-maaneder':
           return '0'
         case 'uttaksgrad':
-          return '80 %'
+          return '80'
         case 'inntekt-vsa-helt-uttak-radio':
           return 'ja'
         case 'inntekt-vsa-gradert-uttak-radio':
@@ -34,6 +35,12 @@ describe('AvansertSkjema-utils', () => {
           return '0'
         case 'inntekt-vsa-gradert-uttak':
           return '100000'
+        case 'stillingsprosent-vsa-gradert-pensjon':
+          return '80'
+        case 'stillingsprosent-vsa-hel-pensjon':
+          return '100'
+        case 'stillingsprosent-vsa-afp':
+          return '80'
         default:
           return ''
       }
@@ -63,8 +70,7 @@ describe('AvansertSkjema-utils', () => {
             aar: 67,
             maaneder: 0,
           },
-        },
-        false
+        }
       )
       expect(dispatchMock).not.toHaveBeenCalled()
       expect(gaaTilResultatMock).not.toHaveBeenCalled()
@@ -99,7 +105,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(5)
+        expect(dispatchMock).toHaveBeenCalledTimes(7)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -163,10 +169,10 @@ describe('AvansertSkjema-utils', () => {
               maaneder: 0,
             },
           },
-          false
+          { isKap19Afp: false }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(5)
+        expect(dispatchMock).toHaveBeenCalledTimes(7)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -220,7 +226,7 @@ describe('AvansertSkjema-utils', () => {
             case 'uttaksalder-helt-uttak-maaneder':
               return '0'
             case 'uttaksgrad':
-              return '100 %'
+              return '100'
             case 'inntekt-vsa-helt-uttak-radio':
               return 'ja'
             case 'inntekt-vsa-gradert-uttak-radio':
@@ -233,6 +239,12 @@ describe('AvansertSkjema-utils', () => {
               return '0'
             case 'inntekt-vsa-gradert-uttak':
               return null
+            case 'stillingsprosent-vsa-gradert-pensjon':
+              return ''
+            case 'stillingsprosent-vsa-hel-pensjon':
+              return '100'
+            case 'stillingsprosent-vsa-afp':
+              return ''
             default:
               return ''
           }
@@ -259,7 +271,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(5)
+        expect(dispatchMock).toHaveBeenCalledTimes(7)
         expect(dispatchMock).toHaveBeenNthCalledWith(1, {
           payload: {
             aar: 67,
@@ -318,7 +330,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(5)
+        expect(dispatchMock).toHaveBeenCalledTimes(7)
         expect(gaaTilResultatMock).not.toHaveBeenCalled()
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })
@@ -351,7 +363,7 @@ describe('AvansertSkjema-utils', () => {
           }
         )
 
-        expect(dispatchMock).toHaveBeenCalledTimes(5)
+        expect(dispatchMock).toHaveBeenCalledTimes(7)
         expect(gaaTilResultatMock).toHaveBeenCalled()
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })
@@ -365,7 +377,7 @@ describe('AvansertSkjema-utils', () => {
       gradertUttakMaanederFormData: '5',
       heltUttakAarFormData: '67',
       heltUttakMaanederFormData: '0',
-      uttaksgradFormData: '40 %',
+      uttaksgradFormData: '40',
       inntektVsaHeltUttakRadioFormData: 'ja',
       inntektVsaGradertUttakRadioFormData: 'ja',
       inntektVsaHeltUttakFormData: '300000',
@@ -375,6 +387,9 @@ describe('AvansertSkjema-utils', () => {
       afpInntektMaanedFoerUttakRadioFormData: null,
       inntektVsaAfpRadioFormData: null,
       inntektVsaAfpFormData: null,
+      stillingsprosentVsaAfpFormData: null,
+      stillingsprosentVsaGradertPensjonFormData: '80',
+      stillingsprosentVsaHelPensjonFormData: '100',
     }
 
     const mockedFoedselsdato = '1963-04-30'
@@ -476,7 +491,7 @@ describe('AvansertSkjema-utils', () => {
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
-          { ...correctInputData, uttaksgradFormData: '0 %' },
+          { ...correctInputData, uttaksgradFormData: '0' },
           mockedFoedselsdato,
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
@@ -485,7 +500,7 @@ describe('AvansertSkjema-utils', () => {
       ).toBeTruthy()
       expect(
         validateAvansertBeregningSkjema(
-          { ...correctInputData, uttaksgradFormData: '100 %' },
+          { ...correctInputData, uttaksgradFormData: '100' },
           mockedFoedselsdato,
           mockedNormertPensjonsalder,
           mockedLoependeVedtak,
@@ -524,7 +539,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '0 %',
+            uttaksgradFormData: '0',
             gradertUttakAarFormData: '62',
             gradertUttakMaanederFormData: '0',
           },
@@ -538,7 +553,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: '62',
             gradertUttakMaanederFormData: '0',
           },
@@ -676,7 +691,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: 'abc',
           },
           mockedFoedselsdato,
@@ -689,7 +704,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakMaanederFormData: null,
           },
           mockedFoedselsdato,
@@ -722,7 +737,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: null,
             gradertUttakMaanederFormData: null,
           },
@@ -736,7 +751,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             gradertUttakAarFormData: '68',
             gradertUttakMaanederFormData: '3',
           },
@@ -770,7 +785,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             heltUttakAarFormData: '63',
             heltUttakMaanederFormData: '0',
             gradertUttakAarFormData: null,
@@ -787,7 +802,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '50 %',
+            uttaksgradFormData: '50',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -802,7 +817,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '40 %',
+            uttaksgradFormData: '40',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -819,7 +834,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'uten_afp',
-            uttaksgradFormData: '40 %',
+            uttaksgradFormData: '40',
             gradertUttakAarFormData: '67',
             gradertUttakMaanederFormData: '0',
             heltUttakAarFormData: '67',
@@ -842,7 +857,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'med_afp',
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             heltUttakAarFormData: '63',
             heltUttakMaanederFormData: '0',
             gradertUttakAarFormData: null,
@@ -859,7 +874,7 @@ describe('AvansertSkjema-utils', () => {
           {
             ...correctInputData,
             beregningsvalgFormData: 'med_afp',
-            uttaksgradFormData: '50 %',
+            uttaksgradFormData: '50',
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
@@ -957,7 +972,7 @@ describe('AvansertSkjema-utils', () => {
         validateAvansertBeregningSkjema(
           {
             ...correctInputData,
-            uttaksgradFormData: '100 %',
+            uttaksgradFormData: '100',
             inntektVsaGradertUttakRadioFormData: null,
           },
           mockedFoedselsdato,
@@ -983,6 +998,182 @@ describe('AvansertSkjema-utils', () => {
       ).toBeFalsy()
       expect(validateInntektMock).toHaveBeenCalled()
       expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer false når stillingsprosent for gradert uttak mangler', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            stillingsprosentVsaGradertPensjonFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          false,
+          true
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+      const callback = updateErrorMessageMock.mock.calls[
+        updateErrorMessageMock.mock.calls.length - 1
+      ][0] as (prev: Record<string, string>) => Record<string, string>
+      expect(
+        callback({
+          [AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon]: '',
+        })
+      ).toMatchObject({
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaGradertPensjon]:
+          'inntekt.stillingsprosent_vsa_pensjon.validation_error',
+      })
+    })
+
+    it('returnerer false når stillingsprosent for helt uttak mangler', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            stillingsprosentVsaHelPensjonFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          false,
+          true
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+      const callback = updateErrorMessageMock.mock.calls[
+        updateErrorMessageMock.mock.calls.length - 1
+      ][0] as (prev: Record<string, string>) => Record<string, string>
+      expect(
+        callback({
+          [AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon]: '',
+        })
+      ).toMatchObject({
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaHelPensjon]:
+          'inntekt.stillingsprosent_vsa_pensjon.validation_error',
+      })
+    })
+
+    it('returnerer true når stillingsprosent for helt og gradert uttak er skjult', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            stillingsprosentVsaHelPensjonFormData: '',
+            stillingsprosentVsaGradertPensjonFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          false,
+          false
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer true når stillingsprosent for gradert uttak er skjult', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            stillingsprosentVsaGradertPensjonFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          false,
+          false
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer false når Kap19 AFP mangler stillingsprosent ved valgt inntekt', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            afpInntektMaanedFoerUttakRadioFormData: 'ja',
+            inntektVsaAfpRadioFormData: 'ja',
+            inntektVsaAfpFormData: '250000',
+            stillingsprosentVsaAfpFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          true,
+          true
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+      const callback = updateErrorMessageMock.mock.calls[
+        updateErrorMessageMock.mock.calls.length - 1
+      ][0] as (prev: Record<string, string>) => Record<string, string>
+      expect(
+        callback({
+          [AVANSERT_FORM_NAMES.stillingsprosentVsaAfp]: '',
+        })
+      ).toMatchObject({
+        [AVANSERT_FORM_NAMES.stillingsprosentVsaAfp]:
+          'inntekt.stillingsprosent_vsa_afp.validation_error',
+      })
+    })
+
+    it('returnerer true når Kap19 AFP har stillingsprosent ved valgt inntekt', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            afpInntektMaanedFoerUttakRadioFormData: 'ja',
+            inntektVsaAfpRadioFormData: 'ja',
+            inntektVsaAfpFormData: '250000',
+            stillingsprosentVsaAfpFormData: '80',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          true,
+          true
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer true når Kap19 AFP mangler stillingsprosent men validerStillingsprosentVsaPensjon er false', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            afpInntektMaanedFoerUttakRadioFormData: 'ja',
+            inntektVsaAfpRadioFormData: 'ja',
+            inntektVsaAfpFormData: '250000',
+            stillingsprosentVsaAfpFormData: '',
+          },
+          mockedFoedselsdato,
+          mockedNormertPensjonsalder,
+          mockedLoependeVedtak,
+          updateErrorMessageMock,
+          true,
+          false
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
   })
 })

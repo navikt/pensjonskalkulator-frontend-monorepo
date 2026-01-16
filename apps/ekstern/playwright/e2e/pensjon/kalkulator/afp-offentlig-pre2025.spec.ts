@@ -31,7 +31,10 @@ test.describe('AFP offentlig etterfulgt av AP', () => {
         await fillOutStegvisning(page, {
           samtykke: true,
           sivilstand: 'UGIFT',
+          epsHarPensjon: null,
+          epsHarInntektOver2G: null,
           afp: 'vet_ikke',
+          navigateTo: 'beregning',
         })
 
         await expect(page).toHaveURL(/\/pensjon\/kalkulator\/beregning/)

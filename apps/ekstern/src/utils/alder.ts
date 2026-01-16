@@ -155,7 +155,7 @@ export const isAlderOverAnnenAlder = (
 }
 
 export const isAlderLikEllerOverAnnenAlder = (
-  stoersteAlder: Alder | Partial<Alder>,
+  stoersteAlder: Partial<Alder>,
   minsteAlder: Alder
 ): boolean => {
   if (!stoersteAlder.aar) {
@@ -345,9 +345,13 @@ export const formaterSluttAlderString = (
   }`
 }
 
-export const formaterLivsvarigString = (intl: IntlShape, startAlder: Alder) => {
+export const formaterLivsvarigString = (
+  intl: IntlShape,
+  startAlder: Alder,
+  visUtenLivsvarig?: boolean
+) => {
   return `${intl.formatMessage({
-    id: 'alder.livsvarig',
+    id: visUtenLivsvarig ? 'alder.fra' : 'alder.livsvarig',
   })} ${startAlder.aar} ${intl.formatMessage({
     id: 'alder.aar',
   })}${

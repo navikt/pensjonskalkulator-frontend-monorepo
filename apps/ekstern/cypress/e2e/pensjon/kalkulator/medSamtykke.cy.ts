@@ -64,7 +64,7 @@ describe('Med samtykke', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
           },
           {
             simuleringsresultatStatus: 'TEKNISK_FEIL',
@@ -121,7 +121,7 @@ describe('Med samtykke', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v2/simuler-oftp',
+            url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
           },
           {
             simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
@@ -177,7 +177,10 @@ describe('Med samtykke', () => {
   describe('Som bruker som har samtykket til innhenting av avtaler og IKKE har TPO-forhold,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
+        {
+          method: 'POST',
+          url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
+        },
         {
           simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
           muligeTpLeverandoerListe: [],
@@ -236,7 +239,10 @@ describe('Med samtykke', () => {
   describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos annen ordning enn SPK,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'POST', url: '/pensjon/kalkulator/api/v2/simuler-oftp' },
+        {
+          method: 'POST',
+          url: '/pensjon/kalkulator/api/v2/simuler-oftp/fra-1963',
+        },
         {
           simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
           muligeTpLeverandoerListe: ['KLP'],

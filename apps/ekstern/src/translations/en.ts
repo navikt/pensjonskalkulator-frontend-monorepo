@@ -209,8 +209,14 @@ export default {
     'You can get help assessing your options. Contact your occupational pension scheme if you work in the public sector. <planleggePensjonLink>Contact Nav</planleggePensjonLink> if you work in the private sector.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Consent for Nav to Calculate AFP (contractual pension)',
-  'stegvisning.samtykke_offentlig_afp.ingress':
-    'Your occupational pension scheme is responsible for AFP in the public sector. They will assess if you meet the conditions and make the final calculation when you apply for AFP. Contact them if you have questions.{br}{br}Nav does not assess whether you have the right to an AFP, but can give you a preliminary calculation of the AFP in this calculator.',
+  'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.nav_info.readmore': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.nav_info.readmore.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Do you want Nav to calculate AFP for you?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
@@ -297,6 +303,8 @@ export default {
   'beregning.intro.description_2.gradert_UT.med_afp': 'MANGLER_TEKST',
   'beregning.intro.description_2.gradert_UT.uten_afp': 'MANGLER_TEKST',
   'beregning.intro.description_2.hel_UT': 'MANGLER_TEKST',
+  'beregning.pdf.ingress': 'MANGLER_TEKST',
+  'beregning.pdf.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.om_valget_link': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.beregningsvalg.label': 'MANGLER_TEKST',
@@ -334,6 +342,8 @@ export default {
   'beregning.title': 'MANGLER_TEKST',
   'beregning.alert.inntekt':
     'Because you have changed your income, your pension accrual changes.',
+  'beregning.alert.feil.afp-offentlig-livsvarig': 'MANGLER_TEKST',
+  'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
   'beregning.highcharts.ingress': 'MANGLER_TEKST',

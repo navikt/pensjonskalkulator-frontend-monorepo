@@ -53,9 +53,9 @@ describe('Utland', () => {
           cy.get('[data-testid="utenlandsopphold-land"]').then(
             (selectElements) => {
               const options = selectElements.find('option')
-              expect(options.length).equal(253)
+              expect(options.length).equal(257)
               expect(options.eq(1).text()).equal('Afghanistan')
-              expect(options.eq(252).text()).equal('Åland')
+              expect(options.eq(256).text()).equal('ukjent')
             }
           )
         })
@@ -348,7 +348,7 @@ describe('Utland', () => {
               cy.intercept(
                 {
                   method: 'POST',
-                  url: '/pensjon/kalkulator/api/v8/alderspensjon/simulering',
+                  url: '/pensjon/kalkulator/api/v9/alderspensjon/simulering',
                 },
                 { fixture: 'alderspensjon_for_lite_trygdetid.json' }
               ).as('fetchAlderspensjon')

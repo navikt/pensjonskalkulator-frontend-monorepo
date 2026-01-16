@@ -23,7 +23,7 @@ export const apiSlice = createApi({
       query: () => '/inntekt',
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v5/person',
+      query: () => '/v6/person',
       providesTags: ['Person'],
       transformResponse: (response: Person) => {
         return {
@@ -62,7 +62,18 @@ export const apiSlice = createApi({
 
     offentligTp: builder.query<OffentligTp, OffentligTpRequestBody | void>({
       query: (body) => ({
-        url: '/v2/simuler-oftp',
+        url: '/v2/simuler-oftp/fra-1963',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['OffentligTp'],
+    }),
+    offentligTpFoer1963: builder.query<
+      OffentligTpFoer1963,
+      OffentligTpFoer1963RequestBody | void
+    >({
+      query: (body) => ({
+        url: '/v2/simuler-oftp/foer-1963',
         method: 'POST',
         body,
       }),
@@ -70,10 +81,7 @@ export const apiSlice = createApi({
     }),
 
     getAfpOffentligLivsvarig: builder.query<AfpOffentligLivsvarig, void>({
-      query: () => '/v1/afp-offentlig-livsvarig',
-      transformResponse: (response: AfpOffentligLivsvarig) => {
-        return response
-      },
+      query: () => '/v2/tpo-livsvarig-offentlig-afp',
     }),
 
     tidligstMuligHeltUttak: builder.query<
@@ -81,7 +89,7 @@ export const apiSlice = createApi({
       TidligstMuligHeltUttakRequestBody | void
     >({
       query: (body) => ({
-        url: '/v2/tidligste-hel-uttaksalder',
+        url: '/v3/tidligste-hel-uttaksalder',
         method: 'POST',
         body,
       }),
@@ -114,7 +122,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v8/alderspensjon/simulering',
+        url: '/v9/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -132,6 +140,9 @@ export const apiSlice = createApi({
     getVedlikeholdsmodusFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.vedlikeholdsmodus',
     }),
+    getShowDownloadPdfFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.show-download-pdf',
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -147,11 +158,13 @@ export const {
   useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetLoependeVedtakQuery,
   useOffentligTpQuery,
+  useOffentligTpFoer1963Query,
   useGetAfpOffentligLivsvarigQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetVedlikeholdsmodusFeatureToggleQuery,
+  useGetShowDownloadPdfFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

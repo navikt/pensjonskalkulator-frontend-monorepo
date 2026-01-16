@@ -60,7 +60,7 @@ export function StepStart() {
 
   return (
     <StartForBrukereUnder75
-      navn={person.navn}
+      fornavn={person.fornavn}
       onCancel={isVeileder ? undefined : onStegvisningCancel}
       onNext={onNext}
       loependeVedtak={loependeVedtak}
