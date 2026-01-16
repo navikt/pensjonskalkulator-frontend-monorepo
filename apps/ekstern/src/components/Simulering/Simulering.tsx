@@ -695,7 +695,8 @@ export const Simulering = ({
             erTpFoer1963={
               offentligTp &&
               erOffentligTpFoer1963 &&
-              isOffentligTpFoer1963(offentligTp)
+              isOffentligTpFoer1963(offentligTp) &&
+              (skalBeregneAfpKap19 ?? false)
             }
             skalViseNullOffentligTjenestepensjon={
               isOffentligTpFoer1963(offentligTp) &&
