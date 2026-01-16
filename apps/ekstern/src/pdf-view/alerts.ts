@@ -5,7 +5,7 @@ import {
   OffentligTpAlert,
   privatePensjonsavtalerAlert,
 } from '@/components/Pensjonsavtaler/hooks'
-import { AlertVariant } from '@/components/Simulering/hooks'
+import { AlertVariant } from '@/components/Simulering/temp-hooks'
 import { formatUttaksalder } from '@/utils/alder'
 
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'

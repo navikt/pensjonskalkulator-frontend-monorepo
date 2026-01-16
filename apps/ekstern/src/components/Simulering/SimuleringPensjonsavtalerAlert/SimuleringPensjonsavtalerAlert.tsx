@@ -6,7 +6,10 @@ import { Alert, Link } from '@navikt/ds-react'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { PensjonsAvtalerAlertProps, usePensjonsavtalerAlerts } from '../temp-hooks'
+import {
+  PensjonsAvtalerAlertProps,
+  usePensjonsavtalerAlerts,
+} from '../temp-hooks'
 
 import styles from './SimuleringPensjonsavtalerAlert.module.scss'
 

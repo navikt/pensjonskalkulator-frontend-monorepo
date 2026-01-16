@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { sl } from 'date-fns/locale'
 import type {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -307,28 +308,34 @@ export const Simulering = ({
         }),
         color: SERIES_DEFAULT.SERIE_AFP.color,
         data: mergeAarligUtbetalinger([
-          afpOffentligListe && afpOffentligListe.length > 0
-            ? afpOffentligListe.length === 1
-              ? // Single element: show same for all ages (livsvarig)
-                parseStartSluttUtbetaling({
-                  startAlder: {
-                    aar: afpOffentligListe[0].alder,
-                    maaneder: 0,
-                  },
-                  aarligUtbetaling: afpOffentligListe[0].beloep,
-                })
-              : // Multiple elements: first at set age, second till infinity
-                [
-                  {
-                    alder: afpOffentligListe[0].alder,
-                    beloep: afpOffentligListe[0].beloep,
-                  },
-                  {
-                    alder: Infinity,
-                    beloep: afpOffentligListe[1].beloep,
-                  },
-                ]
-            : [],
+          pre2025OffentligAfp
+            ? parseStartSluttUtbetaling({
+                startAlder: { aar: pre2025OffentligAfp.alderAar, maaneder: 0 },
+                sluttAlder: { aar: 66, maaneder: 11 },
+                aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep,
+              })
+            : afpOffentligListe && afpOffentligListe.length > 0
+              ? afpOffentligListe.length === 1
+                ? // Single element: show same for all ages (livsvarig)
+                  parseStartSluttUtbetaling({
+                    startAlder: {
+                      aar: afpOffentligListe[0].alder,
+                      maaneder: 0,
+                    },
+                    aarligUtbetaling: afpOffentligListe[0].beloep,
+                  })
+                : // Multiple elements: first at set age, second till infinity
+                  [
+                    {
+                      alder: afpOffentligListe[0].alder,
+                      beloep: afpOffentligListe[0].beloep,
+                    },
+                    {
+                      alder: Infinity,
+                      beloep: afpOffentligListe[1].beloep,
+                    },
+                  ]
+              : [],
           afpPrivatListe ? afpPrivatListe : [],
         ]),
       },
