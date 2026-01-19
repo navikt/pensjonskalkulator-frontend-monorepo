@@ -21,10 +21,12 @@ export function getGrunnlagIngress({
   afpDetaljerListe,
   title,
   content,
+  afpOffentligAlertsMessage,
   hasPre2025OffentligAfpUttaksalder,
   uttaksalder,
   gradertUttaksperiode,
   shouldHideAfpHeading,
+  isEnkel,
 }: {
   intl: IntlShape
   alderspensjonDetaljerListe: AlderspensjonDetaljerListe[]
@@ -36,10 +38,12 @@ export function getGrunnlagIngress({
   aarligInntektFoerUttakBeloepFraBrukerInput: string | null
   title?: string
   content?: string
+  afpOffentligAlertsMessage?: string
   hasPre2025OffentligAfpUttaksalder: boolean
   uttaksalder: Alder | null
   gradertUttaksperiode: GradertUttak | null
   shouldHideAfpHeading: boolean
+  isEnkel: boolean
 }): string {
   const beloepRaw = aarligInntektFoerUttakBeloepFraSkatt?.beloep
   const aarRaw = aarligInntektFoerUttakBeloepFraSkatt?.aar
@@ -76,9 +80,14 @@ export function getGrunnlagIngress({
   <h3>Alderspensjon (Nav)</h3>
   <p>
     ${intl.formatMessage(
-      { id: 'grunnlag.alderspensjon.ingress' },
       {
-        avansert: '',
+        id: isEnkel
+          ? 'grunnlag.alderspensjon.ingress'
+          : 'grunnlag.alderspensjon.endring.ingress',
+      },
+      {
+        ...pdfFormatMessageValues,
+        avansert: 'avansert',
       }
     )}
   </p>
@@ -119,5 +128,6 @@ export function getGrunnlagIngress({
 
   ${getAfpIngress(intl, title || '', content || '')}
   ${getAfpDetaljerTable({ afpDetaljerListe, intl, uttaksalder, gradertUttaksperiode, shouldHideAfpHeading })}
+  ${afpOffentligAlertsMessage}
   `
 }

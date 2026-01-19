@@ -97,7 +97,12 @@ export function getAfpDetaljerTable({
         })
         .join('')
 
-      return `${afpHeadingHtml}${afpSectionsHtml}`
+      return `${afpHeadingHtml}
+      <table role='presentation' style='width:100%;'>
+      <tr class="pdf-table-wrapper-row">
+        ${afpSectionsHtml}
+      </tr>
+    </table>`
     })
     .join('')
 }
@@ -116,19 +121,28 @@ function getAfpTable(afpSection: AfpSectionConfig): string {
         allItemsBold || (boldLastItem && lastItem) ? 'font-weight: bold;' : ''
       const noBorderBottomStyle =
         noBorderBottom || lastItem ? 'border-bottom: none;' : ''
-      return `<tr style='${noBorderBottomStyle}'>
-            <td style='text-align:left; ${boldStyle}'>
-                ${escapeHtml(String(label))}:
-            </td>
-            <td style='text-align:right; ${boldStyle}'>
-                ${escapeHtml(String(value))}
-            </td>
-          </tr>`
+      return `
+            <tr style='${noBorderBottomStyle}'>
+              <td style='text-align:left; ${boldStyle}'>
+                  ${escapeHtml(String(label))}:
+              </td>
+              <td style='text-align:right; ${boldStyle}'>
+                  ${escapeHtml(String(value))}
+              </td>
+            </tr>`
     })
     .join('\n')
 
-  return `<div style='margin:0; width: 33%;'>
-        ${titleId ? `<h4 class="afp-grunnlag-title">${titleId}</h4>` : ''}
-      <table role='presentation'>${rows}</table>
-    </div>`
+  return `<td style='margin:0; text-align: left;'>
+      <table role='presentation'>
+        <thead>
+          <tr>
+            <th colspan="2" style='text-align: left;'>${titleId}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    </td>`
 }
