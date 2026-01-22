@@ -30,9 +30,9 @@ export const getUtenlandsOppholdIngress = ({
         id: `grunnlag.opphold.value.${oppholdUtenforNorge}`,
       })}
     </h3>
-    ${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? `<h4 class="utenlandsopphold-title">${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.title' })}</h4>` : ''}
+    ${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? `<h4 class="utenlandsopphold-title"><p class="pdf-h4-paragraph">${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.title' })}</p></h4>` : ''}
     <div>${getLandList(intl, sortedUtenlandsperioder)}</div>
-    <p>${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? intl.formatMessage({ id: 'grunnlag.opphold.bunntekst' }) : `${intl.formatMessage({ id: `grunnlag.opphold.ingress.${oppholdUtenforNorge}` })}`}</p>
+    <p class="pdf-h3-paragraph">${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? intl.formatMessage({ id: 'grunnlag.opphold.bunntekst' }) : `${intl.formatMessage({ id: `grunnlag.opphold.ingress.${oppholdUtenforNorge}` })}`}</p>
     <p>${getPdfLink({ url: TRYGDETID_URL, displayText: intl.formatMessage({ id: 'grunnlag.opphold.ingress.trygdetid' }) })}
 </p>`
 }

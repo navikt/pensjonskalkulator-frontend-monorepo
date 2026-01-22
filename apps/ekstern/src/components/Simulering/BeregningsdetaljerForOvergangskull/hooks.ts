@@ -5,6 +5,8 @@ import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { isAlderOverAnnenAlder } from '@/utils/alder'
 import { formatDecimalWithComma, formatInntekt } from '@/utils/inntekt'
 
+import { hasInvalidMonthlyLivsvarigAfpBeloep } from './utils'
+
 export interface DetaljRad {
   tekst: string
   verdi?: number | string
@@ -456,9 +458,15 @@ function getAfpDetaljerListe(
         : afpOffentligListe.find((it) => it.alder >= afpAar)
 
     if (afpOffentligVedUttak) {
+      const afpOffentligDetails = hasInvalidMonthlyLivsvarigAfpBeloep(
+        loependeLivsvarigAfpOffentlig
+      )
+        ? []
+        : getAfpOffentligDetails(afpOffentligVedUttak)
+
       afpDetaljerListe.push({
         afpPrivat: [],
-        afpOffentlig: getAfpOffentligDetails(afpOffentligVedUttak),
+        afpOffentlig: afpOffentligDetails,
         afpOffentligSpk: [],
         pre2025OffentligAfp: [],
         opptjeningPre2025OffentligAfp: [],
@@ -546,6 +554,7 @@ export function useBeregningsdetaljer(
     uttaksalder,
     tpAfpPeriode,
     gradertUttaksperiode,
+    erSpkBesteberegning,
     loependeLivsvarigAfpOffentlig,
   ])
 }

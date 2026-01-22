@@ -42,6 +42,7 @@ import { Pensjonsavtaler } from '../Pensjonsavtaler/Pensjonsavtaler'
 import { AfpDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergangskull/AfpDetaljerGrunnlag'
 import { AlderspensjonDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergangskull/AlderspensjonDetaljerGrunnlag'
 import { useBeregningsdetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/hooks'
+import { shouldHideAfpDetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/utils'
 import { Pensjonsgivendeinntekt } from '../Simulering/Pensjonsgivendeinntekt'
 import { useOffentligTpData } from '../Simulering/hooks'
 import { GrunnlagAFP } from './GrunnlagAFP'
@@ -134,18 +135,10 @@ export const Grunnlag: React.FC<Props> = ({
         ].filter((arr) => arr.length > 0).length
 
   // Når det ikke er noen detaljer for AFP, så er "Les mer" lenken skjult.
-  const shouldHideAfpReadMore =
-    afpDetaljerListe.length === 0 ||
-    afpDetaljerListe.every(
-      (afpDetaljer) =>
-        afpDetaljer.afpPrivat.length === 0 &&
-        afpDetaljer.afpOffentlig.length === 0 &&
-        afpDetaljer.afpOffentligSpk.length === 0 &&
-        afpDetaljer.pre2025OffentligAfp.length === 0
-    ) ||
-    (loependeLivsvarigAfpOffentlig?.afpStatus &&
-      (loependeLivsvarigAfpOffentlig?.maanedligBeloep === undefined ||
-        loependeLivsvarigAfpOffentlig?.maanedligBeloep === null))
+  const shouldHideAfpReadMore = shouldHideAfpDetaljer({
+    afpDetaljerListe,
+    loependeLivsvarigAfpOffentlig,
+  })
 
   const handleReadMoreChange = ({
     isOpen,
