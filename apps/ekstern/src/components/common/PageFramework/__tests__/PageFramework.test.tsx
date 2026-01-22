@@ -18,31 +18,7 @@ describe('PageFramework', () => {
     window.scrollTo = () => vi.fn()
   })
 
-  it.skip('viser loader mens loaderen fetcher data', async () => {
-    const user = userEvent.setup()
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.login}`],
-    })
-
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    const button = await screen.findByTestId(
-      'landingside-enkel-kalkulator-button'
-    )
-    await user.click(button)
-
-    // * Wait for the loader to appear
-    await waitFor(
-      () => {
-        const loader = screen.queryByTestId('pageframework-loader')
-        expect(loader).toBeVisible()
-      },
-      { timeout: 2000 }
-    )
-  })
+  it.todo('viser loader mens loaderen fetcher data')
 
   it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
     render(<PageFramework />, {

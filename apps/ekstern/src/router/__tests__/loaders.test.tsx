@@ -913,9 +913,10 @@ describe('Loaders', () => {
       const returnedFromLoader = await stepAFPAccessGuard(createMockRequest())
 
       expect(returnedFromLoader instanceof Response).toBe(false)
-      if (!(returnedFromLoader instanceof Response) && returnedFromLoader) {
-        expect(returnedFromLoader.erApoteker).toBe(false)
-      }
+      expect(returnedFromLoader).toBeDefined()
+      expect((returnedFromLoader as { erApoteker: boolean }).erApoteker).toBe(
+        false
+      )
     })
   })
 
