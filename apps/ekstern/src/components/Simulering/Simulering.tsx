@@ -308,24 +308,37 @@ export const Simulering = ({
         }),
         color: SERIES_DEFAULT.SERIE_AFP.color,
         data: mergeAarligUtbetalinger([
-          pre2025OffentligAfp
-            ? parseStartSluttUtbetaling({
+          (() => {
+            if (pre2025OffentligAfp) {
+              const harSpkPerioder = Boolean(afpPerioder?.length)
+              if (harSpkPerioder) {
+                return parseStartSluttUtbetaling({
+                  startAlder: {
+                    aar: pre2025OffentligAfp.alderAar,
+                    maaneder: 0,
+                  },
+                  sluttAlder: { aar: 64, maaneder: 11 },
+                  aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep,
+                })
+              }
+
+              return parseStartSluttUtbetaling({
                 startAlder: { aar: pre2025OffentligAfp.alderAar, maaneder: 0 },
                 sluttAlder: { aar: 66, maaneder: 11 },
                 aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep,
               })
-            : afpOffentligListe && afpOffentligListe.length > 0
-              ? afpOffentligListe.length === 1
-                ? // Single element: show same for all ages (livsvarig)
-                  parseStartSluttUtbetaling({
+            }
+
+            if (afpOffentligListe && afpOffentligListe.length > 0) {
+              return afpOffentligListe.length === 1
+                ? parseStartSluttUtbetaling({
                     startAlder: {
                       aar: afpOffentligListe[0].alder,
                       maaneder: 0,
                     },
                     aarligUtbetaling: afpOffentligListe[0].beloep,
                   })
-                : // Multiple elements: first at set age, second till infinity
-                  [
+                : [
                     {
                       alder: afpOffentligListe[0].alder,
                       beloep: afpOffentligListe[0].beloep,
@@ -335,8 +348,20 @@ export const Simulering = ({
                       beloep: afpOffentligListe[1].beloep,
                     },
                   ]
-              : [],
-          afpPrivatListe ? afpPrivatListe : [],
+            }
+
+            return []
+          })(),
+          afpPerioder
+            ? afpPerioder.flatMap((periode) =>
+                parseStartSluttUtbetaling({
+                  startAlder: periode.startAlder,
+                  sluttAlder: periode.sluttAlder,
+                  aarligUtbetaling: periode.aarligUtbetaling,
+                })
+              )
+            : [],
+          afpPrivatListe ?? [],
         ]),
       },
       {
