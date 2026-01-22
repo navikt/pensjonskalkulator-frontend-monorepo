@@ -318,14 +318,14 @@ export const Simulering = ({
                     maaneder: 0,
                   },
                   sluttAlder: { aar: 64, maaneder: 11 },
-                  aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep,
+                  aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep * 12,
                 })
               }
 
               return parseStartSluttUtbetaling({
                 startAlder: { aar: pre2025OffentligAfp.alderAar, maaneder: 0 },
                 sluttAlder: { aar: 66, maaneder: 11 },
-                aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep,
+                aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep * 12,
               })
             }
 
@@ -354,11 +354,23 @@ export const Simulering = ({
           })(),
           afpPerioder
             ? afpPerioder.flatMap((periode) =>
-                parseStartSluttUtbetaling({
-                  startAlder: periode.startAlder,
-                  sluttAlder: periode.sluttAlder,
-                  aarligUtbetaling: periode.aarligUtbetaling,
-                })
+                periode.startAlder.aar >= 65
+                  ? parseStartSluttUtbetaling({
+                      startAlder: periode.startAlder,
+                      sluttAlder: periode.sluttAlder
+                        ? periode.sluttAlder.maaneder === 0
+                          ? {
+                              aar: periode.sluttAlder.aar - 1,
+                              maaneder: 11,
+                            }
+                          : {
+                              aar: periode.sluttAlder.aar,
+                              maaneder: periode.sluttAlder.maaneder - 1,
+                            }
+                        : undefined,
+                      aarligUtbetaling: periode.aarligUtbetaling,
+                    })
+                  : []
               )
             : [],
           afpPrivatListe ?? [],
