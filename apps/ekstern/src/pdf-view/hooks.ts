@@ -434,6 +434,7 @@ const generatePdfContent = (params: {
     shouldHideAfpHeading,
     isEnkel,
     erSpkBesteberegning,
+    loependeLivsvarigAfpOffentlig,
   })
 
   // Pensjonsavtaler

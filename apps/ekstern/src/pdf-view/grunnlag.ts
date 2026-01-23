@@ -5,6 +5,7 @@ import {
   AfpDetaljerListe,
   AlderspensjonDetaljerListe,
 } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/hooks'
+import { LoependeLivsvarigAfpOffentlig } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/utils'
 import { getAfpDetaljerTable, getAfpIngress } from '@/pdf-view/afp'
 import { getPdfLink, pdfFormatMessageValues } from '@/pdf-view/utils'
 import { formatInntekt } from '@/utils/inntekt'
@@ -28,6 +29,7 @@ export function getGrunnlagIngress({
   shouldHideAfpHeading,
   isEnkel,
   erSpkBesteberegning,
+  loependeLivsvarigAfpOffentlig,
 }: {
   intl: IntlShape
   alderspensjonDetaljerListe: AlderspensjonDetaljerListe[]
@@ -46,6 +48,7 @@ export function getGrunnlagIngress({
   shouldHideAfpHeading: boolean
   isEnkel: boolean
   erSpkBesteberegning?: boolean
+  loependeLivsvarigAfpOffentlig?: LoependeLivsvarigAfpOffentlig
 }): string {
   const beloepRaw = aarligInntektFoerUttakBeloepFraSkatt?.beloep
   const aarRaw = aarligInntektFoerUttakBeloepFraSkatt?.aar
@@ -129,7 +132,7 @@ export function getGrunnlagIngress({
   </div>
 
   ${getAfpIngress(intl, title || '', content || '')}
-  ${getAfpDetaljerTable({ afpDetaljerListe, intl, uttaksalder, gradertUttaksperiode, shouldHideAfpHeading, erSpkBesteberegning })}
+  ${getAfpDetaljerTable({ afpDetaljerListe, intl, uttaksalder, gradertUttaksperiode, shouldHideAfpHeading, erSpkBesteberegning, loependeLivsvarigAfpOffentlig })}
   ${afpOffentligAlertsMessage}
   `
 }

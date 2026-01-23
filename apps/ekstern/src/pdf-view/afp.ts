@@ -6,6 +6,10 @@ import {
   getAfpSectionsToRender,
 } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/Felles/AfpDetaljer'
 import { AfpDetaljerListe } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/hooks'
+import {
+  LoependeLivsvarigAfpOffentlig,
+  shouldHideAfpDetaljer,
+} from '@/components/Simulering/BeregningsdetaljerForOvergangskull/utils'
 
 import { escapeHtml, getPdfLink, pdfFormatMessageValues } from './utils'
 
@@ -49,6 +53,7 @@ export function getAfpDetaljerTable({
   gradertUttaksperiode,
   shouldHideAfpHeading,
   erSpkBesteberegning,
+  loependeLivsvarigAfpOffentlig,
 }: {
   afpDetaljerListe?: AfpDetaljerListe[]
   intl: IntlShape
@@ -56,6 +61,7 @@ export function getAfpDetaljerTable({
   gradertUttaksperiode: GradertUttak | null
   shouldHideAfpHeading: boolean
   erSpkBesteberegning?: boolean
+  loependeLivsvarigAfpOffentlig: LoependeLivsvarigAfpOffentlig | undefined
 }): string {
   if (!afpDetaljerListe) {
     return ''
@@ -86,7 +92,13 @@ export function getAfpDetaljerTable({
           )}</h4>`
         : ''
 
-      const afpSections = getAfpSectionsToRender(afpDetaljForValgtUttak)
+      const afpSections = !shouldHideAfpDetaljer({
+        afpDetaljerListe,
+        loependeLivsvarigAfpOffentlig,
+      })
+        ? getAfpSectionsToRender(afpDetaljForValgtUttak)
+        : []
+
       const afpSectionsHtml = afpSections
         .map((afpSection) => {
           const sectionWithTitle: AfpSectionConfig = {
