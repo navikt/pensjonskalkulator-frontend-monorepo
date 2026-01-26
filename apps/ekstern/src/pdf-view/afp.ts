@@ -6,6 +6,10 @@ import {
   getAfpSectionsToRender,
 } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/Felles/AfpDetaljer'
 import { AfpDetaljerListe } from '@/components/Simulering/BeregningsdetaljerForOvergangskull/hooks'
+import {
+  LoependeLivsvarigAfpOffentlig,
+  shouldHideAfpDetaljer,
+} from '@/components/Simulering/BeregningsdetaljerForOvergangskull/utils'
 
 import { escapeHtml, getPdfLink, pdfFormatMessageValues } from './utils'
 
@@ -17,7 +21,7 @@ export function getAfpIngress(
   return `<h3>
     ${intl.formatMessage({ id: 'grunnlag.afp.title' })}: ${title}
   </h3>
-  <p>
+  <p class="pdf-h3-paragraph">
     ${intl.formatMessage(
       { id: content },
       {
@@ -48,19 +52,23 @@ export function getAfpDetaljerTable({
   uttaksalder,
   gradertUttaksperiode,
   shouldHideAfpHeading,
+  erSpkBesteberegning,
+  loependeLivsvarigAfpOffentlig,
 }: {
   afpDetaljerListe?: AfpDetaljerListe[]
   intl: IntlShape
   uttaksalder: Alder | null
   gradertUttaksperiode: GradertUttak | null
   shouldHideAfpHeading: boolean
+  erSpkBesteberegning?: boolean
+  loependeLivsvarigAfpOffentlig: LoependeLivsvarigAfpOffentlig | undefined
 }): string {
   if (!afpDetaljerListe) {
     return ''
   }
 
   // For each AfpDetaljer entry, render its sections and concatenate HTML
-  return afpDetaljerListe
+  const afpDetaljer = afpDetaljerListe
     .map((afpDetaljForValgtUttak, index) => {
       const afpHeading =
         !shouldHideAfpHeading &&
@@ -84,7 +92,13 @@ export function getAfpDetaljerTable({
           )}</h4>`
         : ''
 
-      const afpSections = getAfpSectionsToRender(afpDetaljForValgtUttak)
+      const afpSections = !shouldHideAfpDetaljer({
+        afpDetaljerListe,
+        loependeLivsvarigAfpOffentlig,
+      })
+        ? getAfpSectionsToRender(afpDetaljForValgtUttak)
+        : []
+
       const afpSectionsHtml = afpSections
         .map((afpSection) => {
           const sectionWithTitle: AfpSectionConfig = {
@@ -97,9 +111,26 @@ export function getAfpDetaljerTable({
         })
         .join('')
 
-      return `${afpHeadingHtml}${afpSectionsHtml}`
+      return `${afpHeadingHtml}
+      <table role='presentation' style='width:100%;'>
+      <tr class="pdf-table-wrapper-row">
+        ${afpSectionsHtml}
+      </tr>
+    </table>`
     })
     .join('')
+
+  const afpDetaljerSPKIngress = erSpkBesteberegning
+    ? `<p>${intl.formatMessage(
+        {
+          id: 'grunnlag.afp.spk.foer1963.text',
+        },
+        {
+          ...pdfFormatMessageValues,
+        }
+      )}</p>`
+    : ''
+  return afpDetaljer + afpDetaljerSPKIngress
 }
 
 function getAfpTable(afpSection: AfpSectionConfig): string {
@@ -116,19 +147,28 @@ function getAfpTable(afpSection: AfpSectionConfig): string {
         allItemsBold || (boldLastItem && lastItem) ? 'font-weight: bold;' : ''
       const noBorderBottomStyle =
         noBorderBottom || lastItem ? 'border-bottom: none;' : ''
-      return `<tr style='${noBorderBottomStyle}'>
-            <td style='text-align:left; ${boldStyle}'>
-                ${escapeHtml(String(label))}:
-            </td>
-            <td style='text-align:right; ${boldStyle}'>
-                ${escapeHtml(String(value))}
-            </td>
-          </tr>`
+      return `
+            <tr style='${noBorderBottomStyle}'>
+              <td style='text-align:left; ${boldStyle}'>
+                  ${escapeHtml(String(label))}:
+              </td>
+              <td style='text-align:right; ${boldStyle}'>
+                  ${escapeHtml(String(value))}
+              </td>
+            </tr>`
     })
     .join('\n')
 
-  return `<div style='margin:0; width: 33%;'>
-        ${titleId ? `<h4 class="afp-grunnlag-title">${titleId}</h4>` : ''}
-      <table role='presentation'>${rows}</table>
-    </div>`
+  return `<td style='margin:0; text-align: left;'>
+      <table role='presentation'>
+        <thead>
+          <tr>
+            <th colspan="2" style='text-align: left;'>${titleId}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    </td>`
 }

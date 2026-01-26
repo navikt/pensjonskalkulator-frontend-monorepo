@@ -6,6 +6,8 @@ import {
   harKravOmArbeidFromLandkode,
 } from '@/utils/land'
 
+import { getPdfLink } from './utils'
+
 export const getUtenlandsOppholdIngress = ({
   intl,
   oppholdUtenforNorge,
@@ -19,6 +21,8 @@ export const getUtenlandsOppholdIngress = ({
     | 'endring'
   sortedUtenlandsperioder?: Utenlandsperiode[]
 }): string => {
+  const TRYGDETID_URL = 'https://nav.no/alderspensjon#kort-botid'
+
   return `<h3>
       ${intl.formatMessage({
         id: `grunnlag.opphold.title.${oppholdUtenforNorge}`,
@@ -26,9 +30,11 @@ export const getUtenlandsOppholdIngress = ({
         id: `grunnlag.opphold.value.${oppholdUtenforNorge}`,
       })}
     </h3>
-    ${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? `<h4 class="utenlandsopphold-title">${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.title' })}</h4>` : ''}
+    ${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? `<h4 class="utenlandsopphold-title"><p class="pdf-h4-paragraph">${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.title' })}</p></h4>` : ''}
     <div>${getLandList(intl, sortedUtenlandsperioder)}</div>
-    <p>${intl.formatMessage({ id: 'grunnlag.opphold.bunntekst' })}</p>`
+    <p class="pdf-h3-paragraph">${sortedUtenlandsperioder && sortedUtenlandsperioder.length ? intl.formatMessage({ id: 'grunnlag.opphold.bunntekst' }) : `${intl.formatMessage({ id: `grunnlag.opphold.ingress.${oppholdUtenforNorge}` })}`}</p>
+    <p>${getPdfLink({ url: TRYGDETID_URL, displayText: intl.formatMessage({ id: 'grunnlag.opphold.ingress.trygdetid' }) })}
+</p>`
 }
 
 function getLandList(

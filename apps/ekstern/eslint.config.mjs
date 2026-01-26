@@ -152,6 +152,17 @@ export default [
       },
     },
   },
+  {
+    files: [
+      '**/cypress/**/*.ts',
+      '**/cypress/**/*.tsx',
+      '**/*.cy.ts',
+      '**/*.cy.tsx',
+    ],
+    rules: {
+      'vitest/valid-expect-in-promise': 'off',
+    },
+  },
   // Mock files configuration
   {
     files: ['**/mocks/**/*.ts', '**/mocks/**/*.tsx'],

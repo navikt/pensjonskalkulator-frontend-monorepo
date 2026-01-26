@@ -17,5 +17,6 @@ export function getForbeholdAvsnitt(intl: IntlShape): string {
       ${intl.formatMessage({ id: 'grunnlag.forbehold.ingress_2' })}
       ${getPdfLink({ url: kalkulatorUrl, displayText: 'Gå til pensjonskalkulator' })}
     </p>
-  </div>`
+  </div>
+  <hr role="presentation"/>`
 }

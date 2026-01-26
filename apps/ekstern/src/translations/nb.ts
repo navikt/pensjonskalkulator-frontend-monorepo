@@ -718,11 +718,11 @@ const translations = {
   'pensjonsavtaler.title': 'Pensjonsavtaler',
   'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
   'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
-    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning ({chunk}).',
+    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning {chunk}.',
   'pensjonsavtaler.offentligtp.error':
     'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'pensjonsavtaler.offentligtp.teknisk_feil':
-    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din ({chunk}).',
+    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din {chunk}.',
   'pensjonsavtaler.offentligtp.empty':
     'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':

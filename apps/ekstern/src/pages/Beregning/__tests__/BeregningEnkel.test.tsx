@@ -733,13 +733,13 @@ describe('BeregningEnkel', () => {
       await user.click(await screen.findByText('70 alder.aar'))
 
       expect(screen.queryByTestId('uttaksalder-loader')).not.toBeInTheDocument()
-      expect(initiateMock).toHaveBeenCalledTimes(4)
+      expect(initiateMock).toHaveBeenCalledTimes(5)
       expect(await screen.findByText('beregning.error')).toBeInTheDocument()
       await waitFor(async () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
       await user.click(await screen.findByText('application.global.retry'))
-      expect(initiateMock).toHaveBeenCalledTimes(6)
+      expect(initiateMock).toHaveBeenCalledTimes(7)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 

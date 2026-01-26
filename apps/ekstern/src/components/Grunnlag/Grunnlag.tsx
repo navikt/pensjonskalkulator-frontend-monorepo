@@ -42,8 +42,9 @@ import { Pensjonsavtaler } from '../Pensjonsavtaler/Pensjonsavtaler'
 import { AfpDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergangskull/AfpDetaljerGrunnlag'
 import { AlderspensjonDetaljerGrunnlag } from '../Simulering/BeregningsdetaljerForOvergangskull/AlderspensjonDetaljerGrunnlag'
 import { useBeregningsdetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/hooks'
+import { shouldHideAfpDetaljer } from '../Simulering/BeregningsdetaljerForOvergangskull/utils'
 import { Pensjonsgivendeinntekt } from '../Simulering/Pensjonsgivendeinntekt'
-import { useOffentligTpData } from '../Simulering/temp-hooks'
+import { useOffentligTpData } from '../Simulering/hooks'
 import { GrunnlagAFP } from './GrunnlagAFP'
 import { GrunnlagSection } from './GrunnlagSection'
 import { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'
@@ -134,18 +135,10 @@ export const Grunnlag: React.FC<Props> = ({
         ].filter((arr) => arr.length > 0).length
 
   // Når det ikke er noen detaljer for AFP, så er "Les mer" lenken skjult.
-  const shouldHideAfpReadMore =
-    afpDetaljerListe.length === 0 ||
-    afpDetaljerListe.every(
-      (afpDetaljer) =>
-        afpDetaljer.afpPrivat.length === 0 &&
-        afpDetaljer.afpOffentlig.length === 0 &&
-        afpDetaljer.afpOffentligSpk.length === 0 &&
-        afpDetaljer.pre2025OffentligAfp.length === 0
-    ) ||
-    (loependeLivsvarigAfpOffentlig?.afpStatus &&
-      (loependeLivsvarigAfpOffentlig?.maanedligBeloep === undefined ||
-        loependeLivsvarigAfpOffentlig?.maanedligBeloep === null))
+  const shouldHideAfpReadMore = shouldHideAfpDetaljer({
+    afpDetaljerListe,
+    loependeLivsvarigAfpOffentlig,
+  })
 
   const handleReadMoreChange = ({
     isOpen,
@@ -186,11 +179,80 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagItem>
         )}
 
-        {!isEndring && (
-          <GrunnlagItem color="green">
-            <Pensjonsavtaler headingLevel="3" />
-          </GrunnlagItem>
-        )}
+        <GrunnlagItem color="blue">
+          <VStack gap="1">
+            <Heading level="3" size="small">
+              <FormattedMessage id="beregning.highcharts.serie.alderspensjon.name" />
+            </Heading>
+
+            <BodyLong className={styles.alderspensjonDetaljer}>
+              {loependeVedtak.alderspensjon || visning === 'avansert' ? (
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.endring.ingress"
+                  values={{
+                    ...getFormatMessageValues(),
+                  }}
+                />
+              ) : (
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.ingress"
+                  values={{
+                    ...getFormatMessageValues(),
+                    avansert: (
+                      <Link href="#" onClick={goToAvansert}>
+                        avansert kalkulator
+                      </Link>
+                    ),
+                  }}
+                />
+              )}
+            </BodyLong>
+          </VStack>
+
+          <ReadMore
+            name="Listekomponenter for alderspensjon"
+            open={isAlderspensjonDetaljerVisible}
+            header={
+              isAlderspensjonDetaljerVisible
+                ? intl.formatMessage(
+                    {
+                      id: 'beregning.detaljer.lukk',
+                    },
+                    {
+                      ...getFormatMessageValues(),
+                      ytelse: 'alderspensjon',
+                    }
+                  )
+                : intl.formatMessage(
+                    {
+                      id: 'beregning.detaljer.vis',
+                    },
+                    {
+                      ...getFormatMessageValues(),
+                      ytelse: 'alderspensjon',
+                    }
+                  )
+            }
+            className={clsx(
+              styles.visListekomponenter,
+              styles.wideDetailedView
+            )}
+            onOpenChange={(open) =>
+              handleReadMoreChange({ isOpen: open, ytelse: 'AP' })
+            }
+          >
+            <AlderspensjonDetaljerGrunnlag
+              alderspensjonDetaljerListe={alderspensjonDetaljerListe}
+              hasPre2025OffentligAfpUttaksalder={Boolean(pre2025OffentligAfp)}
+            />
+            <FormattedMessage
+              id="grunnlag.alderspensjon.ingress.link"
+              values={{
+                ...getFormatMessageValues(),
+              }}
+            />
+          </ReadMore>
+        </GrunnlagItem>
 
         {!(
           hasErApotekerError &&
@@ -284,80 +346,11 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagItem>
         )}
 
-        <GrunnlagItem color="blue">
-          <VStack gap="1">
-            <Heading level="3" size="small">
-              <FormattedMessage id="beregning.highcharts.serie.alderspensjon.name" />
-            </Heading>
-
-            <BodyLong className={styles.alderspensjonDetaljer}>
-              {loependeVedtak.alderspensjon || visning === 'avansert' ? (
-                <FormattedMessage
-                  id="grunnlag.alderspensjon.endring.ingress"
-                  values={{
-                    ...getFormatMessageValues(),
-                  }}
-                />
-              ) : (
-                <FormattedMessage
-                  id="grunnlag.alderspensjon.ingress"
-                  values={{
-                    ...getFormatMessageValues(),
-                    avansert: (
-                      <Link href="#" onClick={goToAvansert}>
-                        avansert kalkulator
-                      </Link>
-                    ),
-                  }}
-                />
-              )}
-            </BodyLong>
-          </VStack>
-
-          <ReadMore
-            name="Listekomponenter for alderspensjon"
-            open={isAlderspensjonDetaljerVisible}
-            header={
-              isAlderspensjonDetaljerVisible
-                ? intl.formatMessage(
-                    {
-                      id: 'beregning.detaljer.lukk',
-                    },
-                    {
-                      ...getFormatMessageValues(),
-                      ytelse: 'alderspensjon',
-                    }
-                  )
-                : intl.formatMessage(
-                    {
-                      id: 'beregning.detaljer.vis',
-                    },
-                    {
-                      ...getFormatMessageValues(),
-                      ytelse: 'alderspensjon',
-                    }
-                  )
-            }
-            className={clsx(
-              styles.visListekomponenter,
-              styles.wideDetailedView
-            )}
-            onOpenChange={(open) =>
-              handleReadMoreChange({ isOpen: open, ytelse: 'AP' })
-            }
-          >
-            <AlderspensjonDetaljerGrunnlag
-              alderspensjonDetaljerListe={alderspensjonDetaljerListe}
-              hasPre2025OffentligAfpUttaksalder={Boolean(pre2025OffentligAfp)}
-            />
-            <FormattedMessage
-              id="grunnlag.alderspensjon.ingress.link"
-              values={{
-                ...getFormatMessageValues(),
-              }}
-            />
-          </ReadMore>
-        </GrunnlagItem>
+        {!isEndring && (
+          <GrunnlagItem color="green">
+            <Pensjonsavtaler headingLevel="3" />
+          </GrunnlagItem>
+        )}
       </HStack>
 
       {/* TODO: Fjern style når Accordion fjernes */}

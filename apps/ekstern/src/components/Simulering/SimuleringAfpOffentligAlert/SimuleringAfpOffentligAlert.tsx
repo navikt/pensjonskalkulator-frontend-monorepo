@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { Alert, Link } from '@navikt/ds-react'
 
-import { useAfpOffentligAlerts } from '../temp-hooks'
+import { useAfpOffentligAlerts } from '../hooks'
 
 import styles from './SimuleringAfpOffentligAlert.module.scss'
 

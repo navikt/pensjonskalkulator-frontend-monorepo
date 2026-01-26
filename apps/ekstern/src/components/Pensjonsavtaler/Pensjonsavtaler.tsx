@@ -23,7 +23,7 @@ import {
 import { userInputActions } from '@/state/userInput/userInputSlice'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { useOffentligTpData } from '../Simulering/temp-hooks'
+import { useOffentligTpData } from '../Simulering/hooks'
 import ShowMore from '../common/ShowMore/ShowMore'
 import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
 import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'

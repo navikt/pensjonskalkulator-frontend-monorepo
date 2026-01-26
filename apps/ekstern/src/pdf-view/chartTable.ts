@@ -6,13 +6,20 @@ import { formatInntekt } from '@/utils/inntekt'
 export function getChartTable({
   tableData,
   intl,
+  isEnkel,
 }: {
   tableData: TableDataRow[]
   intl: IntlShape
+  isEnkel: boolean
 }): string {
-  const tableHeading = `<h3>Årlig inntekt og pensjon</h3><div class="pdf-metadata">${intl.formatMessage({ id: 'beregning.intro.description_1.endring' })}</div>`
+  const avansertHeading = !isEnkel
+    ? `<h2>${intl.formatMessage({ id: 'beregning.intro.title' })}</h2>
+    <div class="pdf-metadata">${intl.formatMessage({ id: 'beregning.intro.description_1' })}</div>`
+    : ''
+  const tableHeading = `<h3>Årlig inntekt og pensjon</h3>
+  ${isEnkel ? `<div class="pdf-metadata">${intl.formatMessage({ id: 'beregning.intro.description_1.endring' })}</div>` : ''}`
 
-  let tableHtml = `<table><thead><tr><th style="text-align: left;">Alder</th><th>Sum (kr)</th>`
+  let tableHtml = `<table class="pdf-chart-table"><thead><tr><th style="text-align: left;">Alder</th><th>Sum (kr)</th>`
 
   const detailNames = Array.from(
     new Set(tableData.flatMap((row) => row.detaljer.map((d) => d.name)))
@@ -38,5 +45,5 @@ export function getChartTable({
   })
 
   tableHtml += '</tbody></table>'
-  return tableHeading + tableHtml
+  return avansertHeading + tableHeading + tableHtml
 }

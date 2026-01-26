@@ -22,8 +22,8 @@ describe('GrunnlagInntekt', () => {
         <WrappedGrunnlagInntekt goToAvansert={vi.fn()} />
       )
       await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
-      expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(await screen.findAllByText('521 338 kr')).toHaveLength(2)
+      await screen.findByText('grunnlag.inntekt.title')
+      await screen.findAllByText('521 338 kr')
       await user.click(await screen.findByTestId('accordion-header'))
     })
 

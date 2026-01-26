@@ -1,11 +1,23 @@
-// Shared print styles for both iframe and @media print approaches
+// Shared print styles for both desktop popup and mobile print approaches
 export const PRINT_STYLES = `
+  @font-face {
+    font-family: 'Source Sans 3';
+    src: url('https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   @page { margin: 1cm; }
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body { color: #23262A; font-family: 'Source Sans 3', 'Source Sans Pro', Arial, sans-serif; font-size: 16px; line-height: 1.4; margin: 0; padding: 20px; }
-  h1 { margin: 0; padding-left: 0; text-align: left; }
-  h2 { margin-top: 1em; }
-  h4 { padding: 1.5em 0 0.5em; }
+  h1 { font-size: 24px; font-weight: 600; margin: 0; padding-left: 0; text-align: left; }
+  h2 { font-size: 20px; font-weight: 600; margin-top: 1em; }
+  h3 { font-size: 18px; font-weight: 600; }
+  h4 { font-size: 16px; font-weight: 600; padding: 1.5em 0 0; }
   h4.utenlandsopphold-title { padding: 0; }
+  hr {margin: 0.5em 0; color: rgb(128, 128, 128);}
+  p, li { font-size: 16px; line-height: 1.5; width: 75%;}
+  th, td { font-size: 14px; }
   table { width: 100%; border-collapse: collapse; table-layout: auto; margin: 0; }
   th, tr, .afp-grunnlag-title { border-bottom: 1px solid rgb(128 128 128); }
   thead th { border-bottom: 2px solid rgb(128 128 128); font-weight: bold; text-align: center; white-space: nowrap; }
@@ -13,6 +25,10 @@ export const PRINT_STYLES = `
   tr td { margin-right: 10px; text-align: center; }
   tr.header-with-logo { border: none; margin: 0; }
   tr.header-with-logo td { padding: 0; }
+  table.pdf-chart-table {
+    margin: 0 0 24px 0;
+  }
+  p.pdf-h3-paragraph, p.pdf-h4-paragraph {margin-top: -16px;}
   .pdf-table-wrapper-row, .pdf-table-type2 tbody > tr:last-child { border-bottom: none; }
   .pdf-table-type2 tbody > tr:last-child { font-weight: bold; }
   td.pdf-td-type2 { vertical-align: top; width: 33%; padding-top: 0; padding-right: 8px; }
@@ -40,5 +56,6 @@ export const PRINT_STYLES = `
   }
   @media print {
     .print-overlay { display: none; }
+    a[href]:after { content: none; }
   }
 `

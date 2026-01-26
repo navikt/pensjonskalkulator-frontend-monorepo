@@ -600,24 +600,23 @@ describe('Grunnlag', () => {
           button.textContent?.includes('AFP')
         )
 
-        if (afpReadMoreButton) {
-          await user.click(afpReadMoreButton)
+        expect(afpReadMoreButton).toBeDefined()
+        await user.click(afpReadMoreButton!)
 
-          expect(
-            screen.getByText('grunnlag.afp.avkortet.til.70.prosent')
-          ).toBeInTheDocument()
+        expect(
+          screen.getByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).toBeInTheDocument()
 
-          const navLink = screen.getByRole('link', {
-            name: 'grunnlag.afp.link.text',
-          })
-          expect(navLink).toBeVisible()
-          expect(navLink).toHaveAttribute(
-            'href',
-            'https://www.nav.no/afp-offentlig#beregning'
-          )
-          expect(navLink).toHaveAttribute('target', '_blank')
-          expect(navLink).toHaveAttribute('rel', 'noopener noreferrer')
-        }
+        const navLink = screen.getByRole('link', {
+          name: 'grunnlag.afp.link.text',
+        })
+        expect(navLink).toBeVisible()
+        expect(navLink).toHaveAttribute(
+          'href',
+          'https://www.nav.no/afp-offentlig#beregning'
+        )
+        expect(navLink).toHaveAttribute('target', '_blank')
+        expect(navLink).toHaveAttribute('rel', 'noopener noreferrer')
       })
 
       it('skjuler AFP avkortet melding og lenke når afpAvkortetTil70Prosent er false', async () => {
@@ -672,24 +671,21 @@ describe('Grunnlag', () => {
           button.textContent?.includes('AFP')
         )
 
-        if (afpReadMoreButton) {
-          await user.click(afpReadMoreButton)
+        expect(afpReadMoreButton).toBeDefined()
+        await user.click(afpReadMoreButton!)
 
-          expect(
-            screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
-          ).not.toBeInTheDocument()
+        expect(
+          screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).not.toBeInTheDocument()
 
-          expect(
-            screen.queryByRole('link', {
-              name: 'grunnlag.afp.link.text',
-            })
-          ).not.toBeInTheDocument()
-        }
+        expect(
+          screen.queryByRole('link', {
+            name: 'grunnlag.afp.link.text',
+          })
+        ).not.toBeInTheDocument()
       })
 
       it('skjuler AFP avkortet melding og lenke når pre2025OffentligAfp er undefined', async () => {
-        const user = userEvent.setup()
-
         render(
           <Grunnlag
             headingLevel="2"
@@ -718,24 +714,15 @@ describe('Grunnlag', () => {
           }
         )
 
-        const buttons = screen.getAllByRole('button')
-        const afpReadMoreButton = buttons.find((button) =>
-          button.textContent?.includes('AFP')
-        )
+        expect(
+          screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).not.toBeInTheDocument()
 
-        if (afpReadMoreButton) {
-          await user.click(afpReadMoreButton)
-
-          expect(
-            screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
-          ).not.toBeInTheDocument()
-
-          expect(
-            screen.queryByRole('link', {
-              name: 'grunnlag.afp.link.text',
-            })
-          ).not.toBeInTheDocument()
-        }
+        expect(
+          screen.queryByRole('link', {
+            name: 'grunnlag.afp.link.text',
+          })
+        ).not.toBeInTheDocument()
       })
     })
 
