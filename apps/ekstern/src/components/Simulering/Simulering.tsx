@@ -1,19 +1,6 @@
 import clsx from 'clsx'
-import { sl } from 'date-fns/locale'
-import type {
-  SeriesColumnOptions,
-  SeriesOptionsType,
-  XAxisOptions,
-} from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import type { SeriesColumnOptions, SeriesOptionsType } from 'highcharts'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
@@ -21,7 +8,6 @@ import type { HeadingProps } from '@navikt/ds-react'
 import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
-import { usePdfView } from '@/pdf-view/hooks'
 import {
   useGetAfpOffentligLivsvarigQuery,
   usePensjonsavtalerQuery,
@@ -31,7 +17,6 @@ import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
-  selectAfpUtregningValg,
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
@@ -48,7 +33,6 @@ import {
 import { isAlderOver62 } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 
-import { useOppholdUtenforNorge } from '../Grunnlag/GrunnlagUtenlandsopphold/hooks'
 import { Graph } from './Graph'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringAfpOffentligAlert } from './SimuleringAfpOffentligAlert/SimuleringAfpOffentligAlert'
@@ -92,7 +76,7 @@ export const Simulering = ({
   afpPrivatListe,
   afpOffentligListe,
   alderspensjonMaanedligVedEndring,
-  detaljer,
+  detaljer, // eslint-disable-line @typescript-eslint/no-unused-vars
   showButtonsAndTable,
   visning,
 }: Props) => {
@@ -110,18 +94,7 @@ export const Simulering = ({
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
   const intl = useIntl()
 
-  const [offentligTpRequestBody, setOffentligTpRequestBody] = useState<
-    OffentligTpRequestBody | undefined
-  >(undefined)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
-
-  const samtykkeOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
-  const afpUtregningValg = useAppSelector(selectAfpUtregningValg)
-  const { beregningsvalg } = useAppSelector(selectCurrentSimulation)
-  const oppholdUtenforNorge = useOppholdUtenforNorge({
-    harForLiteTrygdetid: detaljer?.harForLiteTrygdetid,
-  })
-  const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
     PensjonsavtalerRequestBody | undefined
@@ -133,8 +106,6 @@ export const Simulering = ({
     isError: isOffentligTpError,
     afpPerioder,
     erOffentligTpFoer1963,
-    tpAfpPeriode,
-    erSpkBesteberegning,
   } = useOffentligTpData()
 
   const {
@@ -334,7 +305,21 @@ export const Simulering = ({
                   : []
               )
             : [],
-          afpPrivatListe ?? [],
+          (() => {
+            if (afpPrivatListe && afpPrivatListe.length > 0) {
+              return [
+                ...afpPrivatListe.map((it) => ({
+                  alder: it.alder,
+                  beloep: it.beloep,
+                })),
+                {
+                  alder: Infinity,
+                  beloep: afpPrivatListe[afpPrivatListe.length - 1].beloep,
+                },
+              ]
+            }
+            return []
+          })(),
         ]),
       },
       {
