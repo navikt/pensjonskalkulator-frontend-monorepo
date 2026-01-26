@@ -265,6 +265,7 @@ export interface SeriesConfig {
   data: AarligUtbetaling[]
   name: string
   color: string
+  showInLegend?: boolean
 }
 
 interface SeriesReturn {
@@ -286,6 +287,7 @@ export const generateSeries = (seriesConfig: SeriesConfig[]): SeriesReturn => {
       pointWidth: POINTER_WIDTH,
       stacking: 'normal',
       data: fillYAxis(xAxisSkeleton, it.data),
+      showInLegend: it.showInLegend ?? true,
     }))
 
   // Convert x-axis keys to strings, and replace "Infinity" with "max+" label

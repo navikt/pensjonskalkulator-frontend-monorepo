@@ -134,11 +134,19 @@ export const Simulering = ({
   // Calculate the start age for the x-axis
   // If gradual withdrawal exists, start from the year before; otherwise use standard logic
 
+  const hasIncome = useMemo(() => {
+    return Boolean(
+      aarligInntektFoerUttakBeloep &&
+      formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0
+    )
+  }, [aarligInntektFoerUttakBeloep])
+
   const graphData: SeriesConfig[] = useMemo(
     () => [
       {
         name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
         color: SERIES_DEFAULT.SERIE_INNTEKT.color,
+        showInLegend: hasIncome,
         data: uttaksalder
           ? (() => {
               const pensjonStartAlder = isEndring
@@ -390,6 +398,7 @@ export const Simulering = ({
       offentligTp?.simulertTjenestepensjon?.simuleringsresultat
         .utbetalingsperioder,
       alderspensjonListe,
+      hasIncome,
     ]
   )
 
