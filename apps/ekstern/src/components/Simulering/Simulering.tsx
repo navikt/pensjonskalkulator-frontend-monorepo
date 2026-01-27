@@ -131,6 +131,14 @@ export const Simulering = ({
       !isAlderOver62(foedselsdato),
   })
 
+  const shouldShowAfpOffentlig =
+    !loependeLivsvarigAfpOffentlig ||
+    loependeLivsvarigAfpOffentlig.afpStatus === false ||
+    (loependeLivsvarigAfpOffentlig.afpStatus === true &&
+      loependeLivsvarigAfpOffentlig.maanedligBeloep === 0) ||
+    (loependeLivsvarigAfpOffentlig.afpStatus == null &&
+      loependeLivsvarigAfpOffentlig.maanedligBeloep == null)
+
   // Calculate the start age for the x-axis
   // If gradual withdrawal exists, start from the year before; otherwise use standard logic
 
@@ -269,7 +277,11 @@ export const Simulering = ({
               })
             }
 
-            if (afpOffentligListe && afpOffentligListe.length > 0) {
+            if (
+              shouldShowAfpOffentlig &&
+              afpOffentligListe &&
+              afpOffentligListe.length > 0
+            ) {
               return afpOffentligListe.length === 1
                 ? parseStartSluttUtbetaling({
                     startAlder: {
