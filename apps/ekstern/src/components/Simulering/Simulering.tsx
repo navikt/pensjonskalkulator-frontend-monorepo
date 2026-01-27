@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import type { SeriesColumnOptions, SeriesOptionsType } from 'highcharts'
+import { get } from 'http'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -30,7 +31,7 @@ import {
   selectUfoeregrad,
   selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
-import { isAlderOver62 } from '@/utils/alder'
+import { getAlderMinus1Maaned, isAlderOver62 } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 
 import { Graph } from './Graph'
@@ -204,16 +205,9 @@ export const Simulering = ({
                 gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
                   ? parseStartSluttUtbetaling({
                       startAlder: gradertUttaksperiode.uttaksalder,
-                      sluttAlder:
-                        uttaksalder.maaneder === 0
-                          ? {
-                              aar: uttaksalder.aar - 1,
-                              maaneder: 11,
-                            }
-                          : {
-                              aar: uttaksalder.aar,
-                              maaneder: uttaksalder.maaneder - 1,
-                            },
+                      sluttAlder: pre2025OffentligAfp
+                        ? getAlderMinus1Maaned({ aar: 67, maaneder: 0 })
+                        : getAlderMinus1Maaned(uttaksalder),
                       aarligUtbetaling: formatInntektToNumber(
                         gradertUttaksperiode.aarligInntektVsaPensjonBeloep
                       ),
