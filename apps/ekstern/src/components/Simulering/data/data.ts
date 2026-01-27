@@ -23,6 +23,15 @@ export const parseStartSluttUtbetaling = (
 
   const { startAlder, sluttAlder, aarligUtbetaling } = data
 
+  if (!erLivsvarig && startAlder.aar === sluttAlder!.aar) {
+    return [
+      {
+        alder: startAlder.aar,
+        beloep: (aarligUtbetaling * sluttAlder!.maaneder) / 12,
+      },
+    ]
+  }
+
   // Måndeder starter på 0 (januar) og slutter på 11 (desember)
   const MAANEDER_I_AARET = 12
   const MAANEDER_MED_FORSTE_YTELSE = MAANEDER_I_AARET - startAlder.maaneder
