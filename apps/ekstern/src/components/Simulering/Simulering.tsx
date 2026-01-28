@@ -257,10 +257,7 @@ export const Simulering = ({
         const harSpkPerioder = Boolean(afpPerioder?.length)
         if (harSpkPerioder) {
           return parseStartSluttUtbetaling({
-            startAlder: {
-              aar: pre2025OffentligAfp.alderAar,
-              maaneder: 0,
-            },
+            startAlder: uttaksalder!,
             sluttAlder: { aar: 64, maaneder: 11 },
             aarligUtbetaling: pre2025OffentligAfp.totaltAfpBeloep * 12,
           })
