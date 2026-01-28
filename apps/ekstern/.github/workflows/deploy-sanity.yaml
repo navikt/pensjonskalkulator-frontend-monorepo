@@ -10,11 +10,14 @@ on:
       - dreambox
       - coffeebox
       - codebox
-    paths-ignore:
-      - '.gitignore'
-      - 'CODEOWNERS'
-      - 'LICENSE.md'
-      - 'README.md'
+    paths:
+      - 'sanity/**'
+      - 'sanity.cli.ts'
+      - 'sanity.config.ts'
+      - 'tsconfig.sanity.json'
+      - '.docker/Dockerfile-sanity'
+      - '.nais/deploy-sanity-*.yml'
+      - '.github/workflows/deploy-sanity.yaml'
   workflow_dispatch:
     inputs:
       sanity:
@@ -32,26 +35,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.22.0
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22.22.0'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v5
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Build staging application
         run: npm run sanity-build

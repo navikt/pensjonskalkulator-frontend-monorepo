@@ -32,26 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.22.0
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22.22.0'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v5
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Fetch openapi backend types
         run: npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./src/types/schema.d.ts
@@ -97,26 +79,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.22.0
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22.22.0'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v5
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Run unit tests
         run: npm run test
@@ -137,20 +101,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Node.js v22.22.0
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22.22.0'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v5
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Cache Cypress binary
         id: cache-cypress
@@ -164,12 +116,6 @@ jobs:
         with:
           name: dist
           path: dist
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install cypress
         if: steps.cache-cypress.outputs.cache-hit != 'true'
@@ -267,181 +213,38 @@ jobs:
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-staging.yml
 
-  deploy-sandbox:
-    name: Deploy to sandbox
+  deploy-test:
+    name: Deploy to ${{ matrix.environment }}
     needs: [build]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [sandbox, catbox, magicbox, dreambox, coffeebox, codebox]
     if: |
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/sandbox'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref) &&
+      github.ref == format('refs/heads/{0}', matrix.environment)
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Deploy to sandbox
+      - name: Deploy to ${{ matrix.environment }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-sandbox.yml,.nais/unleash-api-token-dev.yaml
+          RESOURCE: .nais/deploy-${{ matrix.environment }}.yml,.nais/unleash-api-token-dev.yaml
 
-      - name: Deploy veiledning to sandbox
+      - name: Deploy veiledning to ${{ matrix.environment }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-sandbox.yml
-
-  deploy-catbox:
-    name: Deploy to catbox
-    needs: [build]
-    permissions:
-      id-token: 'write'
-    runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/catbox'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Deploy to catbox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-catbox.yml,.nais/unleash-api-token-dev.yaml
-
-      - name: Deploy veiledning to catbox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-catbox.yml
-
-  deploy-magicbox:
-    name: Deploy to magicbox
-    needs: [build]
-    permissions:
-      id-token: 'write'
-    runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/magicbox'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Deploy to magicbox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-magicbox.yml,.nais/unleash-api-token-dev.yaml
-
-      - name: Deploy veiledning to magicbox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-magicbox.yml
-
-  deploy-dreambox:
-    name: Deploy to dreambox
-    needs: [build]
-    permissions:
-      id-token: 'write'
-    runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/dreambox'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Deploy to dreambox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-dreambox.yml,.nais/unleash-api-token-dev.yaml
-
-      - name: Deploy veiledning to dreambox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-dreambox.yml
-
-  deploy-coffeebox:
-    name: Deploy to coffeebox
-    needs: [build]
-    permissions:
-      id-token: 'write'
-    runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/coffeebox'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Deploy to coffeebox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-coffeebox.yml,.nais/unleash-api-token-dev.yaml
-
-      - name: Deploy veiledning to coffeebox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-coffeebox.yml
-
-  deploy-codebox:
-    name: Deploy to codebox
-    needs: [build]
-    permissions:
-      id-token: 'write'
-    runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/codebox'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Deploy to codebox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-codebox.yml,.nais/unleash-api-token-dev.yaml
-
-      - name: Deploy veiledning to codebox
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-codebox.yml
+          RESOURCE: .nais/deploy-veiledning-${{ matrix.environment }}.yml
 
   deploy-prod:
     name: Deploy to prod-gcp
