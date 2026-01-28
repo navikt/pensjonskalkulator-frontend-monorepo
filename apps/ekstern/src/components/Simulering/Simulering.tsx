@@ -152,7 +152,7 @@ export const Simulering = ({
   // Calculate the start age for the x-axis
   // If gradual withdrawal exists, start from the year before; otherwise use standard logic
 
-  const hasIncome = useMemo(() => {
+  const hasPensjonsgivendeInntekt = useMemo(() => {
     return Boolean(
       (aarligInntektFoerUttakBeloep &&
         formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0) ||
@@ -390,7 +390,7 @@ export const Simulering = ({
       {
         name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
         color: SERIES_DEFAULT.SERIE_INNTEKT.color,
-        showInLegend: hasIncome,
+        showInLegend: hasPensjonsgivendeInntekt,
         data: buildInntektSerie(),
       },
       {
@@ -413,7 +413,7 @@ export const Simulering = ({
     ],
     [
       intl,
-      hasIncome,
+      hasPensjonsgivendeInntekt,
       isEndring,
       uttaksalder,
       gradertUttaksperiode,
@@ -492,21 +492,39 @@ export const Simulering = ({
   )
 
   const filteredTableSeries = useMemo(() => {
-    if (hasIncome) return tableSeries as SeriesColumnOptions[]
+    if (hasPensjonsgivendeInntekt) return tableSeries as SeriesColumnOptions[]
 
     return tableSeries.filter(
       (serie) =>
         serie.name !==
         intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name })
     ) as SeriesColumnOptions[]
-  }, [tableSeries, hasIncome, intl])
+  }, [tableSeries, hasPensjonsgivendeInntekt, intl])
 
-  const isPensjonsavtaleFlagVisible =
-    (pensjonsavtalerData?.partialResponse ||
-      (!isOffentligTpFoer1963(offentligTp) &&
-        offentligTp?.simulertTjenestepensjon?.simuleringsresultat
-          ?.betingetTjenestepensjonErInkludert)) ??
-    false
+  const isPensjonsavtaleFlagVisible = useMemo(() => {
+    if (!uttaksalder) return false
+
+    const avtaler = pensjonsavtalerData?.avtaler ?? []
+    console.log('pensjonsavtalerData', pensjonsavtalerData)
+    const utbetalingsperioder =
+      offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+        .utbetalingsperioder ?? []
+
+    const startAlder = gradertUttaksperiode?.uttaksalder || uttaksalder
+
+    return (
+      avtaler.some((avtale) => avtale.startAar < startAlder.aar) ||
+      utbetalingsperioder.some(
+        (periode) => periode.startAlder.aar < startAlder.aar
+      )
+    )
+  }, [
+    pensjonsavtalerData?.avtaler,
+    offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+      .utbetalingsperioder,
+    uttaksalder?.aar,
+    gradertUttaksperiode?.uttaksalder,
+  ])
 
   // const { data: person } = useGetPersonQuery()
   const isEnkel = visning === 'enkel'
