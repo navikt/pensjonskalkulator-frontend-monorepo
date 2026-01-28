@@ -911,10 +911,6 @@ export const useOffentligTpData = () => {
     ? offentligTpFoer1963Query.data
     : offentligTpQuery.data
 
-  const isLoading = erFoedtFoer1963
-    ? offentligTpFoer1963Query.isLoading
-    : offentligTpQuery.isLoading
-
   const isFetching = erFoedtFoer1963
     ? offentligTpFoer1963Query.isFetching
     : offentligTpQuery.isFetching
@@ -987,8 +983,7 @@ export const useOffentligTpData = () => {
   }
   return {
     data: dataUtenAfp,
-    isLoading,
-    isFetching,
+    isFetching: isFetching,
     isError,
     erOffentligTpFoer1963,
     erSpkBesteberegning,

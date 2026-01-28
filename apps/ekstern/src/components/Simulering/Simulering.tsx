@@ -103,13 +103,20 @@ export const Simulering = ({
 
   const {
     data: offentligTp,
-    isLoading: isOffentligTpLoading,
+    isFetching: isOffentligTpLoading,
     isError: isOffentligTpError,
     afpPerioder,
     tpAfpPeriode,
     erOffentligTpFoer1963,
     erSpkBesteberegning,
   } = useOffentligTpData()
+
+  useEffect(() => {
+    console.log('Offentlig TP load', isOffentligTpLoading)
+  }, [isOffentligTpLoading])
+  useEffect(() => {
+    console.log('Offentlig TP data', offentligTp)
+  }, [offentligTp])
 
   const {
     data: pensjonsavtalerData,
