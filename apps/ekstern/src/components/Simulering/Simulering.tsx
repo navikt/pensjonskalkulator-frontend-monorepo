@@ -519,7 +519,7 @@ export const Simulering = ({
     afpOffentligListe,
     detaljer,
     visning,
-    series: tableSeries as SeriesColumnOptions[],
+    series: filteredTableSeries,
     aarArray: tableXAxis,
     pensjonsavtalerData,
     isPensjonsavtalerSuccess,
