@@ -226,14 +226,15 @@ jobs:
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
-      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref) &&
-      github.ref == format('refs/heads/{0}', matrix.environment)
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        if: github.ref == format('refs/heads/{0}', matrix.environment)
 
       - name: Deploy to ${{ matrix.environment }}
         uses: nais/deploy/actions/deploy@v2
+        if: github.ref == format('refs/heads/{0}', matrix.environment)
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
@@ -241,6 +242,7 @@ jobs:
 
       - name: Deploy veiledning to ${{ matrix.environment }}
         uses: nais/deploy/actions/deploy@v2
+        if: github.ref == format('refs/heads/{0}', matrix.environment)
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}

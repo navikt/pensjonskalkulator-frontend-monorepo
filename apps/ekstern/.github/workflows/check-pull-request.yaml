@@ -104,29 +104,45 @@ jobs:
     name: Playwright ${{ matrix.browser }} tests
     runs-on: ubuntu-latest
     needs: build
-    if: |
-      always() &&
-      needs.build.result == 'success' &&
-      (matrix.browser == 'chromium' ||
-       (matrix.browser == 'firefox' && github.event.inputs.run-firefox == 'true') ||
-       (matrix.browser == 'webkit' && github.event.inputs.run-webkit == 'true'))
+    if: ${{ always() && needs.build.result == 'success' }}
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: [chromium]
+        include:
+          - browser: firefox
+            run-condition: ${{ github.event.inputs.run-firefox == 'true' }}
+          - browser: webkit
+            run-condition: ${{ github.event.inputs.run-webkit == 'true' }}
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
+      - name: Check if browser should run
+        id: should-run
+        run: |
+          if [[ "${{ matrix.browser }}" == "chromium" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.browser }}" == "firefox" && "${{ github.event.inputs.run-firefox }}" == "true" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.browser }}" == "webkit" && "${{ github.event.inputs.run-webkit }}" == "true" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout
+        if: steps.should-run.outputs.run == 'true'
         uses: actions/checkout@v6
 
       - name: Use Node.js v22.22.0
+        if: steps.should-run.outputs.run == 'true'
         uses: actions/setup-node@v6
         with:
           node-version: '22.22.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
+        if: steps.should-run.outputs.run == 'true'
         id: cache-node
         uses: actions/cache@v5
         with:
@@ -136,26 +152,29 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Download the build folders
+        if: steps.should-run.outputs.run == 'true'
         uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist
 
       - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
+        if: steps.should-run.outputs.run == 'true' && steps.cache-node.outputs.cache-hit != 'true'
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install Playwright Browsers
+        if: steps.should-run.outputs.run == 'true'
         run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run ${{ matrix.browser }} tests
+        if: steps.should-run.outputs.run == 'true'
         run: npx playwright test --project=${{ matrix.browser }} --workers=6 --reporter=blob
 
       - name: Upload ${{ matrix.browser }} blob report
         uses: actions/upload-artifact@v6
-        if: ${{ always() }}
+        if: ${{ always() && steps.should-run.outputs.run == 'true' }}
         with:
           name: ${{ matrix.browser }}-blob-report
           path: blob-report
@@ -213,7 +232,7 @@ jobs:
   all-tests-passed:
     name: All tests passed
     runs-on: ubuntu-latest
-    needs: [run-unit-tests, run-integration-tests-cypress, run-playwright-chromium]
+    needs: [run-unit-tests, run-integration-tests-cypress, run-playwright]
     if: ${{ always() }}
     steps:
       - name: Check all tests passed
@@ -226,7 +245,7 @@ jobs:
             echo "Cypress integration tests failed"
             exit 1
           fi
-          if [[ "${{ needs.run-playwright-chromium.result }}" != "success" ]]; then
+          if [[ "${{ needs.run-playwright.result }}" != "success" ]]; then
             echo "Playwright Chromium tests failed"
             exit 1
           fi
