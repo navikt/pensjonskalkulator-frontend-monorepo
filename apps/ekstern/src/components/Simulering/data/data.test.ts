@@ -9,7 +9,170 @@ import {
   parseStartSluttUtbetaling,
 } from './data'
 
-// TODO: AFT etterfulgt av alderspensjon, gradert uttak
+describe('AFP etterfulgt av alderspensjon, gradert uttak', () => {
+  it('skal håndtere AFP som slutter når alderspensjon starter', () => {
+    // AFP fra 62 år 0 mnd til 67 år 0 mnd
+    const afpUtbetaling: AarligUtbetalingStartSlutt = {
+      startAlder: { aar: 62, maaneder: 0 },
+      sluttAlder: { aar: 67, maaneder: 0 },
+      aarligUtbetaling: 60000,
+    }
+
+    const afpParsed = parseStartSluttUtbetaling(afpUtbetaling)
+
+    expect(afpParsed).toStrictEqual([
+      { alder: 62, beloep: 60000 },
+      { alder: 63, beloep: 60000 },
+      { alder: 64, beloep: 60000 },
+      { alder: 65, beloep: 60000 },
+      { alder: 66, beloep: 60000 },
+      { alder: 67, beloep: 5000 }, // 1 måned (januar) = 60000/12
+    ])
+  })
+
+  it('skal håndtere alderspensjon med livsvarig uttak som starter etter AFP', () => {
+    // Alderspensjon livsvarig fra 67 år 0 mnd
+    const alderspensjonUtbetaling: AarligUtbetalingStartSlutt = {
+      startAlder: { aar: 67, maaneder: 0 },
+      aarligUtbetaling: 240000,
+    }
+
+    const alderspensjonParsed = parseStartSluttUtbetaling(
+      alderspensjonUtbetaling
+    )
+
+    // Når startAlder er 0 måneder (januar) er forsteAarAndel = 1, så det legges ikke til neste år
+    expect(alderspensjonParsed).toStrictEqual([
+      { alder: 67, beloep: 240000 },
+      { alder: Infinity, beloep: 240000 },
+    ])
+  })
+
+  it('skal generere xAxis for AFP og alderspensjon kombinert', () => {
+    const afpData: AarligUtbetaling[] = [
+      { alder: 62, beloep: 60000 },
+      { alder: 63, beloep: 60000 },
+      { alder: 64, beloep: 60000 },
+      { alder: 65, beloep: 60000 },
+      { alder: 66, beloep: 60000 },
+      { alder: 67, beloep: 5000 },
+    ]
+
+    const alderspensjonData: AarligUtbetaling[] = [
+      { alder: 67, beloep: 240000 },
+      { alder: 68, beloep: 240000 },
+      { alder: Infinity, beloep: 240000 },
+    ]
+
+    const xAxis = generateXAxis([afpData, alderspensjonData])
+
+    expect(xAxis).toStrictEqual({
+      62: 0,
+      63: 0,
+      64: 0,
+      65: 0,
+      66: 0,
+      67: 0,
+      68: 0,
+      Infinity: 0,
+    })
+  })
+
+  it('skal merge AFP og alderspensjon utbetalinger', () => {
+    const afpData: AarligUtbetaling[] = [
+      { alder: 62, beloep: 60000 },
+      { alder: 63, beloep: 60000 },
+      { alder: 64, beloep: 60000 },
+      { alder: 65, beloep: 60000 },
+      { alder: 66, beloep: 60000 },
+      { alder: 67, beloep: 5000 },
+    ]
+
+    const alderspensjonData: AarligUtbetaling[] = [
+      { alder: 67, beloep: 240000 },
+      { alder: Infinity, beloep: 240000 },
+    ]
+
+    const merged = mergeAarligUtbetalinger([afpData, alderspensjonData])
+
+    // mergeAarligUtbetalinger summerer beløp for samme alder
+    // Infinity-verdien beholdes og representerer livsvarig utbetaling
+    expect(merged).toStrictEqual([
+      { alder: 62, beloep: 60000 },
+      { alder: 63, beloep: 60000 },
+      { alder: 64, beloep: 60000 },
+      { alder: 65, beloep: 60000 },
+      { alder: 66, beloep: 60000 },
+      { alder: 67, beloep: 245000 }, // AFP 5000 + alderspensjon 240000
+      { alder: Infinity, beloep: 240000 },
+    ])
+  })
+
+  it('skal generere series for AFP og alderspensjon med gradert uttak', () => {
+    // Gradert uttak: 50% alderspensjon fra 62, full fra 67
+    const afpData: AarligUtbetaling[] = [
+      { alder: 62, beloep: 30000 },
+      { alder: 63, beloep: 30000 },
+      { alder: 64, beloep: 30000 },
+      { alder: 65, beloep: 30000 },
+      { alder: 66, beloep: 30000 },
+    ]
+
+    const alderspensjon50Data: AarligUtbetaling[] = [
+      { alder: 62, beloep: 120000 },
+      { alder: 63, beloep: 120000 },
+      { alder: 64, beloep: 120000 },
+      { alder: 65, beloep: 120000 },
+      { alder: 66, beloep: 120000 },
+    ]
+
+    const alderspensjon100Data: AarligUtbetaling[] = [
+      { alder: 67, beloep: 240000 },
+      { alder: Infinity, beloep: 240000 },
+    ]
+
+    const seriesConfig: SeriesConfig[] = [
+      { data: afpData, name: 'AFP', color: 'green' },
+      { data: alderspensjon50Data, name: 'Alderspensjon 50%', color: 'blue' },
+      {
+        data: alderspensjon100Data,
+        name: 'Alderspensjon 100%',
+        color: 'darkblue',
+      },
+    ]
+
+    const result = generateSeries(seriesConfig)
+
+    expect(result.xAxis).toStrictEqual([
+      '62',
+      '63',
+      '64',
+      '65',
+      '66',
+      '67',
+      '67+',
+    ])
+    expect(result.series).toHaveLength(3)
+
+    // AFP: bare fra 62-66
+    expect(result.series[0]).toMatchObject({
+      name: 'AFP',
+      data: [30000, 30000, 30000, 30000, 30000, 0, 0],
+    })
+
+    // Alderspensjon 50%: bare fra 62-66
+    expect(result.series[1]).toMatchObject({
+      name: 'Alderspensjon 50%',
+      data: [120000, 120000, 120000, 120000, 120000, 0, 0],
+    })
+
+    // Alderspensjon 100%: fra 67 og livsvarig
+    expect(result.series[2]).toMatchObject({
+      name: 'Alderspensjon 100%',
+      data: [0, 0, 0, 0, 0, 240000, 240000],
+    })
+  })
+})
 
 // 0 - Januar
 // 1 - Februar
@@ -26,7 +189,7 @@ import {
 
 describe('Simulering data', () => {
   describe('parseStartSluttUtbetaling ', () => {
-    it('parse startAlder and sluttAlder', () => {
+    it('parser startAlder og sluttAlder', () => {
       const testdata: AarligUtbetalingStartSlutt = {
         startAlder: {
           aar: 50,
@@ -57,7 +220,7 @@ describe('Simulering data', () => {
       expect(actual).toStrictEqual(expected)
     })
 
-    it('parse startAlder and sluttAlder', () => {
+    it('parser startAlder og sluttAlder med andre verdier', () => {
       const testdata: AarligUtbetalingStartSlutt = {
         startAlder: {
           aar: 50,
@@ -285,7 +448,7 @@ describe('Simulering data', () => {
   })
 
   describe('generateSeries', () => {
-    it('generates series', () => {
+    it('genererer serier', () => {
       const testdata: SeriesConfig[] = [
         {
           data: [
@@ -337,6 +500,7 @@ describe('Simulering data', () => {
             stacking: 'normal',
             type: 'column',
             color: 'red',
+            showInLegend: true,
           },
           {
             data: [50, 50, 50, 0],
@@ -345,6 +509,7 @@ describe('Simulering data', () => {
             pointWidth: 25,
             stacking: 'normal',
             color: 'blue',
+            showInLegend: true,
           },
         ],
       })
@@ -352,7 +517,7 @@ describe('Simulering data', () => {
   })
 
   describe('mergeAarligUtbetalinger', () => {
-    it('should merge multiple årlige utbetalinger into one', () => {
+    it('skal slå sammen flere årlige utbetalinger til én', () => {
       const testdata = [
         [
           { alder: 58, beloep: 12 },
@@ -385,7 +550,7 @@ describe('Simulering data', () => {
   })
 
   describe('fillYAxis', () => {
-    it('should fill the yAxis with missing data points', () => {
+    it('skal fylle yAxis med manglende datapunkter', () => {
       const xAxis = {
         56: 0,
         57: 0,
@@ -405,7 +570,7 @@ describe('Simulering data', () => {
     })
   })
 
-  it('should fill yAxis with Infinity (livsvarig) data', () => {
+  it('skal fylle yAxis med Infinity (livsvarig) data', () => {
     const xAxis = {
       56: 0,
       57: 0,
@@ -424,7 +589,7 @@ describe('Simulering data', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('should fill yAxis with Infinity (livsvarig) data, but only after ages after highest age', () => {
+  it('skal fylle yAxis med Infinity (livsvarig) data, men kun for aldre etter høyeste alder', () => {
     const xAxis = {
       56: 0,
       57: 0,
