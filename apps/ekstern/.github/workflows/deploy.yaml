@@ -186,7 +186,13 @@ jobs:
 
   deploy-staging:
     name: Deploy to staging
-    needs: [build, run-unit-tests, run-integration-tests-cypress, run-playwright-tests]
+    needs:
+      [
+        build,
+        run-unit-tests,
+        run-integration-tests-cypress,
+        run-playwright-tests,
+      ]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
@@ -213,44 +219,59 @@ jobs:
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-staging.yml
 
-  deploy-test:
-    name: Deploy to ${{ matrix.environment }}
-    needs: [build]
-    permissions:
-      id-token: 'write'
+  determine-test-env:
+    name: Determine test environment
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: [sandbox, catbox, magicbox, dreambox, coffeebox, codebox]
     if: |
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
       contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+    steps:
+      - name: Set environment from branch
+        id: set-env
+        run: |
+          # Extract branch name from refs/heads/branchname
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Deploying to: $BRANCH_NAME"
+
+  deploy-test:
+    name: Deploy to ${{ needs.determine-test-env.outputs.environment }}
+    needs: [build, determine-test-env]
+    permissions:
+      id-token: 'write'
+    runs-on: ubuntu-latest
+    if: needs.determine-test-env.outputs.environment != ''
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        if: github.ref == format('refs/heads/{0}', matrix.environment)
 
-      - name: Deploy to ${{ matrix.environment }}
+      - name: Deploy to ${{ needs.determine-test-env.outputs.environment }}
         uses: nais/deploy/actions/deploy@v2
-        if: github.ref == format('refs/heads/{0}', matrix.environment)
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-${{ matrix.environment }}.yml,.nais/unleash-api-token-dev.yaml
+          RESOURCE: .nais/deploy-${{ needs.determine-test-env.outputs.environment }}.yml,.nais/unleash-api-token-dev.yaml
 
-      - name: Deploy veiledning to ${{ matrix.environment }}
+      - name: Deploy veiledning to ${{ needs.determine-test-env.outputs.environment }}
         uses: nais/deploy/actions/deploy@v2
-        if: github.ref == format('refs/heads/{0}', matrix.environment)
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-${{ matrix.environment }}.yml
+          RESOURCE: .nais/deploy-veiledning-${{ needs.determine-test-env.outputs.environment }}.yml
 
   deploy-prod:
     name: Deploy to prod-gcp
-    needs: [build, run-unit-tests, run-integration-tests-cypress, run-playwright-tests]
+    needs:
+      [
+        build,
+        run-unit-tests,
+        run-integration-tests-cypress,
+        run-playwright-tests,
+      ]
     permissions:
       id-token: 'write'
     runs-on: ubuntu-latest
