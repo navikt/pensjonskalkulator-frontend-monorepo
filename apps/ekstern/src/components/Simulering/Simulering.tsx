@@ -145,9 +145,19 @@ export const Simulering = ({
   const hasIncome = useMemo(() => {
     return Boolean(
       aarligInntektFoerUttakBeloep &&
-      formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0
+      formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0 &&
+      gradertUttaksperiode?.aarligInntektVsaPensjonBeloep &&
+      formatInntektToNumber(
+        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+      ) > 0 &&
+      aarligInntektVsaHelPensjon?.beloep &&
+      formatInntektToNumber(aarligInntektVsaHelPensjon.beloep) > 0
     )
-  }, [aarligInntektFoerUttakBeloep])
+  }, [
+    aarligInntektFoerUttakBeloep,
+    gradertUttaksperiode?.aarligInntektVsaPensjonBeloep,
+    aarligInntektVsaHelPensjon?.beloep,
+  ])
 
   const buildInntektSerie = () => {
     if (!uttaksalder) return []
