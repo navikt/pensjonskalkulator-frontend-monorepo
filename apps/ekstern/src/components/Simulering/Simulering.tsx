@@ -8,6 +8,7 @@ import type { HeadingProps } from '@navikt/ds-react'
 import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
+import { usePdfView } from '@/pdf-view/hooks'
 import {
   useGetAfpOffentligLivsvarigQuery,
   usePensjonsavtalerQuery,
@@ -76,7 +77,7 @@ export const Simulering = ({
   afpPrivatListe,
   afpOffentligListe,
   alderspensjonMaanedligVedEndring,
-  detaljer, // eslint-disable-line @typescript-eslint/no-unused-vars
+  detaljer,
   showButtonsAndTable,
   visning,
 }: Props) => {
@@ -105,7 +106,9 @@ export const Simulering = ({
     isLoading: isOffentligTpLoading,
     isError: isOffentligTpError,
     afpPerioder,
+    tpAfpPeriode,
     erOffentligTpFoer1963,
+    erSpkBesteberegning,
   } = useOffentligTpData()
 
   const {
@@ -144,14 +147,14 @@ export const Simulering = ({
 
   const hasIncome = useMemo(() => {
     return Boolean(
-      aarligInntektFoerUttakBeloep &&
-      formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0 &&
-      gradertUttaksperiode?.aarligInntektVsaPensjonBeloep &&
-      formatInntektToNumber(
-        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
-      ) > 0 &&
-      aarligInntektVsaHelPensjon?.beloep &&
-      formatInntektToNumber(aarligInntektVsaHelPensjon.beloep) > 0
+      (aarligInntektFoerUttakBeloep &&
+        formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0) ||
+      (gradertUttaksperiode?.aarligInntektVsaPensjonBeloep &&
+        formatInntektToNumber(
+          gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+        ) > 0) ||
+      (aarligInntektVsaHelPensjon?.beloep &&
+        formatInntektToNumber(aarligInntektVsaHelPensjon.beloep) > 0)
     )
   }, [
     aarligInntektFoerUttakBeloep,
@@ -484,6 +487,16 @@ export const Simulering = ({
     []
   )
 
+  const filteredTableSeries = useMemo(() => {
+    if (hasIncome) return tableSeries as SeriesColumnOptions[]
+
+    return tableSeries.filter(
+      (serie) =>
+        serie.name !==
+        intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name })
+    ) as SeriesColumnOptions[]
+  }, [tableSeries, hasIncome, intl])
+
   const isPensjonsavtaleFlagVisible =
     (pensjonsavtalerData?.partialResponse ||
       (!isOffentligTpFoer1963(offentligTp) &&
@@ -494,24 +507,25 @@ export const Simulering = ({
   // const { data: person } = useGetPersonQuery()
   const isEnkel = visning === 'enkel'
 
-  // usePdfView({
-  //   headingLevel,
-  //   alderspensjonListe,
-  //   pre2025OffentligAfp,
-  //   afpPrivatListe,
-  //   afpOffentligListe,
-  //   detaljer,
-  //   visning,
-  //   chartOptions,
-  //   pensjonsavtalerData,
-  //   isPensjonsavtalerSuccess,
-  //   isPensjonsavtalerError,
-  //   isLoading: isLoading || isOffentligTpLoading || isPensjonsavtalerLoading,
-  //   isPensjonsavtaleFlagVisible,
-  //   erOffentligTpFoer1963,
-  //   tpAfpPeriode,
-  //   erSpkBesteberegning,
-  // })
+  usePdfView({
+    headingLevel,
+    alderspensjonListe,
+    pre2025OffentligAfp,
+    afpPrivatListe,
+    afpOffentligListe,
+    detaljer,
+    visning,
+    series: tableSeries as SeriesColumnOptions[],
+    aarArray: tableXAxis,
+    pensjonsavtalerData,
+    isPensjonsavtalerSuccess,
+    isPensjonsavtalerError,
+    isLoading: isLoading || isOffentligTpLoading || isPensjonsavtalerLoading,
+    isPensjonsavtaleFlagVisible,
+    erOffentligTpFoer1963,
+    tpAfpPeriode,
+    erSpkBesteberegning,
+  })
 
   const hideAFP =
     loependeLivsvarigAfpOffentlig?.afpStatus &&
@@ -609,10 +623,7 @@ export const Simulering = ({
       />
 
       {showButtonsAndTable && (
-        <TabellVisning
-          series={tableSeries as SeriesColumnOptions[]}
-          aarArray={tableXAxis}
-        />
+        <TabellVisning series={filteredTableSeries} aarArray={tableXAxis} />
       )}
 
       {/* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */}
