@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: pensjonskalkulator-veiledning-frontend-catbox
+  name: pensjonskalkulator-veiledning-frontend-{{ branch }}
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
@@ -10,7 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://pensjonskalkulator-veiledning-frontend-catbox.ansatt.dev.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator-veiledning-frontend-{{ branch }}.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 1

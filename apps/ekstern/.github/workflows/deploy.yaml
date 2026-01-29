@@ -254,14 +254,16 @@ jobs:
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-${{ needs.determine-test-env.outputs.environment }}.yml,.nais/unleash-api-token-dev.yaml
+          RESOURCE: .nais/deploy-dev-branch.yaml,.nais/unleash-api-token-dev.yaml
+          VAR: branch=${{ needs.determine-test-env.outputs.environment }}
 
       - name: Deploy veiledning to ${{ needs.determine-test-env.outputs.environment }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
-          RESOURCE: .nais/deploy-veiledning-${{ needs.determine-test-env.outputs.environment }}.yml
+          RESOURCE: .nais/deploy-veiledning-dev-branch.yaml
+          VAR: branch=${{ needs.determine-test-env.outputs.environment }}
 
   deploy-prod:
     name: Deploy to prod-gcp
