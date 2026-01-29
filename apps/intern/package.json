@@ -7,7 +7,9 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"test": "echo 'No tests yet' && exit 0",
+		"test:e2e": "echo 'No E2E tests yet' && exit 0"
 	},
 	"dependencies": {
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",

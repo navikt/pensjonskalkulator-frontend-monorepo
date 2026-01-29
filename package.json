@@ -19,8 +19,6 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"typecheck": "pnpm -r typecheck",
-		"test": "vitest",
-		"test:e2e": "playwright test",
 		"clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules pnpm-lock.yaml",
 		"prepare": "husky"
 	},
@@ -50,7 +48,7 @@
 		"prettier": "^3.8.1",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.54.0",
-		"vitest": "^4.0.18"
+		"vitest": "^3.2.4"
 	},
 	"pnpm": {
 		"overrides": {
