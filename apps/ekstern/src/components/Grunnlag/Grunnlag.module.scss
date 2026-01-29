@@ -1,0 +1,53 @@
+@use '../../scss/variables';
+
+.visListekomponenter {
+  width: 100%;
+  margin-top: var(--a-spacing-1);
+
+  :global {
+    .navds-read-more__content {
+      border-left: 0;
+      margin-left: 0;
+      padding-left: 0;
+      padding-bottom: 0;
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+
+.wideDetailedView {
+  :global {
+    .navds-read-more__content {
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+
+      @media (min-width: variables.$a-breakpoint-lg) {
+        width: calc(var(--a-spacing-32) * 8);
+      }
+    }
+  }
+}
+
+.alderspensjonDetaljer {
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--a-spacing-12);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+
+  &Header {
+    font-weight: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+}

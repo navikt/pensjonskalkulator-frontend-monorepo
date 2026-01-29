@@ -1,0 +1,11 @@
+@use '../../scss/variables';
+
+.section {
+  padding: 0 var(--a-spacing-6) var(--a-spacing-12) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

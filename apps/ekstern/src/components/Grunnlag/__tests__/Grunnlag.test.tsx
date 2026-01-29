@@ -1,0 +1,773 @@
+import { Grunnlag } from '@/components/Grunnlag'
+import {
+  fulfilledGetErApoteker,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetPerson,
+  fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
+  fulfilledPre1963GetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+const navigateMock = vi.fn()
+vi.mock(import('react-router'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
+describe('Grunnlag', () => {
+  const renderGrunnlagMedPreloadedState = (
+    headingLevel: '1' | '2' | '3',
+    visning: 'avansert' | 'enkel',
+    userInputState?: userInputReducerUtils.UserInputState
+  ) => {
+    render(
+      <Grunnlag
+        headingLevel={headingLevel}
+        visning={visning}
+        isEndring={false}
+        alderspensjonListe={undefined}
+        afpPrivatListe={undefined}
+        afpOffentligListe={undefined}
+        pre2025OffentligAfp={undefined}
+      />,
+      {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            ...userInputState,
+          },
+        },
+      }
+    )
+  }
+  it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
+    renderGrunnlagMedPreloadedState('3', 'enkel')
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(6)
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+    expect(
+      await screen.findByText('Årlig inntekt frem til uttak:')
+    ).toBeVisible()
+    expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.title.mindre_enn_5_aar')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('beregning.highcharts.serie.alderspensjon.name')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
+  })
+
+  it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
+    renderGrunnlagMedPreloadedState('2', 'avansert')
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
+    expect(
+      await screen.findByText('grunnlag.endring.title')
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText('grunnlag.uttaksgrad.title')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText('grunnlag.inntekt.title')).not.toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.title.mindre_enn_5_aar')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('beregning.highcharts.serie.alderspensjon.name')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.afp.title', { exact: false })
+    ).toBeVisible()
+  })
+
+  it('viser annen tittel for avansert', async () => {
+    renderGrunnlagMedPreloadedState('2', 'avansert')
+    expect(
+      await screen.findByText('grunnlag.endring.title')
+    ).toBeInTheDocument()
+  })
+
+  describe('Grunnlag - inntekt frem til uttak', () => {
+    it('vises i enkel visning', async () => {
+      renderGrunnlagMedPreloadedState('2', 'enkel')
+      expect(
+        screen.queryByText('Årlig inntekt frem til uttak:')
+      ).toBeInTheDocument()
+    })
+
+    it('vises ikke avansert visning', async () => {
+      renderGrunnlagMedPreloadedState('2', 'avansert')
+      expect(
+        screen.queryByText('Årlig inntekt frem til uttak:')
+      ).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Grunnlag - sivilstand', () => {
+    it('viser riktig tekst og lenke når henting av sivilstand fra vedtaket er vellykket', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <Grunnlag headingLevel="2" visning="avansert" isEndring={false} />,
+        {
+          preloadedState: {
+            api: {
+              //@ts-ignore
+              queries: {
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.UGIFT')).toBeInTheDocument()
+      await waitFor(async () => {
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+      })
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser riktig tekst og lenke når henting av sivilstand fra person er vellykket', async () => {
+      const user = userEvent.setup()
+      mockResponse('/v6/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1963-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+            oevreAldersgrense: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
+        },
+      })
+      renderGrunnlagMedPreloadedState('2', 'avansert', {
+        ...userInputInitialState,
+        sivilstand: 'GIFT',
+      })
+
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.GIFT')).toBeInTheDocument()
+      await waitFor(async () => {
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+      })
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser riktig tekst og lenke når brukeren har oppgitt samboerskap manuelt', async () => {
+      const user = userEvent.setup()
+      mockResponse('/v6/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'UGIFT',
+          foedselsdato: '1963-04-30',
+          pensjoneringAldre: {
+            normertPensjoneringsalder: {
+              aar: 67,
+              maaneder: 0,
+            },
+            nedreAldersgrense: {
+              aar: 62,
+              maaneder: 0,
+            },
+            oevreAldersgrense: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
+        },
+      })
+
+      renderGrunnlagMedPreloadedState('2', 'enkel', {
+        ...userInputInitialState,
+        sivilstand: 'UGIFT',
+      })
+
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.UGIFT')).toBeVisible()
+      expect(
+        screen.queryByText('grunnlag.sivilstand.title.error')
+      ).not.toBeInTheDocument()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser feilmelding når henting av personopplysninger feiler', async () => {
+      const user = userEvent.setup()
+      mockErrorResponse('/v6/person')
+      renderGrunnlagMedPreloadedState('2', 'enkel')
+
+      expect(
+        screen.queryByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Hvis du bor sammen med noen kan inntekten til den du bor med ha betydning for hva du får i alderspensjon.',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - utenlandsopphold', () => {
+    it('viser riktig tittel og tekst', async () => {
+      renderGrunnlagMedPreloadedState('2', 'enkel')
+      expect(
+        screen.getByText('grunnlag.opphold.title.mindre_enn_5_aar')
+      ).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.opphold.value.mindre_enn_5_aar')
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - alderspensjon', () => {
+    it('viser riktig tittel', async () => {
+      const user = userEvent.setup()
+      renderGrunnlagMedPreloadedState('2', 'enkel')
+      expect(
+        await screen.findByText('beregning.highcharts.serie.alderspensjon.name')
+      ).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[3])
+
+      expect(
+        await screen.findByText(
+          'Alderspensjon beregnes ut ifra din opptjening i folketrygden',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - AFP', () => {
+    it('rendrer GrunnlagAFP når bruker ikke har vedtak om uføretrygd', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetErApoteker,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('rendrer GrunnlagAFP når vi ikke har apoteker error', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetErApoteker,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('rendrer GrunnlagAFP for brukere som er født før 1963', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledPre1963GetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('viser GrunnlagAFP når uføretrygd er 0 selv om andre betingelser er oppfylt', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetPerson,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('viser GrunnlagAFP når bruker har uføretrygd > 0 men er under 62 år, selv om andre betingelser er oppfylt', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
+        preloadedState: {
+          api: {
+            //@ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
+              ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder, // This person is born in 1990, making them under 62
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+          session: {
+            isLoggedIn: true,
+            hasErApotekerError: true,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('grunnlag.afp.title', { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    describe('Skjuleregler', () => {
+      it('skjuler GrunnlagAFP når bruker har 100% uføretrygd og andre betingelser er oppfylt', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
+                  ...fulfilledGetPerson,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: true,
+              },
+            },
+          }
+        )
+
+        expect(
+          screen.queryByTestId('grunnlag.afp.title')
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser GrunnlagAFP når bruker har 100% uføretrygd men apoteker error er false', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
+                  ...fulfilledGetPerson,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: false,
+              },
+            },
+          }
+        )
+
+        expect(
+          await screen.findByText('grunnlag.afp.title', { exact: false })
+        ).toBeInTheDocument()
+      })
+
+      it('skjuler GrunnlagAFP når bruker har uføretrygd > 0, er over 62 år, har apoteker error og født etter 1963', async () => {
+        render(
+          <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak75Ufoeregrad,
+                  ...fulfilledGetPerson, // This person is born in 1963, making them over 62
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+              },
+              session: {
+                isLoggedIn: true,
+                hasErApotekerError: true,
+              },
+            },
+          }
+        )
+
+        expect(
+          screen.queryByTestId('grunnlag.afp.title')
+        ).not.toBeInTheDocument()
+      })
+    })
+
+    it('Når brukeren har valgt offentlig AFP men uten samtykket, ikke vis Readmore knapp', async () => {
+      const user = userEvent.setup()
+      renderGrunnlagMedPreloadedState('2', 'avansert', {
+        ...userInputInitialState,
+        samtykke: false,
+        samtykkeOffentligAFP: false,
+      })
+
+      expect(
+        screen.getByText('grunnlag.afp.title', { exact: false })
+      ).toBeVisible()
+
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[4])
+      expect(
+        screen.queryByRole('button', { name: 'Vis detaljer om din AFP' })
+      ).not.toBeInTheDocument()
+    })
+
+    describe('Detaljer for pre2025OffentligAfp', () => {
+      it('viser AFP avkortet melding og lenke når afpAvkortetTil70Prosent er true', async () => {
+        const user = userEvent.setup()
+        const mockPre2025OffentligAfp = {
+          alderAar: 63,
+          totaltAfpBeloep: 29373,
+          tidligereArbeidsinntekt: 609000,
+          grunnbeloep: 124028,
+          sluttpoengtall: 3.91,
+          trygdetid: 40,
+          poengaarTom1991: 12,
+          poengaarFom1992: 28,
+          grunnpensjon: 10336,
+          tilleggspensjon: 17337,
+          afpTillegg: 1700,
+          saertillegg: 0,
+          afpGrad: 60,
+          afpAvkortetTil70Prosent: true,
+        }
+
+        render(
+          <Grunnlag
+            headingLevel="2"
+            visning="enkel"
+            isEndring={false}
+            pre2025OffentligAfp={mockPre2025OffentligAfp}
+          />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+                afp: 'ja_offentlig',
+                currentSimulation: {
+                  ...userInputInitialState.currentSimulation,
+                  uttaksalder: { aar: 67, maaneder: 0 },
+                  aarligInntektFoerUttakBeloep: '500000',
+                },
+              },
+            },
+          }
+        )
+
+        // Click the AFP ReadMore button to expand the details
+        const buttons = screen.getAllByRole('button')
+        const afpReadMoreButton = buttons.find((button) =>
+          button.textContent?.includes('AFP')
+        )
+
+        expect(afpReadMoreButton).toBeDefined()
+        await user.click(afpReadMoreButton!)
+
+        expect(
+          screen.getByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).toBeInTheDocument()
+
+        const navLink = screen.getByRole('link', {
+          name: 'grunnlag.afp.link.text',
+        })
+        expect(navLink).toBeVisible()
+        expect(navLink).toHaveAttribute(
+          'href',
+          'https://www.nav.no/afp-offentlig#beregning'
+        )
+        expect(navLink).toHaveAttribute('target', '_blank')
+        expect(navLink).toHaveAttribute('rel', 'noopener noreferrer')
+      })
+
+      it('skjuler AFP avkortet melding og lenke når afpAvkortetTil70Prosent er false', async () => {
+        const user = userEvent.setup()
+        const mockPre2025OffentligAfp = {
+          alderAar: 63,
+          totaltAfpBeloep: 29373,
+          tidligereArbeidsinntekt: 609000,
+          grunnbeloep: 124028,
+          sluttpoengtall: 3.91,
+          trygdetid: 40,
+          poengaarTom1991: 12,
+          poengaarFom1992: 28,
+          grunnpensjon: 10336,
+          tilleggspensjon: 17337,
+          afpTillegg: 1700,
+          saertillegg: 0,
+          afpGrad: 60,
+          afpAvkortetTil70Prosent: false,
+        }
+
+        render(
+          <Grunnlag
+            headingLevel="2"
+            visning="enkel"
+            isEndring={false}
+            pre2025OffentligAfp={mockPre2025OffentligAfp}
+          />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+                afp: 'ja_offentlig',
+                currentSimulation: {
+                  ...userInputInitialState.currentSimulation,
+                  uttaksalder: { aar: 67, maaneder: 0 },
+                  aarligInntektFoerUttakBeloep: '500000',
+                },
+              },
+            },
+          }
+        )
+
+        const buttons = screen.getAllByRole('button')
+        const afpReadMoreButton = buttons.find((button) =>
+          button.textContent?.includes('AFP')
+        )
+
+        expect(afpReadMoreButton).toBeDefined()
+        await user.click(afpReadMoreButton!)
+
+        expect(
+          screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).not.toBeInTheDocument()
+
+        expect(
+          screen.queryByRole('link', {
+            name: 'grunnlag.afp.link.text',
+          })
+        ).not.toBeInTheDocument()
+      })
+
+      it('skjuler AFP avkortet melding og lenke når pre2025OffentligAfp er undefined', async () => {
+        render(
+          <Grunnlag
+            headingLevel="2"
+            visning="enkel"
+            isEndring={false}
+            pre2025OffentligAfp={undefined}
+          />,
+          {
+            preloadedState: {
+              api: {
+                //@ts-ignore
+                queries: {
+                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
+                },
+              },
+              userInput: {
+                ...userInputInitialState,
+                afp: 'ja_offentlig',
+                currentSimulation: {
+                  ...userInputInitialState.currentSimulation,
+                  uttaksalder: { aar: 67, maaneder: 0 },
+                  aarligInntektFoerUttakBeloep: '500000',
+                },
+              },
+            },
+          }
+        )
+
+        expect(
+          screen.queryByText('grunnlag.afp.avkortet.til.70.prosent')
+        ).not.toBeInTheDocument()
+
+        expect(
+          screen.queryByRole('link', {
+            name: 'grunnlag.afp.link.text',
+          })
+        ).not.toBeInTheDocument()
+      })
+    })
+
+    describe('Grunnlag - Read more', () => {
+      it('viser ikke Readmore knapp når afp er "nei"', async () => {
+        renderGrunnlagMedPreloadedState('2', 'enkel', {
+          ...userInputInitialState,
+          afp: 'nei',
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser ikke Readmore knapp når afp er null', async () => {
+        renderGrunnlagMedPreloadedState('2', 'enkel', {
+          ...userInputInitialState,
+          afp: null,
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser ikke Readmore knapp når samtykkeOffentligAFP er false og afp er ja_offentlig', async () => {
+        renderGrunnlagMedPreloadedState('2', 'avansert', {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+          samtykkeOffentligAFP: false,
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+
+      it('viser ikke Readmore knapp når samtykkeOffentligAFP er true og afp er ja_offentlig', async () => {
+        renderGrunnlagMedPreloadedState('2', 'avansert', {
+          ...userInputInitialState,
+          afp: 'ja_offentlig',
+          samtykkeOffentligAFP: true,
+        })
+        expect(
+          screen.queryByRole('button', { name: /vis detaljer om din afp/i })
+        ).not.toBeInTheDocument()
+      })
+    })
+  })
+})

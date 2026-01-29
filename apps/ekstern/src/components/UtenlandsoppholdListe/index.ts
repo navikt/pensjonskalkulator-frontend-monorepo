@@ -1,0 +1,1 @@
+export { UtenlandsoppholdListe } from './UtenlandsoppholdListe'

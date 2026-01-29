@@ -1,0 +1,35 @@
+@use '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+  }
+
+  &__hasTopMargin {
+    margin-top: var(--a-spacing-4) !important;
+  }
+}
+
+.intro {
+  margin-bottom: var(--a-spacing-10);
+  max-width: variables.$container-max-width;
+
+  &__endring {
+    margin-bottom: var(--a-spacing-3);
+  }
+
+  &Title {
+    margin-bottom: var(--a-spacing-1);
+  }
+}
+
+.link {
+  margin-top: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-4);
+}
+
+.guidePanel {
+  margin-bottom: var(--a-spacing-8);
+}

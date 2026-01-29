@@ -1,0 +1,1 @@
+export { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'

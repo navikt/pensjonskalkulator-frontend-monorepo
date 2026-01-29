@@ -1,0 +1,1 @@
+export { StepSamtykkePensjonsavtaler } from './StepSamtykkePensjonsavtaler'

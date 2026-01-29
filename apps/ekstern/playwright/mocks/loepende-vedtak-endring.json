@@ -1,0 +1,10 @@
+{
+  "alderspensjon": {
+    "grad": 100,
+    "fom": "2010-10-10",
+    "sivilstand": "UGIFT"
+  },
+  "ufoeretrygd": {
+    "grad": 0
+  }
+}

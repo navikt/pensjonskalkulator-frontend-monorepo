@@ -1,0 +1,319 @@
+@use '../../scss/variables';
+
+.section {
+  margin-bottom: var(--a-spacing-10);
+}
+
+.intro {
+  @media (min-width: variables.$a-breakpoint-lg) {
+    margin-bottom: var(--a-spacing-4);
+  }
+
+  &Title {
+    margin-bottom: var(--a-spacing-1);
+  }
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+
+  & div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    margin: var(--a-spacing-2);
+    border: var(--a-spacing-2) solid var(--a-gray-600);
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--a-gray-600) transparent transparent;
+
+    &:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
+}
+
+.infoClick {
+  display: none;
+}
+
+@media (min-width: variables.$a-breakpoint-lg) {
+  .infoClick {
+    display: flex;
+    position: absolute;
+    top: 0.1rem;
+    right: 10px;
+    align-items: center;
+    gap: 4px;
+
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .highchartsWrapper {
+    position: relative;
+  }
+}
+
+.tooltip {
+  right: 0.375rem;
+  background-color: var(--a-white);
+  min-height: 115px;
+  z-index: 3;
+  position: relative;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    min-height: 0;
+    right: unset;
+  }
+
+  & path {
+    filter: drop-shadow(0 0 5px var(--a-grayalpha-400));
+  }
+
+  & > span {
+    position: relative !important;
+    width: 100% !important;
+    display: block;
+    box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
+    border-radius: var(--a-spacing-1);
+    padding: var(--a-spacing-3) var(--a-spacing-4);
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      background-color: var(--a-white);
+      position: absolute !important;
+      width: auto !important;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+
+  &Table {
+    position: relative;
+    width: 100%;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    z-index: 4;
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      width: 22rem;
+      border-width: var(--a-spacing-3) var(--a-spacing-4);
+      border-style: solid;
+      border-color: var(--a-white);
+      border-radius: 0.25rem;
+    }
+
+    &HeaderCell {
+      font-family: var(--a-font-family) !important;
+      padding: 0.25rem 0;
+      line-height: 1;
+
+      &__left {
+        white-space: break-spaces;
+        font-weight: var(--a-font-weight-regular);
+        font-size: var(--a-font-size-medium) !important;
+        text-align: left;
+        padding-right: var(--a-spacing-3);
+
+        @media (width >= 400px) {
+          white-space: unset;
+        }
+      }
+
+      &__right {
+        font-size: var(--a-font-size-large) !important;
+        font-weight: var(--a-font-weight-bold);
+        text-align: right;
+        white-space: nowrap;
+        padding-left: var(--a-spacing-2);
+      }
+    }
+
+    &Cell {
+      white-space: break-spaces;
+      font-family: var(--a-font-family);
+      font-size: var(--a-font-size-small);
+      vertical-align: middle;
+      padding: 0.188rem 0;
+      line-height: 1;
+
+      @media (width >= 400px) {
+        white-space: unset;
+      }
+
+      &__right {
+        font-weight: var(--a-font-weight-bold);
+        text-align: right;
+      }
+
+      &Dot {
+        height: var(--a-spacing-3);
+        width: var(--a-spacing-3);
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: var(--a-spacing-1);
+        margin-top: -2px;
+      }
+    }
+  }
+
+  &Line {
+    position: absolute;
+    width: 1px;
+    border-right: 1px dashed var(--a-white);
+    background-color: var(--a-grayalpha-500);
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      display: none;
+    }
+  }
+}
+
+:global {
+  .highcharts-loading {
+    opacity: 1 !important;
+    background-color: rgb(255 255 255 / 70%) !important;
+  }
+
+  .highcharts-loading-inner {
+    display: block;
+    width: 80vw;
+
+    @media (min-width: variables.$a-breakpoint-sm) {
+      width: 100%;
+    }
+  }
+
+  .highcharts-tooltip-container {
+    left: 1.125rem !important;
+    right: 1.125rem;
+
+    @media (min-width: variables.$a-breakpoint-xl) {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100% !important;
+      max-width: calc(variables.$a-breakpoint-xl-down - 2rem);
+    }
+
+    & > svg {
+      display: none;
+    }
+  }
+
+  .highcharts-scrolling-parent {
+    // This creates a new stacking context
+    isolation: isolate;
+
+    // This removes the stacking context from that node
+    .highcharts-container {
+      z-index: auto !important;
+    }
+
+    /* y-axis */
+    .highcharts-axis-labels.highcharts-yaxis-labels {
+      z-index: 2;
+      width: 30px;
+      height: 100%;
+      text-shadow:
+        1px 1px 2px #fff,
+        0 0 1em #fff,
+        0 0 0.2em #fff;
+
+      @media (min-width: variables.$a-breakpoint-lg) {
+        width: 70px;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0.25rem;
+        height: 80%;
+        width: 100%;
+        z-index: -1;
+        background: linear-gradient(
+          33deg,
+          rgb(255 255 255 / 75%) 40%,
+          rgb(255 255 255 / 0%) 80%
+        );
+
+        @media (min-width: variables.$a-breakpoint-lg) {
+          bottom: 4rem;
+        }
+      }
+    }
+
+    .highcharts-scrollable-mask {
+      fill: white;
+      filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 50%));
+    }
+  }
+
+  .highcharts-root path:hover {
+    cursor: pointer;
+  }
+
+  .highcharts-background {
+    fill: transparent;
+  }
+
+  .highcharts-legend {
+    pointer-events: none;
+  }
+
+  .highcharts-legend-item:hover {
+    color: var(--a-text-default) !important;
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltip path {
+  stroke-width: 1px;
+  stroke: var(--a-gray-500);
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltipTable {
+  @media (min-width: variables.$a-breakpoint-lg) {
+    width: unset;
+    border-width: 0;
+  }
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltipTableHeaderCell,
+:root .tooltipTableCell {
+  @media (min-width: variables.$a-breakpoint-lg) {
+    padding: 0;
+  }
+}

@@ -1,0 +1,64 @@
+.navds-show-more {
+  /* stylelint-disable-next-line property-no-unknown  */
+  interpolate-size: allow-keywords;
+
+  --ac-show-more-mask: linear-gradient(
+    rgb(0 0 0 / 100%),
+    rgb(0 0 0 / 0%) calc(100% - 0.5rem)
+  );
+
+  position: relative;
+  border-radius: var(--a-border-radius-large);
+  height: fit-content; /* in case the parent is stretching */
+  display: flex;
+  flex-direction: column;
+  min-width: 12rem;
+}
+
+.navds-show-more__button-wrapper {
+  display: inline-block;
+  background: var(--a-bg-default);
+  border-radius: var(
+    --ac-button-border-radius,
+    var(--a-border-radius-medium)
+  ); /* same as Button */
+}
+
+.navds-show-more--default,
+.navds-show-more--default .navds-show-more__button-wrapper {
+  background: var(--a-surface-default);
+}
+
+.navds-show-more--subtle,
+.navds-show-more--subtle .navds-show-more__button-wrapper {
+  background: var(--a-surface-subtle);
+}
+
+.navds-show-more--info,
+.navds-show-more--info .navds-show-more__button-wrapper {
+  background: var(--a-surface-info-subtle);
+}
+
+.navds-show-more__content {
+  overflow: hidden;
+  height: max-content;
+}
+
+.navds-show-more--closed .navds-show-more__content {
+  mask-image: var(--ac-show-more-mask);
+  overflow: hidden;
+}
+
+.navds-show-more__button-section {
+  text-align: center;
+  left: 0;
+  right: 0;
+  bottom: var(--a-spacing-4);
+  margin-top: var(--a-spacing-4);
+  z-index: 1;
+  order: 1;
+}
+
+.navds-show-more--closed .navds-show-more__button-section {
+  position: absolute;
+}

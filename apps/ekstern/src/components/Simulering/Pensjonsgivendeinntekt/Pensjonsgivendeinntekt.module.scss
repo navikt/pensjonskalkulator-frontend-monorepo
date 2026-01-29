@@ -1,0 +1,22 @@
+@use '../../../scss/variables';
+
+.pensjonsgivendeInntektContainer {
+  border-left: var(--a-gray-500) var(--a-spacing-2) solid;
+  max-width: 39.5rem;
+}
+
+.pensjonsgivendeInntektTable {
+  width: fit-content;
+  border-spacing: 0;
+}
+
+.ingress {
+  margin-bottom: var(--a-spacing-2);
+}
+
+.endreInntektButton {
+  width: fit-content;
+  height: 3rem;
+  padding: var(--a-spacing-3) var(--a-spacing-5);
+  margin-bottom: var(--a-spacing-2);
+}

@@ -1,0 +1,66 @@
+@use '../../scss/variables';
+
+.beregning {
+  width: 100%;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasPadding {
+    composes: frame__hasPadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.section {
+  padding: 0 var(--a-spacing-6) var(--a-spacing-12) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.text {
+  margin-bottom: var(--a-spacing-2);
+}
+
+.alert {
+  max-width: variables.$container-max-width;
+  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    margin: 0 0 var(--a-spacing-6) 0;
+  }
+}
+
+.toggle {
+  padding: 0 var(--a-spacing-6) var(--a-spacing-4) var(--a-spacing-6);
+  background-color: var(--a-white);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: variables.$a-breakpoint-sm) {
+    div[role='radiogroup'] {
+      width: 100%;
+    }
+  }
+}
+
+.background {
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin-top: auto;
+
+  &__lightblue {
+    background-color: var(--a-deepblue-50);
+  }
+}

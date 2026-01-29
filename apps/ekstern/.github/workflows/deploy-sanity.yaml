@@ -1,0 +1,82 @@
+name: Deploy sanity
+
+on:
+  push:
+    branches:
+      - main
+      - sandbox
+      - catbox
+      - magicbox
+      - dreambox
+      - coffeebox
+      - codebox
+    paths:
+      - 'sanity/**'
+      - 'sanity.cli.ts'
+      - 'sanity.config.ts'
+      - 'tsconfig.sanity.json'
+      - '.docker/Dockerfile-sanity'
+      - '.nais/deploy-sanity-*.yml'
+      - '.github/workflows/deploy-sanity.yaml'
+  workflow_dispatch:
+    inputs:
+      sanity:
+        description: Deploy Sanity
+        type: boolean
+        required: false
+
+jobs:
+  build:
+    name: Build application
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: 'write'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build staging application
+        run: npm run sanity-build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v6
+        with:
+          name: dist-sanity
+          path: dist-sanity
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
+        with:
+          image_suffix: sanity
+          dockerfile: .docker/Dockerfile-sanity
+          team: pensjonskalkulator
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: [build]
+    permissions:
+      id-token: 'write'
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.sanity == 'true' &&
+      github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Deploy to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-sanity-staging.yml

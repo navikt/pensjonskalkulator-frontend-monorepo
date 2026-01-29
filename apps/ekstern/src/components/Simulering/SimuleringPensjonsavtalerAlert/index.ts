@@ -1,0 +1,1 @@
+export { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert'

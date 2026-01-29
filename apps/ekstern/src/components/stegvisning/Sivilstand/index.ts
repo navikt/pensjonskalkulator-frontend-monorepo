@@ -1,0 +1,1 @@
+export { Sivilstand } from './Sivilstand'

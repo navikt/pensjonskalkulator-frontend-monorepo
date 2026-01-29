@@ -1,0 +1,26 @@
+@use '../../../scss/variables';
+
+.info {
+  display: flex;
+  margin-bottom: var(--a-spacing-4);
+
+  &Icon {
+    flex-basis: 1.5rem;
+    vertical-align: top;
+    margin-right: var(--a-spacing-2);
+
+    &__orange {
+      color: var(--a-orange-600);
+    }
+  }
+
+  &Text {
+    flex-basis: 100%;
+  }
+}
+
+.bunntekst {
+  padding-top: var(--a-spacing-4);
+  font-size: var(--a-font-size-medium);
+  line-height: var(--a-font-line-height-large);
+}

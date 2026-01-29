@@ -1,0 +1,1 @@
+export { Grunnlag } from './Grunnlag'

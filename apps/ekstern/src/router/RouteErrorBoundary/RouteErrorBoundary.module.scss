@@ -1,0 +1,7 @@
+@use '../../scss/variables';
+
+.wrapper {
+  composes: frame from '../../scss/modules/frame.module.scss';
+  composes: frame__hasPadding from '../../scss/modules/frame.module.scss';
+  padding-top: var(--a-spacing-6);
+}

@@ -1,0 +1,1 @@
+export { StepSamtykkeOffentligAFP } from './StepSamtykkeOffentligAFP'

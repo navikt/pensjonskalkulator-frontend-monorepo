@@ -1,0 +1,15 @@
+.Table {
+  &Header {
+    margin-top: var(--a-spacing-6);
+  }
+
+  &Rader {
+    &__noBottomBorder {
+      border-bottom-width: 0;
+    }
+
+    &__alignTop {
+      vertical-align: top;
+    }
+  }
+}

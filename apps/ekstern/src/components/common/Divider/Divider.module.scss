@@ -1,0 +1,30 @@
+.divider {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--a-border-divider);
+  margin: var(--a-spacing-8) 0;
+
+  &__xsmallMargin {
+    margin: var(--a-spacing-2) 0;
+  }
+
+  &__smallMargin {
+    margin: var(--a-spacing-4) 0;
+  }
+
+  &__mediumMargin {
+    margin: var(--a-spacing-6) 0;
+  }
+
+  &__noMargin {
+    margin: 0;
+  }
+
+  &__noMarginBottom {
+    margin-bottom: 0;
+  }
+
+  &__noMarginTop {
+    margin-top: 0;
+  }
+}

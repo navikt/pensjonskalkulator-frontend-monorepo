@@ -1,0 +1,1572 @@
+[
+  {
+    "landkode": "AFG",
+    "bokmaalNavn": "Afghanistan",
+    "nynorskNavn": "Afghanistan",
+    "engelskNavn": "Afghanistan"
+  },
+  {
+    "landkode": "ALB",
+    "bokmaalNavn": "Albania",
+    "nynorskNavn": "Albania",
+    "engelskNavn": "Albania"
+  },
+  {
+    "landkode": "DZA",
+    "bokmaalNavn": "Algerie",
+    "nynorskNavn": "Algerie",
+    "engelskNavn": "Algeria"
+  },
+  {
+    "landkode": "ASM",
+    "bokmaalNavn": "Amerikansk Samoa",
+    "nynorskNavn": "Amerikansk Samoa",
+    "engelskNavn": "American Samoa"
+  },
+  {
+    "landkode": "AND",
+    "bokmaalNavn": "Andorra",
+    "nynorskNavn": "Andorra",
+    "engelskNavn": "Andorra"
+  },
+  {
+    "landkode": "AGO",
+    "bokmaalNavn": "Angola",
+    "nynorskNavn": "Angola",
+    "engelskNavn": "Angola"
+  },
+  {
+    "landkode": "AIA",
+    "bokmaalNavn": "Anguilla",
+    "nynorskNavn": "Anguilla",
+    "engelskNavn": "Anguilla"
+  },
+  {
+    "landkode": "ATA",
+    "bokmaalNavn": "Antarktis",
+    "nynorskNavn": "Antarktis",
+    "engelskNavn": "Antarctica"
+  },
+  {
+    "landkode": "ATG",
+    "bokmaalNavn": "Antigua og Barbuda",
+    "nynorskNavn": "Antigua og Barbuda",
+    "engelskNavn": "Antigua and Barbuda"
+  },
+  {
+    "landkode": "ARG",
+    "bokmaalNavn": "Argentina",
+    "nynorskNavn": "Argentina",
+    "engelskNavn": "Argentina"
+  },
+  {
+    "landkode": "ARM",
+    "bokmaalNavn": "Armenia",
+    "nynorskNavn": "Armenia",
+    "engelskNavn": "Armenia"
+  },
+  {
+    "landkode": "ABW",
+    "bokmaalNavn": "Aruba",
+    "nynorskNavn": "Aruba",
+    "engelskNavn": "Aruba"
+  },
+  {
+    "landkode": "AZE",
+    "bokmaalNavn": "Aserbajdsjan",
+    "nynorskNavn": "Aserbajdsjan",
+    "engelskNavn": "Azerbaijan"
+  },
+  {
+    "landkode": "AUS",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Australia",
+    "nynorskNavn": "Australia",
+    "engelskNavn": "Australia"
+  },
+  {
+    "landkode": "BHS",
+    "bokmaalNavn": "Bahamas",
+    "nynorskNavn": "Bahamas",
+    "engelskNavn": "Bahamas"
+  },
+  {
+    "landkode": "BHR",
+    "bokmaalNavn": "Bahrain",
+    "nynorskNavn": "Bahrain",
+    "engelskNavn": "Bahrain"
+  },
+  {
+    "landkode": "BGD",
+    "bokmaalNavn": "Bangladesh",
+    "nynorskNavn": "Bangladesh",
+    "engelskNavn": "Bangladesh"
+  },
+  {
+    "landkode": "BRB",
+    "bokmaalNavn": "Barbados",
+    "nynorskNavn": "Barbados",
+    "engelskNavn": "Barbados"
+  },
+  {
+    "landkode": "BLR",
+    "bokmaalNavn": "Belarus",
+    "nynorskNavn": "Belarus",
+    "engelskNavn": "Belarus"
+  },
+  {
+    "landkode": "BEL",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Belgia",
+    "nynorskNavn": "Belgia",
+    "engelskNavn": "Belgium"
+  },
+  {
+    "landkode": "BLZ",
+    "bokmaalNavn": "Belize",
+    "nynorskNavn": "Belize",
+    "engelskNavn": "Belize"
+  },
+  {
+    "landkode": "BEN",
+    "bokmaalNavn": "Benin",
+    "nynorskNavn": "Benin",
+    "engelskNavn": "Benin"
+  },
+  {
+    "landkode": "BMU",
+    "bokmaalNavn": "Bermuda",
+    "nynorskNavn": "Bermuda",
+    "engelskNavn": "Bermuda"
+  },
+  {
+    "landkode": "BTN",
+    "bokmaalNavn": "Bhutan",
+    "nynorskNavn": "Bhutan",
+    "engelskNavn": "Bhutan"
+  },
+  {
+    "landkode": "BOL",
+    "bokmaalNavn": "Bolivia",
+    "nynorskNavn": "Bolivia",
+    "engelskNavn": "Bolivia"
+  },
+  {
+    "landkode": "BES",
+    "bokmaalNavn": "Bonaire, Sint Eustatius og Saba",
+    "nynorskNavn": "Bonaire, Sint Eustatius og Saba",
+    "engelskNavn": "Bonaire, Sint Eustatius and Saba"
+  },
+  {
+    "landkode": "BIH",
+    "bokmaalNavn": "Bosnia-Hercegovina",
+    "nynorskNavn": "Bosnia-Hercegovina",
+    "engelskNavn": "Bosnia and Herzegovina"
+  },
+  {
+    "landkode": "BWA",
+    "bokmaalNavn": "Botswana",
+    "nynorskNavn": "Botswana",
+    "engelskNavn": "Botswana"
+  },
+  {
+    "landkode": "BVT",
+    "bokmaalNavn": "Bouvetøya",
+    "nynorskNavn": "Bouvetøya",
+    "engelskNavn": "Bouvet Island"
+  },
+  {
+    "landkode": "BRA",
+    "bokmaalNavn": "Brasil",
+    "nynorskNavn": "Brasil",
+    "engelskNavn": "Brazil"
+  },
+  {
+    "landkode": "BRN",
+    "bokmaalNavn": "Brunei",
+    "nynorskNavn": "Brunei",
+    "engelskNavn": "Brunei"
+  },
+  {
+    "landkode": "BGR",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Bulgaria",
+    "nynorskNavn": "Bulgaria",
+    "engelskNavn": "Bulgaria"
+  },
+  {
+    "landkode": "BFA",
+    "bokmaalNavn": "Burkina Faso",
+    "nynorskNavn": "Burkina Faso",
+    "engelskNavn": "Burkina Faso"
+  },
+  {
+    "landkode": "BDI",
+    "bokmaalNavn": "Burundi",
+    "nynorskNavn": "Burundi",
+    "engelskNavn": "Burundi"
+  },
+  {
+    "landkode": "CAN",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Canada",
+    "nynorskNavn": "Canada",
+    "engelskNavn": "Canada"
+  },
+  {
+    "landkode": "CYM",
+    "bokmaalNavn": "Caymanøyene",
+    "nynorskNavn": "Caymanøyene",
+    "engelskNavn": "Cayman Islands"
+  },
+  {
+    "landkode": "CHL",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Chile",
+    "nynorskNavn": "Chile",
+    "engelskNavn": "Chile"
+  },
+  {
+    "landkode": "CXR",
+    "bokmaalNavn": "Christmasøya",
+    "nynorskNavn": "Christmasøya",
+    "engelskNavn": "Christmas Island"
+  },
+  {
+    "landkode": "COL",
+    "bokmaalNavn": "Colombia",
+    "nynorskNavn": "Colombia",
+    "engelskNavn": "Colombia"
+  },
+  {
+    "landkode": "COK",
+    "bokmaalNavn": "Cookøyene",
+    "nynorskNavn": "Cookøyene",
+    "engelskNavn": "Cook Islands"
+  },
+  {
+    "landkode": "CRI",
+    "bokmaalNavn": "Costa Rica",
+    "nynorskNavn": "Costa Rica",
+    "engelskNavn": "Costa Rica"
+  },
+  {
+    "landkode": "CUB",
+    "bokmaalNavn": "Cuba",
+    "nynorskNavn": "Cuba",
+    "engelskNavn": "Cuba"
+  },
+  {
+    "landkode": "CUW",
+    "bokmaalNavn": "Curaçao",
+    "nynorskNavn": "Curaçao",
+    "engelskNavn": "Curaçao"
+  },
+  {
+    "landkode": "DNK",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Danmark",
+    "nynorskNavn": "Danmark",
+    "engelskNavn": "Denmark"
+  },
+  {
+    "landkode": "ARE",
+    "bokmaalNavn": "De forente arabiske emirater",
+    "nynorskNavn": "De forente arabiske emirater",
+    "engelskNavn": "United Arab Emirates"
+  },
+  {
+    "landkode": "ATF",
+    "bokmaalNavn": "De franske sørterritorier",
+    "nynorskNavn": "De franske sørterritorier",
+    "engelskNavn": "French Southern Territories"
+  },
+  {
+    "landkode": "ANT",
+    "bokmaalNavn": "De nederlandske Antiller",
+    "nynorskNavn": "De nederlandske Antiller",
+    "engelskNavn": "Netherlands Antilles"
+  },
+  {
+    "landkode": "DOM",
+    "bokmaalNavn": "Den dominikanske republikk",
+    "nynorskNavn": "Den dominikanske republikk",
+    "engelskNavn": "Dominican Republic"
+  },
+  {
+    "landkode": "CAF",
+    "bokmaalNavn": "Den sentralafrikanske republikk",
+    "nynorskNavn": "Den sentralafrikanske republikk",
+    "engelskNavn": "Central African Republic"
+  },
+  {
+    "landkode": "IOT",
+    "bokmaalNavn": "Det britiske territoriet i Indiahavet",
+    "nynorskNavn": "Det britiske territoriet i Indiahavet",
+    "engelskNavn": "British Indian Ocean Territory"
+  },
+  {
+    "landkode": "DJI",
+    "bokmaalNavn": "Djibouti",
+    "nynorskNavn": "Djibouti",
+    "engelskNavn": "Djibouti"
+  },
+  {
+    "landkode": "DMA",
+    "bokmaalNavn": "Dominica",
+    "nynorskNavn": "Dominica",
+    "engelskNavn": "Dominica"
+  },
+  {
+    "landkode": "ECU",
+    "bokmaalNavn": "Ecuador",
+    "nynorskNavn": "Ecuador",
+    "engelskNavn": "Ecuador"
+  },
+  {
+    "landkode": "EGY",
+    "bokmaalNavn": "Egypt",
+    "nynorskNavn": "Egypt",
+    "engelskNavn": "Egypt"
+  },
+  {
+    "landkode": "GNQ",
+    "bokmaalNavn": "Ekvatorial-Guinea",
+    "nynorskNavn": "Ekvatorial-Guinea",
+    "engelskNavn": "Equatorial Guinea"
+  },
+  {
+    "landkode": "SLV",
+    "bokmaalNavn": "El Salvador",
+    "nynorskNavn": "El Salvador",
+    "engelskNavn": "El Salvador"
+  },
+  {
+    "landkode": "CIV",
+    "bokmaalNavn": "Elfenbenskysten",
+    "nynorskNavn": "Elfenbenskysten",
+    "engelskNavn": "Ivory Coast"
+  },
+  {
+    "landkode": "ERI",
+    "bokmaalNavn": "Eritrea",
+    "nynorskNavn": "Eritrea",
+    "engelskNavn": "Eritrea"
+  },
+  {
+    "landkode": "EST",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Estland",
+    "nynorskNavn": "Estland",
+    "engelskNavn": "Estonia"
+  },
+  {
+    "landkode": "SWZ",
+    "bokmaalNavn": "Eswatini",
+    "nynorskNavn": "Eswatini",
+    "engelskNavn": "Eswatini"
+  },
+  {
+    "landkode": "ETH",
+    "bokmaalNavn": "Etiopia",
+    "nynorskNavn": "Etiopia",
+    "engelskNavn": "Ethiopia"
+  },
+  {
+    "landkode": "FLK",
+    "bokmaalNavn": "Falklandsøyene",
+    "nynorskNavn": "Falklandsøyene",
+    "engelskNavn": "Falkland Islands (Malvinas)"
+  },
+  {
+    "landkode": "FJI",
+    "bokmaalNavn": "Fiji",
+    "nynorskNavn": "Fiji",
+    "engelskNavn": "Fiji"
+  },
+  {
+    "landkode": "PHL",
+    "bokmaalNavn": "Filippinene",
+    "nynorskNavn": "Filippinene",
+    "engelskNavn": "Philippines"
+  },
+  {
+    "landkode": "FIN",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Finland (inkl. Åland)",
+    "nynorskNavn": "Finland (inkl. Åland)",
+    "engelskNavn": "Finland (incl. Åland)"
+  },
+  {
+    "landkode": "FRA",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Frankrike",
+    "nynorskNavn": "Frankrike",
+    "engelskNavn": "France"
+  },
+  {
+    "landkode": "GUF",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Fransk Guyana",
+    "nynorskNavn": "Fransk Guyana",
+    "engelskNavn": "French Guiana"
+  },
+  {
+    "landkode": "PYF",
+    "bokmaalNavn": "Fransk Polynesia",
+    "nynorskNavn": "Fransk Polynesia",
+    "engelskNavn": "French Polynesia"
+  },
+  {
+    "landkode": "FRO",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Færøyene",
+    "nynorskNavn": "Færøyene",
+    "engelskNavn": "Faroe Islands"
+  },
+  {
+    "landkode": "GAB",
+    "bokmaalNavn": "Gabon",
+    "nynorskNavn": "Gabon",
+    "engelskNavn": "Gabon"
+  },
+  {
+    "landkode": "GMB",
+    "bokmaalNavn": "Gambia",
+    "nynorskNavn": "Gambia",
+    "engelskNavn": "Gambia"
+  },
+  {
+    "landkode": "GEO",
+    "bokmaalNavn": "Georgia",
+    "nynorskNavn": "Georgia",
+    "engelskNavn": "Georgia"
+  },
+  {
+    "landkode": "GHA",
+    "bokmaalNavn": "Ghana",
+    "nynorskNavn": "Ghana",
+    "engelskNavn": "Ghana"
+  },
+  {
+    "landkode": "GIB",
+    "bokmaalNavn": "Gibraltar",
+    "nynorskNavn": "Gibraltar",
+    "engelskNavn": "Gibraltar"
+  },
+  {
+    "landkode": "GRD",
+    "bokmaalNavn": "Grenada",
+    "nynorskNavn": "Grenada",
+    "engelskNavn": "Grenada"
+  },
+  {
+    "landkode": "GRL",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Grønland",
+    "nynorskNavn": "Grønland",
+    "engelskNavn": "Greenland"
+  },
+  {
+    "landkode": "GLP",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Guadeloupe",
+    "nynorskNavn": "Guadeloupe",
+    "engelskNavn": "Guadeloupe"
+  },
+  {
+    "landkode": "GUM",
+    "bokmaalNavn": "Guam",
+    "nynorskNavn": "Guam",
+    "engelskNavn": "Guam"
+  },
+  {
+    "landkode": "GTM",
+    "bokmaalNavn": "Guatemala",
+    "nynorskNavn": "Guatemala",
+    "engelskNavn": "Guatemala"
+  },
+  {
+    "landkode": "GGY",
+    "bokmaalNavn": "Guernsey",
+    "nynorskNavn": "Guernsey",
+    "engelskNavn": "Guernsey"
+  },
+  {
+    "landkode": "GIN",
+    "bokmaalNavn": "Guinea",
+    "nynorskNavn": "Guinea",
+    "engelskNavn": "Guinea"
+  },
+  {
+    "landkode": "GNB",
+    "bokmaalNavn": "Guinea-Bissau",
+    "nynorskNavn": "Guinea-Bissau",
+    "engelskNavn": "Guinea-Bissau"
+  },
+  {
+    "landkode": "GUY",
+    "bokmaalNavn": "Guyana",
+    "nynorskNavn": "Guyana",
+    "engelskNavn": "Guyana"
+  },
+  {
+    "landkode": "HTI",
+    "bokmaalNavn": "Haiti",
+    "nynorskNavn": "Haiti",
+    "engelskNavn": "Haiti"
+  },
+  {
+    "landkode": "HMD",
+    "bokmaalNavn": "Heard- og McDonaldøyene",
+    "nynorskNavn": "Heard- og McDonaldøyene",
+    "engelskNavn": "Heard Island and McDonald Islands"
+  },
+  {
+    "landkode": "GRC",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Hellas",
+    "nynorskNavn": "Hellas",
+    "engelskNavn": "Greece"
+  },
+  {
+    "landkode": "HND",
+    "bokmaalNavn": "Honduras",
+    "nynorskNavn": "Honduras",
+    "engelskNavn": "Honduras"
+  },
+  {
+    "landkode": "HKG",
+    "bokmaalNavn": "Hongkong",
+    "nynorskNavn": "Hongkong",
+    "engelskNavn": "Hong Kong"
+  },
+  {
+    "landkode": "IND",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "India",
+    "nynorskNavn": "India",
+    "engelskNavn": "India"
+  },
+  {
+    "landkode": "IDN",
+    "bokmaalNavn": "Indonesia",
+    "nynorskNavn": "Indonesia",
+    "engelskNavn": "Indonesia"
+  },
+  {
+    "landkode": "IRQ",
+    "bokmaalNavn": "Irak",
+    "nynorskNavn": "Irak",
+    "engelskNavn": "Iraq"
+  },
+  {
+    "landkode": "IRN",
+    "bokmaalNavn": "Iran",
+    "nynorskNavn": "Iran",
+    "engelskNavn": "Iran"
+  },
+  {
+    "landkode": "IRL",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Irland",
+    "nynorskNavn": "Irland",
+    "engelskNavn": "Ireland"
+  },
+  {
+    "landkode": "ISL",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Island",
+    "nynorskNavn": "Island",
+    "engelskNavn": "Iceland"
+  },
+  {
+    "landkode": "ISR",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Israel",
+    "nynorskNavn": "Israel",
+    "engelskNavn": "Israel"
+  },
+  {
+    "landkode": "ITA",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Italia",
+    "nynorskNavn": "Italia",
+    "engelskNavn": "Italy"
+  },
+  {
+    "landkode": "JAM",
+    "bokmaalNavn": "Jamaica",
+    "nynorskNavn": "Jamaica",
+    "engelskNavn": "Jamaica"
+  },
+  {
+    "landkode": "JPN",
+    "bokmaalNavn": "Japan",
+    "nynorskNavn": "Japan",
+    "engelskNavn": "Japan"
+  },
+  {
+    "landkode": "YEM",
+    "bokmaalNavn": "Jemen",
+    "nynorskNavn": "Jemen",
+    "engelskNavn": "Yemen"
+  },
+  {
+    "landkode": "JEY",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Jersey",
+    "nynorskNavn": "Jersey",
+    "engelskNavn": "Jersey"
+  },
+  {
+    "landkode": "VIR",
+    "bokmaalNavn": "Jomfruøyene (De amerikanske)",
+    "nynorskNavn": "Jomfruøyene (De amerikanske)",
+    "engelskNavn": "Virgin Islands (U.S.)"
+  },
+  {
+    "landkode": "VGB",
+    "bokmaalNavn": "Jomfruøyene (De britiske)",
+    "nynorskNavn": "Jomfruøyene (De britiske)",
+    "engelskNavn": "Virgin Islands (British)"
+  },
+  {
+    "landkode": "JOR",
+    "bokmaalNavn": "Jordan",
+    "nynorskNavn": "Jordan",
+    "engelskNavn": "Jordan"
+  },
+  {
+    "landkode": "KHM",
+    "bokmaalNavn": "Kambodsja",
+    "nynorskNavn": "Kambodsja",
+    "engelskNavn": "Cambodia"
+  },
+  {
+    "landkode": "CMR",
+    "bokmaalNavn": "Kamerun",
+    "nynorskNavn": "Kamerun",
+    "engelskNavn": "Cameroon"
+  },
+  {
+    "landkode": "CPV",
+    "bokmaalNavn": "Kapp Verde",
+    "nynorskNavn": "Kapp Verde",
+    "engelskNavn": "Cabo Verde"
+  },
+  {
+    "landkode": "KAZ",
+    "bokmaalNavn": "Kasakhstan",
+    "nynorskNavn": "Kasakhstan",
+    "engelskNavn": "Kazakhstan"
+  },
+  {
+    "landkode": "KEN",
+    "bokmaalNavn": "Kenya",
+    "nynorskNavn": "Kenya",
+    "engelskNavn": "Kenya"
+  },
+  {
+    "landkode": "CHN",
+    "bokmaalNavn": "Kina",
+    "nynorskNavn": "Kina",
+    "engelskNavn": "China"
+  },
+  {
+    "landkode": "KGZ",
+    "bokmaalNavn": "Kirgisistan",
+    "nynorskNavn": "Kirgisistan",
+    "engelskNavn": "Kyrgyzstan"
+  },
+  {
+    "landkode": "KIR",
+    "bokmaalNavn": "Kiribati",
+    "nynorskNavn": "Kiribati",
+    "engelskNavn": "Kiribati"
+  },
+  {
+    "landkode": "CCK",
+    "bokmaalNavn": "Kokosøyene (Keelingøyene)",
+    "nynorskNavn": "Kokosøyene (Keelingøyene)",
+    "engelskNavn": " Cocos (Keeling) Islands"
+  },
+  {
+    "landkode": "COM",
+    "bokmaalNavn": "Komorene",
+    "nynorskNavn": "Komorene",
+    "engelskNavn": "Comoros"
+  },
+  {
+    "landkode": "COG",
+    "bokmaalNavn": "Kongo-Brazzaville",
+    "nynorskNavn": "Kongo-Brazzaville",
+    "engelskNavn": "Congo-Brazzaville"
+  },
+  {
+    "landkode": "COD",
+    "bokmaalNavn": "Kongo-Kinshasa",
+    "nynorskNavn": "Kongo-Kinshasa",
+    "engelskNavn": "Congo-Kinshasa"
+  },
+  {
+    "landkode": "XXK",
+    "bokmaalNavn": "Kosovo",
+    "nynorskNavn": "Kosovo",
+    "engelskNavn": "Kosovo"
+  },
+  {
+    "landkode": "HRV",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Kroatia",
+    "nynorskNavn": "Kroatia",
+    "engelskNavn": "Croatia"
+  },
+  {
+    "landkode": "KWT",
+    "bokmaalNavn": "Kuwait",
+    "nynorskNavn": "Kuwait",
+    "engelskNavn": "Kuwait"
+  },
+  {
+    "landkode": "CYP",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Kypros",
+    "nynorskNavn": "Kypros",
+    "engelskNavn": "Cyprus"
+  },
+  {
+    "landkode": "LAO",
+    "bokmaalNavn": "Laos",
+    "nynorskNavn": "Laos",
+    "engelskNavn": "Laos"
+  },
+  {
+    "landkode": "LVA",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Latvia",
+    "nynorskNavn": "Latvia",
+    "engelskNavn": "Latvia"
+  },
+  {
+    "landkode": "LSO",
+    "bokmaalNavn": "Lesotho",
+    "nynorskNavn": "Lesotho",
+    "engelskNavn": "Lesotho"
+  },
+  {
+    "landkode": "LBN",
+    "bokmaalNavn": "Libanon",
+    "nynorskNavn": "Libanon",
+    "engelskNavn": "Lebanon"
+  },
+  {
+    "landkode": "LBR",
+    "bokmaalNavn": "Liberia",
+    "nynorskNavn": "Liberia",
+    "engelskNavn": "Liberia"
+  },
+  {
+    "landkode": "LBY",
+    "bokmaalNavn": "Libya",
+    "nynorskNavn": "Libya",
+    "engelskNavn": "Libya"
+  },
+  {
+    "landkode": "LIE",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Liechtenstein",
+    "nynorskNavn": "Liechtenstein",
+    "engelskNavn": "Liechtenstein"
+  },
+  {
+    "landkode": "LTU",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Litauen",
+    "nynorskNavn": "Litauen",
+    "engelskNavn": "Lithuania"
+  },
+  {
+    "landkode": "LUX",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Luxembourg",
+    "nynorskNavn": "Luxembourg",
+    "engelskNavn": "Luxembourg"
+  },
+  {
+    "landkode": "MAC",
+    "bokmaalNavn": "Macao",
+    "nynorskNavn": "Macao",
+    "engelskNavn": "Macao"
+  },
+  {
+    "landkode": "MDG",
+    "bokmaalNavn": "Madagaskar",
+    "nynorskNavn": "Madagaskar",
+    "engelskNavn": "Madagascar"
+  },
+  {
+    "landkode": "MWI",
+    "bokmaalNavn": "Malawi",
+    "nynorskNavn": "Malawi",
+    "engelskNavn": "Malawi"
+  },
+  {
+    "landkode": "MYS",
+    "bokmaalNavn": "Malaysia",
+    "nynorskNavn": "Malaysia",
+    "engelskNavn": "Malaysia"
+  },
+  {
+    "landkode": "MDV",
+    "bokmaalNavn": "Maldivene",
+    "nynorskNavn": "Maldivene",
+    "engelskNavn": "Maldives"
+  },
+  {
+    "landkode": "MLI",
+    "bokmaalNavn": "Mali",
+    "nynorskNavn": "Mali",
+    "engelskNavn": "Mali"
+  },
+  {
+    "landkode": "MLT",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Malta",
+    "nynorskNavn": "Malta",
+    "engelskNavn": "Malta"
+  },
+  {
+    "landkode": "IMN",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Man",
+    "nynorskNavn": "Man",
+    "engelskNavn": "Isle of Man"
+  },
+  {
+    "landkode": "MAR",
+    "bokmaalNavn": "Marokko",
+    "nynorskNavn": "Marokko",
+    "engelskNavn": "Morocco"
+  },
+  {
+    "landkode": "MHL",
+    "bokmaalNavn": "Marshalløyene",
+    "nynorskNavn": "Marshalløyene",
+    "engelskNavn": "Marshall Islands"
+  },
+  {
+    "landkode": "MTQ",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Martinique",
+    "nynorskNavn": "Martinique",
+    "engelskNavn": "Martinique"
+  },
+  {
+    "landkode": "MRT",
+    "bokmaalNavn": "Mauritania",
+    "nynorskNavn": "Mauritania",
+    "engelskNavn": "Mauritania"
+  },
+  {
+    "landkode": "MUS",
+    "bokmaalNavn": "Mauritius",
+    "nynorskNavn": "Mauritius",
+    "engelskNavn": "Mauritius"
+  },
+  {
+    "landkode": "MYT",
+    "bokmaalNavn": "Mayotte",
+    "nynorskNavn": "Mayotte",
+    "engelskNavn": "Mayotte"
+  },
+  {
+    "landkode": "MEX",
+    "bokmaalNavn": "Mexico",
+    "nynorskNavn": "Mexico",
+    "engelskNavn": "Mexico"
+  },
+  {
+    "landkode": "FSM",
+    "bokmaalNavn": "Mikronesiaføderasjonen",
+    "nynorskNavn": "Mikronesiaføderasjonen",
+    "engelskNavn": "Micronesia"
+  },
+  {
+    "landkode": "MDA",
+    "bokmaalNavn": "Moldova",
+    "nynorskNavn": "Moldova",
+    "engelskNavn": "Moldova"
+  },
+  {
+    "landkode": "MCO",
+    "bokmaalNavn": "Monaco",
+    "nynorskNavn": "Monaco",
+    "engelskNavn": "Monaco"
+  },
+  {
+    "landkode": "MNG",
+    "bokmaalNavn": "Mongolia",
+    "nynorskNavn": "Mongolia",
+    "engelskNavn": "Mongolia"
+  },
+  {
+    "landkode": "MNE",
+    "bokmaalNavn": "Montenegro",
+    "nynorskNavn": "Montenegro",
+    "engelskNavn": "Montenegro"
+  },
+  {
+    "landkode": "MSR",
+    "bokmaalNavn": "Montserrat",
+    "nynorskNavn": "Montserrat",
+    "engelskNavn": "Montserrat"
+  },
+  {
+    "landkode": "MOZ",
+    "bokmaalNavn": "Mosambik",
+    "nynorskNavn": "Mosambik",
+    "engelskNavn": "Mozambique"
+  },
+  {
+    "landkode": "MMR",
+    "bokmaalNavn": "Myanmar (Burma)",
+    "nynorskNavn": "Myanmar (Burma)",
+    "engelskNavn": "Myanmar (Burma)"
+  },
+  {
+    "landkode": "NAM",
+    "bokmaalNavn": "Namibia",
+    "nynorskNavn": "Namibia",
+    "engelskNavn": "Namibia"
+  },
+  {
+    "landkode": "NRU",
+    "bokmaalNavn": "Nauru",
+    "nynorskNavn": "Nauru",
+    "engelskNavn": "Nauru"
+  },
+  {
+    "landkode": "NLD",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Nederland",
+    "nynorskNavn": "Nederland",
+    "engelskNavn": "Netherlands"
+  },
+  {
+    "landkode": "NPL",
+    "bokmaalNavn": "Nepal",
+    "nynorskNavn": "Nepal",
+    "engelskNavn": "Nepal"
+  },
+  {
+    "landkode": "NZL",
+    "bokmaalNavn": "New Zealand",
+    "nynorskNavn": "New Zealand",
+    "engelskNavn": "New Zealand"
+  },
+  {
+    "landkode": "NIC",
+    "bokmaalNavn": "Nicaragua",
+    "nynorskNavn": "Nicaragua",
+    "engelskNavn": "Nicaragua"
+  },
+  {
+    "landkode": "NER",
+    "bokmaalNavn": "Niger",
+    "nynorskNavn": "Niger",
+    "engelskNavn": "Niger"
+  },
+  {
+    "landkode": "NGA",
+    "bokmaalNavn": "Nigeria",
+    "nynorskNavn": "Nigeria",
+    "engelskNavn": "Nigeria"
+  },
+  {
+    "landkode": "NIU",
+    "bokmaalNavn": "Niue",
+    "nynorskNavn": "Niue",
+    "engelskNavn": "Niue"
+  },
+  {
+    "landkode": "PRK",
+    "bokmaalNavn": "Nord-Korea",
+    "nynorskNavn": "Nord-Korea",
+    "engelskNavn": "North Korea"
+  },
+  {
+    "landkode": "MKD",
+    "bokmaalNavn": "Nord-Makedonia",
+    "nynorskNavn": "Nord-Makedonia",
+    "engelskNavn": "North Macedonia"
+  },
+  {
+    "landkode": "MNP",
+    "bokmaalNavn": "Nord-Marianene",
+    "nynorskNavn": "Nord-Marianene",
+    "engelskNavn": "Northern Mariana Islands"
+  },
+  {
+    "landkode": "NFK",
+    "bokmaalNavn": "Norfolkøya",
+    "nynorskNavn": "Norfolkøya",
+    "engelskNavn": "Norfolk Island"
+  },
+  {
+    "landkode": "NCL",
+    "bokmaalNavn": "Ny-Caledonia",
+    "nynorskNavn": "Ny-Caledonia",
+    "engelskNavn": "New Caledonia"
+  },
+  {
+    "landkode": "OMN",
+    "bokmaalNavn": "Oman",
+    "nynorskNavn": "Oman",
+    "engelskNavn": "Oman"
+  },
+  {
+    "landkode": "PAK",
+    "bokmaalNavn": "Pakistan",
+    "nynorskNavn": "Pakistan",
+    "engelskNavn": "Pakistan"
+  },
+  {
+    "landkode": "PLW",
+    "bokmaalNavn": "Palau",
+    "nynorskNavn": "Palau",
+    "engelskNavn": "Palau"
+  },
+  {
+    "landkode": "PSE",
+    "bokmaalNavn": "Palestina",
+    "nynorskNavn": "Palestina",
+    "engelskNavn": "Palestina"
+  },
+  {
+    "landkode": "PAN",
+    "bokmaalNavn": "Panama",
+    "nynorskNavn": "Panama",
+    "engelskNavn": "Panama"
+  },
+  {
+    "landkode": "PNG",
+    "bokmaalNavn": "Papua Ny-Guinea",
+    "nynorskNavn": "Papua Ny-Guinea",
+    "engelskNavn": "Papua New Guinea"
+  },
+  {
+    "landkode": "PRY",
+    "bokmaalNavn": "Paraguay",
+    "nynorskNavn": "Paraguay",
+    "engelskNavn": "Paraguay"
+  },
+  {
+    "landkode": "PER",
+    "bokmaalNavn": "Peru",
+    "nynorskNavn": "Peru",
+    "engelskNavn": "Peru"
+  },
+  {
+    "landkode": "PCN",
+    "bokmaalNavn": "Pitcairn",
+    "nynorskNavn": "Pitcairn",
+    "engelskNavn": "Pitcairn"
+  },
+  {
+    "landkode": "POL",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Polen",
+    "nynorskNavn": "Polen",
+    "engelskNavn": "Poland"
+  },
+  {
+    "landkode": "PRT",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Portugal",
+    "nynorskNavn": "Portugal",
+    "engelskNavn": "Portugal"
+  },
+  {
+    "landkode": "PRI",
+    "bokmaalNavn": "Puerto Rico",
+    "nynorskNavn": "Puerto Rico",
+    "engelskNavn": "Puerto Rico"
+  },
+  {
+    "landkode": "QAT",
+    "bokmaalNavn": "Qatar",
+    "nynorskNavn": "Qatar",
+    "engelskNavn": "Qatar"
+  },
+  {
+    "landkode": "REU",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Réunion",
+    "nynorskNavn": "Réunion",
+    "engelskNavn": "Réunion"
+  },
+  {
+    "landkode": "ROU",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Romania",
+    "nynorskNavn": "Romania",
+    "engelskNavn": "Romania"
+  },
+  {
+    "landkode": "RUS",
+    "bokmaalNavn": "Russland",
+    "nynorskNavn": "Russland",
+    "engelskNavn": "Russia"
+  },
+  {
+    "landkode": "RWA",
+    "bokmaalNavn": "Rwanda",
+    "nynorskNavn": "Rwanda",
+    "engelskNavn": "Rwanda"
+  },
+  {
+    "landkode": "BLM",
+    "bokmaalNavn": "Saint Barthélemy",
+    "nynorskNavn": "Saint Barthélemy",
+    "engelskNavn": "Saint Barthélemy"
+  },
+  {
+    "landkode": "SHN",
+    "bokmaalNavn": "St. Helena, Ascension og Tristan da Cunha",
+    "nynorskNavn": "St. Helena, Ascension og Tristan da Cunha",
+    "engelskNavn": "Saint Helena, Ascension and Tristan da Cunha"
+  },
+  {
+    "landkode": "KNA",
+    "bokmaalNavn": "Saint Kitts og Nevis",
+    "nynorskNavn": "Saint Kitts og Nevis",
+    "engelskNavn": "Saint Kitts and Nevis"
+  },
+  {
+    "landkode": "LCA",
+    "bokmaalNavn": "Saint Lucia",
+    "nynorskNavn": "Saint Lucia",
+    "engelskNavn": "Saint Lucia"
+  },
+  {
+    "landkode": "MAF",
+    "bokmaalNavn": "Saint-Martin",
+    "nynorskNavn": "Saint-Martin",
+    "engelskNavn": "Saint Martin"
+  },
+  {
+    "landkode": "SPM",
+    "bokmaalNavn": "Saint-Pierre og Miquelon",
+    "nynorskNavn": "Saint-Pierre og Miquelon",
+    "engelskNavn": "Saint Pierre and Miquelon"
+  },
+  {
+    "landkode": "VCT",
+    "bokmaalNavn": "Saint Vincent og Grenadinene",
+    "nynorskNavn": "Saint Vincent og Grenadinene",
+    "engelskNavn": "Saint Vincent and the Grenadines"
+  },
+  {
+    "landkode": "SLB",
+    "bokmaalNavn": "Salomonøyene",
+    "nynorskNavn": "Salomonøyene",
+    "engelskNavn": "Solomon Islands"
+  },
+  {
+    "landkode": "WSM",
+    "bokmaalNavn": "Samoa",
+    "nynorskNavn": "Samoa",
+    "engelskNavn": "Samoa"
+  },
+  {
+    "landkode": "SMR",
+    "bokmaalNavn": "San Marino",
+    "nynorskNavn": "San Marino",
+    "engelskNavn": "San Marino"
+  },
+  {
+    "landkode": "STP",
+    "bokmaalNavn": "São Tomé og Príncipe",
+    "nynorskNavn": "São Tomé og Príncipe",
+    "engelskNavn": "Sao Tome and Principe"
+  },
+  {
+    "landkode": "SAU",
+    "bokmaalNavn": "Saudi-Arabia",
+    "nynorskNavn": "Saudi-Arabia",
+    "engelskNavn": "Saudi Arabia"
+  },
+  {
+    "landkode": "SEN",
+    "bokmaalNavn": "Senegal",
+    "nynorskNavn": "Senegal",
+    "engelskNavn": "Senegal"
+  },
+  {
+    "landkode": "SRB",
+    "bokmaalNavn": "Serbia",
+    "nynorskNavn": "Serbia",
+    "engelskNavn": "Serbia"
+  },
+  {
+    "landkode": "SYC",
+    "bokmaalNavn": "Seychellene",
+    "nynorskNavn": "Seychellene",
+    "engelskNavn": "Seychelles"
+  },
+  {
+    "landkode": "SLE",
+    "bokmaalNavn": "Sierra Leone",
+    "nynorskNavn": "Sierra Leone",
+    "engelskNavn": "Sierra Leone"
+  },
+  {
+    "landkode": "SGP",
+    "bokmaalNavn": "Singapore",
+    "nynorskNavn": "Singapore",
+    "engelskNavn": "Singapore"
+  },
+  {
+    "landkode": "SXM",
+    "bokmaalNavn": "Sint Maarten",
+    "nynorskNavn": "Sint Maarten",
+    "engelskNavn": "Sint Maarten"
+  },
+  {
+    "landkode": "SVK",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Slovakia",
+    "nynorskNavn": "Slovakia",
+    "engelskNavn": "Slovakia"
+  },
+  {
+    "landkode": "SVN",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Slovenia",
+    "nynorskNavn": "Slovenia",
+    "engelskNavn": "Slovenia"
+  },
+  {
+    "landkode": "SOM",
+    "bokmaalNavn": "Somalia",
+    "nynorskNavn": "Somalia",
+    "engelskNavn": "Somalia"
+  },
+  {
+    "landkode": "ESP",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Spania",
+    "nynorskNavn": "Spania",
+    "engelskNavn": "Spain"
+  },
+  {
+    "landkode": "LKA",
+    "bokmaalNavn": "Sri Lanka",
+    "nynorskNavn": "Sri Lanka",
+    "engelskNavn": "Sri Lanka"
+  },
+  {
+    "landkode": "XXX",
+    "bokmaalNavn": "statsløs",
+    "nynorskNavn": "statsløs",
+    "engelskNavn": "stateless"
+  },
+  {
+    "landkode": "GBR",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Storbritannia",
+    "nynorskNavn": "Storbritannia",
+    "engelskNavn": "Britain (United Kingdom)"
+  },
+  {
+    "landkode": "SDN",
+    "bokmaalNavn": "Sudan",
+    "nynorskNavn": "Sudan",
+    "engelskNavn": "Sudan"
+  },
+  {
+    "landkode": "SUR",
+    "bokmaalNavn": "Surinam",
+    "nynorskNavn": "Surinam",
+    "engelskNavn": "Suriname"
+  },
+  {
+    "landkode": "SJM",
+    "bokmaalNavn": "Svalbard og Jan Mayen",
+    "nynorskNavn": "Svalbard og Jan Mayen",
+    "engelskNavn": "Svalbard and Jan Mayen"
+  },
+  {
+    "landkode": "CHE",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Sveits",
+    "nynorskNavn": "Sveits",
+    "engelskNavn": "Switzerland"
+  },
+  {
+    "landkode": "SWE",
+    "kravOmArbeid": false,
+    "bokmaalNavn": "Sverige",
+    "nynorskNavn": "Sverige",
+    "engelskNavn": "Sweden"
+  },
+  {
+    "landkode": "SYR",
+    "bokmaalNavn": "Syria",
+    "nynorskNavn": "Syria",
+    "engelskNavn": "Syria"
+  },
+  {
+    "landkode": "ZAF",
+    "bokmaalNavn": "Sør-Afrika",
+    "nynorskNavn": "Sør-Afrika",
+    "engelskNavn": "South Africa"
+  },
+  {
+    "landkode": "SGS",
+    "bokmaalNavn": "Sør-Georgia og Sør-Sandwichøyene",
+    "nynorskNavn": "Sør-Georgia og Sør-Sandwichøyene",
+    "engelskNavn": "South Georgia and the South Sandwich Islands"
+  },
+  {
+    "landkode": "KOR",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Sør-Korea",
+    "nynorskNavn": "Sør-Korea",
+    "engelskNavn": "South Korea"
+  },
+  {
+    "landkode": "SSD",
+    "bokmaalNavn": "Sør-Sudan",
+    "nynorskNavn": "Sør-Sudan",
+    "engelskNavn": "South Sudan"
+  },
+  {
+    "landkode": "TJK",
+    "bokmaalNavn": "Tadsjikistan",
+    "nynorskNavn": "Tadsjikistan",
+    "engelskNavn": "Tajikistan"
+  },
+  {
+    "landkode": "TWN",
+    "bokmaalNavn": "Taiwan",
+    "nynorskNavn": "Taiwan",
+    "engelskNavn": "Taiwan"
+  },
+  {
+    "landkode": "TZA",
+    "bokmaalNavn": "Tanzania",
+    "nynorskNavn": "Tanzania",
+    "engelskNavn": "Tanzania"
+  },
+  {
+    "landkode": "TCD",
+    "bokmaalNavn": "Tchad",
+    "nynorskNavn": "Tchad",
+    "engelskNavn": "Chad"
+  },
+  {
+    "landkode": "THA",
+    "bokmaalNavn": "Thailand",
+    "nynorskNavn": "Thailand",
+    "engelskNavn": "Thailand"
+  },
+  {
+    "landkode": "TGO",
+    "bokmaalNavn": "Togo",
+    "nynorskNavn": "Togo",
+    "engelskNavn": "Togo"
+  },
+  {
+    "landkode": "TKL",
+    "bokmaalNavn": "Tokelau",
+    "nynorskNavn": "Tokelau",
+    "engelskNavn": "Tokelau"
+  },
+  {
+    "landkode": "TON",
+    "bokmaalNavn": "Tonga",
+    "nynorskNavn": "Tonga",
+    "engelskNavn": "Tonga"
+  },
+  {
+    "landkode": "TTO",
+    "bokmaalNavn": "Trinidad og Tobago",
+    "nynorskNavn": "Trinidad og Tobago",
+    "engelskNavn": "Trinidad and Tobago"
+  },
+  {
+    "landkode": "CZE",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Tsjekkia",
+    "nynorskNavn": "Tsjekkia",
+    "engelskNavn": "Czechia"
+  },
+  {
+    "landkode": "TUN",
+    "bokmaalNavn": "Tunisia",
+    "nynorskNavn": "Tunisia",
+    "engelskNavn": "Tunisia"
+  },
+  {
+    "landkode": "TKM",
+    "bokmaalNavn": "Turkmenistan",
+    "nynorskNavn": "Turkmenistan",
+    "engelskNavn": "Turkmenistan"
+  },
+  {
+    "landkode": "TCA",
+    "bokmaalNavn": "Turks- og Caicosøyene",
+    "nynorskNavn": "Turks- og Caicosøyene",
+    "engelskNavn": "Turks and Caicos Islands"
+  },
+  {
+    "landkode": "TUV",
+    "bokmaalNavn": "Tuvalu",
+    "nynorskNavn": "Tuvalu",
+    "engelskNavn": "Tuvalu"
+  },
+  {
+    "landkode": "TUR",
+    "bokmaalNavn": "Tyrkia",
+    "nynorskNavn": "Tyrkia",
+    "engelskNavn": "Turkey"
+  },
+  {
+    "landkode": "DEU",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Tyskland",
+    "nynorskNavn": "Tyskland",
+    "engelskNavn": "Germany"
+  },
+  {
+    "landkode": "UGA",
+    "bokmaalNavn": "Uganda",
+    "nynorskNavn": "Uganda",
+    "engelskNavn": "Uganda"
+  },
+  {
+    "landkode": "UKR",
+    "bokmaalNavn": "Ukraina",
+    "nynorskNavn": "Ukraina",
+    "engelskNavn": "Ukraine"
+  },
+  {
+    "landkode": "HUN",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Ungarn",
+    "nynorskNavn": "Ungarn",
+    "engelskNavn": "Hungary"
+  },
+  {
+    "landkode": "URY",
+    "bokmaalNavn": "Uruguay",
+    "nynorskNavn": "Uruguay",
+    "engelskNavn": "Uruguay"
+  },
+  {
+    "landkode": "USA",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "USA",
+    "nynorskNavn": "USA",
+    "engelskNavn": "USA"
+  },
+  {
+    "landkode": "UMI",
+    "bokmaalNavn": "USAs ytre småøyer",
+    "nynorskNavn": "USAs ytre småøyer",
+    "engelskNavn": "United States Minor Outlying Islands"
+  },
+  {
+    "landkode": "UZB",
+    "bokmaalNavn": "Usbekistan",
+    "nynorskNavn": "Usbekistan",
+    "engelskNavn": "Uzbekistan"
+  },
+  {
+    "landkode": "VUT",
+    "bokmaalNavn": "Vanuatu",
+    "nynorskNavn": "Vanuatu",
+    "engelskNavn": "Vanuatu"
+  },
+  {
+    "landkode": "VAT",
+    "bokmaalNavn": "Vatikanstaten",
+    "nynorskNavn": "Vatikanstaten",
+    "engelskNavn": "Vatican City"
+  },
+  {
+    "landkode": "VEN",
+    "bokmaalNavn": "Venezuela",
+    "nynorskNavn": "Venezuela",
+    "engelskNavn": "Venezuela"
+  },
+  {
+    "landkode": "ESH",
+    "bokmaalNavn": "Vest-Sahara",
+    "nynorskNavn": "Vest-Sahara",
+    "engelskNavn": "Western Sahara"
+  },
+  {
+    "landkode": "VNM",
+    "bokmaalNavn": "Vietnam",
+    "nynorskNavn": "Vietnam",
+    "engelskNavn": "Vietnam"
+  },
+  {
+    "landkode": "WLF",
+    "bokmaalNavn": "Wallis og Futuna",
+    "nynorskNavn": "Wallis og Futuna",
+    "engelskNavn": "Wallis and Futuna"
+  },
+  {
+    "landkode": "ZMB",
+    "bokmaalNavn": "Zambia",
+    "nynorskNavn": "Zambia",
+    "engelskNavn": "Zambia"
+  },
+  {
+    "landkode": "ZWE",
+    "bokmaalNavn": "Zimbabwe",
+    "nynorskNavn": "Zimbabwe",
+    "engelskNavn": "Zimbabwe"
+  },
+  {
+    "landkode": "TLS",
+    "bokmaalNavn": "Øst-Timor",
+    "nynorskNavn": "Øst-Timor",
+    "engelskNavn": "East Timor"
+  },
+  {
+    "landkode": "AUT",
+    "kravOmArbeid": true,
+    "bokmaalNavn": "Østerrike",
+    "nynorskNavn": "Østerrike",
+    "engelskNavn": "Austria"
+  },
+  {
+    "landkode": "XUK",
+    "bokmaalNavn": "uoppgitt",
+    "nynorskNavn": "uoppgitt",
+    "engelskNavn": "unspecified"
+  },
+  {
+    "landkode": "P_PANAMAKANALSONEN",
+    "bokmaalNavn": "Panamakanalsonen",
+    "nynorskNavn": "Panamakanalsonen",
+    "engelskNavn": "Panama Canal Zone"
+  },
+  {
+    "landkode": "P_SPANSKE_OMR_AFRIKA",
+    "bokmaalNavn": "Spansk Nord-Afrika",
+    "nynorskNavn": "Spansk Nord-Afrika",
+    "engelskNavn": "Spanish North Africa"
+  },
+  {
+    "landkode": "P_UKJENT",
+    "bokmaalNavn": "ukjent",
+    "nynorskNavn": "ukjent",
+    "engelskNavn": "unknown"
+  }
+]

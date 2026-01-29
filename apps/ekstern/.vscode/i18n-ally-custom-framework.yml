@@ -1,0 +1,24 @@
+# .vscode/i18n-ally-custom-framework.yml
+
+# https://github.com/lokalise/i18n-ally/wiki/Custom-Framework
+
+# An array of strings which contain Language Ids defined by VS Code
+# You can check available language ids here: https://code.visualstudio.com/docs/languages/identifiers
+languageIds:
+  - javascript
+  - typescript
+  - javascriptreact
+  - typescriptreact
+
+# An array of RegExes to find the key usage. **The key should be captured in the first match group**.
+# You should unescape RegEx strings in order to fit in the YAML file
+# To help with this, you can use https://www.freeformatter.com/json-escape.html
+usageMatchRegex:
+  # JSX
+  - '<FormattedMessage\s+id="({key})"'
+  # Hooks
+  - "[^\\w\\d]formatMessage\\({\\s*id:\\s*['\"`]({key})['\"`]"
+  # Mer inspirasjon: https://github.com/lokalise/i18n-ally/blob/4c504c93cec6c4697134eca379f1476d0eb1c9f6/src/frameworks/react-intl.ts
+
+# If set to true, only enables this custom framework (will disable all built-in frameworks)
+monopoly: true

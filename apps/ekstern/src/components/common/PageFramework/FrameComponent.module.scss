@@ -1,0 +1,71 @@
+@use '../../../scss/variables';
+
+.main {
+  background: var(--a-gray-100);
+  min-height: 55vh;
+
+  &__white {
+    background: var(--a-white);
+  }
+
+  &__noMinHeight {
+    min-height: 0;
+  }
+}
+
+.content {
+  padding: var(--a-spacing-6) 0 0 0;
+  display: flex;
+  flex-flow: column;
+  align-items: start;
+
+  &__isFramed {
+    composes: frame from '../../../scss/modules/frame.module.scss';
+  }
+}
+
+.headerGroup {
+  width: 100%;
+  padding-bottom: var(--a-spacing-4);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    width: variables.$a-breakpoint-lg;
+    margin: 0 auto;
+  }
+
+  &Title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+
+    &__logo {
+      margin-right: var(--a-spacing-4);
+      height: 48px;
+      width: 48px;
+
+      @media (min-width: variables.$a-breakpoint-md) {
+        height: 56px;
+        width: 56px;
+      }
+    }
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      padding: 0;
+    }
+
+    &__isFramed {
+      margin: 0 auto;
+      padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+
+      @media (min-width: variables.$a-breakpoint-md) {
+        padding: 0;
+        width: variables.$container-max-width;
+      }
+
+      @media (min-width: variables.$a-breakpoint-lg) {
+        margin: 0;
+      }
+    }
+  }
+}

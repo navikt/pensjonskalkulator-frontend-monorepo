@@ -1,0 +1,17 @@
+// Essential structural styles for mobile print functionality.
+// All other print styles are in src/pdf-view/printStyles.ts (PRINT_STYLES)
+// and are injected dynamically for both desktop (popup window) and mobile (#print-content).
+
+#print-content {
+  display: none;
+}
+
+@media print {
+  #app-content.hideAppContent {
+    display: none !important;
+  }
+
+  #print-content.showPrintContent {
+    display: block !important;
+  }
+}

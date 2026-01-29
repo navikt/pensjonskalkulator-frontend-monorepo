@@ -1,0 +1,56 @@
+@use '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.section {
+  display: none;
+  padding: 0 var(--a-spacing-6) var(--a-spacing-8) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.xs {
+    @media (min-width: variables.$a-breakpoint-xs) {
+      display: block;
+    }
+  }
+
+  &.sm {
+    @media (min-width: variables.$a-breakpoint-sm) {
+      display: block;
+    }
+  }
+
+  &.md {
+    @media (min-width: variables.$a-breakpoint-md) {
+      display: block;
+    }
+  }
+
+  &.lg {
+    @media (min-width: variables.$a-breakpoint-lg) {
+      display: block;
+    }
+  }
+
+  &.xl {
+    @media (min-width: variables.$a-breakpoint-xl) {
+      display: block;
+    }
+  }
+
+  &.xxl {
+    @media (min-width: variables.$a-breakpoint-2xl) {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,3 @@
+@use 'sass:meta';
+@import '@navikt/ds-css' layer(designsystem);
+@include meta.load-css('global.scss');

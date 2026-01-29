@@ -1,0 +1,73 @@
+@use '../../../scss/variables';
+
+.legend {
+  display: block;
+  font-size: var(--a-font-size-large);
+  font-weight: var(--a-font-weight-bold);
+  letter-spacing: 0;
+  line-height: var(--a-font-line-height-large);
+  margin: 0;
+  margin-bottom: var(--a-spacing-2);
+}
+
+.description {
+  padding-bottom: var(--a-spacing-4);
+}
+
+.select {
+  &Wrapper {
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--a-spacing-4);
+
+    label {
+      font-size: var(--a-font-size-medium);
+    }
+  }
+
+  &Aar {
+    flex-basis: variables.$input-width-xxs;
+    flex-shrink: 0;
+  }
+
+  &Maaned {
+    flex-basis: variables.$input-width-xs;
+    flex-shrink: 0;
+  }
+
+  &__hasError {
+    select {
+      box-shadow: 0 0 0 1px
+        var(--ac-select-error-border, var(--a-surface-danger));
+      border-color: var(--ac-select-error-border, var(--a-surface-danger));
+
+      &:focus {
+        outline: none;
+        border-color: var(
+          --ac-select-active-border,
+          var(--a-border-action-selected)
+        );
+        box-shadow: var(--a-shadow-focus);
+      }
+    }
+  }
+
+  &Error {
+    &Message {
+      padding-top: var(--a-spacing-2);
+
+      :global {
+        .nowrap {
+          display: contents;
+        }
+      }
+    }
+  }
+}
+
+.date {
+  align-self: end;
+  padding-bottom: var(--a-spacing-3);
+}

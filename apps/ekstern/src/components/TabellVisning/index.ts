@@ -1,0 +1,1 @@
+export { TabellVisning } from './TabellVisning'

@@ -1,0 +1,1 @@
+export { SamtykkeOffentligAFP } from './SamtykkeOffentligAFP'

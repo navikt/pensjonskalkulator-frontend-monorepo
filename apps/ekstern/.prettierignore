@@ -1,0 +1,8 @@
+public/*
+dist/*
+.nginx/*
+.nais/*
+coverage
+*.scss.d.ts
+src/style.d.ts
+*.snap

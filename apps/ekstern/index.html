@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preconnect" href="%VITE_DECORATOR_URL%" />
+    <link
+      rel="preconnect"
+      href="%VITE_DECORATOR_URL%/css/client.css"
+      rel="stylesheet"
+      crossorigin
+    />
+    <title>Pensjonskalkulator - Pensjon</title>
+  </head>
+  <body>
+    <div id="print-content"></div>
+    <div id="app-content">
+      <div id="decorator-header"></div>
+      <main id="maincontent" tabindex="-1">
+        <div id="root"></div>
+      </main>
+      <div id="decorator-footer"></div>
+      <div
+        id="decorator-env"
+        data-src="%VITE_DECORATOR_URL%/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start"
+      ></div>
+    </div>
+    <script type="module" src="/src/main.tsx" defer></script>
+    <script type="module">
+      // Wait for MSW to be ready before loading external scripts in development
+      if (import.meta.env.DEV) {
+        // Wait for MSW initialization
+        document.addEventListener('DOMContentLoaded', async () => {
+          // Wait for MSW ready signal from main.tsx
+          while (!window.__MSW_READY__) {
+            await new Promise((resolve) => setTimeout(resolve, 50))
+          }
+          await window.__MSW_READY__
+          console.log('[MSW] External scripts loading after MSW ready')
+          loadExternalScripts()
+        })
+      } else {
+        // In production, load immediately
+        document.addEventListener('DOMContentLoaded', loadExternalScripts)
+      }
+
+      function loadExternalScripts() {
+        // Load NAV decorator
+        const decoratorScript = document.createElement('script')
+        decoratorScript.type = 'text/javascript'
+        decoratorScript.src = '%VITE_DECORATOR_URL%/client.js'
+        document.head.appendChild(decoratorScript)
+
+        // Load representasjon banner
+        const bannerScript = document.createElement('script')
+        bannerScript.type = 'module'
+        bannerScript.src = '%VITE_REPRESENTASJON_BANNER%/banner.js'
+        document.head.appendChild(bannerScript)
+      }
+    </script>
+  </body>
+</html>

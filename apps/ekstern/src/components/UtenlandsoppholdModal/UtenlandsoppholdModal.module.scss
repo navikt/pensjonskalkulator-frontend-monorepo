@@ -1,0 +1,16 @@
+@use '../../scss/variables';
+
+.datepicker {
+  input {
+    width: variables.$input-width-s;
+  }
+}
+
+.select {
+  :global {
+    select,
+    .navds-select__container {
+      width: variables.$input-width-l;
+    }
+  }
+}

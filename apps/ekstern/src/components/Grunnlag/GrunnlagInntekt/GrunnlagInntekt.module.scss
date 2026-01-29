@@ -1,0 +1,10 @@
+@use '../../../scss/variables';
+
+.button {
+  margin-top: var(--a-spacing-6);
+}
+
+.link {
+  display: block;
+  margin-top: var(--a-spacing-4);
+}

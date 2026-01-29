@@ -1,0 +1,196 @@
+name: Check pull request
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run-firefox:
+        description: 'Run Firefox tests'
+        required: false
+        default: false
+        type: boolean
+      run-webkit:
+        description: 'Run WebKit tests'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    name: Build application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build application
+        run: npm run build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v6
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
+  run-unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v6
+        with:
+          name: code-coverage-report
+          path: coverage
+
+  run-integration-tests-cypress:
+    name: Run integration tests
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Cache Cypress binary
+        id: cache-cypress
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist
+
+      - name: Install cypress
+        if: steps.cache-cypress.outputs.cache-hit != 'true'
+        run: npx cypress install
+
+      - name: Run integration tests
+        run: npm run cy:test
+
+      - name: Archive Cypress artifacts
+        uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots
+
+  run-playwright:
+    name: Playwright ${{ matrix.browser }} tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ always() && needs.build.result == 'success' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium]
+        include:
+          - browser: firefox
+            run-condition: ${{ github.event.inputs.run-firefox == 'true' }}
+          - browser: webkit
+            run-condition: ${{ github.event.inputs.run-webkit == 'true' }}
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
+    steps:
+      - name: Check if browser should run
+        id: should-run
+        shell: bash
+        run: |
+          if [[ "${{ matrix.browser }}" == "chromium" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.browser }}" == "firefox" && "${{ github.event.inputs.run-firefox }}" == "true" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.browser }}" == "webkit" && "${{ github.event.inputs.run-webkit }}" == "true" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout
+        if: steps.should-run.outputs.run == 'true'
+        uses: actions/checkout@v6
+
+      - name: Use Node.js v22.22.0
+        if: steps.should-run.outputs.run == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        if: steps.should-run.outputs.run == 'true'
+        id: cache-node
+        uses: actions/cache@v5
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download the build folders
+        if: steps.should-run.outputs.run == 'true'
+        uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist
+
+      - name: Install dependencies
+        if: steps.should-run.outputs.run == 'true' && steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Install Playwright Browsers
+        if: steps.should-run.outputs.run == 'true'
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Run ${{ matrix.browser }} tests
+        if: steps.should-run.outputs.run == 'true'
+        run: npx playwright test --project=${{ matrix.browser }} --workers=6
+
+  all-tests-passed:
+    name: All tests passed
+    runs-on: ubuntu-latest
+    needs: [run-unit-tests, run-integration-tests-cypress, run-playwright]
+    if: ${{ always() }}
+    steps:
+      - name: Check all tests passed
+        run: |
+          if [[ "${{ needs.run-unit-tests.result }}" != "success" ]]; then
+            echo "Unit tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.run-integration-tests-cypress.result }}" != "success" ]]; then
+            echo "Cypress integration tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.run-playwright.result }}" != "success" ]]; then
+            echo "Playwright Chromium tests failed"
+            exit 1
+          fi
+          echo "All tests passed successfully!"

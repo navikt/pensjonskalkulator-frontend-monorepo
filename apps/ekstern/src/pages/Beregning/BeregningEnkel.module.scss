@@ -1,0 +1,29 @@
+@use '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.alert {
+  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    margin: 0 0 var(--a-spacing-6) 0;
+    max-width: variables.$container-max-width;
+  }
+}
+
+.background {
+  display: inline-block;
+  width: 100%;
+  left: 0;
+  right: 0;
+
+  &__lightgray {
+    background-color: var(--a-gray-100);
+  }
+}

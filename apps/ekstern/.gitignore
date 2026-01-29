@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Generated
+node_modules
+dist
+dist-sanity
+dist-ssr
+coverage
+*.local
+.stylelintcache
+cypress/videos
+cypress/screenshots
+overrides.env
+analice.html
+vite.config.ts.*
+.sanity
+*.module.d.scss.ts
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.qodo
+.fleet
+.zed
+
+# Playwright
+/playwright/test-results/
+/playwright/report/
+/blob-report/
+/playwright/.cache/

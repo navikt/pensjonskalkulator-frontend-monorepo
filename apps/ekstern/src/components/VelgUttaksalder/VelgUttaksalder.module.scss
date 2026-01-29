@@ -1,0 +1,40 @@
+@use '../../scss/variables';
+
+.wrapper {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &Card {
+    composes: whitesection from '../../scss/modules/whitesection.module.scss';
+    display: flex;
+    padding: var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-10)
+      var(--a-spacing-6);
+    flex-direction: column;
+    gap: var(--a-spacing-3);
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      max-width: variables.$container-max-width;
+      padding: var(--a-spacing-6) 0 var(--a-spacing-10) 0;
+    }
+  }
+}
+
+.pin {
+  position: absolute;
+  margin-top: -2rem;
+}
+
+.chipsWrapper {
+  /* double-specificity nødvendig pga Aksel overskrivning */
+  &.chipsWrapper__hasGap {
+    gap: var(--a-spacing-3);
+
+    &::after {
+      content: '';
+      flex: auto;
+    }
+  }
+}
+
+.visFlereAldere {
+  margin-right: auto;
+}

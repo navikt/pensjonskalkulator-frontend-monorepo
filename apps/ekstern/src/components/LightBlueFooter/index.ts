@@ -1,0 +1,1 @@
+export { LightBlueFooter } from './LightBlueFooter'

@@ -1,0 +1,1 @@
+export { ApotekereWarning } from './ApotekereWarning'

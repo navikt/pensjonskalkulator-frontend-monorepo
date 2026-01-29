@@ -1,0 +1,15 @@
+@use '../../../scss/variables';
+
+.section {
+  composes: innerframe from '../../../scss/modules/frame.module.scss';
+  composes: whitesection from '../../../scss/modules/whitesection.module.scss';
+
+  &__largePadding {
+    composes: innerframe__largePadding from '../../../scss/modules/frame.module.scss';
+  }
+
+  &__marginBotton {
+    /* important er nødvendig for å overskrive innerframe compose */
+    margin-bottom: var(--a-spacing-10) !important;
+  }
+}

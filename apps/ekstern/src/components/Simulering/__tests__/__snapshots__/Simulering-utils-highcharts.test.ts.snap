@@ -1,0 +1,210 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
+{
+  "chart": {
+    "animation": false,
+    "events": {
+      "render": [Function],
+    },
+    "scrollablePlotArea": {
+      "minWidth": 750,
+      "scrollPositionX": 0,
+    },
+    "spacingBottom": 0,
+    "spacingLeft": 0,
+    "spacingTop": 0,
+    "style": {
+      "zIndex": 1,
+    },
+    "type": "column",
+  },
+  "credits": {
+    "enabled": false,
+  },
+  "legend": {
+    "accessibility": {
+      "enabled": true,
+      "keyboardNavigation": {
+        "enabled": false,
+      },
+    },
+    "align": "left",
+    "events": {
+      "itemClick": [Function],
+    },
+    "itemDistance": 24,
+    "itemHoverStyle": {
+      "color": "#000000",
+    },
+    "itemMarginBottom": 5,
+    "itemStyle": {
+      "color": "var(--a-text-default)",
+      "cursor": "default",
+      "fontFamily": "var(--a-font-family)",
+      "fontSize": "14px",
+      "fontWeight": "regular",
+      "zIndex": 0,
+    },
+    "layout": "horizontal",
+    "margin": 0,
+    "padding": 0,
+    "useHTML": true,
+    "verticalAlign": "bottom",
+    "x": 0,
+    "y": -25,
+  },
+  "plotOptions": {
+    "column": {
+      "point": {
+        "events": {
+          "click": [Function],
+          "mouseOut": [Function],
+          "mouseOver": [Function],
+        },
+      },
+    },
+    "series": {
+      "animation": false,
+      "stacking": "normal",
+      "states": {
+        "inactive": {
+          "enabled": false,
+        },
+      },
+      "stickyTracking": false,
+    },
+  },
+  "responsive": {
+    "rules": [
+      {
+        "chartOptions": {
+          "legend": {
+            "itemDistance": 12,
+            "margin": 50,
+            "verticalAlign": "top",
+          },
+          "tooltip": {
+            "outside": true,
+            "positioner": [Function],
+          },
+          "xAxis": {
+            "labels": {
+              "style": {
+                "fontSize": "var(--a-font-size-small)",
+              },
+            },
+            "title": {
+              "text": "",
+            },
+          },
+          "yAxis": {
+            "labels": {
+              "formatter": [Function],
+              "style": {
+                "backgroundColor": "transparent",
+                "fontSize": "var(--a-font-size-small)",
+              },
+              "x": 0,
+            },
+            "offset": 28,
+            "title": {
+              "margin": -75,
+              "style": {
+                "fontSize": "var(--a-font-size-small)",
+              },
+              "text": "beregning.highcharts.yaxis.mobile",
+              "x": -73,
+              "y": -22,
+            },
+          },
+        },
+        "condition": {
+          "callback": [Function],
+        },
+      },
+    ],
+  },
+  "series": [],
+  "title": {
+    "align": "left",
+    "margin": 20,
+    "style": {
+      "opacity": 0,
+    },
+    "text": "-",
+    "y": 0,
+  },
+  "tooltip": {
+    "animation": false,
+    "className": undefined,
+    "followTouchMove": false,
+    "formatter": [Function],
+    "hideDelay": 9000000000,
+    "outside": false,
+    "padding": 0,
+    "positioner": [Function],
+    "shadow": false,
+    "shared": true,
+    "useHTML": true,
+  },
+  "xAxis": {
+    "categories": [],
+    "labels": {
+      "formatter": [Function],
+      "style": {
+        "color": "var(--a-text-subtle)",
+        "fontFamily": "var(--a-font-family)",
+        "fontSize": "var(--a-font-size-medium)",
+      },
+      "y": 20,
+    },
+    "lineColor": "var(--a-text-subtle)",
+    "title": {
+      "align": "high",
+      "style": {
+        "color": "var(--a-text-subtle)",
+        "fontFamily": "var(--a-font-family)",
+        "fontSize": "var(--a-font-size-medium)",
+      },
+      "text": "beregning.highcharts.xaxis",
+      "y": -5,
+    },
+  },
+  "yAxis": {
+    "allowDecimals": false,
+    "gridLineColor": "var(--a-gray-400)",
+    "gridLineWidth": 1,
+    "labels": {
+      "align": "left",
+      "formatter": [Function],
+      "style": {
+        "color": "var(--a-text-subtle)",
+        "fontFamily": "var(--a-font-family)",
+        "fontSize": "var(--a-font-size-medium)",
+        "paddingRight": "var(--a-spacing-3)",
+      },
+      "useHTML": true,
+      "x": -55,
+    },
+    "min": 0,
+    "minorGridLineWidth": 0,
+    "minorTickInterval": 50000,
+    "offset": 10,
+    "tickInterval": 100000,
+    "title": {
+      "align": "high",
+      "rotation": 0,
+      "style": {
+        "fontFamily": "var(--a-font-family)",
+        "fontSize": "var(--a-font-size-medium)",
+        "zIndex": 0,
+      },
+      "text": "beregning.highcharts.yaxis",
+      "textAlign": "left",
+      "x": -44,
+      "y": -20,
+    },
+  },
+}
+`;

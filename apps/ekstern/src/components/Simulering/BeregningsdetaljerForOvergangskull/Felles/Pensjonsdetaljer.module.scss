@@ -1,0 +1,30 @@
+@use '../../../../scss/variables';
+
+.hstackRow {
+  border-bottom: 1px solid var(--a-border-divider);
+  margin-bottom: var(--a-spacing-3);
+  padding-bottom: var(--a-spacing-3);
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  &:only-child {
+    border-bottom: 1px solid var(--a-border-divider);
+  }
+
+  dl {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 1 1 0px;
+    min-width: calc(var(--a-spacing-24) * 3 + var(--a-spacing-4));
+    margin: var(--a-spacing-4) 0;
+  }
+
+  dd {
+    margin-left: 0;
+    text-align: right;
+  }
+}

@@ -1,0 +1,5 @@
+@use '../../scss/variables';
+
+.textfield input {
+  width: variables.$input-width-m;
+}

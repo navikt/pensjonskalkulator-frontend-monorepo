@@ -1,0 +1,43 @@
+@use '../../scss/variables';
+
+.wrapper {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &Card {
+    padding: var(--a-spacing-6);
+
+    @media (min-width: variables.$a-breakpoint-lg) {
+      padding: var(--a-spacing-6) 0;
+      max-width: variables.$container-max-width;
+    }
+  }
+}
+
+.ingress {
+  display: inline;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    font-size: var(--a-font-size-xlarge);
+    line-height: var(--a-font-line-height-xlarge);
+  }
+}
+
+.highlighted {
+  display: inline;
+  font-weight: var(--a-font-weight-bold);
+  white-space: nowrap;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    font-size: var(--a-font-size-xlarge);
+    line-height: var(--a-font-line-height-xlarge);
+  }
+}
+
+.readmore {
+  margin-top: var(--a-spacing-1);
+}
+
+.alert {
+  margin-top: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-2);
+}

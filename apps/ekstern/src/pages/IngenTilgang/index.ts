@@ -1,0 +1,1 @@
+export { IngenTilgang } from './IngenTilgang'

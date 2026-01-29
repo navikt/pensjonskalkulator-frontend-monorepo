@@ -1,0 +1,176 @@
+import { MouseEvent, useContext, useEffect, useState } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router'
+
+import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
+
+import { BeregningContext } from '@/pages/Beregning/context'
+import { paths } from '@/router/constants'
+import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
+import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectAarligInntektFoerUttakBeloep,
+  selectAfp,
+  selectCurrentSimulation,
+  selectEpsHarInntektOver2G,
+  selectEpsHarPensjon,
+  selectSamtykke,
+  selectSivilstand,
+  selectSkalBeregneAfpKap19,
+  selectUfoeregrad,
+} from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputSlice'
+import { getFormatMessageValues } from '@/utils/translations'
+
+import { useOffentligTpData } from '../Simulering/hooks'
+import ShowMore from '../common/ShowMore/ShowMore'
+import { OffentligTjenestepensjon } from './OffentligTjenestePensjon/OffentligTjenestepensjon'
+import { PrivatePensjonsavtaler } from './PrivatePensjonsavtaler'
+import { useNextHeadingLevel } from './hooks'
+
+import styles from './Pensjonsavtaler.module.scss'
+
+export const Pensjonsavtaler = ({
+  headingLevel,
+}: {
+  headingLevel: Exclude<HeadingProps['level'], undefined>
+}) => {
+  const { pensjonsavtalerShowMoreRef } = useContext(BeregningContext)
+  const intl = useIntl()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const harSamtykket = useAppSelector(selectSamtykke)
+  const sivilstand = useAppSelector(selectSivilstand)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const afp = useAppSelector(selectAfp)
+  const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
+  const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
+  const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
+
+  const {
+    data: offentligTp,
+    isLoading: isOffentligTpLoading,
+    isError: isOffentligTpError,
+    erOffentligTpFoer1963,
+  } = useOffentligTpData()
+
+  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
+    PensjonsavtalerRequestBody | undefined
+  >(undefined)
+
+  // Hent Private Pensjonsavtaler
+  useEffect(() => {
+    if (harSamtykket && uttaksalder) {
+      const requestBody = generatePensjonsavtalerRequestBody({
+        ufoeregrad,
+        afp,
+        sivilstand,
+        epsHarInntektOver2G,
+        epsHarPensjon,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+        heltUttak: {
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+        },
+        skalBeregneAfpKap19,
+      })
+      setPensjonsavtalerRequestBody(requestBody)
+    }
+  }, [harSamtykket, uttaksalder])
+
+  const {
+    data: pensjonsavtaler,
+    isError: isPensjonsavtalerError,
+    isSuccess: isPensjonsavtalerSuccess,
+  } = usePensjonsavtalerQuery(
+    pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
+    {
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
+    }
+  )
+
+  const subHeadingLevel = useNextHeadingLevel(headingLevel)
+
+  const onCancel = (e: MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault()
+    dispatch(userInputActions.flush())
+    navigate(paths.start)
+  }
+
+  const showExplanation =
+    (isPensjonsavtalerSuccess &&
+      pensjonsavtaler?.avtaler &&
+      pensjonsavtaler?.avtaler.length > 0) ||
+    (offentligTp?.simuleringsresultatStatus === 'OK' &&
+      offentligTp?.simulertTjenestepensjon?.tpNummer !== undefined)
+
+  return (
+    <VStack gap="1">
+      <Heading
+        id="pensjonsavtaler-heading"
+        level={headingLevel}
+        size="small"
+        data-testid="pensjonsavtaler-heading"
+      >
+        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
+      </Heading>
+
+      {harSamtykket ? (
+        <ShowMore
+          ref={pensjonsavtalerShowMoreRef}
+          name="pensjonsavtaler"
+          aria-labelledby="pensjonsavtaler-heading"
+          collapsedHeight={
+            (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
+          }
+        >
+          <>
+            <PrivatePensjonsavtaler
+              isPartialResponse={!!pensjonsavtaler?.partialResponse}
+              isError={isPensjonsavtalerError}
+              isSuccess={isPensjonsavtalerSuccess}
+              headingLevel={subHeadingLevel}
+              privatePensjonsavtaler={pensjonsavtaler?.avtaler}
+            />
+
+            <OffentligTjenestepensjon
+              isLoading={isOffentligTpLoading}
+              isError={isOffentligTpError}
+              offentligTp={offentligTp}
+              headingLevel={subHeadingLevel}
+              erOffentligTpFoer1963={erOffentligTpFoer1963}
+            />
+
+            {showExplanation && (
+              <BodyLong className={styles.footnote}>
+                <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+              </BodyLong>
+            )}
+          </>
+        </ShowMore>
+      ) : (
+        <BodyLong>
+          <FormattedMessage id="pensjonsavtaler.ingress.error.samtykke_ingress" />
+          <Link href={paths.start} onClick={onCancel}>
+            {intl.formatMessage({
+              id: 'pensjonsavtaler.ingress.error.samtykke_link_1',
+            })}
+          </Link>{' '}
+          <FormattedMessage
+            id="pensjonsavtaler.ingress.error.samtykke_link_2"
+            values={{
+              ...getFormatMessageValues(),
+            }}
+          />
+        </BodyLong>
+      )}
+    </VStack>
+  )
+}

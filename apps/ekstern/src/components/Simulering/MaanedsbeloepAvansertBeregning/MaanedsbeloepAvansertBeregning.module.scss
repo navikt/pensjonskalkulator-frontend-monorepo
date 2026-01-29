@@ -1,0 +1,15 @@
+@use '../../../scss/variables';
+
+.maanedsbeloep {
+  &MobileOnly {
+    @media (min-width: variables.$a-breakpoint-sm) {
+      display: none !important;
+    }
+  }
+
+  &DesktopOnly {
+    @media (max-width: variables.$a-breakpoint-sm-down) {
+      display: none !important;
+    }
+  }
+}

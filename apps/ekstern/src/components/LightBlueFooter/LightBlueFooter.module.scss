@@ -1,0 +1,27 @@
+@use '../../scss/variables';
+
+.section {
+  composes: innerframe from '../../scss/modules/frame.module.scss';
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.innerwrapper {
+  padding: var(--a-spacing-2) 0;
+
+  @media (min-width: variables.$a-breakpoint-md) {
+    padding: var(--a-spacing-6) 0;
+  }
+}
+
+.button {
+  display: block;
+  margin: 0 auto;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    margin: 0;
+  }
+}

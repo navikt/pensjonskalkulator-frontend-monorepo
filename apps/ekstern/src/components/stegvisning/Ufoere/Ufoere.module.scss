@@ -1,0 +1,13 @@
+@use '../../../scss/variables';
+
+.alert {
+  margin-bottom: var(--a-spacing-2);
+}
+
+.readmore1 {
+  margin: var(--a-spacing-1) 0 var(--a-spacing-6) 0;
+}
+
+.paragraph {
+  margin-bottom: var(--a-spacing-4);
+}

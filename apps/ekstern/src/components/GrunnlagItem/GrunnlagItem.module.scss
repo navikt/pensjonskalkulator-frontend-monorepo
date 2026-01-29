@@ -1,0 +1,29 @@
+@use '../../scss/variables';
+
+.border {
+  border-left: var(--a-spacing-2) solid;
+}
+
+.green {
+  border-color: var(--a-data-surface-5);
+}
+
+.purple {
+  border-color: var(--a-purple-500);
+}
+
+.blue {
+  border-color: var(--a-deepblue-500);
+}
+
+.gray {
+  border-color: var(--a-gray-500);
+}
+
+.grunnlagItem {
+  position: relative;
+
+  @media (min-width: variables.$a-breakpoint-lg) {
+    max-width: variables.$container-max-width;
+  }
+}

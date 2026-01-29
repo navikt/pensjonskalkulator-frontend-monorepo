@@ -1,0 +1,97 @@
+{
+  "alderspensjon": [
+    {
+      "alder": 62,
+      "beloep": 172238,
+      "inntektspensjonBeloep": 220194,
+      "garantipensjonBeloep": -12533,
+      "delingstall": 15.88,
+      "pensjonBeholdningFoerUttakBeloep": 4995261,
+      "andelsbroekKap19": 0.3,
+      "andelsbroekKap20": 0.7,
+      "sluttpoengtall": 3.91,
+      "trygdetidKap19": 40,
+      "trygdetidKap20": 40,
+      "poengaarFoer92": 12,
+      "poengaarEtter91": 28,
+      "forholdstall": 1.108,
+      "grunnpensjon": 33581,
+      "tilleggspensjon": 56329,
+      "pensjonstillegg": -10670,
+      "skjermingstillegg": 0,
+      "kapittel19Gjenlevendetillegg": 342
+    },
+    {
+      "alder": 63,
+      "beloep": 172476
+    },
+    {
+      "alder": 64,
+      "beloep": 172476
+    },
+    {
+      "alder": 65,
+      "beloep": 172476
+    },
+    {
+      "alder": 66,
+      "beloep": 172476
+    },
+    {
+      "alder": 67,
+      "beloep": 172476
+    },
+    {
+      "alder": 68,
+      "beloep": 172476
+    },
+    {
+      "alder": 69,
+      "beloep": 172476
+    },
+    {
+      "alder": 70,
+      "beloep": 172476
+    },
+    {
+      "alder": 71,
+      "beloep": 172476
+    },
+    {
+      "alder": 72,
+      "beloep": 172476
+    },
+    {
+      "alder": 73,
+      "beloep": 172476
+    },
+    {
+      "alder": 74,
+      "beloep": 172476
+    },
+    {
+      "alder": 75,
+      "beloep": 172476
+    },
+    {
+      "alder": 76,
+      "beloep": 172476
+    },
+    {
+      "alder": 77,
+      "beloep": 172476
+    }
+  ],
+  "alderspensjonMaanedligVedEndring": {
+    "heltUttakMaanedligBeloep": 100000,
+    "gradertUttakMaanedligBeloep": 50000
+  },
+  "vilkaarsproeving": {
+    "vilkaarErOppfylt": false,
+    "alternativ": {
+      "heltUttaksalder": { "aar": 67, "maaneder": 0 }
+    }
+  },
+  "harForLiteTrygdetid": false,
+  "trygdetid": 40
+}

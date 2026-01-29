@@ -1,0 +1,56 @@
+@use '../../../scss/variables';
+
+.container {
+  composes: frame from '../../../scss/modules/frame.module.scss';
+  background-color: var(--a-white);
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--a-spacing-6) !important;
+  padding-bottom: var(--a-spacing-6) !important;
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../../scss/modules/frame.module.scss';
+  }
+}
+
+.form {
+  max-width: variables.$container-max-width;
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-8);
+
+  :global {
+    .nowrap {
+      display: contents;
+    }
+  }
+}
+
+.textfield input {
+  width: variables.$input-width-m;
+}
+
+.select {
+  :global {
+    select,
+    .navds-select__container {
+      width: variables.$input-width-xxs;
+    }
+  }
+}
+
+.spacer {
+  height: var(--a-spacing-4);
+  width: 100%;
+  background-color: transparent;
+  margin: 0 0 var(--a-spacing-4) 0;
+
+  &__small {
+    height: var(--a-spacing-1);
+    margin: 0 0 var(--a-spacing-1) 0;
+  }
+}
+
+.alertWrapper:empty {
+  display: contents;
+}

@@ -1,0 +1,47 @@
+// Deklarerer variablene på nytt fordi @import er deprecated, og @use/@forward fungerer ikke med compose
+// Løses når @use/@forward fikses, eller når var()/env() støttes for media queries
+$local-a-breakpoint-lg: 1024px;
+$local-a-breakpoint-md: 768px;
+$local-container-max-width: 632px;
+
+// Gjenbrukbar module for lg wrapperen som er sentrert på siden
+.frame {
+  width: 100%;
+  max-width: var(--a-breakpoint-lg);
+  margin: 0 auto;
+
+  &__hasMobilePadding {
+    padding: 0 var(--a-spacing-6);
+
+    @media (min-width: $local-a-breakpoint-lg) {
+      padding: 0;
+    }
+  }
+
+  &__hasPadding {
+    padding: 0 var(--a-spacing-6);
+  }
+}
+
+// Gjenbrukbar module for md inner-wrapperen som er venstrestilt.
+// Brukes oftest nøsted i .frame og i kombinasjon med whitesection module
+.innerframe {
+  padding: var(--a-spacing-6);
+
+  @media (min-width: $local-a-breakpoint-md) {
+    max-width: $local-container-max-width;
+    margin: 0 auto;
+  }
+
+  @media (min-width: $local-a-breakpoint-lg) {
+    margin: 0;
+  }
+
+  &__largePadding {
+    padding: var(--a-spacing-8) var(--a-spacing-6);
+
+    @media (min-width: $local-a-breakpoint-md) {
+      padding: var(--a-spacing-8) var(--a-spacing-10);
+    }
+  }
+}

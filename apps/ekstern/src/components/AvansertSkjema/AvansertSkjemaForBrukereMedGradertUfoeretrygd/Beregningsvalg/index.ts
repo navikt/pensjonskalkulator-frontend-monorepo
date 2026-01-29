@@ -1,0 +1,1 @@
+export { Beregningsvalg } from './Beregningsvalg'

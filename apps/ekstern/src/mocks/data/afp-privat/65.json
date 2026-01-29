@@ -1,0 +1,12 @@
+{
+  "afpPrivat": [
+    {
+      "alder": 65,
+      "beloep": 123000,
+      "kompensasjonstillegg": 500,
+      "kronetillegg": 1000,
+      "livsvarig": 12000,
+      "maanedligBeloep": 10250
+    }
+  ]
+}
