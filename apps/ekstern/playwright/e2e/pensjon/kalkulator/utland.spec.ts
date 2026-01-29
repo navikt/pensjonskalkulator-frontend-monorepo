@@ -253,7 +253,7 @@ test.describe('Utland', () => {
           const landSelect = page.getByTestId('utenlandsopphold-land')
           await expect(landSelect).toBeVisible()
           const options = landSelect.locator('option')
-          await expect(options).toHaveCount(257)
+          await expect(options).toHaveCount(255)
         })
 
         test.describe('Når jeg har valgt land jeg har bodd eller jobbet i, og landet er ett avtaleland, unntatt nordiske land og Nederland,', () => {

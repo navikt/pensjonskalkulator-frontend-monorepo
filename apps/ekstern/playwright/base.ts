@@ -138,6 +138,10 @@ export async function setupInterceptions(
       mockFileName: 'er-apoteker.json',
     },
     {
+      url: /\/pensjon\/kalkulator\/api\/v2\/tpo-livsvarig-offentlig-afp/,
+      mockFileName: 'afp-offentlig-livsvarig.json',
+    },
+    {
       url: /\/pensjon\/kalkulator\/api\/v2\/ekskludert/,
       mockFileName: 'ekskludert-status.json',
     },
