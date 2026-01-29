@@ -1,5 +1,5 @@
 export { alderspensjon } from './alderspensjon'
-export { apoteker } from './apoteker'
+export { apoteker, apotekerError } from './apoteker'
 export { ekskludert } from './ekskludert'
 export { inntekt } from './inntekt'
 export { loependeVedtak } from './loepende-vedtak'
