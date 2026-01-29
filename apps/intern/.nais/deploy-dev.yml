@@ -2,7 +2,7 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: pensjonskalkulator-frontend-intern
-  namespace: pensjonskalkulator-frontend
+  namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
   annotations:
@@ -10,7 +10,9 @@ metadata:
 spec:
   image: '{{ image }}'
   ingresses:
-    - https://pensjonskalkulator-intern-frontend.ansatt.dev.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no
+    - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no/kalkulator
+    - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
@@ -72,4 +74,4 @@ spec:
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://pensjon-pselv-q2.dev.adeo.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
   envFrom:
-    - secret: pensjonskalkulator-frontend-unleash-api-token
+    - secret: pensjonskalkulator-frontend-intern-unleash-api-token

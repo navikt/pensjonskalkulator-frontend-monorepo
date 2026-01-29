@@ -1,14 +1,14 @@
 apiVersion: unleash.nais.io/v1
 kind: ApiToken
 metadata:
-  name: pensjonskalkulator-frontend
-  namespace: pensjonskalkulator-frontend
+  name: pensjonskalkulator-frontend-intern
+  namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
 spec:
   unleashInstance:
     apiVersion: unleash.nais.io/v1
     kind: RemoteUnleash
-    name: pensjonskalkulator-frontend
-  secretName: pensjonskalkulator-frontend-unleash-api-token
+    name: pensjonskalkulator
+  secretName: pensjonskalkulator-frontend-intern-unleash-api-token
   environment: development

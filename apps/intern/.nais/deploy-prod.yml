@@ -10,7 +10,7 @@ metadata:
 spec:
   image: '{{ image }}'
   ingresses:
-    - https://pensjonskalkulator-intern.ansatt.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator-frontend-intern.ansatt.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
@@ -72,4 +72,4 @@ spec:
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://www.nav.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
   envFrom:
-    - secret: pensjonskalkulator-frontend-unleash-api-token
+    - secret: pensjonskalkulator-frontend-intern-unleash-api-token
