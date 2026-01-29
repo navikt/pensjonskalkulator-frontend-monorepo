@@ -11,4 +11,4 @@ runs:
   steps:
     - name: Run unit tests
       shell: bash
-      run: pnpm --filter ${{ inputs.app }} test --run
+      run: pnpm --filter ${{ inputs.app }} test -- --run
