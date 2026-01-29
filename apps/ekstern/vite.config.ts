@@ -27,8 +27,6 @@ export default defineConfig({
             'react',
             'react-dom',
             'react-redux',
-            'redux',
-            'redux-thunk',
             '@reduxjs/toolkit',
             'react-router',
           ],
