@@ -77,6 +77,7 @@ export default defineConfig({
     },
   ].filter(Boolean),
   server: {
+    port: 5173,
     proxy: {
       '/pensjon/kalkulator/api': {
         target: 'http://localhost:8080',
@@ -87,7 +88,7 @@ export default defineConfig({
   },
   css: {
     modules: {
-      // @ts-expect-error
+      // @ts-expect-error - Custom loader type not in Vite's CSSModulesOptions
       Loader: CustomPostCSSLoader,
       generateScopedName: (name, fileName) => {
         const pathArray = fileName.split('/')
@@ -97,7 +98,12 @@ export default defineConfig({
       },
     },
     preprocessorOptions: {
-      scss: {},
+      scss: {
+        // @ts-expect-error - Vite types don't include newer Sass options yet
+        api: 'modern-compiler',
+        silenceDeprecations: ['legacy-js-api'],
+        loadPaths: [resolve(__dirname, '../../node_modules')],
+      },
     },
   },
   test: {

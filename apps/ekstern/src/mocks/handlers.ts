@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+ 
+ 
 import { HttpResponse, delay, http, passthrough } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
@@ -64,10 +64,22 @@ const externalServiceHandlers = [
     }
   }),
 
-  // Mock specific Hotjar tracking endpoints (not JS files)
+  // Mock Task Analytics script with proper API stub
   http.all('https://*.taskanalytics.com/*', ({ request }) => {
     if (new URL(request.url).pathname.endsWith('.js')) {
-      return new HttpResponse('console.log("mocked task analytics")', {
+      // Provide a complete Task Analytics stub that satisfies the decorator's expectations
+      const taStub = `
+        (function() {
+          console.log("mocked task analytics");
+          window.TA = window.TA || {};
+          window.TA.q = window.TA.q || [];
+          window.TA.push = function() { window.TA.q.push(arguments); };
+          window.TA.loaded = true;
+          window.ta = window.ta || function() { (window.ta.q = window.ta.q || []).push(arguments); };
+          window.ta.loaded = true;
+        })();
+      `
+      return new HttpResponse(taStub, {
         headers: {
           'Content-Type': 'application/javascript',
         },

@@ -10,6 +10,7 @@
 	"scripts": {
 		"dev": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
+		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
 		"build": "pnpm -r build",
 		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
 		"lint": "eslint .",

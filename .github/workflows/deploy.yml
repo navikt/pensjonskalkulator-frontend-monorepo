@@ -126,52 +126,146 @@ jobs:
   #         IMAGE: ${{ needs.build-intern.outputs.image }}
   #         RESOURCE: apps/intern/.nais/deploy-prod.yml,apps/intern/.nais/unleash-api-token-prod.yaml
 
-  #     - name: Notify Slack of successful production deploy
-  #       if: success()
-  #       env:
-  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_PROD_DEPLOY_URL }}
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       run: |
-  #         COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-  #         PR_NUMBER=$(echo "$COMMIT_MSG" | grep -oE "#[0-9]+" | tr -d '#')
+  # Build and deploy ekstern app
+  build-ekstern:
+    name: Build ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #         if [ -z "$PR_NUMBER" ]; then
-  #           COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
-  #           curl -X POST -H 'Content-type: application/json' --data "{
-  #             \"text\": \"🚀 *intern deployed to production!*\n*Commit:* $COMMIT_MSG\n*Author:* $COMMIT_AUTHOR\n*Link:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View commit>\"
-  #           }" $SLACK_WEBHOOK_URL
-  #         else
-  #           PR_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-  #             https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER)
-  #           PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
-  #           PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
-  #           PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
-  #           curl -X POST -H 'Content-type: application/json' --data "{
-  #             \"text\": \"🚀 *intern deployed to production!*\n*PR:* <$PR_URL|$PR_TITLE> by \`@$PR_AUTHOR\`\"
-  #           }" $SLACK_WEBHOOK_URL
-  #         fi
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
 
-  # Gate job - ensures all required jobs pass (uncomment when you have multiple apps/environments)
-  # all-deployed:
-  #   name: All deployments complete
-  #   runs-on: ubuntu-latest
-  #   needs: [changes, deploy-intern-prod, deploy-ekstern-prod]
-  #   if: always()
-  #   steps:
-  #     - name: Check deployment results
-  #       run: |
-  #         # Check if intern deployment was needed and succeeded
-  #         if [[ "${{ needs.changes.outputs.intern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
-  #           if [[ "${{ needs.deploy-intern-prod.result }}" != "success" ]]; then
-  #             echo "Intern prod deployment failed"
-  #             exit 1
-  #           fi
-  #         fi
-  #         # Check if ekstern deployment was needed and succeeded
-  #         if [[ "${{ needs.changes.outputs.ekstern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
-  #           if [[ "${{ needs.deploy-ekstern-prod.result }}" != "success" ]]; then
-  #             echo "Ekstern prod deployment failed"
-  #             exit 1
-  #           fi
-  #         fi
-  #         echo "All deployments completed successfully!"
+      - name: Build application
+        run: pnpm build:ekstern
+
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
+        with:
+          dockerfile: apps/ekstern/.docker/Dockerfile
+          docker_context: apps/ekstern
+          team: pensjonskalkulator
+
+  # Run unit tests for ekstern
+  test-ekstern:
+    name: Unit tests ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run unit tests
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: ekstern
+
+  # Run E2E tests for ekstern
+  e2e-ekstern:
+    name: E2E tests ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          app: ekstern
+
+  # Deploy ekstern to staging (dev environment)
+  deploy-ekstern-staging:
+    name: Deploy ekstern to staging
+    needs: [build-ekstern, test-ekstern, e2e-ekstern]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-staging.yml,apps/ekstern/.nais/unleash-api-token-dev.yaml
+
+  # Deploy ekstern to prod
+  deploy-ekstern-prod:
+    name: Deploy ekstern to prod
+    needs: [deploy-ekstern-staging]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to prod-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-prod.yml,apps/ekstern/.nais/unleash-api-token-prod.yaml
+
+      - name: Notify Slack of successful production deploy
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_PROD_DEPLOY_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          PR_NUMBER=$(echo "$COMMIT_MSG" | grep -oE "#[0-9]+" | tr -d '#')
+
+          if [ -z "$PR_NUMBER" ]; then
+            COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
+            curl -X POST -H 'Content-type: application/json' --data "{
+              \"text\": \"🚀 *ekstern deployed to production!*\n*Commit:* $COMMIT_MSG\n*Author:* $COMMIT_AUTHOR\n*Link:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View commit>\"
+            }" $SLACK_WEBHOOK_URL
+          else
+            PR_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER)
+            PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+            PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+            PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
+            curl -X POST -H 'Content-type: application/json' --data "{
+              \"text\": \"🚀 *ekstern deployed to production!*\n*PR:* <$PR_URL|$PR_TITLE> by \`@$PR_AUTHOR\`\"
+            }" $SLACK_WEBHOOK_URL
+          fi
+
+  # Gate job - ensures all required jobs pass
+  all-deployed:
+    name: All deployments complete
+    runs-on: ubuntu-latest
+    needs: [changes, deploy-intern-dev, deploy-ekstern-prod]
+    if: always()
+    steps:
+      - name: Check deployment results
+        run: |
+          # Check if intern deployment was needed and succeeded
+          if [[ "${{ needs.changes.outputs.intern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
+            if [[ "${{ needs.deploy-intern-dev.result }}" != "success" ]]; then
+              echo "Intern dev deployment failed"
+              exit 1
+            fi
+          fi
+          # Check if ekstern deployment was needed and succeeded
+          if [[ "${{ needs.changes.outputs.ekstern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
+            if [[ "${{ needs.deploy-ekstern-prod.result }}" != "success" ]]; then
+              echo "Ekstern prod deployment failed"
+              exit 1
+            fi
+          fi
+          echo "All deployments completed successfully!"
