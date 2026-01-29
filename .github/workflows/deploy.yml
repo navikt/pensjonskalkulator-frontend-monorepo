@@ -108,7 +108,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
-          RESOURCE: apps/intern/.nais/deploy-dev.yml,.nais/unleash-api-token-dev.yaml
+          RESOURCE: apps/intern/.nais/deploy-dev.yml,apps/intern/.nais/unleash-api-token-dev.yaml
 
   # Deploy intern to prod (uncomment when ready for production)
   # deploy-intern-prod:
@@ -124,7 +124,7 @@ jobs:
   #       env:
   #         CLUSTER: prod-gcp
   #         IMAGE: ${{ needs.build-intern.outputs.image }}
-  #         RESOURCE: apps/intern/.nais/deploy-prod.yml,.nais/unleash-api-token-prod.yaml
+  #         RESOURCE: apps/intern/.nais/deploy-prod.yml,apps/intern/.nais/unleash-api-token-prod.yaml
 
   #     - name: Notify Slack of successful production deploy
   #       if: success()
