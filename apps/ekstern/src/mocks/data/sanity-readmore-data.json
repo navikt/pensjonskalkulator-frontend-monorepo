@@ -802,6 +802,74 @@
     {
       "innhold": [
         {
+          "_key": "afp1a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "afp1a1",
+              "_type": "span",
+              "marks": [],
+              "text": "Hvis Nav finner informasjon om at du har startet å ta ut AFP, henter Nav inn beløpet fra tjenestepensjonsordningen din."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "afp1b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "afp1b1",
+              "_type": "span",
+              "marks": [],
+              "text": "Nav bruker opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "nav_sjekker_og_henter_AFP_livsvarig",
+      "overskrift": "Nav sjekker om du har startet å ta ut AFP og henter i så fall inn beløpet"
+    },
+    {
+      "innhold": [
+        {
+          "_key": "afp2a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "afp2a1",
+              "_type": "span",
+              "marks": [],
+              "text": "Nav vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "afp2b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "afp2b1",
+              "_type": "span",
+              "marks": [],
+              "text": "Tjenestepensjonsordningen din har ansvar for livsvarig AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "name": "nav_beregner_AFP_livsvarig",
+      "overskrift": "Nav gjør en foreløpig beregning av AFP hvis du ikke har startet å ta ut AFP"
+    },
+    {
+      "innhold": [
+        {
           "_key": "aea2db60c0d3",
           "_type": "block",
           "children": [
