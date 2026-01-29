@@ -32,12 +32,7 @@ export default defineConfig({
           ],
           ['designsystem']: ['@navikt/ds-react'],
           ['faro']: ['@grafana/faro-web-sdk'],
-          ['intl']: [
-            'react-intl',
-            'intl-messageformat',
-            '@formatjs/intl',
-            '@formatjs/intl-numberformat',
-          ],
+          ['intl']: ['react-intl', '@formatjs/intl-numberformat'],
         },
       },
     },
