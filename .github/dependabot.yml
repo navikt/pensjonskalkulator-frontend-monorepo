@@ -3,16 +3,12 @@
 
 version: 2
 
-# Shared config using YAML anchors
-x-npm-defaults: &npm-defaults
-  package-ecosystem: npm
-  registries:
-    - npm-github
-  schedule:
-    interval: daily
-  cooldown:
-    default-days: 7
-  versioning-strategy: increase
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{ secrets.READER_TOKEN }}
+    replaces-base: true
 
 updates:
   - package-ecosystem: github-actions
@@ -20,8 +16,12 @@ updates:
     schedule:
       interval: weekly
 
-  - <<: *npm-defaults
+  - package-ecosystem: npm
     directory: /
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
     groups:
       react:
         patterns:
@@ -51,20 +51,21 @@ updates:
           - 'vite'
           - '@vitejs/*'
 
-  - <<: *npm-defaults
+  - package-ecosystem: npm
     directory: /apps/intern
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
     groups:
       vite:
         patterns:
           - 'vite'
           - '@vitejs/*'
 
-  - <<: *npm-defaults
+  - package-ecosystem: npm
     directory: /packages/api
-
-registries:
-  npm-github:
-    type: npm-registry
-    url: https://npm.pkg.github.com
-    token: ${{ secrets.READER_TOKEN }}
-    replaces-base: true
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
