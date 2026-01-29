@@ -1,0 +1,193 @@
+name: Check pull request
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Detect which apps/packages changed
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      intern: ${{ steps.changes.outputs.intern }}
+      ekstern: ${{ steps.changes.outputs.ekstern }}
+      api: ${{ steps.changes.outputs.api }}
+      shared: ${{ steps.changes.outputs.shared }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect changes
+        id: changes
+        uses: ./.github/actions/detect-changes
+
+  # Lint and typecheck everything
+  linting-and-typecheck:
+    name: Lint and typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run ESLint
+        run: pnpm lint
+
+      - name: Run typecheck
+        run: pnpm typecheck
+
+  # Build intern app
+  build-intern:
+    name: Build intern
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build application
+        run: pnpm build:intern
+
+  # Build ekstern app
+  build-ekstern:
+    name: Build ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build application
+        run: pnpm build:ekstern
+
+  # Unit tests for intern
+  unit-tests-intern:
+    name: Unit tests (intern)
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run unit tests
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: intern
+
+  # Unit tests for ekstern
+  unit-tests-ekstern:
+    name: Unit tests (ekstern)
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run unit tests
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: ekstern
+
+  # E2E tests for intern
+  e2e-tests-intern:
+    name: E2E tests (intern)
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          app: intern
+
+  # E2E tests for ekstern
+  e2e-tests-ekstern:
+    name: E2E tests (ekstern)
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Run E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          app: ekstern
+
+  # All checks passed gate
+  all-checks-passed:
+    name: All checks passed
+    runs-on: ubuntu-latest
+    needs:
+      - linting-and-typecheck
+      - build-intern
+      - build-ekstern
+      - unit-tests-intern
+      - unit-tests-ekstern
+      - e2e-tests-intern
+      - e2e-tests-ekstern
+    if: always()
+    steps:
+      - name: Check all results
+        run: |
+          if [[ "${{ needs.linting-and-typecheck.result }}" != "success" ]]; then
+            echo "Linting and/or type checks failed"
+            exit 1
+          fi
+          if [[ "${{ needs.build-intern.result }}" != "success" && "${{ needs.build-intern.result }}" != "skipped" ]]; then
+            echo "Build intern failed"
+            exit 1
+          fi
+          if [[ "${{ needs.build-ekstern.result }}" != "success" && "${{ needs.build-ekstern.result }}" != "skipped" ]]; then
+            echo "Build ekstern failed"
+            exit 1
+          fi
+          if [[ "${{ needs.unit-tests-intern.result }}" != "success" && "${{ needs.unit-tests-intern.result }}" != "skipped" ]]; then
+            echo "Unit tests (intern) failed"
+            exit 1
+          fi
+          if [[ "${{ needs.unit-tests-ekstern.result }}" != "success" && "${{ needs.unit-tests-ekstern.result }}" != "skipped" ]]; then
+            echo "Unit tests (ekstern) failed"
+            exit 1
+          fi
+          if [[ "${{ needs.e2e-tests-intern.result }}" != "success" && "${{ needs.e2e-tests-intern.result }}" != "skipped" ]]; then
+            echo "E2E tests (intern) failed"
+            exit 1
+          fi
+          if [[ "${{ needs.e2e-tests-ekstern.result }}" != "success" && "${{ needs.e2e-tests-ekstern.result }}" != "skipped" ]]; then
+            echo "E2E tests (ekstern) failed"
+            exit 1
+          fi
+          echo "All checks passed successfully!"

@@ -1,0 +1,36 @@
+name: 'Detect changes'
+description: 'Detect which apps and packages have changed'
+
+outputs:
+  intern:
+    description: 'Whether apps/intern has changed'
+    value: ${{ steps.changes.outputs.intern }}
+  ekstern:
+    description: 'Whether apps/ekstern has changed'
+    value: ${{ steps.changes.outputs.ekstern }}
+  api:
+    description: 'Whether packages/api has changed'
+    value: ${{ steps.changes.outputs.api }}
+  shared:
+    description: 'Whether shared config files have changed'
+    value: ${{ steps.changes.outputs.shared }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check for changes
+      uses: dorny/paths-filter@v3
+      id: changes
+      with:
+        filters: |
+          intern:
+            - 'apps/intern/**'
+          ekstern:
+            - 'apps/ekstern/**'
+          api:
+            - 'packages/api/**'
+          shared:
+            - 'package.json'
+            - 'pnpm-lock.yaml'
+            - 'tsconfig.base.json'
+            - '.github/**'

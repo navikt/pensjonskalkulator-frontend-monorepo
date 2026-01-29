@@ -1,0 +1,14 @@
+name: 'Run unit tests'
+description: 'Run unit tests for a specific app'
+
+inputs:
+  app:
+    description: 'The app to run unit tests for (e.g., intern, ekstern)'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run unit tests
+      shell: bash
+      run: pnpm --filter ${{ inputs.app }} test --run
