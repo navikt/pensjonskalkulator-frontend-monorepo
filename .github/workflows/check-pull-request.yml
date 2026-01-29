@@ -35,6 +35,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run ESLint
         run: pnpm lint
@@ -54,6 +56,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Build application
         run: pnpm build:intern
@@ -70,6 +74,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Build application
         run: pnpm build:ekstern
@@ -86,6 +92,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests
@@ -104,6 +112,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests
@@ -122,6 +132,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run E2E tests
         uses: ./.github/actions/run-e2e-tests
@@ -140,6 +152,8 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run E2E tests
         uses: ./.github/actions/run-e2e-tests
