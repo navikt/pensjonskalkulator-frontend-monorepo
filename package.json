@@ -13,6 +13,7 @@
 		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
 		"build": "pnpm -r build",
 		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
+		"build:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern build",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",
