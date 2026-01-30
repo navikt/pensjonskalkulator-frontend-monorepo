@@ -4,8 +4,8 @@ ENV NODE_ENV=production
 ENV TZ="Europe/Oslo"
 
 WORKDIR /app
-COPY dist .
-COPY package.json .
+COPY apps/ekstern/dist .
+COPY apps/ekstern/package.json .
 COPY node_modules/ node_modules/
 
-CMD ["server/server.js"]
+CMD ["node", "server/server.js"]
