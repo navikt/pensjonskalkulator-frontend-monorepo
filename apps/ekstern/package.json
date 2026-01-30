@@ -22,6 +22,7 @@
     "build:production": "tsc && vite build --mode production",
     "preview": "vite preview",
     "test": "vitest run --pool=forks --coverage",
+    "test:e2e": "pnpm pw:test",
     "test:update": "vitest run --pool=forks -u",
     "test:watch": "vitest --pool=forks",
     "test:ui": "vitest --pool=forks --ui",
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-attributes": "^7.27.1",
+    "@playwright/test": "^1.58.0",
     "@formatjs/intl-numberformat": "^8.15.4",
     "@grafana/faro-web-sdk": "^1.19.0",
     "@grafana/faro-web-tracing": "^1.19.0",

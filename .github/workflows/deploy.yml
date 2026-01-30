@@ -64,6 +64,9 @@ jobs:
       - name: Build application
         run: pnpm build:intern
 
+      - name: Build backend for frontend
+        run: pnpm --filter=intern run build:server
+
       - name: Create Docker image
         id: image-creation
         uses: nais/docker-build-push@v0
