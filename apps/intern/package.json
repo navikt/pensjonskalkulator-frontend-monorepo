@@ -15,7 +15,8 @@
 	"dependencies": {
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
 		"react": "^19.2.4",
-		"react-dom": "^19.2.4"
+		"react-dom": "^19.2.4",
+		"express": "^5.1.0"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-react": "^5.1.2",
