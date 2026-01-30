@@ -19,7 +19,7 @@ const distFolder = __dirname
 app.use('/assets', express.static(path.join(distFolder, 'assets')))
 
 // Fallback: serve index.html for SPA routes
-app.get('*', (_req: Request, res: Response) => {
+app.get(/.*/, (_req: Request, res: Response) => {
 	res.sendFile(path.join(distFolder, 'index.html'))
 })
 
