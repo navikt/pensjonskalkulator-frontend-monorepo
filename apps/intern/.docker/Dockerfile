@@ -8,4 +8,5 @@ COPY /dist .
 COPY package.json .
 COPY node_modules/ node_modules/
 
-CMD ["server/server.js"]
+RUN npm install -g serve
+CMD ["serve", ".", "-l", "8080"]
