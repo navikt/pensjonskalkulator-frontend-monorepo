@@ -7,6 +7,13 @@ export default [
 	{
 		ignores: ['**/dist/**', '**/node_modules/**', '**/coverage/**'],
 	},
+	{
+		languageOptions: {
+			parserOptions: {
+				tsconfigRootDir: import.meta.dirname,
+			},
+		},
+	},
 	js.configs.recommended,
 	...tseslint.configs.recommended,
 	{
@@ -18,7 +25,7 @@ export default [
 			ecmaVersion: 2020,
 			globals: globals.browser,
 			parserOptions: {
-				project: './tsconfig.json',
+				project: ['./tsconfig.json', './tsconfig.server.json'],
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},

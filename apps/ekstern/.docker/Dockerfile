@@ -8,4 +8,4 @@ COPY dist .
 COPY package.json .
 COPY node_modules/ node_modules/
 
-CMD ["node", "server/server.js"]
+CMD ["server/server.js"]

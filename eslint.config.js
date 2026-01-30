@@ -1,7 +1,10 @@
 import js from '@eslint/js'
 import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
+import { URL } from 'node:url'
 import tseslint from 'typescript-eslint'
+
+const __dirname = new URL('.', import.meta.url).pathname
 
 export default [
 	{
@@ -15,6 +18,13 @@ export default [
 	},
 	js.configs.recommended,
 	...tseslint.configs.recommended,
+	{
+		languageOptions: {
+			parserOptions: {
+				tsconfigRootDir: __dirname,
+			},
+		},
+	},
 	{
 		files: ['**/*.{ts,tsx}'],
 		plugins: {
