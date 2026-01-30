@@ -277,20 +277,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v22.16.0
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
         with:
-          node-version: '22.16.0'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v4
-        with:
-          path: |
-            apps/ekstern/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Download the build folders
         uses: actions/download-artifact@v4
@@ -298,14 +288,11 @@ jobs:
           name: dist
           path: apps/ekstern/dist
 
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: pnpm --filter=ekstern install --frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Install Playwright browsers (chromium)
+        run: pnpm --filter=ekstern exec playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: pnpm --filter=ekstern exec playwright test --project=chromium --workers=6
+        run: pnpm --filter=ekstern run pw:test
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
@@ -360,7 +347,7 @@ jobs:
           echo "Deploying to: $BRANCH_NAME"
 
   deploy-test-ekstern:
-    name: Deploy ekstern to ${{ needs.determine-test-env-ekstern.outputs.environments }}
+    name: Deploy ekstern to test environment
     needs: [build-ekstern, determine-test-env-ekstern]
     runs-on: ubuntu-latest
     if: needs.determine-test-env-ekstern.outputs.environments != ''
