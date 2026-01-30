@@ -195,7 +195,7 @@ jobs:
         uses: nais/docker-build-push@v0
         with:
           dockerfile: apps/ekstern/.docker/Dockerfile
-          docker_context: apps/ekstern
+          docker_context: .
           team: pensjonskalkulator
 
   # Run unit tests for ekstern
