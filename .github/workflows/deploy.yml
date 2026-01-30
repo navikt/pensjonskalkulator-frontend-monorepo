@@ -163,17 +163,17 @@ jobs:
 
       - name: Fetch openapi backend types
         run: |
-          npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./apps/ekstern/src/types/schema.d.ts
+          npx openapi-typescript ${{ github.ref == 'refs/heads/main' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./apps/ekstern/src/types/schema.d.ts
 
       - name: Format backend scheme
         run: pnpm --filter=ekstern run format:types
 
       - name: Build staging application
-        if: github.event.inputs.prod != 'true'
+        if: github.ref != 'refs/heads/main'
         run: pnpm --filter=ekstern run build
 
       - name: Build production application
-        if: github.event.inputs.prod == 'true'
+        if: github.ref == 'refs/heads/main'
         run: pnpm --filter=ekstern run build:production
 
       - name: Build backend for frontend
@@ -250,11 +250,11 @@ jobs:
         run: pnpm --filter=ekstern exec cypress install
 
       - name: Run integration tests on staging application
-        if: github.event.inputs.prod  != 'true'
+        if: github.ref != 'refs/heads/main'
         run: pnpm --filter=ekstern run cy:test
 
       - name: Run integration tests on production application
-        if: github.event.inputs.prod  == 'true'
+        if: github.ref == 'refs/heads/main'
         run: pnpm --filter=ekstern run cy:test:production
 
       - name: Archive Cypress artifacts
@@ -317,11 +317,7 @@ jobs:
     name: Deploy ekstern to staging
     needs: [build-ekstern, test-ekstern, e2e-ekstern, playwright-ekstern]
     runs-on: ubuntu-latest
-    if: |
-      (github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch') &&
-      github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -350,47 +346,46 @@ jobs:
       contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
+      environments: ${{ steps.set-env.outputs.environments }}
     steps:
       - name: Set environment from branch
         id: set-env
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "Deploying to: $BRANCH_NAME"
 
   deploy-test-ekstern:
-    name: Deploy ekstern to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+    name: Deploy ekstern to ${{ needs.determine-test-env-ekstern.outputs.environments }}
     needs: [build-ekstern, determine-test-env-ekstern]
     runs-on: ubuntu-latest
-    if: needs.determine-test-env-ekstern.outputs.environment != ''
+    if: needs.determine-test-env-ekstern.outputs.environments != ''
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+      - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environments }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-dev-branch.yaml,apps/ekstern/.nais/unleash-api-token-dev.yaml
-          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environment }}
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
 
-      - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+      - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environments }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-veiledning-dev-branch.yaml
-          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environment }}
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
 
   deploy-ekstern-prod:
     name: Deploy ekstern to prod-gcp
     needs: [build-ekstern, test-ekstern, e2e-ekstern, playwright-ekstern]
     runs-on: ubuntu-latest
-    if: |
-      github.ref == 'refs/heads/main' &&
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.prod == 'true'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
