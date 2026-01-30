@@ -74,6 +74,8 @@ export default [
     rules: {
       'no-debugger': 'warn',
       'no-irregular-whitespace': ['error', { skipTemplates: true }],
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       '@typescript-eslint/no-shadow': 'error',
