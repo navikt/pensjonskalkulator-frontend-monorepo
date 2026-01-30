@@ -4,11 +4,23 @@ on:
   push:
     branches:
       - main
+      - sandbox
+      - catbox
+      - magicbox
+      - dreambox
+      - coffeebox
+      - codebox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE.md'
       - 'README.md'
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: Deploy to production
+        type: boolean
+        required: false
 
 permissions:
   contents: read
@@ -149,8 +161,31 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: Build application
-        run: pnpm build:ekstern
+      - name: Fetch openapi backend types
+        run: |
+          npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./apps/ekstern/src/types/schema.d.ts
+
+      - name: Format backend scheme
+        run: pnpm --filter=ekstern run format:types
+
+      - name: Build staging application
+        if: github.event.inputs.prod != 'true'
+        run: pnpm --filter=ekstern run build
+
+      - name: Build production application
+        if: github.event.inputs.prod == 'true'
+        run: pnpm --filter=ekstern run build:production
+
+      - name: Build backend for frontend
+        run: pnpm --filter=ekstern run build:server
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: apps/ekstern/dist
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Create Docker image
         id: image-creation
@@ -162,9 +197,8 @@ jobs:
 
   # Run unit tests for ekstern
   test-ekstern:
-    name: Unit tests ekstern
-    needs: changes
-    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    name: Run unit tests ekstern
+    needs: build-ekstern
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -176,15 +210,18 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
-        uses: ./.github/actions/run-unit-tests
+        run: pnpm --filter=ekstern run test
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
         with:
-          app: ekstern
+          name: code-coverage-report
+          path: apps/ekstern/coverage
 
   # Run E2E tests for ekstern
   e2e-ekstern:
-    name: E2E tests ekstern
-    needs: changes
-    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    name: Run Cypress integration tests ekstern
+    needs: build-ekstern
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -195,26 +232,204 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: Run E2E tests
-        uses: ./.github/actions/run-e2e-tests
+      - name: Cache Cypress binary
+        id: cache-cypress
+        uses: actions/cache@v4
         with:
-          app: ekstern
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
-  # Deploy ekstern to staging (dev environment)
-  deploy-ekstern-staging:
-    name: Deploy ekstern to staging
-    needs: [build-ekstern, test-ekstern, e2e-ekstern]
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: apps/ekstern/dist
+
+      - name: Install cypress
+        if: steps.cache-cypress.outputs.cache-hit != 'true'
+        run: pnpm --filter=ekstern exec cypress install
+
+      - name: Run integration tests on staging application
+        if: github.event.inputs.prod  != 'true'
+        run: pnpm --filter=ekstern run cy:test
+
+      - name: Run integration tests on production application
+        if: github.event.inputs.prod  == 'true'
+        run: pnpm --filter=ekstern run cy:test:production
+
+      - name: Archive Cypress artifacts
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: apps/ekstern/cypress/screenshots
+
+  playwright-ekstern:
+    name: Run Playwright tests ekstern
+    needs: build-ekstern
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to dev-gcp
+      - name: Use Node.js v22.16.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            apps/ekstern/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: apps/ekstern/dist
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: pnpm --filter=ekstern install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Run Playwright tests
+        run: pnpm --filter=ekstern exec playwright test --project=chromium --workers=6
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/ekstern/playwright-report
+          retention-days: 7
+
+  # Deploy ekstern to staging (dev environment)
+  deploy-ekstern-staging:
+    name: Deploy ekstern to staging
+    needs: [build-ekstern, test-ekstern, e2e-ekstern, playwright-ekstern]
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-staging.yml,apps/ekstern/.nais/unleash-api-token-dev.yaml
+
+      - name: Deploy veiledning to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-veiledning-staging.yml
+
+  determine-test-env-ekstern:
+    name: Determine ekstern test environment
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+    steps:
+      - name: Set environment from branch
+        id: set-env
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Deploying to: $BRANCH_NAME"
+
+  deploy-test-ekstern:
+    name: Deploy ekstern to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+    needs: [build-ekstern, determine-test-env-ekstern]
+    runs-on: ubuntu-latest
+    if: needs.determine-test-env-ekstern.outputs.environment != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-dev-branch.yaml,apps/ekstern/.nais/unleash-api-token-dev.yaml
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environment }}
+
+      - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environment }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-veiledning-dev-branch.yaml
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environment }}
+
+  # deploy-ekstern-prod:
+  #   name: Deploy ekstern to prod-gcp
+  #   needs:
+  #     [build-ekstern, test-ekstern, e2e-ekstern, playwright-ekstern]
+  #   runs-on: ubuntu-latest
+  #   if: |
+  #     github.ref == 'refs/heads/main' &&
+  #     github.event_name == 'workflow_dispatch' &&
+  #     github.event.inputs.prod == 'true'
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: Deploy to prod-gcp
+  #       uses: nais/deploy/actions/deploy@v2
+  #       env:
+  #         CLUSTER: prod-gcp
+  #         IMAGE: ${{ needs.build-ekstern.outputs.image }}
+  #         RESOURCE: apps/ekstern/.nais/deploy-prod.yml,apps/ekstern/.nais/unleash-api-token-prod.yaml
+
+  #     - name: Deploy veiledning to prod-gcp
+  #       uses: nais/deploy/actions/deploy@v2
+  #       env:
+  #         CLUSTER: prod-gcp
+  #         IMAGE: ${{ needs.build-ekstern.outputs.image }}
+  #         RESOURCE: apps/ekstern/.nais/deploy-veiledning-prod.yml
+
+  #     - name: Notify Slack of successful production deploy
+  #       if: success()
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_PROD_DEPLOY_URL }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: |
+  #         COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+  #         PR_NUMBER=$(echo "$COMMIT_MSG" | grep -oE "#[0-9]+" | tr -d '#')
+
+  #         if [ -z "$PR_NUMBER" ]; then
+  #           COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
+  #           curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"🚀 *ekstern deployed to production!*\\n*Commit:* $COMMIT_MSG\\n*Author:* $COMMIT_AUTHOR\\n*Link:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View commit>\"}" $SLACK_WEBHOOK_URL
+  #         else
+  #           PR_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+  #             https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER)
+  #           PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+  #           PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+  #           PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
+  #           curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"🚀 *ekstern deployed to production!*\\n*PR:* <$PR_URL|$PR_TITLE> by \\`@$PR_AUTHOR\\`\"}" $SLACK_WEBHOOK_URL
+  #         fi
 
   # Deploy ekstern to prod (uncomment when ready for production)
   # deploy-ekstern-prod:
