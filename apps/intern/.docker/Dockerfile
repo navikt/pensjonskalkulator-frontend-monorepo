@@ -8,7 +8,7 @@ ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/nod
 #########################################
 FROM --platform=${BUILDPLATFORM} ${NODE_BUILD_IMG} AS prepare
 WORKDIR /usr/src/app
-COPY ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml", "./"]
+COPY [".npmrc", "package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml", "./"]
 COPY packages packages
 COPY apps apps
 RUN find apps \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
