@@ -16,4 +16,4 @@ RUN npx pnpm install --filter=intern... --prod --frozen-lockfile
 # Copy built output (already built in CI)
 COPY apps/intern/dist apps/intern/dist
 
-CMD ["node", "apps/intern/dist/server/server.js"]
+CMD ["server/server.js"]
