@@ -11,10 +11,11 @@ ENV TZ="Europe/Oslo"
 COPY node_modules /node_modules
 
 # Copy pre-built server and assets to /app
+COPY apps/intern/package.json /app/package.json
 COPY apps/intern/dist/server/server.js /app/server.js
 COPY apps/intern/dist/assets /app/assets
 COPY apps/intern/dist/index.html /app/
 COPY apps/intern/dist/*.css /app/
 
 ENTRYPOINT ["node"]
-CMD ["--input-type=module", "/app/server.js"]
+CMD ["/app/server.js"]
