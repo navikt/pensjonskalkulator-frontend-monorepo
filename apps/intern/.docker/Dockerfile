@@ -5,15 +5,13 @@ ENV TZ="Europe/Oslo"
 
 WORKDIR /app
 
-# Install pnpm directly
-RUN npm install -g pnpm
+# Install pnpm
+RUN npm install pnpm@9.15.4
 
-# Copy workspace files needed for dependency install
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY apps/intern/package.json apps/intern/
 
-# Install ONLY production deps for intern
-RUN pnpm install --filter=intern --prod --frozen-lockfile
+COPY package.json pnpm-lock.yaml ./
+
+RUN npx pnpm install --filter=intern... --prod --frozen-lockfile
 
 # Copy built output (already built in CI)
 COPY apps/intern/dist apps/intern/dist
