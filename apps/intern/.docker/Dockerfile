@@ -6,7 +6,7 @@ ENV TZ="Europe/Oslo"
 WORKDIR /app
 COPY dist .
 COPY package.json .
-COPY node_modules/ node_modules/
-COPY ../../node_modules/ ../../node_modules/
+COPY node_modules node_modules
+COPY ../../node_modules /node_modules
 
 CMD ["server/server.js"]
