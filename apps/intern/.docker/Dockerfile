@@ -10,12 +10,11 @@ ENV TZ="Europe/Oslo"
 # Copy node_modules to root so symlink paths work correctly
 COPY node_modules /node_modules
 
-# Copy pre-built server and assets
-WORKDIR /app
-COPY apps/intern/dist/server/server.js ./server.js
-COPY apps/intern/dist/assets ./assets
-COPY apps/intern/dist/index.html ./
-COPY apps/intern/dist/*.css ./
+# Copy pre-built server and assets to /app
+COPY apps/intern/dist/server/server.js /app/server.js
+COPY apps/intern/dist/assets /app/assets
+COPY apps/intern/dist/index.html /app/
+COPY apps/intern/dist/*.css /app/
 
-ENTRYPOINT ["/usr/local/bin/node"]
-CMD ["--input-type=module", "server.js"]
+ENTRYPOINT ["node"]
+CMD ["--input-type=module", "/app/server.js"]
