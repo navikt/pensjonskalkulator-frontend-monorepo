@@ -5,8 +5,8 @@ ENV TZ="Europe/Oslo"
 
 WORKDIR /app
 
-# Enable pnpm
-RUN corepack enable
+# Install pnpm directly
+RUN npm install -g pnpm
 
 # Copy workspace files needed for dependency install
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
