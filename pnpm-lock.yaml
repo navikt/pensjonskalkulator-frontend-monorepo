@@ -144,8 +144,8 @@ importers:
         specifier: ^7.31.0
         version: 7.40.0
       '@navikt/ds-react':
-        specifier: ^7.31.0
-        version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^8.2.0
+        version: 8.2.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.6.1
         version: 3.6.1(csp-header@6.3.0)(html-react-parser@5.2.14(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)
@@ -1940,21 +1940,21 @@ packages:
   '@navikt/aksel-icons@7.40.0':
     resolution: {integrity: sha512-1xuhplMhKCEPn2iMFypMVgkRNxUd5iupQ7HP2itdQCkK3K2mm2b8HsDwL9d7YDWcxowq5ff7ewpKgQFPn6o1UQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.40.0/16d67c0742bcf2a2c38ad37be6c287765640fd7f}
 
+  '@navikt/aksel-icons@8.2.0':
+    resolution: {integrity: sha512-oDNNNyafke41foUxHC7cDODXz3Lrx9GberqCU0ia5MdZsMWPnHwGd+jIyP7DT9UNTAxMUMpZ/kqq173g8ECyEw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.2.0/815b0ce71ba251f4443c3677106887ea2a70ad3d}
+
   '@navikt/ds-css@7.40.0':
     resolution: {integrity: sha512-DPxoESUbmPImfbYrmcrOIL1XVsxqqFITgNCZ3cXQgv2xRHP9G6LTEdiYjwHecffHb6L/7mEPJ929MZ50o1fZNA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.40.0/267682132732537194904a0498ce8971bf8b4922}
 
-  '@navikt/ds-react@7.40.0':
-    resolution: {integrity: sha512-UAjWnl2ot3QtXTitbuzO8b28ugBR7Bx/AiPM+SkdCCrcC0LB5/qQ5LhnGAY9UvPVyRV8GUAc2iHvTdl47+t+nQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.40.0/4752ce4b946ab9f05135124d5fec50f2d0eaa937}
+  '@navikt/ds-react@8.2.0':
+    resolution: {integrity: sha512-3UzZ7B2OBEWXQvrPaqiTSkFB1amduonwVm5hEgLN4HcHDLsoM2zqy8sewC2iFDXJDKUI0M27NoK41qlQ+H5rTQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.2.0/3796f65287a19791d516cac0d6df69e0ce1118a4}
     peerDependencies:
       '@types/react': ^19.2.10
       react: ^19.2.4
       react-dom: ^19.2.4
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
-  '@navikt/ds-tokens@7.40.0':
-    resolution: {integrity: sha512-zBaBKLS5R2OZyXI4UUPOmiB15L/u/aJPHiyoccJDtmqrv5wRkc1oM6UCjzKK0D4gLZHBoxp7YBT0sR9Mp4DXFQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.40.0/36f981e12d4d90f18155615b7666b737039a3ff0}
+  '@navikt/ds-tokens@8.2.0':
+    resolution: {integrity: sha512-CAwLOrlHpvAOo0VUpyTdH4NPxrDVdQ/D9Vs2UrD3bqwjaEqm5GShM7zrIyPlraSo0y2+KX94Y3BLhs+mypqaHA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.2.0/5e15fcf3bffb277f8730edb0c033ee289d2798e4}
 
   '@navikt/nav-dekoratoren-moduler@3.6.1':
     resolution: {integrity: sha512-vfq24tA2eKEsZ9/qRzobRlrKV5NUbSuI9FA60AUhH+BX+61WE/ZsvHhNbFiO9NlXg/yYLmVZCg1uJB5V4QnU7A==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.6.1/b0dfb47266ce90ffacd1905cd4feb53d8194dbcb}
@@ -1964,9 +1964,6 @@ packages:
       html-react-parser: '>=5.x'
       jsdom: '>=16.x'
       react: ^19.2.4
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@navikt/oasis@4.1.1':
     resolution: {integrity: sha512-WNAoUvK9z098/4lFzAD/09Q0Oz+Hf2mTTN8iAVi62xUgEXryq3am3t82cVfi3YttDKPrYrsrkEo8bJnte8qxbg==, tarball: https://npm.pkg.github.com/download/@navikt/oasis/4.1.1/970a0555b93c862b7c7b0919349f48fc8e7de53c}
@@ -9996,23 +9993,23 @@ snapshots:
 
   '@navikt/aksel-icons@7.40.0': {}
 
+  '@navikt/aksel-icons@8.2.0': {}
+
   '@navikt/ds-css@7.40.0': {}
 
-  '@navikt/ds-react@7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/ds-react@8.2.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@floating-ui/react-dom': 2.1.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@navikt/aksel-icons': 7.40.0
-      '@navikt/ds-tokens': 7.40.0
-      clsx: 2.1.1
+      '@navikt/aksel-icons': 8.2.0
+      '@navikt/ds-tokens': 8.2.0
+      '@types/react': 19.2.10
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
       react-dom: 19.2.4(react@19.2.4)
-    optionalDependencies:
-      '@types/react': 19.2.10
 
-  '@navikt/ds-tokens@7.40.0': {}
+  '@navikt/ds-tokens@8.2.0': {}
 
   '@navikt/nav-dekoratoren-moduler@3.6.1(csp-header@6.3.0)(html-react-parser@5.2.14(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)':
     dependencies:
@@ -10020,7 +10017,6 @@ snapshots:
       html-react-parser: 5.2.14(@types/react@19.2.10)(react@19.2.4)
       js-cookie: 3.0.5
       jsdom: 26.1.0
-    optionalDependencies:
       react: 19.2.4
 
   '@navikt/oasis@4.1.1':
