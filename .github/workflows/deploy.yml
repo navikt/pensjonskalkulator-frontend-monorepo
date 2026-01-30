@@ -72,7 +72,7 @@ jobs:
         uses: nais/docker-build-push@v0
         with:
           dockerfile: apps/intern/.docker/Dockerfile
-          docker_context: .
+          docker_context: apps/intern
           team: pensjonskalkulator
 
   # Run unit tests for intern
@@ -195,7 +195,7 @@ jobs:
         uses: nais/docker-build-push@v0
         with:
           dockerfile: apps/ekstern/.docker/Dockerfile
-          docker_context: .
+          docker_context: apps/ekstern
           team: pensjonskalkulator
 
   # Run unit tests for ekstern
