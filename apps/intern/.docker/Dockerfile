@@ -4,7 +4,7 @@ ENV NODE_ENV=production
 ENV TZ="Europe/Oslo"
 
 WORKDIR /app
-COPY /dist .
+COPY dist .
 COPY package.json .
 COPY node_modules/ node_modules/
 
