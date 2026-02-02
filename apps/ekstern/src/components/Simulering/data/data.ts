@@ -76,7 +76,7 @@ export const parseStartSluttUtbetaling = (
   const sisteAar = sluttAlder?.aar ?? 0
   const sisteUtbetaling: AarligUtbetaling = {
     alder: sisteAar,
-    beloep: Math.round(aarligUtbetaling * sisteAarAndel),
+    beloep: aarligUtbetaling * sisteAarAndel,
   }
 
   const years = Array.from(
