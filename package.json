@@ -25,7 +25,7 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.{ts,tsx}": [
+		"!(*.config).{ts,tsx}": [
 			"eslint --fix --max-warnings=0"
 		],
 		"*.{ts,tsx,js,jsx,css,json,md,yaml,yml}": [

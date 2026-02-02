@@ -14,10 +14,7 @@
     "scripts",
     "sanity.config.ts",
     "sanity.cli.ts",
-    "sanity",
-    "playwright.config.ts",
-    "cypress.config.ts",
-    "vite.config.ts"
+    "sanity"
   ],
   "exclude": ["cypress", "playwright", "src/nais.js", "static"],
   "references": [
