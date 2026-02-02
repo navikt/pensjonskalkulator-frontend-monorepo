@@ -1,0 +1,16 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"allowJs": true,
+		"checkJs": false,
+		"noEmit": true
+	},
+	"include": [
+		"*.config.mjs",
+		"apps/*/eslint.config.mjs",
+		"packages/*/eslint.config.mjs"
+	],
+	"exclude": ["node_modules"]
+}

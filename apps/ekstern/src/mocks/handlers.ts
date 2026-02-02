@@ -1,5 +1,4 @@
- 
- 
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/
 import { HttpResponse, delay, http, passthrough } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
