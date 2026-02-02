@@ -144,3 +144,5 @@ vite.config.ts.timestamp-*
 # SCSS type definitions
 *.scss.d.ts
 *.d.scss.ts
+# Playwright
+.last-run.json

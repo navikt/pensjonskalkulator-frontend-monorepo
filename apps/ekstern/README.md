@@ -9,43 +9,43 @@ pensjonsregelverket (ikke kapittel 19).
 
 ## Teknologi
 
-Prosjektet kjører med Node > v22.16.0 og Npm > v11.4.2
+Prosjektet kjører med Node > v22.16.0 og pnpm > v9.0.0
 
 ## Komme i gang
 
 ```console
 // Bygger applikasjonen og starter vite devserver på port :5173
-npm run start
+pnpm start
 ```
 
 ```console
 // Sørger for riktig formatering med eslint, prettier og stylelint
-npm run prebuild
+pnpm prebuild
 ```
 
 ```console
 // Bygger applikasjonen og outputer de kompilerte filene under /dist
-npm run build
+pnpm build
 ```
 
 ```console
 // Serveren de statiske filene som er bygd under /dist
-// Forutsetter at man har kjørt npm run build før
-npm run preview
+// Forutsetter at man har kjørt pnpm build før
+pnpm preview
 ```
 
 ```console
 // Kjører enhetstester og genererer coverage
-npm run test
+pnpm test
 ```
 
 ```console
 // Kjører integrasjonstester.
 // Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
-npm run cy:test
+pnpm cy:test
 
-// Kjører tester i nettleseren mot port :4173 - krever at man kjører f.eks npm run preview
-npm run cy:open
+// Kjører tester i nettleseren mot port :4173 - krever at man kjører f.eks pnpm preview
+pnpm cy:open
 ```
 
 ### i18n-ally
@@ -69,8 +69,8 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 
 ## oversikt over portene
 
-- localhost:5173 brukes av vite ved npm run start
-- localhost:4173 brukes av vite ved npm run preview (static serve)
+- localhost:5173 brukes av vite ved pnpm start
+- localhost:4173 brukes av vite ved pnpm preview (static serve)
 
 ## Kjøre lokalt mot Q2
 

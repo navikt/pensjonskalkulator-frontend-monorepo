@@ -81,7 +81,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run preview',
+    command: 'pnpm preview',
     port: 4173,
     timeout: 60000,
   },
