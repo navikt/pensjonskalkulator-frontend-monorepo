@@ -17,6 +17,7 @@ COPY apps/ekstern/node_modules /app/node_modules
 # Copy pre-built server and assets to /app
 COPY apps/ekstern/package.json /app/package.json
 COPY apps/ekstern/dist/server/server.js /app/server.js
+COPY apps/ekstern/dist/server/ensureEnv.js /app/ensureEnv.js
 COPY apps/ekstern/dist/assets /app/assets
 COPY apps/ekstern/dist/index.html /app/
 COPY apps/ekstern/dist/*.css /app/
