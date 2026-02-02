@@ -1,14 +1,14 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
-  name: pensjonskalkulator-frontend-{{ branch }}
+  name: pensjonskalkulator-frontend-ekstern-{{ branch }}
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
   annotations:
-    nais.io/run-as-user: "101" # nginx
+    nais.io/run-as-user: '101' # nginx
 spec:
-  image: "{{ image }}"
+  image: '{{ image }}'
   ingresses:
     - https://{{ branch }}.ekstern.dev.nav.no/pensjon/kalkulator
   port: 8080
@@ -63,11 +63,11 @@ spec:
         - application: wonderwalled-idporten # only in dev
           namespace: aura
   env:
-    - name: "PENSJONSKALKULATOR_BACKEND"
-      value: "http://pensjonskalkulator-backend"
-    - name: "TOKEN_X_OBO_AUDIENCE"
-      value: "dev-gcp:pensjonskalkulator:pensjonskalkulator-backend"
-    - name: "DETALJERT_KALKULATOR_URL"
-      value: "https://pensjon-pselv-q2-gcp.ansatt.dev.nav.no/pselv/simulering.jsf?simpleMode=true"
+    - name: 'PENSJONSKALKULATOR_BACKEND'
+      value: 'http://pensjonskalkulator-backend'
+    - name: 'TOKEN_X_OBO_AUDIENCE'
+      value: 'dev-gcp:pensjonskalkulator:pensjonskalkulator-backend'
+    - name: 'DETALJERT_KALKULATOR_URL'
+      value: 'https://pensjon-pselv-q2-gcp.ansatt.dev.nav.no/pselv/simulering.jsf?simpleMode=true'
   envFrom:
-    - secret: pensjonskalkulator-frontend-unleash-api-token
+    - secret: pensjonskalkulator-frontend-ekstern-unleash-api-token

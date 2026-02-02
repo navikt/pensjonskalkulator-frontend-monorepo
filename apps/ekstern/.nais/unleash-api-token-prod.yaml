@@ -10,5 +10,5 @@ spec:
     apiVersion: unleash.nais.io/v1
     kind: RemoteUnleash
     name: pensjonskalkulator
-  secretName: pensjonskalkulator-frontend-unleash-api-token
+  secretName: pensjonskalkulator-frontend-ekstern-unleash-api-token
   environment: production
