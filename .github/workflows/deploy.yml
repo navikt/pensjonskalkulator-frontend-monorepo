@@ -172,11 +172,11 @@ jobs:
         run: pnpm --filter=ekstern run format:types
 
       - name: Build staging application
-        if: github.ref != 'refs/heads/main'
+        if: github.event.inputs.prod != 'true'
         run: pnpm --filter=ekstern run build
 
       - name: Build production application
-        if: github.ref == 'refs/heads/main'
+        if: github.event.inputs.prod == 'true'
         run: pnpm --filter=ekstern run build:production
 
       - name: Build backend for frontend
