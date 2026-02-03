@@ -8,8 +8,8 @@ on:
       - catbox
       - magicbox
       - dreambox
-      - coffeebox
       - codebox
+      - coffeebox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
