@@ -10,7 +10,9 @@
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit",
 		"test": "echo 'No tests yet' && exit 0",
-		"test:e2e": "echo 'No E2E tests yet' && exit 0"
+		"test:e2e": "echo 'No E2E tests yet' && exit 0",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",

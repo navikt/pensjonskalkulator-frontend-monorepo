@@ -108,7 +108,7 @@ The component tree is large; key groups:
 
 - `server/server.ts`: Express server with Prometheus metrics, Unleash feature toggles, correlation ID middleware, health endpoints, status endpoint passthrough, decorator assets, static asset serving, TokenX/Azure OBO auth handling, proxy to backend `/api` and `/v3/api-docs`, redirect to detaljert kalkulator, g-regulering gate, veileder vs borger entry routing. Uses oasis helpers (`getToken`, `validateToken`, `requestOboToken`, `parseAzureUserToken`).
 - `server/ensureEnv.ts`: Ensures required env vars exist at startup.
-- Build script: `npm run build:server` (`tsconfig.server.json`).
+- Build script: `pnpm build:server` (`tsconfig.server.json`).
 
 ## Build & Tooling
 
@@ -135,10 +135,10 @@ The component tree is large; key groups:
 
 ## Running Locally
 
-- Dev: `npm start` (Vite dev server), `npm run start:q2` (veileder proxy/Node watcher).
-- Build: `npm run build` (staging mode) / `build:production`.
-- Tests: `npm test` (Vitest), `cy:test` / `pw:test` for E2E.
-- Type/lint/format: `npm run typecheck | eslint:check | stylelint:check | prettier:check`.
+- Dev: `pnpm start` (Vite dev server), `pnpm start:q2` (veileder proxy/Node watcher).
+- Build: `pnpm build` (staging mode) / `build:production`.
+- Tests: `pnpm test` (Vitest), `cy:test` / `pw:test` for E2E.
+- Type/lint/format: `pnpm typecheck | eslint:check | stylelint:check | prettier:check`.
 
 ## Data & Fixtures
 

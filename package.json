@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"packageManager": "pnpm@9.15.0",
+	"type": "module",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=9.0.0"
@@ -15,8 +16,8 @@
 		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
 		"build:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern build",
 		"test": "pnpm -r test",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
+		"lint": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern lint && pnpm --filter @pensjonskalkulator-frontend-monorepo/intern lint",
+		"lint:fix": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern lint:fix && pnpm --filter @pensjonskalkulator-frontend-monorepo/intern lint:fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"typecheck": "pnpm -r typecheck",
@@ -24,7 +25,7 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.{ts,tsx}": [
+		"!(*.config).{ts,tsx}": [
 			"eslint --fix --max-warnings=0"
 		],
 		"*.{ts,tsx,js,jsx,css,json,md,yaml,yml}": [

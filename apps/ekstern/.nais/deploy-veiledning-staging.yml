@@ -6,9 +6,9 @@ metadata:
   labels:
     team: pensjonskalkulator
   annotations:
-    nais.io/run-as-user: "101" # nginx
+    nais.io/run-as-user: '101' # nginx
 spec:
-  image: "{{ image }}"
+  image: '{{ image }}'
   ingresses:
     - https://pensjonskalkulator-veiledning-frontend-staging.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
@@ -38,11 +38,11 @@ spec:
       enabled: true
       claims:
         groups:
-          - id: "8bb9b8d1-f46a-4ade-8ee8-5895eccdf8cf" # 0000-GA-PENSJON_SAKSBEHANDLER
-          - id: "a3f91493-1ab8-4b64-a544-0a77cbba9240" # 0000-GA-Pensjon_VEILEDER
-          - id: "dbe4ad45-320b-4e9a-aaa1-73cca4ee124d" # 0000-GA-Egne_ansatte
-          - id: "ea930b6b-9397-44d9-b9e6-f4cf527a632a" # 0000-GA-Fortrolig_Adresse
-          - id: "5ef775f2-61f8-4283-bf3d-8d03f428aa14" # 0000-GA-Strengt_Fortrolig_Adresse
+          - id: '8bb9b8d1-f46a-4ade-8ee8-5895eccdf8cf' # 0000-GA-PENSJON_SAKSBEHANDLER
+          - id: 'a3f91493-1ab8-4b64-a544-0a77cbba9240' # 0000-GA-Pensjon_VEILEDER
+          - id: 'dbe4ad45-320b-4e9a-aaa1-73cca4ee124d' # 0000-GA-Egne_ansatte
+          - id: 'ea930b6b-9397-44d9-b9e6-f4cf527a632a' # 0000-GA-Fortrolig_Adresse
+          - id: '5ef775f2-61f8-4283-bf3d-8d03f428aa14' # 0000-GA-Strengt_Fortrolig_Adresse
         extra:
           - NAVident
     sidecar:
@@ -65,11 +65,11 @@ spec:
       external:
         - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
   env:
-    - name: "PENSJONSKALKULATOR_BACKEND"
-      value: "http://pensjonskalkulator-backend"
-    - name: "ENTRA_ID_OBO_SCOPE"
-      value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"
-    - name: "DETALJERT_KALKULATOR_URL"
-      value: "https://pensjon-pselv-q2.dev.adeo.no/pselv/simulering.jsf?simpleMode=true&context=pensjon"
+    - name: 'PENSJONSKALKULATOR_BACKEND'
+      value: 'http://pensjonskalkulator-backend'
+    - name: 'ENTRA_ID_OBO_SCOPE'
+      value: 'api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default'
+    - name: 'DETALJERT_KALKULATOR_URL'
+      value: 'https://pensjon-pselv-q2.dev.adeo.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
   envFrom:
-    - secret: pensjonskalkulator-frontend-unleash-api-token
+    - secret: pensjonskalkulator-frontend-ekstern-unleash-api-token

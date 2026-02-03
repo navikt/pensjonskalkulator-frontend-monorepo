@@ -33,7 +33,9 @@
     "pw:open": "playwright test --ui --project=chromium",
     "pw:test": "playwright test --project=chromium",
     "stylelint:check": "stylelint 'src/**/*.{css,scss}'",
-    "stylelint:fix": "stylelint 'src/**/*.{css,scss}' --fix"
+    "stylelint:fix": "stylelint 'src/**/*.{css,scss}' --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
