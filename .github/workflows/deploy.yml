@@ -221,52 +221,6 @@ jobs:
           name: code-coverage-report
           path: apps/ekstern/coverage
 
-  # Run E2E tests for ekstern
-  e2e-ekstern:
-    name: Run Cypress integration tests ekstern
-    needs: build-ekstern
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: ./.github/actions/setup-node
-        with:
-          reader-token: ${{ secrets.READER_TOKEN }}
-
-      - name: Cache Cypress binary
-        id: cache-cypress
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: apps/ekstern/dist
-
-      - name: Install cypress
-        if: steps.cache-cypress.outputs.cache-hit != 'true'
-        run: pnpm --filter=ekstern exec cypress install
-
-      - name: Run integration tests on staging application
-        if: github.ref != 'refs/heads/main'
-        run: pnpm --filter=ekstern run cy:test
-
-      - name: Run integration tests on production application
-        if: github.ref == 'refs/heads/main'
-        run: pnpm --filter=ekstern run cy:test:production
-
-      - name: Archive Cypress artifacts
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: apps/ekstern/cypress/screenshots
-
   playwright-ekstern:
     name: Run Playwright tests ekstern
     needs: build-ekstern
@@ -305,7 +259,7 @@ jobs:
   # Deploy ekstern to staging (dev environment)
   deploy-ekstern-staging:
     name: Deploy ekstern to staging
-    needs: [build-ekstern, test-ekstern, e2e-ekstern, playwright-ekstern]
+    needs: [build-ekstern, test-ekstern, playwright-ekstern]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:

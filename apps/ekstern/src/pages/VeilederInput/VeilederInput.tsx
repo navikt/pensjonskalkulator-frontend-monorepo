@@ -82,7 +82,7 @@ export const VeilederInput = () => {
       60 * 60 * 1000
     )
     return () => clearTimeout(timer)
-  }, [])
+  }, [hasTimedOut])
 
   const encryptFnr = (fnr: string) => {
     setEncryptedRequestLoading('LOADING')
@@ -200,6 +200,6 @@ export const VeilederInput = () => {
   }
 }
 
-if (window.Cypress) {
+if (window.Playwright) {
   window.router = router()
 }

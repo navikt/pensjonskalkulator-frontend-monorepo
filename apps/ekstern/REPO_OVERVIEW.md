@@ -9,11 +9,11 @@ This document walks through the entire codebase: entrypoints, routing, state, AP
 - `sanity/` Sanity Studio schemas, plugins, and desk structure for CMS-backed content.
 - `scripts/` Helper scripts (land list fetch, Sanity data fetch, custom PostCSS loader).
 - `public/`, `static/`, `veileder/`, `index.html` built assets and shells.
-- E2E: `cypress/`, `playwright/`. Unit/integration tests live next to code under `__tests__`.
+- E2E: `playwright/`. Unit/integration tests live next to code under `__tests__`.
 
 ## Entrypoints & Bootstrapping
 
-- `src/main.tsx`: Borger app bootstrap. Sets up MSW in dev, applies Google Translate workaround, initializes Grafana Faro logging, wraps the app with Redux Provider, `LanguageProvider` (intl + Sanity data), and React Router (`routes` with `BASE_PATH`). Exposes store/router for Cypress/Playwright.
+- `src/main.tsx`: Borger app bootstrap. Sets up MSW in dev, applies Google Translate workaround, initializes Grafana Faro logging, wraps the app with Redux Provider, `LanguageProvider` (intl + Sanity data), and React Router (`routes` with `BASE_PATH`). Exposes store/router for Playwright.
 - `src/main-veileder.tsx`: Veileder-specific bootstrap. Uses same providers but renders `VeilederInput` page. MSW can be disabled via `window.__DISABLE_MSW__`.
 - `index.html` / `veileder/index.html`: HTML shells. Borger shell loads NAV decorator/representasjon banner after MSW ready in dev; veileder shell is slim.
 - `src/faro.ts` + `src/nais.js`: Grafana Faro instrumentation configuration (paused on localhost; collects to `telemetryCollectorURL`).
@@ -234,7 +234,7 @@ This overview should help you navigate every file and understand how the fronten
 ### Guards, Navigation, and Flow Dependencies
 
 - `getStepArrays` combines `stegvisningOrder{,Kap19,Endring}` (router constants) with `skip` logic so the same navigation hooks work for kap19, endringssøknad, and apoteker cases; changing step order requires updating both constants and related tests under `components/stegvisning/__tests__`.
-- `directAccessGuard` blocks routes when the RTK Query cache is empty (no prior loader run). Cypress/Playwright set up the store before routing so deep-link tests pass.
+- `directAccessGuard` blocks routes when the RTK Query cache is empty (no prior loader run). Playwright sets up the store before routing so deep-link tests pass.
 - Query param `back` is respected by `skip` to decide whether to move backward when a guard skips a step, keeping browser back/forward consistent with step skipping.
 - `RouteErrorBoundary` wraps every route and renders dedicated 404/500 pages; loaders log via `logger` before redirecting so analytics captures failure reasons.
 
