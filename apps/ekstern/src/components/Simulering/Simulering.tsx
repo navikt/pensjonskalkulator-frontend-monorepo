@@ -400,6 +400,7 @@ export const Simulering = ({
             isLoading={isLoading}
             isPensjonsavtalerLoading={isPensjonsavtalerLoading}
             isOffentligTpLoading={isOffentligTpLoading}
+            skalBeregneAfpKap19={skalBeregneAfpKap19 ?? false}
             onButtonVisibilityChange={handleButtonVisibilityChange}
             onSeriesDataChange={handleSeriesDataChange}
           />
@@ -446,7 +447,11 @@ export const Simulering = ({
       />
 
       {showButtonsAndTable && (
-        <TabellVisning series={filteredTableSeries} aarArray={tableXAxis} />
+        <TabellVisning
+          series={filteredTableSeries}
+          aarArray={tableXAxis}
+          skalBeregneAfpKap19={skalBeregneAfpKap19 ?? false}
+        />
       )}
 
       {/* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */}

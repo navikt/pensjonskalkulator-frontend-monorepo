@@ -14,6 +14,7 @@ interface IProps {
   isLoading?: boolean
   isPensjonsavtalerLoading?: boolean
   isOffentligTpLoading?: boolean
+  skalBeregneAfpKap19?: boolean
   onButtonVisibilityChange?: (state: {
     showVisFaerreAarButton: boolean
     showVisFlereAarButton: boolean
@@ -29,6 +30,7 @@ const Graph = ({
   isLoading = false,
   isPensjonsavtalerLoading = false,
   isOffentligTpLoading = false,
+  skalBeregneAfpKap19 = false,
   onButtonVisibilityChange,
   onSeriesDataChange,
 }: IProps) => {
@@ -68,14 +70,16 @@ const Graph = ({
       styles,
       setShowVisFlereAarButton,
       setShowVisFaerreAarButton,
-      intl
+      intl,
+      skalBeregneAfpKap19
     ),
     xAxis: {
       ...getChartOptions(
         styles,
         setShowVisFlereAarButton,
         setShowVisFaerreAarButton,
-        intl
+        intl,
+        skalBeregneAfpKap19
       ).xAxis,
       categories: xAxis,
     },

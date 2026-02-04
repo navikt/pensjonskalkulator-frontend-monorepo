@@ -214,7 +214,11 @@ export const buildAfpSerie = (
     }
     return []
   })()
-
+  console.log('all afp data', {
+    pre2025AfpData,
+    afpPerioderData,
+    afpPrivatData,
+  })
   return mergeAarligUtbetalinger([
     pre2025AfpData,
     afpPerioderData,
