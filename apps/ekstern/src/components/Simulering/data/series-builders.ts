@@ -182,17 +182,7 @@ export const buildAfpSerie = (
         periode.startAlder.aar >= 65
           ? parseStartSluttUtbetaling({
               startAlder: periode.startAlder,
-              sluttAlder: periode.sluttAlder
-                ? periode.sluttAlder.maaneder === 0
-                  ? {
-                      aar: periode.sluttAlder.aar - 1,
-                      maaneder: 11,
-                    }
-                  : {
-                      aar: periode.sluttAlder.aar,
-                      maaneder: periode.sluttAlder.maaneder - 1,
-                    }
-                : undefined,
+              sluttAlder: periode.sluttAlder,
               aarligUtbetaling: periode.aarligUtbetaling,
             })
           : []
