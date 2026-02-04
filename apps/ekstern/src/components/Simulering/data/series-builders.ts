@@ -225,12 +225,14 @@ export const buildAfpSerie = (
 export interface BuildTpSerieParams {
   pensjonsavtaler?: Pensjonsavtale[]
   offentligTpUtbetalingsperioder?: UtbetalingsperiodeOffentligTP[]
+  uttaksalder?: Alder
 }
 
 export const buildTpSerie = (
   params: BuildTpSerieParams
 ): AarligUtbetaling[] => {
-  const { pensjonsavtaler, offentligTpUtbetalingsperioder } = params
+  const { pensjonsavtaler, offentligTpUtbetalingsperioder, uttaksalder } =
+    params
 
   const privatTpParsed = (pensjonsavtaler ?? []).flatMap((avtale) =>
     avtale.utbetalingsperioder.map((periode) =>
@@ -251,7 +253,18 @@ export const buildTpSerie = (
       })
   )
 
-  return mergeAarligUtbetalinger([...privatTpParsed, ...offentligTpParsed])
+  const allTpData = mergeAarligUtbetalinger([
+    ...privatTpParsed,
+    ...offentligTpParsed,
+  ])
+
+  // Filter to only show TP from year before uttaksalder onwards
+  if (uttaksalder) {
+    const minAlder = uttaksalder.aar - 1
+    return allTpData.filter((item) => item.alder >= minAlder)
+  }
+
+  return allTpData
 }
 
 export interface BuildAlderspensjonSerieParams {

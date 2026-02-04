@@ -207,6 +207,7 @@ export const Simulering = ({
           offentligTpUtbetalingsperioder:
             offentligTp?.simulertTjenestepensjon?.simuleringsresultat
               .utbetalingsperioder,
+          uttaksalder: uttaksalder ?? undefined,
         }),
       },
       {
