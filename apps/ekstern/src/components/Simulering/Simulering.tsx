@@ -113,12 +113,7 @@ export const Simulering = ({
     erSpkBesteberegning,
   } = useOffentligTpData()
 
-  useEffect(() => {
-    console.log('Offentlig TP load', isOffentligTpLoading)
-  }, [isOffentligTpLoading])
-  useEffect(() => {
-    console.log('Offentlig TP data', offentligTp)
-  }, [offentligTp])
+  console.log('test - Simulering render')
 
   const {
     data: pensjonsavtalerData,
@@ -312,7 +307,6 @@ export const Simulering = ({
     if (!uttaksalder) return false
 
     const avtaler = pensjonsavtalerData?.avtaler ?? []
-    console.log('pensjonsavtalerData', pensjonsavtalerData)
     const utbetalingsperioder =
       offentligTp?.simulertTjenestepensjon?.simuleringsresultat
         .utbetalingsperioder ?? []
