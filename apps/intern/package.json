@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
+		"dev:q2": "concurrently \"NODE_ENV=development pnpm dev\" \"nodemon --watch server/ --exec 'pnpm build:server && NODE_ENV=development node dist/server/server.js'\"",
 		"build": "tsc && vite build",
 		"build:server": "tsc -p tsconfig.server.json",
 		"preview": "vite preview",
@@ -15,13 +16,19 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
+		"@navikt/oasis": "^3.4.0",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
+		"express": "^5.1.0",
+		"http-proxy-middleware": "^3.0.3",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
-		"express": "^5.1.0"
+		"unleash-client": "^6.4.0",
+		"winston": "^3.17.0"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-react": "^5.1.2",
+		"concurrently": "^9.2.0",
+		"nodemon": "^3.1.11",
 		"vite": "^7.3.1"
 	}
 }
