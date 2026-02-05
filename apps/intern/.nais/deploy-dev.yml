@@ -11,8 +11,6 @@ spec:
   image: '{{ image }}'
   ingresses:
     - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no
-    - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no/kalkulator
-    - https://pensjonskalkulator-frontend-intern.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2

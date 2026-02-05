@@ -181,22 +181,10 @@ app.use(
 )
 
 // Server hele assets mappen uten autentisering
-app.use(
-	'/pensjon/kalkulator/assets',
-	(req: Request, res: Response, next: NextFunction) => {
-		const assetFolder = path.join(__dirname, 'assets')
-		return express.static(assetFolder)(req, res, next)
-	}
-)
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 // Serve src folder
-app.use(
-	'/pensjon/kalkulator/src',
-	(req: Request, res: Response, next: NextFunction) => {
-		const srcFolder = path.join(__dirname, 'src')
-		return express.static(srcFolder)(req, res, next)
-	}
-)
+app.use('/src', express.static(path.join(__dirname, 'src')))
 
 const getUsernameFromAzureToken = async (req: Request) => {
 	let token = getToken(req)
@@ -292,13 +280,20 @@ app.use(
 	})
 )
 
-app.get('/*splat', (_req: Request, res: Response) => {
+app.get('/{*splat}', (_req: Request, res: Response) => {
 	// In dev, server runs from dist/server/, index.html is in dist/
 	// In prod (NAIS), both are in the same folder
 	const indexPath = isDevelopment
 		? path.join(__dirname, '..', 'index.html')
 		: path.join(__dirname, 'index.html')
-	return res.sendFile(indexPath)
+
+	logger.info(`Serving index.html from: ${indexPath}, __dirname: ${__dirname}`)
+	return res.sendFile(indexPath, (err) => {
+		if (err) {
+			logger.error(`Failed to send index.html: ${err.message}`)
+			res.status(404).send(`index.html not found at ${indexPath}`)
+		}
+	})
 })
 
 app.listen(PORT, (error) => {
