@@ -6,7 +6,11 @@ function App() {
 	return (
 		<>
 			<div>
-				<a href="https://nav.no/pensjon/kalkulator/login" target="_blank">
+				<a
+					href="https://nav.no/pensjon/kalkulator/login"
+					target="_blank"
+					rel="noreferrer"
+				>
 					<img src={kalkulatorLogo} className="logo" alt="Kalkulator logo" />
 				</a>
 			</div>
