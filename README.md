@@ -6,7 +6,8 @@ A pnpm monorepo for Pensjonskalkulator frontend applications.
 
 ```
 ├── apps/
-│   └── intern/          # Internal React app (Vite + TypeScript)
+│   └── ekstern/
+│   └── intern/        # Internal React app (Vite + TypeScript)
 ├── packages/
 │   └── api/             # Shared API utilities
 └── .github/
@@ -31,10 +32,11 @@ pnpm install
 
 ```bash
 # Start intern app
-pnpm dev
-
-# Or explicitly
 pnpm dev:intern
+
+# Start ekstern app
+
+pnpm dev:ekstern
 ```
 
 ### Scripts
