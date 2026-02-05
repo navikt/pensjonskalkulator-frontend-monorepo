@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
-    "@navikt/oasis": "^4.1.1",
+    "@navikt/oasis": "^4.1.4",
     "@portabletext/react": "^3.2.1",
     "@sanity/color-input": "^4.0.6",
     "@sanity/icons": "^3.7.4",
