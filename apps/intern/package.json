@@ -19,6 +19,7 @@
 		"@navikt/oasis": "^3.4.0",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
 		"express": "^5.1.0",
+		"express-rate-limit": "^8.2.1",
 		"http-proxy-middleware": "^3.0.3",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
