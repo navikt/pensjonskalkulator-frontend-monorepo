@@ -223,7 +223,7 @@ jobs:
         run: pnpm --filter=ekstern run build:server
 
       - name: Save build folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: apps/ekstern/dist
@@ -256,7 +256,7 @@ jobs:
         run: pnpm --filter=ekstern run test
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: code-coverage-report
           path: apps/ekstern/coverage
@@ -289,7 +289,7 @@ jobs:
         run: pnpm --filter=ekstern run pw:test
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: playwright-report
