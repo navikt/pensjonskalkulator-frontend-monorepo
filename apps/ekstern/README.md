@@ -15,7 +15,7 @@ Prosjektet kjører med Node > v22.16.0 og pnpm > v9.0.0
 
 ```console
 // Bygger applikasjonen og starter vite devserver på port :5173
-pnpm start
+pnpm dev
 ```
 
 ```console
