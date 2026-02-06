@@ -124,12 +124,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get branch name
+        id: branch
+        run: echo "name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+
       - name: Deploy to dev-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
           RESOURCE: apps/intern/.nais/deploy-dev.yml,apps/intern/.nais/unleash-api-token-dev.yaml
+          VAR: branch=${{ steps.branch.outputs.name }}
 
   # Deploy intern to prod (uncomment when ready for production)
   # deploy-intern-prod:
