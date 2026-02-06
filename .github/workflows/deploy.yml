@@ -451,28 +451,3 @@ jobs:
   #             \"text\": \"🚀 *ekstern deployed to production!*\n*PR:* <$PR_URL|$PR_TITLE> by \`@$PR_AUTHOR\`\"
   #           }" $SLACK_WEBHOOK_URL
   #         fi
-
-  # Gate job - ensures all required jobs pass
-  all-deployed:
-    name: All deployments complete
-    runs-on: ubuntu-latest
-    needs: [changes, deploy-intern-staging, deploy-ekstern-staging]
-    if: always()
-    steps:
-      - name: Check deployment results
-        run: |
-          # Check if intern deployment was needed and succeeded
-          if [[ "${{ needs.changes.outputs.intern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
-            if [[ "${{ needs.deploy-intern-staging.result }}" != "success" ]]; then
-              echo "Intern staging deployment failed"
-              exit 1
-            fi
-          fi
-          # Check if ekstern deployment was needed and succeeded
-          if [[ "${{ needs.changes.outputs.ekstern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
-            if [[ "${{ needs.deploy-ekstern-staging.result }}" != "success" ]]; then
-              echo "Ekstern staging deployment failed"
-              exit 1
-            fi
-          fi
-          echo "All deployments completed successfully!"
