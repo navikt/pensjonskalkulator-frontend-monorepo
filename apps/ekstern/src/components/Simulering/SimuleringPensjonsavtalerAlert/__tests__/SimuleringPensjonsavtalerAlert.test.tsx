@@ -1,3 +1,5 @@
+import offentligTpData from '@pensjonskalkulator-frontend-monorepo/mocks/data/offentlig-tp.json' with { type: 'json' }
+import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { vi } from 'vitest'
 
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
@@ -8,8 +10,6 @@ import {
 } from '@/pages/Beregning/context'
 import { fireEvent, render, screen } from '@/test-utils'
 
-import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { SimuleringPensjonsavtalerAlert } from '../SimuleringPensjonsavtalerAlert'
 
 describe('SimuleringPensjonsavtalerAlert', () => {

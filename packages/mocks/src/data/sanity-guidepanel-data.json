@@ -1,0 +1,76 @@
+{
+	"result": [
+		{
+			"innhold": [
+				{
+					"_key": "4e84d9456fb6",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "26d6764f69a4",
+							"_type": "span",
+							"marks": [],
+							"text": "Det er flere ting du må ta stilling til før du sier fra deg uføretrygden. "
+						},
+						{
+							"_key": "90b1f77a7bee",
+							"_type": "span",
+							"marks": ["c4e6a91c61da"],
+							"text": "Les mer om uføretrygd og AFP"
+						},
+						{
+							"_key": "49de78dd58b6",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{
+							"_key": "c4e6a91c61da",
+							"_type": "link",
+							"blank": true,
+							"href": "https://www.nav.no/ufor-til-pensjon#afp"
+						}
+					],
+					"style": "normal"
+				},
+				{
+					"_key": "cab02c82402c",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "1da969af7a73",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du jobber i privat sektor, anbefaler vi at du kontakter Nav på telefon "
+						},
+						{
+							"_key": "05cea430556b",
+							"_type": "span",
+							"marks": ["3e3c2d6333ba"],
+							"text": "55 55 33 34"
+						},
+						{
+							"_key": "c25c3da5035f",
+							"_type": "span",
+							"marks": [],
+							"text": " for veiledning. Eller at du kontakter tjenestepensjonsordningen din, hvis du jobber i offentlig sektor."
+						}
+					],
+					"markDefs": [
+						{
+							"_key": "3e3c2d6333ba",
+							"_type": "link",
+							"className": "nowrap",
+							"href": "tel:55553334"
+						}
+					],
+					"style": "normal"
+				}
+			],
+			"name": "vurderer_du_a_velge_afp",
+			"overskrift": "Vurderer du å velge AFP?"
+		}
+	]
+}

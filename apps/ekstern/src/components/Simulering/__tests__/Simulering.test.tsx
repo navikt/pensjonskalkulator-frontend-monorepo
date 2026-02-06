@@ -1,3 +1,6 @@
+import afpOffentligData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-offentlig.json' with { type: 'json' }
+import afpPrivatData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-privat/67.json' with { type: 'json' }
+import alderspensjonData from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { describe, it, vi } from 'vitest'
 
 import {
@@ -14,9 +17,6 @@ import {
 } from '@/state/userInput/userInputSlice'
 import { act, render, screen } from '@/test-utils'
 
-import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { type: 'json' }
-import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
-import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { Simulering } from '../Simulering'
 
 describe('Simulering', () => {

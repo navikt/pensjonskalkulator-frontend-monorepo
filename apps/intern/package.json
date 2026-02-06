@@ -21,7 +21,9 @@
 		"express": "^5.1.0"
 	},
 	"devDependencies": {
+		"@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
+		"msw": "^2.0.0",
 		"vite": "^7.3.1"
 	}
 }

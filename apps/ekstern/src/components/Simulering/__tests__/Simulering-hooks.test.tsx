@@ -1,3 +1,8 @@
+import afpOffentligData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-offentlig.json' with { type: 'json' }
+import afpPrivatData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-privat/67.json' with { type: 'json' }
+import alderspensjonData from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/67.json' with { type: 'json' }
+import offentligTpData from '@pensjonskalkulator-frontend-monorepo/mocks/data/offentlig-tp.json' with { type: 'json' }
+import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { add, endOfDay, format } from 'date-fns'
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
@@ -9,11 +14,6 @@ import { setupStore } from '@/state/store'
 import { renderHook } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
-import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { type: 'json' }
-import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
-import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
-import offentligTpData from '../../../mocks/data/offentlig-tp.json' with { type: 'json' }
-import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import translations_nb from '../../../translations/nb'
 import { useSimuleringChartLocalState } from '../hooks'
 

@@ -1,3 +1,4 @@
+import alderspensjonResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -18,7 +19,6 @@ import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
-import alderspensjonResponse from '../../../mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { BeregningEnkel } from '../BeregningEnkel'
 
 const navigateMock = vi.fn()
