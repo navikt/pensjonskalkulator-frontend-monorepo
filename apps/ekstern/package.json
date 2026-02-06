@@ -62,7 +62,7 @@
     "@navikt/aksel-icons": "^7.31.0",
     "@navikt/ds-css": "^7.31.0",
     "@navikt/ds-react": "^7.31.0",
-    "@navikt/nav-dekoratoren-moduler": "^3.6.1",
+    "@navikt/nav-dekoratoren-moduler": "^3.6.2",
     "@playwright/test": "^1.58.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@sanity/client": "^7.8.2",
