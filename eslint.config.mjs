@@ -22,7 +22,7 @@ export function createConfig({
 		'**/.stylelintrc.cjs',
 		'**/.prettierrc.cjs',
 		'**/tsconfig.json',
-		'server/server.ts',
+		'**/server/**',
 		'**/tsconfig.node.json',
 		'**/*.scss.d.ts',
 		'**/style.d.ts',
