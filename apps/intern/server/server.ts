@@ -95,34 +95,31 @@ app.get('/internal/health/readiness', (_req: Request, res: Response) => {
 })
 
 // Status probes from backend, trenger ikke autentisering
-app.get(
-	'/pensjon/kalkulator/api/status',
-	async (req: Request, res: Response) => {
-		try {
-			const backendUrl = `${PENSJONSKALKULATOR_BACKEND}/api/status`
-			logger.info(`Fetching status from backend: ${backendUrl}`)
+app.get('/api/status', async (req: Request, res: Response) => {
+	try {
+		const backendUrl = `${PENSJONSKALKULATOR_BACKEND}/api/status`
+		logger.info(`Fetching status from backend: ${backendUrl}`)
 
-			const res_status = await fetch(backendUrl, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'x_correlation-id': req.headers['x_correlation-id'] as string,
-				},
-			})
+		const res_status = await fetch(backendUrl, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'x_correlation-id': req.headers['x_correlation-id'] as string,
+			},
+		})
 
-			const status_data = await res_status.json()
-			logger.info(`Backend response: ${JSON.stringify(status_data)}`)
-			res.send(status_data)
-		} catch (error) {
-			console.error('Error fetching status:', error)
-			res.status(500).send({ error: 'Internal Server Error' })
-		}
+		const status_data = await res_status.json()
+		logger.info(`Backend response: ${JSON.stringify(status_data)}`)
+		res.send(status_data)
+	} catch (error) {
+		console.error('Error fetching status:', error)
+		res.status(500).send({ error: 'Internal Server Error' })
 	}
-)
+})
 
 // Feature toggle endpoint, trenger ikke autentisering
 app.get(
-	'/pensjon/kalkulator/api/feature/:toggle',
+	'/api/feature/:toggle',
 	async (req: Request<{ toggle: string }>, res: Response) => {
 		const toggle = req.params.toggle
 
@@ -167,7 +164,7 @@ app.use((req, res, next) => {
 })
 
 app.use(
-	'/pensjon/kalkulator/redirect/detaljert-kalkulator',
+	'/redirect/detaljert-kalkulator',
 	express.urlencoded({ extended: true }),
 	async (req: Request, res: Response) => {
 		const { fnr } = req.body
@@ -181,10 +178,26 @@ app.use(
 )
 
 // Server hele assets mappen uten autentisering
-app.use('/assets', express.static(path.join(__dirname, 'assets')))
+// In dev: assets are at dist/assets, in prod: /app/assets
+app.use(
+	'/assets',
+	express.static(
+		isDevelopment
+			? path.join(__dirname, 'dist', 'assets')
+			: path.join(__dirname, 'assets')
+	)
+)
 
 // Serve src folder
-app.use('/src', express.static(path.join(__dirname, 'src')))
+// In dev: src is at dist/src, in prod: /app/src
+app.use(
+	'/src',
+	express.static(
+		isDevelopment
+			? path.join(__dirname, 'dist', 'src')
+			: path.join(__dirname, 'src')
+	)
+)
 
 const getUsernameFromAzureToken = async (req: Request) => {
 	let token = getToken(req)
@@ -248,31 +261,28 @@ const getOboToken = async (req: Request) => {
 }
 
 // Proxy til backend med token exchange
-app.use(
-	'/pensjon/kalkulator/api',
-	async (req: Request, res: Response, next: NextFunction) => {
-		let oboToken: string
-		try {
-			oboToken = await getOboToken(req)
-		} catch {
-			// Send 401 dersom man ikke kan hente obo token
-			res.sendStatus(401)
-			return
-		}
-
-		createProxyMiddleware({
-			target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-			changeOrigin: true,
-			headers: {
-				Authorization: `Bearer ${oboToken}`,
-			},
-			logger: logger,
-		})(req, res, next)
+app.use('/api', async (req: Request, res: Response, next: NextFunction) => {
+	let oboToken: string
+	try {
+		oboToken = await getOboToken(req)
+	} catch {
+		// Send 401 dersom man ikke kan hente obo token
+		res.sendStatus(401)
+		return
 	}
-)
+
+	createProxyMiddleware({
+		target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+		changeOrigin: true,
+		headers: {
+			Authorization: `Bearer ${oboToken}`,
+		},
+		logger: logger,
+	})(req, res, next)
+})
 
 app.use(
-	'/pensjon/kalkulator/v3/api-docs',
+	'/v3/api-docs',
 	createProxyMiddleware({
 		target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs`,
 		changeOrigin: true,
@@ -281,10 +291,10 @@ app.use(
 )
 
 app.get('/{*splat}', (_req: Request, res: Response) => {
-	// In dev, server runs from dist/server/, index.html is in dist/
-	// In prod (NAIS), both are in the same folder
+	// In dev, index.html is at dist/index.html (cwd is apps/intern)
+	// In prod (NAIS), server.js and index.html are both in /app
 	const indexPath = isDevelopment
-		? path.join(__dirname, '..', 'index.html')
+		? path.join(__dirname, 'dist', 'index.html')
 		: path.join(__dirname, 'index.html')
 
 	logger.info(`Serving index.html from: ${indexPath}, __dirname: ${__dirname}`)
