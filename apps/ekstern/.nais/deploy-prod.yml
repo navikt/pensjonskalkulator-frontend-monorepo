@@ -1,14 +1,14 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: pensjonskalkulator-frontend
+  name: pensjonskalkulator-frontend-ekstern
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
   annotations:
-    nais.io/run-as-user: "101" # nginx
+    nais.io/run-as-user: '101' # nginx
 spec:
-  image: "{{ image }}"
+  image: '{{ image }}'
   ingresses:
     - https://www.nav.no/pensjon/kalkulator
   port: 8080
@@ -49,7 +49,6 @@ spec:
   tokenx:
     enabled: true
   idporten:
-
     enabled: true
     sidecar:
       level: idporten-loa-substantial
@@ -74,11 +73,11 @@ spec:
         - host: www.nav.no
         - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
   env:
-    - name: "PENSJONSKALKULATOR_BACKEND"
-      value: "http://pensjonskalkulator-backend"
-    - name: "TOKEN_X_OBO_AUDIENCE"
-      value: "prod-gcp:pensjonskalkulator:pensjonskalkulator-backend"
-    - name: "DETALJERT_KALKULATOR_URL"
-      value: "https://www.nav.no/pselv/simulering.jsf?simpleMode=true"
+    - name: 'PENSJONSKALKULATOR_BACKEND'
+      value: 'http://pensjonskalkulator-backend'
+    - name: 'TOKEN_X_OBO_AUDIENCE'
+      value: 'prod-gcp:pensjonskalkulator:pensjonskalkulator-backend'
+    - name: 'DETALJERT_KALKULATOR_URL'
+      value: 'https://www.nav.no/pselv/simulering.jsf?simpleMode=true'
   envFrom:
     - secret: pensjonskalkulator-frontend-unleash-api-token
