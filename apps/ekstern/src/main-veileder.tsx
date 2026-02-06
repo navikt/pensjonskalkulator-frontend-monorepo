@@ -45,6 +45,6 @@ ReactDOM.createRoot(root).render(
   </React.StrictMode>
 )
 
-if (window.Cypress) {
+if (window.Playwright) {
   window.store = store
 }
