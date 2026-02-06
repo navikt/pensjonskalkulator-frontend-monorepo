@@ -115,31 +115,66 @@ jobs:
         with:
           app: intern
 
-  # Deploy intern to dev
-  deploy-intern-dev:
-    name: Deploy intern to dev
+  # Deploy intern to staging (main branch only)
+  deploy-intern-staging:
+    name: Deploy intern to staging
     needs: [build-intern, test-intern, e2e-intern]
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get branch name
-        id: branch
-        run: echo "name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      - name: Deploy to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-intern.outputs.image }}
+          RESOURCE: apps/intern/.nais/deploy-staging.yml,apps/intern/.nais/unleash-api-token-dev.yaml
 
-      - name: Deploy to dev-gcp
+  # Determine test environment for intern (feature branches)
+  determine-test-env-intern:
+    name: Determine intern test environment
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+      environments: ${{ steps.set-env.outputs.environments }}
+    steps:
+      - name: Set environment from branch
+        id: set-env
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Deploying to: $BRANCH_NAME"
+
+  # Deploy intern to test environment (feature branches)
+  deploy-intern-test:
+    name: Deploy intern to test environment
+    needs: [build-intern, test-intern, e2e-intern, determine-test-env-intern]
+    runs-on: ubuntu-latest
+    if: needs.determine-test-env-intern.outputs.environments != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ needs.determine-test-env-intern.outputs.environments }}
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
           RESOURCE: apps/intern/.nais/deploy-dev.yml,apps/intern/.nais/unleash-api-token-dev.yaml
-          VAR: branch=${{ steps.branch.outputs.name }}
+          VAR: branch=${{ needs.determine-test-env-intern.outputs.environments }}
 
   # Deploy intern to prod (uncomment when ready for production)
   # deploy-intern-prod:
   #   name: Deploy intern to prod
-  #   needs: [deploy-intern-dev]
+  #   needs: [deploy-intern-staging]
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
@@ -351,7 +386,7 @@ jobs:
           echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "Deploying to: $BRANCH_NAME"
 
-  deploy-test-ekstern:
+  deploy-ekstern-test:
     name: Deploy ekstern to test environment
     needs: [build-ekstern, determine-test-env-ekstern]
     runs-on: ubuntu-latest
@@ -421,15 +456,15 @@ jobs:
   all-deployed:
     name: All deployments complete
     runs-on: ubuntu-latest
-    needs: [changes, deploy-intern-dev, deploy-ekstern-staging]
+    needs: [changes, deploy-intern-staging, deploy-ekstern-staging]
     if: always()
     steps:
       - name: Check deployment results
         run: |
           # Check if intern deployment was needed and succeeded
           if [[ "${{ needs.changes.outputs.intern }}" == "true" || "${{ needs.changes.outputs.shared }}" == "true" || "${{ needs.changes.outputs.api }}" == "true" ]]; then
-            if [[ "${{ needs.deploy-intern-dev.result }}" != "success" ]]; then
-              echo "Intern dev deployment failed"
+            if [[ "${{ needs.deploy-intern-staging.result }}" != "success" ]]; then
+              echo "Intern staging deployment failed"
               exit 1
             fi
           fi
