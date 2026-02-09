@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtak0UfoeregradMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -30,14 +30,7 @@ describe('StepUtenlandsopphold', () => {
     const user = userEvent.setup()
 
     const { store } = render(<StepUtenlandsopphold />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
-      },
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
     })
     expect(
       screen.getByText('stegvisning.utenlandsopphold.ingress')
@@ -54,12 +47,6 @@ describe('StepUtenlandsopphold', () => {
 
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
         userInput: {
           ...userInputInitialState,
           utenlandsperioder: [
@@ -79,6 +66,7 @@ describe('StepUtenlandsopphold', () => {
           ],
         },
       },
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
     })
     const radioButtons = await screen.findAllByRole('radio')
 

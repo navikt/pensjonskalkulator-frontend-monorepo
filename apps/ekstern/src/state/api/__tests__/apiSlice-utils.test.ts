@@ -1,10 +1,10 @@
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtakLoependeAFPoffentligMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 
 import {
@@ -29,16 +29,10 @@ describe('apiSlice - utils', () => {
 
   describe('getSimuleringstypeFromRadioEllerVedtak', () => {
     it('returnerer riktig simuleringstype', () => {
-      const loependeVedtak_0_ufoeregrad =
-        fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
-          .data
-      const loependeVedtak_75_ufoeregrad =
-        fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
-          .data
+      const loependeVedtak_0_ufoeregrad = loependeVedtak0UfoeregradMock
+      const loependeVedtak_75_ufoeregrad = loependeVedtak75UfoeregradMock
       const loependeVedtak_loepende_alderspensjon =
-        fulfilledGetLoependeVedtakLoependeAlderspensjon[
-          'getLoependeVedtak(undefined)'
-        ].data
+        loependeVedtakLoependeAlderspensjonMock
 
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
@@ -115,25 +109,19 @@ describe('apiSlice - utils', () => {
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
-          fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
-            'getLoependeVedtak(undefined)'
-          ].data,
+          loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
           'ja_privat'
         )
       ).toEqual('ENDRING_ALDERSPENSJON')
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
-          fulfilledGetLoependeVedtakLoependeAFPprivat[
-            'getLoependeVedtak(undefined)'
-          ].data,
+          loependeVedtakLoependeAFPprivatMock,
           null
         )
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT')
       expect(
         getSimuleringstypeFromRadioEllerVedtak(
-          fulfilledGetLoependeVedtakLoependeAFPoffentlig[
-            'getLoependeVedtak(undefined)'
-          ].data,
+          loependeVedtakLoependeAFPoffentligMock,
           null
         )
       ).toEqual('ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')

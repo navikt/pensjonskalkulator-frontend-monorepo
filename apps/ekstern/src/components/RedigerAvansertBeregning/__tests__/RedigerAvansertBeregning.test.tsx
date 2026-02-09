@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetPerson,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  personMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import {
   AvansertBeregningModus,
@@ -39,16 +39,13 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       }
     )
@@ -66,16 +63,13 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       }
     )
@@ -95,16 +89,13 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -124,16 +115,13 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak100Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak100UfoeregradMock,
         },
       }
     )

@@ -2,10 +2,10 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetPerson,
-  fulfilledPensjonsavtaler,
-  fulfilledsimulerOffentligTp,
+  loependeVedtak75UfoeregradMock,
+  pensjonsavtalerMock,
+  personMock,
+  simulerOffentligTpMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -14,7 +14,13 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  createStateWithApiData,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '@/test-utils'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
@@ -27,17 +33,17 @@ vi.mock(import('react-router'), async (importOriginal) => {
 
 describe('StepSamtykkePensjonsavtaler', () => {
   beforeEach(() => {
-    store.getState = vi.fn().mockImplementation(() => ({
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-        },
-      },
-      userInput: {
-        ...userInputReducerUtils.userInputInitialState,
-        samtykke: true,
-      },
-    }))
+    store.getState = vi.fn().mockImplementation(() =>
+      createStateWithApiData(
+        { getPerson: personMock },
+        {
+          userInput: {
+            ...userInputReducerUtils.userInputInitialState,
+            samtykke: true,
+          },
+        }
+      )
+    )
   })
 
   afterEach(() => {
@@ -55,12 +61,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
 
     render(<RouterProvider router={router} />, {
       hasRouter: false,
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: { mock: 'mock' },
-        },
-      },
+      preloadedState: {},
     })
     await waitFor(async () => {
       expect(document.title).toBe('application.title.stegvisning.samtykke')
@@ -111,19 +112,16 @@ describe('StepSamtykkePensjonsavtaler', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledsimulerOffentligTp,
-              ...fulfilledPensjonsavtaler,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          offentligTp: simulerOffentligTpMock,
+          pensjonsavtaler: pensjonsavtalerMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       })
       await waitFor(() => {
@@ -155,17 +153,12 @@ describe('StepSamtykkePensjonsavtaler', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
       preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPerson,
-          },
-        },
         userInput: {
           ...userInputInitialState,
           samtykke: true,
         },
       },
+      preloadedApiState: { getPerson: personMock },
     })
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -190,18 +183,13 @@ describe('StepSamtykkePensjonsavtaler', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             veilederBorgerFnr: '81549300',
           },
         },
+        preloadedApiState: { getPerson: personMock },
       })
       await waitFor(() => {
         expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(

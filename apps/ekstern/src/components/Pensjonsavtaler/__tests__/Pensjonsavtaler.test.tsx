@@ -1,9 +1,9 @@
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetPerson,
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  personMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -50,14 +50,9 @@ describe('Pensjonsavtaler', () => {
 
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: { ...userInputInitialState, samtykke: false },
         },
+        preloadedApiState: { getInntekt: inntektMock },
       })
       expect(
         await screen.findByRole('heading', { level: 3 })
@@ -100,19 +95,16 @@ describe('Pensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding og info om offentlig tjenestepensjon.', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: currentSimulation,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getPerson: personMock,
+          getInntekt: inntektMock,
         },
       })
       expect(
@@ -130,12 +122,6 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -144,6 +130,7 @@ describe('Pensjonsavtaler', () => {
             currentSimulation: currentSimulation,
           },
         },
+        preloadedApiState: { getInntekt: inntektMock },
       })
       expect(initiateMock).toHaveBeenCalledWith(
         {
@@ -188,7 +175,7 @@ describe('Pensjonsavtaler', () => {
           // @ts-ignore
           api: {
             queries: {
-              ...fulfilledGetInntekt,
+              ...inntektMock,
               ['getLoependeVedtak(undefined)']: {
                 // @ts-ignore
                 status: 'fulfilled',
@@ -221,12 +208,6 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -234,6 +215,7 @@ describe('Pensjonsavtaler', () => {
             currentSimulation: currentSimulation,
           },
         },
+        preloadedApiState: { getInntekt: inntektMock },
       })
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
@@ -241,18 +223,15 @@ describe('Pensjonsavtaler', () => {
     it('Når private pensjonsavtaler og offentlig-tp er hentet, viser både liste over private pensjonsavtaler og info om offentlig tjenestepensjon.', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: currentSimulation,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getInntekt: inntektMock,
         },
       })
       expect(await screen.findByTestId('private-pensjonsavtaler')).toBeVisible()
@@ -268,18 +247,13 @@ describe('Pensjonsavtaler', () => {
     it('Når ingen pensjonsavtaler kunne hentes, skjules fra og med forklaring', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: currentSimulation,
           },
         },
+        preloadedApiState: { getInntekt: inntektMock },
       })
 
       expect(

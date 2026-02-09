@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -13,11 +13,6 @@ describe('VelgUttaksalder', () => {
   }
 
   const mockedState = {
-    api: {
-      queries: {
-        ...fulfilledGetPerson,
-      },
-    },
     userInput: {
       ...userInputInitialState,
     },
@@ -29,6 +24,7 @@ describe('VelgUttaksalder', () => {
       preloadedState: {
         ...mockedState,
       },
+      preloadedApiState: { getPerson: personMock },
     })
     expect(await screen.findAllByRole('button')).toHaveLength(14)
   })
@@ -45,6 +41,7 @@ describe('VelgUttaksalder', () => {
       preloadedState: {
         ...mockedState,
       },
+      preloadedApiState: { getPerson: personMock },
     })
 
     await user.click(screen.getByText('65 alder.aar', { exact: false }))

@@ -20,228 +20,129 @@ export const personMock = {
 		},
 	},
 } satisfies Person
-export const fulfilledGetPerson = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: personMock,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
 
-export const fulfilledPre1963GetPerson = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			fornavn: 'Aprikos',
-			sivilstand: 'UGIFT',
-			foedselsdato: '1960-04-30',
-			pensjoneringAldre: {
-				normertPensjoneringsalder: {
-					aar: 67,
-					maaneder: 0,
-				},
-				nedreAldersgrense: {
-					aar: 62,
-					maaneder: 0,
-				},
-				oevreAldersgrense: {
-					aar: 75,
-					maaneder: 0,
-				},
-			},
+export const pre1963PersonMock = {
+	navn: 'Aprikos Nordmann',
+	fornavn: 'Aprikos',
+	sivilstand: 'UGIFT' as Sivilstand,
+	foedselsdato: '1960-04-30',
+	pensjoneringAldre: {
+		normertPensjoneringsalder: {
+			aar: 67,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			fornavn: 'Aprikos',
-			sivilstand: 'UGIFT',
-			foedselsdato: '1963-01-30',
-			pensjoneringAldre: {
-				normertPensjoneringsalder: {
-					aar: 67,
-					maaneder: 0,
-				},
-				nedreAldersgrense: {
-					aar: 62,
-					maaneder: 0,
-				},
-				oevreAldersgrense: {
-					aar: 75,
-					maaneder: 0,
-				},
-			},
+		nedreAldersgrense: {
+			aar: 62,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			fornavn: 'Aprikos',
-			sivilstand: 'UGIFT',
-			foedselsdato: '1990-01-30',
-			pensjoneringAldre: {
-				normertPensjoneringsalder: {
-					aar: 67,
-					maaneder: 0,
-				},
-				nedreAldersgrense: {
-					aar: 62,
-					maaneder: 0,
-				},
-				oevreAldersgrense: {
-					aar: 75,
-					maaneder: 0,
-				},
-			},
+		oevreAldersgrense: {
+			aar: 75,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
 	},
-}
+} satisfies Person
 
-export const fulfilledGetPersonMedOekteAldersgrenser = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			fornavn: 'Aprikos',
-			sivilstand: 'UGIFT',
-			foedselsdato: '1963-04-30',
-			pensjoneringAldre: {
-				normertPensjoneringsalder: {
-					aar: 70,
-					maaneder: 0,
-				},
-				nedreAldersgrense: {
-					aar: 65,
-					maaneder: 0,
-				},
-				oevreAldersgrense: {
-					aar: 75,
-					maaneder: 0,
-				},
-			},
+export const personEldreEnnAfpUfoereOppsigelsesalderMock = {
+	navn: 'Aprikos Nordmann',
+	fornavn: 'Aprikos',
+	sivilstand: 'UGIFT' as Sivilstand,
+	foedselsdato: '1963-01-30',
+	pensjoneringAldre: {
+		normertPensjoneringsalder: {
+			aar: 67,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetGrunnbeloep = {
-	'getGrunnbeloep(undefined)': {
-		status: 'fulfilled',
-		endpointName: 'getGrunnbeloep',
-		requestId: 'mockedRequestId',
-		startedTimeStamp: Date.now(),
-		data: 100000,
-		fulfilledTimeStamp: Date.now(),
-	},
-}
-
-export const fulfilledGetPersonMedSamboer = {
-	['getPerson(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getPerson',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			fornavn: 'Aprikos',
-			sivilstand: 'GIFT',
-			foedselsdato: '1963-04-30',
-			pensjoneringAldre: {
-				normertPensjoneringsalder: {
-					aar: 67,
-					maaneder: 0,
-				},
-				nedreAldersgrense: {
-					aar: 62,
-					maaneder: 0,
-				},
-				oevreAldersgrense: {
-					aar: 75,
-					maaneder: 0,
-				},
-			},
+		nedreAldersgrense: {
+			aar: 62,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetInntekt = {
-	['getInntekt(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getInntekt',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			beloep: 521338,
-			aar: 2021,
+		oevreAldersgrense: {
+			aar: 75,
+			maaneder: 0,
 		},
-		fulfilledTimeStamp: 1688046412103,
 	},
+} satisfies Person
+
+export const personYngreEnnAfpUfoereOppsigelsesalderMock = {
+	navn: 'Aprikos Nordmann',
+	fornavn: 'Aprikos',
+	sivilstand: 'UGIFT' as Sivilstand,
+	foedselsdato: '1990-01-30',
+	pensjoneringAldre: {
+		normertPensjoneringsalder: {
+			aar: 67,
+			maaneder: 0,
+		},
+		nedreAldersgrense: {
+			aar: 62,
+			maaneder: 0,
+		},
+		oevreAldersgrense: {
+			aar: 75,
+			maaneder: 0,
+		},
+	},
+} satisfies Person
+
+export const personMedOekteAldersgrenseMock = {
+	navn: 'Aprikos Nordmann',
+	fornavn: 'Aprikos',
+	sivilstand: 'UGIFT' as Sivilstand,
+	foedselsdato: '1963-04-30',
+	pensjoneringAldre: {
+		normertPensjoneringsalder: {
+			aar: 70,
+			maaneder: 0,
+		},
+		nedreAldersgrense: {
+			aar: 65,
+			maaneder: 0,
+		},
+		oevreAldersgrense: {
+			aar: 75,
+			maaneder: 0,
+		},
+	},
+} satisfies Person
+
+export const grunnbeloepMock = 100000
+
+export const personMedSamboerMock = {
+	navn: 'Aprikos Nordmann',
+	fornavn: 'Aprikos',
+	sivilstand: 'GIFT' as Sivilstand,
+	foedselsdato: '1963-04-30',
+	pensjoneringAldre: {
+		normertPensjoneringsalder: {
+			aar: 67,
+			maaneder: 0,
+		},
+		nedreAldersgrense: {
+			aar: 62,
+			maaneder: 0,
+		},
+		oevreAldersgrense: {
+			aar: 75,
+			maaneder: 0,
+		},
+	},
+} satisfies Person
+
+export const inntektMock = {
+	beloep: 521338,
+	aar: 2021,
 }
 
-export const fulfilledGetEkskludertStatus = {
-	['getEkskludertStatus(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getEkskludertStatus',
-		requestId: 't1wLPiRKrfe_vchftk8s8',
-		data: { ekskludert: false, aarsak: 'NONE' },
-		startedTimeStamp: 1714725797072,
-		fulfilledTimeStamp: 1714725797669,
-	},
+export const ekskludertStatusMock = { ekskludert: false, aarsak: 'NONE' }
+
+export const erApotekerMock = false
+
+export const omstillingsstoenadOgGjenlevendeUtenSakMock = {
+	harLoependeSak: false,
 }
 
-export const fulfilledGetErApoteker = {
-	['getErApoteker(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getErApoteker',
-		requestId: 't1wLPiRKrfe_vchftk8s8',
-		data: false,
-		startedTimeStamp: 1714725797072,
-		fulfilledTimeStamp: 1714725797669,
-	},
-}
-
-export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
-	['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getOmstillingsstoenadOgGjenlevende',
-		requestId: 't1wLPiRKrfe_vchftk8s8',
-		data: { harLoependeSak: false },
-		startedTimeStamp: 1714725797072,
-		fulfilledTimeStamp: 1714725797669,
-	},
-}
-export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
-	['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getOmstillingsstoenadOgGjenlevende',
-		requestId: 't1wLPiRKrfe_vchftk8s8',
-		data: { harLoependeSak: true },
-		startedTimeStamp: 1714725797072,
-		fulfilledTimeStamp: 1714725797669,
-	},
+export const omstillingsstoenadOgGjenlevendeMock = {
+	harLoependeSak: true,
 }
 
 export const loependeVedtak0UfoeregradMock: LoependeVedtak = {
@@ -250,348 +151,195 @@ export const loependeVedtak0UfoeregradMock: LoependeVedtak = {
 		grad: 0,
 	},
 }
-export const fulfilledGetLoependeVedtak0Ufoeregrad = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: loependeVedtak0UfoeregradMock,
-		fulfilledTimeStamp: 1688046412103,
+
+export const loependeVedtak100UfoeregradMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	ufoeretrygd: {
+		grad: 100,
 	},
 }
 
-export const fulfilledGetLoependeVedtak100Ufoeregrad = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			ufoeretrygd: {
-				grad: 100,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
+export const loependeVedtak75UfoeregradMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	ufoeretrygd: {
+		grad: 75,
 	},
 }
 
-export const fulfilledGetLoependeVedtak75Ufoeregrad = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			ufoeretrygd: {
-				grad: 75,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
+export const loependeVedtakLoependeAlderspensjonMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	alderspensjon: {
+		grad: 100,
+		uttaksgradFom: '2020-10-02',
+		fom: '2020-10-02',
+		sivilstand: 'UGIFT',
+	},
+	ufoeretrygd: {
+		grad: 0,
 	},
 }
 
-export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 100,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 0,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling =
+export const loependeVedtakLoependeAlderspensjonMedSisteUtbetalingMock: LoependeVedtak =
 	{
-		['getLoependeVedtak(undefined)']: {
-			status: 'fulfilled',
-			endpointName: 'getLoependeVedtak',
-			requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-			startedTimeStamp: 1688046411971,
-			data: {
-				harLoependeVedtak: true,
-				alderspensjon: {
-					grad: 100,
-					uttaksgradFom: '2020-10-02',
-					fom: '2020-10-02',
-					sisteUtbetaling: {
-						beloep: 34000,
-						utbetalingsdato: '2024-10-12',
-					},
-					sivilstand: 'UGIFT',
-				},
-				ufoeretrygd: {
-					grad: 0,
-				},
-			} satisfies LoependeVedtak,
-			fulfilledTimeStamp: 1688046412103,
+		harLoependeVedtak: true,
+		alderspensjon: {
+			grad: 100,
+			uttaksgradFom: '2020-10-02',
+			fom: '2020-10-02',
+			sisteUtbetaling: {
+				beloep: 34000,
+				utbetalingsdato: '2024-10-12',
+			},
+			sivilstand: 'UGIFT',
+		},
+		ufoeretrygd: {
+			grad: 0,
 		},
 	}
 
-export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 50,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 0,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
+export const loependeVedtakLoepende50AlderspensjonMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	alderspensjon: {
+		grad: 50,
+		uttaksgradFom: '2020-10-02',
+		fom: '2020-10-02',
+		sivilstand: 'UGIFT',
+	},
+	ufoeretrygd: {
+		grad: 0,
 	},
 }
 
-export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 100,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 40,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 0,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 0,
-			},
-			afpPrivat: {
-				fom: '2020-10-02',
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			ufoeretrygd: {
-				grad: 0,
-			},
-			afpOffentlig: {
-				fom: '2020-10-02',
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakPre2025OffentligAfp = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			ufoeretrygd: {
-				grad: 0,
-			},
-			pre2025OffentligAfp: {
-				fom: '2020-10-02',
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 0,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 100,
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakFremtidig = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			ufoeretrygd: {
-				grad: 0,
-			},
-			fremtidigAlderspensjon: {
-				grad: 100,
-				fom: '2099-01-01',
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
-	['getLoependeVedtak(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getLoependeVedtak',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			harLoependeVedtak: true,
-			alderspensjon: {
-				grad: 100,
-				uttaksgradFom: '2020-10-02',
-				fom: '2020-10-02',
-				sivilstand: 'UGIFT',
-			},
-			ufoeretrygd: {
-				grad: 0,
-			},
-			fremtidigAlderspensjon: {
-				grad: 100,
-				fom: '2099-01-01',
-			},
-		} satisfies LoependeVedtak,
-		fulfilledTimeStamp: 1688046412103,
-	},
-}
-
-export const fulfilledsimulerOffentligTp = {
-	['offentligTp(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'offentligTp',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			simuleringsresultatStatus: 'OK',
-			muligeTpLeverandoerListe: [
-				'Statens pensjonskasse',
-				'Kommunal Landspensjonskasse',
-				'Oslo Pensjonsforsikring',
-			],
+export const loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock: LoependeVedtak =
+	{
+		harLoependeVedtak: true,
+		alderspensjon: {
+			grad: 100,
+			uttaksgradFom: '2020-10-02',
+			fom: '2020-10-02',
+			sivilstand: 'UGIFT',
 		},
-		fulfilledTimeStamp: 1688046412103,
+		ufoeretrygd: {
+			grad: 40,
+		},
+	}
+
+export const loependeVedtakLoependeAFPprivatMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	alderspensjon: {
+		grad: 0,
+		uttaksgradFom: '2020-10-02',
+		fom: '2020-10-02',
+		sivilstand: 'UGIFT',
+	},
+	ufoeretrygd: {
+		grad: 0,
+	},
+	afpPrivat: {
+		fom: '2020-10-02',
 	},
 }
 
-export const fulfilledPensjonsavtaler = {
-	['pensjonsavtaler(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'pensjonsavtaler',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			avtaler: [],
-			partialResponse: false,
-		},
-		fulfilledTimeStamp: 1688046412103,
+export const loependeVedtakLoependeAFPoffentligMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	ufoeretrygd: {
+		grad: 0,
+	},
+	afpOffentlig: {
+		fom: '2020-10-02',
 	},
 }
 
-export const fulfilledAlderspensjonForLiteTrygdetid = {
-	['alderspensjon(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'alderspensjon',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			alderspensjon: [
-				{
-					alder: 75,
-					beloep: 384120,
-				},
-				{
-					alder: 76,
-					beloep: 384440,
-				},
-				{
-					alder: 77,
-					beloep: 384492,
-				},
-			],
-			vilkaarsproeving: {
-				vilkaarErOppfylt: true,
-			},
-			harForLiteTrygdetid: true,
-		},
-
-		fulfilledTimeStamp: 1688046412103,
+export const loependeVedtakPre2025OffentligAfpMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	ufoeretrygd: {
+		grad: 0,
+	},
+	pre2025OffentligAfp: {
+		fom: '2020-10-02',
 	},
 }
 
-export const fulfilledGetAfpOffentligLivsvarigFalse = {
-	['getAfpOffentligLivsvarig(undefined)']: {
-		status: 'fulfilled',
-		endpointName: 'getAfpOffentligLivsvarig',
-		requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-		startedTimeStamp: 1688046411971,
-		data: {
-			afpStatus: false,
-			maanedligBeloep: null,
-			virkningFom: undefined,
-			sistBenyttetGrunnbeloep: undefined,
+export const loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock: LoependeVedtak =
+	{
+		harLoependeVedtak: true,
+		alderspensjon: {
+			grad: 0,
+			uttaksgradFom: '2020-10-02',
+			fom: '2020-10-02',
+			sivilstand: 'UGIFT',
 		},
-		fulfilledTimeStamp: 1688046412103,
+		ufoeretrygd: {
+			grad: 100,
+		},
+	}
+
+export const loependeVedtakFremtidigMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	ufoeretrygd: {
+		grad: 0,
 	},
+	fremtidigAlderspensjon: {
+		grad: 100,
+		fom: '2099-01-01',
+	},
+}
+
+export const loependeVedtakFremtidigMedAlderspensjonMock: LoependeVedtak = {
+	harLoependeVedtak: true,
+	alderspensjon: {
+		grad: 100,
+		uttaksgradFom: '2020-10-02',
+		fom: '2020-10-02',
+		sivilstand: 'UGIFT',
+	},
+	ufoeretrygd: {
+		grad: 0,
+	},
+	fremtidigAlderspensjon: {
+		grad: 100,
+		fom: '2099-01-01',
+	},
+}
+
+export const simulerOffentligTpMock = {
+	simuleringsresultatStatus: 'OK' as const,
+	muligeTpLeverandoerListe: [
+		'Statens pensjonskasse',
+		'Kommunal Landspensjonskasse',
+		'Oslo Pensjonsforsikring',
+	],
+}
+
+export const pensjonsavtalerMock = {
+	avtaler: [],
+	partialResponse: false,
+}
+
+export const alderspensjonForLiteTrygdetidMock = {
+	alderspensjon: [
+		{
+			alder: 75,
+			beloep: 384120,
+		},
+		{
+			alder: 76,
+			beloep: 384440,
+		},
+		{
+			alder: 77,
+			beloep: 384492,
+		},
+	],
+	vilkaarsproeving: {
+		vilkaarErOppfylt: true,
+	},
+	harForLiteTrygdetid: true,
+}
+
+export const afpOffentligLivsvarigFalseMock = {
+	afpStatus: false,
+	maanedligBeloep: undefined,
+	virkningFom: undefined,
+	sistBenyttetGrunnbeloep: undefined,
 }

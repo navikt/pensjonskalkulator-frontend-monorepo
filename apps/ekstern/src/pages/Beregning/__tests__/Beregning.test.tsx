@@ -2,11 +2,11 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { AVANSERT_FORM_NAMES } from '@/components/AvansertSkjema/utils'
 import {
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtakFremtidig,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtakFremtidigMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  personMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -25,27 +25,15 @@ vi.mock(import('react-router'), async (importOriginal) => {
 })
 
 describe('Beregning', () => {
-  const preloadedQueries = {
-    api: {
-      queries: {
-        ...fulfilledGetPerson,
-        ...fulfilledGetInntekt,
-        ...fulfilledGetLoependeVedtak0Ufoeregrad,
-      },
-    },
+  const defaultApiState = {
+    getPerson: personMock,
+    getInntekt: inntektMock,
+    getLoependeVedtak: loependeVedtak0UfoeregradMock,
   }
 
   it('har riktig sidetittel', () => {
     render(<Beregning visning="enkel" />, {
       preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetInntekt,
-            ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-          },
-        },
         userInput: {
           ...userInputInitialState,
           samtykke: false,
@@ -55,6 +43,11 @@ describe('Beregning', () => {
           },
         },
       },
+      preloadedApiState: {
+        getPerson: personMock,
+        getInntekt: inntektMock,
+        getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+      },
     })
     expect(document.title).toBe('application.title.beregning')
   })
@@ -63,14 +56,6 @@ describe('Beregning', () => {
     it('viser ikke toggle på toppen av siden', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -82,6 +67,11 @@ describe('Beregning', () => {
             },
           },
         },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+        },
       })
 
       expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
@@ -90,14 +80,6 @@ describe('Beregning', () => {
     it('når vedtaket gjelder frem i tid, vises info om det på toppen av siden', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakFremtidig,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -108,6 +90,11 @@ describe('Beregning', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtakFremtidigMock,
         },
       })
 
@@ -128,10 +115,6 @@ describe('Beregning', () => {
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -143,6 +126,7 @@ describe('Beregning', () => {
             },
           },
         },
+        preloadedApiState: defaultApiState,
       })
 
       expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
@@ -158,14 +142,11 @@ describe('Beregning', () => {
       )
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
           },
         },
+        preloadedApiState: defaultApiState,
       })
 
       fireEvent.change(
@@ -199,14 +180,11 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
           },
         },
+        preloadedApiState: defaultApiState,
       })
 
       fireEvent.change(
@@ -248,10 +226,6 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -261,6 +235,7 @@ describe('Beregning', () => {
             },
           },
         },
+        preloadedApiState: defaultApiState,
       })
 
       expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
@@ -332,10 +307,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            // @ts-ignore
-            api: {
-              ...preloadedQueries.api,
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -347,6 +318,7 @@ describe('Beregning', () => {
               },
             },
           },
+          preloadedApiState: defaultApiState,
         }
       )
 
@@ -366,14 +338,11 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            // @ts-ignore
-            api: {
-              ...preloadedQueries.api,
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: defaultApiState,
         }
       )
 
@@ -401,14 +370,11 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            // @ts-ignore
-            api: {
-              ...preloadedQueries.api,
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: defaultApiState,
         }
       )
 
@@ -447,10 +413,6 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            // @ts-ignore
-            api: {
-              ...preloadedQueries.api,
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -460,6 +422,7 @@ describe('Beregning', () => {
               },
             },
           },
+          preloadedApiState: defaultApiState,
         }
       )
 
@@ -482,17 +445,14 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -562,14 +522,11 @@ describe('Beregning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
           },
         },
+        preloadedApiState: defaultApiState,
       })
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
@@ -585,14 +542,11 @@ describe('Beregning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            ...preloadedQueries.api,
-          },
           userInput: {
             ...userInputInitialState,
           },
         },
+        preloadedApiState: defaultApiState,
       })
       expect(
         await screen.findByText(
@@ -605,14 +559,11 @@ describe('Beregning', () => {
   it('gir mulighet til å avbryte og starte ny beregning ', async () => {
     render(<Beregning visning="enkel" />, {
       preloadedState: {
-        // @ts-ignore
-        api: {
-          ...preloadedQueries.api,
-        },
         userInput: {
           ...userInputInitialState,
         },
       },
+      preloadedApiState: defaultApiState,
     })
     expect(await screen.findByText('stegvisning.tilbake_start')).toBeVisible()
   })

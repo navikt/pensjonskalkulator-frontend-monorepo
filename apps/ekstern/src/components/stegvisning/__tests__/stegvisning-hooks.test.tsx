@@ -1,22 +1,21 @@
 import { Provider } from 'react-redux'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-  fulfilledGetPerson,
-  fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder,
-  fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  loependeVedtakLoepende50AlderspensjonMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
+  personEldreEnnAfpUfoereOppsigelsesalderMock,
+  personMock,
+  personYngreEnnAfpUfoereOppsigelsesalderMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
-import { renderHook } from '@/test-utils'
+import { createStoreWithApiData, renderHook } from '@/test-utils'
 
-import { RootState, setupStore } from '../../../state/store'
 import { useStegvisningNavigation } from '../stegvisning-hooks'
 
 const navigateMock = vi.fn()
@@ -44,18 +43,11 @@ describe('stegvisning - hooks', () => {
           'flush'
         )
 
-        const mockedState = {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-
         const wrapper = ({ children }: { children: React.ReactNode }) => {
-          const storeRef = setupStore(mockedState as unknown as RootState, true)
+          const storeRef = createStoreWithApiData(
+            { getLoependeVedtak: loependeVedtak0UfoeregradMock },
+            { userInput: { ...userInputInitialState } }
+          )
           return <Provider store={storeRef}>{children}</Provider>
         }
 
@@ -84,26 +76,16 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren har 100 % uføretrygd', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak100Ufoeregrad,
-            ...fulfilledGetPerson,
-          },
+        const apiState = {
+          getLoependeVedtak: loependeVedtak100UfoeregradMock,
+          getPerson: personMock,
         }
 
         it('Når brukeren navigerer tilbake fra samtykke steget, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -122,26 +104,16 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren har gradert uføretrygd og er eldre enn AFP-Uføre oppsigelsesalder,', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            ...fulfilledGetPersonEldreEnnAfpUfoereOppsigelsesalder,
-          },
+        const apiState = {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
+          getPerson: personEldreEnnAfpUfoereOppsigelsesalderMock,
         }
 
         it('Når brukeren navigerer tilbake fra samtykke steget, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -161,26 +133,16 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren har gradert uføretrygd og er yngre enn AFP-Uføre oppsigelsesalder,', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-          },
+        const apiState = {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
+          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock,
         }
 
         it('Når brukeren har svart "nei" på AFP steget og navigerer tilbake fra samtykke steget, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'nei' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'nei' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -200,16 +162,9 @@ describe('stegvisning - hooks', () => {
 
         it('Når brukeren har svart ja på AFP-steget og navigerer tilbake fra samtykke steget, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -229,16 +184,9 @@ describe('stegvisning - hooks', () => {
 
         it('Når brukeren navigerer tilbake fra ufoeretrygdAFP steget, er hen sendt tilbake til afp steget.', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -257,26 +205,16 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren ikke har uføretrygd og har svart noe annet enn "ja_offentlig" på AFP steget,', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            ...fulfilledGetPerson,
-          },
+        const apiState = {
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getPerson: personMock,
         }
 
         it('Når brukeren navigerer tilbake fra samtykke steget, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'ja_privat' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'ja_privat' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -311,18 +249,11 @@ describe('stegvisning - hooks', () => {
           'flush'
         )
 
-        const mockedState = {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoepende50Alderspensjon,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-
         const wrapper = ({ children }: { children: React.ReactNode }) => {
-          const storeRef = setupStore(mockedState as unknown as RootState, true)
+          const storeRef = createStoreWithApiData(
+            { getLoependeVedtak: loependeVedtakLoepende50AlderspensjonMock },
+            { userInput: { ...userInputInitialState } }
+          )
           return <Provider store={storeRef}>{children}</Provider>
         }
 
@@ -351,26 +282,17 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren har uføretrygd og er yngre enn AFP-Uføre oppsigelsesalder,', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-            ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-          },
+        const apiState = {
+          getLoependeVedtak:
+            loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
+          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock,
         }
 
         it('Når brukeren navigerer tilbake fra ufoeretrygdAFP steget, er hen sendt tilbake til afp steget.', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 
@@ -389,26 +311,16 @@ describe('stegvisning - hooks', () => {
       })
 
       describe('Gitt at brukeren ikke har uføretrygd,', () => {
-        const apiMock = {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-            ...fulfilledGetPerson,
-          },
+        const apiState = {
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+          getPerson: personMock,
         }
 
         it('Når brukeren har svart "ja_offentlig" og navigerer tilbake fra samtykkeOffentligAFP, kalles navigasjonsfunksjonen med riktig format', () => {
           const wrapper = ({ children }: { children: React.ReactNode }) => {
-            const storeRef = setupStore(
-              {
-                // @ts-ignore
-                api: {
-                  ...apiMock,
-                },
-                userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-              },
-              true
-            )
+            const storeRef = createStoreWithApiData(apiState, {
+              userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+            })
             return <Provider store={storeRef}>{children}</Provider>
           }
 

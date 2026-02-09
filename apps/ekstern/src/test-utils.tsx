@@ -152,6 +152,58 @@ export function renderWithProviders(
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }
 
+export function createStateWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): RootState {
+  const s = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
+    s.dispatch(
+      apiSlice.util.upsertQueryEntries(
+        entries.map(([key, value]) => ({
+          endpointName: key as QueryKeys,
+          arg: undefined,
+          value,
+        }))
+      )
+    )
+  }
+  return s.getState()
+}
+
+export function createStoreWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): ReturnType<typeof setupStore> {
+  const s = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
+    s.dispatch(
+      apiSlice.util.upsertQueryEntries(
+        entries.map(([key, value]) => ({
+          endpointName: key as QueryKeys,
+          arg: undefined,
+          value,
+        }))
+      )
+    )
+  }
+  return s
+}
+
 export * from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
 

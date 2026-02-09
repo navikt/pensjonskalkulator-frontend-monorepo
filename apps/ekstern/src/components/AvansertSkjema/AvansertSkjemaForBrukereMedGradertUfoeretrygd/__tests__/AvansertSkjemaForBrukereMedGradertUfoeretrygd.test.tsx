@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-  fulfilledGetPerson,
-  fulfilledGetPersonMedOekteAldersgrenser,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
+  personMedOekteAldersgrenseMock,
+  personMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
@@ -37,12 +37,6 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
   }
 
   const agePickerMonth = getPreviousMonth()
-
-  const mockedQueries = {
-    ...fulfilledGetPerson,
-    ...fulfilledGetLoependeVedtak75Ufoeregrad,
-  }
-
   it('vises informasjon om inntekt, uttaksgrad, pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra normert pensjonsalder', async () => {
     vi.spyOn(alderUtils, 'getBrukerensAlderISluttenAvMaaneden').mockReturnValue(
       { aar: 64, maaneder: 5 }
@@ -57,16 +51,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPersonMedOekteAldersgrenser,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMedOekteAldersgrenseMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -151,13 +142,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -331,13 +322,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -589,13 +580,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -679,13 +670,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -800,13 +791,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -916,16 +907,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPersonMedOekteAldersgrenser,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMedOekteAldersgrenseMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -976,15 +964,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...mockedQueries,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -1039,13 +1025,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...mockedQueries },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1119,13 +1105,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...mockedQueries },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1281,27 +1267,16 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ['getLoependeVedtak(undefined)']: {
-                  // @ts-ignore
-                  status: 'fulfilled',
-                  endpointName: 'getLoependeVedtak',
-                  requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                  startedTimeStamp: 1688046411971,
-                  data: {
-                    harLoependeVedtak: true,
-                    ufoeretrygd: { grad: 40 },
-                  } satisfies LoependeVedtak,
-                  fulfilledTimeStamp: 1688046412103,
-                },
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: {
+              harLoependeVedtak: true,
+              ufoeretrygd: { grad: 40 },
+            } satisfies LoependeVedtak,
           },
         }
       )
@@ -1460,13 +1435,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...mockedQueries },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1618,11 +1593,11 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...mockedQueries },
-            },
             userInput: { ...userInputInitialState },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1699,14 +1674,11 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: { ...userInputInitialState },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1805,16 +1777,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1933,16 +1902,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -1993,13 +1959,13 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...mockedQueries },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -2199,32 +2165,22 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              queries: {
-                ...fulfilledGetPerson,
-                ['getLoependeVedtak(undefined)']: {
-                  // @ts-ignore
-                  status: 'fulfilled',
-                  endpointName: 'getLoependeVedtak',
-                  requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                  startedTimeStamp: 1688046411971,
-                  data: {
-                    harLoependeVedtak: true,
-                    alderspensjon: {
-                      grad: 100,
-                      uttaksgradFom: new Date().toLocaleDateString('en-CA'),
-                      fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
-                      sivilstand: 'UGIFT',
-                    },
-                    ufoeretrygd: { grad: 60 },
-                  } satisfies LoependeVedtak,
-                  fulfilledTimeStamp: 1688046412103,
-                },
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: {
+              harLoependeVedtak: true,
+              alderspensjon: {
+                grad: 100,
+                uttaksgradFom: new Date().toLocaleDateString('en-CA'),
+                fom: new Date().toLocaleDateString('en-CA'),
+                sivilstand: 'UGIFT',
+              },
+              ufoeretrygd: { grad: 60 },
+            } satisfies LoependeVedtak,
           },
         }
       )
@@ -2335,15 +2291,15 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...mockedQueries },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -2365,16 +2321,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak:
+              loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
           },
         }
       )
@@ -2399,16 +2353,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak:
+              loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
           },
         }
       )
@@ -2458,15 +2410,15 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: mockedQueries,
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_offentlig',
               samtykkeOffentligAFP: true,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -2487,15 +2439,15 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: mockedQueries,
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_offentlig',
               samtykkeOffentligAFP: true,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -2529,14 +2481,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: mockedQueries,
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_privat',
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -2592,14 +2544,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: mockedQueries,
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_privat',
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -2664,10 +2616,6 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: mockedQueries,
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_privat',
@@ -2683,6 +2631,10 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
                 },
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )

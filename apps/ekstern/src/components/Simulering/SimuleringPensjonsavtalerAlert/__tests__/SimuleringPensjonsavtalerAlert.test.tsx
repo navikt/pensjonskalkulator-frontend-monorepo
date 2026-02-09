@@ -3,7 +3,7 @@ import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/dat
 import { vi } from 'vitest'
 
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
-import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks/mockedRTKQueryApiCalls'
 import {
   AvansertBeregningModus,
   BeregningContext,
@@ -52,13 +52,8 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         isPensjonsavtaleFlagVisible={false}
       />,
       {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-            },
-          },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
       }
     )

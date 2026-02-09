@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMedSisteUtbetalingMock,
+  loependeVedtakLoependeAlderspensjonMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { render, screen } from '@/test-utils'
 
@@ -18,12 +18,7 @@ describe('InfoOmLoependeVedtak', () => {
 
   it('Når vedtaket ikke gjelder alderspensjon, returnerer null', async () => {
     const { asFragment } = render(
-      <InfoOmLoependeVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
-            .data
-        }
-      />
+      <InfoOmLoependeVedtak loependeVedtak={loependeVedtak75UfoeregradMock} />
     )
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
@@ -31,11 +26,7 @@ describe('InfoOmLoependeVedtak', () => {
   it('Når vedtaket gjelder alderspensjon med 0 % uttaksgrad, returnerer riktig tekst', () => {
     render(
       <InfoOmLoependeVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakLoependeAFPprivat[
-            'getLoependeVedtak(undefined)'
-          ].data
-        }
+        loependeVedtak={loependeVedtakLoependeAFPprivatMock}
       />
     )
     expect(screen.getByText('Du har i dag', { exact: false })).toBeVisible()
@@ -49,11 +40,7 @@ describe('InfoOmLoependeVedtak', () => {
   it('Når vedtaket gjelder alderspensjon uten sisteUtbetaling, returnerer riktig tekst', () => {
     render(
       <InfoOmLoependeVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakLoependeAlderspensjon[
-            'getLoependeVedtak(undefined)'
-          ].data
-        }
+        loependeVedtak={loependeVedtakLoependeAlderspensjonMock}
       />
     )
     expect(screen.getByText('Du har i dag', { exact: false })).toBeVisible()
@@ -68,9 +55,7 @@ describe('InfoOmLoependeVedtak', () => {
     render(
       <InfoOmLoependeVedtak
         loependeVedtak={
-          fulfilledGetLoependeVedtakLoependeAlderspensjonMedSisteUtbetaling[
-            'getLoependeVedtak(undefined)'
-          ].data
+          loependeVedtakLoependeAlderspensjonMedSisteUtbetalingMock
         }
       />
     )

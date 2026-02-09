@@ -1,17 +1,20 @@
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
-import {
-  fulfilledGetGrunnbeloep,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
+import { grunnbeloepMock, personMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  createStateWithApiData,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '@/test-utils'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
@@ -24,17 +27,16 @@ vi.mock(import('react-router'), async (importOriginal) => {
 
 describe('StepSivilstand', () => {
   beforeEach(() => {
-    store.getState = vi.fn().mockImplementation(() => ({
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-          ...fulfilledGetGrunnbeloep,
-        },
-      },
-      userInput: {
-        ...userInputReducerUtils.userInputInitialState,
-      },
-    }))
+    store.getState = vi.fn().mockImplementation(() =>
+      createStateWithApiData(
+        { getPerson: personMock, getGrunnbeloep: grunnbeloepMock },
+        {
+          userInput: {
+            ...userInputReducerUtils.userInputInitialState,
+          },
+        }
+      )
+    )
   })
 
   afterEach(() => {

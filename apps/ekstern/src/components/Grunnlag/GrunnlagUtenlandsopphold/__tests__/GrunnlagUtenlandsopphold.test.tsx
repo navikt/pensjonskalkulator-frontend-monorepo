@@ -1,6 +1,6 @@
 import { Accordion } from '@navikt/ds-react'
 
-import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -172,13 +172,10 @@ describe('GrunnlagUtenlandsopphold', () => {
       const user = userEvent.setup()
       render(<WrappedGrunnlagUtenlandsopphold />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-            },
-          },
           userInput: { ...userInputInitialState, harUtenlandsopphold: false },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
       })
 

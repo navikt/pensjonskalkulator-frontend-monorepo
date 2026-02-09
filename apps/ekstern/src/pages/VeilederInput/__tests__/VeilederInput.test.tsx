@@ -1,9 +1,6 @@
 import { describe, it } from 'vitest'
 
-import {
-  fulfilledGetPerson,
-  fulfilledPre1963GetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock, pre1963PersonMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
@@ -190,16 +187,13 @@ describe('VeilederInput', () => {
       render(<VeilederInput />, {
         hasRouter: false,
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledPre1963GetPerson },
-          },
           userInput: {
             ...userInputInitialState,
             veilederBorgerFnr: '12345678901',
             veilederBorgerEncryptedFnr: 'encrypted123',
           },
         },
+        preloadedApiState: { getPerson: pre1963PersonMock },
       })
     })
 
@@ -207,16 +201,13 @@ describe('VeilederInput', () => {
       render(<VeilederInput />, {
         hasRouter: false,
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
           userInput: {
             ...userInputInitialState,
             veilederBorgerFnr: '12345678901',
             veilederBorgerEncryptedFnr: 'encrypted123',
           },
         },
+        preloadedApiState: { getPerson: personMock },
       })
     })
   })

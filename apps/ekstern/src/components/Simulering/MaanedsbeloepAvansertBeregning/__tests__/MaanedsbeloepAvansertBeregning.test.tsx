@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 
@@ -63,12 +63,6 @@ describe('MaanedsbeloepAvansertBeregning', () => {
       />,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -77,6 +71,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
             },
           },
         },
+        preloadedApiState: { getPerson: personMock },
       }
     )
 
@@ -98,12 +93,6 @@ describe('MaanedsbeloepAvansertBeregning', () => {
       />,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -112,6 +101,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
             },
           },
         },
+        preloadedApiState: { getPerson: personMock },
       }
     )
 

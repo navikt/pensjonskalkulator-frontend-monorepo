@@ -1,8 +1,8 @@
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -33,14 +33,7 @@ describe('StepUfoeretrygdAFP', () => {
     const user = userEvent.setup()
 
     render(<StepUfoeretrygdAFP />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
-      },
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
     })
     await user.click(await screen.findByText('stegvisning.neste'))
     expect(navigateMock).toHaveBeenCalledWith(paths.samtykkeOffentligAFP)
@@ -51,14 +44,9 @@ describe('StepUfoeretrygdAFP', () => {
 
     render(<StepUfoeretrygdAFP />, {
       preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak75Ufoeregrad,
-          },
-        },
         userInput: { ...userInputInitialState, afp: 'ja_privat' },
       },
+      preloadedApiState: { getLoependeVedtak: loependeVedtak75UfoeregradMock },
     })
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(navigateMock).toHaveBeenCalledWith(

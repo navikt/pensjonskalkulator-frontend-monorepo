@@ -4,13 +4,13 @@ import { describe, expect, it, vi } from 'vitest'
 import { AVANSERT_FORM_NAMES } from '@/components/AvansertSkjema/utils'
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import {
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  personMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import {
@@ -55,13 +55,6 @@ describe('BeregningAvansert', () => {
 
   describe('Gitt at brukeren har fylt ut stegvisningen og er kommet til beregningssiden for avansert', () => {
     const preloadedState = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-          ...fulfilledGetInntekt,
-          ...fulfilledGetLoependeVedtak0Ufoeregrad,
-        },
-      },
       userInput: {
         ...userInputInitialState,
         samtykke: true,
@@ -71,6 +64,11 @@ describe('BeregningAvansert', () => {
         },
       } as UserInputState,
     }
+    const defaultApiState = {
+      getPerson: personMock,
+      getInntekt: inntektMock,
+      getLoependeVedtak: loependeVedtak0UfoeregradMock,
+    }
 
     it('scroller på toppen av siden når en route endrer seg', async () => {
       const scrollToMock = vi.fn()
@@ -79,20 +77,20 @@ describe('BeregningAvansert', () => {
         writable: true,
       })
       render(<BeregningAvansert />, {
-        // @ts-ignore
         preloadedState: {
           ...preloadedState,
         },
+        preloadedApiState: defaultApiState,
       })
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
 
     it('vises avansert fanen i redigeringsmodus', async () => {
       render(<BeregningAvansert />, {
-        // @ts-ignore
         preloadedState: {
           ...preloadedState,
         },
+        preloadedApiState: defaultApiState,
       })
       expect(
         screen.getByText(
@@ -121,10 +119,10 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            // @ts-ignore
             preloadedState: {
               ...preloadedState,
             },
+            preloadedApiState: defaultApiState,
           }
         )
         // Fyller ut feltene for 100 % uttak
@@ -209,10 +207,10 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            // @ts-ignore
             preloadedState: {
               ...preloadedState,
             },
+            preloadedApiState: defaultApiState,
           }
         )
         // Fyller ut feltene for 100 % uttak
@@ -297,7 +295,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            // @ts-ignore
             preloadedState: {
               ...preloadedState,
               userInput: {
@@ -306,6 +303,7 @@ describe('BeregningAvansert', () => {
                 samtykkeOffentligAFP: true,
               },
             },
+            preloadedApiState: defaultApiState,
           }
         )
         // Fyller ut feltene for 100 % uttak
@@ -397,7 +395,6 @@ describe('BeregningAvansert', () => {
             <BeregningAvansert />
           </BeregningContext.Provider>,
           {
-            // @ts-ignore
             preloadedState: {
               ...preloadedState,
               userInput: {
@@ -406,6 +403,7 @@ describe('BeregningAvansert', () => {
                 samtykkeOffentligAFP: false,
               },
             },
+            preloadedApiState: defaultApiState,
           }
         )
         // Fyller ut feltene for 100 % uttak
@@ -487,8 +485,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              // @ts-ignore
-              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -502,6 +498,7 @@ describe('BeregningAvansert', () => {
                 },
               },
             },
+            preloadedApiState: defaultApiState,
           }
         )
 
@@ -573,8 +570,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              // @ts-ignore
-              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -585,6 +580,7 @@ describe('BeregningAvansert', () => {
                 },
               },
             },
+            preloadedApiState: defaultApiState,
           }
         )
 
@@ -624,8 +620,6 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              // @ts-ignore
-              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -636,6 +630,7 @@ describe('BeregningAvansert', () => {
                 },
               },
             },
+            preloadedApiState: defaultApiState,
           }
         )
 
@@ -679,8 +674,6 @@ describe('BeregningAvansert', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            // @ts-ignore
-            api: { ...preloadedState.api },
             userInput: {
               ...preloadedState.userInput,
               currentSimulation: {
@@ -691,6 +684,7 @@ describe('BeregningAvansert', () => {
               },
             },
           },
+          preloadedApiState: defaultApiState,
         })
 
         await waitFor(() => {
@@ -717,14 +711,6 @@ describe('BeregningAvansert', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -737,6 +723,11 @@ describe('BeregningAvansert', () => {
                 },
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -794,14 +785,6 @@ describe('BeregningAvansert', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtakLoependeAFPprivat,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -814,6 +797,11 @@ describe('BeregningAvansert', () => {
                 },
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtakLoependeAFPprivatMock,
           },
         }
       )
@@ -902,14 +890,6 @@ describe('BeregningAvansert', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -917,6 +897,11 @@ describe('BeregningAvansert', () => {
                 beregningsvalg: 'med_afp',
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -937,14 +922,6 @@ describe('BeregningAvansert', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -952,6 +929,11 @@ describe('BeregningAvansert', () => {
                 beregningsvalg: 'uten_afp',
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )
@@ -978,17 +960,14 @@ describe('BeregningAvansert', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak100Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak100UfoeregradMock,
         },
       }
     )

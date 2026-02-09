@@ -3,10 +3,10 @@ import { LoaderFunctionArgs } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetGrunnbeloep,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetPerson,
-  fulfilledPre1963GetPerson,
+  grunnbeloepMock,
+  loependeVedtak0UfoeregradMock,
+  personMock,
+  pre1963PersonMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -17,6 +17,7 @@ import {
   UserInputState,
   userInputInitialState,
 } from '@/state/userInput/userInputSlice'
+import { createStateWithApiData } from '@/test-utils'
 import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 import {
@@ -96,10 +97,10 @@ describe('Loaders', () => {
     })
 
     it('returnerer ingenting når minst ett api kall er registrert', async () => {
-      const mockedState = {
-        api: { queries: { ...fulfilledGetPerson } },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
+      const mockedState = createStateWithApiData(
+        { getPerson: personMock },
+        { userInput: { ...userInputInitialState, samtykke: null } }
+      )
       store.getState = vi.fn().mockImplementation(() => mockedState)
       const returnedFromLoader = directAccessGuard()
       expect(returnedFromLoader).toBeUndefined()
@@ -114,7 +115,7 @@ describe('Loaders', () => {
       })
 
       const mockedState = {
-        api: { queries: {} },
+        api: { queries: { mock: 'mock' } },
         userInput: { ...userInputInitialState, samtykke: null },
       }
       store.getState = vi.fn().mockImplementation(() => mockedState)
@@ -143,6 +144,7 @@ describe('Loaders', () => {
   describe('stepStartAccessGuard', () => {
     it('returnerer person og loependeVedtak', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
+        api: { queries: { mock: 'mock' } },
         userInput: { ...userInputInitialState },
         session: { isLoggedIn: false, hasErApotekerError: false },
       }))
@@ -247,15 +249,14 @@ describe('Loaders', () => {
     })
 
     it('returnerer person og grunnbeloep', async () => {
-      store.getState = vi.fn().mockImplementation(() => ({
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetGrunnbeloep,
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }))
+      store.getState = vi
+        .fn()
+        .mockImplementation(() =>
+          createStateWithApiData(
+            { getPerson: personMock, getGrunnbeloep: grunnbeloepMock },
+            { userInput: { ...userInputInitialState } }
+          )
+        )
 
       const returnedFromLoader =
         await stepSivilstandAccessGuard(createMockRequest())
@@ -310,14 +311,10 @@ describe('Loaders', () => {
           },
         },
       })
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledPre1963GetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
+      const mockedState = createStateWithApiData(
+        { getPerson: pre1963PersonMock },
+        { userInput: { ...userInputInitialState, samtykke: null } }
+      )
 
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
@@ -364,14 +361,10 @@ describe('Loaders', () => {
           },
         },
       })
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledPre1963GetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
+      const mockedState = createStateWithApiData(
+        { getPerson: pre1963PersonMock },
+        { userInput: { ...userInputInitialState, samtykke: null } }
+      )
 
       store.getState = vi.fn().mockImplementation(() => mockedState)
 
@@ -631,7 +624,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
             ['getInntekt(undefined)']: {
               status: 'rejected',
               endpointName: 'getInntekt',
@@ -664,7 +657,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
             ['getInntekt(undefined)']: {
               status: 'rejected',
               endpointName: 'getInntekt',
@@ -699,7 +692,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
             ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
               status: 'rejected',
               endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -729,7 +722,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
             ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
               status: 'rejected',
               endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -764,7 +757,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
           },
         },
         userInput: { ...userInputInitialState },
@@ -793,7 +786,7 @@ describe('Loaders', () => {
         api: {
           queries: {
             ...mockedVellykketQueries,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            ...loependeVedtak0UfoeregradMock,
             ['getApotekerStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getApotekerStatus',

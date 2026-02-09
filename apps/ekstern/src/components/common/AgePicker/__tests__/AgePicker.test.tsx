@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { fireEvent, render, screen } from '@/test-utils'
 
@@ -33,16 +33,11 @@ describe('AgePicker', () => {
         <AgePicker name="unique-name" label="My Test Age Picker" />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -85,16 +80,11 @@ describe('AgePicker', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -236,12 +226,7 @@ describe('AgePicker', () => {
         error="My Error"
       />,
       {
-        preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
-        },
+        preloadedApiState: { getPerson: personMock },
       }
     )
     // Når ingen av de feltene er fylt ut
@@ -310,16 +295,11 @@ describe('AgePicker', () => {
       />,
       {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
         },
+        preloadedApiState: { getPerson: personMock },
       }
     )
 
