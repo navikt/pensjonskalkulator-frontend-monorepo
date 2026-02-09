@@ -15,6 +15,14 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      actions-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: npm
     directory: /
@@ -23,33 +31,13 @@ updates:
     schedule:
       interval: daily
     groups:
-      react:
+      npm-minor-patch:
+        applies-to: version-updates
         patterns:
-          - 'react'
-          - 'react-dom'
-          - '@types/react'
-          - '@types/react-dom'
-      vitest:
-        patterns:
-          - 'vitest'
-          - '@vitest/*'
-      eslint:
-        patterns:
-          - 'eslint'
-          - '@eslint/*'
-          - 'typescript-eslint'
-          - 'eslint-plugin-*'
-      prettier:
-        patterns:
-          - 'prettier'
-          - '@trivago/prettier-plugin-sort-imports'
-      playwright:
-        patterns:
-          - '@playwright/*'
-      vite:
-        patterns:
-          - 'vite'
-          - '@vitejs/*'
+          - '*'
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: npm
     directory: /apps/intern
@@ -58,10 +46,13 @@ updates:
     schedule:
       interval: daily
     groups:
-      vite:
+      npm-minor-patch:
+        applies-to: version-updates
         patterns:
-          - 'vite'
-          - '@vitejs/*'
+          - '*'
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: npm
     directory: /packages/api
@@ -69,3 +60,11 @@ updates:
       - npm-github
     schedule:
       interval: daily
+    groups:
+      npm-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
