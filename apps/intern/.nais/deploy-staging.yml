@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: pensjonskalkulator-frontend-intern-{{ branch }}
+  name: pensjonskalkulator-frontend-intern-staging
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
@@ -10,7 +10,7 @@ metadata:
 spec:
   image: '{{ image }}'
   ingresses:
-    - https://{{ branch }}-pensjonskalkulator-frontend-intern.ansatt.dev.nav.no
+    - https://staging-pensjonskalkulator-frontend-intern.ansatt.dev.nav.no
   port: 8080
   replicas:
     min: 2

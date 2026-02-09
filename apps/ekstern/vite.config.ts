@@ -108,7 +108,6 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     exclude: [
       'playwright/**/*',
-      'cypress/**/*',
       // Exclude Simuleringsdetaljer tests while component is commented out
       'src/components/Simulering/Simuleringsdetaljer/__tests__/Simuleringsdetaljer.test.tsx',
     ],
@@ -119,7 +118,6 @@ export default defineConfig({
       exclude: [
         '**/*/faro.ts',
         '*.config.ts',
-        'cypress',
         'playwright',
         'sanity.cli.ts',
         'server/server.ts',
