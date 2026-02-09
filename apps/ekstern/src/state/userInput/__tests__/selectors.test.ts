@@ -186,34 +186,25 @@ describe('userInput selectors', () => {
         })
       expect(selectSivilstand(stateMedVedtakMedSivilstandUgift)).toBe('UGIFT')
 
-      const stateMedVedtakMedSivilstandGift: RootState = {
-        ...initialState,
-        api: {
-          queries: {
-            ['getLoependeVedtak(undefined)']: {
-              // @ts-ignore
-              status: 'fulfilled',
-              endpointName: 'getLoependeVedtak',
-              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-              startedTimeStamp: 1688046411971,
-              data: {
-                harLoependeVedtak: true,
-                alderspensjon: {
-                  grad: 100,
-                  uttaksgradFom: '2020-10-02',
-                  fom: '2020-10-02',
-                  sivilstand: 'GIFT',
-                },
-                ufoeretrygd: { grad: 0 },
-              } satisfies LoependeVedtak,
-              fulfilledTimeStamp: 1688046412103,
+      const stateMedVedtakMedSivilstandGift: RootState = createStateWithApiData(
+        {
+          getLoependeVedtak: {
+            harLoependeVedtak: true,
+            alderspensjon: {
+              grad: 100,
+              uttaksgradFom: '2020-10-02',
+              fom: '2020-10-02',
+              sivilstand: 'GIFT',
             },
+            ufoeretrygd: { grad: 0 },
           },
         },
-        userInput: {
-          ...initialState.userInput,
-        },
-      }
+        {
+          userInput: {
+            ...initialState.userInput,
+          },
+        }
+      )
       expect(selectSivilstand(stateMedVedtakMedSivilstandGift)).toBe('GIFT')
     })
   })

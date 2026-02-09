@@ -172,30 +172,19 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          // @ts-ignore
-          api: {
-            queries: {
-              ...inntektMock,
-              ['getLoependeVedtak(undefined)']: {
-                // @ts-ignore
-                status: 'fulfilled',
-                endpointName: 'getLoependeVedtak',
-                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                startedTimeStamp: 1688046411971,
-                data: {
-                  harLoependeVedtak: true,
-                  ufoeretrygd: { grad: 75 },
-                } satisfies LoependeVedtak,
-                fulfilledTimeStamp: 1688046412103,
-              },
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
             currentSimulation: currentSimulation,
           },
+        },
+        preloadedApiState: {
+          getInntekt: inntektMock,
+          getLoependeVedtak: {
+            harLoependeVedtak: true,
+            ufoeretrygd: { grad: 75 },
+          } satisfies LoependeVedtak,
         },
       })
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)

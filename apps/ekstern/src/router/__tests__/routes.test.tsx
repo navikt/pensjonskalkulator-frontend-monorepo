@@ -23,16 +23,7 @@ import { routes } from '../routes'
 
 const fakeApiCalls = {
   queries: {
-    ['tulleQuery(undefined)']: {
-      status: 'fulfilled',
-      endpointName: 'tulleQuery',
-      requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-      startedTimeStamp: 1688046411971,
-      data: {
-        tull: 'og tøys',
-      },
-      fulfilledTimeStamp: 1688046412103,
-    },
+    mock: 'mock',
   },
 }
 

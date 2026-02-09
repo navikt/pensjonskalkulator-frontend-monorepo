@@ -4,7 +4,6 @@ import { describe, it, vi } from 'vitest'
 
 import {
   grunnbeloepMock,
-  loependeVedtak0UfoeregradMock,
   personMock,
   pre1963PersonMock,
 } from '@/mocks/mockedRTKQueryApiCalls'
@@ -376,32 +375,13 @@ describe('Loaders', () => {
   })
 
   describe('stepAFPAccessGuard', async () => {
-    const mockedVellykketQueries = {
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 't1wLPiRKrfe_vchftk8s8',
-        data: { beloep: 521338, aar: 2021 },
-        startedTimeStamp: 1714725797072,
-        fulfilledTimeStamp: 1714725797669,
+    const rejectedApiQuery = () => ({
+      status: 'rejected',
+      error: {
+        status: 'FETCH_ERROR',
+        error: 'TypeError: Failed to fetch',
       },
-      ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getOmstillingsstoenadOgGjenlevende',
-        requestId: 't1wLPiRKrfe_vchftk8s8',
-        data: { harLoependeSak: false },
-        startedTimeStamp: 1714725797072,
-        fulfilledTimeStamp: 1714725797669,
-      },
-      ['getApotekerStatus(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getApotekerStatus',
-        requestId: 't1wLPiRKrfe_vchftk8s8',
-        data: { apoteker: false, aarsak: 'NONE' },
-        startedTimeStamp: 1714725797072,
-        fulfilledTimeStamp: 1714725797669,
-      },
-    }
+    })
 
     it('kaller redirect til /start når ingen API-kall er registrert', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
@@ -623,19 +603,8 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...mockedVellykketQueries,
-            ...loependeVedtak0UfoeregradMock,
-            ['getInntekt(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getInntekt',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            mock: 'mock',
+            ['getInntekt(undefined)']: rejectedApiQuery(),
           },
         },
         userInput: { ...userInputInitialState },
@@ -657,18 +626,8 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...loependeVedtak0UfoeregradMock,
-            ['getInntekt(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getInntekt',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            mock: 'mock',
+            ['getInntekt(undefined)']: rejectedApiQuery(),
           },
         },
         userInput: { ...userInputInitialState },
@@ -691,19 +650,9 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...mockedVellykketQueries,
-            ...loependeVedtak0UfoeregradMock,
-            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getOmstillingsstoenadOgGjenlevende',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            mock: 'mock',
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']:
+              rejectedApiQuery(),
           },
         },
         userInput: { ...userInputInitialState },
@@ -722,18 +671,9 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...loependeVedtak0UfoeregradMock,
-            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getOmstillingsstoenadOgGjenlevende',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            mock: 'mock',
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']:
+              rejectedApiQuery(),
           },
         },
         userInput: { ...userInputInitialState },
@@ -755,10 +695,7 @@ describe('Loaders', () => {
 
       const mockedState = {
         api: {
-          queries: {
-            ...mockedVellykketQueries,
-            ...loependeVedtak0UfoeregradMock,
-          },
+          queries: { mock: 'mock' },
         },
         userInput: { ...userInputInitialState },
       }
@@ -785,19 +722,8 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...mockedVellykketQueries,
-            ...loependeVedtak0UfoeregradMock,
-            ['getApotekerStatus(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getApotekerStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
+            mock: 'mock',
+            ['getApotekerStatus(undefined)']: rejectedApiQuery(),
           },
         },
         userInput: { ...userInputInitialState },
