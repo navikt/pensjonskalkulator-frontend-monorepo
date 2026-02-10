@@ -120,7 +120,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.0
-        version: 4.11.0(playwright-core@1.58.0)
+        version: 4.11.1(playwright-core@1.58.0)
       '@babel/plugin-syntax-import-attributes':
         specifier: ^7.27.1
         version: 7.28.6(@babel/core@7.28.6)
@@ -134,11 +134,11 @@ importers:
         specifier: ^1.19.0
         version: 1.19.0
       '@navikt/aksel-icons':
-        specifier: ^7.31.0
-        version: 7.40.0
-      '@navikt/ds-css':
         specifier: ^8.2.2
         version: 8.2.2
+      '@navikt/ds-css':
+        specifier: ^8.2.2
+        version: 8.3.0
       '@navikt/ds-react':
         specifier: ^7.31.0
         version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -419,8 +419,8 @@ packages:
     resolution: {integrity: sha512-1B8mZ79ySqlTEfSQ87KZ0XkmTOKQFMO3lUYUGUtwNTUncJINr6nhRWEjk128oBWwEQnpJ7NfpDPjdfg1ICe3xw==}
     engines: {node: '>=16'}
 
-  '@axe-core/playwright@4.11.0':
-    resolution: {integrity: sha512-70vBT/Ylqpm65RQz2iCG2o0JJCEG/WCNyefTr2xcOcr1CoSee60gNQYUMZZ7YukoKkFLv26I/jjlsvwwp532oQ==}
+  '@axe-core/playwright@4.11.1':
+    resolution: {integrity: sha512-mKEfoUIB1MkVTht0BGZFXtSAEKXMJoDkyV5YZ9jbBmZCcWDz71tegNsdTkIN8zc/yMi5Gm2kx7Z5YQ9PfWNAWw==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -1962,8 +1962,11 @@ packages:
   '@navikt/aksel-icons@7.40.0':
     resolution: {integrity: sha512-1xuhplMhKCEPn2iMFypMVgkRNxUd5iupQ7HP2itdQCkK3K2mm2b8HsDwL9d7YDWcxowq5ff7ewpKgQFPn6o1UQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.40.0/16d67c0742bcf2a2c38ad37be6c287765640fd7f}
 
-  '@navikt/ds-css@8.2.2':
-    resolution: {integrity: sha512-3/N2aROdQJiht7aP1yvNW8lPvM1O7gjmR4mMYCfmSOeEedmTmKUIYLxtXDD610JgrKk/zpT6F5ZZB64lozuD6g==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.2.2/f6d24b248c6657c494423687bbdaf0129bae9cd2}
+  '@navikt/aksel-icons@8.2.2':
+    resolution: {integrity: sha512-eTvToTv7V3iR6b9H4bnGa23ONZNY2aOUuLCtjYE/+BjPph/ULrel12k6/H2I3ShcUu9liYAzTUn6q/oeqhKRtw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.2.2/1faa9eded50736d7c382132852b540eebd2b8dcf}
+
+  '@navikt/ds-css@8.3.0':
+    resolution: {integrity: sha512-yl0AZEjnRz2bTUl8MpD5GDdy3j/BzIBcAflOjznnSLc8QZ/80Z1QhUuvOzSxbCNj2stPO/nIEfCXzGIr+NG2rw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.3.0/93862b05ed47bfeb157e83b5147e56a01462dc5f}
 
   '@navikt/ds-react@7.40.0':
     resolution: {integrity: sha512-UAjWnl2ot3QtXTitbuzO8b28ugBR7Bx/AiPM+SkdCCrcC0LB5/qQ5LhnGAY9UvPVyRV8GUAc2iHvTdl47+t+nQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.40.0/4752ce4b946ab9f05135124d5fec50f2d0eaa937}
@@ -1971,6 +1974,9 @@ packages:
       '@types/react': ^19.2.10
       react: ^19.2.4
       react-dom: ^19.2.4
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@navikt/ds-tokens@7.40.0':
     resolution: {integrity: sha512-zBaBKLS5R2OZyXI4UUPOmiB15L/u/aJPHiyoccJDtmqrv5wRkc1oM6UCjzKK0D4gLZHBoxp7YBT0sR9Mp4DXFQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.40.0/36f981e12d4d90f18155615b7666b737039a3ff0}
@@ -1983,6 +1989,9 @@ packages:
       html-react-parser: '>=5.x'
       jsdom: '>=16.x'
       react: ^19.2.4
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@navikt/oasis@3.8.0':
     resolution: {integrity: sha512-5CDsv3wop9eIw2YNBCJRr0w6PwwkoTiHzZQXn1+5YZnsksCkHJAFsfKSbRle6zgsD+XRBnc/TPOP0nvNly7NWg==, tarball: https://npm.pkg.github.com/download/@navikt/oasis/3.8.0/fc6862d934adfbefa382220614af18160688cd1e}
@@ -8159,7 +8168,7 @@ snapshots:
 
   '@aws-lite/ssm@0.2.5': {}
 
-  '@axe-core/playwright@4.11.0(playwright-core@1.58.0)':
+  '@axe-core/playwright@4.11.1(playwright-core@1.58.0)':
     dependencies:
       axe-core: 4.11.1
       playwright-core: 1.58.0
@@ -9790,7 +9799,9 @@ snapshots:
 
   '@navikt/aksel-icons@7.40.0': {}
 
-  '@navikt/ds-css@8.2.2': {}
+  '@navikt/aksel-icons@8.2.2': {}
+
+  '@navikt/ds-css@8.3.0': {}
 
   '@navikt/ds-react@7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -9798,12 +9809,13 @@ snapshots:
       '@floating-ui/react-dom': 2.1.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/aksel-icons': 7.40.0
       '@navikt/ds-tokens': 7.40.0
-      '@types/react': 19.2.10
       clsx: 2.1.1
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
       react-dom: 19.2.4(react@19.2.4)
+    optionalDependencies:
+      '@types/react': 19.2.10
 
   '@navikt/ds-tokens@7.40.0': {}
 
@@ -9813,6 +9825,7 @@ snapshots:
       html-react-parser: 5.2.14(@types/react@19.2.10)(react@19.2.4)
       js-cookie: 3.0.5
       jsdom: 26.1.0
+    optionalDependencies:
       react: 19.2.4
 
   '@navikt/oasis@3.8.0':
