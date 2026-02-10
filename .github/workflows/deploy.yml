@@ -240,10 +240,14 @@ jobs:
 
   # Run unit tests for ekstern
   test-ekstern:
-    name: Run unit tests ekstern
+    name: Run unit tests ekstern (${{ matrix.shard }}/${{ strategy.job-total }})
     needs: changes
     if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -254,18 +258,22 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
-        run: pnpm --filter=ekstern run test
+        run: pnpm --filter=ekstern run test -- --shard=${{ matrix.shard }}/2
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-report
+          name: code-coverage-report-${{ matrix.shard }}
           path: apps/ekstern/coverage
 
   playwright-ekstern:
-    name: Run Playwright tests ekstern
+    name: Run Playwright tests ekstern (${{ matrix.shard }}/${{ strategy.job-total }})
     needs: build-ekstern
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
@@ -287,13 +295,13 @@ jobs:
         run: pnpm --filter=ekstern exec playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: pnpm --filter=ekstern run pw:test
+        run: pnpm --filter=ekstern run pw:test -- --shard=${{ matrix.shard }}/4
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.shard }}
           path: apps/ekstern/playwright-report
           retention-days: 7
 
