@@ -140,8 +140,8 @@ importers:
         specifier: ^8.2.2
         version: 8.3.0
       '@navikt/ds-react':
-        specifier: ^7.31.0
-        version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^8.2.2
+        version: 8.2.2(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.6.1
         version: 3.6.1(csp-header@6.3.0)(html-react-parser@5.2.14(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)
@@ -1959,17 +1959,14 @@ packages:
   '@mux/playback-core@0.32.2':
     resolution: {integrity: sha512-cmaZN0hRIrEFcSVsj+quBDOeztg5oxug02WwuAiweWkMt1vSBM8nlzuF03coRnD/sKhgnQawdJOrng42R8I0Cg==}
 
-  '@navikt/aksel-icons@7.40.0':
-    resolution: {integrity: sha512-1xuhplMhKCEPn2iMFypMVgkRNxUd5iupQ7HP2itdQCkK3K2mm2b8HsDwL9d7YDWcxowq5ff7ewpKgQFPn6o1UQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.40.0/16d67c0742bcf2a2c38ad37be6c287765640fd7f}
-
   '@navikt/aksel-icons@8.2.2':
     resolution: {integrity: sha512-eTvToTv7V3iR6b9H4bnGa23ONZNY2aOUuLCtjYE/+BjPph/ULrel12k6/H2I3ShcUu9liYAzTUn6q/oeqhKRtw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.2.2/1faa9eded50736d7c382132852b540eebd2b8dcf}
 
   '@navikt/ds-css@8.3.0':
     resolution: {integrity: sha512-yl0AZEjnRz2bTUl8MpD5GDdy3j/BzIBcAflOjznnSLc8QZ/80Z1QhUuvOzSxbCNj2stPO/nIEfCXzGIr+NG2rw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.3.0/93862b05ed47bfeb157e83b5147e56a01462dc5f}
 
-  '@navikt/ds-react@7.40.0':
-    resolution: {integrity: sha512-UAjWnl2ot3QtXTitbuzO8b28ugBR7Bx/AiPM+SkdCCrcC0LB5/qQ5LhnGAY9UvPVyRV8GUAc2iHvTdl47+t+nQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.40.0/4752ce4b946ab9f05135124d5fec50f2d0eaa937}
+  '@navikt/ds-react@8.2.2':
+    resolution: {integrity: sha512-jnuXTt1oKFgBx6QxuDN8FyyY3iiQkjKX7qIisspI37erUrbUYJ66aqQjOsMQ41QlpZ4yeEzzknB7fv3SuMCq3Q==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.2.2/03f71885f10b43720f46d3cc848259de69bf769d}
     peerDependencies:
       '@types/react': ^19.2.10
       react: ^19.2.4
@@ -1978,8 +1975,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@navikt/ds-tokens@7.40.0':
-    resolution: {integrity: sha512-zBaBKLS5R2OZyXI4UUPOmiB15L/u/aJPHiyoccJDtmqrv5wRkc1oM6UCjzKK0D4gLZHBoxp7YBT0sR9Mp4DXFQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.40.0/36f981e12d4d90f18155615b7666b737039a3ff0}
+  '@navikt/ds-tokens@8.2.2':
+    resolution: {integrity: sha512-jBaAcO2tsAneux1dr6P2GHKw25PUpAEyulE63KK9Sl/Ml4gD/tLTFyB15+c9Ng8HoR7UV4ms0ewSgJ3JFO9DEQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.2.2/67e79a7faf0c22339866fb9678529dce85789610}
 
   '@navikt/nav-dekoratoren-moduler@3.6.1':
     resolution: {integrity: sha512-vfq24tA2eKEsZ9/qRzobRlrKV5NUbSuI9FA60AUhH+BX+61WE/ZsvHhNbFiO9NlXg/yYLmVZCg1uJB5V4QnU7A==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/3.6.1/b0dfb47266ce90ffacd1905cd4feb53d8194dbcb}
@@ -9797,19 +9794,16 @@ snapshots:
       hls.js: 1.6.15
       mux-embed: 5.16.0
 
-  '@navikt/aksel-icons@7.40.0': {}
-
   '@navikt/aksel-icons@8.2.2': {}
 
   '@navikt/ds-css@8.3.0': {}
 
-  '@navikt/ds-react@7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/ds-react@8.2.2(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@floating-ui/react-dom': 2.1.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@navikt/aksel-icons': 7.40.0
-      '@navikt/ds-tokens': 7.40.0
-      clsx: 2.1.1
+      '@navikt/aksel-icons': 8.2.2
+      '@navikt/ds-tokens': 8.2.2
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
@@ -9817,7 +9811,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.10
 
-  '@navikt/ds-tokens@7.40.0': {}
+  '@navikt/ds-tokens@8.2.2': {}
 
   '@navikt/nav-dekoratoren-moduler@3.6.1(csp-header@6.3.0)(html-react-parser@5.2.14(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)':
     dependencies:
