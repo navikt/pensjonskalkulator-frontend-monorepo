@@ -241,7 +241,8 @@ jobs:
   # Run unit tests for ekstern
   test-ekstern:
     name: Run unit tests ekstern
-    needs: build-ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
