@@ -1,6 +1,6 @@
 import { Accordion } from '@navikt/ds-react'
 
-import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
 

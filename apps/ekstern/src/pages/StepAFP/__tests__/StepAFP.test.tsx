@@ -4,9 +4,9 @@ import { describe, it, vi } from 'vitest'
 import {
   loependeVedtak0UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockResponse,
   personYngreEnnAfpUfoereOppsigelsesalderMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'

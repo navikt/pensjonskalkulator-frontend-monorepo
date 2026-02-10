@@ -3,7 +3,7 @@ import { describe, it, vi } from 'vitest'
 import {
   loependeVedtak0UfoeregradMock,
   loependeVedtak75UfoeregradMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'

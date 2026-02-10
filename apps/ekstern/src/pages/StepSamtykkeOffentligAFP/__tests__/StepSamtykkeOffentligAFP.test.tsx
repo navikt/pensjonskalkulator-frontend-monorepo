@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { loependeVedtak0UfoeregradMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtak0UfoeregradMock } from '@/mocks'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'

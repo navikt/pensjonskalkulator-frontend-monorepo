@@ -1,7 +1,7 @@
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
-import { grunnbeloepMock, personMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { grunnbeloepMock, personMock } from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'

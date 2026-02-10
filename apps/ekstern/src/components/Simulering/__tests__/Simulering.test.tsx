@@ -7,9 +7,10 @@ import {
   inntektMock,
   loependeVedtak0UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   Simulation,

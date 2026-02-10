@@ -5,10 +5,10 @@ import {
   loependeVedtak100UfoeregradMock,
   loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockResponse,
   personMedOekteAldersgrenseMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

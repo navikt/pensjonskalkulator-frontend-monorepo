@@ -5,7 +5,7 @@ import {
   omstillingsstoenadOgGjenlevendeMock,
   personMedOekteAldersgrenseMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'

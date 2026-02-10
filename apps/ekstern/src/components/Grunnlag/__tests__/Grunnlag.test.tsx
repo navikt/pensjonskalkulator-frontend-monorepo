@@ -5,11 +5,12 @@ import {
   loependeVedtak75UfoeregradMock,
   loependeVedtak100UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
   personYngreEnnAfpUfoereOppsigelsesalderMock,
   pre1963PersonMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'

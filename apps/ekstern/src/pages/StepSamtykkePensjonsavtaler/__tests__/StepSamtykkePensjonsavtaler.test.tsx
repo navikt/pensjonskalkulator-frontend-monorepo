@@ -6,7 +6,7 @@ import {
   pensjonsavtalerMock,
   personMock,
   simulerOffentligTpMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'

@@ -10,7 +10,7 @@ import {
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 
 import { isLoependeVedtakEndring } from '../loependeVedtak'
 

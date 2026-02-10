@@ -1,10 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import {
-  inntektMock,
-  loependeVedtak0UfoeregradMock,
-  personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+import { inntektMock, loependeVedtak0UfoeregradMock, personMock } from '@/mocks'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {

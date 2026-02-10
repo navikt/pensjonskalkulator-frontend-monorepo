@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { personMedOekteAldersgrenseMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMedOekteAldersgrenseMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 

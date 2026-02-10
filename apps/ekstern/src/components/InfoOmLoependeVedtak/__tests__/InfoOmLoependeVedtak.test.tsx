@@ -5,7 +5,7 @@ import {
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMedSisteUtbetalingMock,
   loependeVedtakLoependeAlderspensjonMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { render, screen } from '@/test-utils'
 
 import { InfoOmLoependeVedtak } from '..'

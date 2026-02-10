@@ -10,9 +10,10 @@ import {
   loependeVedtak100UfoeregradMock,
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

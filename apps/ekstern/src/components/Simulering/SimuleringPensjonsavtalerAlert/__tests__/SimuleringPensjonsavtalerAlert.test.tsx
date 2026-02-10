@@ -3,7 +3,7 @@ import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/dat
 import { vi } from 'vitest'
 
 import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
-import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

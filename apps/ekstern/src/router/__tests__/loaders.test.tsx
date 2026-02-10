@@ -4,10 +4,11 @@ import { describe, it, vi } from 'vitest'
 
 import {
   grunnbeloepMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
   pre1963PersonMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import { paths } from '@/router/constants'
 import type { Reason } from '@/router/loaders'
 import * as apiSliceUtils from '@/state/api/apiSlice'

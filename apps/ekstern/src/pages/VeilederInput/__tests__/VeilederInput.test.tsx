@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 
-import { personMock, pre1963PersonMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock, pre1963PersonMock } from '@/mocks'
 import { BASE_PATH } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'

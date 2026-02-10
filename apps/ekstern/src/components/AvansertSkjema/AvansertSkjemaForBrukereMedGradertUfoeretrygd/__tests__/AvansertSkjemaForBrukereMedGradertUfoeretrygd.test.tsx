@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest'
 import {
   loependeVedtak75UfoeregradMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
+  mockResponse,
   personMedOekteAldersgrenseMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

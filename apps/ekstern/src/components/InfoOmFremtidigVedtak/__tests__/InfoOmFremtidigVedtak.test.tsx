@@ -4,7 +4,7 @@ import {
   loependeVedtakFremtidigMedAlderspensjonMock,
   loependeVedtakFremtidigMock,
   loependeVedtakLoependeAlderspensjonMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { render, screen } from '@/test-utils'
 
 import { InfoOmFremtidigVedtak } from '..'

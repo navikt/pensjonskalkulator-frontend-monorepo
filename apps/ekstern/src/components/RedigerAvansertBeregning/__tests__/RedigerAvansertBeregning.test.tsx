@@ -5,7 +5,7 @@ import {
   loependeVedtak75UfoeregradMock,
   loependeVedtak100UfoeregradMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

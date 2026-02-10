@@ -1,7 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { loependeVedtak0UfoeregradMock } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+import { loependeVedtak0UfoeregradMock, mockResponse } from '@/mocks'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'

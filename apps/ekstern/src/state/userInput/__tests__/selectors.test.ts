@@ -6,7 +6,7 @@ import {
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { RootState, store } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputSlice'
 import { createStateWithApiData } from '@/test-utils'

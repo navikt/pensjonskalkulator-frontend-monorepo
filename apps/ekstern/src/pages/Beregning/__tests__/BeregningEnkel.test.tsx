@@ -10,9 +10,10 @@ import {
   loependeVedtak100UfoeregradMock,
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'

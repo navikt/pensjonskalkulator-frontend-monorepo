@@ -5,10 +5,11 @@ import {
   erApotekerMock,
   inntektMock,
   loependeVedtak0UfoeregradMock,
+  mockErrorResponse,
+  mockResponse,
   omstillingsstoenadOgGjenlevendeUtenSakMock,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'

@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks'
 import { HOST_BASEURL } from '@/paths'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 

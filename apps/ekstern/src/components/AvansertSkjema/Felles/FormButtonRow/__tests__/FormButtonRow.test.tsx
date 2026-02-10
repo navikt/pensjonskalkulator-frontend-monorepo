@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,

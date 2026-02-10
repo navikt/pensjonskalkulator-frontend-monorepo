@@ -10,7 +10,7 @@ import {
   personEldreEnnAfpUfoereOppsigelsesalderMock,
   personMock,
   personYngreEnnAfpUfoereOppsigelsesalderMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
+} from '@/mocks'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'

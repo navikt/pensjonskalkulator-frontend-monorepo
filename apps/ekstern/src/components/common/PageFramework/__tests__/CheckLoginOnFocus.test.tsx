@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks'
 import { HOST_BASEURL } from '@/paths'
 import { render, waitFor } from '@/test-utils'
 

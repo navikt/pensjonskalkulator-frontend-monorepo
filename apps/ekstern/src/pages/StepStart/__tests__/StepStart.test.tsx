@@ -3,9 +3,10 @@ import { describe, it, vi } from 'vitest'
 
 import {
   loependeVedtak0UfoeregradMock,
+  mockErrorResponse,
+  mockResponse,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'

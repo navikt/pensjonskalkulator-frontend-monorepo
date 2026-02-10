@@ -9,7 +9,7 @@ import tidligstMuligHeltUttakResponse from '@pensjonskalkulator-frontend-monorep
 import spraakvelgerToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import utvidetSimuleringsresultatToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks'
 import { Reason } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import { setupStore } from '@/state/store'

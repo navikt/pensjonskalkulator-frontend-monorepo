@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 
-import { personMock } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 

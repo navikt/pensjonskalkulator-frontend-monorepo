@@ -3,9 +3,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   grunnbeloepMock,
   loependeVedtak0UfoeregradMock,
+  mockResponse,
   personMock,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,
