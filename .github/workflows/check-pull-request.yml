@@ -134,7 +134,7 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
-        run: pnpm --filter=ekstern run test -- --shard=${{ matrix.shard }}/2
+        run: pnpm --filter=ekstern exec vitest run --pool=forks --shard=${{ matrix.shard }}/2
 
   # E2E tests for intern
   e2e-tests-intern:
@@ -191,7 +191,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: pnpm --filter=ekstern run test:e2e -- --shard=${{ matrix.shard }}/4
+        run: pnpm --filter=ekstern exec playwright test --project=chromium --shard=${{ matrix.shard }}/4
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
