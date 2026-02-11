@@ -134,7 +134,11 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
-        run: pnpm --filter=ekstern exec vitest run --pool=forks --shard=${{ matrix.shard }}/2
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '2'
 
   # E2E tests for intern
   e2e-tests-intern:
@@ -187,19 +191,12 @@ jobs:
           name: ekstern-dist
           path: apps/ekstern/dist
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
-
       - name: Run E2E tests
-        run: pnpm --filter=ekstern exec playwright test --project=chromium --shard=${{ matrix.shard }}/4
-
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
-        if: failure()
+        uses: ./.github/actions/run-e2e-tests
         with:
-          name: playwright-report-ekstern-${{ matrix.shard }}
-          path: apps/ekstern/playwright-report
-          retention-days: 7
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '4'
 
   # All checks passed gate
   all-checks-passed:

@@ -240,7 +240,7 @@ jobs:
 
   # Run unit tests for ekstern
   test-ekstern:
-    name: Run unit tests ekstern (${{ matrix.shard }}/${{ strategy.job-total }})
+    name: Run unit tests ekstern (${{ matrix.shard }}/2)
     needs: changes
     if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
@@ -258,7 +258,11 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Run unit tests
-        run: pnpm --filter=ekstern exec vitest run --pool=forks --shard=${{ matrix.shard }}/2
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '2'
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
@@ -267,7 +271,7 @@ jobs:
           path: apps/ekstern/coverage
 
   playwright-ekstern:
-    name: Run Playwright tests ekstern (${{ matrix.shard }}/${{ strategy.job-total }})
+    name: Run Playwright tests ekstern (${{ matrix.shard }}/4)
     needs: build-ekstern
     runs-on: ubuntu-latest
     strategy:
@@ -291,19 +295,12 @@ jobs:
           name: dist
           path: apps/ekstern/dist
 
-      - name: Install Playwright browsers (chromium)
-        run: pnpm --filter=ekstern exec playwright install --with-deps chromium
-
       - name: Run Playwright tests
-        run: pnpm --filter=ekstern exec playwright test --project=chromium --shard=${{ matrix.shard }}/4
-
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
-        if: failure()
+        uses: ./.github/actions/run-e2e-tests
         with:
-          name: playwright-report-${{ matrix.shard }}
-          path: apps/ekstern/playwright-report
-          retention-days: 7
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '4'
 
   # Deploy ekstern to staging (dev environment)
   deploy-ekstern-staging:
