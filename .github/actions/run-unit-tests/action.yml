@@ -20,8 +20,8 @@ runs:
     - name: Run unit tests
       shell: bash
       run: |
-        SHARD_ARG=""
         if [ -n "${{ inputs.shard }}" ] && [ -n "${{ inputs.total-shards }}" ]; then
-          SHARD_ARG="--shard=${{ inputs.shard }}/${{ inputs.total-shards }}"
+          pnpm --filter "*${{ inputs.app }}*" exec vitest run --pool=forks --shard=${{ inputs.shard }}/${{ inputs.total-shards }}
+        else
+          pnpm --filter "*${{ inputs.app }}*" test -- --run
         fi
-        pnpm --filter "*${{ inputs.app }}*" exec vitest run --pool=forks $SHARD_ARG
