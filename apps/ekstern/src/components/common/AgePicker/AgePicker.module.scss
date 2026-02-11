@@ -37,23 +37,6 @@
     flex-shrink: 0;
   }
 
-  &__hasError {
-    select {
-      box-shadow: 0 0 0 1px
-        var(--ac-select-error-border, var(--a-surface-danger));
-      border-color: var(--ac-select-error-border, var(--a-surface-danger));
-
-      &:focus {
-        outline: none;
-        border-color: var(
-          --ac-select-active-border,
-          var(--a-border-action-selected)
-        );
-        box-shadow: var(--a-shadow-focus);
-      }
-    }
-  }
-
   &Error {
     &Message {
       padding-top: var(--a-spacing-2);
