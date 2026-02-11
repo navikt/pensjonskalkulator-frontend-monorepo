@@ -38,7 +38,7 @@ jobs:
       shared: ${{ steps.changes.outputs.shared }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Detect changes
         id: changes
@@ -54,7 +54,7 @@ jobs:
       image: ${{ steps.image-creation.outputs.image }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -123,7 +123,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
@@ -161,7 +161,7 @@ jobs:
     if: needs.determine-test-env-intern.outputs.environments != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to ${{ needs.determine-test-env-intern.outputs.environments }}
         uses: nais/deploy/actions/deploy@v2
@@ -178,7 +178,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
 
   #     - name: Deploy to prod-gcp
   #       uses: nais/deploy/actions/deploy@v2
@@ -197,7 +197,7 @@ jobs:
       image: ${{ steps.image-creation.outputs.image }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -223,7 +223,7 @@ jobs:
         run: pnpm --filter=ekstern run build:server
 
       - name: Save build folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: apps/ekstern/dist
@@ -250,7 +250,7 @@ jobs:
         shard: [1, 2]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -265,7 +265,7 @@ jobs:
           total-shards: '2'
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: code-coverage-report-${{ matrix.shard }}
           path: apps/ekstern/coverage
@@ -282,7 +282,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -290,7 +290,7 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: apps/ekstern/dist
@@ -310,7 +310,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
@@ -353,7 +353,7 @@ jobs:
     if: needs.determine-test-env-ekstern.outputs.environments != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environments }}
         uses: nais/deploy/actions/deploy@v2
@@ -378,7 +378,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
 
   #     - name: Deploy to prod-gcp
   #       uses: nais/deploy/actions/deploy@v2
