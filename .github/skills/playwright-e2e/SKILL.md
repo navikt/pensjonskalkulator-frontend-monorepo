@@ -99,7 +99,7 @@ All mock overrides use this shape:
 ```typescript
 // utils/auth.ts
 export const authenticate = async (page, overwrites = []) => {
-	await setupInterceptions(page, overwrites) // 1. Set up all 37 route mocks + overwrites
+	await setupInterceptions(page, overwrites) // 1. Set up all 36 route mocks + overwrites
 	await page.goto('/pensjon/kalkulator/') // 2. Navigate to landing page
 	const btn = page.getByTestId('landingside-enkel-kalkulator-button')
 	await btn.waitFor({ state: 'visible' }) // 3. Wait for button
@@ -112,13 +112,13 @@ Authentication is faked — session endpoints return 200 and `decorator-auth.jso
 
 ---
 
-## 3. `setupInterceptions()` — All 37 Default Routes
+## 3. `setupInterceptions()` — All 36 Default Routes
 
 Called by `authenticate()`. Steps:
 
 1. Injects init script: `window.__DISABLE_MSW__ = true` and `window.Playwright = true`
 2. Sets `navno-consent` cookie (analytics/surveys disabled)
-3. Registers 37 default routes (below)
+3. Registers 36 default routes (below)
 4. Merges `overwrites[]` — matching routes replaced, new routes appended
 5. Registers error handler (suppresses Amplitude/representasjon-banner errors)
 6. Registers `page.route()` for each route with GET/POST method matching
@@ -311,7 +311,7 @@ Composed mock arrays for common user profiles. Each returns `RouteDefinition[]`.
 | `brukerUnder75MedPre2025OffentligAfpOgTidligsteUttak()` | Composite                     | `brukerUnder75()` + `medPre2025OffentligAfp()` + `medTidligsteUttaksalder(62, 10)`    |
 
 ```typescript
-import * as presetStates from '../../../utils/presetStates'
+import { presetStates } from '../../../utils/presetStates'
 
 test.use({ autoAuth: false })
 
@@ -557,7 +557,7 @@ test.describe('SPK membership', () => {
 ```typescript
 import { test } from '../../../base'
 import { authenticate } from '../../../utils/auth'
-import * as presetStates from '../../../utils/presetStates'
+import { presetStates } from '../../../utils/presetStates'
 
 test.describe('Pre-2025 offentlig AFP', () => {
 	test.use({ autoAuth: false })

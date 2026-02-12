@@ -14,7 +14,7 @@ You are generating a Vitest test file for the pensjonskalkulator frontend (`apps
 ## Rules
 
 - Import `render`, `screen`, `waitFor` from `@/test-utils` (custom wrapper — NOT from `@testing-library/react`)
-- Import `userEvent` from `@testing-library/user-event` (also re-exported from `@/test-utils`)
+- Import `userEvent` from `@/test-utils` (re-exported from `@testing-library/user-event`)
 - Import `vi`, `describe`, `it`, `expect` from `vitest`
 - Use `vi.fn()` for mocks, `vi.useFakeTimers()` for date logic
 - Test names in Norwegian: `rendrer korrekt`, `håndterer klikk`, `returnerer forventet verdi`
@@ -24,10 +24,9 @@ You are generating a Vitest test file for the pensjonskalkulator frontend (`apps
 ## Component Test
 
 ```tsx
-import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { render, screen } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 import { MyComponent } from '../MyComponent'
 
@@ -162,6 +161,7 @@ describe('myGuard', () => {
 		const result = await myGuard({
 			request: new Request('http://localhost/pensjon/kalkulator/path'),
 			params: {},
+			context: {},
 		})
 		expect(result).toHaveProperty('person')
 	})
@@ -171,6 +171,7 @@ describe('myGuard', () => {
 		const result = await myGuard({
 			request: new Request('http://localhost/pensjon/kalkulator/path'),
 			params: {},
+			context: {},
 		})
 		expect((result as Response).status).toBe(302)
 	})
