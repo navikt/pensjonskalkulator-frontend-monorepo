@@ -21,3 +21,11 @@ export const apoteker = async (
     },
   }
 }
+
+export function apotekerError(): RouteDefinition {
+  return {
+    url: /\/pensjon\/kalkulator\/api\/v1\/er-apoteker/,
+    status: 500,
+    overrideJsonResponse: { message: 'Internal Server Error' },
+  }
+}

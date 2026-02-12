@@ -29,3 +29,19 @@ export const pensjonsavtaler = async (
     },
   }
 }
+
+export const pensjonsavtalerError = (): RouteDefinition => ({
+  url: /\/pensjon\/kalkulator\/api\/v3\/pensjonsavtaler/,
+  method: 'POST',
+  status: 503,
+  overrideJsonResponse: {},
+})
+
+export const pensjonsavtalerDelvisSvarTom = (): RouteDefinition => ({
+  url: /\/pensjon\/kalkulator\/api\/v3\/pensjonsavtaler/,
+  method: 'POST',
+  overrideJsonResponse: {
+    avtaler: [],
+    utilgjengeligeSelskap: ['Something'],
+  },
+})

@@ -209,16 +209,9 @@
   {
     "landkode": "CAN",
     "kravOmArbeid": true,
-    "bokmaalNavn": "Canada (utenom Quebec)",
-    "nynorskNavn": "Canada (utenom Quebec)",
-    "engelskNavn": "Canada (except Quebec)"
-  },
-  {
-    "landkode": "QEB",
-    "kravOmArbeid": true,
-    "bokmaalNavn": "Canada (Quebec)",
-    "nynorskNavn": "Canada (Quebec)",
-    "engelskNavn": "Canada (Quebec)"
+    "bokmaalNavn": "Canada",
+    "nynorskNavn": "Canada",
+    "engelskNavn": "Canada"
   },
   {
     "landkode": "CYM",
@@ -400,9 +393,9 @@
   {
     "landkode": "FIN",
     "kravOmArbeid": false,
-    "bokmaalNavn": "Finland",
-    "nynorskNavn": "Finland",
-    "engelskNavn": "Finland"
+    "bokmaalNavn": "Finland (inkl. Åland)",
+    "nynorskNavn": "Finland (inkl. Åland)",
+    "engelskNavn": "Finland (incl. Åland)"
   },
   {
     "landkode": "FRA",
@@ -1551,13 +1544,6 @@
     "bokmaalNavn": "Østerrike",
     "nynorskNavn": "Østerrike",
     "engelskNavn": "Austria"
-  },
-  {
-    "landkode": "ALA",
-    "kravOmArbeid": false,
-    "bokmaalNavn": "Åland",
-    "nynorskNavn": "Åland",
-    "engelskNavn": "Åland"
   },
   {
     "landkode": "XUK",

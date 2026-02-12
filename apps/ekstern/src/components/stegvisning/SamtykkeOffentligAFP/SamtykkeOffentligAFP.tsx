@@ -1,17 +1,11 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  Alert,
-  BodyLong,
-  Heading,
-  Radio,
-  RadioGroup,
-  ReadMore,
-} from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
+import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'
@@ -114,31 +108,8 @@ export function SamtykkeOffentligAFP({
           />
         </BodyLong>
 
-        <ReadMore
-          header={intl.formatMessage({
-            id: 'stegvisning.samtykke_offentlig_afp.nav_info.readmore',
-          })}
-        >
-          <BodyLong size="large">
-            <FormattedMessage
-              id="stegvisning.samtykke_offentlig_afp.nav_info.readmore.ingress"
-              values={{ ...getFormatMessageValues() }}
-            />
-          </BodyLong>
-        </ReadMore>
-
-        <ReadMore
-          header={intl.formatMessage({
-            id: 'stegvisning.samtykke_offentlig_afp.tpo_info.readmore',
-          })}
-        >
-          <BodyLong size="large">
-            <FormattedMessage
-              id="stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress"
-              values={{ ...getFormatMessageValues() }}
-            />
-          </BodyLong>
-        </ReadMore>
+        <SanityReadmore id="nav_sjekker_og_henter_AFP_livsvarig" />
+        <SanityReadmore id="nav_beregner_AFP_livsvarig" />
 
         <RadioGroup
           className={styles.radiogroup}

@@ -27,19 +27,12 @@ export default defineConfig({
             'react',
             'react-dom',
             'react-redux',
-            'redux',
-            'redux-thunk',
             '@reduxjs/toolkit',
             'react-router',
           ],
           ['designsystem']: ['@navikt/ds-react'],
           ['faro']: ['@grafana/faro-web-sdk'],
-          ['intl']: [
-            'react-intl',
-            'intl-messageformat',
-            '@formatjs/intl',
-            '@formatjs/intl-numberformat',
-          ],
+          ['intl']: ['react-intl', '@formatjs/intl-numberformat'],
         },
       },
     },
@@ -77,6 +70,7 @@ export default defineConfig({
     },
   ].filter(Boolean),
   server: {
+    port: 5173,
     proxy: {
       '/pensjon/kalkulator/api': {
         target: 'http://localhost:8080',
@@ -87,7 +81,7 @@ export default defineConfig({
   },
   css: {
     modules: {
-      // @ts-expect-error
+      // @ts-expect-error - Custom loader type not in Vite's CSSModulesOptions
       Loader: CustomPostCSSLoader,
       generateScopedName: (name, fileName) => {
         const pathArray = fileName.split('/')
@@ -97,7 +91,12 @@ export default defineConfig({
       },
     },
     preprocessorOptions: {
-      scss: {},
+      scss: {
+        // @ts-expect-error - Vite types don't include newer Sass options yet
+        api: 'modern-compiler',
+        silenceDeprecations: ['legacy-js-api'],
+        loadPaths: [resolve(__dirname, '../../node_modules')],
+      },
     },
   },
   test: {
@@ -109,7 +108,6 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     exclude: [
       'playwright/**/*',
-      'cypress/**/*',
       // Exclude Simuleringsdetaljer tests while component is commented out
       'src/components/Simulering/Simuleringsdetaljer/__tests__/Simuleringsdetaljer.test.tsx',
     ],
@@ -120,7 +118,6 @@ export default defineConfig({
       exclude: [
         '**/*/faro.ts',
         '*.config.ts',
-        'cypress',
         'playwright',
         'sanity.cli.ts',
         'server/server.ts',

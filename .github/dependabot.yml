@@ -1,0 +1,71 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{ secrets.READER_TOKEN }}
+    replaces-base: true
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: npm
+    directory: /
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - 'eslint-plugin-*'
+      prettier:
+        patterns:
+          - 'prettier'
+          - '@trivago/prettier-plugin-sort-imports'
+      playwright:
+        patterns:
+          - '@playwright/*'
+      vite:
+        patterns:
+          - 'vite'
+          - '@vitejs/*'
+
+  - package-ecosystem: npm
+    directory: /apps/intern
+    registries:
+      - npm-github
+    schedule:
+      interval: daily
+    groups:
+      vite:
+        patterns:
+          - 'vite'
+          - '@vitejs/*'
+
+  - package-ecosystem: npm
+    directory: /packages/api
+    registries:
+      - npm-github
+    schedule:
+      interval: daily

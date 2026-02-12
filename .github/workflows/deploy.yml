@@ -1,0 +1,413 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+      - sandbox
+      - catbox
+      - magicbox
+      - dreambox
+      - codebox
+      - coffeebox
+    paths-ignore:
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE.md'
+      - 'README.md'
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: Deploy to production
+        type: boolean
+        required: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  # Detect which apps/packages changed
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      intern: ${{ steps.changes.outputs.intern }}
+      ekstern: ${{ steps.changes.outputs.ekstern }}
+      api: ${{ steps.changes.outputs.api }}
+      shared: ${{ steps.changes.outputs.shared }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Detect changes
+        id: changes
+        uses: ./.github/actions/detect-changes
+
+  # Build and deploy intern app
+  build-intern:
+    name: Build intern
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Build application
+        run: pnpm build:intern
+
+      - name: Build backend for frontend
+        run: pnpm --filter=intern run build:server
+
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
+        with:
+          dockerfile: apps/intern/.docker/Dockerfile
+          docker_context: .
+          team: pensjonskalkulator
+
+  # Run unit tests for intern
+  test-intern:
+    name: Unit tests intern
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Run unit tests
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: intern
+
+  # Run E2E tests for intern
+  e2e-intern:
+    name: E2E tests intern
+    needs: changes
+    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Run E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          app: intern
+
+  # Deploy intern to staging (main branch only)
+  deploy-intern-staging:
+    name: Deploy intern to staging
+    needs: [build-intern, test-intern, e2e-intern]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Deploy to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-intern.outputs.image }}
+          RESOURCE: apps/intern/.nais/deploy-staging.yml,apps/intern/.nais/unleash-api-token-dev.yaml
+
+  # Determine test environment for intern (feature branches)
+  determine-test-env-intern:
+    name: Determine intern test environment
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+      environments: ${{ steps.set-env.outputs.environments }}
+    steps:
+      - name: Set environment from branch
+        id: set-env
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Deploying to: $BRANCH_NAME"
+
+  # Deploy intern to test environment (feature branches)
+  deploy-intern-test:
+    name: Deploy intern to test environment
+    needs: [build-intern, test-intern, e2e-intern, determine-test-env-intern]
+    runs-on: ubuntu-latest
+    if: needs.determine-test-env-intern.outputs.environments != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Deploy to ${{ needs.determine-test-env-intern.outputs.environments }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-intern.outputs.image }}
+          RESOURCE: apps/intern/.nais/deploy-dev.yml,apps/intern/.nais/unleash-api-token-dev.yaml
+          VAR: branch=${{ needs.determine-test-env-intern.outputs.environments }}
+
+  # Deploy intern to prod (uncomment when ready for production)
+  # deploy-intern-prod:
+  #   name: Deploy intern to prod
+  #   needs: [deploy-intern-staging]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v6
+
+  #     - name: Deploy to prod-gcp
+  #       uses: nais/deploy/actions/deploy@v2
+  #       env:
+  #         CLUSTER: prod-gcp
+  #         IMAGE: ${{ needs.build-intern.outputs.image }}
+  #         RESOURCE: apps/intern/.nais/deploy-prod.yml,apps/intern/.nais/unleash-api-token-prod.yaml
+
+  # Build and deploy ekstern app
+  build-ekstern:
+    name: Build ekstern
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        run: |
+          npx openapi-typescript ${{ github.ref == 'refs/heads/main' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./apps/ekstern/src/types/schema.d.ts
+
+      - name: Format backend scheme
+        run: pnpm --filter=ekstern run format:types
+
+      - name: Build staging application
+        if: github.event.inputs.prod != 'true'
+        run: pnpm --filter=ekstern run build
+
+      - name: Build production application
+        if: github.event.inputs.prod == 'true'
+        run: pnpm --filter=ekstern run build:production
+
+      - name: Build backend for frontend
+        run: pnpm --filter=ekstern run build:server
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v6
+        with:
+          name: dist
+          path: apps/ekstern/dist
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
+        with:
+          dockerfile: apps/ekstern/.docker/Dockerfile
+          docker_context: .
+          team: pensjonskalkulator
+
+  # Run unit tests for ekstern
+  test-ekstern:
+    name: Run unit tests ekstern (${{ matrix.shard }}/2)
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Run unit tests
+        uses: ./.github/actions/run-unit-tests
+        with:
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '2'
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v6
+        with:
+          name: code-coverage-report-${{ matrix.shard }}
+          path: apps/ekstern/coverage
+
+  playwright-ekstern:
+    name: Run Playwright tests ekstern (${{ matrix.shard }}/4)
+    needs: build-ekstern
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: apps/ekstern/dist
+
+      - name: Run Playwright tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          app: ekstern
+          shard: ${{ matrix.shard }}
+          total-shards: '4'
+
+  # Deploy ekstern to staging (dev environment)
+  deploy-ekstern-staging:
+    name: Deploy ekstern to staging
+    needs: [build-ekstern, test-ekstern, playwright-ekstern]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Deploy to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-staging.yml,apps/ekstern/.nais/unleash-api-token-dev.yaml
+
+      - name: Deploy veiledning to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-veiledning-staging.yml
+
+  determine-test-env-ekstern:
+    name: Determine ekstern test environment
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
+      environments: ${{ steps.set-env.outputs.environments }}
+    steps:
+      - name: Set environment from branch
+        id: set-env
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Deploying to: $BRANCH_NAME"
+
+  deploy-ekstern-test:
+    name: Deploy ekstern to test environment
+    needs: [build-ekstern, determine-test-env-ekstern]
+    runs-on: ubuntu-latest
+    if: needs.determine-test-env-ekstern.outputs.environments != ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environments }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-dev-branch.yaml,apps/ekstern/.nais/unleash-api-token-dev.yaml
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
+
+      - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environments }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build-ekstern.outputs.image }}
+          RESOURCE: apps/ekstern/.nais/deploy-veiledning-dev-branch.yaml
+          VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
+
+  # Deploy ekstern to prod (uncomment when ready for production)
+  # deploy-ekstern-prod:
+  #   name: Deploy ekstern to prod
+  #   needs: [deploy-ekstern-staging]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v6
+
+  #     - name: Deploy to prod-gcp
+  #       uses: nais/deploy/actions/deploy@v2
+  #       env:
+  #         CLUSTER: prod-gcp
+  #         IMAGE: ${{ needs.build-ekstern.outputs.image }}
+  #         RESOURCE: apps/ekstern/.nais/deploy-prod.yml,apps/ekstern/.nais/unleash-api-token-prod.yaml
+
+  #     - name: Notify Slack of successful production deploy
+  #       if: success()
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_PROD_DEPLOY_URL }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: |
+  #         COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+  #         PR_NUMBER=$(echo "$COMMIT_MSG" | grep -oE "#[0-9]+" | tr -d '#')
+
+  #         if [ -z "$PR_NUMBER" ]; then
+  #           COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
+  #           curl -X POST -H 'Content-type: application/json' --data "{
+  #             \"text\": \"🚀 *ekstern deployed to production!*\n*Commit:* $COMMIT_MSG\n*Author:* $COMMIT_AUTHOR\n*Link:* <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View commit>\"
+  #           }" $SLACK_WEBHOOK_URL
+  #         else
+  #           PR_DATA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+  #             https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER)
+  #           PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+  #           PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+  #           PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
+  #           curl -X POST -H 'Content-type: application/json' --data "{
+  #             \"text\": \"🚀 *ekstern deployed to production!*\n*PR:* <$PR_URL|$PR_TITLE> by \`@$PR_AUTHOR\`\"
+  #           }" $SLACK_WEBHOOK_URL
+  #         fi

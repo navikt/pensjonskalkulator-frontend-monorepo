@@ -1,0 +1,42 @@
+name: Sanity Backup
+on:
+  workflow_dispatch:
+  schedule:
+    # Kjøres kl. 05:00 hver dag
+    - cron: '0 5 * * *'
+jobs:
+  backup-sanity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    name: Backup Sanity dataset
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set backup file name
+        run: |
+          export TZ=Europe/Oslo
+          echo "FILE_NAME=data-$(date +%F-%H-%M-%S).ndjson" >> $GITHUB_ENV
+
+      - name: Create backups directory
+        run: mkdir -p backups
+
+      - name: Export dataset via Sanity API
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.SANITY_AUTH_TOKEN }}" \
+             -o backups/${{ env.FILE_NAME }} \
+             "https://${{ secrets.SANITY_PROJECT_ID }}.api.sanity.io/v2025-07-02/data/export/production"
+
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - uses: google-github-actions/upload-cloud-storage@v3
+        with:
+          path: ./backups/${{ env.FILE_NAME }}
+          destination: pkf/sanity-backups/
+          process_gcloudignore: false

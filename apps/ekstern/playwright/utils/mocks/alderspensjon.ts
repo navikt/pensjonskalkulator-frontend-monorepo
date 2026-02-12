@@ -31,7 +31,7 @@ export const alderspensjon = async (
   )) as PersonligSimuleringResultV8
 
   return {
-    url: /\/pensjon\/kalkulator\/api\/v8\/alderspensjon\/simulering/,
+    url: /\/pensjon\/kalkulator\/api\/v9\/alderspensjon\/simulering/,
     method: 'POST',
     overrideJsonResponse: {
       ...alderspensjonMock,

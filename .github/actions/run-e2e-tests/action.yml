@@ -1,0 +1,43 @@
+name: 'Run E2E tests'
+description: 'Run Playwright E2E tests for a specific app'
+
+inputs:
+  app:
+    description: 'The app to run E2E tests for (e.g., intern, ekstern)'
+    required: true
+  working-directory:
+    description: 'Working directory for the app'
+    required: false
+    default: ''
+  shard:
+    description: 'Current shard index (e.g., 1). If omitted, no sharding is used.'
+    required: false
+    default: ''
+  total-shards:
+    description: 'Total number of shards (e.g., 4). If omitted, no sharding is used.'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Playwright browsers
+      shell: bash
+      run: pnpm exec playwright install --with-deps chromium
+
+    - name: Run E2E tests
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.shard }}" ] && [ -n "${{ inputs.total-shards }}" ]; then
+          pnpm --filter "*${{ inputs.app }}*" exec playwright test --project=chromium --shard=${{ inputs.shard }}/${{ inputs.total-shards }}
+        else
+          pnpm --filter "*${{ inputs.app }}*" test:e2e
+        fi
+
+    - name: Upload Playwright report
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: playwright-report-${{ inputs.app }}${{ inputs.shard && format('-{0}', inputs.shard) || '' }}
+        path: apps/${{ inputs.app }}/playwright-report
+        retention-days: 7

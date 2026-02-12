@@ -15,6 +15,5 @@
     }
   },
   "include": ["server/**/*.ts"],
-  "exclude": ["node_modules", "schemaTypes", "static"],
-  "outExtensions": { ".js": ".cjs" }
+  "exclude": ["node_modules", "schemaTypes", "static"]
 }

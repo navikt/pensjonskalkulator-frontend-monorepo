@@ -1,0 +1,75 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: pensjonskalkulator-frontend-intern
+  namespace: pensjonskalkulator-frontend
+  labels:
+    team: pensjonskalkulator
+  annotations:
+    nais.io/run-as-user: '101' # nginx
+spec:
+  image: '{{ image }}'
+  ingresses:
+    - https://pensjonskalkulator-frontend-intern.ansatt.nav.no/pensjon/kalkulator
+  port: 8080
+  replicas:
+    min: 2
+    max: 4
+  liveness:
+    path: /internal/health/liveness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  readiness:
+    path: /internal/health/readiness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  frontend:
+    generatedConfig:
+      mountPath: /app/src/nais.js
+  prometheus:
+    enabled: true
+    path: /metrics
+  azure:
+    application:
+      enabled: true
+      claims:
+        groups:
+          - id: '0af3955f-df85-4eb0-b5b2-45bf2c8aeb9e' # 0000-GA-PENSJON_SAKSBEHANDLER
+          - id: 'a3f91493-1ab8-4b64-a544-0a77cbba9240' # 0000-GA-Pensjon_VEILEDER
+          - id: 'dbe4ad45-320b-4e9a-aaa1-73cca4ee124d' # 0000-GA-Egne_ansatte
+          - id: 'ea930b6b-9397-44d9-b9e6-f4cf527a632a' # 0000-GA-Fortrolig_Adresse
+          - id: '5ef775f2-61f8-4283-bf3d-8d03f428aa14' # 0000-GA-Strengt_Fortrolig_Adresse
+        extra:
+          - NAVident
+    sidecar:
+      enabled: true
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - /internal/ping
+        - /pensjon/kalkulator
+        - /pensjon/kalkulator/login
+        - /pensjon/kalkulator/personopplysninger
+        - /pensjon/kalkulator/forbehold
+        - /pensjon/kalkulator/assets/*
+        - /pensjon/kalkulator/api/status
+        - /pensjon/kalkulator/api/feature/*
+        - /pensjon/kalkulator/src/*
+  accessPolicy:
+    outbound:
+      rules:
+        - application: pensjonskalkulator-backend
+      external:
+        - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
+  env:
+    - name: 'PENSJONSKALKULATOR_BACKEND'
+      value: 'http://pensjonskalkulator-backend'
+    - name: 'ENTRA_ID_OBO_SCOPE'
+      value: 'api://prod-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default'
+    - name: 'DETALJERT_KALKULATOR_URL'
+      value: 'https://www.nav.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
+  envFrom:
+    - secret: pensjonskalkulator-frontend-intern-unleash-api-token

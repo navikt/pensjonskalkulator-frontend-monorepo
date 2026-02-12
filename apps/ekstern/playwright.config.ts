@@ -15,9 +15,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers,
-  reporter: process.env.CI
-    ? 'line'
-    : [['html', { outputFolder: 'playwright/report', open: 'never' }]],
+  reporter: 'line',
   timeout: 30000,
   expect: {
     timeout: 5000,
@@ -83,7 +81,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run preview',
+    command: 'pnpm preview',
     port: 4173,
     timeout: 60000,
   },

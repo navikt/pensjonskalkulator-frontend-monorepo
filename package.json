@@ -1,0 +1,63 @@
+{
+	"name": "pensjonskalkulator-frontend-monorepo",
+	"version": "1.0.0",
+	"private": true,
+	"packageManager": "pnpm@10.28.2",
+	"type": "module",
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=9.0.0"
+	},
+	"scripts": {
+		"dev": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
+		"dev:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
+		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
+		"build": "pnpm -r build",
+		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
+		"build:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern build",
+		"test": "pnpm -r test",
+		"lint": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern lint && pnpm --filter @pensjonskalkulator-frontend-monorepo/intern lint",
+		"lint:fix": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern lint:fix && pnpm --filter @pensjonskalkulator-frontend-monorepo/intern lint:fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"typecheck": "pnpm -r typecheck",
+		"clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules pnpm-lock.yaml",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{ts,tsx}": [
+			"eslint --fix --max-warnings=0 --no-warn-ignored"
+		],
+		"*.{ts,tsx,js,jsx,css,json,md,yaml,yml}": [
+			"prettier --write"
+		]
+	},
+	"dependencies": {
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.39.2",
+		"@playwright/test": "^1.58.0",
+		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"@types/react": "^19.2.10",
+		"@types/react-dom": "^19.2.3",
+		"eslint": "^9.39.2",
+		"eslint-plugin-react-hooks": "^7.0.1",
+		"globals": "^17.2.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
+		"prettier": "^3.8.1",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.54.0",
+		"vitest": "^3.2.4"
+	},
+	"pnpm": {
+		"overrides": {
+			"react": "$react",
+			"react-dom": "$react-dom",
+			"@types/react": "$@types/react",
+			"@types/react-dom": "$@types/react-dom"
+		}
+	}
+}

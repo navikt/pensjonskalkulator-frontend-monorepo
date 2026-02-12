@@ -1,0 +1,30 @@
+name: 'Setup Node.js'
+description: 'Setup Node.js, cache and install dependencies. Requires checkout to be run first.'
+
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '22.22.0'
+  reader-token:
+    description: 'GitHub token for npm registry authentication'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Use Node.js v${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        registry-url: 'https://npm.pkg.github.com'
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.reader-token }}

@@ -1,6 +1,7 @@
 import { isBefore, isSameDay } from 'date-fns'
 import express, { NextFunction, Request, Response } from 'express'
 import promBundle from 'express-prom-bundle'
+import rateLimit from 'express-rate-limit'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
 import { initialize } from 'unleash-client'
@@ -104,6 +105,21 @@ const addCorrelationId = (req: Request, res: Response, next: NextFunction) => {
 
 app.use(addCorrelationId)
 
+// Trust proxy (Wonderwall/ingress) to get real client IP for rate limiting
+app.set('trust proxy', 1)
+
+// Rate limiting to protect against DoS attacks
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.path.startsWith('/internal/health'),
+  message: { error: 'Too many requests, please try again later.' },
+})
+
+app.use(limiter)
+
 // Kubernetes probes
 app.get('/internal/health/liveness', (_req: Request, res: Response) => {
   res.sendStatus(200)
@@ -150,19 +166,31 @@ app.get(
   }
 )
 
+// Sanitize user-controlled strings to prevent log injection
+const sanitizeForLog = (input: string | undefined): string => {
+  if (!input) return ''
+  return input.replace(/[\r\n]/g, '')
+}
+
 app.use((req, res, next) => {
   const start = Date.now()
   res.on('finish', () => {
     const duration = Date.now() - start
+    const sanitizedUrl = sanitizeForLog(req.originalUrl)
+    const sanitizedPath = sanitizeForLog(req.path)
+    const sanitizedCorrelationId = sanitizeForLog(
+      req.headers['x_correlation-id'] as string
+    )
+
     const logMetadata = {
-      url: req.originalUrl,
+      url: sanitizedUrl,
       method: req.method,
       duration,
       statusCode: res.statusCode,
-      'x_correlation-id': req.headers['x_correlation-id'],
+      'x_correlation-id': sanitizedCorrelationId,
     }
 
-    const logMessage = `${req.method} ${req.path} ${res.statusCode}`
+    const logMessage = `${req.method} ${sanitizedPath} ${res.statusCode}`
     if (res.statusCode >= 400) {
       logger.error(logMessage, logMetadata)
     } else {
