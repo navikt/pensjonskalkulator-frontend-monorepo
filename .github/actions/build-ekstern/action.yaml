@@ -1,0 +1,65 @@
+name: 'Build ekstern'
+description: 'Build the ekstern application and create Docker image'
+
+inputs:
+  reader-token:
+    description: 'GitHub token for npm registry authentication'
+    required: true
+  is-prod:
+    description: 'Build for production (true) or staging (false)'
+    required: false
+    default: 'false'
+  openapi-url:
+    description: 'URL for openapi backend types'
+    required: true
+  save-artifact:
+    description: 'Save build folder as artifact for tests'
+    required: false
+    default: 'false'
+
+outputs:
+  image:
+    description: 'The Docker image reference'
+    value: ${{ steps.image-creation.outputs.image }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: ./.github/actions/setup-node
+      with:
+        reader-token: ${{ inputs.reader-token }}
+
+    - name: Fetch openapi backend types
+      shell: bash
+      run: |
+        npx openapi-typescript ${{ inputs.openapi-url }} -o ./apps/ekstern/src/types/schema.d.ts
+
+    - name: Format backend scheme
+      shell: bash
+      run: pnpm --filter=ekstern run format:types
+
+    - name: Build application
+      shell: bash
+      run: pnpm --filter=ekstern run ${{ inputs.is-prod == 'true' && 'build:production' || 'build' }}
+
+    - name: Build backend for frontend
+      shell: bash
+      run: pnpm --filter=ekstern run build:server
+
+    - name: Save build folder
+      if: inputs.save-artifact == 'true'
+      uses: actions/upload-artifact@v6
+      with:
+        name: dist
+        path: apps/ekstern/dist
+        if-no-files-found: error
+        retention-days: 1
+
+    - name: Create Docker image
+      id: image-creation
+      uses: nais/docker-build-push@v0
+      with:
+        dockerfile: apps/ekstern/.docker/Dockerfile
+        docker_context: .
+        team: pensjonskalkulator
