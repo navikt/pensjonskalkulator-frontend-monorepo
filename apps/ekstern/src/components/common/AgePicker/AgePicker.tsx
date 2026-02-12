@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
@@ -160,9 +159,8 @@ export const AgePicker = ({
           form={form}
           name={`${name}-aar`}
           label="Velg år"
-          className={clsx(styles.selectAar, {
-            [styles.select__hasError]: hasError.aar,
-          })}
+          className={styles.selectAar}
+          error={hasError.aar}
           value={valgtAlder.aar ? valgtAlder.aar : ''}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const aar = e.target.value
@@ -209,7 +207,6 @@ export const AgePicker = ({
             }
           }}
           aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
-          aria-invalid={hasError.aar}
         >
           <option disabled value="">
             {' '}
@@ -228,9 +225,8 @@ export const AgePicker = ({
           form={form}
           name={`${name}-maaneder`}
           label="Velg måned"
-          className={clsx(styles.selectMaaned, {
-            [styles.select__hasError]: hasError.maaneder,
-          })}
+          className={styles.selectMaaned}
+          error={hasError.maaneder}
           value={valgtAlder.maaneder !== undefined ? valgtAlder.maaneder : ''}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const maaneder = e.target.value
@@ -248,7 +244,6 @@ export const AgePicker = ({
           }}
           disabled={!valgtAlder.aar}
           aria-describedby={hasError.maaneder ? `${name}-error` : undefined}
-          aria-invalid={hasError.maaneder}
         >
           {monthsArray.map((month) => {
             if (
