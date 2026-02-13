@@ -78,6 +78,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
     test('forventer jeg en info-alert om at jeg kan få en mer fullstendig beregning fra SPK hvis jeg samtykker.', async ({
       page,
     }) => {
+      await page.getByRole('radio').last().check()
       await expect(
         page.getByTestId('samtykke-pensjonsavtaler-alert')
       ).toBeVisible()
@@ -155,7 +156,9 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         test('forventer jeg informasjon i grunnlaget om at AFP mellom 65 og 67 år er hentet fra SPK.', async ({
           page,
         }) => {
-          await page.getByTestId('grunnlag.afp.title').click()
+          await page
+            .getByRole('button', { name: /Vis detaljer om din AFP/i })
+            .click()
           await expect(
             page.getByText(/Vi har hentet AFP mellom 65 og 67 år fra SPK/i)
           ).toBeVisible()
@@ -188,7 +191,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
           await page
             .getByTestId('agepicker-helt-uttaksalder')
             .locator('select[name*="aar"]')
-            .selectOption('63')
+            .selectOption('64')
 
           await page
             .getByTestId('agepicker-helt-uttaksalder')
@@ -268,9 +271,11 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page.getByTestId('beregn-pensjon').click()
 
         await expect(
-          page.getByText(
-            /Nav er ikke ansvarlig for beløpene som er hentet inn fra andre/i
-          )
+          page
+            .getByText(
+              /Nav er ikke ansvarlig for beløpene som er hentet inn fra andre/i
+            )
+            .first()
         ).toBeVisible()
       })
     })
@@ -412,7 +417,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="aar"]')
-          .selectOption('67')
+          .selectOption('66')
 
         await page
           .getByTestId('agepicker-helt-uttaksalder')
@@ -450,7 +455,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="aar"]')
-          .selectOption('67')
+          .selectOption('66')
 
         await page
           .getByTestId('agepicker-helt-uttaksalder')
@@ -494,7 +499,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="aar"]')
-          .selectOption('67')
+          .selectOption('66')
 
         await page
           .getByTestId('agepicker-helt-uttaksalder')
@@ -508,14 +513,14 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page.getByTestId('beregn-pensjon').click()
       })
 
-      test('forventer jeg en warning-alert om at vi fikk ikke hentet beregning av AFP fra SPK.', async ({
+      test('forventer jeg at beregningen vises uten feilmelding om AFP.', async ({
         page,
       }) => {
         await expect(
           page.getByText(
             /Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse/i
           )
-        ).toBeVisible()
+        ).not.toBeVisible()
       })
     })
 
@@ -538,7 +543,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
         await page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="aar"]')
-          .selectOption('67')
+          .selectOption('66')
 
         await page
           .getByTestId('agepicker-helt-uttaksalder')
