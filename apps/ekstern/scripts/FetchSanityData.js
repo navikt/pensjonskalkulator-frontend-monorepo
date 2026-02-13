@@ -38,11 +38,7 @@ async function fetchAndSaveSanityData() {
       { parser: 'json' }
     )
     fs.writeFileSync(
-      './src/mocks/data/sanity-forbehold-avsnitt-data.json',
-      forbeholdAvsnittFormatted
-    )
-    fs.writeFileSync(
-      './playwright/mocks/sanity-forbehold-avsnitt-data.json',
+      '../../packages/mocks/src/data/sanity-forbehold-avsnitt-data.json',
       forbeholdAvsnittFormatted
     )
 
@@ -51,11 +47,7 @@ async function fetchAndSaveSanityData() {
       { parser: 'json' }
     )
     fs.writeFileSync(
-      './src/mocks/data/sanity-guidepanel-data.json',
-      guidePanelFormatted
-    )
-    fs.writeFileSync(
-      './playwright/mocks/sanity-guidepanel-data.json',
+      '../../packages/mocks/src/data/sanity-guidepanel-data.json',
       guidePanelFormatted
     )
 
@@ -64,11 +56,7 @@ async function fetchAndSaveSanityData() {
       { parser: 'json' }
     )
     fs.writeFileSync(
-      './src/mocks/data/sanity-readmore-data.json',
-      readMoreFormatted
-    )
-    fs.writeFileSync(
-      './playwright/mocks/sanity-readmore-data.json',
+      '../../packages/mocks/src/data/sanity-readmore-data.json',
       readMoreFormatted
     )
   } catch (error) {

@@ -1,6 +1,6 @@
+import sanityForbeholdAvsnittDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-forbehold-avsnitt-data.json'
 import { describe, it } from 'vitest'
 
-import sanityForbeholdAvsnittDataResponse from '@/mocks/data/sanity-forbehold-avsnitt-data.json'
 import { render, screen, waitFor } from '@/test-utils'
 
 import { Forbehold } from '..'

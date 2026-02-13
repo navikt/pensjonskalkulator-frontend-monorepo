@@ -145,6 +145,9 @@ importers:
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.6.1
         version: 3.6.1(csp-header@6.3.0)(html-react-parser@5.2.14(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)
+      '@pensjonskalkulator-frontend-monorepo/mocks':
+        specifier: workspace:*
+        version: link:../../packages/mocks
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.0
@@ -333,6 +336,9 @@ importers:
         specifier: ^3.17.0
         version: 3.19.0
     devDependencies:
+      '@pensjonskalkulator-frontend-monorepo/mocks':
+        specifier: workspace:*
+        version: link:../../packages/mocks
       '@vitejs/plugin-react':
         specifier: ^5.1.2
         version: 5.1.2(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(yaml@2.8.2))
@@ -351,6 +357,15 @@ importers:
       react:
         specifier: ^19.2.4
         version: 19.2.4
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
+  packages/mocks:
+    dependencies:
+      msw:
+        specifier: ^2.0.0
+        version: 2.12.7(@types/node@24.10.9)(typescript@5.9.3)
       typescript:
         specifier: ^5.0.0
         version: 5.9.3

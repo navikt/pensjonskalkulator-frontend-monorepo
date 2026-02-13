@@ -88,6 +88,7 @@
     "highcharts-react-official": "^3.2.2",
     "jsdom": "^26.1.0",
     "msw": "^2.10.5",
+    "@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
     "nodemon": "^3.1.10",
     "openapi-typescript": "^7.9.1",
     "postcss": "^8.5.6",

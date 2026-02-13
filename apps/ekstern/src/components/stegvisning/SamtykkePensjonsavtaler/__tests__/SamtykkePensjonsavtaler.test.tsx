@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetLoependeVedtak75Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtak75UfoeregradMock } from '@/mocks'
 import { RootState } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
@@ -169,11 +169,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         isKap19={false}
       />,
       {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-          },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )
@@ -245,11 +242,8 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
         isKap19={true}
       />,
       {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-          },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       }
     )

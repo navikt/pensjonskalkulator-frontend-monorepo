@@ -1,92 +1,60 @@
 import { describe, expect } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
-  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
-  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
-} from '@/mocks/mockedRTKQueryApiCalls'
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock,
+  loependeVedtakLoepende50AlderspensjonMock,
+  loependeVedtakLoependeAFPoffentligMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
+} from '@/mocks'
 
 import { isLoependeVedtakEndring } from '../loependeVedtak'
 
 describe('loependeVedtak-utils', () => {
   describe('isLoependeVedtakEndring', () => {
     it('returnerer false når det ikke er vedtak om alderspensjon', () => {
+      expect(isLoependeVedtakEndring(loependeVedtak0UfoeregradMock)).toBeFalsy()
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtak0Ufoeregrad['getLoependeVedtak(undefined)']
-            .data
-        )
+        isLoependeVedtakEndring(loependeVedtak100UfoeregradMock)
       ).toBeFalsy()
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtak100Ufoeregrad[
-            'getLoependeVedtak(undefined)'
-          ].data
-        )
-      ).toBeFalsy()
-      expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtak75Ufoeregrad['getLoependeVedtak(undefined)']
-            .data
-        )
+        isLoependeVedtakEndring(loependeVedtak75UfoeregradMock)
       ).toBeFalsy()
     })
     it('returnerer false når det er vedtak om AFP-offentlig alene', () => {
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoependeAFPoffentlig[
-            'getLoependeVedtak(undefined)'
-          ].data
-        )
+        isLoependeVedtakEndring(loependeVedtakLoependeAFPoffentligMock)
       ).toBeFalsy()
     })
     it('returnerer true når det er vedtak om alderspensjon 0 % og uføretrygd 100 %', () => {
       expect(
         isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd[
-            'getLoependeVedtak(undefined)'
-          ].data
+          loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock
         )
       ).toBeTruthy()
     })
     it('returnerer true når det er vedtak om alderspensjon', () => {
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoependeAlderspensjon[
-            'getLoependeVedtak(undefined)'
-          ].data
-        )
+        isLoependeVedtakEndring(loependeVedtakLoependeAlderspensjonMock)
       ).toBeTruthy()
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoepende50Alderspensjon[
-            'getLoependeVedtak(undefined)'
-          ].data
-        )
+        isLoependeVedtakEndring(loependeVedtakLoepende50AlderspensjonMock)
       ).toBeTruthy()
     })
     it('returnerer true når det er vedtak om alderspensjon og gradert uføretrygd', () => {
       expect(
         isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd[
-            'getLoependeVedtak(undefined)'
-          ].data
+          loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock
         )
       ).toBeTruthy()
     })
     it('returnerer true når det er vedtak om alderspensjon 0 % og og AFP-privat', () => {
       expect(
-        isLoependeVedtakEndring(
-          fulfilledGetLoependeVedtakLoependeAFPprivat[
-            'getLoependeVedtak(undefined)'
-          ].data
-        )
+        isLoependeVedtakEndring(loependeVedtakLoependeAFPprivatMock)
       ).toBeTruthy()
     })
   })

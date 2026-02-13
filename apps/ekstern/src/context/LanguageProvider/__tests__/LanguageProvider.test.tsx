@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { type MockInstance, vi } from 'vitest'
 
 import { SanityContext } from '@/context/SanityContext'
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks'
 import { sanityClient } from '@/utils/sanity'
 
 import { setupStore } from '../../../state/store'

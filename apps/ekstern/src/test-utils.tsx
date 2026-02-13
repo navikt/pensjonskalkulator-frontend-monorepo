@@ -1,4 +1,7 @@
 /* eslint-disable import/export */
+import sanityForbeholdAvsnittDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { RenderOptions, render } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
@@ -9,9 +12,6 @@ import { SanityContext } from '@/context/SanityContext'
 import { authenticationGuard } from '@/router/loaders'
 import test_translations from '@/utils/__tests__/test-translations'
 
-import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
-import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
-import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { apiSlice } from './state/api/apiSlice'
 import { AppStore, RootState, setupStore } from './state/store'
 import translations_nb from './translations/nb'
@@ -150,6 +150,58 @@ export function renderWithProviders(
   }
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+}
+
+export function createStateWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): RootState {
+  const s = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
+    s.dispatch(
+      apiSlice.util.upsertQueryEntries(
+        entries.map(([key, value]) => ({
+          endpointName: key as QueryKeys,
+          arg: undefined,
+          value,
+        }))
+      )
+    )
+  }
+  return s.getState()
+}
+
+export function createStoreWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): ReturnType<typeof setupStore> {
+  const s = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
+    s.dispatch(
+      apiSlice.util.upsertQueryEntries(
+        entries.map(([key, value]) => ({
+          endpointName: key as QueryKeys,
+          arg: undefined,
+          value,
+        }))
+      )
+    )
+  }
+  return s
 }
 
 export * from '@testing-library/react'

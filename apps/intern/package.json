@@ -27,6 +27,7 @@
 		"winston": "^3.17.0"
 	},
 	"devDependencies": {
+		"@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
 		"concurrently": "^9.2.0",
 		"nodemon": "^3.1.11",

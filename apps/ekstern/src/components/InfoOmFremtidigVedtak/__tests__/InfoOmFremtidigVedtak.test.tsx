@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtakFremtidig,
-  fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-} from '@/mocks/mockedRTKQueryApiCalls'
+  loependeVedtakFremtidigMedAlderspensjonMock,
+  loependeVedtakFremtidigMock,
+  loependeVedtakLoependeAlderspensjonMock,
+} from '@/mocks'
 import { render, screen } from '@/test-utils'
 
 import { InfoOmFremtidigVedtak } from '..'
@@ -13,11 +13,7 @@ describe('InfoOmFremtidigVedtak', () => {
   it('Ved gjeldende vedtak uten fremtidig vedtak, returnerer null', async () => {
     const { asFragment } = render(
       <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakLoependeAlderspensjon[
-            'getLoependeVedtak(undefined)'
-          ].data
-        }
+        loependeVedtak={loependeVedtakLoependeAlderspensjonMock}
       />
     )
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
@@ -26,11 +22,7 @@ describe('InfoOmFremtidigVedtak', () => {
   it('Ved både gjeldende og fremtidig vedtak, returnerer null', async () => {
     const { asFragment } = render(
       <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakFremtidigMedAlderspensjon[
-            'getLoependeVedtak(undefined)'
-          ].data
-        }
+        loependeVedtak={loependeVedtakFremtidigMedAlderspensjonMock}
       />
     )
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
@@ -38,12 +30,7 @@ describe('InfoOmFremtidigVedtak', () => {
 
   it('Ved fremtidig vedtak, returnerer riktig tekst', () => {
     render(
-      <InfoOmFremtidigVedtak
-        loependeVedtak={
-          fulfilledGetLoependeVedtakFremtidig['getLoependeVedtak(undefined)']
-            .data
-        }
-      />
+      <InfoOmFremtidigVedtak loependeVedtak={loependeVedtakFremtidigMock} />
     )
     expect(
       screen.getByText(

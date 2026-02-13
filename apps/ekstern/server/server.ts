@@ -114,7 +114,7 @@ const limiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.path.startsWith('/internal/health'),
+  skip: (req: Request) => req.path.startsWith('/internal/health'),
   message: { error: 'Too many requests, please try again later.' },
 })
 

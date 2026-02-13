@@ -1,4 +1,4 @@
-import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 
@@ -13,24 +13,17 @@ describe('SimuleringEndringBanner', () => {
   })
 
   describe('Gitt at brukeren har et vedtak om alderspensjon,', () => {
-    const preloadedQueries = {
-      api: {
-        queries: {
-          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-        },
-      },
-    }
-
     it('Når heltUttaksalder er null, skal banneren ikke vises.', () => {
       render(
         <SimuleringEndringBanner isLoading={false} heltUttaksalder={null} />,
         {
-          // @ts-ignore
           preloadedState: {
-            ...preloadedQueries,
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -46,12 +39,13 @@ describe('SimuleringEndringBanner', () => {
           heltUttaksalder={{ aar: 67, maaneder: 0 }}
         />,
         {
-          // @ts-ignore
           preloadedState: {
-            ...preloadedQueries,
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -85,12 +79,13 @@ describe('SimuleringEndringBanner', () => {
           }}
         />,
         {
-          // @ts-ignore
           preloadedState: {
-            ...preloadedQueries,
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -129,12 +124,13 @@ describe('SimuleringEndringBanner', () => {
           }}
         />,
         {
-          // @ts-ignore
           preloadedState: {
-            ...preloadedQueries,
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )

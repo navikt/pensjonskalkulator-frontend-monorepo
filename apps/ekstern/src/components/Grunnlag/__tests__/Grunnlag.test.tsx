@@ -1,15 +1,16 @@
 import { Grunnlag } from '@/components/Grunnlag'
 import {
-  fulfilledGetErApoteker,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
-  fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-  fulfilledPre1963GetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+  erApotekerMock,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
+  personMock,
+  personYngreEnnAfpUfoereOppsigelsesalderMock,
+  pre1963PersonMock,
+} from '@/mocks'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
@@ -41,17 +42,12 @@ describe('Grunnlag', () => {
       />,
       {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             ...userInputState,
           },
         },
+        preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       }
     )
   }
@@ -127,15 +123,12 @@ describe('Grunnlag', () => {
         <Grunnlag headingLevel="2" visning="avansert" isEndring={false} />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -316,14 +309,6 @@ describe('Grunnlag', () => {
     it('rendrer GrunnlagAFP når bruker ikke har vedtak om uføretrygd', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetPerson,
-              ...fulfilledGetErApoteker,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
@@ -331,6 +316,11 @@ describe('Grunnlag', () => {
             isLoggedIn: true,
             hasErApotekerError: false,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getPerson: personMock,
+          getErApoteker: erApotekerMock,
         },
       })
 
@@ -342,14 +332,6 @@ describe('Grunnlag', () => {
     it('rendrer GrunnlagAFP når vi ikke har apoteker error', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              ...fulfilledGetPerson,
-              ...fulfilledGetErApoteker,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
@@ -357,6 +339,11 @@ describe('Grunnlag', () => {
             isLoggedIn: true,
             hasErApotekerError: false,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
+          getPerson: personMock,
+          getErApoteker: erApotekerMock,
         },
       })
 
@@ -368,13 +355,6 @@ describe('Grunnlag', () => {
     it('rendrer GrunnlagAFP for brukere som er født før 1963', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              ...fulfilledPre1963GetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
@@ -382,6 +362,10 @@ describe('Grunnlag', () => {
             isLoggedIn: true,
             hasErApotekerError: true,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
+          getPerson: pre1963PersonMock,
         },
       })
 
@@ -393,13 +377,6 @@ describe('Grunnlag', () => {
     it('viser GrunnlagAFP når uføretrygd er 0 selv om andre betingelser er oppfylt', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetPerson,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
@@ -407,6 +384,10 @@ describe('Grunnlag', () => {
             isLoggedIn: true,
             hasErApotekerError: true,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getPerson: personMock,
         },
       })
 
@@ -418,13 +399,6 @@ describe('Grunnlag', () => {
     it('viser GrunnlagAFP når bruker har uføretrygd > 0 men er under 62 år, selv om andre betingelser er oppfylt', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" isEndring={false} />, {
         preloadedState: {
-          api: {
-            //@ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder, // This person is born in 1990, making them under 62
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
@@ -432,6 +406,10 @@ describe('Grunnlag', () => {
             isLoggedIn: true,
             hasErApotekerError: true,
           },
+        },
+        preloadedApiState: {
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
+          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock, // This person is born in 1990, making them under 62
         },
       })
 
@@ -446,13 +424,6 @@ describe('Grunnlag', () => {
           <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
-                  ...fulfilledGetPerson,
-                },
-              },
               userInput: {
                 ...userInputInitialState,
               },
@@ -460,6 +431,10 @@ describe('Grunnlag', () => {
                 isLoggedIn: true,
                 hasErApotekerError: true,
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak100UfoeregradMock,
+              getPerson: personMock,
             },
           }
         )
@@ -474,13 +449,6 @@ describe('Grunnlag', () => {
           <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak100Ufoeregrad,
-                  ...fulfilledGetPerson,
-                },
-              },
               userInput: {
                 ...userInputInitialState,
               },
@@ -488,6 +456,10 @@ describe('Grunnlag', () => {
                 isLoggedIn: true,
                 hasErApotekerError: false,
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak100UfoeregradMock,
+              getPerson: personMock,
             },
           }
         )
@@ -502,13 +474,6 @@ describe('Grunnlag', () => {
           <Grunnlag headingLevel="2" visning="enkel" isEndring={false} />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak75Ufoeregrad,
-                  ...fulfilledGetPerson, // This person is born in 1963, making them over 62
-                },
-              },
               userInput: {
                 ...userInputInitialState,
               },
@@ -516,6 +481,10 @@ describe('Grunnlag', () => {
                 isLoggedIn: true,
                 hasErApotekerError: true,
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak75UfoeregradMock,
+              getPerson: personMock, // This person is born in 1963, making them over 62
             },
           }
         )
@@ -575,12 +544,6 @@ describe('Grunnlag', () => {
           />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                },
-              },
               userInput: {
                 ...userInputInitialState,
                 afp: 'ja_offentlig',
@@ -590,6 +553,9 @@ describe('Grunnlag', () => {
                   aarligInntektFoerUttakBeloep: '500000',
                 },
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -647,12 +613,6 @@ describe('Grunnlag', () => {
           />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                },
-              },
               userInput: {
                 ...userInputInitialState,
                 afp: 'ja_offentlig',
@@ -662,6 +622,9 @@ describe('Grunnlag', () => {
                   aarligInntektFoerUttakBeloep: '500000',
                 },
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -695,12 +658,6 @@ describe('Grunnlag', () => {
           />,
           {
             preloadedState: {
-              api: {
-                //@ts-ignore
-                queries: {
-                  ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                },
-              },
               userInput: {
                 ...userInputInitialState,
                 afp: 'ja_offentlig',
@@ -710,6 +667,9 @@ describe('Grunnlag', () => {
                   aarligInntektFoerUttakBeloep: '500000',
                 },
               },
+            },
+            preloadedApiState: {
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )

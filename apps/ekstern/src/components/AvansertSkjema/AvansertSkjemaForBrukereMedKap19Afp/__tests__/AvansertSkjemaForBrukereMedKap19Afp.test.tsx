@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
-  fulfilledGetGrunnbeloep,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+  grunnbeloepMock,
+  loependeVedtak0UfoeregradMock,
+  mockResponse,
+  personMock,
+} from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,
@@ -31,13 +31,6 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
     harAvansertSkjemaUnsavedChanges: false,
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
-
-  const mockedQueries = {
-    ...fulfilledGetPerson,
-    ...fulfilledGetGrunnbeloep,
-    ...fulfilledGetLoependeVedtak0Ufoeregrad,
-  }
-
   it('Rendrer komponenten med riktig overskrift og innhold', () => {
     render(
       <BeregningContext.Provider value={contextMockedValues}>
@@ -45,13 +38,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
       </BeregningContext.Provider>,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: mockedQueries,
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getGrunnbeloep: grunnbeloepMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       }
     )
@@ -80,13 +74,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: mockedQueries,
-              },
               userInput: {
                 ...userInputInitialState,
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -127,13 +122,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: mockedQueries,
-              },
               userInput: {
                 ...userInputInitialState,
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -228,13 +224,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: { ...mockedQueries },
-              },
               userInput: {
                 ...userInputInitialState,
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -386,13 +383,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: mockedQueries,
-              },
               userInput: {
                 ...userInputInitialState,
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -419,13 +417,14 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: mockedQueries,
-              },
               userInput: {
                 ...userInputInitialState,
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )
@@ -482,15 +481,16 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                // @ts-ignore
-                queries: { ...mockedQueries },
-              },
               userInput: {
                 ...userInputInitialState,
                 samtykke: false,
                 currentSimulation: { ...currentSimulation },
               },
+            },
+            preloadedApiState: {
+              getPerson: personMock,
+              getGrunnbeloep: grunnbeloepMock,
+              getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
           }
         )

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { fulfilledGetPersonMedOekteAldersgrenser } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMedOekteAldersgrenseMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 
@@ -19,22 +19,16 @@ describe('Beregningsvalg', () => {
   ) => {
     return render(<Beregningsvalg {...defaultProps} {...props} />, {
       preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPersonMedOekteAldersgrenser,
-          },
-        },
         userInput: {
           ...userInputInitialState,
         },
       },
+      preloadedApiState: { getPerson: personMedOekteAldersgrenseMock },
     })
   }
 
   const nedreAldersgrense =
-    fulfilledGetPersonMedOekteAldersgrenser['getPerson(undefined)'].data
-      .pensjoneringAldre.nedreAldersgrense
+    personMedOekteAldersgrenseMock.pensjoneringAldre.nedreAldersgrense
 
   beforeEach(() => {
     vi.clearAllMocks()

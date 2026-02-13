@@ -1,5 +1,4 @@
-import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+import { inntektMock, mockResponse } from '@/mocks'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
@@ -204,14 +203,9 @@ describe('EndreInntekt', () => {
       />,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetInntekt,
-            },
-          },
           userInput: { ...userInputInitialState, samtykke: false },
         },
+        preloadedApiState: { getInntekt: inntektMock },
       }
     )
     await user.click(

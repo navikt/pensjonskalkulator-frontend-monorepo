@@ -1,18 +1,18 @@
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import alderspensjonResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/67.json' with { type: 'json' }
+import inntektResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/inntekt.json' with { type: 'json' }
+import loependeVedtakResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/loepende-vedtak.json' with { type: 'json' }
+import offentligTpResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/offentlig-tp.json' with { type: 'json' }
+import omstillingsstoenadOgGjenlevendeResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import pensjonsavtalerResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
+import personResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/person.json' with { type: 'json' }
+import tidligstMuligHeltUttakResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/tidligstMuligHeltUttak.json' with { type: 'json' }
+import spraakvelgerToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
+import utvidetSimuleringsresultatToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
+
+import { mockErrorResponse, mockResponse } from '@/mocks'
 import { Reason } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import { setupStore } from '@/state/store'
-
-import alderspensjonResponse from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
-import inntektResponse from '../../../mocks/data/inntekt.json' with { type: 'json' }
-import loependeVedtakResponse from '../../../mocks/data/loepende-vedtak.json' with { type: 'json' }
-import offentligTpResponse from '../../../mocks/data/offentlig-tp.json' with { type: 'json' }
-import omstillingsstoenadOgGjenlevendeResponse from '../../../mocks/data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
-import pensjonsavtalerResponse from '../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
-import personResponse from '../../../mocks/data/person.json' with { type: 'json' }
-import tidligstMuligHeltUttakResponse from '../../../mocks/data/tidligstMuligHeltUttak.json' with { type: 'json' }
-import spraakvelgerToggleResponse from '../../../mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
-import utvidetSimuleringsresultatToggleResponse from '../../../mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 describe('apiSlice', () => {
   describe('getInntekt', () => {

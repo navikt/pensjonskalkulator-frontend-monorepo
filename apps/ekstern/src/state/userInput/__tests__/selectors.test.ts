@@ -1,14 +1,15 @@
 import {
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
-  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
+  inntektMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock,
+  loependeVedtakLoependeAFPoffentligMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  personMock,
+} from '@/mocks'
 import { RootState, store } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputSlice'
+import { createStateWithApiData } from '@/test-utils'
 
 import {
   selectAarligInntektFoerUttakBeloep,
@@ -116,13 +117,7 @@ describe('userInput selectors', () => {
       expect(selectFoedselsdato(state)).toBe(undefined)
     })
     it('returnerer riktig fødselsdato når queryen er vellykket', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetPerson },
-        },
-      }
+      const state: RootState = createStateWithApiData({ getPerson: personMock })
       expect(selectFoedselsdato(state)).toBe('1963-04-30')
     })
   })
@@ -136,64 +131,48 @@ describe('userInput selectors', () => {
     })
     describe('Gitt at brukeren har vedtak om alderspensjon, ', () => {
       it('returnerer sivilstand fra vedtaket.', () => {
-        const state: RootState = {
-          ...initialState,
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              ...fulfilledGetPerson,
-            },
-          },
-        }
+        const state: RootState = createStateWithApiData({
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+          getPerson: personMock,
+        })
         expect(selectSivilstand(state)).toBe('UGIFT')
       })
 
       it('dersom bruker har satt sivilstand returneres denne', () => {
-        const state: RootState = {
-          ...initialState,
-          userInput: {
-            ...initialState.userInput,
-            sivilstand: 'REGISTRERT_PARTNER',
+        const state: RootState = createStateWithApiData(
+          {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+            getPerson: personMock,
           },
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              ...fulfilledGetPerson,
+          {
+            userInput: {
+              ...initialState.userInput,
+              sivilstand: 'REGISTRERT_PARTNER',
             },
-          },
-        }
-
+          }
+        )
         expect(selectSivilstand(state)).toBe('REGISTRERT_PARTNER')
       })
     })
 
     describe('Gitt at brukeren ikke har vedtak om alderspensjon, ', () => {
       it('returnerer sivilstand fra /person.', () => {
-        const state: RootState = {
-          ...initialState,
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
-        }
+        const state: RootState = createStateWithApiData({
+          getPerson: personMock,
+        })
         expect(selectSivilstand(state)).toBe('UGIFT')
       })
 
       it('dersom bruker har satt sivilstand returneres denne', () => {
-        const state: RootState = {
-          ...initialState,
-          userInput: {
-            ...initialState.userInput,
-            sivilstand: 'REGISTRERT_PARTNER',
-          },
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
-        }
-
+        const state: RootState = createStateWithApiData(
+          { getPerson: personMock },
+          {
+            userInput: {
+              ...initialState.userInput,
+              sivilstand: 'REGISTRERT_PARTNER',
+            },
+          }
+        )
         expect(selectSivilstand(state)).toBe('REGISTRERT_PARTNER')
       })
     })
@@ -201,46 +180,31 @@ describe('userInput selectors', () => {
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
     it('returnerer sivilstanden fra vedtaket', () => {
-      const stateMedVedtakMedSivilstandUgift: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-        userInput: {
-          ...initialState.userInput,
-        },
-      }
+      const stateMedVedtakMedSivilstandUgift: RootState =
+        createStateWithApiData({
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+        })
       expect(selectSivilstand(stateMedVedtakMedSivilstandUgift)).toBe('UGIFT')
 
-      const stateMedVedtakMedSivilstandGift: RootState = {
-        ...initialState,
-        api: {
-          queries: {
-            ['getLoependeVedtak(undefined)']: {
-              // @ts-ignore
-              status: 'fulfilled',
-              endpointName: 'getLoependeVedtak',
-              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-              startedTimeStamp: 1688046411971,
-              data: {
-                harLoependeVedtak: true,
-                alderspensjon: {
-                  grad: 100,
-                  uttaksgradFom: '2020-10-02',
-                  fom: '2020-10-02',
-                  sivilstand: 'GIFT',
-                },
-                ufoeretrygd: { grad: 0 },
-              } satisfies LoependeVedtak,
-              fulfilledTimeStamp: 1688046412103,
+      const stateMedVedtakMedSivilstandGift: RootState = createStateWithApiData(
+        {
+          getLoependeVedtak: {
+            harLoependeVedtak: true,
+            alderspensjon: {
+              grad: 100,
+              uttaksgradFom: '2020-10-02',
+              fom: '2020-10-02',
+              sivilstand: 'GIFT',
             },
+            ufoeretrygd: { grad: 0 },
           },
         },
-        userInput: {
-          ...initialState.userInput,
-        },
-      }
+        {
+          userInput: {
+            ...initialState.userInput,
+          },
+        }
+      )
       expect(selectSivilstand(stateMedVedtakMedSivilstandGift)).toBe('GIFT')
     })
   })
@@ -269,13 +233,9 @@ describe('userInput selectors', () => {
       expect(selectAarligInntektFoerUttakBeloepFraSkatt(state)).toBe(undefined)
     })
     it('returnerer riktig beløp når queryen er vellykket', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetInntekt },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getInntekt: inntektMock,
+      })
       const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(state)
       expect(inntekt?.beloep).toBe('521 338')
       expect(inntekt?.aar).toBe(2021)
@@ -284,38 +244,34 @@ describe('userInput selectors', () => {
 
   describe('selectAarligInntektFoerUttakBeloep', () => {
     it('returnerer inntekt basert på svaret som brukeren har oppgitt, som overskriver opprinnelig inntekt hentet fra Skatteetaten', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetInntekt },
-        },
-        userInput: {
-          ...initialState.userInput,
-          currentSimulation: {
-            ...currentSimulation,
-            aarligInntektFoerUttakBeloep: '350 000',
+      const state: RootState = createStateWithApiData(
+        { getInntekt: inntektMock },
+        {
+          userInput: {
+            ...initialState.userInput,
+            currentSimulation: {
+              ...currentSimulation,
+              aarligInntektFoerUttakBeloep: '350 000',
+            },
           },
-        },
-      }
+        }
+      )
       expect(selectAarligInntektFoerUttakBeloep(state)).toBe('350 000')
     })
 
     it('returnerer formatert inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetInntekt },
-        },
-        userInput: {
-          ...initialState.userInput,
-          currentSimulation: {
-            ...currentSimulation,
-            aarligInntektFoerUttakBeloep: null,
+      const state: RootState = createStateWithApiData(
+        { getInntekt: inntektMock },
+        {
+          userInput: {
+            ...initialState.userInput,
+            currentSimulation: {
+              ...currentSimulation,
+              aarligInntektFoerUttakBeloep: null,
+            },
           },
-        },
-      }
+        }
+      )
       expect(selectAarligInntektFoerUttakBeloep(state)).toBe('521 338')
     })
   })
@@ -415,13 +371,9 @@ describe('userInput selectors', () => {
     })
 
     it('returnerer vedtaket når kallet er vellykket', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtak75UfoeregradMock,
+      })
       expect(selectLoependeVedtak(state)).toStrictEqual({
         harLoependeVedtak: true,
         ufoeretrygd: { grad: 75 },
@@ -436,13 +388,9 @@ describe('userInput selectors', () => {
     })
 
     it('er number når kallet er vellykket', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtak75UfoeregradMock,
+      })
       expect(selectUfoeregrad(state)).toBe(75)
     })
   })
@@ -454,60 +402,38 @@ describe('userInput selectors', () => {
     })
 
     it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtak75UfoeregradMock,
+      })
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
     it('er false når kallet er vellykket og brukeren har løpende AFP-offentlig uten alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtakLoependeAFPoffentligMock,
+      })
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
     it('er true når kallet er vellykket og brukeren har 0 % løpende alderspensjon og 100 % uføretrygd', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
-          },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak:
+          loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock,
+      })
       expect(selectIsEndring(state)).toBeTruthy()
     })
 
     it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
+      })
       expect(selectIsEndring(state)).toBeTruthy()
     })
 
     it('er true når kallet er vellykket og brukeren har 0 % alderspensjon og løpende AFP-privat', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
-        },
-      }
+      const state: RootState = createStateWithApiData({
+        getLoependeVedtak: loependeVedtakLoependeAFPprivatMock,
+      })
       expect(selectIsEndring(state)).toBeTruthy()
     })
   })

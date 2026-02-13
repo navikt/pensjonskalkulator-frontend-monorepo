@@ -2,10 +2,11 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+  loependeVedtak0UfoeregradMock,
+  mockErrorResponse,
+  mockResponse,
+  personMock,
+} from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -51,14 +52,7 @@ describe('StepStart', () => {
       })
 
       render(<RouterProvider router={router} />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-            },
-          },
-        },
+        preloadedApiState: { getPerson: personMock },
         hasRouter: false,
       })
       expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
@@ -109,14 +103,9 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
         hasRouter: false,
       })
@@ -302,14 +291,9 @@ describe('StepStart', () => {
       initialEntries: [`${BASE_PATH}${paths.start}`],
     })
     render(<RouterProvider router={router} />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
+      preloadedApiState: {
+        getPerson: personMock,
+        getLoependeVedtak: loependeVedtak0UfoeregradMock,
       },
       hasRouter: false,
     })
@@ -345,14 +329,9 @@ describe('StepStart', () => {
       initialEntries: [`${BASE_PATH}${paths.start}`],
     })
     render(<RouterProvider router={router} />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetPerson,
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
+      preloadedApiState: {
+        getPerson: personMock,
+        getLoependeVedtak: loependeVedtak0UfoeregradMock,
       },
       hasRouter: false,
     })
