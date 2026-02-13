@@ -1,4 +1,4 @@
-import { SeriesColumnOptions, XAxisOptions } from 'highcharts'
+import { SeriesColumnOptions } from 'highcharts'
 import React, { useCallback, useContext, useEffect } from 'react'
 import { IntlShape, useIntl } from 'react-intl'
 
@@ -86,7 +86,8 @@ import { getUttaksGradEndringIngress } from './uttaksGradEndringIngress'
 // ============================================================================
 
 interface UsePdfViewProps {
-  chartOptions: Highcharts.Options
+  series: SeriesColumnOptions[]
+  aarArray?: string[]
   headingLevel: HeadingProps['level']
   alderspensjonListe?: AlderspensjonPensjonsberegning[]
   afpPrivatListe?: AfpPrivatPensjonsberegning[]
@@ -508,7 +509,8 @@ export const usePdfView = ({
   afpOffentligListe,
   detaljer,
   visning,
-  chartOptions,
+  series,
+  aarArray,
   pensjonsavtalerData,
   isPensjonsavtalerSuccess,
   isPensjonsavtalerError,
@@ -560,8 +562,6 @@ export const usePdfView = ({
   // #endregion API Data
 
   // #region Derived Data (Chart, Utenlandsopphold, TidligstMuligUttak, Beregningsdetaljer)
-  const series = chartOptions.series as SeriesColumnOptions[]
-  const aarArray = (chartOptions?.xAxis as XAxisOptions).categories
   const tableData = useTableData(series, aarArray)
 
   const oppholdUtenforNorge = useOppholdUtenforNorge({

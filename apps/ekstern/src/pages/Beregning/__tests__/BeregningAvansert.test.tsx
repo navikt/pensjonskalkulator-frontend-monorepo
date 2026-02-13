@@ -874,11 +874,6 @@ describe('BeregningAvansert', () => {
 
       expect(
         screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',
         })
       ).toBeInTheDocument()

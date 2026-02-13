@@ -136,10 +136,10 @@ describe('Simulering', () => {
         })
       ).toBeVisible()
       expect(
-        screen.getAllByText('100 000', {
+        screen.getByText('100 000', {
           exact: false,
         })
-      ).toHaveLength(2)
+      ).toBeVisible()
       expect(
         screen.getByText('beregning.avansert.endring_banner.kr_md', {
           exact: false,

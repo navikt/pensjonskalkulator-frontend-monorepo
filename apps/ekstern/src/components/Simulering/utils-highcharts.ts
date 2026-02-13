@@ -130,7 +130,8 @@ export function onPointUnclick(
 export function tooltipFormatter(
   point: Point,
   styles: Partial<typeof globalClassNames>,
-  intl: IntlShape
+  intl: IntlShape,
+  skalBeregneAfpKap19: boolean = false
 ): string {
   const chart = point.series.chart
   const points: ExtendedPoint[] = []
@@ -174,11 +175,15 @@ export function tooltipFormatter(
   const afpSerieName = intl.formatMessage({
     id: SERIES_DEFAULT.SERIE_AFP.name,
   })
+
   points.forEach(function (localPoint) {
-    if (
-      (localPoint.y && localPoint.y > 0) ||
-      localPoint.series.name === afpSerieName // Unntak for AFP, skal vises hvis det er 0 i legend
-    ) {
+    // Vis AFP med 0kr kun når skalBeregneAfpKap19 er false
+    const isAfpWithZero =
+      localPoint.series.name === afpSerieName &&
+      (!localPoint.y || localPoint.y === 0)
+    const shouldShowAfpWithZero = isAfpWithZero && !skalBeregneAfpKap19
+
+    if ((localPoint.y && localPoint.y > 0) || shouldShowAfpWithZero) {
       if (localPoint.series.name === inntektSerieName) {
         hasInntekt = true
       } else {
@@ -212,7 +217,8 @@ export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
   showLeftButton: React.Dispatch<React.SetStateAction<boolean>>,
-  intl: IntlShape
+  intl: IntlShape,
+  skalBeregneAfpKap19: boolean = false
 ): Options => {
   return {
     chart: {
@@ -348,7 +354,7 @@ export const getChartOptions = (
       followTouchMove: false,
       // /* c8 ignore next 20 */
       formatter: function (this: Point) {
-        return tooltipFormatter(this, styles, intl)
+        return tooltipFormatter(this, styles, intl, skalBeregneAfpKap19)
       },
       positioner: function (
         labelWidth: number,

@@ -410,11 +410,6 @@ describe('BeregningEnkel', () => {
 
       expect(
         screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',
         })
       ).toBeInTheDocument()
@@ -504,11 +499,6 @@ describe('BeregningEnkel', () => {
 
       expect(
         screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
-      expect(
-        screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',
         })
       ).toBeInTheDocument()
@@ -594,11 +584,6 @@ describe('BeregningEnkel', () => {
 
       await user.click(await screen.findByText('beregning.tabell.vis'))
 
-      expect(
-        screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
       expect(
         screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',
@@ -688,11 +673,6 @@ describe('BeregningEnkel', () => {
 
       await user.click(await screen.findByText('beregning.tabell.vis'))
 
-      expect(
-        screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
       expect(
         screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',
@@ -1033,11 +1013,6 @@ describe('BeregningEnkel', () => {
 
       await user.click(await screen.findByText('beregning.tabell.vis'))
 
-      expect(
-        screen.getByRole('columnheader', {
-          name: 'beregning.highcharts.serie.inntekt.name',
-        })
-      ).toBeInTheDocument()
       expect(
         screen.getByRole('columnheader', {
           name: 'beregning.highcharts.serie.alderspensjon.name',

@@ -1,11 +1,11 @@
 import clsx from 'clsx'
-import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import { useEffect, useRef, useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import type { SeriesColumnOptions, SeriesOptionsType } from 'highcharts'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
-import { BodyLong, BodyShort, Heading, HeadingProps } from '@navikt/ds-react'
+import type { HeadingProps } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePdfView } from '@/pdf-view/hooks'
@@ -21,6 +21,7 @@ import {
   selectCurrentSimulation,
   selectEpsHarInntektOver2G,
   selectEpsHarPensjon,
+  selectErApoteker,
   selectFoedselsdato,
   selectIsEndring,
   selectSamtykke,
@@ -28,15 +29,26 @@ import {
   selectSivilstand,
   selectSkalBeregneAfpKap19,
   selectUfoeregrad,
+  selectUtenlandsperioder,
 } from '@/state/userInput/selectors'
 import { isAlderOver62 } from '@/utils/alder'
+import { formatInntektToNumber } from '@/utils/inntekt'
 
+import { Graph } from './Graph'
 import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
 import { SimuleringAfpOffentligAlert } from './SimuleringAfpOffentligAlert/SimuleringAfpOffentligAlert'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
 import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
-import { useOffentligTpData, useSimuleringChartLocalState } from './hooks'
+import { SERIES_DEFAULT } from './constants'
+import { type SeriesConfig } from './data/data'
+import {
+  buildAfpSerie,
+  buildAlderspensjonSerie,
+  buildInntektSerie,
+  buildTpSerie,
+} from './data/series-builders'
+import { useOffentligTpData } from './hooks'
 
 import styles from './Simulering.module.scss'
 
@@ -79,11 +91,13 @@ export const Simulering = ({
   const isEndring = useAppSelector(selectIsEndring)
   const epsHarPensjon = useAppSelector(selectEpsHarPensjon)
   const epsHarInntektOver2G = useAppSelector(selectEpsHarInntektOver2G)
-
+  const erApoteker = useAppSelector(selectErApoteker)
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
-  const chartRef = useRef<HighchartsReact.RefObject>(null)
+  const intl = useIntl()
+
+  const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
     PensjonsavtalerRequestBody | undefined
@@ -91,13 +105,15 @@ export const Simulering = ({
 
   const {
     data: offentligTp,
-    isLoading: isOffentligTpLoading,
+    isFetching: isOffentligTpLoading,
     isError: isOffentligTpError,
     afpPerioder,
-    erOffentligTpFoer1963,
     tpAfpPeriode,
+    erOffentligTpFoer1963,
     erSpkBesteberegning,
   } = useOffentligTpData()
+
+  console.log('test - Simulering render')
 
   const {
     data: pensjonsavtalerData,
@@ -122,6 +138,101 @@ export const Simulering = ({
       !isAlderOver62(foedselsdato),
   })
 
+  const shouldShowAfpOffentlig =
+    !loependeLivsvarigAfpOffentlig ||
+    loependeLivsvarigAfpOffentlig.afpStatus === false ||
+    (loependeLivsvarigAfpOffentlig.afpStatus === true &&
+      loependeLivsvarigAfpOffentlig.maanedligBeloep === 0) ||
+    (loependeLivsvarigAfpOffentlig.afpStatus == null &&
+      loependeLivsvarigAfpOffentlig.maanedligBeloep == null)
+
+  // Calculate the start age for the x-axis
+  // If gradual withdrawal exists, start from the year before; otherwise use standard logic
+
+  const hasPensjonsgivendeInntekt = useMemo(() => {
+    return Boolean(
+      (aarligInntektFoerUttakBeloep &&
+        formatInntektToNumber(aarligInntektFoerUttakBeloep) > 0) ||
+      (gradertUttaksperiode?.aarligInntektVsaPensjonBeloep &&
+        formatInntektToNumber(
+          gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+        ) > 0) ||
+      (aarligInntektVsaHelPensjon?.beloep &&
+        formatInntektToNumber(aarligInntektVsaHelPensjon.beloep) > 0)
+    )
+  }, [
+    aarligInntektFoerUttakBeloep,
+    gradertUttaksperiode?.aarligInntektVsaPensjonBeloep,
+    aarligInntektVsaHelPensjon?.beloep,
+  ])
+
+  const graphData: SeriesConfig[] = useMemo(
+    () => [
+      {
+        name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
+        color: SERIES_DEFAULT.SERIE_INNTEKT.color,
+        showInLegend: hasPensjonsgivendeInntekt,
+        data: buildInntektSerie({
+          uttaksalder,
+          isEndring,
+          alderspensjonListe,
+          gradertUttaksperiode,
+          aarligInntektFoerUttakBeloep,
+          aarligInntektVsaHelPensjon,
+          pre2025OffentligAfp,
+        }),
+      },
+      {
+        name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_AFP.name }),
+        color: SERIES_DEFAULT.SERIE_AFP.color,
+        data: buildAfpSerie({
+          pre2025OffentligAfp,
+          afpPerioder,
+          uttaksalder,
+          shouldShowAfpOffentlig,
+          afpOffentligListe,
+          afpPrivatListe,
+        }),
+      },
+      {
+        name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_TP.name }),
+        color: SERIES_DEFAULT.SERIE_TP.color,
+        data: buildTpSerie({
+          pensjonsavtaler: pensjonsavtalerData?.avtaler,
+          offentligTpUtbetalingsperioder:
+            offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+              .utbetalingsperioder,
+          uttaksalder: uttaksalder ?? undefined,
+        }),
+      },
+      {
+        name: intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+        }),
+        color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
+        data: buildAlderspensjonSerie({ alderspensjonListe }),
+      },
+    ],
+    [
+      intl,
+      hasPensjonsgivendeInntekt,
+      isEndring,
+      uttaksalder,
+      gradertUttaksperiode,
+      aarligInntektFoerUttakBeloep,
+      aarligInntektVsaHelPensjon,
+      alderspensjonListe,
+      pre2025OffentligAfp,
+      shouldShowAfpOffentlig,
+      afpOffentligListe,
+      afpPrivatListe,
+      afpPerioder,
+      pensjonsavtalerData?.avtaler,
+      offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+        .utbetalingsperioder,
+    ]
+  )
+
   useEffect(() => {
     if (harSamtykket && uttaksalder) {
       setPensjonsavtalerRequestBody(
@@ -141,38 +252,83 @@ export const Simulering = ({
         })
       )
     }
-  }, [harSamtykket, uttaksalder])
-
-  const [
-    chartOptions,
-    showVisFaerreAarButton,
-    showVisFlereAarButton,
-    isPensjonsavtaleFlagVisible,
-  ] = useSimuleringChartLocalState({
-    styles,
-    chartRef,
-    foedselsdato,
-    isEndring,
+  }, [
+    harSamtykket,
     uttaksalder,
     gradertUttaksperiode,
     aarligInntektFoerUttakBeloep,
     aarligInntektVsaHelPensjon,
-    isLoading,
-    alderspensjonListe,
-    pre2025OffentligAfp,
-    afpPrivatListe,
-    afpOffentligListe,
-    afpPerioderFom65aar: afpPerioder,
-    loependeLivsvarigAfpOffentlig,
-    pensjonsavtaler: {
-      isLoading: isPensjonsavtalerLoading,
-      data: pensjonsavtalerData,
+    epsHarInntektOver2G,
+    utenlandsperioder,
+    sivilstand,
+    epsHarPensjon,
+    afp,
+    ufoeregrad,
+    erApoteker,
+    foedselsdato,
+    skalBeregneAfpKap19,
+  ])
+
+  const [showVisFaerreAarButton, setShowVisFaerreAarButton] = useState(false)
+  const [showVisFlereAarButton, setShowVisFlereAarButton] = useState(false)
+  const [tableXAxis, setTableXAxis] = useState<string[]>([])
+  const [tableSeries, setTableSeries] = useState<SeriesOptionsType[]>([])
+
+  const handleButtonVisibilityChange = useCallback(
+    (state: {
+      showVisFaerreAarButton: boolean
+      showVisFlereAarButton: boolean
+    }) => {
+      setShowVisFaerreAarButton(state.showVisFaerreAarButton)
+      setShowVisFlereAarButton(state.showVisFlereAarButton)
     },
-    offentligTp: {
-      isLoading: isOffentligTpLoading,
-      data: offentligTp,
+    []
+  )
+
+  const handleSeriesDataChange = useCallback(
+    (xAxis: string[], series: SeriesOptionsType[]) => {
+      setTableXAxis(xAxis)
+      setTableSeries(series)
     },
-  })
+    []
+  )
+
+  const filteredTableSeries = useMemo(() => {
+    if (hasPensjonsgivendeInntekt) return tableSeries as SeriesColumnOptions[]
+
+    return tableSeries.filter(
+      (serie) =>
+        serie.name !==
+        intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name })
+    ) as SeriesColumnOptions[]
+  }, [tableSeries, hasPensjonsgivendeInntekt, intl])
+
+  const isPensjonsavtaleFlagVisible = useMemo(() => {
+    if (!uttaksalder) return false
+
+    const avtaler = pensjonsavtalerData?.avtaler ?? []
+    const utbetalingsperioder =
+      offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+        .utbetalingsperioder ?? []
+
+    const startAlder = gradertUttaksperiode?.uttaksalder || uttaksalder
+
+    return (
+      avtaler.some((avtale) => avtale.startAar < startAlder.aar) ||
+      utbetalingsperioder.some(
+        (periode) => periode.startAlder.aar < startAlder.aar
+      )
+    )
+  }, [
+    pensjonsavtalerData?.avtaler,
+    offentligTp?.simulertTjenestepensjon?.simuleringsresultat
+      .utbetalingsperioder,
+    uttaksalder?.aar,
+    gradertUttaksperiode?.uttaksalder,
+  ])
+
+  // const { data: person } = useGetPersonQuery()
+  const isEnkel = visning === 'enkel'
 
   usePdfView({
     headingLevel,
@@ -182,7 +338,8 @@ export const Simulering = ({
     afpOffentligListe,
     detaljer,
     visning,
-    chartOptions,
+    series: filteredTableSeries,
+    aarArray: tableXAxis,
     pensjonsavtalerData,
     isPensjonsavtalerSuccess,
     isPensjonsavtalerError,
@@ -192,8 +349,6 @@ export const Simulering = ({
     tpAfpPeriode,
     erSpkBesteberegning,
   })
-
-  const isEnkel = visning === 'enkel'
 
   const hideAFP =
     loependeLivsvarigAfpOffentlig?.afpStatus &&
@@ -240,10 +395,14 @@ export const Simulering = ({
           data-testid="highcharts-aria-wrapper"
           aria-hidden={true}
         >
-          <HighchartsReact
-            ref={chartRef}
-            highcharts={Highcharts}
-            options={chartOptions}
+          <Graph
+            data={graphData}
+            isLoading={isLoading}
+            isPensjonsavtalerLoading={isPensjonsavtalerLoading}
+            isOffentligTpLoading={isOffentligTpLoading}
+            skalBeregneAfpKap19={skalBeregneAfpKap19 ?? false}
+            onButtonVisibilityChange={handleButtonVisibilityChange}
+            onSeriesDataChange={handleSeriesDataChange}
           />
 
           {showButtonsAndTable && (
@@ -289,8 +448,9 @@ export const Simulering = ({
 
       {showButtonsAndTable && (
         <TabellVisning
-          series={chartOptions.series as SeriesColumnOptions[]}
-          aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+          series={filteredTableSeries}
+          aarArray={tableXAxis}
+          skalBeregneAfpKap19={skalBeregneAfpKap19 ?? false}
         />
       )}
 
