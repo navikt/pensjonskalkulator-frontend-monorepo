@@ -7,7 +7,7 @@ metadata:
     team: pensjonskalkulator
   annotations:
     nais.io/run-as-user: '101' # nginx
-spec:
+spec: # TODO legg til ingress
   image: '{{ image }}'
   port: 8080
   replicas:
@@ -46,24 +46,7 @@ spec:
           withState: ANY
   tokenx:
     enabled: true
-  idporten:
-    enabled: true
-    sidecar:
-      level: idporten-loa-substantial
-      enabled: true
-      autoLogin: true
-      autoLoginIgnorePaths:
-        - /internal/ping
-        - /pensjon/kalkulator
-        - /pensjon/kalkulator/login
-        - /pensjon/kalkulator/assets/*
-        - /pensjon/kalkulator/api/status
-        - /pensjon/kalkulator/api/feature/*
-        - /pensjon/kalkulator/personopplysninger
-        - /pensjon/kalkulator/forbehold
-        - /pensjon/kalkulator/src/*
-        - /pensjon/kalkulator/v3/api-docs/current
-  accessPolicy:
+  accessPolicy: # TODO legg til Idporten
     outbound:
       rules:
         - application: pensjonskalkulator-backend
