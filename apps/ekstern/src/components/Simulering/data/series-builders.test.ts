@@ -246,13 +246,14 @@ describe('series-builders', () => {
       })
 
       // pre2025 AFP: 62-64 (fordi harSpkPerioder)
-      // afpPerioder: 65-66 (fordi startAlder >= 65)
+      // afpPerioder: 65-66 (fordi startAlder >= 65), plus 67 med 1 måned (sluttAlder 67 år 0 mnd)
       expect(result).toEqual([
         { alder: 62, beloep: 60000 },
         { alder: 63, beloep: 60000 },
         { alder: 64, beloep: 60000 },
         { alder: 65, beloep: 30000 },
         { alder: 66, beloep: 30000 },
+        { alder: 67, beloep: 2500 }, // 1 måned (30000/12)
       ])
     })
 
@@ -276,10 +277,11 @@ describe('series-builders', () => {
         ],
       })
 
-      // Kun perioder fra 65 år inkluderes
+      // Kun perioder fra 65 år inkluderes, inkludert 1 måned i år 67
       expect(result).toEqual([
         { alder: 65, beloep: 30000 },
         { alder: 66, beloep: 30000 },
+        { alder: 67, beloep: 2500 }, // 1 måned (30000/12)
       ])
     })
   })
@@ -322,7 +324,7 @@ describe('series-builders', () => {
         { alder: 74, beloep: 50000 },
         { alder: 75, beloep: 50000 },
         { alder: 76, beloep: 50000 },
-        { alder: 77, beloep: Math.round(50000 / 12) }, // 1 måned
+        { alder: 77, beloep: 4166.666666666666 }, // 1 måned (50000/12)
       ])
     })
 
@@ -377,7 +379,7 @@ describe('series-builders', () => {
         { alder: 67, beloep: 50000 },
         { alder: 68, beloep: 50000 },
         { alder: 69, beloep: 50000 },
-        { alder: 70, beloep: Math.round(20000 / 12) + 2500 }, // 1667 + 2500 = 4167
+        { alder: 70, beloep: 4166.666666666666 }, // 1 måned (20000/12 + 30000/12)
       ])
     })
 
