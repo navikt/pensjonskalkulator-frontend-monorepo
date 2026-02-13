@@ -244,7 +244,7 @@ describe('AgePicker', () => {
         },
       }
     )
-    // Når ingen av de feltene er fylt ut
+    // Når ingen av de feltene er fylt ut (måned er disabled, så aria-invalid settes ikke)
     expect(
       screen
         .getByTestId('age-picker-unique-name-aar')
@@ -254,7 +254,7 @@ describe('AgePicker', () => {
       screen
         .getByTestId('age-picker-unique-name-maaneder')
         .getAttribute('aria-invalid')
-    ).toBe('true')
+    ).toBeNull()
 
     // Når bare år er fylt ut
     fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
@@ -265,7 +265,7 @@ describe('AgePicker', () => {
       screen
         .getByTestId('age-picker-unique-name-aar')
         .getAttribute('aria-invalid')
-    ).toBe('false')
+    ).toBeNull()
     expect(
       screen
         .getByTestId('age-picker-unique-name-maaneder')

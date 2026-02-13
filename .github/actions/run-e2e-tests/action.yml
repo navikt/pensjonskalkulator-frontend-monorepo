@@ -9,6 +9,14 @@ inputs:
     description: 'Working directory for the app'
     required: false
     default: ''
+  shard:
+    description: 'Current shard index (e.g., 1). If omitted, no sharding is used.'
+    required: false
+    default: ''
+  total-shards:
+    description: 'Total number of shards (e.g., 4). If omitted, no sharding is used.'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -19,12 +27,17 @@ runs:
 
     - name: Run E2E tests
       shell: bash
-      run: pnpm --filter "*${{ inputs.app }}*" test:e2e
+      run: |
+        if [ -n "${{ inputs.shard }}" ] && [ -n "${{ inputs.total-shards }}" ]; then
+          pnpm --filter "*${{ inputs.app }}*" exec playwright test --project=chromium --shard=${{ inputs.shard }}/${{ inputs.total-shards }}
+        else
+          pnpm --filter "*${{ inputs.app }}*" test:e2e
+        fi
 
     - name: Upload Playwright report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
-        name: playwright-report-${{ inputs.app }}
+        name: playwright-report-${{ inputs.app }}${{ inputs.shard && format('-{0}', inputs.shard) || '' }}
         path: apps/${{ inputs.app }}/playwright-report
         retention-days: 7
