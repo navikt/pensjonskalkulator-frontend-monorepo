@@ -16,8 +16,11 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
+		"@navikt/aksel-icons": "^7.40.0",
+		"@navikt/ds-react": "^7.31.0",
 		"@navikt/oasis": "^3.4.0",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
+		"@tanstack/react-query": "^5.90.20",
 		"express": "^5.1.0",
 		"express-rate-limit": "^8.2.1",
 		"http-proxy-middleware": "^3.0.3",
@@ -27,9 +30,17 @@
 		"winston": "^3.17.0"
 	},
 	"devDependencies": {
+		"@navikt/ds-css": "^7.40.0",
+		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
 		"concurrently": "^9.2.0",
+		"msw": "^2.10.5",
 		"nodemon": "^3.1.11",
 		"vite": "^7.3.1"
+	},
+	"msw": {
+		"workerDirectory": [
+			"public"
+		]
 	}
 }

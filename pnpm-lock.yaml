@@ -14,6 +14,9 @@ importers:
 
   .:
     dependencies:
+      '@navikt/ds-react':
+        specifier: ^7.31.0
+        version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -305,12 +308,21 @@ importers:
 
   apps/intern:
     dependencies:
+      '@navikt/aksel-icons':
+        specifier: ^7.40.0
+        version: 7.40.0
+      '@navikt/ds-react':
+        specifier: ^7.31.0
+        version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/oasis':
         specifier: ^3.4.0
         version: 3.8.0
       '@pensjonskalkulator-frontend-monorepo/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@tanstack/react-query':
+        specifier: ^5.90.20
+        version: 5.90.20(react@19.2.4)
       express:
         specifier: ^5.1.0
         version: 5.2.1
@@ -333,12 +345,21 @@ importers:
         specifier: ^3.17.0
         version: 3.19.0
     devDependencies:
+      '@navikt/ds-css':
+        specifier: ^7.40.0
+        version: 7.40.0
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@vitejs/plugin-react':
         specifier: ^5.1.2
         version: 5.1.2(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(yaml@2.8.2))
       concurrently:
         specifier: ^9.2.0
         version: 9.2.1
+      msw:
+        specifier: ^2.10.5
+        version: 2.12.7(@types/node@24.10.9)(typescript@5.9.3)
       nodemon:
         specifier: ^3.1.11
         version: 3.1.11
@@ -348,11 +369,26 @@ importers:
 
   packages/api:
     dependencies:
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:../types
+      msw:
+        specifier: ^2.0.0
+        version: 2.12.7(@types/node@24.10.9)(typescript@5.9.3)
       react:
         specifier: ^19.2.4
         version: 19.2.4
       typescript:
         specifier: ^5.0.0
+        version: 5.9.3
+
+  packages/types:
+    devDependencies:
+      openapi-typescript:
+        specifier: ^7.6.1
+        version: 7.10.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
         version: 5.9.3
 
 packages:
@@ -2941,6 +2977,14 @@ packages:
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
+
+  '@tanstack/query-core@5.90.20':
+    resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
+
+  '@tanstack/react-query@5.90.20':
+    resolution: {integrity: sha512-vXBxa+qeyveVO7OA0jX1z+DeyCA4JKnThKv411jd5SORpBKgkcVnYKCiBgECvADvniBX7tobwBmg01qq9JmMJw==}
+    peerDependencies:
+      react: ^19.2.4
 
   '@tanstack/react-table@8.21.3':
     resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
@@ -11070,6 +11114,13 @@ snapshots:
   '@standard-schema/spec@1.1.0': {}
 
   '@standard-schema/utils@0.3.0': {}
+
+  '@tanstack/query-core@5.90.20': {}
+
+  '@tanstack/react-query@5.90.20(react@19.2.4)':
+    dependencies:
+      '@tanstack/query-core': 5.90.20
+      react: 19.2.4
 
   '@tanstack/react-table@8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
