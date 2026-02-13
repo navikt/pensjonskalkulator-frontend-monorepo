@@ -1,0 +1,15 @@
+.infoCard {
+	width: 480px;
+	margin: 230px auto;
+}
+.personInfoWrapper {
+	display: flex;
+	align-items: center;
+	padding: var(--ax-space-12) var(--ax-space-44);
+	background-color: var(--ax-bg-neutral-moderate);
+}
+
+.personInfoIcon {
+	width: 24px;
+	height: 24px;
+}
