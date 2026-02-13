@@ -10,6 +10,7 @@ export { inntekt } from './inntekt'
 export { loependeVedtak } from './loepende-vedtak'
 export {
   offentligTp,
+  offentligTpFoer1963,
   offentligTpTekniskFeil,
   offentligTpTomSimulering,
   offentligTpIkkeMedlem,
