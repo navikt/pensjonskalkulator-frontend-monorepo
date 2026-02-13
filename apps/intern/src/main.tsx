@@ -9,37 +9,41 @@ import './index.css'
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
 
+if (import.meta.env.MODE === 'development') {
+	const { worker } = await import('./mocks/browser')
+	await worker.start({
+		serviceWorker: {
+			url: '/mockServiceWorker.js',
+		},
+		onUnhandledRequest: 'bypass',
+	})
+	console.log('[MSW] Ready')
+} else if (import.meta.env.MODE === 'backend') {
+	// Unregister MSW service worker when using real backend
+	const registrations = await navigator.serviceWorker.getRegistrations()
+	for (const registration of registrations) {
+		if (registration.active?.scriptURL.includes('mockServiceWorker')) {
+			await registration.unregister()
+			console.log('[MSW] Service worker unregistered for backend mode')
+		}
+	}
+}
+
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			staleTime: 1000 * 60 * 5, // 5 minutes
 			retry: 1,
 		},
 	},
 })
 
-async function startApp() {
-	const useMocks =
-		import.meta.env.DEV && !window.location.search.includes('nomsw')
-
-	if (useMocks) {
-		const { worker } = await import('./mocks/browser')
-		await worker.start({
-			onUnhandledRequest: 'bypass',
-		})
-		console.log('[MSW] Ready')
-	}
-
-	createRoot(document.getElementById('root')!).render(
-		<StrictMode>
-			<QueryClientProvider client={queryClient}>
-				<PesysHeader />
-				<Theme>
-					<PersonInfo />
-				</Theme>
-			</QueryClientProvider>
-		</StrictMode>
-	)
-}
-
-startApp()
+createRoot(document.getElementById('root')!).render(
+	<StrictMode>
+		<QueryClientProvider client={queryClient}>
+			<PesysHeader />
+			<Theme>
+				<PersonInfo />
+			</Theme>
+		</QueryClientProvider>
+	</StrictMode>
+)

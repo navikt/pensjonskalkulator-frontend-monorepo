@@ -20,8 +20,12 @@ async function fetchPerson(fnr: string): Promise<Person> {
 	return response.json() as Promise<Person>
 }
 
-async function fetchLoependeVedtak(): Promise<LoependeVedtak> {
-	const response = await fetch(`${API_BASE}/v4/vedtak/loepende-vedtak`)
+async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
+	const response = await fetch(`${API_BASE}/v4/vedtak/loepende-vedtak`, {
+		headers: {
+			fnr,
+		},
+	})
 
 	if (!response.ok) {
 		throw new Error(`Failed to fetch loepende vedtak: ${response.status}`)
@@ -37,10 +41,9 @@ export function usePersonQuery(fnr?: string) {
 	})
 }
 
-export function useLoependeVedtakQuery(enabled = true) {
+export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
-		queryKey: ['loependeVedtak'],
-		queryFn: fetchLoependeVedtak,
-		enabled,
+		queryKey: ['loependeVedtak', fnr],
+		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
 	})
 }

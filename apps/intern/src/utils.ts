@@ -1,14 +1,21 @@
 import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
 
-const DEV_DEFAULT_FNR = '000000000000'
+const DEV_DEFAULT_FNR = '00000000000'
 
 export function getFnrFromUrl(): string | undefined {
-	if (import.meta.env.DEV) {
+	const params = new URLSearchParams(window.location.search)
+	const fnrFromUrl = params.get('fnr')
+
+	if (fnrFromUrl) {
+		return fnrFromUrl
+	}
+
+	// In development mode (not backend mode), use default fnr for MSW testing
+	if (import.meta.env.MODE === 'development') {
 		return DEV_DEFAULT_FNR
 	}
 
-	const params = new URLSearchParams(window.location.search)
-	return params.get('fnr') ?? undefined
+	return undefined
 }
 
 export function getLoependeVedtakStatus(

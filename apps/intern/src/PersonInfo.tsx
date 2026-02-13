@@ -10,17 +10,17 @@ export const PersonInfo = () => {
 	const fnr = getFnrFromUrl()
 
 	const { data: person, isLoading, isError, error } = usePersonQuery(fnr)
-	const { data: loependeVedtak } = useLoependeVedtakQuery(!!fnr)
+	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
 
 	if (!fnr) {
 		return (
-			<InfoCard data-color="info">
+			<InfoCard data-color="info" size="medium" className={styles.infoCard}>
 				<InfoCard.Header>
 					<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 				</InfoCard.Header>
 				<InfoCard.Content>
-					Du må hente en bruker i
+					Du må hente en bruker i &nbsp;
 					<a href="https://pesys.nav.no/brukeroversikt">brukeroversikt</a> i
 					Pesys før du kan gjøre en beregning i Pensjonskalkulator
 				</InfoCard.Content>

@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"dev:q2": "concurrently \"NODE_ENV=development pnpm dev\" \"nodemon --watch server/ --exec 'pnpm build:server && NODE_ENV=development node dist/server/server.js'\"",
+		"dev:q2": "concurrently \"vite --mode backend\" \"nodemon --watch server/ --exec 'pnpm build:server && NODE_ENV=development node --env-file=.env.development-q2 dist/server/server.js'\"",
 		"build": "tsc && vite build",
 		"build:server": "tsc -p tsconfig.server.json",
 		"preview": "vite preview",
@@ -16,8 +16,9 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
+		"@navikt/ds-react": "8.4.0",
+		"@navikt/ds-css": "8.4.1",
 		"@navikt/aksel-icons": "^7.40.0",
-		"@navikt/ds-react": "^7.31.0",
 		"@navikt/oasis": "^3.4.0",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
 		"@tanstack/react-query": "^5.90.20",
@@ -30,7 +31,6 @@
 		"winston": "^3.17.0"
 	},
 	"devDependencies": {
-		"@navikt/ds-css": "^7.40.0",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
 		"concurrently": "^9.2.0",
