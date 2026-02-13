@@ -9,8 +9,6 @@ metadata:
     nais.io/run-as-user: '101' # nginx
 spec:
   image: '{{ image }}'
-  ingresses:
-    - https://www.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
