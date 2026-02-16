@@ -95,31 +95,34 @@ app.get('/internal/health/readiness', (_req: Request, res: Response) => {
 })
 
 // Status probes from backend, trenger ikke autentisering
-app.get('/api/status', async (req: Request, res: Response) => {
-	try {
-		const backendUrl = `${PENSJONSKALKULATOR_BACKEND}/api/status`
-		logger.info(`Fetching status from backend: ${backendUrl}`)
+app.get(
+	'/pensjon/kalkulator/api/status',
+	async (req: Request, res: Response) => {
+		try {
+			const backendUrl = `${PENSJONSKALKULATOR_BACKEND}/api/status`
+			logger.info(`Fetching status from backend: ${backendUrl}`)
 
-		const res_status = await fetch(backendUrl, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'x_correlation-id': req.headers['x_correlation-id'] as string,
-			},
-		})
+			const res_status = await fetch(backendUrl, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'x_correlation-id': req.headers['x_correlation-id'] as string,
+				},
+			})
 
-		const status_data = await res_status.json()
-		logger.info(`Backend response: ${JSON.stringify(status_data)}`)
-		res.send(status_data)
-	} catch (error) {
-		console.error('Error fetching status:', error)
-		res.status(500).send({ error: 'Internal Server Error' })
+			const status_data = await res_status.json()
+			logger.info(`Backend response: ${JSON.stringify(status_data)}`)
+			res.send(status_data)
+		} catch (error) {
+			console.error('Error fetching status:', error)
+			res.status(500).send({ error: 'Internal Server Error' })
+		}
 	}
-})
+)
 
 // Feature toggle endpoint, trenger ikke autentisering
 app.get(
-	'/api/feature/:toggle',
+	'/pensjon/kalkulator/api/feature/:toggle',
 	async (req: Request<{ toggle: string }>, res: Response) => {
 		const toggle = req.params.toggle
 
@@ -261,28 +264,31 @@ const getOboToken = async (req: Request) => {
 }
 
 // Proxy til backend med token exchange
-app.use('/api', async (req: Request, res: Response, next: NextFunction) => {
-	let oboToken: string
-	try {
-		oboToken = await getOboToken(req)
-	} catch {
-		// Send 401 dersom man ikke kan hente obo token
-		res.sendStatus(401)
-		return
-	}
+app.use(
+	'/pensjon/kalkulator/api',
+	async (req: Request, res: Response, next: NextFunction) => {
+		let oboToken: string
+		try {
+			oboToken = await getOboToken(req)
+		} catch {
+			// Send 401 dersom man ikke kan hente obo token
+			res.sendStatus(401)
+			return
+		}
 
-	createProxyMiddleware({
-		target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-		changeOrigin: true,
-		headers: {
-			Authorization: `Bearer ${oboToken}`,
-		},
-		logger: logger,
-	})(req, res, next)
-})
+		createProxyMiddleware({
+			target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+			changeOrigin: true,
+			headers: {
+				Authorization: `Bearer ${oboToken}`,
+			},
+			logger: logger,
+		})(req, res, next)
+	}
+)
 
 app.use(
-	'/v3/api-docs',
+	'/pensjon/kalkulator/v3/api-docs',
 	createProxyMiddleware({
 		target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs`,
 		changeOrigin: true,
