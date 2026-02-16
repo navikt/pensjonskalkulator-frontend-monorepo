@@ -4,6 +4,8 @@ import type {
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { skipToken, useQuery } from '@tanstack/react-query'
 
+import type { BeregningParams, BeregningResult } from './beregningTypes'
+
 const API_BASE = '/pensjon/kalkulator/api'
 
 async function fetchPerson(fnr: string): Promise<Person> {
@@ -45,5 +47,61 @@ export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['loependeVedtak', fnr],
 		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+	})
+}
+
+async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
+	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+	}
+
+	return response.json() as Promise<Grunnbeloep>
+}
+
+export interface Grunnbeloep {
+	dato: string
+	grunnbeløp: number
+	grunnbeløpPerMaaned: number
+	gjennomsnittPerÅr: number
+	omregningsfaktor: number
+	virkningstidspunktForMinsteinntekt: string
+}
+
+export function useGrunnbeloepQuery() {
+	return useQuery({
+		queryKey: ['grunnbeloep'],
+		queryFn: fetchGrunnbeloep,
+	})
+}
+
+async function fetchBeregning(
+	fnr: string,
+	params: BeregningParams
+): Promise<BeregningResult> {
+	const response = await fetch(`${API_BASE}/v1/beregning`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			fnr,
+		},
+		body: JSON.stringify(params),
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch beregning: ${response.status}`)
+	}
+
+	return response.json() as Promise<BeregningResult>
+}
+
+export function useBeregningQuery(
+	fnr: string | undefined,
+	params: BeregningParams | null
+) {
+	return useQuery({
+		queryKey: ['beregning', fnr, params],
+		queryFn: fnr && params ? () => fetchBeregning(fnr, params) : skipToken,
 	})
 }

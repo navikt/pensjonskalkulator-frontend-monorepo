@@ -1,0 +1,33 @@
+.beregningForm {
+	width: 496px;
+	min-height: 100%;
+	background-color: white;
+	padding: 32px 48px;
+	box-sizing: border-box;
+	box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	overflow-y: auto;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid var(--a-border-subtle);
+	margin: 0;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px 0;
+}
+
+.selectWrapper :global(.aksel-select__container) {
+	width: 184px;
+}
+
+.horizontalRadioGroup :global(.navds-radio-buttons) {
+	display: flex;
+	flex-direction: row;
+	gap: 1.5rem;
+}

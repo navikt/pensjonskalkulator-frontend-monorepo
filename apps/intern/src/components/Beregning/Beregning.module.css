@@ -1,0 +1,8 @@
+.beregning {
+	flex: 1;
+	min-height: 100%;
+	background-color: var(--a-bg-subtle);
+	padding: 32px 48px;
+	box-sizing: border-box;
+	overflow-y: auto;
+}

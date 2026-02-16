@@ -8,6 +8,9 @@ import './index.css'
 
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
+import { Beregning } from './components/Beregning/Beregning.tsx'
+import { BeregningProvider } from './components/BeregningContext.tsx'
+import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
 
 if (import.meta.env.MODE === 'development') {
 	const { worker } = await import('./mocks/browser')
@@ -43,6 +46,12 @@ createRoot(document.getElementById('root')!).render(
 			<PesysHeader />
 			<Theme>
 				<PersonInfo />
+				<BeregningProvider>
+					<div style={{ display: 'flex', minHeight: 'calc(100vh - 96px)' }}>
+						<BeregningForm />
+						<Beregning />
+					</div>
+				</BeregningProvider>
 			</Theme>
 		</QueryClientProvider>
 	</StrictMode>
