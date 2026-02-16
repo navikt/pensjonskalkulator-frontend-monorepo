@@ -43,7 +43,7 @@ const env = ensureEnv({
 const unleash = initialize({
   disableAutoStart: !(unleashToken && unleashUrl && unleashEnv),
   url: `${unleashUrl}/api`,
-  appName: 'pensjonskalkulator-frontend',
+  appName: 'pensjonskalkulator-frontend-ekstern',
   environment: unleashEnv,
   customHeaders: {
     Authorization: unleashToken ?? '',

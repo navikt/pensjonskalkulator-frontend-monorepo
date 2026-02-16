@@ -5,10 +5,23 @@ inputs:
   app:
     description: 'The app to run unit tests for (e.g., intern, ekstern)'
     required: true
+  shard:
+    description: 'Current shard index (e.g., 1). If omitted, no sharding is used.'
+    required: false
+    default: ''
+  total-shards:
+    description: 'Total number of shards (e.g., 2). If omitted, no sharding is used.'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
   steps:
     - name: Run unit tests
       shell: bash
-      run: pnpm --filter "*${{ inputs.app }}*" test -- --run
+      run: |
+        if [ -n "${{ inputs.shard }}" ] && [ -n "${{ inputs.total-shards }}" ]; then
+          pnpm --filter "*${{ inputs.app }}*" exec vitest run --pool=forks --shard=${{ inputs.shard }}/${{ inputs.total-shards }}
+        else
+          pnpm --filter "*${{ inputs.app }}*" test -- --run
+        fi

@@ -2,7 +2,7 @@
 export default {
   telemetryCollectorURL: '#',
   app: {
-    name: 'pensjonskalkulator-frontend',
+    name: 'pensjonskalkulator-frontend-ekstern',
     version: 'dev',
   },
 }
