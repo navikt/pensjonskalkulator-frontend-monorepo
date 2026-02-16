@@ -3,6 +3,7 @@ import {
 	createContext,
 	useCallback,
 	useContext,
+	useMemo,
 	useState,
 } from 'react'
 
@@ -15,6 +16,7 @@ import {
 interface BeregningContextValue {
 	formData: BeregningFormData
 	committedParams: BeregningParams | null
+	isDirty: boolean
 	updateFormField: <K extends keyof BeregningFormData>(
 		field: K,
 		value: BeregningFormData[K]
@@ -51,11 +53,17 @@ export function BeregningProvider({ children }: { children: ReactNode }) {
 		setCommittedParams(null)
 	}, [])
 
+	const isDirty = useMemo(() => {
+		if (!committedParams) return false
+		return JSON.stringify(formData) !== JSON.stringify(committedParams)
+	}, [formData, committedParams])
+
 	return (
 		<BeregningContext.Provider
 			value={{
 				formData,
 				committedParams,
+				isDirty,
 				updateFormField,
 				submitBeregning,
 				resetForm,

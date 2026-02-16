@@ -31,3 +31,12 @@
 	flex-direction: row;
 	gap: 1.5rem;
 }
+
+.buttonBar {
+	display: flex;
+	gap: 24px;
+	padding: 24px 0;
+	position: sticky;
+	bottom: 0;
+	background-color: white;
+}

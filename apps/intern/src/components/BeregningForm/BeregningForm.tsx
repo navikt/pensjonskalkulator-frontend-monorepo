@@ -1,4 +1,4 @@
-import { Heading, Radio, RadioGroup, Select } from '@navikt/ds-react'
+import { Button, Heading, Radio, RadioGroup, Select } from '@navikt/ds-react'
 
 import type { JaNei, Sivilstand } from '../../api/beregningTypes'
 import { useGrunnbeloepQuery } from '../../api/queries'
@@ -7,7 +7,14 @@ import { useBeregningContext } from '../BeregningContext'
 import styles from './BeregningForm.module.css'
 
 export const BeregningForm = () => {
-	const { formData, updateFormField } = useBeregningContext()
+	const {
+		formData,
+		updateFormField,
+		committedParams,
+		isDirty,
+		submitBeregning,
+		resetForm,
+	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 
 	return (
@@ -56,6 +63,18 @@ export const BeregningForm = () => {
 				</RadioGroup>
 			</div>
 			<hr className={styles.divider} />
+			<div className={styles.buttonBar}>
+				<Button size="small" variant="primary" onClick={submitBeregning}>
+					{committedParams && !isDirty
+						? 'Beregn pensjon'
+						: isDirty
+							? 'Oppdater pensjon'
+							: 'Beregn pensjon'}
+				</Button>
+				<Button size="small" variant="tertiary" onClick={resetForm}>
+					Nullstill
+				</Button>
+			</div>
 		</div>
 	)
 }
