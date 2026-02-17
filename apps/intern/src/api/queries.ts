@@ -80,7 +80,7 @@ async function fetchBeregning(
 	fnr: string,
 	params: BeregningParams
 ): Promise<BeregningResult> {
-	const response = await fetch(`${API_BASE}/v1/beregning`, {
+	const response = await fetch(`${API_BASE}/v9/alderspensjon/simulering`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
