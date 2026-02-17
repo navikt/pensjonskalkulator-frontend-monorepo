@@ -72,30 +72,22 @@ function generateMockedTranslations() {
   return translations
 }
 
-// Return an object with the store and all of RTL's query functions
-export function renderWithProviders(
-  ui: React.ReactElement,
-  {
-    preloadedState = {},
-    preloadedApiState = {},
-    store = setupStore(
-      {
-        // Default to logged-in in tests unless explicitly overridden
-        session: { isLoggedIn: true, hasErApotekerError: false },
-        ...preloadedState,
-      },
-      true
-    ),
-    hasRouter = true,
-    hasLogin = false,
-    ...renderOptions
-  }: ExtendedRenderOptions = {}
+function initializeStore(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
 ) {
-  const preloadedApiStateEntries = Object.entries(preloadedApiState)
-  if (preloadedApiStateEntries.length) {
+  const store = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
     store.dispatch(
       apiSlice.util.upsertQueryEntries(
-        preloadedApiStateEntries.map(([key, value]) => ({
+        entries.map(([key, value]) => ({
           endpointName: key as QueryKeys,
           arg: undefined,
           value,
@@ -103,7 +95,21 @@ export function renderWithProviders(
       )
     )
   }
+  return store
+}
 
+// Return an object with the store and all of RTL's query functions
+export function renderWithProviders(
+  ui: React.ReactElement,
+  {
+    preloadedState = {},
+    preloadedApiState = {},
+    store = initializeStore(preloadedApiState, preloadedState),
+    hasRouter = true,
+    hasLogin = false,
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) {
   function Wrapper({
     children,
   }: PropsWithChildren<unknown>): React.JSX.Element {
@@ -156,52 +162,14 @@ export function createStateWithApiData(
   preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
   preloadedState: Partial<RootState> = {}
 ): RootState {
-  const s = setupStore(
-    {
-      session: { isLoggedIn: true, hasErApotekerError: false },
-      ...preloadedState,
-    },
-    true
-  )
-  const entries = Object.entries(preloadedApiState)
-  if (entries.length) {
-    s.dispatch(
-      apiSlice.util.upsertQueryEntries(
-        entries.map(([key, value]) => ({
-          endpointName: key as QueryKeys,
-          arg: undefined,
-          value,
-        }))
-      )
-    )
-  }
-  return s.getState()
+  return initializeStore(preloadedApiState, preloadedState).getState()
 }
 
 export function createStoreWithApiData(
   preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
   preloadedState: Partial<RootState> = {}
 ): ReturnType<typeof setupStore> {
-  const s = setupStore(
-    {
-      session: { isLoggedIn: true, hasErApotekerError: false },
-      ...preloadedState,
-    },
-    true
-  )
-  const entries = Object.entries(preloadedApiState)
-  if (entries.length) {
-    s.dispatch(
-      apiSlice.util.upsertQueryEntries(
-        entries.map(([key, value]) => ({
-          endpointName: key as QueryKeys,
-          arg: undefined,
-          value,
-        }))
-      )
-    )
-  }
-  return s
+  return initializeStore(preloadedApiState, preloadedState)
 }
 
 export * from '@testing-library/react'
