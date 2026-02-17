@@ -64,10 +64,10 @@ spec:
     path: /metrics
 
   liveness:
-    path: /isalive
+    path: /internal/health/liveness
     initialDelay: 5
   readiness:
-    path: /isready
+    path: /internal/health/readiness
     initialDelay: 5
 
   resources:
