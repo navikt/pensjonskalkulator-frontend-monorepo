@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 
@@ -15,11 +15,6 @@ describe('VilkaarsproevingAlert', () => {
       heltUttaksalder: { aar: 65, maaneder: 3 },
     }
     const mockedState = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-        },
-      },
       userInput: {
         ...userInputInitialState,
       },
@@ -42,6 +37,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       expect(
@@ -70,6 +66,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -119,6 +116,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -167,6 +165,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -220,11 +219,6 @@ describe('VilkaarsproevingAlert', () => {
     }
 
     const mockedState = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-        },
-      },
       userInput: {
         ...userInputInitialState,
       },
@@ -246,6 +240,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       expect(
@@ -272,6 +267,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -314,6 +310,7 @@ describe('VilkaarsproevingAlert', () => {
               },
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -356,6 +353,7 @@ describe('VilkaarsproevingAlert', () => {
               },
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -384,6 +382,7 @@ describe('VilkaarsproevingAlert', () => {
           preloadedState: {
             ...mockedState,
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -400,11 +399,6 @@ describe('VilkaarsproevingAlert', () => {
   describe('Gitt at brukeren har valgt å beregne AFP etterfulgt av alderspensjon', () => {
     const uttaksalder = { aar: 63, maaneder: 3 }
     const mockedState = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-        },
-      },
       userInput: {
         ...userInputInitialState,
         afpUtregningValg: 'AFP_ETTERFULGT_AV_ALDERSPENSJON',

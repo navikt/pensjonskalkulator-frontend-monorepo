@@ -1,24 +1,25 @@
+import alderspensjonResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
-  fulfilledGetAfpOffentligLivsvarigFalse,
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetLoependeVedtak100Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAFPprivat,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+  afpOffentligLivsvarigFalseMock,
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtak75UfoeregradMock,
+  loependeVedtak100UfoeregradMock,
+  loependeVedtakLoependeAFPprivatMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
+  personMock,
+} from '@/mocks'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
-import alderspensjonResponse from '../../../mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { BeregningEnkel } from '../BeregningEnkel'
 
 const navigateMock = vi.fn()
@@ -43,19 +44,16 @@ describe('BeregningEnkel', () => {
       )
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
 
@@ -88,20 +86,17 @@ describe('BeregningEnkel', () => {
       )
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             samtykkeOffentligAFP: false,
             afp: 'ja_offentlig',
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
 
@@ -130,17 +125,14 @@ describe('BeregningEnkel', () => {
     it('viser loading og deretter riktig header, TMU og Velg uttaksalder områder', async () => {
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
@@ -171,18 +163,15 @@ describe('BeregningEnkel', () => {
       it('hvis brukeren er yngre enn 62 ved uttak, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
         render(<BeregningEnkel />, {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         })
 
@@ -201,18 +190,15 @@ describe('BeregningEnkel', () => {
 
         render(<BeregningEnkel />, {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         })
 
@@ -245,19 +231,16 @@ describe('BeregningEnkel', () => {
 
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       })
 
@@ -268,19 +251,16 @@ describe('BeregningEnkel', () => {
     it('vises det riktig antall knapper fra default normert pensjonsalder', async () => {
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak75Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             afp: 'ja_privat',
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak75UfoeregradMock,
         },
       })
 
@@ -293,18 +273,15 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { container } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       await user.click(await screen.findByText('68 alder.aar'))
@@ -339,15 +316,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetAfpOffentligLivsvarigFalse,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -360,6 +328,12 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          getAfpOffentligLivsvarig: afpOffentligLivsvarigFalseMock,
         },
       })
       await store.dispatch(
@@ -433,14 +407,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -453,6 +419,11 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       await store.dispatch(
@@ -528,14 +499,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak100Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -547,6 +510,11 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak100UfoeregradMock,
         },
       })
       await store.dispatch(
@@ -620,14 +588,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -639,6 +599,11 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       await store.dispatch(
@@ -716,17 +681,14 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
 
@@ -760,17 +722,14 @@ describe('BeregningEnkel', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
 
@@ -802,14 +761,6 @@ describe('BeregningEnkel', () => {
       })
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -820,6 +771,11 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
 
@@ -847,14 +803,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -862,6 +810,11 @@ describe('BeregningEnkel', () => {
               aarligInntektFoerUttakBeloep: '100 000',
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       await waitFor(async () => {
@@ -881,14 +834,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -896,6 +841,11 @@ describe('BeregningEnkel', () => {
               aarligInntektFoerUttakBeloep: '100 000',
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
       const alertBoks = await screen.findByTestId('alert-inntekt')
@@ -913,18 +863,15 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { container } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
       })
       await user.click(await screen.findByText('68 alder.aar'))
@@ -966,14 +913,6 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakLoependeAFPprivat,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -984,6 +923,11 @@ describe('BeregningEnkel', () => {
               gradertUttaksperiode: null,
             },
           },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getInntekt: inntektMock,
+          getLoependeVedtak: loependeVedtakLoependeAFPprivatMock,
         },
       })
       await store.dispatch(

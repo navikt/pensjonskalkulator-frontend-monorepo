@@ -2,18 +2,24 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+  loependeVedtak0UfoeregradMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  mockResponse,
+  personYngreEnnAfpUfoereOppsigelsesalderMock,
+} from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  createStateWithApiData,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '@/test-utils'
 
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
@@ -26,17 +32,19 @@ vi.mock(import('react-router'), async (importOriginal) => {
 
 describe('StepAFP', () => {
   beforeEach(() => {
-    store.getState = vi.fn().mockImplementation(() => ({
-      api: {
-        queries: {
-          ...fulfilledGetPersonYngreEnnAfpUfoereOppsigelsesalder,
-          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+    store.getState = vi.fn().mockImplementation(() =>
+      createStateWithApiData(
+        {
+          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock,
+          getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
-      },
-      userInput: {
-        ...userInputReducerUtils.userInputInitialState,
-      },
-    }))
+        {
+          userInput: {
+            ...userInputReducerUtils.userInputInitialState,
+          },
+        }
+      )
+    )
   })
 
   afterEach(() => {
@@ -47,14 +55,16 @@ describe('StepAFP', () => {
   })
 
   it('har riktig sidetittel', async () => {
-    store.getState = vi.fn().mockImplementation(() => ({
-      api: {
-        queries: { mock: 'mock' },
-      },
-      userInput: {
-        ...userInputReducerUtils.userInputInitialState,
-      },
-    }))
+    store.getState = vi.fn().mockImplementation(() =>
+      createStateWithApiData(
+        { getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock },
+        {
+          userInput: {
+            ...userInputReducerUtils.userInputInitialState,
+          },
+        }
+      )
+    )
 
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
@@ -291,14 +301,7 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
-      preloadedState: {
-        api: {
-          // @ts-ignore
-          queries: {
-            ...fulfilledGetLoependeVedtak0Ufoeregrad,
-          },
-        },
-      },
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       hasRouter: false,
     })
 

@@ -139,7 +139,7 @@ export async function setupInterceptions(
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v2\/tpo-livsvarig-offentlig-afp/,
-      mockFileName: 'afp-offentlig-livsvarig.json',
+      mockFileName: 'afp-offentlig-livsvarig-null.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v2\/ekskludert/,
@@ -151,7 +151,7 @@ export async function setupInterceptions(
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v1\/loepende-omstillingsstoenad-eller-gjenlevendeytelse/,
-      mockFileName: 'omstillingsstoenad-og-gjenlevende.json',
+      mockFileName: 'omstillingsstoenad-og-gjenlevende-false.json',
     },
     {
       url: /\/pensjon\/kalkulator\/api\/v4\/vedtak\/loepende-vedtak/,

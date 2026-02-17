@@ -1,11 +1,11 @@
 import { describe, it } from 'vitest'
 
 import {
-  fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetOmstillingsstoenadOgGjenlevende,
-  fulfilledGetPerson,
-  fulfilledGetPersonMedOekteAldersgrenser,
-} from '@/mocks/mockedRTKQueryApiCalls'
+  loependeVedtak75UfoeregradMock,
+  omstillingsstoenadOgGjenlevendeMock,
+  personMedOekteAldersgrenseMock,
+  personMock,
+} from '@/mocks'
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
@@ -37,16 +37,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
 
@@ -70,16 +65,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       await waitFor(() => {
@@ -117,16 +107,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       await waitFor(() => {
@@ -165,16 +150,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       expect(
@@ -194,16 +174,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              //@ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMock },
         }
       )
       await waitFor(() => {
@@ -242,14 +217,12 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-              },
-            },
             userInput: { ...userInputReducerUtils.userInputInitialState },
+          },
+          preloadedApiState: {
+            getOmstillingsstoenadOgGjenlevende:
+              omstillingsstoenadOgGjenlevendeMock,
+            getPerson: personMedOekteAldersgrenseMock,
           },
         }
       )
@@ -275,14 +248,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMedOekteAldersgrenseMock },
         }
       )
 
@@ -309,14 +279,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMedOekteAldersgrenseMock },
         }
       )
       // Check for the data-testid for the ReadMore component when Sanity is enabled
@@ -334,14 +301,11 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: { ...fulfilledGetPersonMedOekteAldersgrenser },
-            },
             userInput: {
               ...userInputInitialState,
             },
           },
+          preloadedApiState: { getPerson: personMedOekteAldersgrenseMock },
         }
       )
       // Check for the data-testid for the ReadMore component when Sanity is enabled
@@ -361,14 +325,12 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-              },
-            },
             userInput: { ...userInputReducerUtils.userInputInitialState },
+          },
+          preloadedApiState: {
+            getOmstillingsstoenadOgGjenlevende:
+              omstillingsstoenadOgGjenlevendeMock,
+            getPerson: personMedOekteAldersgrenseMock,
           },
         }
       )
@@ -392,17 +354,14 @@ describe('TidligstMuligUttaksalder', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPersonMedOekteAldersgrenser,
-                ...fulfilledGetLoependeVedtak75Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               afp: 'ja_privat',
             },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak75UfoeregradMock,
           },
         }
       )

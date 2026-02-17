@@ -1,9 +1,9 @@
+import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { describe, it } from 'vitest'
 
 import { render, screen } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
 
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { PrivatePensjonsavtaler } from '../PrivatePensjonsavtaler'
 
 describe('PrivatePensjonsavtaler', () => {

@@ -1,6 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtak0UfoeregradMock } from '@/mocks'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent } from '@/test-utils'
@@ -29,14 +29,7 @@ describe('StepSamtykkeOffentligAFP', () => {
       const user = userEvent.setup()
 
       const { store } = render(<StepSamtykkeOffentligAFP />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
-        },
+        preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       })
       const radioButtons = screen.getAllByRole('radio')
 
@@ -53,14 +46,7 @@ describe('StepSamtykkeOffentligAFP', () => {
       const user = userEvent.setup()
 
       const { store } = render(<StepSamtykkeOffentligAFP />, {
-        preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
-        },
+        preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       })
       const radioButtons = screen.getAllByRole('radio')
 

@@ -1,10 +1,10 @@
+import offentligTpData from '@pensjonskalkulator-frontend-monorepo/mocks/data/offentlig-tp.json' with { type: 'json' }
 import { describe, it } from 'vitest'
 
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 import * as useIsMobileUtils from '@/utils/useIsMobile'
 
-import offentligTpData from '../../../../mocks/data/offentlig-tp.json' with { type: 'json' }
 import { OffentligTjenestepensjon } from '../OffentligTjenestepensjon'
 
 describe('OffentligTjenestepensjon', () => {
