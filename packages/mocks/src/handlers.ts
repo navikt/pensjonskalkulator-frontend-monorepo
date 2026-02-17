@@ -25,6 +25,7 @@ import type {
 } from './types'
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
+const API_BASE = '/pensjon/kalkulator/api'
 
 const testHandlers =
 	process.env.NODE_ENV === 'test'
@@ -133,6 +134,7 @@ export interface HandlerOptions {
 	baseUrl?: string
 	hostBaseUrl?: string
 	representasjonBannerUrl?: string
+	delayMs?: number
 }
 
 export const getHandlers = (options: HandlerOptions = {}) => {
@@ -140,13 +142,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		baseUrl = DEFAULT_API_PATH,
 		hostBaseUrl = DEFAULT_BASE_URL,
 		representasjonBannerUrl = '',
+		delayMs = TEST_DELAY,
 	} = options
 
 	return [
 		...testHandlers,
 		...externalServiceHandlers,
 		http.get(`${hostBaseUrl}/oauth2/session`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json({
 				session: { active: true, created_at: 'lorem', ends_in_seconds: 21592 },
 				tokens: { expire_at: 'lorem', expire_in_seconds: 3592 },
@@ -154,35 +157,35 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		}),
 
 		http.get(`${baseUrl}/inntekt`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(inntektResponse)
 		}),
 
 		http.get(`${baseUrl}/v2/ekskludert`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(ekskludertStatusResponse)
 		}),
 
 		http.get(`${baseUrl}/v1/er-apoteker`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(erApotekerResponse)
 		}),
 
 		http.get(`${baseUrl}/v2/tpo-livsvarig-offentlig-afp`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(afpOffentligLivsvarigResponse)
 		}),
 
 		http.get(
 			`${baseUrl}/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse`,
 			async () => {
-				await delay(TEST_DELAY)
+				await delay(delayMs)
 				return HttpResponse.json(omstillingsstoenadOgGjenlevendeResponse)
 			}
 		),
 
 		http.get(`${baseUrl}/v6/person`, async ({ request }) => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			if (request.headers.get('fnr') === '40100000000') {
 				return HttpResponse.json({}, { status: 401 })
 			} else if (request.headers.get('fnr') === '40300000001') {
@@ -206,31 +209,31 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		}),
 
 		http.get(`${baseUrl}/v1/ansatt-id`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(ansattIdResponse)
 		}),
 
 		http.post(`${baseUrl}/v2/simuler-oftp/fra-1963`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(offentligTpResponse)
 		}),
 		http.post(`${baseUrl}/v2/simuler-oftp/foer-1963`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(offentligTpFoer1963Response)
 		}),
 
 		http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(loependeVedtakResponse)
 		}),
 
 		http.post(`${baseUrl}/v3/tidligste-hel-uttaksalder`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(tidligstMuligHeltUttakResponse)
 		}),
 
 		http.post(`${baseUrl}/v3/pensjonsavtaler`, async ({ request }) => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			const body = await request.json()
 			const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]
 				?.startAlder.aar
@@ -239,7 +242,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		}),
 
 		http.post(`${baseUrl}/v9/alderspensjon/simulering`, async ({ request }) => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			const body = await request.json()
 			const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
 			const data = await import(`./data/alderspensjon/${aar}.json`)
@@ -294,14 +297,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		}),
 
 		http.post(`${baseUrl}/v1/encrypt`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.text('this-is-just-jibbrish-encrypted-fnr')
 		}),
 
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
 			async () => {
-				await delay(TEST_DELAY)
+				await delay(delayMs)
 				return HttpResponse.json(disableSpraakvelgerToggleResponse)
 			}
 		),
@@ -309,13 +312,13 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.show-download-pdf`,
 			async () => {
-				await delay(TEST_DELAY)
+				await delay(delayMs)
 				return HttpResponse.json(showDownloadPdfToggleResponse)
 			}
 		),
 
 		http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
-			await delay(TEST_DELAY)
+			await delay(delayMs)
 			return HttpResponse.json(
 				enableUtvidetSimuleringsresultatPluginToggleResponse
 			)
@@ -324,7 +327,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.vedlikeholdsmodus`,
 			async () => {
-				await delay(TEST_DELAY)
+				await delay(delayMs)
 				return HttpResponse.json(enableVedlikeholdsmodusToggleResponse)
 			}
 		),
@@ -344,3 +347,5 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			: []),
 	]
 }
+
+export const handlers = getHandlers({ baseUrl: API_BASE })
