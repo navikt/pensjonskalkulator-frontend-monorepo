@@ -1,5 +1,12 @@
-import { FilesIcon, PersonIcon } from '@navikt/aksel-icons'
-import { Alert, BodyShort, HStack, InfoCard, Loader } from '@navikt/ds-react'
+import { PersonIcon } from '@navikt/aksel-icons'
+import {
+	Alert,
+	BodyShort,
+	CopyButton,
+	HStack,
+	InfoCard,
+	Loader,
+} from '@navikt/ds-react'
 
 import { useLoependeVedtakQuery, usePersonQuery } from './api/queries'
 import { getFnrFromUrl, getLoependeVedtakStatus } from './utils'
@@ -40,15 +47,17 @@ export const PersonInfo = () => {
 				<HStack gap="space-4" className={styles.personInfoWrapper}>
 					<PersonIcon title="a11y-title" fontSize="1.5rem" />
 					<BodyShort size="medium">{fnr}</BodyShort>
-					<FilesIcon title="a11y-title" fontSize="1.5rem" />
+					<CopyButton size="small" copyText={fnr} />
 					<BodyShort size="medium">
 						<span>{' / '}</span>
 						{person.navn}
 					</BodyShort>
-					<BodyShort size="medium">
-						{' / '}
-						{vedtakStatus}
-					</BodyShort>
+					{vedtakStatus && (
+						<BodyShort size="medium">
+							{' / '}
+							{vedtakStatus}
+						</BodyShort>
+					)}
 				</HStack>
 			)}
 		</div>
