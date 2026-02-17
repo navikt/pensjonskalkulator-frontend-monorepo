@@ -16,7 +16,7 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
-		"@navikt/ds-react": "8.4.0",
+		"@navikt/ds-react": "8.5.0",
 		"@navikt/ds-css": "8.4.1",
 		"@navikt/aksel-icons": "^7.40.0",
 		"@navikt/oasis": "^3.4.0",
