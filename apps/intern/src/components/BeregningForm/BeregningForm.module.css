@@ -26,6 +26,15 @@
 	width: 184px;
 }
 
+.alderRow {
+	display: flex;
+	gap: 16px;
+}
+
+.alderRow :global(.aksel-select__container) {
+	width: 88px;
+}
+
 .horizontalRadioGroup :global(.navds-radio-buttons) {
 	display: flex;
 	flex-direction: row;
