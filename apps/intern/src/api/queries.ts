@@ -1,10 +1,12 @@
 import type {
+	AlderspensjonRequestBody,
 	LoependeVedtak,
 	Person,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { skipToken, useQuery } from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
+import { mapBeregningParamsToRequest } from './mapBeregningParams'
 
 const API_BASE = '/pensjon/kalkulator/api'
 
@@ -101,7 +103,7 @@ export function useGrunnbeloepQuery() {
 
 async function fetchBeregning(
 	fnr: string,
-	params: BeregningParams
+	params: AlderspensjonRequestBody
 ): Promise<BeregningResult> {
 	const response = await fetch(`${API_BASE}/v9/alderspensjon/simulering`, {
 		method: 'POST',
@@ -121,10 +123,18 @@ async function fetchBeregning(
 
 export function useBeregningQuery(
 	fnr: string | undefined,
+	foedselsdato: string | undefined,
 	params: BeregningParams | null
 ) {
 	return useQuery({
 		queryKey: ['beregning', fnr, params],
-		queryFn: fnr && params ? () => fetchBeregning(fnr, params) : skipToken,
+		queryFn:
+			fnr && foedselsdato && params
+				? () =>
+						fetchBeregning(
+							fnr,
+							mapBeregningParamsToRequest(params, foedselsdato)
+						)
+				: skipToken,
 	})
 }
