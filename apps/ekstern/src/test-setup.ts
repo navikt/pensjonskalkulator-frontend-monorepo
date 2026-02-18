@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 
 import { vi } from 'vitest'
 
-import { mockResponse, server } from '@/mocks/server'
+import { mockResponse, server } from '@/mocks'
 
 import { HOST_BASEURL } from './paths'
 

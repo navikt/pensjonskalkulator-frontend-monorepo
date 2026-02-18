@@ -1,4 +1,7 @@
 /* eslint-disable import/export */
+import sanityForbeholdAvsnittDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { RenderOptions, render } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
@@ -9,9 +12,6 @@ import { SanityContext } from '@/context/SanityContext'
 import { authenticationGuard } from '@/router/loaders'
 import test_translations from '@/utils/__tests__/test-translations'
 
-import sanityForbeholdAvsnittDataResponse from './mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
-import sanityGuidePanelDataResponse from './mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
-import sanityReadMoreDataResponse from './mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import { apiSlice } from './state/api/apiSlice'
 import { AppStore, RootState, setupStore } from './state/store'
 import translations_nb from './translations/nb'
@@ -72,30 +72,22 @@ function generateMockedTranslations() {
   return translations
 }
 
-// Return an object with the store and all of RTL's query functions
-export function renderWithProviders(
-  ui: React.ReactElement,
-  {
-    preloadedState = {},
-    preloadedApiState = {},
-    store = setupStore(
-      {
-        // Default to logged-in in tests unless explicitly overridden
-        session: { isLoggedIn: true, hasErApotekerError: false },
-        ...preloadedState,
-      },
-      true
-    ),
-    hasRouter = true,
-    hasLogin = false,
-    ...renderOptions
-  }: ExtendedRenderOptions = {}
+function initializeStore(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
 ) {
-  const preloadedApiStateEntries = Object.entries(preloadedApiState)
-  if (preloadedApiStateEntries.length) {
+  const store = setupStore(
+    {
+      session: { isLoggedIn: true, hasErApotekerError: false },
+      ...preloadedState,
+    },
+    true
+  )
+  const entries = Object.entries(preloadedApiState)
+  if (entries.length) {
     store.dispatch(
       apiSlice.util.upsertQueryEntries(
-        preloadedApiStateEntries.map(([key, value]) => ({
+        entries.map(([key, value]) => ({
           endpointName: key as QueryKeys,
           arg: undefined,
           value,
@@ -103,7 +95,21 @@ export function renderWithProviders(
       )
     )
   }
+  return store
+}
 
+// Return an object with the store and all of RTL's query functions
+export function renderWithProviders(
+  ui: React.ReactElement,
+  {
+    preloadedState = {},
+    preloadedApiState = {},
+    store = initializeStore(preloadedApiState, preloadedState),
+    hasRouter = true,
+    hasLogin = false,
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) {
   function Wrapper({
     children,
   }: PropsWithChildren<unknown>): React.JSX.Element {
@@ -150,6 +156,20 @@ export function renderWithProviders(
   }
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+}
+
+export function createStateWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): RootState {
+  return initializeStore(preloadedApiState, preloadedState).getState()
+}
+
+export function createStoreWithApiData(
+  preloadedApiState: ExtendedRenderOptions['preloadedApiState'] = {},
+  preloadedState: Partial<RootState> = {}
+): ReturnType<typeof setupStore> {
+  return initializeStore(preloadedApiState, preloadedState)
 }
 
 export * from '@testing-library/react'

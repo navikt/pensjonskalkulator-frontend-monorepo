@@ -2,13 +2,14 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, vi } from 'vitest'
 
 import {
-  fulfilledGetErApoteker,
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+  erApotekerMock,
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  mockErrorResponse,
+  mockResponse,
+  omstillingsstoenadOgGjenlevendeUtenSakMock,
+  personMock,
+} from '@/mocks'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -23,16 +24,7 @@ import { routes } from '../routes'
 
 const fakeApiCalls = {
   queries: {
-    ['tulleQuery(undefined)']: {
-      status: 'fulfilled',
-      endpointName: 'tulleQuery',
-      requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-      startedTimeStamp: 1688046411971,
-      data: {
-        tull: 'og tøys',
-      },
-      fulfilledTimeStamp: 1688046412103,
-    },
+    mock: 'mock',
   },
 }
 
@@ -204,6 +196,7 @@ describe('routes', () => {
           preloadedState: {
             session: { isLoggedIn: false, hasErApotekerError: false },
           },
+          preloadedApiState: { getPerson: personMock },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -213,9 +206,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -232,10 +224,8 @@ describe('routes', () => {
       })
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetPerson },
-          },
+          // @ts-ignore
+          api: { queries: { mock: 'mock' } },
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -277,9 +267,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -330,6 +319,14 @@ describe('routes', () => {
           preloadedState: {
             session: { isLoggedIn: false, hasErApotekerError: false },
           },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getErApoteker: erApotekerMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getOmstillingsstoenadOgGjenlevende:
+              omstillingsstoenadOgGjenlevendeUtenSakMock,
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -339,9 +336,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -358,16 +354,8 @@ describe('routes', () => {
       })
       it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /apoteker ikke har feilet', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetErApoteker,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
-            },
-          },
+          // @ts-ignore
+          api: { queries: { mock: 'mock' } },
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState, samtykke: null },
         }))
@@ -409,9 +397,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -468,6 +455,9 @@ describe('routes', () => {
           preloadedState: {
             session: { isLoggedIn: false, hasErApotekerError: false },
           },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -478,9 +468,8 @@ describe('routes', () => {
       })
 
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -498,10 +487,8 @@ describe('routes', () => {
 
       it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises steget', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          api: {
-            // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
-          },
+          // @ts-ignore
+          api: { queries: { mock: 'mock' } },
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
@@ -603,9 +590,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -656,6 +642,10 @@ describe('routes', () => {
           preloadedState: {
             session: { isLoggedIn: false, hasErApotekerError: false },
           },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -665,9 +655,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -685,13 +674,8 @@ describe('routes', () => {
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
+          // @ts-ignore
+          api: { queries: { mock: 'mock' } },
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
@@ -707,13 +691,6 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             session: { isLoggedIn: true, hasErApotekerError: false },
             userInput: {
               ...userInputInitialState,
@@ -721,6 +698,10 @@ describe('routes', () => {
                 ...userInputInitialState.currentSimulation,
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         })
 
@@ -749,6 +730,10 @@ describe('routes', () => {
           preloadedState: {
             session: { isLoggedIn: false, hasErApotekerError: false },
           },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          },
         })
         await waitFor(() => {
           expect(open).toHaveBeenCalledWith(
@@ -758,9 +743,8 @@ describe('routes', () => {
         })
       })
       it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        // @ts-ignore
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          // @ts-ignore
-          api: {},
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: { ...userInputInitialState },
         }))
@@ -778,13 +762,8 @@ describe('routes', () => {
 
       it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
         vi.spyOn(store, 'getState').mockImplementation(() => ({
-          api: {
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
+          // @ts-ignore
+          api: { queries: { mock: 'mock' } },
           session: { isLoggedIn: true, hasErApotekerError: false },
           userInput: {
             ...userInputInitialState,
@@ -802,13 +781,6 @@ describe('routes', () => {
         render(<RouterProvider router={router} />, {
           hasRouter: false,
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             session: { isLoggedIn: true, hasErApotekerError: false },
             userInput: {
               ...userInputInitialState,
@@ -818,6 +790,10 @@ describe('routes', () => {
                 ...userInputInitialState.currentSimulation,
               },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         })
 

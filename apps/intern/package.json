@@ -31,6 +31,7 @@
 		"winston": "^3.17.0"
 	},
 	"devDependencies": {
+		"@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
 		"concurrently": "^9.2.0",
