@@ -27,7 +27,7 @@ export function createConfig({
 		'**/*.scss.d.ts',
 		'**/style.d.ts',
 		'cypress.config.ts',
-		'playwright.config.ts',
+		'**/playwright.config.ts',
 		'**/mockServiceWorker.js',
 		'**/cypress',
 		'playwright/**',
