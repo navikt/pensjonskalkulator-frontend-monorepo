@@ -5,7 +5,6 @@ import {
 	CopyButton,
 	HStack,
 	InfoCard,
-	Loader,
 } from '@navikt/ds-react'
 
 import {
@@ -19,9 +18,9 @@ import styles from './PersonInfo.module.css'
 
 export const PersonInfo = () => {
 	const pid = getPidFromUrl()
-	const { data: fnr, isLoading: isDecrypting } = useDecryptPidQuery(pid)
+	const { data: fnr } = useDecryptPidQuery(pid)
 
-	const { data: person, isLoading, isError, error } = usePersonQuery(fnr)
+	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
 
@@ -42,10 +41,6 @@ export const PersonInfo = () => {
 
 	return (
 		<div>
-			{(isDecrypting || isLoading) && (
-				<Loader size="xlarge" title="Henter bruker..." />
-			)}
-
 			{isError && (
 				<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
 			)}

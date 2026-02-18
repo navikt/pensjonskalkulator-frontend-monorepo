@@ -10,6 +10,7 @@ import {
 import {
 	type BeregningFormData,
 	type BeregningParams,
+	type Sivilstand,
 	type ValidationErrors,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
@@ -30,10 +31,19 @@ interface BeregningContextValue {
 
 const BeregningContext = createContext<BeregningContextValue | null>(null)
 
-export function BeregningProvider({ children }: { children: ReactNode }) {
-	const [formData, setFormData] = useState<BeregningFormData>(
-		defaultBeregningFormData
-	)
+interface BeregningProviderProps {
+	children: ReactNode
+	initialSivilstand?: Sivilstand
+}
+
+export function BeregningProvider({
+	children,
+	initialSivilstand,
+}: BeregningProviderProps) {
+	const [formData, setFormData] = useState<BeregningFormData>(() => ({
+		...defaultBeregningFormData,
+		...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+	}))
 	const [committedParams, setCommittedParams] =
 		useState<BeregningParams | null>(null)
 
@@ -45,7 +55,27 @@ export function BeregningProvider({ children }: { children: ReactNode }) {
 			field: K,
 			value: BeregningFormData[K]
 		) => {
-			setFormData((prev) => ({ ...prev, [field]: value }))
+			setFormData((prev) => {
+				const next = { ...prev, [field]: value }
+
+				const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
+					next.sivilstand
+				)
+				if (!harPartner) {
+					next.ektefelleMottarPensjon = ''
+					next.ektefelleInntektOver2G = ''
+				}
+				if (next.ektefelleMottarPensjon !== 'nei') {
+					next.ektefelleInntektOver2G = ''
+				}
+				if (next.harInntektVedSidenAvUttak !== 'ja') {
+					next.pensjonsgivendeInntektVedSidenAvUttak = ''
+					next.alderAarInntektSlutter = ''
+					next.alderMdInntektSlutter = ''
+				}
+
+				return next
+			})
 			clearError(field)
 		},
 		[clearError]

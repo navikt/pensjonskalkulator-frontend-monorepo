@@ -1,6 +1,6 @@
 export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
 
-export type JaNei = 'ja' | 'nei'
+export type JaNei = 'ja' | 'nei' | ''
 
 export interface BeregningFormData {
 	sivilstand: Sivilstand
@@ -34,14 +34,27 @@ export interface BeregningResult {
 	[key: string]: unknown
 }
 
+export function mapPersonSivilstand(sivilstand: string): Sivilstand {
+	switch (sivilstand) {
+		case 'GIFT':
+			return 'GIFT'
+		case 'SAMBOER':
+			return 'SAMBOER'
+		case 'REGISTRERT_PARTNER':
+			return 'REGISTRERT_PARTNER'
+		default:
+			return 'UGIFT'
+	}
+}
+
 export const defaultBeregningFormData: BeregningFormData = {
-	sivilstand: 'GIFT',
+	sivilstand: 'UGIFT',
 	alderAarUttak: '',
 	alderMdUttak: '',
-	ektefelleMottarPensjon: 'nei',
-	ektefelleInntektOver2G: 'nei',
+	ektefelleMottarPensjon: '',
+	ektefelleInntektOver2G: '',
 	pensjonsgivendeInntektFremTilUttak: '',
-	harInntektVedSidenAvUttak: 'nei',
+	harInntektVedSidenAvUttak: '',
 	pensjonsgivendeInntektVedSidenAvUttak: '',
 	alderAarInntektSlutter: '',
 	alderMdInntektSlutter: '',
