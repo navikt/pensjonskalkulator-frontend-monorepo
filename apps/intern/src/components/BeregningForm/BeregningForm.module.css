@@ -1,8 +1,8 @@
 .beregningForm {
 	width: 496px;
-	min-height: 100%;
+	height: 100%;
 	background-color: white;
-	padding: 32px 48px;
+	padding: 32px 48px 0;
 	box-sizing: border-box;
 	box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
 	z-index: 1;
@@ -48,4 +48,7 @@
 	position: sticky;
 	bottom: 0;
 	background-color: white;
+	border-top: 1px solid var(--a-border-subtle);
+	margin-top: -1px;
+	margin-bottom: 0;
 }

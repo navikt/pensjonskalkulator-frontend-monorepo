@@ -28,6 +28,17 @@ export const BeregningForm = () => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: person } = usePersonQuery(getFnrFromUrl())
 
+	const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
+		formData.sivilstand
+	)
+
+	const partnerBetegnelse =
+		formData.sivilstand === 'SAMBOER'
+			? 'samboer'
+			: formData.sivilstand === 'REGISTRERT_PARTNER'
+				? 'partner'
+				: 'ektefelle'
+
 	return (
 		<div className={styles.beregningForm}>
 			<Heading size="medium" level="2" spacing>
@@ -47,31 +58,36 @@ export const BeregningForm = () => {
 					<option value="GIFT">Gift</option>
 					<option value="UGIFT">Ugift</option>
 					<option value="SAMBOER">Samboer</option>
+					<option value="REGISTRERT_PARTNER">Registrert partner</option>
 				</Select>
-				<RadioGroup
-					legend="Vil brukers ektefelle motta pensjon, uføretrygd eller AFP?"
-					size="small"
-					className={styles.horizontalRadioGroup}
-					value={formData.ektefelleMottarPensjon}
-					onChange={(val: JaNei) =>
-						updateFormField('ektefelleMottarPensjon', val)
-					}
-				>
-					<Radio value="ja">Ja</Radio>
-					<Radio value="nei">Nei</Radio>
-				</RadioGroup>
-				<RadioGroup
-					legend={`Vil brukers ektefelle ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-					size="small"
-					className={styles.horizontalRadioGroup}
-					value={formData.ektefelleInntektOver2G}
-					onChange={(val: JaNei) =>
-						updateFormField('ektefelleInntektOver2G', val)
-					}
-				>
-					<Radio value="ja">Ja</Radio>
-					<Radio value="nei">Nei</Radio>
-				</RadioGroup>
+				{harPartner && (
+					<RadioGroup
+						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+						size="small"
+						className={styles.horizontalRadioGroup}
+						value={formData.ektefelleMottarPensjon}
+						onChange={(val: JaNei) =>
+							updateFormField('ektefelleMottarPensjon', val)
+						}
+					>
+						<Radio value="ja">Ja</Radio>
+						<Radio value="nei">Nei</Radio>
+					</RadioGroup>
+				)}
+				{harPartner && formData.ektefelleMottarPensjon === 'nei' && (
+					<RadioGroup
+						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+						size="small"
+						className={styles.horizontalRadioGroup}
+						value={formData.ektefelleInntektOver2G}
+						onChange={(val: JaNei) =>
+							updateFormField('ektefelleInntektOver2G', val)
+						}
+					>
+						<Radio value="ja">Ja</Radio>
+						<Radio value="nei">Nei</Radio>
+					</RadioGroup>
+				)}
 				<TextField
 					label="Pensjonsgivende inntekt frem til uttak"
 					size="small"

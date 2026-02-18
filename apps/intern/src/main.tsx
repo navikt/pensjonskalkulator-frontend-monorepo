@@ -47,7 +47,7 @@ createRoot(document.getElementById('root')!).render(
 			<Theme>
 				<PersonInfo />
 				<BeregningProvider>
-					<div style={{ display: 'flex', minHeight: 'calc(100vh - 96px)' }}>
+					<div style={{ display: 'flex', height: 'calc(100vh - 96px)' }}>
 						<BeregningForm />
 						<Beregning />
 					</div>

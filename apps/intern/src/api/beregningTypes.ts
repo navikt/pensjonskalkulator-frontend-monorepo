@@ -1,4 +1,4 @@
-export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER'
+export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
 
 export type JaNei = 'ja' | 'nei'
 
