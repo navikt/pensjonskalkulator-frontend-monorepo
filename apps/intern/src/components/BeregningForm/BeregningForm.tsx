@@ -22,6 +22,7 @@ export const BeregningForm = () => {
 		updateFormField,
 		committedParams,
 		isDirty,
+		validationErrors,
 		submitBeregning,
 		resetForm,
 	} = useBeregningContext()
@@ -95,6 +96,7 @@ export const BeregningForm = () => {
 					inputMode="numeric"
 					style={{ width: '184px' }}
 					value={formData.pensjonsgivendeInntektFremTilUttak}
+					error={validationErrors.pensjonsgivendeInntektFremTilUttak}
 					onChange={(e) =>
 						updateFormField(
 							'pensjonsgivendeInntektFremTilUttak',
@@ -108,6 +110,8 @@ export const BeregningForm = () => {
 					onAlderAarChange={(value) => updateFormField('alderAarUttak', value)}
 					onAlderMdChange={(value) => updateFormField('alderMdUttak', value)}
 					foedselsdato={person?.foedselsdato}
+					aarError={validationErrors.alderAarUttak}
+					mdError={validationErrors.alderMdUttak}
 				/>
 				<RadioGroup
 					legend="Har bruker inntekt ved siden av 100 % uttak?"
@@ -123,33 +127,40 @@ export const BeregningForm = () => {
 						<Radio value="nei">Nei</Radio>
 					</HStack>
 				</RadioGroup>
-				<TextField
-					label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-					size="small"
-					type="text"
-					inputMode="numeric"
-					style={{ width: '184px' }}
-					value={formData.pensjonsgivendeInntektVedSidenAvUttak}
-					onChange={(e) =>
-						updateFormField(
-							'pensjonsgivendeInntektVedSidenAvUttak',
-							e.target.value
-						)
-					}
-				/>
-				<AlderVelger
-					alderAar={formData.alderAarInntektSlutter}
-					alderMd={formData.alderMdInntektSlutter}
-					aarLabel="Alder (år) inntekt slutter"
-					mdLabel="Alder (md.) inntekt slutter"
-					onAlderAarChange={(value) =>
-						updateFormField('alderAarInntektSlutter', value)
-					}
-					onAlderMdChange={(value) =>
-						updateFormField('alderMdInntektSlutter', value)
-					}
-					foedselsdato={person?.foedselsdato}
-				/>
+				{formData.harInntektVedSidenAvUttak === 'ja' && (
+					<>
+						<TextField
+							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+							size="small"
+							type="text"
+							inputMode="numeric"
+							style={{ width: '184px' }}
+							value={formData.pensjonsgivendeInntektVedSidenAvUttak}
+							error={validationErrors.pensjonsgivendeInntektVedSidenAvUttak}
+							onChange={(e) =>
+								updateFormField(
+									'pensjonsgivendeInntektVedSidenAvUttak',
+									e.target.value
+								)
+							}
+						/>
+						<AlderVelger
+							alderAar={formData.alderAarInntektSlutter}
+							alderMd={formData.alderMdInntektSlutter}
+							aarLabel="Alder (år) inntekt slutter"
+							mdLabel="Alder (md.) inntekt slutter"
+							onAlderAarChange={(value) =>
+								updateFormField('alderAarInntektSlutter', value)
+							}
+							onAlderMdChange={(value) =>
+								updateFormField('alderMdInntektSlutter', value)
+							}
+							foedselsdato={person?.foedselsdato}
+							aarError={validationErrors.alderAarInntektSlutter}
+							mdError={validationErrors.alderMdInntektSlutter}
+						/>
+					</>
+				)}
 			</div>
 			<hr className={styles.divider} />
 			<ButtonBar

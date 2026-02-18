@@ -10,13 +10,16 @@ import {
 import {
 	type BeregningFormData,
 	type BeregningParams,
+	type ValidationErrors,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
+import { useFormValidation } from './BeregningForm/useFormValidation'
 
 interface BeregningContextValue {
 	formData: BeregningFormData
 	committedParams: BeregningParams | null
 	isDirty: boolean
+	validationErrors: ValidationErrors
 	updateFormField: <K extends keyof BeregningFormData>(
 		field: K,
 		value: BeregningFormData[K]
@@ -34,24 +37,30 @@ export function BeregningProvider({ children }: { children: ReactNode }) {
 	const [committedParams, setCommittedParams] =
 		useState<BeregningParams | null>(null)
 
+	const { validationErrors, validate, clearError, resetValidationErrors } =
+		useFormValidation()
+
 	const updateFormField = useCallback(
 		<K extends keyof BeregningFormData>(
 			field: K,
 			value: BeregningFormData[K]
 		) => {
 			setFormData((prev) => ({ ...prev, [field]: value }))
+			clearError(field)
 		},
-		[]
+		[clearError]
 	)
 
 	const submitBeregning = useCallback(() => {
+		if (!validate(formData)) return
 		setCommittedParams({ ...formData })
-	}, [formData])
+	}, [formData, validate])
 
 	const resetForm = useCallback(() => {
 		setFormData(defaultBeregningFormData)
 		setCommittedParams(null)
-	}, [])
+		resetValidationErrors()
+	}, [resetValidationErrors])
 
 	const isDirty = useMemo(() => {
 		if (!committedParams) return false
@@ -64,6 +73,7 @@ export function BeregningProvider({ children }: { children: ReactNode }) {
 				formData,
 				committedParams,
 				isDirty,
+				validationErrors,
 				updateFormField,
 				submitBeregning,
 				resetForm,

@@ -17,6 +17,19 @@ export interface BeregningFormData {
 
 export type BeregningParams = BeregningFormData
 
+export interface ValidationErrors {
+	sivilstand?: string
+	alderAarUttak?: string
+	alderMdUttak?: string
+	ektefelleMottarPensjon?: string
+	ektefelleInntektOver2G?: string
+	pensjonsgivendeInntektFremTilUttak?: string
+	harInntektVedSidenAvUttak?: string
+	pensjonsgivendeInntektVedSidenAvUttak?: string
+	alderAarInntektSlutter?: string
+	alderMdInntektSlutter?: string
+}
+
 export interface BeregningResult {
 	[key: string]: unknown
 }

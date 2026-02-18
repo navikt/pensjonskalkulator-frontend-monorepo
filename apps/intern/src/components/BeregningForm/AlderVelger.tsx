@@ -60,6 +60,8 @@ interface AlderVelgerProps {
 	foedselsMaaned?: number
 	minAar?: number
 	maxAar?: number
+	aarError?: string
+	mdError?: string
 }
 
 export const AlderVelger = ({
@@ -73,6 +75,8 @@ export const AlderVelger = ({
 	foedselsMaaned,
 	minAar = 62,
 	maxAar = 75,
+	aarError,
+	mdError,
 }: AlderVelgerProps) => {
 	const aarOptions = Array.from(
 		{ length: maxAar - minAar + 1 },
@@ -92,6 +96,7 @@ export const AlderVelger = ({
 					label={aarLabel}
 					size="small"
 					value={alderAar}
+					error={aarError}
 					onChange={(e) => onAlderAarChange(e.target.value)}
 				>
 					<option value="">Velg</option>
@@ -105,6 +110,7 @@ export const AlderVelger = ({
 					label={mdLabel}
 					size="small"
 					value={alderMd}
+					error={mdError}
 					onChange={(e) => onAlderMdChange(e.target.value)}
 				>
 					<option value="">Velg</option>
