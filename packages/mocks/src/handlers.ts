@@ -254,8 +254,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 				(body as AlderspensjonRequestBody).simuleringstype ===
 				'PRE2025_OFFENTLIG_AFP_ETTERFULGT_AV_ALDERSPENSJON'
 			) {
+				const afpPre2025Module = await import(
+					`./data/afp-etterfulgt-alderspensjon.json`
+				)
 				const afpPre2025Response = structuredClone(
-					await import(`./data/afp-etterfulgt-alderspensjon.json`)
+					afpPre2025Module.default
 				) as AlderspensjonPensjonsberegning
 				return HttpResponse.json(afpPre2025Response)
 			}
