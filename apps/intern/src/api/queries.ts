@@ -8,6 +8,29 @@ import type { BeregningParams, BeregningResult } from './beregningTypes'
 
 const API_BASE = '/pensjon/kalkulator/api'
 
+async function decryptPid(encryptedPid: string): Promise<string> {
+	const response = await fetch(`${API_BASE}/v1/decrypt`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'text/plain',
+		},
+		body: encryptedPid,
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to decrypt pid: ${response.status}`)
+	}
+
+	return response.text()
+}
+
+export function useDecryptPidQuery(encryptedPid?: string) {
+	return useQuery({
+		queryKey: ['decryptPid', encryptedPid],
+		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
+	})
+}
+
 async function fetchPerson(fnr: string): Promise<Person> {
 	const response = await fetch(`${API_BASE}/v6/person`, {
 		headers: {

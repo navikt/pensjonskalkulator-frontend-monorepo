@@ -8,8 +8,12 @@ import {
 } from '@navikt/ds-react'
 
 import type { JaNei, Sivilstand } from '../../api/beregningTypes'
-import { useGrunnbeloepQuery, usePersonQuery } from '../../api/queries'
-import { getFnrFromUrl } from '../../utils'
+import {
+	useDecryptPidQuery,
+	useGrunnbeloepQuery,
+	usePersonQuery,
+} from '../../api/queries'
+import { getPidFromUrl } from '../../utils'
 import { useBeregningContext } from '../BeregningContext'
 import { AlderVelger } from './AlderVelger'
 import { ButtonBar } from './ButtonBar'
@@ -27,7 +31,9 @@ export const BeregningForm = () => {
 		resetForm,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const { data: person } = usePersonQuery(getFnrFromUrl())
+	const pid = getPidFromUrl()
+	const { data: fnr } = useDecryptPidQuery(pid)
+	const { data: person } = usePersonQuery(fnr)
 
 	const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
 		formData.sivilstand
