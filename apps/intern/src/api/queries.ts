@@ -3,7 +3,7 @@ import type {
 	LoependeVedtak,
 	Person,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { skipToken, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
@@ -136,5 +136,6 @@ export function useBeregningQuery(
 							mapBeregningParamsToRequest(params, foedselsdato)
 						)
 				: skipToken,
+		placeholderData: keepPreviousData,
 	})
 }

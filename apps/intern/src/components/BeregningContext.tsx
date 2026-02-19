@@ -122,7 +122,7 @@ export function BeregningProvider({
 
 	const {
 		data: beregning,
-		isLoading: isBeregningLoading,
+		isFetching: isBeregningLoading,
 		error: beregningError,
 	} = useBeregningQuery(fnr, person?.foedselsdato, committedParams)
 

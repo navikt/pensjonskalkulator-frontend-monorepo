@@ -20,6 +20,26 @@
 	align-items: flex-start;
 }
 
+.loadingOverlay {
+	position: relative;
+}
+
+.loadingOverlay::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: rgba(255, 255, 255, 0.6);
+	z-index: 1;
+}
+
+.overlayLoader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+}
+
 .loader {
 	display: flex;
 	justify-content: center;

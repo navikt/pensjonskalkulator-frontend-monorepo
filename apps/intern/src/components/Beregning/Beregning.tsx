@@ -135,7 +135,7 @@ export const Beregning = () => {
 	const { isBeregningLoading, beregning, committedParams } =
 		useBeregningContext()
 
-	if (isBeregningLoading) {
+	if (!beregning && isBeregningLoading) {
 		return (
 			<div className={styles.beregning}>
 				<div className={styles.loader}>
@@ -190,7 +190,14 @@ export const Beregning = () => {
 
 	return (
 		<div className={styles.beregning}>
-			<VStack className={styles.tables}>
+			<VStack
+				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
 				{gradertEntry && (
 					<>
 						<Heading size="small">{titleGradertUttak}</Heading>
