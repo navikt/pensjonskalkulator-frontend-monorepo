@@ -87,6 +87,20 @@ export function BeregningProvider({
 					next.alderAarInntektSlutter = ''
 					next.alderMdInntektSlutter = ''
 				}
+				if (field === 'uttaksgrad' && next.uttaksgrad === '100') {
+					next.aarligInntektVsaPensjonGradertUttak = ''
+					next.alderAarHeltUttak = ''
+					next.alderMdHeltUttak = ''
+					next.harInntektVedSidenAvGradertUttak = ''
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
+					next.alderAarInntektGradertSlutter = ''
+					next.alderMdInntektGradertSlutter = ''
+				}
+				if (next.harInntektVedSidenAvGradertUttak !== 'ja') {
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
+					next.alderAarInntektGradertSlutter = ''
+					next.alderMdInntektGradertSlutter = ''
+				}
 
 				return next
 			})

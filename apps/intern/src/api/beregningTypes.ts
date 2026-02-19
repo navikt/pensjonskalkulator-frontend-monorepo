@@ -6,6 +6,10 @@ export interface BeregningFormData {
 	sivilstand: Sivilstand
 	alderAarUttak: string
 	alderMdUttak: string
+	uttaksgrad: string
+	aarligInntektVsaPensjonGradertUttak: string
+	alderAarHeltUttak: string
+	alderMdHeltUttak: string
 	ektefelleMottarPensjon: JaNei
 	ektefelleInntektOver2G: JaNei
 	pensjonsgivendeInntektFremTilUttak: string
@@ -13,6 +17,10 @@ export interface BeregningFormData {
 	pensjonsgivendeInntektVedSidenAvUttak: string
 	alderAarInntektSlutter: string
 	alderMdInntektSlutter: string
+	harInntektVedSidenAvGradertUttak: JaNei
+	pensjonsgivendeInntektVedSidenAvGradertUttak: string
+	alderAarInntektGradertSlutter: string
+	alderMdInntektGradertSlutter: string
 }
 
 export type BeregningParams = BeregningFormData
@@ -21,6 +29,10 @@ export interface ValidationErrors {
 	sivilstand?: string
 	alderAarUttak?: string
 	alderMdUttak?: string
+	uttaksgrad?: string
+	aarligInntektVsaPensjonGradertUttak?: string
+	alderAarHeltUttak?: string
+	alderMdHeltUttak?: string
 	ektefelleMottarPensjon?: string
 	ektefelleInntektOver2G?: string
 	pensjonsgivendeInntektFremTilUttak?: string
@@ -28,6 +40,10 @@ export interface ValidationErrors {
 	pensjonsgivendeInntektVedSidenAvUttak?: string
 	alderAarInntektSlutter?: string
 	alderMdInntektSlutter?: string
+	harInntektVedSidenAvGradertUttak?: string
+	pensjonsgivendeInntektVedSidenAvGradertUttak?: string
+	alderAarInntektGradertSlutter?: string
+	alderMdInntektGradertSlutter?: string
 }
 
 export interface BeregningResult {
@@ -51,6 +67,10 @@ export const defaultBeregningFormData: BeregningFormData = {
 	sivilstand: 'UGIFT',
 	alderAarUttak: '',
 	alderMdUttak: '',
+	uttaksgrad: '100',
+	aarligInntektVsaPensjonGradertUttak: '',
+	alderAarHeltUttak: '',
+	alderMdHeltUttak: '',
 	ektefelleMottarPensjon: '',
 	ektefelleInntektOver2G: '',
 	pensjonsgivendeInntektFremTilUttak: '',
@@ -58,4 +78,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektVedSidenAvUttak: '',
 	alderAarInntektSlutter: '',
 	alderMdInntektSlutter: '',
+	harInntektVedSidenAvGradertUttak: '',
+	pensjonsgivendeInntektVedSidenAvGradertUttak: '',
+	alderAarInntektGradertSlutter: '',
+	alderMdInntektGradertSlutter: '',
 }

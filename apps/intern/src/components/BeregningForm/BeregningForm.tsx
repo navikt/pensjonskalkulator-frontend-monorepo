@@ -119,11 +119,79 @@ export const BeregningForm = () => {
 					aarError={validationErrors.alderAarUttak}
 					mdError={validationErrors.alderMdUttak}
 				/>
+				<Select
+					label="Uttaksgrad"
+					size="small"
+					className={styles.selectWrapper}
+					value={formData.uttaksgrad}
+					onChange={(e) => updateFormField('uttaksgrad', e.target.value)}
+				>
+					{[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((grad) => (
+						<option key={grad} value={String(grad)}>
+							{grad} %
+						</option>
+					))}
+				</Select>
+				{formData.uttaksgrad !== '100' && (
+					<>
+						<RadioGroup
+							legend={`Har bruker inntekt ved siden av ${formData.uttaksgrad} % uttak?`}
+							size="small"
+							className={styles.horizontalRadioGroup}
+							value={formData.harInntektVedSidenAvGradertUttak}
+							onChange={(val: JaNei) =>
+								updateFormField('harInntektVedSidenAvGradertUttak', val)
+							}
+						>
+							<HStack gap="space-0 space-24" wrap={false}>
+								<Radio value="ja">Ja</Radio>
+								<Radio value="nei">Nei</Radio>
+							</HStack>
+						</RadioGroup>
+						{formData.harInntektVedSidenAvGradertUttak === 'ja' && (
+							<TextField
+								label={`Pensjonsgivende inntekt ved siden av ${formData.uttaksgrad} % uttak`}
+								size="small"
+								type="text"
+								inputMode="numeric"
+								style={{ width: '184px' }}
+								value={formData.pensjonsgivendeInntektVedSidenAvGradertUttak}
+								error={
+									validationErrors.pensjonsgivendeInntektVedSidenAvGradertUttak
+								}
+								onChange={(e) =>
+									updateFormField(
+										'pensjonsgivendeInntektVedSidenAvGradertUttak',
+										e.target.value
+									)
+								}
+							/>
+						)}
+					</>
+				)}
+				{formData.uttaksgrad !== '100' && (
+					<AlderVelger
+						alderAar={formData.alderAarHeltUttak}
+						alderMd={formData.alderMdHeltUttak}
+						aarLabel="Alder (år) for 100 % uttak"
+						mdLabel="Alder (md.) for 100 % uttak"
+						onAlderAarChange={(value) =>
+							updateFormField('alderAarHeltUttak', value)
+						}
+						onAlderMdChange={(value) =>
+							updateFormField('alderMdHeltUttak', value)
+						}
+						foedselsdato={person?.foedselsdato}
+						aarError={validationErrors.alderAarHeltUttak}
+						mdError={validationErrors.alderMdHeltUttak}
+					/>
+				)}
 				<RadioGroup
 					legend="Har bruker inntekt ved siden av 100 % uttak?"
 					size="small"
 					className={styles.horizontalRadioGroup}
 					value={formData.harInntektVedSidenAvUttak}
+					error={validationErrors.harInntektVedSidenAvUttak}
 					onChange={(val: JaNei) =>
 						updateFormField('harInntektVedSidenAvUttak', val)
 					}

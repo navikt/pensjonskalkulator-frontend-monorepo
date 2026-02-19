@@ -26,12 +26,34 @@ export function mapBeregningParamsToRequest(
 		? parseInt(formData.pensjonsgivendeInntektFremTilUttak, 10)
 		: undefined
 
+	const grad = parseInt(formData.uttaksgrad, 10)
+	const erGradert = grad < 100
+
+	const aarligInntektVsaPensjonGradert =
+		erGradert && formData.aarligInntektVsaPensjonGradertUttak
+			? parseInt(formData.aarligInntektVsaPensjonGradertUttak, 10)
+			: undefined
+
+	const heltUttaksalder = erGradert
+		? {
+				aar: parseInt(formData.alderAarHeltUttak, 10),
+				maaneder: parseInt(formData.alderMdHeltUttak, 10),
+			}
+		: uttaksalder
+
 	return {
 		simuleringstype: 'ALDERSPENSJON',
 		foedselsdato,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
+		gradertUttak: erGradert
+			? {
+					grad,
+					uttaksalder,
+					aarligInntektVsaPensjonBeloep: aarligInntektVsaPensjonGradert,
+				}
+			: undefined,
 		heltUttak: {
-			uttaksalder,
+			uttaksalder: heltUttaksalder,
 			aarligInntektVsaPensjon:
 				inntektVsaBeloep !== undefined &&
 				inntektSluttAar !== undefined &&
