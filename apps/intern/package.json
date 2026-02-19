@@ -17,7 +17,7 @@
 	},
 	"dependencies": {
 		"@navikt/ds-react": "8.4.0",
-		"@navikt/ds-css": "8.4.1",
+		"@navikt/ds-css": "8.5.2",
 		"@navikt/aksel-icons": "^7.40.0",
 		"@navikt/oasis": "^3.4.0",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
