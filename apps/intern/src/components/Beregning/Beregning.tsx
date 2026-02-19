@@ -1,3 +1,6 @@
+import { Loader } from '@navikt/ds-react'
+
+import { useBeregningContext } from '../BeregningContext'
 import { BeregningTable } from './BeregningTable'
 
 import styles from './Beregning.module.css'
@@ -23,11 +26,17 @@ const privatTjenestepensjonRows = [
 ]
 
 export const Beregning = () => {
-	// const pid = getPidFromUrl()
-	// const { data: fnr } = useDecryptPidQuery(pid)
-	// const { committedParams } = useBeregningContext()
+	const { isBeregningLoading } = useBeregningContext()
 
-	// const _beregning = useBeregningQuery(fnr, committedParams)
+	if (isBeregningLoading) {
+		return (
+			<div className={styles.beregning}>
+				<div className={styles.loader}>
+					<Loader size="3xlarge" title="Beregner pensjon …" />
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className={styles.beregning}>
