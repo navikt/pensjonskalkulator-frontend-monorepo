@@ -1,3 +1,5 @@
+import type { AlderspensjonResponseBody } from '@pensjonskalkulator-frontend-monorepo/types'
+
 export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
 
 export type JaNei = 'ja' | 'nei' | ''
@@ -46,9 +48,7 @@ export interface ValidationErrors {
 	alderMdInntektGradertSlutter?: string
 }
 
-export interface BeregningResult {
-	[key: string]: unknown
-}
+export type BeregningResult = AlderspensjonResponseBody
 
 export function mapPersonSivilstand(sivilstand: string): Sivilstand {
 	switch (sivilstand) {

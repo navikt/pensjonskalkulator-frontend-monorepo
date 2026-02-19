@@ -4,7 +4,7 @@ import styles from './BeregningTable.module.css'
 
 export interface BeregningTableRow {
 	label: string
-	value: number
+	value?: number
 }
 
 interface BeregningTableProps {
@@ -12,29 +12,33 @@ interface BeregningTableProps {
 	valueHeader: string
 	rows: BeregningTableRow[]
 	sumLabel?: string
+	simple?: boolean
 }
 
-const formatKroner = (value: number) =>
-	value.toLocaleString('nb-NO', { maximumFractionDigits: 0 })
+const formatKroner = (value?: number) =>
+	value?.toLocaleString('nb-NO', { maximumFractionDigits: 0 }) ?? ''
 
 export const BeregningTable = ({
 	title,
 	valueHeader,
 	rows,
 	sumLabel = 'Sum',
+	simple = false,
 }: BeregningTableProps) => {
-	const sum = rows.reduce((acc, row) => acc + row.value, 0)
+	const sum = rows.reduce((acc, row) => acc + (row.value ?? 0), 0)
 
 	return (
 		<Table zebraStripes size="small" className={styles.table}>
 			<Table.Header>
 				<Table.Row className={styles.headerRow}>
-					<Table.HeaderCell>
+					<Table.HeaderCell colSpan={simple ? 2 : undefined}>
 						<Label size="small">{title}</Label>
 					</Table.HeaderCell>
-					<Table.HeaderCell align="right">
-						<Label size="small">{valueHeader}</Label>
-					</Table.HeaderCell>
+					{!simple && (
+						<Table.HeaderCell align="right">
+							<Label size="small">{valueHeader}</Label>
+						</Table.HeaderCell>
+					)}
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
@@ -44,18 +48,22 @@ export const BeregningTable = ({
 							<BodyShort size="small">{row.label}</BodyShort>
 						</Table.DataCell>
 						<Table.DataCell align="right">
-							<BodyShort size="small">{formatKroner(row.value)}</BodyShort>
+							<BodyShort size="small">
+								{formatKroner(row.value)}&nbsp;kr
+							</BodyShort>
 						</Table.DataCell>
 					</Table.Row>
 				))}
-				<Table.Row>
-					<Table.DataCell>
-						<Label size="small">{sumLabel}</Label>
-					</Table.DataCell>
-					<Table.DataCell align="right">
-						<Label size="small">{formatKroner(sum)}</Label>
-					</Table.DataCell>
-				</Table.Row>
+				{!simple && (
+					<Table.Row>
+						<Table.DataCell>
+							<Label size="small">{sumLabel}</Label>
+						</Table.DataCell>
+						<Table.DataCell align="right">
+							<Label size="small">{formatKroner(sum)}&nbsp;kr</Label>
+						</Table.DataCell>
+					</Table.Row>
+				)}
 			</Table.Body>
 		</Table>
 	)

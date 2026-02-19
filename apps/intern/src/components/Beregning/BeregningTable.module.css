@@ -6,6 +6,11 @@
 	border: 1px solid var(--ax-border-neutral-subtle);
 }
 
+.table th,
+.table td {
+	padding: 8px;
+}
+
 .table th + th,
 .table td + td {
 	border-left: 1px solid var(--ax-border-neutral-subtle);
