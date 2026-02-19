@@ -9,7 +9,7 @@ export const omstillingsstoenadOgGjenlevende = async (
   options: OmstillingsstoenadOgGjenlevendeMockOptions = {}
 ): Promise<RouteDefinition> => {
   const omstillingsstoenadOgGjenlevendeMock = (await loadJSONMock(
-    'omstillingsstoenad-og-gjenlevende.json'
+    'omstillingsstoenad-og-gjenlevende-false.json'
   )) as BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse
 
   return {

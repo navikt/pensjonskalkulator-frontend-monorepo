@@ -1,6 +1,6 @@
 import { Accordion } from '@navikt/ds-react'
 
-import { mockResponse } from '@/mocks/server'
+import { mockResponse } from '@/mocks'
 import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent } from '@/test-utils'
 

@@ -1,0 +1,46 @@
+{
+	"simuleringsresultatStatus": "OK",
+	"muligeTpLeverandoerListe": [
+		"Statens pensjonskasse",
+		"Kommunal Landspensjonskasse",
+		"Oslo Pensjonsforsikring"
+	],
+	"simulertTjenestepensjon": {
+		"tpLeverandoer": "Statens pensjonskasse",
+		"tpNummer": "3010",
+		"simuleringsresultat": {
+			"utbetalingsperioder": [
+				{
+					"startAlder": {
+						"aar": 67,
+						"maaneder": 0
+					},
+					"sluttAlder": {
+						"aar": 69,
+						"maaneder": 11
+					},
+					"aarligUtbetaling": 64340
+				},
+				{
+					"startAlder": {
+						"aar": 70,
+						"maaneder": 0
+					},
+					"sluttAlder": {
+						"aar": 74,
+						"maaneder": 11
+					},
+					"aarligUtbetaling": 53670
+				},
+				{
+					"startAlder": {
+						"aar": 75,
+						"maaneder": 0
+					},
+					"aarligUtbetaling": 48900
+				}
+			],
+			"betingetTjenestepensjonErInkludert": true
+		}
+	}
+}

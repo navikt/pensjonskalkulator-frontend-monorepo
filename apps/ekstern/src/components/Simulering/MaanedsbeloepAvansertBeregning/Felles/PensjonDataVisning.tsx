@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { BodyLong } from '@navikt/ds-react'
 
-import { formatUttaksalder, isAlderOverAnnenAlder } from '@/utils/alder'
+import { isAlderOverAnnenAlder } from '@/utils/alder'
 import { formatInntektMedKr } from '@/utils/inntekt'
 
 import { Pensjonsdata } from '../hooks'
@@ -26,7 +26,6 @@ export const PensjonDataVisning: React.FC<Props> = ({
   harGradering,
   skalViseNullOffentligTjenestepensjon,
 }) => {
-  const intl = useIntl()
   const {
     alder,
     grad,
@@ -49,18 +48,8 @@ export const PensjonDataVisning: React.FC<Props> = ({
     pre2025OffentligAfp && pensjonsavtale
   )
 
-  const captionTitle = (
-    intl.formatMessage({ id: 'beregning.avansert.maanedsbeloep.table_title' }) +
-    ' ' +
-    intl.formatMessage({ id: 'beregning.avansert.maanedsbeloep.box_title' }) +
-    formatUttaksalder(intl, alder)
-  ).toLowerCase()
-
   return (
     <table className={styles.container}>
-      <BodyLong as="caption" visuallyHidden>
-        {captionTitle}
-      </BodyLong>
       <tbody>
         {harAFP && (
           <tr className={styles.row}>

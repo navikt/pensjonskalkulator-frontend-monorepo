@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { fulfilledGetLoependeVedtakLoependeAlderspensjon } from '@/mocks/mockedRTKQueryApiCalls'
+import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
 import {
   AvansertBeregningModus,
   BeregningContext,
@@ -216,12 +216,6 @@ describe('FormButtonRow', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -229,6 +223,9 @@ describe('FormButtonRow', () => {
                 uttaksalder: { aar: 62, maaneder: 0 },
               },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -258,12 +255,6 @@ describe('FormButtonRow', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: {
@@ -271,6 +262,9 @@ describe('FormButtonRow', () => {
                 uttaksalder: { aar: 62, maaneder: 0 },
               },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )

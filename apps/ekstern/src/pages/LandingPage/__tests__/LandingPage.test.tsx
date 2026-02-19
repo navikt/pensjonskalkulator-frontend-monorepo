@@ -1,7 +1,7 @@
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks'
 import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { routes } from '@/router/routes'

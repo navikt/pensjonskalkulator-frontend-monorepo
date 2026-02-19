@@ -20,6 +20,7 @@ COPY apps/ekstern/dist/server/server.js /app/server.js
 COPY apps/ekstern/dist/server/ensureEnv.js /app/ensureEnv.js
 COPY apps/ekstern/dist/assets /app/assets
 COPY apps/ekstern/dist/index.html /app/
+COPY apps/ekstern/dist/veileder/index.html /app/veileder/index.html
 COPY apps/ekstern/dist/*.css /app/
 
 ENTRYPOINT ["node"]

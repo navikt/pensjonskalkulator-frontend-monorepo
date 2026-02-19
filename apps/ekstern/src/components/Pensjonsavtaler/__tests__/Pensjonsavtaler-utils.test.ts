@@ -1,4 +1,5 @@
-import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
+import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
+
 import { groupPensjonsavtalerByType } from '../utils'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {

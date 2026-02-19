@@ -368,7 +368,7 @@ jobs:
           RESOURCE: apps/ekstern/.nais/deploy-veiledning-dev-branch.yaml
           VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
 
-  # Deploy ekstern to prod
+  # Deploy ekstern to prod # TODO deploye veilederversjon til prod
   deploy-ekstern-prod:
     name: Deploy ekstern to prod
     needs: [deploy-ekstern-staging, build-ekstern-prod]

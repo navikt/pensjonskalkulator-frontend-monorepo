@@ -1,0 +1,8 @@
+.pesysHeader {
+	padding: 0 var(--ax-space-24);
+}
+
+.button {
+	text-decoration: none;
+	color: var(--ax-text-neutral);
+}

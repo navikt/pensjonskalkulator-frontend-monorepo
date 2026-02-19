@@ -1,0 +1,21 @@
+{
+	"name": "@pensjonskalkulator-frontend-monorepo/types",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./schema": "./src/schema.d.ts"
+	},
+	"scripts": {
+		"generate": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/schema.d.ts",
+		"generate:prod": "openapi-typescript https://www.nav.no/pensjon/kalkulator/v3/api-docs/current -o ./src/schema.d.ts",
+		"typecheck": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"openapi-typescript": "^7.6.1",
+		"typescript": "^5.8.3"
+	}
+}

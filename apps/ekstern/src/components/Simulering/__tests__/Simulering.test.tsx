@@ -1,12 +1,16 @@
+import afpOffentligData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-offentlig.json' with { type: 'json' }
+import afpPrivatData from '@pensjonskalkulator-frontend-monorepo/mocks/data/afp-privat/67.json' with { type: 'json' }
+import alderspensjonData from '@pensjonskalkulator-frontend-monorepo/mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { describe, it, vi } from 'vitest'
 
 import {
-  fulfilledGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
-  fulfilledGetLoependeVedtakLoependeAlderspensjon,
-  fulfilledGetPerson,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+  inntektMock,
+  loependeVedtak0UfoeregradMock,
+  loependeVedtakLoependeAlderspensjonMock,
+  mockErrorResponse,
+  mockResponse,
+  personMock,
+} from '@/mocks'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   Simulation,
@@ -14,9 +18,6 @@ import {
 } from '@/state/userInput/userInputSlice'
 import { act, render, screen } from '@/test-utils'
 
-import afpOffentligData from '../../../mocks/data/afp-offentlig.json' with { type: 'json' }
-import afpPrivatData from '../../../mocks/data/afp-privat/67.json' with { type: 'json' }
-import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' with { type: 'json' }
 import { Simulering } from '../Simulering'
 
 describe('Simulering', () => {
@@ -26,27 +27,10 @@ describe('Simulering', () => {
     aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
   }
-
-  const preloadedQueries = {
-    ...fulfilledGetInntekt,
-    ...fulfilledGetPerson,
-  }
-
-  const fakeApiCallUfoere = {
-    queries: {
-      ['getLoependeVedtak(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getLoependeVedtak',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          harLoependeVedtak: true,
-          ufoeretrygd: { grad: 75 },
-        } satisfies LoependeVedtak,
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
+  const ufoereLoependeVedtakMock = {
+    harLoependeVedtak: true,
+    ufoeretrygd: { grad: 75 },
+  } satisfies LoependeVedtak
 
   afterEach(() => {
     vi.clearAllMocks()
@@ -64,18 +48,16 @@ describe('Simulering', () => {
       />,
       {
         preloadedState: {
-          api: {
-            // @ts-ignore
-            queries: {
-              ...preloadedQueries,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
             currentSimulation: { ...currentSimulation },
           },
+        },
+        preloadedApiState: {
+          getInntekt: inntektMock,
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       }
     )
@@ -113,17 +95,15 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -164,18 +144,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         }
       )
@@ -213,19 +191,17 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
               afp: 'ja_privat',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         }
       )
@@ -260,19 +236,17 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
               afp: 'ja_offentlig',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         }
       )
@@ -306,18 +280,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         }
       )
@@ -347,13 +319,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -365,6 +330,11 @@ describe('Simulering', () => {
                 },
               },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
         }
       )
@@ -393,19 +363,17 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              // @ts-ignore
-              queries: {
-                ...preloadedQueries,
-                ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getInntekt: inntektMock,
+            getPerson: personMock,
+            getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
           },
         }
       )
@@ -432,19 +400,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -510,19 +475,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'ja_privat',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -578,19 +540,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'ja_offentlig',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -644,15 +603,6 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fakeApiCallUfoere,
-                ...fulfilledGetPerson,
-              },
-            },
-
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -660,13 +610,17 @@ describe('Simulering', () => {
               currentSimulation: { ...currentSimulation },
             },
           },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: ufoereLoependeVedtakMock,
+          },
         }
       )
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
           aarligInntektFoerUttakBeloep: 500000,
-          harAfp: true,
+          harAfp: false,
           epsHarPensjon: false,
           epsHarInntektOver2G: false,
           sivilstand: 'UGIFT',
@@ -723,20 +677,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fakeApiCallUfoere,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'ja_offentlig',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: ufoereLoependeVedtakMock,
           },
         }
       )
@@ -815,19 +765,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -871,19 +818,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -948,19 +892,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -1019,19 +960,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -1076,19 +1014,16 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               afp: 'nei',
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -1125,18 +1060,16 @@ describe('Simulering', () => {
       />,
       {
         preloadedState: {
-          api: {
-            /* @ts-ignore */
-            queries: {
-              ...preloadedQueries,
-              ...fulfilledGetLoependeVedtak0Ufoeregrad,
-            },
-          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: { ...currentSimulation },
           },
+        },
+        preloadedApiState: {
+          getInntekt: inntektMock,
+          getPerson: personMock,
+          getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       }
     )
@@ -1161,18 +1094,15 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
@@ -1195,18 +1125,15 @@ describe('Simulering', () => {
         />,
         {
           preloadedState: {
-            api: {
-              /* @ts-ignore */
-              queries: {
-                ...fulfilledGetLoependeVedtak0Ufoeregrad,
-                ...fulfilledGetPerson,
-              },
-            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
               currentSimulation: { ...currentSimulation },
             },
+          },
+          preloadedApiState: {
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+            getPerson: personMock,
           },
         }
       )
