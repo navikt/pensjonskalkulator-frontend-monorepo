@@ -1,6 +1,13 @@
 import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import { BodyLong, HStack, Heading, Loader, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	GlobalAlert,
+	HStack,
+	Heading,
+	Loader,
+	VStack,
+} from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
@@ -132,7 +139,7 @@ function formatAlderTitle(aar: string, md: string, uttaksgrad: string): string {
 }
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, committedParams } =
+	const { isBeregningLoading, beregning, committedParams, isDirty } =
 		useBeregningContext()
 
 	if (!beregning && isBeregningLoading) {
@@ -190,6 +197,19 @@ export const Beregning = () => {
 
 	return (
 		<div className={styles.beregning}>
+			{isDirty && (
+				<GlobalAlert
+					status="warning"
+					size="small"
+					className={styles.globalAlert}
+				>
+					<GlobalAlert.Header>
+						<GlobalAlert.Title>
+							Du har gjort endringer i skjemaet. Oppdater beregningen.
+						</GlobalAlert.Title>
+					</GlobalAlert.Header>
+				</GlobalAlert>
+			)}
 			<VStack
 				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>

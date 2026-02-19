@@ -46,3 +46,8 @@
 	align-items: center;
 	height: 100%;
 }
+
+.globalAlert {
+	margin: calc(-1 * var(--ax-space-48));
+	margin-bottom: var(--ax-space-48);
+}
