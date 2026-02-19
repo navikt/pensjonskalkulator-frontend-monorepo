@@ -45,6 +45,24 @@ export function useFormValidation(): UseFormValidationResult {
 				'Pensjonsgivende inntekt må være et tall'
 		}
 
+		const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
+			formData.sivilstand
+		)
+
+		if (harPartner && !formData.ektefelleMottarPensjon) {
+			errors.ektefelleMottarPensjon =
+				'Du må velge om ektefelle/partner/samboer mottar pensjon'
+		}
+
+		if (
+			harPartner &&
+			formData.ektefelleMottarPensjon === 'nei' &&
+			!formData.ektefelleInntektOver2G
+		) {
+			errors.ektefelleInntektOver2G =
+				'Du må velge om ektefelle/partner/samboer har inntekt over 2G'
+		}
+
 		if (!formData.alderAarUttak) {
 			errors.alderAarUttak = 'Alder (år) for uttak er påkrevd'
 		}

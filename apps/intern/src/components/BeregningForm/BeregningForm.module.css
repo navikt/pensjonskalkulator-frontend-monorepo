@@ -43,12 +43,19 @@
 
 .buttonBar {
 	display: flex;
+	justify-content: space-between;
 	gap: 24px;
-	padding: 24px 0;
+	padding: 24px 48px;
+	margin-left: -48px;
+	margin-right: -48px;
 	position: sticky;
 	bottom: 0;
 	background-color: white;
 	border-top: 1px solid var(--a-border-subtle);
 	margin-top: -1px;
 	margin-bottom: 0;
+}
+
+.buttonBarStuck {
+	box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
 }

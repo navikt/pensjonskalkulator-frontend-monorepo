@@ -73,6 +73,7 @@ export const BeregningForm = () => {
 						size="small"
 						className={styles.horizontalRadioGroup}
 						value={formData.ektefelleMottarPensjon}
+						error={validationErrors.ektefelleMottarPensjon}
 						onChange={(val: JaNei) =>
 							updateFormField('ektefelleMottarPensjon', val)
 						}
@@ -87,6 +88,7 @@ export const BeregningForm = () => {
 						size="small"
 						className={styles.horizontalRadioGroup}
 						value={formData.ektefelleInntektOver2G}
+						error={validationErrors.ektefelleInntektOver2G}
 						onChange={(val: JaNei) =>
 							updateFormField('ektefelleInntektOver2G', val)
 						}

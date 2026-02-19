@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 import { Button } from '@navikt/ds-react'
 
 import styles from './BeregningForm.module.css'
@@ -15,18 +17,43 @@ export const ButtonBar = ({
 	isDirty,
 	hasCommittedParams,
 }: ButtonBarProps) => {
+	const sentinelRef = useRef<HTMLDivElement>(null)
+	const [isStuck, setIsStuck] = useState(false)
+
+	useEffect(() => {
+		const sentinel = sentinelRef.current
+		if (!sentinel) return
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry) {
+					setIsStuck(!entry.isIntersecting)
+				}
+			},
+			{ threshold: 0 }
+		)
+
+		observer.observe(sentinel)
+		return () => observer.disconnect()
+	}, [])
+
 	return (
-		<div className={styles.buttonBar}>
-			<Button size="small" variant="primary" onClick={onSubmit}>
-				{hasCommittedParams && !isDirty
-					? 'Beregn pensjon'
-					: isDirty
-						? 'Oppdater pensjon'
-						: 'Beregn pensjon'}
-			</Button>
-			<Button size="small" variant="tertiary" onClick={onReset}>
-				Nullstill
-			</Button>
-		</div>
+		<>
+			<div
+				className={`${styles.buttonBar} ${isStuck ? styles.buttonBarStuck : ''}`}
+			>
+				<Button size="small" variant="secondary" onClick={onReset}>
+					Nullstill
+				</Button>
+				<Button size="small" variant="primary" onClick={onSubmit}>
+					{hasCommittedParams && !isDirty
+						? 'Beregn pensjon'
+						: isDirty
+							? 'Oppdater pensjon'
+							: 'Beregn pensjon'}
+				</Button>
+			</div>
+			<div ref={sentinelRef} />
+		</>
 	)
 }
