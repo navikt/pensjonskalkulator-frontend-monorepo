@@ -2,24 +2,24 @@
 import sanityForbeholdAvsnittDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
 import sanityGuidePanelDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-readmore-data.json' with { type: 'json' }
+import {
+  type ForbeholdAvsnittQueryResult,
+  type GuidePanelQueryResult,
+  type ReadMoreQueryResult,
+  SanityContext,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { RenderOptions, render } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { MemoryRouter, RouterProvider, createBrowserRouter } from 'react-router'
 
-import { SanityContext } from '@/context/SanityContext'
 import { authenticationGuard } from '@/router/loaders'
 import test_translations from '@/utils/__tests__/test-translations'
 
 import { apiSlice } from './state/api/apiSlice'
 import { AppStore, RootState, setupStore } from './state/store'
 import translations_nb from './translations/nb'
-import {
-  ForbeholdAvsnittQueryResult,
-  GuidePanelQueryResult,
-  ReadMoreQueryResult,
-} from './types/sanity.types'
 
 type QueryKeys = Parameters<typeof apiSlice.util.upsertQueryData>[0]
 

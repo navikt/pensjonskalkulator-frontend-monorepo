@@ -1,3 +1,4 @@
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -7,7 +8,6 @@ import { Alert, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
 import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {

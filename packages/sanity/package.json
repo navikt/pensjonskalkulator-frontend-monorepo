@@ -6,17 +6,26 @@
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./studio": "./src/studio.ts"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@navikt/aksel-icons": "^7.31.0",
+		"@navikt/ds-react": "^7.31.0",
+		"@portabletext/react": "^3.2.1",
 		"@sanity/client": "^7.8.2",
 		"@sanity/icons": "^3.7.4",
 		"@sanity/ui": "^3.0.7",
+		"clsx": "^2.1.1",
 		"react": "^19.0.0",
+		"react-intl": "7.1.11",
 		"sanity": "^4.4.1",
 		"styled-components": "^6.1.19"
+	},
+	"devDependencies": {
+		"sass-embedded": "^1.90.0"
 	}
 }

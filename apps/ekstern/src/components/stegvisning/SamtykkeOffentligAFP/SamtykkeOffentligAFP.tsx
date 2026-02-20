@@ -1,3 +1,4 @@
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -5,7 +6,6 @@ import { Alert, BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectHasErApotekerError } from '@/state/session/selectors'

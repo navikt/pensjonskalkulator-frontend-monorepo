@@ -3,7 +3,7 @@ import {
   deskStructure,
   schemaTypes,
   supportedLanguages,
-} from '@pensjonskalkulator-frontend-monorepo/sanity'
+} from '@pensjonskalkulator-frontend-monorepo/sanity/studio'
 import { colorInput } from '@sanity/color-input'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { RobotIcon, RocketIcon } from '@sanity/icons'

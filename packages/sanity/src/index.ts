@@ -1,5 +1,15 @@
-export { schemaTypes } from './schemaTypes'
-export { deskStructure } from './deskStructure'
-export { supportedLanguages } from './supportedLanguages'
-export { LocaleString } from './localeString'
-export { default as auditTimelinePlugin } from './components/audit-timeline'
+export { SanityContext } from './context/SanityContext'
+export { SanityReadmore } from './components/SanityReadmore'
+export { SanityGuidePanel } from './components/SanityGuidePanel'
+
+export {
+	createSanityAppClient,
+	getSanityPortableTextComponents,
+} from './utils/sanity'
+export type { CreateSanityClientOptions } from './utils/sanity'
+
+export type {
+	ForbeholdAvsnittQueryResult,
+	GuidePanelQueryResult,
+	ReadMoreQueryResult,
+} from './types/sanity.types'
