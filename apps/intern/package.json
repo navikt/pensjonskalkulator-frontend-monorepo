@@ -11,7 +11,9 @@
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit",
 		"test": "echo 'No tests yet' && exit 0",
-		"test:e2e": "echo 'No E2E tests yet' && exit 0",
+		"test:e2e": "playwright test --project=chromium",
+		"pw:open": "playwright test --ui --project=chromium",
+		"pw:test": "playwright test --project=chromium",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
 	},
@@ -31,6 +33,7 @@
 		"winston": "^3.17.0"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.58.0",
 		"@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
