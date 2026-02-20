@@ -2,42 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { Loader, Theme } from '@navikt/ds-react'
-
 import './index.css'
 
-import { PersonInfo } from './PersonInfo.tsx'
-import { PesysHeader } from './PesysHeader.tsx'
-import { mapPersonSivilstand } from './api/beregningTypes.ts'
-import {
-	useDecryptPidQuery,
-	useLoependeVedtakQuery,
-	usePersonQuery,
-} from './api/queries.ts'
-import { Beregning } from './components/Beregning/Beregning.tsx'
-import { BeregningProvider } from './components/BeregningContext.tsx'
-import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
-import { getPidFromUrl } from './utils.ts'
-
-if (import.meta.env.MODE === 'development') {
-	const { worker } = await import('./mocks/browser')
-	await worker.start({
-		serviceWorker: {
-			url: '/mockServiceWorker.js',
-		},
-		onUnhandledRequest: 'bypass',
-	})
-	console.log('[MSW] Ready')
-} else if (import.meta.env.MODE === 'backend') {
-	// Unregister MSW service worker when using real backend
-	const registrations = await navigator.serviceWorker.getRegistrations()
-	for (const registration of registrations) {
-		if (registration.active?.scriptURL.includes('mockServiceWorker')) {
-			await registration.unregister()
-			console.log('[MSW] Service worker unregistered for backend mode')
-		}
-	}
-}
+import { App } from './App.tsx'
+import { enableMocking } from './mocks/enableMocking.ts'
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -47,44 +15,12 @@ const queryClient = new QueryClient({
 	},
 })
 
-const AppContent = () => {
-	const pid = getPidFromUrl()
-	const { data: fnr, isLoading: isDecrypting } = useDecryptPidQuery(pid)
-	const { data: person, isLoading: isLoadingPerson } = usePersonQuery(fnr)
-	const { isLoading: isLoadingVedtak } = useLoependeVedtakQuery(fnr)
-
-	if (!pid) {
-		return <PersonInfo />
-	}
-
-	if (isDecrypting || isLoadingPerson || isLoadingVedtak) {
-		return <Loader size="xlarge" title="Henter brukerdata..." />
-	}
-
-	return (
-		<>
-			<PersonInfo />
-			<BeregningProvider
-				initialSivilstand={
-					person ? mapPersonSivilstand(person.sivilstand) : undefined
-				}
-			>
-				<div style={{ display: 'flex', height: 'calc(100vh - 96px)' }}>
-					<BeregningForm />
-					<Beregning />
-				</div>
-			</BeregningProvider>
-		</>
+enableMocking().then(() => {
+	createRoot(document.getElementById('root')!).render(
+		<StrictMode>
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
+		</StrictMode>
 	)
-}
-
-createRoot(document.getElementById('root')!).render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<PesysHeader />
-			<Theme>
-				<AppContent />
-			</Theme>
-		</QueryClientProvider>
-	</StrictMode>
-)
+})

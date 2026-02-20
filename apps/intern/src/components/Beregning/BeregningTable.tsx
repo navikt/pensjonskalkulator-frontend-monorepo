@@ -5,6 +5,7 @@ import styles from './BeregningTable.module.css'
 export interface BeregningTableRow {
 	label: string
 	value?: number
+	visBeloepKroner?: boolean
 }
 
 interface BeregningTableProps {
@@ -49,7 +50,9 @@ export const BeregningTable = ({
 						</Table.DataCell>
 						<Table.DataCell align="right">
 							<BodyShort size="small">
-								{formatKroner(row.value)}&nbsp;kr
+								{row.visBeloepKroner
+									? `${formatKroner(row.value)} kr`
+									: formatKroner(row.value)}
 							</BodyShort>
 						</Table.DataCell>
 					</Table.Row>

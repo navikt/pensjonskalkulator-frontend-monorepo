@@ -1,4 +1,5 @@
 import {
+	Box,
 	HStack,
 	Heading,
 	Radio,
@@ -47,7 +48,7 @@ export const BeregningForm = () => {
 				: 'ektefelle'
 
 	return (
-		<div className={styles.beregningForm}>
+		<Box className={styles.beregningForm}>
 			<Heading size="medium" level="2" spacing>
 				Beregn pensjon
 			</Heading>
@@ -245,6 +246,6 @@ export const BeregningForm = () => {
 				isDirty={isDirty}
 				hasCommittedParams={!!committedParams}
 			/>
-		</div>
+		</Box>
 	)
 }

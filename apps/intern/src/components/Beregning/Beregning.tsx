@@ -2,7 +2,7 @@ import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-fronten
 
 import {
 	BodyLong,
-	GlobalAlert,
+	Box,
 	HStack,
 	Heading,
 	Loader,
@@ -51,9 +51,9 @@ function mapAlderspensjonToRows(
 }
 
 function mapOpptjeningEtterKapittel19ToRows(
-	opptjening: AlderspensjonPensjonsberegning
-) {
-	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	opptjening: AlderspensjonPensjonsberegning,
+	grunnbeloep?: number
+): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
@@ -61,11 +61,13 @@ function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Grunnbeløp (G)',
-			value: grunnbeloep?.grunnbeløp,
+			value: grunnbeloep,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Minste pensjonsbeløp',
 			value: 279933,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Forholdstall ved uttak',
@@ -90,16 +92,18 @@ function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Basispensjon',
 			value: 183665,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Restpensjon',
 			value: 183665,
+			visBeloepKroner: true,
 		},
 	]
 }
 function mapOpptjeningEtterKapittel20ToRows(
 	opptjening: AlderspensjonPensjonsberegning
-) {
+): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
@@ -112,18 +116,22 @@ function mapOpptjeningEtterKapittel20ToRows(
 		{
 			label: 'Garantipensjon',
 			value: opptjening.garantipensjonBeloep,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Garantitillegg',
 			value: 54453,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: opptjening.pensjonBeholdningFoerUttakBeloep,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
 			value: opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
+			visBeloepKroner: true,
 		},
 		{
 			label: 'Trygdetid',
@@ -139,8 +147,9 @@ function formatAlderTitle(aar: string, md: string, uttaksgrad: string): string {
 }
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, committedParams, isDirty } =
+	const { isBeregningLoading, beregning, committedParams } =
 		useBeregningContext()
+	const { data: grunnbeloep } = useGrunnbeloepQuery()
 
 	if (!beregning && isBeregningLoading) {
 		return (
@@ -196,20 +205,11 @@ export const Beregning = () => {
 		)
 
 	return (
-		<div className={styles.beregning}>
-			{isDirty && (
-				<GlobalAlert
-					status="warning"
-					size="small"
-					className={styles.globalAlert}
-				>
-					<GlobalAlert.Header>
-						<GlobalAlert.Title>
-							Du har gjort endringer i skjemaet. Oppdater beregningen.
-						</GlobalAlert.Title>
-					</GlobalAlert.Header>
-				</GlobalAlert>
-			)}
+		<Box
+			borderColor="neutral-subtle"
+			borderWidth="0 0 0 1"
+			className={styles.beregning}
+		>
 			<VStack
 				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
@@ -230,7 +230,10 @@ export const Beregning = () => {
 							<BeregningTable
 								title="Opptjening etter kapittel 19"
 								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel19ToRows(gradertEntry)}
+								rows={mapOpptjeningEtterKapittel19ToRows(
+									gradertEntry,
+									grunnbeloep?.grunnbeløp
+								)}
 								simple
 							/>
 							<BeregningTable
@@ -256,7 +259,10 @@ export const Beregning = () => {
 							<BeregningTable
 								title="Opptjening etter kapittel 19"
 								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel19ToRows(heltEntry)}
+								rows={mapOpptjeningEtterKapittel19ToRows(
+									heltEntry,
+									grunnbeloep?.grunnbeløp
+								)}
 								simple
 							/>
 							<BeregningTable
@@ -269,6 +275,6 @@ export const Beregning = () => {
 					)}
 				</HStack>
 			</VStack>
-		</div>
+		</Box>
 	)
 }
