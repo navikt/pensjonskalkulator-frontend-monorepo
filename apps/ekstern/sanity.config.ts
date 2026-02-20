@@ -1,14 +1,15 @@
+import {
+  auditTimelinePlugin,
+  deskStructure,
+  schemaTypes,
+  supportedLanguages,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { colorInput } from '@sanity/color-input'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { RobotIcon, RocketIcon } from '@sanity/icons'
 import { visionTool } from '@sanity/vision'
 import { createAuthStore, defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
-
-import auditTimelinePlugin from './sanity/components/audit-timeline'
-import { deskStructure } from './sanity/deskStructure'
-import { schemaTypes } from './sanity/schemaTypes'
-import { supportedLanguages } from './sanity/supportedLanguages'
 
 export const projectId = 'g2by7q6m'
 
