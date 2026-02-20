@@ -64,7 +64,7 @@ export function createConfig({
 				},
 				parserOptions: {
 					projectService: {
-						allowDefaultProject: ['*.config.mjs', '*.config.js'],
+						allowDefaultProject: ['*.config.mjs', '*.config.js', '*.config.ts'],
 					},
 					tsconfigRootDir,
 				},
