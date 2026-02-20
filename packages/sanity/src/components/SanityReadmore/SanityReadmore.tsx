@@ -6,12 +6,16 @@ import { useIntl } from 'react-intl'
 import { ReadMore } from '@navikt/ds-react'
 
 import { SanityContext } from '../../context/SanityContext'
-import { getSanityPortableTextComponents } from '../../utils/sanity'
+import {
+	type DynamicValues,
+	getSanityPortableTextComponents,
+} from '../../utils/sanity'
 import styles from './SanityReadmore.module.scss'
 
 interface Props {
 	id: string
 	className?: string
+	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
 	onOpenChange?: (open: boolean) => void
 }
@@ -19,6 +23,7 @@ interface Props {
 export const SanityReadmore = ({
 	id,
 	className,
+	dynamicValues,
 	onLinkClick,
 	onOpenChange,
 }: Props) => {
@@ -35,7 +40,11 @@ export const SanityReadmore = ({
 		>
 			<PortableText
 				value={sanityContent.innhold}
-				components={getSanityPortableTextComponents(intl, onLinkClick)}
+				components={getSanityPortableTextComponents(
+					intl,
+					onLinkClick,
+					dynamicValues
+				)}
 			/>
 		</ReadMore>
 	)
