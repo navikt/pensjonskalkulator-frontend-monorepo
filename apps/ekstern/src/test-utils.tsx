@@ -1,8 +1,10 @@
 /* eslint-disable import/export */
+import sanityAlertDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-alert-data.json' with { type: 'json' }
 import sanityForbeholdAvsnittDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
 import sanityGuidePanelDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-guidepanel-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-readmore-data.json' with { type: 'json' }
 import {
+  type AlertQueryResult,
   type ForbeholdAvsnittQueryResult,
   type GuidePanelQueryResult,
   type ReadMoreQueryResult,
@@ -133,6 +135,11 @@ export function renderWithProviders(
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
           <SanityContext.Provider
             value={{
+              alertData: Object.fromEntries(
+                (sanityAlertDataResponse.result as AlertQueryResult).map(
+                  (alert) => [alert.name, alert]
+                )
+              ),
               readMoreData: Object.fromEntries(
                 (sanityReadMoreDataResponse.result as ReadMoreQueryResult).map(
                   (readmore) => [readmore.name, readmore]

@@ -1,4 +1,5 @@
 export { SanityContext } from './context/SanityContext'
+export { SanityAlert } from './components/SanityAlert'
 export { SanityReadmore } from './components/SanityReadmore'
 export { SanityGuidePanel } from './components/SanityGuidePanel'
 
@@ -9,6 +10,7 @@ export {
 export type { CreateSanityClientOptions, DynamicValues } from './utils/sanity'
 
 export type {
+	AlertQueryResult,
 	ForbeholdAvsnittQueryResult,
 	GuidePanelQueryResult,
 	ReadMoreQueryResult,

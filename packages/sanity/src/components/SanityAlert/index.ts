@@ -1,0 +1,1 @@
+export { SanityAlert } from './SanityAlert'
