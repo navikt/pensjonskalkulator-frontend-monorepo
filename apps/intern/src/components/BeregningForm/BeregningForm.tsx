@@ -1,7 +1,6 @@
 import {
 	Box,
 	HStack,
-	Heading,
 	Radio,
 	RadioGroup,
 	Select,
@@ -49,9 +48,6 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			<Heading size="medium" level="2" spacing>
-				Beregn pensjon
-			</Heading>
 			<hr className={styles.divider} />
 			<div className={styles.section}>
 				<Select

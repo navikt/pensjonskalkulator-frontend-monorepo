@@ -163,9 +163,13 @@ export const Beregning = () => {
 
 	if (!beregning) {
 		return (
-			<div className={styles.beregning}>
+			<Box
+				borderColor="neutral-subtle"
+				borderWidth="0 0 0 1"
+				className={styles.beregning}
+			>
 				<BodyLong>Ingen beregning enda.</BodyLong>
-			</div>
+			</Box>
 		)
 	}
 
