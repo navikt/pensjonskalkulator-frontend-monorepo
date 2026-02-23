@@ -268,10 +268,9 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 				(body as AlderspensjonRequestBody).simuleringstype ===
 					'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
 			) {
-				const afpPrivatData = structuredClone(
-					await import(`./data/afp-privat/${aar}.json`)
-				)
-				afpPrivat = [...afpPrivatData.default.afpPrivat]
+				const afpPrivatModule = await import(`./data/afp-privat/${aar}.json`)
+				const afpPrivatData = structuredClone(afpPrivatModule.default)
+				afpPrivat = [...afpPrivatData.afpPrivat]
 			}
 			if (
 				(body as AlderspensjonRequestBody).simuleringstype ===
@@ -279,13 +278,12 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 				(body as AlderspensjonRequestBody).simuleringstype ===
 					'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
 			) {
-				const afpOffentligData = structuredClone(
-					await import(`./data/afp-offentlig.json`)
-				)
-				if (afpOffentligData.default.afpOffentlig) {
+				const afpOffentligModule = await import(`./data/afp-offentlig.json`)
+				const afpOffentligData = structuredClone(afpOffentligModule.default)
+				if (afpOffentligData.afpOffentlig) {
 					afpOffentlig = [
 						{
-							...afpOffentligData.default.afpOffentlig[0],
+							...afpOffentligData.afpOffentlig[0],
 							alder: aar,
 						},
 					]
