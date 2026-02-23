@@ -55,7 +55,7 @@ export const Pensjonsavtaler = ({
 
   const {
     data: offentligTp,
-    isLoading: isOffentligTpLoading,
+    isFetching: isOffentligTpLoading,
     isError: isOffentligTpError,
     erOffentligTpFoer1963,
   } = useOffentligTpData()

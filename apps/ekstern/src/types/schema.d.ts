@@ -1153,7 +1153,7 @@ export interface components {
       utbetalingsdato: string
     }
     LivsvarigOffentligAfpResultV3: {
-      afpStatus?: boolean
+      afpInnvilget?: boolean
       maanedligBeloepListe?: components['schemas']['MaanedligBeloepV3'][]
       /** Format: date */
       virkningFom?: string
