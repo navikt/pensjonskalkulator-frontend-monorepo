@@ -113,8 +113,6 @@ export const Simulering = ({
     erSpkBesteberegning,
   } = useOffentligTpData()
 
-  console.log('test - Simulering render')
-
   const {
     data: pensjonsavtalerData,
     isFetching: isPensjonsavtalerLoading,
