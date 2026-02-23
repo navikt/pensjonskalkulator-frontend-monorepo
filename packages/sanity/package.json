@@ -10,6 +10,7 @@
 		"./studio": "./src/studio.ts"
 	},
 	"scripts": {
+		"build": "sanity build",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

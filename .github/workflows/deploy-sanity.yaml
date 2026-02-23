@@ -26,15 +26,17 @@ jobs:
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: Build staging application
-        run: npm run sanity-build
+      - name: Build Sanity studio
+        run: pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity build
 
       - name: Save build folder
         uses: actions/upload-artifact@v6
         with:
           name: dist-sanity
-          path: dist-sanity
+          path: packages/sanity/dist
           if-no-files-found: error
           retention-days: 1
 
@@ -44,6 +46,7 @@ jobs:
         with:
           image_suffix: sanity
           dockerfile: packages/sanity/.docker/Dockerfile-sanity
+          docker_context: .
           team: pensjonskalkulator
     outputs:
       image: ${{ steps.image-creation.outputs.image }}
