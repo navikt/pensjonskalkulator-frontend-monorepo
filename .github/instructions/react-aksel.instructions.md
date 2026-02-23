@@ -449,3 +449,77 @@ Prettier auto-sorts imports (via @trivago/prettier-plugin-sort-imports):
 - Hardcode Norwegian text (use react-intl)
 - Import from `@testing-library/react` directly (use `@/test-utils`)
 - Hand-edit `src/types/schema.d.ts` (it's auto-generated)
+
+## Component Skill Files
+
+Detailed usage guides for each Aksel DS component are available in `.github/skills/`. Each contains a `SKILL.md` with props, examples, accessibility notes, and codebase-specific patterns.
+
+| Component      | Skill File                               |
+| -------------- | ---------------------------------------- |
+| Accordion      | `.github/skills/accordion/SKILL.md`      |
+| ActionMenu     | `.github/skills/actionmenu/SKILL.md`     |
+| Button         | `.github/skills/button/SKILL.md`         |
+| Chat           | `.github/skills/chat/SKILL.md`           |
+| Checkbox       | `.github/skills/checkbox/SKILL.md`       |
+| Chips          | `.github/skills/chips/SKILL.md`          |
+| Combobox       | `.github/skills/combobox/SKILL.md`       |
+| CopyButton     | `.github/skills/copybutton/SKILL.md`     |
+| DatePicker     | `.github/skills/datepicker/SKILL.md`     |
+| Dialog         | `.github/skills/dialog/SKILL.md`         |
+| Dropdown       | `.github/skills/dropdown/SKILL.md`       |
+| ErrorSummary   | `.github/skills/errorsummary/SKILL.md`   |
+| ExpansionCard  | `.github/skills/expansioncard/SKILL.md`  |
+| FileUpload     | `.github/skills/fileupload/SKILL.md`     |
+| FormProgress   | `.github/skills/formprogress/SKILL.md`   |
+| FormSummary    | `.github/skills/formsummary/SKILL.md`    |
+| GlobalAlert    | `.github/skills/globalalert/SKILL.md`    |
+| GuidePanel     | `.github/skills/guidepanel/SKILL.md`     |
+| HelpText       | `.github/skills/helptext/SKILL.md`       |
+| InfoCard       | `.github/skills/infocard/SKILL.md`       |
+| InlineMessage  | `.github/skills/inlinemessage/SKILL.md`  |
+| InternalHeader | `.github/skills/internalheader/SKILL.md` |
+| Link           | `.github/skills/link/SKILL.md`           |
+| LinkCard       | `.github/skills/linkcard/SKILL.md`       |
+| List           | `.github/skills/list/SKILL.md`           |
+| Loader         | `.github/skills/loader/SKILL.md`         |
+| LocalAlert     | `.github/skills/localalert/SKILL.md`     |
+| Modal          | `.github/skills/modal/SKILL.md`          |
+| MonthPicker    | `.github/skills/monthpicker/SKILL.md`    |
+| Pagination     | `.github/skills/pagination/SKILL.md`     |
+| Popover        | `.github/skills/popover/SKILL.md`        |
+| Process        | `.github/skills/process/SKILL.md`        |
+| ProgressBar    | `.github/skills/progressbar/SKILL.md`    |
+| Provider       | `.github/skills/provider/SKILL.md`       |
+| Radio          | `.github/skills/radio/SKILL.md`          |
+| ReadMore       | `.github/skills/readmore/SKILL.md`       |
+| Search         | `.github/skills/search/SKILL.md`         |
+| Select         | `.github/skills/select/SKILL.md`         |
+| Skeleton       | `.github/skills/skeleton/SKILL.md`       |
+| Stepper        | `.github/skills/stepper/SKILL.md`        |
+| Switch         | `.github/skills/switch/SKILL.md`         |
+| Table          | `.github/skills/table/SKILL.md`          |
+| Tabs           | `.github/skills/tabs/SKILL.md`           |
+| Tag            | `.github/skills/tag/SKILL.md`            |
+| Textarea       | `.github/skills/textarea/SKILL.md`       |
+| TextField      | `.github/skills/textfield/SKILL.md`      |
+| Timeline       | `.github/skills/timeline/SKILL.md`       |
+| ToggleGroup    | `.github/skills/togglegroup/SKILL.md`    |
+| Tooltip        | `.github/skills/tooltip/SKILL.md`        |
+| Typography     | `.github/skills/typography/SKILL.md`     |
+
+### Primitives
+
+Layout primitives for building responsive layouts with design tokens.
+
+| Primitive | Skill File                       |
+| --------- | -------------------------------- |
+| Bleed     | `.github/skills/bleed/SKILL.md`  |
+| Box       | `.github/skills/box/SKILL.md`    |
+| HGrid     | `.github/skills/hgrid/SKILL.md`  |
+| HStack    | `.github/skills/hstack/SKILL.md` |
+| Hide      | `.github/skills/hide/SKILL.md`   |
+| Page      | `.github/skills/page/SKILL.md`   |
+| Show      | `.github/skills/show/SKILL.md`   |
+| VStack    | `.github/skills/vstack/SKILL.md` |
+
+Refer to the relevant skill file when using or implementing any of these components.
