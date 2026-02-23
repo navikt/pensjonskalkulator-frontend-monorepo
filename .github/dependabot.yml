@@ -16,54 +16,46 @@ updates:
     schedule:
       interval: weekly
     groups:
-      actions-minor-patch:
-        applies-to: version-updates
+      actions:
         patterns:
           - '*'
-        update-types:
-          - major
-          - minor
-          - patch
 
   - package-ecosystem: npm
     directory: /
     registries:
       - npm-github
     schedule:
-      interval: daily
+      interval: weekly
+    open-pull-requests-limit: 10
     groups:
-      npm-minor-patch:
-        applies-to: version-updates
+      react:
         patterns:
-          - '*'
+          - 'react'
+          - 'react-dom'
+          - '@types/react*'
         update-types:
           - minor
           - patch
-
-  - package-ecosystem: npm
-    directory: /apps/intern
-    registries:
-      - npm-github
-    schedule:
-      interval: daily
-    groups:
-      npm-minor-patch:
-        applies-to: version-updates
+      testing:
         patterns:
-          - '*'
+          - 'vitest'
+          - '@vitest/*'
+          - '@playwright/*'
+          - '@testing-library/*'
         update-types:
           - minor
           - patch
-
-  - package-ecosystem: npm
-    directory: /packages/api
-    registries:
-      - npm-github
-    schedule:
-      interval: daily
-    groups:
-      npm-minor-patch:
-        applies-to: version-updates
+      tooling:
+        patterns:
+          - 'vite'
+          - '@vitejs/*'
+          - 'eslint*'
+          - 'typescript'
+          - 'prettier*'
+        update-types:
+          - minor
+          - patch
+      minor-patch:
         patterns:
           - '*'
         update-types:
