@@ -17,12 +17,16 @@
 		"@navikt/ds-react": "^7.31.0",
 		"@portabletext/react": "^3.2.1",
 		"@sanity/client": "^7.8.2",
+		"@sanity/color-input": "6.0.4",
+		"@sanity/document-internationalization": "5.0.2",
+		"sanity-plugin-internationalized-array": "4.0.3",
 		"@sanity/icons": "^3.7.4",
 		"@sanity/ui": "^3.0.7",
+		"@sanity/vision": "^4.4.1",
 		"clsx": "^2.1.1",
 		"react": "^19.0.0",
 		"react-intl": "7.1.11",
-		"sanity": "^4.4.1",
+		"sanity": "5.11.0",
 		"styled-components": "^6.1.19"
 	},
 	"devDependencies": {
