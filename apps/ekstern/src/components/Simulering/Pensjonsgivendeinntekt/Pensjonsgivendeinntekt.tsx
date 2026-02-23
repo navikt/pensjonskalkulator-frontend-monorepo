@@ -1,10 +1,10 @@
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
 
 import { EndreInntekt } from '@/components/EndreInntekt'
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,

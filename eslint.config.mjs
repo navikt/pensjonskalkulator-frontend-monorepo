@@ -32,8 +32,8 @@ export function createConfig({
 		'**/cypress',
 		'playwright/**',
 		'public/src/nais.js',
-		'sanity.cli.ts',
-		'sanity.config.ts',
+		'**/sanity.cli.ts',
+		'**/sanity.config.ts',
 		'src/translations/**',
 		...ignoredFiles,
 	]

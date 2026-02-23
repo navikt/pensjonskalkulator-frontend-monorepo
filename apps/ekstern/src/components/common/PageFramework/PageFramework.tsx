@@ -1,9 +1,9 @@
+import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useLocation, useNavigation } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
-import { SanityContext } from '@/context/SanityContext'
 import { HOST_BASEURL } from '@/paths'
 import { useAppSelector } from '@/state/hooks'
 import { selectIsLoggedIn } from '@/state/session/selectors'

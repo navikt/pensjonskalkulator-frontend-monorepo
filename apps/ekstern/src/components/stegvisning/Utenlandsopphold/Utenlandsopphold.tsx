@@ -1,3 +1,4 @@
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -6,7 +7,6 @@ import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { useAppSelector } from '@/state/hooks'
 import { selectUtenlandsperioder } from '@/state/userInput/selectors'
 

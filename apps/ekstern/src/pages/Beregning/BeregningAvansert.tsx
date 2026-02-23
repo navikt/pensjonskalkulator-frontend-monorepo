@@ -1,3 +1,4 @@
+import { SanityGuidePanel } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 import { useContext, useEffect, useMemo } from 'react'
@@ -14,7 +15,6 @@ import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
-import { SanityGuidePanel } from '@/components/common/SanityGuidePanel'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
 import {

@@ -1,3 +1,4 @@
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import React, { FormEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -5,7 +6,6 @@ import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { SanityReadmore } from '@/components/common/SanityReadmore'
 import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
 

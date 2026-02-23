@@ -1,3 +1,4 @@
+import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { RawQuerylessQueryResponse } from '@sanity/client'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
@@ -5,12 +6,10 @@ import { useIntl } from 'react-intl'
 import { Provider } from 'react-redux'
 import { type MockInstance, vi } from 'vitest'
 
-import { SanityContext } from '@/context/SanityContext'
 import { mockErrorResponse } from '@/mocks'
-import { sanityClient } from '@/utils/sanity'
 
 import { setupStore } from '../../../state/store'
-import { LanguageProvider } from '../LanguageProvider'
+import { LanguageProvider, sanityClient } from '../LanguageProvider'
 import * as languageProviderUtils from '../utils'
 
 type ControllablePromise<T> = {
