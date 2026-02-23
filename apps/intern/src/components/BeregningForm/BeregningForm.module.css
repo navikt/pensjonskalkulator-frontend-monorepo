@@ -30,8 +30,12 @@
 	gap: 16px;
 }
 
-.alderRow :global(.aksel-select__container) {
-	width: 88px;
+.alderRow > :first-child :global(.aksel-select__container) {
+	width: 96px;
+}
+
+.alderRow > :last-child :global(.aksel-select__container) {
+	width: 144px;
 }
 
 .horizontalRadioGroup :global(.navds-radio-buttons) {

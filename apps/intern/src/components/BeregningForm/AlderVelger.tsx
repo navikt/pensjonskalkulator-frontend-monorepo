@@ -1,6 +1,10 @@
-import { BodyShort, Select } from '@navikt/ds-react'
+import { useMemo } from 'react'
 
-const maanedNavn = [
+import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
+
+import styles from './BeregningForm.module.css'
+
+const MAANED_NAVN = [
 	'jan.',
 	'feb.',
 	'mar.',
@@ -15,20 +19,54 @@ const maanedNavn = [
 	'des.',
 ]
 
-interface MaanedOption {
-	value: number
-	label: string
+const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const
+
+interface AlderGrense {
+	aar: number
+	maaneder: number
 }
 
-function getMaanedOptions(foedselsMaaned?: number): MaanedOption[] {
-	const startMaaned = foedselsMaaned ?? 0
-	return Array.from({ length: 12 }, (_, i) => {
-		const maaned = (startMaaned + i) % 12
-		return {
-			value: maaned,
-			label: `${maaned} md. (${maanedNavn[maaned]})`,
-		}
-	})
+function isMonthValidForSelectedYear(
+	month: number,
+	selectedYear: number | undefined,
+	minAlder: AlderGrense,
+	maxAlder: AlderGrense
+): boolean {
+	if (selectedYear === undefined) return false
+
+	if (selectedYear > minAlder.aar && selectedYear < maxAlder.aar) {
+		return true
+	}
+
+	if (minAlder.aar === maxAlder.aar && selectedYear === minAlder.aar) {
+		return month >= minAlder.maaneder && month <= maxAlder.maaneder
+	}
+
+	if (selectedYear === minAlder.aar && minAlder.aar !== maxAlder.aar) {
+		return month >= minAlder.maaneder
+	}
+
+	if (selectedYear === maxAlder.aar && minAlder.aar !== maxAlder.aar) {
+		return month <= maxAlder.maaneder
+	}
+
+	return false
+}
+
+function getFirstValidMonth(
+	selectedYear: number,
+	minAlder: AlderGrense,
+	maxAlder: AlderGrense
+): number | undefined {
+	return MONTHS.find((m) =>
+		isMonthValidForSelectedYear(m, selectedYear, minAlder, maxAlder)
+	)
+}
+
+function getCalendarMonthName(ageMonth: number, foedselsdato: string): string {
+	const birth = new Date(foedselsdato)
+	const calendarMonth = (birth.getMonth() + ageMonth + 1) % 12
+	return MAANED_NAVN[calendarMonth]
 }
 
 function beregnUttaksdato(
@@ -57,9 +95,8 @@ interface AlderVelgerProps {
 	aarLabel?: string
 	mdLabel?: string
 	foedselsdato?: string
-	foedselsMaaned?: number
-	minAar?: number
-	maxAar?: number
+	minAlder?: AlderGrense
+	maxAlder?: AlderGrense
 	aarError?: string
 	mdError?: string
 }
@@ -72,32 +109,50 @@ export const AlderVelger = ({
 	aarLabel = 'Alder (år) for uttak',
 	mdLabel = 'Alder (md.) for uttak',
 	foedselsdato,
-	foedselsMaaned,
-	minAar = 62,
-	maxAar = 75,
+	minAlder = { aar: 62, maaneder: 0 },
+	maxAlder = { aar: 75, maaneder: 0 },
 	aarError,
 	mdError,
 }: AlderVelgerProps) => {
-	const aarOptions = Array.from(
-		{ length: maxAar - minAar + 1 },
-		(_, i) => minAar + i
-	)
-	const maanedOptions = getMaanedOptions(foedselsMaaned)
+	const selectedYear = alderAar ? Number(alderAar) : undefined
+
+	const aarOptions = useMemo(() => {
+		const arr = []
+		for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
+			arr.push(i)
+		}
+		return arr
+	}, [minAlder.aar, maxAlder.aar])
 
 	const uttaksdato =
 		foedselsdato && alderAar !== '' && alderMd !== ''
 			? beregnUttaksdato(foedselsdato, Number(alderAar), Number(alderMd))
 			: null
 
+	const errorMessage = aarError || mdError
+
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-			<div style={{ display: 'flex', gap: 16 }}>
+		<div>
+			<div className={styles.alderRow}>
 				<Select
 					label={aarLabel}
 					size="small"
 					value={alderAar}
-					error={aarError}
-					onChange={(e) => onAlderAarChange(e.target.value)}
+					error={!!aarError}
+					onChange={(e) => {
+						const value = e.target.value
+						onAlderAarChange(value)
+
+						if (value) {
+							const year = Number(value)
+							const firstValid = getFirstValidMonth(year, minAlder, maxAlder)
+							onAlderMdChange(
+								firstValid !== undefined ? String(firstValid) : ''
+							)
+						} else {
+							onAlderMdChange('')
+						}
+					}}
 				>
 					<option value="">Velg</option>
 					{aarOptions.map((aar) => (
@@ -110,18 +165,37 @@ export const AlderVelger = ({
 					label={mdLabel}
 					size="small"
 					value={alderMd}
-					error={mdError}
+					error={!!mdError}
+					disabled={!alderAar}
 					onChange={(e) => onAlderMdChange(e.target.value)}
 				>
-					<option value="">Velg</option>
-					{maanedOptions.map((md) => (
-						<option key={md.value} value={String(md.value)}>
-							{md.label}
-						</option>
-					))}
+					{MONTHS.map((month) =>
+						isMonthValidForSelectedYear(
+							month,
+							selectedYear,
+							minAlder,
+							maxAlder
+						) ? (
+							<option key={month} value={String(month)}>
+								{month} md.
+								{foedselsdato
+									? ` (${getCalendarMonthName(month, foedselsdato)})`
+									: ''}
+							</option>
+						) : null
+					)}
 				</Select>
 			</div>
-			{uttaksdato && <BodyShort size="small">{uttaksdato}</BodyShort>}
+			{errorMessage && (
+				<ErrorMessage size="small" showIcon>
+					{errorMessage}
+				</ErrorMessage>
+			)}
+			{uttaksdato && (
+				<BodyShort size="small" textColor="subtle">
+					{uttaksdato}
+				</BodyShort>
+			)}
 		</div>
 	)
 }
