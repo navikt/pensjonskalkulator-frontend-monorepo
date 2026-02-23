@@ -7,37 +7,36 @@ export function mapBeregningParamsToRequest(
 	foedselsdato: string
 ): AlderspensjonRequestBody {
 	const uttaksalder = {
-		aar: parseInt(formData.alderAarUttak, 10),
-		maaneder: parseInt(formData.alderMdUttak, 10),
+		aar: formData.alderAarUttak ?? 0,
+		maaneder: formData.alderMdUttak ?? 0,
 	}
 
-	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === 'ja'
+	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
-		? parseInt(formData.pensjonsgivendeInntektVedSidenAvUttak, 10)
+		? (formData.pensjonsgivendeInntektVedSidenAvUttak ?? undefined)
 		: undefined
 	const inntektSluttAar = harInntektVedSiden
-		? parseInt(formData.alderAarInntektSlutter, 10)
+		? (formData.alderAarInntektSlutter ?? undefined)
 		: undefined
 	const inntektSluttMd = harInntektVedSiden
-		? parseInt(formData.alderMdInntektSlutter, 10)
+		? (formData.alderMdInntektSlutter ?? undefined)
 		: undefined
 
-	const aarligInntektFoerUttak = formData.pensjonsgivendeInntektFremTilUttak
-		? parseInt(formData.pensjonsgivendeInntektFremTilUttak, 10)
-		: undefined
+	const aarligInntektFoerUttak =
+		formData.aarligInntektFoerUttakBeloep ?? undefined
 
-	const grad = parseInt(formData.uttaksgrad, 10)
+	const grad = formData.uttaksgrad ?? 0
 	const erGradert = grad < 100
 
 	const aarligInntektVsaPensjonGradert =
 		erGradert && formData.aarligInntektVsaPensjonGradertUttak
-			? parseInt(formData.aarligInntektVsaPensjonGradertUttak, 10)
+			? formData.aarligInntektVsaPensjonGradertUttak
 			: undefined
 
 	const heltUttaksalder = erGradert
 		? {
-				aar: parseInt(formData.alderAarHeltUttak, 10),
-				maaneder: parseInt(formData.alderMdHeltUttak, 10),
+				aar: formData.alderAarHeltUttak ?? 0,
+				maaneder: formData.alderMdHeltUttak ?? 0,
 			}
 		: uttaksalder
 
@@ -67,14 +66,8 @@ export function mapBeregningParamsToRequest(
 						}
 					: undefined,
 		},
-		sivilstand: formData.sivilstand,
-		epsHarPensjon:
-			formData.ektefelleMottarPensjon === ''
-				? undefined
-				: formData.ektefelleMottarPensjon === 'ja',
-		epsHarInntektOver2G:
-			formData.ektefelleInntektOver2G === ''
-				? undefined
-				: formData.ektefelleInntektOver2G === 'ja',
+		sivilstand: formData.sivilstand ?? 'UGIFT',
+		epsHarPensjon: formData.epsHarPensjon ?? undefined,
+		epsHarInntektOver2G: formData.epsHarInntektOver2G ?? undefined,
 	}
 }

@@ -139,10 +139,12 @@ function mapOpptjeningEtterKapittel20ToRows(
 		},
 	]
 }
-function formatAlderTitle(aar: string, md: string, uttaksgrad: string): string {
-	const maaneder = parseInt(md, 10)
-	const alderText =
-		maaneder > 0 ? `${aar} år og ${maaneder} måneder` : `${aar} år`
+function formatAlderTitle(
+	aar: number,
+	md: number,
+	uttaksgrad: number | string
+): string {
+	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
 	return `${uttaksgrad} % alderspensjon ved ${alderText}`
 }
 
@@ -174,7 +176,9 @@ export const Beregning = () => {
 	}
 
 	const erGradert =
-		committedParams && parseInt(committedParams.uttaksgrad, 10) < 100
+		committedParams &&
+		committedParams.uttaksgrad !== null &&
+		committedParams.uttaksgrad < 100
 
 	const heltUttakAar = erGradert
 		? committedParams.alderAarHeltUttak
@@ -183,29 +187,29 @@ export const Beregning = () => {
 	const gradertUttakAar = erGradert ? committedParams?.alderAarUttak : undefined
 
 	const heltEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === parseInt(heltUttakAar ?? '', 10)
+		(entry) => entry.alder === (heltUttakAar ?? 0)
 	)
 	const gradertEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === parseInt(gradertUttakAar ?? '', 10)
+		(entry) => entry.alder === (gradertUttakAar ?? 0)
 	)
 
 	const titleHeltUttak =
 		committedParams &&
 		formatAlderTitle(
 			erGradert
-				? committedParams.alderAarHeltUttak
-				: committedParams.alderAarUttak,
+				? (committedParams.alderAarHeltUttak ?? 0)
+				: (committedParams.alderAarUttak ?? 0),
 			erGradert
-				? committedParams.alderMdHeltUttak
-				: committedParams.alderMdUttak,
-			'100'
+				? (committedParams.alderMdHeltUttak ?? 0)
+				: (committedParams.alderMdUttak ?? 0),
+			100
 		)
 	const titleGradertUttak =
 		committedParams &&
 		formatAlderTitle(
-			committedParams.alderAarUttak,
-			committedParams.alderMdUttak,
-			committedParams.uttaksgrad
+			committedParams.alderAarUttak ?? 0,
+			committedParams.alderMdUttak ?? 0,
+			committedParams.uttaksgrad ?? 0
 		)
 
 	return (

@@ -72,34 +72,37 @@ export function BeregningProvider({
 			setFormData((prev) => {
 				const next = { ...prev, [field]: value }
 
-				const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
-					next.sivilstand
-				)
+				const harPartner =
+					next.sivilstand !== null &&
+					['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(next.sivilstand)
 				if (!harPartner) {
-					next.ektefelleMottarPensjon = ''
-					next.ektefelleInntektOver2G = ''
+					next.epsHarPensjon = null
+					next.epsHarInntektOver2G = null
 				}
-				if (next.ektefelleMottarPensjon !== 'nei') {
-					next.ektefelleInntektOver2G = ''
+				if (next.epsHarPensjon !== false) {
+					next.epsHarInntektOver2G = null
 				}
-				if (next.harInntektVedSidenAvUttak !== 'ja') {
-					next.pensjonsgivendeInntektVedSidenAvUttak = ''
-					next.alderAarInntektSlutter = ''
-					next.alderMdInntektSlutter = ''
+				if (next.harInntektVedSidenAvUttak !== true) {
+					next.pensjonsgivendeInntektVedSidenAvUttak = null
+					next.alderAarInntektSlutter = null
+					next.alderMdInntektSlutter = null
 				}
-				if (field === 'uttaksgrad' && next.uttaksgrad === '100') {
-					next.aarligInntektVsaPensjonGradertUttak = ''
-					next.alderAarHeltUttak = ''
-					next.alderMdHeltUttak = ''
-					next.harInntektVedSidenAvGradertUttak = ''
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
-					next.alderAarInntektGradertSlutter = ''
-					next.alderMdInntektGradertSlutter = ''
+				if (
+					field === 'uttaksgrad' &&
+					(next.uttaksgrad === null || next.uttaksgrad === 100)
+				) {
+					next.aarligInntektVsaPensjonGradertUttak = null
+					next.alderAarHeltUttak = null
+					next.alderMdHeltUttak = null
+					next.harInntektVedSidenAvGradertUttak = null
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
+					next.alderAarInntektGradertSlutter = null
+					next.alderMdInntektGradertSlutter = null
 				}
-				if (next.harInntektVedSidenAvGradertUttak !== 'ja') {
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
-					next.alderAarInntektGradertSlutter = ''
-					next.alderMdInntektGradertSlutter = ''
+				if (next.harInntektVedSidenAvGradertUttak !== true) {
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
+					next.alderAarInntektGradertSlutter = null
+					next.alderMdInntektGradertSlutter = null
 				}
 
 				return next

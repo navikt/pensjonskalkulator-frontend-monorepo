@@ -2,27 +2,25 @@ import type { AlderspensjonResponseBody } from '@pensjonskalkulator-frontend-mon
 
 export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
 
-export type JaNei = 'ja' | 'nei' | ''
-
 export interface BeregningFormData {
-	sivilstand: Sivilstand
-	alderAarUttak: string
-	alderMdUttak: string
-	uttaksgrad: string
-	aarligInntektVsaPensjonGradertUttak: string
-	alderAarHeltUttak: string
-	alderMdHeltUttak: string
-	ektefelleMottarPensjon: JaNei
-	ektefelleInntektOver2G: JaNei
-	pensjonsgivendeInntektFremTilUttak: string
-	harInntektVedSidenAvUttak: JaNei
-	pensjonsgivendeInntektVedSidenAvUttak: string
-	alderAarInntektSlutter: string
-	alderMdInntektSlutter: string
-	harInntektVedSidenAvGradertUttak: JaNei
-	pensjonsgivendeInntektVedSidenAvGradertUttak: string
-	alderAarInntektGradertSlutter: string
-	alderMdInntektGradertSlutter: string
+	sivilstand: Sivilstand | null
+	alderAarUttak: number | null
+	alderMdUttak: number | null
+	uttaksgrad: number | null
+	aarligInntektVsaPensjonGradertUttak: number | null
+	alderAarHeltUttak: number | null
+	alderMdHeltUttak: number | null
+	epsHarPensjon: boolean | null
+	epsHarInntektOver2G: boolean | null
+	aarligInntektFoerUttakBeloep: number | null
+	harInntektVedSidenAvUttak: boolean | null
+	pensjonsgivendeInntektVedSidenAvUttak: number | null
+	alderAarInntektSlutter: number | null
+	alderMdInntektSlutter: number | null
+	harInntektVedSidenAvGradertUttak: boolean | null
+	pensjonsgivendeInntektVedSidenAvGradertUttak: number | null
+	alderAarInntektGradertSlutter: number | null
+	alderMdInntektGradertSlutter: number | null
 }
 
 export type BeregningParams = BeregningFormData
@@ -35,9 +33,9 @@ export interface ValidationErrors {
 	aarligInntektVsaPensjonGradertUttak?: string
 	alderAarHeltUttak?: string
 	alderMdHeltUttak?: string
-	ektefelleMottarPensjon?: string
-	ektefelleInntektOver2G?: string
-	pensjonsgivendeInntektFremTilUttak?: string
+	epsHarPensjon?: string
+	epsHarInntektOver2G?: string
+	aarligInntektFoerUttakBeloep?: string
 	harInntektVedSidenAvUttak?: string
 	pensjonsgivendeInntektVedSidenAvUttak?: string
 	alderAarInntektSlutter?: string
@@ -64,22 +62,22 @@ export function mapPersonSivilstand(sivilstand: string): Sivilstand {
 }
 
 export const defaultBeregningFormData: BeregningFormData = {
-	sivilstand: 'UGIFT',
-	alderAarUttak: '',
-	alderMdUttak: '',
-	uttaksgrad: '100',
-	aarligInntektVsaPensjonGradertUttak: '',
-	alderAarHeltUttak: '',
-	alderMdHeltUttak: '',
-	ektefelleMottarPensjon: '',
-	ektefelleInntektOver2G: '',
-	pensjonsgivendeInntektFremTilUttak: '',
-	harInntektVedSidenAvUttak: '',
-	pensjonsgivendeInntektVedSidenAvUttak: '',
-	alderAarInntektSlutter: '',
-	alderMdInntektSlutter: '',
-	harInntektVedSidenAvGradertUttak: '',
-	pensjonsgivendeInntektVedSidenAvGradertUttak: '',
-	alderAarInntektGradertSlutter: '',
-	alderMdInntektGradertSlutter: '',
+	sivilstand: null,
+	alderAarUttak: null,
+	alderMdUttak: null,
+	uttaksgrad: null,
+	aarligInntektVsaPensjonGradertUttak: null,
+	alderAarHeltUttak: null,
+	alderMdHeltUttak: null,
+	epsHarPensjon: null,
+	epsHarInntektOver2G: null,
+	aarligInntektFoerUttakBeloep: null,
+	harInntektVedSidenAvUttak: null,
+	pensjonsgivendeInntektVedSidenAvUttak: null,
+	alderAarInntektSlutter: null,
+	alderMdInntektSlutter: null,
+	harInntektVedSidenAvGradertUttak: null,
+	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
+	alderAarInntektGradertSlutter: null,
+	alderMdInntektGradertSlutter: null,
 }

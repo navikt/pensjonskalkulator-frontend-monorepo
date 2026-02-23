@@ -35,123 +35,107 @@ export function useFormValidation(): UseFormValidationResult {
 	const validate = useCallback((formData: BeregningFormData): boolean => {
 		const errors: ValidationErrors = {}
 
-		if (!formData.pensjonsgivendeInntektFremTilUttak) {
-			errors.pensjonsgivendeInntektFremTilUttak =
+		if (formData.aarligInntektFoerUttakBeloep === null) {
+			errors.aarligInntektFoerUttakBeloep =
 				'Pensjonsgivende inntekt frem til uttak er påkrevd'
-		} else if (
-			Number.isNaN(Number(formData.pensjonsgivendeInntektFremTilUttak))
-		) {
-			errors.pensjonsgivendeInntektFremTilUttak =
-				'Pensjonsgivende inntekt må være et tall'
 		}
 
-		const harPartner = ['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(
-			formData.sivilstand
-		)
+		const harPartner =
+			formData.sivilstand !== null &&
+			['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(formData.sivilstand)
 
-		if (harPartner && !formData.ektefelleMottarPensjon) {
-			errors.ektefelleMottarPensjon =
+		if (harPartner && formData.epsHarPensjon === null) {
+			errors.epsHarPensjon =
 				'Du må velge om ektefelle/partner/samboer mottar pensjon'
 		}
 
 		if (
 			harPartner &&
-			formData.ektefelleMottarPensjon === 'nei' &&
-			!formData.ektefelleInntektOver2G
+			formData.epsHarPensjon === false &&
+			formData.epsHarInntektOver2G === null
 		) {
-			errors.ektefelleInntektOver2G =
+			errors.epsHarInntektOver2G =
 				'Du må velge om ektefelle/partner/samboer har inntekt over 2G'
 		}
 
-		if (!formData.alderAarUttak) {
+		if (formData.alderAarUttak === null) {
 			errors.alderAarUttak = 'Alder (år) for uttak er påkrevd'
 		}
 
-		if (!formData.alderMdUttak) {
+		if (formData.alderMdUttak === null) {
 			errors.alderMdUttak = 'Alder (md.) for uttak er påkrevd'
 		}
 
-		if (formData.uttaksgrad !== '100') {
-			if (!formData.alderAarHeltUttak) {
+		if (formData.uttaksgrad !== null && formData.uttaksgrad !== 100) {
+			if (formData.alderAarHeltUttak === null) {
 				errors.alderAarHeltUttak = 'Alder (år) for 100 % uttak er påkrevd'
 			}
 
-			if (!formData.alderMdHeltUttak) {
+			if (formData.alderMdHeltUttak === null) {
 				errors.alderMdHeltUttak = 'Alder (md.) for 100 % uttak er påkrevd'
 			}
 		}
 
-		if (!formData.harInntektVedSidenAvUttak) {
+		if (formData.harInntektVedSidenAvUttak === null) {
 			errors.harInntektVedSidenAvUttak =
 				'Du må velge om bruker har inntekt ved siden av 100 % uttak'
 		}
 
-		if (formData.harInntektVedSidenAvUttak === 'ja') {
-			if (!formData.pensjonsgivendeInntektVedSidenAvUttak) {
+		if (formData.harInntektVedSidenAvUttak === true) {
+			if (formData.pensjonsgivendeInntektVedSidenAvUttak === null) {
 				errors.pensjonsgivendeInntektVedSidenAvUttak =
 					'Pensjonsgivende inntekt ved siden av uttak er påkrevd'
-			} else if (
-				Number.isNaN(Number(formData.pensjonsgivendeInntektVedSidenAvUttak))
-			) {
-				errors.pensjonsgivendeInntektVedSidenAvUttak =
-					'Pensjonsgivende inntekt må være et tall'
 			}
 
-			if (!formData.alderAarInntektSlutter) {
+			if (formData.alderAarInntektSlutter === null) {
 				errors.alderAarInntektSlutter = 'Alder (år) inntekt slutter er påkrevd'
 			}
 
-			if (!formData.alderMdInntektSlutter) {
+			if (formData.alderMdInntektSlutter === null) {
 				errors.alderMdInntektSlutter = 'Alder (md.) inntekt slutter er påkrevd'
 			}
 		}
 
 		if (
-			formData.uttaksgrad !== '100' &&
-			formData.harInntektVedSidenAvGradertUttak === 'ja'
+			formData.uttaksgrad !== null &&
+			formData.uttaksgrad !== 100 &&
+			formData.harInntektVedSidenAvGradertUttak === true
 		) {
-			if (!formData.pensjonsgivendeInntektVedSidenAvGradertUttak) {
+			if (formData.pensjonsgivendeInntektVedSidenAvGradertUttak === null) {
 				errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
 					'Pensjonsgivende inntekt ved siden av gradert uttak er påkrevd'
-			} else if (
-				Number.isNaN(
-					Number(formData.pensjonsgivendeInntektVedSidenAvGradertUttak)
-				)
-			) {
-				errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
-					'Pensjonsgivende inntekt må være et tall'
 			}
 
-			if (!formData.alderAarInntektGradertSlutter) {
+			if (formData.alderAarInntektGradertSlutter === null) {
 				errors.alderAarInntektGradertSlutter =
 					'Alder (år) inntekt slutter er påkrevd'
 			}
 
-			if (!formData.alderMdInntektGradertSlutter) {
+			if (formData.alderMdInntektGradertSlutter === null) {
 				errors.alderMdInntektGradertSlutter =
 					'Alder (md.) inntekt slutter er påkrevd'
 			}
 		}
 
-		if (formData.uttaksgrad !== '100') {
+		if (formData.uttaksgrad !== null && formData.uttaksgrad !== 100) {
 			if (
-				formData.aarligInntektVsaPensjonGradertUttak &&
-				Number.isNaN(Number(formData.aarligInntektVsaPensjonGradertUttak))
+				formData.aarligInntektVsaPensjonGradertUttak !== null &&
+				Number.isNaN(formData.aarligInntektVsaPensjonGradertUttak)
 			) {
 				errors.aarligInntektVsaPensjonGradertUttak =
 					'Pensjonsgivende inntekt må være et tall'
 			}
 
 			if (
-				formData.alderAarHeltUttak &&
-				formData.alderMdHeltUttak &&
-				formData.alderAarUttak &&
-				formData.alderMdUttak
+				formData.alderAarHeltUttak !== null &&
+				formData.alderMdHeltUttak !== null &&
+				formData.alderAarUttak !== null &&
+				formData.alderMdUttak !== null
 			) {
-				const heltUttakAar = Number(formData.alderAarHeltUttak)
-				const heltUttakMd = Number(formData.alderMdHeltUttak)
-				const gradertUttakAar = Number(formData.alderAarUttak)
-				const gradertUttakMd = Number(formData.alderMdUttak)
+				const heltUttakAar = formData.alderAarHeltUttak
+				const heltUttakMd = formData.alderMdHeltUttak
+				const gradertUttakAar = formData.alderAarUttak
+				const gradertUttakMd = formData.alderMdUttak
 
 				if (
 					heltUttakAar < gradertUttakAar ||
