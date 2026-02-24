@@ -1,1 +1,1 @@
-export { LanguageProvider } from './LanguageProvider'
+export { LanguageProvider, sanityClient } from './LanguageProvider'

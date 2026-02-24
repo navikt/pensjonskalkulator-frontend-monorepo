@@ -1,0 +1,8 @@
+.section {
+  display: flex;
+  margin-bottom: var(--a-spacing-10);
+
+  @media (min-width: 1024px) {
+    max-width: 632px;
+  }
+}

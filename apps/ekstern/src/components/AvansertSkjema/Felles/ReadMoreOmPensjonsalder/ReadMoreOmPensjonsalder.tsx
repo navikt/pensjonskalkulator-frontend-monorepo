@@ -1,4 +1,4 @@
-import { SanityReadmore } from '@/components/common/SanityReadmore'
+import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
 
 interface Props {
   ufoeregrad: number

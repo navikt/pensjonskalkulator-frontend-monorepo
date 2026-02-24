@@ -1,3 +1,11 @@
+import {
+  type AlertQueryResult,
+  type ForbeholdAvsnittQueryResult,
+  type GuidePanelQueryResult,
+  type ReadMoreQueryResult,
+  SanityContext,
+  createSanityAppClient,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { defineQuery } from 'groq'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { IntlProvider } from 'react-intl'
@@ -9,21 +17,13 @@ import {
   setAvailableLanguages,
 } from '@navikt/nav-dekoratoren-moduler'
 
-import { SanityContext } from '@/context/SanityContext'
 import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logger } from '@/utils/logging'
-import { sanityClient } from '@/utils/sanity'
 
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
 import '@formatjs/intl-numberformat/locale-data/nn'
-
-import {
-  ForbeholdAvsnittQueryResult,
-  GuidePanelQueryResult,
-  ReadMoreQueryResult,
-} from '@/types/sanity.types'
 
 import {
   getCookie,
@@ -37,6 +37,17 @@ import {
 const akselLocales: Record<Locales, typeof nb> = { nb, nn, en }
 const SANITY_FETCH_TIMEOUT_MS = 10_000
 
+const dataset =
+  window.location.href.includes('ekstern.dev') ||
+  window.location.href.includes('localhost')
+    ? 'development'
+    : 'production'
+
+export const sanityClient = createSanityAppClient({
+  projectId: 'g2by7q6m',
+  dataset,
+})
+
 // Kjør `npm run sanity-typegen` for å generere typer for Sanity-data
 const forbeholdAvsnittQuery = defineQuery(
   `*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}`
@@ -46,6 +57,9 @@ const guidePanelQuery = defineQuery(
 )
 const readMoreQuery = defineQuery(
   `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
+)
+const alertQuery = defineQuery(
+  `*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}`
 )
 
 interface Props {
@@ -64,6 +78,9 @@ export function LanguageProvider({ children }: Props) {
   >({})
   const [sanityReadMoreData, setSanityReadMoreData] = useState<
     Record<string, ReadMoreQueryResult[number]>
+  >({})
+  const [sanityAlertData, setSanityAlertData] = useState<
+    Record<string, AlertQueryResult[number]>
   >({})
 
   const hasInitializedSanityRef = useRef(false)
@@ -140,10 +157,29 @@ export function LanguageProvider({ children }: Props) {
         return {}
       })
 
+    const handleAlertFetch = sanityClient
+      .fetch(alertQuery, { locale })
+      .then((sanityAlertResponse) => {
+        const data = Object.fromEntries(
+          (sanityAlertResponse || []).map((alert) => [alert.name, alert])
+        )
+        setSanityAlertData(data)
+        return data
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: logTekst,
+          data: logData,
+        })
+        setSanityAlertData({})
+        return {}
+      })
+
     const fetchPromise = Promise.all([
       handleForbeholdAvsnittFetch,
       handleGuidePanelFetch,
       handleReadMoreFetch,
+      handleAlertFetch,
     ])
 
     if (shouldBlockInitialLoad) {
@@ -249,6 +285,7 @@ export function LanguageProvider({ children }: Props) {
       <AkselProvider locale={akselLocales[languageCookie]}>
         <SanityContext.Provider
           value={{
+            alertData: sanityAlertData,
             forbeholdAvsnittData: sanityForbeholdAvsnittData,
             guidePanelData: sanityGuidePanelData,
             readMoreData: sanityReadMoreData,
