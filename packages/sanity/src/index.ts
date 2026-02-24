@@ -6,7 +6,7 @@ export {
 	createSanityAppClient,
 	getSanityPortableTextComponents,
 } from './utils/sanity'
-export type { CreateSanityClientOptions } from './utils/sanity'
+export type { CreateSanityClientOptions, DynamicValues } from './utils/sanity'
 
 export type {
 	ForbeholdAvsnittQueryResult,

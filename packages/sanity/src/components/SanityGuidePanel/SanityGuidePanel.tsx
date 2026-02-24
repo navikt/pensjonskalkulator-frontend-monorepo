@@ -5,13 +5,17 @@ import { useIntl } from 'react-intl'
 import { GuidePanel, Heading } from '@navikt/ds-react'
 
 import { SanityContext } from '../../context/SanityContext'
-import { getSanityPortableTextComponents } from '../../utils/sanity'
+import {
+	type DynamicValues,
+	getSanityPortableTextComponents,
+} from '../../utils/sanity'
 import styles from './SanityGuidePanel.module.scss'
 
 interface Props {
 	id: string
 	className?: string
 	children?: ReactNode
+	dynamicValues?: DynamicValues
 	hasSection?: boolean
 	onLinkClick?: () => void
 }
@@ -20,6 +24,7 @@ export const SanityGuidePanel = ({
 	id,
 	className,
 	children,
+	dynamicValues,
 	hasSection = false,
 	onLinkClick,
 }: Props) => {
@@ -41,7 +46,11 @@ export const SanityGuidePanel = ({
 
 			<PortableText
 				value={sanityContent.innhold}
-				components={getSanityPortableTextComponents(intl, onLinkClick)}
+				components={getSanityPortableTextComponents(
+					intl,
+					onLinkClick,
+					dynamicValues
+				)}
 			/>
 
 			{children}

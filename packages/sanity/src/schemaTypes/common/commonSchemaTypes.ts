@@ -52,6 +52,29 @@ export const innholdField = defineField({
 				{ title: 'Heading 6', value: 'h6' },
 				{ title: 'Quote', value: 'blockquote' },
 			],
+			of: [
+				{
+					type: 'object',
+					name: 'dynamicValue',
+					title: 'Dynamisk verdi',
+					fields: [
+						defineField({
+							name: 'key',
+							type: 'string',
+							title: 'Variabelnavn',
+							description:
+								'Nøkkel for den dynamiske verdien (f.eks. "alder", "beloep")',
+							validation: (rule) => rule.required().error('Påkrevd'),
+						}),
+					],
+					preview: {
+						select: { key: 'key' },
+						prepare({ key }: { key?: string }) {
+							return { title: `{${key ?? '...'}}` }
+						},
+					},
+				},
+			],
 			marks: {
 				annotations: [
 					{

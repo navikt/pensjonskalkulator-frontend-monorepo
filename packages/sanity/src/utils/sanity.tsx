@@ -6,6 +6,8 @@ import { IntlShape } from 'react-intl'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link, List } from '@navikt/ds-react'
 
+export type DynamicValues = Record<string, string>
+
 export interface CreateSanityClientOptions {
 	projectId: string
 	dataset: string
@@ -23,9 +25,16 @@ export const createSanityAppClient = ({
 
 export const getSanityPortableTextComponents = (
 	intl: IntlShape,
-	onLinkClick?: () => void
+	onLinkClick?: () => void,
+	dynamicValues?: DynamicValues
 ): Partial<PortableTextReactComponents> => {
 	return {
+		types: {
+			dynamicValue: ({ value }: { value?: { key: string } }) => {
+				const resolved = value?.key ? dynamicValues?.[value.key] : undefined
+				return <span>{resolved ?? `{${value?.key ?? ''}}`}</span>
+			},
+		},
 		list: {
 			bullet: ({ children }) => <List as="ul">{children}</List>,
 			number: ({ children }) => <List as="ol">{children}</List>,
