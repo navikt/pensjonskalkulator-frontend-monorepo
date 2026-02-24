@@ -11,7 +11,10 @@ import {
 } from '@navikt/ds-react'
 
 import { SanityContext } from '../../context/SanityContext'
-import { getSanityPortableTextComponents } from '../../utils/sanity'
+import {
+	type DynamicValues,
+	getSanityPortableTextComponents,
+} from '../../utils/sanity'
 import styles from './SanityAlert.module.scss'
 
 type AlertType = 'global-alert' | 'local-alert' | 'info-card' | 'inline-message'
@@ -37,10 +40,16 @@ const alertStatusMap: Record<
 interface Props {
 	id: string
 	className?: string
+	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
 }
 
-export const SanityAlert = ({ id, className, onLinkClick }: Props) => {
+export const SanityAlert = ({
+	id,
+	className,
+	dynamicValues,
+	onLinkClick,
+}: Props) => {
 	const intl = useIntl()
 	const { alertData } = useContext(SanityContext)
 	const sanityContent = alertData[id]
@@ -53,7 +62,8 @@ export const SanityAlert = ({ id, className, onLinkClick }: Props) => {
 	const status = (sanityContent.status ?? 'info') as AlertStatus
 	const portableTextComponents = getSanityPortableTextComponents(
 		intl,
-		onLinkClick
+		onLinkClick,
+		dynamicValues
 	)
 
 	const content = (
