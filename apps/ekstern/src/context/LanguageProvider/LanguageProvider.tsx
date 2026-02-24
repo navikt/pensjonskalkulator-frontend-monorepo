@@ -1,4 +1,5 @@
 import {
+  type AlertQueryResult,
   type ForbeholdAvsnittQueryResult,
   type GuidePanelQueryResult,
   type ReadMoreQueryResult,
@@ -57,6 +58,9 @@ const guidePanelQuery = defineQuery(
 const readMoreQuery = defineQuery(
   `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
 )
+const alertQuery = defineQuery(
+  `*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}`
+)
 
 interface Props {
   children: ReactNode
@@ -74,6 +78,9 @@ export function LanguageProvider({ children }: Props) {
   >({})
   const [sanityReadMoreData, setSanityReadMoreData] = useState<
     Record<string, ReadMoreQueryResult[number]>
+  >({})
+  const [sanityAlertData, setSanityAlertData] = useState<
+    Record<string, AlertQueryResult[number]>
   >({})
 
   const hasInitializedSanityRef = useRef(false)
@@ -150,10 +157,29 @@ export function LanguageProvider({ children }: Props) {
         return {}
       })
 
+    const handleAlertFetch = sanityClient
+      .fetch(alertQuery, { locale })
+      .then((sanityAlertResponse) => {
+        const data = Object.fromEntries(
+          (sanityAlertResponse || []).map((alert) => [alert.name, alert])
+        )
+        setSanityAlertData(data)
+        return data
+      })
+      .catch(() => {
+        logger('info', {
+          tekst: logTekst,
+          data: logData,
+        })
+        setSanityAlertData({})
+        return {}
+      })
+
     const fetchPromise = Promise.all([
       handleForbeholdAvsnittFetch,
       handleGuidePanelFetch,
       handleReadMoreFetch,
+      handleAlertFetch,
     ])
 
     if (shouldBlockInitialLoad) {
@@ -259,6 +285,7 @@ export function LanguageProvider({ children }: Props) {
       <AkselProvider locale={akselLocales[languageCookie]}>
         <SanityContext.Provider
           value={{
+            alertData: sanityAlertData,
             forbeholdAvsnittData: sanityForbeholdAvsnittData,
             guidePanelData: sanityGuidePanelData,
             readMoreData: sanityReadMoreData,
