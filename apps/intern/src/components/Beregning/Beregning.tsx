@@ -149,7 +149,7 @@ function formatAlderTitle(
 }
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, committedParams } =
+	const { isBeregningLoading, beregning, aktivBeregning } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 
@@ -176,15 +176,15 @@ export const Beregning = () => {
 	}
 
 	const erGradert =
-		committedParams &&
-		committedParams.uttaksgrad !== null &&
-		committedParams.uttaksgrad < 100
+		aktivBeregning &&
+		aktivBeregning.uttaksgrad !== null &&
+		aktivBeregning.uttaksgrad < 100
 
 	const heltUttakAar = erGradert
-		? committedParams.alderAarHeltUttak
-		: committedParams?.alderAarUttak
+		? aktivBeregning.alderAarHeltUttak
+		: aktivBeregning?.alderAarUttak
 
-	const gradertUttakAar = erGradert ? committedParams?.alderAarUttak : undefined
+	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
 
 	const heltEntry = beregning?.alderspensjon?.find(
 		(entry) => entry.alder === (heltUttakAar ?? 0)
@@ -194,22 +194,22 @@ export const Beregning = () => {
 	)
 
 	const titleHeltUttak =
-		committedParams &&
+		aktivBeregning &&
 		formatAlderTitle(
 			erGradert
-				? (committedParams.alderAarHeltUttak ?? 0)
-				: (committedParams.alderAarUttak ?? 0),
+				? (aktivBeregning.alderAarHeltUttak ?? 0)
+				: (aktivBeregning.alderAarUttak ?? 0),
 			erGradert
-				? (committedParams.alderMdHeltUttak ?? 0)
-				: (committedParams.alderMdUttak ?? 0),
+				? (aktivBeregning.alderMdHeltUttak ?? 0)
+				: (aktivBeregning.alderMdUttak ?? 0),
 			100
 		)
 	const titleGradertUttak =
-		committedParams &&
+		aktivBeregning &&
 		formatAlderTitle(
-			committedParams.alderAarUttak ?? 0,
-			committedParams.alderMdUttak ?? 0,
-			committedParams.uttaksgrad ?? 0
+			aktivBeregning.alderAarUttak ?? 0,
+			aktivBeregning.alderMdUttak ?? 0,
+			aktivBeregning.uttaksgrad ?? 0
 		)
 
 	return (
@@ -255,7 +255,7 @@ export const Beregning = () => {
 				)}
 				<Heading size="small">{titleHeltUttak}</Heading>
 				<HStack wrap={false} gap="space-40" className={styles.tableRow}>
-					{beregning && committedParams && heltEntry && (
+					{beregning && aktivBeregning && heltEntry && (
 						<BeregningTable
 							title="Alderspensjon"
 							valueHeader="Kr per måned"

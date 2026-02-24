@@ -25,7 +25,7 @@ import { useFormValidation } from './BeregningForm/useFormValidation'
 
 interface BeregningContextValue {
 	formData: BeregningFormData
-	committedParams: BeregningParams | null
+	aktivBeregning: BeregningParams | null
 	isDirty: boolean
 	validationErrors: ValidationErrors
 	beregning: BeregningResult | undefined
@@ -54,8 +54,9 @@ export function BeregningProvider({
 		...defaultBeregningFormData,
 		...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
 	}))
-	const [committedParams, setCommittedParams] =
-		useState<BeregningParams | null>(null)
+	const [aktivBeregning, setAktivBeregning] = useState<BeregningParams | null>(
+		null
+	)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
@@ -114,12 +115,12 @@ export function BeregningProvider({
 
 	const submitBeregning = useCallback(() => {
 		if (!validate(formData)) return
-		setCommittedParams({ ...formData })
+		setAktivBeregning({ ...formData })
 	}, [formData, validate])
 
 	const resetForm = useCallback(() => {
 		setFormData(defaultBeregningFormData)
-		setCommittedParams(null)
+		setAktivBeregning(null)
 		resetValidationErrors()
 	}, [resetValidationErrors])
 
@@ -127,18 +128,18 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, person?.foedselsdato, committedParams)
+	} = useBeregningQuery(fnr, person?.foedselsdato, aktivBeregning)
 
 	const isDirty = useMemo(() => {
-		if (!committedParams) return false
-		return JSON.stringify(formData) !== JSON.stringify(committedParams)
-	}, [formData, committedParams])
+		if (!aktivBeregning) return false
+		return JSON.stringify(formData) !== JSON.stringify(aktivBeregning)
+	}, [formData, aktivBeregning])
 
 	return (
 		<BeregningContext.Provider
 			value={{
 				formData,
-				committedParams,
+				aktivBeregning,
 				isDirty,
 				validationErrors,
 				beregning,

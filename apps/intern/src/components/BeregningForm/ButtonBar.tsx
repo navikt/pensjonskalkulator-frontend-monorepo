@@ -8,14 +8,14 @@ interface ButtonBarProps {
 	onSubmit: () => void
 	onReset: () => void
 	isDirty: boolean
-	hasCommittedParams: boolean
+	harAktivBeregning: boolean
 }
 
 export const ButtonBar = ({
 	onSubmit,
 	onReset,
 	isDirty,
-	hasCommittedParams,
+	harAktivBeregning,
 }: ButtonBarProps) => {
 	const sentinelRef = useRef<HTMLDivElement>(null)
 	const [isStuck, setIsStuck] = useState(false)
@@ -46,7 +46,7 @@ export const ButtonBar = ({
 					Nullstill
 				</Button>
 				<Button size="small" variant="primary" onClick={onSubmit}>
-					{hasCommittedParams && !isDirty
+					{harAktivBeregning && !isDirty
 						? 'Beregn pensjon'
 						: isDirty
 							? 'Oppdater pensjon'

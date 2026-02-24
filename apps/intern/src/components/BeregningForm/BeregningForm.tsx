@@ -24,7 +24,7 @@ export const BeregningForm = () => {
 	const {
 		formData,
 		updateFormField,
-		committedParams,
+		aktivBeregning,
 		isDirty,
 		validationErrors,
 		submitBeregning,
@@ -292,7 +292,7 @@ export const BeregningForm = () => {
 				onSubmit={submitBeregning}
 				onReset={resetForm}
 				isDirty={isDirty}
-				hasCommittedParams={!!committedParams}
+				harAktivBeregning={!!aktivBeregning}
 			/>
 		</Box>
 	)
