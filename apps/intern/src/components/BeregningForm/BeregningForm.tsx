@@ -151,7 +151,7 @@ export const BeregningForm = () => {
 					}
 				>
 					<option value="">Velg</option>
-					{[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((grad) => (
+					{[20, 40, 50, 60, 80, 100].map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
 						</option>

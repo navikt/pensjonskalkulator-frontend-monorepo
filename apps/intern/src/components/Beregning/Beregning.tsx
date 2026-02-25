@@ -1,4 +1,8 @@
 import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
+import {
+	isFoedtEtter1963,
+	isOvergangskull,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
 
 import {
 	BodyLong,
@@ -149,9 +153,13 @@ function formatAlderTitle(
 }
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning } =
+	const { isBeregningLoading, beregning, aktivBeregning, person } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const erOvergangskull = person ? isOvergangskull(person.foedselsdato) : false
+	const erFoedtEtter1963 = person
+		? isFoedtEtter1963(person.foedselsdato)
+		: false
 
 	if (!beregning && isBeregningLoading) {
 		return (
@@ -235,21 +243,25 @@ export const Beregning = () => {
 								valueHeader="Kr per måned"
 								rows={mapAlderspensjonToRows(gradertEntry)}
 							/>
-							<BeregningTable
-								title="Opptjening etter kapittel 19"
-								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel19ToRows(
-									gradertEntry,
-									grunnbeloep?.grunnbeløp
-								)}
-								simple
-							/>
-							<BeregningTable
-								title="Opptjening etter kapittel 20"
-								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel20ToRows(gradertEntry)}
-								simple
-							/>
+							{erFoedtEtter1963 && (
+								<BeregningTable
+									title="Opptjening etter kapittel 19"
+									valueHeader="Kr per måned"
+									rows={mapOpptjeningEtterKapittel19ToRows(
+										gradertEntry,
+										grunnbeloep?.grunnbeløp
+									)}
+									simple
+								/>
+							)}
+							{(erOvergangskull || erFoedtEtter1963) && (
+								<BeregningTable
+									title="Opptjening etter kapittel 20"
+									valueHeader="Kr per måned"
+									rows={mapOpptjeningEtterKapittel20ToRows(gradertEntry)}
+									simple
+								/>
+							)}
 						</HStack>
 					</>
 				)}
@@ -264,21 +276,25 @@ export const Beregning = () => {
 					)}
 					{heltEntry && (
 						<>
-							<BeregningTable
-								title="Opptjening etter kapittel 19"
-								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel19ToRows(
-									heltEntry,
-									grunnbeloep?.grunnbeløp
-								)}
-								simple
-							/>
-							<BeregningTable
-								title="Opptjening etter kapittel 20"
-								valueHeader="Kr per måned"
-								rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
-								simple
-							/>
+							{!erOvergangskull && erFoedtEtter1963 && (
+								<BeregningTable
+									title="Opptjening etter kapittel 19"
+									valueHeader="Kr per måned"
+									rows={mapOpptjeningEtterKapittel19ToRows(
+										heltEntry,
+										grunnbeloep?.grunnbeløp
+									)}
+									simple
+								/>
+							)}
+							{(erOvergangskull || erFoedtEtter1963) && (
+								<BeregningTable
+									title="Opptjening etter kapittel 20"
+									valueHeader="Kr per måned"
+									rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
+									simple
+								/>
+							)}
 						</>
 					)}
 				</HStack>

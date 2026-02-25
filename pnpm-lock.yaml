@@ -357,6 +357,9 @@ importers:
       '@pensjonskalkulator-frontend-monorepo/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@pensjonskalkulator-frontend-monorepo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.0
@@ -401,6 +404,19 @@ importers:
         version: 5.9.3
 
   packages/types:
+    devDependencies:
+      openapi-typescript:
+        specifier: ^7.6.1
+        version: 7.10.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
+  packages/utils:
+    dependencies:
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
     devDependencies:
       openapi-typescript:
         specifier: ^7.6.1

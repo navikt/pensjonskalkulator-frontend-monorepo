@@ -36,6 +36,7 @@
 		"@playwright/test": "^1.58.0",
 		"@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
+		"@pensjonskalkulator-frontend-monorepo/utils": "workspace:*",
 		"@vitejs/plugin-react": "^5.1.2",
 		"concurrently": "^9.2.0",
 		"msw": "^2.10.5",

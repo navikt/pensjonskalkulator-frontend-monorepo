@@ -1,3 +1,4 @@
+import type { Person } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
 	createContext,
@@ -31,6 +32,7 @@ interface BeregningContextValue {
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
+	person: Person | undefined
 	updateFormField: <K extends keyof BeregningFormData>(
 		field: K,
 		value: BeregningFormData[K]
@@ -141,6 +143,7 @@ export function BeregningProvider({
 				formData,
 				aktivBeregning,
 				isDirty,
+				person,
 				validationErrors,
 				beregning,
 				isBeregningLoading,
