@@ -22,6 +22,7 @@ runs:
         node-version: ${{ inputs.node-version }}
         registry-url: 'https://npm.pkg.github.com'
         cache: 'pnpm'
+        token: ${{ inputs.reader-token }}
 
     - name: Install dependencies
       shell: bash
