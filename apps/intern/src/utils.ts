@@ -1,18 +1,17 @@
 import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
 
-const DEV_DEFAULT_FNR = '00000000000'
+const DEV_DEFAULT_PID = 'encrypted-default-pid'
 
-export function getFnrFromUrl(): string | undefined {
+export function getPidFromUrl(): string | undefined {
 	const params = new URLSearchParams(window.location.search)
-	const fnrFromUrl = params.get('fnr')
+	const pid = params.get('pid')
 
-	if (fnrFromUrl) {
-		return fnrFromUrl
+	if (pid) {
+		return pid
 	}
 
-	// In development mode (not backend mode), use default fnr for MSW testing
 	if (import.meta.env.MODE === 'development') {
-		return DEV_DEFAULT_FNR
+		return DEV_DEFAULT_PID
 	}
 
 	return undefined

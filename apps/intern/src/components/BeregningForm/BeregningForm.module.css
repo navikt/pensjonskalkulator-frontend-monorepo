@@ -1,0 +1,64 @@
+.beregningForm {
+	width: 496px;
+	height: 100%;
+	background-color: white;
+	padding: 32px 48px 0;
+	box-sizing: border-box;
+	z-index: 1;
+	overflow-y: auto;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid var(--a-border-subtle);
+	margin: 0;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px 0;
+}
+
+.selectWrapper :global(.aksel-select__container) {
+	width: 184px;
+}
+
+.alderRow {
+	display: flex;
+	gap: 16px;
+}
+
+.alderRow > :first-child :global(.aksel-select__container) {
+	width: 96px;
+}
+
+.alderRow > :last-child :global(.aksel-select__container) {
+	width: 144px;
+}
+
+.horizontalRadioGroup :global(.navds-radio-buttons) {
+	display: flex;
+	flex-direction: row;
+	gap: 1.5rem;
+}
+
+.buttonBar {
+	display: flex;
+	justify-content: space-between;
+	gap: 24px;
+	padding: 24px 48px;
+	margin-left: -48px;
+	margin-right: -48px;
+	position: sticky;
+	bottom: 0;
+	background-color: white;
+	border-top: 1px solid var(--a-border-subtle);
+	margin-top: -1px;
+	margin-bottom: 0;
+}
+
+.buttonBarStuck {
+	box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+}

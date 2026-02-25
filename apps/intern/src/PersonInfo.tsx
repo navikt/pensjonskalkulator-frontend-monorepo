@@ -5,22 +5,26 @@ import {
 	CopyButton,
 	HStack,
 	InfoCard,
-	Loader,
 } from '@navikt/ds-react'
 
-import { useLoependeVedtakQuery, usePersonQuery } from './api/queries'
-import { getFnrFromUrl, getLoependeVedtakStatus } from './utils'
+import {
+	useDecryptPidQuery,
+	useLoependeVedtakQuery,
+	usePersonQuery,
+} from './api/queries'
+import { getLoependeVedtakStatus, getPidFromUrl } from './utils'
 
 import styles from './PersonInfo.module.css'
 
 export const PersonInfo = () => {
-	const fnr = getFnrFromUrl()
+	const pid = getPidFromUrl()
+	const { data: fnr } = useDecryptPidQuery(pid)
 
-	const { data: person, isLoading, isError, error } = usePersonQuery(fnr)
+	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
 
-	if (!fnr) {
+	if (!pid) {
 		return (
 			<InfoCard data-color="info" size="medium" className={styles.infoCard}>
 				<InfoCard.Header>
@@ -37,13 +41,11 @@ export const PersonInfo = () => {
 
 	return (
 		<div>
-			{isLoading && <Loader size="xlarge" title="Henter bruker..." />}
-
 			{isError && (
 				<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
 			)}
 
-			{person && (
+			{person && fnr && (
 				<HStack gap="space-4" className={styles.personInfoWrapper}>
 					<PersonIcon title="a11y-title" fontSize="1.5rem" />
 					<BodyShort size="medium">{fnr}</BodyShort>

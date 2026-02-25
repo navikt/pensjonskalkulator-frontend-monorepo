@@ -302,6 +302,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.text('this-is-just-jibbrish-encrypted-fnr')
 		}),
 
+		http.post(`${baseUrl}/v1/decrypt`, async () => {
+			await delay(delayMs)
+			return HttpResponse.text('04925398980')
+		}),
+
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
 			async () => {
