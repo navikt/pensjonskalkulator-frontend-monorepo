@@ -347,6 +347,9 @@ importers:
       '@pensjonskalkulator-frontend-monorepo/sanity':
         specifier: workspace:*
         version: link:../../packages/sanity
+      '@pensjonskalkulator-frontend-monorepo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tanstack/react-query':
         specifier: ^5.90.20
         version: 5.90.20(react@19.2.4)
@@ -487,9 +490,15 @@ importers:
 
   packages/utils:
     dependencies:
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:../types
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      react-intl:
+        specifier: 7.1.11
+        version: 7.1.11(react@19.2.4)(typescript@5.9.3)
     devDependencies:
       openapi-typescript:
         specifier: ^7.6.1

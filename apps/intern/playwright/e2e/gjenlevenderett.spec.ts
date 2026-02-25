@@ -1,3 +1,7 @@
+import {
+	calculateFoedselsdato,
+	isAlderOver67,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { expect, test } from '@playwright/test'
 import { mockApi, mockApiError } from 'utils/mock'
 
@@ -72,6 +76,59 @@ test.describe('Gjenlevenderett', () => {
 			await checkbox.check()
 			await expect(page.getByTestId('EPS-samtykke-tekst')).toBeVisible()
 			await expect(page.getByTestId('EPS-samtykke-button')).toBeVisible()
+		})
+	})
+
+	test.describe('Hvis dødsfall skjer etter 67 år ELLER EPS er over 67 år', () => {
+		test('Hvis dødsfall skjer etter 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1958-01-01',
+				doedsdato: '2026-01-01',
+			})
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).not.toBeVisible()
+			await expect(
+				page.getByTestId('Minst-1G-PGI-ved-dødsdato')
+			).not.toBeVisible()
+		})
+
+		test('EPS er over 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1958-01-01',
+				doedsdato: null,
+			})
+
+			expect(isAlderOver67('1958-01-01')).toBe(true)
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).not.toBeVisible()
+			await expect(
+				page.getByTestId('Minst-1G-PGI-ved-dødsdato')
+			).not.toBeVisible()
+		})
+	})
+
+	test.describe('Hvis dødsfall skjer før 67 år ELLER dødsdato ikke finnes OG EPS er under 67 år', () => {
+		test('Hvis dødsfall skjer før 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1964-01-01',
+				doedsdato: '2026-01-01',
+			})
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).toBeVisible()
+			await expect(page.getByTestId('Minst-1G-PGI-ved-dødsdato')).toBeVisible()
+		})
+
+		test('Dødsdato ikke finnes OG EPS er under 67 år', async ({ page }) => {
+			const dynamiskFoedselsdato = calculateFoedselsdato(65)
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: dynamiskFoedselsdato,
+				doedsdato: null,
+			})
+
+			expect(isAlderOver67(dynamiskFoedselsdato)).toBe(false)
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).toBeVisible()
+			await expect(page.getByTestId('Minst-1G-PGI-ved-dødsdato')).toBeVisible()
 		})
 	})
 
