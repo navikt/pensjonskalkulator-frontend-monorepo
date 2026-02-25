@@ -2,9 +2,9 @@
 applyTo: 'apps/ekstern/src/**/*.{tsx,ts}'
 ---
 
-# React Component Standards (Aksel Design System)
+# React Component Standards
 
-## 1. Folder Structure Convention
+## Folder Structure
 
 ```
 src/components/MyComponent/
@@ -13,27 +13,16 @@ src/components/MyComponent/
 ├── index.ts                     # Re-exports: export { MyComponent } from './MyComponent'
 ├── hooks.ts                     # Complex logic extracted into custom hooks
 ├── utils.ts                     # Pure helper functions, constants, validation
-├── Felles/                      # Shared sub-components (when multiple variants exist)
+├── Felles/                      # Shared sub-components
 │   ├── SharedPart.tsx
-│   ├── SharedPart.module.scss
-│   └── index.ts
-├── VariantA/
-│   ├── VariantA.tsx
 │   └── index.ts
 └── __tests__/
     └── MyComponent.test.tsx
 ```
 
-Key conventions:
+## Component Patterns
 
-- Every component folder has an `index.ts` barrel file
-- SCSS module type declarations (`*.module.scss.d.ts`) may exist alongside SCSS files
-- `hooks.ts` / `hooks.tsx` files live inside the component folder, not in a global hooks directory
-- `utils.ts` files live inside the component folder for component-specific logic
-
-## 2. Component Patterns
-
-### Named function components, no default exports
+### Named exports — no default exports
 
 ```tsx
 // ✅ Correct
@@ -41,16 +30,11 @@ export function MyComponent({ title }: Props) {
 	return <Heading>{title}</Heading>
 }
 
-// index.ts
-export { MyComponent } from './MyComponent'
-```
-
-```tsx
 // 🚫 Never
 export default function MyComponent() { ... }
 ```
 
-### Props — inline interface or named `Props`
+### Props — named `Props` interface
 
 ```tsx
 interface Props {
@@ -62,44 +46,23 @@ interface Props {
 export function MyStep({ onNext, onPrevious, onCancel }: Props) { ... }
 ```
 
-### Hooks pattern — extract complex logic into `hooks.ts`
-
-When a component has significant state, memoization, or side effects, extract into a custom hook in the same folder:
+### Hooks — extract complex logic into `hooks.ts` in the same folder
 
 ```tsx
-// MyComponent.tsx
-import { useFormLocalState } from './hooks'
-
 // hooks.ts
 export function useFormLocalState(initialValues: InitialValues) {
 	const [localField, setLocalField] = useState(initialValues.field)
-	// ... complex state, useMemo, useEffect
 	return [localField, handlers] as const
-}
-
-export function MyComponent(props: Props) {
-	const [state, handlers] = useFormLocalState(props)
-	// ...
 }
 ```
 
-Hook return types are commonly tuples (`[state, handlers]`) or objects.
+## Styling
 
-## 3. SCSS Module Patterns
-
-### Import convention
+All styling uses SCSS modules with Aksel design tokens. Never use `style={{}}` or Tailwind.
 
 ```tsx
 import styles from './MyComponent.module.scss'
 ```
-
-### Shared variables
-
-```scss
-@use '../../scss/variables'; // depth varies
-```
-
-### Aksel design tokens (CSS custom properties)
 
 ```scss
 .wrapper {
@@ -111,156 +74,11 @@ import styles from './MyComponent.module.scss'
 }
 ```
 
-Common spacing tokens: `--a-spacing-1` through `--a-spacing-8`.
-Color tokens: `--a-deepblue-500`, `--a-purple-400`, `--a-data-surface-5`, `--a-gray-500`, `--a-text-subtle`.
-Border tokens: `--a-border-default`, `--a-border-radius-medium`.
-Font tokens: `--a-font-line-height-xlarge`.
+## Forms
 
-### Responsive breakpoints
+### `onSubmit` validation — clear errors on success, log on failure
 
-```scss
-@media (min-width: variables.$a-breakpoint-md) {
-	.wrapper {
-		flex-direction: row;
-	}
-}
-```
-
-### Input width variables
-
-```scss
-.select {
-	width: variables.$input-width-m;
-}
-.datepicker input {
-	width: variables.$input-width-s;
-}
-```
-
-### BEM-like naming with `&` nesting
-
-```scss
-.utenlandsperioder {
-	margin-block: var(--a-spacing-4);
-
-	&Item {
-		display: flex;
-		flex-direction: column;
-	}
-	&Text {
-		flex-grow: 1;
-	}
-	&Buttons {
-		display: flex;
-		justify-content: space-between;
-	}
-}
-```
-
-### `:global()` to target Aksel component internals
-
-```scss
-.selectSivilstand {
-	:global(.navds-select__container) {
-		width: variables.$input-width-m;
-	}
-}
-```
-
-### Composable utility classes
-
-```scss
-// modules/whitesection.module.scss — composed into component styles
-.wrapper {
-	composes: whitesection from '../../scss/modules/whitesection.module.scss';
-}
-```
-
-### No inline styles, no Tailwind
-
-All styling goes through SCSS modules with Aksel tokens. Never use `style={{}}` for spacing/layout.
-
-## 4. Aksel Design System — Component Catalog
-
-Components actively used from `@navikt/ds-react`:
-
-**Layout:** `HStack`, `VStack`, `Box`
-**Typography:** `Heading`, `BodyLong`, `BodyShort`, `Label`
-**Form controls:** `Button`, `Radio`, `RadioGroup`, `Select`, `TextField`, `Chips.Toggle`, `DatePicker` (+ `useDatepicker` hook)
-**Feedback:** `Alert`, `ErrorMessage`, `Loader`, `Modal`
-**Navigation:** `Link`
-**Disclosure:** `ReadMore`, `Accordion`, `Accordion.Item`, `ExpansionCard`
-**Data display:** `Table`, `Table.Row`, `Table.ExpandableRow`, `Table.Body`, `Table.Header`, `Table.HeaderCell`, `Table.DataCell`, `GuidePanel`
-**Divider:** `Divider`
-**Icons:** `PencilIcon`, `PlusCircleIcon`, `ExternalLinkIcon`, `ChevronDownIcon`, `ChevronUpIcon`, `ArrowCirclepathIcon`
-
-## 5. Internationalization (react-intl)
-
-### `useIntl()` for programmatic text
-
-```tsx
-const intl = useIntl()
-const label = intl.formatMessage({ id: 'mycomponent.label' })
-```
-
-### `<FormattedMessage>` with chunks for rich text
-
-```tsx
-<FormattedMessage
-	id="mycomponent.ingress"
-	values={{
-		...getFormatMessageValues(intl),
-		strong: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
-	}}
-/>
-```
-
-Rich text helpers live in `src/utils/translations.tsx` (`getFormatMessageValues`).
-
-### Translation files
-
-`src/translations/{nb,nn,en}.ts` — flat key-value maps with ~500+ keys each.
-
-## 6. RTK Query in Components
-
-### Query hooks (auto-generated from `apiSlice`)
-
-```tsx
-const { data, isFetching, isError } = useGetLoependeVedtakQuery()
-const { data: pensjonsavtaler } = usePensjonsavtalerQuery(requestBody, {
-	skip: !requestBody,
-})
-```
-
-### Selector-based access (for derived/cached data)
-
-```tsx
-import { apiSlice } from '@/state/api/apiSlice'
-
-const selectResult = apiSlice.endpoints.getLoependeVedtak.select()
-```
-
-## 7. Redux — Typed Hooks
-
-```tsx
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
-
-// Reading state
-const foedselsdato = useAppSelector(selectFoedselsdato)
-const afp = useAppSelector(selectAfp)
-
-// Dispatching actions
-const dispatch = useAppDispatch()
-dispatch(userInputActions.setAfp(value))
-dispatch(userInputActions.flush())
-```
-
-Selectors are imported from `@/state/userInput/selectors`.
-Actions from `@/state/userInput/userInputSlice` (via `userInputActions`).
-
-## 8. Form Patterns
-
-### Local state validation with `onSubmit`
+This pattern is easy to get wrong. Always use `FormData`, validate before dispatching, and log failures:
 
 ```tsx
 const [validationError, setValidationError] = useState<string>('')
@@ -282,7 +100,7 @@ const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 }
 ```
 
-### Error display — via Aksel component `error` prop
+### Error display — pass error string to Aksel component `error` prop
 
 ```tsx
 <RadioGroup error={validationError} onChange={() => setValidationError('')}>
@@ -291,137 +109,46 @@ const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 </RadioGroup>
 ```
 
-### Multi-field validation (object errors)
+## Internationalization
+
+All user-facing text must use react-intl — never hardcode Norwegian strings.
+
+### `useIntl()` for programmatic text
 
 ```tsx
-const [validationErrors, setValidationErrors] = useState<
-	Record<string, string>
->({
-	sivilstand: '',
-	epsHarPensjon: '',
-	epsHarInntektOver2G: '',
-})
+const intl = useIntl()
+const label = intl.formatMessage({ id: 'mycomponent.label' })
 ```
 
-### Detached form pattern
-
-When form fields are visually separated from the submit button (e.g., a list between them):
+### `<FormattedMessage>` with chunks for rich text
 
 ```tsx
-<form id="my-form" onSubmit={handleSubmit} />
-<RadioGroup>
-  <Radio form="my-form" value="ja" />
-</RadioGroup>
-{/* Other content between form and navigation */}
-<Navigation form="my-form" onPrevious={onPrevious} />
-```
-
-### Step navigation callbacks
-
-Every wizard step receives `onNext`, `onPrevious`, and optional `onCancel`. The `onNext` signature varies per step — it passes typed form data upward:
-
-```tsx
-onNext: (afpInput: AfpRadio) => void
-onNext: (data: { sivilstand: Sivilstand; epsHarPensjon: boolean | null }) => void
-```
-
-## 9. Compound Component Pattern
-
-```tsx
-// Card.tsx
-export function Card({ hasLargePadding, hasMargin, children }: Props) {
-  return <section className={clsx(styles.card, ...)}>{children}</section>
-}
-Card.Content = CardContent  // static property
-
-// Usage
-<Card hasLargePadding hasMargin>
-  <Card.Content text={{ header: '...', ingress: '...' }} />
-</Card>
-```
-
-## 10. Sanity CMS Content Integration
-
-### `SanityGuidePanel` — CMS-driven guide panels
-
-```tsx
-<SanityGuidePanel id="sanity-content-id" />
-```
-
-Fetches from `SanityContext.guidePanelData[id]`, renders Aksel `GuidePanel` with `poster` mode + Sanity PortableText body.
-
-### `SanityReadmore` — CMS-driven expandable sections
-
-```tsx
-<SanityReadmore id="sanity-readmore-id" className={styles.readmore} />
-```
-
-Fetches from `SanityContext.readMoreData[id]`, renders via internal `ReadMore` wrapper.
-
-Both components consume data from `SanityContext` (React context populated at app level).
-
-## 11. Accessibility Patterns
-
-### Heading levels — passed as props, never hardcoded at wrong level
-
-```tsx
-<Heading level={headingLevel} size="medium">
-	{intl.formatMessage({ id: 'title' })}
-</Heading>
-```
-
-### `role="img"` for chart containers
-
-```tsx
-<div role="img" aria-label={intl.formatMessage({ id: 'chart.label' })}>
-  <HighchartsReact ... />
-</div>
-```
-
-### ARIA attributes on form elements
-
-- `aria-invalid` set by Aksel form components when `error` prop is present
-- Focus management: on validation failure, focus is programmatically moved to first `[aria-invalid]` element
-- `aria-live="polite"` on loaders and dynamic content
-- `inert` attribute on collapsed `ShowMore` content
-
-### `data-testid` for test selectors
-
-```tsx
-<Button data-testid="stegvisning-neste-button" type="submit">
-```
-
-## 12. Conditional Classnames with `clsx`
-
-```tsx
-import clsx from 'clsx'
-
-;<div
-	className={clsx(
-		styles.card,
-		isActive && styles.active,
-		hasMargin && styles.margin
-	)}
+<FormattedMessage
+	id="mycomponent.ingress"
+	values={{
+		...getFormatMessageValues(intl),
+		strong: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
+	}}
 />
 ```
 
-## 13. Path Aliases
+Rich text helpers: `getFormatMessageValues` from `src/utils/translations.tsx`.
 
-`@/` maps to `src/` (configured via tsconfig paths + vite-tsconfig-paths):
+## State (Redux / RTK Query)
+
+### RTK Query — use auto-generated hooks with `skip` for conditional fetching
 
 ```tsx
-import { paths } from '@/router/constants'
-import { useAppSelector } from '@/state/hooks'
+const { data, isFetching, isError } = useGetLoependeVedtakQuery()
+const { data: avtaler } = usePensjonsavtalerQuery(body, { skip: !body })
 ```
 
-## 14. Import Order
+### Redux — use typed hooks from `@/state/hooks`
 
-Prettier auto-sorts imports (via @trivago/prettier-plugin-sort-imports):
-
-1. `@navikt` packages
-2. `@/` path aliases
-3. Relative imports
-4. CSS/SCSS imports last
+```tsx
+const foedselsdato = useAppSelector(selectFoedselsdato)
+dispatch(userInputActions.setAfp(value))
+```
 
 ## Boundaries
 
@@ -429,10 +156,8 @@ Prettier auto-sorts imports (via @trivago/prettier-plugin-sort-imports):
 
 - Use Aksel DS components from `@navikt/ds-react`
 - Use translation keys for all user-facing text (`useIntl` / `<FormattedMessage>`)
-- Use SCSS modules for component styles with Aksel tokens
+- Use SCSS modules with Aksel tokens for styles
 - Named exports only, re-exported via `index.ts`
-- Use `clsx` for conditional classnames
-- Use `@/` path aliases for non-relative imports
 - Extract complex logic into `hooks.ts` in the component folder
 
 ### ⚠️ Ask First
@@ -449,77 +174,3 @@ Prettier auto-sorts imports (via @trivago/prettier-plugin-sort-imports):
 - Hardcode Norwegian text (use react-intl)
 - Import from `@testing-library/react` directly (use `@/test-utils`)
 - Hand-edit `src/types/schema.d.ts` (it's auto-generated)
-
-## Component Skill Files
-
-Detailed usage guides for each Aksel DS component are available in `.github/skills/`. Each contains a `SKILL.md` with props, examples, accessibility notes, and codebase-specific patterns.
-
-| Component      | Skill File                               |
-| -------------- | ---------------------------------------- |
-| Accordion      | `.github/skills/accordion/SKILL.md`      |
-| ActionMenu     | `.github/skills/actionmenu/SKILL.md`     |
-| Button         | `.github/skills/button/SKILL.md`         |
-| Chat           | `.github/skills/chat/SKILL.md`           |
-| Checkbox       | `.github/skills/checkbox/SKILL.md`       |
-| Chips          | `.github/skills/chips/SKILL.md`          |
-| Combobox       | `.github/skills/combobox/SKILL.md`       |
-| CopyButton     | `.github/skills/copybutton/SKILL.md`     |
-| DatePicker     | `.github/skills/datepicker/SKILL.md`     |
-| Dialog         | `.github/skills/dialog/SKILL.md`         |
-| Dropdown       | `.github/skills/dropdown/SKILL.md`       |
-| ErrorSummary   | `.github/skills/errorsummary/SKILL.md`   |
-| ExpansionCard  | `.github/skills/expansioncard/SKILL.md`  |
-| FileUpload     | `.github/skills/fileupload/SKILL.md`     |
-| FormProgress   | `.github/skills/formprogress/SKILL.md`   |
-| FormSummary    | `.github/skills/formsummary/SKILL.md`    |
-| GlobalAlert    | `.github/skills/globalalert/SKILL.md`    |
-| GuidePanel     | `.github/skills/guidepanel/SKILL.md`     |
-| HelpText       | `.github/skills/helptext/SKILL.md`       |
-| InfoCard       | `.github/skills/infocard/SKILL.md`       |
-| InlineMessage  | `.github/skills/inlinemessage/SKILL.md`  |
-| InternalHeader | `.github/skills/internalheader/SKILL.md` |
-| Link           | `.github/skills/link/SKILL.md`           |
-| LinkCard       | `.github/skills/linkcard/SKILL.md`       |
-| List           | `.github/skills/list/SKILL.md`           |
-| Loader         | `.github/skills/loader/SKILL.md`         |
-| LocalAlert     | `.github/skills/localalert/SKILL.md`     |
-| Modal          | `.github/skills/modal/SKILL.md`          |
-| MonthPicker    | `.github/skills/monthpicker/SKILL.md`    |
-| Pagination     | `.github/skills/pagination/SKILL.md`     |
-| Popover        | `.github/skills/popover/SKILL.md`        |
-| Process        | `.github/skills/process/SKILL.md`        |
-| ProgressBar    | `.github/skills/progressbar/SKILL.md`    |
-| Provider       | `.github/skills/provider/SKILL.md`       |
-| Radio          | `.github/skills/radio/SKILL.md`          |
-| ReadMore       | `.github/skills/readmore/SKILL.md`       |
-| Search         | `.github/skills/search/SKILL.md`         |
-| Select         | `.github/skills/select/SKILL.md`         |
-| Skeleton       | `.github/skills/skeleton/SKILL.md`       |
-| Stepper        | `.github/skills/stepper/SKILL.md`        |
-| Switch         | `.github/skills/switch/SKILL.md`         |
-| Table          | `.github/skills/table/SKILL.md`          |
-| Tabs           | `.github/skills/tabs/SKILL.md`           |
-| Tag            | `.github/skills/tag/SKILL.md`            |
-| Textarea       | `.github/skills/textarea/SKILL.md`       |
-| TextField      | `.github/skills/textfield/SKILL.md`      |
-| Timeline       | `.github/skills/timeline/SKILL.md`       |
-| ToggleGroup    | `.github/skills/togglegroup/SKILL.md`    |
-| Tooltip        | `.github/skills/tooltip/SKILL.md`        |
-| Typography     | `.github/skills/typography/SKILL.md`     |
-
-### Primitives
-
-Layout primitives for building responsive layouts with design tokens.
-
-| Primitive | Skill File                       |
-| --------- | -------------------------------- |
-| Bleed     | `.github/skills/bleed/SKILL.md`  |
-| Box       | `.github/skills/box/SKILL.md`    |
-| HGrid     | `.github/skills/hgrid/SKILL.md`  |
-| HStack    | `.github/skills/hstack/SKILL.md` |
-| Hide      | `.github/skills/hide/SKILL.md`   |
-| Page      | `.github/skills/page/SKILL.md`   |
-| Show      | `.github/skills/show/SKILL.md`   |
-| VStack    | `.github/skills/vstack/SKILL.md` |
-
-Refer to the relevant skill file when using or implementing any of these components.
