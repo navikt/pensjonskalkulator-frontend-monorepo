@@ -146,6 +146,9 @@ test.describe('Gjenlevenderett', () => {
 			test('Opplysninger med dødsdato', async ({ page }) => {
 				await mockApi(page, EPS_API_URL, EPS_MOCK_FILE)
 				await page.click('[data-testid="EPS-samtykke-button"]')
+				await expect(page.getByTestID('bakgrunn-for-bruk-EPS')).toBeVisible()
+				await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+				await page.click('[data-testid="EPS-hent-opplysninger-button"]')
 
 				await expect(page.getByTestId('EPS-opplysninger')).toBeVisible()
 				await expect(page.getByTestId('EPS-navn')).toBeVisible()
@@ -157,6 +160,9 @@ test.describe('Gjenlevenderett', () => {
 					doedsdato: null,
 				})
 				await page.click('[data-testid="EPS-samtykke-button"]')
+				await expect(page.getByTestID('bakgrunn-for-bruk-EPS')).toBeVisible()
+				await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+				await page.click('[data-testid="EPS-hent-opplysninger-button"]')
 
 				await expect(page.getByTestId('EPS-opplysninger')).toBeVisible()
 				await expect(page.getByTestId('EPS-navn')).toBeVisible()
@@ -169,6 +175,9 @@ test.describe('Gjenlevenderett', () => {
 		test('EPS opplysninger finnes ikke', async ({ page }) => {
 			await mockApi(page, EPS_API_URL, 'no-eps.json')
 			await page.click('[data-testid="EPS-samtykke-button"]')
+			await expect(page.getByTestID('bakgrunn-for-bruk-EPS')).toBeVisible()
+			await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+			await page.click('[data-testid="EPS-hent-opplysninger-button"]')
 
 			await expect(
 				page.getByTestId('EPS-opplysninger-ikke-funnet')
@@ -181,6 +190,9 @@ test.describe('Gjenlevenderett', () => {
 		test('Henting av EPS feiler', async ({ page }) => {
 			await mockApiError(page, EPS_API_URL, 500)
 			await page.click('[data-testid="EPS-samtykke-button"]')
+			await expect(page.getByTestID('bakgrunn-for-bruk-EPS')).toBeVisible()
+			await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+			await page.click('[data-testid="EPS-hent-opplysninger-button"]')
 
 			await expect(page.getByTestId('EPS-opplysninger-feilet')).toBeVisible()
 			await expect(page.getByRole('alert')).toContainText(
