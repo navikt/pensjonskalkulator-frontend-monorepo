@@ -54,7 +54,7 @@ if (!isDevelopment && !process.env.AZURE_OPENID_CONFIG_ISSUER) {
 
 const OBO_AUDIENCE = process.env.ENTRA_ID_OBO_SCOPE as string
 
-const PORT = 8082
+const PORT = 8080
 const PENSJONSKALKULATOR_BACKEND =
 	process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081'
 
