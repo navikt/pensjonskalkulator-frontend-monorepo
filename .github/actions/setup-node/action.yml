@@ -13,15 +13,17 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
-
     - name: Use Node.js v${{ inputs.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         registry-url: 'https://npm.pkg.github.com'
         cache: 'pnpm'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.reader-token }}
 
     - name: Install dependencies
       shell: bash
