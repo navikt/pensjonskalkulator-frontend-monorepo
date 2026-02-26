@@ -43,12 +43,13 @@ export const BeregningForm = () => {
 		control,
 		watch,
 		formState: { errors },
+		handleSubmit: formHandleSubmit,
 	} = form
 
 	const formData = watch()
 
-	const handleSubmit = () => {
-		void submitBeregning()
+	const handleSubmit = (e?: React.BaseSyntheticEvent) => {
+		void formHandleSubmit(() => submitBeregning())(e)
 	}
 
 	const partnerBetegnelse = getPartnerBetegnelse(formData.sivilstand)

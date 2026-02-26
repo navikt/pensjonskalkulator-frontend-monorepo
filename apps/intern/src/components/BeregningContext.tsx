@@ -31,7 +31,7 @@ interface BeregningContextValue {
 	isBeregningLoading: boolean
 	beregningError: Error | null
 	person: Person | undefined
-	submitBeregning: () => Promise<void>
+	submitBeregning: () => void
 	resetForm: () => void
 }
 
@@ -54,15 +54,28 @@ export function BeregningProvider({
 		mode: 'onChange',
 	})
 
+	// Reset dirty state on mount to ensure clean initial state
+	useEffect(() => {
+		form.reset(
+			{
+				...defaultBeregningFormData,
+				...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+			},
+			{ keepValues: true, keepDirty: false }
+		)
+	}, [])
+
 	const [aktivBeregning, setAktivBeregning] = useState<BeregningParams | null>(
 		null
 	)
+	const [hasSubmitted, setHasSubmitted] = useState(false)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
 
-	const { isDirty } = form.formState
+	const { isDirty: formIsDirty } = form.formState
+	const showDirtyWarning = hasSubmitted && formIsDirty
 	const sivilstand = form.watch('sivilstand')
 	const epsHarPensjon = form.watch('epsHarPensjon')
 	const harInntektVedSidenAvUttak = form.watch('harInntektVedSidenAvUttak')
@@ -134,16 +147,19 @@ export function BeregningProvider({
 		}
 	}, [harInntektVedSidenAvGradertUttak])
 
-	const submitBeregning = useCallback(async () => {
-		const isValid = await form.trigger()
-		if (!isValid) return
+	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
 		setAktivBeregning({ ...values })
+		setHasSubmitted(true)
+		// Reset form to make these submitted values the new baseline
+		// This makes formIsDirty = false after successful submission
+		form.reset(values, { keepValues: true })
 	}, [form])
 
 	const resetForm = useCallback(() => {
 		form.reset(defaultBeregningFormData)
 		setAktivBeregning(null)
+		setHasSubmitted(false)
 	}, [form])
 
 	const {
@@ -157,7 +173,7 @@ export function BeregningProvider({
 			value={{
 				form,
 				aktivBeregning,
-				isDirty,
+				isDirty: showDirtyWarning,
 				person,
 				beregning,
 				isBeregningLoading,
