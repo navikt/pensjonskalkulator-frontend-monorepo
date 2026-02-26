@@ -27,7 +27,9 @@ function validateSivilstand(
 	const partnerLabel =
 		formData.sivilstand === 'GIFT'
 			? 'ektefelle'
-			: (formData.sivilstand?.toLowerCase() ?? 'partner')
+			: formData.sivilstand === 'SAMBOER'
+				? 'samboer'
+				: 'partner'
 
 	if (harPartner && formData.epsHarPensjon === null) {
 		errors.epsHarPensjon = `Fyll ut om ${partnerLabel} mottar pensjon, uføretrygd eller AFP.`
