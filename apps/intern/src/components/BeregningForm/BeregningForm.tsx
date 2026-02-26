@@ -55,6 +55,7 @@ export const BeregningForm = () => {
 					size="small"
 					className={styles.selectWrapper}
 					value={formData.sivilstand ?? ''}
+					error={validationErrors.sivilstand}
 					onChange={(e) =>
 						updateFormField(
 							'sivilstand',
@@ -116,13 +117,10 @@ export const BeregningForm = () => {
 					type="text"
 					inputMode="numeric"
 					style={{ width: '184px' }}
-					value={formData.aarligInntektFoerUttakBeloep?.toString() ?? ''}
+					value={formData.aarligInntektFoerUttakBeloep}
 					error={validationErrors.aarligInntektFoerUttakBeloep}
 					onChange={(e) =>
-						updateFormField(
-							'aarligInntektFoerUttakBeloep',
-							e.target.value ? Number(e.target.value) : null
-						)
+						updateFormField('aarligInntektFoerUttakBeloep', e.target.value)
 					}
 				/>
 				<AlderVelger
@@ -143,6 +141,7 @@ export const BeregningForm = () => {
 					size="small"
 					className={styles.selectWrapper}
 					value={formData.uttaksgrad?.toString() ?? ''}
+					error={validationErrors.uttaksgrad}
 					onChange={(e) =>
 						updateFormField(
 							'uttaksgrad',
@@ -170,6 +169,7 @@ export const BeregningForm = () => {
 										? 'ja'
 										: 'nei'
 							}
+							error={validationErrors.harInntektVedSidenAvGradertUttak}
 							onChange={(val: string) =>
 								updateFormField(
 									'harInntektVedSidenAvGradertUttak',
@@ -189,17 +189,14 @@ export const BeregningForm = () => {
 								type="text"
 								inputMode="numeric"
 								style={{ width: '184px' }}
-								value={
-									formData.pensjonsgivendeInntektVedSidenAvGradertUttak?.toString() ??
-									''
-								}
+								value={formData.pensjonsgivendeInntektVedSidenAvGradertUttak}
 								error={
 									validationErrors.pensjonsgivendeInntektVedSidenAvGradertUttak
 								}
 								onChange={(e) =>
 									updateFormField(
 										'pensjonsgivendeInntektVedSidenAvGradertUttak',
-										e.target.value ? Number(e.target.value) : null
+										e.target.value
 									)
 								}
 							/>
@@ -252,14 +249,12 @@ export const BeregningForm = () => {
 							type="text"
 							inputMode="numeric"
 							style={{ width: '184px' }}
-							value={
-								formData.pensjonsgivendeInntektVedSidenAvUttak?.toString() ?? ''
-							}
+							value={formData.pensjonsgivendeInntektVedSidenAvUttak}
 							error={validationErrors.pensjonsgivendeInntektVedSidenAvUttak}
 							onChange={(e) =>
 								updateFormField(
 									'pensjonsgivendeInntektVedSidenAvUttak',
-									e.target.value ? Number(e.target.value) : null
+									e.target.value
 								)
 							}
 						/>

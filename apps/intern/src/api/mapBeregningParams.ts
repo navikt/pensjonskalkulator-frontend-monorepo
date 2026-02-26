@@ -13,7 +13,9 @@ export function mapBeregningParamsToRequest(
 
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
-		? (formData.pensjonsgivendeInntektVedSidenAvUttak ?? undefined)
+		? formData.pensjonsgivendeInntektVedSidenAvUttak
+			? Number(formData.pensjonsgivendeInntektVedSidenAvUttak)
+			: undefined
 		: undefined
 	const inntektSluttAar = harInntektVedSiden
 		? (formData.alderAarInntektSlutter ?? undefined)
@@ -22,8 +24,9 @@ export function mapBeregningParamsToRequest(
 		? (formData.alderMdInntektSlutter ?? undefined)
 		: undefined
 
-	const aarligInntektFoerUttak =
-		formData.aarligInntektFoerUttakBeloep ?? undefined
+	const aarligInntektFoerUttak = formData.aarligInntektFoerUttakBeloep
+		? Number(formData.aarligInntektFoerUttakBeloep)
+		: undefined
 
 	const grad = formData.uttaksgrad ?? 0
 	const erGradert = grad < 100

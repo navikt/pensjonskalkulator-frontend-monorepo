@@ -86,7 +86,7 @@ export function BeregningProvider({
 					next.epsHarInntektOver2G = null
 				}
 				if (next.harInntektVedSidenAvUttak !== true) {
-					next.pensjonsgivendeInntektVedSidenAvUttak = null
+					next.pensjonsgivendeInntektVedSidenAvUttak = ''
 					next.alderAarInntektSlutter = null
 					next.alderMdInntektSlutter = null
 				}
@@ -98,12 +98,12 @@ export function BeregningProvider({
 					next.alderAarHeltUttak = null
 					next.alderMdHeltUttak = null
 					next.harInntektVedSidenAvGradertUttak = null
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
 					next.alderAarInntektGradertSlutter = null
 					next.alderMdInntektGradertSlutter = null
 				}
 				if (next.harInntektVedSidenAvGradertUttak !== true) {
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
+					next.pensjonsgivendeInntektVedSidenAvGradertUttak = ''
 					next.alderAarInntektGradertSlutter = null
 					next.alderMdInntektGradertSlutter = null
 				}
