@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import type {
 	BeregningFormData,
@@ -163,8 +163,10 @@ export function useFormValidation(): UseFormValidationResult {
 		setValidationErrors({})
 	}, [])
 
-	return useMemo(
-		() => ({ validationErrors, validate, clearError, resetValidationErrors }),
-		[validationErrors, validate, clearError, resetValidationErrors]
-	)
+	return {
+		validationErrors,
+		validate,
+		clearError,
+		resetValidationErrors,
+	}
 }

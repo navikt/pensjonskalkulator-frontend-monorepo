@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { memo } from 'react'
 
 import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
 
@@ -101,7 +101,7 @@ interface AlderVelgerProps {
 	mdError?: string
 }
 
-export const AlderVelger = ({
+const AlderVelgerComponent = ({
 	alderAar,
 	alderMd,
 	onAlderAarChange,
@@ -116,13 +116,10 @@ export const AlderVelger = ({
 }: AlderVelgerProps) => {
 	const selectedYear = alderAar ? Number(alderAar) : undefined
 
-	const aarOptions = useMemo(() => {
-		const arr = []
-		for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
-			arr.push(i)
-		}
-		return arr
-	}, [minAlder.aar, maxAlder.aar])
+	const aarOptions = []
+	for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
+		aarOptions.push(i)
+	}
 
 	const uttaksdato =
 		foedselsdato && alderAar !== '' && alderMd !== ''
@@ -199,3 +196,5 @@ export const AlderVelger = ({
 		</div>
 	)
 }
+
+export const AlderVelger = memo(AlderVelgerComponent)

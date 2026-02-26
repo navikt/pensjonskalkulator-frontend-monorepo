@@ -1305,6 +1305,48 @@
 			],
 			"name": "om_pensjonsalder_UT_gradert_enkel",
 			"overskrift": "Om pensjonsalder og uføretrygd"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "8d49d499067d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "d0c09102d91c",
+							"_type": "span",
+							"marks": [],
+							"text": "Hei, "
+						},
+						{
+							"_key": "1b4e1c92028d",
+							"_type": "dynamicValue",
+							"key": "fornavn"
+						},
+						{
+							"_key": "b0985c5e9eda",
+							"_type": "span",
+							"marks": [],
+							"text": " født i "
+						},
+						{
+							"_key": "961b0b32ef45",
+							"_type": "dynamicValue",
+							"key": "foedselsdato"
+						},
+						{
+							"_key": "a6859457f761",
+							"_type": "span",
+							"marks": [],
+							"text": "\n\n"
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "test_dynamiske_verdier",
+			"overskrift": "Test Dynamiske Verdier"
 		}
 	]
 }

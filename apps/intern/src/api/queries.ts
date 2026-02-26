@@ -6,6 +6,12 @@ import type {
 import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
+import {
+	BeregningError,
+	DecryptionError,
+	PersonFetchError,
+	VedtakError,
+} from './errors'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
 
 const API_BASE = '/pensjon/kalkulator/api'
@@ -20,7 +26,7 @@ async function decryptPid(encryptedPid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to decrypt pid: ${response.status}`)
+		throw new DecryptionError(response.status, response.statusText)
 	}
 
 	return response.text()
@@ -30,6 +36,7 @@ export function useDecryptPidQuery(encryptedPid?: string) {
 	return useQuery({
 		queryKey: ['decryptPid', encryptedPid],
 		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
+		retry: false,
 	})
 }
 
@@ -41,7 +48,7 @@ async function fetchPerson(fnr: string): Promise<Person> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch person: ${response.status}`)
+		throw new PersonFetchError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<Person>
@@ -55,7 +62,7 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch loepende vedtak: ${response.status}`)
+		throw new VedtakError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<LoependeVedtak>
@@ -65,6 +72,7 @@ export function usePersonQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['person', fnr],
 		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
+		retry: false,
 	})
 }
 
@@ -72,6 +80,7 @@ export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['loependeVedtak', fnr],
 		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
 	})
 }
 
@@ -115,7 +124,7 @@ async function fetchBeregning(
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch beregning: ${response.status}`)
+		throw new BeregningError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<BeregningResult>
