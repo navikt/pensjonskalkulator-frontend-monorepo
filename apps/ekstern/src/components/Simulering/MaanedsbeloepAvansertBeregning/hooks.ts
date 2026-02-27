@@ -32,6 +32,7 @@ interface PensjonBeregningerProps {
   afpOffentligListe?: AfpPensjonsberegning[]
   pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
   alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
+  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[]
   pensjonsavtaler?: Pensjonsavtale[]
   simulertTjenestepensjon?: SimulertTjenestepensjon
 }
@@ -41,6 +42,7 @@ export const usePensjonBeregninger = ({
   afpPrivatListe,
   afpOffentligListe,
   pre2025OffentligAfp,
+  offentligAfpFraTpOrdning,
   pensjonsavtaler,
   simulertTjenestepensjon,
 }: PensjonBeregningerProps) => {
@@ -61,10 +63,29 @@ export const usePensjonBeregninger = ({
     )
   }
 
+  const foersteUttaksalder = gradertUttaksperiode?.uttaksalder ?? uttaksalder
+
   const afpVedUttak = (
     ordning: 'offentlig' | 'privat',
     alder?: Alder
   ): number | undefined => {
+    // afpPerioder (offentligAfpFraTpOrdning) er kun defined når besteberegnet fra SPK
+    if (
+      ordning === 'offentlig' &&
+      offentligAfpFraTpOrdning?.length &&
+      alder &&
+      foersteUttaksalder &&
+      foersteUttaksalder.aar >= 65
+    ) {
+      const matchingPeriode = offentligAfpFraTpOrdning.find(
+        (p) =>
+          alder.aar >= p.startAlder.aar && alder.aar < (p.sluttAlder?.aar ?? 67)
+      )
+      if (matchingPeriode) {
+        return Math.round(matchingPeriode.aarligUtbetaling / 12)
+      }
+    }
+
     const liste = ordning === 'offentlig' ? afpOffentligListe : afpPrivatListe
     if (!liste?.length || !alder) return undefined
 
@@ -73,11 +94,16 @@ export const usePensjonBeregninger = ({
   }
 
   const summerYtelser = (data: Pensjonsdata): number => {
+    const afpBeloep = data.afp || 0
+    const pre2025Afp =
+      data.uttaksgrad === 'gradert' && !data.afp
+        ? data.pre2025OffentligAfp || 0
+        : 0
     return (
       (data.pensjonsavtale || 0) +
-      (data.afp || 0) +
+      afpBeloep +
       (data.alderspensjon || 0) +
-      (data.uttaksgrad === 'gradert' ? data.pre2025OffentligAfp || 0 : 0)
+      pre2025Afp
     )
   }
 
@@ -126,8 +152,8 @@ export const usePensjonBeregninger = ({
       alder: pensjonsDataAlder,
       grad: 100,
       afp:
-        afpVedUttak('offentlig', uttaksalder) ||
-        afpVedUttak('privat', uttaksalder),
+        afpVedUttak('offentlig', pensjonsDataAlder) ||
+        afpVedUttak('privat', pensjonsDataAlder),
       pensjonsavtale:
         sumPensjonsavtaler(
           pre2025OffentligAfp
