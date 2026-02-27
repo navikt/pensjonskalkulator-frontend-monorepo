@@ -6,12 +6,6 @@ import type {
 import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
-import {
-	BeregningError,
-	DecryptionError,
-	PersonFetchError,
-	VedtakError,
-} from './errors'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
 
 const API_BASE = '/pensjon/kalkulator/api'
@@ -26,7 +20,9 @@ async function decryptPid(encryptedPid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw DecryptionError(response.status, response.statusText)
+		throw new Error(
+			`Failed to decrypt pid: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.text()
@@ -48,7 +44,9 @@ async function fetchPerson(fnr: string): Promise<Person> {
 	})
 
 	if (!response.ok) {
-		throw PersonFetchError(response.status, response.statusText)
+		throw new Error(
+			`Failed to fetch person data: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<Person>
@@ -62,7 +60,9 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	})
 
 	if (!response.ok) {
-		throw VedtakError(response.status, response.statusText)
+		throw new Error(
+			`Failed to fetch ongoing decisions: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<LoependeVedtak>
@@ -124,7 +124,9 @@ async function fetchBeregning(
 	})
 
 	if (!response.ok) {
-		throw BeregningError(response.status, response.statusText)
+		throw new Error(
+			`Failed to calculate pension: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<BeregningResult>
