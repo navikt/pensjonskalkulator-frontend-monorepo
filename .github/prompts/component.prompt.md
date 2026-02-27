@@ -3,7 +3,7 @@ name: component
 description: Scaffold a new React component following pensjonskalkulator conventions
 ---
 
-You are scaffolding a new React component for the pensjonskalkulator frontend (`apps/ekstern/`).
+You are scaffolding a new React component for the pensjonskalkulator frontend.
 
 ## Ask the User
 

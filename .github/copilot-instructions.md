@@ -28,6 +28,8 @@ pnpm lint:fix             # ESLint with auto-fix
 pnpm typecheck            # TypeScript check all packages
 pnpm format               # Prettier format all files
 pnpm format:check         # Prettier check (no write)
+pnpm --filter @pensjonskalkulaotor-frontend-monorepo/sanity sanity build/start  # Build / start Sanity Studio
+pnpm --filter @pensjonskalkulaotor-frontend-monorepo/<package> <command>  # Run command in specific package
 ```
 
 ### Ekstern app (`apps/ekstern`)

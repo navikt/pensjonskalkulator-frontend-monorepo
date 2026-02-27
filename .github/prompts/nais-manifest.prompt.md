@@ -17,7 +17,6 @@ You are creating a Nais application manifest for deploying to Nav's Kubernetes p
 | `deploy-prod.yml`                   | Production deployment        |
 | `deploy-staging.yml`                | Staging deployment (dev-gcp) |
 | `deploy-dev-branch.yaml`            | Feature branch deployment    |
-| `deploy-sanity-staging.yml`         | Sanity CMS staging           |
 | `deploy-veiledning-prod.yml`        | Veiledning production        |
 | `deploy-veiledning-staging.yml`     | Veiledning staging           |
 | `deploy-veiledning-dev-branch.yaml` | Veiledning feature branch    |
@@ -33,6 +32,10 @@ You are creating a Nais application manifest for deploying to Nav's Kubernetes p
 | `deploy-dev.yml`              | Development deployment       |
 | `unleash-api-token-dev.yaml`  | Unleash token (dev)          |
 | `unleash-api-token-prod.yaml` | Unleash token (prod)         |
+
+### Shared Packages
+
+| `deploy-sanity-prod.yml` | Sanity CMS production |
 
 ## Common Configuration (both apps share)
 
