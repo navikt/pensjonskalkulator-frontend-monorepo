@@ -68,7 +68,7 @@ export const PensjonDataVisning: React.FC<Props> = ({
             <td data-testid="maanedsbeloep-avansert-afp">
               {skalViseNullOffentligTjenestepensjon
                 ? formatInntektMedKr(pre2025OffentligAfp)
-                : formatInntektMedKr(afp ?? pre2025OffentligAfp)}
+                : formatInntektMedKr(afp || pre2025OffentligAfp)}
             </td>
           </tr>
         )}
