@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
 	BodyLong,
 	Box,
@@ -62,13 +64,20 @@ const BeregningLayout = () => {
 }
 
 const AppContent = () => {
-	const pid = getPidFromUrl()
+	const [pid, setPid] = useState(getPidFromUrl)
 	const { data: fnr, isLoading: isDecrypting } = useDecryptPidQuery(pid)
 	const { data: person, isLoading: isLoadingPerson } = usePersonQuery(fnr)
 	const { isLoading: isLoadingVedtak } = useLoependeVedtakQuery(fnr)
 
+	const handlePidChange = (encryptedPid: string) => {
+		const url = new URL(window.location.href)
+		url.searchParams.set('pid', encryptedPid)
+		window.history.pushState({}, '', url.toString())
+		setPid(encryptedPid)
+	}
+
 	if (!pid) {
-		return <PersonInfo />
+		return <PersonInfo onPidChange={handlePidChange} />
 	}
 
 	if (isDecrypting || isLoadingPerson || isLoadingVedtak) {
@@ -77,7 +86,7 @@ const AppContent = () => {
 
 	return (
 		<>
-			<PersonInfo />
+			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
 				initialSivilstand={
 					person ? mapPersonSivilstand(person.sivilstand) : undefined

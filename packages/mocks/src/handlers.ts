@@ -13,6 +13,7 @@ import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-o
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
+import hentPersonInternToggleResponse from './data/unleash-hent-person-intern.json' with { type: 'json' }
 import showDownloadPdfToggleResponse from './data/unleash-show-download-pdf.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
@@ -335,6 +336,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			async () => {
 				await delay(delayMs)
 				return HttpResponse.json(enableVedlikeholdsmodusToggleResponse)
+			}
+		),
+
+		http.get(
+			`${baseUrl}/feature/pensjonskalkulator-intern.hent-person`,
+			async () => {
+				await delay(delayMs)
+				return HttpResponse.json(hentPersonInternToggleResponse)
 			}
 		),
 

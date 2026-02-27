@@ -3,7 +3,12 @@ import type {
 	LoependeVedtak,
 	Person,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
+import {
+	keepPreviousData,
+	skipToken,
+	useMutation,
+	useQuery,
+} from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
@@ -30,6 +35,49 @@ export function useDecryptPidQuery(encryptedPid?: string) {
 	return useQuery({
 		queryKey: ['decryptPid', encryptedPid],
 		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
+	})
+}
+
+async function encryptPid(pid: string): Promise<string> {
+	const response = await fetch(`${API_BASE}/v1/encrypt`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'text/plain',
+		},
+		body: pid,
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to encrypt pid: ${response.status}`)
+	}
+
+	return response.text()
+}
+
+export function useEncryptPidMutation() {
+	return useMutation({
+		mutationFn: encryptPid,
+	})
+}
+
+interface FeatureToggle {
+	enabled: boolean
+}
+
+async function fetchFeatureToggle(feature: string): Promise<FeatureToggle> {
+	const response = await fetch(`${API_BASE}/feature/${feature}`)
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch feature toggle: ${response.status}`)
+	}
+
+	return response.json() as Promise<FeatureToggle>
+}
+
+export function useFeatureToggleQuery(feature: string) {
+	return useQuery({
+		queryKey: ['featureToggle', feature],
+		queryFn: () => fetchFeatureToggle(feature),
 	})
 }
 
