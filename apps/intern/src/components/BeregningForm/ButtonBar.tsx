@@ -11,12 +11,7 @@ interface ButtonBarProps {
 	harAktivBeregning: boolean
 }
 
-export const ButtonBar = ({
-	onSubmit,
-	onReset,
-	isDirty,
-	harAktivBeregning,
-}: ButtonBarProps) => {
+export const ButtonBar = ({ onSubmit, onReset, isDirty }: ButtonBarProps) => {
 	const sentinelRef = useRef<HTMLDivElement>(null)
 	const [isStuck, setIsStuck] = useState(false)
 
@@ -46,11 +41,7 @@ export const ButtonBar = ({
 					Nullstill
 				</Button>
 				<Button size="small" variant="primary" onClick={onSubmit}>
-					{harAktivBeregning && !isDirty
-						? 'Beregn pensjon'
-						: isDirty
-							? 'Oppdater pensjon'
-							: 'Beregn pensjon'}
+					{isDirty ? 'Oppdater pensjon' : 'Beregn pensjon'}
 				</Button>
 			</div>
 			<div ref={sentinelRef} />

@@ -7,7 +7,12 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { type UseFormReturn, useForm } from 'react-hook-form'
+import {
+	FormProvider,
+	type UseFormReturn,
+	useForm,
+	useWatch,
+} from 'react-hook-form'
 
 import {
 	type BeregningFormData,
@@ -16,6 +21,7 @@ import {
 	type Sivilstand,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
+import { isHarPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
@@ -76,30 +82,36 @@ export function BeregningProvider({
 
 	const { isDirty: formIsDirty } = form.formState
 	const showDirtyWarning = hasSubmitted && formIsDirty
-	const sivilstand = form.watch('sivilstand')
-	const epsHarPensjon = form.watch('epsHarPensjon')
-	const harInntektVedSidenAvUttak = form.watch('harInntektVedSidenAvUttak')
-	const uttaksgrad = form.watch('uttaksgrad')
-	const harInntektVedSidenAvGradertUttak = form.watch(
-		'harInntektVedSidenAvGradertUttak'
-	)
+
+	const [
+		sivilstand,
+		epsHarPensjon,
+		harInntektVedSidenAvUttak,
+		uttaksgrad,
+		harInntektVedSidenAvGradertUttak,
+	] = useWatch({
+		control: form.control,
+		name: [
+			'sivilstand',
+			'epsHarPensjon',
+			'harInntektVedSidenAvUttak',
+			'uttaksgrad',
+			'harInntektVedSidenAvGradertUttak',
+		] as const,
+	})
 
 	useEffect(() => {
-		const harPartner =
-			sivilstand !== null &&
-			['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
-
-		if (!harPartner) {
+		if (!isHarPartner(sivilstand)) {
 			form.setValue('epsHarPensjon', null, { shouldDirty: false })
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
-	}, [sivilstand])
+	}, [sivilstand, form])
 
 	useEffect(() => {
 		if (epsHarPensjon !== false) {
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
-	}, [epsHarPensjon])
+	}, [epsHarPensjon, form])
 
 	useEffect(() => {
 		if (harInntektVedSidenAvUttak !== true) {
@@ -109,7 +121,7 @@ export function BeregningProvider({
 			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
 			form.setValue('alderMdInntektSlutter', null, { shouldDirty: false })
 		}
-	}, [harInntektVedSidenAvUttak])
+	}, [harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
@@ -131,7 +143,7 @@ export function BeregningProvider({
 				shouldDirty: false,
 			})
 		}
-	}, [uttaksgrad])
+	}, [uttaksgrad, form])
 
 	useEffect(() => {
 		if (harInntektVedSidenAvGradertUttak !== true) {
@@ -145,7 +157,7 @@ export function BeregningProvider({
 				shouldDirty: false,
 			})
 		}
-	}, [harInntektVedSidenAvGradertUttak])
+	}, [harInntektVedSidenAvGradertUttak, form])
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
@@ -169,21 +181,23 @@ export function BeregningProvider({
 	} = useBeregningQuery(fnr, person?.foedselsdato, aktivBeregning)
 
 	return (
-		<BeregningContext.Provider
-			value={{
-				form,
-				aktivBeregning,
-				isDirty: showDirtyWarning,
-				person,
-				beregning,
-				isBeregningLoading,
-				beregningError,
-				submitBeregning,
-				resetForm,
-			}}
-		>
-			{children}
-		</BeregningContext.Provider>
+		<FormProvider {...form}>
+			<BeregningContext.Provider
+				value={{
+					form,
+					aktivBeregning,
+					isDirty: showDirtyWarning,
+					person,
+					beregning,
+					isBeregningLoading,
+					beregningError,
+					submitBeregning,
+					resetForm,
+				}}
+			>
+				{children}
+			</BeregningContext.Provider>
+		</FormProvider>
 	)
 }
 
