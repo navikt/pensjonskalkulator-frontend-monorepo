@@ -4,39 +4,39 @@ import {
 	createContext,
 	useCallback,
 	useContext,
-	useMemo,
+	useEffect,
 	useState,
 } from 'react'
+import {
+	FormProvider,
+	type UseFormReturn,
+	useForm,
+	useWatch,
+} from 'react-hook-form'
 
 import {
 	type BeregningFormData,
 	type BeregningParams,
 	type BeregningResult,
 	type Sivilstand,
-	type ValidationErrors,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
+import { isHarPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
 	usePersonQuery,
 } from '../api/queries'
 import { getPidFromUrl } from '../utils'
-import { useFormValidation } from './BeregningForm/useFormValidation'
 
 interface BeregningContextValue {
-	formData: BeregningFormData
+	form: UseFormReturn<BeregningFormData>
 	aktivBeregning: BeregningParams | null
 	isDirty: boolean
-	validationErrors: ValidationErrors
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
 	person: Person | undefined
-	updateFormField: <K extends keyof BeregningFormData>(
-		field: K,
-		value: BeregningFormData[K]
-	) => void
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -52,79 +52,127 @@ export function BeregningProvider({
 	children,
 	initialSivilstand,
 }: BeregningProviderProps) {
-	const [formData, setFormData] = useState<BeregningFormData>(() => ({
-		...defaultBeregningFormData,
-		...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
-	}))
+	const form = useForm<BeregningFormData>({
+		defaultValues: {
+			...defaultBeregningFormData,
+			...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+		},
+		mode: 'onChange',
+	})
+
+	// Reset dirty state on mount to ensure clean initial state
+	useEffect(() => {
+		form.reset(
+			{
+				...defaultBeregningFormData,
+				...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+			},
+			{ keepValues: true, keepDirty: false }
+		)
+	}, [])
+
 	const [aktivBeregning, setAktivBeregning] = useState<BeregningParams | null>(
 		null
 	)
+	const [hasSubmitted, setHasSubmitted] = useState(false)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
 
-	const { validationErrors, validate, clearError, resetValidationErrors } =
-		useFormValidation()
+	const { isDirty: formIsDirty } = form.formState
+	const showDirtyWarning = hasSubmitted && formIsDirty
 
-	const updateFormField = useCallback(
-		<K extends keyof BeregningFormData>(
-			field: K,
-			value: BeregningFormData[K]
-		) => {
-			setFormData((prev) => {
-				const next = { ...prev, [field]: value }
+	const [
+		sivilstand,
+		epsHarPensjon,
+		harInntektVedSidenAvUttak,
+		uttaksgrad,
+		harInntektVedSidenAvGradertUttak,
+	] = useWatch({
+		control: form.control,
+		name: [
+			'sivilstand',
+			'epsHarPensjon',
+			'harInntektVedSidenAvUttak',
+			'uttaksgrad',
+			'harInntektVedSidenAvGradertUttak',
+		] as const,
+	})
 
-				const harPartner =
-					next.sivilstand !== null &&
-					['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(next.sivilstand)
-				if (!harPartner) {
-					next.epsHarPensjon = null
-					next.epsHarInntektOver2G = null
-				}
-				if (next.epsHarPensjon !== false) {
-					next.epsHarInntektOver2G = null
-				}
-				if (next.harInntektVedSidenAvUttak !== true) {
-					next.pensjonsgivendeInntektVedSidenAvUttak = null
-					next.alderAarInntektSlutter = null
-					next.alderMdInntektSlutter = null
-				}
-				if (
-					field === 'uttaksgrad' &&
-					(next.uttaksgrad === null || next.uttaksgrad === 100)
-				) {
-					next.aarligInntektVsaPensjonGradertUttak = null
-					next.alderAarHeltUttak = null
-					next.alderMdHeltUttak = null
-					next.harInntektVedSidenAvGradertUttak = null
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
-					next.alderAarInntektGradertSlutter = null
-					next.alderMdInntektGradertSlutter = null
-				}
-				if (next.harInntektVedSidenAvGradertUttak !== true) {
-					next.pensjonsgivendeInntektVedSidenAvGradertUttak = null
-					next.alderAarInntektGradertSlutter = null
-					next.alderMdInntektGradertSlutter = null
-				}
+	useEffect(() => {
+		if (!isHarPartner(sivilstand)) {
+			form.setValue('epsHarPensjon', null, { shouldDirty: false })
+			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
+		}
+	}, [sivilstand, form])
 
-				return next
+	useEffect(() => {
+		if (epsHarPensjon !== false) {
+			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
+		}
+	}, [epsHarPensjon, form])
+
+	useEffect(() => {
+		if (harInntektVedSidenAvUttak !== true) {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+				shouldDirty: false,
 			})
-			clearError(field)
-		},
-		[clearError]
-	)
+			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
+			form.setValue('alderMdInntektSlutter', null, { shouldDirty: false })
+		}
+	}, [harInntektVedSidenAvUttak, form])
+
+	useEffect(() => {
+		if (uttaksgrad === null || uttaksgrad === 100) {
+			form.setValue('aarligInntektVsaPensjonGradertUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
+			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
+			form.setValue('harInntektVedSidenAvGradertUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderAarInntektGradertSlutter', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderMdInntektGradertSlutter', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [uttaksgrad, form])
+
+	useEffect(() => {
+		if (harInntektVedSidenAvGradertUttak !== true) {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderAarInntektGradertSlutter', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderMdInntektGradertSlutter', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [harInntektVedSidenAvGradertUttak, form])
 
 	const submitBeregning = useCallback(() => {
-		if (!validate(formData)) return
-		setAktivBeregning({ ...formData })
-	}, [formData, validate])
+		const values = form.getValues()
+		setAktivBeregning({ ...values })
+		setHasSubmitted(true)
+		// Reset form to make these submitted values the new baseline
+		// This makes formIsDirty = false after successful submission
+		form.reset(values, { keepValues: true })
+	}, [form])
 
 	const resetForm = useCallback(() => {
-		setFormData(defaultBeregningFormData)
+		form.reset(defaultBeregningFormData)
 		setAktivBeregning(null)
-		resetValidationErrors()
-	}, [resetValidationErrors])
+		setHasSubmitted(false)
+	}, [form])
 
 	const {
 		data: beregning,
@@ -132,29 +180,24 @@ export function BeregningProvider({
 		error: beregningError,
 	} = useBeregningQuery(fnr, person?.foedselsdato, aktivBeregning)
 
-	const isDirty = useMemo(() => {
-		if (!aktivBeregning) return false
-		return JSON.stringify(formData) !== JSON.stringify(aktivBeregning)
-	}, [formData, aktivBeregning])
-
 	return (
-		<BeregningContext.Provider
-			value={{
-				formData,
-				aktivBeregning,
-				isDirty,
-				person,
-				validationErrors,
-				beregning,
-				isBeregningLoading,
-				beregningError,
-				updateFormField,
-				submitBeregning,
-				resetForm,
-			}}
-		>
-			{children}
-		</BeregningContext.Provider>
+		<FormProvider {...form}>
+			<BeregningContext.Provider
+				value={{
+					form,
+					aktivBeregning,
+					isDirty: showDirtyWarning,
+					person,
+					beregning,
+					isBeregningLoading,
+					beregningError,
+					submitBeregning,
+					resetForm,
+				}}
+			>
+				{children}
+			</BeregningContext.Provider>
+		</FormProvider>
 	)
 }
 
