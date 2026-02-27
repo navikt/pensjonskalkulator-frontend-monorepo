@@ -1,67 +1,32 @@
-export class ApiError extends Error {
-	status: number
+function apiError(
+	name: string,
+	message: string,
+	status: number,
 	statusText: string
-
-	constructor(message: string, status: number, statusText: string) {
-		super(message)
-		this.name = 'ApiError'
-		this.status = status
-		this.statusText = statusText
-		Object.setPrototypeOf(this, ApiError.prototype)
-	}
-
-	isUnauthorized(): boolean {
-		return this.status === 401 || this.status === 403
-	}
-
-	isServerError(): boolean {
-		return this.status >= 500
-	}
-
-	isClientError(): boolean {
-		return this.status >= 400 && this.status < 500
-	}
+): Error {
+	const error = new Error(`${message}: ${status} ${statusText}`)
+	error.name = name
+	return error
 }
 
-export class ValidationError extends Error {
-	field?: string
+export const DecryptionError = (status: number, statusText: string) =>
+	apiError('DecryptionError', 'Failed to decrypt pid', status, statusText)
 
-	constructor(message: string, field?: string) {
-		super(message)
-		this.name = 'ValidationError'
-		this.field = field
-		Object.setPrototypeOf(this, ValidationError.prototype)
-	}
-}
+export const PersonFetchError = (status: number, statusText: string) =>
+	apiError(
+		'PersonFetchError',
+		'Failed to fetch person data',
+		status,
+		statusText
+	)
 
-export class DecryptionError extends ApiError {
-	constructor(status: number, statusText: string) {
-		super('Failed to decrypt pid', status, statusText)
-		this.name = 'DecryptionError'
-		Object.setPrototypeOf(this, DecryptionError.prototype)
-	}
-}
+export const BeregningError = (status: number, statusText: string) =>
+	apiError('BeregningError', 'Failed to calculate pension', status, statusText)
 
-export class PersonFetchError extends ApiError {
-	constructor(status: number, statusText: string) {
-		super('Failed to fetch person data', status, statusText)
-		this.name = 'PersonFetchError'
-		Object.setPrototypeOf(this, PersonFetchError.prototype)
-	}
-}
-
-export class BeregningError extends ApiError {
-	constructor(status: number, statusText: string) {
-		super('Failed to calculate pension', status, statusText)
-		this.name = 'BeregningError'
-		Object.setPrototypeOf(this, BeregningError.prototype)
-	}
-}
-
-export class VedtakError extends ApiError {
-	constructor(status: number, statusText: string) {
-		super('Failed to fetch ongoing decisions', status, statusText)
-		this.name = 'VedtakError'
-		Object.setPrototypeOf(this, VedtakError.prototype)
-	}
-}
+export const VedtakError = (status: number, statusText: string) =>
+	apiError(
+		'VedtakError',
+		'Failed to fetch ongoing decisions',
+		status,
+		statusText
+	)

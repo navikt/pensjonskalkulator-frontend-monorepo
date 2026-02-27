@@ -26,7 +26,7 @@ async function decryptPid(encryptedPid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw new DecryptionError(response.status, response.statusText)
+		throw DecryptionError(response.status, response.statusText)
 	}
 
 	return response.text()
@@ -48,7 +48,7 @@ async function fetchPerson(fnr: string): Promise<Person> {
 	})
 
 	if (!response.ok) {
-		throw new PersonFetchError(response.status, response.statusText)
+		throw PersonFetchError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<Person>
@@ -62,7 +62,7 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	})
 
 	if (!response.ok) {
-		throw new VedtakError(response.status, response.statusText)
+		throw VedtakError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<LoependeVedtak>
@@ -124,7 +124,7 @@ async function fetchBeregning(
 	})
 
 	if (!response.ok) {
-		throw new BeregningError(response.status, response.statusText)
+		throw BeregningError(response.status, response.statusText)
 	}
 
 	return response.json() as Promise<BeregningResult>
