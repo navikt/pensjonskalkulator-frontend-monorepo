@@ -55,7 +55,7 @@ function validateInntektFoerUttak(
 		errors.aarligInntektFoerUttakBeloep = 'Skriv hele tall for å oppgi inntekt.'
 	} else if (Number(inntektFoerUttak) > 100_000_000) {
 		errors.aarligInntektFoerUttakBeloep =
-			'Inntekten kan ikke overstige 100 000 000 kr.'
+			'Inntekten kan ikke overskride 100 000 000 kr.'
 	}
 }
 
@@ -104,7 +104,7 @@ function validateInntektVsaHeltUttak(
 				'Skriv hele tall for å oppgi inntekt.'
 		} else if (Number(pensjonsgivendeInntekt) > 100_000_000) {
 			errors.pensjonsgivendeInntektVedSidenAvUttak =
-				'Inntekten kan ikke overstige 100 000 000 kr.'
+				'Inntekten kan ikke overskride 100 000 000 kr.'
 		}
 
 		if (
@@ -143,7 +143,7 @@ function validateInntektVsaGradertUttak(
 				'Skriv hele tall for å oppgi inntekt.'
 		} else if (Number(pensjonsgivendeInntekt) > 100_000_000) {
 			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
-				'Inntekten kan ikke overstige 100 000 000 kr.'
+				'Inntekten kan ikke overskride 100 000 000 kr.'
 		}
 
 		if (
