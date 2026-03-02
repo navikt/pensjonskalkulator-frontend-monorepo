@@ -1,0 +1,207 @@
+import {
+	calculateFoedselsdato,
+	isAlderOver67,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { expect, test } from '@playwright/test'
+import { mockApi, mockApiError } from 'utils/mock'
+
+const PERSON_API_URL = '**/api/v6/person'
+const EPS_API_URL = '**/api/intern/v1/eps'
+const PERSON_MOCK_FILE = 'person.json'
+const EPS_MOCK_FILE = 'eps.json'
+
+const sivilstandMedGjenlevenderett = [
+	'SAMBOER',
+	'GIFT',
+	'ENKE_ELLER_ENKEMANN',
+	'REGISTRERT_PARTNER',
+	'SKILT',
+]
+
+const sivilstandUtenGjenlevenderett = [
+	'UNKNOWN',
+	'UOPPGITT',
+	'UGIFT',
+	'SEPARERT',
+	'SEPARERT_PARTNER',
+	'SKILT_PARTNER',
+	'GJENLEVENDE_PARTNER',
+]
+
+test.describe('Gjenlevenderett', () => {
+	test.describe('Visning av checkbox', () => {
+		for (const sivilstand of sivilstandUtenGjenlevenderett) {
+			test.skip(`Viser ikke checkbox for sivilstand: ${sivilstand}`, async ({
+				page,
+			}) => {
+				await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, {
+					sivilstand,
+				})
+				await page.goto('/?fnr=12345678901')
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).not.toBeVisible()
+			})
+		}
+
+		for (const sivilstand of sivilstandMedGjenlevenderett) {
+			test.skip(`Viser checkbox for sivilstand: ${sivilstand}`, async ({
+				page,
+			}) => {
+				await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, {
+					sivilstand,
+				})
+				await page.goto('/?fnr=12345678901')
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeVisible()
+			})
+		}
+	})
+
+	// TODO: Vurder om vi skal ha for loop eller holder det med en sivilstand
+	test.describe('Gjenlevenderett valgt', () => {
+		test.beforeEach(async ({ page }) => {
+			await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, {
+				sivilstand: 'GIFT',
+			})
+			await page.goto('/?fnr=12345678901')
+		})
+
+		test.skip('Viser samtykke tekst og knapp for å hente EPS opplysninger', async ({
+			page,
+		}) => {
+			const checkbox = page.getByTestId('beregn-med-gjenlevenderett')
+			await expect(checkbox).toBeVisible()
+			await checkbox.check()
+			await expect(page.getByTestId('EPS-samtykke-tekst')).toBeVisible()
+			await expect(page.getByTestId('EPS-samtykke-button')).toBeVisible()
+		})
+	})
+
+	test.describe('Hvis dødsfall skjer etter 67 år ELLER EPS er over 67 år', () => {
+		test.skip('Hvis dødsfall skjer etter 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1958-01-01',
+				doedsdato: '2026-01-01',
+			})
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).not.toBeVisible()
+			await expect(
+				page.getByTestId('Minst-1G-PGI-ved-dødsdato')
+			).not.toBeVisible()
+		})
+
+		test.skip('EPS er over 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1958-01-01',
+				doedsdato: null,
+			})
+
+			expect(isAlderOver67('1958-01-01')).toBe(true)
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).not.toBeVisible()
+			await expect(
+				page.getByTestId('Minst-1G-PGI-ved-dødsdato')
+			).not.toBeVisible()
+		})
+	})
+
+	test.describe('Hvis dødsfall skjer før 67 år ELLER dødsdato ikke finnes OG EPS er under 67 år', () => {
+		test.skip('Hvis dødsfall skjer før 67 år', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: '1964-01-01',
+				doedsdato: '2026-01-01',
+			})
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).toBeVisible()
+			await expect(page.getByTestId('Minst-1G-PGI-ved-dødsdato')).toBeVisible()
+		})
+
+		test.skip('Dødsdato ikke finnes OG EPS er under 67 år', async ({
+			page,
+		}) => {
+			const dynamiskFoedselsdato = calculateFoedselsdato(65)
+			await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+				foedselsdato: dynamiskFoedselsdato,
+				doedsdato: null,
+			})
+
+			expect(isAlderOver67(dynamiskFoedselsdato)).toBe(false)
+
+			await expect(page.getByTestId('PGI-før-dødsdato')).toBeVisible()
+			await expect(page.getByTestId('Minst-1G-PGI-ved-dødsdato')).toBeVisible()
+		})
+	})
+
+	test.describe('Henting av EPS opplysninger', () => {
+		test.beforeEach(async ({ page }) => {
+			await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, {
+				sivilstand: 'GIFT',
+			})
+			await page.goto('/?fnr=12345678901')
+			const checkbox = page.getByTestId('beregn-med-gjenlevenderett')
+			await checkbox.check()
+		})
+
+		test.describe('Opplysninger om EPS er hentet', () => {
+			test.skip('Opplysninger med dødsdato', async ({ page }) => {
+				await mockApi(page, EPS_API_URL, EPS_MOCK_FILE)
+				await page.click('[data-testid="EPS-samtykke-button"]')
+				await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).toBeVisible()
+				await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+				await page.click('[data-testid="EPS-hent-opplysninger-button"]')
+
+				await expect(page.getByTestId('EPS-opplysninger')).toBeVisible()
+				await expect(page.getByTestId('EPS-navn')).toBeVisible()
+				await expect(page.getByTestId('EPS-dodsfall')).toBeVisible()
+			})
+
+			test.skip('Opplysninger uten dødsdato', async ({ page }) => {
+				await mockApi(page, EPS_API_URL, EPS_MOCK_FILE, {
+					doedsdato: null,
+				})
+				await page.click('[data-testid="EPS-samtykke-button"]')
+				await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).toBeVisible()
+				await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+				await page.click('[data-testid="EPS-hent-opplysninger-button"]')
+
+				await expect(page.getByTestId('EPS-opplysninger')).toBeVisible()
+				await expect(page.getByTestId('EPS-navn')).toBeVisible()
+				await expect(
+					page.getByTestId('EPS-dodsfall-ikke-registrert')
+				).toBeVisible()
+			})
+		})
+
+		test.skip('EPS opplysninger finnes ikke', async ({ page }) => {
+			await mockApi(page, EPS_API_URL, 'no-eps.json')
+			await page.click('[data-testid="EPS-samtykke-button"]')
+			await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).toBeVisible()
+			await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+			await page.click('[data-testid="EPS-hent-opplysninger-button"]')
+
+			await expect(
+				page.getByTestId('EPS-opplysninger-ikke-funnet')
+			).toBeVisible()
+			await expect(page.getByRole('alert')).toContainText(
+				'Fant ikke opplysninger'
+			)
+		})
+
+		test.skip('Henting av EPS feiler', async ({ page }) => {
+			await mockApiError(page, EPS_API_URL, 500)
+			await page.click('[data-testid="EPS-samtykke-button"]')
+			await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).toBeVisible()
+			await page.click('[data-testid="EPS-samtykke-begge-parter-radio"]')
+			await page.click('[data-testid="EPS-hent-opplysninger-button"]')
+
+			await expect(page.getByTestId('EPS-opplysninger-feilet')).toBeVisible()
+			await expect(page.getByRole('alert')).toContainText(
+				'Kunne ikke hente EPS opplysninger'
+			)
+		})
+	})
+})
