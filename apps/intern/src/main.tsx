@@ -10,7 +10,15 @@ import { enableMocking } from './mocks/enableMocking.ts'
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			retry: 1,
+			retry: (failureCount, error) => {
+				if (error instanceof Error && error.message.includes('401')) {
+					return false
+				}
+				if (error instanceof Error && error.message.includes('403')) {
+					return false
+				}
+				return failureCount < 1
+			},
 		},
 	},
 })

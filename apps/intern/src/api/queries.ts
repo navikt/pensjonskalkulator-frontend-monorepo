@@ -20,7 +20,9 @@ async function decryptPid(encryptedPid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to decrypt pid: ${response.status}`)
+		throw new Error(
+			`Failed to decrypt pid: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.text()
@@ -30,18 +32,21 @@ export function useDecryptPidQuery(encryptedPid?: string) {
 	return useQuery({
 		queryKey: ['decryptPid', encryptedPid],
 		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
+		retry: false,
 	})
 }
 
 async function fetchPerson(fnr: string): Promise<Person> {
-	const response = await fetch(`${API_BASE}/v6/person`, {
+	const response = await fetch(`${API_BASE}/intern/v1/person`, {
 		headers: {
 			fnr,
 		},
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch person: ${response.status}`)
+		throw new Error(
+			`Failed to fetch person data: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<Person>
@@ -55,7 +60,9 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch loepende vedtak: ${response.status}`)
+		throw new Error(
+			`Failed to fetch ongoing decisions: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<LoependeVedtak>
@@ -65,6 +72,7 @@ export function usePersonQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['person', fnr],
 		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
+		retry: false,
 	})
 }
 
@@ -72,6 +80,7 @@ export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['loependeVedtak', fnr],
 		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
 	})
 }
 
@@ -115,7 +124,9 @@ async function fetchBeregning(
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch beregning: ${response.status}`)
+		throw new Error(
+			`Failed to calculate pension: ${response.status} ${response.statusText}`
+		)
 	}
 
 	return response.json() as Promise<BeregningResult>

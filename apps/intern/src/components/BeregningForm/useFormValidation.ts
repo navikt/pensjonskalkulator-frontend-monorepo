@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import type {
 	BeregningFormData,
 	ValidationErrors,
 } from '../../api/beregningTypes'
-
-interface UseFormValidationResult {
-	validationErrors: ValidationErrors
-	validate: (formData: BeregningFormData) => boolean
-	clearError: (field: keyof BeregningFormData) => void
-	resetValidationErrors: () => void
-}
+import {
+	isHarPartner,
+	shouldShowEpsHarInntektOver2G,
+	shouldShowGradertUttakFields,
+	shouldShowInntektGradertFields,
+	shouldShowInntektHeltFields,
+} from '../../api/formConditions'
 
 function validateSivilstand(
 	formData: BeregningFormData,
@@ -20,9 +20,7 @@ function validateSivilstand(
 		errors.sivilstand = 'Velg sivilstand.'
 	}
 
-	const harPartner =
-		formData.sivilstand !== null &&
-		['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(formData.sivilstand)
+	const harPartner = isHarPartner(formData.sivilstand)
 
 	const partnerLabel =
 		formData.sivilstand === 'GIFT'
@@ -36,8 +34,10 @@ function validateSivilstand(
 	}
 
 	if (
-		harPartner &&
-		formData.epsHarPensjon === false &&
+		shouldShowEpsHarInntektOver2G(
+			formData.sivilstand,
+			formData.epsHarPensjon
+		) &&
 		formData.epsHarInntektOver2G === null
 	) {
 		errors.epsHarInntektOver2G = `Fyll ut om ${partnerLabel} har inntekt over 2G.`
@@ -77,7 +77,7 @@ function validateUttaksgrad(
 	}
 
 	if (
-		formData.uttaksgrad !== null &&
+		shouldShowGradertUttakFields(formData.uttaksgrad) &&
 		(formData.alderAarHeltUttak === null || formData.alderMdHeltUttak === null)
 	) {
 		errors.alderAarHeltUttak = 'Velg år og måned for 100 % uttak.'
@@ -94,7 +94,7 @@ function validateInntektVsaHeltUttak(
 			'Velg ja/nei om bruker har inntekt ved siden av 100 % uttak.'
 	}
 
-	if (harInntektVedSiden === true) {
+	if (shouldShowInntektHeltFields(harInntektVedSiden)) {
 		const pensjonsgivendeInntekt =
 			formData.pensjonsgivendeInntektVedSidenAvUttak
 		if (pensjonsgivendeInntekt === '') {
@@ -122,17 +122,17 @@ function validateInntektVsaGradertUttak(
 	errors: ValidationErrors
 ) {
 	if (
-		formData.uttaksgrad !== null &&
-		formData.uttaksgrad !== 100 &&
+		shouldShowGradertUttakFields(formData.uttaksgrad) &&
 		formData.harInntektVedSidenAvGradertUttak === null
 	) {
 		errors.harInntektVedSidenAvGradertUttak = `Velg ja/nei om bruker har inntekt ved siden av ${formData.uttaksgrad} % uttak.`
 	}
 
 	if (
-		formData.uttaksgrad !== null &&
-		formData.uttaksgrad !== 100 &&
-		formData.harInntektVedSidenAvGradertUttak === true
+		shouldShowInntektGradertFields(
+			formData.uttaksgrad,
+			formData.harInntektVedSidenAvGradertUttak
+		)
 	) {
 		const pensjonsgivendeInntekt =
 			formData.pensjonsgivendeInntektVedSidenAvGradertUttak
@@ -161,8 +161,7 @@ function validateAlderHeltMotGradert(
 	errors: ValidationErrors
 ) {
 	if (
-		formData.uttaksgrad !== null &&
-		formData.uttaksgrad !== 100 &&
+		shouldShowGradertUttakFields(formData.uttaksgrad) &&
 		formData.alderAarHeltUttak !== null &&
 		formData.alderMdHeltUttak !== null &&
 		formData.alderAarUttak !== null &&
@@ -191,7 +190,7 @@ function validateAlderHeltMotGradert(
 	}
 }
 
-export function useFormValidation(): UseFormValidationResult {
+export function useFormValidation() {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
 
 	useEffect(() => {
@@ -211,22 +210,25 @@ export function useFormValidation(): UseFormValidationResult {
 		}
 	}, [validationErrors])
 
-	const validate = useCallback((formData: BeregningFormData): boolean => {
-		const errors: ValidationErrors = {}
+	const validate = useCallback(
+		(formData: BeregningFormData): ValidationErrors => {
+			const errors: ValidationErrors = {}
 
-		validateSivilstand(formData, errors)
-		validateInntektFoerUttak(formData, errors)
-		validateUttaksalder(formData, errors)
-		validateUttaksgrad(formData, errors)
-		validateInntektVsaHeltUttak(formData, errors)
-		validateInntektVsaGradertUttak(formData, errors)
-		validateAlderHeltMotGradert(formData, errors)
+			validateSivilstand(formData, errors)
+			validateInntektFoerUttak(formData, errors)
+			validateUttaksalder(formData, errors)
+			validateUttaksgrad(formData, errors)
+			validateInntektVsaHeltUttak(formData, errors)
+			validateInntektVsaGradertUttak(formData, errors)
+			validateAlderHeltMotGradert(formData, errors)
 
-		setValidationErrors(errors)
-		return Object.keys(errors).length === 0
-	}, [])
+			setValidationErrors(errors)
+			return errors
+		},
+		[]
+	)
 
-	const clearError = useCallback((field: keyof BeregningFormData) => {
+	const clearError = useCallback((field: keyof ValidationErrors) => {
 		setValidationErrors((prev) => {
 			const next = { ...prev }
 			delete next[field]
@@ -238,8 +240,10 @@ export function useFormValidation(): UseFormValidationResult {
 		setValidationErrors({})
 	}, [])
 
-	return useMemo(
-		() => ({ validationErrors, validate, clearError, resetValidationErrors }),
-		[validationErrors, validate, clearError, resetValidationErrors]
-	)
+	return {
+		validationErrors,
+		validate,
+		clearError,
+		resetValidationErrors,
+	}
 }
