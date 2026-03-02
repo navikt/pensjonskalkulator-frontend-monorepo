@@ -2,8 +2,14 @@ import type { AlderspensjonResponseBody } from '@pensjonskalkulator-frontend-mon
 
 export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
 
+export type BakgrunnForBrukAvOpplysningerOmEPS =
+	| 'SAMTYKKE_BEGGE_PARTER'
+	| 'DOEDSFALL_REGISTRERT'
+
 export interface BeregningFormData {
 	sivilstand: Sivilstand | null
+	beregnMedGjenlevenderett: boolean
+	bakgrunnForBrukAvOpplysningerOmEPS: BakgrunnForBrukAvOpplysningerOmEPS | null
 	alderAarUttak: number | null
 	alderMdUttak: number | null
 	uttaksgrad: number | null
@@ -27,6 +33,8 @@ export type BeregningParams = BeregningFormData
 
 export interface ValidationErrors {
 	sivilstand?: string
+	bakgrunnForBrukAvOpplysningerOmEPS?: string
+	beregnMedGjenlevenderett?: string
 	alderAarUttak?: string
 	alderMdUttak?: string
 	uttaksgrad?: string
@@ -63,6 +71,8 @@ export function mapPersonSivilstand(sivilstand: string): Sivilstand {
 
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstand: null,
+	beregnMedGjenlevenderett: false,
+	bakgrunnForBrukAvOpplysningerOmEPS: null,
 	alderAarUttak: null,
 	alderMdUttak: null,
 	uttaksgrad: null,

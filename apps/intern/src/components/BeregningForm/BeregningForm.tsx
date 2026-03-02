@@ -14,6 +14,7 @@ import {
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
+import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -22,6 +23,7 @@ import {
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
+import { isSivilstatusWithGjenlevenderett, shouldShowSivilstand } from './utils'
 
 import styles from './BeregningForm.module.css'
 
@@ -42,6 +44,7 @@ export const BeregningForm = () => {
 
 	const [
 		sivilstand,
+		beregnMedGjenlevenderett,
 		epsHarPensjon,
 		uttaksgrad,
 		harInntektVedSidenAvGradertUttak,
@@ -50,6 +53,7 @@ export const BeregningForm = () => {
 		control,
 		name: [
 			'sivilstand',
+			'beregnMedGjenlevenderett',
 			'epsHarPensjon',
 			'uttaksgrad',
 			'harInntektVedSidenAvGradertUttak',
@@ -79,19 +83,25 @@ export const BeregningForm = () => {
 	return (
 		<Box className={styles.beregningForm}>
 			<hr className={styles.divider} />
+			{sivilstand && isSivilstatusWithGjenlevenderett(sivilstand) && (
+				<Gjenlevenderett />
+			)}
+
 			<div className={styles.section}>
-				<RHFSelect
-					name="sivilstand"
-					label="Hva er sivilstanden til bruker ved uttak av pensjon?"
-					className={styles.selectWrapper}
-				>
-					<option value="">Velg</option>
-					{sivilstandOptions.map(({ value, label }) => (
-						<option key={value} value={value}>
-							{label}
-						</option>
-					))}
-				</RHFSelect>
+				{shouldShowSivilstand(sivilstand, beregnMedGjenlevenderett) && (
+					<RHFSelect
+						name="sivilstand"
+						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						className={styles.selectWrapper}
+					>
+						<option value="">Velg</option>
+						{sivilstandOptions.map(({ value, label }) => (
+							<option key={value} value={value}>
+								{label}
+							</option>
+						))}
+					</RHFSelect>
+				)}
 
 				{shouldShowEpsHarPensjon(sivilstand) && (
 					<RHFRadioBoolean

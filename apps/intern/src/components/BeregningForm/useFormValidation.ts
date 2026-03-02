@@ -40,6 +40,11 @@ export function useFormValidation() {
 				errors.sivilstand = 'Sivilstand er påkrevd'
 			}
 
+			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS'
+			}
+
 			if (formData.aarligInntektFoerUttakBeloep === null) {
 				errors.aarligInntektFoerUttakBeloep =
 					'Pensjonsgivende inntekt frem til uttak er påkrevd'
