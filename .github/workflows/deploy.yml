@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - main
-      - sandbox
-      - catbox
-      - magicbox
-      - dreambox
-      - codebox
-      - coffeebox
+      # intern test branches
+      - intern/sandbox
+      - intern/catbox
+      - intern/magicbox
+      - intern/dreambox
+      # ekstern test branches
+      - ekstern/codebox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
@@ -153,7 +154,7 @@ jobs:
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
-      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+      startsWith(github.ref, 'refs/heads/intern/')
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
       environments: ${{ steps.set-env.outputs.environments }}
@@ -161,10 +162,10 @@ jobs:
       - name: Set environment from branch
         id: set-env
         run: |
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/intern/}"
           echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          echo "Deploying to: $BRANCH_NAME"
+          echo "Deploying intern to: $BRANCH_NAME"
 
   # Deploy intern to test environment (feature branches)
   deploy-intern-test:
@@ -343,7 +344,7 @@ jobs:
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
-      contains(fromJson('["refs/heads/sandbox", "refs/heads/catbox", "refs/heads/magicbox", "refs/heads/dreambox", "refs/heads/coffeebox", "refs/heads/codebox"]'), github.ref)
+      startsWith(github.ref, 'refs/heads/ekstern/')
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
       environments: ${{ steps.set-env.outputs.environments }}
@@ -351,10 +352,10 @@ jobs:
       - name: Set environment from branch
         id: set-env
         run: |
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/ekstern/}"
           echo "environment=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "environments=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          echo "Deploying to: $BRANCH_NAME"
+          echo "Deploying ekstern to: $BRANCH_NAME"
 
   deploy-ekstern-test:
     name: Deploy ekstern to test environment
