@@ -14,9 +14,13 @@ vi.mock('@/state/hooks', () => ({
   useAppSelector: vi.fn(),
 }))
 
-vi.mock('@/utils/alder', () => ({
-  calculateUttaksalderAsDate: vi.fn(),
-}))
+vi.mock('@/utils/alder', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/utils/alder')>()
+  return {
+    ...actual,
+    calculateUttaksalderAsDate: vi.fn(),
+  }
+})
 
 vi.mock('@/context/LanguageProvider/utils', () => ({
   getSelectedLanguage: vi.fn(),
@@ -214,6 +218,212 @@ describe('usePensjonBeregninger', () => {
         pensjonsavtale: 0,
       },
     ])
+  })
+
+  describe('afpVedUttak med offentligAfpFraTpOrdning (SPK besteberegning)', () => {
+    it('bruker offentligAfpFraTpOrdning når foersteUttaksalder >= 65', () => {
+      vi.mocked(useAppSelector).mockImplementation((selector) => {
+        if (selector === selectCurrentSimulation) {
+          return {
+            uttaksalder: { aar: 67, maaneder: 0 },
+            gradertUttaksperiode: {
+              uttaksalder: { aar: 65, maaneder: 0 },
+              grad: 40,
+            },
+          }
+        }
+        if (selector === selectFoedselsdato) {
+          return mockFoedselsdato
+        }
+        return undefined
+      })
+
+      const offentligAfpFraTpOrdning: UtbetalingsperiodeFoer1963[] = [
+        {
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 67, maaneder: 0 },
+          aarligUtbetaling: 120000,
+          grad: 100,
+          ytelsekode: 'AFP',
+        },
+      ]
+
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+          gradertUttakMaanedligBeloep: 8000,
+        },
+        offentligAfpFraTpOrdning,
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      // Gradert uttak ved 65 år skal bruke SPK-beløpet: 120000 / 12 = 10000
+      expect(result.current.pensjonsdata[0]?.afp).toBe(10000)
+    })
+
+    it('faller tilbake til afpOffentligListe når foersteUttaksalder < 65', () => {
+      vi.mocked(useAppSelector).mockImplementation((selector) => {
+        if (selector === selectCurrentSimulation) {
+          return {
+            uttaksalder: { aar: 67, maaneder: 0 },
+            gradertUttaksperiode: {
+              uttaksalder: { aar: 62, maaneder: 0 },
+              grad: 40,
+            },
+          }
+        }
+        if (selector === selectFoedselsdato) {
+          return mockFoedselsdato
+        }
+        return undefined
+      })
+
+      const offentligAfpFraTpOrdning: UtbetalingsperiodeFoer1963[] = [
+        {
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 67, maaneder: 0 },
+          aarligUtbetaling: 120000,
+          grad: 100,
+          ytelsekode: 'AFP',
+        },
+      ]
+
+      const afpOffentligListe = [
+        { alder: 62, beloep: 96000, maanedligBeloep: 8000 },
+      ]
+
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+          gradertUttakMaanedligBeloep: 8000,
+        },
+        offentligAfpFraTpOrdning,
+        afpOffentligListe,
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      // foersteUttaksalder er 62 (< 65), så SPK-perioder brukes ikke
+      expect(result.current.pensjonsdata[0]?.afp).toBe(8000)
+    })
+
+    it('faller tilbake til afpOffentligListe når ingen periode matcher alder', () => {
+      vi.mocked(useAppSelector).mockImplementation((selector) => {
+        if (selector === selectCurrentSimulation) {
+          return {
+            uttaksalder: { aar: 68, maaneder: 0 },
+            gradertUttaksperiode: null,
+          }
+        }
+        if (selector === selectFoedselsdato) {
+          return mockFoedselsdato
+        }
+        return undefined
+      })
+
+      const offentligAfpFraTpOrdning: UtbetalingsperiodeFoer1963[] = [
+        {
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 67, maaneder: 0 },
+          aarligUtbetaling: 120000,
+          grad: 100,
+          ytelsekode: 'AFP',
+        },
+      ]
+
+      const afpOffentligListe = [
+        { alder: 67, beloep: 180000, maanedligBeloep: 15000 },
+      ]
+
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+        },
+        offentligAfpFraTpOrdning,
+        afpOffentligListe,
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      // Alder 68 >= sluttAlder 67, ingen SPK-match -> faller tilbake til afpOffentligListe
+      expect(result.current.pensjonsdata[0]?.afp).toBe(15000)
+    })
+  })
+
+  describe('summerYtelser unngår dobbeltelling', () => {
+    it('inkluderer ikke pre2025OffentligAfp når afp allerede har verdi', () => {
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+          gradertUttakMaanedligBeloep: 8000,
+        },
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      const testData = {
+        alder: { aar: 65, maaneder: 0 },
+        grad: 40,
+        afp: 10000,
+        pensjonsavtale: 5000,
+        alderspensjon: 8000,
+        pre2025OffentligAfp: 7000,
+        uttaksgrad: 'gradert' as const,
+      }
+
+      // afp (10000) + pensjonsavtale (5000) + alderspensjon (8000) = 23000
+      // pre2025OffentligAfp skal IKKE legges til siden afp allerede har verdi
+      expect(result.current.summerYtelser(testData)).toBe(23000)
+    })
+
+    it('inkluderer pre2025OffentligAfp for gradert uttak når afp er 0/undefined', () => {
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+          gradertUttakMaanedligBeloep: 8000,
+        },
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      const testData = {
+        alder: { aar: 65, maaneder: 0 },
+        grad: 40,
+        afp: undefined,
+        pensjonsavtale: 5000,
+        alderspensjon: 8000,
+        pre2025OffentligAfp: 7000,
+        uttaksgrad: 'gradert' as const,
+      }
+
+      // pensjonsavtale (5000) + alderspensjon (8000) + pre2025OffentligAfp (7000) = 20000
+      expect(result.current.summerYtelser(testData)).toBe(20000)
+    })
+
+    it('inkluderer ikke pre2025OffentligAfp for helt uttak', () => {
+      const props = {
+        alderspensjonMaanedligVedEndring: {
+          heltUttakMaanedligBeloep: 20000,
+        },
+      }
+
+      const { result } = renderHook(() => usePensjonBeregninger(props))
+
+      const testData = {
+        alder: { aar: 67, maaneder: 0 },
+        grad: 100,
+        afp: undefined,
+        pensjonsavtale: 5000,
+        alderspensjon: 20000,
+        pre2025OffentligAfp: 7000,
+        uttaksgrad: 'helt' as const,
+      }
+
+      // pensjonsavtale (5000) + alderspensjon (20000) = 25000
+      // pre2025OffentligAfp skal ikke legges til for helt uttak
+      expect(result.current.summerYtelser(testData)).toBe(25000)
+    })
   })
 
   it('håndterer scenario uten gradert uttaksperiode', () => {

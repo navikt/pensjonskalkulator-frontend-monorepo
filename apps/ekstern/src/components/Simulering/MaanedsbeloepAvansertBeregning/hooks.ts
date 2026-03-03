@@ -10,6 +10,8 @@ import {
 import {
   UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
   calculateUttaksalderAsDate,
+  isAlderLikEllerOverAnnenAlder,
+  isAlderOverAnnenAlder,
 } from '@/utils/alder'
 
 import {
@@ -79,7 +81,11 @@ export const usePensjonBeregninger = ({
     ) {
       const matchingPeriode = offentligAfpFraTpOrdning.find(
         (p) =>
-          alder.aar >= p.startAlder.aar && alder.aar < (p.sluttAlder?.aar ?? 67)
+          isAlderLikEllerOverAnnenAlder(alder, p.startAlder) &&
+          !isAlderOverAnnenAlder(
+            alder,
+            p.sluttAlder ?? UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP
+          )
       )
       if (matchingPeriode) {
         return Math.round(matchingPeriode.aarligUtbetaling / 12)
