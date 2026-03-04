@@ -9,6 +9,7 @@ import {
 	getPartnerBetegnelse,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowEpsHarPensjon,
+	shouldShowHarInntektVedSidenAvUttak,
 	shouldShowHeltUttakAlder,
 	shouldShowInntektGradertFields,
 	shouldShowInntektHeltFields,
@@ -83,7 +84,6 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			<hr className={styles.divider} />
 			<div className={styles.section}>
 				<RHFSelect
 					name="sivilstand"
@@ -99,19 +99,25 @@ export const BeregningForm = () => {
 				</RHFSelect>
 
 				{shouldShowEpsHarPensjon(sivilstand) && (
-					<RHFRadioBoolean
-						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
-						className={styles.horizontalRadioGroup}
-					/>
+					<>
+						<hr className={styles.divider} />
+						<RHFRadioBoolean
+							name="epsHarPensjon"
+							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
 				)}
 
 				{shouldShowEpsHarInntektOver2G(sivilstand, epsHarPensjon) && (
-					<RHFRadioBoolean
-						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-						className={styles.horizontalRadioGroup}
-					/>
+					<>
+						<hr className={styles.divider} />
+						<RHFRadioBoolean
+							name="epsHarInntektOver2G"
+							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
 				)}
 				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
 					vilkaarAlternativ && (
@@ -129,10 +135,10 @@ export const BeregningForm = () => {
 							}}
 						/>
 					)}
+				<hr className={styles.divider} />
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
-					style={{ width: '184px' }}
 				/>
 
 				<RHFAlderVelger
@@ -159,7 +165,6 @@ export const BeregningForm = () => {
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-						style={{ width: '184px' }}
 					/>
 				)}
 
@@ -173,23 +178,23 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				<RHFRadioBoolean
-					name="harInntektVedSidenAvUttak"
-					legend="Har bruker inntekt ved siden av 100 % uttak?"
-					className={styles.horizontalRadioGroup}
-				>
-					<HStack gap="space-0 space-24" wrap={false}>
-						<Radio value="ja">Ja</Radio>
-						<Radio value="nei">Nei</Radio>
-					</HStack>
-				</RHFRadioBoolean>
-
+				{shouldShowHarInntektVedSidenAvUttak(uttaksgrad) && (
+					<RHFRadioBoolean
+						name="harInntektVedSidenAvUttak"
+						legend="Har bruker inntekt ved siden av 100 % uttak?"
+						className={styles.horizontalRadioGroup}
+					>
+						<HStack gap="space-0 space-24" wrap={false}>
+							<Radio value="ja">Ja</Radio>
+							<Radio value="nei">Nei</Radio>
+						</HStack>
+					</RHFRadioBoolean>
+				)}
 				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-							style={{ width: '184px' }}
 						/>
 
 						<RHFAlderVelger
@@ -202,7 +207,6 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</div>
-			<hr className={styles.divider} />
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

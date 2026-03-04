@@ -238,7 +238,9 @@ export const Beregning = () => {
 				)}
 				{gradertEntry && (
 					<>
-						<Heading size="small">{titleGradertUttak}</Heading>
+						<Heading level="3" size="small">
+							{titleGradertUttak}
+						</Heading>
 						<HStack wrap={false} gap="space-40" className={styles.tableRow}>
 							<BeregningTable
 								title="Alderspensjon"
@@ -267,7 +269,9 @@ export const Beregning = () => {
 						</HStack>
 					</>
 				)}
-				<Heading size="small">{titleHeltUttak}</Heading>
+				<Heading level="3" size="small">
+					{titleHeltUttak}
+				</Heading>
 				<HStack wrap={false} gap="space-40" className={styles.tableRow}>
 					{beregning && aktivBeregning && heltEntry && (
 						<BeregningTable

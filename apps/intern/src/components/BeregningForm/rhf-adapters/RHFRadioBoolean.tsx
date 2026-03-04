@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
-import { Radio, RadioGroup } from '@navikt/ds-react'
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
 
@@ -37,10 +37,10 @@ export function RHFRadioBoolean({
 			onChange={(val: string) => field.onChange(val === 'ja')}
 		>
 			{children ?? (
-				<>
+				<HStack gap="space-24">
 					<Radio value="ja">Ja</Radio>
 					<Radio value="nei">Nei</Radio>
-				</>
+				</HStack>
 			)}
 		</RadioGroup>
 	)

@@ -49,6 +49,12 @@ export function shouldShowInntektGradertFields(
 	return shouldShowGradertUttakFields(uttaksgrad)
 }
 
+export function shouldShowHarInntektVedSidenAvUttak(
+	uttaksgrad: number | null
+): boolean {
+	return uttaksgrad !== null
+}
+
 export function shouldShowInntektHeltFields(
 	harInntektVedSidenAvUttak: boolean | null
 ): boolean {

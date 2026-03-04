@@ -5,6 +5,7 @@ import {
 	Box,
 	GlobalAlert,
 	HStack,
+	Heading,
 	Loader,
 	Theme,
 } from '@navikt/ds-react'
@@ -30,7 +31,14 @@ const BeregningLayout = () => {
 	const { isDirty } = useBeregningContext()
 
 	return (
-		<>
+		<Box
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				flex: 1,
+				overflow: 'hidden',
+			}}
+		>
 			<Box borderColor="neutral-subtle" borderWidth="0 0 1 0">
 				<HStack align="center" wrap={false}>
 					<Box
@@ -38,10 +46,9 @@ const BeregningLayout = () => {
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
-						<BodyLong>
-							<span style={{ fontWeight: 'bold' }}>Pensjonskalkulator</span> –
-							Beregn pensjon
-						</BodyLong>
+						<Heading level="2" size="small">
+							Pensjonskalkulator
+						</Heading>
 					</Box>
 					<div style={{ flex: 1 }}>
 						{isDirty && (
@@ -56,11 +63,11 @@ const BeregningLayout = () => {
 					</div>
 				</HStack>
 			</Box>
-			<div style={{ display: 'flex', height: 'calc(100vh - 96px)' }}>
+			<HStack style={{ flex: 1, overflow: 'hidden' }} wrap={false}>
 				<BeregningForm />
 				<Beregning />
-			</div>
-		</>
+			</HStack>
+		</Box>
 	)
 }
 
@@ -154,9 +161,18 @@ const AppContent = () => {
 
 export const App = () => (
 	<SanityProvider>
-		<PesysHeader />
-		<Theme>
-			<AppContent />
-		</Theme>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				height: '100vh',
+				overflow: 'hidden',
+			}}
+		>
+			<PesysHeader />
+			<Theme className="app-content">
+				<AppContent />
+			</Theme>
+		</div>
 	</SanityProvider>
 )

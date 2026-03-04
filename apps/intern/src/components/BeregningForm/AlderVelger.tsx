@@ -1,4 +1,4 @@
-import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
+import { BodyShort, ErrorMessage, Select, VStack } from '@navikt/ds-react'
 
 import styles from './BeregningForm.module.css'
 
@@ -127,7 +127,7 @@ export function AlderVelger({
 	const errorMessage = aarError || mdError
 
 	return (
-		<div>
+		<VStack gap="space-8">
 			<div className={styles.alderRow}>
 				<Select
 					label={aarLabel}
@@ -191,6 +191,6 @@ export function AlderVelger({
 					{uttaksdato}
 				</BodyShort>
 			)}
-		</div>
+		</VStack>
 	)
 }

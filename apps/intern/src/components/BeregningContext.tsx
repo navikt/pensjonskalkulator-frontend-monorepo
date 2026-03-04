@@ -118,6 +118,14 @@ export function BeregningProvider({
 	}, [harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
+		if (uttaksgrad === null) {
+			form.setValue('harInntektVedSidenAvUttak', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [uttaksgrad, form])
+
+	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
 			form.setValue('aarligInntektVsaPensjonGradertUttak', null, {
 				shouldDirty: false,
