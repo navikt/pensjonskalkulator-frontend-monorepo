@@ -173,7 +173,7 @@ export const Beregning = () => {
 		)
 	}
 
-	if (!beregning) {
+	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
