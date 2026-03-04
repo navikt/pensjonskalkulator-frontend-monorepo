@@ -8,10 +8,12 @@
 	overflow-y: auto;
 }
 
-.divider {
-	border: none;
-	border-top: 1px solid var(--a-border-subtle);
-	margin: 0;
+.separator {
+	border: 0;
+	height: 1px;
+	width: 100%;
+	background-color: var(--a-border-divider);
+	margin: 0 0 var(--a-spacing-4) 0;
 }
 
 .section {

@@ -1,4 +1,7 @@
-import type { Person } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Person,
+	Sivilstatus,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
 	createContext,
@@ -18,7 +21,6 @@ import {
 	type BeregningFormData,
 	type BeregningParams,
 	type BeregningResult,
-	type Sivilstand,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
 import { isHarPartner } from '../api/formConditions'
@@ -45,17 +47,17 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 
 interface BeregningProviderProps {
 	children: ReactNode
-	initialSivilstand?: Sivilstand
+	initialSivilstatus: Sivilstatus | null
 }
 
 export function BeregningProvider({
 	children,
-	initialSivilstand,
+	initialSivilstatus,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
-			...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 		},
 		mode: 'onChange',
 	})
@@ -65,7 +67,7 @@ export function BeregningProvider({
 		form.reset(
 			{
 				...defaultBeregningFormData,
-				...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)
@@ -84,7 +86,7 @@ export function BeregningProvider({
 	const showDirtyWarning = hasSubmitted && formIsDirty
 
 	const [
-		sivilstand,
+		sivilstatus,
 		epsHarPensjon,
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
@@ -92,7 +94,7 @@ export function BeregningProvider({
 	] = useWatch({
 		control: form.control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
 			'epsHarPensjon',
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
@@ -101,11 +103,11 @@ export function BeregningProvider({
 	})
 
 	useEffect(() => {
-		if (!isHarPartner(sivilstand)) {
+		if (!isHarPartner(sivilstatus)) {
 			form.setValue('epsHarPensjon', null, { shouldDirty: false })
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
-	}, [sivilstand, form])
+	}, [sivilstatus, form])
 
 	useEffect(() => {
 		if (epsHarPensjon !== false) {

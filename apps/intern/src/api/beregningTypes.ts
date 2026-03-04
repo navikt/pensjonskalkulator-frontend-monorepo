@@ -1,13 +1,14 @@
-import type { AlderspensjonResponseBody } from '@pensjonskalkulator-frontend-monorepo/types'
-
-export type Sivilstand = 'GIFT' | 'UGIFT' | 'SAMBOER' | 'REGISTRERT_PARTNER'
+import type {
+	AlderspensjonResponseBody,
+	Sivilstatus,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
 	| 'DOEDSFALL_REGISTRERT'
 
 export interface BeregningFormData {
-	sivilstand: Sivilstand | null
+	sivilstatus: Sivilstatus | null
 	beregnMedGjenlevenderett: boolean
 	bakgrunnForBrukAvOpplysningerOmEPS: BakgrunnForBrukAvOpplysningerOmEPS | null
 	alderAarUttak: number | null
@@ -32,7 +33,7 @@ export interface BeregningFormData {
 export type BeregningParams = BeregningFormData
 
 export interface ValidationErrors {
-	sivilstand?: string
+	sivilstatus?: string
 	bakgrunnForBrukAvOpplysningerOmEPS?: string
 	beregnMedGjenlevenderett?: string
 	alderAarUttak?: string
@@ -56,7 +57,7 @@ export interface ValidationErrors {
 
 export type BeregningResult = AlderspensjonResponseBody
 
-export function mapPersonSivilstand(sivilstand: string): Sivilstand {
+export function mapPersonSivilstatus(sivilstand: string): string {
 	switch (sivilstand) {
 		case 'GIFT':
 			return 'GIFT'
@@ -70,7 +71,7 @@ export function mapPersonSivilstand(sivilstand: string): Sivilstand {
 }
 
 export const defaultBeregningFormData: BeregningFormData = {
-	sivilstand: null,
+	sivilstatus: null,
 	beregnMedGjenlevenderett: false,
 	bakgrunnForBrukAvOpplysningerOmEPS: null,
 	alderAarUttak: null,

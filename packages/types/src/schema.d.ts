@@ -524,6 +524,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt som fnr-header.
+		 */
+		get: operations['personV1']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/inntekt': {
 		parameters: {
 			query?: never
@@ -1372,27 +1392,43 @@ export interface components {
 			erInnvilget: boolean
 			alternativ?: components['schemas']['UttaksparametreDto']
 		}
-		FamilierelasjonDto: {
+		EpsV1EpsSpec: {
+			/** @enum {string} */
+			sivilstatus?:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+		}
+		EpsV1Familierelasjon: {
 			pid?: string
 			/** Format: date */
 			fom?: string
 			/** @enum {string} */
 			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER'
-			relasjonPersondata?: components['schemas']['RelasjonPersondataDto']
+			relasjonPersondata?: components['schemas']['EpsV1RelasjonPersondata']
 		}
-		NavnDto: {
+		EpsV1Navn: {
 			fornavn?: string
 			mellomnavn?: string
 			etternavn?: string
 		}
-		RelasjonPersondataDto: {
+		EpsV1RelasjonPersondata: {
 			/** @enum {string} */
 			tilgangsbegrensning?:
 				| 'FORTROLIG'
 				| 'STRENGT_FORTROLIG'
 				| 'STRENGT_FORTROLIG_UTLAND'
 				| 'UNKNOWN'
-			navn?: components['schemas']['NavnDto']
+			navn?: components['schemas']['EpsV1Navn']
 			/** Format: date */
 			foedselsdato?: string
 			/** Format: date */
@@ -1552,7 +1588,7 @@ export interface components {
 		SakDto: {
 			harUfoeretrygdEllerGjenlevendeytelse: boolean
 		}
-		SivilstatusResultDto: {
+		EpsV1SivilstatusResult: {
 			/** @enum {string} */
 			sivilstatus:
 				| 'UNKNOWN'
@@ -1567,6 +1603,37 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+		}
+		PersonInternV1Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonInternV1Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonInternV1Alder']
+			nedreAldersgrense: components['schemas']['PersonInternV1Alder']
+			oevreAldersgrense: components['schemas']['PersonInternV1Alder']
+		}
+		PersonInternV1Person: {
+			navn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
 		InntektDto: {
 			/** Format: int32 */
@@ -1955,7 +2022,7 @@ export interface operations {
 		}
 		requestBody: {
 			content: {
-				'application/json': components['schemas']['EpsSpecDto']
+				'application/json': components['schemas']['EpsV1EpsSpec']
 			}
 		}
 		responses: {
@@ -1965,7 +2032,7 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['FamilierelasjonDto']
+					'*/*': components['schemas']['EpsV1Familierelasjon']
 				}
 			}
 			/** @description Henting av EPS kunne ikke utføres av tekniske årsaker. */
@@ -2492,10 +2559,57 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['SivilstatusResultDto']
+					'*/*': components['schemas']['EpsV1SivilstatusResult']
 				}
 			}
 			/** @description Henting av sivilstatus kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	personV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
 			503: {
 				headers: {
 					[name: string]: unknown

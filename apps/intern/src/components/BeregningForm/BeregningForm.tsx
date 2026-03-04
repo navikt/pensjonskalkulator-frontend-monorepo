@@ -28,10 +28,17 @@ import { isSivilstatusWithGjenlevenderett, shouldShowSivilstand } from './utils'
 import styles from './BeregningForm.module.css'
 
 const sivilstandOptions = [
+	{ value: 'ENKE', label: 'Enke/enkemann' },
+	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
-	{ value: 'UGIFT', label: 'Ugift' },
-	{ value: 'SAMBOER', label: 'Samboer' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
+	{ value: 'SAMBOER', label: 'Samboer' },
+	{ value: 'SEPARERT_PARTNER', label: 'Separert partner' },
+	{ value: 'SEPARERT', label: 'Separert' },
+	{ value: 'SKILT', label: 'Skilt' },
+	{ value: 'SKILT_PARTNER', label: 'Skilt partner' },
+	{ value: 'UGIFT', label: 'Ugift' },
+	{ value: null, label: 'Uoppgitt' },
 ]
 
 export const BeregningForm = () => {
@@ -43,7 +50,7 @@ export const BeregningForm = () => {
 	const { control } = form
 
 	const [
-		sivilstand,
+		sivilstatus,
 		beregnMedGjenlevenderett,
 		epsHarPensjon,
 		uttaksgrad,
@@ -52,7 +59,7 @@ export const BeregningForm = () => {
 	] = useWatch({
 		control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
 			'beregnMedGjenlevenderett',
 			'epsHarPensjon',
 			'uttaksgrad',
@@ -78,32 +85,32 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
-	const partnerBetegnelse = getPartnerBetegnelse(sivilstand)
+	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
+	const initialSivilstatus = person && person.sivilstand
 
 	return (
 		<Box className={styles.beregningForm}>
-			<hr className={styles.divider} />
-			{sivilstand && isSivilstatusWithGjenlevenderett(sivilstand) && (
-				<Gjenlevenderett />
-			)}
+			{initialSivilstatus &&
+				isSivilstatusWithGjenlevenderett(initialSivilstatus) && (
+					<Gjenlevenderett />
+				)}
 
 			<div className={styles.section}>
-				{shouldShowSivilstand(sivilstand, beregnMedGjenlevenderett) && (
+				{shouldShowSivilstand(sivilstatus, beregnMedGjenlevenderett) && (
 					<RHFSelect
-						name="sivilstand"
+						name="sivilstatus"
 						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
 						className={styles.selectWrapper}
 					>
-						<option value="">Velg</option>
 						{sivilstandOptions.map(({ value, label }) => (
-							<option key={value} value={value}>
+							<option key={value} value={value ?? ''}>
 								{label}
 							</option>
 						))}
 					</RHFSelect>
 				)}
 
-				{shouldShowEpsHarPensjon(sivilstand) && (
+				{shouldShowEpsHarPensjon(sivilstatus) && (
 					<RHFRadioBoolean
 						name="epsHarPensjon"
 						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
@@ -111,7 +118,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{shouldShowEpsHarInntektOver2G(sivilstand, epsHarPensjon) && (
+				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
 					<RHFRadioBoolean
 						name="epsHarInntektOver2G"
 						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
