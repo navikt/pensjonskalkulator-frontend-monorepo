@@ -61,6 +61,7 @@ export function createMockRequest(
     request: new Request(url),
     params: {},
     context: {},
+    unstable_pattern: '',
   }
 }
 
