@@ -119,6 +119,7 @@ export const BeregningForm = () => {
 						/>
 					</>
 				)}
+				<hr className={styles.divider} />
 				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
@@ -135,7 +136,6 @@ export const BeregningForm = () => {
 							}}
 						/>
 					)}
-				<hr className={styles.divider} />
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
