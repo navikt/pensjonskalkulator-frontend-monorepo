@@ -2,12 +2,9 @@ import type { components } from './schema'
 
 // Common types used across apps
 export type Alder = components['schemas']['Alder']
-export type Person = Omit<
-	components['schemas']['PersonResultV6'],
-	'sivilstand'
-> & {
-	sivilstand: components['schemas']['PersonResultV6']['sivilstand'] | 'SAMBOER'
-}
+export type Person = components['schemas']['PersonResultV6']
+
+export type PersonInternV1 = components['schemas']['PersonInternV1Person']
 
 // Used in ekstern app. Does not have "Samboer"
 export type Sivilstand =

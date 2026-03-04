@@ -36,18 +36,17 @@ export function useFormValidation() {
 		(formData: BeregningFormData): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
-			if (formData.sivilstatus === null) {
-				errors.sivilstatus = 'Sivilstatus er påkrevd'
-			}
-
 			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
-					'Velg bakgrunn for bruk av opplysninger om EPS'
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+			if (formData.sivilstatus === 'UOPPGITT') {
+				errors.sivilstatus = 'Velg sivilstatus.'
 			}
 
 			if (formData.aarligInntektFoerUttakBeloep === null) {
 				errors.aarligInntektFoerUttakBeloep =
-					'Pensjonsgivende inntekt frem til uttak er påkrevd'
+					'Pensjonsgivende inntekt frem til uttak er påkrevd.'
 			}
 
 			if (
@@ -171,6 +170,21 @@ export function useFormValidation() {
 		[]
 	)
 
+	const validatebakgrunnForBrukAvOpplysningerOmEPS = useCallback(
+		(formData: BeregningFormData): ValidationErrors => {
+			const errors: ValidationErrors = {}
+
+			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+
+			setValidationErrors(errors)
+			return errors
+		},
+		[]
+	)
+
 	const clearError = useCallback((field: keyof ValidationErrors) => {
 		setValidationErrors((prev) => {
 			const next = { ...prev }
@@ -188,5 +202,6 @@ export function useFormValidation() {
 		validate,
 		clearError,
 		resetValidationErrors,
+		validatebakgrunnForBrukAvOpplysningerOmEPS,
 	}
 }

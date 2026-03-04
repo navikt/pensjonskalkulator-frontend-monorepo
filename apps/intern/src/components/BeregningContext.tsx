@@ -1,5 +1,5 @@
 import type {
-	Person,
+	PersonInternV1,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -38,7 +38,7 @@ interface BeregningContextValue {
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
-	person: Person | undefined
+	person: PersonInternV1 | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }

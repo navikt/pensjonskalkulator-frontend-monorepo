@@ -1,17 +1,18 @@
 import { useWatch } from 'react-hook-form'
 
-import { Button } from '@navikt/ds-react'
+import { BodyLong, Button } from '@navikt/ds-react'
 
 import { useBeregningContext } from '../BeregningContext'
 import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadioValg } from '../BeregningForm/rhf-adapters/RHFRadioValg'
+import { useFormValidation } from '../BeregningForm/useFormValidation'
 
-import styles from './../BeregningForm/BeregningForm.module.css'
+import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
 	const { form } = useBeregningContext()
-
 	const { control } = form
+	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [beregnMedGjenlevenderett] = useWatch({
 		control,
@@ -19,10 +20,18 @@ export const Gjenlevenderett = () => {
 	})
 
 	const handleHentEPSOpplysninger = () => {
-		if (!form.getFieldState('bakgrunnForBrukAvOpplysningerOmEPS')?.error) {
-			// hent EPS opplysninger
-			console.log('Henter opplysninger om EPS...')
+		form.clearErrors('bakgrunnForBrukAvOpplysningerOmEPS')
+
+		const errors = validatebakgrunnForBrukAvOpplysningerOmEPS(form.getValues())
+
+		if (Object.keys(errors).length > 0) {
+			for (const key of Object.keys(errors) as (keyof typeof errors)[]) {
+				form.setError(key, { message: errors[key] })
+			}
+			return
 		}
+
+		console.log('Henter opplysninger om EPS...')
 	}
 
 	return (
@@ -31,26 +40,36 @@ export const Gjenlevenderett = () => {
 				name="beregnMedGjenlevenderett"
 				label="Beregn med gjenlevenderett (valgfritt)"
 			/>
-			<hr className={styles.divider} />
 
 			{beregnMedGjenlevenderett && (
-				<>
+				<div className={styles.gjenlevenderettSection}>
+					<BodyLong size="small" className={styles.opplysningerOmEPSInfo}>
+						For å beregne gjenlevenderett, må opplysninger om
+						ektefelle/partner/samboer (EPS) hentes.
+					</BodyLong>
 					<RHFRadioValg
 						name="bakgrunnForBrukAvOpplysningerOmEPS"
-						legend="Hva er bakgrunnen for bruk av opplysninger om EPS?"
+						legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
 						valg={[
 							{
-								value: 'SAMTYKKE_BEGGE_PARTER',
-								label: 'Samtykke fra begge parter',
+								value: 'DOEDSFALL_REGISTRERT',
+								label: 'Bruker opplyser at EPS er død',
 							},
-							{ value: 'DOEDSFALL_REGISTRERT', label: 'Dødsfall registrert' },
+							{
+								value: 'SAMTYKKE_BEGGE_PARTER',
+								label: 'Henvendelse fra begge parter foreligger',
+							},
 						]}
 					/>
 
-					<Button variant="secondary" onClick={handleHentEPSOpplysninger}>
+					<Button
+						variant="secondary"
+						onClick={handleHentEPSOpplysninger}
+						className={styles.epsButton}
+					>
 						Hent opplysninger om EPS
 					</Button>
-				</>
+				</div>
 			)}
 		</>
 	)

@@ -14,6 +14,7 @@ import {
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
+import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
 import { ButtonBar } from './ButtonBar'
 import {
@@ -85,13 +86,16 @@ export const BeregningForm = () => {
 	}
 
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
-	const initialSivilstatus = person && person.sivilstand
+	const initialSivilstatus = person && person.sivilstatus
 
 	return (
 		<Box className={styles.beregningForm}>
 			{initialSivilstatus &&
 				isSivilstatusWithGjenlevenderett(initialSivilstatus) && (
-					<Gjenlevenderett />
+					<>
+						<Gjenlevenderett />
+						<Divider extraLargeMargin />
+					</>
 				)}
 
 			<div className={styles.section}>
@@ -218,7 +222,7 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</div>
-			<hr className={styles.divider} />
+			<Divider largeMargin />
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

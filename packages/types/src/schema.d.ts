@@ -204,6 +204,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/v7/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
+		 */
+		get: operations['person']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/v6/person': {
 		parameters: {
 			query?: never
@@ -1435,6 +1455,38 @@ export interface components {
 			doedsdato?: string
 			statsborgerskap?: string
 		}
+		PersonV7Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonV7Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonV7Alder']
+			nedreAldersgrense: components['schemas']['PersonV7Alder']
+			oevreAldersgrense: components['schemas']['PersonV7Alder']
+		}
+		PersonV7Result: {
+			navn: string
+			fornavn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonV7Pensjonsaldre']
+		}
 		PersonAlderV6: {
 			/** Format: int32 */
 			aar: number
@@ -2036,6 +2088,53 @@ export interface operations {
 				}
 			}
 			/** @description Henting av EPS kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	person: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
 			503: {
 				headers: {
 					[name: string]: unknown

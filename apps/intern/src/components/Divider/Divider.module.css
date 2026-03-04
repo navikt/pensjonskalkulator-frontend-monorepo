@@ -1,0 +1,38 @@
+.divider {
+	width: 100%;
+	margin: var(--ax-space-12) 0 var(--ax-space-12) 0;
+	border: none;
+	border-top: 1px solid var(--ax-border-neutral-subtleA);
+}
+
+.xsmallMargin {
+	margin: var(--ax-space-4) 0;
+}
+
+.smallMargin {
+	margin: var(--ax-space-8) 0;
+}
+
+.mediumMargin {
+	margin: var(--ax-space-12) 0;
+}
+
+.largeMargin {
+	margin: var(--ax-space-16) 0;
+}
+
+.extraLargeMargin {
+	margin: var(--ax-space-24) 0;
+}
+
+.noMargin {
+	margin: 0;
+}
+
+.noMarginBottom {
+	margin-bottom: 0;
+}
+
+.noMarginTop {
+	margin-top: 0;
+}
