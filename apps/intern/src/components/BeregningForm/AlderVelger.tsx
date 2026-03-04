@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
 
 import styles from './BeregningForm.module.css'
@@ -101,7 +99,7 @@ interface AlderVelgerProps {
 	mdError?: string
 }
 
-export const AlderVelger = ({
+export function AlderVelger({
 	alderAar,
 	alderMd,
 	onAlderAarChange,
@@ -113,16 +111,13 @@ export const AlderVelger = ({
 	maxAlder = { aar: 75, maaneder: 0 },
 	aarError,
 	mdError,
-}: AlderVelgerProps) => {
+}: AlderVelgerProps) {
 	const selectedYear = alderAar ? Number(alderAar) : undefined
 
-	const aarOptions = useMemo(() => {
-		const arr = []
-		for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
-			arr.push(i)
-		}
-		return arr
-	}, [minAlder.aar, maxAlder.aar])
+	const aarOptions = []
+	for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
+		aarOptions.push(i)
+	}
 
 	const uttaksdato =
 		foedselsdato && alderAar !== '' && alderMd !== ''

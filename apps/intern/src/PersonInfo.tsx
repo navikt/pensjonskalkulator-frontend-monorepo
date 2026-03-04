@@ -87,39 +87,29 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		)
 	}
 
+	if (isError || !fnr || !person) {
+		return (
+			<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
+		)
+	}
 	return (
-		<div>
-			{isError && (
-				<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
+		<HStack gap="space-4" className={styles.personInfoWrapper}>
+			<PersonIcon title="a11y-title" fontSize="1.5rem" />
+			<BodyShort size="medium">{fnr}</BodyShort>
+			<CopyButton size="small" copyText={fnr} />
+			<BodyShort size="medium">
+				<span>{' / '}</span>
+				{person.navn}
+			</BodyShort>
+			{vedtakStatus && (
+				<BodyShort size="medium">
+					{' / '}
+					{vedtakStatus}
+				</BodyShort>
 			)}
-
-			{person && fnr && (
-				<HStack
-					gap="space-4"
-					align="center"
-					justify="space-between"
-					className={styles.personInfoWrapper}
-				>
-					<HStack gap="space-4" align="center">
-						<PersonIcon title="a11y-title" fontSize="1.5rem" />
-						<BodyShort size="medium">{fnr}</BodyShort>
-						<CopyButton size="small" copyText={fnr} />
-						<BodyShort size="medium">
-							<span>{' / '}</span>
-							{person.navn}
-						</BodyShort>
-						{vedtakStatus && (
-							<BodyShort size="medium">
-								{' / '}
-								{vedtakStatus}
-							</BodyShort>
-						)}
-					</HStack>
-					<HStack gap="space-4" align="center">
-						{devInput}
-					</HStack>
-				</HStack>
-			)}
-		</div>
+			<HStack gap="space-4" align="center" style={{ marginLeft: 'auto' }}>
+				{devInput}
+			</HStack>
+		</HStack>
 	)
 }

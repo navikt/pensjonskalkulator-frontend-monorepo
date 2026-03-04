@@ -65,9 +65,18 @@ const BeregningLayout = () => {
 
 const AppContent = () => {
 	const [pid, setPid] = useState(getPidFromUrl)
-	const { data: fnr, isLoading: isDecrypting } = useDecryptPidQuery(pid)
-	const { data: person, isLoading: isLoadingPerson } = usePersonQuery(fnr)
-	const { isLoading: isLoadingVedtak } = useLoependeVedtakQuery(fnr)
+	const {
+		data: fnr,
+		isLoading: isDecrypting,
+		error: decryptError,
+	} = useDecryptPidQuery(pid)
+	const {
+		data: person,
+		isLoading: isLoadingPerson,
+		error: personError,
+	} = usePersonQuery(fnr)
+	const { isLoading: isLoadingVedtak, error: vedtakError } =
+		useLoependeVedtakQuery(fnr)
 
 	const handlePidChange = (encryptedPid: string) => {
 		const url = new URL(window.location.href)
@@ -78,6 +87,50 @@ const AppContent = () => {
 
 	if (!pid) {
 		return <PersonInfo onPidChange={handlePidChange} />
+	}
+
+	const error = decryptError || personError || vedtakError
+	const isUnauthorized =
+		error && (error.message.includes('401') || error.message.includes('403'))
+
+	if (isUnauthorized) {
+		return (
+			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
+				<GlobalAlert status="error">
+					<GlobalAlert.Header>
+						<GlobalAlert.Title>Ikke autorisert</GlobalAlert.Title>
+					</GlobalAlert.Header>
+					<BodyLong spacing>
+						Du har ikke tilgang til denne tjenesten. Vennligst kontakt
+						systemadministrator hvis du mener du burde ha tilgang.
+					</BodyLong>
+					{error && (
+						<BodyLong size="small" style={{ opacity: 0.8 }}>
+							Feilmelding: {error.message}
+						</BodyLong>
+					)}
+				</GlobalAlert>
+			</Box>
+		)
+	}
+
+	if (error) {
+		return (
+			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
+				<GlobalAlert status="error">
+					<GlobalAlert.Header>
+						<GlobalAlert.Title>Noe gikk galt</GlobalAlert.Title>
+					</GlobalAlert.Header>
+					<BodyLong spacing>
+						Det oppstod en feil ved henting av brukerdata. Vennligst prøv igjen
+						senere.
+					</BodyLong>
+					<BodyLong size="small" style={{ opacity: 0.8 }}>
+						Feilmelding: {error.message}
+					</BodyLong>
+				</GlobalAlert>
+			</Box>
+		)
 	}
 
 	if (isDecrypting || isLoadingPerson || isLoadingVedtak) {
