@@ -14,7 +14,6 @@ import {
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
-	useFeatureToggleQuery,
 	useLoependeVedtakQuery,
 	usePersonQuery,
 } from './api/queries'
@@ -33,9 +32,6 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
-	const { data: devToggle } = useFeatureToggleQuery(
-		'pensjonskalkulator-intern.hent-person'
-	)
 	const { mutate: encryptPid, isPending: isEncrypting } =
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')
@@ -49,7 +45,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		})
 	}
 
-	const devInput = devToggle?.enabled && (
+	const devInput = (
 		<>
 			<TextField
 				label="Fødselsnummer"
@@ -68,16 +64,15 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	if (!pid) {
 		return (
 			<>
-				{devToggle?.enabled && (
-					<HStack
-						gap="space-4"
-						align="center"
-						justify="end"
-						className={styles.personInfoWrapper}
-					>
-						{devInput}
-					</HStack>
-				)}
+				<HStack
+					gap="space-4"
+					align="center"
+					justify="end"
+					className={styles.personInfoWrapper}
+				>
+					{devInput}
+				</HStack>
+
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
 					<InfoCard.Header>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
