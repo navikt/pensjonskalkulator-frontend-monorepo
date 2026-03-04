@@ -44,6 +44,10 @@
 	gap: 1.5rem;
 }
 
+.sanityAlert {
+	margin: 0;
+}
+
 .buttonBar {
 	display: flex;
 	justify-content: space-between;
