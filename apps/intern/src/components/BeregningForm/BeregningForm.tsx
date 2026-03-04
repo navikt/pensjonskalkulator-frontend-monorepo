@@ -38,7 +38,6 @@ const sivilstandOptions = [
 	{ value: 'SKILT', label: 'Skilt' },
 	{ value: 'SKILT_PARTNER', label: 'Skilt partner' },
 	{ value: 'UGIFT', label: 'Ugift' },
-	{ value: null, label: 'Uoppgitt' },
 ]
 
 export const BeregningForm = () => {
@@ -102,6 +101,8 @@ export const BeregningForm = () => {
 						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
 						className={styles.selectWrapper}
 					>
+						{initialSivilstatus === 'UOPPGITT' &&
+							sivilstatus === 'UOPPGITT' && <option value="" />}
 						{sivilstandOptions.map(({ value, label }) => (
 							<option key={value} value={value ?? ''}>
 								{label}

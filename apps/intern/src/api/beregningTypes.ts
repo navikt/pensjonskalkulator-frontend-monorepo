@@ -59,6 +59,8 @@ export type BeregningResult = AlderspensjonResponseBody
 
 export function mapPersonSivilstatus(sivilstand: string): string {
 	switch (sivilstand) {
+		case 'UOPPGITT':
+			return ''
 		case 'GIFT':
 			return 'GIFT'
 		case 'SAMBOER':
