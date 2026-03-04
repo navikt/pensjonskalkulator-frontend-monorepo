@@ -1,4 +1,4 @@
-import type { Sivilstand } from '../../api/beregningTypes'
+import type { Sivilstand } from '@pensjonskalkulator-frontend-monorepo/types'
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: Sivilstand

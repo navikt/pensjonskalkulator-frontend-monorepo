@@ -15,7 +15,8 @@ export type Sivilstand =
 export type PensjoneringAldre =
 	components['schemas']['PersonResultV6']['pensjoneringAldre']
 // New type for sivilstatus, used in intern app. Has "Samboer"
-export type Sivilstatus = components['schemas']['EpsV1SivilstatusResult']
+export type Sivilstatus =
+	components['schemas']['EpsV1SivilstatusResult']['sivilstatus']
 // Inntekt
 export type Inntekt = components['schemas']['InntektDto']
 

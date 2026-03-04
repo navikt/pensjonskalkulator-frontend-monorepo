@@ -8,7 +8,7 @@ export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'DOEDSFALL_REGISTRERT'
 
 export interface BeregningFormData {
-	sivilstatus: Sivilstatus | null
+	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
 	bakgrunnForBrukAvOpplysningerOmEPS: BakgrunnForBrukAvOpplysningerOmEPS | null
 	alderAarUttak: number | null
@@ -71,7 +71,7 @@ export function mapPersonSivilstatus(sivilstand: string): string {
 }
 
 export const defaultBeregningFormData: BeregningFormData = {
-	sivilstatus: null,
+	sivilstatus: 'UOPPGITT',
 	beregnMedGjenlevenderett: false,
 	bakgrunnForBrukAvOpplysningerOmEPS: null,
 	alderAarUttak: null,

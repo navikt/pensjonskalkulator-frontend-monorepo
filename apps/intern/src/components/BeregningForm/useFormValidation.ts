@@ -36,8 +36,8 @@ export function useFormValidation() {
 		(formData: BeregningFormData): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
-			if (formData.sivilstand === null) {
-				errors.sivilstand = 'Sivilstand er påkrevd'
+			if (formData.sivilstatus === null) {
+				errors.sivilstatus = 'Sivilstatus er påkrevd'
 			}
 
 			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
@@ -51,7 +51,7 @@ export function useFormValidation() {
 			}
 
 			if (
-				isHarPartner(formData.sivilstand) &&
+				isHarPartner(formData.sivilstatus) &&
 				formData.epsHarPensjon === null
 			) {
 				errors.epsHarPensjon =
@@ -60,7 +60,7 @@ export function useFormValidation() {
 
 			if (
 				shouldShowEpsHarInntektOver2G(
-					formData.sivilstand,
+					formData.sivilstatus,
 					formData.epsHarPensjon
 				) &&
 				formData.epsHarInntektOver2G === null

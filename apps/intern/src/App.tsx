@@ -136,9 +136,7 @@ const AppContent = () => {
 			<BeregningProvider
 				initialSivilstatus={
 					person
-						? (mapPersonSivilstatus(
-								person.sivilstand
-							) as unknown as Sivilstatus)
+						? (mapPersonSivilstatus(person.sivilstand) as Sivilstatus)
 						: null
 				}
 			>
