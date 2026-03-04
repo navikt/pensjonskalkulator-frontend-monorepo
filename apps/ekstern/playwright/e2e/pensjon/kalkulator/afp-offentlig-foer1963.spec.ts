@@ -86,13 +86,83 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
   })
 
   test.describe('Som bruker som svarer AFP offentlig, velger "AFP etterfulgt av alderspensjon fra 67 år", og samtykker,', () => {
-    test.describe('Når bruker har TPO-forhold hos SPK,', () => {
-      test.use({ autoAuth: false })
+    test.use({ autoAuth: false })
 
+    test.beforeEach(async ({ page }) => {
+      await authenticate(page, [
+        await personFoedtFoer1963(),
+        offentligTpFoer1963('spk_foer1963'),
+        await alderspensjon({
+          preset: 'med_afp_offentlig',
+          pre2025OffentligAfp: {
+            alderAar: 62,
+            totaltAfpBeloep: 5000,
+          },
+        }),
+        await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
+      ])
+
+      await navigerTilAfpSteg(page)
+      await velgAfpEtterfulgtAvAlderspensjon(page)
+      await samtykk(page)
+
+      await page.waitForURL(/\/beregning-detaljert/)
+    })
+
+    test('forventer jeg å komme til avansert beregning med spørsmål om inntekt ved siden av AFP.', async ({
+      page,
+    }) => {
+      await expect(page).toHaveURL(/\/beregning-detaljert/)
+
+      await expect(
+        page.locator(
+          '[data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"]'
+        )
+      ).toBeVisible()
+    })
+
+    test('forventer jeg å se stillingsprosent-feltet når jeg svarer ja på inntekt ved siden av AFP.', async ({
+      page,
+    }) => {
+      await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
+
+      await page.getByTestId('inntekt-vsa-afp-radio-ja').check()
+
+      await expect(page.getByTestId('stillingsprosent-vsa-afp')).toBeVisible()
+    })
+
+    test('forventer jeg informasjon i grunnlaget om at AFP mellom 65 og 67 år er hentet fra SPK.', async ({
+      page,
+    }) => {
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="aar"]')
+        .selectOption('65')
+
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="maaned"]')
+        .selectOption('0')
+
+      await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
+
+      await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
+
+      await page.getByTestId('beregn-pensjon').click()
+
+      await page
+        .getByRole('button', { name: /Vis detaljer om din AFP/i })
+        .click()
+      await expect(
+        page.getByText(/Vi har hentet AFP mellom 65 og 67 år fra SPK/i)
+      ).toBeVisible()
+    })
+
+    test.describe('Når jeg har valgt uttaksalder mellom 62 og 65 år,', () => {
       test.beforeEach(async ({ page }) => {
         await authenticate(page, [
           await personFoedtFoer1963(),
-          offentligTpFoer1963('spk_foer1963'),
+          offentligTpFoer1963('spk_foer1963_nav_afp'),
           await alderspensjon({
             preset: 'med_afp_offentlig',
             pre2025OffentligAfp: {
@@ -100,184 +170,102 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
               totaltAfpBeloep: 5000,
             },
           }),
-          await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
+          await pensjonsavtaler({
+            avtaler: [],
+            utilgjengeligeSelskap: [],
+          }),
         ])
 
         await navigerTilAfpSteg(page)
         await velgAfpEtterfulgtAvAlderspensjon(page)
         await samtykk(page)
-
         await page.waitForURL(/\/beregning-detaljert/)
+
+        await page
+          .getByTestId('agepicker-helt-uttaksalder')
+          .locator('select[name*="aar"]')
+          .selectOption('64')
+
+        await page
+          .getByTestId('agepicker-helt-uttaksalder')
+          .locator('select[name*="maaned"]')
+          .selectOption('0')
+
+        await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
+
+        await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
+
+        await page.getByTestId('beregn-pensjon').click()
       })
 
-      test('forventer jeg å komme til avansert beregning med spørsmål om inntekt ved siden av AFP.', async ({
-        page,
-      }) => {
-        await expect(page).toHaveURL(/\/beregning-detaljert/)
+      test('forventer jeg å se AFP i grafen og tabellen.', async ({ page }) => {
+        const chart = page.getByTestId('highcharts-aria-wrapper')
+        await expect(
+          chart.getByText(/AFP \(avtalefestet pensjon\)/)
+        ).toBeVisible()
+
+        await page.getByRole('button', { name: /Vis tabell/i }).click()
 
         await expect(
-          page.locator(
-            '[data-intl="beregning.avansert.rediger.afp_etterfulgt_av_ap.title"]'
+          page.getByRole('columnheader', {
+            name: /AFP \(avtalefestet pensjon\)/i,
+          })
+        ).toBeVisible()
+      })
+    })
+
+    test('forventer jeg en lenke fra pensjonsavtaler til AFP-seksjonen.', async ({
+      page,
+    }) => {
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="aar"]')
+        .selectOption('65')
+
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="maaned"]')
+        .selectOption('0')
+
+      await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
+
+      await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
+
+      await page.getByTestId('beregn-pensjon').click()
+
+      await expect(
+        page.getByRole('heading', { name: /Offentlig tjenestepensjon/i })
+      ).toBeVisible()
+
+      await expect(page.getByTestId('afp-offentlig-alert-link')).toBeVisible()
+    })
+
+    test('forventer jeg forbeholdstekst om at Nav ikke er ansvarlig for beløpene fra andre.', async ({
+      page,
+    }) => {
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="aar"]')
+        .selectOption('65')
+
+      await page
+        .getByTestId('agepicker-helt-uttaksalder')
+        .locator('select[name*="maaned"]')
+        .selectOption('0')
+
+      await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
+
+      await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
+
+      await page.getByTestId('beregn-pensjon').click()
+
+      await expect(
+        page
+          .getByText(
+            /Nav er ikke ansvarlig for beløpene som er hentet inn fra andre/i
           )
-        ).toBeVisible()
-      })
-
-      test('forventer jeg å se stillingsprosent-feltet når jeg svarer ja på inntekt ved siden av AFP.', async ({
-        page,
-      }) => {
-        await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
-
-        await page.getByTestId('inntekt-vsa-afp-radio-ja').check()
-
-        await expect(page.getByTestId('stillingsprosent-vsa-afp')).toBeVisible()
-      })
-
-      test.describe('Når jeg har valgt uttaksalder mellom 65 og 67 år,', () => {
-        test.beforeEach(async ({ page }) => {
-          await page
-            .getByTestId('agepicker-helt-uttaksalder')
-            .locator('select[name*="aar"]')
-            .selectOption('65')
-
-          await page
-            .getByTestId('agepicker-helt-uttaksalder')
-            .locator('select[name*="maaned"]')
-            .selectOption('0')
-
-          await page
-            .getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja')
-            .check()
-
-          await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
-
-          await page.getByTestId('beregn-pensjon').click()
-        })
-
-        test('forventer jeg informasjon i grunnlaget om at AFP mellom 65 og 67 år er hentet fra SPK.', async ({
-          page,
-        }) => {
-          await page
-            .getByRole('button', { name: /Vis detaljer om din AFP/i })
-            .click()
-          await expect(
-            page.getByText(/Vi har hentet AFP mellom 65 og 67 år fra SPK/i)
-          ).toBeVisible()
-        })
-      })
-
-      test.describe('Når jeg har valgt uttaksalder mellom 62 og 65 år,', () => {
-        test.beforeEach(async ({ page }) => {
-          await authenticate(page, [
-            await personFoedtFoer1963(),
-            offentligTpFoer1963('spk_foer1963_nav_afp'),
-            await alderspensjon({
-              preset: 'med_afp_offentlig',
-              pre2025OffentligAfp: {
-                alderAar: 62,
-                totaltAfpBeloep: 5000,
-              },
-            }),
-            await pensjonsavtaler({
-              avtaler: [],
-              utilgjengeligeSelskap: [],
-            }),
-          ])
-
-          await navigerTilAfpSteg(page)
-          await velgAfpEtterfulgtAvAlderspensjon(page)
-          await samtykk(page)
-          await page.waitForURL(/\/beregning-detaljert/)
-
-          await page
-            .getByTestId('agepicker-helt-uttaksalder')
-            .locator('select[name*="aar"]')
-            .selectOption('64')
-
-          await page
-            .getByTestId('agepicker-helt-uttaksalder')
-            .locator('select[name*="maaned"]')
-            .selectOption('0')
-
-          await page
-            .getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja')
-            .check()
-
-          await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
-
-          await page.getByTestId('beregn-pensjon').click()
-        })
-
-        test('forventer jeg å se AFP i grafen og tabellen.', async ({
-          page,
-        }) => {
-          const chart = page.getByTestId('highcharts-aria-wrapper')
-          await expect(
-            chart.getByText(/AFP \(avtalefestet pensjon\)/)
-          ).toBeVisible()
-
-          await page.getByRole('button', { name: /Vis tabell/i }).click()
-
-          await expect(
-            page.getByRole('columnheader', {
-              name: /AFP \(avtalefestet pensjon\)/i,
-            })
-          ).toBeVisible()
-        })
-      })
-
-      test('forventer jeg en lenke fra pensjonsavtaler til AFP-seksjonen.', async ({
-        page,
-      }) => {
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="aar"]')
-          .selectOption('65')
-
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="maaned"]')
-          .selectOption('0')
-
-        await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
-
-        await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
-
-        await page.getByTestId('beregn-pensjon').click()
-
-        await expect(
-          page.getByRole('heading', { name: /Offentlig tjenestepensjon/i })
-        ).toBeVisible()
-
-        await expect(page.getByTestId('afp-offentlig-alert-link')).toBeVisible()
-      })
-
-      test('forventer jeg forbeholdstekst om at Nav ikke er ansvarlig for beløpene fra andre.', async ({
-        page,
-      }) => {
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="aar"]')
-          .selectOption('65')
-
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="maaned"]')
-          .selectOption('0')
-
-        await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
-
-        await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
-
-        await page.getByTestId('beregn-pensjon').click()
-
-        await expect(
-          page
-            .getByText(
-              /Nav er ikke ansvarlig for beløpene som er hentet inn fra andre/i
-            )
-            .first()
-        ).toBeVisible()
-      })
+          .first()
+      ).toBeVisible()
     })
   })
 
@@ -309,7 +297,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
     })
   })
 
-  test.describe('Som bruker som svarer AFP offentlig og velger "Kun alderspensjon",', () => {
+  test.describe('Som bruker som svarer AFP offentlig og velger "Kun alderspensjon", og ikke samtykker,', () => {
     test.use({ autoAuth: false })
 
     test.beforeEach(async ({ page }) => {
@@ -317,13 +305,58 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
 
       await navigerTilAfpSteg(page)
       await velgKunAlderspensjon(page)
-      await samtykk(page)
+      await ikkeSamtykk(page)
 
       await page.waitForURL(/\/beregning/)
     })
 
     test('forventer jeg vanlig enkel beregning.', async ({ page }) => {
       await expect(page).toHaveURL(/\/beregning/)
+    })
+  })
+
+  test.describe('Som bruker som svarer AFP offentlig og velger "Kun alderspensjon", og samtykker,', () => {
+    test.use({ autoAuth: false })
+
+    test.beforeEach(async ({ page }) => {
+      await authenticate(page, [
+        await personFoedtFoer1963(),
+        offentligTpFoer1963('spk_foer1963'),
+        await alderspensjon({
+          preset: 'med_afp_offentlig',
+          pre2025OffentligAfp: {
+            alderAar: 62,
+            totaltAfpBeloep: 5000,
+          },
+        }),
+        await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
+      ])
+
+      await navigerTilAfpSteg(page)
+      await velgKunAlderspensjon(page)
+      await samtykk(page)
+
+      await page.waitForURL(/\/beregning-detaljert/)
+    })
+
+    test('forventer jeg avansert beregning, med stillingsprosent-feltet.', async ({
+      page,
+    }) => {
+      await expect(page).toHaveURL(/\/beregning-detaljert/)
+
+      await page.getByRole('combobox', { name: 'Velg år' }).selectOption('67')
+
+      await page.getByRole('combobox', { name: 'Velg måned' }).selectOption('0')
+
+      await page
+        .getByRole('combobox', { name: /Hvor mye alderspensjon/i })
+        .selectOption('100')
+
+      await page.getByTestId('inntekt-vsa-helt-uttak-radio-ja').check()
+
+      await expect(
+        page.getByTestId('stillingsprosent-vsa-hel-pensjon')
+      ).toBeVisible()
     })
   })
 
