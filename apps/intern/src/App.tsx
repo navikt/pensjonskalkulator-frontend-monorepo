@@ -5,6 +5,7 @@ import {
 	Box,
 	GlobalAlert,
 	HStack,
+	Heading,
 	Loader,
 	Theme,
 } from '@navikt/ds-react'
@@ -37,10 +38,9 @@ const BeregningLayout = () => {
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
-						<BodyLong>
-							<span style={{ fontWeight: 'bold' }}>Pensjonskalkulator</span> –
-							Beregn pensjon
-						</BodyLong>
+						<Heading level="2" size="small">
+							Pensjonskalkulator
+						</Heading>
 					</Box>
 					<div style={{ flex: 1 }}>
 						{isDirty && (

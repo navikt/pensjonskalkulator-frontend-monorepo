@@ -7,6 +7,7 @@ import {
 	getPartnerBetegnelse,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowEpsHarPensjon,
+	shouldShowHarInntektVedSidenAvUttak,
 	shouldShowHeltUttakAlder,
 	shouldShowInntektGradertFields,
 	shouldShowInntektHeltFields,
@@ -105,7 +106,6 @@ export const BeregningForm = () => {
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
-					style={{ width: '184px' }}
 				/>
 
 				<RHFAlderVelger
@@ -132,7 +132,6 @@ export const BeregningForm = () => {
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-						style={{ width: '184px' }}
 					/>
 				)}
 
@@ -146,23 +145,23 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				<RHFRadioBoolean
-					name="harInntektVedSidenAvUttak"
-					legend="Har bruker inntekt ved siden av 100 % uttak?"
-					className={styles.horizontalRadioGroup}
-				>
-					<HStack gap="space-0 space-24" wrap={false}>
-						<Radio value="ja">Ja</Radio>
-						<Radio value="nei">Nei</Radio>
-					</HStack>
-				</RHFRadioBoolean>
-
+				{shouldShowHarInntektVedSidenAvUttak(uttaksgrad) && (
+					<RHFRadioBoolean
+						name="harInntektVedSidenAvUttak"
+						legend="Har bruker inntekt ved siden av 100 % uttak?"
+						className={styles.horizontalRadioGroup}
+					>
+						<HStack gap="space-0 space-24" wrap={false}>
+							<Radio value="ja">Ja</Radio>
+							<Radio value="nei">Nei</Radio>
+						</HStack>
+					</RHFRadioBoolean>
+				)}
 				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-							style={{ width: '184px' }}
 						/>
 
 						<RHFAlderVelger
