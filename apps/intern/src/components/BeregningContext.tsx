@@ -83,22 +83,16 @@ export function BeregningProvider({
 	const { isDirty: formIsDirty } = form.formState
 	const showDirtyWarning = hasSubmitted && formIsDirty
 
-	const [
-		sivilstand,
-		epsHarPensjon,
-		harInntektVedSidenAvUttak,
-		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
-	] = useWatch({
-		control: form.control,
-		name: [
-			'sivilstand',
-			'epsHarPensjon',
-			'harInntektVedSidenAvUttak',
-			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
-		] as const,
-	})
+	const [sivilstand, epsHarPensjon, harInntektVedSidenAvUttak, uttaksgrad] =
+		useWatch({
+			control: form.control,
+			name: [
+				'sivilstand',
+				'epsHarPensjon',
+				'harInntektVedSidenAvUttak',
+				'uttaksgrad',
+			] as const,
+		})
 
 	useEffect(() => {
 		if (!isHarPartner(sivilstand)) {
@@ -130,9 +124,6 @@ export function BeregningProvider({
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('harInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
 			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
@@ -144,20 +135,6 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
-
-	useEffect(() => {
-		if (harInntektVedSidenAvGradertUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderAarInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderMdInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-		}
-	}, [harInntektVedSidenAvGradertUttak, form])
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()

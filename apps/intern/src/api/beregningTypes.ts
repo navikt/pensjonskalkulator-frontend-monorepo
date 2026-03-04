@@ -17,7 +17,6 @@ export interface BeregningFormData {
 	pensjonsgivendeInntektVedSidenAvUttak: number | null
 	alderAarInntektSlutter: number | null
 	alderMdInntektSlutter: number | null
-	harInntektVedSidenAvGradertUttak: boolean | null
 	pensjonsgivendeInntektVedSidenAvGradertUttak: number | null
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
@@ -40,7 +39,6 @@ export interface ValidationErrors {
 	pensjonsgivendeInntektVedSidenAvUttak?: string
 	alderAarInntektSlutter?: string
 	alderMdInntektSlutter?: string
-	harInntektVedSidenAvGradertUttak?: string
 	pensjonsgivendeInntektVedSidenAvGradertUttak?: string
 	alderAarInntektGradertSlutter?: string
 	alderMdInntektGradertSlutter?: string
@@ -76,7 +74,6 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektVedSidenAvUttak: null,
 	alderAarInntektSlutter: null,
 	alderMdInntektSlutter: null,
-	harInntektVedSidenAvGradertUttak: null,
 	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,

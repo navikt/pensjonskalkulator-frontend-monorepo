@@ -8,7 +8,6 @@ import {
 	isHarPartner,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowGradertUttakFields,
-	shouldShowInntektGradertFields,
 	shouldShowInntektHeltFields,
 } from '../../api/formConditions'
 
@@ -108,29 +107,12 @@ export function useFormValidation() {
 				}
 			}
 
-			if (
-				shouldShowInntektGradertFields(
-					formData.uttaksgrad,
-					formData.harInntektVedSidenAvGradertUttak
-				)
-			) {
+			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
 				if (formData.pensjonsgivendeInntektVedSidenAvGradertUttak === null) {
 					errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
 						'Pensjonsgivende inntekt ved siden av gradert uttak er påkrevd'
 				}
 
-				if (formData.alderAarInntektGradertSlutter === null) {
-					errors.alderAarInntektGradertSlutter =
-						'Alder (år) inntekt slutter er påkrevd'
-				}
-
-				if (formData.alderMdInntektGradertSlutter === null) {
-					errors.alderMdInntektGradertSlutter =
-						'Alder (md.) inntekt slutter er påkrevd'
-				}
-			}
-
-			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
 				if (
 					formData.aarligInntektVsaPensjonGradertUttak !== null &&
 					Number.isNaN(formData.aarligInntektVsaPensjonGradertUttak)

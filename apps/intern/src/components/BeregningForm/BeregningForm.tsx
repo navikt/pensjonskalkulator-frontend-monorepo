@@ -7,7 +7,6 @@ import {
 	getPartnerBetegnelse,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowEpsHarPensjon,
-	shouldShowGradertUttakFields,
 	shouldShowHeltUttakAlder,
 	shouldShowInntektGradertFields,
 	shouldShowInntektHeltFields,
@@ -40,22 +39,16 @@ export const BeregningForm = () => {
 
 	const { control } = form
 
-	const [
-		sivilstand,
-		epsHarPensjon,
-		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
-		harInntektVedSidenAvUttak,
-	] = useWatch({
-		control,
-		name: [
-			'sivilstand',
-			'epsHarPensjon',
-			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
-			'harInntektVedSidenAvUttak',
-		] as const,
-	})
+	const [sivilstand, epsHarPensjon, uttaksgrad, harInntektVedSidenAvUttak] =
+		useWatch({
+			control,
+			name: [
+				'sivilstand',
+				'epsHarPensjon',
+				'uttaksgrad',
+				'harInntektVedSidenAvUttak',
+			] as const,
+		})
 
 	const handleSubmit = (e?: React.BaseSyntheticEvent) => {
 		e?.preventDefault()
@@ -135,30 +128,12 @@ export const BeregningForm = () => {
 					))}
 				</RHFSelect>
 
-				{shouldShowGradertUttakFields(uttaksgrad) && (
-					<>
-						<RHFRadioBoolean
-							name="harInntektVedSidenAvGradertUttak"
-							legend={`Har bruker inntekt ved siden av ${uttaksgrad} % uttak?`}
-							className={styles.horizontalRadioGroup}
-						>
-							<HStack gap="space-0 space-24" wrap={false}>
-								<Radio value="ja">Ja</Radio>
-								<Radio value="nei">Nei</Radio>
-							</HStack>
-						</RHFRadioBoolean>
-
-						{shouldShowInntektGradertFields(
-							uttaksgrad,
-							harInntektVedSidenAvGradertUttak
-						) && (
-							<RHFTextField
-								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-								style={{ width: '184px' }}
-							/>
-						)}
-					</>
+				{shouldShowInntektGradertFields(uttaksgrad) && (
+					<RHFTextField
+						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+						style={{ width: '184px' }}
+					/>
 				)}
 
 				{shouldShowHeltUttakAlder(uttaksgrad) && (

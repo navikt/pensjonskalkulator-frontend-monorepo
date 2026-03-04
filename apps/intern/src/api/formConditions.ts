@@ -43,20 +43,10 @@ export function shouldShowHeltUttakAlder(uttaksgrad: number | null): boolean {
 	return shouldShowGradertUttakFields(uttaksgrad)
 }
 
-export function shouldShowInntektVedSidenAvGradert(
+export function shouldShowInntektGradertFields(
 	uttaksgrad: number | null
 ): boolean {
 	return shouldShowGradertUttakFields(uttaksgrad)
-}
-
-export function shouldShowInntektGradertFields(
-	uttaksgrad: number | null,
-	harInntektVedSidenAvGradertUttak: boolean | null
-): boolean {
-	return (
-		shouldShowGradertUttakFields(uttaksgrad) &&
-		harInntektVedSidenAvGradertUttak === true
-	)
 }
 
 export function shouldShowInntektHeltFields(
