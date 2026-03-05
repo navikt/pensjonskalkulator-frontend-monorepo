@@ -1,3 +1,4 @@
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { useState } from 'react'
 
 import {
@@ -12,7 +13,7 @@ import {
 
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
-import { mapPersonSivilstand } from './api/beregningTypes.ts'
+import { mapPersonSivilstatus } from './api/beregningTypes.ts'
 import {
 	useDecryptPidQuery,
 	useLoependeVedtakQuery,
@@ -148,8 +149,10 @@ const AppContent = () => {
 		<>
 			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
-				initialSivilstand={
-					person ? mapPersonSivilstand(person.sivilstand) : undefined
+				initialSivilstatus={
+					person
+						? (mapPersonSivilstatus(person.sivilstatus) as Sivilstatus)
+						: null
 				}
 			>
 				<BeregningLayout />

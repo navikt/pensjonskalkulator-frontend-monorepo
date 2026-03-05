@@ -1,3 +1,5 @@
+@import '../../styles/global.module.css';
+
 .beregningForm {
 	width: 496px;
 	flex-shrink: 0;
