@@ -36,7 +36,10 @@ export function useFormValidation() {
 		(formData: BeregningFormData): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
-			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.bakgrunnForBrukAvOpplysningerOmEPS === null
+			) {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
 					'Velg bakgrunn for bruk av opplysninger om EPS.'
 			}

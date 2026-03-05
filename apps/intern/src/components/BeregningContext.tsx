@@ -95,6 +95,7 @@ export function BeregningProvider({
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
 		harInntektVedSidenAvGradertUttak,
+		beregnMedGjenlevenderett,
 	] = useWatch({
 		control: form.control,
 		name: [
@@ -103,8 +104,17 @@ export function BeregningProvider({
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
 			'harInntektVedSidenAvGradertUttak',
+			'beregnMedGjenlevenderett',
 		] as const,
 	})
+
+	useEffect(() => {
+		if (!beregnMedGjenlevenderett) {
+			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [beregnMedGjenlevenderett, form])
 
 	useEffect(() => {
 		if (!harPartner(sivilstatus)) {
