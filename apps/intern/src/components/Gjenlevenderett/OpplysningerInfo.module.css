@@ -1,0 +1,17 @@
+@import '../../styles/global.module.css';
+
+.opplysningerTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.opplysningerTable td {
+	padding: var(--ax-space-12);
+	border: 1px solid var(--ax-border-neutral-subtle);
+	vertical-align: top;
+}
+
+.headingRow td {
+	border: none;
+	padding-left: 0;
+}

@@ -1,5 +1,6 @@
 import type {
 	AlderspensjonRequestBody,
+	EpsOpplysninger,
 	LoependeVedtak,
 	PersonInternV1,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -7,6 +8,15 @@ import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
+
+export interface Grunnbeloep {
+	dato: string
+	grunnbeløp: number
+	grunnbeløpPerMaaned: number
+	gjennomsnittPerÅr: number
+	omregningsfaktor: number
+	virkningstidspunktForMinsteinntekt: string
+}
 
 const API_BASE = '/pensjon/kalkulator/api'
 
@@ -68,46 +78,26 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	return response.json() as Promise<LoependeVedtak>
 }
 
-export function usePersonQuery(fnr?: string) {
-	return useQuery({
-		queryKey: ['person', fnr],
-		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
-		retry: false,
+async function fetchEPSOpplysninger({
+	sivilstatus,
+	bakgrunn,
+}: {
+	sivilstatus: string
+	bakgrunn: string
+}): Promise<EpsOpplysninger> {
+	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ sivilstatus, bakgrunn }),
 	})
-}
-
-export function useLoependeVedtakQuery(fnr?: string) {
-	return useQuery({
-		queryKey: ['loependeVedtak', fnr],
-		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
-		retry: false,
-	})
-}
-
-async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
-	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+		throw new Error(
+			`Failed to fetch EPS information: ${response.status} ${response.statusText}`
+		)
 	}
 
-	return response.json() as Promise<Grunnbeloep>
-}
-
-export interface Grunnbeloep {
-	dato: string
-	grunnbeløp: number
-	grunnbeløpPerMaaned: number
-	gjennomsnittPerÅr: number
-	omregningsfaktor: number
-	virkningstidspunktForMinsteinntekt: string
-}
-
-export function useGrunnbeloepQuery() {
-	return useQuery({
-		queryKey: ['grunnbeloep'],
-		queryFn: fetchGrunnbeloep,
-	})
+	return response.json() as Promise<EpsOpplysninger>
 }
 
 async function fetchBeregning(
@@ -130,6 +120,56 @@ async function fetchBeregning(
 	}
 
 	return response.json() as Promise<BeregningResult>
+}
+
+export function usePersonQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['person', fnr],
+		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useLoependeVedtakQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['loependeVedtak', fnr],
+		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useEPSOpplysningerQuery({
+	sivilstatus,
+	bakgrunn,
+}: {
+	sivilstatus: string
+	bakgrunn: string
+}) {
+	return useQuery({
+		queryKey: ['EPSOpplysningerQuery', sivilstatus, bakgrunn],
+		queryFn:
+			sivilstatus && bakgrunn
+				? () => fetchEPSOpplysninger({ sivilstatus, bakgrunn })
+				: skipToken,
+		retry: false,
+	})
+}
+
+async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
+	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+	}
+
+	return response.json() as Promise<Grunnbeloep>
+}
+
+export function useGrunnbeloepQuery() {
+	return useQuery({
+		queryKey: ['grunnbeloep'],
+		queryFn: fetchGrunnbeloep,
+	})
 }
 
 export function useBeregningQuery(

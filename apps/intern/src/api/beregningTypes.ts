@@ -28,6 +28,11 @@ export interface BeregningFormData {
 	pensjonsgivendeInntektVedSidenAvGradertUttak: number | null
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
+	epsAntallUtenlandsOppholdAar: number | null
+	epsPensjonsgivendeInntektFoerDoedsDato: number | null
+	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
+	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
+	epsRegistretSomFlykting: boolean | null
 }
 
 export type BeregningParams = BeregningFormData
@@ -53,6 +58,11 @@ export interface ValidationErrors {
 	pensjonsgivendeInntektVedSidenAvGradertUttak?: string
 	alderAarInntektGradertSlutter?: string
 	alderMdInntektGradertSlutter?: string
+	epsAntallUtenlandsOppholdAar?: string
+	epsPensjonsgivendeInntektFoerDoedsDato?: string
+	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
+	epsMedlemAvFolketrygdenVedDoedsDato?: string
+	epsRegistretSomFlykting?: string
 }
 
 export type BeregningResult = AlderspensjonResponseBody
@@ -93,4 +103,9 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
+	epsAntallUtenlandsOppholdAar: null,
+	epsPensjonsgivendeInntektFoerDoedsDato: null,
+	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
+	epsMedlemAvFolketrygdenVedDoedsDato: null,
+	epsRegistretSomFlykting: null,
 }
