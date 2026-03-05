@@ -24,7 +24,7 @@ import {
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
-import { isSivilstatusWithGjenlevenderett, shouldShowSivilstand } from './utils'
+import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
@@ -91,7 +91,10 @@ export const BeregningForm = () => {
 	return (
 		<Box className={styles.beregningForm}>
 			{initialSivilstatus &&
-				isSivilstatusWithGjenlevenderett(initialSivilstatus) && (
+				showBeregnMedGjenlevenderett({
+					initialSivilstatus,
+					person,
+				}) && (
 					<>
 						<Gjenlevenderett />
 						<Divider extraLargeMargin />
@@ -99,7 +102,10 @@ export const BeregningForm = () => {
 				)}
 
 			<div className={styles.section}>
-				{shouldShowSivilstand(sivilstatus, beregnMedGjenlevenderett) && (
+				{showSivilstatus({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+				}) && (
 					<RHFSelect
 						name="sivilstatus"
 						label="Hva er sivilstanden til bruker ved uttak av pensjon?"

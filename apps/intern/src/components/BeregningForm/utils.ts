@@ -1,7 +1,11 @@
-import type { Sivilstand } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	PersonInternV1,
+	Sivilstatus,
+} from '@pensjonskalkulator-frontend-monorepo/types'
+import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 export function isSivilstatusWithGjenlevenderett(
-	sivilstatus: Sivilstand
+	sivilstatus: Sivilstatus
 ): boolean {
 	return [
 		'GIFT',
@@ -12,12 +16,28 @@ export function isSivilstatusWithGjenlevenderett(
 	].includes(sivilstatus)
 }
 
-export function shouldShowSivilstand(
-	sivilstand: Sivilstand | null,
+export function showSivilstatus({
+	sivilstatus,
+	beregnMedGjenlevenderett,
+}: {
+	sivilstatus: Sivilstatus | null
 	beregnMedGjenlevenderett: boolean
-): boolean {
-	if (!sivilstand) return true
+}): boolean {
+	if (!sivilstatus) return true
 	return (
-		!isSivilstatusWithGjenlevenderett(sivilstand) || !beregnMedGjenlevenderett
+		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
+	)
+}
+
+export function showBeregnMedGjenlevenderett({
+	initialSivilstatus,
+	person,
+}: {
+	initialSivilstatus: Sivilstatus
+	person: PersonInternV1
+}): boolean {
+	return (
+		isFoedtFoer1963(person?.foedselsdato) &&
+		isSivilstatusWithGjenlevenderett(initialSivilstatus)
 	)
 }
