@@ -2,16 +2,15 @@ import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
-import { Box, HStack, Radio } from '@navikt/ds-react'
+import { Box } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowEpsHarPensjon,
-	shouldShowHarInntektVedSidenAvUttak,
+	shouldShowGradertUttakFields,
 	shouldShowHeltUttakAlder,
-	shouldShowInntektGradertFields,
 	shouldShowInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
@@ -21,7 +20,7 @@ import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
-	RHFRadioBoolean,
+	RHFRadio,
 	RHFSelect,
 	RHFTextField,
 } from './rhf-adapters'
@@ -75,10 +74,8 @@ export const BeregningForm = () => {
 		] as const,
 	})
 
-	const handleSubmit = (e?: React.BaseSyntheticEvent) => {
-		e?.preventDefault()
+	const handleSubmit = () => {
 		form.clearErrors()
-
 		const formData = form.getValues()
 		const errors = validate(formData)
 
@@ -134,7 +131,7 @@ export const BeregningForm = () => {
 				{shouldShowEpsHarPensjon(sivilstatus) && (
 					<>
 						<hr className={styles.divider} />
-						<RHFRadioBoolean
+						<RHFRadio
 							name="epsHarPensjon"
 							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
 							className={styles.horizontalRadioGroup}
@@ -145,7 +142,7 @@ export const BeregningForm = () => {
 				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
 					<>
 						<hr className={styles.divider} />
-						<RHFRadioBoolean
+						<RHFRadio
 							name="epsHarInntektOver2G"
 							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
 							className={styles.horizontalRadioGroup}
@@ -194,7 +191,7 @@ export const BeregningForm = () => {
 					))}
 				</RHFSelect>
 
-				{shouldShowInntektGradertFields(uttaksgrad) && (
+				{shouldShowGradertUttakFields(uttaksgrad) && (
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
@@ -211,18 +208,12 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{shouldShowHarInntektVedSidenAvUttak(uttaksgrad) && (
-					<RHFRadioBoolean
-						name="harInntektVedSidenAvUttak"
-						legend="Har bruker inntekt ved siden av 100 % uttak?"
-						className={styles.horizontalRadioGroup}
-					>
-						<HStack gap="space-0 space-24" wrap={false}>
-							<Radio value="ja">Ja</Radio>
-							<Radio value="nei">Nei</Radio>
-						</HStack>
-					</RHFRadioBoolean>
-				)}
+				<RHFRadio
+					name="harInntektVedSidenAvUttak"
+					legend="Har bruker inntekt ved siden av 100 % uttak?"
+					className={styles.horizontalRadioGroup}
+				/>
+
 				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField

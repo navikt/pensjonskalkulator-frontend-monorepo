@@ -4,7 +4,7 @@ import { BodyLong, Button } from '@navikt/ds-react'
 
 import { useBeregningContext } from '../BeregningContext'
 import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
-import { RHFRadioValg } from '../BeregningForm/rhf-adapters/RHFRadioValg'
+import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { useFormValidation } from '../BeregningForm/useFormValidation'
 
 import styles from './Gjenlevenderett.module.css'
@@ -52,11 +52,11 @@ export const Gjenlevenderett = () => {
 						For å beregne gjenlevenderett, må opplysninger om
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
-					<RHFRadioValg
+					<RHFRadio
 						name="bakgrunnForBrukAvOpplysningerOmEPS"
 						legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
 						testid="bakgrunn-for-bruk-EPS"
-						valg={[
+						options={[
 							{
 								value: 'DOEDSFALL_REGISTRERT',
 								label: 'Bruker opplyser at EPS er død',

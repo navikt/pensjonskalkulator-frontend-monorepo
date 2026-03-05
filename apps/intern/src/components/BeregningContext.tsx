@@ -89,16 +89,30 @@ export function BeregningProvider({
 	const { isDirty: formIsDirty } = form.formState
 	const showDirtyWarning = hasSubmitted && formIsDirty
 
-	const [sivilstatus, epsHarPensjon, harInntektVedSidenAvUttak, uttaksgrad] =
-		useWatch({
-			control: form.control,
-			name: [
-				'sivilstatus',
-				'epsHarPensjon',
-				'harInntektVedSidenAvUttak',
-				'uttaksgrad',
-			] as const,
-		})
+	const [
+		sivilstatus,
+		epsHarPensjon,
+		harInntektVedSidenAvUttak,
+		uttaksgrad,
+		beregnMedGjenlevenderett,
+	] = useWatch({
+		control: form.control,
+		name: [
+			'sivilstatus',
+			'epsHarPensjon',
+			'harInntektVedSidenAvUttak',
+			'uttaksgrad',
+			'beregnMedGjenlevenderett',
+		] as const,
+	})
+
+	useEffect(() => {
+		if (!beregnMedGjenlevenderett) {
+			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [beregnMedGjenlevenderett, form])
 
 	useEffect(() => {
 		if (!harPartner(sivilstatus)) {
