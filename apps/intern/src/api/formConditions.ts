@@ -2,17 +2,16 @@ import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningFormData } from './beregningTypes'
 
-export function isHarPartner(sivilstatus: Sivilstatus | null): boolean {
+export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
 		sivilstatus !== null &&
 		[
 			'GIFT',
 			'REGISTRERT_PARTNER',
 			'SAMBOER',
-			'ENKE/ENKEMANN',
-			'REGISTRERT_PARTNER',
+			'ENKE_ELLER_ENKEMANN',
 			'SKILT',
-		].includes(sivilstatus as unknown as string)
+		].includes(sivilstatus as string)
 	)
 }
 
@@ -36,14 +35,14 @@ export function getPartnerBetegnelse(sivilstatus: Sivilstatus): string {
 export function shouldShowEpsHarPensjon(
 	sivilstatus: Sivilstatus | null
 ): boolean {
-	return isHarPartner(sivilstatus)
+	return harPartner(sivilstatus)
 }
 
 export function shouldShowEpsHarInntektOver2G(
 	sivilstatus: Sivilstatus | null,
 	epsHarPensjon: boolean | null
 ): boolean {
-	return isHarPartner(sivilstatus) && epsHarPensjon === false
+	return harPartner(sivilstatus) && epsHarPensjon === false
 }
 
 export function shouldShowGradertUttakFields(

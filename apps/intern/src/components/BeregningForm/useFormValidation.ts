@@ -5,7 +5,7 @@ import type {
 	ValidationErrors,
 } from '../../api/beregningTypes'
 import {
-	isHarPartner,
+	harPartner,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowGradertUttakFields,
 	shouldShowInntektGradertFields,
@@ -49,10 +49,7 @@ export function useFormValidation() {
 					'Pensjonsgivende inntekt frem til uttak er påkrevd.'
 			}
 
-			if (
-				isHarPartner(formData.sivilstatus) &&
-				formData.epsHarPensjon === null
-			) {
+			if (harPartner(formData.sivilstatus) && formData.epsHarPensjon === null) {
 				errors.epsHarPensjon =
 					'Du må velge om ektefelle/partner/samboer mottar pensjon'
 			}

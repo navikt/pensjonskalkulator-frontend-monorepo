@@ -24,7 +24,7 @@ import {
 	type BeregningResult,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { isHarPartner } from '../api/formConditions'
+import { harPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
@@ -107,7 +107,7 @@ export function BeregningProvider({
 	})
 
 	useEffect(() => {
-		if (!isHarPartner(sivilstatus)) {
+		if (!harPartner(sivilstatus)) {
 			form.setValue('epsHarPensjon', null, { shouldDirty: false })
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
