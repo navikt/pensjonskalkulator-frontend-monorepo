@@ -61,7 +61,7 @@ export function createMockRequest(
     request: new Request(url),
     params: {},
     context: {},
-  }
+  } as LoaderFunctionArgs
 }
 
 describe('Loaders', () => {
