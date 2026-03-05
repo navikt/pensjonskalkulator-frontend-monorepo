@@ -77,7 +77,10 @@ test.describe('Gjenlevenderett', () => {
 			test(`Viser checkbox for sivilstatus: ${sivilstatus}`, async ({
 				page,
 			}) => {
-				await setupDefaultMocks(page, { sivilstatus })
+				await setupDefaultMocks(page, {
+					sivilstatus,
+					foedselsdato: '1962-04-30',
+				})
 				await navigateToApp(page)
 
 				await expect(
@@ -89,7 +92,7 @@ test.describe('Gjenlevenderett', () => {
 
 	test.describe('Gjenlevenderett valgt', () => {
 		test.beforeEach(async ({ page }) => {
-			await setupDefaultMocks(page)
+			await setupDefaultMocks(page, { foedselsdato: '1962-04-30' })
 			await navigateToApp(page)
 		})
 
@@ -136,7 +139,7 @@ test.describe('Gjenlevenderett', () => {
 
 	test.describe('Gjenlevenderett og sivilstands-velger', () => {
 		test.beforeEach(async ({ page }) => {
-			await setupDefaultMocks(page)
+			await setupDefaultMocks(page, { foedselsdato: '1962-04-30' })
 			await navigateToApp(page)
 		})
 
@@ -183,7 +186,7 @@ test.describe('Gjenlevenderett', () => {
 
 	test.describe('Validering av EPS-grunnlag', () => {
 		test.beforeEach(async ({ page }) => {
-			await setupDefaultMocks(page)
+			await setupDefaultMocks(page, { foedselsdato: '1962-04-30' })
 			await navigateToApp(page)
 		})
 
@@ -227,7 +230,7 @@ test.describe('Gjenlevenderett', () => {
 
 	test.describe('Gjenlevenderett med skjema', () => {
 		test.beforeEach(async ({ page }) => {
-			await setupDefaultMocks(page)
+			await setupDefaultMocks(page, { foedselsdato: '1962-04-30' })
 			await navigateToApp(page)
 		})
 
@@ -271,7 +274,7 @@ test.describe('Gjenlevenderett', () => {
 
 	test.describe('Innsending med gjenlevenderett', () => {
 		test.beforeEach(async ({ page }) => {
-			await setupDefaultMocks(page)
+			await setupDefaultMocks(page, { foedselsdato: '1962-04-30' })
 			await mockApi(page, SIMULERING_API_URL, ALDERSPENSJON_MOCK_FILE)
 			await navigateToApp(page)
 		})
