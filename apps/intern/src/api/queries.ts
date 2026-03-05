@@ -85,7 +85,7 @@ export function useFeatureToggleQuery(feature: string) {
 }
 
 async function fetchPerson(fnr: string): Promise<PersonInternV1> {
-	const response = await fetch(`${API_BASE}/v6/person`, {
+	const response = await fetch(`${API_BASE}/intern/v1/person`, {
 		headers: {
 			fnr,
 		},
