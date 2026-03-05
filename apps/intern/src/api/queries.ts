@@ -158,6 +158,33 @@ export function useGrunnbeloepQuery() {
 	})
 }
 
+export interface Inntekt {
+	beloep: number
+	aar: number
+}
+
+async function fetchInntekt(fnr: string): Promise<Inntekt> {
+	const response = await fetch(`${API_BASE}/inntekt`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch inntekt: ${response.status}`)
+	}
+
+	return response.json() as Promise<Inntekt>
+}
+
+export function useInntektQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['inntekt', fnr],
+		queryFn: fnr ? () => fetchInntekt(fnr) : skipToken,
+		retry: false,
+	})
+}
+
 async function fetchBeregning(
 	fnr: string,
 	params: AlderspensjonRequestBody

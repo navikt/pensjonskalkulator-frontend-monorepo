@@ -46,9 +46,12 @@
 
 .alderRow :global(.aksel-select__container) {
 	width: 12rem;
+	min-width: 12rem;
+	flex-shrink: 0;
 }
 
 .alderRow :global(.aksel-select__container select) {
+	width: 12rem;
 	height: var(--a-spacing-8);
 }
 

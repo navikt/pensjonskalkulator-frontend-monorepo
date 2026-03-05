@@ -51,16 +51,21 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 interface BeregningProviderProps {
 	children: ReactNode
 	initialSivilstatus: Sivilstatus | null
+	initialInntekt?: number
 }
 
 export function BeregningProvider({
 	children,
 	initialSivilstatus,
+	initialInntekt,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
 			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+			...(initialInntekt !== undefined
+				? { aarligInntektFoerUttakBeloep: initialInntekt }
+				: {}),
 		},
 		mode: 'onChange',
 	})
@@ -71,6 +76,9 @@ export function BeregningProvider({
 			{
 				...defaultBeregningFormData,
 				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+				...(initialInntekt !== undefined
+					? { aarligInntektFoerUttakBeloep: initialInntekt }
+					: {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)

@@ -129,7 +129,7 @@ export const BeregningForm = () => {
 
 				{shouldShowEpsHarPensjon(sivilstatus) && (
 					<>
-						<hr className={styles.divider} />
+						<Divider noMargin />
 						<RHFRadio
 							name="epsHarPensjon"
 							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
@@ -140,7 +140,7 @@ export const BeregningForm = () => {
 
 				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
 					<>
-						<hr className={styles.divider} />
+						<Divider noMargin />
 						<RHFRadio
 							name="epsHarInntektOver2G"
 							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
@@ -194,6 +194,7 @@ export const BeregningForm = () => {
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+						style={{ width: '184px' }}
 					/>
 				)}
 
@@ -217,7 +218,7 @@ export const BeregningForm = () => {
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
-							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+							label="Pensjo sgivende inntekt ved siden av 100 % uttak"
 						/>
 
 						<RHFAlderVelger

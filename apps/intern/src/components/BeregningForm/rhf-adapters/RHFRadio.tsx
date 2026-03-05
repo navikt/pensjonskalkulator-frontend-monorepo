@@ -61,7 +61,7 @@ export function RHFRadio({
 			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
 			data-testid={testid}
 		>
-			<HStack gap="space-24">
+			<HStack gap="space-32">
 				{children ??
 					resolvedOptions.map((option) => (
 						<Radio key={option.value} value={option.value}>
