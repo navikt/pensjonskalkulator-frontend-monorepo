@@ -10,6 +10,7 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpFoer1963Response from './data/offentlig-tp-foer-1963.json' with { type: 'json' }
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
@@ -328,7 +329,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			} else if (request.headers.get('fnr') === '40400000000') {
 				return HttpResponse.json({}, { status: 404 })
 			}
-			return HttpResponse.json(personResponse)
+			return HttpResponse.json(personInternV1Response)
 		}),
 
 		http.get(

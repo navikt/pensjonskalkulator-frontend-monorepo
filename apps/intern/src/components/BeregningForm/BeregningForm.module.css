@@ -1,3 +1,5 @@
+@import '../../styles/global.module.css';
+
 .beregningForm {
 	width: 496px;
 	height: 100%;
@@ -6,42 +8,6 @@
 	box-sizing: border-box;
 	z-index: 1;
 	overflow-y: auto;
-}
-
-.divider {
-	border: none;
-	border-top: 1px solid var(--a-border-subtle);
-	margin: 0;
-}
-
-.section {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	padding: 24px 0;
-}
-
-.selectWrapper :global(.aksel-select__container) {
-	width: 184px;
-}
-
-.alderRow {
-	display: flex;
-	gap: 16px;
-}
-
-.alderRow > :first-child :global(.aksel-select__container) {
-	width: 96px;
-}
-
-.alderRow > :last-child :global(.aksel-select__container) {
-	width: 144px;
-}
-
-.horizontalRadioGroup :global(.navds-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: 1.5rem;
 }
 
 .buttonBar {

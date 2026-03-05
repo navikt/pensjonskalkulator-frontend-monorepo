@@ -14,6 +14,8 @@ import {
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
+import { Divider } from '../Divider/Divider'
+import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -22,14 +24,21 @@ import {
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
+import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
 const sivilstandOptions = [
+	{ value: 'ENKE', label: 'Enke/enkemann' },
+	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
-	{ value: 'UGIFT', label: 'Ugift' },
-	{ value: 'SAMBOER', label: 'Samboer' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
+	{ value: 'SAMBOER', label: 'Samboer' },
+	{ value: 'SEPARERT_PARTNER', label: 'Separert partner' },
+	{ value: 'SEPARERT', label: 'Separert' },
+	{ value: 'SKILT', label: 'Skilt' },
+	{ value: 'SKILT_PARTNER', label: 'Skilt partner' },
+	{ value: 'UGIFT', label: 'Ugift' },
 ]
 
 export const BeregningForm = () => {
@@ -41,7 +50,8 @@ export const BeregningForm = () => {
 	const { control } = form
 
 	const [
-		sivilstand,
+		sivilstatus,
+		beregnMedGjenlevenderett,
 		epsHarPensjon,
 		uttaksgrad,
 		harInntektVedSidenAvGradertUttak,
@@ -49,7 +59,8 @@ export const BeregningForm = () => {
 	] = useWatch({
 		control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
+			'beregnMedGjenlevenderett',
 			'epsHarPensjon',
 			'uttaksgrad',
 			'harInntektVedSidenAvGradertUttak',
@@ -74,26 +85,43 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
-	const partnerBetegnelse = getPartnerBetegnelse(sivilstand)
+	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
+	const initialSivilstatus = person && person.sivilstatus
 
 	return (
 		<Box className={styles.beregningForm}>
-			<hr className={styles.divider} />
-			<div className={styles.section}>
-				<RHFSelect
-					name="sivilstand"
-					label="Hva er sivilstanden til bruker ved uttak av pensjon?"
-					className={styles.selectWrapper}
-				>
-					<option value="">Velg</option>
-					{sivilstandOptions.map(({ value, label }) => (
-						<option key={value} value={value}>
-							{label}
-						</option>
-					))}
-				</RHFSelect>
+			{initialSivilstatus &&
+				showBeregnMedGjenlevenderett({
+					initialSivilstatus,
+					person,
+				}) && (
+					<>
+						<Gjenlevenderett />
+						<Divider extraLargeMargin />
+					</>
+				)}
 
-				{shouldShowEpsHarPensjon(sivilstand) && (
+			<div className={styles.section}>
+				{showSivilstatus({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+				}) && (
+					<RHFSelect
+						name="sivilstatus"
+						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						className={styles.selectWrapper}
+					>
+						{initialSivilstatus === 'UOPPGITT' &&
+							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{sivilstandOptions.map(({ value, label }) => (
+							<option key={value} value={value ?? ''}>
+								{label}
+							</option>
+						))}
+					</RHFSelect>
+				)}
+
+				{shouldShowEpsHarPensjon(sivilstatus) && (
 					<RHFRadioBoolean
 						name="epsHarPensjon"
 						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
@@ -101,7 +129,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{shouldShowEpsHarInntektOver2G(sivilstand, epsHarPensjon) && (
+				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
 					<RHFRadioBoolean
 						name="epsHarInntektOver2G"
 						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
@@ -200,7 +228,7 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</div>
-			<hr className={styles.divider} />
+			<Divider largeMargin />
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}
