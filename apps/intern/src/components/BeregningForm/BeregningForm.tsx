@@ -97,18 +97,17 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			{initialSivilstatus &&
-				showBeregnMedGjenlevenderett({
-					initialSivilstatus,
-					person,
-				}) && (
-					<>
-						<Gjenlevenderett />
-						<Divider extraLargeMargin />
-					</>
-				)}
-
 			<div className={styles.section}>
+				{initialSivilstatus &&
+					showBeregnMedGjenlevenderett({
+						initialSivilstatus,
+						person,
+					}) && (
+						<>
+							<Gjenlevenderett />
+							<Divider noMargin />
+						</>
+					)}
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
