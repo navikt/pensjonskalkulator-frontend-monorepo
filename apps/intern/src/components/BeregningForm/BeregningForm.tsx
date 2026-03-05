@@ -101,22 +101,19 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 				}) && (
-					<>
-						<Divider noMargin />
-						<RHFSelect
-							name="sivilstatus"
-							label="Hva er sivilstanden til bruker ved uttak av pensjon?"
-							className={styles.selectWrapper}
-						>
-							{initialSivilstatus === 'UOPPGITT' &&
-								sivilstatus === 'UOPPGITT' && <option value="" />}
-							{sivilstandOptions.map(({ value, label }) => (
-								<option key={value} value={value ?? ''}>
-									{label}
-								</option>
-							))}
-						</RHFSelect>
-					</>
+					<RHFSelect
+						name="sivilstatus"
+						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						className={styles.selectWrapper}
+					>
+						{initialSivilstatus === 'UOPPGITT' &&
+							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{sivilstandOptions.map(({ value, label }) => (
+							<option key={value} value={value ?? ''}>
+								{label}
+							</option>
+						))}
+					</RHFSelect>
 				)}
 
 				{shouldShowEpsHarPensjon(sivilstatus) && (

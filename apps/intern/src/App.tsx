@@ -16,6 +16,7 @@ import { PesysHeader } from './PesysHeader.tsx'
 import { mapPersonSivilstatus } from './api/beregningTypes.ts'
 import {
 	useDecryptPidQuery,
+	useInntektQuery,
 	useLoependeVedtakQuery,
 	usePersonQuery,
 } from './api/queries.ts'
@@ -85,6 +86,11 @@ const AppContent = () => {
 	} = usePersonQuery(fnr)
 	const { isLoading: isLoadingVedtak, error: vedtakError } =
 		useLoependeVedtakQuery(fnr)
+	const {
+		data: inntekt,
+		isLoading: isLoadingInntekt,
+		error: inntektError,
+	} = useInntektQuery(fnr)
 
 	const handlePidChange = (encryptedPid: string) => {
 		const url = new URL(window.location.href)
@@ -97,7 +103,7 @@ const AppContent = () => {
 		return <PersonInfo onPidChange={handlePidChange} />
 	}
 
-	const error = decryptError || personError || vedtakError
+	const error = decryptError || personError || vedtakError || inntektError
 	const isUnauthorized =
 		error && (error.message.includes('401') || error.message.includes('403'))
 
@@ -141,7 +147,7 @@ const AppContent = () => {
 		)
 	}
 
-	if (isDecrypting || isLoadingPerson || isLoadingVedtak) {
+	if (isDecrypting || isLoadingPerson || isLoadingVedtak || isLoadingInntekt) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />
 	}
 
@@ -154,6 +160,7 @@ const AppContent = () => {
 						? (mapPersonSivilstatus(person.sivilstatus) as Sivilstatus)
 						: null
 				}
+				initialInntekt={inntekt?.beloep}
 			>
 				<BeregningLayout />
 			</BeregningProvider>
