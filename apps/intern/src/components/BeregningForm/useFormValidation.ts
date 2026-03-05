@@ -5,7 +5,7 @@ import type {
 	ValidationErrors,
 } from '../../api/beregningTypes'
 import {
-	isHarPartner,
+	harPartner,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowGradertUttakFields,
 	shouldShowInntektHeltFields,
@@ -35,26 +35,27 @@ export function useFormValidation() {
 		(formData: BeregningFormData): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
-			if (formData.sivilstand === null) {
-				errors.sivilstand = 'Sivilstand er påkrevd'
+			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+			if (formData.sivilstatus === 'UOPPGITT') {
+				errors.sivilstatus = 'Velg sivilstatus.'
 			}
 
 			if (formData.aarligInntektFoerUttakBeloep === null) {
 				errors.aarligInntektFoerUttakBeloep =
-					'Pensjonsgivende inntekt frem til uttak er påkrevd'
+					'Pensjonsgivende inntekt frem til uttak er påkrevd.'
 			}
 
-			if (
-				isHarPartner(formData.sivilstand) &&
-				formData.epsHarPensjon === null
-			) {
+			if (harPartner(formData.sivilstatus) && formData.epsHarPensjon === null) {
 				errors.epsHarPensjon =
 					'Du må velge om ektefelle/partner/samboer mottar pensjon'
 			}
 
 			if (
 				shouldShowEpsHarInntektOver2G(
-					formData.sivilstand,
+					formData.sivilstatus,
 					formData.epsHarPensjon
 				) &&
 				formData.epsHarInntektOver2G === null
@@ -148,6 +149,21 @@ export function useFormValidation() {
 		[]
 	)
 
+	const validatebakgrunnForBrukAvOpplysningerOmEPS = useCallback(
+		(formData: BeregningFormData): ValidationErrors => {
+			const errors: ValidationErrors = {}
+
+			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+
+			setValidationErrors(errors)
+			return errors
+		},
+		[]
+	)
+
 	const clearError = useCallback((field: keyof ValidationErrors) => {
 		setValidationErrors((prev) => {
 			const next = { ...prev }
@@ -165,5 +181,6 @@ export function useFormValidation() {
 		validate,
 		clearError,
 		resetValidationErrors,
+		validatebakgrunnForBrukAvOpplysningerOmEPS,
 	}
 }

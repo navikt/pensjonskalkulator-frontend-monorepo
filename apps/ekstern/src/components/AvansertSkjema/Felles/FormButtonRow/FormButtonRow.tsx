@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl'
 
 import { Button } from '@navikt/ds-react'
 
+import { Divider } from '@/components/common/Divider/Divider'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -41,7 +42,7 @@ export const FormButtonRow: React.FC<{
 
   return (
     <div className={styles.wrapper}>
-      <hr className={styles.separator} />
+      <Divider xsmallMargin />
 
       <div>
         <Button
