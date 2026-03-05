@@ -16,6 +16,7 @@ interface RHFRadioBooleanValg {
 	className?: string
 	children?: ReactNode
 	valg: radioOption[]
+	testid?: string
 }
 
 export function RHFRadioValg({
@@ -24,6 +25,7 @@ export function RHFRadioValg({
 	className,
 	children,
 	valg,
+	testid,
 }: RHFRadioBooleanValg) {
 	const {
 		control,
@@ -45,6 +47,7 @@ export function RHFRadioValg({
 			value={displayValue}
 			error={error}
 			onChange={(val: string) => field.onChange(val)}
+			data-testid={testid}
 		>
 			{children ?? (
 				<>

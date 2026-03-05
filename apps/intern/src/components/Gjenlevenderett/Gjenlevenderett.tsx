@@ -39,17 +39,23 @@ export const Gjenlevenderett = () => {
 			<RHFCheckbox
 				name="beregnMedGjenlevenderett"
 				label="Beregn med gjenlevenderett (valgfritt)"
+				testid="beregn-med-gjenlevenderett"
 			/>
 
 			{beregnMedGjenlevenderett && (
 				<div className={styles.gjenlevenderettSection}>
-					<BodyLong size="small" className={styles.opplysningerOmEPSInfo}>
+					<BodyLong
+						size="small"
+						className={styles.opplysningerOmEPSInfo}
+						data-testid="EPS-samtykke-tekst"
+					>
 						For å beregne gjenlevenderett, må opplysninger om
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					<RHFRadioValg
 						name="bakgrunnForBrukAvOpplysningerOmEPS"
 						legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
+						testid="bakgrunn-for-bruk-EPS"
 						valg={[
 							{
 								value: 'DOEDSFALL_REGISTRERT',
@@ -66,6 +72,7 @@ export const Gjenlevenderett = () => {
 						variant="secondary"
 						onClick={handleHentEPSOpplysninger}
 						className={styles.epsButton}
+						data-testid="EPS-hent-opplysninger-button"
 					>
 						Hent opplysninger om EPS
 					</Button>
