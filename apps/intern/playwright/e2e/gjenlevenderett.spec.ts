@@ -33,7 +33,6 @@ async function setupDefaultMocks(
 	page: import('@playwright/test').Page,
 	personOverrides?: Record<string, unknown>
 ) {
-	await mockApi(page, DECRYPT_API_URL, undefined, undefined)
 	await page.route(DECRYPT_API_URL, (route) =>
 		route.fulfill({
 			status: 200,
