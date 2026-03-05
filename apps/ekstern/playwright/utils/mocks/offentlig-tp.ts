@@ -12,6 +12,14 @@ type OffentligTpPreset =
   | 'empty_response'
   | 'server_error'
 
+type OffentligTpFoer1963Preset =
+  | 'spk_foer1963'
+  | 'spk_foer1963_nav_afp'
+  | 'spk_foer1963_null_utbetaling'
+  | 'spk_foer1963_oppfyller_ikke_inngangsvilkaar'
+  | 'spk_foer1963_teknisk_feil'
+  | 'foer1963_server_error'
+
 type OffentligTpMockOptions =
   Partial<OffentligTjenestepensjonSimuleringResultV2> & {
     preset?: OffentligTpPreset
@@ -162,6 +170,145 @@ export const offentligTp = async (
       ...baseResponse,
       ...overrides,
     },
+  }
+}
+
+const foer1963PresetConfigs: Record<
+  OffentligTpFoer1963Preset,
+  () => Record<string, unknown>
+> = {
+  spk_foer1963: () => ({
+    simuleringsresultatStatus: 'OK',
+    muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+    simulertTjenestepensjon: {
+      tpLeverandoer: 'Statens pensjonskasse',
+      tpNummer: '3010',
+      simuleringsresultat: {
+        utbetalingsperioder: [
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            sluttAlder: { aar: 74, maaneder: 11 },
+            aarligUtbetaling: 120000,
+            grad: 100,
+            ytelsekode: 'AP',
+            maanedligUtbetaling: 10000,
+          },
+          {
+            startAlder: { aar: 75, maaneder: 0 },
+            aarligUtbetaling: 96000,
+            grad: 100,
+            ytelsekode: 'AP',
+            maanedligUtbetaling: 8000,
+          },
+          {
+            startAlder: { aar: 65, maaneder: 0 },
+            sluttAlder: { aar: 67, maaneder: 0 },
+            aarligUtbetaling: 400000,
+            grad: 100,
+            ytelsekode: 'AFP',
+            maanedligUtbetaling: 33333,
+          },
+        ],
+      },
+    },
+  }),
+  spk_foer1963_nav_afp: () => ({
+    simuleringsresultatStatus: 'OK',
+    muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+    simulertTjenestepensjon: {
+      tpLeverandoer: 'Statens pensjonskasse',
+      tpNummer: '3010',
+      simuleringsresultat: {
+        utbetalingsperioder: [
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            sluttAlder: { aar: 74, maaneder: 11 },
+            aarligUtbetaling: 120000,
+            grad: 100,
+            ytelsekode: 'AP',
+            maanedligUtbetaling: 10000,
+          },
+          {
+            startAlder: { aar: 75, maaneder: 0 },
+            aarligUtbetaling: 96000,
+            grad: 100,
+            ytelsekode: 'AP',
+            maanedligUtbetaling: 8000,
+          },
+          {
+            startAlder: { aar: 62, maaneder: 0 },
+            sluttAlder: { aar: 65, maaneder: 0 },
+            aarligUtbetaling: 120000,
+            grad: 100,
+            ytelsekode: 'AFP',
+            maanedligUtbetaling: 10000,
+          },
+          {
+            startAlder: { aar: 65, maaneder: 0 },
+            sluttAlder: { aar: 67, maaneder: 0 },
+            aarligUtbetaling: 180000,
+            grad: 100,
+            ytelsekode: 'AFP',
+            maanedligUtbetaling: 15000,
+          },
+        ],
+      },
+    },
+  }),
+  spk_foer1963_null_utbetaling: () => ({
+    simuleringsresultatStatus: 'OK',
+    muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+    feilkode: 'BEREGNING_GIR_NULL_UTBETALING',
+    simulertTjenestepensjon: {
+      tpLeverandoer: 'Statens pensjonskasse',
+      tpNummer: '3010',
+      simuleringsresultat: {
+        utbetalingsperioder: [
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            aarligUtbetaling: 0,
+            grad: 100,
+            ytelsekode: 'AP',
+            maanedligUtbetaling: 0,
+          },
+        ],
+      },
+    },
+  }),
+  spk_foer1963_oppfyller_ikke_inngangsvilkaar: () => ({
+    simuleringsresultatStatus: 'OK',
+    muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+    feilkode: 'OPPFYLLER_IKKE_INNGANGSVILKAAR',
+  }),
+  spk_foer1963_teknisk_feil: () => ({
+    simuleringsresultatStatus: 'OK',
+    muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+    feilkode: 'TEKNISK_FEIL',
+  }),
+  foer1963_server_error: () => ({
+    simuleringsresultatStatus: 'TEKNISK_FEIL',
+    muligeTpLeverandoerListe: [],
+  }),
+}
+
+export const offentligTpFoer1963 = (
+  preset: OffentligTpFoer1963Preset
+): RouteDefinition => {
+  if (preset === 'foer1963_server_error') {
+    return {
+      url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+      method: 'POST',
+      status: 503,
+      overrideJsonResponse: {},
+    }
+  }
+
+  const response = foer1963PresetConfigs[preset]()
+
+  return {
+    url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+    method: 'POST',
+    overrideJsonResponse: response,
   }
 }
 

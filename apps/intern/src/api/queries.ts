@@ -1,7 +1,7 @@
 import type {
 	AlderspensjonRequestBody,
 	LoependeVedtak,
-	Person,
+	PersonInternV1,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	keepPreviousData,
@@ -84,7 +84,7 @@ export function useFeatureToggleQuery(feature: string) {
 	})
 }
 
-async function fetchPerson(fnr: string): Promise<Person> {
+async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	const response = await fetch(`${API_BASE}/v6/person`, {
 		headers: {
 			fnr,
@@ -97,7 +97,7 @@ async function fetchPerson(fnr: string): Promise<Person> {
 		)
 	}
 
-	return response.json() as Promise<Person>
+	return response.json() as Promise<PersonInternV1>
 }
 
 async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {

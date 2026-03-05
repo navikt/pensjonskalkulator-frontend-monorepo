@@ -66,7 +66,7 @@ export function mapBeregningParamsToRequest(
 						}
 					: undefined,
 		},
-		sivilstand: formData.sivilstand ?? 'UGIFT',
+		sivilstand: formData.sivilstatus ?? 'UGIFT',
 		epsHarPensjon: formData.epsHarPensjon ?? undefined,
 		epsHarInntektOver2G: formData.epsHarInntektOver2G ?? undefined,
 	}

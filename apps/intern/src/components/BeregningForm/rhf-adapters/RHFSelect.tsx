@@ -34,7 +34,11 @@ export function RHFSelect({
 			label={label}
 			size="small"
 			className={className}
-			value={field.value?.toString() ?? ''}
+			value={
+				typeof field.value === 'string' || typeof field.value === 'number'
+					? String(field.value)
+					: ''
+			}
 			error={errors[name]?.message}
 			onChange={(e) => field.onChange(toFormValue(e.target.value))}
 		>
