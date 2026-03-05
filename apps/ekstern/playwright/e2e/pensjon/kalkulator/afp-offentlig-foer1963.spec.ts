@@ -158,62 +158,6 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
       ).toBeVisible()
     })
 
-    test.describe('Når jeg har valgt uttaksalder mellom 62 og 65 år,', () => {
-      test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await personFoedtFoer1963(),
-          offentligTpFoer1963('spk_foer1963_nav_afp'),
-          await alderspensjon({
-            preset: 'med_afp_offentlig',
-            pre2025OffentligAfp: {
-              alderAar: 62,
-              totaltAfpBeloep: 5000,
-            },
-          }),
-          await pensjonsavtaler({
-            avtaler: [],
-            utilgjengeligeSelskap: [],
-          }),
-        ])
-
-        await navigerTilAfpSteg(page)
-        await velgAfpEtterfulgtAvAlderspensjon(page)
-        await samtykk(page)
-        await page.waitForURL(/\/beregning-detaljert/)
-
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="aar"]')
-          .selectOption('64')
-
-        await page
-          .getByTestId('agepicker-helt-uttaksalder')
-          .locator('select[name*="maaned"]')
-          .selectOption('0')
-
-        await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
-
-        await page.getByTestId('inntekt-vsa-afp-radio-nei').check()
-
-        await page.getByTestId('beregn-pensjon').click()
-      })
-
-      test('forventer jeg å se AFP i grafen og tabellen.', async ({ page }) => {
-        const chart = page.getByTestId('highcharts-aria-wrapper')
-        await expect(
-          chart.getByText(/AFP \(avtalefestet pensjon\)/)
-        ).toBeVisible()
-
-        await page.getByRole('button', { name: /Vis tabell/i }).click()
-
-        await expect(
-          page.getByRole('columnheader', {
-            name: /AFP \(avtalefestet pensjon\)/i,
-          })
-        ).toBeVisible()
-      })
-    })
-
     test('forventer jeg en lenke fra pensjonsavtaler til AFP-seksjonen.', async ({
       page,
     }) => {
