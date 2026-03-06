@@ -185,7 +185,7 @@ function validateAlderHeltMotGradert(
 			(heltUttakAar === gradertUttakAar && heltUttakMd < gradertUttakMd)
 		) {
 			errors.alderAarHeltUttak =
-				'Alder for 100 % uttak kan ikke være før alder for uttak'
+				'Uttaksalder for 100 % alderspensjon må være senere enn alder for gradert pensjon.'
 		}
 	}
 }
