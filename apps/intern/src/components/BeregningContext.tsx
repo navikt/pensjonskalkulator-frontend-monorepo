@@ -1,4 +1,8 @@
-import type { Person } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	LoependeVedtak,
+	PersonInternV1,
+	Sivilstatus,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
 	createContext,
@@ -18,13 +22,13 @@ import {
 	type BeregningFormData,
 	type BeregningParams,
 	type BeregningResult,
-	type Sivilstand,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { isHarPartner } from '../api/formConditions'
+import { harPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useLoependeVedtakQuery,
 	usePersonQuery,
 } from '../api/queries'
 import { getPidFromUrl } from '../utils'
@@ -36,7 +40,8 @@ interface BeregningContextValue {
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
-	person: Person | undefined
+	person: PersonInternV1 | undefined
+	loependeVedtak: LoependeVedtak | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -45,17 +50,17 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 
 interface BeregningProviderProps {
 	children: ReactNode
-	initialSivilstand?: Sivilstand
+	initialSivilstatus: Sivilstatus | null
 }
 
 export function BeregningProvider({
 	children,
-	initialSivilstand,
+	initialSivilstatus,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
-			...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 		},
 		mode: 'onChange',
 	})
@@ -65,7 +70,7 @@ export function BeregningProvider({
 		form.reset(
 			{
 				...defaultBeregningFormData,
-				...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)
@@ -79,33 +84,44 @@ export function BeregningProvider({
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
+	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
 	const showDirtyWarning = hasSubmitted && formIsDirty
 
 	const [
-		sivilstand,
+		sivilstatus,
 		epsHarPensjon,
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
 		harInntektVedSidenAvGradertUttak,
+		beregnMedGjenlevenderett,
 	] = useWatch({
 		control: form.control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
 			'epsHarPensjon',
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
 			'harInntektVedSidenAvGradertUttak',
+			'beregnMedGjenlevenderett',
 		] as const,
 	})
 
 	useEffect(() => {
-		if (!isHarPartner(sivilstand)) {
+		if (!beregnMedGjenlevenderett) {
+			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [beregnMedGjenlevenderett, form])
+
+	useEffect(() => {
+		if (!harPartner(sivilstatus)) {
 			form.setValue('epsHarPensjon', null, { shouldDirty: false })
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
-	}, [sivilstand, form])
+	}, [sivilstatus, form])
 
 	useEffect(() => {
 		if (epsHarPensjon !== false) {
@@ -191,6 +207,7 @@ export function BeregningProvider({
 					beregning,
 					isBeregningLoading,
 					beregningError,
+					loependeVedtak,
 					submitBeregning,
 					resetForm,
 				}}

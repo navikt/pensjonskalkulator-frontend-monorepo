@@ -1,0 +1,16 @@
+{
+	"pid": "string",
+	"fom": "2026-02-24",
+	"relasjonstype": "EKTEFELLE",
+	"relasjonPersondata": {
+		"tilgangsbegrensning": "FORTROLIG",
+		"navn": {
+			"fornavn": "string",
+			"mellomnavn": "string",
+			"etternavn": "string"
+		},
+		"foedselsdato": "2026-02-24",
+		"doedsdato": "2026-02-24",
+		"statsborgerskap": "string"
+	}
+}

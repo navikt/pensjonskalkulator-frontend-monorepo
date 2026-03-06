@@ -5,7 +5,7 @@ import type {
 	ValidationErrors,
 } from '../../api/beregningTypes'
 import {
-	isHarPartner,
+	harPartner,
 	shouldShowEpsHarInntektOver2G,
 	shouldShowGradertUttakFields,
 	shouldShowInntektGradertFields,
@@ -16,26 +16,26 @@ function validateSivilstand(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (formData.sivilstand === null) {
-		errors.sivilstand = 'Velg sivilstand.'
+	if (formData.sivilstatus === 'UOPPGITT') {
+		errors.sivilstatus = 'Velg sivilstatus.'
 	}
 
-	const harPartner = isHarPartner(formData.sivilstand)
+	const isHarPartner = harPartner(formData.sivilstatus)
 
-	const partnerLabel =
-		formData.sivilstand === 'GIFT'
-			? 'ektefelle'
-			: formData.sivilstand === 'SAMBOER'
-				? 'samboer'
-				: 'partner'
+	let partnerLabel = 'partner'
+	if (formData.sivilstatus === 'GIFT') {
+		partnerLabel = 'ektefelle'
+	} else if (formData.sivilstatus === 'SAMBOER') {
+		partnerLabel = 'samboer'
+	}
 
-	if (harPartner && formData.epsHarPensjon === null) {
+	if (isHarPartner && formData.epsHarPensjon === null) {
 		errors.epsHarPensjon = `Fyll ut om ${partnerLabel} mottar pensjon, uføretrygd eller AFP.`
 	}
 
 	if (
 		shouldShowEpsHarInntektOver2G(
-			formData.sivilstand,
+			formData.sivilstatus,
 			formData.epsHarPensjon
 		) &&
 		formData.epsHarInntektOver2G === null
@@ -228,6 +228,21 @@ export function useFormValidation() {
 		[]
 	)
 
+	const validatebakgrunnForBrukAvOpplysningerOmEPS = useCallback(
+		(formData: BeregningFormData): ValidationErrors => {
+			const errors: ValidationErrors = {}
+
+			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+
+			setValidationErrors(errors)
+			return errors
+		},
+		[]
+	)
+
 	const clearError = useCallback((field: keyof ValidationErrors) => {
 		setValidationErrors((prev) => {
 			const next = { ...prev }
@@ -245,5 +260,6 @@ export function useFormValidation() {
 		validate,
 		clearError,
 		resetValidationErrors,
+		validatebakgrunnForBrukAvOpplysningerOmEPS,
 	}
 }

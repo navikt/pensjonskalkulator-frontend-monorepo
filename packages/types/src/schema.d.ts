@@ -124,6 +124,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/v1/decrypt': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		get?: never
+		put?: never
+		/**
+		 * Dekrypter tekst
+		 * @description Dekrypterer angitt tekst (typisk brukstilfelle er for fødselsnumre)
+		 */
+		post: operations['decrypt']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/v1/alderspensjon/anonym-simulering': {
 		parameters: {
 			query?: never
@@ -158,6 +178,46 @@ export interface paths {
 		 * @description Lager en prognose for framtidig alderspensjon med støtte for AFP.
 		 */
 		post: operations['simulerPensjon']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/intern/v1/eps': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		get?: never
+		put?: never
+		/**
+		 * Hent nyligste EPS
+		 * @description Henter informasjon om nyligste ektefelle/partner/samboer.
+		 */
+		post: operations['nyligsteEps']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/v7/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
+		 */
+		get: operations['person']
+		put?: never
+		post?: never
 		delete?: never
 		options?: never
 		head?: never
@@ -456,6 +516,46 @@ export interface paths {
 		 * @description Hvorvidt den innloggede brukeren har løpende uføretrygd eller gjenlevendeytelse
 		 */
 		get: operations['harRelevantSak']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/intern/v1/sivilstatus': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent nåværende sivilstatus
+		 * @description Henter informasjon om nåværende sivilstatus.
+		 */
+		get: operations['naavaerendeSivilstatus']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/intern/v1/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt som fnr-header.
+		 */
+		get: operations['personV1']
 		put?: never
 		post?: never
 		delete?: never
@@ -1312,6 +1412,81 @@ export interface components {
 			erInnvilget: boolean
 			alternativ?: components['schemas']['UttaksparametreDto']
 		}
+		EpsV1EpsSpec: {
+			/** @enum {string} */
+			sivilstatus?:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+		}
+		EpsV1Familierelasjon: {
+			pid?: string
+			/** Format: date */
+			fom?: string
+			/** @enum {string} */
+			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER'
+			relasjonPersondata?: components['schemas']['EpsV1RelasjonPersondata']
+		}
+		EpsV1Navn: {
+			fornavn?: string
+			mellomnavn?: string
+			etternavn?: string
+		}
+		EpsV1RelasjonPersondata: {
+			/** @enum {string} */
+			tilgangsbegrensning?:
+				| 'FORTROLIG'
+				| 'STRENGT_FORTROLIG'
+				| 'STRENGT_FORTROLIG_UTLAND'
+				| 'UNKNOWN'
+			navn?: components['schemas']['EpsV1Navn']
+			/** Format: date */
+			foedselsdato?: string
+			/** Format: date */
+			doedsdato?: string
+			statsborgerskap?: string
+		}
+		PersonV7Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonV7Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonV7Alder']
+			nedreAldersgrense: components['schemas']['PersonV7Alder']
+			oevreAldersgrense: components['schemas']['PersonV7Alder']
+		}
+		PersonV7Result: {
+			navn: string
+			fornavn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonV7Pensjonsaldre']
+		}
 		PersonAlderV6: {
 			/** Format: int32 */
 			aar: number
@@ -1464,6 +1639,53 @@ export interface components {
 		}
 		SakDto: {
 			harUfoeretrygdEllerGjenlevendeytelse: boolean
+		}
+		EpsV1SivilstatusResult: {
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+		}
+		PersonInternV1Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonInternV1Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonInternV1Alder']
+			nedreAldersgrense: components['schemas']['PersonInternV1Alder']
+			oevreAldersgrense: components['schemas']['PersonInternV1Alder']
+		}
+		PersonInternV1Person: {
+			navn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
 		InntektDto: {
 			/** Format: int32 */
@@ -1699,6 +1921,48 @@ export interface operations {
 			}
 		}
 	}
+	decrypt: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody: {
+			content: {
+				'application/json': string
+			}
+		}
+		responses: {
+			/** @description Dekryptering utført */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': string
+				}
+			}
+			/** @description Dekryptering kunne ikke utføres av tekniske årsaker */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
 	simulerAnonymAlderspensjonV1: {
 		parameters: {
 			query?: never
@@ -1797,6 +2061,95 @@ export interface operations {
 				}
 				content: {
 					'*/*': components['schemas']['SimuleringResultDto']
+				}
+			}
+		}
+	}
+	nyligsteEps: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['EpsV1EpsSpec']
+			}
+		}
+		responses: {
+			/** @description Henting av EPS utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['EpsV1Familierelasjon']
+				}
+			}
+			/** @description Henting av EPS kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	person: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
 				}
 			}
 		}
@@ -2271,6 +2624,91 @@ export interface operations {
 				}
 			}
 			/** @description Sjekking av saker kunne ikke utføres av tekniske årsaker */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	naavaerendeSivilstatus: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av sivilstatus utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['EpsV1SivilstatusResult']
+				}
+			}
+			/** @description Henting av sivilstatus kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	personV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
 			503: {
 				headers: {
 					[name: string]: unknown
