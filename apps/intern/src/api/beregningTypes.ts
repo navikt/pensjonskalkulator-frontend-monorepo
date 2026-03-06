@@ -19,13 +19,13 @@ export interface BeregningFormData {
 	alderMdHeltUttak: number | null
 	epsHarPensjon: boolean | null
 	epsHarInntektOver2G: boolean | null
-	aarligInntektFoerUttakBeloep: number | null
+	aarligInntektFoerUttakBeloep: string
 	harInntektVedSidenAvUttak: boolean | null
-	pensjonsgivendeInntektVedSidenAvUttak: number | null
+	pensjonsgivendeInntektVedSidenAvUttak: string
 	alderAarInntektSlutter: number | null
 	alderMdInntektSlutter: number | null
 	harInntektVedSidenAvGradertUttak: boolean | null
-	pensjonsgivendeInntektVedSidenAvGradertUttak: number | null
+	pensjonsgivendeInntektVedSidenAvGradertUttak: string
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
 	harHentetEPSOpplysninger: boolean
@@ -96,13 +96,13 @@ export const defaultBeregningFormData: BeregningFormData = {
 	alderMdHeltUttak: null,
 	epsHarPensjon: null,
 	epsHarInntektOver2G: null,
-	aarligInntektFoerUttakBeloep: null,
+	aarligInntektFoerUttakBeloep: '',
 	harInntektVedSidenAvUttak: null,
-	pensjonsgivendeInntektVedSidenAvUttak: null,
+	pensjonsgivendeInntektVedSidenAvUttak: '',
 	alderAarInntektSlutter: null,
 	alderMdInntektSlutter: null,
 	harInntektVedSidenAvGradertUttak: null,
-	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
+	pensjonsgivendeInntektVedSidenAvGradertUttak: '',
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
 	epsAntallUtenlandsOppholdAar: null,
