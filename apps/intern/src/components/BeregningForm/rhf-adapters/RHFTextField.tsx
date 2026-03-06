@@ -24,6 +24,7 @@ export function RHFTextField({
 	} = useFormContext<BeregningFormData>()
 
 	const hasFormatErrorRef = useRef(false)
+	const isUserInputRef = useRef(false)
 
 	const { field } = useController({
 		name,
@@ -36,7 +37,10 @@ export function RHFTextField({
 	const [rawValue, setRawValue] = useState(field.value?.toString() ?? '')
 
 	useEffect(() => {
-		setRawValue(field.value?.toString() ?? '')
+		if (!isUserInputRef.current) {
+			setRawValue(field.value?.toString() ?? '')
+		}
+		isUserInputRef.current = false
 	}, [field.value])
 
 	const error = errors[name]?.message
@@ -53,6 +57,7 @@ export function RHFTextField({
 			onChange={(e) => {
 				const raw = e.target.value
 				setRawValue(raw)
+				isUserInputRef.current = true
 
 				if (raw === '') {
 					hasFormatErrorRef.current = false

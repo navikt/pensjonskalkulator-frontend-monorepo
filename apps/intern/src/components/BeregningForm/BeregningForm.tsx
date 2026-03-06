@@ -55,6 +55,8 @@ export const BeregningForm = () => {
 		epsHarPensjon,
 		uttaksgrad,
 		harInntektVedSidenAvUttak,
+		alderAarUttak,
+		alderMdUttak,
 	] = useWatch({
 		control,
 		name: [
@@ -63,6 +65,8 @@ export const BeregningForm = () => {
 			'epsHarPensjon',
 			'uttaksgrad',
 			'harInntektVedSidenAvUttak',
+			'alderAarUttak',
+			'alderMdUttak',
 		] as const,
 	})
 
@@ -179,6 +183,14 @@ export const BeregningForm = () => {
 						aarLabel="Alder (år) for 100 % uttak"
 						mdLabel="Alder (md.) for 100 % uttak"
 						foedselsdato={person?.foedselsdato}
+						{...(alderAarUttak !== null && alderMdUttak !== null
+							? {
+									minAlder: {
+										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
+										maaneder: (alderMdUttak + 1) % 12,
+									},
+								}
+							: {})}
 					/>
 				)}
 				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
