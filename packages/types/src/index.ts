@@ -109,3 +109,6 @@ export type UnleashToggle = components['schemas']['EnablementDto']
 // Re-export schema for advanced usage
 export type { components, paths, operations } from './schema'
 export type Locales = 'nb' | 'nn' | 'en'
+
+// EPS Opplysninger
+export type EpsOpplysninger = components['schemas']['EpsV1Familierelasjon']

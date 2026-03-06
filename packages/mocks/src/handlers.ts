@@ -4,6 +4,7 @@ import { HttpResponse, delay, http, passthrough } from 'msw'
 import afpOffentligLivsvarigResponse from './data/afp-offentlig-livsvarig.json' with { type: 'json' }
 import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
+import epsOpplysningResponse from './data/eps-opplysning.json' with { type: 'json' }
 import erApotekerResponse from './data/er-apoteker.json' with { type: 'json' }
 import inntektResponse from './data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'json' }
@@ -340,6 +341,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 				return HttpResponse.json(disableSpraakvelgerToggleResponse)
 			}
 		),
+
+		http.post(`${baseUrl}/intern/v1/eps`, async ({ request }) => {
+			await request.json()
+			return HttpResponse.json(epsOpplysningResponse)
+		}),
 
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.show-download-pdf`,

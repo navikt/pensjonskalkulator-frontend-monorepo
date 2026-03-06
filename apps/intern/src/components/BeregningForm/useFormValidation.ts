@@ -42,6 +42,54 @@ export function useFormValidation() {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
 					'Velg bakgrunn for bruk av opplysninger om EPS.'
 			}
+
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.bakgrunnForBrukAvOpplysningerOmEPS !== null &&
+				!formData.harHentetEPSOpplysninger
+			) {
+				errors.harHentetEPSOpplysninger =
+					'Hent opplysninger om EPS eller beregn alderspensjon uten gjenlevenderett.'
+			}
+
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.harHentetEPSOpplysninger
+			) {
+				if (formData.epsAntallUtenlandsOppholdAar === null) {
+					errors.epsAntallUtenlandsOppholdAar =
+						'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
+				}
+
+				if (
+					formData.epsAntallUtenlandsOppholdAar !== null &&
+					Number(formData.epsAntallUtenlandsOppholdAar) > 39
+				) {
+					errors.epsAntallUtenlandsOppholdAar =
+						'Antall år i utlandet kan ikke være større enn 39 år.'
+				}
+
+				if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
+					errors.epsPensjonsgivendeInntektFoerDoedsDato =
+						'Fyll ut inntekt året før dødsdato.'
+				}
+
+				if (formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null) {
+					errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
+						'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
+				}
+
+				if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
+					errors.epsMedlemAvFolketrygdenVedDoedsDato =
+						'Velg ja/nei om avdøde var medlem av folketrygden.'
+				}
+
+				if (formData.epsRegistretSomFlykting === null) {
+					errors.epsRegistretSomFlykting =
+						'Velg ja/nei om avdøde var registrert som flyktning.'
+				}
+			}
+
 			if (formData.sivilstatus === 'UOPPGITT') {
 				errors.sivilstatus = 'Velg sivilstatus.'
 			}
