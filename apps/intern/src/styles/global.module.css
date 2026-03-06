@@ -21,7 +21,7 @@
 	width: 144px;
 }
 
-.horizontalRadioGroup :global(.navds-radio-buttons) {
+.horizontalRadioGroup > :global(.aksel-radio-buttons) {
 	display: flex;
 	flex-direction: row;
 	gap: 1rem;
