@@ -5,11 +5,12 @@ import { Box } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
-	shouldShowEpsHarInntektOver2G,
-	shouldShowEpsHarPensjon,
-	shouldShowGradertUttakFields,
-	shouldShowHeltUttakAlder,
-	shouldShowInntektHeltFields,
+	showEpsHarInntektOver2G,
+	showEpsHarPensjon,
+	showGradertUttakFields,
+	showHarInntektVedSidenAvUttak,
+	showHeltUttakAlder,
+	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
@@ -115,7 +116,7 @@ export const BeregningForm = () => {
 					</RHFSelect>
 				)}
 
-				{shouldShowEpsHarPensjon(sivilstatus) && (
+				{showEpsHarPensjon(sivilstatus) && (
 					<>
 						<Divider noMargin />
 						<RHFRadio
@@ -126,7 +127,7 @@ export const BeregningForm = () => {
 					</>
 				)}
 
-				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
+				{showEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
 					<>
 						<Divider noMargin />
 						<RHFRadio
@@ -136,7 +137,7 @@ export const BeregningForm = () => {
 						/>
 					</>
 				)}
-				<hr className={styles.divider} />
+				<Divider noMargin />
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
@@ -163,7 +164,7 @@ export const BeregningForm = () => {
 					))}
 				</RHFSelect>
 
-				{shouldShowGradertUttakFields(uttaksgrad) && (
+				{showGradertUttakFields(uttaksgrad) && (
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
@@ -171,7 +172,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{shouldShowHeltUttakAlder(uttaksgrad) && (
+				{showHeltUttakAlder(uttaksgrad) && (
 					<RHFAlderVelger
 						aarName="alderAarHeltUttak"
 						mdName="alderMdHeltUttak"
@@ -180,14 +181,15 @@ export const BeregningForm = () => {
 						foedselsdato={person?.foedselsdato}
 					/>
 				)}
+				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+					<RHFRadio
+						name="harInntektVedSidenAvUttak"
+						legend="Har bruker inntekt ved siden av 100 % uttak?"
+						className={styles.horizontalRadioGroup}
+					/>
+				)}
 
-				<RHFRadio
-					name="harInntektVedSidenAvUttak"
-					legend="Har bruker inntekt ved siden av 100 % uttak?"
-					className={styles.horizontalRadioGroup}
-				/>
-
-				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"

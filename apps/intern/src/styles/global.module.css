@@ -24,5 +24,12 @@
 .horizontalRadioGroup > :global(.aksel-radio-buttons) {
 	display: flex;
 	flex-direction: row;
-	gap: 1rem;
+	gap: var(--ax-space-24);
+}
+
+.appContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
 }

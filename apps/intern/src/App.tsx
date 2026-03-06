@@ -28,6 +28,8 @@ import {
 import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
 import { getPidFromUrl } from './utils.ts'
 
+import styles from './styles/global.module.css'
+
 const BeregningLayout = () => {
 	const { isDirty } = useBeregningContext()
 
@@ -169,14 +171,7 @@ const AppContent = () => {
 }
 
 export const App = () => (
-	<div
-		style={{
-			display: 'flex',
-			flexDirection: 'column',
-			height: '100vh',
-			overflow: 'hidden',
-		}}
-	>
+	<div className={styles.appContainer}>
 		<PesysHeader />
 		<Theme className="app-content">
 			<AppContent />
