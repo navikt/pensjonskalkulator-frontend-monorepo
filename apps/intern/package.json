@@ -26,6 +26,7 @@
 		"@pensjonskalkulator-frontend-monorepo/sanity": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/utils": "workspace:*",
 		"@tanstack/react-query": "^5.90.20",
+		"date-fns": "^4.1.0",
 		"express": "^5.1.0",
 		"express-rate-limit": "^8.2.1",
 		"http-proxy-middleware": "^3.0.3",

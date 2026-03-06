@@ -32,36 +32,36 @@ export function getPartnerBetegnelse(sivilstatus: Sivilstatus): string {
 	}
 }
 
-export function shouldShowEpsHarPensjon(
-	sivilstatus: Sivilstatus | null
-): boolean {
+export function showEpsHarPensjon(sivilstatus: Sivilstatus | null): boolean {
 	return harPartner(sivilstatus)
 }
 
-export function shouldShowEpsHarInntektOver2G(
+export function showEpsHarInntektOver2G(
 	sivilstatus: Sivilstatus | null,
 	epsHarPensjon: boolean | null
 ): boolean {
 	return harPartner(sivilstatus) && epsHarPensjon === false
 }
 
-export function shouldShowGradertUttakFields(
-	uttaksgrad: number | null
-): boolean {
+export function showGradertUttakFields(uttaksgrad: number | null): boolean {
 	return uttaksgrad !== null && uttaksgrad !== 100
 }
 
-export function shouldShowHeltUttakAlder(uttaksgrad: number | null): boolean {
-	return shouldShowGradertUttakFields(uttaksgrad)
+export function showHeltUttakAlder(uttaksgrad: number | null): boolean {
+	return showGradertUttakFields(uttaksgrad)
 }
 
-export function shouldShowInntektGradertFields(
+export function showInntektGradertFields(uttaksgrad: number | null): boolean {
+	return showGradertUttakFields(uttaksgrad)
+}
+
+export function showHarInntektVedSidenAvUttak(
 	uttaksgrad: number | null
 ): boolean {
-	return shouldShowGradertUttakFields(uttaksgrad)
+	return uttaksgrad !== null
 }
 
-export function shouldShowInntektHeltFields(
+export function showInntektHeltFields(
 	harInntektVedSidenAvUttak: boolean | null
 ): boolean {
 	return harInntektVedSidenAvUttak === true
@@ -73,7 +73,7 @@ export function validateGradertUttakRequired(formData: BeregningFormData): {
 } {
 	const errors: { alderAarHeltUttak?: string; alderMdHeltUttak?: string } = {}
 
-	if (shouldShowHeltUttakAlder(formData.uttaksgrad)) {
+	if (showHeltUttakAlder(formData.uttaksgrad)) {
 		if (formData.alderAarHeltUttak === null) {
 			errors.alderAarHeltUttak = 'Alder (år) for 100 % uttak er påkrevd'
 		}
