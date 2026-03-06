@@ -51,16 +51,21 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 interface BeregningProviderProps {
 	children: ReactNode
 	initialSivilstatus: Sivilstatus | null
+	initialInntekt?: number
 }
 
 export function BeregningProvider({
 	children,
 	initialSivilstatus,
+	initialInntekt,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
 			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+			...(initialInntekt !== undefined
+				? { aarligInntektFoerUttakBeloep: initialInntekt }
+				: {}),
 		},
 		mode: 'onChange',
 	})
@@ -71,6 +76,9 @@ export function BeregningProvider({
 			{
 				...defaultBeregningFormData,
 				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+				...(initialInntekt !== undefined
+					? { aarligInntektFoerUttakBeloep: initialInntekt }
+					: {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)
@@ -94,7 +102,6 @@ export function BeregningProvider({
 		epsHarPensjon,
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
 		beregnMedGjenlevenderett,
 	] = useWatch({
 		control: form.control,
@@ -103,7 +110,6 @@ export function BeregningProvider({
 			'epsHarPensjon',
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
 			'beregnMedGjenlevenderett',
 		] as const,
 	})
@@ -140,15 +146,20 @@ export function BeregningProvider({
 	}, [harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
+		if (uttaksgrad === null) {
+			form.setValue('harInntektVedSidenAvUttak', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [uttaksgrad, form])
+
+	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
 			form.setValue('aarligInntektVsaPensjonGradertUttak', null, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('harInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
 			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
@@ -160,20 +171,6 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
-
-	useEffect(() => {
-		if (harInntektVedSidenAvGradertUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderAarInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderMdInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-		}
-	}, [harInntektVedSidenAvGradertUttak, form])
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()

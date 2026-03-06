@@ -6,10 +6,9 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
-	shouldShowEpsHarInntektOver2G,
-	shouldShowGradertUttakFields,
-	shouldShowInntektGradertFields,
-	shouldShowInntektHeltFields,
+	showEpsHarInntektOver2G,
+	showGradertUttakFields,
+	showInntektHeltFields,
 } from '../../api/formConditions'
 
 export function useFormValidation() {
@@ -106,10 +105,7 @@ export function useFormValidation() {
 			}
 
 			if (
-				shouldShowEpsHarInntektOver2G(
-					formData.sivilstatus,
-					formData.epsHarPensjon
-				) &&
+				showEpsHarInntektOver2G(formData.sivilstatus, formData.epsHarPensjon) &&
 				formData.epsHarInntektOver2G === null
 			) {
 				errors.epsHarInntektOver2G =
@@ -128,7 +124,7 @@ export function useFormValidation() {
 				errors.uttaksgrad = 'Uttaksgrad er påkrevd'
 			}
 
-			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
+			if (showGradertUttakFields(formData.uttaksgrad)) {
 				if (formData.alderAarHeltUttak === null) {
 					errors.alderAarHeltUttak = 'Alder (år) for 100 % uttak er påkrevd'
 				}
@@ -143,7 +139,7 @@ export function useFormValidation() {
 					'Du må velge om bruker har inntekt ved siden av 100 % uttak'
 			}
 
-			if (shouldShowInntektHeltFields(formData.harInntektVedSidenAvUttak)) {
+			if (showInntektHeltFields(formData.harInntektVedSidenAvUttak)) {
 				if (formData.pensjonsgivendeInntektVedSidenAvUttak === null) {
 					errors.pensjonsgivendeInntektVedSidenAvUttak =
 						'Pensjonsgivende inntekt ved siden av uttak er påkrevd'
@@ -160,29 +156,12 @@ export function useFormValidation() {
 				}
 			}
 
-			if (
-				shouldShowInntektGradertFields(
-					formData.uttaksgrad,
-					formData.harInntektVedSidenAvGradertUttak
-				)
-			) {
+			if (showGradertUttakFields(formData.uttaksgrad)) {
 				if (formData.pensjonsgivendeInntektVedSidenAvGradertUttak === null) {
 					errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
 						'Pensjonsgivende inntekt ved siden av gradert uttak er påkrevd'
 				}
 
-				if (formData.alderAarInntektGradertSlutter === null) {
-					errors.alderAarInntektGradertSlutter =
-						'Alder (år) inntekt slutter er påkrevd'
-				}
-
-				if (formData.alderMdInntektGradertSlutter === null) {
-					errors.alderMdInntektGradertSlutter =
-						'Alder (md.) inntekt slutter er påkrevd'
-				}
-			}
-
-			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
 				if (
 					formData.aarligInntektVsaPensjonGradertUttak !== null &&
 					Number.isNaN(formData.aarligInntektVsaPensjonGradertUttak)

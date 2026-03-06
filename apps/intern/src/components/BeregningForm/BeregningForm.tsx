@@ -5,12 +5,12 @@ import { Box } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
-	shouldShowEpsHarInntektOver2G,
-	shouldShowEpsHarPensjon,
-	shouldShowGradertUttakFields,
-	shouldShowHeltUttakAlder,
-	shouldShowInntektGradertFields,
-	shouldShowInntektHeltFields,
+	showEpsHarInntektOver2G,
+	showEpsHarPensjon,
+	showGradertUttakFields,
+	showHarInntektVedSidenAvUttak,
+	showHeltUttakAlder,
+	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
@@ -54,8 +54,9 @@ export const BeregningForm = () => {
 		beregnMedGjenlevenderett,
 		epsHarPensjon,
 		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
 		harInntektVedSidenAvUttak,
+		alderAarUttak,
+		alderMdUttak,
 	] = useWatch({
 		control,
 		name: [
@@ -63,8 +64,9 @@ export const BeregningForm = () => {
 			'beregnMedGjenlevenderett',
 			'epsHarPensjon',
 			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
 			'harInntektVedSidenAvUttak',
+			'alderAarUttak',
+			'alderMdUttak',
 		] as const,
 	})
 
@@ -88,18 +90,17 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			{initialSivilstatus &&
-				showBeregnMedGjenlevenderett({
-					initialSivilstatus,
-					person,
-				}) && (
-					<>
-						<Gjenlevenderett />
-						<Divider extraLargeMargin />
-					</>
-				)}
-
 			<div className={styles.section}>
+				{initialSivilstatus &&
+					showBeregnMedGjenlevenderett({
+						initialSivilstatus,
+						person,
+					}) && (
+						<>
+							<Gjenlevenderett />
+							<Divider noMargin />
+						</>
+					)}
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
@@ -119,26 +120,31 @@ export const BeregningForm = () => {
 					</RHFSelect>
 				)}
 
-				{shouldShowEpsHarPensjon(sivilstatus) && (
-					<RHFRadio
-						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
-						className={styles.horizontalRadioGroup}
-					/>
+				{showEpsHarPensjon(sivilstatus) && (
+					<>
+						<Divider noMargin />
+						<RHFRadio
+							name="epsHarPensjon"
+							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
 				)}
 
-				{shouldShowEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-						className={styles.horizontalRadioGroup}
-					/>
+				{showEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
+					<>
+						<Divider noMargin />
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
 				)}
-
+				<Divider noMargin />
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
-					style={{ width: '184px' }}
 					formatError="Du må skrive hele tall for å oppgi inntekt."
 				/>
 
@@ -162,50 +168,44 @@ export const BeregningForm = () => {
 					))}
 				</RHFSelect>
 
-				{shouldShowGradertUttakFields(uttaksgrad) && (
-					<>
-						<RHFRadio
-							name="harInntektVedSidenAvGradertUttak"
-							legend={`Har bruker inntekt ved siden av ${uttaksgrad} % uttak?`}
-							className={styles.horizontalRadioGroup}
-						/>
-
-						{shouldShowInntektGradertFields(
-							uttaksgrad,
-							harInntektVedSidenAvGradertUttak
-						) && (
-							<RHFTextField
-								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-								style={{ width: '184px' }}
-								formatError="Du må skrive hele tall for å oppgi inntekt."
-							/>
-						)}
-					</>
+				{showGradertUttakFields(uttaksgrad) && (
+					<RHFTextField
+						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+						formatError="Du må skrive hele tall for å oppgi inntekt."
+					/>
 				)}
 
-				{shouldShowHeltUttakAlder(uttaksgrad) && (
+				{showHeltUttakAlder(uttaksgrad) && (
 					<RHFAlderVelger
 						aarName="alderAarHeltUttak"
 						mdName="alderMdHeltUttak"
 						aarLabel="Alder (år) for 100 % uttak"
 						mdLabel="Alder (md.) for 100 % uttak"
 						foedselsdato={person?.foedselsdato}
+						{...(alderAarUttak !== null && alderMdUttak !== null
+							? {
+									minAlder: {
+										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
+										maaneder: (alderMdUttak + 1) % 12,
+									},
+								}
+							: {})}
+					/>
+				)}
+				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+					<RHFRadio
+						name="harInntektVedSidenAvUttak"
+						legend="Har bruker inntekt ved siden av 100 % uttak?"
+						className={styles.horizontalRadioGroup}
 					/>
 				)}
 
-				<RHFRadio
-					name="harInntektVedSidenAvUttak"
-					legend="Har bruker inntekt ved siden av 100 % uttak?"
-					className={styles.horizontalRadioGroup}
-				/>
-
-				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-							style={{ width: '184px' }}
 							formatError="Du må skrive hele tall for å oppgi inntekt."
 						/>
 
@@ -219,7 +219,6 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</div>
-			<Divider largeMargin />
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}
