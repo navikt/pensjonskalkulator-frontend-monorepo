@@ -1,0 +1,16 @@
+{
+	"pid": "34526353426",
+	"fom": "2025-02-24",
+	"relasjonstype": "EKTEFELLE",
+	"relasjonPersondata": {
+		"tilgangsbegrensning": "FORTROLIG",
+		"navn": {
+			"fornavn": "Trollman",
+			"mellomnavn": "Blyant",
+			"etternavn": "Spiser"
+		},
+		"foedselsdato": "1960-02-24",
+		"doedsdato": null,
+		"statsborgerskap": "string"
+	}
+}

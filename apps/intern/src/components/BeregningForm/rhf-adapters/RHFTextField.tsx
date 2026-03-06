@@ -9,9 +9,15 @@ interface RHFTextFieldProps {
 	name: keyof BeregningFormData
 	label: string
 	style?: React.CSSProperties
+	formatError?: string
 }
 
-export function RHFTextField({ name, label, style }: RHFTextFieldProps) {
+export function RHFTextField({
+	name,
+	label,
+	style,
+	formatError,
+}: RHFTextFieldProps) {
 	const {
 		control,
 		formState: { errors },
@@ -23,10 +29,7 @@ export function RHFTextField({ name, label, style }: RHFTextFieldProps) {
 		name,
 		control,
 		rules: {
-			validate: () =>
-				hasFormatErrorRef.current
-					? 'Du må skrive hele tall for å oppgi inntekt.'
-					: true,
+			validate: () => (hasFormatErrorRef.current ? formatError : true),
 		},
 	})
 

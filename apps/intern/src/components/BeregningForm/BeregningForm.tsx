@@ -139,6 +139,7 @@ export const BeregningForm = () => {
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
 					style={{ width: '184px' }}
+					formatError="Du må skrive hele tall for å oppgi inntekt."
 				/>
 
 				<RHFAlderVelger
@@ -177,6 +178,7 @@ export const BeregningForm = () => {
 								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
 								style={{ width: '184px' }}
+								formatError="Du må skrive hele tall for å oppgi inntekt."
 							/>
 						)}
 					</>
@@ -204,6 +206,7 @@ export const BeregningForm = () => {
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
 							style={{ width: '184px' }}
+							formatError="Du må skrive hele tall for å oppgi inntekt."
 						/>
 
 						<RHFAlderVelger

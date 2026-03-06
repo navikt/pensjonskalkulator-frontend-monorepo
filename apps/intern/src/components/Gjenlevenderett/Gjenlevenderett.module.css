@@ -8,6 +8,10 @@
 	margin: var(--ax-space-8) 0 var(--ax-space-16) 0;
 }
 
-.epsButton {
+.epsSubmitButton {
+	margin-top: var(--ax-space-16);
+}
+
+.customErrorMessage {
 	margin-top: var(--ax-space-8);
 }

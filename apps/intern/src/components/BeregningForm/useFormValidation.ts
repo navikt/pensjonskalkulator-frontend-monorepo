@@ -221,6 +221,181 @@ export function useFormValidation() {
 			validateInntektVsaHeltUttak(formData, errors)
 			validateInntektVsaGradertUttak(formData, errors)
 			validateAlderHeltMotGradert(formData, errors)
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.bakgrunnForBrukAvOpplysningerOmEPS === null
+			) {
+				errors.bakgrunnForBrukAvOpplysningerOmEPS =
+					'Velg bakgrunn for bruk av opplysninger om EPS.'
+			}
+
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.bakgrunnForBrukAvOpplysningerOmEPS !== null &&
+				!formData.harHentetEPSOpplysninger
+			) {
+				errors.harHentetEPSOpplysninger =
+					'Hent opplysninger om EPS eller beregn alderspensjon uten gjenlevenderett.'
+			}
+
+			if (
+				formData.beregnMedGjenlevenderett &&
+				formData.harHentetEPSOpplysninger
+			) {
+				if (formData.epsAntallUtenlandsOppholdAar === null) {
+					errors.epsAntallUtenlandsOppholdAar =
+						'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
+				}
+
+				if (
+					formData.epsAntallUtenlandsOppholdAar !== null &&
+					Number(formData.epsAntallUtenlandsOppholdAar) > 39
+				) {
+					errors.epsAntallUtenlandsOppholdAar =
+						'Antall år i utlandet kan ikke være større enn 39 år.'
+				}
+
+				if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
+					errors.epsPensjonsgivendeInntektFoerDoedsDato =
+						'Fyll ut inntekt året før dødsdato.'
+				}
+
+				if (formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null) {
+					errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
+						'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
+				}
+
+				if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
+					errors.epsMedlemAvFolketrygdenVedDoedsDato =
+						'Velg ja/nei om avdøde var medlem av folketrygden.'
+				}
+
+				if (formData.epsRegistretSomFlykting === null) {
+					errors.epsRegistretSomFlykting =
+						'Velg ja/nei om avdøde var registrert som flyktning.'
+				}
+			}
+
+			if (formData.sivilstatus === 'UOPPGITT') {
+				errors.sivilstatus = 'Velg sivilstatus.'
+			}
+
+			if (formData.aarligInntektFoerUttakBeloep === null) {
+				errors.aarligInntektFoerUttakBeloep =
+					'Pensjonsgivende inntekt frem til uttak er påkrevd.'
+			}
+
+			if (harPartner(formData.sivilstatus) && formData.epsHarPensjon === null) {
+				errors.epsHarPensjon =
+					'Du må velge om ektefelle/partner/samboer mottar pensjon'
+			}
+
+			if (
+				shouldShowEpsHarInntektOver2G(
+					formData.sivilstatus,
+					formData.epsHarPensjon
+				) &&
+				formData.epsHarInntektOver2G === null
+			) {
+				errors.epsHarInntektOver2G =
+					'Du må velge om ektefelle/partner/samboer har inntekt over 2G'
+			}
+
+			if (formData.alderAarUttak === null) {
+				errors.alderAarUttak = 'Alder (år) for uttak er påkrevd'
+			}
+
+			if (formData.alderMdUttak === null) {
+				errors.alderMdUttak = 'Alder (md.) for uttak er påkrevd'
+			}
+
+			if (formData.uttaksgrad === null) {
+				errors.uttaksgrad = 'Uttaksgrad er påkrevd'
+			}
+
+			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
+				if (formData.alderAarHeltUttak === null) {
+					errors.alderAarHeltUttak = 'Alder (år) for 100 % uttak er påkrevd'
+				}
+
+				if (formData.alderMdHeltUttak === null) {
+					errors.alderMdHeltUttak = 'Alder (md.) for 100 % uttak er påkrevd'
+				}
+			}
+
+			if (formData.harInntektVedSidenAvUttak === null) {
+				errors.harInntektVedSidenAvUttak =
+					'Du må velge om bruker har inntekt ved siden av 100 % uttak'
+			}
+
+			if (shouldShowInntektHeltFields(formData.harInntektVedSidenAvUttak)) {
+				if (formData.pensjonsgivendeInntektVedSidenAvUttak === null) {
+					errors.pensjonsgivendeInntektVedSidenAvUttak =
+						'Pensjonsgivende inntekt ved siden av uttak er påkrevd'
+				}
+
+				if (formData.alderAarInntektSlutter === null) {
+					errors.alderAarInntektSlutter =
+						'Alder (år) inntekt slutter er påkrevd'
+				}
+
+				if (formData.alderMdInntektSlutter === null) {
+					errors.alderMdInntektSlutter =
+						'Alder (md.) inntekt slutter er påkrevd'
+				}
+			}
+
+			if (
+				shouldShowInntektGradertFields(
+					formData.uttaksgrad,
+					formData.harInntektVedSidenAvGradertUttak
+				)
+			) {
+				if (formData.pensjonsgivendeInntektVedSidenAvGradertUttak === null) {
+					errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
+						'Pensjonsgivende inntekt ved siden av gradert uttak er påkrevd'
+				}
+
+				if (formData.alderAarInntektGradertSlutter === null) {
+					errors.alderAarInntektGradertSlutter =
+						'Alder (år) inntekt slutter er påkrevd'
+				}
+
+				if (formData.alderMdInntektGradertSlutter === null) {
+					errors.alderMdInntektGradertSlutter =
+						'Alder (md.) inntekt slutter er påkrevd'
+				}
+			}
+
+			if (shouldShowGradertUttakFields(formData.uttaksgrad)) {
+				if (
+					formData.aarligInntektVsaPensjonGradertUttak !== null &&
+					Number.isNaN(formData.aarligInntektVsaPensjonGradertUttak)
+				) {
+					errors.aarligInntektVsaPensjonGradertUttak =
+						'Pensjonsgivende inntekt må være et tall'
+				}
+
+				if (
+					formData.alderAarHeltUttak !== null &&
+					formData.alderMdHeltUttak !== null &&
+					formData.alderAarUttak !== null &&
+					formData.alderMdUttak !== null
+				) {
+					const heltUttakAar = formData.alderAarHeltUttak
+					const heltUttakMd = formData.alderMdHeltUttak
+					const gradertUttakAar = formData.alderAarUttak
+					const gradertUttakMd = formData.alderMdUttak
+
+					if (
+						heltUttakAar < gradertUttakAar ||
+						(heltUttakAar === gradertUttakAar && heltUttakMd < gradertUttakMd)
+					) {
+						errors.alderAarHeltUttak =
+							'Alder for 100 % uttak kan ikke være før alder for uttak'
+					}
+				}
+			}
 
 			setValidationErrors(errors)
 			return errors
