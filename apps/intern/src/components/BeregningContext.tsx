@@ -131,7 +131,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (harInntektVedSidenAvUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', '', {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
@@ -149,7 +149,7 @@ export function BeregningProvider({
 			form.setValue('harInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', '', {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektGradertSlutter', null, {
@@ -163,7 +163,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (harInntektVedSidenAvGradertUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', '', {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektGradertSlutter', null, {
