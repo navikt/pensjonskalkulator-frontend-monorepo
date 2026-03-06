@@ -77,11 +77,11 @@
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	padding: 24px 0;
+	padding: 18px 48px 24px;
 }
 
 .selectWrapper :global(.aksel-select__container) {
-	width: 184px;
+	width: 192px;
 }
 
 .alderRow {
