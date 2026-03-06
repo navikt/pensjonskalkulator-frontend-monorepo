@@ -29,8 +29,8 @@ export function mapBeregningParamsToRequest(
 	const erGradert = grad < 100
 
 	const aarligInntektVsaPensjonGradert =
-		erGradert && formData.aarligInntektVsaPensjonGradertUttak
-			? formData.aarligInntektVsaPensjonGradertUttak
+		erGradert && formData.pensjonsgivendeInntektVedSidenAvGradertUttak
+			? formData.pensjonsgivendeInntektVedSidenAvGradertUttak
 			: undefined
 
 	const heltUttaksalder = erGradert
