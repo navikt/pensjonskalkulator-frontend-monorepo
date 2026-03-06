@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { BodyLong, Button, Loader, LocalAlert } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Button,
+	ErrorMessage,
+	Loader,
+	LocalAlert,
+} from '@navikt/ds-react'
 
 import { useEPSOpplysningerQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
@@ -34,7 +40,10 @@ export const Gjenlevenderett = () => {
 	})
 
 	const handleHentEPSOpplysninger = () => {
-		form.clearErrors('bakgrunnForBrukAvOpplysningerOmEPS')
+		form.clearErrors([
+			'bakgrunnForBrukAvOpplysningerOmEPS',
+			'harHentetEPSOpplysninger',
+		])
 
 		const formData = form.getValues()
 		const errors = validatebakgrunnForBrukAvOpplysningerOmEPS(formData)
@@ -46,6 +55,7 @@ export const Gjenlevenderett = () => {
 			return
 		}
 
+		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
 			sivilstatus: formData.sivilstatus,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
@@ -70,6 +80,8 @@ export const Gjenlevenderett = () => {
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'
 		: 'Hent opplysninger om EPS'
+
+	const harHentetError = form.formState.errors.harHentetEPSOpplysninger?.message
 
 	return (
 		<>
@@ -111,11 +123,21 @@ export const Gjenlevenderett = () => {
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
-							className={styles.epsButton}
+							className={styles.epsSubmitButton}
 							data-testid="EPS-hent-opplysninger-button"
 						>
 							{EPSButtonText}
 						</Button>
+					)}
+					{harHentetError && (
+						<ErrorMessage
+							size="small"
+							showIcon
+							spacing
+							className={styles.customErrorMessage}
+						>
+							{harHentetError}
+						</ErrorMessage>
 					)}
 					{isError && EPSError}
 					{isEPSInfoEmpty && (

@@ -1,27 +1,39 @@
 import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
 import { format, subDays } from 'date-fns'
 
-import { Heading, VStack } from '@navikt/ds-react'
+import { Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
 
 import styles from './OpplysningerInfo.module.css'
 
+function mapEpsOpplysninger(
+	eps: EpsOpplysninger
+): { label: string; value: string }[] {
+	const { relasjonPersondata } = eps
+	const navn = relasjonPersondata?.navn
+	const registrertDoedsDato = relasjonPersondata?.doedsdato
+	const fallbackDato = format(subDays(new Date(), 1), 'dd.MM.yyyy')
+
+	return [
+		{
+			label: 'Navn',
+			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
+		},
+		{
+			label: 'Dato for dødsfall',
+			value: registrertDoedsDato ?? `Ikke registrert. ${fallbackDato} brukes.`,
+		},
+	]
+}
+
 export const OpplysningerInfo = ({
 	EPSOpplysninger,
 }: {
 	EPSOpplysninger: EpsOpplysninger
 }) => {
-	const { relasjonPersondata } = EPSOpplysninger
-	const registrertDoedsDato = relasjonPersondata?.doedsdato
-	const doedsfall =
-		registrertDoedsDato ?? format(subDays(new Date(), 1), 'dd.MM.yyyy')
-
-	const doedsfallTekst =
-		registrertDoedsDato ?? `Ikke registrert. ${doedsfall} brukes.`
-
-	const EPSNavn = `${relasjonPersondata?.navn?.etternavn}, ${relasjonPersondata?.navn?.fornavn} ${relasjonPersondata?.navn?.mellomnavn ?? ''}`
+	const rows = mapEpsOpplysninger(EPSOpplysninger)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(<${grunnbeloep.grunnbeløp}> kr)` : ''
 	return (
@@ -29,27 +41,27 @@ export const OpplysningerInfo = ({
 			<Heading level="3" size="xsmall">
 				Opplysninger om avdøde
 			</Heading>
-			<table className={styles.opplysningerTable}>
-				<tbody>
-					<tr>
-						<td>Navn</td>
-						<td>{EPSNavn}</td>
-					</tr>
-					<tr>
-						<td>Dato for dødsfall</td>
-						<td>{doedsfallTekst}</td>
-					</tr>
-				</tbody>
-			</table>
+			<Table className={styles.opplysningerTable}>
+				<Table.Body>
+					{rows.map(({ label, value }) => (
+						<Table.Row key={label}>
+							<Table.DataCell>{label}</Table.DataCell>
+							<Table.DataCell>{value}</Table.DataCell>
+						</Table.Row>
+					))}
+				</Table.Body>
+			</Table>
 			<RHFTextField
 				name="epsAntallUtenlandsOppholdAar"
 				label="År bodd/jobbet i utlandet etter fylte 16 år"
 				style={{ width: '96px' }}
+				formatError="Skriv hele tall for å oppgi antall år i utlandet."
 			/>
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
 				label="Pensjonsgivende inntekt året før dødsdato"
 				style={{ width: '184px' }}
+				formatError="Du må skrive hele tall for å oppgi inntekt."
 			/>
 			<RHFRadio
 				name="epsMinstePensjonsgivendeInntektFoerDoedsfall"

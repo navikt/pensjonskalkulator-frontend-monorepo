@@ -28,6 +28,7 @@ export interface BeregningFormData {
 	pensjonsgivendeInntektVedSidenAvGradertUttak: number | null
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
+	harHentetEPSOpplysninger: boolean
 	epsAntallUtenlandsOppholdAar: number | null
 	epsPensjonsgivendeInntektFoerDoedsDato: number | null
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
@@ -58,6 +59,7 @@ export interface ValidationErrors {
 	pensjonsgivendeInntektVedSidenAvGradertUttak?: string
 	alderAarInntektGradertSlutter?: string
 	alderMdInntektGradertSlutter?: string
+	harHentetEPSOpplysninger?: string
 	epsAntallUtenlandsOppholdAar?: string
 	epsPensjonsgivendeInntektFoerDoedsDato?: string
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
@@ -108,4 +110,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
 	epsRegistretSomFlykting: null,
+	harHentetEPSOpplysninger: false,
 }
