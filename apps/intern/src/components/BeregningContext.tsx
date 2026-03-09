@@ -40,6 +40,7 @@ interface BeregningContextValue {
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
+	fnr: string | undefined
 	person: PersonInternV1 | undefined
 	loependeVedtak: LoependeVedtak | undefined
 	submitBeregning: () => void
@@ -200,6 +201,7 @@ export function BeregningProvider({
 					form,
 					aktivBeregning,
 					isDirty: showDirtyWarning,
+					fnr,
 					person,
 					beregning,
 					isBeregningLoading,

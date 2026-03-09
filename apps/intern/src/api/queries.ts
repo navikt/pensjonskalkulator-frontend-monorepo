@@ -127,15 +127,17 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 }
 
 async function fetchEPSOpplysninger({
+	fnr,
 	sivilstatus,
 	bakgrunn,
 }: {
+	fnr: string
 	sivilstatus: string
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
+		headers: { 'Content-Type': 'application/json', fnr },
 		body: JSON.stringify({ sivilstatus, bakgrunn }),
 	})
 
@@ -214,17 +216,19 @@ export function useLoependeVedtakQuery(fnr?: string) {
 }
 
 export function useEPSOpplysningerQuery({
+	fnr,
 	sivilstatus,
 	bakgrunn,
 }: {
+	fnr?: string
 	sivilstatus: string
 	bakgrunn: string
 }) {
 	return useQuery({
-		queryKey: ['EPSOpplysningerQuery', sivilstatus, bakgrunn],
+		queryKey: ['EPSOpplysningerQuery', fnr, sivilstatus, bakgrunn],
 		queryFn:
-			sivilstatus && bakgrunn
-				? () => fetchEPSOpplysninger({ sivilstatus, bakgrunn })
+			fnr && sivilstatus && bakgrunn
+				? () => fetchEPSOpplysninger({ fnr, sivilstatus, bakgrunn })
 				: skipToken,
 		retry: false,
 	})
