@@ -64,4 +64,4 @@ Post a single comment with the following structure:
 
 - Use `add-labels` to apply each matching label to the pull request.
 - Use `add-comment` to post exactly one structured summary comment on the pull request.
-- If there was nothing to label and the summary is trivial, still post the summary comment and call `noop` is not needed since a comment is always posted.
+- If there was nothing to label and the summary is trivial, still post the summary comment. Calling `noop` is not needed since a comment is always posted.
