@@ -19,7 +19,7 @@ import { OpplysningerInfo } from './OpplysningerInfo'
 import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
-	const { form } = useBeregningContext()
+	const { form, fnr } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
@@ -32,7 +32,7 @@ export const Gjenlevenderett = () => {
 		data: EPSOpplysninger,
 		isError,
 		isLoading: isEPSLoading,
-	} = useEPSOpplysningerQuery(epsQueryParams)
+	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
 	const [beregnMedGjenlevenderett] = useWatch({
 		control,
