@@ -2,10 +2,11 @@
 
 .gjenlevenderettSection {
 	padding-left: var(--ax-space-24);
+	margin-top: -16px;
 }
 
 .opplysningerOmEPSInfo {
-	margin: var(--ax-space-8) 0 var(--ax-space-16) 0;
+	margin-bottom: var(--ax-space-16);
 }
 
 .epsSubmitButton {
