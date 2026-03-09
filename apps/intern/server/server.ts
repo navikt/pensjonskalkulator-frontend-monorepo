@@ -34,6 +34,8 @@ const unleash = initialize({
 	},
 })
 
+const unleashConfigured = !!(unleashToken && unleashUrl && unleashEnv)
+
 unleash.on('synchronized', () => {
 	logger.info('Unleash synchronized')
 })
@@ -127,7 +129,7 @@ app.get(
 		const toggle = req.params.toggle
 
 		res.send({
-			enabled: unleash.isEnabled(toggle),
+			enabled: unleashConfigured ? unleash.isEnabled(toggle) : true,
 		})
 	}
 )

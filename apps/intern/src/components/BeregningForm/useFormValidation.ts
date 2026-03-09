@@ -6,10 +6,10 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
-	shouldShowEpsHarInntektOver2G,
-	shouldShowGradertUttakFields,
-	shouldShowInntektGradertFields,
-	shouldShowInntektHeltFields,
+	showEpsHarInntektOver2G,
+	showGradertUttakFields,
+	showInntektGradertFields,
+	showInntektHeltFields,
 } from '../../api/formConditions'
 
 function validateEPSOpplysninger(
@@ -98,10 +98,7 @@ function validateSivilstand(
 	}
 
 	if (
-		shouldShowEpsHarInntektOver2G(
-			formData.sivilstatus,
-			formData.epsHarPensjon
-		) &&
+		showEpsHarInntektOver2G(formData.sivilstatus, formData.epsHarPensjon) &&
 		formData.epsHarInntektOver2G === null
 	) {
 		errors.epsHarInntektOver2G = `Fyll ut om ${partnerLabel} har inntekt over 2G.`
@@ -139,7 +136,7 @@ function validateUttaksgrad(
 	}
 
 	if (
-		shouldShowGradertUttakFields(formData.uttaksgrad) &&
+		showGradertUttakFields(formData.uttaksgrad) &&
 		(formData.alderAarHeltUttak === null || formData.alderMdHeltUttak === null)
 	) {
 		errors.alderAarHeltUttak = 'Velg år og måned for 100 % uttak.'
@@ -150,19 +147,7 @@ function validateInntektVsaGradertUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (
-		shouldShowGradertUttakFields(formData.uttaksgrad) &&
-		formData.harInntektVedSidenAvGradertUttak === null
-	) {
-		errors.harInntektVedSidenAvGradertUttak = `Velg ja/nei om bruker har inntekt ved siden av ${formData.uttaksgrad} % uttak.`
-	}
-
-	if (
-		shouldShowInntektGradertFields(
-			formData.uttaksgrad,
-			formData.harInntektVedSidenAvGradertUttak
-		)
-	) {
+	if (showInntektGradertFields(formData.uttaksgrad)) {
 		const pensjonsgivendeInntekt =
 			formData.pensjonsgivendeInntektVedSidenAvGradertUttak
 		if (pensjonsgivendeInntekt === null) {
@@ -187,7 +172,7 @@ function validateAlderHeltMotGradert(
 	errors: ValidationErrors
 ) {
 	if (
-		shouldShowGradertUttakFields(formData.uttaksgrad) &&
+		showGradertUttakFields(formData.uttaksgrad) &&
 		formData.alderAarHeltUttak !== null &&
 		formData.alderMdHeltUttak !== null &&
 		formData.alderAarUttak !== null &&
@@ -226,7 +211,7 @@ function validateInntektVsaHeltUttak(
 			'Velg ja/nei om bruker har inntekt ved siden av 100 % uttak.'
 	}
 
-	if (shouldShowInntektHeltFields(harInntektVedSiden)) {
+	if (showInntektHeltFields(harInntektVedSiden)) {
 		const pensjonsgivendeInntekt =
 			formData.pensjonsgivendeInntektVedSidenAvUttak
 		if (pensjonsgivendeInntekt === null) {

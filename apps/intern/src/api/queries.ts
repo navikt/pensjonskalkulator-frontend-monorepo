@@ -4,7 +4,12 @@ import type {
 	LoependeVedtak,
 	PersonInternV1,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
+import {
+	keepPreviousData,
+	skipToken,
+	useMutation,
+	useQuery,
+} from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
@@ -43,6 +48,49 @@ export function useDecryptPidQuery(encryptedPid?: string) {
 		queryKey: ['decryptPid', encryptedPid],
 		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
 		retry: false,
+	})
+}
+
+async function encryptPid(pid: string): Promise<string> {
+	const response = await fetch(`${API_BASE}/v1/encrypt`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'text/plain',
+		},
+		body: pid,
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to encrypt pid: ${response.status}`)
+	}
+
+	return response.text()
+}
+
+export function useEncryptPidMutation() {
+	return useMutation({
+		mutationFn: encryptPid,
+	})
+}
+
+interface FeatureToggle {
+	enabled: boolean
+}
+
+async function fetchFeatureToggle(feature: string): Promise<FeatureToggle> {
+	const response = await fetch(`${API_BASE}/feature/${feature}`)
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch feature toggle: ${response.status}`)
+	}
+
+	return response.json() as Promise<FeatureToggle>
+}
+
+export function useFeatureToggleQuery(feature: string) {
+	return useQuery({
+		queryKey: ['featureToggle', feature],
+		queryFn: () => fetchFeatureToggle(feature),
 	})
 }
 
@@ -98,6 +146,33 @@ async function fetchEPSOpplysninger({
 	}
 
 	return response.json() as Promise<EpsOpplysninger>
+}
+
+export interface Inntekt {
+	beloep: number
+	aar: number
+}
+
+async function fetchInntekt(fnr: string): Promise<Inntekt> {
+	const response = await fetch(`${API_BASE}/inntekt`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch inntekt: ${response.status}`)
+	}
+
+	return response.json() as Promise<Inntekt>
+}
+
+export function useInntektQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['inntekt', fnr],
+		queryFn: fnr ? () => fetchInntekt(fnr) : skipToken,
+		retry: false,
+	})
 }
 
 async function fetchBeregning(
