@@ -214,7 +214,7 @@ test.describe('Hovedhistorie', () => {
         await kontaktLink.click()
         const popup = await popupPromise
         await expect(popup).toHaveURL(
-          'https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her'
+          'https://www.nav.no/planlegger-pensjon#kontakt'
         )
         await popup.close()
       })
