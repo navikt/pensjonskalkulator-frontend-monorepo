@@ -207,7 +207,7 @@ test.describe('Hovedhistorie', () => {
           .getByRole('link')
         await expect(kontaktLink).toHaveAttribute(
           'href',
-          /\/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her$/
+          /\/planlegger-pensjon#kontakt$/
         )
 
         const popupPromise = page.waitForEvent('popup')
