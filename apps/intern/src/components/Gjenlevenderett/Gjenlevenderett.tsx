@@ -66,7 +66,7 @@ export const Gjenlevenderett = () => {
 	const EPSError = (
 		<LocalAlert status="warning">
 			<LocalAlert.Header>
-				<LocalAlert.Title>Kunne ikke hente opplysninge</LocalAlert.Title>
+				<LocalAlert.Title>Kunne ikke hente opplysninger</LocalAlert.Title>
 			</LocalAlert.Header>
 			<LocalAlert.Content>
 				Noe gikk galt ved henting av opplysninger om EPS. Prøv på nytt eller
@@ -119,12 +119,15 @@ export const Gjenlevenderett = () => {
 							]}
 						/>
 					)}
+					{isError && EPSError}
+
 					{!isEPSLoading && !EPSOpplysninger && (
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
 							className={styles.epsSubmitButton}
 							data-testid="EPS-hent-opplysninger-button"
+							size="small"
 						>
 							{EPSButtonText}
 						</Button>
@@ -139,7 +142,6 @@ export const Gjenlevenderett = () => {
 							{harHentetError}
 						</ErrorMessage>
 					)}
-					{isError && EPSError}
 					{isEPSInfoEmpty && (
 						<LocalAlert status="warning">
 							<LocalAlert.Header>

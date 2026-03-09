@@ -32,6 +32,7 @@ export function RHFCheckbox({
 			onChange={(e) => field.onChange(e.target.checked)}
 			error={!!error}
 			data-testid={testid}
+			size="small"
 		>
 			{label}
 		</Checkbox>
