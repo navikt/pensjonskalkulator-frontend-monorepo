@@ -31,12 +31,6 @@
 	background-color: var(--ax-border-neutral-subtle);
 }
 
-.divider {
-	border: none;
-	border-top: 1px solid var(--ax-border-neutral-subtle);
-	margin: 0;
-}
-
 .selectWrapper :global(.aksel-select__container) {
 	width: 12rem;
 }
@@ -64,12 +58,6 @@
 .alderRow :global(.aksel-select__container select) {
 	width: 12rem;
 	height: var(--a-spacing-8);
-}
-
-.horizontalRadioGroup :global(.navds-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: 1.5rem;
 }
 
 .fieldGroup {
