@@ -84,13 +84,6 @@
 	margin: 0;
 }
 
-.section {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	padding: 18px 48px 24px;
-}
-
 .selectWrapper :global(.aksel-select__container) {
 	width: 192px;
 }

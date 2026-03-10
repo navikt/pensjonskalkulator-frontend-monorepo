@@ -157,11 +157,9 @@ export const Beregning = () => {
 	const { isBeregningLoading, beregning, aktivBeregning, person } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const erOvergangskull = person ? isOvergangskull(person.foedselsdato) : false
-	const erFoedtEtter1963 = person
-		? isFoedtEtter1963(person.foedselsdato)
-		: false
-	const erFoedtFoer1963 = person ? isFoedtFoer1963(person.foedselsdato) : false
+	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
+	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
+	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
 	if (!beregning && isBeregningLoading) {
 		return (
