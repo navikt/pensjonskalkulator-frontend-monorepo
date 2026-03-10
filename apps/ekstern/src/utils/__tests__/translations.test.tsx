@@ -23,8 +23,7 @@ const tagToExpectedLink: Record<
   navPersonvernerklaeringKontaktOssLink:
     'https://www.nav.no/personvernerklaering#kontakt-nav',
   kontaktOssLink: 'https://www.nav.no/kontaktoss',
-  planleggePensjonLink:
-    'https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her',
+  planleggePensjonLink: 'https://www.nav.no/planlegger-pensjon#kontakt',
   trygdetidLink:
     'https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden',
   kortBotidLink: 'https://www.nav.no/alderspensjon#kort-botid',

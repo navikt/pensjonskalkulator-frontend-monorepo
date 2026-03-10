@@ -207,14 +207,14 @@ test.describe('Hovedhistorie', () => {
           .getByRole('link')
         await expect(kontaktLink).toHaveAttribute(
           'href',
-          /\/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her$/
+          /\/planlegger-pensjon#kontakt$/
         )
 
         const popupPromise = page.waitForEvent('popup')
         await kontaktLink.click()
         const popup = await popupPromise
         await expect(popup).toHaveURL(
-          'https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her'
+          'https://www.nav.no/planlegger-pensjon#kontakt'
         )
         await popup.close()
       })

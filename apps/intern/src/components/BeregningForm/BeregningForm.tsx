@@ -107,12 +107,7 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
-					}) && (
-						<>
-							<Gjenlevenderett />
-							<Divider noMargin />
-						</>
-					)}
+					}) && <Gjenlevenderett />}
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
