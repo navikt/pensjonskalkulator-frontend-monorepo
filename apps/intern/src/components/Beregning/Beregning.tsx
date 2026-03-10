@@ -185,7 +185,7 @@ export const Beregning = () => {
 											addToSum={maanedsbeloepGradertUttak ?? 0}
 										/>
 									</VStack>
-									{gradertUttakAlder!.aar! < 67 && (
+									{heltUttakAlder.aar! > 67 && gradertUttakAlder!.aar! < 67 && (
 										<VStack gap="space-12">
 											<Heading level="3" size="small">
 												{formatAfpTitle(67, 0)}
@@ -252,7 +252,7 @@ export const Beregning = () => {
 									)}
 									addToSum={maanedsbeloepHeltUttak ?? 0}
 								/>
-								{!erGradert && heltUttakAlder.aar! < 67 && (
+								{heltUttakAlder.aar! < 67 && (
 									<VStack gap="space-12">
 										<Heading level="3" size="small">
 											{formatAfpTitle(67, 0)}
