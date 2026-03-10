@@ -184,6 +184,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/lagre-simulering': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		get?: never
+		put?: never
+		/**
+		 * Lagre simuleringsresultat
+		 * @description Lagrer et simuleringsresultat via Skribenten-tjenesten.
+		 */
+		post: operations['lagreSimuleringV1']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/intern/v1/eps': {
 		parameters: {
 			query?: never
@@ -1412,6 +1432,107 @@ export interface components {
 			erInnvilget: boolean
 			alternativ?: components['schemas']['UttaksparametreDto']
 		}
+		LagreAarligBeloepDto: {
+			/** Format: int32 */
+			aarstall: number
+			/** Format: int32 */
+			beloep: number
+		}
+		LagreAlderDto: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		LagreAldersbestemtUtbetalingDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			aarligBeloep: number
+			/** Format: int32 */
+			maanedligBeloep?: number
+		}
+		LagreAlderspensjonDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			beloep: number
+			/** Format: int32 */
+			gjenlevendetillegg?: number
+		}
+		LagrePrivatAfpDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			aarligBeloep: number
+			/** Format: int32 */
+			kompensasjonstillegg: number
+			/** Format: int32 */
+			kronetillegg: number
+			/** Format: int32 */
+			livsvarig: number
+			/** Format: int32 */
+			maanedligBeloep?: number
+		}
+		LagreSimuleringSpecDtoV1: {
+			alderspensjonListe: components['schemas']['LagreAlderspensjonDto'][]
+			livsvarigOffentligAfpListe?: components['schemas']['LagreAldersbestemtUtbetalingDto'][]
+			tidsbegrensetOffentligAfp?: components['schemas']['LagreTidsbegrensetOffentligAfpDto']
+			privatAfpListe?: components['schemas']['LagrePrivatAfpDto'][]
+			vilkaarsproevingsresultat: components['schemas']['LagreVilkaarsproevingsresultatDto']
+			trygdetid?: components['schemas']['LagreTrygdetidDto']
+			pensjonsgivendeInntektListe?: components['schemas']['LagreAarligBeloepDto'][]
+			navEnhetId?: string
+		}
+		LagreTidsbegrensetOffentligAfpDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			totaltAfpBeloep: number
+			/** Format: int32 */
+			tidligereArbeidsinntekt: number
+			/** Format: int32 */
+			grunnbeloep: number
+			/** Format: double */
+			sluttpoengtall: number
+			/** Format: int32 */
+			trygdetid: number
+			/** Format: int32 */
+			poengaarTom1991: number
+			/** Format: int32 */
+			poengaarFom1992: number
+			/** Format: int32 */
+			grunnpensjon: number
+			/** Format: int32 */
+			tilleggspensjon: number
+			/** Format: int32 */
+			afpTillegg: number
+			/** Format: int32 */
+			saertillegg: number
+			/** Format: int32 */
+			afpGrad: number
+			erAvkortet: boolean
+		}
+		LagreTrygdetidDto: {
+			/** Format: int32 */
+			antallAar: number
+			erUtilstrekkelig: boolean
+		}
+		LagreUttaksparametreDto: {
+			gradertUttakAlder?: components['schemas']['LagreAlderDto']
+			/** Format: int32 */
+			uttaksgrad?: number
+			heltUttakAlder: components['schemas']['LagreAlderDto']
+		}
+		LagreVilkaarsproevingsresultatDto: {
+			erInnvilget: boolean
+			alternativ?: components['schemas']['LagreUttaksparametreDto']
+		}
+		LagreSimuleringResponseDtoV1: {
+			brevId?: string
+			sakId?: string
+			brevDevQ2Url?: string
+		}
 		EpsV1EpsSpec: {
 			/** @enum {string} */
 			sivilstatus?:
@@ -1427,6 +1548,7 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+			bakgrunn?: string
 		}
 		EpsV1Familierelasjon: {
 			pid?: string
@@ -2061,6 +2183,39 @@ export interface operations {
 				}
 				content: {
 					'*/*': components['schemas']['SimuleringResultDto']
+				}
+			}
+		}
+	}
+	lagreSimuleringV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LagreSimuleringSpecDtoV1']
+			}
+		}
+		responses: {
+			/** @description Lagring utført */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['LagreSimuleringResponseDtoV1']
+				}
+			}
+			/** @description Lagring kunne ikke utføres av tekniske årsaker */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['LagreSimuleringResponseDtoV1']
 				}
 			}
 		}

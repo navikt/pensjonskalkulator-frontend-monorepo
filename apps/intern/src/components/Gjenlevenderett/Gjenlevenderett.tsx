@@ -64,7 +64,7 @@ export const Gjenlevenderett = () => {
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
 	const EPSError = (
-		<LocalAlert status="warning">
+		<LocalAlert status="warning" size="small">
 			<LocalAlert.Header>
 				<LocalAlert.Title>Kunne ikke hente opplysninger</LocalAlert.Title>
 			</LocalAlert.Header>
