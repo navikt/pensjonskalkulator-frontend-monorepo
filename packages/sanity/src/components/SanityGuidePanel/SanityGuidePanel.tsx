@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react'
-import { ReactNode, useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import { GuidePanel, Heading } from '@navikt/ds-react'

@@ -1,3 +1,5 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
 import { Box } from '@navikt/ds-react'
@@ -42,8 +44,15 @@ const sivilstandOptions = [
 ]
 
 export const BeregningForm = () => {
-	const { form, aktivBeregning, isDirty, submitBeregning, resetForm, person } =
-		useBeregningContext()
+	const {
+		form,
+		aktivBeregning,
+		isDirty,
+		submitBeregning,
+		resetForm,
+		person,
+		beregning,
+	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
 
@@ -85,6 +94,9 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
+	const vilkaarAlternativ =
+		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
+		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
 
@@ -147,6 +159,22 @@ export const BeregningForm = () => {
 					className={styles.horizontalRadioGroup}
 				/>
 				<Divider noMargin />
+				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+					vilkaarAlternativ && (
+						<SanityAlert
+							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
+							className={styles.sanityAlert}
+							dynamicValues={{
+								alder: formaterAlderString(
+									vilkaarAlternativ?.aar,
+									vilkaarAlternativ?.maaneder
+								),
+								grad: String(
+									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+								),
+							}}
+						/>
+					)}
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"

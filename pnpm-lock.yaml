@@ -386,6 +386,9 @@ importers:
       react-hook-form:
         specifier: ^7.71.2
         version: 7.71.2(react@19.2.4)
+      react-intl:
+        specifier: 7.1.11
+        version: 7.1.11(react@19.2.4)(typescript@5.9.3)
       unleash-client:
         specifier: ^6.4.0
         version: 6.9.5
