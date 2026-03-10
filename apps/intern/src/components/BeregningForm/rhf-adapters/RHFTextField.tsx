@@ -9,31 +9,38 @@ interface RHFTextFieldProps {
 	name: keyof BeregningFormData
 	label: string
 	style?: React.CSSProperties
+	formatError?: string
 }
 
-export function RHFTextField({ name, label, style }: RHFTextFieldProps) {
+export function RHFTextField({
+	name,
+	label,
+	style,
+	formatError,
+}: RHFTextFieldProps) {
 	const {
 		control,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 
 	const hasFormatErrorRef = useRef(false)
+	const isUserInputRef = useRef(false)
 
 	const { field } = useController({
 		name,
 		control,
 		rules: {
-			validate: () =>
-				hasFormatErrorRef.current
-					? 'Du må skrive hele tall for å oppgi inntekt.'
-					: true,
+			validate: () => (hasFormatErrorRef.current ? formatError : true),
 		},
 	})
 
 	const [rawValue, setRawValue] = useState(field.value?.toString() ?? '')
 
 	useEffect(() => {
-		setRawValue(field.value?.toString() ?? '')
+		if (!isUserInputRef.current) {
+			setRawValue(field.value?.toString() ?? '')
+		}
+		isUserInputRef.current = false
 	}, [field.value])
 
 	const error = errors[name]?.message
@@ -50,6 +57,7 @@ export function RHFTextField({ name, label, style }: RHFTextFieldProps) {
 			onChange={(e) => {
 				const raw = e.target.value
 				setRawValue(raw)
+				isUserInputRef.current = true
 
 				if (raw === '') {
 					hasFormatErrorRef.current = false

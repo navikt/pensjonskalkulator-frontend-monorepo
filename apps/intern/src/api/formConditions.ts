@@ -1,14 +1,26 @@
-import type { BeregningFormData, Sivilstand } from './beregningTypes'
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 
-export function isHarPartner(sivilstand: Sivilstand | null): boolean {
+import type { BeregningFormData } from './beregningTypes'
+
+export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
-		sivilstand !== null &&
-		['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstand)
+		sivilstatus !== null &&
+		[
+			'GIFT',
+			'REGISTRERT_PARTNER',
+			'SAMBOER',
+			'ENKE_ELLER_ENKEMANN',
+			'SKILT',
+		].includes(sivilstatus as string)
 	)
 }
 
-export function getPartnerBetegnelse(sivilstand: Sivilstand | null): string {
-	switch (sivilstand) {
+export function getPartnerBetegnelse(sivilstatus: Sivilstatus): string {
+	if (sivilstatus === 'UOPPGITT') {
+		return ''
+	}
+
+	switch (sivilstatus) {
 		case 'SAMBOER':
 			return 'samboer'
 		case 'REGISTRERT_PARTNER':
@@ -20,46 +32,36 @@ export function getPartnerBetegnelse(sivilstand: Sivilstand | null): string {
 	}
 }
 
-export function shouldShowEpsHarPensjon(
-	sivilstand: Sivilstand | null
-): boolean {
-	return isHarPartner(sivilstand)
+export function showEpsHarPensjon(sivilstatus: Sivilstatus | null): boolean {
+	return harPartner(sivilstatus)
 }
 
-export function shouldShowEpsHarInntektOver2G(
-	sivilstand: Sivilstand | null,
+export function showEpsHarInntektOver2G(
+	sivilstatus: Sivilstatus | null,
 	epsHarPensjon: boolean | null
 ): boolean {
-	return isHarPartner(sivilstand) && epsHarPensjon === false
+	return harPartner(sivilstatus) && epsHarPensjon === false
 }
 
-export function shouldShowGradertUttakFields(
-	uttaksgrad: number | null
-): boolean {
+export function showGradertUttakFields(uttaksgrad: number | null): boolean {
 	return uttaksgrad !== null && uttaksgrad !== 100
 }
 
-export function shouldShowHeltUttakAlder(uttaksgrad: number | null): boolean {
-	return shouldShowGradertUttakFields(uttaksgrad)
+export function showHeltUttakAlder(uttaksgrad: number | null): boolean {
+	return showGradertUttakFields(uttaksgrad)
 }
 
-export function shouldShowInntektVedSidenAvGradert(
+export function showInntektGradertFields(uttaksgrad: number | null): boolean {
+	return showGradertUttakFields(uttaksgrad)
+}
+
+export function showHarInntektVedSidenAvUttak(
 	uttaksgrad: number | null
 ): boolean {
-	return shouldShowGradertUttakFields(uttaksgrad)
+	return uttaksgrad !== null
 }
 
-export function shouldShowInntektGradertFields(
-	uttaksgrad: number | null,
-	harInntektVedSidenAvGradertUttak: boolean | null
-): boolean {
-	return (
-		shouldShowGradertUttakFields(uttaksgrad) &&
-		harInntektVedSidenAvGradertUttak === true
-	)
-}
-
-export function shouldShowInntektHeltFields(
+export function showInntektHeltFields(
 	harInntektVedSidenAvUttak: boolean | null
 ): boolean {
 	return harInntektVedSidenAvUttak === true
@@ -71,7 +73,7 @@ export function validateGradertUttakRequired(formData: BeregningFormData): {
 } {
 	const errors: { alderAarHeltUttak?: string; alderMdHeltUttak?: string } = {}
 
-	if (shouldShowHeltUttakAlder(formData.uttaksgrad)) {
+	if (showHeltUttakAlder(formData.uttaksgrad)) {
 		if (formData.alderAarHeltUttak === null) {
 			errors.alderAarHeltUttak = 'Alder (år) for 100 % uttak er påkrevd'
 		}

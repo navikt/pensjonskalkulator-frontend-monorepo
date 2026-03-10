@@ -4,15 +4,18 @@ import { HttpResponse, delay, http, passthrough } from 'msw'
 import afpOffentligLivsvarigResponse from './data/afp-offentlig-livsvarig.json' with { type: 'json' }
 import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
+import epsOpplysningResponse from './data/eps-opplysning.json' with { type: 'json' }
 import erApotekerResponse from './data/er-apoteker.json' with { type: 'json' }
 import inntektResponse from './data/inntekt.json' with { type: 'json' }
 import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'json' }
 import offentligTpFoer1963Response from './data/offentlig-tp-foer-1963.json' with { type: 'json' }
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
+import hentPersonInternToggleResponse from './data/unleash-hent-person-intern.json' with { type: 'json' }
 import showDownloadPdfToggleResponse from './data/unleash-show-download-pdf.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
@@ -328,7 +331,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			} else if (request.headers.get('fnr') === '40400000000') {
 				return HttpResponse.json({}, { status: 404 })
 			}
-			return HttpResponse.json(personResponse)
+			return HttpResponse.json(personInternV1Response)
 		}),
 
 		http.get(
@@ -338,6 +341,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 				return HttpResponse.json(disableSpraakvelgerToggleResponse)
 			}
 		),
+
+		http.post(`${baseUrl}/intern/v1/eps`, async ({ request }) => {
+			await request.json()
+			return HttpResponse.json(epsOpplysningResponse)
+		}),
 
 		http.get(
 			`${baseUrl}/feature/pensjonskalkulator.show-download-pdf`,
@@ -359,6 +367,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			async () => {
 				await delay(delayMs)
 				return HttpResponse.json(enableVedlikeholdsmodusToggleResponse)
+			}
+		),
+
+		http.get(
+			`${baseUrl}/feature/pensjonskalkulator-intern.hent-person`,
+			async () => {
+				await delay(delayMs)
+				return HttpResponse.json(hentPersonInternToggleResponse)
 			}
 		),
 

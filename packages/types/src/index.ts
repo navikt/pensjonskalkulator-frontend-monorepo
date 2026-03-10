@@ -3,11 +3,17 @@ import type { components } from './schema'
 // Common types used across apps
 export type Alder = components['schemas']['Alder']
 export type Person = components['schemas']['PersonResultV6']
+
+export type PersonInternV1 = components['schemas']['PersonInternV1Person']
+
+// Used in ekstern app. Does not have "Samboer"
 export type Sivilstand =
 	components['schemas']['AlderspensjonDetaljerV4']['sivilstand']
 export type PensjoneringAldre =
 	components['schemas']['PersonResultV6']['pensjoneringAldre']
-
+// New type for sivilstatus, used in intern app. Has "Samboer"
+export type Sivilstatus =
+	components['schemas']['EpsV1SivilstatusResult']['sivilstatus']
 // Inntekt
 export type Inntekt = components['schemas']['InntektDto']
 
@@ -103,3 +109,6 @@ export type UnleashToggle = components['schemas']['EnablementDto']
 // Re-export schema for advanced usage
 export type { components, paths, operations } from './schema'
 export type Locales = 'nb' | 'nn' | 'en'
+
+// EPS Opplysninger
+export type EpsOpplysninger = components['schemas']['EpsV1Familierelasjon']

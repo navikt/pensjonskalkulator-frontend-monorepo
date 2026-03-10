@@ -1,0 +1,35 @@
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ax-space-24);
+}
+
+.selectWrapper :global(.aksel-select__container) {
+	width: 184px;
+}
+
+.alderRow {
+	display: flex;
+	gap: var(--ax-space-16);
+}
+
+.alderRow > :first-child :global(.aksel-select__container) {
+	width: 96px;
+}
+
+.alderRow > :last-child :global(.aksel-select__container) {
+	width: 144px;
+}
+
+.horizontalRadioGroup > :global(.aksel-radio-buttons) {
+	display: flex;
+	flex-direction: row;
+	gap: var(--ax-space-24);
+}
+
+.appContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}

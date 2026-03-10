@@ -29,8 +29,8 @@ export function mapBeregningParamsToRequest(
 	const erGradert = grad < 100
 
 	const aarligInntektVsaPensjonGradert =
-		erGradert && formData.aarligInntektVsaPensjonGradertUttak
-			? formData.aarligInntektVsaPensjonGradertUttak
+		erGradert && formData.pensjonsgivendeInntektVedSidenAvGradertUttak
+			? formData.pensjonsgivendeInntektVedSidenAvGradertUttak
 			: undefined
 
 	const heltUttaksalder = erGradert
@@ -66,7 +66,7 @@ export function mapBeregningParamsToRequest(
 						}
 					: undefined,
 		},
-		sivilstand: formData.sivilstand ?? 'UGIFT',
+		sivilstand: formData.sivilstatus ?? 'UGIFT',
 		epsHarPensjon: formData.epsHarPensjon ?? undefined,
 		epsHarInntektOver2G: formData.epsHarInntektOver2G ?? undefined,
 	}

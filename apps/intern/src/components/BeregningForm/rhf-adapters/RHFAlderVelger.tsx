@@ -9,6 +9,7 @@ interface RHFAlderVelgerProps {
 	aarLabel?: string
 	mdLabel?: string
 	foedselsdato?: string
+	minAlder?: { aar: number; maaneder: number }
 }
 
 export function RHFAlderVelger({
@@ -17,6 +18,7 @@ export function RHFAlderVelger({
 	aarLabel,
 	mdLabel,
 	foedselsdato,
+	minAlder,
 }: RHFAlderVelgerProps) {
 	const {
 		control,
@@ -38,6 +40,7 @@ export function RHFAlderVelger({
 			aarLabel={aarLabel}
 			mdLabel={mdLabel}
 			foedselsdato={foedselsdato}
+			{...(minAlder ? { minAlder } : {})}
 			aarError={errors[aarName]?.message}
 			mdError={errors[mdName]?.message}
 		/>

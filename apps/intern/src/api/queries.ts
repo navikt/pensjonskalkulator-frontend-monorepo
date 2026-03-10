@@ -1,12 +1,27 @@
 import type {
 	AlderspensjonRequestBody,
+	EpsOpplysninger,
 	LoependeVedtak,
-	Person,
+	PersonInternV1,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { keepPreviousData, skipToken, useQuery } from '@tanstack/react-query'
+import {
+	keepPreviousData,
+	skipToken,
+	useMutation,
+	useQuery,
+} from '@tanstack/react-query'
 
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapBeregningParamsToRequest } from './mapBeregningParams'
+
+export interface Grunnbeloep {
+	dato: string
+	grunnbeløp: number
+	grunnbeløpPerMaaned: number
+	gjennomsnittPerÅr: number
+	omregningsfaktor: number
+	virkningstidspunktForMinsteinntekt: string
+}
 
 const API_BASE = '/pensjon/kalkulator/api'
 
@@ -36,7 +51,50 @@ export function useDecryptPidQuery(encryptedPid?: string) {
 	})
 }
 
-async function fetchPerson(fnr: string): Promise<Person> {
+async function encryptPid(pid: string): Promise<string> {
+	const response = await fetch(`${API_BASE}/v1/encrypt`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'text/plain',
+		},
+		body: pid,
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to encrypt pid: ${response.status}`)
+	}
+
+	return response.text()
+}
+
+export function useEncryptPidMutation() {
+	return useMutation({
+		mutationFn: encryptPid,
+	})
+}
+
+interface FeatureToggle {
+	enabled: boolean
+}
+
+async function fetchFeatureToggle(feature: string): Promise<FeatureToggle> {
+	const response = await fetch(`${API_BASE}/feature/${feature}`)
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch feature toggle: ${response.status}`)
+	}
+
+	return response.json() as Promise<FeatureToggle>
+}
+
+export function useFeatureToggleQuery(feature: string) {
+	return useQuery({
+		queryKey: ['featureToggle', feature],
+		queryFn: () => fetchFeatureToggle(feature),
+	})
+}
+
+async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	const response = await fetch(`${API_BASE}/intern/v1/person`, {
 		headers: {
 			fnr,
@@ -49,7 +107,7 @@ async function fetchPerson(fnr: string): Promise<Person> {
 		)
 	}
 
-	return response.json() as Promise<Person>
+	return response.json() as Promise<PersonInternV1>
 }
 
 async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
@@ -68,45 +126,54 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	return response.json() as Promise<LoependeVedtak>
 }
 
-export function usePersonQuery(fnr?: string) {
-	return useQuery({
-		queryKey: ['person', fnr],
-		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
-		retry: false,
+async function fetchEPSOpplysninger({
+	fnr,
+	sivilstatus,
+	bakgrunn,
+}: {
+	fnr: string
+	sivilstatus: string
+	bakgrunn: string
+}): Promise<EpsOpplysninger> {
+	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json', fnr },
+		body: JSON.stringify({ sivilstatus, bakgrunn }),
 	})
-}
-
-export function useLoependeVedtakQuery(fnr?: string) {
-	return useQuery({
-		queryKey: ['loependeVedtak', fnr],
-		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
-		retry: false,
-	})
-}
-
-async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
-	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+		throw new Error(
+			`Failed to fetch EPS information: ${response.status} ${response.statusText}`
+		)
 	}
 
-	return response.json() as Promise<Grunnbeloep>
+	return response.json() as Promise<EpsOpplysninger>
 }
 
-export interface Grunnbeloep {
-	dato: string
-	grunnbeløp: number
-	grunnbeløpPerMaaned: number
-	gjennomsnittPerÅr: number
-	omregningsfaktor: number
-	virkningstidspunktForMinsteinntekt: string
+export interface Inntekt {
+	beloep: number
+	aar: number
 }
 
-export function useGrunnbeloepQuery() {
+async function fetchInntekt(fnr: string): Promise<Inntekt> {
+	const response = await fetch(`${API_BASE}/inntekt`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch inntekt: ${response.status}`)
+	}
+
+	return response.json() as Promise<Inntekt>
+}
+
+export function useInntektQuery(fnr?: string) {
 	return useQuery({
-		queryKey: ['grunnbeloep'],
-		queryFn: fetchGrunnbeloep,
+		queryKey: ['inntekt', fnr],
+		queryFn: fnr ? () => fetchInntekt(fnr) : skipToken,
+		retry: false,
 	})
 }
 
@@ -130,6 +197,58 @@ async function fetchBeregning(
 	}
 
 	return response.json() as Promise<BeregningResult>
+}
+
+export function usePersonQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['person', fnr],
+		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useLoependeVedtakQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['loependeVedtak', fnr],
+		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useEPSOpplysningerQuery({
+	fnr,
+	sivilstatus,
+	bakgrunn,
+}: {
+	fnr?: string
+	sivilstatus: string
+	bakgrunn: string
+}) {
+	return useQuery({
+		queryKey: ['EPSOpplysningerQuery', fnr, sivilstatus, bakgrunn],
+		queryFn:
+			fnr && sivilstatus && bakgrunn
+				? () => fetchEPSOpplysninger({ fnr, sivilstatus, bakgrunn })
+				: skipToken,
+		retry: false,
+	})
+}
+
+async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
+	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+	}
+
+	return response.json() as Promise<Grunnbeloep>
+}
+
+export function useGrunnbeloepQuery() {
+	return useQuery({
+		queryKey: ['grunnbeloep'],
+		queryFn: fetchGrunnbeloep,
+	})
 }
 
 export function useBeregningQuery(

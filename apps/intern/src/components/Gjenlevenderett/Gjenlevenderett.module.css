@@ -1,0 +1,18 @@
+@import '../../styles/global.module.css';
+
+.gjenlevenderettSection {
+	padding-left: var(--ax-space-24);
+	margin-top: -16px;
+}
+
+.opplysningerOmEPSInfo {
+	margin-bottom: var(--ax-space-16);
+}
+
+.epsSubmitButton {
+	margin-top: var(--ax-space-16);
+}
+
+.customErrorMessage {
+	margin-top: var(--ax-space-8);
+}

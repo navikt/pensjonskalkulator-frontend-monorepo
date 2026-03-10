@@ -1,17 +1,23 @@
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import { useState } from 'react'
+
 import {
 	BodyLong,
 	Box,
 	GlobalAlert,
 	HStack,
+	Heading,
 	Loader,
 	Theme,
 } from '@navikt/ds-react'
 
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
-import { mapPersonSivilstand } from './api/beregningTypes.ts'
+import { SanityProvider } from './SanityProvider.tsx'
+import { mapPersonSivilstatus } from './api/beregningTypes.ts'
 import {
 	useDecryptPidQuery,
+	useInntektQuery,
 	useLoependeVedtakQuery,
 	usePersonQuery,
 } from './api/queries.ts'
@@ -23,11 +29,20 @@ import {
 import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
 import { getPidFromUrl } from './utils.ts'
 
+import styles from './styles/global.module.css'
+
 const BeregningLayout = () => {
 	const { isDirty } = useBeregningContext()
 
 	return (
-		<>
+		<Box
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				flex: 1,
+				overflow: 'hidden',
+			}}
+		>
 			<Box borderColor="neutral-subtle" borderWidth="0 0 1 0">
 				<HStack align="center" wrap={false}>
 					<Box
@@ -35,10 +50,9 @@ const BeregningLayout = () => {
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
-						<BodyLong>
-							<span style={{ fontWeight: 'bold' }}>Pensjonskalkulator</span> –
-							Beregn pensjon
-						</BodyLong>
+						<Heading level="2" size="small">
+							Pensjonskalkulator
+						</Heading>
 					</Box>
 					<div style={{ flex: 1 }}>
 						{isDirty && (
@@ -53,16 +67,16 @@ const BeregningLayout = () => {
 					</div>
 				</HStack>
 			</Box>
-			<div style={{ display: 'flex', height: 'calc(100vh - 96px)' }}>
+			<HStack style={{ flex: 1, overflow: 'hidden' }} wrap={false}>
 				<BeregningForm />
 				<Beregning />
-			</div>
-		</>
+			</HStack>
+		</Box>
 	)
 }
 
 const AppContent = () => {
-	const pid = getPidFromUrl()
+	const [pid, setPid] = useState(getPidFromUrl)
 	const {
 		data: fnr,
 		isLoading: isDecrypting,
@@ -75,12 +89,24 @@ const AppContent = () => {
 	} = usePersonQuery(fnr)
 	const { isLoading: isLoadingVedtak, error: vedtakError } =
 		useLoependeVedtakQuery(fnr)
+	const {
+		data: inntekt,
+		isLoading: isLoadingInntekt,
+		error: inntektError,
+	} = useInntektQuery(fnr)
 
-	if (!pid) {
-		return <PersonInfo />
+	const handlePidChange = (encryptedPid: string) => {
+		const url = new URL(window.location.href)
+		url.searchParams.set('pid', encryptedPid)
+		window.history.pushState({}, '', url.toString())
+		setPid(encryptedPid)
 	}
 
-	const error = decryptError || personError || vedtakError
+	if (!pid) {
+		return <PersonInfo onPidChange={handlePidChange} />
+	}
+
+	const error = decryptError || personError || vedtakError || inntektError
 	const isUnauthorized =
 		error && (error.message.includes('401') || error.message.includes('403'))
 
@@ -124,17 +150,20 @@ const AppContent = () => {
 		)
 	}
 
-	if (isDecrypting || isLoadingPerson || isLoadingVedtak) {
+	if (isDecrypting || isLoadingPerson || isLoadingVedtak || isLoadingInntekt) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />
 	}
 
 	return (
 		<>
-			<PersonInfo />
+			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
-				initialSivilstand={
-					person ? mapPersonSivilstand(person.sivilstand) : undefined
+				initialSivilstatus={
+					person
+						? (mapPersonSivilstatus(person.sivilstatus) as Sivilstatus)
+						: null
 				}
+				initialInntekt={inntekt?.beloep}
 			>
 				<BeregningLayout />
 			</BeregningProvider>
@@ -143,10 +172,12 @@ const AppContent = () => {
 }
 
 export const App = () => (
-	<>
-		<PesysHeader />
-		<Theme>
-			<AppContent />
-		</Theme>
-	</>
+	<SanityProvider>
+		<div className={styles.appContainer}>
+			<PesysHeader />
+			<Theme className="app-content">
+				<AppContent />
+			</Theme>
+		</div>
+	</SanityProvider>
 )

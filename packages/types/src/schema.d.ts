@@ -184,6 +184,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/lagre-simulering': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		get?: never
+		put?: never
+		/**
+		 * Lagre simuleringsresultat
+		 * @description Lagrer et simuleringsresultat via Skribenten-tjenesten.
+		 */
+		post: operations['lagreSimuleringV1']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/intern/v1/eps': {
 		parameters: {
 			query?: never
@@ -198,6 +218,26 @@ export interface paths {
 		 * @description Henter informasjon om nyligste ektefelle/partner/samboer.
 		 */
 		post: operations['nyligsteEps']
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/v7/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt enten i bearer-tokenet eller som fnr-header.
+		 */
+		get: operations['person']
+		put?: never
+		post?: never
 		delete?: never
 		options?: never
 		head?: never
@@ -516,6 +556,26 @@ export interface paths {
 		 * @description Henter informasjon om nåværende sivilstatus.
 		 */
 		get: operations['naavaerendeSivilstatus']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/intern/v1/person': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent personinformasjon
+		 * @description Henter informasjon om personen hvis person-ID er angitt som fnr-header.
+		 */
+		get: operations['personV1']
 		put?: never
 		post?: never
 		delete?: never
@@ -1372,32 +1432,182 @@ export interface components {
 			erInnvilget: boolean
 			alternativ?: components['schemas']['UttaksparametreDto']
 		}
-		FamilierelasjonDto: {
+		LagreAarligBeloepDto: {
+			/** Format: int32 */
+			aarstall: number
+			/** Format: int32 */
+			beloep: number
+		}
+		LagreAlderDto: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		LagreAldersbestemtUtbetalingDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			aarligBeloep: number
+			/** Format: int32 */
+			maanedligBeloep?: number
+		}
+		LagreAlderspensjonDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			beloep: number
+			/** Format: int32 */
+			gjenlevendetillegg?: number
+		}
+		LagrePrivatAfpDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			aarligBeloep: number
+			/** Format: int32 */
+			kompensasjonstillegg: number
+			/** Format: int32 */
+			kronetillegg: number
+			/** Format: int32 */
+			livsvarig: number
+			/** Format: int32 */
+			maanedligBeloep?: number
+		}
+		LagreSimuleringSpecDtoV1: {
+			alderspensjonListe: components['schemas']['LagreAlderspensjonDto'][]
+			livsvarigOffentligAfpListe?: components['schemas']['LagreAldersbestemtUtbetalingDto'][]
+			tidsbegrensetOffentligAfp?: components['schemas']['LagreTidsbegrensetOffentligAfpDto']
+			privatAfpListe?: components['schemas']['LagrePrivatAfpDto'][]
+			vilkaarsproevingsresultat: components['schemas']['LagreVilkaarsproevingsresultatDto']
+			trygdetid?: components['schemas']['LagreTrygdetidDto']
+			pensjonsgivendeInntektListe?: components['schemas']['LagreAarligBeloepDto'][]
+			navEnhetId?: string
+		}
+		LagreTidsbegrensetOffentligAfpDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			totaltAfpBeloep: number
+			/** Format: int32 */
+			tidligereArbeidsinntekt: number
+			/** Format: int32 */
+			grunnbeloep: number
+			/** Format: double */
+			sluttpoengtall: number
+			/** Format: int32 */
+			trygdetid: number
+			/** Format: int32 */
+			poengaarTom1991: number
+			/** Format: int32 */
+			poengaarFom1992: number
+			/** Format: int32 */
+			grunnpensjon: number
+			/** Format: int32 */
+			tilleggspensjon: number
+			/** Format: int32 */
+			afpTillegg: number
+			/** Format: int32 */
+			saertillegg: number
+			/** Format: int32 */
+			afpGrad: number
+			erAvkortet: boolean
+		}
+		LagreTrygdetidDto: {
+			/** Format: int32 */
+			antallAar: number
+			erUtilstrekkelig: boolean
+		}
+		LagreUttaksparametreDto: {
+			gradertUttakAlder?: components['schemas']['LagreAlderDto']
+			/** Format: int32 */
+			uttaksgrad?: number
+			heltUttakAlder: components['schemas']['LagreAlderDto']
+		}
+		LagreVilkaarsproevingsresultatDto: {
+			erInnvilget: boolean
+			alternativ?: components['schemas']['LagreUttaksparametreDto']
+		}
+		LagreSimuleringResponseDtoV1: {
+			brevId?: string
+			sakId?: string
+			brevDevQ2Url?: string
+		}
+		EpsV1EpsSpec: {
+			/** @enum {string} */
+			sivilstatus?:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			bakgrunn?: string
+		}
+		EpsV1Familierelasjon: {
 			pid?: string
 			/** Format: date */
 			fom?: string
 			/** @enum {string} */
 			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER'
-			relasjonPersondata?: components['schemas']['RelasjonPersondataDto']
+			relasjonPersondata?: components['schemas']['EpsV1RelasjonPersondata']
 		}
-		NavnDto: {
+		EpsV1Navn: {
 			fornavn?: string
 			mellomnavn?: string
 			etternavn?: string
 		}
-		RelasjonPersondataDto: {
+		EpsV1RelasjonPersondata: {
 			/** @enum {string} */
 			tilgangsbegrensning?:
 				| 'FORTROLIG'
 				| 'STRENGT_FORTROLIG'
 				| 'STRENGT_FORTROLIG_UTLAND'
 				| 'UNKNOWN'
-			navn?: components['schemas']['NavnDto']
+			navn?: components['schemas']['EpsV1Navn']
 			/** Format: date */
 			foedselsdato?: string
 			/** Format: date */
 			doedsdato?: string
 			statsborgerskap?: string
+		}
+		PersonV7Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonV7Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonV7Alder']
+			nedreAldersgrense: components['schemas']['PersonV7Alder']
+			oevreAldersgrense: components['schemas']['PersonV7Alder']
+		}
+		PersonV7Result: {
+			navn: string
+			fornavn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonV7Pensjonsaldre']
 		}
 		PersonAlderV6: {
 			/** Format: int32 */
@@ -1552,7 +1762,7 @@ export interface components {
 		SakDto: {
 			harUfoeretrygdEllerGjenlevendeytelse: boolean
 		}
-		SivilstatusResultDto: {
+		EpsV1SivilstatusResult: {
 			/** @enum {string} */
 			sivilstatus:
 				| 'UNKNOWN'
@@ -1567,6 +1777,37 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+		}
+		PersonInternV1Alder: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			maaneder: number
+		}
+		PersonInternV1Pensjonsaldre: {
+			normertPensjoneringsalder: components['schemas']['PersonInternV1Alder']
+			nedreAldersgrense: components['schemas']['PersonInternV1Alder']
+			oevreAldersgrense: components['schemas']['PersonInternV1Alder']
+		}
+		PersonInternV1Person: {
+			navn: string
+			/** Format: date */
+			foedselsdato: string
+			/** @enum {string} */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
 		InntektDto: {
 			/** Format: int32 */
@@ -1946,6 +2187,39 @@ export interface operations {
 			}
 		}
 	}
+	lagreSimuleringV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LagreSimuleringSpecDtoV1']
+			}
+		}
+		responses: {
+			/** @description Lagring utført */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['LagreSimuleringResponseDtoV1']
+				}
+			}
+			/** @description Lagring kunne ikke utføres av tekniske årsaker */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['LagreSimuleringResponseDtoV1']
+				}
+			}
+		}
+	}
 	nyligsteEps: {
 		parameters: {
 			query?: never
@@ -1955,7 +2229,7 @@ export interface operations {
 		}
 		requestBody: {
 			content: {
-				'application/json': components['schemas']['EpsSpecDto']
+				'application/json': components['schemas']['EpsV1EpsSpec']
 			}
 		}
 		responses: {
@@ -1965,10 +2239,57 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['FamilierelasjonDto']
+					'*/*': components['schemas']['EpsV1Familierelasjon']
 				}
 			}
 			/** @description Henting av EPS kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	person: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonV7Result']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
 			503: {
 				headers: {
 					[name: string]: unknown
@@ -2492,10 +2813,57 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['SivilstatusResultDto']
+					'*/*': components['schemas']['EpsV1SivilstatusResult']
 				}
 			}
 			/** @description Henting av sivilstatus kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	personV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av personinformasjon utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Personen ble ikke funnet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['PersonInternV1Person']
+				}
+			}
+			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
 			503: {
 				headers: {
 					[name: string]: unknown

@@ -1,6 +1,5 @@
 .beregning {
 	flex: 1;
-	min-height: 100%;
 	background-color: var(--a-bg-subtle);
 	padding: var(--ax-space-48);
 	box-sizing: border-box;

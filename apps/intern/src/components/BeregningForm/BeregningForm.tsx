@@ -1,66 +1,86 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
-import { Box, HStack, Radio } from '@navikt/ds-react'
+import { Box } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
-	shouldShowEpsHarInntektOver2G,
-	shouldShowEpsHarPensjon,
-	shouldShowGradertUttakFields,
-	shouldShowHeltUttakAlder,
-	shouldShowInntektGradertFields,
-	shouldShowInntektHeltFields,
+	showEpsHarInntektOver2G,
+	showEpsHarPensjon,
+	showGradertUttakFields,
+	showHarInntektVedSidenAvUttak,
+	showHeltUttakAlder,
+	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
+import { Divider } from '../Divider/Divider'
+import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
-	RHFRadioBoolean,
+	RHFRadio,
 	RHFSelect,
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
+import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
 const sivilstandOptions = [
+	{ value: 'ENKE', label: 'Enke/enkemann' },
+	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
-	{ value: 'UGIFT', label: 'Ugift' },
-	{ value: 'SAMBOER', label: 'Samboer' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
+	{ value: 'SAMBOER', label: 'Samboer' },
+	{ value: 'SEPARERT_PARTNER', label: 'Separert partner' },
+	{ value: 'SEPARERT', label: 'Separert' },
+	{ value: 'SKILT', label: 'Skilt' },
+	{ value: 'SKILT_PARTNER', label: 'Skilt partner' },
+	{ value: 'UGIFT', label: 'Ugift' },
 ]
 
 export const BeregningForm = () => {
-	const { form, aktivBeregning, isDirty, submitBeregning, resetForm, person } =
-		useBeregningContext()
+	const {
+		form,
+		aktivBeregning,
+		isDirty,
+		submitBeregning,
+		resetForm,
+		person,
+		beregning,
+	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
 
 	const { control } = form
 
 	const [
-		sivilstand,
+		sivilstatus,
+		beregnMedGjenlevenderett,
 		epsHarPensjon,
 		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
 		harInntektVedSidenAvUttak,
+		alderAarUttak,
+		alderMdUttak,
 	] = useWatch({
 		control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
+			'beregnMedGjenlevenderett',
 			'epsHarPensjon',
 			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
 			'harInntektVedSidenAvUttak',
+			'alderAarUttak',
+			'alderMdUttak',
 		] as const,
 	})
 
-	const handleSubmit = (e?: React.BaseSyntheticEvent) => {
-		e?.preventDefault()
+	const handleSubmit = () => {
 		form.clearErrors()
-
 		const formData = form.getValues()
 		const errors = validate(formData)
 
@@ -74,45 +94,81 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
-	const partnerBetegnelse = getPartnerBetegnelse(sivilstand)
+	const vilkaarAlternativ =
+		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
+		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
+	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
+	const initialSivilstatus = person && person.sivilstatus
 
 	return (
 		<Box className={styles.beregningForm}>
-			<hr className={styles.divider} />
 			<div className={styles.section}>
-				<RHFSelect
-					name="sivilstand"
-					label="Hva er sivilstanden til bruker ved uttak av pensjon?"
-					className={styles.selectWrapper}
-				>
-					<option value="">Velg</option>
-					{sivilstandOptions.map(({ value, label }) => (
-						<option key={value} value={value}>
-							{label}
-						</option>
-					))}
-				</RHFSelect>
-
-				{shouldShowEpsHarPensjon(sivilstand) && (
-					<RHFRadioBoolean
-						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
-						className={styles.horizontalRadioGroup}
-					/>
+				{initialSivilstatus &&
+					showBeregnMedGjenlevenderett({
+						initialSivilstatus,
+						person,
+					}) && <Gjenlevenderett />}
+				{showSivilstatus({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+				}) && (
+					<RHFSelect
+						name="sivilstatus"
+						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						className={styles.selectWrapper}
+					>
+						{initialSivilstatus === 'UOPPGITT' &&
+							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{sivilstandOptions.map(({ value, label }) => (
+							<option key={value} value={value ?? ''}>
+								{label}
+							</option>
+						))}
+					</RHFSelect>
 				)}
 
-				{shouldShowEpsHarInntektOver2G(sivilstand, epsHarPensjon) && (
-					<RHFRadioBoolean
-						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-						className={styles.horizontalRadioGroup}
-					/>
+				{showEpsHarPensjon(sivilstatus) && (
+					<>
+						<Divider noMargin />
+						<RHFRadio
+							name="epsHarPensjon"
+							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
 				)}
 
+				{showEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
+					<>
+						<Divider noMargin />
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
+				)}
+				<Divider noMargin />
+				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+					vilkaarAlternativ && (
+						<SanityAlert
+							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
+							className={styles.sanityAlert}
+							dynamicValues={{
+								alder: formaterAlderString(
+									vilkaarAlternativ?.aar,
+									vilkaarAlternativ?.maaneder
+								),
+								grad: String(
+									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+								),
+							}}
+						/>
+					)}
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
-					style={{ width: '184px' }}
+					formatError="Du må skrive hele tall for å oppgi inntekt."
 				/>
 
 				<RHFAlderVelger
@@ -135,59 +191,45 @@ export const BeregningForm = () => {
 					))}
 				</RHFSelect>
 
-				{shouldShowGradertUttakFields(uttaksgrad) && (
-					<>
-						<RHFRadioBoolean
-							name="harInntektVedSidenAvGradertUttak"
-							legend={`Har bruker inntekt ved siden av ${uttaksgrad} % uttak?`}
-							className={styles.horizontalRadioGroup}
-						>
-							<HStack gap="space-0 space-24" wrap={false}>
-								<Radio value="ja">Ja</Radio>
-								<Radio value="nei">Nei</Radio>
-							</HStack>
-						</RHFRadioBoolean>
-
-						{shouldShowInntektGradertFields(
-							uttaksgrad,
-							harInntektVedSidenAvGradertUttak
-						) && (
-							<RHFTextField
-								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-								style={{ width: '184px' }}
-							/>
-						)}
-					</>
+				{showGradertUttakFields(uttaksgrad) && (
+					<RHFTextField
+						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+						formatError="Du må skrive hele tall for å oppgi inntekt."
+					/>
 				)}
 
-				{shouldShowHeltUttakAlder(uttaksgrad) && (
+				{showHeltUttakAlder(uttaksgrad) && (
 					<RHFAlderVelger
 						aarName="alderAarHeltUttak"
 						mdName="alderMdHeltUttak"
 						aarLabel="Alder (år) for 100 % uttak"
 						mdLabel="Alder (md.) for 100 % uttak"
 						foedselsdato={person?.foedselsdato}
+						{...(alderAarUttak !== null && alderMdUttak !== null
+							? {
+									minAlder: {
+										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
+										maaneder: (alderMdUttak + 1) % 12,
+									},
+								}
+							: {})}
+					/>
+				)}
+				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+					<RHFRadio
+						name="harInntektVedSidenAvUttak"
+						legend="Har bruker inntekt ved siden av 100 % uttak?"
+						className={styles.horizontalRadioGroup}
 					/>
 				)}
 
-				<RHFRadioBoolean
-					name="harInntektVedSidenAvUttak"
-					legend="Har bruker inntekt ved siden av 100 % uttak?"
-					className={styles.horizontalRadioGroup}
-				>
-					<HStack gap="space-0 space-24" wrap={false}>
-						<Radio value="ja">Ja</Radio>
-						<Radio value="nei">Nei</Radio>
-					</HStack>
-				</RHFRadioBoolean>
-
-				{shouldShowInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-							style={{ width: '184px' }}
+							formatError="Du må skrive hele tall for å oppgi inntekt."
 						/>
 
 						<RHFAlderVelger
@@ -200,7 +242,6 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</div>
-			<hr className={styles.divider} />
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

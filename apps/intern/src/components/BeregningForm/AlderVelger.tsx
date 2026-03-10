@@ -1,4 +1,6 @@
-import { BodyShort, ErrorMessage, Select } from '@navikt/ds-react'
+import { getBrukerensAlderISluttenAvMaaneden } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+
+import { BodyShort, ErrorMessage, Select, VStack } from '@navikt/ds-react'
 
 import styles from './BeregningForm.module.css'
 
@@ -107,11 +109,14 @@ export function AlderVelger({
 	aarLabel = 'Alder (år) for uttak',
 	mdLabel = 'Alder (md.) for uttak',
 	foedselsdato,
-	minAlder = { aar: 62, maaneder: 0 },
+	minAlder: minAlderProp = { aar: 62, maaneder: 0 },
 	maxAlder = { aar: 75, maaneder: 0 },
 	aarError,
 	mdError,
 }: AlderVelgerProps) {
+	const minAlder = foedselsdato
+		? getBrukerensAlderISluttenAvMaaneden(foedselsdato, minAlderProp)
+		: minAlderProp
 	const selectedYear = alderAar ? Number(alderAar) : undefined
 
 	const aarOptions = []
@@ -127,7 +132,7 @@ export function AlderVelger({
 	const errorMessage = aarError || mdError
 
 	return (
-		<div>
+		<VStack gap="space-8">
 			<div className={styles.alderRow}>
 				<Select
 					label={aarLabel}
@@ -191,6 +196,6 @@ export function AlderVelger({
 					{uttaksdato}
 				</BodyShort>
 			)}
-		</div>
+		</VStack>
 	)
 }

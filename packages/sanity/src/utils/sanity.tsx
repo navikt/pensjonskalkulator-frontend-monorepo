@@ -1,7 +1,7 @@
-import { PortableTextReactComponents } from '@portabletext/react'
+import type { PortableTextReactComponents } from '@portabletext/react'
 import { createClient } from '@sanity/client'
 import { type ReactNode } from 'react'
-import { IntlShape } from 'react-intl'
+import type { IntlShape } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link, List } from '@navikt/ds-react'

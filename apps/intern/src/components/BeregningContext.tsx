@@ -1,4 +1,8 @@
-import type { Person } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	LoependeVedtak,
+	PersonInternV1,
+	Sivilstatus,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
 	createContext,
@@ -18,13 +22,13 @@ import {
 	type BeregningFormData,
 	type BeregningParams,
 	type BeregningResult,
-	type Sivilstand,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { isHarPartner } from '../api/formConditions'
+import { harPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useLoependeVedtakQuery,
 	usePersonQuery,
 } from '../api/queries'
 import { getPidFromUrl } from '../utils'
@@ -36,7 +40,9 @@ interface BeregningContextValue {
 	beregning: BeregningResult | undefined
 	isBeregningLoading: boolean
 	beregningError: Error | null
-	person: Person | undefined
+	fnr: string | undefined
+	person: PersonInternV1 | undefined
+	loependeVedtak: LoependeVedtak | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -45,17 +51,22 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 
 interface BeregningProviderProps {
 	children: ReactNode
-	initialSivilstand?: Sivilstand
+	initialSivilstatus: Sivilstatus | null
+	initialInntekt?: number
 }
 
 export function BeregningProvider({
 	children,
-	initialSivilstand,
+	initialSivilstatus,
+	initialInntekt,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
-			...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+			...(initialInntekt !== undefined
+				? { aarligInntektFoerUttakBeloep: initialInntekt }
+				: {}),
 		},
 		mode: 'onChange',
 	})
@@ -65,7 +76,10 @@ export function BeregningProvider({
 		form.reset(
 			{
 				...defaultBeregningFormData,
-				...(initialSivilstand ? { sivilstand: initialSivilstand } : {}),
+				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+				...(initialInntekt !== undefined
+					? { aarligInntektFoerUttakBeloep: initialInntekt }
+					: {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)
@@ -79,33 +93,42 @@ export function BeregningProvider({
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
+	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
 	const showDirtyWarning = hasSubmitted && formIsDirty
 
 	const [
-		sivilstand,
+		sivilstatus,
 		epsHarPensjon,
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
-		harInntektVedSidenAvGradertUttak,
+		beregnMedGjenlevenderett,
 	] = useWatch({
 		control: form.control,
 		name: [
-			'sivilstand',
+			'sivilstatus',
 			'epsHarPensjon',
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
-			'harInntektVedSidenAvGradertUttak',
+			'beregnMedGjenlevenderett',
 		] as const,
 	})
 
 	useEffect(() => {
-		if (!isHarPartner(sivilstand)) {
+		if (!beregnMedGjenlevenderett) {
+			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [beregnMedGjenlevenderett, form])
+
+	useEffect(() => {
+		if (!harPartner(sivilstatus)) {
 			form.setValue('epsHarPensjon', null, { shouldDirty: false })
 			form.setValue('epsHarInntektOver2G', null, { shouldDirty: false })
 		}
-	}, [sivilstand, form])
+	}, [sivilstatus, form])
 
 	useEffect(() => {
 		if (epsHarPensjon !== false) {
@@ -124,15 +147,20 @@ export function BeregningProvider({
 	}, [harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
+		if (uttaksgrad === null) {
+			form.setValue('harInntektVedSidenAvUttak', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [uttaksgrad, form])
+
+	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
 			form.setValue('aarligInntektVsaPensjonGradertUttak', null, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('harInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
 			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
 				shouldDirty: false,
 			})
@@ -144,20 +172,6 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
-
-	useEffect(() => {
-		if (harInntektVedSidenAvGradertUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderAarInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-			form.setValue('alderMdInntektGradertSlutter', null, {
-				shouldDirty: false,
-			})
-		}
-	}, [harInntektVedSidenAvGradertUttak, form])
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
@@ -187,10 +201,12 @@ export function BeregningProvider({
 					form,
 					aktivBeregning,
 					isDirty: showDirtyWarning,
+					fnr,
 					person,
 					beregning,
 					isBeregningLoading,
 					beregningError,
+					loependeVedtak,
 					submitBeregning,
 					resetForm,
 				}}

@@ -1,28 +1,73 @@
+@import '../../styles/global.module.css';
+
 .beregningForm {
 	width: 496px;
-	height: 100%;
+	flex-shrink: 0;
 	background-color: white;
-	padding: 32px 48px 0;
 	box-sizing: border-box;
 	z-index: 1;
-	overflow-y: auto;
-}
-
-.divider {
-	border: none;
-	border-top: 1px solid var(--a-border-subtle);
-	margin: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	timeline-scope: --section-scroll;
 }
 
 .section {
+	flex: 1;
+	overflow-y: auto;
+	padding: 32px 48px 0;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	padding: 24px 0;
+	scroll-timeline: --section-scroll block;
+}
+
+.section::after {
+	content: '';
+	display: block;
+	flex-shrink: 0;
+	height: 1px;
+	margin-top: auto;
+	background-color: var(--ax-border-neutral-subtle);
 }
 
 .selectWrapper :global(.aksel-select__container) {
-	width: 184px;
+	width: 12rem;
+}
+
+.selectWrapper :global(.aksel-select__container select) {
+	height: var(--a-spacing-8);
+}
+
+.section :global(.aksel-text-field__input) {
+	width: 12rem;
+	height: var(--a-spacing-8);
+}
+
+.alderRow {
+	display: flex;
+	gap: 16px;
+}
+
+.alderRow :global(.aksel-select__container) {
+	width: 12rem;
+	min-width: 12rem;
+	flex-shrink: 0;
+}
+
+.alderRow :global(.aksel-select__container select) {
+	width: 12rem;
+	height: var(--a-spacing-8);
+}
+
+.fieldGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.selectWrapper :global(.aksel-select__container) {
+	width: 192px;
 }
 
 .alderRow {
@@ -44,21 +89,29 @@
 	gap: 1.5rem;
 }
 
-.buttonBar {
-	display: flex;
-	justify-content: space-between;
-	gap: 24px;
-	padding: 24px 48px;
-	margin-left: -48px;
-	margin-right: -48px;
-	position: sticky;
-	bottom: 0;
-	background-color: white;
-	border-top: 1px solid var(--a-border-subtle);
-	margin-top: -1px;
-	margin-bottom: 0;
+.sanityAlert {
+	margin: 0;
 }
 
-.buttonBarStuck {
-	box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.15);
+.buttonBar {
+	position: relative;
+	z-index: 1;
+	gap: 24px;
+	padding: 0 48px 24px 48px;
+	background-color: white;
+	flex-shrink: 0;
+	animation: scrollShadow linear both;
+	animation-timeline: --section-scroll;
+}
+
+@keyframes scrollShadow {
+	0% {
+		box-shadow: 0 -4px 6px 0 rgba(0, 0, 0, 0.15);
+	}
+	99% {
+		box-shadow: 0 -4px 6px 0 rgba(0, 0, 0, 0.15);
+	}
+	100% {
+		box-shadow: none;
+	}
 }
