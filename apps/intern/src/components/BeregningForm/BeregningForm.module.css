@@ -31,12 +31,6 @@
 	background-color: var(--ax-border-neutral-subtle);
 }
 
-.divider {
-	border: none;
-	border-top: 1px solid var(--ax-border-neutral-subtle);
-	margin: 0;
-}
-
 .selectWrapper :global(.aksel-select__container) {
 	width: 12rem;
 }
@@ -66,29 +60,10 @@
 	height: var(--a-spacing-8);
 }
 
-.horizontalRadioGroup :global(.navds-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: 1.5rem;
-}
-
 .fieldGroup {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-}
-
-.divider {
-	border: none;
-	border-top: 1px solid var(--a-border-subtle);
-	margin: 0;
-}
-
-.section {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	padding: 18px 48px 24px;
 }
 
 .selectWrapper :global(.aksel-select__container) {
