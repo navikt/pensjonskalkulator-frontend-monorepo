@@ -3,6 +3,7 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import {
 	BodyLong,
@@ -156,10 +157,9 @@ export const Beregning = () => {
 	const { isBeregningLoading, beregning, aktivBeregning, person } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const erOvergangskull = person ? isOvergangskull(person.foedselsdato) : false
-	const erFoedtEtter1963 = person
-		? isFoedtEtter1963(person.foedselsdato)
-		: false
+	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
+	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
+	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
 	if (!beregning && isBeregningLoading) {
 		return (
@@ -171,7 +171,7 @@ export const Beregning = () => {
 		)
 	}
 
-	if (!beregning) {
+	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
@@ -245,7 +245,7 @@ export const Beregning = () => {
 								valueHeader="Kr per måned"
 								rows={mapAlderspensjonToRows(gradertEntry)}
 							/>
-							{erFoedtEtter1963 && (
+							{erFoedtFoer1963 && (
 								<BeregningTable
 									title="Opptjening etter kapittel 19"
 									valueHeader="Kr per måned"
@@ -280,7 +280,7 @@ export const Beregning = () => {
 					)}
 					{heltEntry && (
 						<>
-							{!erOvergangskull && erFoedtEtter1963 && (
+							{erFoedtFoer1963 && (
 								<BeregningTable
 									title="Opptjening etter kapittel 19"
 									valueHeader="Kr per måned"

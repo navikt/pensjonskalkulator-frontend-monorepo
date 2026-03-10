@@ -13,6 +13,7 @@ import {
 
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
+import { SanityProvider } from './SanityProvider.tsx'
 import { mapPersonSivilstatus } from './api/beregningTypes.ts'
 import {
 	useDecryptPidQuery,
@@ -171,10 +172,12 @@ const AppContent = () => {
 }
 
 export const App = () => (
-	<div className={styles.appContainer}>
-		<PesysHeader />
-		<Theme className="app-content">
-			<AppContent />
-		</Theme>
-	</div>
+	<SanityProvider>
+		<div className={styles.appContainer}>
+			<PesysHeader />
+			<Theme className="app-content">
+				<AppContent />
+			</Theme>
+		</div>
+	</SanityProvider>
 )
