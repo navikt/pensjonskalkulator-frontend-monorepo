@@ -15,7 +15,7 @@ interface BeregningTableProps {
 	valueHeader: string
 	rows: BeregningTableRow[]
 	sumLabel?: string
-	customSum?: number
+	addToSum?: number
 	simple?: boolean
 }
 
@@ -27,11 +27,11 @@ export const BeregningTable = ({
 	valueHeader,
 	rows,
 	sumLabel = 'Sum',
-	customSum,
+	addToSum = 0,
 	simple = false,
 }: BeregningTableProps) => {
 	const sum =
-		customSum ?? rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0)
+		rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) + addToSum
 
 	return (
 		<Table zebraStripes size="small" className={styles.table}>
@@ -51,7 +51,7 @@ export const BeregningTable = ({
 				{rows.map(
 					(row) =>
 						row.value != null &&
-						row.value > 0 && (
+						row.value >= 0 && (
 							<Table.Row key={row.label}>
 								<Table.DataCell>
 									<BodyShort size="small">{row.label}</BodyShort>

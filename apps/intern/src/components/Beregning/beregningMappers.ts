@@ -126,7 +126,8 @@ export function mapOpptjeningEtterKapittel20ToRows(
 }
 
 export function mapPrivatAfp(
-	entry?: AfpPrivatPensjonsberegning
+	entry?: AfpPrivatPensjonsberegning,
+	visKronetillegg = true
 ): BeregningTableRow[] {
 	return [
 		{
@@ -135,7 +136,7 @@ export function mapPrivatAfp(
 		},
 		{
 			label: 'Kronetillegg',
-			value: entry?.kronetillegg ?? 0,
+			value: visKronetillegg ? (entry?.kronetillegg ?? 0) : -1,
 		},
 		{
 			label: 'Livsvarig del',
@@ -149,11 +150,17 @@ export function formatAlderTitle(
 	md: number,
 	uttaksgrad: number | string
 ): string {
-	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
+	const alderText =
+		md > 0
+			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
+			: `${aar} år`
 	return `${uttaksgrad} % alderspensjon ved ${alderText}`
 }
 
 export function formatAfpTitle(aar: number, md: number): string {
-	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
+	const alderText =
+		md > 0
+			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
+			: `${aar} år`
 	return `AFP ved ${alderText}`
 }

@@ -10,6 +10,7 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningTable } from './BeregningTable'
 import {
+	formatAfpTitle,
 	formatAlderTitle,
 	mapAlderspensjonToRows,
 	mapOpptjeningEtterKapittel19ToRows,
@@ -56,6 +57,22 @@ export const Beregning = () => {
 		aktivBeregning.uttaksgrad !== null &&
 		aktivBeregning.uttaksgrad < 100
 
+	const gradertUttakAlder = erGradert
+		? {
+				aar: erGradert ? aktivBeregning?.alderAarUttak : undefined,
+				maaneder: erGradert ? aktivBeregning?.alderMdUttak : undefined,
+			}
+		: undefined
+
+	const heltUttakAlder = {
+		aar: erGradert
+			? aktivBeregning?.alderAarHeltUttak
+			: (aktivBeregning?.alderAarUttak ?? 0),
+		maaneder: erGradert
+			? aktivBeregning?.alderMdHeltUttak
+			: (aktivBeregning?.alderMdUttak ?? 0),
+	}
+
 	const tableCount =
 		1 +
 		(erFoedtFoer1963 ? 1 : 0) +
@@ -73,12 +90,22 @@ export const Beregning = () => {
 	const gradertEntry = beregning?.alderspensjon?.find(
 		(entry) => entry.alder === (gradertUttakAar ?? 0)
 	)
+	const maanedsbeloepHeltUttak =
+		beregning.alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep
+	const maanedsbeloepGradertUttak =
+		beregning.alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep
 	const afpPrivatVedGradertUttak = beregning?.afpPrivat?.find(
 		(entry) => entry.alder === (gradertUttakAar ?? 0)
 	)
-	// const afpPrivatVedHeltUttak = beregning?.afpPrivat?.find(
-	// 	(entry) => entry.alder === (heltUttakAar ?? 0)
-	// )
+	const afpPrivatVedHeltUttak = beregning?.afpPrivat?.find(
+		(entry) => entry.alder === (heltUttakAar ?? 0)
+	)
+	const afpPrivatVed67Aar = beregning?.afpPrivat?.find(
+		(entry) => entry.alder === 67
+	)
+	const alderspensjonVed67Aar = beregning?.alderspensjon?.find(
+		(entry) => entry.alder === 67
+	)
 
 	const titleHeltUttak =
 		aktivBeregning &&
@@ -148,15 +175,31 @@ export const Beregning = () => {
 								/>
 							)}
 							{aktivBeregning?.afp === 'ja_privat' && (
-								<VStack gap="space-12">
-									<Heading level="3" size="small">
-										AFP i privat sektor ved {}
-									</Heading>
-									<BeregningTable
-										title="AFP"
-										valueHeader="Kr per måned"
-										rows={mapPrivatAfp(afpPrivatVedGradertUttak)}
-									/>
+								<VStack gap="space-24">
+									<VStack gap="space-12">
+										<BeregningTable
+											title="AFP i privat sektor"
+											valueHeader="Kr per måned"
+											rows={mapPrivatAfp(
+												afpPrivatVedGradertUttak,
+												gradertUttakAlder!.aar! < 67
+											)}
+											addToSum={maanedsbeloepGradertUttak ?? 0}
+										/>
+									</VStack>
+									{gradertUttakAlder!.aar! < 67 && (
+										<VStack gap="space-12">
+											<Heading level="3" size="small">
+												{formatAfpTitle(67, 0)}
+											</Heading>
+											<BeregningTable
+												title="AFP i privat sektor"
+												valueHeader="Kr per måned"
+												rows={mapPrivatAfp(afpPrivatVed67Aar, false)}
+												addToSum={(alderspensjonVed67Aar?.beloep ?? 0) / 12}
+											/>
+										</VStack>
+									)}
 								</VStack>
 							)}
 						</div>
@@ -199,6 +242,32 @@ export const Beregning = () => {
 									/>
 								)}
 							</>
+						)}
+						{aktivBeregning?.afp === 'ja_privat' && (
+							<VStack gap="space-24">
+								<BeregningTable
+									title="AFP i privat sektor"
+									valueHeader="Kr per måned"
+									rows={mapPrivatAfp(
+										afpPrivatVedHeltUttak,
+										heltUttakAlder.aar! < 67
+									)}
+									addToSum={maanedsbeloepHeltUttak ?? 0}
+								/>
+								{!erGradert && heltUttakAlder.aar! < 67 && (
+									<VStack gap="space-12">
+										<Heading level="3" size="small">
+											{formatAfpTitle(67, 0)}
+										</Heading>
+										<BeregningTable
+											title="AFP i privat sektor"
+											valueHeader="Kr per måned"
+											rows={mapPrivatAfp(afpPrivatVed67Aar, false)}
+											addToSum={(alderspensjonVed67Aar?.beloep ?? 0) / 12}
+										/>
+									</VStack>
+								)}
+							</VStack>
 						)}
 					</div>
 				</VStack>
