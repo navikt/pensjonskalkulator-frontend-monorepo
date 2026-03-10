@@ -308,16 +308,42 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
+			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
 			await mockApi(page, SIMULERING_API_URL, ALDERSPENSJON_MOCK_FILE)
 			await navigateToApp(page)
 		})
 
 		test('Sender inn skjema med gjenlevenderett valgt', async ({ page }) => {
 			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
 
-			const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
-			await radioGroup
-				.getByLabel('Henvendelse fra begge parter foreligger')
+			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+
+			await page
+				.getByRole('textbox', {
+					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+				})
+				.fill('5')
+			await page
+				.getByRole('textbox', {
+					name: 'Pensjonsgivende inntekt året før dødsdato',
+				})
+				.fill('400000')
+			await page
+				.getByRole('group', {
+					name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
+				})
+				.getByLabel('Ja')
+				.check()
+			await page
+				.getByRole('group', {
+					name: 'Medlem av folketrygden de 5 siste årene før dødsfallet',
+				})
+				.getByLabel('Ja')
+				.check()
+			await page
+				.getByRole('group', { name: 'Registrert som flyktning' })
+				.getByLabel('Nei')
 				.check()
 
 			await fillMainFormFields(page)
@@ -326,6 +352,11 @@ test.describe('Gjenlevenderett', () => {
 
 			await expect(
 				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+			).not.toBeVisible()
+			await expect(
+				page.getByText(
+					'Hent opplysninger om EPS eller beregn alderspensjon uten gjenlevenderett.'
+				)
 			).not.toBeVisible()
 			await expect(
 				page.getByText('Pensjonsgivende inntekt frem til uttak er påkrevd')
@@ -579,22 +610,24 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 				.fill('400000')
-			await page
-				.getByRole('group', {
-					name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
-				})
-				.getByLabel('Ja')
-				.check()
-			await page
-				.getByRole('group', {
-					name: 'Medlem av folketrygden de 5 siste årene før dødsfallet',
-				})
-				.getByLabel('Ja')
-				.check()
-			await page
-				.getByRole('group', { name: 'Registrert som flyktning' })
-				.getByLabel('Nei')
-				.check()
+
+			const minstInntektGroup = page.getByRole('group', {
+				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
+			})
+			await expect(minstInntektGroup).toBeVisible()
+			await minstInntektGroup.getByLabel('Ja').check()
+
+			const medlemGroup = page.getByRole('group', {
+				name: 'Medlem av folketrygden de 5 siste årene før dødsfallet',
+			})
+			await expect(medlemGroup).toBeVisible()
+			await medlemGroup.getByLabel('Ja').check()
+
+			const flyktningGroup = page.getByRole('group', {
+				name: 'Registrert som flyktning',
+			})
+			await expect(flyktningGroup).toBeVisible()
+			await flyktningGroup.getByLabel('Nei').check()
 
 			await fillMainFormFields(page)
 
