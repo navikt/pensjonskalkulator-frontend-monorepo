@@ -2,10 +2,12 @@ import { BodyShort, Label, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
+export type Unit = 'kr' | 'år'
+
 export interface BeregningTableRow {
 	label: string
 	value?: number
-	visBeloepKroner?: boolean
+	unit?: Unit
 }
 
 interface BeregningTableProps {
@@ -13,6 +15,7 @@ interface BeregningTableProps {
 	valueHeader: string
 	rows: BeregningTableRow[]
 	sumLabel?: string
+	customSum?: number
 	simple?: boolean
 }
 
@@ -24,9 +27,10 @@ export const BeregningTable = ({
 	valueHeader,
 	rows,
 	sumLabel = 'Sum',
+	customSum,
 	simple = false,
 }: BeregningTableProps) => {
-	const sum = rows.reduce((acc, row) => acc + (row.value ?? 0), 0)
+	const sum = customSum ?? rows.reduce((acc, row) => acc + (row.value ?? 0), 0)
 
 	return (
 		<Table zebraStripes size="small" className={styles.table}>
@@ -50,8 +54,8 @@ export const BeregningTable = ({
 						</Table.DataCell>
 						<Table.DataCell align="right">
 							<BodyShort size="small">
-								{row.visBeloepKroner
-									? `${formatKroner(row.value)} kr`
+								{row.unit
+									? `${formatKroner(row.value)} ${row.unit}`
 									: formatKroner(row.value)}
 							</BodyShort>
 						</Table.DataCell>
