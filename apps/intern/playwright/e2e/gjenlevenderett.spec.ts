@@ -337,7 +337,7 @@ test.describe('Gjenlevenderett', () => {
 				.check()
 			await page
 				.getByRole('group', {
-					name: 'Medlem av folketrygden de 5 siste årene før dødsfallet',
+					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 				})
 				.getByLabel('Ja')
 				.check()
@@ -618,7 +618,7 @@ test.describe('Gjenlevenderett', () => {
 			await minstInntektGroup.getByLabel('Ja').check()
 
 			const medlemGroup = page.getByRole('group', {
-				name: 'Medlem av folketrygden de 5 siste årene før dødsfallet',
+				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 			})
 			await expect(medlemGroup).toBeVisible()
 			await medlemGroup.getByLabel('Ja').check()
