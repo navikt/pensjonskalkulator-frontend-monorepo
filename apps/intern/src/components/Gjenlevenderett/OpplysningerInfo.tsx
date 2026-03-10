@@ -22,7 +22,7 @@ function mapEpsOpplysninger(
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
 		},
 		{
-			label: 'Dato for dødsfall',
+			label: 'Dato for dødsdato',
 			value: registrertDoedsDato ?? `Ikke registrert. ${fallbackDato} brukes.`,
 		},
 	]
@@ -35,13 +35,13 @@ export const OpplysningerInfo = ({
 }) => {
 	const rows = mapEpsOpplysninger(EPSOpplysninger)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const grunnbeloepTekst = grunnbeloep ? `(<${grunnbeloep.grunnbeløp}> kr)` : ''
+	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
 	return (
 		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
 			<Heading level="3" size="xsmall">
 				Opplysninger om avdøde
 			</Heading>
-			<Table className={styles.opplysningerTable}>
+			<Table className={styles.opplysningerTable} size="small">
 				<Table.Body>
 					{rows.map(({ label, value }) => (
 						<Table.Row key={label}>
@@ -53,7 +53,7 @@ export const OpplysningerInfo = ({
 			</Table>
 			<RHFTextField
 				name="epsAntallUtenlandsOppholdAar"
-				label="År bodd/jobbet i utlandet etter fylte 16 år"
+				label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
 				style={{ width: '96px' }}
 				formatError="Skriv hele tall for å oppgi antall år i utlandet."
 			/>
@@ -70,7 +70,7 @@ export const OpplysningerInfo = ({
 			/>
 			<RHFRadio
 				name="epsMedlemAvFolketrygdenVedDoedsDato"
-				legend="Medlem av folketrygden de 5 siste årene før dødsfallet"
+				legend="Medlem av folketrygden de 5 siste årene før dødsdato"
 				className={styles.horizontalRadioGroup}
 			/>
 			<RHFRadio
