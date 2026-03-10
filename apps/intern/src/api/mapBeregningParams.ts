@@ -40,8 +40,13 @@ export function mapBeregningParamsToRequest(
 			}
 		: uttaksalder
 
+	const simuleringstype: AlderspensjonSimuleringstype =
+		formData.afp === 'ja_privat'
+			? 'ALDERSPENSJON_MED_AFP_PRIVAT'
+			: 'ALDERSPENSJON'
+
 	return {
-		simuleringstype: 'ALDERSPENSJON',
+		simuleringstype,
 		foedselsdato,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		gradertUttak: erGradert

@@ -165,6 +165,16 @@ export const BeregningForm = () => {
 							}}
 						/>
 					)}
+				<RHFRadio
+					name="afp"
+					legend="Skal AFP inkluderes?"
+					options={[
+						{ value: 'ja_privat', label: 'Ja, privat' },
+						{ value: 'nei', label: 'Nei' },
+					]}
+					className={styles.horizontalRadioGroup}
+				/>
+				<Divider noMargin />
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
