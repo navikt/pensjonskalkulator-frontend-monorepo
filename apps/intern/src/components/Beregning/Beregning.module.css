@@ -1,14 +1,9 @@
 .beregning {
 	flex: 1;
 	background-color: var(--a-bg-subtle);
-	padding: var(--ax-space-48);
+	padding: var(--ax-space-24) var(--ax-space-48);
 	box-sizing: border-box;
 	overflow-y: auto;
-}
-
-.tables {
-	display: flex;
-	gap: var(--ax-space-40);
 }
 
 .tables > * {

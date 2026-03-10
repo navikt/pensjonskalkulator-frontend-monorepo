@@ -108,11 +108,6 @@ export function mapOpptjeningEtterKapittel20ToRows(
 			unit: 'kr',
 		},
 		{
-			label: 'Garantitillegg',
-			value: 54453,
-			unit: 'kr',
-		},
-		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: opptjening.pensjonBeholdningFoerUttakBeloep,
 			unit: 'kr',
@@ -156,4 +151,9 @@ export function formatAlderTitle(
 ): string {
 	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
 	return `${uttaksgrad} % alderspensjon ved ${alderText}`
+}
+
+export function formatAfpTitle(aar: number, md: number): string {
+	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
+	return `AFP ved ${alderText}`
 }

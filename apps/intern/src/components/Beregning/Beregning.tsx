@@ -58,7 +58,7 @@ export const Beregning = () => {
 
 	const tableCount =
 		1 +
-		(erFoedtEtter1963 ? 1 : 0) +
+		(erFoedtFoer1963 ? 1 : 0) +
 		(erOvergangskull || erFoedtEtter1963 ? 1 : 0)
 
 	const heltUttakAar = erGradert
@@ -106,7 +106,8 @@ export const Beregning = () => {
 			className={styles.beregning}
 		>
 			<VStack
-				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				gap="space-32"
+				className={` ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
@@ -114,7 +115,7 @@ export const Beregning = () => {
 					</div>
 				)}
 				{gradertEntry && (
-					<>
+					<VStack gap="space-12">
 						<Heading level="3" size="small">
 							{titleGradertUttak}
 						</Heading>
@@ -147,53 +148,60 @@ export const Beregning = () => {
 								/>
 							)}
 							{aktivBeregning?.afp === 'ja_privat' && (
-								<BeregningTable
-									title="AFP"
-									valueHeader="Kr per måned"
-									rows={mapPrivatAfp(afpPrivatVedGradertUttak)}
-								/>
+								<VStack gap="space-12">
+									<Heading level="3" size="small">
+										AFP i privat sektor ved {}
+									</Heading>
+									<BeregningTable
+										title="AFP"
+										valueHeader="Kr per måned"
+										rows={mapPrivatAfp(afpPrivatVedGradertUttak)}
+									/>
+								</VStack>
 							)}
 						</div>
-					</>
+					</VStack>
 				)}
-				<Heading level="3" size="small">
-					{titleHeltUttak}
-				</Heading>
-				<div
-					className={styles.tableGrid}
-					style={{ '--table-columns': tableCount } as React.CSSProperties}
-				>
-					{beregning && aktivBeregning && heltEntry && (
-						<BeregningTable
-							title="Alderspensjon"
-							valueHeader="Kr per måned"
-							rows={mapAlderspensjonToRows(heltEntry)}
-						/>
-					)}
-					{heltEntry && (
-						<>
-							{erFoedtFoer1963 && (
-								<BeregningTable
-									title="Opptjening etter kapittel 19"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel19ToRows(
-										heltEntry,
-										grunnbeloep?.grunnbeløp
-									)}
-									simple
-								/>
-							)}
-							{(erOvergangskull || erFoedtEtter1963) && (
-								<BeregningTable
-									title="Opptjening etter kapittel 20"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
-									simple
-								/>
-							)}
-						</>
-					)}
-				</div>
+				<VStack gap="space-12">
+					<Heading level="3" size="small">
+						{titleHeltUttak}
+					</Heading>
+					<div
+						className={styles.tableGrid}
+						style={{ '--table-columns': tableCount } as React.CSSProperties}
+					>
+						{beregning && aktivBeregning && heltEntry && (
+							<BeregningTable
+								title="Alderspensjon"
+								valueHeader="Kr per måned"
+								rows={mapAlderspensjonToRows(heltEntry)}
+							/>
+						)}
+						{heltEntry && (
+							<>
+								{erFoedtFoer1963 && (
+									<BeregningTable
+										title="Opptjening etter kapittel 19"
+										valueHeader="Kr per måned"
+										rows={mapOpptjeningEtterKapittel19ToRows(
+											heltEntry,
+											grunnbeloep?.grunnbeløp
+										)}
+										simple
+									/>
+								)}
+								{(erOvergangskull || erFoedtEtter1963) && (
+									<BeregningTable
+										title="Opptjening etter kapittel 20"
+										valueHeader="Kr per måned"
+										rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
+										simple
+									/>
+								)}
+							</>
+						)}
+					</div>
+				</VStack>
 			</VStack>
 		</Box>
 	)

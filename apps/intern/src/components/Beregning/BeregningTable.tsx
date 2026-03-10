@@ -30,7 +30,8 @@ export const BeregningTable = ({
 	customSum,
 	simple = false,
 }: BeregningTableProps) => {
-	const sum = customSum ?? rows.reduce((acc, row) => acc + (row.value ?? 0), 0)
+	const sum =
+		customSum ?? rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0)
 
 	return (
 		<Table zebraStripes size="small" className={styles.table}>
@@ -47,20 +48,24 @@ export const BeregningTable = ({
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{rows.map((row) => (
-					<Table.Row key={row.label}>
-						<Table.DataCell>
-							<BodyShort size="small">{row.label}</BodyShort>
-						</Table.DataCell>
-						<Table.DataCell align="right">
-							<BodyShort size="small">
-								{row.unit
-									? `${formatKroner(row.value)} ${row.unit}`
-									: formatKroner(row.value)}
-							</BodyShort>
-						</Table.DataCell>
-					</Table.Row>
-				))}
+				{rows.map(
+					(row) =>
+						row.value != null &&
+						row.value > 0 && (
+							<Table.Row key={row.label}>
+								<Table.DataCell>
+									<BodyShort size="small">{row.label}</BodyShort>
+								</Table.DataCell>
+								<Table.DataCell align="right">
+									<BodyShort size="small">
+										{row.unit
+											? `${formatKroner(row.value)} ${row.unit}`
+											: formatKroner(row.value)}
+									</BodyShort>
+								</Table.DataCell>
+							</Table.Row>
+						)
+				)}
 				{!simple && (
 					<Table.Row>
 						<Table.DataCell>
