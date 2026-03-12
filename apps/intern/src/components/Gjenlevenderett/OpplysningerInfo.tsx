@@ -37,7 +37,7 @@ export const OpplysningerInfo = ({
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
 	return (
-		<VStack gap="space-24">
+		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
 			<Heading level="3" size="xsmall">
 				Opplysninger om avdøde
 			</Heading>

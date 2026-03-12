@@ -64,7 +64,7 @@ export const Gjenlevenderett = () => {
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
 	const EPSError = (
-		<LocalAlert status="warning" size="small">
+		<LocalAlert status="warning" size="small" data-testid="EPS-henting-feil">
 			<LocalAlert.Header>
 				<LocalAlert.Title>Kunne ikke hente opplysninger</LocalAlert.Title>
 			</LocalAlert.Header>
@@ -143,7 +143,7 @@ export const Gjenlevenderett = () => {
 						</ErrorMessage>
 					)}
 					{isEPSInfoEmpty && (
-						<LocalAlert status="warning">
+						<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
 							<LocalAlert.Header>
 								<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
 							</LocalAlert.Header>
