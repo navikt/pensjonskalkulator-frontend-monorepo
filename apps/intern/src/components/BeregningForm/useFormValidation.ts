@@ -8,31 +8,60 @@ import {
 	harPartner,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
-	showInntektGradertFields,
 	showInntektHeltFields,
 } from '../../api/formConditions'
+
+function validateNumericField(
+	value: number | null,
+	errors: ValidationErrors,
+	field: keyof ValidationErrors,
+	{
+		requiredError,
+		formatError = 'Skriv hele tall for å oppgi beløp.',
+		max,
+		maxError,
+	}: {
+		requiredError: string
+		formatError?: string
+		max?: number
+		maxError?: string
+	}
+) {
+	if (value === null) {
+		errors[field] = requiredError
+	} else if (Number.isNaN(value)) {
+		errors[field] = formatError
+	} else if (max !== undefined && maxError && value > max) {
+		errors[field] = maxError
+	}
+}
 
 function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (formData.epsAntallUtenlandsOppholdAar === null) {
-		errors.epsAntallUtenlandsOppholdAar =
-			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
-	}
+	validateNumericField(
+		formData.epsAntallUtenlandsOppholdAar,
+		errors,
+		'epsAntallUtenlandsOppholdAar',
+		{
+			requiredError: 'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.',
+			formatError: 'Skriv hele tall for å oppgi antall år.',
+			max: 39,
+			maxError: 'Antall år i utlandet kan ikke være større enn 39 år.',
+		}
+	)
 
-	if (
-		formData.epsAntallUtenlandsOppholdAar !== null &&
-		Number(formData.epsAntallUtenlandsOppholdAar) > 39
-	) {
-		errors.epsAntallUtenlandsOppholdAar =
-			'Antall år i utlandet kan ikke være større enn 39 år.'
-	}
-
-	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
-		errors.epsPensjonsgivendeInntektFoerDoedsDato =
-			'Fyll ut inntekt året før dødsdato.'
-	}
+	validateNumericField(
+		formData.epsPensjonsgivendeInntektFoerDoedsDato,
+		errors,
+		'epsPensjonsgivendeInntektFoerDoedsDato',
+		{
+			requiredError: 'Fyll ut inntekt året før dødsdato.',
+			max: 100_000_000,
+			maxError: 'Inntekten kan ikke overskride 100 000 000 kr.',
+		}
+	)
 
 	if (formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null) {
 		errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
@@ -109,13 +138,16 @@ function validateInntektFoerUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	const inntektFoerUttak = formData.aarligInntektFoerUttakBeloep
-	if (inntektFoerUttak === null) {
-		errors.aarligInntektFoerUttakBeloep = 'Fyll ut inntekt.'
-	} else if (inntektFoerUttak > 100_000_000) {
-		errors.aarligInntektFoerUttakBeloep =
-			'Inntekten kan ikke overskride 100 000 000 kr.'
-	}
+	validateNumericField(
+		formData.aarligInntektFoerUttakBeloep,
+		errors,
+		'aarligInntektFoerUttakBeloep',
+		{
+			requiredError: 'Fyll ut inntekt.',
+			max: 100_000_000,
+			maxError: 'Inntekten kan ikke overskride 100 000 000 kr.',
+		}
+	)
 }
 
 function validateUttaksalder(
@@ -147,23 +179,17 @@ function validateInntektVsaGradertUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (showInntektGradertFields(formData.uttaksgrad)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvGradertUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
-
-		if (
-			formData.alderAarInntektGradertSlutter === null ||
-			formData.alderMdInntektGradertSlutter === null
-		) {
-			errors.alderAarInntektGradertSlutter =
-				'Velg år og måned for når inntekt slutter.'
-		}
+	if (showGradertUttakFields(formData.uttaksgrad)) {
+		validateNumericField(
+			formData.pensjonsgivendeInntektVedSidenAvGradertUttak,
+			errors,
+			'pensjonsgivendeInntektVedSidenAvGradertUttak',
+			{
+				requiredError: 'Fyll ut inntekt.',
+				max: 100_000_000,
+				maxError: 'Inntekten kan ikke overskride 100 000 000 kr.',
+			}
+		)
 	}
 }
 
@@ -212,14 +238,16 @@ function validateInntektVsaHeltUttak(
 	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
+		validateNumericField(
+			formData.pensjonsgivendeInntektVedSidenAvUttak,
+			errors,
+			'pensjonsgivendeInntektVedSidenAvUttak',
+			{
+				requiredError: 'Fyll ut inntekt.',
+				max: 100_000_000,
+				maxError: 'Inntekten kan ikke overskride 100 000 000 kr.',
+			}
+		)
 
 		if (
 			formData.alderAarInntektSlutter === null ||
