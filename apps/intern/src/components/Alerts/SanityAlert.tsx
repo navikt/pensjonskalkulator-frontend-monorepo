@@ -50,6 +50,7 @@ export const SanityAlert = ({
 	dynamicValues,
 	onLinkClick,
 }: Props) => {
+	dynamicValues = { nbsp: '\u00A0', ...dynamicValues }
 	const intl = useIntl()
 	const { alertData } = useContext(SanityContext)
 	const sanityContent = alertData[id]

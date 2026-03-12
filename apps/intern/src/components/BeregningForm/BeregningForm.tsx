@@ -94,11 +94,15 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
-	const vilkaarAlternativ =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
+	const vilkaarAlternativGradert =
+		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder
+	const vilkaarAlternativHelt =
 		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
+	const sanityTextGradert =
+		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder &&
+		beregning?.vilkaarsproeving.alternativ.heltUttaksalder
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -150,18 +154,28 @@ export const BeregningForm = () => {
 				)}
 				<Divider noMargin />
 				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
-					vilkaarAlternativ && (
+					vilkaarAlternativHelt && (
 						<SanityAlert
-							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
+							id={
+								sanityTextGradert
+									? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+									: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+							}
 							className={styles.sanityAlert}
 							dynamicValues={{
 								alder: formaterAlderString(
-									vilkaarAlternativ?.aar,
-									vilkaarAlternativ?.maaneder
+									vilkaarAlternativHelt.aar,
+									vilkaarAlternativHelt.maaneder
 								),
-								grad: String(
+								grad_gradert: String(
 									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
 								),
+								gradert_alder: vilkaarAlternativGradert
+									? formaterAlderString(
+											vilkaarAlternativGradert.aar,
+											vilkaarAlternativGradert.maaneder
+										)
+									: '',
 							}}
 						/>
 					)}
