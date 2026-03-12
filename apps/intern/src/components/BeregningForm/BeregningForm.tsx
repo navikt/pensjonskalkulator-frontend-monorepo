@@ -116,6 +116,7 @@ export const BeregningForm = () => {
 						name="sivilstatus"
 						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
 						className={styles.selectWrapper}
+						testid="sivilstatus"
 					>
 						{initialSivilstatus === 'UOPPGITT' &&
 							sivilstatus === 'UOPPGITT' && <option value="" />}
@@ -134,6 +135,7 @@ export const BeregningForm = () => {
 							name="epsHarPensjon"
 							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
 							className={styles.horizontalRadioGroup}
+							testid="eps-har-pensjon"
 						/>
 					</>
 				)}
@@ -145,6 +147,7 @@ export const BeregningForm = () => {
 							name="epsHarInntektOver2G"
 							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
 							className={styles.horizontalRadioGroup}
+							testid="eps-har-inntekt-over-2g"
 						/>
 					</>
 				)}
@@ -169,12 +172,14 @@ export const BeregningForm = () => {
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
 					formatError="Du må skrive hele tall for å oppgi inntekt."
+					testid="inntekt-foer-uttak"
 				/>
 
 				<RHFAlderVelger
 					aarName="alderAarUttak"
 					mdName="alderMdUttak"
 					foedselsdato={person?.foedselsdato}
+					testid="alder-uttak"
 				/>
 
 				<RHFSelect
@@ -182,6 +187,7 @@ export const BeregningForm = () => {
 					label="Uttaksgrad"
 					className={styles.selectWrapper}
 					numeric
+					testid="uttaksgrad"
 				>
 					<option value="">Velg</option>
 					{[20, 40, 50, 60, 80, 100].map((grad) => (
@@ -196,6 +202,7 @@ export const BeregningForm = () => {
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
 						formatError="Du må skrive hele tall for å oppgi inntekt."
+						testid="inntekt-vsa-gradert-uttak"
 					/>
 				)}
 
@@ -206,6 +213,7 @@ export const BeregningForm = () => {
 						aarLabel="Alder (år) for 100 % uttak"
 						mdLabel="Alder (md.) for 100 % uttak"
 						foedselsdato={person?.foedselsdato}
+						testid="alder-helt-uttak"
 						{...(alderAarUttak !== null && alderMdUttak !== null
 							? {
 									minAlder: {
@@ -221,6 +229,7 @@ export const BeregningForm = () => {
 						name="harInntektVedSidenAvUttak"
 						legend="Har bruker inntekt ved siden av 100 % uttak?"
 						className={styles.horizontalRadioGroup}
+						testid="har-inntekt-vsa-helt-uttak"
 					/>
 				)}
 
@@ -230,6 +239,7 @@ export const BeregningForm = () => {
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
 							formatError="Du må skrive hele tall for å oppgi inntekt."
+							testid="inntekt-vsa-helt-uttak"
 						/>
 
 						<RHFAlderVelger
@@ -238,6 +248,7 @@ export const BeregningForm = () => {
 							aarLabel="Alder (år) inntekt slutter"
 							mdLabel="Alder (md.) inntekt slutter"
 							foedselsdato={person?.foedselsdato}
+							testid="alder-inntekt-slutter"
 						/>
 					</>
 				)}
