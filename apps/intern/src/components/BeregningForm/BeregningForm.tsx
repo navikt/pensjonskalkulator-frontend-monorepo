@@ -102,7 +102,7 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			<div className={styles.section}>
+			<Box className={styles.section}>
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
@@ -241,7 +241,7 @@ export const BeregningForm = () => {
 						/>
 					</>
 				)}
-			</div>
+			</Box>
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

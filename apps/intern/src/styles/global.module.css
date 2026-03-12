@@ -33,3 +33,7 @@
 	height: 100vh;
 	overflow: hidden;
 }
+
+.heading {
+	font-size: var(--ax-font-size-medium);
+}
