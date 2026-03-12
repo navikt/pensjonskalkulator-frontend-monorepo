@@ -120,6 +120,9 @@ export function AlderVelger({
 	const selectedYear = alderAar ? Number(alderAar) : undefined
 
 	const aarOptions = []
+	if (selectedYear !== undefined && selectedYear < minAlder.aar) {
+		aarOptions.push(selectedYear)
+	}
 	for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
 		aarOptions.push(i)
 	}
@@ -169,13 +172,20 @@ export function AlderVelger({
 					disabled={!alderAar}
 					onChange={(e) => onAlderMdChange(e.target.value)}
 				>
-					{MONTHS.map((month) =>
-						isMonthValidForSelectedYear(
+					{MONTHS.map((month) => {
+						const selectedMonth = alderMd ? Number(alderMd) : undefined
+						const isValid = isMonthValidForSelectedYear(
 							month,
 							selectedYear,
 							minAlder,
 							maxAlder
-						) ? (
+						)
+						const isCurrentSelection =
+							selectedYear !== undefined &&
+							selectedYear <= minAlder.aar &&
+							month === selectedMonth
+
+						return isValid || isCurrentSelection ? (
 							<option key={month} value={String(month)}>
 								{month} md.
 								{foedselsdato
@@ -183,7 +193,7 @@ export function AlderVelger({
 									: ''}
 							</option>
 						) : null
-					)}
+					})}
 				</Select>
 			</div>
 			{errorMessage && (
