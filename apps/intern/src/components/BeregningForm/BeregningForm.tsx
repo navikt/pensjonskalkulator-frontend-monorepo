@@ -1,4 +1,5 @@
 import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
@@ -30,8 +31,8 @@ import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
-const sivilstandOptions = [
-	{ value: 'ENKE', label: 'Enke/enkemann' },
+const sivilstandOptions: { value: Sivilstatus; label: string }[] = [
+	{ value: 'ENKE_ELLER_ENKEMANN', label: 'Enke/enkemann' },
 	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
@@ -102,7 +103,7 @@ export const BeregningForm = () => {
 
 	return (
 		<Box className={styles.beregningForm}>
-			<div className={styles.section}>
+			<Box className={styles.section}>
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
@@ -241,7 +242,7 @@ export const BeregningForm = () => {
 						/>
 					</>
 				)}
-			</div>
+			</Box>
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

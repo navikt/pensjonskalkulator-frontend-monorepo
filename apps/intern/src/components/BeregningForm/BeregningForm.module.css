@@ -15,10 +15,10 @@
 .section {
 	flex: 1;
 	overflow-y: auto;
-	padding: 32px 48px 0;
+	padding: var(--ax-space-24) var(--ax-space-48) 0;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: var(--ax-space-24);
 	scroll-timeline: --section-scroll block;
 }
 
