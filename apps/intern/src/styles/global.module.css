@@ -36,4 +36,5 @@
 
 .heading {
 	font-size: var(--ax-font-size-medium);
+	line-height: var(--ax-font-line-height-medium);
 }
