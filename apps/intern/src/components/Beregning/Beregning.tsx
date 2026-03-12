@@ -163,11 +163,15 @@ export const Beregning = () => {
 
 	if (!beregning && isBeregningLoading) {
 		return (
-			<div className={styles.beregning}>
-				<div className={styles.loader}>
+			<Box
+				borderColor="neutral-subtle"
+				borderWidth="0 0 0 1"
+				className={styles.beregning}
+			>
+				<Box className={styles.loader}>
 					<Loader size="3xlarge" title="Beregner pensjon …" />
-				</div>
-			</div>
+				</Box>
+			</Box>
 		)
 	}
 
