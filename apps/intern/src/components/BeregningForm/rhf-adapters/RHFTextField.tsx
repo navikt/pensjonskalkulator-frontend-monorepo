@@ -9,36 +9,41 @@ interface RHFTextFieldProps {
 	name: keyof BeregningFormData
 	label: string
 	style?: React.CSSProperties
-	formatError?: string
+	number?: boolean
 }
 
 export function RHFTextField({
 	name,
 	label,
 	style,
-	formatError,
-}: RHFTextFieldProps) {
+	number = true,
+}: Readonly<RHFTextFieldProps>) {
 	const {
 		control,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 
-	const hasFormatErrorRef = useRef(false)
-	const isUserInputRef = useRef(false)
-
 	const { field } = useController({
 		name,
 		control,
-		rules: {
-			validate: () => (hasFormatErrorRef.current ? formatError : true),
-		},
 	})
 
-	const [rawValue, setRawValue] = useState(field.value?.toString() ?? '')
+	const [rawValue, setRawValue] = useState(
+		field.value !== null && field.value !== undefined ? String(field.value) : ''
+	)
+
+	const isUserInputRef = useRef(false)
 
 	useEffect(() => {
 		if (!isUserInputRef.current) {
-			setRawValue(field.value?.toString() ?? '')
+			const val = field.value
+			setRawValue(
+				val !== null &&
+					val !== undefined &&
+					!(typeof val === 'number' && Number.isNaN(val))
+					? String(val)
+					: ''
+			)
 		}
 		isUserInputRef.current = false
 	}, [field.value])
@@ -50,7 +55,7 @@ export function RHFTextField({
 			label={label}
 			size="small"
 			type="text"
-			inputMode="numeric"
+			inputMode={number ? 'numeric' : undefined}
 			style={style}
 			value={rawValue}
 			error={error}
@@ -59,15 +64,17 @@ export function RHFTextField({
 				setRawValue(raw)
 				isUserInputRef.current = true
 
+				if (!number) {
+					field.onChange(raw)
+					return
+				}
+
 				if (raw === '') {
-					hasFormatErrorRef.current = false
 					field.onChange(null)
 				} else if (/^\d+$/.test(raw)) {
-					hasFormatErrorRef.current = false
 					field.onChange(Number(raw))
 				} else {
-					hasFormatErrorRef.current = true
-					field.onChange(null)
+					field.onChange(NaN)
 				}
 			}}
 		/>
