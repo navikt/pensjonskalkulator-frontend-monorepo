@@ -1,4 +1,3 @@
-import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
@@ -15,6 +14,7 @@ import {
 	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
