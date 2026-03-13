@@ -8,13 +8,11 @@ import { BodyLong, Box, Heading, Loader, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
+import { AlderspensjonTables } from './AlderspensjonTables'
 import { BeregningTable } from './BeregningTable'
 import {
 	formatAfpTitle,
 	formatAlderTitle,
-	mapAlderspensjonToRows,
-	mapOpptjeningEtterKapittel19ToRows,
-	mapOpptjeningEtterKapittel20ToRows,
 	mapPrivatAfp,
 } from './beregningMappers'
 
@@ -148,30 +146,13 @@ export const Beregning = () => {
 							className={styles.tableGrid}
 							style={{ '--table-columns': tableCount } as React.CSSProperties}
 						>
-							<BeregningTable
-								title="Alderspensjon"
-								valueHeader="Kr per måned"
-								rows={mapAlderspensjonToRows(gradertEntry)}
+							<AlderspensjonTables
+								entry={gradertEntry}
+								erFoedtFoer1963={erFoedtFoer1963}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								grunnbeloep={grunnbeloep?.grunnbeløp}
 							/>
-							{erFoedtFoer1963 && (
-								<BeregningTable
-									title="Opptjening etter kapittel 19"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel19ToRows(
-										gradertEntry,
-										grunnbeloep?.grunnbeløp
-									)}
-									simple
-								/>
-							)}
-							{(erOvergangskull || erFoedtEtter1963) && (
-								<BeregningTable
-									title="Opptjening etter kapittel 20"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel20ToRows(gradertEntry)}
-									simple
-								/>
-							)}
 							{aktivBeregning?.afp === 'ja_privat' && (
 								<VStack gap="space-24">
 									<VStack gap="space-12">
@@ -212,56 +193,58 @@ export const Beregning = () => {
 						style={{ '--table-columns': tableCount } as React.CSSProperties}
 					>
 						{beregning && aktivBeregning && heltEntry && (
-							<BeregningTable
-								title="Alderspensjon"
-								valueHeader="Kr per måned"
-								rows={mapAlderspensjonToRows(heltEntry)}
+							<AlderspensjonTables
+								entry={heltEntry}
+								erFoedtFoer1963={erFoedtFoer1963}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								grunnbeloep={grunnbeloep?.grunnbeløp}
 							/>
-						)}
-						{heltEntry && (
-							<>
-								{erFoedtFoer1963 && (
-									<BeregningTable
-										title="Opptjening etter kapittel 19"
-										valueHeader="Kr per måned"
-										rows={mapOpptjeningEtterKapittel19ToRows(
-											heltEntry,
-											grunnbeloep?.grunnbeløp
-										)}
-										simple
-									/>
-								)}
-								{(erOvergangskull || erFoedtEtter1963) && (
-									<BeregningTable
-										title="Opptjening etter kapittel 20"
-										valueHeader="Kr per måned"
-										rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
-										simple
-									/>
-								)}
-							</>
 						)}
 						{aktivBeregning?.afp === 'ja_privat' && (
 							<VStack gap="space-24">
 								<BeregningTable
-									title="AFP i privat sektor"
+									title="Avtalefestet pensjon i privat sektor"
 									valueHeader="Kr per måned"
 									rows={mapPrivatAfp(
 										afpPrivatVedHeltUttak,
 										heltUttakAlder.aar! < 67
 									)}
-									addToSum={maanedsbeloepHeltUttak ?? 0}
+								/>
+								<BeregningTable
+									title="Alderspensjon og AFP"
+									valueHeader="Kr per måned"
+									addToSum={
+										maanedsbeloepHeltUttak ??
+										0 + (afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+									}
 								/>
 								{heltUttakAlder.aar! < 67 && (
 									<VStack gap="space-12">
 										<Heading level="3" size="small">
 											{formatAfpTitle(67, 0)}
 										</Heading>
+										{beregning && aktivBeregning && alderspensjonVed67Aar && (
+											<AlderspensjonTables
+												entry={alderspensjonVed67Aar}
+												erFoedtFoer1963={erFoedtFoer1963}
+												erOvergangskull={erOvergangskull}
+												erFoedtEtter1963={erFoedtEtter1963}
+												grunnbeloep={grunnbeloep?.grunnbeløp}
+											/>
+										)}
 										<BeregningTable
-											title="AFP i privat sektor"
+											title="Avtalefestet pensjon i privat sektor"
 											valueHeader="Kr per måned"
 											rows={mapPrivatAfp(afpPrivatVed67Aar, false)}
-											addToSum={(alderspensjonVed67Aar?.beloep ?? 0) / 12}
+										/>
+										<BeregningTable
+											title="Alderspensjon og AFP"
+											valueHeader="Kr per måned"
+											addToSum={
+												(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
+												(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+											}
 										/>
 									</VStack>
 								)}

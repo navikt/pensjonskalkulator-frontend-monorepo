@@ -13,7 +13,7 @@ export interface BeregningTableRow {
 interface BeregningTableProps {
 	title: string
 	valueHeader: string
-	rows: BeregningTableRow[]
+	rows?: BeregningTableRow[]
 	sumLabel?: string
 	addToSum?: number
 	simple?: boolean
@@ -25,7 +25,7 @@ const formatKroner = (value?: number) =>
 export const BeregningTable = ({
 	title,
 	valueHeader,
-	rows,
+	rows = [],
 	sumLabel = 'Sum',
 	addToSum = 0,
 	simple = false,
