@@ -10,14 +10,6 @@
 	flex: 1;
 }
 
-.tableGrid {
-	display: grid;
-	grid-template-columns: repeat(var(--table-columns), 1fr);
-	column-gap: var(--ax-space-40);
-	row-gap: var(--ax-space-32);
-	align-items: start;
-}
-
 .loadingOverlay {
 	position: relative;
 }
