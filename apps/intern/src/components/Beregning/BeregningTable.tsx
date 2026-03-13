@@ -38,11 +38,15 @@ export const BeregningTable = ({
 			<Table.Header>
 				<Table.Row className={styles.headerRow}>
 					<Table.HeaderCell colSpan={simple ? 2 : undefined}>
-						<Label size="small">{title}</Label>
+						<Label style={{ whiteSpace: 'nowrap' }} size="small">
+							{title}
+						</Label>
 					</Table.HeaderCell>
 					{!simple && (
 						<Table.HeaderCell align="right">
-							<Label size="small">{valueHeader}</Label>
+							<Label style={{ whiteSpace: 'nowrap' }} size="small">
+								{valueHeader}
+							</Label>
 						</Table.HeaderCell>
 					)}
 				</Table.Row>
