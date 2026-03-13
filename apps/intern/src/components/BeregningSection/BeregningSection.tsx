@@ -9,7 +9,7 @@ import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTable } from '../Beregning/BeregningTable'
 import { mapPrivatAfp } from '../Beregning/beregningMappers'
 
-import styles from '../Beregning.module.css'
+import styles from './BeregningSection.module.css'
 
 interface BeregningSectionProps {
 	title: string
