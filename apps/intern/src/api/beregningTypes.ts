@@ -67,21 +67,6 @@ export interface ValidationErrors {
 
 export type BeregningResult = AlderspensjonResponseBody
 
-export function mapPersonSivilstatus(sivilstand: string): string {
-	switch (sivilstand) {
-		case 'UOPPGITT':
-			return ''
-		case 'GIFT':
-			return 'GIFT'
-		case 'SAMBOER':
-			return 'SAMBOER'
-		case 'REGISTRERT_PARTNER':
-			return 'REGISTRERT_PARTNER'
-		default:
-			return 'UGIFT'
-	}
-}
-
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstatus: 'UOPPGITT',
 	beregnMedGjenlevenderett: false,
