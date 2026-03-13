@@ -1,22 +1,21 @@
 .beregning {
 	flex: 1;
 	background-color: var(--a-bg-subtle);
-	padding: var(--ax-space-48);
+	padding: var(--ax-space-24) var(--ax-space-48);
 	box-sizing: border-box;
 	overflow-y: auto;
-}
-
-.tables {
-	display: flex;
-	gap: var(--ax-space-40);
 }
 
 .tables > * {
 	flex: 1;
 }
 
-.tableRow {
-	align-items: flex-start;
+.tableGrid {
+	display: grid;
+	grid-template-columns: repeat(var(--table-columns), 1fr);
+	column-gap: var(--ax-space-40);
+	row-gap: var(--ax-space-24);
+	align-items: start;
 }
 
 .loadingOverlay {

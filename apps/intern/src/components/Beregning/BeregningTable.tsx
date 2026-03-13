@@ -2,17 +2,20 @@ import { BodyShort, Label, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
+export type Unit = 'kr' | 'år'
+
 export interface BeregningTableRow {
 	label: string
 	value?: number
-	visBeloepKroner?: boolean
+	unit?: Unit
 }
 
 interface BeregningTableProps {
 	title: string
 	valueHeader: string
-	rows: BeregningTableRow[]
+	rows?: BeregningTableRow[]
 	sumLabel?: string
+	addToSum?: number
 	simple?: boolean
 }
 
@@ -22,11 +25,13 @@ const formatKroner = (value?: number) =>
 export const BeregningTable = ({
 	title,
 	valueHeader,
-	rows,
+	rows = [],
 	sumLabel = 'Sum',
+	addToSum = 0,
 	simple = false,
 }: BeregningTableProps) => {
-	const sum = rows.reduce((acc, row) => acc + (row.value ?? 0), 0)
+	const sum =
+		rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) + addToSum
 
 	return (
 		<Table zebraStripes size="small" className={styles.table}>
@@ -43,20 +48,24 @@ export const BeregningTable = ({
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{rows.map((row) => (
-					<Table.Row key={row.label}>
-						<Table.DataCell>
-							<BodyShort size="small">{row.label}</BodyShort>
-						</Table.DataCell>
-						<Table.DataCell align="right">
-							<BodyShort size="small">
-								{row.visBeloepKroner
-									? `${formatKroner(row.value)} kr`
-									: formatKroner(row.value)}
-							</BodyShort>
-						</Table.DataCell>
-					</Table.Row>
-				))}
+				{rows.map(
+					(row) =>
+						row.value != null &&
+						row.value >= 0 && (
+							<Table.Row key={row.label}>
+								<Table.DataCell>
+									<BodyShort size="small">{row.label}</BodyShort>
+								</Table.DataCell>
+								<Table.DataCell align="right">
+									<BodyShort size="small">
+										{row.unit
+											? `${formatKroner(row.value)} ${row.unit}`
+											: formatKroner(row.value)}
+									</BodyShort>
+								</Table.DataCell>
+							</Table.Row>
+						)
+				)}
 				{!simple && (
 					<Table.Row>
 						<Table.DataCell>

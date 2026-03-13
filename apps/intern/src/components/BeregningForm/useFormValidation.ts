@@ -105,6 +105,12 @@ function validateSivilstand(
 	}
 }
 
+function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+	if (!formData.afp) {
+		errors.afp = 'Velg om AFP skal inkluderes.'
+	}
+}
+
 function validateInntektFoerUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
@@ -249,6 +255,7 @@ export function useFormValidation() {
 
 			validateGjenlevenderett(formData, errors)
 			validateSivilstand(formData, errors)
+			validateAfp(formData, errors)
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
 			validateUttaksgrad(formData, errors)

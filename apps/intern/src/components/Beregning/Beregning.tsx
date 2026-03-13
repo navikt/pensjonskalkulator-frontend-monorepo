@@ -1,157 +1,22 @@
-import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
-import {
-	BodyLong,
-	Box,
-	HStack,
-	Heading,
-	Loader,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Heading, Loader, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
-import { BeregningTable, type BeregningTableRow } from './BeregningTable'
+import { AlderspensjonTables } from './AlderspensjonTables'
+import { BeregningTable } from './BeregningTable'
+import {
+	formatAfpTitle,
+	formatAlderTitle,
+	mapPrivatAfp,
+} from './beregningMappers'
 
 import styles from './Beregning.module.css'
-
-function mapAlderspensjonToRows(
-	entry: AlderspensjonPensjonsberegning
-): BeregningTableRow[] {
-	return [
-		{
-			label: 'Grunnpensjon (kap. 19)',
-			value: Math.round((entry.grunnpensjon ?? 0) / 12),
-		},
-		{
-			label: 'Tilleggspensjon (kap. 19)',
-			value: Math.round((entry.tilleggspensjon ?? 0) / 12),
-		},
-		{
-			label: 'Pensjonstillegg (kap. 19)',
-			value: Math.round((entry.pensjonstillegg ?? 0) / 12),
-		},
-		{
-			label: 'Gjenlevendetillegg (kap. 19)',
-			value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
-		},
-		{
-			label: 'Inntektspensjon (kap. 20)',
-			value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
-		},
-		{
-			label: 'Garantipensjon (kap. 20)',
-			value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
-		},
-		{
-			label: 'Skjermingstillegg',
-			value: Math.round((entry.skjermingstillegg ?? 0) / 12),
-		},
-	]
-}
-
-function mapOpptjeningEtterKapittel19ToRows(
-	opptjening: AlderspensjonPensjonsberegning,
-	grunnbeloep?: number
-): BeregningTableRow[] {
-	return [
-		{
-			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap19,
-		},
-		{
-			label: 'Grunnbeløp (G)',
-			value: grunnbeloep,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Minste pensjonsbeløp',
-			value: 279933,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Forholdstall ved uttak',
-			value: opptjening.forholdstall,
-		},
-		{
-			label: 'Sluttpoengtall',
-			value: opptjening.sluttpoengtall,
-		},
-		{
-			label: 'Trygdetid',
-			value: opptjening.trygdetidKap19,
-		},
-		{
-			label: 'Poengår før 1992 (45 %)',
-			value: opptjening.poengaarFoer92,
-		},
-		{
-			label: 'Poengår etter 1991 (42 %)',
-			value: opptjening.poengaarEtter91,
-		},
-		{
-			label: 'Basispensjon',
-			value: 183665,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Restpensjon',
-			value: 183665,
-			visBeloepKroner: true,
-		},
-	]
-}
-function mapOpptjeningEtterKapittel20ToRows(
-	opptjening: AlderspensjonPensjonsberegning
-): BeregningTableRow[] {
-	return [
-		{
-			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap20,
-		},
-		{
-			label: 'Delingstall ved uttak',
-			value: opptjening.delingstall,
-		},
-		{
-			label: 'Garantipensjon',
-			value: opptjening.garantipensjonBeloep,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Garantitillegg',
-			value: 54453,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Pensjonsbeholdning før uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Pensjonsbeholdning etter uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
-			visBeloepKroner: true,
-		},
-		{
-			label: 'Trygdetid',
-			value: opptjening.trygdetidKap20,
-		},
-	]
-}
-function formatAlderTitle(
-	aar: number,
-	md: number,
-	uttaksgrad: number | string
-): string {
-	const alderText = md > 0 ? `${aar} år og ${md} måneder` : `${aar} år`
-	return `${uttaksgrad} % alderspensjon ved ${alderText}`
-}
 
 export const Beregning = () => {
 	const { isBeregningLoading, beregning, aktivBeregning, person } =
@@ -192,6 +57,27 @@ export const Beregning = () => {
 		aktivBeregning.uttaksgrad !== null &&
 		aktivBeregning.uttaksgrad < 100
 
+	const gradertUttakAlder = erGradert
+		? {
+				aar: erGradert ? aktivBeregning?.alderAarUttak : undefined,
+				maaneder: erGradert ? aktivBeregning?.alderMdUttak : undefined,
+			}
+		: undefined
+
+	const heltUttakAlder = {
+		aar: erGradert
+			? aktivBeregning?.alderAarHeltUttak
+			: (aktivBeregning?.alderAarUttak ?? 0),
+		maaneder: erGradert
+			? aktivBeregning?.alderMdHeltUttak
+			: (aktivBeregning?.alderMdUttak ?? 0),
+	}
+
+	const tableCount =
+		1 +
+		(erFoedtFoer1963 ? 1 : 0) +
+		(erOvergangskull || erFoedtEtter1963 ? 1 : 0)
+
 	const heltUttakAar = erGradert
 		? aktivBeregning.alderAarHeltUttak
 		: aktivBeregning?.alderAarUttak
@@ -203,6 +89,22 @@ export const Beregning = () => {
 	)
 	const gradertEntry = beregning?.alderspensjon?.find(
 		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	)
+	const maanedsbeloepHeltUttak =
+		beregning.alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep
+	const maanedsbeloepGradertUttak =
+		beregning.alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep
+	const afpPrivatVedGradertUttak = beregning?.afpPrivat?.find(
+		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	)
+	const afpPrivatVedHeltUttak = beregning?.afpPrivat?.find(
+		(entry) => entry.alder === (heltUttakAar ?? 0)
+	)
+	const afpPrivatVed67Aar = beregning?.afpPrivat?.find(
+		(entry) => entry.alder === 67
+	)
+	const alderspensjonVed67Aar = beregning?.alderspensjon?.find(
+		(entry) => entry.alder === 67
 	)
 
 	const titleHeltUttak =
@@ -231,7 +133,8 @@ export const Beregning = () => {
 			className={styles.beregning}
 		>
 			<VStack
-				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				gap="space-32"
+				className={` ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
@@ -239,73 +142,120 @@ export const Beregning = () => {
 					</div>
 				)}
 				{gradertEntry && (
-					<>
+					<VStack gap="space-12">
 						<Heading level="3" size="small">
 							{titleGradertUttak}
 						</Heading>
-						<HStack wrap={false} gap="space-40" className={styles.tableRow}>
-							<BeregningTable
-								title="Alderspensjon"
-								valueHeader="Kr per måned"
-								rows={mapAlderspensjonToRows(gradertEntry)}
+						<div
+							className={styles.tableGrid}
+							style={{ '--table-columns': tableCount } as React.CSSProperties}
+						>
+							<AlderspensjonTables
+								entry={gradertEntry}
+								erFoedtFoer1963={erFoedtFoer1963}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								grunnbeloep={grunnbeloep?.grunnbeløp}
 							/>
-							{erFoedtFoer1963 && (
-								<BeregningTable
-									title="Opptjening etter kapittel 19"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel19ToRows(
-										gradertEntry,
-										grunnbeloep?.grunnbeløp
+							{aktivBeregning?.afp === 'ja_privat' && (
+								<VStack gap="space-24">
+									<VStack gap="space-12">
+										<BeregningTable
+											title="AFP i privat sektor"
+											valueHeader="Kr per måned"
+											rows={mapPrivatAfp(
+												afpPrivatVedGradertUttak,
+												gradertUttakAlder!.aar! < 67
+											)}
+											addToSum={maanedsbeloepGradertUttak ?? 0}
+										/>
+									</VStack>
+									{heltUttakAlder.aar! > 67 && gradertUttakAlder!.aar! < 67 && (
+										<VStack gap="space-12">
+											<Heading level="3" size="small">
+												{formatAfpTitle(67, 0)}
+											</Heading>
+											<BeregningTable
+												title="AFP i privat sektor"
+												valueHeader="Kr per måned"
+												rows={mapPrivatAfp(afpPrivatVed67Aar, false)}
+												addToSum={(alderspensjonVed67Aar?.beloep ?? 0) / 12}
+											/>
+										</VStack>
 									)}
-									simple
-								/>
+								</VStack>
 							)}
-							{(erOvergangskull || erFoedtEtter1963) && (
-								<BeregningTable
-									title="Opptjening etter kapittel 20"
-									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel20ToRows(gradertEntry)}
-									simple
-								/>
-							)}
-						</HStack>
-					</>
+						</div>
+					</VStack>
 				)}
-				<Heading level="3" size="small">
-					{titleHeltUttak}
-				</Heading>
-				<HStack wrap={false} gap="space-40" className={styles.tableRow}>
-					{beregning && aktivBeregning && heltEntry && (
-						<BeregningTable
-							title="Alderspensjon"
-							valueHeader="Kr per måned"
-							rows={mapAlderspensjonToRows(heltEntry)}
-						/>
-					)}
-					{heltEntry && (
-						<>
-							{erFoedtFoer1963 && (
+				<VStack gap="space-12">
+					<Heading level="3" size="small">
+						{titleHeltUttak}
+					</Heading>
+					<div
+						className={styles.tableGrid}
+						style={{ '--table-columns': tableCount } as React.CSSProperties}
+					>
+						{beregning && aktivBeregning && heltEntry && (
+							<AlderspensjonTables
+								entry={heltEntry}
+								erFoedtFoer1963={erFoedtFoer1963}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								grunnbeloep={grunnbeloep?.grunnbeløp}
+							/>
+						)}
+						{aktivBeregning?.afp === 'ja_privat' && (
+							<VStack gap="space-24">
 								<BeregningTable
-									title="Opptjening etter kapittel 19"
+									title="Avtalefestet pensjon i privat sektor"
 									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel19ToRows(
-										heltEntry,
-										grunnbeloep?.grunnbeløp
+									rows={mapPrivatAfp(
+										afpPrivatVedHeltUttak,
+										heltUttakAlder.aar! < 67
 									)}
-									simple
 								/>
-							)}
-							{(erOvergangskull || erFoedtEtter1963) && (
 								<BeregningTable
-									title="Opptjening etter kapittel 20"
+									title="Alderspensjon og AFP"
 									valueHeader="Kr per måned"
-									rows={mapOpptjeningEtterKapittel20ToRows(heltEntry)}
-									simple
+									addToSum={
+										maanedsbeloepHeltUttak ??
+										0 + (afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+									}
 								/>
-							)}
-						</>
-					)}
-				</HStack>
+								{heltUttakAlder.aar! < 67 && (
+									<VStack gap="space-12">
+										<Heading level="3" size="small">
+											{formatAfpTitle(67, 0)}
+										</Heading>
+										{beregning && aktivBeregning && alderspensjonVed67Aar && (
+											<AlderspensjonTables
+												entry={alderspensjonVed67Aar}
+												erFoedtFoer1963={erFoedtFoer1963}
+												erOvergangskull={erOvergangskull}
+												erFoedtEtter1963={erFoedtEtter1963}
+												grunnbeloep={grunnbeloep?.grunnbeløp}
+											/>
+										)}
+										<BeregningTable
+											title="Avtalefestet pensjon i privat sektor"
+											valueHeader="Kr per måned"
+											rows={mapPrivatAfp(afpPrivatVed67Aar, false)}
+										/>
+										<BeregningTable
+											title="Alderspensjon og AFP"
+											valueHeader="Kr per måned"
+											addToSum={
+												(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
+												(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+											}
+										/>
+									</VStack>
+								)}
+							</VStack>
+						)}
+					</div>
+				</VStack>
 			</VStack>
 		</Box>
 	)
