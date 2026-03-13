@@ -1,0 +1,78 @@
+import { type FieldPath, useController, useFormContext } from 'react-hook-form'
+
+import { DatePicker, useDatepicker } from '@navikt/ds-react'
+
+import type { BeregningFormData } from '../../../api/beregningTypes'
+
+interface RHFDatePickerProps {
+	name: FieldPath<BeregningFormData>
+	label: string
+	className?: string
+}
+
+function formatDate(date: Date): string {
+	const dd = String(date.getDate()).padStart(2, '0')
+	const mm = String(date.getMonth() + 1).padStart(2, '0')
+	const yyyy = date.getFullYear()
+	return `${dd}.${mm}.${yyyy}`
+}
+
+function parseDate(value: unknown): Date | undefined {
+	if (!value || typeof value !== 'string') return undefined
+	const [dd, mm, yyyy] = value.split('.')
+	const date = new Date(`${yyyy}-${mm}-${dd}`)
+	return isNaN(date.getTime()) ? undefined : date
+}
+
+function getNestedError(
+	errors: Record<string, unknown>,
+	name: string
+): string | undefined {
+	let error: unknown = errors
+	for (const segment of name.split('.')) {
+		if (error && typeof error === 'object' && segment in error) {
+			error = (error as Record<string, unknown>)[segment]
+		} else {
+			return undefined
+		}
+	}
+	return error && typeof error === 'object' && 'message' in error
+		? (error as { message?: string }).message
+		: undefined
+}
+
+export function RHFDatePicker({ name, label, className }: RHFDatePickerProps) {
+	const {
+		control,
+		formState: { errors },
+	} = useFormContext<BeregningFormData>()
+	const { field } = useController({ name, control })
+
+	const year = new Date().getFullYear()
+
+	const { datepickerProps, inputProps } = useDatepicker({
+		defaultSelected: parseDate(field.value),
+		onDateChange: (date) => {
+			field.onChange(date ? formatDate(date) : '')
+		},
+		fromDate: new Date(`1 Jan ${year - 120}`),
+		toDate: new Date(`31 Dec ${year + 2}`),
+	})
+
+	const errorMessage = getNestedError(
+		errors as unknown as Record<string, unknown>,
+		name
+	)
+
+	return (
+		<DatePicker {...datepickerProps} dropdownCaption>
+			<DatePicker.Input
+				{...inputProps}
+				label={label}
+				size="small"
+				className={className}
+				error={errorMessage}
+			/>
+		</DatePicker>
+	)
+}

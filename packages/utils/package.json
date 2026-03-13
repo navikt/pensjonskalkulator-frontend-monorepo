@@ -9,7 +9,8 @@
 		".": "./src/index.ts",
 		"./alder": "./alder.ts",
 		"./dates": "./dates.ts",
-		"./string": "./string.ts"
+		"./string": "./string.ts",
+		"./land-list": "./land-list.json"
 	},
 	"devDependencies": {
 		"openapi-typescript": "^7.6.1",

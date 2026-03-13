@@ -1,12 +1,12 @@
 import { type ReactNode } from 'react'
-import { useController, useFormContext } from 'react-hook-form'
+import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { Select } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
 
 interface RHFSelectProps {
-	name: keyof BeregningFormData
+	name: FieldPath<BeregningFormData>
 	label: string
 	children: ReactNode
 	className?: string
@@ -29,6 +29,21 @@ export function RHFSelect({
 	const toFormValue = (raw: string) =>
 		raw ? (numeric ? Number(raw) : raw) : null
 
+	const errorPath = name.split('.')
+	let error: unknown = errors
+	for (const segment of errorPath) {
+		if (error && typeof error === 'object' && segment in error) {
+			error = (error as Record<string, unknown>)[segment]
+		} else {
+			error = undefined
+			break
+		}
+	}
+	const errorMessage =
+		error && typeof error === 'object' && 'message' in error
+			? (error as { message?: string }).message
+			: undefined
+
 	return (
 		<Select
 			label={label}
@@ -39,7 +54,7 @@ export function RHFSelect({
 					? String(field.value)
 					: ''
 			}
-			error={errors[name]?.message}
+			error={errorMessage}
 			onChange={(e) => field.onChange(toFormValue(e.target.value))}
 		>
 			{children}

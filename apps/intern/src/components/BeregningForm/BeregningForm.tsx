@@ -18,6 +18,7 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -224,6 +225,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
+				<UtenlandsOpphold />
 				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
