@@ -1,4 +1,5 @@
 import type {
+	EpsOpplysninger,
 	PersonInternV1,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -42,7 +43,17 @@ export function showBeregnMedGjenlevenderett({
 	)
 }
 
-export function isEpsOver67EllerDoedsdatoEtter67aar({
+export function showEPSMinstePensjonsgivendeInntektFoerDoedsfall(
+	EPSOpplysninger: EpsOpplysninger
+): boolean {
+	if (!EPSOpplysninger.relasjonPersondata?.foedselsdato) return false
+	return isEpsUnder67EllerDoedsdatoFoer67aar({
+		epsFoedselsdato: EPSOpplysninger.relasjonPersondata.foedselsdato,
+		epsDoedsdato: EPSOpplysninger.relasjonPersondata.doedsdato,
+	})
+}
+
+export function isEpsUnder67EllerDoedsdatoFoer67aar({
 	epsFoedselsdato,
 	epsDoedsdato,
 }: {
@@ -57,8 +68,8 @@ export function isEpsOver67EllerDoedsdatoEtter67aar({
 	)
 
 	if (epsDoedsdato) {
-		return new Date(epsDoedsdato) > fylte67
+		return new Date(epsDoedsdato) < fylte67
 	}
 
-	return new Date() > fylte67
+	return new Date() < fylte67
 }
