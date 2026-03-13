@@ -5,6 +5,7 @@ import { Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
+import { isEpsOver67EllerDoedsdatoEtter67aar } from '../BeregningForm/utils'
 
 import styles from './OpplysningerInfo.module.css'
 
@@ -36,6 +37,14 @@ export const OpplysningerInfo = ({
 	const rows = mapEpsOpplysninger(EPSOpplysninger)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const showEPSMinstePensjonsgivendeInntektFoerDoedsfall = EPSOpplysninger
+		.relasjonPersondata?.foedselsdato
+		? isEpsOver67EllerDoedsdatoEtter67aar({
+				epsFoedselsdato: EPSOpplysninger.relasjonPersondata.foedselsdato,
+				epsDoedsdato: EPSOpplysninger.relasjonPersondata.doedsdato,
+			})
+		: false
+
 	return (
 		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
 			<Heading level="3" size="xsmall">
@@ -63,11 +72,13 @@ export const OpplysningerInfo = ({
 				style={{ width: '184px' }}
 				formatError="Du må skrive hele tall for å oppgi inntekt."
 			/>
-			<RHFRadio
-				name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
-				legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-				className={styles.horizontalRadioGroup}
-			/>
+			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall && (
+				<RHFRadio
+					name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
+					legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
+					className={styles.horizontalRadioGroup}
+				/>
+			)}
 			<RHFRadio
 				name="epsMedlemAvFolketrygdenVedDoedsDato"
 				legend="Medlem av folketrygden de 5 siste årene før dødsdato"

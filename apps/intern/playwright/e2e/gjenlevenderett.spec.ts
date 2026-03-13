@@ -66,6 +66,7 @@ async function navigateToApp(page: import('@playwright/test').Page) {
 
 async function checkGjenlevenderett(page: import('@playwright/test').Page) {
 	const checkbox = page.getByTestId('beregn-med-gjenlevenderett')
+	await expect(checkbox).toBeVisible()
 	await checkbox.check()
 	return checkbox
 }
@@ -288,7 +289,7 @@ test.describe('Gjenlevenderett', () => {
 			).toBeVisible()
 		})
 
-		test('Nullstill nullstiller gjenlevenderett-felter', async ({ page }) => {
+		test('Nullstill gjenlevenderett-felter', async ({ page }) => {
 			const checkbox = await checkGjenlevenderett(page)
 
 			const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
@@ -321,7 +322,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('5')
 			await page
@@ -329,12 +330,10 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 				.fill('400000')
-			await page
-				.getByRole('group', {
-					name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
-				})
-				.getByLabel('Ja')
-				.check()
+			const minstInntektGroup = page.getByRole('group', {
+				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
+			})
+			await expect(minstInntektGroup).not.toBeVisible()
 			await page
 				.getByRole('group', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -427,7 +426,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await expect(
 				page.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 			).toBeVisible()
 			await expect(
@@ -602,7 +601,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('5')
 			await page
@@ -614,8 +613,7 @@ test.describe('Gjenlevenderett', () => {
 			const minstInntektGroup = page.getByRole('group', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
-			await expect(minstInntektGroup).toBeVisible()
-			await minstInntektGroup.getByLabel('Ja').check()
+			await expect(minstInntektGroup).not.toBeVisible()
 
 			const medlemGroup = page.getByRole('group', {
 				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -655,7 +653,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('40')
 

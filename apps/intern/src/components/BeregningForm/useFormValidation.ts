@@ -98,7 +98,11 @@ function validateSivilstand(
 	}
 
 	if (
-		showEpsHarInntektOver2G(formData.sivilstatus, formData.epsHarPensjon) &&
+		showEpsHarInntektOver2G({
+			sivilstatus: formData.sivilstatus,
+			epsHarPensjon: formData.epsHarPensjon,
+			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
+		}) &&
 		formData.epsHarInntektOver2G === null
 	) {
 		errors.epsHarInntektOver2G = `Fyll ut om ${partnerLabel} har inntekt over 2G.`

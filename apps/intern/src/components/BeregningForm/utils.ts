@@ -41,3 +41,24 @@ export function showBeregnMedGjenlevenderett({
 		isSivilstatusWithGjenlevenderett(initialSivilstatus)
 	)
 }
+
+export function isEpsOver67EllerDoedsdatoEtter67aar({
+	epsFoedselsdato,
+	epsDoedsdato,
+}: {
+	epsFoedselsdato: string
+	epsDoedsdato?: string | null
+}): boolean {
+	const foedt = new Date(epsFoedselsdato)
+	const fylte67 = new Date(
+		foedt.getFullYear() + 67,
+		foedt.getMonth(),
+		foedt.getDate()
+	)
+
+	if (epsDoedsdato) {
+		return new Date(epsDoedsdato) > fylte67
+	}
+
+	return new Date() > fylte67
+}
