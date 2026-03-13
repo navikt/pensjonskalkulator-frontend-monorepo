@@ -145,16 +145,12 @@ export function mapPrivatAfp(
 	]
 }
 
-export function formatAlderTitle(
-	aar: number,
-	md: number,
-	uttaksgrad: number | string
-): string {
+export function formatAlderTitle(aar: number, md: number): string {
 	const alderText =
 		md > 0
 			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
 			: `${aar} år`
-	return `${uttaksgrad} % alderspensjon ved ${alderText}`
+	return `Pensjon ved ${alderText}`
 }
 
 export function formatAfpTitle(aar: number, md: number): string {
