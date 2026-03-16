@@ -11,6 +11,7 @@ import {
 	showInntektGradertFields,
 	showInntektHeltFields,
 } from '../../api/formConditions'
+import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 function validateEPSOpplysninger(
 	formData: BeregningFormData,
@@ -34,7 +35,14 @@ function validateEPSOpplysninger(
 			'Fyll ut inntekt året før dødsdato.'
 	}
 
-	if (formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null) {
+	if (
+		formData.epsFoedselsdato &&
+		isEpsUnder67EllerDoedsdatoFoer67aar({
+			epsFoedselsdato: formData.epsFoedselsdato,
+			epsDoedsdato: formData.epsDoedsdato,
+		}) &&
+		formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
+	) {
 		errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
 			'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
 	}

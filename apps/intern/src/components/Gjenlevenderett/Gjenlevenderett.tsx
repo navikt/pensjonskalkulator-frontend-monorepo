@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import {
@@ -33,6 +33,21 @@ export const Gjenlevenderett = () => {
 		isError,
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
+
+	useEffect(() => {
+		if (EPSOpplysninger?.relasjonPersondata) {
+			form.setValue(
+				'epsFoedselsdato',
+				EPSOpplysninger.relasjonPersondata.foedselsdato ?? null,
+				{ shouldDirty: false }
+			)
+			form.setValue(
+				'epsDoedsdato',
+				EPSOpplysninger.relasjonPersondata.doedsdato ?? null,
+				{ shouldDirty: false }
+			)
+		}
+	}, [EPSOpplysninger, form])
 
 	const [beregnMedGjenlevenderett] = useWatch({
 		control,

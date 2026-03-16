@@ -28,6 +28,8 @@ export interface BeregningFormData {
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
 	harHentetEPSOpplysninger: boolean
+	epsFoedselsdato: string | null
+	epsDoedsdato: string | null
 	epsAntallUtenlandsOppholdAar: number | null
 	epsPensjonsgivendeInntektFoerDoedsDato: number | null
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
@@ -88,6 +90,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
 	epsAntallUtenlandsOppholdAar: null,
+	epsFoedselsdato: null,
+	epsDoedsdato: null,
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
