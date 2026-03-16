@@ -51,6 +51,8 @@ export interface ValidationErrors {
 	alderMdHeltUttak?: string
 	epsHarPensjon?: string
 	epsHarInntektOver2G?: string
+	epsFoedselsdato?: string
+	epsDoedsdato?: string
 	aarligInntektFoerUttakBeloep?: string
 	harInntektVedSidenAvUttak?: string
 	pensjonsgivendeInntektVedSidenAvUttak?: string
