@@ -23,8 +23,10 @@ function mapEpsOpplysninger(
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
 		},
 		{
-			label: 'Dato for dødsdato',
-			value: registrertDoedsDato ?? `Ikke registrert. ${fallbackDato} brukes.`,
+			label: 'Dødsdato',
+			value: registrertDoedsDato
+				? format(new Date(registrertDoedsDato), 'dd.MM.yyyy')
+				: `Ikke registrert. ${fallbackDato} brukes.`,
 		},
 	]
 }
