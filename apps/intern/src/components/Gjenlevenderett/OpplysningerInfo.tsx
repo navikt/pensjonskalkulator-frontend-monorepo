@@ -72,6 +72,7 @@ export const OpplysningerInfo = ({
 					name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
 					legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
 					className={styles.horizontalRadioGroup}
+					testid="eps-minste-PGI-foer-doedsfall"
 				/>
 			)}
 			<RHFRadio
