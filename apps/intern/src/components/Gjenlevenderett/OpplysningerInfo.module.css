@@ -1,5 +1,9 @@
 @import '../../styles/global.module.css';
 
+.opplysningerHeading {
+	margin-top: -16px;
+}
+
 .opplysningerTable {
 	width: 100%;
 	border-collapse: collapse;

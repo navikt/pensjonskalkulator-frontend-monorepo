@@ -42,7 +42,7 @@ export const OpplysningerInfo = ({
 
 	return (
 		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
-			<Heading level="3" size="xsmall">
+			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
 			<Table className={styles.opplysningerTable} size="small">
