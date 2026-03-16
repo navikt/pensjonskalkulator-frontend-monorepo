@@ -166,7 +166,7 @@ test.describe('Gjenlevenderett', () => {
 			const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
 
 			await expect(
-				radioGroup.getByLabel('Bruker opplyser at EPS er død')
+				radioGroup.getByLabel('Dødsfall er registrert')
 			).toBeVisible()
 			await expect(
 				radioGroup.getByLabel('Henvendelse fra begge parter foreligger')
@@ -420,7 +420,7 @@ test.describe('Gjenlevenderett', () => {
 			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
 
 			await checkGjenlevenderett(page)
-			await selectBakgrunnAndFetch(page, 'Bruker opplyser at EPS er død')
+			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
 
 			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
 
