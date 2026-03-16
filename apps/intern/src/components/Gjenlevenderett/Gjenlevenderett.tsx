@@ -110,7 +110,7 @@ export const Gjenlevenderett = () => {
 							options={[
 								{
 									value: 'DOEDSFALL_REGISTRERT',
-									label: 'Bruker opplyser at EPS er død',
+									label: 'Dødsfall er registrert',
 								},
 								{
 									value: 'SAMTYKKE_BEGGE_PARTER',
