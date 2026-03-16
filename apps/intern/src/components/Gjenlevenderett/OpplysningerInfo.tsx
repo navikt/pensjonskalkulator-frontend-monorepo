@@ -1,5 +1,5 @@
 import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, subDays } from 'date-fns'
+import { format, parseISO, subDays } from 'date-fns'
 
 import { Heading, Table, VStack } from '@navikt/ds-react'
 
@@ -25,7 +25,7 @@ function mapEpsOpplysninger(
 		{
 			label: 'Dødsdato',
 			value: registrertDoedsDato
-				? format(new Date(registrertDoedsDato), 'dd.MM.yyyy')
+				? format(parseISO(registrertDoedsDato), 'dd.MM.yyyy')
 				: `Ikke registrert. ${fallbackDato} brukes.`,
 		},
 	]
