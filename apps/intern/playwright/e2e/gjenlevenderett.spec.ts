@@ -304,7 +304,7 @@ test.describe('Gjenlevenderett', () => {
 			})
 		})
 
-		test.describe('Dødsfall ikke registret og EPS er over 67 år', () => {
+		test.describe('Dødsfall ikke registrert og EPS er over 67 år', () => {
 			test('Skjema-felter unntatt minste PGI er synlige når gjenlevenderett er valgt', async ({
 				page,
 			}) => {
