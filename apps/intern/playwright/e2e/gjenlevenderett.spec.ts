@@ -66,6 +66,7 @@ async function navigateToApp(page: import('@playwright/test').Page) {
 
 async function checkGjenlevenderett(page: import('@playwright/test').Page) {
 	const checkbox = page.getByTestId('beregn-med-gjenlevenderett')
+	await expect(checkbox).toBeVisible()
 	await checkbox.check()
 	return checkbox
 }
@@ -165,7 +166,7 @@ test.describe('Gjenlevenderett', () => {
 			const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
 
 			await expect(
-				radioGroup.getByLabel('Bruker opplyser at EPS er død')
+				radioGroup.getByLabel('Dødsfall er registrert')
 			).toBeVisible()
 			await expect(
 				radioGroup.getByLabel('Henvendelse fra begge parter foreligger')
@@ -266,29 +267,159 @@ test.describe('Gjenlevenderett', () => {
 			})
 			await navigateToApp(page)
 		})
-
-		test('Skjema-felter er synlige når gjenlevenderett er valgt', async ({
-			page,
-		}) => {
-			await checkGjenlevenderett(page)
-
-			await expect(
-				page.getByRole('textbox', {
-					name: 'Pensjonsgivende inntekt frem til uttak',
+		test.describe('Dødsfall skjer etter EPS fylte 67 år', () => {
+			test('Skjema-felter unntatt minste PGI er synlige når gjenlevenderett er valgt', async ({
+				page,
+			}) => {
+				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+					relasjonPersondata: {
+						foedselsdato: '1955-05-05',
+						doedsdato: '2025-02-20',
+					},
 				})
-			).toBeVisible()
-			await expect(
-				page.getByRole('combobox', { name: 'Alder (år) for uttak' })
-			).toBeVisible()
-			await expect(
-				page.getByRole('combobox', { name: 'Uttaksgrad' })
-			).toBeVisible()
-			await expect(
-				page.getByRole('button', { name: 'Beregn pensjon' })
-			).toBeVisible()
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt frem til uttak',
+					})
+				).toBeVisible()
+
+				await expect(
+					page.getByTestId('eps-minste-PGI-foer-doedsfall')
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
 		})
 
-		test('Nullstill nullstiller gjenlevenderett-felter', async ({ page }) => {
+		test.describe('Dødsfall ikke registrert og EPS er over 67 år', () => {
+			test('Skjema-felter unntatt minste PGI er synlige når gjenlevenderett er valgt', async ({
+				page,
+			}) => {
+				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+					relasjonPersondata: {
+						foedselsdato: '1955-05-05',
+						doedsdato: null,
+					},
+				})
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt frem til uttak',
+					})
+				).toBeVisible()
+
+				await expect(
+					page.getByTestId('eps-minste-PGI-foer-doedsfall')
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
+		})
+
+		test.describe('Dødsfall skjer før EPS fylte 67 år', () => {
+			test('Skjema-felter er synlige når gjenlevenderett er valgt', async ({
+				page,
+			}) => {
+				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+					relasjonPersondata: {
+						foedselsdato: '1965-05-05',
+						doedsdato: '2025-02-20',
+					},
+				})
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt frem til uttak',
+					})
+				).toBeVisible()
+
+				await expect(
+					page.getByTestId('eps-minste-PGI-foer-doedsfall')
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
+		})
+
+		test.describe('Dødsfall ikke registrert og EPS er under 67 år', () => {
+			test('Skjema-felter er synlige når gjenlevenderett er valgt', async ({
+				page,
+			}) => {
+				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+					relasjonPersondata: {
+						foedselsdato: '1965-05-05',
+						doedsdato: null,
+					},
+				})
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt frem til uttak',
+					})
+				).toBeVisible()
+
+				await expect(
+					page.getByTestId('eps-minste-PGI-foer-doedsfall')
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
+		})
+
+		test('Nullstill gjenlevenderett-felter', async ({ page }) => {
+			await setupDefaultMocks(page, {
+				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+			})
+			await navigateToApp(page)
 			const checkbox = await checkGjenlevenderett(page)
 
 			const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
@@ -321,7 +452,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('5')
 			await page
@@ -329,12 +460,10 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 				.fill('400000')
-			await page
-				.getByRole('group', {
-					name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
-				})
-				.getByLabel('Ja')
-				.check()
+			const minstInntektGroup = page.getByRole('group', {
+				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
+			})
+			await expect(minstInntektGroup).toBeVisible()
 			await page
 				.getByRole('group', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -421,13 +550,13 @@ test.describe('Gjenlevenderett', () => {
 			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
 
 			await checkGjenlevenderett(page)
-			await selectBakgrunnAndFetch(page, 'Bruker opplyser at EPS er død')
+			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
 
 			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
 
 			await expect(
 				page.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 			).toBeVisible()
 			await expect(
@@ -602,7 +731,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('5')
 			await page
@@ -615,7 +744,6 @@ test.describe('Gjenlevenderett', () => {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
 			await expect(minstInntektGroup).toBeVisible()
-			await minstInntektGroup.getByLabel('Ja').check()
 
 			const medlemGroup = page.getByRole('group', {
 				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -655,7 +783,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await page
 				.getByRole('textbox', {
-					name: 'År bodd/jobbet i utlandet etter fylte 16 år',
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
 				})
 				.fill('40')
 
