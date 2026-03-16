@@ -93,7 +93,11 @@ function validateSivilstand(
 		partnerLabel = 'samboer'
 	}
 
-	if (isHarPartner && formData.epsHarPensjon === null) {
+	if (
+		isHarPartner &&
+		formData.epsHarPensjon === null &&
+		!formData.beregnMedGjenlevenderett
+	) {
 		errors.epsHarPensjon = `Fyll ut om ${partnerLabel} mottar pensjon, uføretrygd eller AFP.`
 	}
 
