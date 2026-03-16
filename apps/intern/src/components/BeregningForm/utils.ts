@@ -4,6 +4,7 @@ import type {
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { addYears, parseISO } from 'date-fns'
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: Sivilstatus
@@ -60,15 +61,12 @@ export function isEpsUnder67EllerDoedsdatoFoer67aar({
 	epsFoedselsdato: string
 	epsDoedsdato?: string | null
 }): boolean {
-	const foedt = new Date(epsFoedselsdato)
-	const fylte67 = new Date(
-		foedt.getFullYear() + 67,
-		foedt.getMonth(),
-		foedt.getDate()
-	)
+	const foedt = parseISO(epsFoedselsdato)
+	const fylte67 = addYears(foedt, 67)
 
 	if (epsDoedsdato) {
-		return new Date(epsDoedsdato) < fylte67
+		const doedsdato = parseISO(epsDoedsdato)
+		return doedsdato < fylte67
 	}
 
 	return new Date() < fylte67
