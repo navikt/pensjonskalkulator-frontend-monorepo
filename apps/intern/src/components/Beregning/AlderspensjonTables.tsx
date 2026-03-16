@@ -13,6 +13,7 @@ interface AlderspensjonTablesProps {
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
 	grunnbeloep?: number
+	alderspensjonGrad: number
 }
 
 export const AlderspensjonTables = ({
@@ -21,10 +22,11 @@ export const AlderspensjonTables = ({
 	erOvergangskull,
 	erFoedtEtter1963,
 	grunnbeloep,
+	alderspensjonGrad,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTable
-			title="Alderspensjon"
+			title={`${alderspensjonGrad} % alderspensjon`}
 			valueHeader="Kr per måned"
 			rows={mapAlderspensjonToRows(entry)}
 		/>

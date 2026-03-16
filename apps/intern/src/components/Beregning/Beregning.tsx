@@ -154,6 +154,7 @@ export const Beregning = () => {
 								(maanedsbeloepGradertUttak ?? 0) +
 								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
 							}
+							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 						/>
 						{harAfpPrivat &&
 							heltUttakAlder.aar! > 67 &&
@@ -168,6 +169,7 @@ export const Beregning = () => {
 										(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
 										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 									}
+									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 								/>
 							)}
 					</>
@@ -183,6 +185,7 @@ export const Beregning = () => {
 						(maanedsbeloepHeltUttak ?? 0) +
 						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 					}
+					alderspensjonGrad={100}
 				/>
 				{harAfpPrivat && heltUttakAlder.aar! < 67 && (
 					<BeregningSection
@@ -195,6 +198,7 @@ export const Beregning = () => {
 							(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
 							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 						}
+						alderspensjonGrad={100}
 					/>
 				)}
 			</VStack>

@@ -22,6 +22,7 @@ interface BeregningSectionProps {
 	showAfp?: boolean
 	afpEntry?: AfpPrivatPensjonsberegning
 	visKronetillegg?: boolean
+	alderspensjonGrad: number
 	afpTableAddToSum?: number
 	totalAddToSum?: number
 }
@@ -39,6 +40,7 @@ export const BeregningSection = ({
 	visKronetillegg = false,
 	afpTableAddToSum,
 	totalAddToSum = 0,
+	alderspensjonGrad,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12">
 		<Heading level="3" size="small">
@@ -55,6 +57,7 @@ export const BeregningSection = ({
 					erOvergangskull={erOvergangskull}
 					erFoedtEtter1963={erFoedtEtter1963}
 					grunnbeloep={grunnbeloep}
+					alderspensjonGrad={alderspensjonGrad}
 				/>
 			)}
 			{showAfp && (
