@@ -333,7 +333,7 @@ test.describe('Gjenlevenderett', () => {
 			const minstInntektGroup = page.getByRole('group', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
-			await expect(minstInntektGroup).not.toBeVisible()
+			await expect(minstInntektGroup).toBeVisible()
 			await page
 				.getByRole('group', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -613,7 +613,7 @@ test.describe('Gjenlevenderett', () => {
 			const minstInntektGroup = page.getByRole('group', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
-			await expect(minstInntektGroup).not.toBeVisible()
+			await expect(minstInntektGroup).toBeVisible()
 
 			const medlemGroup = page.getByRole('group', {
 				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
