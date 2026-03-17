@@ -116,7 +116,7 @@ export const BeregningForm = () => {
 	const sanityTextGradert =
 		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder &&
 		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
-		isAlderLikAnnenAlder(
+		!isAlderLikAnnenAlder(
 			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
 			{
 				aar: aktivBeregning?.alderAarUttak ?? 0,
