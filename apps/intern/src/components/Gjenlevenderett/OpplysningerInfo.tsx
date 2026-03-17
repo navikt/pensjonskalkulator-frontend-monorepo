@@ -1,10 +1,11 @@
 import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, subDays } from 'date-fns'
+import { format, parseISO, subDays } from 'date-fns'
 
 import { Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
+import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
 
 import styles from './OpplysningerInfo.module.css'
 
@@ -22,8 +23,10 @@ function mapEpsOpplysninger(
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
 		},
 		{
-			label: 'Dato for dødsdato',
-			value: registrertDoedsDato ?? `Ikke registrert. ${fallbackDato} brukes.`,
+			label: 'Dødsdato',
+			value: registrertDoedsDato
+				? format(parseISO(registrertDoedsDato), 'dd.MM.yyyy')
+				: `Ikke registrert. ${fallbackDato} brukes.`,
 		},
 	]
 }
@@ -36,9 +39,10 @@ export const OpplysningerInfo = ({
 	const rows = mapEpsOpplysninger(EPSOpplysninger)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+
 	return (
-		<VStack gap="space-24">
-			<Heading level="3" size="xsmall">
+		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
+			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
 			<Table className={styles.opplysningerTable} size="small">
@@ -63,11 +67,14 @@ export const OpplysningerInfo = ({
 				style={{ width: '184px' }}
 				formatError="Du må skrive hele tall for å oppgi inntekt."
 			/>
-			<RHFRadio
-				name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
-				legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-				className={styles.horizontalRadioGroup}
-			/>
+			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) && (
+				<RHFRadio
+					name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
+					legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
+					className={styles.horizontalRadioGroup}
+					testid="eps-minste-PGI-foer-doedsfall"
+				/>
+			)}
 			<RHFRadio
 				name="epsMedlemAvFolketrygdenVedDoedsDato"
 				legend="Medlem av folketrygden de 5 siste årene før dødsdato"

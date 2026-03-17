@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import {
@@ -34,6 +34,21 @@ export const Gjenlevenderett = () => {
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
+	useEffect(() => {
+		if (EPSOpplysninger?.relasjonPersondata) {
+			form.setValue(
+				'epsFoedselsdato',
+				EPSOpplysninger.relasjonPersondata.foedselsdato ?? null,
+				{ shouldDirty: false }
+			)
+			form.setValue(
+				'epsDoedsdato',
+				EPSOpplysninger.relasjonPersondata.doedsdato ?? null,
+				{ shouldDirty: false }
+			)
+		}
+	}, [EPSOpplysninger, form])
+
 	const [beregnMedGjenlevenderett] = useWatch({
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
@@ -64,7 +79,7 @@ export const Gjenlevenderett = () => {
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
 	const EPSError = (
-		<LocalAlert status="warning" size="small">
+		<LocalAlert status="warning" size="small" data-testid="EPS-henting-feil">
 			<LocalAlert.Header>
 				<LocalAlert.Title>Kunne ikke hente opplysninger</LocalAlert.Title>
 			</LocalAlert.Header>
@@ -110,7 +125,7 @@ export const Gjenlevenderett = () => {
 							options={[
 								{
 									value: 'DOEDSFALL_REGISTRERT',
-									label: 'Bruker opplyser at EPS er død',
+									label: 'Dødsfall er registrert',
 								},
 								{
 									value: 'SAMTYKKE_BEGGE_PARTER',
@@ -143,7 +158,7 @@ export const Gjenlevenderett = () => {
 						</ErrorMessage>
 					)}
 					{isEPSInfoEmpty && (
-						<LocalAlert status="warning">
+						<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
 							<LocalAlert.Header>
 								<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
 							</LocalAlert.Header>

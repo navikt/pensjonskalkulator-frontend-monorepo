@@ -343,6 +343,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		),
 
 		http.post(`${baseUrl}/intern/v1/eps`, async ({ request }) => {
+			await delay(delayMs)
+			const fnr = request.headers.get('fnr')
+			if (!fnr) {
+				return HttpResponse.json(
+					{ message: 'Missing fnr header' },
+					{ status: 400 }
+				)
+			}
 			await request.json()
 			return HttpResponse.json(epsOpplysningResponse)
 		}),
