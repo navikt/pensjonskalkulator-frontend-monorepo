@@ -33,7 +33,7 @@ import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 import styles from './BeregningForm.module.css'
 
 const sivilstandOptions = [
-	{ value: 'ENKE', label: 'Enke/enkemann' },
+	{ value: 'ENKE_ELLER_ENKEMANN', label: 'Enke/enkemann' },
 	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
@@ -131,7 +131,12 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
-					}) && <Gjenlevenderett />}
+					}) && (
+						<>
+							<Gjenlevenderett />
+							{!beregnMedGjenlevenderett && <Divider noMargin />}
+						</>
+					)}
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
@@ -143,34 +148,34 @@ export const BeregningForm = () => {
 					>
 						{initialSivilstatus === 'UOPPGITT' &&
 							sivilstatus === 'UOPPGITT' && <option value="" />}
-						{sivilstandOptions.map(({ value, label }) => (
-							<option key={value} value={value ?? ''}>
-								{label}
-							</option>
-						))}
+						{sivilstandOptions.map(({ value, label }) => {
+							return (
+								<option key={value} value={value ?? ''}>
+									{label}
+								</option>
+							)
+						})}
 					</RHFSelect>
 				)}
 
-				{showEpsHarPensjon(sivilstatus) && (
-					<>
-						<Divider noMargin />
-						<RHFRadio
-							name="epsHarPensjon"
-							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
-							className={styles.horizontalRadioGroup}
-						/>
-					</>
+				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
+					<RHFRadio
+						name="epsHarPensjon"
+						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 
-				{showEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
-					<>
-						<Divider noMargin />
-						<RHFRadio
-							name="epsHarInntektOver2G"
-							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-							className={styles.horizontalRadioGroup}
-						/>
-					</>
+				{showEpsHarInntektOver2G({
+					sivilstatus,
+					epsHarPensjon,
+					beregnMedGjenlevenderett,
+				}) && (
+					<RHFRadio
+						name="epsHarInntektOver2G"
+						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 				<Divider noMargin />
 				{!alertDismissed &&
