@@ -161,23 +161,21 @@ export const Beregning = () => {
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
-	if (isBeregningLoading) {
-		return (
-			<div className={styles.beregning}>
-				<div className={styles.loader}>
-					<Loader size="3xlarge" title="Beregner pensjon …" />
-				</div>
-			</div>
-		)
-	}
+	const hasBeregning =
+		beregning && beregning.vilkaarsproeving.vilkaarErOppfylt !== false
 
-	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
+	if (!hasBeregning) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={styles.beregning}
+				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
 				<BodyLong>Ingen beregning enda.</BodyLong>
 			</Box>
 		)
@@ -224,16 +222,14 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
-			className={styles.beregning}
+			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
-			<VStack
-				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
-			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
+			{isBeregningLoading && (
+				<div className={styles.overlayLoader}>
+					<Loader size="3xlarge" title="Beregner pensjon …" />
+				</div>
+			)}
+			<VStack className={styles.tables}>
 				{gradertEntry && (
 					<>
 						<Heading level="3" size="small">
