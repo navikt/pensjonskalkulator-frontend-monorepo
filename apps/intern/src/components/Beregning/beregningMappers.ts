@@ -1,35 +1,57 @@
 import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import type { BeregningTableRow } from './BeregningTable'
+import type { BeregningDetailRow } from './BeregningDetailTable'
+import type { BeregningTableRow } from './BeregningTableWithSum'
+
+const formatNumber = (value?: number | null): string =>
+	value != null ? value.toLocaleString('nb-NO') : ''
+
+const formatKr = (value?: number | null): string =>
+	value != null && value >= 0
+		? `${value.toLocaleString('nb-NO', { maximumFractionDigits: 0 })} kr`
+		: ''
+
+const formatAar = (value?: number | null): string =>
+	value != null ? `${value} år` : ''
 
 export function mapAlderspensjonToRows(
-	entry: AlderspensjonPensjonsberegning
+	entry: AlderspensjonPensjonsberegning,
+	visKap19: boolean,
+	visKap20: boolean
 ): BeregningTableRow[] {
 	return [
-		{
-			label: 'Grunnpensjon (kap. 19)',
-			value: Math.round((entry.grunnpensjon ?? 0) / 12),
-		},
-		{
-			label: 'Tilleggspensjon (kap. 19)',
-			value: Math.round((entry.tilleggspensjon ?? 0) / 12),
-		},
-		{
-			label: 'Pensjonstillegg (kap. 19)',
-			value: Math.round((entry.pensjonstillegg ?? 0) / 12),
-		},
-		{
-			label: 'Gjenlevendetillegg (kap. 19)',
-			value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
-		},
-		{
-			label: 'Inntektspensjon (kap. 20)',
-			value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
-		},
-		{
-			label: 'Garantipensjon (kap. 20)',
-			value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
-		},
+		...(visKap19
+			? [
+					{
+						label: 'Grunnpensjon (kap. 19)',
+						value: Math.round((entry.grunnpensjon ?? 0) / 12),
+					},
+					{
+						label: 'Tilleggspensjon (kap. 19)',
+						value: Math.round((entry.tilleggspensjon ?? 0) / 12),
+					},
+					{
+						label: 'Pensjonstillegg (kap. 19)',
+						value: Math.round((entry.pensjonstillegg ?? 0) / 12),
+					},
+					{
+						label: 'Gjenlevendetillegg (kap. 19)',
+						value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
+					},
+				]
+			: []),
+		...(visKap20
+			? [
+					{
+						label: 'Inntektspensjon (kap. 20)',
+						value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
+					},
+					{
+						label: 'Garantipensjon (kap. 20)',
+						value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
+					},
+				]
+			: []),
 		{
 			label: 'Skjermingstillegg',
 			value: Math.round((entry.skjermingstillegg ?? 0) / 12),
@@ -40,87 +62,70 @@ export function mapAlderspensjonToRows(
 export function mapOpptjeningEtterKapittel19ToRows(
 	opptjening: AlderspensjonPensjonsberegning,
 	grunnbeloep?: number
-): BeregningTableRow[] {
+): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap19,
+			value: formatNumber((opptjening.andelsbroekKap19 || 0) * 10) + '/10',
 		},
 		{
 			label: 'Grunnbeløp (G)',
-			value: grunnbeloep,
-			unit: 'kr',
+			value: formatKr(grunnbeloep),
 		},
 		{
 			label: 'Minste pensjonsbeløp',
-			value: 279933,
-			unit: 'kr',
+			value: formatKr(279933),
 		},
 		{
 			label: 'Forholdstall ved uttak',
-			value: opptjening.forholdstall,
+			value: formatNumber(opptjening.forholdstall),
 		},
 		{
 			label: 'Sluttpoengtall',
-			value: opptjening.sluttpoengtall,
+			value: formatNumber(opptjening.sluttpoengtall),
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap19,
-			unit: 'år',
+			value: formatAar(opptjening.trygdetidKap19),
 		},
 		{
 			label: 'Poengår før 1992 (45 %)',
-			value: opptjening.poengaarFoer92,
+			value: formatNumber(opptjening.poengaarFoer92 || 0) + ' av 37',
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: opptjening.poengaarEtter91,
-		},
-		{
-			label: 'Basispensjon',
-			value: 183665,
-			unit: 'kr',
-		},
-		{
-			label: 'Restpensjon',
-			value: 183665,
-			unit: 'kr',
+			value: formatNumber(opptjening.poengaarEtter91 || 0) + ' av 37',
 		},
 	]
 }
 
 export function mapOpptjeningEtterKapittel20ToRows(
 	opptjening: AlderspensjonPensjonsberegning
-): BeregningTableRow[] {
+): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap20,
+			value: formatNumber((opptjening.andelsbroekKap20 || 0) * 10) + '/10',
 		},
 		{
 			label: 'Delingstall ved uttak',
-			value: opptjening.delingstall,
+			value: formatNumber(opptjening.delingstall),
 		},
 		{
 			label: 'Garantipensjon',
-			value: opptjening.garantipensjonBeloep,
-			unit: 'kr',
+			value: formatKr(opptjening.garantipensjonBeloep),
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep,
-			unit: 'kr',
+			value: formatKr(opptjening.pensjonBeholdningFoerUttakBeloep),
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
-			unit: 'kr',
+			value: formatKr(opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2),
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap20,
-			unit: 'år',
+			value: formatAar(opptjening.trygdetidKap20),
 		},
 	]
 }

@@ -1,6 +1,7 @@
 import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import { BeregningTable } from './BeregningTable'
+import { BeregningDetailTable } from './BeregningDetailTable'
+import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
 	mapAlderspensjonToRows,
 	mapOpptjeningEtterKapittel19ToRows,
@@ -25,25 +26,25 @@ export const AlderspensjonTables = ({
 	alderspensjonGrad,
 }: AlderspensjonTablesProps) => (
 	<>
-		<BeregningTable
+		<BeregningTableWithSum
 			title={`${alderspensjonGrad} % alderspensjon`}
 			valueHeader="Kr per måned"
-			rows={mapAlderspensjonToRows(entry)}
+			rows={mapAlderspensjonToRows(
+				entry,
+				!!erFoedtFoer1963,
+				!!erOvergangskull || !!erFoedtEtter1963
+			)}
 		/>
 		{erFoedtFoer1963 && (
-			<BeregningTable
+			<BeregningDetailTable
 				title="Opptjening etter kapittel 19"
-				valueHeader="Kr per måned"
 				rows={mapOpptjeningEtterKapittel19ToRows(entry, grunnbeloep)}
-				simple
 			/>
 		)}
 		{(erOvergangskull || erFoedtEtter1963) && (
-			<BeregningTable
+			<BeregningDetailTable
 				title="Opptjening etter kapittel 20"
-				valueHeader="Kr per måned"
 				rows={mapOpptjeningEtterKapittel20ToRows(entry)}
-				simple
 			/>
 		)}
 	</>

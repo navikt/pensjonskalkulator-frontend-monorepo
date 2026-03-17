@@ -6,7 +6,7 @@ import type {
 import { Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
-import { BeregningTable } from '../Beregning/BeregningTable'
+import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
 import { mapPrivatAfp } from '../Beregning/beregningMappers'
 
 import styles from './BeregningSection.module.css'
@@ -62,13 +62,13 @@ export const BeregningSection = ({
 			)}
 			{showAfp && (
 				<VStack gap="space-32">
-					<BeregningTable
+					<BeregningTableWithSum
 						title="Avtalefestet pensjon i privat sektor"
 						valueHeader="Kr per måned"
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
 						addToSum={afpTableAddToSum}
 					/>
-					<BeregningTable
+					<BeregningTableWithSum
 						title="Alderspensjon og AFP"
 						valueHeader="Kr per måned"
 						addToSum={totalAddToSum}
