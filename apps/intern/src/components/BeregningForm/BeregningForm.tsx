@@ -1,4 +1,6 @@
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { Box } from '@navikt/ds-react'
@@ -79,6 +81,17 @@ export const BeregningForm = () => {
 		] as const,
 	})
 
+	const [alertDismissed, setAlertDismissed] = useState(false)
+
+	useEffect(() => {
+		setAlertDismissed(false)
+	}, [beregning])
+
+	const handleReset = useCallback(() => {
+		setAlertDismissed(true)
+		resetForm()
+	}, [resetForm])
+
 	const handleSubmit = () => {
 		form.clearErrors()
 		const formData = form.getValues()
@@ -102,7 +115,14 @@ export const BeregningForm = () => {
 	const initialSivilstatus = person && person.sivilstatus
 	const sanityTextGradert =
 		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder &&
-		beregning?.vilkaarsproeving.alternativ.heltUttaksalder
+		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
+		isAlderLikAnnenAlder(
+			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
+			{
+				aar: aktivBeregning?.alderAarUttak ?? 0,
+				maaneder: aktivBeregning?.alderMdUttak ?? 0,
+			}
+		)
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -153,7 +173,8 @@ export const BeregningForm = () => {
 					</>
 				)}
 				<Divider noMargin />
-				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+				{!alertDismissed &&
+					beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
 					vilkaarAlternativHelt && (
 						<SanityAlert
 							id={
@@ -258,7 +279,7 @@ export const BeregningForm = () => {
 			</Box>
 			<ButtonBar
 				onSubmit={handleSubmit}
-				onReset={resetForm}
+				onReset={handleReset}
 				isDirty={isDirty}
 				harAktivBeregning={!!aktivBeregning}
 			/>

@@ -161,7 +161,7 @@ export const Beregning = () => {
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
-	if (!beregning && isBeregningLoading) {
+	if (isBeregningLoading) {
 		return (
 			<div className={styles.beregning}>
 				<div className={styles.loader}>
