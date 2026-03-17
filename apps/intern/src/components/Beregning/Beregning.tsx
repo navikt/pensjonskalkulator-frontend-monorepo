@@ -15,6 +15,7 @@ import {
 } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningTable, type BeregningTableRow } from './BeregningTable'
 
@@ -181,22 +182,14 @@ export const Beregning = () => {
 		)
 	}
 
-	const erGradert =
-		aktivBeregning &&
-		aktivBeregning.uttaksgrad !== null &&
-		aktivBeregning.uttaksgrad < 100
-
-	const heltUttakAar = erGradert
-		? aktivBeregning.alderAarHeltUttak
-		: aktivBeregning?.alderAarUttak
-
-	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
+	const { erGradert, heltUttakAlder, gradertUttakAlder } =
+		getUttakInfo(aktivBeregning)
 
 	const heltEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (heltUttakAar ?? 0)
+		(entry) => entry.alder === (heltUttakAlder.aar ?? 0)
 	)
 	const gradertEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (gradertUttakAar ?? 0)
+		(entry) => entry.alder === (gradertUttakAlder?.aar ?? 0)
 	)
 
 	const titleHeltUttak =

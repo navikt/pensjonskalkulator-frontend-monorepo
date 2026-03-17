@@ -16,6 +16,7 @@ import {
 	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { getUttakInfo } from '../../utils/getUttakInfo'
 import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
@@ -107,6 +108,8 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
+	const { heltUttakAlder } = getUttakInfo(aktivBeregning)
+
 	const vilkaarAlternativGradert =
 		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder
 	const vilkaarAlternativHelt =
@@ -118,10 +121,7 @@ export const BeregningForm = () => {
 		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
 		!isAlderLikAnnenAlder(
 			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
-			{
-				aar: aktivBeregning?.alderAarUttak ?? 0,
-				maaneder: aktivBeregning?.alderMdUttak ?? 0,
-			}
+			heltUttakAlder
 		)
 
 	return (
