@@ -95,8 +95,8 @@ export const BeregningForm = () => {
 	}
 
 	const vilkaarAlternativ =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder ??
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
 
@@ -122,8 +122,8 @@ export const BeregningForm = () => {
 						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
 						className={styles.selectWrapper}
 					>
-						{initialSivilstatus === 'UOPPGITT' &&
-							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{(initialSivilstatus === 'UOPPGITT' ||
+							initialSivilstatus === 'UNKNOWN') && <option value="" />}
 						{sivilstandOptions.map(({ value, label }) => {
 							return (
 								<option key={value} value={value ?? ''}>
@@ -154,7 +154,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
 							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
@@ -165,7 +165,8 @@ export const BeregningForm = () => {
 									vilkaarAlternativ?.maaneder
 								),
 								grad: String(
-									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+									beregning.vilkaarsproevingsresultat.alternativ?.uttaksgrad ??
+										100
 								),
 							}}
 						/>

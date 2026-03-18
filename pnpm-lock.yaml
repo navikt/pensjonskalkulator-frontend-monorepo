@@ -51,6 +51,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.2
         version: 9.39.2
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:packages/types
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.0

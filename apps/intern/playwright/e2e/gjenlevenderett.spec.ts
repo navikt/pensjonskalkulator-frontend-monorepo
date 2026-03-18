@@ -6,7 +6,7 @@ const DECRYPT_API_URL = '**/api/v1/decrypt'
 const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
 const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
 const INNTEKT_API_URL = '**/api/inntekt'
-const SIMULERING_API_URL = '**/api/v9/alderspensjon/simulering'
+const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
 const EPS_API_URL = '**/api/intern/v1/eps'
 
 const PERSON_MOCK_FILE = 'person-intern.json'

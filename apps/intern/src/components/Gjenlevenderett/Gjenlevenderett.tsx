@@ -1,3 +1,4 @@
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -24,9 +25,9 @@ export const Gjenlevenderett = () => {
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [epsQueryParams, setEpsQueryParams] = useState<{
-		sivilstatus: string
+		sivilstatus: Sivilstatus
 		bakgrunn: string
-	}>({} as { sivilstatus: string; bakgrunn: string })
+	}>({} as { sivilstatus: Sivilstatus; bakgrunn: string })
 
 	const {
 		data: EPSOpplysninger,
@@ -35,17 +36,10 @@ export const Gjenlevenderett = () => {
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
 	useEffect(() => {
-		if (EPSOpplysninger?.relasjonPersondata) {
-			form.setValue(
-				'epsFoedselsdato',
-				EPSOpplysninger.relasjonPersondata.foedselsdato ?? null,
-				{ shouldDirty: false }
-			)
-			form.setValue(
-				'epsDoedsdato',
-				EPSOpplysninger.relasjonPersondata.doedsdato ?? null,
-				{ shouldDirty: false }
-			)
+		if (EPSOpplysninger) {
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
 		}
 	}, [EPSOpplysninger, form])
 

@@ -1,4 +1,4 @@
-import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { SimuleringAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -21,48 +21,48 @@ import { BeregningTable, type BeregningTableRow } from './BeregningTable'
 import styles from './Beregning.module.css'
 
 function mapAlderspensjonToRows(
-	entry: AlderspensjonPensjonsberegning
+	entry: SimuleringAlderspensjon
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Grunnpensjon (kap. 19)',
-			value: Math.round((entry.grunnpensjon ?? 0) / 12),
+			value: Math.round((entry.extension?.grunnpensjon ?? 0) / 12),
 		},
 		{
 			label: 'Tilleggspensjon (kap. 19)',
-			value: Math.round((entry.tilleggspensjon ?? 0) / 12),
+			value: Math.round((entry.extension?.tilleggspensjon ?? 0) / 12),
 		},
 		{
 			label: 'Pensjonstillegg (kap. 19)',
-			value: Math.round((entry.pensjonstillegg ?? 0) / 12),
+			value: Math.round((entry.extension?.pensjonstillegg ?? 0) / 12),
 		},
 		{
 			label: 'Gjenlevendetillegg (kap. 19)',
-			value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
+			value: Math.round((entry.gjenlevendetillegg ?? 0) / 12),
 		},
 		{
 			label: 'Inntektspensjon (kap. 20)',
-			value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
+			value: Math.round((entry.extension?.inntektspensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Garantipensjon (kap. 20)',
-			value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
+			value: Math.round((entry.extension?.garantipensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Skjermingstillegg',
-			value: Math.round((entry.skjermingstillegg ?? 0) / 12),
+			value: Math.round((entry.extension?.skjermingstillegg ?? 0) / 12),
 		},
 	]
 }
 
 function mapOpptjeningEtterKapittel19ToRows(
-	opptjening: AlderspensjonPensjonsberegning,
+	opptjening: SimuleringAlderspensjon,
 	grunnbeloep?: number
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap19,
+			value: opptjening.extension?.andelsbroekKap19,
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -76,23 +76,23 @@ function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Forholdstall ved uttak',
-			value: opptjening.forholdstall,
+			value: opptjening.extension?.forholdstall,
 		},
 		{
 			label: 'Sluttpoengtall',
-			value: opptjening.sluttpoengtall,
+			value: opptjening.extension?.sluttpoengtall,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap19,
+			value: opptjening.extension?.trygdetidKap19,
 		},
 		{
 			label: 'Poengår før 1992 (45 %)',
-			value: opptjening.poengaarFoer92,
+			value: opptjening.extension?.poengaarFoer92,
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: opptjening.poengaarEtter91,
+			value: opptjening.extension?.poengaarEtter91,
 		},
 		{
 			label: 'Basispensjon',
@@ -107,20 +107,20 @@ function mapOpptjeningEtterKapittel19ToRows(
 	]
 }
 function mapOpptjeningEtterKapittel20ToRows(
-	opptjening: AlderspensjonPensjonsberegning
+	opptjening: SimuleringAlderspensjon
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap20,
+			value: opptjening.extension?.andelsbroekKap20,
 		},
 		{
 			label: 'Delingstall ved uttak',
-			value: opptjening.delingstall,
+			value: opptjening.extension?.delingstall,
 		},
 		{
 			label: 'Garantipensjon',
-			value: opptjening.garantipensjonBeloep,
+			value: opptjening.extension?.garantipensjonBeloep,
 			visBeloepKroner: true,
 		},
 		{
@@ -130,17 +130,17 @@ function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep,
+			value: opptjening.extension?.pensjonBeholdningFoerUttakBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
+			value: opptjening.extension?.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap20,
+			value: opptjening.extension?.trygdetidKap20,
 		},
 	]
 }
@@ -171,7 +171,7 @@ export const Beregning = () => {
 		)
 	}
 
-	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
+	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
@@ -194,11 +194,11 @@ export const Beregning = () => {
 
 	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
 
-	const heltEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (heltUttakAar ?? 0)
+	const heltEntry = beregning?.alderspensjonListe?.find(
+		(entry) => entry.alderAar === (heltUttakAar ?? 0)
 	)
-	const gradertEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	const gradertEntry = beregning?.alderspensjonListe?.find(
+		(entry) => entry.alderAar === (gradertUttakAar ?? 0)
 	)
 
 	const titleHeltUttak =

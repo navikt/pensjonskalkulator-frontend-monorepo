@@ -196,7 +196,7 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, person?.foedselsdato, aktivBeregning)
+	} = useBeregningQuery(fnr, aktivBeregning)
 
 	return (
 		<FormProvider {...form}>

@@ -35,11 +35,15 @@ function validateEPSOpplysninger(
 			'Fyll ut inntekt året før dødsdato.'
 	}
 
+	const epsFoedselsdato =
+		formData.epsOpplysninger?.relasjonPersondata?.foedselsdato
+	const epsDoedsdato = formData.epsOpplysninger?.relasjonPersondata?.doedsdato
+
 	if (
-		formData.epsFoedselsdato &&
+		epsFoedselsdato &&
 		isEpsUnder67EllerDoedsdatoFoer67aar({
-			epsFoedselsdato: formData.epsFoedselsdato,
-			epsDoedsdato: formData.epsDoedsdato,
+			epsFoedselsdato,
+			epsDoedsdato,
 		}) &&
 		formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
 	) {

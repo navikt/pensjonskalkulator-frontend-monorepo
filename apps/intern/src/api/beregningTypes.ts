@@ -1,5 +1,6 @@
 import type {
-	AlderspensjonResponseBody,
+	EpsOpplysninger,
+	SimuleringResponseBody,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
@@ -28,9 +29,8 @@ export interface BeregningFormData {
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
 	harHentetEPSOpplysninger: boolean
-	epsFoedselsdato: string | null
-	epsDoedsdato: string | null
-	epsAntallUtenlandsOppholdAar: number | null
+	epsOpplysninger: EpsOpplysninger | undefined
+	epsAntallUtenlandsOppholdAar: number | undefined
 	epsPensjonsgivendeInntektFoerDoedsDato: number | null
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
 	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
@@ -51,8 +51,6 @@ export interface ValidationErrors {
 	alderMdHeltUttak?: string
 	epsHarPensjon?: string
 	epsHarInntektOver2G?: string
-	epsFoedselsdato?: string
-	epsDoedsdato?: string
 	aarligInntektFoerUttakBeloep?: string
 	harInntektVedSidenAvUttak?: string
 	pensjonsgivendeInntektVedSidenAvUttak?: string
@@ -62,6 +60,7 @@ export interface ValidationErrors {
 	alderAarInntektGradertSlutter?: string
 	alderMdInntektGradertSlutter?: string
 	harHentetEPSOpplysninger?: string
+	epsOpplysninger?: string
 	epsAntallUtenlandsOppholdAar?: string
 	epsPensjonsgivendeInntektFoerDoedsDato?: string
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
@@ -69,7 +68,7 @@ export interface ValidationErrors {
 	epsRegistretSomFlykting?: string
 }
 
-export type BeregningResult = AlderspensjonResponseBody
+export type BeregningResult = SimuleringResponseBody
 
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstatus: 'UOPPGITT',
@@ -91,9 +90,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
-	epsAntallUtenlandsOppholdAar: null,
-	epsFoedselsdato: null,
-	epsDoedsdato: null,
+	epsAntallUtenlandsOppholdAar: undefined,
+	epsOpplysninger: undefined,
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
