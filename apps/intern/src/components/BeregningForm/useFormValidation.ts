@@ -17,7 +17,7 @@ function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (formData.epsAntallUtenlandsOppholdAar === null) {
+	if (!formData.epsAntallUtenlandsOppholdAar) {
 		errors.epsAntallUtenlandsOppholdAar =
 			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
 	}
