@@ -1,7 +1,6 @@
 import type {
 	LoependeVedtak,
 	PersonInternV1,
-	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
@@ -51,19 +50,16 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 
 interface BeregningProviderProps {
 	children: ReactNode
-	initialSivilstatus: Sivilstatus | null
 	initialInntekt?: number
 }
 
 export function BeregningProvider({
 	children,
-	initialSivilstatus,
 	initialInntekt,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
-			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 			...(initialInntekt !== undefined
 				? { aarligInntektFoerUttakBeloep: initialInntekt }
 				: {}),
@@ -76,7 +72,6 @@ export function BeregningProvider({
 		form.reset(
 			{
 				...defaultBeregningFormData,
-				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 				...(initialInntekt !== undefined
 					? { aarligInntektFoerUttakBeloep: initialInntekt }
 					: {}),
@@ -115,6 +110,12 @@ export function BeregningProvider({
 			'beregnMedGjenlevenderett',
 		] as const,
 	})
+
+	useEffect(() => {
+		if (person?.sivilstatus) {
+			form.setValue('sivilstatus', person.sivilstatus, { shouldDirty: false })
+		}
+	}, [person?.sivilstatus, form])
 
 	useEffect(() => {
 		if (!beregnMedGjenlevenderett) {
@@ -181,7 +182,10 @@ export function BeregningProvider({
 	}, [form])
 
 	const resetForm = useCallback(() => {
-		form.reset(defaultBeregningFormData)
+		form.reset({
+			...defaultBeregningFormData,
+			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
+		})
 		setAktivBeregning(null)
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus])

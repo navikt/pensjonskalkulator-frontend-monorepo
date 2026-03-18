@@ -28,6 +28,8 @@ export interface BeregningFormData {
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
 	harHentetEPSOpplysninger: boolean
+	epsFoedselsdato: string | null
+	epsDoedsdato: string | null
 	epsAntallUtenlandsOppholdAar: number | null
 	epsPensjonsgivendeInntektFoerDoedsDato: number | null
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
@@ -49,6 +51,8 @@ export interface ValidationErrors {
 	alderMdHeltUttak?: string
 	epsHarPensjon?: string
 	epsHarInntektOver2G?: string
+	epsFoedselsdato?: string
+	epsDoedsdato?: string
 	aarligInntektFoerUttakBeloep?: string
 	harInntektVedSidenAvUttak?: string
 	pensjonsgivendeInntektVedSidenAvUttak?: string
@@ -66,21 +70,6 @@ export interface ValidationErrors {
 }
 
 export type BeregningResult = AlderspensjonResponseBody
-
-export function mapPersonSivilstatus(sivilstand: string): string {
-	switch (sivilstand) {
-		case 'UOPPGITT':
-			return ''
-		case 'GIFT':
-			return 'GIFT'
-		case 'SAMBOER':
-			return 'SAMBOER'
-		case 'REGISTRERT_PARTNER':
-			return 'REGISTRERT_PARTNER'
-		default:
-			return 'UGIFT'
-	}
-}
 
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstatus: 'UOPPGITT',
@@ -103,6 +92,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
 	epsAntallUtenlandsOppholdAar: null,
+	epsFoedselsdato: null,
+	epsDoedsdato: null,
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
