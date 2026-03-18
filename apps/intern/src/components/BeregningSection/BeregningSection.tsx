@@ -38,7 +38,6 @@ export const BeregningSection = ({
 	showAfp = false,
 	afpEntry,
 	visKronetillegg = false,
-	afpTableAddToSum,
 	totalAddToSum = 0,
 	alderspensjonGrad,
 }: BeregningSectionProps) => (
@@ -66,7 +65,6 @@ export const BeregningSection = ({
 						title="Avtalefestet pensjon i privat sektor"
 						valueHeader="Kr per måned"
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
-						addToSum={afpTableAddToSum}
 					/>
 					<BeregningTableWithSum
 						title="Alderspensjon og AFP"
