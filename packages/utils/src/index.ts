@@ -4,4 +4,5 @@ export {
 	formatInntekt,
 	formatInntektToNumber,
 	updateAndFormatInntektFromInputField,
+	validateInntekt,
 } from './formatering'
