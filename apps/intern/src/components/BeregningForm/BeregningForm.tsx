@@ -124,6 +124,13 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
+	const visGradert =
+		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
+		isAlderLikAnnenAlder(
+			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
+			heltUttakAlder
+		)
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -189,10 +196,21 @@ export const BeregningForm = () => {
 							}
 							className={styles.sanityAlert}
 							dynamicValues={{
-								alder: formaterAlderString(
-									vilkaarAlternativHelt.aar,
-									vilkaarAlternativHelt.maaneder
-								),
+								grad: visGradert
+									? String(
+											beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+										)
+									: '100',
+								alder:
+									visGradert && vilkaarAlternativGradert
+										? formaterAlderString(
+												vilkaarAlternativGradert.aar,
+												vilkaarAlternativGradert.maaneder
+											)
+										: formaterAlderString(
+												vilkaarAlternativHelt.aar,
+												vilkaarAlternativHelt.maaneder
+											),
 								grad_gradert: String(
 									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
 								),
