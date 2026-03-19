@@ -33,7 +33,7 @@ jobs:
         run: pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity build
 
       - name: Save build folder
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist-sanity
           path: packages/sanity/dist
