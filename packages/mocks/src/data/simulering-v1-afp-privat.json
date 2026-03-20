@@ -1,0 +1,92 @@
+{
+	"privatAfpListe": [
+		{
+			"alderAar": 67,
+			"aarligBeloep": 20000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 0,
+			"livsvarig": 12000,
+			"maanedligBeloep": 1667
+		},
+		{
+			"alderAar": 68,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 69,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 70,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 71,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 72,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 73,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 74,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 75,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 76,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		},
+		{
+			"alderAar": 77,
+			"aarligBeloep": 80000,
+			"kompensasjonstillegg": 500,
+			"kronetillegg": 1000,
+			"livsvarig": 12000,
+			"maanedligBeloep": 6667
+		}
+	]
+}

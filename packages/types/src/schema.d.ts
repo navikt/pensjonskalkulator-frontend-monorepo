@@ -1387,7 +1387,10 @@ export interface components {
 			 * @description Personens alder (år) som informasjonen gjelder for
 			 */
 			alderAar: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Årlig beløp
+			 */
 			aarligBeloep: number
 			/** Format: int32 */
 			maanedligBeloep?: number
@@ -1405,45 +1408,114 @@ export interface components {
 			beloep: number
 			/**
 			 * Format: int32
-			 * @description Informasjon om gjenlevendetillegg er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 * @description Årlig beløp for inntektspensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			inntektspensjonBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Årlig beløp for basispensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			basispensjonBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Årlig beløp for garantipensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			garantipensjonBeloep?: number
+			/**
+			 * Format: double
+			 * @description Sats for garantipensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			garantipensjonSats?: number
+			/**
+			 * Format: int32
+			 * @description Årlig beløp for garantitillegg; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			garantitilleggBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Årlig beløp for restpensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			restpensjonBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Grunnpensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			grunnpensjonBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Tilleggspensjon; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			tilleggspensjonBeloep?: number
+			/**
+			 * Format: int32
+			 * @description Pensjonstillegg; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			pensjonstillegg?: number
+			/**
+			 * Format: int32
+			 * @description Skjermingstillegg; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			skjermingstillegg?: number
+			/**
+			 * Format: int32
+			 * @description Årlig beløp for gjenlevendetillegg; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
 			 */
 			gjenlevendetillegg?: number
-			/** @description Utvidet informasjon om alderspensjonen; kun inkludert i eksternvariant og kun når funksjonsbryter 'utvidet-simuleringsresultat' er 'på' */
-			extension?: components['schemas']['SimuleringV1AlderspensjonExtension']
-		}
-		SimuleringV1AlderspensjonExtension: {
-			/** Format: int32 */
-			inntektspensjonBeloep?: number
-			/** Format: int32 */
-			garantipensjonBeloep?: number
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Minste pensjonsnivå-sats; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			minstePensjonsnivaaSats?: number
+			/**
+			 * Format: double
+			 * @description Delingstall; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
 			delingstall?: number
-			/** Format: int32 */
-			pensjonBeholdningFoerUttakBeloep?: number
-			/** Format: double */
-			andelsbroekKap19?: number
-			/** Format: double */
-			andelsbroekKap20?: number
-			/** Format: double */
-			sluttpoengtall?: number
-			/** Format: int32 */
-			trygdetidKap19?: number
-			/** Format: int32 */
-			trygdetidKap20?: number
-			/** Format: int32 */
-			poengaarFoer92?: number
-			/** Format: int32 */
-			poengaarEtter91?: number
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Forholdstall; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
 			forholdstall?: number
-			/** Format: int32 */
-			grunnpensjon?: number
-			/** Format: int32 */
-			tilleggspensjon?: number
-			/** Format: int32 */
-			pensjonstillegg?: number
-			/** Format: int32 */
-			skjermingstillegg?: number
+			/**
+			 * Format: int32
+			 * @description Beløp for pensjonsbeholdning før uttak; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			pensjonsbeholdningFoerUttakBeloep?: number
+			/**
+			 * Format: double
+			 * @description Andel (0..1) av pensjonen beregnet i.h.t. kapittel 19; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			kapittel19Andel?: number
+			/**
+			 * Format: double
+			 * @description Andel (0..1) av pensjonen beregnet i.h.t. kapittel 20; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			kapittel20Andel?: number
+			/**
+			 * Format: double
+			 * @description Sluttpoengtall; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			sluttpoengtall?: number
+			/**
+			 * Format: int32
+			 * @description Antall år trygdetid i.h.t. kapittel 19; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			kapittel19Trygdetid?: number
+			/**
+			 * Format: int32
+			 * @description Antall år trygdetid i.h.t. kapittel 20; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			kapittel20Trygdetid?: number
+			/**
+			 * Format: int32
+			 * @description Antall poengår til og med 1991; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			poengaarTom1991?: number
+			/**
+			 * Format: int32
+			 * @description Antall poengår fra og med 1992; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+			 */
+			poengaarFom1992?: number
 		}
 		SimuleringV1PrivatAfp: {
 			/**
@@ -1505,30 +1577,67 @@ export interface components {
 			 * @description Personens alder (år) som informasjonen gjelder for
 			 */
 			alderAar: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Totalt årlig AFP-beløp
+			 */
 			totaltAfpBeloep: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Tidligere arbeidsinntekt
+			 */
 			tidligereArbeidsinntekt: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Grunnbeløp
+			 */
 			grunnbeloep: number
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Sluttpoengtall
+			 */
 			sluttpoengtall: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall år trygdetid
+			 */
 			trygdetid: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår til og med 1991
+			 */
 			poengaarTom1991: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår fra og med 1992
+			 */
 			poengaarFom1992: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Grunnpensjon
+			 */
 			grunnpensjon: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Tilleggspensjon
+			 */
 			tilleggspensjon: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description AFP-tillegg
+			 */
 			afpTillegg: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Særtillegg
+			 */
 			saertillegg: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description AFP-grad
+			 */
 			afpGrad: number
+			/** @description Hvorvidt AFP-ytelsen er avkortet i.h.t. 70-prosentregelen */
 			erAvkortet: boolean
 		}
 		SimuleringV1Trygdetid: {
@@ -1894,7 +2003,7 @@ export interface components {
 				| 'SAMBOER'
 		}
 		VedtakV1Samling: {
-			/** @description Om personen har løpende vedtak */
+			/** @description Om personen har løpende eller fremtidig vedtak */
 			harVedtak: boolean
 			/** @description Løpende alderspensjon */
 			loependeAlderspensjon?: components['schemas']['VedtakV1LoependeAlderspensjon']

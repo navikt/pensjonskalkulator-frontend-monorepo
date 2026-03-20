@@ -87,6 +87,8 @@ export type SimuleringHeltUttak =
 	components['schemas']['SimuleringV1HeltUttakSpec']
 export type SimuleringAarligInntekt =
 	components['schemas']['SimuleringV1AarligBeloep']
+export type SimuleringAldersbestemtUtbetaling =
+	components['schemas']['SimuleringV1AldersbestemtUtbetaling']
 export type SimuleringMaanedligVedEndring =
 	components['schemas']['SimuleringV1Uttaksbeloep']
 export type Eps = components['schemas']['SimuleringV1EpsSpec']

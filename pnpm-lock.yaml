@@ -441,6 +441,9 @@ importers:
 
   packages/mocks:
     dependencies:
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:../types
       msw:
         specifier: ^2.0.0
         version: 2.12.7(@types/node@24.10.9)(typescript@5.9.3)

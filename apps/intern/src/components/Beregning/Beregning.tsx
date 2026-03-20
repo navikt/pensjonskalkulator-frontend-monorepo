@@ -26,15 +26,15 @@ function mapAlderspensjonToRows(
 	return [
 		{
 			label: 'Grunnpensjon (kap. 19)',
-			value: Math.round((entry.extension?.grunnpensjon ?? 0) / 12),
+			value: Math.round((entry.grunnpensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Tilleggspensjon (kap. 19)',
-			value: Math.round((entry.extension?.tilleggspensjon ?? 0) / 12),
+			value: Math.round((entry.tilleggspensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Pensjonstillegg (kap. 19)',
-			value: Math.round((entry.extension?.pensjonstillegg ?? 0) / 12),
+			value: Math.round((entry.pensjonstillegg ?? 0) / 12),
 		},
 		{
 			label: 'Gjenlevendetillegg (kap. 19)',
@@ -42,15 +42,15 @@ function mapAlderspensjonToRows(
 		},
 		{
 			label: 'Inntektspensjon (kap. 20)',
-			value: Math.round((entry.extension?.inntektspensjonBeloep ?? 0) / 12),
+			value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Garantipensjon (kap. 20)',
-			value: Math.round((entry.extension?.garantipensjonBeloep ?? 0) / 12),
+			value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Skjermingstillegg',
-			value: Math.round((entry.extension?.skjermingstillegg ?? 0) / 12),
+			value: Math.round((entry.skjermingstillegg ?? 0) / 12),
 		},
 	]
 }
@@ -62,7 +62,7 @@ function mapOpptjeningEtterKapittel19ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.extension?.andelsbroekKap19,
+			value: opptjening?.kapittel19Andel,
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -76,23 +76,23 @@ function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Forholdstall ved uttak',
-			value: opptjening.extension?.forholdstall,
+			value: opptjening.forholdstall,
 		},
 		{
 			label: 'Sluttpoengtall',
-			value: opptjening.extension?.sluttpoengtall,
+			value: opptjening?.sluttpoengtall,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.extension?.trygdetidKap19,
+			value: opptjening.kapittel19Trygdetid,
 		},
 		{
 			label: 'Poengår før 1992 (45 %)',
-			value: opptjening.extension?.poengaarFoer92,
+			value: opptjening.poengaarTom1991,
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: opptjening.extension?.poengaarEtter91,
+			value: opptjening.poengaarFom1992,
 		},
 		{
 			label: 'Basispensjon',
@@ -112,35 +112,35 @@ function mapOpptjeningEtterKapittel20ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.extension?.andelsbroekKap20,
+			value: opptjening.kapittel20Andel,
 		},
 		{
 			label: 'Delingstall ved uttak',
-			value: opptjening.extension?.delingstall,
+			value: opptjening.delingstall,
 		},
 		{
 			label: 'Garantipensjon',
-			value: opptjening.extension?.garantipensjonBeloep,
+			value: opptjening.garantipensjonBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Garantitillegg',
-			value: 54453,
+			value: opptjening.garantitilleggBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
-			value: opptjening.extension?.pensjonBeholdningFoerUttakBeloep,
+			value: opptjening.pensjonsbeholdningFoerUttakBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: opptjening.extension?.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
+			value: (opptjening?.pensjonsbeholdningFoerUttakBeloep ?? 0) / 2,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.extension?.trygdetidKap20,
+			value: opptjening.kapittel20Trygdetid,
 		},
 	]
 }
