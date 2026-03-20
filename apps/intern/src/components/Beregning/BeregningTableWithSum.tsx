@@ -8,6 +8,7 @@ export interface BeregningTableRow {
 	label: string
 	value?: number
 	unit?: Unit
+	hide?: boolean
 }
 
 interface BeregningTableWithSumProps {
@@ -50,6 +51,7 @@ export const BeregningTableWithSum = ({
 			<Table.Body>
 				{rows.map(
 					(row) =>
+						!row.hide &&
 						row.value != null &&
 						row.value >= 0 && (
 							<Table.Row key={row.label}>

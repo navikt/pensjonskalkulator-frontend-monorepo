@@ -17,8 +17,10 @@ const formatAar = (value?: number | null): string =>
 export function mapAlderspensjonToRows(
 	entry: AlderspensjonPensjonsberegning,
 	visKap19: boolean,
-	visKap20: boolean
+	visKap20: boolean,
+	simulererMedGjenlevenderett: boolean
 ): BeregningTableRow[] {
+	const skjermingstillegg = Math.round((entry.skjermingstillegg ?? 0) / 12)
 	return [
 		...(visKap19
 			? [
@@ -37,6 +39,7 @@ export function mapAlderspensjonToRows(
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
 						value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
+						hide: !simulererMedGjenlevenderett,
 					},
 				]
 			: []),
@@ -54,7 +57,8 @@ export function mapAlderspensjonToRows(
 			: []),
 		{
 			label: 'Skjermingstillegg',
-			value: Math.round((entry.skjermingstillegg ?? 0) / 12),
+			value: skjermingstillegg,
+			hide: skjermingstillegg <= 0,
 		},
 	]
 }
@@ -89,12 +93,19 @@ export function mapOpptjeningEtterKapittel19ToRows(
 			value: formatAar(opptjening.trygdetidKap19),
 		},
 		{
+			label: 'Poengår',
+			value:
+				formatNumber(
+					(opptjening.poengaarEtter91 || 0) + (opptjening.poengaarFoer92 || 0)
+				) + ' år',
+		},
+		{
 			label: 'Poengår før 1992 (45 %)',
-			value: formatNumber(opptjening.poengaarFoer92 || 0) + ' av 37',
+			value: formatNumber(opptjening.poengaarFoer92 || 0) + ' år',
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: formatNumber(opptjening.poengaarEtter91 || 0) + ' av 37',
+			value: formatNumber(opptjening.poengaarEtter91 || 0) + ' år',
 		},
 	]
 }
@@ -134,10 +145,12 @@ export function mapPrivatAfp(
 	entry?: AfpPrivatPensjonsberegning,
 	visKronetillegg = true
 ): BeregningTableRow[] {
+	const kompensasjonstillegg = entry?.kompensasjonstillegg ?? 0
 	return [
 		{
 			label: 'Kompensasjonstillegg',
-			value: entry?.kompensasjonstillegg ?? 0,
+			value: kompensasjonstillegg,
+			hide: kompensasjonstillegg <= 0,
 		},
 		{
 			label: 'Kronetillegg',
