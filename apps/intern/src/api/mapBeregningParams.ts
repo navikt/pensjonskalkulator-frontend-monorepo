@@ -39,8 +39,13 @@ export function mapBeregningParamsToRequest(
 			}
 		: uttaksalder
 
+	const simuleringstype =
+		formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid
+			? 'ALDERSPENSJON_MED_GJENLEVENDERETT'
+			: 'ALDERSPENSJON'
+
 	return {
-		simuleringstype: 'ALDERSPENSJON',
+		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		gradertUttak: erGradert
 			? {
