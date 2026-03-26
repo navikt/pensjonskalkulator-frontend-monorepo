@@ -79,7 +79,7 @@ export const SanityAlert = ({
 			return (
 				<GlobalAlert
 					status={alertStatusMap[status]}
-					className={clsx(styles.wrapper, className)}
+					className={clsx(className)}
 					data-testid={sanityContent.name}
 				>
 					{sanityContent.overskrift && (

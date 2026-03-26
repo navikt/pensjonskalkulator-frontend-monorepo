@@ -86,13 +86,10 @@ export const BeregningForm = () => {
 	const [alertDismissed, setAlertDismissed] = useState(false)
 
 	useEffect(() => {
-		console.log('aktivBeregning changed, resetting alertDismissed to false')
-
 		setAlertDismissed(false)
 	}, [aktivBeregning])
 
 	const handleReset = useCallback(() => {
-		console.log('Resetting form and dismissing alert')
 		setAlertDismissed(true)
 		resetForm()
 	}, [resetForm])
@@ -134,8 +131,6 @@ export const BeregningForm = () => {
 			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
 			heltUttakAlder
 		)
-
-	console.log('alertDismissed', alertDismissed)
 
 	return (
 		<Box className={styles.beregningForm}>
