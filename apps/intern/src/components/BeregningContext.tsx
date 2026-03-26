@@ -97,7 +97,9 @@ export function BeregningProvider({
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
-	const showDirtyWarning = !!pendingBeregning && formIsDirty
+	const isDirty =
+		(!!pendingBeregning && formIsDirty) ||
+		(!!aktivBeregning && !pendingBeregning)
 
 	const [
 		sivilstatus,
@@ -213,7 +215,7 @@ export function BeregningProvider({
 				value={{
 					form,
 					aktivBeregning,
-					isDirty: showDirtyWarning,
+					isDirty,
 					fnr,
 					person,
 					beregning,
