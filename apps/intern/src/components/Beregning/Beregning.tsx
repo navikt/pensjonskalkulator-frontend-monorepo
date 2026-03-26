@@ -163,7 +163,9 @@ export const Beregning = () => {
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
 	const hasBeregning =
-		beregning && beregning.vilkaarsproeving.vilkaarErOppfylt !== false
+		beregning &&
+		isBeregningLoading &&
+		beregning.vilkaarsproeving.vilkaarErOppfylt !== false
 
 	if (!hasBeregning) {
 		return (

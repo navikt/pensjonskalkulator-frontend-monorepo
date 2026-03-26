@@ -1,3 +1,4 @@
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
@@ -33,7 +34,7 @@ import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
-const sivilstandOptions = [
+const sivilstandOptions: { value: Sivilstatus; label: string }[] = [
 	{ value: 'ENKE_ELLER_ENKEMANN', label: 'Enke/enkemann' },
 	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
