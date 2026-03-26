@@ -1,3 +1,4 @@
+import { updateAndFormatInntektFromInputField } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useEffect, useRef, useState } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
@@ -57,15 +58,22 @@ export function RHFTextField({
 			error={error}
 			onChange={(e) => {
 				const raw = e.target.value
-				setRawValue(raw)
 				isUserInputRef.current = true
 
-				if (raw === '') {
+				updateAndFormatInntektFromInputField(
+					e.target,
+					raw,
+					setRawValue,
+					() => {}
+				)
+
+				const stripped = raw.replace(/\s/g, '')
+				if (stripped === '') {
 					hasFormatErrorRef.current = false
 					field.onChange(null)
-				} else if (/^\d+$/.test(raw)) {
+				} else if (/^\d+$/.test(stripped)) {
 					hasFormatErrorRef.current = false
-					field.onChange(Number(raw))
+					field.onChange(Number(stripped))
 				} else {
 					hasFormatErrorRef.current = true
 					field.onChange(null)

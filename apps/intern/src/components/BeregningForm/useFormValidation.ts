@@ -176,14 +176,6 @@ function validateInntektVsaGradertUttak(
 			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
 				'Inntekten kan ikke overskride 100 000 000 kr.'
 		}
-
-		if (
-			formData.alderAarInntektGradertSlutter === null ||
-			formData.alderMdInntektGradertSlutter === null
-		) {
-			errors.alderAarInntektGradertSlutter =
-				'Velg år og måned for når inntekt slutter.'
-		}
 	}
 }
 
