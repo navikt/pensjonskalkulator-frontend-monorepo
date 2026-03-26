@@ -164,9 +164,9 @@ export const Beregning = () => {
 
 	const hasBeregning =
 		beregning &&
-		isBeregningLoading &&
+		!isBeregningLoading &&
 		beregning.vilkaarsproeving.vilkaarErOppfylt !== false
-
+	console.log('Beregning', { beregning, isBeregningLoading, hasBeregning })
 	if (!hasBeregning) {
 		return (
 			<Box
