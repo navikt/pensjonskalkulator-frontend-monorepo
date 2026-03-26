@@ -177,6 +177,7 @@ export function BeregningProvider({
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
+		setAktivBeregning({ ...values })
 		setPendingBeregning({ ...values })
 		form.reset(values, { keepValues: true })
 	}, [form])
