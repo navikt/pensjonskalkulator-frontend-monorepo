@@ -1,5 +1,6 @@
 import type { SimuleringRequestBody } from '@pensjonskalkulator-frontend-monorepo/types'
 
+import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
 import type { BeregningFormData } from './beregningTypes'
 
 export function mapBeregningParamsToRequest(
@@ -44,6 +45,11 @@ export function mapBeregningParamsToRequest(
 			? 'ALDERSPENSJON_MED_GJENLEVENDERETT'
 			: 'ALDERSPENSJON'
 
+	const epsPid = formData.epsOpplysninger?.pid
+	const epsDoedsdato = formData.epsOpplysninger
+		? getEpsDoedsdato(formData.epsOpplysninger)
+		: undefined
+
 	return {
 		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
@@ -76,12 +82,10 @@ export function mapBeregningParamsToRequest(
 				harPensjon: Boolean(formData.epsHarPensjon),
 			},
 			avdoed:
-				formData.epsOpplysninger?.pid &&
-				formData.epsOpplysninger?.relasjonPersondata?.doedsdato
+				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 					? {
-							pid: formData.epsOpplysninger?.pid,
-							doedsdato:
-								formData.epsOpplysninger?.relasjonPersondata?.doedsdato,
+							pid: epsPid,
+							doedsdato: epsDoedsdato,
 							medlemAvFolketrygden: Boolean(
 								formData.epsMedlemAvFolketrygdenVedDoedsDato
 							),
