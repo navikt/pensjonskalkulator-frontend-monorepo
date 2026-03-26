@@ -48,7 +48,7 @@ const BeregningLayout = () => {
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
-						<Heading level="2" size="small">
+						<Heading level="2" size="xsmall" className={styles.heading}>
 							Pensjonskalkulator
 						</Heading>
 					</Box>
