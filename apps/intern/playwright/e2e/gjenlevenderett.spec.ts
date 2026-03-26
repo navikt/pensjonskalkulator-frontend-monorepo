@@ -182,22 +182,14 @@ test.describe('Gjenlevenderett', () => {
 			await navigateToApp(page)
 		})
 
-		test('Skjuler sivilstands-velger når gjenlevenderett er valgt for partner-sivilstatus', async ({
+		test('Skjuler sivilstatus-velger når gjenlevenderett er valgt for partner-sivilstatus', async ({
 			page,
 		}) => {
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).toBeVisible()
 
 			await checkGjenlevenderett(page)
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).not.toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).not.toBeVisible()
 		})
 
 		test('Viser sivilstands-velger igjen når gjenlevenderett er avkrysset bort', async ({
@@ -205,19 +197,11 @@ test.describe('Gjenlevenderett', () => {
 		}) => {
 			const checkbox = await checkGjenlevenderett(page)
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).not.toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).not.toBeVisible()
 
 			await checkbox.uncheck()
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).toBeVisible()
 		})
 	})
 

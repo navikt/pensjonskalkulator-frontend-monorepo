@@ -119,6 +119,7 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
+						testId="sivilstatus-select"
 						label="Sivilstatus ved uttak"
 						className={styles.selectWrapper}
 					>
@@ -149,6 +150,7 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
+						data-testid="eps-inntekt-over-2G"
 						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
