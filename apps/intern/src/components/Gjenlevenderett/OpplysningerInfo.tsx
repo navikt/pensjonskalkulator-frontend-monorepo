@@ -59,13 +59,11 @@ export const OpplysningerInfo = ({
 				name="epsAntallUtenlandsOppholdAar"
 				label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
 				style={{ width: '96px' }}
-				formatError="Skriv hele tall for å oppgi antall år i utlandet."
 			/>
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
 				label="Pensjonsgivende inntekt året før dødsdato"
 				style={{ width: '184px' }}
-				formatError="Du må skrive hele tall for å oppgi inntekt."
 			/>
 			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) && (
 				<RHFRadio
