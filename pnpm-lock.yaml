@@ -441,15 +441,16 @@ importers:
 
   packages/mocks:
     dependencies:
-      '@pensjonskalkulator-frontend-monorepo/types':
-        specifier: workspace:*
-        version: link:../types
       msw:
         specifier: ^2.0.0
         version: 2.12.7(@types/node@24.10.9)(typescript@5.9.3)
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
+    devDependencies:
+      '@pensjonskalkulator-frontend-monorepo/types':
+        specifier: workspace:*
+        version: link:../types
 
   packages/sanity:
     dependencies:
@@ -2201,6 +2202,9 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.10
       react: ^19.2.4
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@navikt/ds-react@7.40.0':
     resolution: {integrity: sha512-UAjWnl2ot3QtXTitbuzO8b28ugBR7Bx/AiPM+SkdCCrcC0LB5/qQ5LhnGAY9UvPVyRV8GUAc2iHvTdl47+t+nQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/7.40.0/4752ce4b946ab9f05135124d5fec50f2d0eaa937}
@@ -10043,11 +10047,12 @@ snapshots:
       '@floating-ui/react-dom': 2.1.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/aksel-icons': 7.40.0
       '@navikt/ds-tokens': 7.40.0
-      '@types/react': 19.2.10
       clsx: 2.1.1
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
+    optionalDependencies:
+      '@types/react': 19.2.10
     transitivePeerDependencies:
       - react-dom
 

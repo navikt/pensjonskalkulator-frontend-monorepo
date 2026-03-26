@@ -16,7 +16,7 @@
 	"scripts": {
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*"
 	},
 	"peerDependencies": {
