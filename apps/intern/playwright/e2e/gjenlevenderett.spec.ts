@@ -237,7 +237,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByTestId('EPS-hent-opplysninger-button').click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 		})
 
@@ -249,13 +249,13 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByTestId('EPS-hent-opplysninger-button').click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 
 			await selectBakgrunnAndFetch(page)
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).not.toBeVisible()
 		})
 	})
@@ -480,7 +480,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).not.toBeVisible()
 			await expect(
 				page.getByText(
@@ -682,7 +682,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 		})
 	})
