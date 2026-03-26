@@ -1,6 +1,7 @@
 import type {
 	LoependeVedtak,
 	PersonInternV1,
+	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
@@ -51,11 +52,13 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 interface BeregningProviderProps {
 	children: ReactNode
 	initialInntekt?: number
+	initialSivilstatus?: Sivilstatus
 }
 
 export function BeregningProvider({
 	children,
 	initialInntekt,
+	initialSivilstatus,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
@@ -63,6 +66,7 @@ export function BeregningProvider({
 			...(initialInntekt !== undefined
 				? { aarligInntektFoerUttakBeloep: initialInntekt }
 				: {}),
+			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 		},
 		mode: 'onChange',
 	})
@@ -75,6 +79,7 @@ export function BeregningProvider({
 				...(initialInntekt !== undefined
 					? { aarligInntektFoerUttakBeloep: initialInntekt }
 					: {}),
+				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 			},
 			{ keepValues: true, keepDirty: false }
 		)
@@ -185,10 +190,10 @@ export function BeregningProvider({
 		form.reset({
 			...defaultBeregningFormData,
 			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
+			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 		})
-		setAktivBeregning(null)
 		setPendingBeregning(null)
-	}, [form, person?.sivilstatus])
+	}, [form, person?.sivilstatus, initialSivilstatus])
 
 	const {
 		data: beregning,
