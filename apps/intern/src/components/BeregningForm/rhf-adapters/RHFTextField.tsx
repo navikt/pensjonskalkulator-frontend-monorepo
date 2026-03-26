@@ -4,6 +4,7 @@ import { useController, useFormContext } from 'react-hook-form'
 import { TextField } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
+import { toRawValue } from './utils'
 
 interface RHFTextFieldProps {
 	name: keyof BeregningFormData
@@ -34,11 +35,11 @@ export function RHFTextField({
 		},
 	})
 
-	const [rawValue, setRawValue] = useState(field.value?.toString() ?? '')
+	const [rawValue, setRawValue] = useState(toRawValue(field.value))
 
 	useEffect(() => {
 		if (!isUserInputRef.current) {
-			setRawValue(field.value?.toString() ?? '')
+			setRawValue(toRawValue(field.value))
 		}
 		isUserInputRef.current = false
 	}, [field.value])
