@@ -173,7 +173,7 @@ export function AlderVelger({
 					onChange={(e) => onAlderMdChange(e.target.value)}
 				>
 					{MONTHS.map((month) => {
-						const selectedMonth = alderMd ? Number(alderMd) : undefined
+						const selectedMonth = alderMd && Number(alderMd)
 						const isValid = isMonthValidForSelectedYear(
 							month,
 							selectedYear,
