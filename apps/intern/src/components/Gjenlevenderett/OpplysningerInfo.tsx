@@ -51,8 +51,8 @@ export const OpplysningerInfo = ({
 				<Table.Body>
 					{rows.map(({ label, value }) => (
 						<Table.Row key={label}>
-							<Table.DataCell>{label}</Table.DataCell>
-							<Table.DataCell>{value}</Table.DataCell>
+							<Table.DataCell textSize="small">{label}</Table.DataCell>
+							<Table.DataCell textSize="small">{value}</Table.DataCell>
 						</Table.Row>
 					))}
 				</Table.Body>

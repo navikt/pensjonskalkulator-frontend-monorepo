@@ -72,7 +72,7 @@ function validateGjenlevenderett(
 
 	if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 		errors.bakgrunnForBrukAvOpplysningerOmEPS =
-			'Velg bakgrunn for bruk av opplysninger om EPS.'
+			'Velg grunnlag for å hente opplysninger om EPS.'
 	}
 
 	if (
@@ -296,7 +296,7 @@ export function useFormValidation() {
 
 			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
-					'Velg bakgrunn for bruk av opplysninger om EPS.'
+					'Velg grunnlag for å hente opplysninger om EPS.'
 			}
 
 			setValidationErrors(errors)

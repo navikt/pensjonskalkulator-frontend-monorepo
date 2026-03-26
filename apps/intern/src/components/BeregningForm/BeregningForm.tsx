@@ -119,7 +119,7 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
-						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						label="Sivilstatus ved uttak"
 						className={styles.selectWrapper}
 					>
 						{(initialSivilstatus === 'UOPPGITT' ||
@@ -137,7 +137,7 @@ export const BeregningForm = () => {
 				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
 					<RHFRadio
 						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
@@ -149,7 +149,7 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}

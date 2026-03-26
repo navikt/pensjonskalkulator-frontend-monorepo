@@ -52,6 +52,16 @@ export const Gjenlevenderett = () => {
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
 	})
+	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
+		control,
+		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,
+	})
+
+	useEffect(() => {
+		if (!harHentetEPSOpplysninger) {
+			setEpsQueryParams({} as { sivilstatus: Sivilstatus; bakgrunn: string })
+		}
+	}, [harHentetEPSOpplysninger])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -89,7 +99,7 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const isEPSInfoEmpty = EPSOpplysninger && EPSOpplysninger.pid === null
+	const isEPSInfoEmpty = formEpsOpplysninger && formEpsOpplysninger.pid === null
 
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'
@@ -116,7 +126,7 @@ export const Gjenlevenderett = () => {
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					{isEPSLoading && EPSLoader}
-					{!isEPSLoading && !isError && !EPSOpplysninger && (
+					{!isEPSLoading && !isError && !formEpsOpplysninger && (
 						<RHFRadio
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
 							legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
@@ -135,7 +145,7 @@ export const Gjenlevenderett = () => {
 					)}
 					{isError && EPSError}
 
-					{!isEPSLoading && !EPSOpplysninger && (
+					{!isEPSLoading && !formEpsOpplysninger && (
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
@@ -168,8 +178,8 @@ export const Gjenlevenderett = () => {
 							</LocalAlert.Content>
 						</LocalAlert>
 					)}
-					{EPSOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo EPSOpplysninger={EPSOpplysninger} />
+					{formEpsOpplysninger && !isEPSInfoEmpty && (
+						<OpplysningerInfo EPSOpplysninger={formEpsOpplysninger} />
 					)}
 				</div>
 			)}
