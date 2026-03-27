@@ -158,7 +158,7 @@ export const Beregning = () => {
 							entry={gradertMaanedligAlderspensjon}
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
-							visKronetillegg={gradertUttakAlder!.aar! < 67}
+							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
 							afpTableAddToSum={gradertMaanedligAlderspensjon.beloep ?? 0}
 							totalAddToSum={
 								(gradertMaanedligAlderspensjon.beloep ?? 0) +
@@ -167,8 +167,8 @@ export const Beregning = () => {
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 						/>
 						{harAfpPrivat &&
-							heltUttakAlder.aar! > 67 &&
-							gradertUttakAlder!.aar! < 67 && (
+							(heltUttakAlder.aar ?? 0) > 67 &&
+							(gradertUttakAlder?.aar ?? 0) < 67 && (
 								<BeregningSection
 									title={formatAlderTitle(67, 0)}
 									{...sectionCommonProps}
@@ -190,14 +190,14 @@ export const Beregning = () => {
 					entry={helMaanedligAlderspensjon}
 					showAfp={harAfpPrivat}
 					afpEntry={afpPrivatVedHeltUttak}
-					visKronetillegg={heltUttakAlder.aar! < 67}
+					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 					totalAddToSum={
 						(helMaanedligAlderspensjon?.beloep ?? 0) +
 						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 					}
 					alderspensjonGrad={100}
 				/>
-				{harAfpPrivat && heltUttakAlder.aar! < 67 && (
+				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
 					<BeregningSection
 						title={formatAlderTitle(67, 0)}
 						{...sectionCommonProps}
