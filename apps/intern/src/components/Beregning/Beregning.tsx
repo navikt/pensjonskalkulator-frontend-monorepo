@@ -169,7 +169,7 @@ export const Beregning = () => {
 									showAfp
 									afpEntry={afpPrivatVed67Aar}
 									totalAddToSum={
-										(normertMaanedligAlderspensjon?.beloep ?? 0) / 12 +
+										(normertMaanedligAlderspensjon?.beloep ?? 0) +
 										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
@@ -198,7 +198,7 @@ export const Beregning = () => {
 						showAfp
 						afpEntry={afpPrivatVed67Aar}
 						totalAddToSum={
-							(normertMaanedligAlderspensjon?.beloep ?? 0) / 12 +
+							(normertMaanedligAlderspensjon?.beloep ?? 0) +
 							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 						}
 						alderspensjonGrad={100}
