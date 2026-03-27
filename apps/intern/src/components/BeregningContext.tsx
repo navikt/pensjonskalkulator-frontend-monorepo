@@ -197,6 +197,12 @@ export function BeregningProvider({
 		error: beregningError,
 	} = useBeregningQuery(fnr, aktivBeregning)
 
+	useEffect(() => {
+		if (!isBeregningLoading && pendingBeregning) {
+			setAktivBeregning(pendingBeregning)
+		}
+	}, [isBeregningLoading, pendingBeregning])
+
 	return (
 		<FormProvider {...form}>
 			<BeregningContext.Provider

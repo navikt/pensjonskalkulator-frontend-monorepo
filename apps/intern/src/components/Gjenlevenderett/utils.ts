@@ -7,15 +7,3 @@ export function getEpsDoedsdato(epsOpplysninger: EpsOpplysninger): string {
 		format(subDays(new Date(), 1), 'yyyy-MM-dd')
 	)
 }
-
-export function epsOpplysningerWithfallbackEpsDoedsdato(
-	epsOpplysninger: EpsOpplysninger
-): EpsOpplysninger {
-	return {
-		...epsOpplysninger,
-		relasjonPersondata: {
-			...(epsOpplysninger.relasjonPersondata ?? {}),
-			doedsdato: getEpsDoedsdato(epsOpplysninger),
-		},
-	}
-}

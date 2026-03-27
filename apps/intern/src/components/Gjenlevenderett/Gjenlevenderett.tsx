@@ -16,7 +16,6 @@ import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { useFormValidation } from '../BeregningForm/useFormValidation'
 import { OpplysningerInfo } from './OpplysningerInfo'
-import { epsOpplysningerWithfallbackEpsDoedsdato } from './utils'
 
 import styles from './Gjenlevenderett.module.css'
 
@@ -38,13 +37,9 @@ export const Gjenlevenderett = () => {
 
 	useEffect(() => {
 		if (EPSOpplysninger) {
-			form.setValue(
-				'epsOpplysninger',
-				epsOpplysningerWithfallbackEpsDoedsdato(EPSOpplysninger),
-				{
-					shouldDirty: false,
-				}
-			)
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
 		}
 	}, [EPSOpplysninger, form])
 
