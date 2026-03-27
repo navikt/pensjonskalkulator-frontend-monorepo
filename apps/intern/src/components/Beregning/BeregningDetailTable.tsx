@@ -5,6 +5,7 @@ import styles from './BeregningTable.module.css'
 export interface BeregningDetailRow {
 	label: string
 	value: string
+	hide?: boolean
 }
 
 interface BeregningDetailTableProps {
@@ -28,7 +29,7 @@ export const BeregningDetailTable = ({
 		</Table.Header>
 		<Table.Body>
 			{rows
-				.filter((row) => row.value !== '')
+				.filter((row) => row.value !== '' && !row.hide)
 				.map((row) => (
 					<Table.Row key={row.label}>
 						<Table.DataCell>

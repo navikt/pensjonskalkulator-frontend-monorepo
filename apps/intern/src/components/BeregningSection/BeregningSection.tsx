@@ -26,6 +26,7 @@ interface BeregningSectionProps {
 	afpTableAddToSum?: number
 	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
+	isGradert?: boolean
 }
 
 export const BeregningSection = ({
@@ -42,6 +43,7 @@ export const BeregningSection = ({
 	totalAddToSum = 0,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
+	isGradert = false,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12">
 		<Heading level="3" size="small">
@@ -60,6 +62,7 @@ export const BeregningSection = ({
 					grunnbeloep={grunnbeloep}
 					alderspensjonGrad={alderspensjonGrad}
 					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
+					isGradert={isGradert}
 				/>
 			)}
 			{showAfp && (

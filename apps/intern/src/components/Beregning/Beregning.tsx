@@ -126,6 +126,7 @@ export const Beregning = () => {
 		erFoedtEtter1963,
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
+		isGradert: !!erGradert,
 	}
 	return (
 		<Box

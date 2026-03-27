@@ -16,6 +16,7 @@ interface AlderspensjonTablesProps {
 	grunnbeloep?: number
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
+	isGradert?: boolean
 }
 
 export const AlderspensjonTables = ({
@@ -26,6 +27,7 @@ export const AlderspensjonTables = ({
 	grunnbeloep,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
+	isGradert = false,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
@@ -41,7 +43,7 @@ export const AlderspensjonTables = ({
 		{erFoedtFoer1963 && (
 			<BeregningDetailTable
 				title="Opptjening etter kapittel 19"
-				rows={mapOpptjeningEtterKapittel19ToRows(entry, grunnbeloep)}
+				rows={mapOpptjeningEtterKapittel19ToRows(entry, grunnbeloep, isGradert)}
 			/>
 		)}
 		{(erOvergangskull || erFoedtEtter1963) && (

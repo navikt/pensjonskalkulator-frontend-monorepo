@@ -29,19 +29,19 @@ export function mapAlderspensjonToRows(
 			? [
 					{
 						label: 'Grunnpensjon (kap. 19)',
-						value: Math.round((entry.grunnpensjonBeloep ?? 0) / 12),
+						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
-						value: Math.round((entry.tilleggspensjonBeloep ?? 0) / 12),
+						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
-						value: Math.round((entry.pensjonstillegg ?? 0) / 12),
+						value: Math.round(entry.pensjonstillegg ?? 0),
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
-						value: Math.round((entry.gjenlevendetillegg ?? 0) / 12),
+						value: Math.round(entry.gjenlevendetillegg ?? 0),
 						hide: !simulererMedGjenlevenderett,
 					},
 				]
@@ -50,11 +50,11 @@ export function mapAlderspensjonToRows(
 			? [
 					{
 						label: 'Inntektspensjon (kap. 20)',
-						value: Math.round((entry.inntektspensjonBeloep ?? 0) / 12),
+						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
-						value: Math.round((entry.garantipensjonBeloep ?? 0) / 12),
+						value: Math.round(entry.garantipensjonBeloep ?? 0),
 					},
 				]
 			: []),
@@ -68,7 +68,8 @@ export function mapAlderspensjonToRows(
 
 export function mapOpptjeningEtterKapittel19ToRows(
 	opptjening: SimuleringMaanedligAlderspensjon,
-	grunnbeloep?: number
+	grunnbeloep?: number,
+	isGradert = false
 ): BeregningDetailRow[] {
 	return [
 		{
@@ -80,8 +81,8 @@ export function mapOpptjeningEtterKapittel19ToRows(
 			value: formatKr(grunnbeloep),
 		},
 		{
-			label: 'Minste pensjonsbeløp',
-			value: formatKr(279933),
+			label: 'Minste pensjonsnivå',
+			value: formatKr(opptjening.minstePensjonsnivaaSats),
 		},
 		{
 			label: 'Forholdstall ved uttak',
@@ -110,6 +111,16 @@ export function mapOpptjeningEtterKapittel19ToRows(
 			label: 'Poengår etter 1991 (42 %)',
 			value: formatNumber(opptjening.poengaarFom1992 || 0) + ' år',
 		},
+		{
+			label: 'Basispensjon',
+			value: formatKr(opptjening.basispensjonBeloep),
+			hide: !isGradert && (opptjening.basispensjonBeloep ?? 0) <= 0,
+		},
+		{
+			label: 'Restpensjon',
+			value: formatKr(opptjening.restpensjonBeloep),
+			hide: !isGradert && (opptjening.restpensjonBeloep ?? 0) <= 0,
+		},
 	]
 }
 
@@ -127,7 +138,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Garantipensjon',
-			value: formatKr(opptjening.garantipensjonBeloep),
+			value: formatKr(opptjening.garantipensjonSats),
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
@@ -135,7 +146,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: formatKr(opptjening.pensjonsbeholdningEtterUttakBeloep ?? 0 / 2),
+			value: formatKr(opptjening.pensjonsbeholdningEtterUttakBeloep ?? 0),
 		},
 		{
 			label: 'Trygdetid',
