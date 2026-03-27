@@ -196,12 +196,11 @@ export function BeregningProvider({
 		})
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus, initialSivilstatus])
-
 	const {
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, aktivBeregning)
+	} = useBeregningQuery(fnr, pendingBeregning)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {
