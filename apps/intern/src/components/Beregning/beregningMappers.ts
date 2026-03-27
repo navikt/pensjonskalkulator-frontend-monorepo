@@ -1,4 +1,7 @@
-import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	SimuleringAfpPrivat,
+	SimuleringMaanedligAlderspensjon,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
@@ -15,7 +18,7 @@ const formatAar = (value?: number | null): string =>
 	value != null ? `${value} år` : ''
 
 export function mapAlderspensjonToRows(
-	entry: AlderspensjonPensjonsberegning,
+	entry: SimuleringMaanedligAlderspensjon,
 	visKap19: boolean,
 	visKap20: boolean,
 	simulererMedGjenlevenderett: boolean
@@ -26,11 +29,11 @@ export function mapAlderspensjonToRows(
 			? [
 					{
 						label: 'Grunnpensjon (kap. 19)',
-						value: Math.round((entry.grunnpensjon ?? 0) / 12),
+						value: Math.round((entry.grunnpensjonBeloep ?? 0) / 12),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
-						value: Math.round((entry.tilleggspensjon ?? 0) / 12),
+						value: Math.round((entry.tilleggspensjonBeloep ?? 0) / 12),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
@@ -38,7 +41,7 @@ export function mapAlderspensjonToRows(
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
-						value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
+						value: Math.round((entry.gjenlevendetillegg ?? 0) / 12),
 						hide: !simulererMedGjenlevenderett,
 					},
 				]
@@ -64,13 +67,13 @@ export function mapAlderspensjonToRows(
 }
 
 export function mapOpptjeningEtterKapittel19ToRows(
-	opptjening: AlderspensjonPensjonsberegning,
+	opptjening: SimuleringMaanedligAlderspensjon,
 	grunnbeloep?: number
 ): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber((opptjening.andelsbroekKap19 || 0) * 10) + '/10',
+			value: formatNumber((opptjening.kapittel19Andel || 0) * 10) + '/10',
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -82,7 +85,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Forholdstall ved uttak',
-			value: formatNumber(opptjening.forholdstall),
+			value: formatNumber(opptjening.forholdstall ?? 0),
 		},
 		{
 			label: 'Sluttpoengtall',
@@ -90,33 +93,33 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Trygdetid',
-			value: formatAar(opptjening.trygdetidKap19),
+			value: formatAar(opptjening.kapittel19Trygdetid),
 		},
 		{
 			label: 'Poengår',
 			value:
 				formatNumber(
-					(opptjening.poengaarEtter91 || 0) + (opptjening.poengaarFoer92 || 0)
+					(opptjening.poengaarFom1992 || 0) + (opptjening.poengaarTom1991 || 0)
 				) + ' år',
 		},
 		{
 			label: 'Poengår før 1992 (45 %)',
-			value: formatNumber(opptjening.poengaarFoer92 || 0) + ' år',
+			value: formatNumber(opptjening.poengaarTom1991 || 0) + ' år',
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: formatNumber(opptjening.poengaarEtter91 || 0) + ' år',
+			value: formatNumber(opptjening.poengaarFom1992 || 0) + ' år',
 		},
 	]
 }
 
 export function mapOpptjeningEtterKapittel20ToRows(
-	opptjening: AlderspensjonPensjonsberegning
+	opptjening: SimuleringMaanedligAlderspensjon
 ): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber((opptjening.andelsbroekKap20 || 0) * 10) + '/10',
+			value: formatNumber((opptjening.kapittel20Andel || 0) * 10) + '/10',
 		},
 		{
 			label: 'Delingstall ved uttak',
@@ -128,21 +131,21 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
-			value: formatKr(opptjening.pensjonBeholdningFoerUttakBeloep),
+			value: formatKr(opptjening.pensjonsbeholdningFoerUttakBeloep),
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: formatKr(opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2),
+			value: formatKr(opptjening.pensjonsbeholdningEtterUttakBeloep ?? 0 / 2),
 		},
 		{
 			label: 'Trygdetid',
-			value: formatAar(opptjening.trygdetidKap20),
+			value: formatAar(opptjening.kapittel20Trygdetid),
 		},
 	]
 }
 
 export function mapPrivatAfp(
-	entry?: AfpPrivatPensjonsberegning,
+	entry?: SimuleringAfpPrivat,
 	visKronetillegg = true
 ): BeregningTableRow[] {
 	const kompensasjonstillegg = entry?.kompensasjonstillegg ?? 0

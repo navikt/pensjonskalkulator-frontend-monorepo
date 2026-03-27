@@ -1,6 +1,6 @@
 import type {
-	AfpPrivatPensjonsberegning,
-	AlderspensjonPensjonsberegning,
+	SimuleringAfpPrivat,
+	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { Heading, VStack } from '@navikt/ds-react'
@@ -14,17 +14,18 @@ import styles from './BeregningSection.module.css'
 interface BeregningSectionProps {
 	title: string
 	tableCount: number
-	entry?: AlderspensjonPensjonsberegning
+	entry?: SimuleringMaanedligAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
 	grunnbeloep?: number
 	showAfp?: boolean
-	afpEntry?: AfpPrivatPensjonsberegning
+	afpEntry?: SimuleringAfpPrivat
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
 	afpTableAddToSum?: number
 	totalAddToSum?: number
+	simulererMedGjenlevenderett?: boolean
 }
 
 export const BeregningSection = ({
@@ -40,6 +41,7 @@ export const BeregningSection = ({
 	visKronetillegg = false,
 	totalAddToSum = 0,
 	alderspensjonGrad,
+	simulererMedGjenlevenderett = false,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12">
 		<Heading level="3" size="small">
@@ -57,6 +59,7 @@ export const BeregningSection = ({
 					erFoedtEtter1963={erFoedtEtter1963}
 					grunnbeloep={grunnbeloep}
 					alderspensjonGrad={alderspensjonGrad}
+					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
 				/>
 			)}
 			{showAfp && (

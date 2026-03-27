@@ -2,6 +2,7 @@ import { useController, useFormContext } from 'react-hook-form'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
 import { AlderVelger } from '../AlderVelger'
+import { toRawValue } from './utils'
 
 interface RHFAlderVelgerProps {
 	aarName: keyof BeregningFormData
@@ -29,8 +30,8 @@ export function RHFAlderVelger({
 
 	return (
 		<AlderVelger
-			alderAar={aarField.value?.toString() ?? ''}
-			alderMd={mdField.value?.toString() ?? ''}
+			alderAar={toRawValue(aarField.value)}
+			alderMd={toRawValue(mdField.value)}
 			onAlderAarChange={(value) =>
 				aarField.onChange(value ? Number(value) : null)
 			}

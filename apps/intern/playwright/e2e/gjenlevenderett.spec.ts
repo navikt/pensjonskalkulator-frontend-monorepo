@@ -6,7 +6,7 @@ const DECRYPT_API_URL = '**/api/v1/decrypt'
 const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
 const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
 const INNTEKT_API_URL = '**/api/inntekt'
-const SIMULERING_API_URL = '**/api/v9/alderspensjon/simulering'
+const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
 const EPS_API_URL = '**/api/intern/v1/eps'
 
 const PERSON_MOCK_FILE = 'person-intern.json'
@@ -182,22 +182,14 @@ test.describe('Gjenlevenderett', () => {
 			await navigateToApp(page)
 		})
 
-		test('Skjuler sivilstands-velger når gjenlevenderett er valgt for partner-sivilstatus', async ({
+		test('Skjuler sivilstatus-velger når gjenlevenderett er valgt for partner-sivilstatus', async ({
 			page,
 		}) => {
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).toBeVisible()
 
 			await checkGjenlevenderett(page)
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).not.toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).not.toBeVisible()
 		})
 
 		test('Viser sivilstands-velger igjen når gjenlevenderett er avkrysset bort', async ({
@@ -205,19 +197,11 @@ test.describe('Gjenlevenderett', () => {
 		}) => {
 			const checkbox = await checkGjenlevenderett(page)
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).not.toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).not.toBeVisible()
 
 			await checkbox.uncheck()
 
-			await expect(
-				page.getByRole('combobox', {
-					name: 'Hva er sivilstanden til bruker ved uttak av pensjon?',
-				})
-			).toBeVisible()
+			await expect(page.getByTestId('sivilstatus-select')).toBeVisible()
 		})
 	})
 
@@ -237,7 +221,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByTestId('EPS-hent-opplysninger-button').click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 		})
 
@@ -249,13 +233,13 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByTestId('EPS-hent-opplysninger-button').click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 
 			await selectBakgrunnAndFetch(page)
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).not.toBeVisible()
 		})
 	})
@@ -480,7 +464,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).not.toBeVisible()
 			await expect(
 				page.getByText(
@@ -682,7 +666,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Velg bakgrunn for bruk av opplysninger om EPS.')
+				page.getByText('Velg grunnlag for å hente opplysninger om EPS.')
 			).toBeVisible()
 		})
 	})

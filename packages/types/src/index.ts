@@ -13,6 +13,9 @@ export type PensjoneringAldre =
 	components['schemas']['PersonResultV6']['pensjoneringAldre']
 // New type for sivilstatus, used in intern app. Has "Samboer"
 export type Sivilstatus =
+	components['schemas']['SimuleringV1Spec']['sivilstatus']
+
+export type EpsSivilstatus =
 	components['schemas']['EpsV1SivilstatusResult']['sivilstatus']
 // Inntekt
 export type Inntekt = components['schemas']['InntektDto']
@@ -61,6 +64,38 @@ export type AlderspensjonPensjonsberegning =
 	components['schemas']['PersonligSimuleringAlderspensjonResultV9']
 export type Pre2025OffentligPensjonsberegning =
 	components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV9']
+
+// Simulering Intern
+export type SimuleringRequestBody = components['schemas']['SimuleringV1Spec']
+export type SimuleringsType =
+	components['schemas']['SimuleringV1Spec']['simuleringstype']
+export type SimuleringResponseBody = components['schemas']['SimuleringV1Result']
+export type SimuleringVilkaarsproevingResultat =
+	components['schemas']['SimuleringV1Vilkaarsproevingsresultat']
+export type SimuleringUttaksparametre =
+	components['schemas']['SimuleringV1Uttaksparametre']
+export type TidsbegrensetOffentligAFP =
+	components['schemas']['SimuleringV1TidsbegrensetOffentligAfp']
+export type SimuleringAlderspensjon =
+	components['schemas']['SimuleringV1Alderspensjon']
+export type SimuleringMaanedligAlderspensjon =
+	components['schemas']['SimuleringV1MaanedligAlderspensjon']
+export type SimuleringAfpPrivat = components['schemas']['SimuleringV1PrivatAfp']
+export type SimuleringAfpOffentlig =
+	components['schemas']['SimuleringV1OffentligAfpSpec']
+export type SimuleringGradertUttak =
+	components['schemas']['SimuleringV1GradertUttakSpec']
+export type SimuleringHeltUttak =
+	components['schemas']['SimuleringV1HeltUttakSpec']
+export type SimuleringAarligInntekt =
+	components['schemas']['SimuleringV1AarligBeloep']
+export type SimuleringAldersbestemtUtbetaling =
+	components['schemas']['SimuleringV1AldersbestemtUtbetaling']
+export type SimuleringMaanedligVedEndring =
+	components['schemas']['SimuleringV1Uttaksbeloep']
+export type Eps = components['schemas']['SimuleringV1EpsSpec']
+export type LevendeEps = components['schemas']['SimuleringV1LevendeEps']
+export type AvdoedEps = components['schemas']['SimuleringV1AvdoedEps']
 
 // Pensjonsavtaler
 export type PensjonsavtalerRequestBody =

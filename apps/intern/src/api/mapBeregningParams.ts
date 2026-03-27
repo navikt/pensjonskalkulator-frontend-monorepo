@@ -1,11 +1,14 @@
-import type { AlderspensjonRequestBody } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	SimuleringRequestBody,
+	SimuleringsType,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
+import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
 import type { BeregningFormData } from './beregningTypes'
 
 export function mapBeregningParamsToRequest(
-	formData: BeregningFormData,
-	foedselsdato: string
-): AlderspensjonRequestBody {
+	formData: BeregningFormData
+): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
 		maaneder: formData.alderMdUttak ?? 0,
@@ -40,14 +43,21 @@ export function mapBeregningParamsToRequest(
 			}
 		: uttaksalder
 
-	const simuleringstype: AlderspensjonSimuleringstype =
-		formData.afp === 'ja_privat'
-			? 'ALDERSPENSJON_MED_AFP_PRIVAT'
-			: 'ALDERSPENSJON'
+	let simuleringstype: SimuleringsType = 'ALDERSPENSJON'
+
+	if (formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid) {
+		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
+	} else if (formData.afp === 'ja_privat') {
+		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
+	}
+
+	const epsPid = formData.epsOpplysninger?.pid
+	const epsDoedsdato = formData.epsOpplysninger
+		? getEpsDoedsdato(formData.epsOpplysninger)
+		: undefined
 
 	return {
 		simuleringstype,
-		foedselsdato,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		gradertUttak: erGradert
 			? {
@@ -71,8 +81,28 @@ export function mapBeregningParamsToRequest(
 						}
 					: undefined,
 		},
-		sivilstand: formData.sivilstatus ?? 'UGIFT',
-		epsHarPensjon: formData.epsHarPensjon ?? undefined,
-		epsHarInntektOver2G: formData.epsHarInntektOver2G ?? undefined,
+		sivilstatus: formData.sivilstatus,
+		eps: {
+			levende: {
+				harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
+				harPensjon: Boolean(formData.epsHarPensjon),
+			},
+			avdoed:
+				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
+					? {
+							pid: epsPid,
+							doedsdato: epsDoedsdato,
+							medlemAvFolketrygden: Boolean(
+								formData.epsMedlemAvFolketrygdenVedDoedsDato
+							),
+							inntektFoerDoedBeloep:
+								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? undefined,
+							inntektErOverGrunnbeloepet: Boolean(
+								formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
+							),
+							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
+						}
+					: undefined,
+		},
 	}
 }

@@ -35,7 +35,7 @@ export const Beregning = () => {
 		)
 	}
 
-	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
+	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
@@ -79,28 +79,24 @@ export const Beregning = () => {
 
 	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
 
-	const heltEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (heltUttakAar ?? 0)
+	const afpPrivatVedGradertUttak = beregning?.privatAfpListe?.find(
+		(entry) => entry.alderAar === (gradertUttakAar ?? 0)
 	)
-	const gradertEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	const afpPrivatVedHeltUttak = beregning?.privatAfpListe?.find(
+		(entry) => entry.alderAar === (heltUttakAar ?? 0)
 	)
-	const maanedsbeloepHeltUttak =
-		beregning.alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep
-	const maanedsbeloepGradertUttak =
-		beregning.alderspensjonMaanedligVedEndring?.gradertUttakMaanedligBeloep
-	const afpPrivatVedGradertUttak = beregning?.afpPrivat?.find(
-		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	const afpPrivatVed67Aar = beregning?.privatAfpListe?.find(
+		(entry) => entry.alderAar === 67
 	)
-	const afpPrivatVedHeltUttak = beregning?.afpPrivat?.find(
-		(entry) => entry.alder === (heltUttakAar ?? 0)
-	)
-	const afpPrivatVed67Aar = beregning?.afpPrivat?.find(
-		(entry) => entry.alder === 67
-	)
-	const alderspensjonVed67Aar = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === 67
-	)
+
+	const helMaanedligAlderspensjon =
+		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+
+	const gradertMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
+
+	const normertMaanedligAlderspensjon =
+		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const titleHeltUttak =
 		aktivBeregning &&
@@ -121,14 +117,16 @@ export const Beregning = () => {
 
 	const harAfpPrivat = aktivBeregning?.afp === 'ja_privat'
 
+	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
+
 	const sectionCommonProps = {
 		tableCount,
 		erFoedtFoer1963,
 		erOvergangskull,
 		erFoedtEtter1963,
 		grunnbeloep: grunnbeloep?.grunnbeløp,
+		simulererMedGjenlevenderett,
 	}
-
 	return (
 		<Box
 			borderColor="neutral-subtle"
@@ -144,18 +142,18 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertEntry && (
+				{gradertMaanedligAlderspensjon && (
 					<>
 						<BeregningSection
 							title={titleGradertUttak || ''}
 							{...sectionCommonProps}
-							entry={gradertEntry}
+							entry={gradertMaanedligAlderspensjon}
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
 							visKronetillegg={gradertUttakAlder!.aar! < 67}
-							afpTableAddToSum={maanedsbeloepGradertUttak ?? 0}
+							afpTableAddToSum={gradertMaanedligAlderspensjon.beloep ?? 0}
 							totalAddToSum={
-								(maanedsbeloepGradertUttak ?? 0) +
+								(gradertMaanedligAlderspensjon.beloep ?? 0) +
 								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
 							}
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
@@ -166,11 +164,11 @@ export const Beregning = () => {
 								<BeregningSection
 									title={formatAlderTitle(67, 0)}
 									{...sectionCommonProps}
-									entry={alderspensjonVed67Aar}
+									entry={normertMaanedligAlderspensjon}
 									showAfp
 									afpEntry={afpPrivatVed67Aar}
 									totalAddToSum={
-										(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
+										(normertMaanedligAlderspensjon?.beloep ?? 0) / 12 +
 										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
@@ -181,12 +179,12 @@ export const Beregning = () => {
 				<BeregningSection
 					title={titleHeltUttak || ''}
 					{...sectionCommonProps}
-					entry={heltEntry}
+					entry={helMaanedligAlderspensjon}
 					showAfp={harAfpPrivat}
 					afpEntry={afpPrivatVedHeltUttak}
 					visKronetillegg={heltUttakAlder.aar! < 67}
 					totalAddToSum={
-						(maanedsbeloepHeltUttak ?? 0) +
+						(helMaanedligAlderspensjon?.beloep ?? 0) +
 						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 					}
 					alderspensjonGrad={100}
@@ -195,11 +193,11 @@ export const Beregning = () => {
 					<BeregningSection
 						title={formatAlderTitle(67, 0)}
 						{...sectionCommonProps}
-						entry={alderspensjonVed67Aar}
+						entry={normertMaanedligAlderspensjon}
 						showAfp
 						afpEntry={afpPrivatVed67Aar}
 						totalAddToSum={
-							(alderspensjonVed67Aar?.beloep ?? 0) / 12 +
+							(normertMaanedligAlderspensjon?.beloep ?? 0) / 12 +
 							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 						}
 						alderspensjonGrad={100}

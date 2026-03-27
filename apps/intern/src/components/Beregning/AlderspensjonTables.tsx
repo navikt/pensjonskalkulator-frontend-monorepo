@@ -1,4 +1,4 @@
-import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
@@ -9,12 +9,13 @@ import {
 } from './beregningMappers'
 
 interface AlderspensjonTablesProps {
-	entry: AlderspensjonPensjonsberegning
+	entry: SimuleringMaanedligAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
 	grunnbeloep?: number
 	alderspensjonGrad: number
+	simulererMedGjenlevenderett?: boolean
 }
 
 export const AlderspensjonTables = ({
@@ -24,6 +25,7 @@ export const AlderspensjonTables = ({
 	erFoedtEtter1963,
 	grunnbeloep,
 	alderspensjonGrad,
+	simulererMedGjenlevenderett = false,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
@@ -32,7 +34,8 @@ export const AlderspensjonTables = ({
 			rows={mapAlderspensjonToRows(
 				entry,
 				!!erFoedtFoer1963,
-				!!erOvergangskull || !!erFoedtEtter1963
+				!!erOvergangskull || !!erFoedtEtter1963,
+				simulererMedGjenlevenderett
 			)}
 		/>
 		{erFoedtFoer1963 && (

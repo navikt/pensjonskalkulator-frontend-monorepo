@@ -17,7 +17,10 @@ function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (formData.epsAntallUtenlandsOppholdAar === null) {
+	if (
+		formData.epsAntallUtenlandsOppholdAar === undefined ||
+		formData.epsAntallUtenlandsOppholdAar === null
+	) {
 		errors.epsAntallUtenlandsOppholdAar =
 			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
 	}
@@ -35,11 +38,15 @@ function validateEPSOpplysninger(
 			'Fyll ut inntekt året før dødsdato.'
 	}
 
+	const epsFoedselsdato =
+		formData.epsOpplysninger?.relasjonPersondata?.foedselsdato
+	const epsDoedsdato = formData.epsOpplysninger?.relasjonPersondata?.doedsdato
+
 	if (
-		formData.epsFoedselsdato &&
+		epsFoedselsdato &&
 		isEpsUnder67EllerDoedsdatoFoer67aar({
-			epsFoedselsdato: formData.epsFoedselsdato,
-			epsDoedsdato: formData.epsDoedsdato,
+			epsFoedselsdato,
+			epsDoedsdato,
 		}) &&
 		formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
 	) {
@@ -68,7 +75,7 @@ function validateGjenlevenderett(
 
 	if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 		errors.bakgrunnForBrukAvOpplysningerOmEPS =
-			'Velg bakgrunn for bruk av opplysninger om EPS.'
+			'Velg grunnlag for å hente opplysninger om EPS.'
 	}
 
 	if (
@@ -291,7 +298,7 @@ export function useFormValidation() {
 
 			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
-					'Velg bakgrunn for bruk av opplysninger om EPS.'
+					'Velg grunnlag for å hente opplysninger om EPS.'
 			}
 
 			setValidationErrors(errors)
