@@ -1,13 +1,11 @@
-import {
-	formatInntekt,
-	updateAndFormatInntektFromInputField,
-} from '@pensjonskalkulator-frontend-monorepo/utils'
+import { updateAndFormatInntektFromInputField } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useEffect, useRef, useState } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
 import { TextField } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
+import { toRawValue } from './utils'
 
 interface RHFTextFieldProps {
 	name: keyof BeregningFormData
@@ -38,15 +36,11 @@ export function RHFTextField({
 		},
 	})
 
-	const [rawValue, setRawValue] = useState(
-		typeof field.value === 'number' ? formatInntekt(field.value) : ''
-	)
+	const [rawValue, setRawValue] = useState(toRawValue(field.value))
 
 	useEffect(() => {
 		if (!isUserInputRef.current) {
-			setRawValue(
-				typeof field.value === 'number' ? formatInntekt(field.value) : ''
-			)
+			setRawValue(toRawValue(field.value))
 		}
 		isUserInputRef.current = false
 	}, [field.value])

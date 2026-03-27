@@ -1,5 +1,6 @@
 import type {
 	EpsOpplysninger,
+	EpsSivilstatus,
 	PersonInternV1,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -7,7 +8,7 @@ import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/ald
 import { addYears, parseISO } from 'date-fns'
 
 export function isSivilstatusWithGjenlevenderett(
-	sivilstatus: Sivilstatus
+	sivilstatus: EpsSivilstatus
 ): boolean {
 	return [
 		'GIFT',
@@ -22,10 +23,11 @@ export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
 }: {
-	sivilstatus: Sivilstatus | null
+	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
 }): boolean {
-	if (!sivilstatus) return true
+	if (!sivilstatus) return false
+
 	return (
 		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
 	)
@@ -35,7 +37,7 @@ export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
 }: {
-	initialSivilstatus: Sivilstatus
+	initialSivilstatus: EpsSivilstatus
 	person: PersonInternV1
 }): boolean {
 	return (

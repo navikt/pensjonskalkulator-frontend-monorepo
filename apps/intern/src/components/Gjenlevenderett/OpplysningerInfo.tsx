@@ -1,11 +1,12 @@
 import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, parseISO, subDays } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 import { Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
 import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
+import { getEpsDoedsdato } from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
@@ -15,7 +16,8 @@ function mapEpsOpplysninger(
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
 	const registrertDoedsDato = relasjonPersondata?.doedsdato
-	const fallbackDato = format(subDays(new Date(), 1), 'dd.MM.yyyy')
+	const doedsdato = getEpsDoedsdato(eps)
+	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
 
 	return [
 		{
@@ -25,8 +27,8 @@ function mapEpsOpplysninger(
 		{
 			label: 'Dødsdato',
 			value: registrertDoedsDato
-				? format(parseISO(registrertDoedsDato), 'dd.MM.yyyy')
-				: `Ikke registrert. ${fallbackDato} brukes.`,
+				? formatertDoedsdato
+				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
 		},
 	]
 }
@@ -49,8 +51,8 @@ export const OpplysningerInfo = ({
 				<Table.Body>
 					{rows.map(({ label, value }) => (
 						<Table.Row key={label}>
-							<Table.DataCell>{label}</Table.DataCell>
-							<Table.DataCell>{value}</Table.DataCell>
+							<Table.DataCell textSize="small">{label}</Table.DataCell>
+							<Table.DataCell textSize="small">{value}</Table.DataCell>
 						</Table.Row>
 					))}
 				</Table.Body>

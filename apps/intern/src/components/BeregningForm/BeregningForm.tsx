@@ -96,8 +96,8 @@ export const BeregningForm = () => {
 	}
 
 	const vilkaarAlternativ =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder ??
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
 
@@ -120,11 +120,12 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
-						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						testId="sivilstatus-select"
+						label="Sivilstatus ved uttak"
 						className={styles.selectWrapper}
 					>
-						{initialSivilstatus === 'UOPPGITT' &&
-							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{(initialSivilstatus === 'UOPPGITT' ||
+							initialSivilstatus === 'UNKNOWN') && <option value="" />}
 						{sivilstandOptions.map(({ value, label }) => {
 							return (
 								<option key={value} value={value ?? ''}>
@@ -138,7 +139,7 @@ export const BeregningForm = () => {
 				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
 					<RHFRadio
 						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
@@ -150,12 +151,13 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+						data-testid="eps-inntekt-over-2G"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
 				<Divider noMargin />
-				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
 							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
@@ -166,7 +168,8 @@ export const BeregningForm = () => {
 									vilkaarAlternativ?.maaneder
 								),
 								grad: String(
-									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+									beregning.vilkaarsproevingsresultat.alternativ?.uttaksgrad ??
+										100
 								),
 							}}
 						/>

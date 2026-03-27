@@ -177,6 +177,7 @@ export function BeregningProvider({
 
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
+		setAktivBeregning({ ...values })
 		setPendingBeregning({ ...values })
 		form.reset(values, { keepValues: true })
 	}, [form])
@@ -194,7 +195,7 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, person?.foedselsdato, pendingBeregning)
+	} = useBeregningQuery(fnr, aktivBeregning)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {
