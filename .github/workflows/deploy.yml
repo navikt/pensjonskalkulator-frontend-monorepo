@@ -81,6 +81,7 @@ jobs:
           dockerfile: apps/intern/.docker/Dockerfile
           docker_context: .
           team: pensjonskalkulator
+          image_suffix: intern
 
   # Run unit tests for intern
   test-intern:
