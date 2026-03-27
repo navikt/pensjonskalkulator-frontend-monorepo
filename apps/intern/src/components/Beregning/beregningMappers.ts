@@ -6,8 +6,11 @@ import type {
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
-const formatNumber = (value?: number | null): string =>
-	value != null ? value.toLocaleString('nb-NO') : ''
+const formatNumber = (
+	value?: number | null,
+	minimumFractionDigits?: number
+): string =>
+	value != null ? value.toLocaleString('nb-NO', { minimumFractionDigits }) : ''
 
 const formatKr = (value?: number | null): string =>
 	value != null && value >= 0
@@ -86,7 +89,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Forholdstall ved uttak',
-			value: formatNumber(opptjening.forholdstall ?? 0),
+			value: formatNumber(opptjening.forholdstall ?? 0, 2),
 		},
 		{
 			label: 'Sluttpoengtall',
@@ -134,7 +137,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Delingstall ved uttak',
-			value: formatNumber(opptjening.delingstall),
+			value: formatNumber(opptjening.delingstall, 2),
 		},
 		{
 			label: 'Garantipensjon',
