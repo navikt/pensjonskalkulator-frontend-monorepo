@@ -17,7 +17,7 @@ export const BeregningDetailTable = ({
 	title,
 	rows = [],
 }: BeregningDetailTableProps) => (
-	<Table zebraStripes size="small" className={styles.table}>
+	<Table zebraStripes={rows.length > 3} size="small" className={styles.table}>
 		<Table.Header>
 			<Table.Row className={styles.headerRow}>
 				<Table.HeaderCell colSpan={2}>
