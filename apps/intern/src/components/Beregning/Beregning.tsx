@@ -35,13 +35,20 @@ export const Beregning = () => {
 		)
 	}
 
-	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
+	const hasBeregning =
+		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
+	if (!hasBeregning) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={styles.beregning}
+				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
 				<BodyLong>Ingen beregning enda.</BodyLong>
 			</Box>
 		)
