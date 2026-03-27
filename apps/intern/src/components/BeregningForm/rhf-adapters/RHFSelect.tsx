@@ -11,6 +11,7 @@ interface RHFSelectProps {
 	children: ReactNode
 	className?: string
 	numeric?: boolean
+	testId?: string
 }
 
 export function RHFSelect({
@@ -19,6 +20,7 @@ export function RHFSelect({
 	children,
 	className,
 	numeric,
+	testId,
 }: RHFSelectProps) {
 	const {
 		control,
@@ -49,6 +51,7 @@ export function RHFSelect({
 			label={label}
 			size="small"
 			className={className}
+			data-testid={testId}
 			value={
 				typeof field.value === 'string' || typeof field.value === 'number'
 					? String(field.value)

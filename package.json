@@ -45,6 +45,7 @@
 		"@eslint/js": "^9.39.2",
 		"@playwright/test": "^1.58.0",
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@types/react": "^19.2.10",
 		"@types/react-dom": "^19.2.3",
 		"eslint": "^9.39.2",

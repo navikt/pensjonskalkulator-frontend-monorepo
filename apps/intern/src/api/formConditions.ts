@@ -5,13 +5,7 @@ import type { BeregningFormData } from './beregningTypes'
 export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
 		sivilstatus !== null &&
-		[
-			'GIFT',
-			'REGISTRERT_PARTNER',
-			'SAMBOER',
-			'ENKE_ELLER_ENKEMANN',
-			'SKILT',
-		].includes(sivilstatus as string)
+		['GIFT', 'REGISTRERT_PARTNER', 'SAMBOER'].includes(sivilstatus as string)
 	)
 }
 
@@ -32,15 +26,30 @@ export function getPartnerBetegnelse(sivilstatus: Sivilstatus): string {
 	}
 }
 
-export function showEpsHarPensjon(sivilstatus: Sivilstatus | null): boolean {
-	return harPartner(sivilstatus)
+export function showEpsHarPensjon({
+	sivilstatus,
+	beregnMedGjenlevenderett,
+}: {
+	sivilstatus: Sivilstatus | null
+	beregnMedGjenlevenderett: boolean
+}): boolean {
+	return harPartner(sivilstatus) && !beregnMedGjenlevenderett
 }
 
-export function showEpsHarInntektOver2G(
-	sivilstatus: Sivilstatus | null,
+export function showEpsHarInntektOver2G({
+	sivilstatus,
+	epsHarPensjon,
+	beregnMedGjenlevenderett,
+}: {
+	sivilstatus: Sivilstatus | null
 	epsHarPensjon: boolean | null
-): boolean {
-	return harPartner(sivilstatus) && epsHarPensjon === false
+	beregnMedGjenlevenderett: boolean
+}): boolean {
+	return (
+		harPartner(sivilstatus) &&
+		epsHarPensjon === false &&
+		!beregnMedGjenlevenderett
+	)
 }
 
 export function showGradertUttakFields(uttaksgrad: number | null): boolean {

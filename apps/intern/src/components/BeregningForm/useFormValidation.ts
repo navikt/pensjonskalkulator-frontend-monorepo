@@ -11,12 +11,16 @@ import {
 	showInntektGradertFields,
 	showInntektHeltFields,
 } from '../../api/formConditions'
+import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (formData.epsAntallUtenlandsOppholdAar === null) {
+	if (
+		formData.epsAntallUtenlandsOppholdAar === undefined ||
+		formData.epsAntallUtenlandsOppholdAar === null
+	) {
 		errors.epsAntallUtenlandsOppholdAar =
 			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
 	}
@@ -34,7 +38,18 @@ function validateEPSOpplysninger(
 			'Fyll ut inntekt året før dødsdato.'
 	}
 
-	if (formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null) {
+	const epsFoedselsdato =
+		formData.epsOpplysninger?.relasjonPersondata?.foedselsdato
+	const epsDoedsdato = formData.epsOpplysninger?.relasjonPersondata?.doedsdato
+
+	if (
+		epsFoedselsdato &&
+		isEpsUnder67EllerDoedsdatoFoer67aar({
+			epsFoedselsdato,
+			epsDoedsdato,
+		}) &&
+		formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
+	) {
 		errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
 			'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
 	}
@@ -60,7 +75,7 @@ function validateGjenlevenderett(
 
 	if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 		errors.bakgrunnForBrukAvOpplysningerOmEPS =
-			'Velg bakgrunn for bruk av opplysninger om EPS.'
+			'Velg grunnlag for å hente opplysninger om EPS.'
 	}
 
 	if (
@@ -93,12 +108,20 @@ function validateSivilstand(
 		partnerLabel = 'samboer'
 	}
 
-	if (isHarPartner && formData.epsHarPensjon === null) {
+	if (
+		isHarPartner &&
+		formData.epsHarPensjon === null &&
+		!formData.beregnMedGjenlevenderett
+	) {
 		errors.epsHarPensjon = `Fyll ut om ${partnerLabel} mottar pensjon, uføretrygd eller AFP.`
 	}
 
 	if (
-		showEpsHarInntektOver2G(formData.sivilstatus, formData.epsHarPensjon) &&
+		showEpsHarInntektOver2G({
+			sivilstatus: formData.sivilstatus,
+			epsHarPensjon: formData.epsHarPensjon,
+			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
+		}) &&
 		formData.epsHarInntektOver2G === null
 	) {
 		errors.epsHarInntektOver2G = `Fyll ut om ${partnerLabel} har inntekt over 2G.`
@@ -155,14 +178,6 @@ function validateInntektVsaGradertUttak(
 		} else if (pensjonsgivendeInntekt > 100_000_000) {
 			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
 				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
-
-		if (
-			formData.alderAarInntektGradertSlutter === null ||
-			formData.alderMdInntektGradertSlutter === null
-		) {
-			errors.alderAarInntektGradertSlutter =
-				'Velg år og måned for når inntekt slutter.'
 		}
 	}
 }
@@ -276,7 +291,7 @@ export function useFormValidation() {
 
 			if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 				errors.bakgrunnForBrukAvOpplysningerOmEPS =
-					'Velg bakgrunn for bruk av opplysninger om EPS.'
+					'Velg grunnlag for å hente opplysninger om EPS.'
 			}
 
 			setValidationErrors(errors)
