@@ -1,8 +1,9 @@
 import type {
-	AlderspensjonRequestBody,
 	EpsOpplysninger,
 	LoependeVedtak,
 	PersonInternV1,
+	SimuleringRequestBody,
+	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	keepPreviousData,
@@ -132,7 +133,7 @@ async function fetchEPSOpplysninger({
 	bakgrunn,
 }: {
 	fnr: string
-	sivilstatus: string
+	sivilstatus: Sivilstatus
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
@@ -179,9 +180,9 @@ export function useInntektQuery(fnr?: string) {
 
 async function fetchBeregning(
 	fnr: string,
-	params: AlderspensjonRequestBody
+	params: SimuleringRequestBody
 ): Promise<BeregningResult> {
-	const response = await fetch(`${API_BASE}/v9/alderspensjon/simulering`, {
+	const response = await fetch(`${API_BASE}/intern/v1/pensjon/simulering`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -221,7 +222,7 @@ export function useEPSOpplysningerQuery({
 	bakgrunn,
 }: {
 	fnr?: string
-	sivilstatus: string
+	sivilstatus: Sivilstatus
 	bakgrunn: string
 }) {
 	return useQuery({
@@ -253,18 +254,13 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	foedselsdato: string | undefined,
 	params: BeregningParams | null
 ) {
 	return useQuery({
 		queryKey: ['beregning', fnr, params],
 		queryFn:
-			fnr && foedselsdato && params
-				? () =>
-						fetchBeregning(
-							fnr,
-							mapBeregningParamsToRequest(params, foedselsdato)
-						)
+			fnr && params
+				? () => fetchBeregning(fnr, mapBeregningParamsToRequest(params))
 				: skipToken,
 		placeholderData: keepPreviousData,
 	})

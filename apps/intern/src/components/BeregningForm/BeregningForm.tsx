@@ -112,23 +112,23 @@ export const BeregningForm = () => {
 	const { heltUttakAlder } = getUttakInfo(aktivBeregning)
 
 	const vilkaarAlternativGradert =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder
 	const vilkaarAlternativHelt =
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
 	const sanityTextGradert =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder &&
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
 		!isAlderLikAnnenAlder(
-			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
+			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
 			heltUttakAlder
 		)
 
 	const visGradert =
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder &&
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
 		isAlderLikAnnenAlder(
-			beregning?.vilkaarsproeving.alternativ?.heltUttaksalder,
+			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
 			heltUttakAlder
 		)
 
@@ -151,11 +151,12 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
-						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						testId="sivilstatus-select"
+						label="Sivilstatus ved uttak"
 						className={styles.selectWrapper}
 					>
-						{initialSivilstatus === 'UOPPGITT' &&
-							sivilstatus === 'UOPPGITT' && <option value="" />}
+						{(initialSivilstatus === 'UOPPGITT' ||
+							initialSivilstatus === 'UNKNOWN') && <option value="" />}
 						{sivilstandOptions.map(({ value, label }) => {
 							return (
 								<option key={value} value={value ?? ''}>
@@ -169,7 +170,7 @@ export const BeregningForm = () => {
 				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
 					<RHFRadio
 						name="epsHarPensjon"
-						legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
+						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
@@ -181,13 +182,14 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
-						legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
+						data-testid="eps-inntekt-over-2G"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
 				<Divider noMargin />
 				{!alertDismissed &&
-					beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+					beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativHelt && (
 						<SanityAlert
 							id={
@@ -199,7 +201,8 @@ export const BeregningForm = () => {
 							dynamicValues={{
 								grad: visGradert
 									? String(
-											beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+											beregning.vilkaarsproevingsresultat?.alternativ
+												?.uttaksgrad ?? 100
 										)
 									: '100',
 								alder:
@@ -213,7 +216,8 @@ export const BeregningForm = () => {
 												vilkaarAlternativHelt.maaneder
 											),
 								grad_gradert: String(
-									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+									beregning.vilkaarsproevingsresultat?.alternativ?.uttaksgrad ??
+										100
 								),
 								gradert_alder: vilkaarAlternativGradert
 									? formaterAlderString(

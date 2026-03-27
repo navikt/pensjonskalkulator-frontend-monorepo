@@ -1,3 +1,4 @@
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -24,9 +25,9 @@ export const Gjenlevenderett = () => {
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [epsQueryParams, setEpsQueryParams] = useState<{
-		sivilstatus: string
+		sivilstatus: Sivilstatus
 		bakgrunn: string
-	}>({} as { sivilstatus: string; bakgrunn: string })
+	}>({} as { sivilstatus: Sivilstatus; bakgrunn: string })
 
 	const {
 		data: EPSOpplysninger,
@@ -35,17 +36,10 @@ export const Gjenlevenderett = () => {
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
 	useEffect(() => {
-		if (EPSOpplysninger?.relasjonPersondata) {
-			form.setValue(
-				'epsFoedselsdato',
-				EPSOpplysninger.relasjonPersondata.foedselsdato ?? null,
-				{ shouldDirty: false }
-			)
-			form.setValue(
-				'epsDoedsdato',
-				EPSOpplysninger.relasjonPersondata.doedsdato ?? null,
-				{ shouldDirty: false }
-			)
+		if (EPSOpplysninger) {
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
 		}
 	}, [EPSOpplysninger, form])
 
@@ -53,6 +47,16 @@ export const Gjenlevenderett = () => {
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
 	})
+	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
+		control,
+		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,
+	})
+
+	useEffect(() => {
+		if (!harHentetEPSOpplysninger) {
+			setEpsQueryParams({} as { sivilstatus: Sivilstatus; bakgrunn: string })
+		}
+	}, [harHentetEPSOpplysninger])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -90,7 +94,7 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const isEPSInfoEmpty = EPSOpplysninger && EPSOpplysninger.pid === null
+	const isEPSInfoEmpty = formEpsOpplysninger && formEpsOpplysninger.pid === null
 
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'
@@ -117,7 +121,7 @@ export const Gjenlevenderett = () => {
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					{isEPSLoading && EPSLoader}
-					{!isEPSLoading && !isError && !EPSOpplysninger && (
+					{!isEPSLoading && !isError && !formEpsOpplysninger && (
 						<RHFRadio
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
 							legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
@@ -136,7 +140,7 @@ export const Gjenlevenderett = () => {
 					)}
 					{isError && EPSError}
 
-					{!isEPSLoading && !EPSOpplysninger && (
+					{!isEPSLoading && !formEpsOpplysninger && (
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
@@ -169,8 +173,8 @@ export const Gjenlevenderett = () => {
 							</LocalAlert.Content>
 						</LocalAlert>
 					)}
-					{EPSOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo EPSOpplysninger={EPSOpplysninger} />
+					{formEpsOpplysninger && !isEPSInfoEmpty && (
+						<OpplysningerInfo EPSOpplysninger={formEpsOpplysninger} />
 					)}
 				</div>
 			)}
