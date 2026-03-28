@@ -32,8 +32,16 @@ export const BeregningTableWithSum = ({
 	const sum =
 		rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) + addToSum
 
+	const validRows = rows.filter(
+		(row) => row.value != null && row.value >= 0 && !row.hide
+	)
+
 	return (
-		<Table zebraStripes={rows.length > 2} size="small" className={styles.table}>
+		<Table
+			zebraStripes={validRows.length > 2}
+			size="small"
+			className={styles.table}
+		>
 			<Table.Header>
 				<Table.Row className={styles.headerRow}>
 					<Table.HeaderCell>
@@ -49,25 +57,20 @@ export const BeregningTableWithSum = ({
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{rows.map(
-					(row) =>
-						!row.hide &&
-						row.value != null &&
-						row.value >= 0 && (
-							<Table.Row key={row.label}>
-								<Table.DataCell>
-									<BodyShort size="small">{row.label}</BodyShort>
-								</Table.DataCell>
-								<Table.DataCell align="right">
-									<BodyShort size="small">
-										{row.unit
-											? `${formatKroner(row.value)} ${row.unit}`
-											: formatKroner(row.value)}
-									</BodyShort>
-								</Table.DataCell>
-							</Table.Row>
-						)
-				)}
+				{validRows.map((row) => (
+					<Table.Row key={row.label}>
+						<Table.DataCell>
+							<BodyShort size="small">{row.label}</BodyShort>
+						</Table.DataCell>
+						<Table.DataCell align="right">
+							<BodyShort size="small">
+								{row.unit
+									? `${formatKroner(row.value)} ${row.unit}`
+									: formatKroner(row.value)}
+							</BodyShort>
+						</Table.DataCell>
+					</Table.Row>
+				))}
 				<Table.Row>
 					<Table.DataCell>
 						<Label size="small">{sumLabel}</Label>
