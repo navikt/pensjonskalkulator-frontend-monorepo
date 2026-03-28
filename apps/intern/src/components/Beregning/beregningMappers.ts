@@ -74,6 +74,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 	grunnbeloep?: number,
 	isGradert = false
 ): BeregningDetailRow[] {
+	console.log('isGradert i mapOpptjeningEtterKapittel19ToRows:', isGradert) // Legg til denne loggen for å sjekke verdien av isGradert
 	return [
 		{
 			label: 'Andelsbrøk',
