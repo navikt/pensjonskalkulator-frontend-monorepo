@@ -165,6 +165,7 @@ export const Beregning = () => {
 								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
 							}
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
+							isGradert
 						/>
 						{harAfpPrivat &&
 							(heltUttakAlder.aar ?? 0) > 67 &&
