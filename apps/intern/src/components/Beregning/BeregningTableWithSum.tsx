@@ -29,13 +29,13 @@ export const BeregningTableWithSum = ({
 	sumLabel = 'Sum',
 	addToSum = 0,
 }: BeregningTableWithSumProps) => {
-	const sum =
-		rows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) + addToSum
-
 	const validRows = rows.filter(
 		(row) => row.value != null && row.value >= 0 && !row.hide
 	)
 
+	const sum =
+		validRows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) +
+		addToSum
 	return (
 		<Table
 			zebraStripes={validRows.length > 2}
