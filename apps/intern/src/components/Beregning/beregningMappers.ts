@@ -74,7 +74,6 @@ export function mapOpptjeningEtterKapittel19ToRows(
 	grunnbeloep?: number,
 	isGradert = false
 ): BeregningDetailRow[] {
-	console.log('isGradert i mapOpptjeningEtterKapittel19ToRows:', isGradert) // Legg til denne loggen for å sjekke verdien av isGradert
 	return [
 		{
 			label: 'Andelsbrøk',
@@ -172,7 +171,8 @@ export function mapPrivatAfp(
 		},
 		{
 			label: 'Kronetillegg',
-			value: visKronetillegg ? (entry?.kronetillegg ?? 0) : -1,
+			value: entry?.kronetillegg ?? 0,
+			hide: !visKronetillegg,
 		},
 		{
 			label: 'Livsvarig del',
@@ -187,12 +187,4 @@ export function formatAlderTitle(aar: number, md: number): string {
 			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
 			: `${aar} år`
 	return `Pensjon ved ${alderText}`
-}
-
-export function formatAfpTitle(aar: number, md: number): string {
-	const alderText =
-		md > 0
-			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
-			: `${aar} år`
-	return `AFP ved ${alderText}`
 }

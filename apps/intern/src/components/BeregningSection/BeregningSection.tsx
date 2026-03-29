@@ -23,7 +23,6 @@ interface BeregningSectionProps {
 	afpEntry?: SimuleringAfpPrivat
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
-	afpTableAddToSum?: number
 	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
