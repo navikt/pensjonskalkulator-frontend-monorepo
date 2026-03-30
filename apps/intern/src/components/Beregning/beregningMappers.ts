@@ -46,6 +46,7 @@ export function mapAlderspensjonToRows(
 						label: 'Gjenlevendetillegg (kap. 19)',
 						value: Math.round(entry.gjenlevendetillegg ?? 0),
 						hide: !simulererMedGjenlevenderett,
+						showWhenZero: true,
 					},
 				]
 			: []),
@@ -57,6 +58,10 @@ export function mapAlderspensjonToRows(
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
+						value: Math.round(entry.garantipensjonBeloep ?? 0),
+					},
+					{
+						label: 'Garantitillegg (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
 					},
 				]
@@ -143,6 +148,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 			label: 'Garantipensjon',
 			value: formatKr(opptjening.garantipensjonSats),
 		},
+
 		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: formatKr(opptjening.pensjonsbeholdningFoerUttakBeloep),

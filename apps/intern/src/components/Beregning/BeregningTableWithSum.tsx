@@ -9,6 +9,7 @@ export interface BeregningTableRow {
 	value?: number
 	unit?: Unit
 	hide?: boolean
+	showWhenZero?: boolean
 }
 
 interface BeregningTableWithSumProps {
@@ -30,7 +31,10 @@ export const BeregningTableWithSum = ({
 	addToSum = 0,
 }: BeregningTableWithSumProps) => {
 	const validRows = rows.filter(
-		(row) => row.value != null && row.value >= 0 && !row.hide
+		(row) =>
+			row.value != null &&
+			(row.value > 0 || (row.showWhenZero && row.value === 0)) &&
+			!row.hide
 	)
 
 	const sum =
