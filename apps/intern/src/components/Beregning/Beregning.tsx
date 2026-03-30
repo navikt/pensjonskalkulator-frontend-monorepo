@@ -97,13 +97,13 @@ export const Beregning = () => {
 	)
 
 	const helMaanedligAlderspensjon =
-		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
 
 	const gradertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
 
 	const normertMaanedligAlderspensjon =
-		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const titleHeltUttak =
 		aktivBeregning &&
@@ -142,7 +142,7 @@ export const Beregning = () => {
 		>
 			<VStack
 				gap="space-32"
-				className={` ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				className={isBeregningLoading ? styles.loadingOverlay : undefined}
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
@@ -158,7 +158,6 @@ export const Beregning = () => {
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
 							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-							afpTableAddToSum={gradertMaanedligAlderspensjon.beloep ?? 0}
 							totalAddToSum={
 								(gradertMaanedligAlderspensjon.beloep ?? 0) +
 								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
@@ -180,6 +179,7 @@ export const Beregning = () => {
 										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
+									isGradert
 								/>
 							)}
 					</>
