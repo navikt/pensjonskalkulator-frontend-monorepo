@@ -49,7 +49,7 @@ runs:
 
     - name: Save build folder
       if: inputs.save-artifact == 'true'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
         name: dist
         path: apps/ekstern/dist
@@ -58,7 +58,7 @@ runs:
 
     - name: Create Docker image
       id: image-creation
-      uses: nais/docker-build-push@v0
+      uses: nais/docker-build-push@078e460885ed0424b60d45ce9220b4be1748be9d # v0
       with:
         dockerfile: apps/ekstern/.docker/Dockerfile
         docker_context: .
