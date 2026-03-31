@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { DatePicker, useDatepicker } from '@navikt/ds-react'
@@ -8,6 +9,9 @@ interface RHFDatePickerProps {
 	name: FieldPath<BeregningFormData>
 	label: string
 	className?: string
+	fromDate?: Date
+	toDate?: Date
+	disabled?: NonNullable<Parameters<typeof useDatepicker>[0]>['disabled']
 }
 
 function formatDate(date: Date): string {
@@ -41,7 +45,14 @@ function getNestedError(
 		: undefined
 }
 
-export function RHFDatePicker({ name, label, className }: RHFDatePickerProps) {
+export function RHFDatePicker({
+	name,
+	label,
+	className,
+	fromDate,
+	toDate,
+	disabled,
+}: RHFDatePickerProps) {
 	const {
 		control,
 		formState: { errors },
@@ -49,15 +60,25 @@ export function RHFDatePicker({ name, label, className }: RHFDatePickerProps) {
 	const { field } = useController({ name, control })
 
 	const year = new Date().getFullYear()
+	const defaultEarliestDate = new Date(`1 Jan ${year - 120}`)
+	const defaultLatestDate = new Date(`31 Dec ${year + 30}`)
 
-	const { datepickerProps, inputProps } = useDatepicker({
+	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseDate(field.value),
 		onDateChange: (date) => {
 			field.onChange(date ? formatDate(date) : '')
 		},
-		fromDate: new Date(`1 Jan ${year - 120}`),
-		toDate: new Date(`31 Dec ${year + 2}`),
+		fromDate: fromDate ?? defaultEarliestDate,
+		toDate: toDate ?? defaultLatestDate,
+		disabled,
 	})
+
+	// Keep the Aksel datepicker's internal state aligned when RHF updates the value externally.
+	useEffect(() => {
+		const formValue = typeof field.value === 'string' ? field.value : ''
+		if (inputProps.value === formValue) return
+		setSelected(parseDate(field.value))
+	}, [field.value, inputProps.value, setSelected])
 
 	const errorMessage = getNestedError(
 		errors as unknown as Record<string, unknown>,

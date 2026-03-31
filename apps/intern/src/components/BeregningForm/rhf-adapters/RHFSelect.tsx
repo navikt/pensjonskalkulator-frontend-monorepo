@@ -29,7 +29,7 @@ export function RHFSelect({
 	const { field } = useController({ name, control })
 
 	const toFormValue = (raw: string) =>
-		raw ? (numeric ? Number(raw) : raw) : null
+		raw ? (numeric ? Number(raw) : raw) : ''
 
 	const errorPath = name.split('.')
 	let error: unknown = errors

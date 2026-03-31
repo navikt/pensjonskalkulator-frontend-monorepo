@@ -1,1 +1,11 @@
-@import '../../globalStyles.css';
+.selectLandWrapper {
+	width: 11.75rem;
+}
+
+.selectLand {
+	width: 100%;
+}
+
+.radioFieldWrapper {
+	flex-shrink: 0;
+}

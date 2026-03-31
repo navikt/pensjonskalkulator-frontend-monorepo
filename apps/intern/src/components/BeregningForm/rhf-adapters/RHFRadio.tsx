@@ -43,7 +43,7 @@ export function RHFRadio({
 
 	const toDisplayValue = (value: unknown) => {
 		if (!isJaNei) return value ?? ''
-		if (value === null) return ''
+		if (value == null) return ''
 		return value ? 'ja' : 'nei'
 	}
 
@@ -61,7 +61,7 @@ export function RHFRadio({
 			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
 			data-testid={testid}
 		>
-			<HStack gap="space-4" className="horizontalRadio">
+			<HStack gap="space-32" className="horizontalRadio">
 				{children ??
 					resolvedOptions.map((option) => (
 						<Radio key={option.value} value={option.value}>
