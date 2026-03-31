@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { DatePicker, useDatepicker } from '@navikt/ds-react'
@@ -58,6 +58,7 @@ export function RHFDatePicker({
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 	const { field } = useController({ name, control })
+	const previousFieldValueRef = useRef(field.value)
 
 	const year = new Date().getFullYear()
 	const defaultEarliestDate = new Date(`1 Jan ${year - 120}`)
@@ -68,6 +69,7 @@ export function RHFDatePicker({
 		onDateChange: (date) => {
 			field.onChange(date ? formatDate(date) : '')
 		},
+		allowTwoDigitYear: false,
 		fromDate: fromDate ?? defaultEarliestDate,
 		toDate: toDate ?? defaultLatestDate,
 		disabled,
@@ -75,10 +77,10 @@ export function RHFDatePicker({
 
 	// Keep the Aksel datepicker's internal state aligned when RHF updates the value externally.
 	useEffect(() => {
-		const formValue = typeof field.value === 'string' ? field.value : ''
-		if (inputProps.value === formValue) return
+		if (previousFieldValueRef.current === field.value) return
+		previousFieldValueRef.current = field.value
 		setSelected(parseDate(field.value))
-	}, [field.value, inputProps.value, setSelected])
+	}, [field.value, setSelected])
 
 	const errorMessage = getNestedError(
 		errors as unknown as Record<string, unknown>,
