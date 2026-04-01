@@ -56,6 +56,8 @@ spec:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
     inbound:
