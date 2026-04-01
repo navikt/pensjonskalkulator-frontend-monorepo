@@ -10,27 +10,14 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="preconnect" href="%VITE_DECORATOR_URL%" />
-    <link
-      rel="preconnect"
-      href="%VITE_DECORATOR_URL%/css/client.css"
-      rel="stylesheet"
-      crossorigin
-    />
     <title>Pensjonskalkulator - Pensjon</title>
   </head>
   <body>
     <div id="print-content"></div>
     <div id="app-content">
-      <div id="decorator-header"></div>
       <main id="maincontent" tabindex="-1">
         <div id="root"></div>
       </main>
-      <div id="decorator-footer"></div>
-      <div
-        id="decorator-env"
-        data-src="%VITE_DECORATOR_URL%/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start"
-      ></div>
     </div>
     <script type="module" src="/src/main.tsx" defer></script>
     <script type="module">
@@ -52,12 +39,6 @@
       }
 
       function loadExternalScripts() {
-        // Load NAV decorator
-        const decoratorScript = document.createElement('script')
-        decoratorScript.type = 'text/javascript'
-        decoratorScript.src = '%VITE_DECORATOR_URL%/client.js'
-        document.head.appendChild(decoratorScript)
-
         // Load representasjon banner
         const bannerScript = document.createElement('script')
         bannerScript.type = 'module'

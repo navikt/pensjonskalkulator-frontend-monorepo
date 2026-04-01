@@ -7,6 +7,7 @@ import path from 'path'
 import { initialize } from 'unleash-client'
 import winston from 'winston'
 
+import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js'
 import {
   getToken,
   parseAzureUserToken,
@@ -17,6 +18,7 @@ import {
 import { ensureEnv } from './ensureEnv.js'
 
 const isDevelopment = process.env.NODE_ENV?.startsWith('development')
+const isDevGcp = process.env.NAIS_CLUSTER_NAME === 'dev-gcp'
 const unleashUrl = process.env.UNLEASH_SERVER_API_URL
 const unleashToken = process.env.UNLEASH_SERVER_API_TOKEN
 const unleashEnv = process.env.UNLEASH_SERVER_API_ENV
@@ -354,7 +356,14 @@ app.get(
 
 app.get('/*splat', async (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
-    res.sendFile(__dirname + '/index.html')
+    // res.sendFile(__dirname + '/index.html')
+    injectDecoratorServerSide({
+      env: isDevGcp ? 'dev' : 'prod',
+      filePath: __dirname + '/index.html',
+      params: { context: 'privatperson', simple: true },
+    }).then((html) => {
+      res.send(html)
+    })
     return
   } else if (AUTH_PROVIDER === 'azure') {
     res.redirect('/pensjon/kalkulator/veileder')

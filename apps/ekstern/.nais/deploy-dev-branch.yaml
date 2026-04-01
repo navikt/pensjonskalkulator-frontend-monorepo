@@ -69,5 +69,7 @@ spec:
       value: 'dev-gcp:pensjonskalkulator:pensjonskalkulator-backend'
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://pensjon-pselv-q2-gcp.ansatt.dev.nav.no/pselv/simulering.jsf?simpleMode=true'
+    - name: 'NAIS_CLUSTER_NAME'
+      value: 'dev-gcp'
   envFrom:
     - secret: pensjonskalkulator-frontend-ekstern-unleash-api-token
