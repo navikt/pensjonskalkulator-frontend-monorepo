@@ -86,6 +86,7 @@ export function mapAlderspensjonToRows(
 
 export function mapOpptjeningEtterKapittel19ToRows(
 	opptjening: SimuleringMaanedligAlderspensjon,
+	visAarsbelop: boolean,
 	grunnbeloep?: number,
 	isGradert = false
 ): BeregningDetailRow[] {
@@ -132,12 +133,16 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Basispensjon',
 			value: formatKr(opptjening.basispensjonBeloep),
-			hide: !isGradert || (opptjening.basispensjonBeloep ?? 0) <= 0,
+			hide:
+				!visAarsbelop ||
+				!isGradert ||
+				(opptjening.basispensjonBeloep ?? 0) <= 0,
 		},
 		{
 			label: 'Restpensjon',
 			value: formatKr(opptjening.restpensjonBeloep),
-			hide: !isGradert || (opptjening.restpensjonBeloep ?? 0) <= 0,
+			hide:
+				!visAarsbelop || !isGradert || (opptjening.restpensjonBeloep ?? 0) <= 0,
 		},
 	]
 }

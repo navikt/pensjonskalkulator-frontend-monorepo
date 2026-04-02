@@ -52,7 +52,12 @@ export const AlderspensjonTables = ({
 		{erFoedtFoer1963 && (
 			<BeregningDetailTable
 				title="Opptjening etter kapittel 19"
-				rows={mapOpptjeningEtterKapittel19ToRows(entry, grunnbeloep, isGradert)}
+				rows={mapOpptjeningEtterKapittel19ToRows(
+					entry,
+					visAarsbelop,
+					grunnbeloep,
+					isGradert
+				)}
 			/>
 		)}
 		{(erOvergangskull || erFoedtEtter1963) && (

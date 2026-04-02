@@ -101,6 +101,10 @@ export const Beregning = () => {
 			)
 		: undefined
 
+	const normertAarligAlderspensjon = beregning.alderspensjonListe.find(
+		(entry) => entry.alderAar === 67
+	)
+
 	const helMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
 
@@ -197,7 +201,7 @@ export const Beregning = () => {
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
 									visAarsbelop={visAarsbelop}
-									yearlyEntry={gradertAarligAlderspensjon}
+									yearlyEntry={normertAarligAlderspensjon}
 								/>
 							)}
 					</>
@@ -230,7 +234,7 @@ export const Beregning = () => {
 						}
 						alderspensjonGrad={100}
 						visAarsbelop={visAarsbelop}
-						yearlyEntry={helAarligAlderspensjon}
+						yearlyEntry={normertAarligAlderspensjon}
 					/>
 				)}
 			</VStack>
