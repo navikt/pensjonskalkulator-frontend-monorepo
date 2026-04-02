@@ -1,4 +1,7 @@
-import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	SimuleringAlderspensjon,
+	SimuleringMaanedligAlderspensjon,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
@@ -10,6 +13,7 @@ import {
 
 interface AlderspensjonTablesProps {
 	entry: SimuleringMaanedligAlderspensjon
+	yearlyEntry: SimuleringAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
@@ -17,10 +21,12 @@ interface AlderspensjonTablesProps {
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
+	visAarsbelop?: boolean
 }
 
 export const AlderspensjonTables = ({
 	entry,
+	yearlyEntry,
 	erFoedtFoer1963,
 	erOvergangskull,
 	erFoedtEtter1963,
@@ -28,17 +34,20 @@ export const AlderspensjonTables = ({
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
+	visAarsbelop = false,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
 			title={`${alderspensjonGrad} % alderspensjon`}
-			valueHeader="Kr per måned"
+			valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 			rows={mapAlderspensjonToRows(
 				entry,
+				yearlyEntry,
 				!!erFoedtFoer1963,
 				!!erOvergangskull || !!erFoedtEtter1963,
 				simulererMedGjenlevenderett
 			)}
+			visAarsbelop={visAarsbelop}
 		/>
 		{erFoedtFoer1963 && (
 			<BeregningDetailTable
