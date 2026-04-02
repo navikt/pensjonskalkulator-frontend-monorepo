@@ -360,7 +360,7 @@ app.get('/*splat', async (_req: Request, res: Response) => {
     injectDecoratorServerSide({
       env: isDevGcp ? 'dev' : 'prod',
       filePath: __dirname + '/index.html',
-      params: { context: 'privatperson', simple: true },
+      params: { context: 'privatperson' },
     }).then((html) => {
       res.send(html)
     })
