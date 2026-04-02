@@ -3,8 +3,9 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { useState } from 'react'
 
-import { BodyLong, Box, Loader, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, Loader, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
@@ -20,6 +21,7 @@ export const Beregning = () => {
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
+	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
 	if (!beregning && isBeregningLoading) {
 		return (
@@ -96,6 +98,20 @@ export const Beregning = () => {
 		(entry) => entry.alderAar === 67
 	)
 
+	const helAarligAlderspensjon = beregning.alderspensjonListe.find(
+		(entry) => entry.alderAar === heltUttakAlder.aar
+	)
+
+	const gradertAarligAlderspensjon = erGradert
+		? beregning.alderspensjonListe.find(
+				(entry) => entry.alderAar === gradertUttakAlder?.aar
+			)
+		: undefined
+
+	const normertAarligAlderspensjon = beregning.alderspensjonListe.find(
+		(entry) => entry.alderAar === 67
+	)
+
 	const helMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
 
@@ -139,7 +155,16 @@ export const Beregning = () => {
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
 			className={styles.beregning}
+			position="relative"
 		>
+			<Box position="absolute" right="space-48" top="space-24">
+				<Checkbox
+					onChange={(e) => setVisAarsbelop(e.target.checked)}
+					size="small"
+				>
+					Vis årsbeløp
+				</Checkbox>
+			</Box>
 			<VStack
 				gap="space-32"
 				className={isBeregningLoading ? styles.loadingOverlay : undefined}
@@ -155,6 +180,7 @@ export const Beregning = () => {
 							title={titleGradertUttak || ''}
 							{...sectionCommonProps}
 							entry={gradertMaanedligAlderspensjon}
+							yearlyEntry={gradertAarligAlderspensjon}
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
 							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
@@ -164,6 +190,7 @@ export const Beregning = () => {
 							}
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 							isGradert
+							visAarsbelop={visAarsbelop}
 						/>
 						{harAfpPrivat &&
 							(heltUttakAlder.aar ?? 0) > 67 &&
@@ -180,6 +207,8 @@ export const Beregning = () => {
 									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
+									visAarsbelop={visAarsbelop}
+									yearlyEntry={normertAarligAlderspensjon}
 								/>
 							)}
 					</>
@@ -196,6 +225,8 @@ export const Beregning = () => {
 						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 					}
 					alderspensjonGrad={100}
+					visAarsbelop={visAarsbelop}
+					yearlyEntry={helAarligAlderspensjon}
 				/>
 				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
 					<BeregningSection
@@ -209,6 +240,8 @@ export const Beregning = () => {
 							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 						}
 						alderspensjonGrad={100}
+						visAarsbelop={visAarsbelop}
+						yearlyEntry={normertAarligAlderspensjon}
 					/>
 				)}
 			</VStack>

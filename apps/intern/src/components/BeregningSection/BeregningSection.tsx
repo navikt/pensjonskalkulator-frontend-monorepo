@@ -1,5 +1,6 @@
 import type {
 	SimuleringAfpPrivat,
+	SimuleringAlderspensjon,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
@@ -15,6 +16,7 @@ interface BeregningSectionProps {
 	title: string
 	tableCount: number
 	entry?: SimuleringMaanedligAlderspensjon
+	yearlyEntry?: SimuleringAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
@@ -26,12 +28,14 @@ interface BeregningSectionProps {
 	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
+	visAarsbelop?: boolean
 }
 
 export const BeregningSection = ({
 	title,
 	tableCount,
 	entry,
+	yearlyEntry,
 	erFoedtFoer1963,
 	erOvergangskull,
 	erFoedtEtter1963,
@@ -43,6 +47,7 @@ export const BeregningSection = ({
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
+	visAarsbelop = false,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12">
 		<Heading level="3" size="small">
@@ -52,14 +57,16 @@ export const BeregningSection = ({
 			className={styles.tableGrid}
 			style={{ '--table-columns': tableCount } as React.CSSProperties}
 		>
-			{entry && (
+			{entry && yearlyEntry && (
 				<AlderspensjonTables
 					entry={entry}
+					yearlyEntry={yearlyEntry}
 					erFoedtFoer1963={erFoedtFoer1963}
 					erOvergangskull={erOvergangskull}
 					erFoedtEtter1963={erFoedtEtter1963}
 					grunnbeloep={grunnbeloep}
 					alderspensjonGrad={alderspensjonGrad}
+					visAarsbelop={visAarsbelop}
 					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
 					isGradert={isGradert}
 				/>
@@ -70,11 +77,13 @@ export const BeregningSection = ({
 						title="Avtalefestet pensjon i privat sektor"
 						valueHeader="Kr per måned"
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+						visAarsbelop={visAarsbelop}
 					/>
 					<BeregningTableWithSum
 						title="Alderspensjon og AFP"
 						valueHeader="Kr per måned"
 						addToSum={totalAddToSum}
+						visAarsbelop={visAarsbelop}
 					/>
 				</VStack>
 			)}
