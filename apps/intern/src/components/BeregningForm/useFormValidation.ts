@@ -128,17 +128,27 @@ function validateSivilstand(
 	}
 }
 
+function validateInntektField(
+	value: number | null,
+	errors: ValidationErrors,
+	field: keyof ValidationErrors
+) {
+	if (value === null) {
+		errors[field] = 'Fyll ut inntekt.'
+	} else if (value > 100_000_000) {
+		errors[field] = 'Inntekten kan ikke overskride 100 000 000 kr.'
+	}
+}
+
 function validateInntektFoerUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	const inntektFoerUttak = formData.aarligInntektFoerUttakBeloep
-	if (inntektFoerUttak === null) {
-		errors.aarligInntektFoerUttakBeloep = 'Fyll ut inntekt.'
-	} else if (inntektFoerUttak > 100_000_000) {
-		errors.aarligInntektFoerUttakBeloep =
-			'Inntekten kan ikke overskride 100 000 000 kr.'
-	}
+	validateInntektField(
+		formData.aarligInntektFoerUttakBeloep,
+		errors,
+		'aarligInntektFoerUttakBeloep'
+	)
 }
 
 function validateUttaksalder(
@@ -171,14 +181,11 @@ function validateInntektVsaGradertUttak(
 	errors: ValidationErrors
 ) {
 	if (showInntektGradertFields(formData.uttaksgrad)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvGradertUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
+		validateInntektField(
+			formData.pensjonsgivendeInntektVedSidenAvGradertUttak,
+			errors,
+			'pensjonsgivendeInntektVedSidenAvGradertUttak'
+		)
 	}
 }
 
@@ -227,14 +234,11 @@ function validateInntektVsaHeltUttak(
 	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
+		validateInntektField(
+			formData.pensjonsgivendeInntektVedSidenAvUttak,
+			errors,
+			'pensjonsgivendeInntektVedSidenAvUttak'
+		)
 
 		if (
 			formData.alderAarInntektSlutter === null ||
