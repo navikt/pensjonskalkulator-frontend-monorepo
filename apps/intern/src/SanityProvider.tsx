@@ -3,7 +3,8 @@ import {
 	SanityContext,
 	createSanityAppClient,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
-import { type ReactNode, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { type ReactNode, useMemo } from 'react'
 import { IntlProvider } from 'react-intl'
 
 const dataset =
@@ -19,28 +20,25 @@ const sanityClient = createSanityAppClient({
 
 const alertQuery = `*[_type == "alert"]{name,type,status,overskrift,innhold}`
 
+async function fetchSanityAlerts(): Promise<AlertQueryResult> {
+	return sanityClient.fetch<AlertQueryResult>(alertQuery)
+}
+
 interface Props {
 	children: ReactNode
 }
 
 export function SanityProvider({ children }: Props) {
-	const [alertData, setAlertData] = useState<
-		Record<string, AlertQueryResult[number]>
-	>({})
+	const { data: alertsData } = useQuery({
+		queryKey: ['sanityAlerts'],
+		queryFn: fetchSanityAlerts,
+		staleTime: Infinity,
+	})
 
-	useEffect(() => {
-		sanityClient
-			.fetch<AlertQueryResult>(alertQuery)
-			.then((response) => {
-				const data = Object.fromEntries(
-					(response || []).map((alert) => [alert.name, alert])
-				)
-				setAlertData(data)
-			})
-			.catch(() => {
-				setAlertData({})
-			})
-	}, [])
+	const alertData = useMemo(
+		() => Object.fromEntries((alertsData ?? []).map((alert) => [alert.name, alert])),
+		[alertsData]
+	)
 
 	return (
 		<IntlProvider locale="nb" messages={{}}>
