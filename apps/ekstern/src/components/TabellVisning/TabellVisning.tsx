@@ -60,6 +60,7 @@ export function TabellVisning({
 
   return (
     <ReadMore
+      data-testid="tabell-visning"
       name="Tabell av beregningen"
       header={
         isTabellVisible
@@ -93,6 +94,7 @@ export function TabellVisning({
             {showAfp && (
               <Table.HeaderCell
                 scope="col"
+                data-testid="tabell-afp-header"
                 className={clsx(
                   styles.detailsItemRight,
                   styles.tableDesktopOnly

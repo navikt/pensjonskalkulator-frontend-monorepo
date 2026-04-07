@@ -78,6 +78,9 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).not.toBeVisible()
+
+          await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-afp-header')).toHaveCount(0)
         })
 
         test('forventer at hentet beløp vises i detaljer om AFP uten uttakstidspunkt med informasjon om at AFP er hentet og at den fortsetter som før', async ({
@@ -148,6 +151,9 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).not.toBeVisible()
+
+          await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-afp-header')).toHaveCount(0)
         })
       })
 
@@ -196,6 +202,9 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).toBeVisible()
+
+          await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
 
@@ -244,6 +253,9 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).toBeVisible()
+
+          await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
 
@@ -295,6 +307,9 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).toBeVisible()
+
+          await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
     })
