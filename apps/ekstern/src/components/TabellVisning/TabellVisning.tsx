@@ -74,7 +74,9 @@ export function TabellVisning({
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell className={styles.tableMobileOnly} />
-            <Table.HeaderCell scope="col">Alder</Table.HeaderCell>
+            <Table.HeaderCell scope="col" data-testid="tabell-alder-header">
+              Alder
+            </Table.HeaderCell>
             <Table.HeaderCell scope="col" className={styles.detailsItemRight}>
               <FormattedMessage id="beregning.tabell.sum" />
               <span className={styles.tableMobileOnly}> (kr)</span>

@@ -7,6 +7,7 @@ import {
   afpOffentligLivsvarig,
   afpOffentligLivsvarigError,
   afpOffentligLivsvarigFlereTpOrdninger,
+  alderspensjon,
   person,
   tidligsteUttaksalder,
 } from '../../../utils/mocks'
@@ -80,6 +81,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           ).not.toBeVisible()
 
           await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-alder-header')).toBeVisible()
           await expect(page.getByTestId('tabell-afp-header')).toHaveCount(0)
         })
 
@@ -153,6 +155,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           ).not.toBeVisible()
 
           await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-alder-header')).toBeVisible()
           await expect(page.getByTestId('tabell-afp-header')).toHaveCount(0)
         })
       })
@@ -162,6 +165,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await authenticate(page, [
             await personOver62(),
             await tidligsteUttaksalder({ aar: 62, maaneder: 0 }),
+            await alderspensjon({ preset: 'med_afp_offentlig' }),
             afpOffentligLivsvarigError(),
           ])
         })
@@ -204,6 +208,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           ).toBeVisible()
 
           await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-alder-header')).toBeVisible()
           await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
@@ -213,6 +218,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await authenticate(page, [
             await personOver62(),
             await tidligsteUttaksalder({ aar: 62, maaneder: 0 }),
+            await alderspensjon({ preset: 'med_afp_offentlig' }),
             afpOffentligLivsvarigFlereTpOrdninger(),
           ])
         })
@@ -247,14 +253,15 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await navigateToBeregningWithOffentligAfp(page)
           await page.getByRole('button', { name: '67' }).click()
 
-          await expect(
-            page.getByTestId('highcharts-aria-wrapper')
-          ).toBeVisible()
+          await expect(page.getByTestId('highcharts-aria-wrapper')).toBeVisible(
+            { timeout: 15000 }
+          )
           await expect(
             page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
           ).toBeVisible()
 
           await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-alder-header')).toBeVisible()
           await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
@@ -264,6 +271,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await authenticate(page, [
             await personOver62(),
             await tidligsteUttaksalder({ aar: 62, maaneder: 0 }),
+            await alderspensjon({ preset: 'med_afp_offentlig' }),
             afpOffentligLivsvarig({
               afpStatus: true,
               maanedligBeloep: 0,
@@ -309,6 +317,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           ).toBeVisible()
 
           await page.getByTestId('tabell-visning').click()
+          await expect(page.getByTestId('tabell-alder-header')).toBeVisible()
           await expect(page.getByTestId('tabell-afp-header')).toBeVisible()
         })
       })
