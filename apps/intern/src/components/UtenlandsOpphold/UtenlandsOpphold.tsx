@@ -18,9 +18,14 @@ import {
 	formatFoedselsdato,
 	getOppholdCopyText,
 	getOppholdFieldName,
-	hasRequiredOppholdValues,
+	getOppholdValidationMessage,
 	isAvtaleland,
 	landList,
+	validateOpphold,
+} from './utils'
+import type {
+	UtenlandsoppholdValidationField,
+	UtenlandsoppholdValidationResult,
 } from './utils'
 
 const parseEndUserDate = (value?: string) => {
@@ -31,7 +36,13 @@ const parseEndUserDate = (value?: string) => {
 	return isNaN(date.getTime()) ? undefined : date
 }
 
-export const UtenlandsOpphold = () => {
+type UtenlandsOppholdProps = {
+	onSubmitDisabledChange?: (isDisabled: boolean) => void
+}
+
+export const UtenlandsOpphold = ({
+	onSubmitDisabledChange,
+}: UtenlandsOppholdProps) => {
 	const { form, person } = useBeregningContext()
 	const { control } = form
 	const [harOppholdUtenforNorge] = useWatch({
@@ -67,6 +78,11 @@ export const UtenlandsOpphold = () => {
 		name: activeFieldName('startdato'),
 	})
 
+	const sluttdato = useWatch({
+		control,
+		name: activeFieldName('sluttdato'),
+	})
+
 	const brukFoedselsdato = useWatch({
 		control,
 		name: activeFieldName('brukFoedselsdato'),
@@ -87,14 +103,6 @@ export const UtenlandsOpphold = () => {
 
 	const previousLandRef = useRef<string | undefined>(undefined)
 
-	const hasRequiredValuesForDraft =
-		mode !== 'closed' &&
-		hasRequiredOppholdValues({
-			currentLand,
-			startdato,
-			arbeidetUtenlands,
-		})
-
 	const getOppholdValues = (index: number): OppholdValues => ({
 		land: form.getValues(getOppholdFieldName(index, 'land')),
 		arbeidetUtenlands: form.getValues(
@@ -112,6 +120,8 @@ export const UtenlandsOpphold = () => {
 	)
 	const savedOpphold = fields.map((_, index) => getOppholdValues(index))
 	const hasOpphold = fields.length > 0
+	const isSubmitDisabled =
+		harOppholdUtenforNorge === true && (activeIndex !== null || !hasOpphold)
 
 	const setOppholdValues = (index: number, values: OppholdValues) => {
 		form.setValue(getOppholdFieldName(index, 'land'), values.land)
@@ -127,24 +137,114 @@ export const UtenlandsOpphold = () => {
 		)
 	}
 
-	const openDraft = (index: number, values: OppholdValues) => {
+	const getOppholdErrorFields = (index: number) =>
+		[
+			getOppholdFieldName(index, 'land'),
+			getOppholdFieldName(index, 'arbeidetUtenlands'),
+			getOppholdFieldName(index, 'startdato'),
+			getOppholdFieldName(index, 'sluttdato'),
+		] as const
+
+	const clearOppholdErrors = (index: number) => {
+		form.clearErrors(getOppholdErrorFields(index))
+	}
+
+	const getValidationPeriods = () =>
+		fields.map((_, index) => ({
+			id: String(index),
+			landkode: form.getValues(getOppholdFieldName(index, 'land')),
+			arbeidetUtenlands: form.getValues(
+				getOppholdFieldName(index, 'arbeidetUtenlands')
+			),
+			startdato: form.getValues(getOppholdFieldName(index, 'startdato')),
+			sluttdato:
+				form.getValues(getOppholdFieldName(index, 'sluttdato')) || undefined,
+		}))
+
+	const showOppholdErrors = (
+		index: number,
+		validationResult: UtenlandsoppholdValidationResult
+	) => {
+		for (const field of Object.keys(
+			validationResult.errors
+		) as UtenlandsoppholdValidationField[]) {
+			const code = validationResult.errors[field]
+
+			if (!code) continue
+
+			form.setError(getOppholdFieldName(index, field), {
+				message: getOppholdValidationMessage(
+					code,
+					field,
+					validationResult.overlap
+				),
+			})
+		}
+	}
+
+	const validateCurrentOpphold = (index: number, values: OppholdValues) => {
+		clearOppholdErrors(index)
+
+		const validationResult = validateOpphold({
+			opphold: values,
+			foedselsdato: person?.foedselsdato,
+			utenlandsperiodeId: mode === 'edit' ? String(index) : undefined,
+			utenlandsperioder: getValidationPeriods(),
+		})
+
+		if (validationResult.isValid) {
+			return true
+		}
+
+		showOppholdErrors(index, validationResult)
+
+		return false
+	}
+
+	const openOppholdEditor = (index: number, values: OppholdValues) => {
 		previousLandRef.current = values.land || undefined
+		clearOppholdErrors(index)
 		setOppholdValues(index, values)
 		setActiveIndex(index)
 	}
 
-	const closeDraft = () => {
+	const closeOppholdEditor = () => {
+		if (activeIndex !== null) {
+			clearOppholdErrors(activeIndex)
+		}
 		previousLandRef.current = undefined
 		setActiveIndex(null)
 	}
 
+	const openNewOpphold = () => {
+		openOppholdEditor(fields.length, emptyOpphold)
+	}
+
+	const saveOpphold = () => {
+		if (activeIndex === null) return
+
+		const opphold = getOppholdValues(activeIndex)
+
+		if (!validateCurrentOpphold(activeIndex, opphold)) {
+			return
+		}
+
+		if (mode === 'edit') {
+			update(activeIndex, opphold)
+		} else {
+			replace([...savedOpphold, opphold])
+		}
+
+		closeOppholdEditor()
+	}
+
 	useEffect(() => {
 		if (!harOppholdUtenforNorge) {
-			closeDraft()
+			closeOppholdEditor()
 			return
 		}
 		if (fields.length === 0 && activeIndex === null) {
-			openDraft(0, emptyOpphold)
+			openNewOpphold()
 		}
 	}, [activeIndex, fields.length, harOppholdUtenforNorge])
 
@@ -172,41 +272,29 @@ export const UtenlandsOpphold = () => {
 		})
 	}, [activeIndex, brukFoedselsdato, foedselsdato, form, startdato])
 
-	const handleNyPeriode = () => {
-		if (mode === 'closed') {
-			openDraft(fields.length, emptyOpphold)
-			return
-		}
-		if (!hasRequiredValuesForDraft) return
-
+	useEffect(() => {
 		if (activeIndex === null) return
-		const currentOpphold = getOppholdValues(activeIndex)
+		clearOppholdErrors(activeIndex)
+	}, [activeIndex, arbeidetUtenlands, currentLand, form, startdato, sluttdato])
 
-		if (mode === 'edit') {
-			update(activeIndex, currentOpphold)
-		} else {
-			replace([
-				...fields.map((_, index) => getOppholdValues(index)),
-				currentOpphold,
-			])
-		}
-		closeDraft()
-	}
+	useEffect(() => {
+		onSubmitDisabledChange?.(isSubmitDisabled)
+	}, [isSubmitDisabled, onSubmitDisabledChange])
 
 	const handleAvbryt = () => {
 		if (activeIndex === null || mode !== 'new') return
 		setOppholdValues(activeIndex, emptyOpphold)
-		closeDraft()
+		closeOppholdEditor()
 	}
 
 	const handleSlett = () => {
 		if (activeIndex === null || mode !== 'edit') return
 		remove(activeIndex)
-		closeDraft()
+		closeOppholdEditor()
 	}
 
 	const handleEdit = (index: number) => {
-		openDraft(index, getOppholdValues(index))
+		openOppholdEditor(index, getOppholdValues(index))
 	}
 
 	const showCopyButton = harOppholdUtenforNorge && hasOpphold
@@ -240,16 +328,22 @@ export const UtenlandsOpphold = () => {
 			{currentLand && (
 				<>
 					<HStack gap="space-16">
-						<RHFDatePicker
-							name={getOppholdFieldName(index, 'startdato')}
-							label="Startdato"
-							fromDate={foedselsdatoDate}
-						/>
-						<RHFDatePicker
-							name={getOppholdFieldName(index, 'sluttdato')}
-							label="Sluttdato (valgfritt)"
-							fromDate={startdatoDate ?? foedselsdatoDate}
-						/>
+						<div className="dateFieldWrapper">
+							<RHFDatePicker
+								name={getOppholdFieldName(index, 'startdato')}
+								label="Startdato"
+								className="dateFieldInput"
+								fromDate={foedselsdatoDate}
+							/>
+						</div>
+						<div className="dateFieldWrapper">
+							<RHFDatePicker
+								name={getOppholdFieldName(index, 'sluttdato')}
+								label="Sluttdato (valgfritt)"
+								className="dateFieldInput"
+								fromDate={startdatoDate ?? foedselsdatoDate}
+							/>
+						</div>
 					</HStack>
 					<Checkbox
 						size="small"
@@ -277,22 +371,12 @@ export const UtenlandsOpphold = () => {
 								<Button variant="tertiary" size="small" onClick={handleSlett}>
 									Slett
 								</Button>
-								<Button
-									variant="secondary"
-									size="small"
-									onClick={handleNyPeriode}
-									disabled={!hasRequiredValuesForDraft}
-								>
+								<Button variant="secondary" size="small" onClick={saveOpphold}>
 									Lagre
 								</Button>
 							</>
 						) : !hasOpphold ? (
-							<Button
-								variant="secondary"
-								size="small"
-								onClick={handleNyPeriode}
-								disabled={!hasRequiredValuesForDraft}
-							>
+							<Button variant="secondary" size="small" onClick={saveOpphold}>
 								Legg til
 							</Button>
 						) : (
@@ -300,12 +384,7 @@ export const UtenlandsOpphold = () => {
 								<Button variant="tertiary" size="small" onClick={handleAvbryt}>
 									Avbryt
 								</Button>
-								<Button
-									variant="secondary"
-									size="small"
-									onClick={handleNyPeriode}
-									disabled={!hasRequiredValuesForDraft}
-								>
+								<Button variant="secondary" size="small" onClick={saveOpphold}>
 									Lagre
 								</Button>
 							</>
@@ -358,11 +437,7 @@ export const UtenlandsOpphold = () => {
 
 					{mode === 'closed' && hasOpphold && (
 						<HStack justify="end">
-							<Button
-								variant="secondary"
-								size="small"
-								onClick={handleNyPeriode}
-							>
+							<Button variant="secondary" size="small" onClick={openNewOpphold}>
 								Legg til nytt opphold
 							</Button>
 						</HStack>

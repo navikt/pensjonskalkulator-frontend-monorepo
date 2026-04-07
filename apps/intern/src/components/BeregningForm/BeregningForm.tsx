@@ -1,6 +1,7 @@
 import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { Box } from '@navikt/ds-react'
@@ -57,6 +58,7 @@ export const BeregningForm = () => {
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
+	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
 	const { control } = form
 
@@ -234,7 +236,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				<UtenlandsOpphold />
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
@@ -258,6 +260,7 @@ export const BeregningForm = () => {
 				onReset={resetForm}
 				isDirty={isDirty}
 				harAktivBeregning={!!aktivBeregning}
+				isSubmitDisabled={isSubmitDisabled}
 			/>
 		</Box>
 	)

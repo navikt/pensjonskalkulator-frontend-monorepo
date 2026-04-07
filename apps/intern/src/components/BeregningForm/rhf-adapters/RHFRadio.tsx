@@ -1,5 +1,11 @@
 import { type ReactNode } from 'react'
-import { type FieldPath, useController, useFormContext } from 'react-hook-form'
+import {
+	type FieldError,
+	type FieldErrors,
+	type FieldPath,
+	useController,
+	useFormContext,
+} from 'react-hook-form'
 
 import { HStack, Radio, RadioGroup } from '@navikt/ds-react'
 
@@ -22,6 +28,37 @@ interface RHFRadioProps {
 	children?: ReactNode
 	testid?: string
 	options?: RadioOption[]
+}
+
+type NestedFormError =
+	| FieldError
+	| FieldErrors<BeregningFormData>
+	| NestedFormError[]
+	| undefined
+
+const isFieldError = (error: NestedFormError): error is FieldError =>
+	Boolean(error && typeof error === 'object' && 'message' in error)
+
+function getNestedError(
+	errors: FieldErrors<BeregningFormData>,
+	name: string
+): string | undefined {
+	let error: NestedFormError = errors
+
+	for (const segment of name.split('.')) {
+		if (Array.isArray(error)) {
+			error = error[Number(segment)]
+			continue
+		}
+
+		if (!error || isFieldError(error) || !(segment in error)) {
+			return undefined
+		}
+
+		error = error[segment as keyof typeof error] as NestedFormError
+	}
+
+	return isFieldError(error) ? error.message : undefined
 }
 
 export function RHFRadio({
@@ -49,7 +86,7 @@ export function RHFRadio({
 
 	const fromDisplayValue = (val: string) => (isJaNei ? val === 'ja' : val)
 
-	const error = errors[name as keyof BeregningFormData]?.message
+	const error = getNestedError(errors, name)
 
 	return (
 		<RadioGroup
