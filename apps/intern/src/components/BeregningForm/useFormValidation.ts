@@ -128,14 +128,19 @@ function validateSivilstand(
 	}
 }
 
-function validateInntektField(
-	value: number | null,
-	errors: ValidationErrors,
-	field: keyof ValidationErrors
-) {
+function validateInntektField({
+	formData,
+	errors,
+	field,
+}: {
+	formData: BeregningFormData
+	errors: ValidationErrors
+	field: keyof BeregningFormData & keyof ValidationErrors
+}) {
+	const value = formData[field]
 	if (value === null) {
 		errors[field] = 'Fyll ut inntekt.'
-	} else if (value > 100_000_000) {
+	} else if (typeof value === 'number' && value > 100_000_000) {
 		errors[field] = 'Inntekten kan ikke overskride 100 000 000 kr.'
 	}
 }
@@ -144,11 +149,11 @@ function validateInntektFoerUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	validateInntektField(
-		formData.aarligInntektFoerUttakBeloep,
+	validateInntektField({
+		formData,
 		errors,
-		'aarligInntektFoerUttakBeloep'
-	)
+		field: 'aarligInntektFoerUttakBeloep',
+	})
 }
 
 function validateUttaksalder(
@@ -181,11 +186,11 @@ function validateInntektVsaGradertUttak(
 	errors: ValidationErrors
 ) {
 	if (showInntektGradertFields(formData.uttaksgrad)) {
-		validateInntektField(
-			formData.pensjonsgivendeInntektVedSidenAvGradertUttak,
+		validateInntektField({
+			formData,
 			errors,
-			'pensjonsgivendeInntektVedSidenAvGradertUttak'
-		)
+			field: 'pensjonsgivendeInntektVedSidenAvGradertUttak',
+		})
 	}
 }
 
@@ -234,11 +239,11 @@ function validateInntektVsaHeltUttak(
 	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
-		validateInntektField(
-			formData.pensjonsgivendeInntektVedSidenAvUttak,
+		validateInntektField({
+			formData,
 			errors,
-			'pensjonsgivendeInntektVedSidenAvUttak'
-		)
+			field: 'pensjonsgivendeInntektVedSidenAvUttak',
+		})
 
 		if (
 			formData.alderAarInntektSlutter === null ||
