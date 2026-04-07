@@ -135,6 +135,20 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(afpGrunnlagContent).toBeVisible()
           await expect(afpGrunnlagContent).not.toContainText('kr')
         })
+
+        test('forventer at AFP ikke vises i graf og tabell', async ({
+          page,
+        }) => {
+          await navigateToBeregningWithOffentligAfp(page)
+          await page.getByRole('button', { name: '67' }).click()
+
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper')
+          ).toBeVisible()
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
+          ).not.toBeVisible()
+        })
       })
 
       test.describe('OG både sjekk av vedtak og henting av beløp feiler (API error)', () => {
@@ -171,6 +185,18 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
             'oppgitt AFP i offentlig sektor'
           )
         })
+
+        test('forventer at AFP vises i graf og tabell', async ({ page }) => {
+          await navigateToBeregningWithOffentligAfp(page)
+          await page.getByRole('button', { name: '67' }).click()
+
+          await expect(page.getByTestId('highcharts-aria-wrapper')).toBeVisible(
+            { timeout: 15000 }
+          )
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
+          ).toBeVisible()
+        })
       })
 
       test.describe('OG vedtak om AFP finnes hos flere TP-ordninger', () => {
@@ -206,6 +232,18 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(afpGrunnlagContent).toContainText(
             'oppgitt AFP i offentlig sektor'
           )
+        })
+
+        test('forventer at AFP vises i graf og tabell', async ({ page }) => {
+          await navigateToBeregningWithOffentligAfp(page)
+          await page.getByRole('button', { name: '67' }).click()
+
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper')
+          ).toBeVisible()
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
+          ).toBeVisible()
         })
       })
 
@@ -245,6 +283,18 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await expect(afpGrunnlagContent).toContainText(
             'oppgitt AFP i offentlig sektor'
           )
+        })
+
+        test('forventer at AFP vises i graf og tabell', async ({ page }) => {
+          await navigateToBeregningWithOffentligAfp(page)
+          await page.getByRole('button', { name: '67' }).click()
+
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper')
+          ).toBeVisible()
+          await expect(
+            page.getByTestId('highcharts-aria-wrapper').getByText(/AFP/)
+          ).toBeVisible()
         })
       })
     })
