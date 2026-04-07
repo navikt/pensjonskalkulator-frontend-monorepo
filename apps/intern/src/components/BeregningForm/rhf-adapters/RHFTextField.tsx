@@ -1,49 +1,51 @@
+import {
+	formatInntekt,
+	updateAndFormatInntektFromInputField,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useEffect, useRef, useState } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
 import { TextField } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
+import { toRawValue } from './utils'
 
 interface RHFTextFieldProps {
 	name: keyof BeregningFormData
 	label: string
 	style?: React.CSSProperties
-	number?: boolean
+	formatError?: string
 }
 
 export function RHFTextField({
 	name,
 	label,
 	style,
-	number = true,
-}: Readonly<RHFTextFieldProps>) {
+	formatError,
+}: RHFTextFieldProps) {
 	const {
 		control,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 
+	const hasFormatErrorRef = useRef(false)
+	const isUserInputRef = useRef(false)
+
 	const { field } = useController({
 		name,
 		control,
+		rules: {
+			validate: () => (hasFormatErrorRef.current ? formatError : true),
+		},
 	})
 
 	const [rawValue, setRawValue] = useState(
-		field.value !== null && field.value !== undefined ? String(field.value) : ''
+		formatInntekt(toRawValue(field.value))
 	)
-
-	const isUserInputRef = useRef(false)
 
 	useEffect(() => {
 		if (!isUserInputRef.current) {
-			const val = field.value
-			setRawValue(
-				val !== null &&
-					val !== undefined &&
-					!(typeof val === 'number' && Number.isNaN(val))
-					? String(val)
-					: ''
-			)
+			setRawValue(formatInntekt(toRawValue(field.value)))
 		}
 		isUserInputRef.current = false
 	}, [field.value])
@@ -55,26 +57,31 @@ export function RHFTextField({
 			label={label}
 			size="small"
 			type="text"
-			inputMode={number ? 'numeric' : undefined}
+			inputMode="numeric"
 			style={style}
 			value={rawValue}
 			error={error}
 			onChange={(e) => {
 				const raw = e.target.value
-				setRawValue(raw)
 				isUserInputRef.current = true
 
-				if (!number) {
-					field.onChange(raw)
-					return
-				}
+				updateAndFormatInntektFromInputField(
+					e.target,
+					raw,
+					setRawValue,
+					() => {}
+				)
 
-				if (raw === '') {
+				const stripped = raw.replace(/\s/g, '')
+				if (stripped === '') {
+					hasFormatErrorRef.current = false
 					field.onChange(null)
-				} else if (/^\d+$/.test(raw)) {
-					field.onChange(Number(raw))
+				} else if (/^\d+$/.test(stripped)) {
+					hasFormatErrorRef.current = false
+					field.onChange(Number(stripped))
 				} else {
-					field.onChange(NaN)
+					hasFormatErrorRef.current = true
+					field.onChange(null)
 				}
 			}}
 		/>

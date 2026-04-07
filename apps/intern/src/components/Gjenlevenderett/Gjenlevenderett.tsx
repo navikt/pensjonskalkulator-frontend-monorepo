@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import {
@@ -24,9 +25,9 @@ export const Gjenlevenderett = () => {
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [epsQueryParams, setEpsQueryParams] = useState<{
-		sivilstatus: string
+		sivilstatus: Sivilstatus
 		bakgrunn: string
-	}>({} as { sivilstatus: string; bakgrunn: string })
+	}>({} as { sivilstatus: Sivilstatus; bakgrunn: string })
 
 	const {
 		data: EPSOpplysninger,
@@ -34,10 +35,28 @@ export const Gjenlevenderett = () => {
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
+	useEffect(() => {
+		if (EPSOpplysninger) {
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
+		}
+	}, [EPSOpplysninger, form])
+
 	const [beregnMedGjenlevenderett] = useWatch({
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
 	})
+	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
+		control,
+		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,
+	})
+
+	useEffect(() => {
+		if (!harHentetEPSOpplysninger) {
+			setEpsQueryParams({} as { sivilstatus: Sivilstatus; bakgrunn: string })
+		}
+	}, [harHentetEPSOpplysninger])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -64,7 +83,7 @@ export const Gjenlevenderett = () => {
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
 	const EPSError = (
-		<LocalAlert status="warning" size="small">
+		<LocalAlert status="warning" size="small" data-testid="EPS-henting-feil">
 			<LocalAlert.Header>
 				<LocalAlert.Title>Kunne ikke hente opplysninger</LocalAlert.Title>
 			</LocalAlert.Header>
@@ -75,7 +94,7 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const isEPSInfoEmpty = EPSOpplysninger && EPSOpplysninger.pid === null
+	const isEPSInfoEmpty = formEpsOpplysninger && formEpsOpplysninger.pid === null
 
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'
@@ -102,7 +121,7 @@ export const Gjenlevenderett = () => {
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					{isEPSLoading && EPSLoader}
-					{!isEPSLoading && !isError && !EPSOpplysninger && (
+					{!isEPSLoading && !isError && !formEpsOpplysninger && (
 						<RHFRadio
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
 							legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
@@ -110,7 +129,7 @@ export const Gjenlevenderett = () => {
 							options={[
 								{
 									value: 'DOEDSFALL_REGISTRERT',
-									label: 'Bruker opplyser at EPS er død',
+									label: 'Dødsfall er registrert',
 								},
 								{
 									value: 'SAMTYKKE_BEGGE_PARTER',
@@ -121,7 +140,7 @@ export const Gjenlevenderett = () => {
 					)}
 					{isError && EPSError}
 
-					{!isEPSLoading && !EPSOpplysninger && (
+					{!isEPSLoading && !formEpsOpplysninger && (
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
@@ -143,7 +162,7 @@ export const Gjenlevenderett = () => {
 						</ErrorMessage>
 					)}
 					{isEPSInfoEmpty && (
-						<LocalAlert status="warning">
+						<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
 							<LocalAlert.Header>
 								<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
 							</LocalAlert.Header>
@@ -154,8 +173,8 @@ export const Gjenlevenderett = () => {
 							</LocalAlert.Content>
 						</LocalAlert>
 					)}
-					{EPSOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo EPSOpplysninger={EPSOpplysninger} />
+					{formEpsOpplysninger && !isEPSInfoEmpty && (
+						<OpplysningerInfo EPSOpplysninger={formEpsOpplysninger} />
 					)}
 				</div>
 			)}

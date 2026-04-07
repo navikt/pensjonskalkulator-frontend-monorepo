@@ -1,11 +1,14 @@
 import type {
+	EpsOpplysninger,
+	EpsSivilstatus,
 	PersonInternV1,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { addYears, parseISO } from 'date-fns'
 
 export function isSivilstatusWithGjenlevenderett(
-	sivilstatus: Sivilstatus
+	sivilstatus: EpsSivilstatus
 ): boolean {
 	return [
 		'GIFT',
@@ -20,10 +23,11 @@ export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
 }: {
-	sivilstatus: Sivilstatus | null
+	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
 }): boolean {
-	if (!sivilstatus) return true
+	if (!sivilstatus) return false
+
 	return (
 		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
 	)
@@ -33,11 +37,39 @@ export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
 }: {
-	initialSivilstatus: Sivilstatus
+	initialSivilstatus: EpsSivilstatus
 	person: PersonInternV1
 }): boolean {
 	return (
 		isFoedtFoer1963(person?.foedselsdato) &&
 		isSivilstatusWithGjenlevenderett(initialSivilstatus)
 	)
+}
+
+export function showEPSMinstePensjonsgivendeInntektFoerDoedsfall(
+	EPSOpplysninger: EpsOpplysninger
+): boolean {
+	if (!EPSOpplysninger.relasjonPersondata?.foedselsdato) return false
+	return isEpsUnder67EllerDoedsdatoFoer67aar({
+		epsFoedselsdato: EPSOpplysninger.relasjonPersondata.foedselsdato,
+		epsDoedsdato: EPSOpplysninger.relasjonPersondata.doedsdato,
+	})
+}
+
+export function isEpsUnder67EllerDoedsdatoFoer67aar({
+	epsFoedselsdato,
+	epsDoedsdato,
+}: {
+	epsFoedselsdato: string
+	epsDoedsdato?: string | null
+}): boolean {
+	const foedt = parseISO(epsFoedselsdato)
+	const fylte67 = addYears(foedt, 67)
+
+	if (epsDoedsdato) {
+		const doedsdato = parseISO(epsDoedsdato)
+		return doedsdato < fylte67
+	}
+
+	return new Date() < fylte67
 }

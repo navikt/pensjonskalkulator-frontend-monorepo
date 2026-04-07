@@ -1,10 +1,12 @@
 import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, subDays } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 import { Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
+import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
+import { getEpsDoedsdato } from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
@@ -14,7 +16,8 @@ function mapEpsOpplysninger(
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
 	const registrertDoedsDato = relasjonPersondata?.doedsdato
-	const fallbackDato = format(subDays(new Date(), 1), 'dd.MM.yyyy')
+	const doedsdato = getEpsDoedsdato(eps)
+	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
 
 	return [
 		{
@@ -22,8 +25,10 @@ function mapEpsOpplysninger(
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
 		},
 		{
-			label: 'Dato for dødsdato',
-			value: registrertDoedsDato ?? `Ikke registrert. ${fallbackDato} brukes.`,
+			label: 'Dødsdato',
+			value: registrertDoedsDato
+				? formatertDoedsdato
+				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
 		},
 	]
 }
@@ -36,17 +41,18 @@ export const OpplysningerInfo = ({
 	const rows = mapEpsOpplysninger(EPSOpplysninger)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+
 	return (
-		<VStack gap="space-24">
-			<Heading level="3" size="xsmall">
+		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
+			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
 			<Table className={styles.opplysningerTable} size="small">
 				<Table.Body>
 					{rows.map(({ label, value }) => (
 						<Table.Row key={label}>
-							<Table.DataCell>{label}</Table.DataCell>
-							<Table.DataCell>{value}</Table.DataCell>
+							<Table.DataCell textSize="small">{label}</Table.DataCell>
+							<Table.DataCell textSize="small">{value}</Table.DataCell>
 						</Table.Row>
 					))}
 				</Table.Body>
@@ -61,11 +67,14 @@ export const OpplysningerInfo = ({
 				label="Pensjonsgivende inntekt året før dødsdato"
 				style={{ width: '184px' }}
 			/>
-			<RHFRadio
-				name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
-				legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-				className={styles.horizontalRadioGroup}
-			/>
+			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) && (
+				<RHFRadio
+					name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
+					legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
+					className={styles.horizontalRadioGroup}
+					testid="eps-minste-PGI-foer-doedsfall"
+				/>
+			)}
 			<RHFRadio
 				name="epsMedlemAvFolketrygdenVedDoedsDato"
 				legend="Medlem av folketrygden de 5 siste årene før dødsdato"

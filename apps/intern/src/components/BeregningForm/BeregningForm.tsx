@@ -1,4 +1,5 @@
 import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useWatch } from 'react-hook-form'
 
@@ -30,8 +31,8 @@ import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
 
 import styles from './BeregningForm.module.css'
 
-const sivilstandOptions = [
-	{ value: 'ENKE', label: 'Enke/enkemann' },
+const sivilstandOptions: { value: Sivilstatus; label: string }[] = [
+	{ value: 'ENKE_ELLER_ENKEMANN', label: 'Enke/enkemann' },
 	{ value: 'GJENLEVENDE_PARTNER', label: 'Gjenlevende partner' },
 	{ value: 'GIFT', label: 'Gift' },
 	{ value: 'REGISTRERT_PARTNER', label: 'Registrert partner' },
@@ -95,61 +96,68 @@ export const BeregningForm = () => {
 	}
 
 	const vilkaarAlternativ =
-		beregning?.vilkaarsproeving.alternativ?.gradertUttaksalder ??
-		beregning?.vilkaarsproeving.alternativ?.heltUttaksalder
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder ??
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
 
 	return (
 		<Box className={styles.beregningForm}>
-			<div className={styles.section}>
+			<Box className={styles.section}>
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
-					}) && <Gjenlevenderett />}
+					}) && (
+						<>
+							<Gjenlevenderett />
+							{!beregnMedGjenlevenderett && <Divider noMargin />}
+						</>
+					)}
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
-						label="Hva er sivilstanden til bruker ved uttak av pensjon?"
+						testId="sivilstatus-select"
+						label="Sivilstatus ved uttak"
 						className={styles.selectWrapper}
 					>
-						{initialSivilstatus === 'UOPPGITT' &&
-							sivilstatus === 'UOPPGITT' && <option value="" />}
-						{sivilstandOptions.map(({ value, label }) => (
-							<option key={value} value={value ?? ''}>
-								{label}
-							</option>
-						))}
+						{(initialSivilstatus === 'UOPPGITT' ||
+							initialSivilstatus === 'UNKNOWN') && <option value="" />}
+						{sivilstandOptions.map(({ value, label }) => {
+							return (
+								<option key={value} value={value ?? ''}>
+									{label}
+								</option>
+							)
+						})}
 					</RHFSelect>
 				)}
 
-				{showEpsHarPensjon(sivilstatus) && (
-					<>
-						<Divider noMargin />
-						<RHFRadio
-							name="epsHarPensjon"
-							legend={`Vil brukers ${partnerBetegnelse} motta pensjon, uføretrygd eller AFP?`}
-							className={styles.horizontalRadioGroup}
-						/>
-					</>
+				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
+					<RHFRadio
+						name="epsHarPensjon"
+						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 
-				{showEpsHarInntektOver2G(sivilstatus, epsHarPensjon) && (
-					<>
-						<Divider noMargin />
-						<RHFRadio
-							name="epsHarInntektOver2G"
-							legend={`Vil brukers ${partnerBetegnelse} ha inntekt over 2G${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''}?`}
-							className={styles.horizontalRadioGroup}
-						/>
-					</>
+				{showEpsHarInntektOver2G({
+					sivilstatus,
+					epsHarPensjon,
+					beregnMedGjenlevenderett,
+				}) && (
+					<RHFRadio
+						name="epsHarInntektOver2G"
+						data-testid="eps-inntekt-over-2G"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 				<Divider noMargin />
-				{beregning?.vilkaarsproeving.vilkaarErOppfylt === false &&
+				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
 							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
@@ -160,7 +168,8 @@ export const BeregningForm = () => {
 									vilkaarAlternativ?.maaneder
 								),
 								grad: String(
-									beregning.vilkaarsproeving.alternativ?.uttaksgrad ?? 100
+									beregning.vilkaarsproevingsresultat.alternativ?.uttaksgrad ??
+										100
 								),
 							}}
 						/>
@@ -238,7 +247,7 @@ export const BeregningForm = () => {
 						/>
 					</>
 				)}
-			</div>
+			</Box>
 			<ButtonBar
 				onSubmit={handleSubmit}
 				onReset={resetForm}

@@ -1,4 +1,4 @@
-import type { AlderspensjonPensjonsberegning } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { SimuleringAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -21,16 +21,16 @@ import { BeregningTable, type BeregningTableRow } from './BeregningTable'
 import styles from './Beregning.module.css'
 
 function mapAlderspensjonToRows(
-	entry: AlderspensjonPensjonsberegning
+	entry: SimuleringAlderspensjon
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Grunnpensjon (kap. 19)',
-			value: Math.round((entry.grunnpensjon ?? 0) / 12),
+			value: Math.round((entry.grunnpensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Tilleggspensjon (kap. 19)',
-			value: Math.round((entry.tilleggspensjon ?? 0) / 12),
+			value: Math.round((entry.tilleggspensjonBeloep ?? 0) / 12),
 		},
 		{
 			label: 'Pensjonstillegg (kap. 19)',
@@ -38,7 +38,7 @@ function mapAlderspensjonToRows(
 		},
 		{
 			label: 'Gjenlevendetillegg (kap. 19)',
-			value: Math.round((entry.kapittel19Gjenlevendetillegg ?? 0) / 12),
+			value: Math.round((entry.gjenlevendetillegg ?? 0) / 12),
 		},
 		{
 			label: 'Inntektspensjon (kap. 20)',
@@ -56,13 +56,13 @@ function mapAlderspensjonToRows(
 }
 
 function mapOpptjeningEtterKapittel19ToRows(
-	opptjening: AlderspensjonPensjonsberegning,
+	opptjening: SimuleringAlderspensjon,
 	grunnbeloep?: number
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap19,
+			value: opptjening?.kapittel19Andel,
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -80,19 +80,19 @@ function mapOpptjeningEtterKapittel19ToRows(
 		},
 		{
 			label: 'Sluttpoengtall',
-			value: opptjening.sluttpoengtall,
+			value: opptjening?.sluttpoengtall,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap19,
+			value: opptjening.kapittel19Trygdetid,
 		},
 		{
 			label: 'Poengår før 1992 (45 %)',
-			value: opptjening.poengaarFoer92,
+			value: opptjening.poengaarTom1991,
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: opptjening.poengaarEtter91,
+			value: opptjening.poengaarFom1992,
 		},
 		{
 			label: 'Basispensjon',
@@ -107,12 +107,12 @@ function mapOpptjeningEtterKapittel19ToRows(
 	]
 }
 function mapOpptjeningEtterKapittel20ToRows(
-	opptjening: AlderspensjonPensjonsberegning
+	opptjening: SimuleringAlderspensjon
 ): BeregningTableRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: opptjening.andelsbroekKap20,
+			value: opptjening.kapittel20Andel,
 		},
 		{
 			label: 'Delingstall ved uttak',
@@ -125,22 +125,22 @@ function mapOpptjeningEtterKapittel20ToRows(
 		},
 		{
 			label: 'Garantitillegg',
-			value: 54453,
+			value: opptjening.garantitilleggBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning før uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep,
+			value: opptjening.pensjonsbeholdningFoerUttakBeloep,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
-			value: opptjening.pensjonBeholdningFoerUttakBeloep ?? 0 / 2,
+			value: (opptjening?.pensjonsbeholdningFoerUttakBeloep ?? 0) / 2,
 			visBeloepKroner: true,
 		},
 		{
 			label: 'Trygdetid',
-			value: opptjening.trygdetidKap20,
+			value: opptjening.kapittel20Trygdetid,
 		},
 	]
 }
@@ -163,15 +163,19 @@ export const Beregning = () => {
 
 	if (!beregning && isBeregningLoading) {
 		return (
-			<div className={styles.beregning}>
-				<div className={styles.loader}>
+			<Box
+				borderColor="neutral-subtle"
+				borderWidth="0 0 0 1"
+				className={styles.beregning}
+			>
+				<Box className={styles.loader}>
 					<Loader size="3xlarge" title="Beregner pensjon …" />
-				</div>
-			</div>
+				</Box>
+			</Box>
 		)
 	}
 
-	if (!beregning || beregning.vilkaarsproeving.vilkaarErOppfylt === false) {
+	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
@@ -194,11 +198,11 @@ export const Beregning = () => {
 
 	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
 
-	const heltEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (heltUttakAar ?? 0)
+	const heltEntry = beregning?.alderspensjonListe?.find(
+		(entry) => entry.alderAar === (heltUttakAar ?? 0)
 	)
-	const gradertEntry = beregning?.alderspensjon?.find(
-		(entry) => entry.alder === (gradertUttakAar ?? 0)
+	const gradertEntry = beregning?.alderspensjonListe?.find(
+		(entry) => entry.alderAar === (gradertUttakAar ?? 0)
 	)
 
 	const titleHeltUttak =

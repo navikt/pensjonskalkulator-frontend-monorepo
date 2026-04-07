@@ -33,7 +33,7 @@ runs:
     - name: Fetch openapi backend types
       shell: bash
       run: |
-        npx openapi-typescript ${{ inputs.openapi-url }} -o ./apps/ekstern/src/types/schema.d.ts
+        pnpm --filter=ekstern exec openapi-typescript ${{ inputs.openapi-url }} -o ./src/types/schema.d.ts
 
     - name: Format backend scheme
       shell: bash
@@ -63,3 +63,4 @@ runs:
         dockerfile: apps/ekstern/.docker/Dockerfile
         docker_context: .
         team: pensjonskalkulator
+        image_suffix: ekstern

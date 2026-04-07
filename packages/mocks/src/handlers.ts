@@ -13,6 +13,10 @@ import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
+import simuleringV1AfpOffentligOverlay from './data/simulering-v1-afp-offentlig.json' with { type: 'json' }
+import simuleringV1AfpPrivatOverlay from './data/simulering-v1-afp-privat.json' with { type: 'json' }
+import simuleringV1AfpTidsbegrensetOverlay from './data/simulering-v1-afp-tidsbegrenset.json' with { type: 'json' }
+import simuleringV1Response from './data/simulering-v1.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import hentPersonInternToggleResponse from './data/unleash-hent-person-intern.json' with { type: 'json' }
@@ -29,6 +33,40 @@ import type {
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
+
+function buildSimuleringV1Response(body: Record<string, unknown>) {
+	const simType = (body as { simuleringstype: string }).simuleringstype
+	const heltUttak = (body as { heltUttak?: { uttaksalder?: { aar?: number } } })
+		.heltUttak
+	const gradertUttak = (
+		body as { gradertUttak?: { uttaksalder?: { aar?: number } } }
+	).gradertUttak
+	const startAar =
+		gradertUttak?.uttaksalder?.aar ?? heltUttak?.uttaksalder?.aar ?? 67
+
+	const base = structuredClone(simuleringV1Response) as Record<string, unknown>
+	const mockList = base.alderspensjonListe as Array<Record<string, unknown>>
+	base.alderspensjonListe = mockList.filter(
+		(entry) => (entry.alderAar as number) >= startAar
+	)
+
+	let overlay = {}
+	if (
+		simType === 'ALDERSPENSJON_MED_PRIVAT_AFP' ||
+		simType === 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
+	) {
+		overlay = simuleringV1AfpPrivatOverlay
+	} else if (
+		simType === 'ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP' ||
+		simType === 'ENDRING_ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP'
+	) {
+		overlay = simuleringV1AfpOffentligOverlay
+	} else if (simType === 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP') {
+		overlay = simuleringV1AfpTidsbegrensetOverlay
+	}
+
+	return { ...base, ...overlay }
+}
 
 const testHandlers =
 	process.env.NODE_ENV === 'test'
@@ -305,6 +343,15 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.text('this-is-just-jibbrish-encrypted-fnr')
 		}),
 
+		http.post(
+			`${baseUrl}/intern/v1/pensjon/simulering`,
+			async ({ request }) => {
+				await delay(delayMs)
+				const body = (await request.json()) as Record<string, unknown>
+				return HttpResponse.json(buildSimuleringV1Response(body))
+			}
+		),
+
 		http.post(`${baseUrl}/v1/decrypt`, async () => {
 			await delay(delayMs)
 			return HttpResponse.text('04925398980')
@@ -343,6 +390,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		),
 
 		http.post(`${baseUrl}/intern/v1/eps`, async ({ request }) => {
+			await delay(delayMs)
+			const fnr = request.headers.get('fnr')
+			if (!fnr) {
+				return HttpResponse.json(
+					{ message: 'Missing fnr header' },
+					{ status: 400 }
+				)
+			}
 			await request.json()
 			return HttpResponse.json(epsOpplysningResponse)
 		}),

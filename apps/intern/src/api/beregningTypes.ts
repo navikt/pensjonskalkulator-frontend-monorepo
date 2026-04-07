@@ -1,5 +1,6 @@
 import type {
-	AlderspensjonResponseBody,
+	EpsOpplysninger,
+	SimuleringResponseBody,
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
@@ -28,7 +29,8 @@ export interface BeregningFormData {
 	alderAarInntektGradertSlutter: number | null
 	alderMdInntektGradertSlutter: number | null
 	harHentetEPSOpplysninger: boolean
-	epsAntallUtenlandsOppholdAar: number | null
+	epsOpplysninger: EpsOpplysninger | undefined
+	epsAntallUtenlandsOppholdAar: number | undefined
 	epsPensjonsgivendeInntektFoerDoedsDato: number | null
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
 	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
@@ -58,6 +60,7 @@ export interface ValidationErrors {
 	alderAarInntektGradertSlutter?: string
 	alderMdInntektGradertSlutter?: string
 	harHentetEPSOpplysninger?: string
+	epsOpplysninger?: string
 	epsAntallUtenlandsOppholdAar?: string
 	epsPensjonsgivendeInntektFoerDoedsDato?: string
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
@@ -65,22 +68,7 @@ export interface ValidationErrors {
 	epsRegistretSomFlykting?: string
 }
 
-export type BeregningResult = AlderspensjonResponseBody
-
-export function mapPersonSivilstatus(sivilstand: string): string {
-	switch (sivilstand) {
-		case 'UOPPGITT':
-			return ''
-		case 'GIFT':
-			return 'GIFT'
-		case 'SAMBOER':
-			return 'SAMBOER'
-		case 'REGISTRERT_PARTNER':
-			return 'REGISTRERT_PARTNER'
-		default:
-			return 'UGIFT'
-	}
-}
+export type BeregningResult = SimuleringResponseBody
 
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstatus: 'UOPPGITT',
@@ -102,7 +90,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
-	epsAntallUtenlandsOppholdAar: null,
+	epsAntallUtenlandsOppholdAar: undefined,
+	epsOpplysninger: undefined,
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,

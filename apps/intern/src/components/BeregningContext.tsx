@@ -1,7 +1,6 @@
 import type {
 	LoependeVedtak,
 	PersonInternV1,
-	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
@@ -51,19 +50,16 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 
 interface BeregningProviderProps {
 	children: ReactNode
-	initialSivilstatus: Sivilstatus | null
 	initialInntekt?: number
 }
 
 export function BeregningProvider({
 	children,
-	initialSivilstatus,
 	initialInntekt,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
 		defaultValues: {
 			...defaultBeregningFormData,
-			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 			...(initialInntekt !== undefined
 				? { aarligInntektFoerUttakBeloep: initialInntekt }
 				: {}),
@@ -76,7 +72,6 @@ export function BeregningProvider({
 		form.reset(
 			{
 				...defaultBeregningFormData,
-				...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 				...(initialInntekt !== undefined
 					? { aarligInntektFoerUttakBeloep: initialInntekt }
 					: {}),
@@ -88,7 +83,8 @@ export function BeregningProvider({
 	const [aktivBeregning, setAktivBeregning] = useState<BeregningParams | null>(
 		null
 	)
-	const [hasSubmitted, setHasSubmitted] = useState(false)
+	const [pendingBeregning, setPendingBeregning] =
+		useState<BeregningParams | null>(null)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
@@ -96,7 +92,7 @@ export function BeregningProvider({
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
-	const showDirtyWarning = hasSubmitted && formIsDirty
+	const showDirtyWarning = !!pendingBeregning && formIsDirty
 
 	const [
 		sivilstatus,
@@ -114,6 +110,12 @@ export function BeregningProvider({
 			'beregnMedGjenlevenderett',
 		] as const,
 	})
+
+	useEffect(() => {
+		if (person?.sivilstatus) {
+			form.setValue('sivilstatus', person.sivilstatus, { shouldDirty: false })
+		}
+	}, [person?.sivilstatus, form])
 
 	useEffect(() => {
 		if (!beregnMedGjenlevenderett) {
@@ -176,23 +178,30 @@ export function BeregningProvider({
 	const submitBeregning = useCallback(() => {
 		const values = form.getValues()
 		setAktivBeregning({ ...values })
-		setHasSubmitted(true)
-		// Reset form to make these submitted values the new baseline
-		// This makes formIsDirty = false after successful submission
+		setPendingBeregning({ ...values })
 		form.reset(values, { keepValues: true })
 	}, [form])
 
 	const resetForm = useCallback(() => {
-		form.reset(defaultBeregningFormData)
+		form.reset({
+			...defaultBeregningFormData,
+			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
+		})
 		setAktivBeregning(null)
-		setHasSubmitted(false)
-	}, [form])
+		setPendingBeregning(null)
+	}, [form, person?.sivilstatus])
 
 	const {
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, person?.foedselsdato, aktivBeregning)
+	} = useBeregningQuery(fnr, aktivBeregning)
+
+	useEffect(() => {
+		if (!isBeregningLoading && pendingBeregning) {
+			setAktivBeregning(pendingBeregning)
+		}
+	}, [isBeregningLoading, pendingBeregning])
 
 	return (
 		<FormProvider {...form}>
