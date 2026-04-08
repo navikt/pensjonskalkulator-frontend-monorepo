@@ -256,7 +256,7 @@ export const BeregningForm = () => {
 					className={styles.selectWrapper}
 					numeric
 				>
-					<option value="">Velg</option>
+					<option value="" />
 					{[20, 40, 50, 60, 80, 100].map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
