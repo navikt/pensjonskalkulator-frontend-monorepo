@@ -49,14 +49,10 @@ export const BeregningTableWithSum = ({
 			<Table.Header>
 				<Table.Row className={styles.headerRow}>
 					<Table.HeaderCell>
-						<Label style={{ whiteSpace: 'nowrap' }} size="small">
-							{title}
-						</Label>
+						<Label size="small">{title}</Label>
 					</Table.HeaderCell>
 					<Table.HeaderCell align="right">
-						<Label style={{ whiteSpace: 'nowrap' }} size="small">
-							{valueHeader}
-						</Label>
+						<Label size="small">{valueHeader}</Label>
 					</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
