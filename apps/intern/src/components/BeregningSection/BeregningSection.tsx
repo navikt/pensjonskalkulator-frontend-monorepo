@@ -75,13 +75,13 @@ export const BeregningSection = ({
 				<VStack gap="space-32">
 					<BeregningTableWithSum
 						title="Avtalefestet pensjon i privat sektor"
-						valueHeader="Kr per måned"
+						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
 						visAarsbelop={visAarsbelop}
 					/>
 					<BeregningTableWithSum
 						title="Alderspensjon og AFP"
-						valueHeader="Kr per måned"
+						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 						addToSum={totalAddToSum}
 						visAarsbelop={visAarsbelop}
 					/>
