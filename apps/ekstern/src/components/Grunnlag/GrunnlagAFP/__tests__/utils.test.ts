@@ -19,7 +19,7 @@ describe('afpContent', () => {
       },
     }
     describe('født før 1963', () => {
-      const foedselsdato = person(64, 3, 7)
+      const foedselsdato = '1962-01-01'
       describe('afpValg', () => {
         it('AFP Valg: Ja, offentlig sektor - Beregn AFP og AP ', () => {
           const actual = generateAfpContent(intl)({
@@ -211,7 +211,7 @@ describe('afpContent', () => {
       },
     }
     describe('født før 1963', () => {
-      const foedselsdato = person(64, 3, 7)
+      const foedselsdato = '1962-01-01'
       describe('afpValg', () => {
         it('AFP Valg: Ja, privat sektor', () => {
           const actual = generateAfpContent(intl)({
@@ -499,7 +499,7 @@ describe('afpContent', () => {
       },
     }
     it('født før 1963', () => {
-      const foedselsdato = person(64, 3, 7)
+      const foedselsdato = '1962-01-01'
       const actual = generateAfpContent(intl)({
         erApoteker: false,
         afpValg: null,
@@ -556,7 +556,7 @@ describe('afpContent', () => {
 
   describe('med vedtak om AP og UT', () => {
     describe('født før 1963', () => {
-      const foedselsdato = person(64, 3, 7)
+      const foedselsdato = '1962-01-01'
       it('vedtak om gradert AP og gradert UT', () => {
         const loependeVedtak: LoependeVedtak = {
           harLoependeVedtak: true,
@@ -668,7 +668,7 @@ describe('afpContent', () => {
     })
     describe('vedtak om AFP', () => {
       describe('født før 1963', () => {
-        const foedselsdato = person(64, 3, 7)
+        const foedselsdato = '1962-01-01'
 
         it('vedtak om AP og AFP Privat', () => {
           const loependeVedtak: LoependeVedtak = {
@@ -788,7 +788,7 @@ describe('afpContent', () => {
     // Samme tester for apotekere født før og etter 1963
     Object.entries({
       'født etter 1963': '1963-01-01',
-      'født før 1963': person(64, 3, 7),
+      'født før 1963': '1962-01-01',
     }).forEach(([test, foedselsdato]) => {
       describe(test, () => {
         describe('uten vedtak', () => {

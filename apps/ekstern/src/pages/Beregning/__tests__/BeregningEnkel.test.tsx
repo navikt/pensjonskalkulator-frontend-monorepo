@@ -212,9 +212,9 @@ describe('BeregningEnkel', () => {
 
         expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
         const buttons = screen.getAllByRole('button')
-        expect(buttons).toHaveLength(13)
+        expect(buttons).toHaveLength(14)
         expect(buttons[1]).toHaveTextContent(
-          '64 alder.aar string.og 5 alder.md'
+          '63 alder.aar string.og 5 alder.md'
         )
         vi.setSystemTime(new Date())
         vi.useRealTimers()
@@ -362,7 +362,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: person(62, 11, 8),
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -448,7 +448,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: person(62, 11, 8),
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -532,7 +532,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: person(62, 11, 8),
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -618,7 +618,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: person(62, 11, 8),
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -937,7 +937,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: person(62, 11, 8),
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,

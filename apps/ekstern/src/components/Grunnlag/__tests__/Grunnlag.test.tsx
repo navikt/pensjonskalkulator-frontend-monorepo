@@ -7,6 +7,7 @@ import {
   loependeVedtakLoependeAlderspensjonMock,
   mockErrorResponse,
   mockResponse,
+  personEldreEnnAfpUfoereOppsigelsesalderMock,
   personMedSamboerMock,
   personMock,
   personYngreEnnAfpUfoereOppsigelsesalderMock,
@@ -449,7 +450,7 @@ describe('Grunnlag', () => {
             },
             preloadedApiState: {
               getLoependeVedtak: loependeVedtak75UfoeregradMock,
-              getPerson: personMock, // This person is born in 1963, making them over 62
+              getPerson: personEldreEnnAfpUfoereOppsigelsesalderMock,
             },
           }
         )

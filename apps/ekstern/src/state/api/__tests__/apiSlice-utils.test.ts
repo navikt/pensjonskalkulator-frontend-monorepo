@@ -1178,7 +1178,7 @@ describe('apiSlice - utils', () => {
 
   describe('generateOffentligTpFoer1963RequestBody', () => {
     const requestBody = {
-      foedselsdato: person(65, 11, 8),
+      foedselsdato: '1962-04-30',
       aarligInntektFoerUttakBeloep: '500 000',
       heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
       utenlandsperioder: [],
@@ -1223,9 +1223,9 @@ describe('apiSlice - utils', () => {
       expect(
         generateOffentligTpFoer1963RequestBody({
           ...requestBody,
-          foedselsdato: person(65, 11, 8),
+          foedselsdato: '1962-04-30',
         })?.foedselsdato
-      ).toEqual(person(65, 11, 8))
+      ).toEqual('1962-04-30')
     })
   })
 })

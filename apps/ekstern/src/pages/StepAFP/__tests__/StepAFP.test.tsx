@@ -5,7 +5,6 @@ import {
   loependeVedtak0UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
   mockResponse,
-  person,
   personMock,
 } from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
@@ -72,6 +71,7 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       hasRouter: false,
     })
 
@@ -86,6 +86,7 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       hasRouter: false,
     })
     expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
@@ -100,7 +101,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1962-11-08',
+        foedselsdato: '1960-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -150,7 +151,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(65, 11, 8),
+        foedselsdato: '1960-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -187,7 +188,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(61, 11, 8),
+        foedselsdato: '1964-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -224,7 +225,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(58, 11, 8),
+        foedselsdato: '1967-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -269,7 +270,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(65, 11, 8),
+        foedselsdato: '1960-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -325,7 +326,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(61, 11, 8),
+        foedselsdato: '1964-04-30',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -352,16 +353,25 @@ describe('StepAFP', () => {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
+    const { store: renderedStore } = render(
+      <RouterProvider router={router} />,
+      {
+        preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
+        hasRouter: false,
+      }
+    )
+    await renderedStore.dispatch(
+      apiSlice.endpoints.getLoependeVedtak.initiate()
+    )
 
     const radioButtons = await screen.findAllByRole('radio')
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(setAfpMock).toHaveBeenCalledWith('ja_offentlig')
-    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
+    })
   })
 
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
