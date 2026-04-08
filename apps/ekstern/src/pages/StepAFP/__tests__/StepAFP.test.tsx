@@ -100,7 +100,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: person(65, 11, 8),
+        foedselsdato: '1962-11-08',
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
