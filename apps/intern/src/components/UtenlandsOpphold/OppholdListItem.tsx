@@ -30,8 +30,10 @@ export const OppholdListItem = ({
 			<HStack align="center" gap="space-16">
 				<div style={{ flex: 1, minWidth: 0 }}>
 					<BodyShort size="small">
-						<strong>{landDetails?.navn ?? opphold.land}</strong>
-						{oppholdSummaryText}
+						<VStack>
+							<strong>{landDetails?.navn ?? opphold.land}</strong>
+							<div>{oppholdSummaryText}</div>
+						</VStack>
 					</BodyShort>
 				</div>
 				{showActions && (

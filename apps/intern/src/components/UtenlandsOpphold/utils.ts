@@ -244,13 +244,14 @@ export const getOppholdFieldName = <T extends OppholdField>(
 
 export const getOppholdLabels = (opphold: OppholdLabelFields) => {
 	const labels: string[] = []
+	const isVarigOpphold = Boolean(opphold.startdato && !opphold.sluttdato)
 
-	if (opphold.arbeidetUtenlands === true) {
-		labels.push('Jobbet')
+	if (isVarigOpphold) {
+		labels.push('Varig opphold')
 	}
 
-	if (opphold.startdato && !opphold.sluttdato) {
-		labels.push('Varig opphold')
+	if (opphold.arbeidetUtenlands === true) {
+		labels.push(isVarigOpphold ? 'jobbet' : 'Jobbet')
 	}
 
 	return labels
@@ -266,9 +267,8 @@ export const getOppholdDateText = (opphold: OppholdDateFields) => {
 
 export const getOppholdSummaryText = (opphold: OppholdLabelFields) => {
 	const dateText = getOppholdDateText(opphold)
-	const labelText = getOppholdLabels(opphold)
-		.map((label) => `(${label})`)
-		.join(' ')
+	const labels = getOppholdLabels(opphold)
+	const labelText = labels.length > 0 ? `(${labels.join(', ')})` : ''
 	const summaryText = [dateText, labelText].filter(Boolean).join(' ')
 
 	return summaryText ? ` ${summaryText}` : ''
@@ -278,25 +278,30 @@ export const getOppholdCopyText = (oppholdList: OppholdValues[]) =>
 	oppholdList
 		.map((opphold) => {
 			const landDetails = getLandDetails(opphold.land)
-			const datotekst =
-				opphold.startdato && opphold.sluttdato
-					? `${opphold.startdato}-${opphold.sluttdato}`
-					: opphold.startdato
-						? `${opphold.startdato} (Varig opphold)`
-						: ''
-			const arbeidstekst =
-				opphold.arbeidetUtenlands === null
-					? ''
-					: opphold.arbeidetUtenlands
-						? ' (Jobbet)'
-						: ' (Jobbet ikke)'
+			const etiketter: string[] = []
+			let periodeTekst = ''
 
-			return [
-				landDetails?.navn ?? opphold.land,
-				`${datotekst}${arbeidstekst}`.trim(),
+			if (opphold.startdato && opphold.sluttdato) {
+				periodeTekst = `${opphold.startdato}-${opphold.sluttdato}`
+			} else if (opphold.startdato) {
+				periodeTekst = opphold.startdato
+				etiketter.push('Varig opphold')
+			}
+
+			if (opphold.arbeidetUtenlands === true) {
+				etiketter.push(opphold.sluttdato ? 'Jobbet' : 'jobbet')
+			}
+
+			const detaljer = [
+				periodeTekst,
+				etiketter.length > 0 ? `(${etiketter.join(', ')})` : '',
 			]
 				.filter(Boolean)
-				.join('\n')
+				.join(' ')
+
+			return [landDetails?.navn ?? opphold.land, detaljer]
+				.filter(Boolean)
+				.join(', ')
 		})
 		.join('\n\n')
 

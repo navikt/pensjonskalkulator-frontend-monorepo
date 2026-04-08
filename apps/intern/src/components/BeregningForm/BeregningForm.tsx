@@ -189,6 +189,8 @@ export const BeregningForm = () => {
 					foedselsdato={person?.foedselsdato}
 				/>
 
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+
 				<RHFSelect
 					name="uttaksgrad"
 					label="Uttaksgrad"
@@ -236,7 +238,6 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
 					<>
 						<RHFTextField
