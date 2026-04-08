@@ -134,17 +134,32 @@ function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
 	}
 }
 
+function validateInntektField({
+	formData,
+	errors,
+	field,
+}: {
+	formData: BeregningFormData
+	errors: ValidationErrors
+	field: keyof BeregningFormData & keyof ValidationErrors
+}) {
+	const value = formData[field]
+	if (value === null) {
+		errors[field] = 'Fyll ut inntekt.'
+	} else if (typeof value === 'number' && value > 100_000_000) {
+		errors[field] = 'Inntekten kan ikke overskride 100 000 000 kr.'
+	}
+}
+
 function validateInntektFoerUttak(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	const inntektFoerUttak = formData.aarligInntektFoerUttakBeloep
-	if (inntektFoerUttak === null) {
-		errors.aarligInntektFoerUttakBeloep = 'Fyll ut inntekt.'
-	} else if (inntektFoerUttak > 100_000_000) {
-		errors.aarligInntektFoerUttakBeloep =
-			'Inntekten kan ikke overskride 100 000 000 kr.'
-	}
+	validateInntektField({
+		formData,
+		errors,
+		field: 'aarligInntektFoerUttakBeloep',
+	})
 }
 
 function validateUttaksalder(
@@ -177,14 +192,11 @@ function validateInntektVsaGradertUttak(
 	errors: ValidationErrors
 ) {
 	if (showInntektGradertFields(formData.uttaksgrad)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvGradertUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvGradertUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
+		validateInntektField({
+			formData,
+			errors,
+			field: 'pensjonsgivendeInntektVedSidenAvGradertUttak',
+		})
 	}
 }
 
@@ -233,14 +245,11 @@ function validateInntektVsaHeltUttak(
 	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
-		const pensjonsgivendeInntekt =
-			formData.pensjonsgivendeInntektVedSidenAvUttak
-		if (pensjonsgivendeInntekt === null) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak = 'Fyll ut inntekt.'
-		} else if (pensjonsgivendeInntekt > 100_000_000) {
-			errors.pensjonsgivendeInntektVedSidenAvUttak =
-				'Inntekten kan ikke overskride 100 000 000 kr.'
-		}
+		validateInntektField({
+			formData,
+			errors,
+			field: 'pensjonsgivendeInntektVedSidenAvUttak',
+		})
 
 		if (
 			formData.alderAarInntektSlutter === null ||
