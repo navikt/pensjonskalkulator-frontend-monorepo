@@ -1084,7 +1084,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: person(62, 11, 8),
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1413,7 +1413,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: person(62, 11, 8),
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1976,7 +1976,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
             },
           },
           preloadedApiState: {
-            getPerson: personMock,
+            getPerson: { ...personMock, foedselsdato: person(62, 11, 8) },
             getLoependeVedtak: {
               harLoependeVedtak: true,
               alderspensjon: {
