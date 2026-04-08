@@ -127,7 +127,7 @@
 	}
 
 	.buttonBar {
-		padding-left: 24px;
-		padding-right: 24px;
+		padding-left: var(--ax-space-24);
+		padding-right: var(--ax-space-24);
 	}
 }

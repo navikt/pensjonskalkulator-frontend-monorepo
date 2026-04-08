@@ -6,10 +6,6 @@
 	overflow-y: auto;
 }
 
-.tables > * {
-	flex: 1;
-}
-
 .loadingOverlay {
 	position: relative;
 }

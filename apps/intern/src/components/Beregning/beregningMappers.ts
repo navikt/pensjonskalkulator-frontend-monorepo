@@ -62,7 +62,7 @@ export function mapAlderspensjonToRows(
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
-						value: Math.round(entry.garantipensjonBeloep ?? 0),
+						value: Math.round(entry.garantitilleggBeloep ?? 0),
 					},
 				]
 			: []),
