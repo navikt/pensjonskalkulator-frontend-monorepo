@@ -177,10 +177,6 @@ export const Beregning = () => {
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
 							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-							totalAddToSum={
-								(gradertMaanedligAlderspensjon.beloep ?? 0) +
-								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
-							}
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 							isGradert
 							visAarsbelop={visAarsbelop}
@@ -194,10 +190,6 @@ export const Beregning = () => {
 									entry={normertMaanedligAlderspensjon}
 									showAfp
 									afpEntry={afpPrivatVed67Aar}
-									totalAddToSum={
-										(normertMaanedligAlderspensjon?.beloep ?? 0) +
-										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
 									visAarsbelop={visAarsbelop}
@@ -213,10 +205,6 @@ export const Beregning = () => {
 					showAfp={harAfpPrivat}
 					afpEntry={afpPrivatVedHeltUttak}
 					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-					totalAddToSum={
-						(helMaanedligAlderspensjon?.beloep ?? 0) +
-						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-					}
 					alderspensjonGrad={100}
 					visAarsbelop={visAarsbelop}
 					yearlyEntry={helAarligAlderspensjon}
@@ -228,10 +216,6 @@ export const Beregning = () => {
 						entry={normertMaanedligAlderspensjon}
 						showAfp
 						afpEntry={afpPrivatVed67Aar}
-						totalAddToSum={
-							(normertMaanedligAlderspensjon?.beloep ?? 0) +
-							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-						}
 						alderspensjonGrad={100}
 						visAarsbelop={visAarsbelop}
 						yearlyEntry={normertAarligAlderspensjon}

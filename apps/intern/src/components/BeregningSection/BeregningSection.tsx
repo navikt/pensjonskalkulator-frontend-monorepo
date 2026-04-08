@@ -7,8 +7,14 @@ import type {
 import { Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
-import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
-import { mapPrivatAfp } from '../Beregning/beregningMappers'
+import {
+	BeregningTableWithSum,
+	computeRowsSum,
+} from '../Beregning/BeregningTableWithSum'
+import {
+	mapAlderspensjonToRows,
+	mapPrivatAfp,
+} from '../Beregning/beregningMappers'
 
 import styles from './BeregningSection.module.css'
 
@@ -25,7 +31,6 @@ interface BeregningSectionProps {
 	afpEntry?: SimuleringAfpPrivat
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
-	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
@@ -43,50 +48,66 @@ export const BeregningSection = ({
 	showAfp = false,
 	afpEntry,
 	visKronetillegg = false,
-	totalAddToSum = 0,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	visAarsbelop = false,
-}: BeregningSectionProps) => (
-	<VStack gap="space-12">
-		<Heading level="3" size="small">
-			{title}
-		</Heading>
-		<div
-			className={styles.tableGrid}
-			style={{ '--table-columns': tableCount } as React.CSSProperties}
-		>
-			{entry && yearlyEntry && (
-				<AlderspensjonTables
-					entry={entry}
-					yearlyEntry={yearlyEntry}
-					erFoedtFoer1963={erFoedtFoer1963}
-					erOvergangskull={erOvergangskull}
-					erFoedtEtter1963={erFoedtEtter1963}
-					grunnbeloep={grunnbeloep}
-					alderspensjonGrad={alderspensjonGrad}
-					visAarsbelop={visAarsbelop}
-					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
-					isGradert={isGradert}
-				/>
-			)}
-			{showAfp && (
-				<VStack gap="space-32">
-					<BeregningTableWithSum
-						title="Avtalefestet pensjon i privat sektor"
-						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
-						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+}: BeregningSectionProps) => {
+	const afpRows = mapPrivatAfp(afpEntry, visKronetillegg)
+	const alderspensjonRows =
+		entry && yearlyEntry
+			? mapAlderspensjonToRows(
+					entry,
+					yearlyEntry,
+					!!erFoedtFoer1963,
+					!!erOvergangskull || !!erFoedtEtter1963,
+					simulererMedGjenlevenderett
+				)
+			: []
+
+	return (
+		<VStack gap="space-12">
+			<Heading level="3" size="small">
+				{title}
+			</Heading>
+			<div
+				className={styles.tableGrid}
+				style={{ '--table-columns': tableCount } as React.CSSProperties}
+			>
+				{entry && yearlyEntry && (
+					<AlderspensjonTables
+						entry={entry}
+						yearlyEntry={yearlyEntry}
+						erFoedtFoer1963={erFoedtFoer1963}
+						erOvergangskull={erOvergangskull}
+						erFoedtEtter1963={erFoedtEtter1963}
+						grunnbeloep={grunnbeloep}
+						alderspensjonGrad={alderspensjonGrad}
 						visAarsbelop={visAarsbelop}
+						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
+						isGradert={isGradert}
 					/>
-					<BeregningTableWithSum
-						title="Alderspensjon og AFP"
-						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
-						addToSum={totalAddToSum}
-						visAarsbelop={visAarsbelop}
-					/>
-				</VStack>
-			)}
-		</div>
-	</VStack>
-)
+				)}
+				{showAfp && (
+					<VStack gap="space-32">
+						<BeregningTableWithSum
+							title="Avtalefestet pensjon i privat sektor"
+							valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
+							rows={afpRows}
+							visAarsbelop={visAarsbelop}
+						/>
+						<BeregningTableWithSum
+							title="Alderspensjon og AFP"
+							valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
+							addToSum={
+								computeRowsSum(alderspensjonRows, visAarsbelop) +
+								computeRowsSum(afpRows, visAarsbelop)
+							}
+							visAarsbelop={visAarsbelop}
+						/>
+					</VStack>
+				)}
+			</div>
+		</VStack>
+	)
+}

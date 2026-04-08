@@ -25,6 +25,24 @@ interface BeregningTableWithSumProps {
 const formatKroner = (value?: number) =>
 	value?.toLocaleString('nb-NO', { maximumFractionDigits: 0 }) ?? ''
 
+export function computeRowsSum(
+	rows: BeregningTableRow[],
+	visAarsbelop: boolean
+): number {
+	const getValue = visAarsbelop
+		? (row: BeregningTableRow) => row.yearlyValue
+		: (row: BeregningTableRow) => row.value
+	return rows
+		.filter(
+			(row) =>
+				getValue(row) != null &&
+				((getValue(row) ?? 0) > 0 ||
+					(row.showWhenZero && getValue(row) === 0)) &&
+				!row.hide
+		)
+		.reduce((acc, row) => acc + Math.max(getValue(row) ?? 0, 0), 0)
+}
+
 export const BeregningTableWithSum = ({
 	title,
 	valueHeader,
