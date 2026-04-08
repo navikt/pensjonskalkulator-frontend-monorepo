@@ -62,8 +62,7 @@ export const BeregningTableWithSum = ({
 	)
 
 	const sum =
-		validRows.reduce((acc, row) => acc + Math.max(value(row) ?? 0, 0), 0) +
-		addToSum
+		computeRowsSum(validRows, visAarsbelop) + (addToSum > 0 ? addToSum : 0)
 	return (
 		<Table
 			zebraStripes={validRows.length > 2}
