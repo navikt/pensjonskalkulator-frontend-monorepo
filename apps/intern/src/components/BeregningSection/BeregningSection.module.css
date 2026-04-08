@@ -5,3 +5,9 @@
 	row-gap: var(--ax-space-32);
 	align-items: start;
 }
+
+@media (max-width: 1280px) {
+	.tableGrid {
+		grid-template-columns: 1fr;
+	}
+}
