@@ -251,7 +251,7 @@ export function useFormValidation() {
 
 	useEffect(() => {
 		const ariaInvalidElements = document.querySelectorAll(
-			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"])'
+			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"]), input[data-feil="true"], select[data-feil="true"], fieldset[data-feil="true"] input'
 		)
 
 		if (
