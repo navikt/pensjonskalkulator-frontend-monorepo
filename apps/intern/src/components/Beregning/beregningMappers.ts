@@ -26,7 +26,7 @@ export function mapAlderspensjonToRows(
 	visKap20: boolean,
 	simulererMedGjenlevenderett: boolean
 ): BeregningTableRow[] {
-	const skjermingstillegg = Math.round((entry.skjermingstillegg ?? 0) / 12)
+	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
 	return [
 		...(visKap19
 			? [
