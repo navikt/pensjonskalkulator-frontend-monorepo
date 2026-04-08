@@ -44,7 +44,7 @@ const BeregningLayout = () => {
 			<Box borderColor="neutral-subtle" borderWidth="0 0 1 0">
 				<HStack align="center" wrap={false}>
 					<Box
-						style={{ width: '496px', flexShrink: 0 }}
+						className={styles.headerBox}
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
