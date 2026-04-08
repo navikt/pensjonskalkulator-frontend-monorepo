@@ -6,11 +6,22 @@ export const calculateFoedselsdato = (
 	days: number = 0
 ): string => {
 	const today = new Date()
-	const birthDate = new Date(today)
-	birthDate.setFullYear(today.getFullYear() - years)
-	birthDate.setMonth(today.getMonth() - months)
-	birthDate.setDate(today.getDate() - days)
+	const baseDate = new Date(
+		today.getFullYear(),
+		today.getMonth(),
+		today.getDate()
+	)
 
+	const totalMonthsToSubtract = years * 12 + months
+	const absoluteMonth =
+		baseDate.getFullYear() * 12 + baseDate.getMonth() - totalMonthsToSubtract
+	const targetYear = Math.floor(absoluteMonth / 12)
+	const targetMonth = absoluteMonth - targetYear * 12
+	const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate()
+	const clampedDay = Math.min(baseDate.getDate(), lastDayOfTargetMonth)
+
+	const birthDate = new Date(targetYear, targetMonth, clampedDay)
+	birthDate.setDate(birthDate.getDate() - days)
 	const year = birthDate.getFullYear()
 	const month = String(birthDate.getMonth() + 1).padStart(2, '0')
 	const day = String(birthDate.getDate()).padStart(2, '0')
