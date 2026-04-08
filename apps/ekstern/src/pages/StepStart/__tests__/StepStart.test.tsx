@@ -5,6 +5,7 @@ import {
   loependeVedtak0UfoeregradMock,
   mockErrorResponse,
   mockResponse,
+  person,
   personMock,
 } from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
@@ -68,7 +69,7 @@ describe('StepStart', () => {
         json: {
           fornavn: 'Aprikos',
           sivilstand: 'UGIFT',
-          foedselsdato: '1948-10-02',
+          foedselsdato: person(75, 1),
           pensjoneringAldre: {
             normertPensjoneringsalder: {
               aar: 67,

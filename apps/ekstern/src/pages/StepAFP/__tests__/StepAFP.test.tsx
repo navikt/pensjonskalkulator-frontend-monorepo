@@ -5,7 +5,8 @@ import {
   loependeVedtak0UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
   mockResponse,
-  personYngreEnnAfpUfoereOppsigelsesalderMock,
+  person,
+  personMock,
 } from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -35,7 +36,7 @@ describe('StepAFP', () => {
     store.getState = vi.fn().mockImplementation(() =>
       createStateWithApiData(
         {
-          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock,
+          getPerson: personMock,
           getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
         {
@@ -57,7 +58,7 @@ describe('StepAFP', () => {
   it('har riktig sidetittel', async () => {
     store.getState = vi.fn().mockImplementation(() =>
       createStateWithApiData(
-        { getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock },
+        { getPerson: personMock },
         {
           userInput: {
             ...userInputReducerUtils.userInputInitialState,
@@ -99,7 +100,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1960-04-30',
+        foedselsdato: person(65, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -149,7 +150,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1960-04-30',
+        foedselsdato: person(65, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -186,7 +187,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1964-04-30',
+        foedselsdato: person(61, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -223,7 +224,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1967-04-30',
+        foedselsdato: person(58, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -268,7 +269,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1960-04-30',
+        foedselsdato: person(65, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,
@@ -324,7 +325,7 @@ describe('StepAFP', () => {
       json: {
         fornavn: 'Ola',
         sivilstand: 'GIFT',
-        foedselsdato: '1964-04-30',
+        foedselsdato: person(61, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: {
             aar: 67,

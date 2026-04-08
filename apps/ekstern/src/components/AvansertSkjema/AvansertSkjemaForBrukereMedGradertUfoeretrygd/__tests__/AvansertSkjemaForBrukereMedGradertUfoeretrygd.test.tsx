@@ -4,6 +4,7 @@ import {
   loependeVedtak75UfoeregradMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
   mockResponse,
+  person,
   personMedOekteAldersgrenseMock,
   personMock,
 } from '@/mocks'
@@ -1240,7 +1241,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: person(62, 11, 8),
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1570,7 +1571,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: person(62, 11, 8),
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,

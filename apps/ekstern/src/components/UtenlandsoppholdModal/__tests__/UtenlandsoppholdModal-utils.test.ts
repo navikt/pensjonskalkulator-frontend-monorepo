@@ -1,3 +1,4 @@
+import { person } from '@/mocks'
 import * as loggerUtils from '@/utils/logging'
 
 import {
@@ -7,8 +8,9 @@ import {
 } from '../utils'
 
 describe('UtenlandsoppholdModal-utils', () => {
+  const foedselsdato = person(62, 11, 8)
+
   describe('validateOpphold', () => {
-    const foedselsdato = '1963-04-30'
     const correctInputData = {
       landFormData: 'DZA',
       arbeidetUtenlandsFormData: 'ja',
@@ -528,7 +530,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         onSubmitCallbackMock,
         'nb',
         {
-          foedselsdato: '1963-04-30',
+          foedselsdato,
           utenlandsperiodeId: '',
           utenlandsperioder: [],
         }
@@ -585,7 +587,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           onSubmitCallbackMock,
           'nb',
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             utenlandsperiodeId: '',
             utenlandsperioder: [],
           }
@@ -647,7 +649,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           onSubmitCallbackMock,
           'nb',
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             utenlandsperiodeId: '1',
             utenlandsperioder: [
               {

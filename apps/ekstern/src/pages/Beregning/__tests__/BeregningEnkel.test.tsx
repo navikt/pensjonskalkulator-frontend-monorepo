@@ -12,6 +12,7 @@ import {
   loependeVedtakLoependeAlderspensjonMock,
   mockErrorResponse,
   mockResponse,
+  person,
   personMock,
 } from '@/mocks'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
@@ -169,7 +170,10 @@ describe('BeregningEnkel', () => {
             },
           },
           preloadedApiState: {
-            getPerson: personMock,
+            getPerson: {
+              ...personMock,
+              foedselsdato: person(61),
+            },
             getInntekt: inntektMock,
             getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
@@ -358,7 +362,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -444,7 +448,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -528,7 +532,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -614,7 +618,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -933,7 +937,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           heltUttak: {
             uttaksalder: {
               aar: 68,

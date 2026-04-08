@@ -12,6 +12,7 @@ import {
   loependeVedtakLoependeAlderspensjonMock,
   mockErrorResponse,
   mockResponse,
+  person,
   personMock,
 } from '@/mocks'
 import {
@@ -164,7 +165,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: person(62, 11, 8),
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -252,7 +253,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: person(62, 11, 8),
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -345,7 +346,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: person(62, 11, 8),
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -445,7 +446,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: person(62, 11, 8),
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -829,7 +830,7 @@ describe('BeregningAvansert', () => {
           afpInntektMaanedFoerUttak: undefined,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: person(62, 11, 8),
           gradertUttak: {
             aarligInntektVsaPensjonBeloep: 0,
             grad: 60,

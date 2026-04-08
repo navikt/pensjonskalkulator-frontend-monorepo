@@ -6,6 +6,7 @@ import {
   grunnbeloepMock,
   mockErrorResponse,
   mockResponse,
+  person,
   personMock,
   pre1963PersonMock,
 } from '@/mocks'
@@ -155,7 +156,7 @@ describe('Loaders', () => {
         throw new Error('person not in returnedFromLoader')
       }
 
-      expect(returnedFromLoader?.person?.foedselsdato).toBe('1964-04-30')
+      expect(returnedFromLoader?.person?.foedselsdato).toBe(person(61, 11, 8))
       expect(returnedFromLoader?.loependeVedtak?.ufoeretrygd.grad).toBe(0)
     })
 
@@ -292,7 +293,7 @@ describe('Loaders', () => {
         json: {
           fornavn: 'Test Person',
           sivilstand: 'UGIFT',
-          foedselsdato: '1960-04-30',
+          foedselsdato: person(65, 11, 8),
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
@@ -342,7 +343,7 @@ describe('Loaders', () => {
         json: {
           fornavn: 'Test Person',
           sivilstand: 'UGIFT',
-          foedselsdato: '1960-04-30',
+          foedselsdato: person(65, 11, 8),
           pensjoneringAldre: {
             normertPensjoneringsalder: { aar: 67, maaneder: 0 },
             nedreAldersgrense: { aar: 62, maaneder: 0 },
@@ -616,7 +617,7 @@ describe('Loaders', () => {
       await expect(returnedFromLoader).resolves.not.toThrow()
       await expect(returnedFromLoader).resolves.toMatchObject({
         person: {
-          foedselsdato: '1964-04-30',
+          foedselsdato: person(61, 11, 8),
         },
       })
     })
@@ -810,7 +811,7 @@ describe('Loaders', () => {
       mockResponse('/v6/person', {
         status: 200,
         json: {
-          foedselsdato: '1965-01-01',
+          foedselsdato: person(61, 3, 7),
           fornavn: 'Test Person',
           navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
@@ -1035,7 +1036,7 @@ describe('Loaders', () => {
       mockResponse('/v6/person', {
         status: 200,
         json: {
-          foedselsdato: '1965-01-01',
+          foedselsdato: person(61, 3, 7),
           fornavn: 'Test Person',
           navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
@@ -1069,7 +1070,7 @@ describe('Loaders', () => {
       mockResponse('/v6/person', {
         status: 200,
         json: {
-          foedselsdato: '1962-01-01',
+          foedselsdato: person(64, 3, 7),
           fornavn: 'Test Person',
           navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
@@ -1111,7 +1112,7 @@ describe('Loaders', () => {
       mockResponse('/v6/person', {
         status: 200,
         json: {
-          foedselsdato: '1967-01-01',
+          foedselsdato: person(59, 3, 7),
           fornavn: 'Test Person',
           navn: 'Test Person etternavn',
           sivilstand: 'GIFT',
@@ -1194,7 +1195,7 @@ describe('Loaders', () => {
       json: {
         navn: 'Test Person',
         sivilstand: 'UGIFT',
-        foedselsdato: '1960-04-30',
+        foedselsdato: person(65, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: { aar: 67, maaneder: 0 },
           nedreAldersgrense: { aar: 62, maaneder: 0 },
@@ -1245,7 +1246,7 @@ describe('Loaders', () => {
         navn: 'Test Person',
         fornavn: 'Test',
         sivilstand: 'UGIFT',
-        foedselsdato: '1960-04-30',
+        foedselsdato: person(65, 11, 8),
         pensjoneringAldre: {
           normertPensjoneringsalder: { aar: 67, maaneder: 0 },
           nedreAldersgrense: { aar: 62, maaneder: 0 },
