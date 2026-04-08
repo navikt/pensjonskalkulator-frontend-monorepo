@@ -188,16 +188,19 @@ export function mapPrivatAfp(
 		{
 			label: 'Kompensasjonstillegg',
 			value: kompensasjonstillegg,
+			yearlyValue: kompensasjonstillegg * 12,
 			hide: kompensasjonstillegg <= 0,
 		},
 		{
 			label: 'Kronetillegg',
 			value: entry?.kronetillegg ?? 0,
+			yearlyValue: (entry?.kronetillegg ?? 0) * 12,
 			hide: !visKronetillegg,
 		},
 		{
 			label: 'Livsvarig del',
 			value: entry?.livsvarig ?? 0,
+			yearlyValue: (entry?.livsvarig ?? 0) * 12,
 		},
 	]
 }
