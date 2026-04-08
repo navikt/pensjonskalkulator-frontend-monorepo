@@ -80,7 +80,7 @@ export const BeregningTableWithSum = ({
 						<Label size="small">{sumLabel}</Label>
 					</Table.DataCell>
 					<Table.DataCell align="right">
-						<Label size="small">{formatKroner(sum)}&nbsp;kr</Label>
+						<Label size="small">{formatKroner(sum)}</Label>
 					</Table.DataCell>
 				</Table.Row>
 			</Table.Body>
