@@ -49,7 +49,7 @@ export const pre1963PersonMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
-	foedselsdato: person(65, 11, 8),
+	foedselsdato: '1962-11-08',
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 67,
