@@ -47,10 +47,6 @@
 		padding: var(--ax-space-24);
 	}
 
-	.tableRow {
-		flex-direction: column;
-	}
-
 	.globalAlert {
 		margin: calc(-1 * var(--ax-space-24));
 		margin-bottom: var(--ax-space-24);
