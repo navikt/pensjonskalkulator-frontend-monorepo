@@ -91,7 +91,7 @@ export const BeregningSection = ({
 				{showAfp && (
 					<VStack gap="space-32">
 						<BeregningTableWithSum
-							title="Avtalefestet pensjon i privat sektor"
+							title="AFP i privat sektor"
 							valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 							rows={afpRows}
 							visAarsbelop={visAarsbelop}
