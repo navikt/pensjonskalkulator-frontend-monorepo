@@ -24,6 +24,7 @@ export function RHFSelect({
 }: RHFSelectProps) {
 	const {
 		control,
+		clearErrors,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 	const { field } = useController({ name, control })
@@ -43,7 +44,10 @@ export function RHFSelect({
 					: ''
 			}
 			error={errors[name]?.message}
-			onChange={(e) => field.onChange(toFormValue(e.target.value))}
+			onChange={(e) => {
+				clearErrors(name)
+				field.onChange(toFormValue(e.target.value))
+			}}
 		>
 			{children}
 		</Select>

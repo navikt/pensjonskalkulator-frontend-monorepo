@@ -19,6 +19,7 @@ export function RHFCheckbox({
 }: RHFCheckboxProps) {
 	const {
 		control,
+		clearErrors,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 
@@ -29,7 +30,10 @@ export function RHFCheckbox({
 		<Checkbox
 			className={className}
 			checked={Boolean(field.value)}
-			onChange={(e) => field.onChange(e.target.checked)}
+			onChange={(e) => {
+				clearErrors(name)
+				field.onChange(e.target.checked)
+			}}
 			error={!!error}
 			data-testid={testid}
 			size="small"

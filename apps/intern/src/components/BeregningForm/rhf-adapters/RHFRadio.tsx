@@ -34,6 +34,7 @@ export function RHFRadio({
 }: RHFRadioProps) {
 	const {
 		control,
+		clearErrors,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 	const { field } = useController({ name, control })
@@ -58,7 +59,10 @@ export function RHFRadio({
 			className={className}
 			value={toDisplayValue(field.value)}
 			error={error}
-			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
+			onChange={(val: string) => {
+				clearErrors(name)
+				field.onChange(fromDisplayValue(val))
+			}}
 			data-testid={testid}
 		>
 			{children ??

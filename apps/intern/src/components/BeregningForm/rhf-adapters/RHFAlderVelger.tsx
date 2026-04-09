@@ -23,6 +23,7 @@ export function RHFAlderVelger({
 }: RHFAlderVelgerProps) {
 	const {
 		control,
+		clearErrors,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 	const { field: aarField } = useController({ name: aarName, control })
@@ -32,12 +33,14 @@ export function RHFAlderVelger({
 		<AlderVelger
 			alderAar={toRawValue(aarField.value)}
 			alderMd={toRawValue(mdField.value)}
-			onAlderAarChange={(value) =>
+			onAlderAarChange={(value) => {
+				clearErrors(aarName)
 				aarField.onChange(value ? Number(value) : null)
-			}
-			onAlderMdChange={(value) =>
+			}}
+			onAlderMdChange={(value) => {
+				clearErrors(aarName)
 				mdField.onChange(value ? Number(value) : null)
-			}
+			}}
 			aarLabel={aarLabel}
 			mdLabel={mdLabel}
 			foedselsdato={foedselsdato}

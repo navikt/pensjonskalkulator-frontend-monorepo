@@ -25,6 +25,7 @@ export function RHFTextField({
 }: RHFTextFieldProps) {
 	const {
 		control,
+		clearErrors,
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 
@@ -62,6 +63,7 @@ export function RHFTextField({
 			value={rawValue}
 			error={error}
 			onChange={(e) => {
+				clearErrors(name)
 				const raw = e.target.value
 				isUserInputRef.current = true
 
