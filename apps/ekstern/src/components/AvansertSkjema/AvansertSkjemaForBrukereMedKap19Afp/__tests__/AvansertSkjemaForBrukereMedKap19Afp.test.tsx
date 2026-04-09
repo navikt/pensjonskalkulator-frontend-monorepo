@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   grunnbeloepMock,
   loependeVedtak0UfoeregradMock,
   mockResponse,
-  person,
   personMock,
 } from '@/mocks'
 import {
@@ -117,7 +117,7 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
     describe('Gitt at det ikke er valideringsfeil', () => {
       const personUnder62Mock = {
         ...personMock,
-        foedselsdato: person(61),
+        foedselsdato: calculateFoedselsdato({ years: 61 }),
       }
 
       it('Håndteres gyldig innsending av skjema', async () => {

@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { describe, expect, it } from 'vitest'
 
-import { person } from '@/mocks'
+import { calculateFoedselsdato } from '@/mocks'
 import { act, renderHook } from '@/test-utils'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
@@ -12,7 +12,7 @@ import { useUtenlandsoppholdLocalState } from '../hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES } from '../utils'
 
 describe('UtenlandsoppholdModal-hooks', () => {
-  const foedselsdato = person(62, 11, 8)
+  const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
   const expectedFoedselsdato = parse(
     foedselsdato,
     DATE_BACKEND_FORMAT,

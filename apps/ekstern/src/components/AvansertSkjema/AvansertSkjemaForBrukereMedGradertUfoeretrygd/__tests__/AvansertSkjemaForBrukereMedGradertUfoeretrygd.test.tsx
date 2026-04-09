@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   loependeVedtak75UfoeregradMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
   mockResponse,
-  person,
   personMedOekteAldersgrenseMock,
   personMock,
 } from '@/mocks'
@@ -2171,7 +2171,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
             },
           },
           preloadedApiState: {
-            getPerson: { ...personMock, foedselsdato: person(62, 11, 8) },
+            getPerson: {
+              ...personMock,
+              foedselsdato: calculateFoedselsdato({
+                years: 62,
+                months: 11,
+                days: 8,
+              }),
+            },
             getLoependeVedtak: {
               harLoependeVedtak: true,
               alderspensjon: {

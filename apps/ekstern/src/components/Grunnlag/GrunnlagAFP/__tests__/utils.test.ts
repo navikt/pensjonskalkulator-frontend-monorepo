@@ -1,6 +1,6 @@
 import { IntlShape } from 'react-intl'
 
-import { person } from '@/mocks'
+import { calculateFoedselsdato } from '@/mocks'
 
 import { afpContentIntl, generateAfpContent } from '../utils'
 
@@ -342,7 +342,7 @@ describe('afpContent', () => {
     })
 
     describe('født etter 1963, ikke fylt 62', () => {
-      const foedselsdato = person(61)
+      const foedselsdato = calculateFoedselsdato({ years: 61 })
       describe('afpValg', () => {
         it('AFP Valg: Ja, offentlig sektor, ikke samtykket', () => {
           const actual = generateAfpContent(intl)({
@@ -476,7 +476,7 @@ describe('afpContent', () => {
     })
 
     it('født etter 1963, fylt 62', () => {
-      const foedselsdato = person(62)
+      const foedselsdato = calculateFoedselsdato({ years: 62 })
       const actual = generateAfpContent(intl)({
         erApoteker: false,
         afpValg: null,

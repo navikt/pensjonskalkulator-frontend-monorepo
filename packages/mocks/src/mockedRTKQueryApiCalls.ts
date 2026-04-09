@@ -1,10 +1,10 @@
 import type { LoependeVedtak, Person, Sivilstand } from './types'
 
-export const calculateFoedselsdato = (
-	years: number = 0,
-	months: number = 0,
-	days: number = 0
-): string => {
+export const calculateFoedselsdato = ({
+	years = 0,
+	months = 0,
+	days = 0,
+}: { years?: number; months?: number; days?: number } = {}): string => {
 	const today = new Date()
 	const baseDate = new Date(
 		today.getFullYear(),
@@ -17,7 +17,11 @@ export const calculateFoedselsdato = (
 		baseDate.getFullYear() * 12 + baseDate.getMonth() - totalMonthsToSubtract
 	const targetYear = Math.floor(absoluteMonth / 12)
 	const targetMonth = absoluteMonth - targetYear * 12
-	const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate()
+	const lastDayOfTargetMonth = new Date(
+		targetYear,
+		targetMonth + 1,
+		0
+	).getDate()
 	const clampedDay = Math.min(baseDate.getDate(), lastDayOfTargetMonth)
 
 	const birthDate = new Date(targetYear, targetMonth, clampedDay)
@@ -28,12 +32,6 @@ export const calculateFoedselsdato = (
 
 	return `${year}-${month}-${day}`
 }
-
-export const person = (
-	years: number = 0,
-	months: number = 0,
-	days: number = 0
-): string => calculateFoedselsdato(years, months, days)
 
 export const personMock = {
 	navn: 'Aprikos Nordmann',
@@ -82,7 +80,7 @@ export const personEldreEnnAfpUfoereOppsigelsesalderMock = {
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
 	get foedselsdato(): string {
-		return calculateFoedselsdato(62, 1)
+		return calculateFoedselsdato({ years: 62, months: 1 })
 	},
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
@@ -105,7 +103,7 @@ export const personYngreEnnAfpUfoereOppsigelsesalderMock = {
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
 	get foedselsdato(): string {
-		return calculateFoedselsdato(61, 11)
+		return calculateFoedselsdato({ years: 61, months: 11 })
 	},
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {

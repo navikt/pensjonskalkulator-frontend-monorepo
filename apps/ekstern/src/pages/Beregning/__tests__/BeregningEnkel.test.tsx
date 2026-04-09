@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import {
   afpOffentligLivsvarigFalseMock,
+  calculateFoedselsdato,
   inntektMock,
   loependeVedtak0UfoeregradMock,
   loependeVedtak75UfoeregradMock,
@@ -12,7 +13,6 @@ import {
   loependeVedtakLoependeAlderspensjonMock,
   mockErrorResponse,
   mockResponse,
-  person,
   personMock,
 } from '@/mocks'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
@@ -172,7 +172,7 @@ describe('BeregningEnkel', () => {
           preloadedApiState: {
             getPerson: {
               ...personMock,
-              foedselsdato: person(61),
+              foedselsdato: calculateFoedselsdato({ years: 61 }),
             },
             getInntekt: inntektMock,
             getLoependeVedtak: loependeVedtak0UfoeregradMock,

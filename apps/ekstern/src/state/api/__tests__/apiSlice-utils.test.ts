@@ -1,11 +1,11 @@
 import {
+  calculateFoedselsdato,
   loependeVedtak0UfoeregradMock,
   loependeVedtak75UfoeregradMock,
   loependeVedtakLoependeAFPoffentligMock,
   loependeVedtakLoependeAFPprivatMock,
   loependeVedtakLoependeAlderspensjonMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
-  person,
 } from '@/mocks'
 
 import {
@@ -400,7 +400,7 @@ describe('apiSlice - utils', () => {
       epsHarInntektOver2G: null,
       epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
-      foedselsdato: person(62, 11, 8),
+      foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
       uttaksalder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
       utenlandsperioder: [],
@@ -564,7 +564,7 @@ describe('apiSlice - utils', () => {
     it('formaterer streng dato korrekt', () => {
       expect(
         generateAlderspensjonEnkelRequestBody(requestBody)?.foedselsdato
-      ).toBe(person(62, 11, 8))
+      ).toBe(calculateFoedselsdato({ years: 62, months: 11, days: 8 }))
     })
 
     it('returnerer riktig utenlandsperioder', () => {
@@ -595,7 +595,7 @@ describe('apiSlice - utils', () => {
       epsHarInntektOver2G: null,
       epsHarPensjon: null,
       aarligInntektFoerUttakBeloep: '500 000',
-      foedselsdato: person(62, 11, 8),
+      foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
       gradertUttak: null,
       heltUttak: {
         uttaksalder: { aar: 68, maaneder: 3 },
@@ -782,7 +782,7 @@ describe('apiSlice - utils', () => {
 
     it('formaterer streng dato korrekt', () => {
       expect(generateAlderspensjonRequestBody(args)?.foedselsdato).toBe(
-        person(62, 11, 8)
+        calculateFoedselsdato({ years: 62, months: 11, days: 8 })
       )
     })
 
@@ -1000,7 +1000,7 @@ describe('apiSlice - utils', () => {
   describe('generateOffentligTpRequestBody', () => {
     const requestBody = {
       afp: 'vet_ikke' as AfpRadio,
-      foedselsdato: person(62, 11, 8),
+      foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
       aarligInntektFoerUttakBeloep: '500 000',
       heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
       utenlandsperioder: [],
@@ -1054,7 +1054,7 @@ describe('apiSlice - utils', () => {
         brukerBaOmAfp: true,
         epsHarInntektOver2G: false,
         epsHarPensjon: false,
-        foedselsdato: person(62, 11, 8),
+        foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
         utenlandsperiodeListe: [],
         gradertUttak: undefined,
         heltUttak: {
@@ -1075,7 +1075,7 @@ describe('apiSlice - utils', () => {
         brukerBaOmAfp: true,
         epsHarInntektOver2G: false,
         epsHarPensjon: false,
-        foedselsdato: person(62, 11, 8),
+        foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
         utenlandsperiodeListe: [],
         gradertUttak: undefined,
         heltUttak: {
@@ -1149,7 +1149,7 @@ describe('apiSlice - utils', () => {
         brukerBaOmAfp: false,
         epsHarInntektOver2G: false,
         epsHarPensjon: false,
-        foedselsdato: person(62, 11, 8),
+        foedselsdato: calculateFoedselsdato({ years: 62, months: 11, days: 8 }),
         gradertUttak: undefined,
         heltUttak: {
           aarligInntektVsaPensjon: undefined,

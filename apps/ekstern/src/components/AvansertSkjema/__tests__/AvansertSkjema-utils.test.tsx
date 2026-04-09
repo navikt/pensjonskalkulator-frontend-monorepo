@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { person } from '@/mocks'
+import { calculateFoedselsdato } from '@/mocks'
 import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
@@ -11,7 +11,7 @@ import {
 } from '../utils'
 
 describe('AvansertSkjema-utils', () => {
-  const foedselsdato = person(62, 11, 8)
+  const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
 
   describe('onAvansertBeregningSubmit', () => {
     const formDataAllFieldsSwitch = (s: string) => {

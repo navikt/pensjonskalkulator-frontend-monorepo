@@ -1,4 +1,4 @@
-import { person } from '@/mocks'
+import { calculateFoedselsdato } from '@/mocks'
 import * as loggerUtils from '@/utils/logging'
 
 import {
@@ -8,7 +8,7 @@ import {
 } from '../utils'
 
 describe('UtenlandsoppholdModal-utils', () => {
-  const foedselsdato = person(62, 11, 8)
+  const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
 
   describe('validateOpphold', () => {
     const correctInputData = {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { person } from '@/mocks'
+import { calculateFoedselsdato } from '@/mocks'
 import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 import {
@@ -603,7 +603,7 @@ describe('Typeguards', () => {
       navn: 'Ola Nordmann',
       fornavn: 'Ola',
       sivilstand: 'GIFT',
-      foedselsdato: person(61, 11, 8),
+      foedselsdato: calculateFoedselsdato({ years: 61, months: 11, days: 8 }),
       pensjoneringAldre: {
         normertPensjoneringsalder: { aar: 67, maaneder: 0 },
         nedreAldersgrense: { aar: 67, maaneder: 0 },

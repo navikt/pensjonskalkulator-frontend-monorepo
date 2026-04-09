@@ -9,7 +9,7 @@ import tidligstMuligHeltUttakResponse from '@pensjonskalkulator-frontend-monorep
 import spraakvelgerToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import utvidetSimuleringsresultatToggleResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
-import { mockErrorResponse, mockResponse, person } from '@/mocks'
+import { calculateFoedselsdato, mockErrorResponse, mockResponse } from '@/mocks'
 import { Reason } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import { setupStore } from '@/state/store'
@@ -44,7 +44,11 @@ describe('apiSlice', () => {
       mockResponse('/v6/person', {
         json: {
           ...personResponse,
-          foedselsdato: person(61, 11, 8),
+          foedselsdato: calculateFoedselsdato({
+            years: 61,
+            months: 11,
+            days: 8,
+          }),
         },
       })
       return storeRef
@@ -53,7 +57,11 @@ describe('apiSlice', () => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toMatchObject({
             ...personResponse,
-            foedselsdato: person(61, 11, 8),
+            foedselsdato: calculateFoedselsdato({
+              years: 61,
+              months: 11,
+              days: 8,
+            }),
           })
         })
     })
@@ -277,7 +285,7 @@ describe('apiSlice', () => {
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
       simuleringstype: 'ALDERSPENSJON',
-      foedselsdato: person(61, 11, 8),
+      foedselsdato: calculateFoedselsdato({ years: 61, months: 11, days: 8 }),
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: false,
       epsHarPensjon: false,
