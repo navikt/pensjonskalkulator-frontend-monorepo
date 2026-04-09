@@ -12,9 +12,10 @@ spec:
   ingresses:
     - https://{{ branch }}-pensjonskalkulator-frontend-intern.ansatt.dev.nav.no
   port: 8080
+  ttl: 7d
   replicas:
-    min: 2
-    max: 2
+    min: 1
+    max: 1
   liveness:
     path: /internal/health/liveness
     initialDelay: 20
