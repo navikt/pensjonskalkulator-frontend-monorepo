@@ -12,12 +12,12 @@
 		"./string": "./string.ts"
 	},
 	"devDependencies": {
-		"openapi-typescript": "^7.6.1",
-		"typescript": "^5.8.3"
+		"openapi-typescript": "7.6.1",
+		"typescript": "5.8.3"
 	},
 	"dependencies": {
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
-		"date-fns": "^4.1.0",
+		"date-fns": "4.1.0",
 		"react-intl": "7.1.11"
 	}
 }

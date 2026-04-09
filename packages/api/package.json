@@ -16,8 +16,8 @@
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*"
 	},
 	"peerDependencies": {
-		"msw": "^2.0.0",
-		"react": "^19.0.0",
-		"typescript": "^5.0.0"
+		"msw": "2.0.0",
+		"react": "19.0.0",
+		"typescript": "5.0.0"
 	}
 }

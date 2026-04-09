@@ -33,30 +33,30 @@
 		]
 	},
 	"dependencies": {
-		"@navikt/ds-react": "^7.31.0",
+		"@navikt/ds-react": "7.31.0",
 		"@sanity/color-input": "6.0.4",
 		"@sanity/document-internationalization": "5.0.2",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
+		"react": "19.2.4",
+		"react-dom": "19.2.4",
 		"sanity": "5.11.0",
 		"sanity-plugin-internationalized-array": "4.0.3"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.39.2",
-		"@playwright/test": "^1.58.0",
-		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"@eslint/js": "9.39.2",
+		"@playwright/test": "1.58.0",
+		"@trivago/prettier-plugin-sort-imports": "6.0.2",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
-		"@types/react": "^19.2.10",
-		"@types/react-dom": "^19.2.3",
-		"eslint": "^9.39.2",
-		"eslint-plugin-react-hooks": "^7.0.1",
-		"globals": "^17.2.0",
-		"husky": "^9.1.7",
-		"lint-staged": "^16.2.7",
-		"prettier": "^3.8.1",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.54.0",
-		"vitest": "^3.2.4"
+		"@types/react": "19.2.10",
+		"@types/react-dom": "19.2.3",
+		"eslint": "9.39.2",
+		"eslint-plugin-react-hooks": "7.0.1",
+		"globals": "17.2.0",
+		"husky": "9.1.7",
+		"lint-staged": "16.2.7",
+		"prettier": "3.8.1",
+		"typescript": "5.9.3",
+		"typescript-eslint": "8.54.0",
+		"vitest": "3.2.4"
 	},
 	"pnpm": {
 		"overrides": {
