@@ -5,7 +5,7 @@ import {
   loependeVedtak0UfoeregradMock,
   loependeVedtakLoependeAlderspensjonMock,
   mockResponse,
-  personYngreEnnAfpUfoereOppsigelsesalderMock,
+  personMock,
 } from '@/mocks'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -35,7 +35,7 @@ describe('StepAFP', () => {
     store.getState = vi.fn().mockImplementation(() =>
       createStateWithApiData(
         {
-          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock,
+          getPerson: personMock,
           getLoependeVedtak: loependeVedtakLoependeAlderspensjonMock,
         },
         {
@@ -57,7 +57,7 @@ describe('StepAFP', () => {
   it('har riktig sidetittel', async () => {
     store.getState = vi.fn().mockImplementation(() =>
       createStateWithApiData(
-        { getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock },
+        { getPerson: personMock },
         {
           userInput: {
             ...userInputReducerUtils.userInputInitialState,
@@ -71,6 +71,7 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       hasRouter: false,
     })
 
@@ -85,6 +86,7 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
       hasRouter: false,
     })
     expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
@@ -351,16 +353,25 @@ describe('StepAFP', () => {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
+    const { store: renderedStore } = render(
+      <RouterProvider router={router} />,
+      {
+        preloadedApiState: { getLoependeVedtak: loependeVedtak0UfoeregradMock },
+        hasRouter: false,
+      }
+    )
+    await renderedStore.dispatch(
+      apiSlice.endpoints.getLoependeVedtak.initiate()
+    )
 
     const radioButtons = await screen.findAllByRole('radio')
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(setAfpMock).toHaveBeenCalledWith('ja_offentlig')
-    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
+    })
   })
 
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {

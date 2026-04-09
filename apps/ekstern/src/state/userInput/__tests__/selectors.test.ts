@@ -118,7 +118,7 @@ describe('userInput selectors', () => {
     })
     it('returnerer riktig fødselsdato når queryen er vellykket', () => {
       const state: RootState = createStateWithApiData({ getPerson: personMock })
-      expect(selectFoedselsdato(state)).toBe('1963-04-30')
+      expect(selectFoedselsdato(state)).toBe(personMock.foedselsdato)
     })
   })
 
