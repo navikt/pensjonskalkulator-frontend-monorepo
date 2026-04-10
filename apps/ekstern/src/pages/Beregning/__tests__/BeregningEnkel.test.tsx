@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import {
   afpOffentligLivsvarigFalseMock,
+  calculateFoedselsdato,
   inntektMock,
   loependeVedtak0UfoeregradMock,
   loependeVedtak75UfoeregradMock,
@@ -169,7 +170,10 @@ describe('BeregningEnkel', () => {
             },
           },
           preloadedApiState: {
-            getPerson: personMock,
+            getPerson: {
+              ...personMock,
+              foedselsdato: calculateFoedselsdato({ years: 61 }),
+            },
             getInntekt: inntektMock,
             getLoependeVedtak: loependeVedtak0UfoeregradMock,
           },
@@ -208,9 +212,9 @@ describe('BeregningEnkel', () => {
 
         expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
         const buttons = screen.getAllByRole('button')
-        expect(buttons).toHaveLength(13)
+        expect(buttons).toHaveLength(14)
         expect(buttons[1]).toHaveTextContent(
-          '64 alder.aar string.og 5 alder.md'
+          '63 alder.aar string.og 5 alder.md'
         )
         vi.setSystemTime(new Date())
         vi.useRealTimers()
@@ -358,7 +362,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -444,7 +448,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -528,7 +532,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -614,7 +618,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,
@@ -933,7 +937,7 @@ describe('BeregningEnkel', () => {
           aarligInntektFoerUttakBeloep: 100000,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           heltUttak: {
             uttaksalder: {
               aar: 68,

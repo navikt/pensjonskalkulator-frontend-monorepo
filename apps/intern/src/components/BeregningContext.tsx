@@ -64,7 +64,7 @@ export function BeregningProvider({
 				? { aarligInntektFoerUttakBeloep: initialInntekt }
 				: {}),
 		},
-		mode: 'onSubmit',
+		mode: 'onChange',
 	})
 
 	// Reset dirty state on mount to ensure clean initial state

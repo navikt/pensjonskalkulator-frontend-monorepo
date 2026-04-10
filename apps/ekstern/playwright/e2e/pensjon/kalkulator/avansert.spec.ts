@@ -4,6 +4,16 @@ import { person } from 'utils/mocks'
 import { fillOutStegvisning } from 'utils/navigation'
 
 const MOCK_DATE = new Date(2024, 0, 1, 12, 0, 0) // January 1, 2024
+const defaultPersonOptions = {
+  fornavn: 'Aprikos',
+  sivilstand: 'UGIFT',
+  alder: { aar: 60 },
+  pensjoneringAldre: {
+    normertPensjoneringsalder: { aar: 67, maaneder: 0 },
+    nedreAldersgrense: { aar: 62, maaneder: 0 },
+    oevreAldersgrense: { aar: 75, maaneder: 0 },
+  },
+}
 
 test.describe('Avansert', () => {
   test.beforeEach(async ({ page }) => {
@@ -15,18 +25,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: false,
@@ -122,18 +121,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: false,
@@ -323,18 +311,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: false,
@@ -433,18 +410,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: false,
@@ -548,18 +514,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: false,
@@ -797,18 +752,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: true,
@@ -972,18 +916,7 @@ test.describe('Avansert', () => {
       test.use({ autoAuth: false })
 
       test.beforeEach(async ({ page }) => {
-        await authenticate(page, [
-          await person({
-            fornavn: 'Aprikos',
-            sivilstand: 'UGIFT',
-            foedselsdato: '1963-04-30',
-            pensjoneringAldre: {
-              normertPensjoneringsalder: { aar: 67, maaneder: 0 },
-              nedreAldersgrense: { aar: 62, maaneder: 0 },
-              oevreAldersgrense: { aar: 75, maaneder: 0 },
-            },
-          }),
-        ])
+        await authenticate(page, [await person(defaultPersonOptions)])
         await fillOutStegvisning(page, {
           sivilstand: 'UGIFT',
           samtykke: true,
