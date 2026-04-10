@@ -38,7 +38,7 @@ jobs:
       shared: ${{ steps.changes.outputs.shared }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Detect changes
         id: changes
@@ -54,7 +54,7 @@ jobs:
       image: ${{ steps.image-creation.outputs.image }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -65,7 +65,7 @@ jobs:
         run: pnpm build:intern
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: intern-dist
           path: apps/intern/dist
@@ -76,7 +76,7 @@ jobs:
 
       - name: Create Docker image
         id: image-creation
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@078e460885ed0424b60d45ce9220b4be1748be9d # v0
         with:
           dockerfile: apps/intern/.docker/Dockerfile
           docker_context: .
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -119,7 +119,7 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: intern-dist
           path: apps/intern/dist
@@ -137,10 +137,10 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to staging
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
@@ -175,10 +175,10 @@ jobs:
     if: needs.determine-test-env-intern.outputs.environments != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to ${{ needs.determine-test-env-intern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
@@ -211,7 +211,7 @@ jobs:
       image: ${{ steps.build.outputs.image }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Build ekstern
         id: build
@@ -238,7 +238,7 @@ jobs:
       image: ${{ steps.build.outputs.image }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Build ekstern for production
         id: build
@@ -261,7 +261,7 @@ jobs:
         shard: [1, 2]
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -276,7 +276,7 @@ jobs:
           total-shards: '2'
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: code-coverage-report-${{ matrix.shard }}
           path: apps/ekstern/coverage
@@ -293,7 +293,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.57.0-jammy
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -301,7 +301,7 @@ jobs:
           reader-token: ${{ secrets.READER_TOKEN }}
 
       - name: Download the build folders
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: dist
           path: apps/ekstern/dist
@@ -321,17 +321,17 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to staging
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-staging.yml,apps/ekstern/.nais/unleash-api-token-dev.yaml
 
       - name: Deploy veiledning to staging
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -364,10 +364,10 @@ jobs:
     if: needs.determine-test-env-ekstern.outputs.environments != ''
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -375,7 +375,7 @@ jobs:
           VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
 
       - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -390,17 +390,17 @@ jobs:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event.inputs.prod == 'true'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to prod-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build-ekstern-prod.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-prod.yml,apps/ekstern/.nais/unleash-api-token-prod.yaml
 
       - name: Deploy veiledning to prod-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build-ekstern-prod.outputs.image }}
