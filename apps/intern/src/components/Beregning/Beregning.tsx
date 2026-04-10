@@ -15,6 +15,7 @@ import {
 } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningTable, type BeregningTableRow } from './BeregningTable'
 
@@ -161,48 +162,33 @@ export const Beregning = () => {
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 
-	if (!beregning && isBeregningLoading) {
+	const hasBeregning =
+		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
+	if (!hasBeregning) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={styles.beregning}
+				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
-				<Box className={styles.loader}>
-					<Loader size="3xlarge" title="Beregner pensjon …" />
-				</Box>
-			</Box>
-		)
-	}
-
-	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
-		return (
-			<Box
-				borderColor="neutral-subtle"
-				borderWidth="0 0 0 1"
-				className={styles.beregning}
-			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
 				<BodyLong>Ingen beregning enda.</BodyLong>
 			</Box>
 		)
 	}
 
-	const erGradert =
-		aktivBeregning &&
-		aktivBeregning.uttaksgrad !== null &&
-		aktivBeregning.uttaksgrad < 100
-
-	const heltUttakAar = erGradert
-		? aktivBeregning.alderAarHeltUttak
-		: aktivBeregning?.alderAarUttak
-
-	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
+	const { erGradert, heltUttakAlder, gradertUttakAlder } =
+		getUttakInfo(aktivBeregning)
 
 	const heltEntry = beregning?.alderspensjonListe?.find(
-		(entry) => entry.alderAar === (heltUttakAar ?? 0)
+		(entry) => entry.alderAar === (heltUttakAlder.aar ?? 0)
 	)
 	const gradertEntry = beregning?.alderspensjonListe?.find(
-		(entry) => entry.alderAar === (gradertUttakAar ?? 0)
+		(entry) => entry.alderAar === (gradertUttakAlder?.aar ?? 0)
 	)
 
 	const titleHeltUttak =
@@ -228,16 +214,14 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
-			className={styles.beregning}
+			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
-			<VStack
-				className={`${styles.tables} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
-			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
+			{isBeregningLoading && (
+				<div className={styles.overlayLoader}>
+					<Loader size="3xlarge" title="Beregner pensjon …" />
+				</div>
+			)}
+			<VStack className={styles.tables}>
 				{gradertEntry && (
 					<>
 						<Heading level="3" size="small">
