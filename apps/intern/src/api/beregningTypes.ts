@@ -35,6 +35,7 @@ export interface BeregningFormData {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
 	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
 	epsRegistretSomFlykting: boolean | null
+	afp?: AfpRadio
 }
 
 export type BeregningParams = BeregningFormData
@@ -66,6 +67,7 @@ export interface ValidationErrors {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
 	epsMedlemAvFolketrygdenVedDoedsDato?: string
 	epsRegistretSomFlykting?: string
+	afp?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -97,4 +99,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
 	epsRegistretSomFlykting: null,
 	harHentetEPSOpplysninger: false,
+	afp: undefined,
 }

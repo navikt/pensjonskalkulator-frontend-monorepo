@@ -128,6 +128,12 @@ function validateSivilstand(
 	}
 }
 
+function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+	if (!formData.afp) {
+		errors.afp = 'Velg om AFP skal inkluderes.'
+	}
+}
+
 function validateInntektField({
 	formData,
 	errors,
@@ -260,7 +266,7 @@ export function useFormValidation() {
 
 	useEffect(() => {
 		const ariaInvalidElements = document.querySelectorAll(
-			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"])'
+			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"]), input[data-feil="true"], select[data-feil="true"], fieldset[data-feil="true"] input'
 		)
 
 		if (
@@ -281,6 +287,7 @@ export function useFormValidation() {
 
 			validateGjenlevenderett(formData, errors)
 			validateSivilstand(formData, errors)
+			validateAfp(formData, errors)
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
 			validateUttaksgrad(formData, errors)
