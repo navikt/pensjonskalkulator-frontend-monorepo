@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   grunnbeloepMock,
   loependeVedtak0UfoeregradMock,
   mockResponse,
@@ -114,6 +115,11 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
     })
 
     describe('Gitt at det ikke er valideringsfeil', () => {
+      const personUnder62Mock = {
+        ...personMock,
+        foedselsdato: calculateFoedselsdato({ years: 61 }),
+      }
+
       it('Håndteres gyldig innsending av skjema', async () => {
         const user = userEvent.setup()
         render(
@@ -127,7 +133,7 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
               },
             },
             preloadedApiState: {
-              getPerson: personMock,
+              getPerson: personUnder62Mock,
               getGrunnbeloep: grunnbeloepMock,
               getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },
@@ -229,7 +235,7 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
               },
             },
             preloadedApiState: {
-              getPerson: personMock,
+              getPerson: personUnder62Mock,
               getGrunnbeloep: grunnbeloepMock,
               getLoependeVedtak: loependeVedtak0UfoeregradMock,
             },

@@ -2,6 +2,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   loependeVedtak0UfoeregradMock,
   mockErrorResponse,
   mockResponse,
@@ -68,7 +69,7 @@ describe('StepStart', () => {
         json: {
           fornavn: 'Aprikos',
           sivilstand: 'UGIFT',
-          foedselsdato: '1948-10-02',
+          foedselsdato: calculateFoedselsdato({ years: 75, months: 1 }),
           pensjoneringAldre: {
             normertPensjoneringsalder: {
               aar: 67,
