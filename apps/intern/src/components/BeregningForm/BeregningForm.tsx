@@ -1,4 +1,4 @@
-import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { useState } from 'react'
@@ -180,7 +180,6 @@ export const BeregningForm = () => {
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
 					label="Pensjonsgivende inntekt frem til uttak"
-					formatError="Du må skrive hele tall for å oppgi inntekt."
 				/>
 
 				<RHFAlderVelger
@@ -209,7 +208,6 @@ export const BeregningForm = () => {
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-						formatError="Du må skrive hele tall for å oppgi inntekt."
 					/>
 				)}
 
@@ -243,7 +241,6 @@ export const BeregningForm = () => {
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-							formatError="Du må skrive hele tall for å oppgi inntekt."
 						/>
 
 						<RHFAlderVelger

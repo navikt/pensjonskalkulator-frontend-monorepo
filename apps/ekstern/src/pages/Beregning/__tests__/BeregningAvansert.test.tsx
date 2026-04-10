@@ -164,7 +164,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: personMock.foedselsdato,
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -173,6 +173,7 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
+            innvilgetLivsvarigOffentligAfp: undefined,
             simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
@@ -252,7 +253,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: personMock.foedselsdato,
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -261,6 +262,7 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
+            innvilgetLivsvarigOffentligAfp: undefined,
             simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
@@ -345,7 +347,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: personMock.foedselsdato,
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -354,13 +356,7 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
-            innvilgetLivsvarigOffentligAfp: [
-              {
-                aarligBruttoBeloep: 300000,
-                sistRegulertGrunnbeloep: 118620,
-                uttakFom: '2023-01-01',
-              },
-            ],
+            innvilgetLivsvarigOffentligAfp: undefined,
             simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
@@ -445,7 +441,7 @@ describe('BeregningAvansert', () => {
             afpInntektMaanedFoerUttak: undefined,
             epsHarInntektOver2G: undefined,
             epsHarPensjon: undefined,
-            foedselsdato: '1963-04-30',
+            foedselsdato: personMock.foedselsdato,
             gradertUttak: undefined,
             heltUttak: {
               aarligInntektVsaPensjon: undefined,
@@ -454,6 +450,7 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
+            innvilgetLivsvarigOffentligAfp: undefined,
             simuleringstype: 'ALDERSPENSJON',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],
@@ -829,7 +826,7 @@ describe('BeregningAvansert', () => {
           afpInntektMaanedFoerUttak: undefined,
           epsHarInntektOver2G: undefined,
           epsHarPensjon: undefined,
-          foedselsdato: '1963-04-30',
+          foedselsdato: personMock.foedselsdato,
           gradertUttak: {
             aarligInntektVsaPensjonBeloep: 0,
             grad: 60,
@@ -839,11 +836,13 @@ describe('BeregningAvansert', () => {
             },
           },
           heltUttak: {
+            aarligInntektVsaPensjon: undefined,
             uttaksalder: {
               aar: 67,
               maaneder: 6,
             },
           },
+          innvilgetLivsvarigOffentligAfp: undefined,
           simuleringstype: 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',
           utenlandsperiodeListe: [],

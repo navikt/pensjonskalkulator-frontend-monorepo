@@ -63,3 +63,4 @@ runs:
         dockerfile: apps/ekstern/.docker/Dockerfile
         docker_context: .
         team: pensjonskalkulator
+        image_suffix: ekstern
