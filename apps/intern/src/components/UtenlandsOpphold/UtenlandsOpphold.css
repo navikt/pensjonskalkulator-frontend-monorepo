@@ -1,0 +1,24 @@
+.selectLandWrapper {
+	width: 11.75rem;
+}
+
+.selectLand {
+	width: 100%;
+}
+
+.radioFieldWrapper {
+	flex-shrink: 0;
+}
+
+.dateFieldWrapper {
+	width: 11.75rem;
+	flex-shrink: 0;
+}
+
+.dateFieldInput {
+	width: 100%;
+}
+
+.dateFieldWrapper .navds-form-field {
+	width: 100%;
+}

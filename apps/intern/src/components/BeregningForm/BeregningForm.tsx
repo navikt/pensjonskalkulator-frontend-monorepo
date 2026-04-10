@@ -1,6 +1,7 @@
 import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { Box } from '@navikt/ds-react'
@@ -19,6 +20,7 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -56,6 +58,7 @@ export const BeregningForm = () => {
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
+	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
 	const { control } = form
 
@@ -157,6 +160,9 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
+
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
@@ -253,6 +259,7 @@ export const BeregningForm = () => {
 				onReset={resetForm}
 				isDirty={isDirty}
 				harAktivBeregning={!!aktivBeregning}
+				isSubmitDisabled={isSubmitDisabled}
 			/>
 		</Box>
 	)

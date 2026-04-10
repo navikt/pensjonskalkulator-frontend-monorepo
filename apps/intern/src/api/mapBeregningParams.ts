@@ -1,10 +1,44 @@
-import type { SimuleringRequestBody } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	SimuleringRequestBody,
+	SimuleringUtenlandsperiode,
+} from '@pensjonskalkulator-frontend-monorepo/types'
+import {
+	DATE_BACKEND_FORMAT,
+	DATE_ENDUSER_FORMAT,
+} from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import { format, parse } from 'date-fns'
 
 import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
 import type { BeregningFormData } from './beregningTypes'
 
+type UtenlandsOppholdFormItem = {
+	land: string
+	arbeidetUtenlands: boolean | null
+	startdato: string
+	sluttdato: string
+}
+
+type BeregningFormDataWithUtenlandsOpphold = BeregningFormData & {
+	utenlandsOpphold: UtenlandsOppholdFormItem[]
+}
+
+const toBackendDate = (value: string) =>
+	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
+
+const mapUtenlandsperiodeListe = (
+	utenlandsOpphold: UtenlandsOppholdFormItem[]
+): SimuleringUtenlandsperiode[] =>
+	utenlandsOpphold.map(
+		(opphold): SimuleringUtenlandsperiode => ({
+			fom: toBackendDate(opphold.startdato),
+			tom: opphold.sluttdato ? toBackendDate(opphold.sluttdato) : undefined,
+			landkode: opphold.land,
+			arbeidetUtenlands: opphold.arbeidetUtenlands === true,
+		})
+	)
+
 export function mapBeregningParamsToRequest(
-	formData: BeregningFormData
+	formData: BeregningFormDataWithUtenlandsOpphold
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
@@ -55,6 +89,7 @@ export function mapBeregningParamsToRequest(
 	return {
 		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
+		utenlandsperiodeListe: mapUtenlandsperiodeListe(formData.utenlandsOpphold),
 		gradertUttak: erGradert
 			? {
 					grad,

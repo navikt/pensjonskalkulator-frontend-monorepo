@@ -1,7 +1,13 @@
 import { type ReactNode } from 'react'
-import { useController, useFormContext } from 'react-hook-form'
+import {
+	type FieldError,
+	type FieldErrors,
+	type FieldPath,
+	useController,
+	useFormContext,
+} from 'react-hook-form'
 
-import { Radio, RadioGroup } from '@navikt/ds-react'
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
 
@@ -16,12 +22,43 @@ const defaultOptions: RadioOption[] = [
 ]
 
 interface RHFRadioProps {
-	name: keyof BeregningFormData
+	name: FieldPath<BeregningFormData>
 	legend: string
 	className?: string
 	children?: ReactNode
 	testid?: string
 	options?: RadioOption[]
+}
+
+type NestedFormError =
+	| FieldError
+	| FieldErrors<BeregningFormData>
+	| NestedFormError[]
+	| undefined
+
+const isFieldError = (error: NestedFormError): error is FieldError =>
+	Boolean(error && typeof error === 'object' && 'message' in error)
+
+function getNestedError(
+	errors: FieldErrors<BeregningFormData>,
+	name: string
+): string | undefined {
+	let error: NestedFormError = errors
+
+	for (const segment of name.split('.')) {
+		if (Array.isArray(error)) {
+			error = error[Number(segment)]
+			continue
+		}
+
+		if (!error || isFieldError(error) || !(segment in error)) {
+			return undefined
+		}
+
+		error = error[segment as keyof typeof error] as NestedFormError
+	}
+
+	return isFieldError(error) ? error.message : undefined
 }
 
 export function RHFRadio({
@@ -43,13 +80,13 @@ export function RHFRadio({
 
 	const toDisplayValue = (value: unknown) => {
 		if (!isJaNei) return value ?? ''
-		if (value === null) return ''
+		if (value == null) return ''
 		return value ? 'ja' : 'nei'
 	}
 
 	const fromDisplayValue = (val: string) => (isJaNei ? val === 'ja' : val)
 
-	const error = errors[name]?.message
+	const error = getNestedError(errors, name)
 
 	return (
 		<RadioGroup
@@ -61,12 +98,14 @@ export function RHFRadio({
 			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
 			data-testid={testid}
 		>
-			{children ??
-				resolvedOptions.map((option) => (
-					<Radio key={option.value} value={option.value}>
-						{option.label}
-					</Radio>
-				))}
+			<HStack gap="space-32" className="horizontalRadio">
+				{children ??
+					resolvedOptions.map((option) => (
+						<Radio key={option.value} value={option.value}>
+							{option.label}
+						</Radio>
+					))}
+			</HStack>
 		</RadioGroup>
 	)
 }
