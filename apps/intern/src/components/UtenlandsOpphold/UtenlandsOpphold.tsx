@@ -297,7 +297,7 @@ export const UtenlandsOpphold = ({
 		openOppholdEditor(index, getOppholdValues(index))
 	}
 
-	const showCopyButton = harOppholdUtenforNorge && hasOpphold
+	const showCopyButton = Boolean(harOppholdUtenforNorge && hasOpphold)
 
 	const renderEditor = (index: number) => (
 		<VStack gap="space-24">

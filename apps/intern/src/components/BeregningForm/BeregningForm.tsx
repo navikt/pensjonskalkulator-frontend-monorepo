@@ -160,6 +160,9 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
+
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert
@@ -187,8 +190,6 @@ export const BeregningForm = () => {
 					mdName="alderMdUttak"
 					foedselsdato={person?.foedselsdato}
 				/>
-
-				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 
 				<RHFSelect
 					name="uttaksgrad"

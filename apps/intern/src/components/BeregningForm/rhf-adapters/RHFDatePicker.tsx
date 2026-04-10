@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { format as formatDateFns, isValid, parse } from 'date-fns'
+import { type ChangeEvent, type FocusEvent, useEffect, useRef } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { DatePicker, useDatepicker } from '@navikt/ds-react'
@@ -23,9 +24,11 @@ function formatDate(date: Date): string {
 
 function parseDate(value: unknown): Date | undefined {
 	if (!value || typeof value !== 'string') return undefined
-	const [dd, mm, yyyy] = value.split('.')
-	const date = new Date(`${yyyy}-${mm}-${dd}`)
-	return isNaN(date.getTime()) ? undefined : date
+	if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value)) return undefined
+	const date = parse(value, 'dd.MM.yyyy', new Date())
+	return isValid(date) && formatDateFns(date, 'dd.MM.yyyy') === value
+		? date
+		: undefined
 }
 
 function getNestedError(
@@ -79,7 +82,11 @@ export function RHFDatePicker({
 	useEffect(() => {
 		if (previousFieldValueRef.current === field.value) return
 		previousFieldValueRef.current = field.value
-		setSelected(parseDate(field.value))
+
+		const selectedDate = parseDate(field.value)
+		if (field.value === '' || selectedDate) {
+			setSelected(selectedDate)
+		}
 	}, [field.value, setSelected])
 
 	const errorMessage = getNestedError(
@@ -91,6 +98,14 @@ export function RHFDatePicker({
 		<DatePicker {...datepickerProps} dropdownCaption>
 			<DatePicker.Input
 				{...inputProps}
+				onChange={(event: ChangeEvent<HTMLInputElement>) => {
+					inputProps.onChange?.(event)
+					field.onChange(event.target.value)
+				}}
+				onBlur={(event: FocusEvent<HTMLInputElement>) => {
+					inputProps.onBlur?.(event)
+					field.onBlur()
+				}}
 				label={label}
 				size="small"
 				className={className}

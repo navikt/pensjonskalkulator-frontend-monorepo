@@ -290,6 +290,8 @@ export const getOppholdCopyText = (oppholdList: OppholdValues[]) =>
 
 			if (opphold.arbeidetUtenlands === true) {
 				etiketter.push(opphold.sluttdato ? 'Jobbet' : 'jobbet')
+			} else if (opphold.arbeidetUtenlands === false) {
+				etiketter.push(opphold.sluttdato ? 'Botid' : 'botid')
 			}
 
 			const detaljer = [
@@ -303,7 +305,7 @@ export const getOppholdCopyText = (oppholdList: OppholdValues[]) =>
 				.filter(Boolean)
 				.join(', ')
 		})
-		.join('\n\n')
+		.join('\n')
 
 export const formatFoedselsdato = (value?: string) => {
 	if (!value) return ''

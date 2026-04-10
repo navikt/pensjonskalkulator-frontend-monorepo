@@ -29,12 +29,12 @@ export const OppholdListItem = ({
 		<VStack gap="space-12">
 			<HStack align="center" gap="space-16">
 				<div style={{ flex: 1, minWidth: 0 }}>
-					<BodyShort size="small">
-						<VStack>
+					<VStack gap="space-2">
+						<BodyShort size="small">
 							<strong>{landDetails?.navn ?? opphold.land}</strong>
-							<div>{oppholdSummaryText}</div>
-						</VStack>
-					</BodyShort>
+						</BodyShort>
+						<BodyShort size="small">{oppholdSummaryText}</BodyShort>
+					</VStack>
 				</div>
 				{showActions && (
 					<HStack
