@@ -81,7 +81,7 @@ export function RHFTextField({
 					field.onChange(Number(stripped))
 				} else {
 					hasFormatErrorRef.current = true
-					field.onChange(null)
+					field.onChange(stripped)
 				}
 			}}
 		/>
