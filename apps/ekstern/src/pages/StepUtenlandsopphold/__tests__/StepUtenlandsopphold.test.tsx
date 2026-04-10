@@ -1,6 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
-import { loependeVedtak0UfoeregradMock, mockResponse } from '@/mocks'
+import {
+  loependeVedtak0UfoeregradMock,
+  mockResponse,
+  personMedSamboerMock,
+} from '@/mocks'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
@@ -80,25 +84,7 @@ describe('StepUtenlandsopphold', () => {
   it('nullstiller input fra brukeren og navigerer når brukeren klikker på Tilbake', async () => {
     mockResponse('/v6/person', {
       status: 200,
-      json: {
-        fornavn: 'Ola',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-        pensjoneringAldre: {
-          normertPensjoneringsalder: {
-            aar: 67,
-            maaneder: 0,
-          },
-          nedreAldersgrense: {
-            aar: 62,
-            maaneder: 0,
-          },
-          oevreAldersgrense: {
-            aar: 75,
-            maaneder: 0,
-          },
-        },
-      },
+      json: personMedSamboerMock,
     })
 
     const user = userEvent.setup()

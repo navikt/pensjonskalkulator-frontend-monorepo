@@ -1,10 +1,43 @@
 import type { LoependeVedtak, Person, Sivilstand } from './types'
 
+export const calculateFoedselsdato = ({
+	years = 0,
+	months = 0,
+	days = 0,
+}: { years?: number; months?: number; days?: number } = {}): string => {
+	const today = new Date()
+	const baseDate = new Date(
+		today.getFullYear(),
+		today.getMonth(),
+		today.getDate()
+	)
+
+	const totalMonthsToSubtract = years * 12 + months
+	const absoluteMonth =
+		baseDate.getFullYear() * 12 + baseDate.getMonth() - totalMonthsToSubtract
+	const targetYear = Math.floor(absoluteMonth / 12)
+	const targetMonth = absoluteMonth - targetYear * 12
+	const lastDayOfTargetMonth = new Date(
+		targetYear,
+		targetMonth + 1,
+		0
+	).getDate()
+	const clampedDay = Math.min(baseDate.getDate(), lastDayOfTargetMonth)
+
+	const birthDate = new Date(targetYear, targetMonth, clampedDay)
+	birthDate.setDate(birthDate.getDate() - days)
+	const year = birthDate.getFullYear()
+	const month = String(birthDate.getMonth() + 1).padStart(2, '0')
+	const day = String(birthDate.getDate()).padStart(2, '0')
+
+	return `${year}-${month}-${day}`
+}
+
 export const personMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
-	foedselsdato: '1963-04-30',
+	foedselsdato: '1964-04-30',
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 67,
@@ -46,7 +79,9 @@ export const personEldreEnnAfpUfoereOppsigelsesalderMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
-	foedselsdato: '1963-01-30',
+	get foedselsdato(): string {
+		return calculateFoedselsdato({ years: 62, months: 1 })
+	},
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 67,
@@ -67,7 +102,9 @@ export const personYngreEnnAfpUfoereOppsigelsesalderMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
-	foedselsdato: '1990-01-30',
+	get foedselsdato(): string {
+		return calculateFoedselsdato({ years: 61, months: 11 })
+	},
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 67,
@@ -88,7 +125,7 @@ export const personMedOekteAldersgrenseMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'UGIFT' as Sivilstand,
-	foedselsdato: '1963-04-30',
+	foedselsdato: '1964-04-30',
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 70,
@@ -111,7 +148,7 @@ export const personMedSamboerMock = {
 	navn: 'Aprikos Nordmann',
 	fornavn: 'Aprikos',
 	sivilstand: 'GIFT' as Sivilstand,
-	foedselsdato: '1963-04-30',
+	foedselsdato: '1964-04-30',
 	pensjoneringAldre: {
 		normertPensjoneringsalder: {
 			aar: 67,

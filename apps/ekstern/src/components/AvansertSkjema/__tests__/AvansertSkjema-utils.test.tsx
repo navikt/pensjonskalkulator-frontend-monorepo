@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { calculateFoedselsdato } from '@/mocks'
 import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
@@ -10,6 +11,8 @@ import {
 } from '../utils'
 
 describe('AvansertSkjema-utils', () => {
+  const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
+
   describe('onAvansertBeregningSubmit', () => {
     const formDataAllFieldsSwitch = (s: string) => {
       switch (s) {
@@ -58,7 +61,7 @@ describe('AvansertSkjema-utils', () => {
         setValidationErrorsMock,
         gaaTilResultatMock,
         {
-          foedselsdato: '1963-04-30',
+          foedselsdato,
           loependeVedtak: {
             harLoependeVedtak: false,
             ufoeretrygd: { grad: 0 },
@@ -90,7 +93,7 @@ describe('AvansertSkjema-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             loependeVedtak: {
               harLoependeVedtak: false,
               ufoeretrygd: { grad: 0 },
@@ -156,7 +159,7 @@ describe('AvansertSkjema-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             loependeVedtak: {
               harLoependeVedtak: false,
               ufoeretrygd: { grad: 0 },
@@ -256,7 +259,7 @@ describe('AvansertSkjema-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             loependeVedtak: {
               harLoependeVedtak: false,
               ufoeretrygd: { grad: 0 },
@@ -315,7 +318,7 @@ describe('AvansertSkjema-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             loependeVedtak: {
               harLoependeVedtak: false,
               ufoeretrygd: { grad: 0 },
@@ -348,7 +351,7 @@ describe('AvansertSkjema-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            foedselsdato: '1963-04-30',
+            foedselsdato,
             loependeVedtak: {
               harLoependeVedtak: false,
               ufoeretrygd: { grad: 0 },
@@ -392,7 +395,7 @@ describe('AvansertSkjema-utils', () => {
       stillingsprosentVsaHelPensjonFormData: '100',
     }
 
-    const mockedFoedselsdato = '1963-04-30'
+    const mockedFoedselsdato = foedselsdato
     const mockedLoependeVedtak = {
       harLoependeVedtak: false,
       ufoeretrygd: { grad: 0 },
