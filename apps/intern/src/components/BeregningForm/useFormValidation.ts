@@ -138,6 +138,9 @@ function validateInntektField({
 	field: keyof BeregningFormData & keyof ValidationErrors
 }) {
 	const value = formData[field]
+	if (typeof value !== 'number') {
+		errors[field] = 'Du må skrive hele tall for å oppgi inntekt.'
+	}
 	if (value === null) {
 		errors[field] = 'Fyll ut inntekt.'
 	} else if (typeof value === 'number' && value > 100_000_000) {
