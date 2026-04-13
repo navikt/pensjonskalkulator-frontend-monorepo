@@ -115,3 +115,19 @@
 		box-shadow: none;
 	}
 }
+
+@media (max-width: 1280px) {
+	.beregningForm {
+		width: 448px;
+	}
+
+	.section {
+		padding-left: var(--ax-space-24);
+		padding-right: var(--ax-space-24);
+	}
+
+	.buttonBar {
+		padding-left: var(--ax-space-24);
+		padding-right: var(--ax-space-24);
+	}
+}

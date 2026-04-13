@@ -188,9 +188,18 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-				{!alertDismissed &&
-					beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
-					vilkaarAlternativHelt && (
+				<RHFRadio
+					name="afp"
+					legend="Skal AFP inkluderes?"
+					options={[
+						{ value: 'ja_privat', label: 'Ja, privat' },
+						{ value: 'nei', label: 'Nei' },
+					]}
+					className={styles.horizontalRadioGroup}
+				/>
+				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
+					vilkaarAlternativHelt &&
+					!alertDismissed && (
 						<SanityAlert
 							id={
 								sanityTextGradert
@@ -245,7 +254,7 @@ export const BeregningForm = () => {
 					className={styles.selectWrapper}
 					numeric
 				>
-					<option value="">Velg</option>
+					<option value="" />
 					{[20, 40, 50, 60, 80, 100].map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
