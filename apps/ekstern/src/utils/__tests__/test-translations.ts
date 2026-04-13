@@ -12,4 +12,5 @@ export default {
   'translation.test.br': 'lorem{br}ipsum{br}{br}dolor',
   'translation.test.strong': 'lorem<strong>ipsum</strong>dolor',
   'translation.test.nowrap': 'lorem<nowrap>ipsum</nowrap>dolor',
+  'translation.test.strongArrayChunks': '<strong>a {marker} b</strong>',
 }
