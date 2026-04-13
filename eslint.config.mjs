@@ -64,7 +64,12 @@ export function createConfig({
 				},
 				parserOptions: {
 					projectService: {
-						allowDefaultProject: ['*.config.mjs', '*.config.js', '*.config.ts'],
+						allowDefaultProject: [
+							'*.config.mjs',
+							'*.config.js',
+							'*.config.ts',
+							'.github/scripts/*.js',
+						],
 					},
 					tsconfigRootDir,
 				},
@@ -174,6 +179,18 @@ export function createConfig({
 				'sonarjs/cognitive-complexity': 'off',
 				'sonarjs/no-identical-functions': 'off',
 				'sonarjs/prefer-immediate-return': 'off',
+			},
+		},
+		{
+			files: ['.github/scripts/*.js'],
+			languageOptions: {
+				...tseslint.configs.disableTypeChecked.languageOptions,
+				globals: {
+					...globals.node,
+				},
+			},
+			rules: {
+				...tseslint.configs.disableTypeChecked.rules,
 			},
 		},
 	]
