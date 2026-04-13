@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   loependeVedtak0UfoeregradMock,
   loependeVedtak100UfoeregradMock,
   loependeVedtakLoepende0Alderspensjon100UfoeretrygdMock,
@@ -1083,7 +1084,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1412,7 +1413,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1975,7 +1976,14 @@ describe('AvansertSkjemaForAndreBrukere', () => {
             },
           },
           preloadedApiState: {
-            getPerson: personMock,
+            getPerson: {
+              ...personMock,
+              foedselsdato: calculateFoedselsdato({
+                years: 62,
+                months: 11,
+                days: 8,
+              }),
+            },
             getLoependeVedtak: {
               harLoependeVedtak: true,
               alderspensjon: {

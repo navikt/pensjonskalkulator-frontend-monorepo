@@ -68,7 +68,7 @@ export function BeregningProvider({
 				: {}),
 			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
 		},
-		mode: 'onSubmit',
+		mode: 'onChange',
 	})
 
 	// Reset dirty state on mount to ensure clean initial state
