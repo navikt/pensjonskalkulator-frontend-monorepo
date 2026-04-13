@@ -1,22 +1,9 @@
 .beregning {
 	flex: 1;
 	background-color: var(--a-bg-subtle);
-	padding: var(--ax-space-48);
+	padding: var(--ax-space-24) var(--ax-space-48);
 	box-sizing: border-box;
 	overflow-y: auto;
-}
-
-.tables {
-	display: flex;
-	gap: var(--ax-space-40);
-}
-
-.tables > * {
-	flex: 1;
-}
-
-.tableRow {
-	align-items: flex-start;
 }
 
 .loadingOverlay {
@@ -32,7 +19,7 @@
 }
 
 .overlayLoader {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -49,4 +36,15 @@
 .globalAlert {
 	margin: calc(-1 * var(--ax-space-48));
 	margin-bottom: var(--ax-space-48);
+}
+
+@media (max-width: 1280px) {
+	.beregning {
+		padding: var(--ax-space-24);
+	}
+
+	.globalAlert {
+		margin: calc(-1 * var(--ax-space-24));
+		margin-bottom: var(--ax-space-24);
+	}
 }

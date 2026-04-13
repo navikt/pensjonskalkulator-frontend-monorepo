@@ -1,5 +1,4 @@
 export { SanityContext } from './context/SanityContext'
-export { SanityAlert } from './components/SanityAlert'
 export { SanityReadmore } from './components/SanityReadmore'
 export { SanityGuidePanel } from './components/SanityGuidePanel'
 

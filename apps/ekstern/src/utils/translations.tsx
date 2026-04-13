@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { ExternalLink } from '@/components/common/ExternalLink'
 import { externalUrls } from '@/router/constants'
 
@@ -22,11 +24,18 @@ export const externalLinks = [
   'klp',
 ] satisfies (keyof typeof externalUrls)[]
 
+const keyedChildren = (chunks: React.ReactNode): React.ReactNode =>
+  Array.isArray(chunks)
+    ? chunks.map((chunk, i) => <React.Fragment key={i}>{chunk}</React.Fragment>)
+    : chunks
+
 const externalLinkComponents = Object.fromEntries(
   externalLinks.map((key) => [
     `${key}Link`,
     (chunks: React.ReactNode) => (
-      <ExternalLink href={externalUrls[key]}>{chunks}</ExternalLink>
+      <ExternalLink href={externalUrls[key]}>
+        {keyedChildren(chunks)}
+      </ExternalLink>
     ),
   ])
 )
@@ -38,12 +47,16 @@ export const getFormatMessageValues = (): Record<
   return {
     ...externalLinkComponents,
     br: <br />,
-    strong: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
+    strong: (chunks: React.ReactNode) => (
+      <strong>{keyedChildren(chunks)}</strong>
+    ),
     nowrap: (chunks: React.ReactNode) => (
-      <span className="nowrap">{chunks}</span>
+      <span className="nowrap">{keyedChildren(chunks)}</span>
     ),
     span: (chunks: React.ReactNode) => (
-      <span style={{ marginTop: 16, display: 'block' }}>{chunks}</span>
+      <span style={{ marginTop: 16, display: 'block' }}>
+        {keyedChildren(chunks)}
+      </span>
     ),
   }
 }

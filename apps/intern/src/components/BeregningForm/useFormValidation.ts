@@ -128,6 +128,12 @@ function validateSivilstand(
 	}
 }
 
+function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+	if (!formData.afp) {
+		errors.afp = 'Velg om AFP skal inkluderes.'
+	}
+}
+
 function validateInntektField({
 	formData,
 	errors,
@@ -138,6 +144,9 @@ function validateInntektField({
 	field: keyof BeregningFormData & keyof ValidationErrors
 }) {
 	const value = formData[field]
+	if (typeof value !== 'number') {
+		errors[field] = 'Du må skrive hele tall for å oppgi inntekt.'
+	}
 	if (value === null) {
 		errors[field] = 'Fyll ut inntekt.'
 	} else if (typeof value === 'number' && value > 100_000_000) {
@@ -260,7 +269,7 @@ export function useFormValidation() {
 
 	useEffect(() => {
 		const ariaInvalidElements = document.querySelectorAll(
-			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"])'
+			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"]), input[data-feil="true"], select[data-feil="true"], fieldset[data-feil="true"] input'
 		)
 
 		if (
@@ -281,6 +290,7 @@ export function useFormValidation() {
 
 			validateGjenlevenderett(formData, errors)
 			validateSivilstand(formData, errors)
+			validateAfp(formData, errors)
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
 			validateUttaksgrad(formData, errors)

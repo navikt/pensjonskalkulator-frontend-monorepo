@@ -44,7 +44,7 @@ const BeregningLayout = () => {
 			<Box borderColor="neutral-subtle" borderWidth="0 0 1 0">
 				<HStack align="center" wrap={false}>
 					<Box
-						style={{ width: '496px', flexShrink: 0 }}
+						className={styles.headerBox}
 						paddingInline="space-48"
 						paddingBlock="space-8"
 					>
@@ -81,7 +81,11 @@ const AppContent = () => {
 		error: decryptError,
 	} = useDecryptPidQuery(pid)
 
-	const { isLoading: isLoadingPerson, error: personError } = usePersonQuery(fnr)
+	const {
+		isLoading: isLoadingPerson,
+		error: personError,
+		data: person,
+	} = usePersonQuery(fnr)
 
 	const { isLoading: isLoadingVedtak, error: vedtakError } =
 		useLoependeVedtakQuery(fnr)
@@ -154,7 +158,10 @@ const AppContent = () => {
 	return (
 		<>
 			<PersonInfo onPidChange={handlePidChange} />
-			<BeregningProvider initialInntekt={inntekt?.beloep}>
+			<BeregningProvider
+				initialSivilstatus={person?.sivilstatus}
+				initialInntekt={inntekt?.beloep}
+			>
 				<BeregningLayout />
 			</BeregningProvider>
 		</>
