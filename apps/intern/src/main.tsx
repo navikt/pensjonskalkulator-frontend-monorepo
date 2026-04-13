@@ -19,6 +19,7 @@ const queryClient = new QueryClient({
 				}
 				return failureCount < 1
 			},
+			staleTime: Infinity,
 		},
 	},
 })

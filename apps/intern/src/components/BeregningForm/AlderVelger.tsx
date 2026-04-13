@@ -157,7 +157,7 @@ export function AlderVelger({
 						}
 					}}
 				>
-					<option value="">Velg</option>
+					<option value="" />
 					{aarOptions.map((aar) => (
 						<option key={aar} value={String(aar)}>
 							{aar} år
