@@ -37,14 +37,16 @@ const addedPackageKeys = [
 ]
 
 const parsePnpmPackageKey = (packageKey) => {
-	const versionSeparator = packageKey.lastIndexOf('@')
+	const strippedKey = packageKey.replace(/^['"]|['"]$/g, '')
+	const baseKey = strippedKey.split('(')[0]
+	const versionSeparator = baseKey.lastIndexOf('@')
 
 	if (versionSeparator <= 0) {
 		return null
 	}
 
-	const name = packageKey.slice(0, versionSeparator)
-	const versionWithPeers = packageKey.slice(versionSeparator + 1)
+	const name = strippedKey.slice(0, versionSeparator)
+	const versionWithPeers = strippedKey.slice(versionSeparator + 1)
 	const version = versionWithPeers.split('(')[0]
 
 	if (
@@ -57,7 +59,7 @@ const parsePnpmPackageKey = (packageKey) => {
 	}
 
 	return {
-		packageKey,
+		packageKey: strippedKey,
 		name,
 		version,
 	}
