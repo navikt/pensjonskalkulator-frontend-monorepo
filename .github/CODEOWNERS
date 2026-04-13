@@ -1,0 +1,3 @@
+/pnpm-lock.yaml @navikt/pensjonskalkulator
+/.github/actions/** @navikt/pensjonskalkulator
+/.github/workflows/** @navikt/pensjonskalkulator

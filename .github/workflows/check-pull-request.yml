@@ -16,6 +16,7 @@ jobs:
       intern: ${{ steps.changes.outputs.intern }}
       ekstern: ${{ steps.changes.outputs.ekstern }}
       api: ${{ steps.changes.outputs.api }}
+      lockfile: ${{ steps.changes.outputs.lockfile }}
       shared: ${{ steps.changes.outputs.shared }}
     steps:
       - name: Checkout
@@ -24,6 +25,43 @@ jobs:
       - name: Detect changes
         id: changes
         uses: ./.github/actions/detect-changes
+
+  lockfile-security-review:
+    name: Lockfile security review
+    needs: changes
+    if: github.event_name == 'pull_request' && needs.changes.outputs.lockfile == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Analyze lockfile additions
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node .github/scripts/check-lockfile-security.js "$BASE_SHA" "$HEAD_SHA"
+
+      - name: Trace new packages with pnpm why
+        shell: bash
+        run: |
+          if [[ ! -s .lockfile-new-packages.txt ]]; then
+            echo "No new package names to trace"
+            exit 0
+          fi
+
+          while IFS= read -r package_name; do
+            [[ -z "$package_name" ]] && continue
+            echo "::group::pnpm why ${package_name}"
+            pnpm why "$package_name" || true
+            echo "::endgroup::"
+          done < .lockfile-new-packages.txt
 
   # Lint and typecheck everything
   linting-and-typecheck:
@@ -203,6 +241,7 @@ jobs:
     name: All checks passed
     runs-on: ubuntu-latest
     needs:
+      - lockfile-security-review
       - linting-and-typecheck
       - build-intern
       - build-ekstern
@@ -214,6 +253,10 @@ jobs:
     steps:
       - name: Check all results
         run: |
+          if [[ "${{ needs.lockfile-security-review.result }}" != "success" && "${{ needs.lockfile-security-review.result }}" != "skipped" ]]; then
+            echo "Lockfile security review failed"
+            exit 1
+          fi
           if [[ "${{ needs.linting-and-typecheck.result }}" != "success" ]]; then
             echo "Linting and/or type checks failed"
             exit 1
