@@ -60,6 +60,7 @@ export function RHFRadio({
 			error={error}
 			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
 			data-testid={testid}
+			data-feil={error ? true : false}
 		>
 			{children ??
 				resolvedOptions.map((option) => (
