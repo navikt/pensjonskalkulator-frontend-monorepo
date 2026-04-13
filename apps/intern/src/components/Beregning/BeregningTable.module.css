@@ -1,3 +1,5 @@
+@import '../../styles/global.module.css';
+
 .headerRow th {
 	background-color: var(--ax-bg-meta-purple-softA);
 }
@@ -14,4 +16,8 @@
 .table th + th,
 .table td + td {
 	border-left: 1px solid var(--ax-border-neutral-subtle);
+}
+
+.table tbody tr:nth-child(even) {
+	background-color: var(--ax-bg-raised);
 }
