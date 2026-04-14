@@ -30,6 +30,13 @@ import {
 
 import globalClassNames from './Simulering.module.scss'
 
+const pendingRenderTimeouts = new Set<ReturnType<typeof setTimeout>>()
+
+export const clearPendingRenderTimeouts = () => {
+  pendingRenderTimeouts.forEach(clearTimeout)
+  pendingRenderTimeouts.clear()
+}
+
 // CSS Custom Property Constants
 const CSS_VAR_TEXT_DEFAULT = 'var(--a-text-default)'
 const CSS_VAR_TEXT_SUBTLE = 'var(--a-text-subtle)'
@@ -237,43 +244,43 @@ export const getChartOptions = (
       events: {
         render(this) {
           // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
-          const timeout = setTimeout(() => {
-            const highchartsScrollingElement = document.querySelector(
-              highchartsScrollingSelector
-            )
-            if (highchartsScrollingElement) {
-              const el =
-                highchartsScrollingElement as HighchartsScrollingHTMLDivElement
-              const scrollPosition = el.scrollLeft
-              if (el.handleButtonVisibility !== undefined) {
-                handleChartScroll({ currentTarget: el } as unknown as Event, {
-                  chart: this,
-                  scrollPosition,
-                })
-              } else {
-                const elementScrollWidth = el.scrollWidth
-                const elementWidth = el.offsetWidth
-                showRightButton(elementScrollWidth > elementWidth)
-                /* eslint-disable-next-line @typescript-eslint/no-this-alias */
-                const chart = this
-                cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
-                  chart,
-                  scrollPosition,
-                })
-                el.handleButtonVisibility = {
-                  showRightButton,
-                  showLeftButton,
+          pendingRenderTimeouts.add(
+            setTimeout(() => {
+              const highchartsScrollingElement = document.querySelector(
+                highchartsScrollingSelector
+              )
+              if (highchartsScrollingElement) {
+                const el =
+                  highchartsScrollingElement as HighchartsScrollingHTMLDivElement
+                const scrollPosition = el.scrollLeft
+                if (el.handleButtonVisibility !== undefined) {
+                  handleChartScroll({ currentTarget: el } as unknown as Event, {
+                    chart: this,
+                    scrollPosition,
+                  })
+                } else {
+                  const elementScrollWidth = el.scrollWidth
+                  const elementWidth = el.offsetWidth
+                  showRightButton(elementScrollWidth > elementWidth)
+                  /* eslint-disable-next-line @typescript-eslint/no-this-alias */
+                  const chart = this
+                  cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
+                    chart,
+                    scrollPosition,
+                  })
+                  el.handleButtonVisibility = {
+                    showRightButton,
+                    showLeftButton,
+                  }
                 }
+              } else {
+                showRightButton(false)
+                showLeftButton(false)
               }
-            } else {
-              showRightButton(false)
-              showLeftButton(false)
-            }
-            const el1 = document.querySelector('[data-highcharts-chart]')
-            el1?.setAttribute('data-testid', 'highcharts-done-drawing')
-            // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
-            clearTimeout(timeout)
-          }, 50)
+              const el1 = document.querySelector('[data-highcharts-chart]')
+              el1?.setAttribute('data-testid', 'highcharts-done-drawing')
+            }, 50)
+          )
         },
       },
     },
