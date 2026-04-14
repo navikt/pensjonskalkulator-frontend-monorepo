@@ -9,6 +9,7 @@
 		"pnpm": ">=9.0.0"
 	},
 	"scripts": {
+		"audit:fix": "pnpm audit --fix && node .github/scripts/pin-audit-overrides.js && pnpm install",
 		"dev": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
