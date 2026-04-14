@@ -45,6 +45,7 @@ export interface BeregningFormData {
 	epsRegistretSomFlykting: boolean | null
 	harOppholdUtenforNorge: boolean | null
 	utenlandsOpphold: UtenlandsOppholdItem[]
+	afp?: AfpRadio
 }
 
 export type BeregningParams = BeregningFormData
@@ -78,6 +79,7 @@ export interface ValidationErrors {
 	epsRegistretSomFlykting?: string
 	harOppholdUtenforNorge?: string
 	utenlandsOpphold?: string
+	afp?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -111,4 +113,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	harHentetEPSOpplysninger: false,
 	harOppholdUtenforNorge: null,
 	utenlandsOpphold: [],
+	afp: undefined,
 }

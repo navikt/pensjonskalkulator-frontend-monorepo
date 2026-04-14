@@ -97,6 +97,7 @@ export function RHFRadio({
 			error={error}
 			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
 			data-testid={testid}
+			data-feil={error ? true : false}
 		>
 			<HStack gap="space-32" className="horizontalRadio">
 				{children ??

@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { render, screen } from '@/test-utils'
 
@@ -92,6 +92,28 @@ describe('translations-utils', () => {
       expect(nowrapElement).toBeInTheDocument()
       expect(nowrapElement).toHaveClass('nowrap')
       expect(nowrapElement).toHaveTextContent('ipsum')
+    })
+
+    it('does not trigger React missing-key warning when tag function receives an array of chunks', () => {
+      const consoleSpy = vi.spyOn(console, 'error')
+
+      render(
+        <FormattedMessage
+          id="translation.test.strongArrayChunks"
+          values={{
+            ...getFormatMessageValues(),
+            marker: <em>marker</em>,
+          }}
+        />
+      )
+
+      const keyWarnings = consoleSpy.mock.calls.filter(
+        (args) =>
+          typeof args[0] === 'string' &&
+          args[0].includes('Each child in a list should have a unique')
+      )
+      expect(keyWarnings).toHaveLength(0)
+      consoleSpy.mockRestore()
     })
   })
 })

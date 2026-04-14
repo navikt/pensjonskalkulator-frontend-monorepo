@@ -1,6 +1,7 @@
 import type {
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
+	SimuleringsType,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	DATE_BACKEND_FORMAT,
@@ -65,10 +66,13 @@ export function mapBeregningParamsToRequest(
 			}
 		: uttaksalder
 
-	const simuleringstype =
-		formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid
-			? 'ALDERSPENSJON_MED_GJENLEVENDERETT'
-			: 'ALDERSPENSJON'
+	let simuleringstype: SimuleringsType = 'ALDERSPENSJON'
+
+	if (formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid) {
+		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
+	} else if (formData.afp === 'ja_privat') {
+		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
+	}
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger

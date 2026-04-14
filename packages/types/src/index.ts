@@ -78,6 +78,8 @@ export type TidsbegrensetOffentligAFP =
 	components['schemas']['SimuleringV1TidsbegrensetOffentligAfp']
 export type SimuleringAlderspensjon =
 	components['schemas']['SimuleringV1Alderspensjon']
+export type SimuleringMaanedligAlderspensjon =
+	components['schemas']['SimuleringV1MaanedligAlderspensjon']
 export type SimuleringAfpPrivat = components['schemas']['SimuleringV1PrivatAfp']
 export type SimuleringAfpOffentlig =
 	components['schemas']['SimuleringV1OffentligAfpSpec']
