@@ -163,6 +163,8 @@ export const BeregningForm = () => {
 
 				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 
+				<Divider noMargin />
+
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativ && (
 						<SanityAlert

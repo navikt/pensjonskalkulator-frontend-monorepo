@@ -1,3 +1,4 @@
+import type { SimuleringUtenlandsperiode } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
@@ -14,11 +15,7 @@ import type {
 	OppholdValues,
 } from './types'
 
-export type UtenlandsoppholdValidationField =
-	| 'land'
-	| 'arbeidetUtenlands'
-	| 'startdato'
-	| 'sluttdato'
+export type UtenlandsoppholdValidationField = keyof SimuleringUtenlandsperiode
 
 export type UtenlandsoppholdValidationCode =
 	| 'land-required'
@@ -37,8 +34,8 @@ export type UtenlandsperiodeValidationInput = {
 	id?: string
 	landkode: string
 	arbeidetUtenlands?: boolean | null
-	startdato: string
-	sluttdato?: string
+	fom: string
+	tom?: string
 }
 
 export type UtenlandsoppholdValidationResult = {
@@ -57,10 +54,10 @@ type OverlapDetails = UtenlandsoppholdValidationResult['overlap']
 type OppholdValidationErrors = UtenlandsoppholdValidationResult['errors']
 
 export const emptyOpphold: OppholdValues = {
-	land: '',
+	landkode: '',
 	arbeidetUtenlands: null,
-	startdato: '',
-	sluttdato: '',
+	fom: '',
+	tom: '',
 	brukFoedselsdato: false,
 }
 
@@ -85,27 +82,27 @@ const hasErrors = (errors: OppholdValidationErrors) =>
 	Object.values(errors).some(Boolean)
 
 const getStartdatoError = (
-	startdato: string,
+	fom: string,
 	foedselsdato?: string
 ): UtenlandsoppholdValidationCode | undefined => {
-	if (!startdato) {
+	if (!fom) {
 		return 'startdato-required'
 	}
 
-	if (!validateDateEndUserFormat(startdato)) {
+	if (!validateDateEndUserFormat(fom)) {
 		return 'date-format'
 	}
 
 	if (
 		foedselsdato &&
-		isBefore(parseEndUserDate(startdato), parseBackendDate(foedselsdato))
+		isBefore(parseEndUserDate(fom), parseBackendDate(foedselsdato))
 	) {
 		return 'startdato-before-foedselsdato'
 	}
 
 	const maxOppholdDate = getMaxOppholdDate(foedselsdato)
 
-	if (maxOppholdDate && isBefore(maxOppholdDate, parseEndUserDate(startdato))) {
+	if (maxOppholdDate && isBefore(maxOppholdDate, parseEndUserDate(fom))) {
 		return 'date-after-max'
 	}
 
@@ -113,32 +110,32 @@ const getStartdatoError = (
 }
 
 const getSluttdatoError = ({
-	startdato,
-	sluttdato,
+	fom,
+	tom,
 	foedselsdato,
 }: {
-	startdato: string
-	sluttdato?: string
+	fom: string
+	tom?: string
 	foedselsdato?: string
 }): UtenlandsoppholdValidationCode | undefined => {
-	if (!sluttdato) {
+	if (!tom) {
 		return undefined
 	}
 
-	if (!validateDateEndUserFormat(sluttdato)) {
+	if (!validateDateEndUserFormat(tom)) {
 		return 'date-format'
 	}
 
 	if (
-		validateDateEndUserFormat(startdato) &&
-		isBefore(parseEndUserDate(sluttdato), parseEndUserDate(startdato))
+		validateDateEndUserFormat(fom) &&
+		isBefore(parseEndUserDate(tom), parseEndUserDate(fom))
 	) {
 		return 'sluttdato-before-startdato'
 	}
 
 	const maxOppholdDate = getMaxOppholdDate(foedselsdato)
 
-	if (maxOppholdDate && isBefore(maxOppholdDate, parseEndUserDate(sluttdato))) {
+	if (maxOppholdDate && isBefore(maxOppholdDate, parseEndUserDate(tom))) {
 		return 'date-after-max'
 	}
 
@@ -146,9 +143,9 @@ const getSluttdatoError = ({
 }
 
 const getCurrentInterval = (opphold: OppholdValues, foedselsdato: string) => ({
-	start: parseEndUserDate(opphold.startdato),
-	end: opphold.sluttdato
-		? parseEndUserDate(opphold.sluttdato)
+	start: parseEndUserDate(opphold.fom),
+	end: opphold.tom
+		? parseEndUserDate(opphold.tom)
 		: getMaxOppholdDate(foedselsdato)!,
 })
 
@@ -156,9 +153,9 @@ const getPeriodInterval = (
 	utenlandsperiode: UtenlandsperiodeValidationInput,
 	foedselsdato: string
 ) => ({
-	start: parseEndUserDate(utenlandsperiode.startdato),
-	end: utenlandsperiode.sluttdato
-		? parseEndUserDate(utenlandsperiode.sluttdato)
+	start: parseEndUserDate(utenlandsperiode.fom),
+	end: utenlandsperiode.tom
+		? parseEndUserDate(utenlandsperiode.tom)
 		: getMaxOppholdDate(foedselsdato)!,
 })
 
@@ -191,22 +188,22 @@ const getOverlapValidationResult = ({
 
 		const overlap = {
 			landkode: utenlandsperiode.landkode,
-			periodestart: utenlandsperiode.startdato,
-			periodeslutt: utenlandsperiode.sluttdato ?? '',
+			periodestart: utenlandsperiode.fom,
+			periodeslutt: utenlandsperiode.tom ?? '',
 		}
 
 		if (!isAvtaleland(utenlandsperiode.landkode)) {
 			return {
 				isValid: false,
-				errors: { startdato: 'overlap-non-avtaleland' },
+				errors: { fom: 'overlap-non-avtaleland' },
 				overlap,
 			}
 		}
 
-		if (utenlandsperiode.landkode !== opphold.land) {
+		if (utenlandsperiode.landkode !== opphold.landkode) {
 			return {
 				isValid: false,
-				errors: { land: 'overlap-different-land' },
+				errors: { landkode: 'overlap-different-land' },
 				overlap,
 			}
 		}
@@ -244,7 +241,7 @@ export const getOppholdFieldName = <T extends OppholdField>(
 
 export const getOppholdLabels = (opphold: OppholdLabelFields) => {
 	const labels: string[] = []
-	const isVarigOpphold = Boolean(opphold.startdato && !opphold.sluttdato)
+	const isVarigOpphold = Boolean(opphold.fom && !opphold.tom)
 
 	if (isVarigOpphold) {
 		labels.push('Varig opphold')
@@ -258,11 +255,11 @@ export const getOppholdLabels = (opphold: OppholdLabelFields) => {
 }
 
 export const getOppholdDateText = (opphold: OppholdDateFields) => {
-	if (opphold.startdato && opphold.sluttdato) {
-		return `${opphold.startdato}-${opphold.sluttdato}`
+	if (opphold.fom && opphold.tom) {
+		return `${opphold.fom}-${opphold.tom}`
 	}
 
-	return opphold.startdato
+	return opphold.fom
 }
 
 export const getOppholdSummaryText = (opphold: OppholdLabelFields) => {
@@ -277,21 +274,21 @@ export const getOppholdSummaryText = (opphold: OppholdLabelFields) => {
 export const getOppholdCopyText = (oppholdList: OppholdValues[]) =>
 	oppholdList
 		.map((opphold) => {
-			const landDetails = getLandDetails(opphold.land)
+			const landDetails = getLandDetails(opphold.landkode)
 			const etiketter: string[] = []
 			let periodeTekst = ''
 
-			if (opphold.startdato && opphold.sluttdato) {
-				periodeTekst = `${opphold.startdato}-${opphold.sluttdato}`
-			} else if (opphold.startdato) {
-				periodeTekst = opphold.startdato
+			if (opphold.fom && opphold.tom) {
+				periodeTekst = `${opphold.fom}-${opphold.tom}`
+			} else if (opphold.fom) {
+				periodeTekst = opphold.fom
 				etiketter.push('Varig opphold')
 			}
 
 			if (opphold.arbeidetUtenlands === true) {
-				etiketter.push(opphold.sluttdato ? 'Jobbet' : 'jobbet')
+				etiketter.push(opphold.tom ? 'Jobbet' : 'jobbet')
 			} else if (opphold.arbeidetUtenlands === false) {
-				etiketter.push(opphold.sluttdato ? 'Botid' : 'botid')
+				etiketter.push(opphold.tom ? 'Botid' : 'botid')
 			}
 
 			const detaljer = [
@@ -301,7 +298,7 @@ export const getOppholdCopyText = (oppholdList: OppholdValues[]) =>
 				.filter(Boolean)
 				.join(' ')
 
-			return [landDetails?.navn ?? opphold.land, detaljer]
+			return [landDetails?.navn ?? opphold.landkode, detaljer]
 				.filter(Boolean)
 				.join(', ')
 		})
@@ -328,30 +325,30 @@ export const validateOpphold = ({
 }): UtenlandsoppholdValidationResult => {
 	const errors: OppholdValidationErrors = {}
 
-	if (!opphold.land) {
+	if (!opphold.landkode) {
 		return {
 			isValid: false,
-			errors: { land: 'land-required' },
+			errors: { landkode: 'land-required' },
 		}
 	}
 
-	if (isAvtaleland(opphold.land) && opphold.arbeidetUtenlands === null) {
+	if (isAvtaleland(opphold.landkode) && opphold.arbeidetUtenlands === null) {
 		errors.arbeidetUtenlands = 'arbeidet-utenlands-required'
 	}
 
-	const startdatoError = getStartdatoError(opphold.startdato, foedselsdato)
+	const startdatoError = getStartdatoError(opphold.fom, foedselsdato)
 	const sluttdatoError = getSluttdatoError({
-		startdato: opphold.startdato,
-		sluttdato: opphold.sluttdato || undefined,
+		fom: opphold.fom,
+		tom: opphold.tom || undefined,
 		foedselsdato,
 	})
 
 	if (startdatoError) {
-		errors.startdato = startdatoError
+		errors.fom = startdatoError
 	}
 
 	if (sluttdatoError) {
-		errors.sluttdato = sluttdatoError
+		errors.tom = sluttdatoError
 	}
 
 	if (hasErrors(errors)) {
@@ -399,7 +396,7 @@ export const getOppholdValidationMessage = (
 		case 'startdato-before-foedselsdato':
 			return 'Startdato kan ikke være før fødselsdatoen din.'
 		case 'date-after-max':
-			return field === 'sluttdato'
+			return field === 'tom'
 				? 'Sluttdato kan ikke være senere enn 100 år etter fødselsdatoen din.'
 				: 'Startdato kan ikke være senere enn 100 år etter fødselsdatoen din.'
 		case 'sluttdato-before-startdato':

@@ -9,10 +9,10 @@ export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'DOEDSFALL_REGISTRERT'
 
 export interface UtenlandsOppholdItem {
-	land: string
+	landkode: string
 	arbeidetUtenlands: boolean | null
-	startdato: string
-	sluttdato: string
+	fom: string
+	tom: string
 	brukFoedselsdato: boolean
 }
 

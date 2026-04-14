@@ -18,7 +18,7 @@ export const OppholdListItem = ({
 	onEdit,
 	onDelete,
 }: OppholdListItemProps) => {
-	const landDetails = getLandDetails(opphold.land)
+	const landDetails = getLandDetails(opphold.landkode)
 	const oppholdSummaryText = getOppholdSummaryText(opphold)
 
 	if (!landDetails) {
@@ -31,7 +31,7 @@ export const OppholdListItem = ({
 				<div style={{ flex: 1, minWidth: 0 }}>
 					<VStack gap="space-2">
 						<BodyShort size="small">
-							<strong>{landDetails?.navn ?? opphold.land}</strong>
+							<strong>{landDetails?.navn ?? opphold.landkode}</strong>
 						</BodyShort>
 						<BodyShort size="small">{oppholdSummaryText}</BodyShort>
 					</VStack>

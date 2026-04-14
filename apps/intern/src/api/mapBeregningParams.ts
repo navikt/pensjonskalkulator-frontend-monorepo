@@ -9,36 +9,25 @@ import {
 import { format, parse } from 'date-fns'
 
 import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
-import type { BeregningFormData } from './beregningTypes'
-
-type UtenlandsOppholdFormItem = {
-	land: string
-	arbeidetUtenlands: boolean | null
-	startdato: string
-	sluttdato: string
-}
-
-type BeregningFormDataWithUtenlandsOpphold = BeregningFormData & {
-	utenlandsOpphold: UtenlandsOppholdFormItem[]
-}
+import type { BeregningFormData, UtenlandsOppholdItem } from './beregningTypes'
 
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
 
 const mapUtenlandsperiodeListe = (
-	utenlandsOpphold: UtenlandsOppholdFormItem[]
+	utenlandsOpphold: UtenlandsOppholdItem[]
 ): SimuleringUtenlandsperiode[] =>
 	utenlandsOpphold.map(
 		(opphold): SimuleringUtenlandsperiode => ({
-			fom: toBackendDate(opphold.startdato),
-			tom: opphold.sluttdato ? toBackendDate(opphold.sluttdato) : undefined,
-			landkode: opphold.land,
+			fom: toBackendDate(opphold.fom),
+			tom: opphold.tom ? toBackendDate(opphold.tom) : undefined,
+			landkode: opphold.landkode,
 			arbeidetUtenlands: opphold.arbeidetUtenlands === true,
 		})
 	)
 
 export function mapBeregningParamsToRequest(
-	formData: BeregningFormDataWithUtenlandsOpphold
+	formData: BeregningFormData
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
