@@ -1,4 +1,6 @@
-.selectLandWrapper {
+.selectLandWrapper,
+.dateFieldWrapper,
+.dateFieldWrapper :global(.aksel-date__field-wrapper) {
 	width: 11.75rem;
 }
 
@@ -6,19 +8,11 @@
 	width: 100%;
 }
 
-.radioFieldWrapper {
-	flex-shrink: 0;
-}
-
+.radioFieldWrapper,
 .dateFieldWrapper {
-	width: 11.75rem;
 	flex-shrink: 0;
 }
 
 .dateFieldInput {
-	width: 100%;
-}
-
-.dateFieldWrapper .navds-form-field {
 	width: 100%;
 }

@@ -354,7 +354,7 @@ export const UtenlandsOpphold = ({
 			</HStack>
 			{currentLand && (
 				<>
-					<HStack justify="start" align="end" gap="space-24">
+					<HStack justify="start" gap="space-24">
 						<div className={styles.dateFieldWrapper}>
 							<RHFDatePicker
 								name={getOppholdFieldName(index, 'fom')}
