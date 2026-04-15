@@ -10,13 +10,16 @@ import {
 import { format, parse } from 'date-fns'
 
 import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
-import type { BeregningFormData, UtenlandsOppholdItem } from './beregningTypes'
+import type {
+	BeregningFormData,
+	UtenlandsOppholdFormValues,
+} from './beregningTypes'
 
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
 
 const mapUtenlandsperiodeListe = (
-	utenlandsOpphold: UtenlandsOppholdItem[]
+	utenlandsOpphold: UtenlandsOppholdFormValues[]
 ): SimuleringUtenlandsperiode[] =>
 	utenlandsOpphold.map(
 		(opphold): SimuleringUtenlandsperiode => ({

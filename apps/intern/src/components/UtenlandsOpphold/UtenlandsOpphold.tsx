@@ -10,6 +10,7 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
+import { parseEndUserDate } from '../../utils/dates'
 import { useBeregningContext } from '../BeregningContext'
 import { RHFDatePicker } from '../BeregningForm/rhf-adapters/RHFDatePicker'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
@@ -33,14 +34,6 @@ import type {
 } from './utils'
 
 import styles from './UtenlandsOpphold.module.css'
-
-const parseEndUserDate = (value?: string) => {
-	if (!value) return undefined
-	const [day, month, year] = value.split('.')
-	if (!day || !month || !year) return undefined
-	const date = new Date(`${year}-${month}-${day}`)
-	return isNaN(date.getTime()) ? undefined : date
-}
 
 type UtenlandsOppholdProps = {
 	onSubmitDisabledChange?: (isDisabled: boolean) => void

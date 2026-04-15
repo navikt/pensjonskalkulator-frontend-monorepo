@@ -1,4 +1,4 @@
-import type { UtenlandsOppholdItem } from '../../api/beregningTypes'
+import type { UtenlandsOppholdFormValues } from '../../api/beregningTypes'
 
 export type LandDetails = {
 	landkode: string
@@ -6,7 +6,7 @@ export type LandDetails = {
 	kravOmArbeid?: boolean
 }
 
-export type OppholdValues = UtenlandsOppholdItem
+export type OppholdValues = UtenlandsOppholdFormValues
 
 export type OppholdField = keyof OppholdValues
 

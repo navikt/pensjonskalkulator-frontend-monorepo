@@ -4,6 +4,7 @@ import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 import { Select } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
+import { getNestedError } from './utils'
 
 interface RHFSelectProps {
 	name: FieldPath<BeregningFormData>
@@ -31,20 +32,7 @@ export function RHFSelect({
 	const toFormValue = (raw: string) =>
 		raw ? (numeric ? Number(raw) : raw) : ''
 
-	const errorPath = name.split('.')
-	let error: unknown = errors
-	for (const segment of errorPath) {
-		if (error && typeof error === 'object' && segment in error) {
-			error = (error as Record<string, unknown>)[segment]
-		} else {
-			error = undefined
-			break
-		}
-	}
-	const errorMessage =
-		error && typeof error === 'object' && 'message' in error
-			? (error as { message?: string }).message
-			: undefined
+	const errorMessage = getNestedError(errors, name)
 
 	return (
 		<Select

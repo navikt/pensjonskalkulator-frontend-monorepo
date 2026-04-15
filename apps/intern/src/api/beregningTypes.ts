@@ -8,7 +8,7 @@ export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
 	| 'DOEDSFALL_REGISTRERT'
 
-export interface UtenlandsOppholdItem {
+export interface UtenlandsOppholdFormValues {
 	landkode: string
 	arbeidetUtenlands: boolean | null
 	fom: string
@@ -44,7 +44,7 @@ export interface BeregningFormData {
 	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
 	epsRegistretSomFlykting: boolean | null
 	harOppholdUtenforNorge: boolean | null
-	utenlandsOpphold: UtenlandsOppholdItem[]
+	utenlandsOpphold: UtenlandsOppholdFormValues[]
 	afp?: AfpRadio
 }
 

@@ -1,12 +1,12 @@
 import type { SimuleringUtenlandsperiode } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	DATE_BACKEND_FORMAT,
-	DATE_ENDUSER_FORMAT,
 	validateDateEndUserFormat,
 } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import landListData from '@pensjonskalkulator-frontend-monorepo/utils/land-list'
 import { addYears, areIntervalsOverlapping, isBefore, parse } from 'date-fns'
 
+import { parseEndUserDate } from '../../utils/dates'
 import type {
 	LandDetails,
 	OppholdDateFields,
@@ -68,9 +68,6 @@ export const getLandDetails = (landkode: string) =>
 
 export const isAvtaleland = (landkode: string) =>
 	getLandDetails(landkode)?.kravOmArbeid === true
-
-const parseEndUserDate = (value: string) =>
-	parse(value, DATE_ENDUSER_FORMAT, new Date())
 
 const parseBackendDate = (value: string) =>
 	parse(value, DATE_BACKEND_FORMAT, new Date())
