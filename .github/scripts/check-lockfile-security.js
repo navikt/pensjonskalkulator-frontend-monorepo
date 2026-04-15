@@ -123,8 +123,7 @@ const packageReports = packageEntries.map((entry) => {
 	}
 
 	const scripts =
-		registryMetadata.scripts &&
-		typeof registryMetadata.scripts === 'object'
+		registryMetadata.scripts && typeof registryMetadata.scripts === 'object'
 			? registryMetadata.scripts
 			: {}
 	const lifecycleScripts = Object.fromEntries(

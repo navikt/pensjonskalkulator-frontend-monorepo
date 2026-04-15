@@ -1,0 +1,1064 @@
+[
+	{
+		"landkode": "AFG",
+		"navn": "Afghanistan"
+	},
+	{
+		"landkode": "ALB",
+		"navn": "Albania"
+	},
+	{
+		"landkode": "DZA",
+		"navn": "Algerie"
+	},
+	{
+		"landkode": "ASM",
+		"navn": "Amerikansk Samoa"
+	},
+	{
+		"landkode": "AND",
+		"navn": "Andorra"
+	},
+	{
+		"landkode": "AGO",
+		"navn": "Angola"
+	},
+	{
+		"landkode": "AIA",
+		"navn": "Anguilla"
+	},
+	{
+		"landkode": "ATA",
+		"navn": "Antarktis"
+	},
+	{
+		"landkode": "ATG",
+		"navn": "Antigua og Barbuda"
+	},
+	{
+		"landkode": "ARG",
+		"navn": "Argentina"
+	},
+	{
+		"landkode": "ARM",
+		"navn": "Armenia"
+	},
+	{
+		"landkode": "ABW",
+		"navn": "Aruba"
+	},
+	{
+		"landkode": "AZE",
+		"navn": "Aserbajdsjan"
+	},
+	{
+		"landkode": "AUS",
+		"navn": "Australia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "BHS",
+		"navn": "Bahamas"
+	},
+	{
+		"landkode": "BHR",
+		"navn": "Bahrain"
+	},
+	{
+		"landkode": "BGD",
+		"navn": "Bangladesh"
+	},
+	{
+		"landkode": "BRB",
+		"navn": "Barbados"
+	},
+	{
+		"landkode": "BLR",
+		"navn": "Belarus"
+	},
+	{
+		"landkode": "BEL",
+		"navn": "Belgia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "BLZ",
+		"navn": "Belize"
+	},
+	{
+		"landkode": "BEN",
+		"navn": "Benin"
+	},
+	{
+		"landkode": "BMU",
+		"navn": "Bermuda"
+	},
+	{
+		"landkode": "BTN",
+		"navn": "Bhutan"
+	},
+	{
+		"landkode": "BOL",
+		"navn": "Bolivia"
+	},
+	{
+		"landkode": "BES",
+		"navn": "Bonaire, Sint Eustatius og Saba"
+	},
+	{
+		"landkode": "BIH",
+		"navn": "Bosnia-Hercegovina"
+	},
+	{
+		"landkode": "BWA",
+		"navn": "Botswana"
+	},
+	{
+		"landkode": "BVT",
+		"navn": "Bouvetøya"
+	},
+	{
+		"landkode": "BRA",
+		"navn": "Brasil"
+	},
+	{
+		"landkode": "BRN",
+		"navn": "Brunei"
+	},
+	{
+		"landkode": "BGR",
+		"navn": "Bulgaria",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "BFA",
+		"navn": "Burkina Faso"
+	},
+	{
+		"landkode": "BDI",
+		"navn": "Burundi"
+	},
+	{
+		"landkode": "CAN",
+		"navn": "Canada",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "CYM",
+		"navn": "Caymanøyene"
+	},
+	{
+		"landkode": "CHL",
+		"navn": "Chile",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "CXR",
+		"navn": "Christmasøya"
+	},
+	{
+		"landkode": "COL",
+		"navn": "Colombia"
+	},
+	{
+		"landkode": "COK",
+		"navn": "Cookøyene"
+	},
+	{
+		"landkode": "CRI",
+		"navn": "Costa Rica"
+	},
+	{
+		"landkode": "CUB",
+		"navn": "Cuba"
+	},
+	{
+		"landkode": "CUW",
+		"navn": "Curaçao"
+	},
+	{
+		"landkode": "DNK",
+		"navn": "Danmark",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "ARE",
+		"navn": "De forente arabiske emirater"
+	},
+	{
+		"landkode": "ATF",
+		"navn": "De franske sørterritorier"
+	},
+	{
+		"landkode": "ANT",
+		"navn": "De nederlandske Antiller"
+	},
+	{
+		"landkode": "DOM",
+		"navn": "Den dominikanske republikk"
+	},
+	{
+		"landkode": "CAF",
+		"navn": "Den sentralafrikanske republikk"
+	},
+	{
+		"landkode": "IOT",
+		"navn": "Det britiske territoriet i Indiahavet"
+	},
+	{
+		"landkode": "DJI",
+		"navn": "Djibouti"
+	},
+	{
+		"landkode": "DMA",
+		"navn": "Dominica"
+	},
+	{
+		"landkode": "ECU",
+		"navn": "Ecuador"
+	},
+	{
+		"landkode": "EGY",
+		"navn": "Egypt"
+	},
+	{
+		"landkode": "GNQ",
+		"navn": "Ekvatorial-Guinea"
+	},
+	{
+		"landkode": "SLV",
+		"navn": "El Salvador"
+	},
+	{
+		"landkode": "CIV",
+		"navn": "Elfenbenskysten"
+	},
+	{
+		"landkode": "ERI",
+		"navn": "Eritrea"
+	},
+	{
+		"landkode": "EST",
+		"navn": "Estland",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SWZ",
+		"navn": "Eswatini"
+	},
+	{
+		"landkode": "ETH",
+		"navn": "Etiopia"
+	},
+	{
+		"landkode": "FLK",
+		"navn": "Falklandsøyene"
+	},
+	{
+		"landkode": "FJI",
+		"navn": "Fiji"
+	},
+	{
+		"landkode": "PHL",
+		"navn": "Filippinene"
+	},
+	{
+		"landkode": "FIN",
+		"navn": "Finland (inkl. Åland)",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "FRA",
+		"navn": "Frankrike",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "GUF",
+		"navn": "Fransk Guyana",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "PYF",
+		"navn": "Fransk Polynesia"
+	},
+	{
+		"landkode": "FRO",
+		"navn": "Færøyene",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "GAB",
+		"navn": "Gabon"
+	},
+	{
+		"landkode": "GMB",
+		"navn": "Gambia"
+	},
+	{
+		"landkode": "GEO",
+		"navn": "Georgia"
+	},
+	{
+		"landkode": "GHA",
+		"navn": "Ghana"
+	},
+	{
+		"landkode": "GIB",
+		"navn": "Gibraltar"
+	},
+	{
+		"landkode": "GRD",
+		"navn": "Grenada"
+	},
+	{
+		"landkode": "GRL",
+		"navn": "Grønland",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "GLP",
+		"navn": "Guadeloupe",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "GUM",
+		"navn": "Guam"
+	},
+	{
+		"landkode": "GTM",
+		"navn": "Guatemala"
+	},
+	{
+		"landkode": "GGY",
+		"navn": "Guernsey"
+	},
+	{
+		"landkode": "GIN",
+		"navn": "Guinea"
+	},
+	{
+		"landkode": "GNB",
+		"navn": "Guinea-Bissau"
+	},
+	{
+		"landkode": "GUY",
+		"navn": "Guyana"
+	},
+	{
+		"landkode": "HTI",
+		"navn": "Haiti"
+	},
+	{
+		"landkode": "HMD",
+		"navn": "Heard- og McDonaldøyene"
+	},
+	{
+		"landkode": "GRC",
+		"navn": "Hellas",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "HND",
+		"navn": "Honduras"
+	},
+	{
+		"landkode": "HKG",
+		"navn": "Hongkong"
+	},
+	{
+		"landkode": "IND",
+		"navn": "India",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "IDN",
+		"navn": "Indonesia"
+	},
+	{
+		"landkode": "IRQ",
+		"navn": "Irak"
+	},
+	{
+		"landkode": "IRN",
+		"navn": "Iran"
+	},
+	{
+		"landkode": "IRL",
+		"navn": "Irland",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "ISL",
+		"navn": "Island",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "ISR",
+		"navn": "Israel",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "ITA",
+		"navn": "Italia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "JAM",
+		"navn": "Jamaica"
+	},
+	{
+		"landkode": "JPN",
+		"navn": "Japan"
+	},
+	{
+		"landkode": "YEM",
+		"navn": "Jemen"
+	},
+	{
+		"landkode": "JEY",
+		"navn": "Jersey",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "VIR",
+		"navn": "Jomfruøyene (De amerikanske)"
+	},
+	{
+		"landkode": "VGB",
+		"navn": "Jomfruøyene (De britiske)"
+	},
+	{
+		"landkode": "JOR",
+		"navn": "Jordan"
+	},
+	{
+		"landkode": "KHM",
+		"navn": "Kambodsja"
+	},
+	{
+		"landkode": "CMR",
+		"navn": "Kamerun"
+	},
+	{
+		"landkode": "CPV",
+		"navn": "Kapp Verde"
+	},
+	{
+		"landkode": "KAZ",
+		"navn": "Kasakhstan"
+	},
+	{
+		"landkode": "KEN",
+		"navn": "Kenya"
+	},
+	{
+		"landkode": "CHN",
+		"navn": "Kina"
+	},
+	{
+		"landkode": "KGZ",
+		"navn": "Kirgisistan"
+	},
+	{
+		"landkode": "KIR",
+		"navn": "Kiribati"
+	},
+	{
+		"landkode": "CCK",
+		"navn": "Kokosøyene (Keelingøyene)"
+	},
+	{
+		"landkode": "COM",
+		"navn": "Komorene"
+	},
+	{
+		"landkode": "COG",
+		"navn": "Kongo-Brazzaville"
+	},
+	{
+		"landkode": "COD",
+		"navn": "Kongo-Kinshasa"
+	},
+	{
+		"landkode": "XXK",
+		"navn": "Kosovo"
+	},
+	{
+		"landkode": "HRV",
+		"navn": "Kroatia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "KWT",
+		"navn": "Kuwait"
+	},
+	{
+		"landkode": "CYP",
+		"navn": "Kypros",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "LAO",
+		"navn": "Laos"
+	},
+	{
+		"landkode": "LVA",
+		"navn": "Latvia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "LSO",
+		"navn": "Lesotho"
+	},
+	{
+		"landkode": "LBN",
+		"navn": "Libanon"
+	},
+	{
+		"landkode": "LBR",
+		"navn": "Liberia"
+	},
+	{
+		"landkode": "LBY",
+		"navn": "Libya"
+	},
+	{
+		"landkode": "LIE",
+		"navn": "Liechtenstein",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "LTU",
+		"navn": "Litauen",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "LUX",
+		"navn": "Luxembourg",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "MAC",
+		"navn": "Macao"
+	},
+	{
+		"landkode": "MDG",
+		"navn": "Madagaskar"
+	},
+	{
+		"landkode": "MWI",
+		"navn": "Malawi"
+	},
+	{
+		"landkode": "MYS",
+		"navn": "Malaysia"
+	},
+	{
+		"landkode": "MDV",
+		"navn": "Maldivene"
+	},
+	{
+		"landkode": "MLI",
+		"navn": "Mali"
+	},
+	{
+		"landkode": "MLT",
+		"navn": "Malta",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "IMN",
+		"navn": "Man",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "MAR",
+		"navn": "Marokko"
+	},
+	{
+		"landkode": "MHL",
+		"navn": "Marshalløyene"
+	},
+	{
+		"landkode": "MTQ",
+		"navn": "Martinique",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "MRT",
+		"navn": "Mauritania"
+	},
+	{
+		"landkode": "MUS",
+		"navn": "Mauritius"
+	},
+	{
+		"landkode": "MYT",
+		"navn": "Mayotte"
+	},
+	{
+		"landkode": "MEX",
+		"navn": "Mexico"
+	},
+	{
+		"landkode": "FSM",
+		"navn": "Mikronesiaføderasjonen"
+	},
+	{
+		"landkode": "MDA",
+		"navn": "Moldova"
+	},
+	{
+		"landkode": "MCO",
+		"navn": "Monaco"
+	},
+	{
+		"landkode": "MNG",
+		"navn": "Mongolia"
+	},
+	{
+		"landkode": "MNE",
+		"navn": "Montenegro"
+	},
+	{
+		"landkode": "MSR",
+		"navn": "Montserrat"
+	},
+	{
+		"landkode": "MOZ",
+		"navn": "Mosambik"
+	},
+	{
+		"landkode": "MMR",
+		"navn": "Myanmar (Burma)"
+	},
+	{
+		"landkode": "NAM",
+		"navn": "Namibia"
+	},
+	{
+		"landkode": "NRU",
+		"navn": "Nauru"
+	},
+	{
+		"landkode": "NLD",
+		"navn": "Nederland",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "NPL",
+		"navn": "Nepal"
+	},
+	{
+		"landkode": "NZL",
+		"navn": "New Zealand"
+	},
+	{
+		"landkode": "NIC",
+		"navn": "Nicaragua"
+	},
+	{
+		"landkode": "NER",
+		"navn": "Niger"
+	},
+	{
+		"landkode": "NGA",
+		"navn": "Nigeria"
+	},
+	{
+		"landkode": "NIU",
+		"navn": "Niue"
+	},
+	{
+		"landkode": "PRK",
+		"navn": "Nord-Korea"
+	},
+	{
+		"landkode": "MKD",
+		"navn": "Nord-Makedonia"
+	},
+	{
+		"landkode": "MNP",
+		"navn": "Nord-Marianene"
+	},
+	{
+		"landkode": "NFK",
+		"navn": "Norfolkøya"
+	},
+	{
+		"landkode": "NCL",
+		"navn": "Ny-Caledonia"
+	},
+	{
+		"landkode": "OMN",
+		"navn": "Oman"
+	},
+	{
+		"landkode": "PAK",
+		"navn": "Pakistan"
+	},
+	{
+		"landkode": "PLW",
+		"navn": "Palau"
+	},
+	{
+		"landkode": "PSE",
+		"navn": "Palestina"
+	},
+	{
+		"landkode": "PAN",
+		"navn": "Panama"
+	},
+	{
+		"landkode": "PNG",
+		"navn": "Papua Ny-Guinea"
+	},
+	{
+		"landkode": "PRY",
+		"navn": "Paraguay"
+	},
+	{
+		"landkode": "PER",
+		"navn": "Peru"
+	},
+	{
+		"landkode": "PCN",
+		"navn": "Pitcairn"
+	},
+	{
+		"landkode": "POL",
+		"navn": "Polen",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "PRT",
+		"navn": "Portugal",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "PRI",
+		"navn": "Puerto Rico"
+	},
+	{
+		"landkode": "QAT",
+		"navn": "Qatar"
+	},
+	{
+		"landkode": "REU",
+		"navn": "Réunion",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "ROU",
+		"navn": "Romania",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "RUS",
+		"navn": "Russland"
+	},
+	{
+		"landkode": "RWA",
+		"navn": "Rwanda"
+	},
+	{
+		"landkode": "BLM",
+		"navn": "Saint Barthélemy"
+	},
+	{
+		"landkode": "SHN",
+		"navn": "St. Helena, Ascension og Tristan da Cunha"
+	},
+	{
+		"landkode": "KNA",
+		"navn": "Saint Kitts og Nevis"
+	},
+	{
+		"landkode": "LCA",
+		"navn": "Saint Lucia"
+	},
+	{
+		"landkode": "MAF",
+		"navn": "Saint-Martin"
+	},
+	{
+		"landkode": "SPM",
+		"navn": "Saint-Pierre og Miquelon"
+	},
+	{
+		"landkode": "VCT",
+		"navn": "Saint Vincent og Grenadinene"
+	},
+	{
+		"landkode": "SLB",
+		"navn": "Salomonøyene"
+	},
+	{
+		"landkode": "WSM",
+		"navn": "Samoa"
+	},
+	{
+		"landkode": "SMR",
+		"navn": "San Marino"
+	},
+	{
+		"landkode": "STP",
+		"navn": "São Tomé og Príncipe"
+	},
+	{
+		"landkode": "SAU",
+		"navn": "Saudi-Arabia"
+	},
+	{
+		"landkode": "SEN",
+		"navn": "Senegal"
+	},
+	{
+		"landkode": "SRB",
+		"navn": "Serbia"
+	},
+	{
+		"landkode": "SYC",
+		"navn": "Seychellene"
+	},
+	{
+		"landkode": "SLE",
+		"navn": "Sierra Leone"
+	},
+	{
+		"landkode": "SGP",
+		"navn": "Singapore"
+	},
+	{
+		"landkode": "SXM",
+		"navn": "Sint Maarten"
+	},
+	{
+		"landkode": "SVK",
+		"navn": "Slovakia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SVN",
+		"navn": "Slovenia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SOM",
+		"navn": "Somalia"
+	},
+	{
+		"landkode": "ESP",
+		"navn": "Spania",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "LKA",
+		"navn": "Sri Lanka"
+	},
+	{
+		"landkode": "XXX",
+		"navn": "statsløs"
+	},
+	{
+		"landkode": "GBR",
+		"navn": "Storbritannia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SDN",
+		"navn": "Sudan"
+	},
+	{
+		"landkode": "SUR",
+		"navn": "Surinam"
+	},
+	{
+		"landkode": "SJM",
+		"navn": "Svalbard og Jan Mayen"
+	},
+	{
+		"landkode": "CHE",
+		"navn": "Sveits",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SWE",
+		"navn": "Sverige",
+		"kravOmArbeid": false
+	},
+	{
+		"landkode": "SYR",
+		"navn": "Syria"
+	},
+	{
+		"landkode": "ZAF",
+		"navn": "Sør-Afrika"
+	},
+	{
+		"landkode": "SGS",
+		"navn": "Sør-Georgia og Sør-Sandwichøyene"
+	},
+	{
+		"landkode": "KOR",
+		"navn": "Sør-Korea",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "SSD",
+		"navn": "Sør-Sudan"
+	},
+	{
+		"landkode": "TJK",
+		"navn": "Tadsjikistan"
+	},
+	{
+		"landkode": "TWN",
+		"navn": "Taiwan"
+	},
+	{
+		"landkode": "TZA",
+		"navn": "Tanzania"
+	},
+	{
+		"landkode": "TCD",
+		"navn": "Tchad"
+	},
+	{
+		"landkode": "THA",
+		"navn": "Thailand"
+	},
+	{
+		"landkode": "TGO",
+		"navn": "Togo"
+	},
+	{
+		"landkode": "TKL",
+		"navn": "Tokelau"
+	},
+	{
+		"landkode": "TON",
+		"navn": "Tonga"
+	},
+	{
+		"landkode": "TTO",
+		"navn": "Trinidad og Tobago"
+	},
+	{
+		"landkode": "CZE",
+		"navn": "Tsjekkia",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "TUN",
+		"navn": "Tunisia"
+	},
+	{
+		"landkode": "TKM",
+		"navn": "Turkmenistan"
+	},
+	{
+		"landkode": "TCA",
+		"navn": "Turks- og Caicosøyene"
+	},
+	{
+		"landkode": "TUV",
+		"navn": "Tuvalu"
+	},
+	{
+		"landkode": "TUR",
+		"navn": "Tyrkia"
+	},
+	{
+		"landkode": "DEU",
+		"navn": "Tyskland",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "UGA",
+		"navn": "Uganda"
+	},
+	{
+		"landkode": "UKR",
+		"navn": "Ukraina"
+	},
+	{
+		"landkode": "HUN",
+		"navn": "Ungarn",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "URY",
+		"navn": "Uruguay"
+	},
+	{
+		"landkode": "USA",
+		"navn": "USA",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "UMI",
+		"navn": "USAs ytre småøyer"
+	},
+	{
+		"landkode": "UZB",
+		"navn": "Usbekistan"
+	},
+	{
+		"landkode": "VUT",
+		"navn": "Vanuatu"
+	},
+	{
+		"landkode": "VAT",
+		"navn": "Vatikanstaten"
+	},
+	{
+		"landkode": "VEN",
+		"navn": "Venezuela"
+	},
+	{
+		"landkode": "ESH",
+		"navn": "Vest-Sahara"
+	},
+	{
+		"landkode": "VNM",
+		"navn": "Vietnam"
+	},
+	{
+		"landkode": "WLF",
+		"navn": "Wallis og Futuna"
+	},
+	{
+		"landkode": "ZMB",
+		"navn": "Zambia"
+	},
+	{
+		"landkode": "ZWE",
+		"navn": "Zimbabwe"
+	},
+	{
+		"landkode": "TLS",
+		"navn": "Øst-Timor"
+	},
+	{
+		"landkode": "AUT",
+		"navn": "Østerrike",
+		"kravOmArbeid": true
+	},
+	{
+		"landkode": "XUK",
+		"navn": "uoppgitt"
+	},
+	{
+		"landkode": "P_PANAMAKANALSONEN",
+		"navn": "Panamakanalsonen"
+	},
+	{
+		"landkode": "P_SPANSKE_OMR_AFRIKA",
+		"navn": "Spansk Nord-Afrika"
+	},
+	{
+		"landkode": "P_UKJENT",
+		"navn": "ukjent"
+	}
+]

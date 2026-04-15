@@ -267,6 +267,16 @@ function validateInntektVsaHeltUttak(
 	}
 }
 
+function validateUtenlandsOpphold(
+	formData: BeregningFormData,
+	errors: ValidationErrors
+) {
+	if (formData.harOppholdUtenforNorge === null) {
+		errors.harOppholdUtenforNorge =
+			'Velg ja/nei om bruker har opphold utenfor Norge.'
+	}
+}
+
 export function useFormValidation() {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
 
@@ -300,6 +310,7 @@ export function useFormValidation() {
 			validateInntektVsaGradertUttak(formData, errors)
 			validateAlderHeltMotGradert(formData, errors)
 			validateInntektVsaHeltUttak(formData, errors)
+			validateUtenlandsOpphold(formData, errors)
 
 			setValidationErrors(errors)
 			return errors
