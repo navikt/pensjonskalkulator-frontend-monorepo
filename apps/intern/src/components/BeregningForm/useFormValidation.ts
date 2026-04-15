@@ -129,6 +129,9 @@ function validateSivilstand(
 }
 
 function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+	if (formData.beregnMedGjenlevenderett) {
+		return
+	}
 	if (!formData.afp) {
 		errors.afp = 'Velg om AFP skal inkluderes.'
 	}
