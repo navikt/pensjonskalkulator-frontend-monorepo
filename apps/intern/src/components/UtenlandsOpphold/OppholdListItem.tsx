@@ -26,7 +26,7 @@ export const OppholdListItem = ({
 	}
 
 	return (
-		<VStack gap="space-12">
+		<VStack>
 			<HStack align="center" gap="space-16">
 				<div style={{ flex: 1, minWidth: 0 }}>
 					<VStack gap="space-2">

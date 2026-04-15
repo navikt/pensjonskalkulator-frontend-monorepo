@@ -414,14 +414,19 @@ export const UtenlandsOpphold = ({
 				/>
 				{showCopyButton && (
 					<Tooltip content="Kopier opphold">
-						<CopyButton size="small" copyText={copyText} />
+						<CopyButton
+							size="small"
+							copyText={copyText}
+							data-color="accent"
+							className={styles.copyButton}
+						/>
 					</Tooltip>
 				)}
 			</HStack>
 
 			{harOppholdUtenforNorge && (
 				<VStack>
-					{hasOpphold && <Divider mediumMargin />}
+					{hasOpphold && <Divider noMarginTop mediumMargin />}
 
 					<VStack>
 						{fields.map((field, index) => {
@@ -429,7 +434,7 @@ export const UtenlandsOpphold = ({
 								return (
 									<VStack key={field.id}>
 										{renderEditor(index)}
-										<Divider mediumMargin />
+										<Divider />
 									</VStack>
 								)
 							}

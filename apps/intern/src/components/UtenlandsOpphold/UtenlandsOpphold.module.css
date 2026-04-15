@@ -16,3 +16,7 @@
 .dateFieldInput {
 	width: 100%;
 }
+
+.copyButton:hover {
+	background-color: var(--ax-bg-moderate-hoverA);
+}
