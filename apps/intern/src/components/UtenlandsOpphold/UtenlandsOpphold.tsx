@@ -433,7 +433,7 @@ export const UtenlandsOpphold = ({
 			</HStack>
 
 			{harOppholdUtenforNorge && (
-				<VStack>
+				<VStack className={styles.oppholdListWrapper}>
 					{hasOpphold && <Divider noMarginTop mediumMargin />}
 
 					<VStack>
