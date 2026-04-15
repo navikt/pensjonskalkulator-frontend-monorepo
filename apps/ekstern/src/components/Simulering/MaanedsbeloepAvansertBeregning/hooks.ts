@@ -22,21 +22,26 @@ import {
 export interface Pensjonsdata {
   alder: Alder
   grad: number
-  afp: number | undefined
+  afp: number | null | undefined
   pensjonsavtale: number
-  alderspensjon: number | undefined
-  pre2025OffentligAfp?: number
+  alderspensjon: number | null | undefined
+  pre2025OffentligAfp?: number | null
   uttaksgrad?: 'helt' | 'gradert'
 }
 
+type AfpVedUttak = {
+  alder: number
+  maanedligBeloep?: number | null
+}
+
 interface PensjonBeregningerProps {
-  afpPrivatListe?: AfpPensjonsberegning[]
-  afpOffentligListe?: AfpPensjonsberegning[]
-  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
-  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
-  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[]
-  pensjonsavtaler?: Pensjonsavtale[]
-  simulertTjenestepensjon?: SimulertTjenestepensjon
+  afpPrivatListe?: AfpVedUttak[] | null
+  afpOffentligListe?: AfpVedUttak[] | null
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon | null
+  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring | null
+  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[] | null
+  pensjonsavtaler?: Pensjonsavtale[] | null
+  simulertTjenestepensjon?: SimulertTjenestepensjon | null
 }
 
 export const usePensjonBeregninger = ({
@@ -70,7 +75,7 @@ export const usePensjonBeregninger = ({
   const afpVedUttak = (
     ordning: 'offentlig' | 'privat',
     alder?: Alder
-  ): number | undefined => {
+  ): number | null | undefined => {
     // afpPerioder (offentligAfpFraTpOrdning) er kun defined når besteberegnet fra SPK
     if (
       ordning === 'offentlig' &&

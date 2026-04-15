@@ -54,13 +54,13 @@ import styles from './Grunnlag.module.scss'
 interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
-  harForLiteTrygdetid?: boolean
-  trygdetid?: number
+  harForLiteTrygdetid?: boolean | null
+  trygdetid?: number | null
   isEndring: boolean
-  alderspensjonListe?: AlderspensjonPensjonsberegning[]
-  afpPrivatListe?: AfpPrivatPensjonsberegning[]
-  afpOffentligListe?: AfpPensjonsberegning[]
-  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning
+  alderspensjonListe?: AlderspensjonPensjonsberegning[] | null
+  afpPrivatListe?: AfpPrivatPensjonsberegning[] | null
+  afpOffentligListe?: AfpPensjonsberegning[] | null
+  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning | null
 }
 
 export const Grunnlag: React.FC<Props> = ({

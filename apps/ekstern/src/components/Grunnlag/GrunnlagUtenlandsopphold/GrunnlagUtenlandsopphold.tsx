@@ -24,8 +24,8 @@ import { useOppholdUtenforNorge } from './hooks'
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
 interface Props {
-  harForLiteTrygdetid?: boolean
-  trygdetid?: number
+  harForLiteTrygdetid?: boolean | null
+  trygdetid?: number | null
 }
 
 export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
