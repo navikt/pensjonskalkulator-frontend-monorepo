@@ -99,7 +99,15 @@ export const BeregningForm = () => {
 	const handleSubmit = () => {
 		form.clearErrors()
 		const formData = form.getValues()
-		const errors = validate(formData)
+		const normalizedFormData =
+			formData.harOppholdUtenforNorge === true
+				? formData
+				: { ...formData, utenlandsOpphold: [] }
+
+		if (normalizedFormData !== formData) {
+			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
+		}
+		const errors = validate(normalizedFormData)
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {

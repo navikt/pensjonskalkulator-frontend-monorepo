@@ -1,12 +1,9 @@
 import type { SimuleringUtenlandsperiode } from '@pensjonskalkulator-frontend-monorepo/types'
-import {
-	DATE_BACKEND_FORMAT,
-	validateDateEndUserFormat,
-} from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import { DATE_BACKEND_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import landListData from '@pensjonskalkulator-frontend-monorepo/utils/land-list'
 import { addYears, areIntervalsOverlapping, isBefore, parse } from 'date-fns'
 
-import { parseEndUserDate } from '../../utils/dates'
+import { parseEndUserDate, parseStrictEndUserDate } from '../../utils/dates'
 import type {
 	LandDetails,
 	OppholdDateFields,
@@ -78,6 +75,9 @@ const getMaxOppholdDate = (foedselsdato?: string) =>
 const hasErrors = (errors: OppholdValidationErrors) =>
 	Object.values(errors).some(Boolean)
 
+const isStrictValidEndUserDate = (value: string | undefined) =>
+	parseStrictEndUserDate(value) !== undefined
+
 const getStartdatoError = (
 	fom: string,
 	foedselsdato?: string
@@ -86,7 +86,7 @@ const getStartdatoError = (
 		return 'startdato-required'
 	}
 
-	if (!validateDateEndUserFormat(fom)) {
+	if (!isStrictValidEndUserDate(fom)) {
 		return 'date-format'
 	}
 
@@ -119,12 +119,12 @@ const getSluttdatoError = ({
 		return undefined
 	}
 
-	if (!validateDateEndUserFormat(tom)) {
+	if (!isStrictValidEndUserDate(tom)) {
 		return 'date-format'
 	}
 
 	if (
-		validateDateEndUserFormat(fom) &&
+		isStrictValidEndUserDate(fom) &&
 		isBefore(parseEndUserDate(tom), parseEndUserDate(fom))
 	) {
 		return 'sluttdato-before-startdato'

@@ -301,7 +301,7 @@ export const UtenlandsOpphold = ({
 		if (mode === 'edit' && originalOppholdRef.current) {
 			setOppholdValues(activeIndex, originalOppholdRef.current)
 		} else if (mode === 'new') {
-			setOppholdValues(activeIndex, emptyOpphold)
+			replace(savedOpphold)
 		}
 
 		closeOppholdEditor()

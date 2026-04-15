@@ -1,13 +1,12 @@
 import { type ReactNode } from 'react'
-import { type FieldPath, useController, useFormContext } from 'react-hook-form'
+import { useController, useFormContext } from 'react-hook-form'
 
 import { Select } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
-import { getNestedError } from './utils'
 
 interface RHFSelectProps {
-	name: FieldPath<BeregningFormData>
+	name: keyof BeregningFormData
 	label: string
 	children: ReactNode
 	className?: string
@@ -30,9 +29,7 @@ export function RHFSelect({
 	const { field } = useController({ name, control })
 
 	const toFormValue = (raw: string) =>
-		raw ? (numeric ? Number(raw) : raw) : ''
-
-	const errorMessage = getNestedError(errors, name)
+		raw ? (numeric ? Number(raw) : raw) : null
 
 	return (
 		<Select
@@ -45,7 +42,7 @@ export function RHFSelect({
 					? String(field.value)
 					: ''
 			}
-			error={errorMessage}
+			error={errors[name]?.message}
 			onChange={(e) => field.onChange(toFormValue(e.target.value))}
 		>
 			{children}
