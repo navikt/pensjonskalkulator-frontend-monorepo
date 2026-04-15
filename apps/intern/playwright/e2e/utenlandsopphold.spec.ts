@@ -144,8 +144,8 @@ function beregnPensjonButton(page: Page) {
 }
 
 test.describe('Utenlandsopphold', () => {
-	test.describe('Visning av radio-sporsmal', () => {
-		test('Viser radio-sporsmal for utenlandsopphold', async ({ page }) => {
+	test.describe('Visning av radio-spørsmål', () => {
+		test('Viser radio-spørsmål for utenlandsopphold', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
@@ -157,19 +157,19 @@ test.describe('Utenlandsopphold', () => {
 		})
 	})
 
-	test.describe('Apning og lukking av editor', () => {
+	test.describe('Åpning og lukking av editor', () => {
 		test.beforeEach(async ({ page }) => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 		})
 
-		test('Apner editor nar Ja velges', async ({ page }) => {
+		test('Åpner editor når Ja velges', async ({ page }) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 
 			await expect(page.getByRole('combobox', { name: 'Land' })).toBeVisible()
 		})
 
-		test('Skjuler editor nar Nei velges etter Ja', async ({ page }) => {
+		test('Skjuler editor når Nei velges etter Ja', async ({ page }) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 			await expect(page.getByRole('combobox', { name: 'Land' })).toBeVisible()
 
@@ -187,7 +187,7 @@ test.describe('Utenlandsopphold', () => {
 			await expect(page.getByLabel('Sluttdato (valgfritt)')).toBeVisible()
 		})
 
-		test('Viser Bruk fodselsdato-checkbox etter valg av land', async ({
+		test('Viser Bruk fødselsdato-checkbox etter valg av land', async ({
 			page,
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
@@ -202,7 +202,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Viser Jobbet-sporsmal for avtaleland', async ({ page }) => {
+		test('Viser Jobbet-spørsmål for avtaleland', async ({ page }) => {
 			await selectLand(page, 'AUS')
 
 			await expect(
@@ -210,7 +210,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser ikke Jobbet-sporsmal for ikke-avtaleland', async ({ page }) => {
+		test('Viser ikke Jobbet-spørsmål for ikke-avtaleland', async ({ page }) => {
 			await selectLand(page, 'AFG')
 
 			await expect(
@@ -218,7 +218,7 @@ test.describe('Utenlandsopphold', () => {
 			).not.toBeVisible()
 		})
 
-		test('Viser ikke Jobbet-sporsmal for avtaleland med kravOmArbeid=false', async ({
+		test('Viser ikke Jobbet-spørsmål for avtaleland med kravOmArbeid=false', async ({
 			page,
 		}) => {
 			await selectLand(page, 'DNK')
@@ -228,7 +228,7 @@ test.describe('Utenlandsopphold', () => {
 			).not.toBeVisible()
 		})
 
-		test('Skjuler Jobbet-sporsmal ved bytte fra avtaleland til ikke-avtaleland', async ({
+		test('Skjuler Jobbet-spørsmål ved bytte fra avtaleland til ikke-avtaleland', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AUS')
@@ -308,7 +308,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Apner ny editor ved klikk pa Legg til nytt opphold', async ({
+		test('Åpner ny editor ved klikk på Legg til nytt opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -343,12 +343,12 @@ test.describe('Utenlandsopphold', () => {
 		})
 	})
 
-	test.describe('Bruk fodselsdato', () => {
+	test.describe('Bruk fødselsdato', () => {
 		test.beforeEach(async ({ page }) => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Fyller inn fodselsdato som startdato ved avkrysning', async ({
+		test('Fyller inn fødselsdato som startdato ved avkrysning', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AFG')
@@ -358,7 +358,7 @@ test.describe('Utenlandsopphold', () => {
 			await expect(page.getByLabel('Startdato')).toHaveValue('30.04.1964')
 		})
 
-		test('Manuell endring av startdato fjerner avkrysning av Bruk fodselsdato', async ({
+		test('Manuell endring av startdato fjerner avkrysning av Bruk fødselsdato', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AFG')
@@ -377,7 +377,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Apner editor med eksisterende verdier ved klikk pa Endre', async ({
+		test('Åpner editor med eksisterende verdier ved klikk på Endre', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -423,7 +423,7 @@ test.describe('Utenlandsopphold', () => {
 			await expectOppholdInList(page, 'Afghanistan', '01.01.2000-31.12.2010')
 		})
 
-		test('Oppdater uten endringer utloser ikke overlapp-feil (self-overlap skip)', async ({
+		test('Oppdater uten endringer utløser ikke overlapp-feil (self-overlap skip)', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -448,7 +448,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Sletter opphold ved klikk pa Slett', async ({ page }) => {
+		test('Sletter opphold ved klikk på Slett', async ({ page }) => {
 			await addOpphold(page, {
 				landkode: 'AFG',
 				startdato: '01.01.2000',
@@ -462,7 +462,7 @@ test.describe('Utenlandsopphold', () => {
 			await expectNoOppholdInList(page, 'Afghanistan')
 		})
 
-		test('Apner ny editor etter sletting av siste opphold', async ({
+		test('Åpner ny editor etter sletting av siste opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -482,7 +482,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Avbryter redigering og beholder original verdier', async ({
+		test('Avbryter redigering og beholder opprinnelige verdier', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -498,7 +498,7 @@ test.describe('Utenlandsopphold', () => {
 			await expectOppholdInList(page, 'Afghanistan', '01.01.2000-31.12.2005')
 		})
 
-		test('Avbryter nytt opphold nar det finnes eksisterende opphold', async ({
+		test('Avbryter nytt opphold når det finnes eksisterende opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -518,7 +518,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Avbryt er skjult pa forste tomme editor (ingen eksisterende opphold)', async ({
+		test('Avbryt er skjult på første tomme editor (ingen eksisterende opphold)', async ({
 			page,
 		}) => {
 			await expect(page.getByRole('combobox', { name: 'Land' })).toBeVisible()
@@ -527,7 +527,7 @@ test.describe('Utenlandsopphold', () => {
 			).not.toBeVisible()
 		})
 
-		test('Avbryt er synlig nar det finnes eksisterende opphold', async ({
+		test('Avbryt er synlig når det finnes eksisterende opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
@@ -547,7 +547,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 		})
 
-		test('Viser feil nar land ikke er valgt', async ({ page }) => {
+		test('Viser feil når land ikke er valgt', async ({ page }) => {
 			await clickLeggTil(page)
 
 			await expect(
@@ -555,7 +555,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser feil nar startdato mangler', async ({ page }) => {
+		test('Viser feil når startdato mangler', async ({ page }) => {
 			await selectLand(page, 'AFG')
 			await clickLeggTil(page)
 
@@ -585,7 +585,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser feil nar startdato er for fodselsdato', async ({ page }) => {
+		test('Viser feil når startdato er før fødselsdato', async ({ page }) => {
 			await selectLand(page, 'AFG')
 			await fillStartdato(page, '01.01.1960')
 			await clickLeggTil(page)
@@ -595,7 +595,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser feil nar sluttdato er for startdato', async ({ page }) => {
+		test('Viser feil når sluttdato er før startdato', async ({ page }) => {
 			await selectLand(page, 'AFG')
 			await fillStartdato(page, '01.01.2000')
 			await fillSluttdato(page, '01.01.1999')
@@ -606,7 +606,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser feil nar arbeidet utenlands ikke er besvart for avtaleland', async ({
+		test('Viser feil når arbeidet utenlands ikke er besvart for avtaleland', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AUS')
@@ -620,7 +620,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Fjerner feilmelding nar felt korrigeres', async ({ page }) => {
+		test('Fjerner feilmelding når felt korrigeres', async ({ page }) => {
 			await clickLeggTil(page)
 			await expect(
 				page.getByText('Du må velge land for oppholdet ditt.')
@@ -632,7 +632,7 @@ test.describe('Utenlandsopphold', () => {
 			).not.toBeVisible()
 		})
 
-		test('Viser feil nar startdato er etter maks-dato (fodselsdato + 100 ar)', async ({
+		test('Viser feil når startdato er etter maks-dato (fødselsdato + 100 år)', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AFG')
@@ -646,7 +646,7 @@ test.describe('Utenlandsopphold', () => {
 			).toBeVisible()
 		})
 
-		test('Viser feil nar sluttdato er etter maks-dato (fodselsdato + 100 ar)', async ({
+		test('Viser feil når sluttdato er etter maks-dato (fødselsdato + 100 år)', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AFG')
@@ -811,7 +811,7 @@ test.describe('Utenlandsopphold', () => {
 	})
 
 	test.describe('Endre/Slett-knapper skjules under redigering', () => {
-		test('Skjuler Endre/Slett pa andre opphold nar editor er apen', async ({
+		test('Skjuler Endre/Slett på andre opphold når editor er åpen', async ({
 			page,
 		}) => {
 			await setupWithEditorOpen(page)
@@ -846,7 +846,7 @@ test.describe('Utenlandsopphold', () => {
 	})
 
 	test.describe('CopyButton synlighet', () => {
-		test('CopyButton er skjult for opphold er lagt til', async ({ page }) => {
+		test('CopyButton er skjult før opphold er lagt til', async ({ page }) => {
 			await setupWithEditorOpen(page)
 
 			await expect(
@@ -869,8 +869,8 @@ test.describe('Utenlandsopphold', () => {
 		})
 	})
 
-	test.describe('Ja-Nei-Ja tilstandshandtering', () => {
-		test('Opphold er bevart nar bruker bytter til Nei og tilbake til Ja', async ({
+	test.describe('Ja-Nei-Ja tilstandshåndtering', () => {
+		test('Opphold er bevart når bruker bytter til Nei og tilbake til Ja', async ({
 			page,
 		}) => {
 			await setupWithEditorOpen(page)
@@ -893,7 +893,7 @@ test.describe('Utenlandsopphold', () => {
 	})
 
 	test.describe('Nullstilling', () => {
-		test('Nullstiller utenlandsopphold ved klikk pa Nullstill', async ({
+		test('Nullstiller utenlandsopphold ved klikk på Nullstill', async ({
 			page,
 		}) => {
 			await setupDefaultMocks(page)
@@ -923,7 +923,7 @@ test.describe('Utenlandsopphold', () => {
 			await navigateToApp(page)
 		})
 
-		test('Beregn pensjon er deaktivert nar Ja er valgt men ingen opphold er lagret', async ({
+		test('Beregn pensjon er deaktivert når Ja er valgt men ingen opphold er lagret', async ({
 			page,
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
@@ -931,7 +931,7 @@ test.describe('Utenlandsopphold', () => {
 			await expect(beregnPensjonButton(page)).toBeDisabled()
 		})
 
-		test('Beregn pensjon er deaktivert nar editor er apen (redigering)', async ({
+		test('Beregn pensjon er deaktivert når editor er åpen (redigering)', async ({
 			page,
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
@@ -947,7 +947,7 @@ test.describe('Utenlandsopphold', () => {
 			await expect(beregnPensjonButton(page)).toBeDisabled()
 		})
 
-		test('Beregn pensjon er aktivert nar Ja er valgt og opphold er lagret og editor er lukket', async ({
+		test('Beregn pensjon er aktivert når Ja er valgt og opphold er lagret og editor er lukket', async ({
 			page,
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
@@ -960,7 +960,7 @@ test.describe('Utenlandsopphold', () => {
 			await expect(beregnPensjonButton(page)).toBeEnabled()
 		})
 
-		test('Beregn pensjon er aktivert nar Nei er valgt', async ({ page }) => {
+		test('Beregn pensjon er aktivert når Nei er valgt', async ({ page }) => {
 			await selectHarOppholdUtenforNorge(page, 'Nei')
 
 			await expect(beregnPensjonButton(page)).toBeEnabled()
@@ -1022,7 +1022,7 @@ test.describe('Utenlandsopphold', () => {
 			expect(perioder[0].arbeidetUtenlands).toBe(true)
 		})
 
-		test('Sender inn skjema med Nei pa utenlandsopphold', async ({ page }) => {
+		test('Sender inn skjema med Nei på utenlandsopphold', async ({ page }) => {
 			await setupDefaultMocks(page)
 
 			let requestReceived = false
