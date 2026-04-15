@@ -125,7 +125,9 @@ export function BeregningProvider({
 	}, [person?.sivilstatus, form])
 
 	useEffect(() => {
-		if (!beregnMedGjenlevenderett) {
+		if (beregnMedGjenlevenderett) {
+			form.setValue('afp', undefined, { shouldDirty: false })
+		} else {
 			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
 				shouldDirty: false,
 			})

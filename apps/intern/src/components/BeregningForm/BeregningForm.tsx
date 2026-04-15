@@ -190,20 +190,23 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-
 				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 
 				<Divider noMargin />
-
-				<RHFRadio
-					name="afp"
-					legend="Skal AFP inkluderes?"
-					options={[
-						{ value: 'ja_privat', label: 'Ja, privat' },
-						{ value: 'nei', label: 'Nei' },
-					]}
-					className={styles.horizontalRadioGroup}
-				/>
+				{!beregnMedGjenlevenderett && (
+					<>
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP inkluderes?"
+							options={[
+								{ value: 'ja_privat', label: 'Ja, privat' },
+								{ value: 'nei', label: 'Nei' },
+							]}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
+				)}
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativHelt &&
 					!alertDismissed && (
