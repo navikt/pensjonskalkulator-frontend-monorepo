@@ -63,7 +63,7 @@ export const landList = landListData as LandDetails[]
 export const getLandDetails = (landkode: string) =>
 	landList.find((l) => l.landkode === landkode)
 
-export const isAvtaleland = (landkode: string) =>
+export const harKravOmArbeidFromLandkode = (landkode: string) =>
 	getLandDetails(landkode)?.kravOmArbeid === true
 
 const parseBackendDate = (value: string) =>
@@ -189,7 +189,7 @@ const getOverlapValidationResult = ({
 			periodeslutt: utenlandsperiode.tom ?? '',
 		}
 
-		if (!isAvtaleland(utenlandsperiode.landkode)) {
+		if (!harKravOmArbeidFromLandkode(utenlandsperiode.landkode)) {
 			return {
 				isValid: false,
 				errors: { fom: 'overlap-non-avtaleland' },
@@ -329,7 +329,10 @@ export const validateOpphold = ({
 		}
 	}
 
-	if (isAvtaleland(opphold.landkode) && opphold.arbeidetUtenlands === null) {
+	if (
+		harKravOmArbeidFromLandkode(opphold.landkode) &&
+		opphold.arbeidetUtenlands === null
+	) {
 		errors.arbeidetUtenlands = 'arbeidet-utenlands-required'
 	}
 

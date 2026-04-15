@@ -31,18 +31,14 @@ export function RHFDatePicker({
 	const { field } = useController({ name, control })
 	const previousFieldValueRef = useRef(field.value)
 
-	const year = new Date().getFullYear()
-	const defaultEarliestDate = new Date(`1 Jan ${year - 120}`)
-	const defaultLatestDate = new Date(`31 Dec ${year + 30}`)
-
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
 			field.onChange(date ? formatEndUserDate(date) : '')
 		},
 		allowTwoDigitYear: false,
-		fromDate: fromDate ?? defaultEarliestDate,
-		toDate: toDate ?? defaultLatestDate,
+		fromDate,
+		toDate,
 		disabled,
 	})
 

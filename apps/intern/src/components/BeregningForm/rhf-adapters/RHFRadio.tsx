@@ -23,6 +23,7 @@ interface RHFRadioProps {
 	children?: ReactNode
 	testid?: string
 	options?: RadioOption[]
+	gap?: React.ComponentProps<typeof HStack>['gap']
 }
 
 export function RHFRadio({
@@ -32,6 +33,7 @@ export function RHFRadio({
 	children,
 	options,
 	testid,
+	gap = 'space-32',
 }: RHFRadioProps) {
 	const {
 		control,
@@ -63,7 +65,7 @@ export function RHFRadio({
 			data-testid={testid}
 			data-feil={error ? true : false}
 		>
-			<HStack gap="space-32" className="horizontalRadio">
+			<HStack gap={gap}>
 				{children ??
 					resolvedOptions.map((option) => (
 						<Radio key={option.value} value={option.value}>

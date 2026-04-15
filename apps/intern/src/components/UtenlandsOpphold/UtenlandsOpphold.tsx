@@ -1,3 +1,4 @@
+import { addYears } from 'date-fns'
 import { useEffect, useRef, useState } from 'react'
 import { useFieldArray, useWatch } from 'react-hook-form'
 
@@ -24,7 +25,7 @@ import {
 	getOppholdCopyText,
 	getOppholdFieldName,
 	getOppholdValidationMessage,
-	isAvtaleland,
+	harKravOmArbeidFromLandkode,
 	landList,
 	validateOpphold,
 } from './utils'
@@ -99,6 +100,11 @@ export const UtenlandsOpphold = ({
 	const foedselsdato = formatFoedselsdato(person?.foedselsdato)
 	const foedselsdatoDate = parseEndUserDate(foedselsdato)
 	const startdatoDate = parseEndUserDate(startdato)
+	const maxOppholdDate = foedselsdatoDate
+		? addYears(foedselsdatoDate, 120)
+		: addYears(new Date(), 120)
+	const minStartdato = foedselsdatoDate ?? addYears(new Date(), -100)
+	const minSluttdato = startdatoDate ?? foedselsdatoDate ?? new Date()
 
 	const previousLandRef = useRef<string | undefined>(undefined)
 	const originalOppholdRef = useRef<OppholdValues | null>(null)
@@ -336,7 +342,7 @@ export const UtenlandsOpphold = ({
 					</RHFSelect>
 				</div>
 
-				{currentLand && isAvtaleland(currentLand) && (
+				{currentLand && harKravOmArbeidFromLandkode(currentLand) && (
 					<div className={styles.radioFieldWrapper}>
 						<RHFRadio
 							name={getOppholdFieldName(index, 'arbeidetUtenlands')}
@@ -357,7 +363,8 @@ export const UtenlandsOpphold = ({
 								name={getOppholdFieldName(index, 'fom')}
 								label="Startdato"
 								className={styles.dateFieldInput}
-								fromDate={foedselsdatoDate}
+								fromDate={minStartdato}
+								toDate={maxOppholdDate}
 							/>
 						</div>
 						<div className={styles.dateFieldWrapper}>
@@ -365,7 +372,8 @@ export const UtenlandsOpphold = ({
 								name={getOppholdFieldName(index, 'tom')}
 								label="Sluttdato (valgfritt)"
 								className={styles.dateFieldInput}
-								fromDate={startdatoDate ?? foedselsdatoDate}
+								fromDate={minSluttdato}
+								toDate={maxOppholdDate}
 							/>
 						</div>
 					</HStack>

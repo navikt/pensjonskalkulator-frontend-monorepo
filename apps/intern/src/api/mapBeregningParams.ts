@@ -81,11 +81,14 @@ export function mapBeregningParamsToRequest(
 	const epsDoedsdato = formData.epsOpplysninger
 		? getEpsDoedsdato(formData.epsOpplysninger)
 		: undefined
+	const utenlandsperiodeListe = formData.utenlandsOpphold.length
+		? mapUtenlandsperiodeListe(formData.utenlandsOpphold)
+		: undefined
 
 	return {
 		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
-		utenlandsperiodeListe: mapUtenlandsperiodeListe(formData.utenlandsOpphold),
+		utenlandsperiodeListe,
 		gradertUttak: erGradert
 			? {
 					grad,
