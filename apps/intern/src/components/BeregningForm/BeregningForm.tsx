@@ -139,6 +139,7 @@ export const BeregningForm = () => {
 				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
 					<RHFRadio
 						name="epsHarPensjon"
+						testid="eps-har-pensjon"
 						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
@@ -151,7 +152,7 @@ export const BeregningForm = () => {
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
-						data-testid="eps-inntekt-over-2G"
+						testid="eps-har-inntekt-over-2g"
 						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
@@ -159,6 +160,7 @@ export const BeregningForm = () => {
 				<Divider noMargin />
 				<RHFRadio
 					name="afp"
+					testid="afp"
 					legend="Skal AFP inkluderes?"
 					options={[
 						{ value: 'ja_privat', label: 'Ja, privat' },
@@ -186,17 +188,21 @@ export const BeregningForm = () => {
 					)}
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
+					testId="inntekt-foer-uttak"
 					label="Pensjonsgivende inntekt frem til uttak"
 				/>
 
 				<RHFAlderVelger
 					aarName="alderAarUttak"
 					mdName="alderMdUttak"
+					aarTestId="alder-uttak-aar"
+					mdTestId="alder-uttak-md"
 					foedselsdato={person?.foedselsdato}
 				/>
 
 				<RHFSelect
 					name="uttaksgrad"
+					testId="uttaksgrad"
 					label="Uttaksgrad"
 					className={styles.selectWrapper}
 					numeric
@@ -212,6 +218,7 @@ export const BeregningForm = () => {
 				{showGradertUttakFields(uttaksgrad) && (
 					<RHFTextField
 						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+						testId="inntekt-vsa-gradert-uttak"
 						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
 					/>
 				)}
@@ -220,6 +227,8 @@ export const BeregningForm = () => {
 					<RHFAlderVelger
 						aarName="alderAarHeltUttak"
 						mdName="alderMdHeltUttak"
+						aarTestId="alder-helt-uttak-aar"
+						mdTestId="alder-helt-uttak-md"
 						aarLabel="Alder (år) for 100 % uttak"
 						mdLabel="Alder (md.) for 100 % uttak"
 						foedselsdato={person?.foedselsdato}
@@ -236,6 +245,7 @@ export const BeregningForm = () => {
 				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
 					<RHFRadio
 						name="harInntektVedSidenAvUttak"
+						testid="har-inntekt-vsa-helt-uttak"
 						legend="Har bruker inntekt ved siden av 100 % uttak?"
 						className={styles.horizontalRadioGroup}
 					/>
@@ -245,12 +255,15 @@ export const BeregningForm = () => {
 					<>
 						<RHFTextField
 							name="pensjonsgivendeInntektVedSidenAvUttak"
+							testId="inntekt-vsa-helt-uttak"
 							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
 						/>
 
 						<RHFAlderVelger
 							aarName="alderAarInntektSlutter"
 							mdName="alderMdInntektSlutter"
+							aarTestId="alder-inntekt-slutter-aar"
+							mdTestId="alder-inntekt-slutter-md"
 							aarLabel="Alder (år) inntekt slutter"
 							mdLabel="Alder (md.) inntekt slutter"
 							foedselsdato={person?.foedselsdato}

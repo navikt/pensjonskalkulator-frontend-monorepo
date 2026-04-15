@@ -248,6 +248,7 @@ export const buildTpSerie = (
   ])
 
   // Filter to only show TP from year before uttaksalder onwards
+  console.log('uttaksalder in buildTpSerie', uttaksalder)
   if (uttaksalder) {
     const minAlder = uttaksalder.aar - 1
     return allTpData.filter((item) => item.alder >= minAlder)

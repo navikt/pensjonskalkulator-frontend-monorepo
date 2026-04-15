@@ -15,6 +15,7 @@ interface RHFTextFieldProps {
 	label: string
 	style?: React.CSSProperties
 	formatError?: string
+	testId?: string
 }
 
 export function RHFTextField({
@@ -22,6 +23,7 @@ export function RHFTextField({
 	label,
 	style,
 	formatError,
+	testId,
 }: RHFTextFieldProps) {
 	const {
 		control,
@@ -59,6 +61,7 @@ export function RHFTextField({
 			type="text"
 			inputMode="numeric"
 			style={style}
+			data-testid={testId}
 			value={rawValue}
 			error={error}
 			onChange={(e) => {
