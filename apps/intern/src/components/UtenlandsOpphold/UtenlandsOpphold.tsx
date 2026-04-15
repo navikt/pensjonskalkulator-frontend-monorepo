@@ -354,7 +354,11 @@ export const UtenlandsOpphold = ({
 			</HStack>
 			{currentLand && (
 				<>
-					<HStack justify="start" gap="space-24">
+					<HStack
+						justify="start"
+						gap="space-24"
+						className={styles.dateFieldsHStack}
+					>
 						<div className={styles.dateFieldWrapper}>
 							<RHFDatePicker
 								name={getOppholdFieldName(index, 'fom')}
@@ -392,7 +396,11 @@ export const UtenlandsOpphold = ({
 					</Checkbox>
 				</>
 			)}
-			<HStack justify="end" gap="space-16">
+			<HStack
+				justify="end"
+				gap="space-16"
+				className={styles.actionButtonsHStack}
+			>
 				{showCancelButton && (
 					<Button variant="tertiary" size="small" onClick={handleAvbryt}>
 						Avbryt

@@ -20,3 +20,11 @@
 .copyButton:hover {
 	background-color: var(--ax-bg-moderate-hoverA);
 }
+
+.dateFieldsHStack {
+	margin-bottom: -20px;
+}
+
+.actionButtonsHStack {
+	margin-top: -16px;
+}
