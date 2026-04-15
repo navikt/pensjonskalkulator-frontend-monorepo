@@ -40,7 +40,6 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
 
   const oppholdUtenforNorge = useOppholdUtenforNorge({ harForLiteTrygdetid })
-
   React.useEffect(() => {
     if (oppholdUtenforNorge === 'for_lite_trygdetid') {
       logger('grunnlag for beregningen', {
@@ -123,7 +122,6 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 />
               </BodyLong>
             )}
-
             {oppholdUtenforNorge === 'mindre_enn_5_aar' && (
               <BodyLong spacing>
                 <FormattedMessage
@@ -134,11 +132,9 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 />
               </BodyLong>
             )}
-
             {harUtenlandsopphold && (
               <UtenlandsoppholdListe erVisningIGrunnlag />
             )}
-
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (
               <div className={styles.info}>
                 <ExclamationmarkTriangleFillIcon
@@ -156,7 +152,6 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 </BodyLong>
               </div>
             )}
-
             {oppholdUtenforNorge !== 'endring' && (
               <BodyLong>
                 <FormattedMessage
@@ -170,7 +165,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                     ),
                   }}
                 />
-                {trygdetid !== undefined && (
+                {trygdetid != null && (
                   <>
                     <br /> <br />
                     <FormattedMessage
@@ -184,7 +179,6 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
                 )}
               </BodyLong>
             )}
-
             {(harUtenlandsopphold ||
               oppholdUtenforNorge === 'for_lite_trygdetid') && (
               <BodyLong className={styles.bunntekst}>
