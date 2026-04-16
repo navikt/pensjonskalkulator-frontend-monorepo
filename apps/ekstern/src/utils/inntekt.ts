@@ -14,7 +14,7 @@ export const formatInntekt = (amount?: number | string | null): string => {
     : ''
 }
 
-export const formatInntektToNumber = (s?: string) => {
+export const formatInntektToNumber = (s?: string | null) => {
   if (!s) return 0
   const inntekt = parseInt(s.replace(/[^-0-9]/g, ''), 10)
   return !isNaN(inntekt) ? inntekt : 0
@@ -108,7 +108,7 @@ export const updateAndFormatInntektFromInputField = (
   }
 }
 
-export const formatInntektMedKr = (amount?: number): string => {
+export const formatInntektMedKr = (amount?: number | null): string => {
   if (amount === undefined || amount === null) {
     return ''
   }

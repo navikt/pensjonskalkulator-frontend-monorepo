@@ -8,6 +8,14 @@ export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
 	| 'DOEDSFALL_REGISTRERT'
 
+export interface UtenlandsOppholdFormValues {
+	landkode: string
+	arbeidetUtenlands: boolean | null
+	fom: string
+	tom: string
+	brukFoedselsdato: boolean
+}
+
 export interface BeregningFormData {
 	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
@@ -35,6 +43,8 @@ export interface BeregningFormData {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: boolean | null
 	epsMedlemAvFolketrygdenVedDoedsDato: boolean | null
 	epsRegistretSomFlykting: boolean | null
+	harOppholdUtenforNorge: boolean | null
+	utenlandsOpphold: UtenlandsOppholdFormValues[]
 	afp?: AfpRadio
 }
 
@@ -67,6 +77,8 @@ export interface ValidationErrors {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
 	epsMedlemAvFolketrygdenVedDoedsDato?: string
 	epsRegistretSomFlykting?: string
+	harOppholdUtenforNorge?: string
+	utenlandsOpphold?: string
 	afp?: string
 }
 
@@ -99,5 +111,7 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
 	epsRegistretSomFlykting: null,
 	harHentetEPSOpplysninger: false,
+	harOppholdUtenforNorge: null,
+	utenlandsOpphold: [],
 	afp: undefined,
 }

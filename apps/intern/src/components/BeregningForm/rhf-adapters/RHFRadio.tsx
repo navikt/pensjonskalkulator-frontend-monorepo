@@ -1,9 +1,10 @@
 import { type ReactNode } from 'react'
-import { useController, useFormContext } from 'react-hook-form'
+import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
-import { Radio, RadioGroup } from '@navikt/ds-react'
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../../api/beregningTypes'
+import { getNestedError } from './utils'
 
 interface RadioOption {
 	value: string
@@ -16,12 +17,13 @@ const defaultOptions: RadioOption[] = [
 ]
 
 interface RHFRadioProps {
-	name: keyof BeregningFormData
+	name: FieldPath<BeregningFormData>
 	legend: string
 	className?: string
 	children?: ReactNode
 	testid?: string
 	options?: RadioOption[]
+	gap?: React.ComponentProps<typeof HStack>['gap']
 }
 
 export function RHFRadio({
@@ -31,6 +33,7 @@ export function RHFRadio({
 	children,
 	options,
 	testid,
+	gap = 'space-32',
 }: RHFRadioProps) {
 	const {
 		control,
@@ -43,13 +46,13 @@ export function RHFRadio({
 
 	const toDisplayValue = (value: unknown) => {
 		if (!isJaNei) return value ?? ''
-		if (value === null) return ''
+		if (value == null) return ''
 		return value ? 'ja' : 'nei'
 	}
 
 	const fromDisplayValue = (val: string) => (isJaNei ? val === 'ja' : val)
 
-	const error = errors[name]?.message
+	const error = getNestedError(errors, name)
 
 	return (
 		<RadioGroup
@@ -62,12 +65,14 @@ export function RHFRadio({
 			data-testid={testid}
 			data-feil={error ? true : false}
 		>
-			{children ??
-				resolvedOptions.map((option) => (
-					<Radio key={option.value} value={option.value}>
-						{option.label}
-					</Radio>
-				))}
+			<HStack gap={gap}>
+				{children ??
+					resolvedOptions.map((option) => (
+						<Radio key={option.value} value={option.value}>
+							{option.label}
+						</Radio>
+					))}
+			</HStack>
 		</RadioGroup>
 	)
 }

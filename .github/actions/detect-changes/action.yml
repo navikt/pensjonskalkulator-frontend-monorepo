@@ -11,6 +11,9 @@ outputs:
   api:
     description: 'Whether packages/api has changed'
     value: ${{ steps.changes.outputs.api }}
+  lockfile:
+    description: 'Whether pnpm-lock.yaml has changed'
+    value: ${{ steps.changes.outputs.lockfile }}
   shared:
     description: 'Whether shared config files have changed'
     value: ${{ steps.changes.outputs.shared }}
@@ -29,6 +32,8 @@ runs:
             - 'apps/ekstern/**'
           api:
             - 'packages/api/**'
+          lockfile:
+            - 'pnpm-lock.yaml'
           shared:
             - 'package.json'
             - 'pnpm-lock.yaml'

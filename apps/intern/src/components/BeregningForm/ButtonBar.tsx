@@ -7,9 +7,15 @@ interface ButtonBarProps {
 	onReset: () => void
 	isDirty: boolean
 	harAktivBeregning: boolean
+	isSubmitDisabled?: boolean
 }
 
-export const ButtonBar = ({ onSubmit, onReset, isDirty }: ButtonBarProps) => {
+export const ButtonBar = ({
+	onSubmit,
+	onReset,
+	isDirty,
+	isSubmitDisabled = false,
+}: ButtonBarProps) => {
 	return (
 		<div className={styles.buttonBar}>
 			<Box paddingBlock="space-24 space-0">
@@ -27,6 +33,7 @@ export const ButtonBar = ({ onSubmit, onReset, isDirty }: ButtonBarProps) => {
 						variant="primary"
 						onClick={onSubmit}
 						data-testid="beregn-button"
+						disabled={isSubmitDisabled}
 					>
 						{isDirty ? 'Oppdater pensjon' : 'Beregn pensjon'}
 					</Button>
