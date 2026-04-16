@@ -133,10 +133,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Basispensjon',
 			value: formatKr(opptjening.basispensjonBeloep),
-			hide:
-				!visAarsbelop ||
-				!isGradert ||
-				(opptjening.basispensjonBeloep ?? 0) <= 0,
+			hide: !visAarsbelop || (opptjening.basispensjonBeloep ?? 0) <= 0,
 		},
 		{
 			label: 'Restpensjon',
