@@ -1,11 +1,6 @@
 import { AfpDetaljerListe } from './hooks'
 
-export interface LoependeLivsvarigAfpOffentlig {
-  afpStatus?: boolean
-  virkningFom?: string
-  maanedligBeloep?: number
-  sistBenyttetGrunnbeloep?: number
-}
+export type LoependeLivsvarigAfpOffentlig = AfpOffentligLivsvarig
 
 export const hasInvalidMonthlyLivsvarigAfpBeloep = (
   loependeLivsvarigAfpOffentlig: LoependeLivsvarigAfpOffentlig | undefined
