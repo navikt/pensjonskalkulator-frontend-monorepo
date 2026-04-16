@@ -41,7 +41,7 @@ const BeregningLayout = () => {
 				overflow: 'hidden',
 			}}
 		>
-			<Box borderColor="neutral-subtle" borderWidth="0 0 1 0">
+			<Box borderColor="border-subtle" borderWidth="0 0 1 0">
 				<HStack align="center" wrap={false}>
 					<Box
 						className={styles.headerBox}

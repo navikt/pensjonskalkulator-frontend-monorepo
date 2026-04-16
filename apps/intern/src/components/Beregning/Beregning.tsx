@@ -27,7 +27,7 @@ export const Beregning = () => {
 	if (!hasBeregning) {
 		return (
 			<Box
-				borderColor="neutral-subtle"
+				borderColor="border-subtle"
 				borderWidth="0 0 0 1"
 				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
@@ -99,7 +99,7 @@ export const Beregning = () => {
 	}
 	return (
 		<Box
-			borderColor="neutral-subtle"
+			borderColor="border-subtle"
 			borderWidth="0 0 0 1"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
