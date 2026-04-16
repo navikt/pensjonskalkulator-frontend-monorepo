@@ -99,6 +99,8 @@ interface AlderVelgerProps {
 	maxAlder?: AlderGrense
 	aarError?: string
 	mdError?: string
+	aarTestId?: string
+	mdTestId?: string
 }
 
 export function AlderVelger({
@@ -113,6 +115,8 @@ export function AlderVelger({
 	maxAlder = { aar: 75, maaneder: 0 },
 	aarError,
 	mdError,
+	aarTestId,
+	mdTestId,
 }: AlderVelgerProps) {
 	const minAlder = foedselsdato
 		? getBrukerensAlderISluttenAvMaaneden(foedselsdato, minAlderProp)
@@ -142,6 +146,7 @@ export function AlderVelger({
 					size="small"
 					value={alderAar}
 					error={!!aarError}
+					data-testid={aarTestId}
 					onChange={(e) => {
 						const value = e.target.value
 						onAlderAarChange(value)
@@ -169,6 +174,7 @@ export function AlderVelger({
 					size="small"
 					value={alderMd}
 					error={!!mdError}
+					data-testid={mdTestId}
 					disabled={!alderAar}
 					onChange={(e) => onAlderMdChange(e.target.value)}
 				>
