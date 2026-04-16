@@ -10,7 +10,7 @@ import {
 export const useOppholdUtenforNorge = ({
   harForLiteTrygdetid,
 }: {
-  harForLiteTrygdetid?: boolean
+  harForLiteTrygdetid?: boolean | null
 }) => {
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
   const isEndring = useAppSelector(selectIsEndring)

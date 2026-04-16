@@ -55,6 +55,9 @@ interface BeregningProviderProps {
 	initialSivilstatus?: Sivilstatus
 }
 
+const cloneBeregningParams = (values: BeregningFormData): BeregningParams =>
+	structuredClone(values)
+
 export function BeregningProvider({
 	children,
 	initialInntekt,
@@ -125,7 +128,9 @@ export function BeregningProvider({
 	}, [person?.sivilstatus, form])
 
 	useEffect(() => {
-		if (!beregnMedGjenlevenderett) {
+		if (beregnMedGjenlevenderett) {
+			form.setValue('afp', undefined, { shouldDirty: false })
+		} else {
 			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
 				shouldDirty: false,
 			})
@@ -183,8 +188,8 @@ export function BeregningProvider({
 	}, [uttaksgrad, form])
 
 	const submitBeregning = useCallback(() => {
-		const values = form.getValues()
-		setPendingBeregning({ ...values })
+		const values = cloneBeregningParams(form.getValues())
+		setPendingBeregning(values)
 		form.reset(values, { keepValues: true })
 	}, [form])
 
@@ -204,7 +209,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {
-			setAktivBeregning(pendingBeregning)
+			setAktivBeregning(cloneBeregningParams(pendingBeregning))
 		}
 	}, [isBeregningLoading, pendingBeregning])
 

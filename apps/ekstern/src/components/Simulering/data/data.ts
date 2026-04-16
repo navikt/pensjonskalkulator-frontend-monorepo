@@ -7,7 +7,7 @@ type Alder = {
 
 export type AarligUtbetalingStartSlutt = {
   startAlder: Alder
-  sluttAlder?: Alder
+  sluttAlder?: Alder | null
   aarligUtbetaling: number
 }
 

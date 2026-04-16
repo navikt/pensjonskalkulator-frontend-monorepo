@@ -34,7 +34,7 @@ export interface BeregningsdetaljerRader {
 function getAlderspenListeForValgtUttaksalder(
   uttaksalder: { aar: number; maaneder?: number } | null,
   gradertUttaksperiode: GradertUttak | null,
-  alderspensjonListe?: AlderspensjonPensjonsberegning[]
+  alderspensjonListe?: AlderspensjonPensjonsberegning[] | null
 ) {
   if (!alderspensjonListe || alderspensjonListe.length === 0 || !uttaksalder) {
     return []
@@ -237,9 +237,9 @@ function getAlderspensjonDetaljerListe(
 }
 
 function getAfpDetaljerListe(
-  afpPrivatListe?: AfpPrivatPensjonsberegning[],
-  afpOffentligListe?: AfpPensjonsberegning[],
-  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning,
+  afpPrivatListe?: AfpPrivatPensjonsberegning[] | null,
+  afpOffentligListe?: AfpPensjonsberegning[] | null,
+  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning | null,
   tpAfpPeriode?: UtbetalingsperiodeFoer1963,
   uttaksalder?: { aar: number; maaneder?: number } | null,
   gradertUttaksperiode?: GradertUttak | null,
@@ -507,10 +507,10 @@ function getAfpDetaljerListe(
 }
 
 export function useBeregningsdetaljer(
-  alderspensjonListe?: AlderspensjonPensjonsberegning[],
-  afpPrivatListe?: AfpPrivatPensjonsberegning[],
-  afpOffentligListe?: AfpPensjonsberegning[],
-  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning,
+  alderspensjonListe?: AlderspensjonPensjonsberegning[] | null,
+  afpPrivatListe?: AfpPrivatPensjonsberegning[] | null,
+  afpOffentligListe?: AfpPensjonsberegning[] | null,
+  pre2025OffentligAfp?: pre2025OffentligPensjonsberegning | null,
   loependeLivsvarigAfpOffentlig?: AfpOffentligLivsvarig,
   tpAfpPeriode?: UtbetalingsperiodeFoer1963,
   erSpkBesteberegning?: boolean

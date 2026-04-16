@@ -22,6 +22,7 @@ import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -59,6 +60,7 @@ export const BeregningForm = () => {
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
+	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
 	const { control } = form
 
@@ -97,7 +99,15 @@ export const BeregningForm = () => {
 	const handleSubmit = () => {
 		form.clearErrors()
 		const formData = form.getValues()
-		const errors = validate(formData)
+		const normalizedFormData =
+			formData.harOppholdUtenforNorge === true
+				? formData
+				: { ...formData, utenlandsOpphold: [] }
+
+		if (normalizedFormData !== formData) {
+			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
+		}
+		const errors = validate(normalizedFormData)
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
@@ -188,15 +198,23 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-				<RHFRadio
-					name="afp"
-					legend="Skal AFP inkluderes?"
-					options={[
-						{ value: 'ja_privat', label: 'Ja, privat' },
-						{ value: 'nei', label: 'Nei' },
-					]}
-					className={styles.horizontalRadioGroup}
-				/>
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+
+				<Divider noMargin />
+				{!beregnMedGjenlevenderett && (
+					<>
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP inkluderes?"
+							options={[
+								{ value: 'ja_privat', label: 'Ja, privat' },
+								{ value: 'nei', label: 'Nei' },
+							]}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
+				)}
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativHelt &&
 					!alertDismissed && (
@@ -316,6 +334,7 @@ export const BeregningForm = () => {
 				onReset={handleReset}
 				isDirty={isDirty}
 				harAktivBeregning={!!aktivBeregning}
+				isSubmitDisabled={isSubmitDisabled}
 			/>
 		</Box>
 	)

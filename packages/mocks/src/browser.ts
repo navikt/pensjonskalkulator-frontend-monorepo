@@ -1,5 +1,8 @@
 import { setupWorker } from 'msw/browser'
 
-import { handlers } from './handlers'
+import { type HandlerOptions, getHandlers } from './handlers'
 
-export const worker = setupWorker(...handlers)
+export const createWorker = (options?: HandlerOptions) =>
+	setupWorker(...getHandlers(options))
+
+export const worker = createWorker()

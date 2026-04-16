@@ -9,13 +9,13 @@ import { usePensjonBeregninger } from './hooks'
 import styles from './MaanedsbeloepAvansertBeregning.module.scss'
 
 interface Props {
-  afpPrivatListe?: AfpPensjonsberegning[]
-  afpOffentligListe?: AfpPensjonsberegning[]
-  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
-  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
-  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[]
-  pensjonsavtaler?: Pensjonsavtale[]
-  simulertTjenestepensjon?: SimulertTjenestepensjon
+  afpPrivatListe?: AfpPrivatPensjonsberegning[] | null
+  afpOffentligListe?: AfpPensjonsberegning[] | null
+  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring | null
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon | null
+  offentligAfpFraTpOrdning?: UtbetalingsperiodeFoer1963[] | null
+  pensjonsavtaler?: Pensjonsavtale[] | null
+  simulertTjenestepensjon?: SimulertTjenestepensjon | null
   skalViseNullOffentligTjenestepensjon?: boolean
   erTpFoer1963?: boolean
 }
