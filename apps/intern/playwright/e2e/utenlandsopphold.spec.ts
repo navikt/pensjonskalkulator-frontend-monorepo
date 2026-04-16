@@ -127,12 +127,17 @@ async function expectOppholdInList(
 	landNavn: string,
 	dateText?: string
 ) {
-	const listItem = page.locator('strong', { hasText: landNavn })
-	await expect(listItem).toBeVisible()
+	const rows = page
+		.locator('strong', { hasText: landNavn })
+		.locator('..')
+		.locator('..')
+
 	if (dateText) {
-		const parent = listItem.locator('..').locator('..')
-		await expect(parent.getByText(dateText)).toBeVisible()
+		await expect(rows.filter({ has: page.getByText(dateText) })).toBeVisible()
+		return
 	}
+
+	await expect(rows).toBeVisible()
 }
 
 async function expectNoOppholdInList(page: Page, landNavn: string) {
