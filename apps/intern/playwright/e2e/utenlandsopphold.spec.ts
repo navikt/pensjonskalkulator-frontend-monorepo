@@ -13,6 +13,34 @@ const LOEPENDE_VEDTAK_MOCK_FILE = 'loepende-vedtak.json'
 const INNTEKT_MOCK_FILE = 'inntekt.json'
 const ALDERSPENSJON_MOCK_FILE = 'alderspensjon.json'
 
+const HAR_OPPHOLD_UTENFOR_NORGE = 'Har bruker opphold utenfor Norge?'
+const JOBBET_I_LANDET = 'Jobbet bruker i landet?'
+
+const VALIDATION_MESSAGES = {
+	landRequired: 'Du må velge land for oppholdet ditt.',
+	startdatoRequired: 'Du må oppgi startdato for oppholdet ditt.',
+	dateFormat: 'Oppgi dag, måned og år som DD.MM.ÅÅÅÅ.',
+	startdatoBeforeFoedselsdato: 'Startdato kan ikke være før fødselsdatoen din.',
+	sluttdatoBeforeStartdato: 'Sluttdato kan ikke være før startdato.',
+	arbeidetUtenlandsRequired:
+		'Du må svare «Ja» eller «Nei» på om du jobbet under oppholdet.',
+	startdatoAfterMax:
+		'Startdato kan ikke være senere enn 100 år etter fødselsdatoen din.',
+	sluttdatoAfterMax:
+		'Sluttdato kan ikke være senere enn 100 år etter fødselsdatoen din.',
+} as const
+
+type SimuleringUtenlandsperiodePayload = {
+	landkode: string
+	arbeidetUtenlands: boolean
+	fom: string
+	tom?: string
+}
+
+type SimuleringPayload = {
+	utenlandsperiodeListe?: SimuleringUtenlandsperiodePayload[]
+}
+
 async function setupDefaultMocks(
 	page: Page,
 	personOverrides?: Record<string, unknown>
@@ -40,13 +68,10 @@ async function setupDefaultMocks(
 async function navigateToApp(page: Page) {
 	await page.goto('/?pid=encrypted-default-pid')
 	await expect(
-		page.getByRole('group', {
-			name: 'Har bruker opphold utenfor Norge?',
-		})
+		page.getByRole('group', { name: HAR_OPPHOLD_UTENFOR_NORGE })
 	).toBeVisible()
 }
 
-/** setupDefaultMocks + navigateToApp + selectHarOppholdUtenforNorge('Ja') */
 async function setupWithEditorOpen(
 	page: Page,
 	personOverrides?: Record<string, unknown>
@@ -58,9 +83,13 @@ async function setupWithEditorOpen(
 
 async function selectHarOppholdUtenforNorge(page: Page, value: 'Ja' | 'Nei') {
 	const radioGroup = page.getByRole('group', {
-		name: 'Har bruker opphold utenfor Norge?',
+		name: HAR_OPPHOLD_UTENFOR_NORGE,
 	})
 	await radioGroup.getByLabel(value).check()
+}
+
+function jobbetGroup(page: Page) {
+	return page.getByRole('group', { name: JOBBET_I_LANDET })
 }
 
 async function selectLand(page: Page, landkode: string) {
@@ -79,6 +108,10 @@ async function clickLeggTil(page: Page) {
 	await page.getByRole('button', { name: 'Legg til' }).click()
 }
 
+async function clickLeggTilNyttOpphold(page: Page) {
+	await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+}
+
 async function addOpphold(
 	page: Page,
 	options: {
@@ -90,10 +123,7 @@ async function addOpphold(
 ) {
 	await selectLand(page, options.landkode)
 	if (options.arbeidetUtenlands !== undefined) {
-		const jobbetGroup = page.getByRole('group', {
-			name: 'Jobbet bruker i landet?',
-		})
-		await jobbetGroup
+		await jobbetGroup(page)
 			.getByLabel(options.arbeidetUtenlands ? 'Ja' : 'Nei')
 			.check()
 	}
@@ -146,6 +176,65 @@ async function expectNoOppholdInList(page: Page, landNavn: string) {
 
 function beregnPensjonButton(page: Page) {
 	return page.getByRole('button', { name: /Beregn pensjon|Oppdater pensjon/ })
+}
+
+function validationAlert(page: Page, message: string | RegExp) {
+	return page.getByText(message)
+}
+
+async function expectValidationMessage(page: Page, message: string | RegExp) {
+	await expect(validationAlert(page, message)).toBeVisible()
+}
+
+async function expectNoValidationMessage(page: Page, message: string | RegExp) {
+	await expect(validationAlert(page, message)).toHaveCount(0)
+}
+
+async function completeRemainingSimulationFields(page: Page) {
+	await fillMainFormFields(page)
+	await page
+		.getByRole('group', {
+			name: /Mottar .+ pensjon, uføretrygd eller AFP ved uttak/,
+		})
+		.getByLabel('Ja')
+		.check()
+	await page
+		.getByRole('group', { name: 'Skal AFP inkluderes?' })
+		.getByLabel('Nei')
+		.check()
+}
+
+async function setupSimulationCapture(page: Page) {
+	let capturedBody: SimuleringPayload | undefined
+
+	await page.route(SIMULERING_API_URL, async (route) => {
+		capturedBody = route.request().postDataJSON() as SimuleringPayload
+		await route.fulfill({
+			status: 200,
+			contentType: 'application/json',
+			body: JSON.stringify(await loadJSONMock(ALDERSPENSJON_MOCK_FILE)),
+		})
+	})
+
+	return {
+		getCapturedBody: () => capturedBody,
+	}
+}
+
+async function expectSimulationPeriods(
+	getCapturedBody: () => SimuleringPayload | undefined,
+	expectedPeriods: SimuleringUtenlandsperiodePayload[]
+) {
+	await expect(async () => {
+		expect(getCapturedBody()).toBeDefined()
+	}).toPass({ timeout: 5000 })
+
+	const capturedBody = getCapturedBody()
+	if (!capturedBody?.utenlandsperiodeListe) {
+		throw new Error('Expected utenlandsperiodeListe in simulation request')
+	}
+
+	expect(capturedBody.utenlandsperiodeListe).toEqual(expectedPeriods)
 }
 
 test.describe('Utenlandsopphold', () => {
@@ -210,17 +299,13 @@ test.describe('Utenlandsopphold', () => {
 		test('Viser Jobbet-spørsmål for avtaleland', async ({ page }) => {
 			await selectLand(page, 'AUS')
 
-			await expect(
-				page.getByRole('group', { name: 'Jobbet bruker i landet?' })
-			).toBeVisible()
+			await expect(jobbetGroup(page)).toBeVisible()
 		})
 
 		test('Viser ikke Jobbet-spørsmål for ikke-avtaleland', async ({ page }) => {
 			await selectLand(page, 'AFG')
 
-			await expect(
-				page.getByRole('group', { name: 'Jobbet bruker i landet?' })
-			).not.toBeVisible()
+			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
 
 		test('Viser ikke Jobbet-spørsmål for avtaleland med kravOmArbeid=false', async ({
@@ -228,38 +313,29 @@ test.describe('Utenlandsopphold', () => {
 		}) => {
 			await selectLand(page, 'DNK')
 
-			await expect(
-				page.getByRole('group', { name: 'Jobbet bruker i landet?' })
-			).not.toBeVisible()
+			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
 
 		test('Skjuler Jobbet-spørsmål ved bytte fra avtaleland til ikke-avtaleland', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AUS')
-			await expect(
-				page.getByRole('group', { name: 'Jobbet bruker i landet?' })
-			).toBeVisible()
+			await expect(jobbetGroup(page)).toBeVisible()
 
 			await selectLand(page, 'AFG')
-			await expect(
-				page.getByRole('group', { name: 'Jobbet bruker i landet?' })
-			).not.toBeVisible()
+			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
 
 		test('Bytte av land nullstiller arbeidetUtenlands-svar', async ({
 			page,
 		}) => {
 			await selectLand(page, 'AUS')
-			const jobbetGroup = page.getByRole('group', {
-				name: 'Jobbet bruker i landet?',
-			})
-			await jobbetGroup.getByLabel('Ja').check()
-			await expect(jobbetGroup.getByLabel('Ja')).toBeChecked()
+			await jobbetGroup(page).getByLabel('Ja').check()
+			await expect(jobbetGroup(page).getByLabel('Ja')).toBeChecked()
 
 			await selectLand(page, 'CAN')
-			await expect(jobbetGroup.getByLabel('Ja')).not.toBeChecked()
-			await expect(jobbetGroup.getByLabel('Nei')).not.toBeChecked()
+			await expect(jobbetGroup(page).getByLabel('Ja')).not.toBeChecked()
+			await expect(jobbetGroup(page).getByLabel('Nei')).not.toBeChecked()
 		})
 	})
 
@@ -322,7 +398,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await expect(page.getByRole('combobox', { name: 'Land' })).toBeVisible()
 		})
@@ -334,7 +410,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
 				landkode: 'AUS',
@@ -512,7 +588,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 			await page.getByRole('button', { name: 'Avbryt' }).click()
 
 			await expect(
@@ -541,7 +617,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await expect(page.getByRole('button', { name: 'Avbryt' })).toBeVisible()
 		})
@@ -555,18 +631,14 @@ test.describe('Utenlandsopphold', () => {
 		test('Viser feil når land ikke er valgt', async ({ page }) => {
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Du må velge land for oppholdet ditt.')
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.landRequired)
 		})
 
 		test('Viser feil når startdato mangler', async ({ page }) => {
 			await selectLand(page, 'AFG')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Du må oppgi startdato for oppholdet ditt.')
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoRequired)
 		})
 
 		test('Viser feil for ugyldig datoformat i startdato', async ({ page }) => {
@@ -574,9 +646,7 @@ test.describe('Utenlandsopphold', () => {
 			await fillStartdato(page, '2000-01-01')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Oppgi dag, måned og år som DD.MM.ÅÅÅÅ.')
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
 		})
 
 		test('Viser feil for ugyldig datoformat i sluttdato', async ({ page }) => {
@@ -585,9 +655,7 @@ test.describe('Utenlandsopphold', () => {
 			await fillSluttdato(page, '2005-12-31')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Oppgi dag, måned og år som DD.MM.ÅÅÅÅ.')
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
 		})
 
 		test('Viser feil når startdato er før fødselsdato', async ({ page }) => {
@@ -595,9 +663,10 @@ test.describe('Utenlandsopphold', () => {
 			await fillStartdato(page, '01.01.1960')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Startdato kan ikke være før fødselsdatoen din.')
-			).toBeVisible()
+			await expectValidationMessage(
+				page,
+				VALIDATION_MESSAGES.startdatoBeforeFoedselsdato
+			)
 		})
 
 		test('Viser feil når sluttdato er før startdato', async ({ page }) => {
@@ -606,9 +675,10 @@ test.describe('Utenlandsopphold', () => {
 			await fillSluttdato(page, '01.01.1999')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText('Sluttdato kan ikke være før startdato.')
-			).toBeVisible()
+			await expectValidationMessage(
+				page,
+				VALIDATION_MESSAGES.sluttdatoBeforeStartdato
+			)
 		})
 
 		test('Viser feil når arbeidet utenlands ikke er besvart for avtaleland', async ({
@@ -618,23 +688,18 @@ test.describe('Utenlandsopphold', () => {
 			await fillStartdato(page, '01.01.2000')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(
-					'Du må svare «Ja» eller «Nei» på om du jobbet under oppholdet.'
-				)
-			).toBeVisible()
+			await expectValidationMessage(
+				page,
+				VALIDATION_MESSAGES.arbeidetUtenlandsRequired
+			)
 		})
 
 		test('Fjerner feilmelding når felt korrigeres', async ({ page }) => {
 			await clickLeggTil(page)
-			await expect(
-				page.getByText('Du må velge land for oppholdet ditt.')
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.landRequired)
 
 			await selectLand(page, 'AFG')
-			await expect(
-				page.getByText('Du må velge land for oppholdet ditt.')
-			).not.toBeVisible()
+			await expectNoValidationMessage(page, VALIDATION_MESSAGES.landRequired)
 		})
 
 		test('Viser feil når startdato er etter maks-dato (fødselsdato + 100 år)', async ({
@@ -644,11 +709,7 @@ test.describe('Utenlandsopphold', () => {
 			await fillStartdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(
-					'Startdato kan ikke være senere enn 100 år etter fødselsdatoen din.'
-				)
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoAfterMax)
 		})
 
 		test('Viser feil når sluttdato er etter maks-dato (fødselsdato + 100 år)', async ({
@@ -659,11 +720,7 @@ test.describe('Utenlandsopphold', () => {
 			await fillSluttdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(
-					'Sluttdato kan ikke være senere enn 100 år etter fødselsdatoen din.'
-				)
-			).toBeVisible()
+			await expectValidationMessage(page, VALIDATION_MESSAGES.sluttdatoAfterMax)
 		})
 	})
 
@@ -681,7 +738,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await selectLand(page, 'AFG')
 			await fillStartdato(page, '01.06.2003')
@@ -702,7 +759,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
 				landkode: 'AFG',
@@ -726,13 +783,13 @@ test.describe('Utenlandsopphold', () => {
 				arbeidetUtenlands: true,
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await selectLand(page, 'CAN')
-			const jobbetGroup = page.getByRole('group', {
+			const jobbetGroupField = page.getByRole('group', {
 				name: 'Jobbet bruker i landet?',
 			})
-			await jobbetGroup.getByLabel('Ja').check()
+			await jobbetGroupField.getByLabel('Ja').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
@@ -752,13 +809,13 @@ test.describe('Utenlandsopphold', () => {
 				arbeidetUtenlands: false,
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await selectLand(page, 'AUS')
-			const jobbetGroup = page.getByRole('group', {
+			const jobbetGroupField = page.getByRole('group', {
 				name: 'Jobbet bruker i landet?',
 			})
-			await jobbetGroup.getByLabel('Nei').check()
+			await jobbetGroupField.getByLabel('Nei').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
@@ -778,13 +835,13 @@ test.describe('Utenlandsopphold', () => {
 				arbeidetUtenlands: true,
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await selectLand(page, 'AUS')
-			const jobbetGroup = page.getByRole('group', {
+			const jobbetGroupField = page.getByRole('group', {
 				name: 'Jobbet bruker i landet?',
 			})
-			await jobbetGroup.getByLabel('Ja').check()
+			await jobbetGroupField.getByLabel('Ja').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
@@ -802,7 +859,7 @@ test.describe('Utenlandsopphold', () => {
 				startdato: '01.01.2000',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await selectLand(page, 'AFG')
 			await fillStartdato(page, '01.01.2010')
@@ -827,7 +884,7 @@ test.describe('Utenlandsopphold', () => {
 				sluttdato: '31.12.2005',
 			})
 
-			await page.getByRole('button', { name: 'Legg til nytt opphold' }).click()
+			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
 				landkode: 'AUS',
@@ -841,12 +898,8 @@ test.describe('Utenlandsopphold', () => {
 
 			await page.getByRole('button', { name: 'Endre' }).first().click()
 
-			await expect(
-				page.getByRole('button', { name: 'Endre' })
-			).not.toBeVisible()
-			await expect(
-				page.getByRole('button', { name: 'Slett' })
-			).not.toBeVisible()
+			await expect(page.getByRole('button', { name: 'Endre' })).toHaveCount(0)
+			await expect(page.getByRole('button', { name: 'Slett' })).toHaveCount(0)
 		})
 	})
 
@@ -977,16 +1030,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-
-			let capturedBody: Record<string, unknown> | undefined
-			await page.route(SIMULERING_API_URL, async (route) => {
-				capturedBody = route.request().postDataJSON() as Record<string, unknown>
-				await route.fulfill({
-					status: 200,
-					contentType: 'application/json',
-					body: JSON.stringify(await loadJSONMock(ALDERSPENSJON_MOCK_FILE)),
-				})
-			})
+			const { getCapturedBody } = await setupSimulationCapture(page)
 
 			await navigateToApp(page)
 			await selectHarOppholdUtenforNorge(page, 'Ja')
@@ -998,33 +1042,84 @@ test.describe('Utenlandsopphold', () => {
 				arbeidetUtenlands: true,
 			})
 
-			await fillMainFormFields(page)
-
-			await page
-				.getByRole('group', {
-					name: /Mottar .+ pensjon, uføretrygd eller AFP ved uttak/,
-				})
-				.getByLabel('Ja')
-				.check()
-
-			await page
-				.getByRole('group', { name: 'Skal AFP inkluderes?' })
-				.getByLabel('Nei')
-				.check()
-
+			await completeRemainingSimulationFields(page)
 			await beregnPensjonButton(page).click()
 
-			await expect(async () => {
-				expect(capturedBody).toBeDefined()
-			}).toPass({ timeout: 5000 })
+			await expectSimulationPeriods(getCapturedBody, [
+				{
+					landkode: 'AUS',
+					arbeidetUtenlands: true,
+					fom: '2000-01-01',
+					tom: '2005-12-31',
+				},
+			])
+		})
 
-			expect(capturedBody!.utenlandsperiodeListe).toBeDefined()
-			const perioder = capturedBody!.utenlandsperiodeListe as Array<
-				Record<string, unknown>
-			>
-			expect(perioder.length).toBe(1)
-			expect(perioder[0].landkode).toBe('AUS')
-			expect(perioder[0].arbeidetUtenlands).toBe(true)
+		test('Sender inn skjema med varig opphold i ikke-avtaleland', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			const { getCapturedBody } = await setupSimulationCapture(page)
+
+			await navigateToApp(page)
+			await selectHarOppholdUtenforNorge(page, 'Ja')
+
+			await addOpphold(page, {
+				landkode: 'AFG',
+				startdato: '01.01.2000',
+			})
+
+			await completeRemainingSimulationFields(page)
+			await beregnPensjonButton(page).click()
+
+			await expectSimulationPeriods(getCapturedBody, [
+				{
+					landkode: 'AFG',
+					arbeidetUtenlands: false,
+					fom: '2000-01-01',
+				},
+			])
+		})
+
+		test('Sender inn skjema med flere utenlandsopphold og beholder rekkefølgen', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			const { getCapturedBody } = await setupSimulationCapture(page)
+
+			await navigateToApp(page)
+			await selectHarOppholdUtenforNorge(page, 'Ja')
+
+			await addOpphold(page, {
+				landkode: 'AFG',
+				startdato: '01.01.2000',
+				sluttdato: '31.12.2005',
+			})
+			await clickLeggTilNyttOpphold(page)
+			await addOpphold(page, {
+				landkode: 'AUS',
+				startdato: '01.01.2010',
+				sluttdato: '31.12.2015',
+				arbeidetUtenlands: false,
+			})
+
+			await completeRemainingSimulationFields(page)
+			await beregnPensjonButton(page).click()
+
+			await expectSimulationPeriods(getCapturedBody, [
+				{
+					landkode: 'AFG',
+					arbeidetUtenlands: false,
+					fom: '2000-01-01',
+					tom: '2005-12-31',
+				},
+				{
+					landkode: 'AUS',
+					arbeidetUtenlands: false,
+					fom: '2010-01-01',
+					tom: '2015-12-31',
+				},
+			])
 		})
 
 		test('Sender inn skjema med Nei på utenlandsopphold', async ({ page }) => {
@@ -1043,20 +1138,7 @@ test.describe('Utenlandsopphold', () => {
 			await navigateToApp(page)
 			await selectHarOppholdUtenforNorge(page, 'Nei')
 
-			await fillMainFormFields(page)
-
-			await page
-				.getByRole('group', {
-					name: /Mottar .+ pensjon, uføretrygd eller AFP ved uttak/,
-				})
-				.getByLabel('Ja')
-				.check()
-
-			await page
-				.getByRole('group', { name: 'Skal AFP inkluderes?' })
-				.getByLabel('Nei')
-				.check()
-
+			await completeRemainingSimulationFields(page)
 			await beregnPensjonButton(page).click()
 
 			await expect(async () => {
