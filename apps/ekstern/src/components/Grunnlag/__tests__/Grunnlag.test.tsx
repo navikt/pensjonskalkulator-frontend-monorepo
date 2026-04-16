@@ -7,6 +7,8 @@ import {
   loependeVedtakLoependeAlderspensjonMock,
   mockErrorResponse,
   mockResponse,
+  personEldreEnnAfpUfoereOppsigelsesalderMock,
+  personMedSamboerMock,
   personMock,
   personYngreEnnAfpUfoereOppsigelsesalderMock,
   pre1963PersonMock,
@@ -158,25 +160,7 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       mockResponse('/v6/person', {
         status: 200,
-        json: {
-          fornavn: 'Ola',
-          sivilstand: 'GIFT',
-          foedselsdato: '1963-04-30',
-          pensjoneringAldre: {
-            normertPensjoneringsalder: {
-              aar: 67,
-              maaneder: 0,
-            },
-            nedreAldersgrense: {
-              aar: 62,
-              maaneder: 0,
-            },
-            oevreAldersgrense: {
-              aar: 75,
-              maaneder: 0,
-            },
-          },
-        },
+        json: personMedSamboerMock,
       })
       renderGrunnlagMedPreloadedState('2', 'avansert', {
         ...userInputInitialState,
@@ -208,25 +192,7 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       mockResponse('/v6/person', {
         status: 200,
-        json: {
-          fornavn: 'Ola',
-          sivilstand: 'UGIFT',
-          foedselsdato: '1963-04-30',
-          pensjoneringAldre: {
-            normertPensjoneringsalder: {
-              aar: 67,
-              maaneder: 0,
-            },
-            nedreAldersgrense: {
-              aar: 62,
-              maaneder: 0,
-            },
-            oevreAldersgrense: {
-              aar: 75,
-              maaneder: 0,
-            },
-          },
-        },
+        json: personMock,
       })
 
       renderGrunnlagMedPreloadedState('2', 'enkel', {
@@ -409,7 +375,7 @@ describe('Grunnlag', () => {
         },
         preloadedApiState: {
           getLoependeVedtak: loependeVedtak75UfoeregradMock,
-          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock, // This person is born in 1990, making them under 62
+          getPerson: personYngreEnnAfpUfoereOppsigelsesalderMock, // This person is dynamically set to stay under 62
         },
       })
 
@@ -484,7 +450,7 @@ describe('Grunnlag', () => {
             },
             preloadedApiState: {
               getLoependeVedtak: loependeVedtak75UfoeregradMock,
-              getPerson: personMock, // This person is born in 1963, making them over 62
+              getPerson: personEldreEnnAfpUfoereOppsigelsesalderMock,
             },
           }
         )

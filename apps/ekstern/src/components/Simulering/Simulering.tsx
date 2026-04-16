@@ -56,16 +56,16 @@ interface Props {
   isLoading: boolean
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
-  alderspensjonListe?: AlderspensjonPensjonsberegning[]
-  afpPrivatListe?: AfpPrivatPensjonsberegning[]
-  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon
-  afpOffentligListe?: AfpPensjonsberegning[]
-  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring
+  alderspensjonListe?: AlderspensjonPensjonsberegning[] | null
+  afpPrivatListe?: AfpPrivatPensjonsberegning[] | null
+  pre2025OffentligAfp?: AfpEtterfulgtAvAlderspensjon | null
+  afpOffentligListe?: AfpPensjonsberegning[] | null
+  alderspensjonMaanedligVedEndring?: AlderspensjonMaanedligVedEndring | null
   showButtonsAndTable?: boolean
   detaljer?: {
-    trygdetid?: number
-    opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
-    harForLiteTrygdetid?: boolean
+    trygdetid?: number | null
+    opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[] | null
+    harForLiteTrygdetid?: boolean | null
   }
   visning?: BeregningVisning
 }
@@ -173,23 +173,23 @@ export const Simulering = ({
         data: buildInntektSerie({
           uttaksalder,
           isEndring,
-          alderspensjonListe,
+          alderspensjonListe: alderspensjonListe ?? undefined,
           gradertUttaksperiode,
           aarligInntektFoerUttakBeloep,
           aarligInntektVsaHelPensjon,
-          pre2025OffentligAfp,
+          pre2025OffentligAfp: pre2025OffentligAfp ?? undefined,
         }),
       },
       {
         name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_AFP.name }),
         color: SERIES_DEFAULT.SERIE_AFP.color,
         data: buildAfpSerie({
-          pre2025OffentligAfp,
+          pre2025OffentligAfp: pre2025OffentligAfp ?? undefined,
           afpPerioder,
           uttaksalder,
           shouldShowAfpOffentlig,
-          afpOffentligListe,
-          afpPrivatListe,
+          afpOffentligListe: afpOffentligListe ?? undefined,
+          afpPrivatListe: afpPrivatListe ?? undefined,
         }),
       },
       {
@@ -200,7 +200,8 @@ export const Simulering = ({
           offentligTpUtbetalingsperioder:
             offentligTp?.simulertTjenestepensjon?.simuleringsresultat
               .utbetalingsperioder,
-          uttaksalder: uttaksalder ?? undefined,
+          uttaksalder:
+            gradertUttaksperiode?.uttaksalder ?? uttaksalder ?? undefined,
         }),
       },
       {
@@ -208,7 +209,9 @@ export const Simulering = ({
           id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
         }),
         color: SERIES_DEFAULT.SERIE_ALDERSPENSJON.color,
-        data: buildAlderspensjonSerie({ alderspensjonListe }),
+        data: buildAlderspensjonSerie({
+          alderspensjonListe: alderspensjonListe ?? undefined,
+        }),
       },
     ],
     [
@@ -330,11 +333,17 @@ export const Simulering = ({
 
   usePdfView({
     headingLevel,
-    alderspensjonListe,
-    pre2025OffentligAfp,
-    afpPrivatListe,
-    afpOffentligListe,
-    detaljer,
+    alderspensjonListe: alderspensjonListe ?? undefined,
+    pre2025OffentligAfp: pre2025OffentligAfp ?? undefined,
+    afpPrivatListe: afpPrivatListe ?? undefined,
+    afpOffentligListe: afpOffentligListe ?? undefined,
+    detaljer: detaljer
+      ? {
+          trygdetid: detaljer.trygdetid ?? undefined,
+          opptjeningsgrunnlag: detaljer.opptjeningsgrunnlag ?? undefined,
+          harForLiteTrygdetid: detaljer.harForLiteTrygdetid ?? undefined,
+        }
+      : undefined,
     visning,
     series: filteredTableSeries,
     aarArray: tableXAxis,
@@ -379,7 +388,9 @@ export const Simulering = ({
           isLoading={isLoading}
           heltUttaksalder={uttaksalder}
           gradertUttaksperiode={gradertUttaksperiode ?? undefined}
-          alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
+          alderspensjonMaanedligVedEndring={
+            alderspensjonMaanedligVedEndring ?? undefined
+          }
         />
       )}
 

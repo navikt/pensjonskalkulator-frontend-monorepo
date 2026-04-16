@@ -1,6 +1,7 @@
-import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { Box } from '@navikt/ds-react'
@@ -16,9 +17,12 @@ import {
 	showInntektHeltFields,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { getUttakInfo } from '../../utils/getUttakInfo'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
 	RHFAlderVelger,
@@ -56,6 +60,7 @@ export const BeregningForm = () => {
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
+	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
 	const { control } = form
 
@@ -80,10 +85,29 @@ export const BeregningForm = () => {
 		] as const,
 	})
 
+	const [alertDismissed, setAlertDismissed] = useState(false)
+
+	useEffect(() => {
+		setAlertDismissed(false)
+	}, [aktivBeregning])
+
+	const handleReset = useCallback(() => {
+		setAlertDismissed(true)
+		resetForm()
+	}, [resetForm])
+
 	const handleSubmit = () => {
 		form.clearErrors()
 		const formData = form.getValues()
-		const errors = validate(formData)
+		const normalizedFormData =
+			formData.harOppholdUtenforNorge === true
+				? formData
+				: { ...formData, utenlandsOpphold: [] }
+
+		if (normalizedFormData !== formData) {
+			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
+		}
+		const errors = validate(normalizedFormData)
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
@@ -95,11 +119,28 @@ export const BeregningForm = () => {
 		submitBeregning()
 	}
 
-	const vilkaarAlternativ =
-		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder ??
+	const { heltUttakAlder } = getUttakInfo(aktivBeregning)
+
+	const vilkaarAlternativGradert =
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder
+	const vilkaarAlternativHelt =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus = person && person.sivilstatus
+	const sanityTextGradert =
+		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
+		!isAlderLikAnnenAlder(
+			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
+			heltUttakAlder
+		)
+
+	const visGradert =
+		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
+		isAlderLikAnnenAlder(
+			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
+			heltUttakAlder
+		)
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -157,30 +198,60 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-				<RHFRadio
-					name="afp"
-					legend="Skal AFP inkluderes?"
-					options={[
-						{ value: 'ja_privat', label: 'Ja, privat' },
-						{ value: 'nei', label: 'Nei' },
-					]}
-					className={styles.horizontalRadioGroup}
-				/>
+				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+
 				<Divider noMargin />
+				{!beregnMedGjenlevenderett && (
+					<>
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP inkluderes?"
+							options={[
+								{ value: 'ja_privat', label: 'Ja, privat' },
+								{ value: 'nei', label: 'Nei' },
+							]}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
+				)}
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
-					vilkaarAlternativ && (
+					vilkaarAlternativHelt &&
+					!alertDismissed && (
 						<SanityAlert
-							id="beregning.vilkaarsproeving.ikke_nok_opptjening"
+							id={
+								sanityTextGradert
+									? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+									: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+							}
 							className={styles.sanityAlert}
 							dynamicValues={{
-								alder: formaterAlderString(
-									vilkaarAlternativ?.aar,
-									vilkaarAlternativ?.maaneder
-								),
-								grad: String(
-									beregning.vilkaarsproevingsresultat.alternativ?.uttaksgrad ??
+								grad: visGradert
+									? String(
+											beregning.vilkaarsproevingsresultat?.alternativ
+												?.uttaksgrad ?? 100
+										)
+									: '100',
+								alder:
+									visGradert && vilkaarAlternativGradert
+										? formaterAlderString(
+												vilkaarAlternativGradert.aar,
+												vilkaarAlternativGradert.maaneder
+											)
+										: formaterAlderString(
+												vilkaarAlternativHelt.aar,
+												vilkaarAlternativHelt.maaneder
+											),
+								grad_gradert: String(
+									beregning.vilkaarsproevingsresultat?.alternativ?.uttaksgrad ??
 										100
 								),
+								gradert_alder: vilkaarAlternativGradert
+									? formaterAlderString(
+											vilkaarAlternativGradert.aar,
+											vilkaarAlternativGradert.maaneder
+										)
+									: '',
 							}}
 						/>
 					)}
@@ -201,7 +272,7 @@ export const BeregningForm = () => {
 					className={styles.selectWrapper}
 					numeric
 				>
-					<option value="">Velg</option>
+					<option value="" />
 					{[20, 40, 50, 60, 80, 100].map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
@@ -260,9 +331,10 @@ export const BeregningForm = () => {
 			</Box>
 			<ButtonBar
 				onSubmit={handleSubmit}
-				onReset={resetForm}
+				onReset={handleReset}
 				isDirty={isDirty}
 				harAktivBeregning={!!aktivBeregning}
+				isSubmitDisabled={isSubmitDisabled}
 			/>
 		</Box>
 	)

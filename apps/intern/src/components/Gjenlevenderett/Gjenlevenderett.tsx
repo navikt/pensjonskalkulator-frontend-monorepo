@@ -126,6 +126,7 @@ export const Gjenlevenderett = () => {
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
 							legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
 							testid="bakgrunn-for-bruk-EPS"
+							gap="space-0"
 							options={[
 								{
 									value: 'DOEDSFALL_REGISTRERT',

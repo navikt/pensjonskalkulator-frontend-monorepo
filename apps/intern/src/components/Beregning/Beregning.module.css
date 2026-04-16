@@ -41,3 +41,14 @@
 	margin: calc(-1 * var(--ax-space-48));
 	margin-bottom: var(--ax-space-48);
 }
+
+@media (max-width: 1280px) {
+	.beregning {
+		padding: var(--ax-space-24);
+	}
+
+	.globalAlert {
+		margin: calc(-1 * var(--ax-space-24));
+		margin-bottom: var(--ax-space-24);
+	}
+}

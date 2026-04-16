@@ -38,3 +38,14 @@
 	font-size: var(--ax-font-size-medium);
 	line-height: var(--ax-font-line-height-medium);
 }
+
+.headerBox {
+	width: 496px;
+	flex-shrink: 0;
+}
+
+@media (max-width: 1280px) {
+	.headerBox {
+		width: 448px;
+	}
+}

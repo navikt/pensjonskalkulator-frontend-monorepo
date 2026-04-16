@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { BodyLong, Box, Checkbox, Loader, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
+import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { formatAlderTitle } from './beregningMappers'
@@ -23,73 +24,51 @@ export const Beregning = () => {
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
-	if (!beregning && isBeregningLoading) {
+	const hasBeregning =
+		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
+	if (!hasBeregning) {
 		return (
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={styles.beregning}
+				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			>
-				<Box className={styles.loader}>
-					<Loader size="3xlarge" title="Beregner pensjon …" />
-				</Box>
-			</Box>
-		)
-	}
-
-	if (!beregning || beregning.vilkaarsproevingsresultat.erInnvilget === false) {
-		return (
-			<Box
-				borderColor="neutral-subtle"
-				borderWidth="0 0 0 1"
-				className={styles.beregning}
-			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
 				<BodyLong>Ingen beregning enda.</BodyLong>
 			</Box>
 		)
 	}
 
-	const erGradert =
-		aktivBeregning &&
-		aktivBeregning.uttaksgrad !== null &&
-		aktivBeregning.uttaksgrad < 100
-
-	const gradertUttakAlder = erGradert
-		? {
-				aar: erGradert ? aktivBeregning?.alderAarUttak : undefined,
-				maaneder: erGradert ? aktivBeregning?.alderMdUttak : undefined,
-			}
-		: undefined
-
-	const heltUttakAlder = {
-		aar: erGradert
-			? aktivBeregning?.alderAarHeltUttak
-			: (aktivBeregning?.alderAarUttak ?? 0),
-		maaneder: erGradert
-			? aktivBeregning?.alderMdHeltUttak
-			: (aktivBeregning?.alderMdUttak ?? 0),
-	}
+	const { erGradert, heltUttakAlder, gradertUttakAlder } =
+		getUttakInfo(aktivBeregning)
 
 	const tableCount =
 		1 +
 		(erFoedtFoer1963 ? 1 : 0) +
 		(erOvergangskull || erFoedtEtter1963 ? 1 : 0)
 
-	const heltUttakAar = erGradert
-		? aktivBeregning.alderAarHeltUttak
-		: aktivBeregning?.alderAarUttak
-
-	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
-
 	const afpPrivatVedGradertUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (gradertUttakAar ?? 0)
+		(entry) => entry.alderAar === (gradertUttakAlder?.aar ?? 0)
 	)
 	const afpPrivatVedHeltUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (heltUttakAar ?? 0)
+		(entry) => entry.alderAar === (heltUttakAlder.aar ?? 0)
 	)
 	const afpPrivatVed67Aar = beregning?.privatAfpListe?.find(
 		(entry) => entry.alderAar === 67
 	)
+
+	const helMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+
+	const gradertMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
+
+	const normertMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const helAarligAlderspensjon = beregning.alderspensjonListe.find(
 		(entry) => entry.alderAar === heltUttakAlder.aar
@@ -104,15 +83,6 @@ export const Beregning = () => {
 	const normertAarligAlderspensjon = beregning.alderspensjonListe.find(
 		(entry) => entry.alderAar === 67
 	)
-
-	const helMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
-
-	const gradertMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
-
-	const normertMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const titleHeltUttak =
 		aktivBeregning &&
@@ -147,8 +117,8 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
-			className={styles.beregning}
 			position="relative"
+			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
 			<Box position="absolute" right="space-48" top="space-24">
 				<Checkbox

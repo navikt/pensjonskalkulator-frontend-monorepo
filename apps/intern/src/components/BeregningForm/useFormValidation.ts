@@ -129,6 +129,9 @@ function validateSivilstand(
 }
 
 function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+	if (formData.beregnMedGjenlevenderett) {
+		return
+	}
 	if (!formData.afp) {
 		errors.afp = 'Velg om AFP skal inkluderes.'
 	}
@@ -144,6 +147,9 @@ function validateInntektField({
 	field: keyof BeregningFormData & keyof ValidationErrors
 }) {
 	const value = formData[field]
+	if (typeof value !== 'number') {
+		errors[field] = 'Du må skrive hele tall for å oppgi inntekt.'
+	}
 	if (value === null) {
 		errors[field] = 'Fyll ut inntekt.'
 	} else if (typeof value === 'number' && value > 100_000_000) {
@@ -261,12 +267,22 @@ function validateInntektVsaHeltUttak(
 	}
 }
 
+function validateUtenlandsOpphold(
+	formData: BeregningFormData,
+	errors: ValidationErrors
+) {
+	if (formData.harOppholdUtenforNorge === null) {
+		errors.harOppholdUtenforNorge =
+			'Velg ja/nei om bruker har opphold utenfor Norge.'
+	}
+}
+
 export function useFormValidation() {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
 
 	useEffect(() => {
 		const ariaInvalidElements = document.querySelectorAll(
-			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"])'
+			'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"]), input[data-feil="true"], select[data-feil="true"], fieldset[data-feil="true"] input'
 		)
 
 		if (
@@ -294,6 +310,7 @@ export function useFormValidation() {
 			validateInntektVsaGradertUttak(formData, errors)
 			validateAlderHeltMotGradert(formData, errors)
 			validateInntektVsaHeltUttak(formData, errors)
+			validateUtenlandsOpphold(formData, errors)
 
 			setValidationErrors(errors)
 			return errors

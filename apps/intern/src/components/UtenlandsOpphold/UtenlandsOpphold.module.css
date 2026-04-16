@@ -1,0 +1,34 @@
+.selectLandWrapper,
+.dateFieldWrapper,
+.dateFieldWrapper :global(.aksel-date__field-wrapper) {
+	width: 11.75rem;
+}
+
+.selectLand {
+	width: 100%;
+}
+
+.radioFieldWrapper,
+.dateFieldWrapper {
+	flex-shrink: 0;
+}
+
+.dateFieldInput {
+	width: 100%;
+}
+
+.copyButton:hover {
+	background-color: var(--ax-bg-moderate-hoverA);
+}
+
+.dateFieldsHStack {
+	margin-bottom: -20px;
+}
+
+.actionButtonsHStack {
+	margin-top: -16px;
+}
+
+.oppholdListWrapper {
+	margin-top: -8px;
+}

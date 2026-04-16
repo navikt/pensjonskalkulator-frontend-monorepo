@@ -318,7 +318,7 @@ export const processAfpPensjonsberegningArray = (
 export const getAntallMaanederMedPensjon = (
   year: number,
   utbetalingsperiodeStartAlder: Alder,
-  utbetalingsperiodeSluttAlder?: Alder
+  utbetalingsperiodeSluttAlder?: Alder | null
 ) => {
   // Hvis vi viser første år av avtalen, tar vi høyde for startMaaned, hvis ikke teller avtalen fra måned 0 (fult år)
   const periodStartMonth =
@@ -338,7 +338,7 @@ export const getAntallMaanederMedPensjon = (
 export const getAntallMaanederMedAfp = (
   year: number,
   utbetalingsperiodeStartAlder: Alder,
-  utbetalingsperiodeSluttAlder?: Alder
+  utbetalingsperiodeSluttAlder?: Alder | null
 ) => {
   // Hvis vi viser første år av avtalen, tar vi høyde for startMaaned, hvis ikke teller avtalen fra måned 0 (fult år)
   const periodStartMonth =

@@ -382,3 +382,7 @@ export const calculateFoedselsdato = (
 
 	return `${year}-${month}-${day}`
 }
+
+export const isAlderLikAnnenAlder = (alder1: Alder, alder2: Alder): boolean => {
+	return alder1.aar === alder2.aar && alder1.maaneder === alder2.maaneder
+}

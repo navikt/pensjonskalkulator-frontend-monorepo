@@ -1,5 +1,5 @@
 export const finnAllePensjonsavtalerVedUttak = <
-  T extends { startAlder: Alder; sluttAlder?: Alder },
+  T extends { startAlder: Alder; sluttAlder?: Alder | null },
 >(
   utbetalingsperioder: T[],
   uttaksalder: Alder

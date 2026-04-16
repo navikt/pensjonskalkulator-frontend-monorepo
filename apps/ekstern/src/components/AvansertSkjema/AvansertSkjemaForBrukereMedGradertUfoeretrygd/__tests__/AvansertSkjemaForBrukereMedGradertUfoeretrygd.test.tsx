@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  calculateFoedselsdato,
   loependeVedtak75UfoeregradMock,
   loependeVedtakLoependeAlderspensjonOg40UfoeretrygdMock,
   mockResponse,
@@ -1240,7 +1241,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -1570,7 +1571,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
-        foedselsdato: '1963-04-30',
+        foedselsdato: personMock.foedselsdato,
         harAvansertSkjemaUnsavedChanges: false,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
@@ -2170,7 +2171,14 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
             },
           },
           preloadedApiState: {
-            getPerson: personMock,
+            getPerson: {
+              ...personMock,
+              foedselsdato: calculateFoedselsdato({
+                years: 62,
+                months: 11,
+                days: 8,
+              }),
+            },
             getLoependeVedtak: {
               harLoependeVedtak: true,
               alderspensjon: {
