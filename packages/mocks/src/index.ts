@@ -1,4 +1,5 @@
 export { getHandlers, type HandlerOptions } from './handlers'
+export { createWorker, worker } from './browser'
 export { server, mockResponse, mockErrorResponse } from './server'
 export * from './mockedRTKQueryApiCalls'
 export * from './paths'

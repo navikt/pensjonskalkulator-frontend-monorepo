@@ -62,7 +62,11 @@ import {
   processPre2025OffentligAfpPensjonsberegningArray,
   processPre2025OffentligAfpWithSpkPerioder,
 } from './utils'
-import { getChartOptions, onPointUnclick } from './utils-highcharts'
+import {
+  clearPendingRenderTimeouts,
+  getChartOptions,
+  onPointUnclick,
+} from './utils-highcharts'
 
 import globalClassNames from './Simulering.module.scss'
 
@@ -196,8 +200,10 @@ export const useSimuleringChartLocalState = (initialValues: {
       onPointUnclick(e, chartRef.current?.chart)
     }
     document.addEventListener('click', onPointUnclickEventHandler)
-    return () =>
+    return () => {
       document.removeEventListener('click', onPointUnclickEventHandler)
+      clearPendingRenderTimeouts()
+    }
   }, [])
 
   React.useEffect(() => {
