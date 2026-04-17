@@ -16,6 +16,19 @@ const ALDERSPENSJON_MOCK_FILE = 'alderspensjon.json'
 const HAR_OPPHOLD_UTENFOR_NORGE = 'Har bruker opphold utenfor Norge?'
 const JOBBET_I_LANDET = 'Jobbet bruker i landet?'
 
+const TEST_FOEDSELSDATO_ISO = '1964-04-30'
+const TEST_FOEDSELSDATO_DISPLAY = '30.04.1964'
+
+const LAND = {
+	AFG: { kode: 'AFG', navn: 'Afghanistan' },
+	AUS: { kode: 'AUS', navn: 'Australia' },
+	CAN: { kode: 'CAN', navn: 'Canada' },
+	DNK: { kode: 'DNK', navn: 'Danmark' },
+} as const
+
+const afterMaxMessage = (felt: 'Startdato' | 'Sluttdato') =>
+	`${felt} kan ikke være senere enn 100 år etter fødselsdatoen din.`
+
 const VALIDATION_MESSAGES = {
 	landRequired: 'Du må velge land for oppholdet ditt.',
 	startdatoRequired: 'Du må oppgi startdato for oppholdet ditt.',
@@ -24,10 +37,15 @@ const VALIDATION_MESSAGES = {
 	sluttdatoBeforeStartdato: 'Sluttdato kan ikke være før startdato.',
 	arbeidetUtenlandsRequired:
 		'Du må svare «Ja» eller «Nei» på om du jobbet under oppholdet.',
-	startdatoAfterMax:
-		'Startdato kan ikke være senere enn 100 år etter fødselsdatoen din.',
-	sluttdatoAfterMax:
-		'Sluttdato kan ikke være senere enn 100 år etter fødselsdatoen din.',
+	startdatoAfterMax: afterMaxMessage('Startdato'),
+	sluttdatoAfterMax: afterMaxMessage('Sluttdato'),
+} as const
+
+const OVERLAP_MESSAGES = {
+	sameCountry: /Du kan ikke ha overlappende opphold med landet \S+\.$/,
+	differentCountries: /Du kan ikke ha overlappende opphold i to ulike land\.$/,
+	boopphold: /Du kan ikke ha overlappende boopphold\.$/,
+	jobbperioder: /Du kan ikke ha overlappende jobbperioder\.$/,
 } as const
 
 type SimuleringUtenlandsperiodePayload = {
@@ -52,7 +70,16 @@ async function setupDefaultMocks(
 			body: '04925398980',
 		})
 	)
-	await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, personOverrides)
+	const effectivePersonOverrides = {
+		foedselsdato: TEST_FOEDSELSDATO_ISO,
+		...personOverrides,
+	}
+	await mockApi(
+		page,
+		PERSON_API_URL,
+		PERSON_MOCK_FILE,
+		effectivePersonOverrides
+	)
 	await mockApi(page, LOEPENDE_VEDTAK_API_URL, LOEPENDE_VEDTAK_MOCK_FILE)
 	await mockApi(page, INNTEKT_API_URL, INNTEKT_MOCK_FILE)
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
@@ -67,9 +94,7 @@ async function setupDefaultMocks(
 
 async function navigateToApp(page: Page) {
 	await page.goto('/?pid=encrypted-default-pid')
-	await expect(
-		page.getByRole('group', { name: HAR_OPPHOLD_UTENFOR_NORGE })
-	).toBeVisible()
+	await page.waitForSelector('text=Pensjonskalkulator')
 }
 
 async function setupWithEditorOpen(
@@ -152,18 +177,20 @@ async function fillMainFormFields(page: Page) {
 		.check()
 }
 
+function oppholdListItems(page: Page, landNavn?: string) {
+	const items = page.getByTestId('opphold-list-item')
+	return landNavn ? items.filter({ hasText: landNavn }) : items
+}
+
 async function expectOppholdInList(
 	page: Page,
 	landNavn: string,
 	dateText?: string
 ) {
-	const rows = page
-		.locator('strong', { hasText: landNavn })
-		.locator('..')
-		.locator('..')
+	const rows = oppholdListItems(page, landNavn)
 
 	if (dateText) {
-		await expect(rows.filter({ has: page.getByText(dateText) })).toBeVisible()
+		await expect(rows.filter({ hasText: dateText })).toBeVisible()
 		return
 	}
 
@@ -171,11 +198,13 @@ async function expectOppholdInList(
 }
 
 async function expectNoOppholdInList(page: Page, landNavn: string) {
-	await expect(page.locator('strong', { hasText: landNavn })).not.toBeVisible()
+	await expect(oppholdListItems(page, landNavn)).toHaveCount(0)
 }
 
 function beregnPensjonButton(page: Page) {
-	return page.getByRole('button', { name: /Beregn pensjon|Oppdater pensjon/ })
+	return page.getByRole('button', {
+		name: /^(Beregn|Oppdater) pensjon$/,
+	})
 }
 
 function validationAlert(page: Page, message: string | RegExp) {
@@ -225,16 +254,17 @@ async function expectSimulationPeriods(
 	getCapturedBody: () => SimuleringPayload | undefined,
 	expectedPeriods: SimuleringUtenlandsperiodePayload[]
 ) {
-	await expect(async () => {
-		expect(getCapturedBody()).toBeDefined()
-	}).toPass({ timeout: 5000 })
+	await expect
+		.poll(() => getCapturedBody()?.utenlandsperiodeListe, { timeout: 5000 })
+		.toEqual(expectedPeriods)
+}
 
-	const capturedBody = getCapturedBody()
-	if (!capturedBody?.utenlandsperiodeListe) {
-		throw new Error('Expected utenlandsperiodeListe in simulation request')
-	}
-
-	expect(capturedBody.utenlandsperiodeListe).toEqual(expectedPeriods)
+async function setupForSimulation(page: Page) {
+	await setupDefaultMocks(page)
+	const capture = await setupSimulationCapture(page)
+	await navigateToApp(page)
+	await selectHarOppholdUtenforNorge(page, 'Ja')
+	return capture
 }
 
 test.describe('Utenlandsopphold', () => {
@@ -275,7 +305,7 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Viser datofelter etter valg av land', async ({ page }) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 
 			await expect(page.getByLabel('Startdato')).toBeVisible()
 			await expect(page.getByLabel('Sluttdato (valgfritt)')).toBeVisible()
@@ -285,7 +315,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 
 			await expect(page.getByLabel('Bruk fødselsdato')).toBeVisible()
 		})
@@ -297,13 +327,13 @@ test.describe('Utenlandsopphold', () => {
 		})
 
 		test('Viser Jobbet-spørsmål for avtaleland', async ({ page }) => {
-			await selectLand(page, 'AUS')
+			await selectLand(page, LAND.AUS.kode)
 
 			await expect(jobbetGroup(page)).toBeVisible()
 		})
 
 		test('Viser ikke Jobbet-spørsmål for ikke-avtaleland', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 
 			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
@@ -311,7 +341,7 @@ test.describe('Utenlandsopphold', () => {
 		test('Viser ikke Jobbet-spørsmål for avtaleland med kravOmArbeid=false', async ({
 			page,
 		}) => {
-			await selectLand(page, 'DNK')
+			await selectLand(page, LAND.DNK.kode)
 
 			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
@@ -319,21 +349,21 @@ test.describe('Utenlandsopphold', () => {
 		test('Skjuler Jobbet-spørsmål ved bytte fra avtaleland til ikke-avtaleland', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AUS')
+			await selectLand(page, LAND.AUS.kode)
 			await expect(jobbetGroup(page)).toBeVisible()
 
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await expect(jobbetGroup(page)).not.toBeVisible()
 		})
 
 		test('Bytte av land nullstiller arbeidetUtenlands-svar', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AUS')
+			await selectLand(page, LAND.AUS.kode)
 			await jobbetGroup(page).getByLabel('Ja').check()
 			await expect(jobbetGroup(page).getByLabel('Ja')).toBeChecked()
 
-			await selectLand(page, 'CAN')
+			await selectLand(page, LAND.CAN.kode)
 			await expect(jobbetGroup(page).getByLabel('Ja')).not.toBeChecked()
 			await expect(jobbetGroup(page).getByLabel('Nei')).not.toBeChecked()
 		})
@@ -346,32 +376,32 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Legger til opphold for ikke-avtaleland', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 
-			await expectOppholdInList(page, 'Afghanistan', '01.01.2000-31.12.2005')
+			await expectOppholdInList(page, LAND.AFG.navn, '01.01.2000-31.12.2005')
 		})
 
 		test('Legger til opphold for avtaleland med jobbet', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: true,
 			})
 
-			await expectOppholdInList(page, 'Australia')
+			await expectOppholdInList(page, LAND.AUS.navn)
 		})
 
 		test('Legger til varig opphold uten sluttdato', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 			})
 
-			await expectOppholdInList(page, 'Afghanistan')
+			await expectOppholdInList(page, LAND.AFG.navn)
 			await expect(page.getByText('Varig opphold')).toBeVisible()
 		})
 
@@ -379,7 +409,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -393,7 +423,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -405,7 +435,7 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Legger til flere opphold', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -413,14 +443,14 @@ test.describe('Utenlandsopphold', () => {
 			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2010',
 				sluttdato: '31.12.2015',
 				arbeidetUtenlands: false,
 			})
 
-			await expectOppholdInList(page, 'Afghanistan')
-			await expectOppholdInList(page, 'Australia')
+			await expectOppholdInList(page, LAND.AFG.navn)
+			await expectOppholdInList(page, LAND.AUS.navn)
 		})
 	})
 
@@ -432,19 +462,23 @@ test.describe('Utenlandsopphold', () => {
 		test('Fyller inn fødselsdato som startdato ved avkrysning', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 
 			await page.getByLabel('Bruk fødselsdato').check()
 
-			await expect(page.getByLabel('Startdato')).toHaveValue('30.04.1964')
+			await expect(page.getByLabel('Startdato')).toHaveValue(
+				TEST_FOEDSELSDATO_DISPLAY
+			)
 		})
 
 		test('Manuell endring av startdato fjerner avkrysning av Bruk fødselsdato', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await page.getByLabel('Bruk fødselsdato').check()
-			await expect(page.getByLabel('Startdato')).toHaveValue('30.04.1964')
+			await expect(page.getByLabel('Startdato')).toHaveValue(
+				TEST_FOEDSELSDATO_DISPLAY
+			)
 			await expect(page.getByLabel('Bruk fødselsdato')).toBeChecked()
 
 			await fillStartdato(page, '01.01.2000')
@@ -462,7 +496,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -470,7 +504,7 @@ test.describe('Utenlandsopphold', () => {
 			await page.getByRole('button', { name: 'Endre' }).click()
 
 			await expect(page.getByRole('combobox', { name: 'Land' })).toHaveValue(
-				'AFG'
+				LAND.AFG.kode
 			)
 			await expect(page.getByLabel('Startdato')).toHaveValue('01.01.2000')
 			await expect(page.getByLabel('Sluttdato (valgfritt)')).toHaveValue(
@@ -480,7 +514,7 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Viser Oppdater-knapp i redigeringsmodus', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -492,7 +526,7 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Oppdaterer opphold etter redigering', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -501,14 +535,14 @@ test.describe('Utenlandsopphold', () => {
 			await fillSluttdato(page, '31.12.2010')
 			await page.getByRole('button', { name: 'Oppdater' }).click()
 
-			await expectOppholdInList(page, 'Afghanistan', '01.01.2000-31.12.2010')
+			await expectOppholdInList(page, LAND.AFG.navn, '01.01.2000-31.12.2010')
 		})
 
 		test('Oppdater uten endringer utløser ikke overlapp-feil (self-overlap skip)', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: false,
@@ -517,10 +551,8 @@ test.describe('Utenlandsopphold', () => {
 			await page.getByRole('button', { name: 'Endre' }).click()
 			await page.getByRole('button', { name: 'Oppdater' }).click()
 
-			await expect(
-				page.getByText(/Du har allerede registrert/)
-			).not.toBeVisible()
-			await expectOppholdInList(page, 'Australia')
+			await expectNoValidationMessage(page, OVERLAP_MESSAGES.sameCountry)
+			await expectOppholdInList(page, LAND.AUS.navn)
 		})
 	})
 
@@ -531,23 +563,23 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Sletter opphold ved klikk på Slett', async ({ page }) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 
-			await expectOppholdInList(page, 'Afghanistan')
+			await expectOppholdInList(page, LAND.AFG.navn)
 
 			await page.getByRole('button', { name: 'Slett' }).click()
 
-			await expectNoOppholdInList(page, 'Afghanistan')
+			await expectNoOppholdInList(page, LAND.AFG.navn)
 		})
 
 		test('Åpner ny editor etter sletting av siste opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -567,7 +599,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -576,14 +608,14 @@ test.describe('Utenlandsopphold', () => {
 			await fillSluttdato(page, '31.12.2020')
 			await page.getByRole('button', { name: 'Avbryt' }).click()
 
-			await expectOppholdInList(page, 'Afghanistan', '01.01.2000-31.12.2005')
+			await expectOppholdInList(page, LAND.AFG.navn, '01.01.2000-31.12.2005')
 		})
 
 		test('Avbryter nytt opphold når det finnes eksisterende opphold', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -612,7 +644,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -635,14 +667,14 @@ test.describe('Utenlandsopphold', () => {
 		})
 
 		test('Viser feil når startdato mangler', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await clickLeggTil(page)
 
 			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoRequired)
 		})
 
 		test('Viser feil for ugyldig datoformat i startdato', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '2000-01-01')
 			await clickLeggTil(page)
 
@@ -650,7 +682,7 @@ test.describe('Utenlandsopphold', () => {
 		})
 
 		test('Viser feil for ugyldig datoformat i sluttdato', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.01.2000')
 			await fillSluttdato(page, '2005-12-31')
 			await clickLeggTil(page)
@@ -659,7 +691,7 @@ test.describe('Utenlandsopphold', () => {
 		})
 
 		test('Viser feil når startdato er før fødselsdato', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.01.1960')
 			await clickLeggTil(page)
 
@@ -670,7 +702,7 @@ test.describe('Utenlandsopphold', () => {
 		})
 
 		test('Viser feil når sluttdato er før startdato', async ({ page }) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.01.2000')
 			await fillSluttdato(page, '01.01.1999')
 			await clickLeggTil(page)
@@ -684,7 +716,7 @@ test.describe('Utenlandsopphold', () => {
 		test('Viser feil når arbeidet utenlands ikke er besvart for avtaleland', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AUS')
+			await selectLand(page, LAND.AUS.kode)
 			await fillStartdato(page, '01.01.2000')
 			await clickLeggTil(page)
 
@@ -698,14 +730,14 @@ test.describe('Utenlandsopphold', () => {
 			await clickLeggTil(page)
 			await expectValidationMessage(page, VALIDATION_MESSAGES.landRequired)
 
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await expectNoValidationMessage(page, VALIDATION_MESSAGES.landRequired)
 		})
 
 		test('Viser feil når startdato er etter maks-dato (fødselsdato + 100 år)', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
@@ -715,7 +747,7 @@ test.describe('Utenlandsopphold', () => {
 		test('Viser feil når sluttdato er etter maks-dato (fødselsdato + 100 år)', async ({
 			page,
 		}) => {
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.01.2060')
 			await fillSluttdato(page, '01.05.2064')
 			await clickLeggTil(page)
@@ -733,28 +765,26 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 
 			await clickLeggTilNyttOpphold(page)
 
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(/Du har allerede registrert at du har bodd i/)
-			).toBeVisible()
+			await expectValidationMessage(page, OVERLAP_MESSAGES.sameCountry)
 		})
 
 		test('Tillater ikke-overlappende opphold i samme land', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -762,22 +792,19 @@ test.describe('Utenlandsopphold', () => {
 			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2006',
 				sluttdato: '31.12.2010',
 			})
 
-			const afghanistanItems = page.locator('strong', {
-				hasText: 'Afghanistan',
-			})
-			await expect(afghanistanItems).toHaveCount(2)
+			await expect(oppholdListItems(page, LAND.AFG.navn)).toHaveCount(2)
 		})
 
 		test('Viser feil for overlappende opphold i to ulike avtaleland', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: true,
@@ -785,25 +812,20 @@ test.describe('Utenlandsopphold', () => {
 
 			await clickLeggTilNyttOpphold(page)
 
-			await selectLand(page, 'CAN')
-			const jobbetGroupField = page.getByRole('group', {
-				name: 'Jobbet bruker i landet?',
-			})
-			await jobbetGroupField.getByLabel('Ja').check()
+			await selectLand(page, LAND.CAN.kode)
+			await jobbetGroup(page).getByLabel('Ja').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(/Du kan ikke ha overlappende opphold i to ulike land/)
-			).toBeVisible()
+			await expectValidationMessage(page, OVERLAP_MESSAGES.differentCountries)
 		})
 
 		test('Viser feil for overlappende boopphold i samme avtaleland', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: false,
@@ -811,25 +833,20 @@ test.describe('Utenlandsopphold', () => {
 
 			await clickLeggTilNyttOpphold(page)
 
-			await selectLand(page, 'AUS')
-			const jobbetGroupField = page.getByRole('group', {
-				name: 'Jobbet bruker i landet?',
-			})
-			await jobbetGroupField.getByLabel('Nei').check()
+			await selectLand(page, LAND.AUS.kode)
+			await jobbetGroup(page).getByLabel('Nei').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(/Du kan ikke ha overlappende boopphold/)
-			).toBeVisible()
+			await expectValidationMessage(page, OVERLAP_MESSAGES.boopphold)
 		})
 
 		test('Viser feil for overlappende jobbperioder i samme avtaleland', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: true,
@@ -837,38 +854,31 @@ test.describe('Utenlandsopphold', () => {
 
 			await clickLeggTilNyttOpphold(page)
 
-			await selectLand(page, 'AUS')
-			const jobbetGroupField = page.getByRole('group', {
-				name: 'Jobbet bruker i landet?',
-			})
-			await jobbetGroupField.getByLabel('Ja').check()
+			await selectLand(page, LAND.AUS.kode)
+			await jobbetGroup(page).getByLabel('Ja').check()
 			await fillStartdato(page, '01.06.2003')
 			await fillSluttdato(page, '31.12.2008')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(/Du kan ikke ha overlappende jobbperioder/)
-			).toBeVisible()
+			await expectValidationMessage(page, OVERLAP_MESSAGES.jobbperioder)
 		})
 
 		test('Viser feil for overlapp med varig opphold (uten sluttdato)', async ({
 			page,
 		}) => {
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 			})
 
 			await clickLeggTilNyttOpphold(page)
 
-			await selectLand(page, 'AFG')
+			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01.01.2010')
 			await fillSluttdato(page, '31.12.2015')
 			await clickLeggTil(page)
 
-			await expect(
-				page.getByText(/Du har allerede registrert at du har bodd i/)
-			).toBeVisible()
+			await expectValidationMessage(page, OVERLAP_MESSAGES.sameCountry)
 		})
 	})
 
@@ -879,7 +889,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -887,7 +897,7 @@ test.describe('Utenlandsopphold', () => {
 			await clickLeggTilNyttOpphold(page)
 
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2010',
 				sluttdato: '31.12.2015',
 				arbeidetUtenlands: false,
@@ -916,7 +926,7 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -934,19 +944,19 @@ test.describe('Utenlandsopphold', () => {
 			await setupWithEditorOpen(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 
-			await expectOppholdInList(page, 'Afghanistan')
+			await expectOppholdInList(page, LAND.AFG.navn)
 
 			await selectHarOppholdUtenforNorge(page, 'Nei')
-			await expectNoOppholdInList(page, 'Afghanistan')
+			await expectNoOppholdInList(page, LAND.AFG.navn)
 
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 
-			await expectOppholdInList(page, 'Afghanistan')
+			await expectOppholdInList(page, LAND.AFG.navn)
 		})
 	})
 
@@ -959,16 +969,16 @@ test.describe('Utenlandsopphold', () => {
 
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 
-			await expectOppholdInList(page, 'Afghanistan')
+			await expectOppholdInList(page, LAND.AFG.navn)
 
 			await page.getByRole('button', { name: 'Nullstill' }).click()
 
-			await expectNoOppholdInList(page, 'Afghanistan')
+			await expectNoOppholdInList(page, LAND.AFG.navn)
 			await expect(
 				page.getByRole('combobox', { name: 'Land' })
 			).not.toBeVisible()
@@ -994,7 +1004,7 @@ test.describe('Utenlandsopphold', () => {
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -1010,7 +1020,7 @@ test.describe('Utenlandsopphold', () => {
 		}) => {
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
@@ -1029,14 +1039,10 @@ test.describe('Utenlandsopphold', () => {
 		test('Sender inn skjema med utenlandsopphold og verifiserer request', async ({
 			page,
 		}) => {
-			await setupDefaultMocks(page)
-			const { getCapturedBody } = await setupSimulationCapture(page)
-
-			await navigateToApp(page)
-			await selectHarOppholdUtenforNorge(page, 'Ja')
+			const { getCapturedBody } = await setupForSimulation(page)
 
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 				arbeidetUtenlands: true,
@@ -1047,7 +1053,7 @@ test.describe('Utenlandsopphold', () => {
 
 			await expectSimulationPeriods(getCapturedBody, [
 				{
-					landkode: 'AUS',
+					landkode: LAND.AUS.kode,
 					arbeidetUtenlands: true,
 					fom: '2000-01-01',
 					tom: '2005-12-31',
@@ -1058,14 +1064,10 @@ test.describe('Utenlandsopphold', () => {
 		test('Sender inn skjema med varig opphold i ikke-avtaleland', async ({
 			page,
 		}) => {
-			await setupDefaultMocks(page)
-			const { getCapturedBody } = await setupSimulationCapture(page)
-
-			await navigateToApp(page)
-			await selectHarOppholdUtenforNorge(page, 'Ja')
+			const { getCapturedBody } = await setupForSimulation(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 			})
 
@@ -1074,7 +1076,7 @@ test.describe('Utenlandsopphold', () => {
 
 			await expectSimulationPeriods(getCapturedBody, [
 				{
-					landkode: 'AFG',
+					landkode: LAND.AFG.kode,
 					arbeidetUtenlands: false,
 					fom: '2000-01-01',
 				},
@@ -1084,20 +1086,16 @@ test.describe('Utenlandsopphold', () => {
 		test('Sender inn skjema med flere utenlandsopphold og beholder rekkefølgen', async ({
 			page,
 		}) => {
-			await setupDefaultMocks(page)
-			const { getCapturedBody } = await setupSimulationCapture(page)
-
-			await navigateToApp(page)
-			await selectHarOppholdUtenforNorge(page, 'Ja')
+			const { getCapturedBody } = await setupForSimulation(page)
 
 			await addOpphold(page, {
-				landkode: 'AFG',
+				landkode: LAND.AFG.kode,
 				startdato: '01.01.2000',
 				sluttdato: '31.12.2005',
 			})
 			await clickLeggTilNyttOpphold(page)
 			await addOpphold(page, {
-				landkode: 'AUS',
+				landkode: LAND.AUS.kode,
 				startdato: '01.01.2010',
 				sluttdato: '31.12.2015',
 				arbeidetUtenlands: false,
@@ -1108,13 +1106,13 @@ test.describe('Utenlandsopphold', () => {
 
 			await expectSimulationPeriods(getCapturedBody, [
 				{
-					landkode: 'AFG',
+					landkode: LAND.AFG.kode,
 					arbeidetUtenlands: false,
 					fom: '2000-01-01',
 					tom: '2005-12-31',
 				},
 				{
-					landkode: 'AUS',
+					landkode: LAND.AUS.kode,
 					arbeidetUtenlands: false,
 					fom: '2010-01-01',
 					tom: '2015-12-31',
@@ -1141,9 +1139,7 @@ test.describe('Utenlandsopphold', () => {
 			await completeRemainingSimulationFields(page)
 			await beregnPensjonButton(page).click()
 
-			await expect(async () => {
-				expect(requestReceived).toBe(true)
-			}).toPass({ timeout: 5000 })
+			await expect.poll(() => requestReceived, { timeout: 5000 }).toBe(true)
 
 			await expect(
 				page.getByRole('combobox', { name: 'Land' })
