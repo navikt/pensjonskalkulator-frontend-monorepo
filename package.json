@@ -43,9 +43,9 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "9.39.2",
+		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@playwright/test": "catalog:",
 		"@trivago/prettier-plugin-sort-imports": "6.0.2",
-		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"eslint": "9.39.2",
@@ -60,14 +60,31 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"react": "$react",
-			"react-dom": "$react-dom",
-			"@types/react": "$@types/react",
-			"@types/react-dom": "$@types/react-dom",
+			"react": "catalog:",
+			"react-dom": "catalog:",
+			"@types/react": "catalog:",
+			"@types/react-dom": "catalog:",
 			"minimatch@<3.1.4": "3.1.4",
 			"minimatch@>=5 <5.1.8": "5.1.8",
 			"minimatch@>=9 <9.0.7": "9.0.7",
-			"minimatch@>=10 <10.2.3": "10.2.3"
+			"minimatch@>=10 <10.2.3": "10.2.3",
+			"http-proxy-middleware@>=3.0.0 <3.0.5": ">=3.0.5",
+			"http-proxy-middleware@>=3.0.0 <3.0.4": ">=3.0.4",
+			"vite@>=7.1.0 <=7.1.4": ">=7.1.5",
+			"vite@>=7.1.0 <=7.1.10": ">=7.1.11",
+			"tar@<7.5.7": ">=7.5.7",
+			"tar@<=7.5.2": ">=7.5.3",
+			"tar@<7.5.8": ">=7.5.8",
+			"express-rate-limit@>=8.2.0 <8.2.2": ">=8.2.2",
+			"tar@<=7.5.9": ">=7.5.10",
+			"tar@<=7.5.10": ">=7.5.11",
+			"tar@<=7.5.3": ">=7.5.4",
+			"vite@>=7.0.0 <=7.3.1": ">=7.3.2",
+			"vite@>=7.1.0 <=7.3.1": ">=7.3.2",
+			"basic-ftp@<=5.2.1": ">=5.2.2",
+			"basic-ftp@=5.2.0": ">=5.2.1",
+			"basic-ftp@<=5.2.2": ">=5.3.0",
+			"protobufjs@<7.5.5": ">=7.5.5"
 		}
 	}
 }
