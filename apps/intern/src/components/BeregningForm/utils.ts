@@ -22,11 +22,13 @@ export function isSivilstatusWithGjenlevenderett(
 export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
+	erEndring,
 }: {
 	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
+	erEndring: boolean
 }): boolean {
-	if (!sivilstatus) return false
+	if (!sivilstatus || erEndring) return false
 
 	return (
 		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett

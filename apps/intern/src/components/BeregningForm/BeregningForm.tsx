@@ -22,6 +22,7 @@ import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { OpplysningerFraVedtak } from '../OpplysningerFraVedtak/OpplysningerFraVedtak'
 import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
@@ -57,6 +58,7 @@ export const BeregningForm = () => {
 		resetForm,
 		person,
 		beregning,
+		loependeVedtak,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
@@ -142,9 +144,13 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
+	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
+	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
+	const showAfpSpørsmål = !beregnMedGjenlevenderett && !harVedtakPrivatAFP
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
+				{erEndring && <OpplysningerFraVedtak loependeVedtak={loependeVedtak} />}
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
@@ -158,6 +164,7 @@ export const BeregningForm = () => {
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
+					erEndring,
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
@@ -198,10 +205,12 @@ export const BeregningForm = () => {
 					/>
 				)}
 				<Divider noMargin />
-				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+				{!erEndring && (
+					<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+				)}
 
 				<Divider noMargin />
-				{!beregnMedGjenlevenderett && (
+				{showAfpSpørsmål && (
 					<>
 						<RHFRadio
 							name="afp"
