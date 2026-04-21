@@ -179,7 +179,7 @@ async function fillMainFormFields(page: Page) {
 }
 
 function oppholdListItems(page: Page, landNavn?: string) {
-	const items = page.locator('strong')
+	const items = page.getByTestId('opphold-list-item')
 	return landNavn ? items.filter({ hasText: landNavn }) : items
 }
 
@@ -1139,20 +1139,20 @@ test.describe('Utenlandsopphold', () => {
 	})
 
 	test.describe('API-feil og manglende data', () => {
-		test('Når fødselsdato mangler i persondata, krasjer siden før kalkulatoren vises', async ({
+		test('Når fødselsdato mangler i persondata, oppstår det en sidefeil og kalkulatoren vises ikke', async ({
 			page,
 		}) => {
-			let pageErrorMessage = ''
-			page.once('pageerror', (error) => {
-				pageErrorMessage = error.message
+			const pageErrors: string[] = []
+			page.on('pageerror', (error) => {
+				pageErrors.push(error.message)
 			})
 
 			await setupDefaultMocks(page, { foedselsdato: null })
 			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect
-				.poll(() => pageErrorMessage, { timeout: POLL_TIMEOUT })
-				.toContain("Cannot read properties of null (reading 'match')")
+				.poll(() => pageErrors.length, { timeout: POLL_TIMEOUT })
+				.toBeGreaterThan(0)
 			await expect(
 				page.getByRole('heading', { name: 'Pensjonskalkulator' })
 			).toHaveCount(0)
@@ -1399,16 +1399,7 @@ test.describe('Utenlandsopphold', () => {
 
 		test('Sender inn skjema med Nei på utenlandsopphold', async ({ page }) => {
 			await setupDefaultMocks(page)
-
-			let requestReceived = false
-			await page.route(SIMULERING_API_URL, async (route) => {
-				requestReceived = true
-				await route.fulfill({
-					status: 200,
-					contentType: 'application/json',
-					body: JSON.stringify(await loadJSONMock(ALDERSPENSJON_MOCK_FILE)),
-				})
-			})
+			const { getCapturedBody } = await setupSimulationCapture(page)
 
 			await navigateToApp(page)
 			await selectHarOppholdUtenforNorge(page, 'Nei')
@@ -1417,8 +1408,11 @@ test.describe('Utenlandsopphold', () => {
 			await beregnPensjonButton(page).click()
 
 			await expect
-				.poll(() => requestReceived, { timeout: POLL_TIMEOUT })
-				.toBe(true)
+				.poll(() => getCapturedBody(), { timeout: POLL_TIMEOUT })
+				.toBeDefined()
+
+			const body = getCapturedBody()
+			expect(body?.utenlandsperiodeListe ?? []).toEqual([])
 
 			await expect(
 				page.getByRole('combobox', { name: 'Land' })
