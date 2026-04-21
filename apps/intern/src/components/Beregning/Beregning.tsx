@@ -112,7 +112,7 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertMaanedligAlderspensjon && (
+				{gradertMaanedligAlderspensjon && erGradert && (
 					<>
 						<BeregningSection
 							title={titleGradertUttak || ''}
@@ -129,6 +129,7 @@ export const Beregning = () => {
 							isGradert
 						/>
 						{harAfpPrivat &&
+							erGradert &&
 							(heltUttakAlder.aar ?? 0) > 67 &&
 							(gradertUttakAlder?.aar ?? 0) < 67 && (
 								<BeregningSection

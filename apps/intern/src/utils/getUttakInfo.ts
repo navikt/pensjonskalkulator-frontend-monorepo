@@ -6,7 +6,8 @@ export function getUttakInfo(aktivBeregning: BeregningParams | null) {
 	const erGradert =
 		aktivBeregning !== null &&
 		aktivBeregning.uttaksgrad !== null &&
-		aktivBeregning.uttaksgrad < 100
+		aktivBeregning.uttaksgrad < 100 &&
+		aktivBeregning.uttaksgrad !== 0
 
 	const heltUttakAar = erGradert
 		? aktivBeregning.alderAarHeltUttak

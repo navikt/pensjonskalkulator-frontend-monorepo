@@ -67,12 +67,12 @@ export const BeregningForm = () => {
 	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
 	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
 
-	if (erEndring) {
-		useEffect(() => {
+	useEffect(() => {
+		if (erEndring) {
 			form.setValue('endringAfpPrivat', harVedtakPrivatAFP)
 			form.setValue('endringAP', !harVedtakPrivatAFP)
-		}, [erEndring, harVedtakPrivatAFP, form])
-	}
+		}
+	}, [erEndring, harVedtakPrivatAFP, form])
 
 	const { control } = form
 
@@ -156,6 +156,10 @@ export const BeregningForm = () => {
 			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
 			heltUttakAlder
 		)
+
+	const uttaksGradArray = erEndring
+		? [0, 20, 40, 50, 60, 80, 100]
+		: [20, 40, 50, 60, 80, 100]
 
 	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
 	return (
@@ -302,7 +306,7 @@ export const BeregningForm = () => {
 					numeric
 				>
 					{uttaksgrad == null && <option value="" />}
-					{[20, 40, 50, 60, 80, 100].map((grad) => (
+					{uttaksGradArray.map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
 						</option>

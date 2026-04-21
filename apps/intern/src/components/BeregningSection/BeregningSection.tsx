@@ -71,11 +71,13 @@ export const BeregningSection = ({
 						valueHeader="Kr per måned"
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
 					/>
-					<BeregningTableWithSum
-						title="Alderspensjon og AFP"
-						valueHeader="Kr per måned"
-						addToSum={totalAddToSum}
-					/>
+					{alderspensjonGrad && (
+						<BeregningTableWithSum
+							title="Alderspensjon og AFP"
+							valueHeader="Kr per måned"
+							addToSum={totalAddToSum}
+						/>
+					)}
 				</VStack>
 			)}
 		</div>
