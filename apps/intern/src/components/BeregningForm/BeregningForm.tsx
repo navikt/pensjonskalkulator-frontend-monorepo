@@ -220,42 +220,44 @@ export const BeregningForm = () => {
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativHelt &&
 					!alertDismissed && (
-						<SanityAlert
-							id={
-								sanityTextGradert
-									? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
-									: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
-							}
-							className={styles.sanityAlert}
-							dynamicValues={{
-								grad: visGradert
-									? String(
-											beregning.vilkaarsproevingsresultat?.alternativ
-												?.uttaksgrad ?? 100
-										)
-									: '100',
-								alder:
-									visGradert && vilkaarAlternativGradert
+						<div data-testid="vilkaarsproeving-alert">
+							<SanityAlert
+								id={
+									sanityTextGradert
+										? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+										: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+								}
+								className={styles.sanityAlert}
+								dynamicValues={{
+									grad: visGradert
+										? String(
+												beregning.vilkaarsproevingsresultat?.alternativ
+													?.uttaksgrad ?? 100
+											)
+										: '100',
+									alder:
+										visGradert && vilkaarAlternativGradert
+											? formaterAlderString(
+													vilkaarAlternativGradert.aar,
+													vilkaarAlternativGradert.maaneder
+												)
+											: formaterAlderString(
+													vilkaarAlternativHelt.aar,
+													vilkaarAlternativHelt.maaneder
+												),
+									grad_gradert: String(
+										beregning.vilkaarsproevingsresultat?.alternativ
+											?.uttaksgrad ?? 100
+									),
+									gradert_alder: vilkaarAlternativGradert
 										? formaterAlderString(
 												vilkaarAlternativGradert.aar,
 												vilkaarAlternativGradert.maaneder
 											)
-										: formaterAlderString(
-												vilkaarAlternativHelt.aar,
-												vilkaarAlternativHelt.maaneder
-											),
-								grad_gradert: String(
-									beregning.vilkaarsproevingsresultat?.alternativ?.uttaksgrad ??
-										100
-								),
-								gradert_alder: vilkaarAlternativGradert
-									? formaterAlderString(
-											vilkaarAlternativGradert.aar,
-											vilkaarAlternativGradert.maaneder
-										)
-									: '',
-							}}
-						/>
+										: '',
+								}}
+							/>
+						</div>
 					)}
 				<RHFTextField
 					name="aarligInntektFoerUttakBeloep"
