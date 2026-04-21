@@ -1,7 +1,4 @@
-import type {
-	SimuleringAlderspensjon,
-	SimuleringMaanedligAlderspensjon,
-} from '@pensjonskalkulator-frontend-monorepo/types'
+import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
@@ -13,7 +10,6 @@ import {
 
 interface AlderspensjonTablesProps {
 	entry: SimuleringMaanedligAlderspensjon
-	yearlyEntry: SimuleringAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
@@ -26,7 +22,6 @@ interface AlderspensjonTablesProps {
 
 export const AlderspensjonTables = ({
 	entry,
-	yearlyEntry,
 	erFoedtFoer1963,
 	erOvergangskull,
 	erFoedtEtter1963,
@@ -42,7 +37,6 @@ export const AlderspensjonTables = ({
 			valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 			rows={mapAlderspensjonToRows(
 				entry,
-				yearlyEntry,
 				!!erFoedtFoer1963,
 				!!erOvergangskull || !!erFoedtEtter1963,
 				simulererMedGjenlevenderett

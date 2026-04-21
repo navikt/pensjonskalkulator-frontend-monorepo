@@ -22,35 +22,33 @@ const formatAar = (value?: number | null): string =>
 
 export function mapAlderspensjonToRows(
 	entry: SimuleringMaanedligAlderspensjon,
-	yearlyEntry: SimuleringMaanedligAlderspensjon,
 	visKap19: boolean,
 	visKap20: boolean,
 	simulererMedGjenlevenderett: boolean
 ): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
-	const yearlySkjermingstillegg = Math.round(yearlyEntry.skjermingstillegg ?? 0)
 	return [
 		...(visKap19
 			? [
 					{
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
-						yearlyValue: Math.round(yearlyEntry.grunnpensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
-						yearlyValue: Math.round(yearlyEntry.tilleggspensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
-						yearlyValue: Math.round(yearlyEntry.pensjonstillegg ?? 0),
+						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
 						value: Math.round(entry.gjenlevendetillegg ?? 0),
-						yearlyValue: Math.round(yearlyEntry.gjenlevendetillegg ?? 0),
+						yearlyValue: Math.round(entry.gjenlevendetillegg ?? 0) * 12,
 						hide: !simulererMedGjenlevenderett,
 						showWhenZero: true,
 					},
@@ -61,24 +59,24 @@ export function mapAlderspensjonToRows(
 					{
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
-						yearlyValue: Math.round(yearlyEntry.inntektspensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
-						yearlyValue: Math.round(yearlyEntry.garantipensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
 						value: Math.round(entry.garantitilleggBeloep ?? 0),
-						yearlyValue: Math.round(yearlyEntry.garantitilleggBeloep ?? 0),
+						yearlyValue: Math.round(entry.garantitilleggBeloep ?? 0) * 12,
 					},
 				]
 			: []),
 		{
 			label: 'Skjermingstillegg',
 			value: skjermingstillegg,
-			yearlyValue: yearlySkjermingstillegg,
+			yearlyValue: skjermingstillegg * 12,
 			hide: skjermingstillegg <= 0,
 		},
 	]

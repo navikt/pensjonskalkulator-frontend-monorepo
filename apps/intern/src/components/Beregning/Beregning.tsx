@@ -70,20 +70,6 @@ export const Beregning = () => {
 	const normertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
-	const helAarligAlderspensjon = beregning.alderspensjonListe.find(
-		(entry) => entry.alderAar === heltUttakAlder.aar
-	)
-
-	const gradertAarligAlderspensjon = erGradert
-		? beregning.alderspensjonListe.find(
-				(entry) => entry.alderAar === gradertUttakAlder?.aar
-			)
-		: undefined
-
-	const normertAarligAlderspensjon = beregning.alderspensjonListe.find(
-		(entry) => entry.alderAar === 67
-	)
-
 	const titleHeltUttak =
 		aktivBeregning &&
 		formatAlderTitle(
@@ -143,7 +129,6 @@ export const Beregning = () => {
 							title={titleGradertUttak || ''}
 							{...sectionCommonProps}
 							entry={gradertMaanedligAlderspensjon}
-							yearlyEntry={gradertAarligAlderspensjon}
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedGradertUttak}
 							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
@@ -163,7 +148,6 @@ export const Beregning = () => {
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
 									visAarsbelop={visAarsbelop}
-									yearlyEntry={normertAarligAlderspensjon}
 								/>
 							)}
 					</>
@@ -177,7 +161,6 @@ export const Beregning = () => {
 					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 					alderspensjonGrad={100}
 					visAarsbelop={visAarsbelop}
-					yearlyEntry={helAarligAlderspensjon}
 				/>
 				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
 					<BeregningSection
@@ -188,7 +171,6 @@ export const Beregning = () => {
 						afpEntry={afpPrivatVed67Aar}
 						alderspensjonGrad={100}
 						visAarsbelop={visAarsbelop}
-						yearlyEntry={normertAarligAlderspensjon}
 					/>
 				)}
 			</VStack>

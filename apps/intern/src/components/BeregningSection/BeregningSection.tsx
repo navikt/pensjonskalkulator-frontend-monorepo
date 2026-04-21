@@ -1,6 +1,5 @@
 import type {
 	SimuleringAfpPrivat,
-	SimuleringAlderspensjon,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
@@ -22,7 +21,6 @@ interface BeregningSectionProps {
 	title: string
 	tableCount: number
 	entry?: SimuleringMaanedligAlderspensjon
-	yearlyEntry?: SimuleringAlderspensjon
 	erFoedtFoer1963?: boolean | null
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
@@ -40,7 +38,6 @@ export const BeregningSection = ({
 	title,
 	tableCount,
 	entry,
-	yearlyEntry,
 	erFoedtFoer1963,
 	erOvergangskull,
 	erFoedtEtter1963,
@@ -54,16 +51,14 @@ export const BeregningSection = ({
 	visAarsbelop = false,
 }: BeregningSectionProps) => {
 	const afpRows = mapPrivatAfp(afpEntry, visKronetillegg)
-	const alderspensjonRows =
-		entry && yearlyEntry
-			? mapAlderspensjonToRows(
-					entry,
-					yearlyEntry,
-					!!erFoedtFoer1963,
-					!!erOvergangskull || !!erFoedtEtter1963,
-					simulererMedGjenlevenderett
-				)
-			: []
+	const alderspensjonRows = entry
+		? mapAlderspensjonToRows(
+				entry,
+				!!erFoedtFoer1963,
+				!!erOvergangskull || !!erFoedtEtter1963,
+				simulererMedGjenlevenderett
+			)
+		: []
 
 	return (
 		<VStack gap="space-12">
@@ -74,10 +69,9 @@ export const BeregningSection = ({
 				className={styles.tableGrid}
 				style={{ '--table-columns': tableCount } as React.CSSProperties}
 			>
-				{entry && yearlyEntry && (
+				{entry && (
 					<AlderspensjonTables
 						entry={entry}
-						yearlyEntry={yearlyEntry}
 						erFoedtFoer1963={erFoedtFoer1963}
 						erOvergangskull={erOvergangskull}
 						erFoedtEtter1963={erFoedtEtter1963}
