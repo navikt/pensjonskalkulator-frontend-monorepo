@@ -212,6 +212,7 @@ export const BeregningForm = () => {
 								{ value: 'nei', label: 'Nei' },
 							]}
 							className={styles.horizontalRadioGroup}
+							testid="afp"
 						/>
 						<Divider noMargin />
 					</>

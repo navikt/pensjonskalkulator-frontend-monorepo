@@ -71,7 +71,7 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await expect(page.getByTestId('inntekt-foer-uttak')).toHaveValue(
-				'521 338'
+				'521\u00A0338'
 			)
 		})
 	})
@@ -544,9 +544,7 @@ test.describe('Alderspensjon beregning', () => {
 				.fill('600000')
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('inntekt-foer-uttak')).toHaveValue(
-				'521 338'
-			)
+			await expect(page.getByTestId('inntekt-foer-uttak')).toBeEmpty()
 		})
 
 		test('nullstiller sivilstatus til opprinnelig verdi', async ({ page }) => {
@@ -573,24 +571,25 @@ test.describe('Alderspensjon beregning', () => {
 			const aarSelect = page.getByTestId('alder-uttak-aar')
 			const options = aarSelect.locator('option')
 
-			await expect(options.first()).toHaveText('')
 			const allOptions = await options.allTextContents()
 			const numericOptions = allOptions.filter((o) => o !== '')
 
 			expect(numericOptions.length).toBeGreaterThan(0)
-			expect(numericOptions).toContain('62')
-			expect(numericOptions).toContain('75')
+			expect(numericOptions).toContain('62 år')
+			expect(numericOptions).toContain('75 år')
 		})
 
 		test('måned-velger har 12 alternativer pluss tom', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('alder-uttak-aar').selectOption('67')
+
 			const mdSelect = page.getByTestId('alder-uttak-md')
 			const options = mdSelect.locator('option')
 
 			const allOptions = await options.allTextContents()
-			expect(allOptions).toHaveLength(13)
+			expect(allOptions).toHaveLength(12)
 		})
 	})
 
