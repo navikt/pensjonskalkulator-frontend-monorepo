@@ -64,6 +64,16 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
+	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
+	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
+
+	if (erEndring) {
+		useEffect(() => {
+			form.setValue('endringAfpPrivat', harVedtakPrivatAFP)
+			form.setValue('endringAP', !harVedtakPrivatAFP)
+		}, [erEndring, harVedtakPrivatAFP, form])
+	}
+
 	const { control } = form
 
 	const [
@@ -109,7 +119,10 @@ export const BeregningForm = () => {
 		if (normalizedFormData !== formData) {
 			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
 		}
-		const errors = validate(normalizedFormData)
+		const errors = validate(normalizedFormData, {
+			erEndring,
+			hideAfpSporsmaal,
+		})
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
@@ -144,9 +157,7 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
-	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
-	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
-	const showAfpSpørsmål = !beregnMedGjenlevenderett && !harVedtakPrivatAFP
+	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -184,7 +195,11 @@ export const BeregningForm = () => {
 					</RHFSelect>
 				)}
 
-				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
+				{showEpsHarPensjon({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+					erEndring,
+				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
 						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
@@ -196,21 +211,26 @@ export const BeregningForm = () => {
 					sivilstatus,
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
+					erEndring,
 				}) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						data-testid="eps-inntekt-over-2G"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
+					<>
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							data-testid="eps-inntekt-over-2G"
+							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
 				)}
-				<Divider noMargin />
 				{!erEndring && (
-					<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+					<>
+						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+						<Divider noMargin />
+					</>
 				)}
 
-				<Divider noMargin />
-				{showAfpSpørsmål && (
+				{!hideAfpSporsmaal && (
 					<>
 						<RHFRadio
 							name="afp"
