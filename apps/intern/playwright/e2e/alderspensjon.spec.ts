@@ -41,6 +41,21 @@ async function fillMainFormFields(page: Page) {
 	await page.getByTestId('alder-uttak-aar').selectOption('67')
 	await page.getByTestId('alder-uttak-md').selectOption('3')
 	await page.getByTestId('uttaksgrad').selectOption('100')
+	await page.getByTestId('har-opphold-utenfor-norge').getByLabel('Nei').check()
+	await page.getByTestId('har-inntekt-vsa-helt-uttak').getByLabel('Nei').check()
+}
+
+async function submitAndExpectSimulering(page: Page) {
+	const simuleringResponse = page.waitForResponse(
+		(response) =>
+			response.url().includes('/api/intern/v1/pensjon/simulering') &&
+			response.request().method() === 'POST'
+	)
+
+	await page.getByTestId('beregn-button').click()
+
+	const response = await simuleringResponse
+	expect(response.ok()).toBeTruthy()
 }
 
 test.describe('Alderspensjon beregning', () => {
@@ -376,10 +391,12 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page
+				.getByTestId('eps-har-inntekt-over-2g')
+				.getByLabel('Nei')
+				.check()
 			await fillMainFormFields(page)
-			await page.getByTestId('beregn-button').click()
-
-			await expect(page.getByText('Beregning')).toBeVisible()
+			await submitAndExpectSimulering(page)
 		})
 
 		test('sender beregning med gradert uttak', async ({ page }) => {
@@ -388,7 +405,15 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page
+				.getByTestId('eps-har-inntekt-over-2g')
+				.getByLabel('Nei')
+				.check()
 			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page
+				.getByTestId('har-opphold-utenfor-norge')
+				.getByLabel('Nei')
+				.check()
 			await page
 				.getByTestId('inntekt-foer-uttak')
 
@@ -414,12 +439,14 @@ test.describe('Alderspensjon beregning', () => {
 				.getByTestId('alder-helt-uttak-md')
 
 				.selectOption('0')
-			await page.getByTestId('beregn-button').click()
-
-			await expect(page.getByText('Beregning')).toBeVisible()
+			await page
+				.getByTestId('har-inntekt-vsa-helt-uttak')
+				.getByLabel('Nei')
+				.check()
+			await submitAndExpectSimulering(page)
 		})
 
-		test('sender beregning med partner som har pensjon og inntekt over 2G', async ({
+		test('sender beregning med partner uten pensjon og inntekt over 2G', async ({
 			page,
 		}) => {
 			await setupDefaultMocks(page)
@@ -427,11 +454,9 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
 			await fillMainFormFields(page)
-			await page.getByTestId('beregn-button').click()
-
-			await expect(page.getByText('Beregning')).toBeVisible()
+			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').click()
+			await submitAndExpectSimulering(page)
 		})
 
 		test('sender beregning med inntekt ved siden av 100 % uttak', async ({
@@ -442,7 +467,15 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page
+				.getByTestId('eps-har-inntekt-over-2g')
+				.getByLabel('Nei')
+				.check()
 			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page
+				.getByTestId('har-opphold-utenfor-norge')
+				.getByLabel('Nei')
+				.check()
 			await page
 				.getByTestId('inntekt-foer-uttak')
 
@@ -472,9 +505,7 @@ test.describe('Alderspensjon beregning', () => {
 				.getByTestId('alder-inntekt-slutter-md')
 
 				.selectOption('0')
-			await page.getByTestId('beregn-button').click()
-
-			await expect(page.getByText('Beregning')).toBeVisible()
+			await submitAndExpectSimulering(page)
 		})
 
 		test('sender beregning med AFP privat', async ({ page }) => {
@@ -483,6 +514,14 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page
+				.getByTestId('eps-har-inntekt-over-2g')
+				.getByLabel('Nei')
+				.check()
+			await page
+				.getByTestId('har-opphold-utenfor-norge')
+				.getByLabel('Nei')
+				.check()
 			await page.getByTestId('afp').getByLabel('Ja, privat').check()
 			await page
 				.getByTestId('inntekt-foer-uttak')
@@ -497,9 +536,11 @@ test.describe('Alderspensjon beregning', () => {
 
 				.selectOption('3')
 			await page.getByTestId('uttaksgrad').selectOption('100')
-			await page.getByTestId('beregn-button').click()
-
-			await expect(page.getByText('Beregning')).toBeVisible()
+			await page
+				.getByTestId('har-inntekt-vsa-helt-uttak')
+				.getByLabel('Nei')
+				.check()
+			await submitAndExpectSimulering(page)
 		})
 	})
 
@@ -532,9 +573,7 @@ test.describe('Alderspensjon beregning', () => {
 			await expect(page.getByTestId('alder-uttak-md')).toHaveValue('')
 		})
 
-		test('tilbakestiller inntekt til opprinnelig verdi etter nullstilling', async ({
-			page,
-		}) => {
+		test('tømmer inntekt-feltet etter nullstilling', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
