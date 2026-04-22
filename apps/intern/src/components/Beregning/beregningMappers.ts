@@ -1,6 +1,7 @@
 import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
+	TidsbegrensetOffentligAFP,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningDetailRow } from './BeregningDetailTable'
@@ -206,4 +207,71 @@ export function formatAlderTitle(aar: number, md: number): string {
 			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
 			: `${aar} år`
 	return `Pensjon ved ${alderText}`
+}
+
+export function mapTidsbegrensetAfpToRows(
+	entry: TidsbegrensetOffentligAFP
+): BeregningTableRow[] {
+	return [
+		{
+			label: 'Grunnpensjon',
+			value: Math.round(entry.grunnpensjon),
+			yearlyValue: Math.round(entry.grunnpensjon) * 12,
+		},
+		{
+			label: 'Tilleggspensjon',
+			value: Math.round(entry.tilleggspensjon),
+			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
+		},
+		{
+			label: 'AFP-tillegg',
+			value: Math.round(entry.afpTillegg),
+			yearlyValue: Math.round(entry.afpTillegg) * 12,
+		},
+		{
+			label: 'Særtillegg',
+			value: Math.round(entry.saertillegg),
+			yearlyValue: Math.round(entry.saertillegg) * 12,
+		},
+	]
+}
+
+export function mapTidsbegrensetAfpOpptjeningToRows(
+	entry: TidsbegrensetOffentligAFP
+): BeregningDetailRow[] {
+	const totalPoengaar = entry.poengaarTom1991 + entry.poengaarFom1992
+	return [
+		{
+			label: 'AFP grad',
+			value: `${entry.afpGrad} %`,
+		},
+		{
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbeloep),
+		},
+		{
+			label: 'Tidligere arbeidsinntekt',
+			value: formatKr(entry.tidligereArbeidsinntekt),
+		},
+		{
+			label: 'Sluttpoengtall',
+			value: formatNumber(entry.sluttpoengtall, 2),
+		},
+		{
+			label: 'Poengår',
+			value: `${totalPoengaar} år`,
+		},
+		{
+			label: 'Trygdetid',
+			value: formatAar(entry.trygdetid),
+		},
+		{
+			label: 'Poengår før 1992 (45 %)',
+			value: `${entry.poengaarTom1991} av ${totalPoengaar} år`,
+		},
+		{
+			label: 'Poengår etter 1991 (42 %)',
+			value: `${entry.poengaarFom1992} av ${totalPoengaar} år`,
+		},
+	]
 }
