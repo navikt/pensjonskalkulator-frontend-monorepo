@@ -5,7 +5,11 @@ import { useIntl } from 'react-intl'
 
 import type { SeriesConfig } from '../data/data'
 import { generateSeries } from '../data/data'
-import { getChartOptions, onPointUnclick } from '../utils-highcharts'
+import {
+  clearPendingRenderTimeouts,
+  getChartOptions,
+  onPointUnclick,
+} from '../utils-highcharts'
 
 import styles from '../Simulering.module.scss'
 
@@ -62,6 +66,7 @@ const Graph = ({
     document.addEventListener('click', onPointUnclickEventHandler)
     return () => {
       document.removeEventListener('click', onPointUnclickEventHandler)
+      clearPendingRenderTimeouts()
     }
   }, [])
 

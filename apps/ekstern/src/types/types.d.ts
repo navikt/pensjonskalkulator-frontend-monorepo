@@ -96,14 +96,14 @@ declare global {
     components['schemas']['PersonligSimuleringHeltUttakSpecV9'],
     'aarligInntektVsaPensjon'
   > & {
-    aarligInntektVsaPensjon?: AarligInntektVsaPensjon
+    aarligInntektVsaPensjon?: AarligInntektVsaPensjon | null
   }
 
   type GradertUttak = Omit<
     components['schemas']['PersonligSimuleringGradertUttakSpecV9'],
     'aarligInntektVsaPensjonBeloep'
   > & {
-    aarligInntektVsaPensjonBeloep?: string
+    aarligInntektVsaPensjonBeloep?: string | null
   }
   type AfpPrivatPensjonsberegning =
     components['schemas']['PersonligSimuleringAfpPrivatResultV9']

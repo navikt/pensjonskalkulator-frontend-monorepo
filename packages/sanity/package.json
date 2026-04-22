@@ -15,23 +15,23 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@navikt/aksel-icons": "^7.31.0",
-		"@navikt/ds-react": "^7.31.0",
-		"@portabletext/react": "^3.2.1",
-		"@sanity/client": "^7.8.2",
-		"@sanity/color-input": "6.0.4",
-		"@sanity/document-internationalization": "5.0.2",
-		"sanity-plugin-internationalized-array": "4.0.3",
-		"@sanity/icons": "^3.7.4",
-		"@sanity/ui": "^3.0.7",
-		"@sanity/vision": "^4.4.1",
-		"clsx": "^2.1.1",
-		"react": "^19.0.0",
-		"react-intl": "7.1.11",
-		"sanity": "5.11.0",
-		"styled-components": "^6.1.19"
+		"@navikt/aksel-icons": "catalog:",
+		"@navikt/ds-react": "catalog:",
+		"@portabletext/react": "catalog:",
+		"@sanity/client": "catalog:",
+		"@sanity/color-input": "catalog:",
+		"@sanity/document-internationalization": "catalog:",
+		"sanity-plugin-internationalized-array": "catalog:",
+		"@sanity/icons": "catalog:",
+		"@sanity/ui": "catalog:",
+		"@sanity/vision": "catalog:",
+		"clsx": "catalog:",
+		"react": "catalog:",
+		"react-intl": "catalog:",
+		"sanity": "catalog:",
+		"styled-components": "catalog:"
 	},
 	"devDependencies": {
-		"sass-embedded": "^1.90.0"
+		"sass-embedded": "catalog:"
 	}
 }

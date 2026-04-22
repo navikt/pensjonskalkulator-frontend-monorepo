@@ -5,7 +5,7 @@
 	"packageManager": "pnpm@10.28.2",
 	"type": "module",
 	"engines": {
-		"node": ">=18.0.0",
+		"node": "^20.19.0 || >=22.12.0",
 		"pnpm": ">=9.0.0"
 	},
 	"scripts": {
@@ -33,47 +33,41 @@
 		]
 	},
 	"dependencies": {
-		"@navikt/ds-react": "^7.31.0",
-		"@sanity/color-input": "6.0.4",
-		"@sanity/document-internationalization": "5.0.2",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
-		"sanity": "5.11.0",
-		"sanity-plugin-internationalized-array": "4.0.3"
+		"@navikt/ds-react": "catalog:",
+		"@sanity/color-input": "catalog:",
+		"@sanity/document-internationalization": "catalog:",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"sanity": "catalog:",
+		"sanity-plugin-internationalized-array": "catalog:"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.39.2",
-		"@playwright/test": "^1.58.0",
-		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"@eslint/js": "9.39.2",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
-		"@types/react": "^19.2.10",
-		"@types/react-dom": "^19.2.3",
-		"eslint": "^9.39.2",
-		"eslint-plugin-react-hooks": "^7.0.1",
-		"globals": "^17.2.0",
-		"husky": "^9.1.7",
-		"lint-staged": "^16.2.7",
-		"prettier": "^3.8.1",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.54.0",
-		"vitest": "^3.2.4"
+		"@playwright/test": "catalog:",
+		"@trivago/prettier-plugin-sort-imports": "6.0.2",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"eslint": "9.39.2",
+		"eslint-plugin-react-hooks": "7.0.1",
+		"globals": "17.2.0",
+		"husky": "9.1.7",
+		"lint-staged": "16.2.7",
+		"prettier": "3.8.1",
+		"typescript": "catalog:",
+		"typescript-eslint": "8.54.0",
+		"vitest": "catalog:"
 	},
 	"pnpm": {
 		"overrides": {
-			"react": "$react",
-			"react-dom": "$react-dom",
-			"@types/react": "$@types/react",
-			"@types/react-dom": "$@types/react-dom",
+			"react": "catalog:",
+			"react-dom": "catalog:",
+			"@types/react": "catalog:",
+			"@types/react-dom": "catalog:",
 			"minimatch@<3.1.4": "3.1.4",
 			"minimatch@>=5 <5.1.8": "5.1.8",
 			"minimatch@>=9 <9.0.7": "9.0.7",
-			"minimatch@>=10 <10.2.3": "10.2.3",
-			"rollup@>=4 <4.59.0": "4.59.0",
-			"rollup@<2.80.0": "2.80.0",
-			"basic-ftp": ">=5.2.0",
-			"ajv@<6.14.0": "6.14.0",
-			"ajv@>=7.0.0-alpha.0 <8.18.0": "8.18.0",
-			"express>qs": ">=6.14.2"
+			"minimatch@>=10 <10.2.3": "10.2.3"
 		}
 	}
 }
