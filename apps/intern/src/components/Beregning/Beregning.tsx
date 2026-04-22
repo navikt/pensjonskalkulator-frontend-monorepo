@@ -68,13 +68,14 @@ export const Beregning = () => {
 	const normertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
+	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
 	const titleHeltUttak =
 		aktivBeregning &&
 		formatAlderTitle(
-			erGradert
+			erGradert || erUttaksgradNull
 				? (aktivBeregning.alderAarHeltUttak ?? 0)
 				: (aktivBeregning.alderAarUttak ?? 0),
-			erGradert
+			erGradert || erUttaksgradNull
 				? (aktivBeregning.alderMdHeltUttak ?? 0)
 				: (aktivBeregning.alderMdUttak ?? 0)
 		)
@@ -85,7 +86,9 @@ export const Beregning = () => {
 			aktivBeregning.alderMdUttak ?? 0
 		)
 
-	const harAfpPrivat = aktivBeregning?.afp === 'ja_privat'
+	const harAfpPrivat =
+		aktivBeregning?.afp === 'ja_privat' ||
+		aktivBeregning?.endringAfpPrivat === true
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
@@ -112,7 +115,7 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertMaanedligAlderspensjon && erGradert && (
+				{gradertMaanedligAlderspensjon && (
 					<>
 						<BeregningSection
 							title={titleGradertUttak || ''}
@@ -127,9 +130,9 @@ export const Beregning = () => {
 							}
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 							isGradert
+							erUttaksgradNull={erUttaksgradNull}
 						/>
 						{harAfpPrivat &&
-							erGradert &&
 							(heltUttakAlder.aar ?? 0) > 67 &&
 							(gradertUttakAlder?.aar ?? 0) < 67 && (
 								<BeregningSection
