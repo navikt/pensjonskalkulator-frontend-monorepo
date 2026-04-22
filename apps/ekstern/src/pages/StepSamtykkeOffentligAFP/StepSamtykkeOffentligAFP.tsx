@@ -28,6 +28,9 @@ export function StepSamtykkeOffentligAFP() {
 
   const onNext = (samtykkeData: BooleanRadio) => {
     const samtykke = samtykkeData === 'ja'
+    if (samtykke !== harSamtykketOffentligAFP) {
+      dispatch(userInputActions.flushCurrentSimulation())
+    }
     dispatch(userInputActions.setSamtykkeOffentligAFP(samtykke))
     if (onStegvisningNext) {
       onStegvisningNext()

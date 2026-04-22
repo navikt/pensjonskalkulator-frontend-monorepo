@@ -31,6 +31,9 @@ export function StepSamtykkePensjonsavtaler() {
 
   const onNext = (samtykkeData: BooleanRadio) => {
     const samtykke = samtykkeData === 'ja'
+    if (samtykke !== harSamtykket) {
+      dispatch(userInputActions.flushCurrentSimulation())
+    }
     dispatch(userInputActions.setSamtykke(samtykke))
     if (!samtykke) {
       dispatch(apiSlice.util.invalidateTags(['OffentligTp', 'Pensjonsavtaler']))
