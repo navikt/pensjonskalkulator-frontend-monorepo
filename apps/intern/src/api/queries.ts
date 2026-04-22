@@ -254,13 +254,14 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	params: BeregningParams | null
+	params: BeregningParams | null,
+	person?: PersonInternV1
 ) {
 	return useQuery({
 		queryKey: ['beregning', fnr, params],
 		queryFn:
 			fnr && params
-				? () => fetchBeregning(fnr, mapBeregningParamsToRequest(params))
+				? () => fetchBeregning(fnr, mapBeregningParamsToRequest(params, person))
 				: skipToken,
 		placeholderData: keepPreviousData,
 	})

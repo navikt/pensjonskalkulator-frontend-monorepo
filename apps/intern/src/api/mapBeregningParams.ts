@@ -1,4 +1,5 @@
 import type {
+	PersonInternV1,
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
 	SimuleringsType,
@@ -31,12 +32,15 @@ const mapUtenlandsperiodeListe = (
 	)
 
 export function mapBeregningParamsToRequest(
-	formData: BeregningFormData
+	formData: BeregningFormData,
+	person?: PersonInternV1
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
 		maaneder: formData.alderMdUttak ?? 0,
 	}
+
+	const foedselsdato = new Date(person?.foedselsdato ?? '')
 
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
@@ -75,6 +79,11 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
 	} else if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
+	} else if (
+		formData.afp === 'ja_offentlig' &&
+		foedselsdato.getFullYear() < 1963
+	) {
+		simuleringstype = 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP'
 	}
 
 	const epsPid = formData.epsOpplysninger?.pid

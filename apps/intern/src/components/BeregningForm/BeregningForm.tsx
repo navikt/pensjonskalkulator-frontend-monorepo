@@ -208,6 +208,7 @@ export const BeregningForm = () => {
 							legend="Skal AFP inkluderes?"
 							options={[
 								{ value: 'ja_privat', label: 'Ja, privat' },
+								{ value: 'ja_offentlig', label: 'Ja, offentlig' },
 								{ value: 'nei', label: 'Nei' },
 							]}
 							className={styles.horizontalRadioGroup}

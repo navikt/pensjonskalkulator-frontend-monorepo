@@ -205,7 +205,7 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingBeregning)
+	} = useBeregningQuery(fnr, pendingBeregning, person)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {
