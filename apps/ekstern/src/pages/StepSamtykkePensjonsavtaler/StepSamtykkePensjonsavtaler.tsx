@@ -31,7 +31,7 @@ export function StepSamtykkePensjonsavtaler() {
 
   const onNext = (samtykkeData: BooleanRadio) => {
     const samtykke = samtykkeData === 'ja'
-    if (samtykke !== harSamtykket) {
+    if (harSamtykket !== null && samtykke !== harSamtykket) {
       dispatch(userInputActions.flushCurrentSimulation())
     }
     dispatch(userInputActions.setSamtykke(samtykke))
