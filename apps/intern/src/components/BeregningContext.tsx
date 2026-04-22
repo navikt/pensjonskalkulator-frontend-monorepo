@@ -24,10 +24,12 @@ import {
 	type BeregningResult,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { harPartner } from '../api/formConditions'
+import { harPartner, showAfpOffentligFields } from '../api/formConditions'
+import { mapBeregningParamsToRequest } from '../api/mapBeregningParams'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useGrunnbeloepQuery,
 	useLoependeVedtakQuery,
 	usePersonQuery,
 } from '../api/queries'
@@ -98,6 +100,7 @@ export function BeregningProvider({
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
 	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
+	const { data: grunnbeloep } = useGrunnbeloepQuery()
 
 	const { isDirty: formIsDirty } = form.formState
 	const isDirty =
@@ -110,6 +113,7 @@ export function BeregningProvider({
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
 		beregnMedGjenlevenderett,
+		afp,
 	] = useWatch({
 		control: form.control,
 		name: [
@@ -118,6 +122,7 @@ export function BeregningProvider({
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
 			'beregnMedGjenlevenderett',
+			'afp',
 		] as const,
 	})
 
@@ -136,6 +141,22 @@ export function BeregningProvider({
 			})
 		}
 	}, [beregnMedGjenlevenderett, form])
+
+	useEffect(() => {
+		if (
+			!showAfpOffentligFields({
+				afp,
+				foedselsdato: person?.foedselsdato,
+			})
+		) {
+			form.setValue('inntektSisteMaanedFoerUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('aarsinntektSamtidigMedAfp', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [afp, person?.foedselsdato, form])
 
 	useEffect(() => {
 		if (!harPartner(sivilstatus)) {
@@ -201,11 +222,16 @@ export function BeregningProvider({
 		})
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus, initialSivilstatus])
+
+	const pendingRequest = pendingBeregning
+		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep)
+		: null
+
 	const {
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingBeregning, person)
+	} = useBeregningQuery(fnr, pendingRequest)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {

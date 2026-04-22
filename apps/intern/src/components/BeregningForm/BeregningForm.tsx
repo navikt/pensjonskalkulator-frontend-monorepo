@@ -9,6 +9,7 @@ import { Box } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
+	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showEpsHarPensjon,
 	showGradertUttakFields,
@@ -72,6 +73,7 @@ export const BeregningForm = () => {
 		harInntektVedSidenAvUttak,
 		alderAarUttak,
 		alderMdUttak,
+		afp,
 	] = useWatch({
 		control,
 		name: [
@@ -82,6 +84,7 @@ export const BeregningForm = () => {
 			'harInntektVedSidenAvUttak',
 			'alderAarUttak',
 			'alderMdUttak',
+			'afp',
 		] as const,
 	})
 
@@ -107,7 +110,9 @@ export const BeregningForm = () => {
 		if (normalizedFormData !== formData) {
 			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
 		}
-		const errors = validate(normalizedFormData)
+		const errors = validate(normalizedFormData, {
+			foedselsdato: person?.foedselsdato,
+		})
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
@@ -141,6 +146,11 @@ export const BeregningForm = () => {
 			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
 			heltUttakAlder
 		)
+
+	const erAfpOffentlig = showAfpOffentligFields({
+		afp,
+		foedselsdato: person?.foedselsdato,
+	})
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -267,66 +277,86 @@ export const BeregningForm = () => {
 					foedselsdato={person?.foedselsdato}
 				/>
 
-				<RHFSelect
-					name="uttaksgrad"
-					label="Uttaksgrad"
-					className={styles.selectWrapper}
-					numeric
-				>
-					{uttaksgrad == null && <option value="" />}
-					{[20, 40, 50, 60, 80, 100].map((grad) => (
-						<option key={grad} value={String(grad)}>
-							{grad} %
-						</option>
-					))}
-				</RHFSelect>
-
-				{showGradertUttakFields(uttaksgrad) && (
-					<RHFTextField
-						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-					/>
-				)}
-
-				{showHeltUttakAlder(uttaksgrad) && (
-					<RHFAlderVelger
-						aarName="alderAarHeltUttak"
-						mdName="alderMdHeltUttak"
-						aarLabel="Alder (år) for 100 % uttak"
-						mdLabel="Alder (md.) for 100 % uttak"
-						foedselsdato={person?.foedselsdato}
-						{...(alderAarUttak !== null && alderMdUttak !== null
-							? {
-									minAlder: {
-										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
-										maaneder: (alderMdUttak + 1) % 12,
-									},
-								}
-							: {})}
-					/>
-				)}
-				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
-					<RHFRadio
-						name="harInntektVedSidenAvUttak"
-						legend="Har bruker inntekt ved siden av 100 % uttak?"
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{erAfpOffentlig && (
 					<>
 						<RHFTextField
-							name="pensjonsgivendeInntektVedSidenAvUttak"
-							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+							name="inntektSisteMaanedFoerUttak"
+							label="Inntekt siste måned før uttak"
 						/>
+						<RHFTextField
+							name="aarsinntektSamtidigMedAfp"
+							label="Årsinntekt samtidig med AFP"
+						/>
+					</>
+				)}
 
-						<RHFAlderVelger
-							aarName="alderAarInntektSlutter"
-							mdName="alderMdInntektSlutter"
-							aarLabel="Alder (år) inntekt slutter"
-							mdLabel="Alder (md.) inntekt slutter"
-							foedselsdato={person?.foedselsdato}
-						/>
+				{!erAfpOffentlig && (
+					<>
+						<RHFSelect
+							name="uttaksgrad"
+							label="Uttaksgrad"
+							className={styles.selectWrapper}
+							numeric
+						>
+							{uttaksgrad == null && <option value="" />}
+							{[20, 40, 50, 60, 80, 100].map((grad) => (
+								<option key={grad} value={String(grad)}>
+									{grad} %
+								</option>
+							))}
+						</RHFSelect>
+
+						{showGradertUttakFields(uttaksgrad) && (
+							<RHFTextField
+								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+							/>
+						)}
+
+						{showHeltUttakAlder(uttaksgrad) && (
+							<RHFAlderVelger
+								aarName="alderAarHeltUttak"
+								mdName="alderMdHeltUttak"
+								aarLabel="Alder (år) for 100 % uttak"
+								mdLabel="Alder (md.) for 100 % uttak"
+								foedselsdato={person?.foedselsdato}
+								{...(alderAarUttak !== null && alderMdUttak !== null
+									? {
+											minAlder: {
+												aar:
+													alderMdUttak >= 11
+														? alderAarUttak + 1
+														: alderAarUttak,
+												maaneder: (alderMdUttak + 1) % 12,
+											},
+										}
+									: {})}
+							/>
+						)}
+						{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+							<RHFRadio
+								name="harInntektVedSidenAvUttak"
+								legend="Har bruker inntekt ved siden av 100 % uttak?"
+								className={styles.horizontalRadioGroup}
+							/>
+						)}
+
+						{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+							<>
+								<RHFTextField
+									name="pensjonsgivendeInntektVedSidenAvUttak"
+									label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+								/>
+
+								<RHFAlderVelger
+									aarName="alderAarInntektSlutter"
+									mdName="alderMdInntektSlutter"
+									aarLabel="Alder (år) inntekt slutter"
+									mdLabel="Alder (md.) inntekt slutter"
+									foedselsdato={person?.foedselsdato}
+								/>
+							</>
+						)}
 					</>
 				)}
 			</Box>

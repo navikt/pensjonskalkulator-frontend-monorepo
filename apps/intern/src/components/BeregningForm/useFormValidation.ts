@@ -6,6 +6,7 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
+	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
 	showInntektGradertFields,
@@ -267,6 +268,22 @@ function validateInntektVsaHeltUttak(
 	}
 }
 
+function validateTidsbegrensetOffentligAfp(
+	formData: BeregningFormData,
+	errors: ValidationErrors
+) {
+	validateInntektField({
+		formData,
+		errors,
+		field: 'inntektSisteMaanedFoerUttak',
+	})
+	validateInntektField({
+		formData,
+		errors,
+		field: 'aarsinntektSamtidigMedAfp',
+	})
+}
+
 function validateUtenlandsOpphold(
 	formData: BeregningFormData,
 	errors: ValidationErrors
@@ -298,18 +315,32 @@ export function useFormValidation() {
 	}, [validationErrors])
 
 	const validate = useCallback(
-		(formData: BeregningFormData): ValidationErrors => {
+		(
+			formData: BeregningFormData,
+			options?: { foedselsdato?: string }
+		): ValidationErrors => {
 			const errors: ValidationErrors = {}
+
+			const erAfpOffentlig = showAfpOffentligFields({
+				afp: formData.afp,
+				foedselsdato: options?.foedselsdato,
+			})
 
 			validateGjenlevenderett(formData, errors)
 			validateSivilstand(formData, errors)
 			validateAfp(formData, errors)
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
-			validateUttaksgrad(formData, errors)
-			validateInntektVsaGradertUttak(formData, errors)
-			validateAlderHeltMotGradert(formData, errors)
-			validateInntektVsaHeltUttak(formData, errors)
+
+			if (erAfpOffentlig) {
+				validateTidsbegrensetOffentligAfp(formData, errors)
+			} else {
+				validateUttaksgrad(formData, errors)
+				validateInntektVsaGradertUttak(formData, errors)
+				validateAlderHeltMotGradert(formData, errors)
+				validateInntektVsaHeltUttak(formData, errors)
+			}
+
 			validateUtenlandsOpphold(formData, errors)
 
 			setValidationErrors(errors)

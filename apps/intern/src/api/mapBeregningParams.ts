@@ -15,6 +15,7 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
+import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
@@ -33,7 +34,8 @@ const mapUtenlandsperiodeListe = (
 
 export function mapBeregningParamsToRequest(
 	formData: BeregningFormData,
-	person?: PersonInternV1
+	person?: PersonInternV1,
+	grunnbeloep?: Grunnbeloep
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
@@ -41,6 +43,9 @@ export function mapBeregningParamsToRequest(
 	}
 
 	const foedselsdato = new Date(person?.foedselsdato ?? '')
+
+	const skalBeregneAfpKap19 =
+		formData.afp === 'ja_offentlig' && foedselsdato.getFullYear() < 1963
 
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
@@ -57,7 +62,9 @@ export function mapBeregningParamsToRequest(
 		formData.aarligInntektFoerUttakBeloep ?? undefined
 
 	const grad = formData.uttaksgrad ?? 0
-	const erGradert = grad < 100
+	const erGradert = grad < 100 && grad !== 0
+
+	console.log('Grad', grad)
 
 	const aarligInntektVsaPensjonGradert =
 		erGradert &&
@@ -79,12 +86,13 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
 	} else if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
-	} else if (
-		formData.afp === 'ja_offentlig' &&
-		foedselsdato.getFullYear() < 1963
-	) {
+	} else if (skalBeregneAfpKap19) {
 		simuleringstype = 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP'
 	}
+
+	const inntektVsaAfp = skalBeregneAfpKap19
+		? formData.aarsinntektSamtidigMedAfp
+		: undefined
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
@@ -98,13 +106,16 @@ export function mapBeregningParamsToRequest(
 		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		utenlandsperiodeListe,
-		gradertUttak: erGradert
-			? {
-					grad,
-					uttaksalder,
-					aarligInntektVsaPensjonBeloep: aarligInntektVsaPensjonGradert,
-				}
-			: undefined,
+		gradertUttak:
+			erGradert || skalBeregneAfpKap19
+				? {
+						grad: skalBeregneAfpKap19 ? 100 : grad,
+						uttaksalder: skalBeregneAfpKap19 ? heltUttaksalder : uttaksalder,
+						aarligInntektVsaPensjonBeloep: skalBeregneAfpKap19
+							? inntektVsaAfp
+							: aarligInntektVsaPensjonGradert,
+					}
+				: undefined,
 		heltUttak: {
 			uttaksalder: heltUttaksalder,
 			aarligInntektVsaPensjon:
@@ -143,5 +154,14 @@ export function mapBeregningParamsToRequest(
 						}
 					: undefined,
 		},
+		offentligAfp: skalBeregneAfpKap19
+			? {
+					harInntektMaanedenFoerUttak: formData.inntektSisteMaanedFoerUttak
+						? formData.inntektSisteMaanedFoerUttak >
+							(grunnbeloep?.grunnbeløpPerMaaned ?? 0) / 12
+						: null,
+					afpOrdning: 'STATLIG',
+				}
+			: undefined,
 	}
 }
