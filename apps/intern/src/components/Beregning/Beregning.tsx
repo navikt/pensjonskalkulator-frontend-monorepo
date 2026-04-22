@@ -106,7 +106,11 @@ export const Beregning = () => {
 			position="relative"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
-			<Box position="absolute" right="space-48" top="space-24">
+			<Box
+				position="absolute"
+				right={{ sm: 'space-24', xl: 'space-48' }}
+				top="space-24"
+			>
 				<Checkbox
 					onChange={(e) => setVisAarsbelop(e.target.checked)}
 					size="small"
