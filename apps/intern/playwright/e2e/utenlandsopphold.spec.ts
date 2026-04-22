@@ -1,17 +1,12 @@
 import { type Page, expect, test } from '@playwright/test'
-import { loadJSONMock, mockApi, mockApiError } from 'utils/mock'
 
-const PERSON_API_URL = '**/api/intern/v1/person'
-const DECRYPT_API_URL = '**/api/v1/decrypt'
-const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
-const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
-const INNTEKT_API_URL = '**/api/inntekt'
-const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
-
-const PERSON_MOCK_FILE = 'person-intern.json'
-const LOEPENDE_VEDTAK_MOCK_FILE = 'loepende-vedtak.json'
-const INNTEKT_MOCK_FILE = 'inntekt.json'
-const ALDERSPENSJON_MOCK_FILE = 'alderspensjon.json'
+import { loadJSONMock, mockApiError } from '../utils/mock'
+import {
+	API_URLS,
+	MOCK_FILES,
+	navigateToApp,
+	setupDefaultMocks,
+} from '../utils/test-helpers'
 
 const HAR_OPPHOLD_UTENFOR_NORGE = 'Har bruker opphold utenfor Norge?'
 const JOBBET_I_LANDET = 'Jobbet bruker i landet?'
@@ -60,49 +55,14 @@ type SimuleringPayload = {
 	utenlandsperiodeListe?: SimuleringUtenlandsperiodePayload[]
 }
 
-async function setupDefaultMocks(
-	page: Page,
-	personOverrides?: Record<string, unknown>
-) {
-	await page.route(DECRYPT_API_URL, (route) =>
-		route.fulfill({
-			status: 200,
-			contentType: 'text/plain',
-			body: '04925398980',
-		})
-	)
-	const effectivePersonOverrides = {
-		foedselsdato: TEST_FOEDSELSDATO_ISO,
-		...personOverrides,
-	}
-	await mockApi(
-		page,
-		PERSON_API_URL,
-		PERSON_MOCK_FILE,
-		effectivePersonOverrides
-	)
-	await mockApi(page, LOEPENDE_VEDTAK_API_URL, LOEPENDE_VEDTAK_MOCK_FILE)
-	await mockApi(page, INNTEKT_API_URL, INNTEKT_MOCK_FILE)
-	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
-		dato: '2024-05-01',
-		grunnbeløp: 100000,
-		grunnbeløpPerMaaned: 10000,
-		gjennomsnittPerÅr: 99000,
-		omregningsfaktor: 1.05,
-		virkningstidspunktForMinsteinntekt: '2024-09-01',
-	})
-}
-
-async function navigateToApp(page: Page) {
-	await page.goto('/?pid=encrypted-default-pid')
-	await page.waitForSelector('text=Pensjonskalkulator')
-}
-
 async function setupWithEditorOpen(
 	page: Page,
 	personOverrides?: Record<string, unknown>
 ) {
-	await setupDefaultMocks(page, personOverrides)
+	await setupDefaultMocks(page, {
+		foedselsdato: TEST_FOEDSELSDATO_ISO,
+		...personOverrides,
+	})
 	await navigateToApp(page)
 	await selectHarOppholdUtenforNorge(page, 'Ja')
 }
@@ -233,12 +193,12 @@ async function completeRemainingSimulationFields(page: Page) {
 async function setupSimulationCapture(page: Page) {
 	let capturedBody: SimuleringPayload | undefined
 
-	await page.route(SIMULERING_API_URL, async (route) => {
+	await page.route(API_URLS.SIMULERING, async (route) => {
 		capturedBody = route.request().postDataJSON() as SimuleringPayload
 		await route.fulfill({
 			status: 200,
 			contentType: 'application/json',
-			body: JSON.stringify(await loadJSONMock(ALDERSPENSJON_MOCK_FILE)),
+			body: JSON.stringify(await loadJSONMock(MOCK_FILES.ALDERSPENSJON)),
 		})
 	})
 
@@ -1162,7 +1122,7 @@ test.describe('Utenlandsopphold', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-			await mockApiError(page, SIMULERING_API_URL)
+			await mockApiError(page, API_URLS.SIMULERING)
 			await navigateToApp(page)
 			await selectHarOppholdUtenforNorge(page, 'Ja')
 			await addOpphold(page, {
