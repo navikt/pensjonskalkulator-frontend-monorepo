@@ -1,6 +1,7 @@
 import type {
 	EpsOpplysninger,
 	LoependeVedtak,
+	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
@@ -212,6 +213,35 @@ export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['loependeVedtak', fnr],
 		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+async function fetchOmstillingsstoenadOgGjenlevende(
+	fnr: string
+): Promise<OmstillingsstoenadOgGjenlevende> {
+	const response = await fetch(
+		`${API_BASE}/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse`,
+		{
+			headers: {
+				fnr,
+			},
+		}
+	)
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch omstillingsstønad/gjenlevende: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<OmstillingsstoenadOgGjenlevende>
+}
+
+export function useOmstillingsstoenadQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['omstillingsstoenad', fnr],
+		queryFn: fnr ? () => fetchOmstillingsstoenadOgGjenlevende(fnr) : skipToken,
 		retry: false,
 	})
 }
