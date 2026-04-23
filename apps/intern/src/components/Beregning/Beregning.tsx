@@ -3,13 +3,15 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { useState } from 'react'
 
-import { BodyLong, Box, Loader, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { Forbehold } from '../Forbehold/Forbehold'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -21,26 +23,10 @@ export const Beregning = () => {
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
+	const [activeTab, setActiveTab] = useState('beregning')
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
-	if (!hasBeregning) {
-		return (
-			<Box
-				borderColor="neutral-subtle"
-				borderWidth="0 0 0 1"
-				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
-				data-testid="beregning-result"
-			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
-				<BodyLong>Ingen beregning enda.</BodyLong>
-			</Box>
-		)
-	}
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
@@ -61,13 +47,13 @@ export const Beregning = () => {
 	)
 
 	const helMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
 
 	const gradertMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
+		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
 
 	const normertMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
+		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const titleHeltUttak =
 		aktivBeregning &&
@@ -103,83 +89,100 @@ export const Beregning = () => {
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+			data-testid="beregning-result"
 		>
-			<VStack
-				gap="space-32"
-				className={isBeregningLoading ? styles.loadingOverlay : undefined}
-			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
-				{gradertMaanedligAlderspensjon && (
-					<>
-						<BeregningSection
-							title={titleGradertUttak || ''}
-							{...sectionCommonProps}
-							entry={gradertMaanedligAlderspensjon}
-							showAfp={harAfpPrivat}
-							afpEntry={afpPrivatVedGradertUttak}
-							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-							totalAddToSum={
-								(gradertMaanedligAlderspensjon.beloep ?? 0) +
-								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
-							}
-							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
-							isGradert
-							testId="beregning-section-gradert"
-						/>
-						{harAfpPrivat &&
-							(heltUttakAlder.aar ?? 0) > 67 &&
-							(gradertUttakAlder?.aar ?? 0) < 67 && (
+			<Tabs value={activeTab} onChange={setActiveTab}>
+				<Tabs.List>
+					<Tabs.Tab value="beregning" label="Beregning" />
+					<Tabs.Tab value="forbehold" label="Forbehold" />
+				</Tabs.List>
+				<Tabs.Panel value="beregning" className={styles.tabPanel}>
+					<VStack
+						gap="space-32"
+						className={isBeregningLoading ? styles.loadingOverlay : undefined}
+					>
+						{isBeregningLoading && (
+							<div className={styles.overlayLoader}>
+								<Loader size="3xlarge" title="Beregner pensjon …" />
+							</div>
+						)}
+						{!hasBeregning && <BodyLong>Ingen beregning enda.</BodyLong>}
+						{hasBeregning && gradertMaanedligAlderspensjon && (
+							<>
 								<BeregningSection
-									title={formatAlderTitle(67, 0)}
+									title={titleGradertUttak || ''}
 									{...sectionCommonProps}
-									entry={normertMaanedligAlderspensjon}
-									showAfp
-									afpEntry={afpPrivatVed67Aar}
+									entry={gradertMaanedligAlderspensjon}
+									showAfp={harAfpPrivat}
+									afpEntry={afpPrivatVedGradertUttak}
+									visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
 									totalAddToSum={
-										(normertMaanedligAlderspensjon?.beloep ?? 0) +
-										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+										(gradertMaanedligAlderspensjon.beloep ?? 0) +
+										(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
 									}
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
-									testId="beregning-section-gradert-67"
+									testId="beregning-section-gradert"
 								/>
-							)}
-					</>
-				)}
-				<BeregningSection
-					title={titleHeltUttak || ''}
-					{...sectionCommonProps}
-					entry={helMaanedligAlderspensjon}
-					showAfp={harAfpPrivat}
-					afpEntry={afpPrivatVedHeltUttak}
-					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-					totalAddToSum={
-						(helMaanedligAlderspensjon?.beloep ?? 0) +
-						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-					}
-					alderspensjonGrad={100}
-					testId="beregning-section-helt"
-				/>
-				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
-					<BeregningSection
-						title={formatAlderTitle(67, 0)}
-						{...sectionCommonProps}
-						entry={normertMaanedligAlderspensjon}
-						showAfp
-						afpEntry={afpPrivatVed67Aar}
-						totalAddToSum={
-							(normertMaanedligAlderspensjon?.beloep ?? 0) +
-							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-						}
-						alderspensjonGrad={100}
-						testId="beregning-section-helt-67"
-					/>
-				)}
-			</VStack>
+								{harAfpPrivat &&
+									(heltUttakAlder.aar ?? 0) > 67 &&
+									(gradertUttakAlder?.aar ?? 0) < 67 && (
+										<BeregningSection
+											title={formatAlderTitle(67, 0)}
+											{...sectionCommonProps}
+											entry={normertMaanedligAlderspensjon}
+											showAfp
+											afpEntry={afpPrivatVed67Aar}
+											totalAddToSum={
+												(normertMaanedligAlderspensjon?.beloep ?? 0) +
+												(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+											}
+											alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
+											isGradert
+											testId="beregning-section-gradert-67"
+										/>
+									)}
+							</>
+						)}
+						{hasBeregning && (
+							<>
+								<BeregningSection
+									title={titleHeltUttak || ''}
+									{...sectionCommonProps}
+									entry={helMaanedligAlderspensjon}
+									showAfp={harAfpPrivat}
+									afpEntry={afpPrivatVedHeltUttak}
+									visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
+									totalAddToSum={
+										(helMaanedligAlderspensjon?.beloep ?? 0) +
+										(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+									}
+									alderspensjonGrad={100}
+									testId="beregning-section-helt"
+								/>
+								{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
+									<BeregningSection
+										title={formatAlderTitle(67, 0)}
+										{...sectionCommonProps}
+										entry={normertMaanedligAlderspensjon}
+										showAfp
+										afpEntry={afpPrivatVed67Aar}
+										totalAddToSum={
+											(normertMaanedligAlderspensjon?.beloep ?? 0) +
+											(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+										}
+										alderspensjonGrad={100}
+										testId="beregning-section-helt-67"
+									/>
+								)}
+							</>
+						)}
+					</VStack>
+				</Tabs.Panel>
+				<Tabs.Panel value="forbehold" className={styles.tabPanel}>
+					<Forbehold />
+				</Tabs.Panel>
+			</Tabs>
 		</Box>
 	)
 }
