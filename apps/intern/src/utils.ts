@@ -13,7 +13,7 @@ export function getLoependeVedtakStatus(
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
 	if (omstillingsstoenad?.harLoependeSak) {
-		return 'Omstillingsstønad/gjenlevendeytelse'
+		return 'Gjenlevende eller omstillingsstønad'
 	}
 
 	if (!loependeVedtak || !loependeVedtak.harLoependeVedtak) {
