@@ -89,6 +89,23 @@ export const Beregning = () => {
 	const harAfpPrivat =
 		aktivBeregning?.afp === 'ja_privat' ||
 		aktivBeregning?.endringAfpPrivat === true
+	const shouldRenderAFPPrivatForGradertSection =
+		gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+	const shouldRenderNormertAfpBeforeHeltSection =
+		harAfpPrivat &&
+		shouldRenderAFPPrivatForGradertSection &&
+		(heltUttakAlder.aar ?? 0) > 67 &&
+		(gradertUttakAlder?.aar ?? 0) < 67
+
+	const shouldRenderNormertAfpAfterHeltSection =
+		harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67
+	const shouldRenderNormertAfpSection =
+		shouldRenderNormertAfpBeforeHeltSection ||
+		shouldRenderNormertAfpAfterHeltSection
+	const normertAfpAlderspensjonGrad = shouldRenderNormertAfpBeforeHeltSection
+		? (aktivBeregning?.uttaksgrad ?? 0)
+		: 100
+	const normertAfpIsGradert = shouldRenderNormertAfpBeforeHeltSection
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
@@ -100,6 +117,21 @@ export const Beregning = () => {
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
 	}
+	const normertAfpSection = shouldRenderNormertAfpSection ? (
+		<BeregningSection
+			title={formatAlderTitle(67, 0)}
+			{...sectionCommonProps}
+			entry={normertMaanedligAlderspensjon}
+			showAfp
+			afpEntry={afpPrivatVed67Aar}
+			totalAddToSum={
+				(normertMaanedligAlderspensjon?.beloep ?? 0) +
+				(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+			}
+			alderspensjonGrad={normertAfpAlderspensjonGrad}
+			isGradert={normertAfpIsGradert}
+		/>
+	) : null
 	return (
 		<Box
 			borderColor="neutral-subtle"
@@ -116,41 +148,24 @@ export const Beregning = () => {
 					</div>
 				)}
 				{gradertMaanedligAlderspensjon && (
-					<>
-						<BeregningSection
-							title={titleGradertUttak || ''}
-							{...sectionCommonProps}
-							entry={gradertMaanedligAlderspensjon}
-							showAfp={harAfpPrivat}
-							afpEntry={afpPrivatVedGradertUttak}
-							visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-							totalAddToSum={
-								(gradertMaanedligAlderspensjon.beloep ?? 0) +
-								(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
-							}
-							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
-							isGradert
-							erUttaksgradNull={erUttaksgradNull}
-						/>
-						{harAfpPrivat &&
-							(heltUttakAlder.aar ?? 0) > 67 &&
-							(gradertUttakAlder?.aar ?? 0) < 67 && (
-								<BeregningSection
-									title={formatAlderTitle(67, 0)}
-									{...sectionCommonProps}
-									entry={normertMaanedligAlderspensjon}
-									showAfp
-									afpEntry={afpPrivatVed67Aar}
-									totalAddToSum={
-										(normertMaanedligAlderspensjon?.beloep ?? 0) +
-										(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-									}
-									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
-									isGradert
-								/>
-							)}
-					</>
+					<BeregningSection
+						title={titleGradertUttak || ''}
+						{...sectionCommonProps}
+						entry={gradertMaanedligAlderspensjon ?? undefined}
+						showAfp={harAfpPrivat}
+						afpEntry={afpPrivatVedGradertUttak}
+						visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
+						totalAddToSum={
+							(gradertMaanedligAlderspensjon?.beloep ?? 0) +
+							(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
+						}
+						alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
+						isGradert
+						erUttaksgradNull={erUttaksgradNull}
+					/>
 				)}
+				{shouldRenderNormertAfpBeforeHeltSection && normertAfpSection}
+
 				<BeregningSection
 					title={titleHeltUttak || ''}
 					{...sectionCommonProps}
@@ -164,20 +179,7 @@ export const Beregning = () => {
 					}
 					alderspensjonGrad={100}
 				/>
-				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
-					<BeregningSection
-						title={formatAlderTitle(67, 0)}
-						{...sectionCommonProps}
-						entry={normertMaanedligAlderspensjon}
-						showAfp
-						afpEntry={afpPrivatVed67Aar}
-						totalAddToSum={
-							(normertMaanedligAlderspensjon?.beloep ?? 0) +
-							(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-						}
-						alderspensjonGrad={100}
-					/>
-				)}
+				{shouldRenderNormertAfpAfterHeltSection && normertAfpSection}
 			</VStack>
 		</Box>
 	)
