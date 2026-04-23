@@ -6,6 +6,8 @@ const DECRYPT_API_URL = '**/api/v1/decrypt'
 const PERSON_API_URL = '**/api/intern/v1/person'
 const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
 const INNTEKT_API_URL = '**/api/inntekt'
+const OMSTILLINGSSTOENAD_API_URL =
+	'**/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
 const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
 const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
 const SANITY_API_URL = '**/g2by7q6m**/data/query/**'
@@ -20,6 +22,11 @@ async function setupDefaultMocks(page: Page) {
 	)
 	await mockApi(page, PERSON_API_URL, 'person-intern.json')
 	await mockApi(page, LOEPENDE_VEDTAK_API_URL, 'loepende-vedtak.json')
+	await mockApi(
+		page,
+		OMSTILLINGSSTOENAD_API_URL,
+		'omstillingsstoenad-og-gjenlevende-false.json'
+	)
 	await mockApi(page, INNTEKT_API_URL, 'inntekt.json')
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
 		dato: '2024-05-01',
