@@ -220,6 +220,10 @@ export const BeregningForm = () => {
 								{ value: 'ja_privat', label: 'Ja, privat' },
 								{ value: 'ja_offentlig', label: 'Ja, offentlig' },
 								{ value: 'nei', label: 'Nei' },
+								{
+									value: 'serviceberegning',
+									label: 'Serviceberegning AFP for saksbehandler',
+								},
 							]}
 							className={styles.horizontalRadioGroup}
 						/>
@@ -274,7 +278,12 @@ export const BeregningForm = () => {
 				<RHFAlderVelger
 					aarName="alderAarUttak"
 					mdName="alderMdUttak"
-					foedselsdato={person?.foedselsdato}
+					{...(afp === 'serviceberegning'
+						? {
+								minAlder: { aar: 62, maaneder: 0 },
+								maxAlder: { aar: 66, maaneder: 11 },
+							}
+						: { foedselsdato: person?.foedselsdato })}
 				/>
 
 				{erAfpOffentlig && (
