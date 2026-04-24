@@ -89,8 +89,10 @@ export const Beregning = () => {
 	const harAfpPrivat =
 		aktivBeregning?.afp === 'ja_privat' ||
 		aktivBeregning?.endringAfpPrivat === true
+
 	const shouldRenderAFPPrivatForGradertSection =
-		gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+		gradertMaanedligAlderspensjon || erUttaksgradNull
+
 	const shouldRenderNormertAfpBeforeHeltSection =
 		harAfpPrivat &&
 		shouldRenderAFPPrivatForGradertSection &&
@@ -99,13 +101,14 @@ export const Beregning = () => {
 
 	const shouldRenderNormertAfpAfterHeltSection =
 		harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67
+
 	const shouldRenderNormertAfpSection =
 		shouldRenderNormertAfpBeforeHeltSection ||
 		shouldRenderNormertAfpAfterHeltSection
+
 	const normertAfpAlderspensjonGrad = shouldRenderNormertAfpBeforeHeltSection
 		? (aktivBeregning?.uttaksgrad ?? 0)
 		: 100
-	const normertAfpIsGradert = shouldRenderNormertAfpBeforeHeltSection
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
@@ -117,6 +120,23 @@ export const Beregning = () => {
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
 	}
+	const gradertAfpSection = (
+		<BeregningSection
+			title={titleGradertUttak || ''}
+			{...sectionCommonProps}
+			entry={gradertMaanedligAlderspensjon ?? undefined}
+			showAfp={harAfpPrivat}
+			afpEntry={afpPrivatVedGradertUttak}
+			visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
+			totalAddToSum={
+				(gradertMaanedligAlderspensjon?.beloep ?? 0) +
+				(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
+			}
+			alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
+			isGradert
+			erUttaksgradNull={erUttaksgradNull}
+		/>
+	)
 	const normertAfpSection = shouldRenderNormertAfpSection ? (
 		<BeregningSection
 			title={formatAlderTitle(67, 0)}
@@ -129,9 +149,10 @@ export const Beregning = () => {
 				(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
 			}
 			alderspensjonGrad={normertAfpAlderspensjonGrad}
-			isGradert={normertAfpIsGradert}
+			isGradert
 		/>
 	) : null
+
 	return (
 		<Box
 			borderColor="neutral-subtle"
@@ -147,23 +168,8 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertMaanedligAlderspensjon && (
-					<BeregningSection
-						title={titleGradertUttak || ''}
-						{...sectionCommonProps}
-						entry={gradertMaanedligAlderspensjon ?? undefined}
-						showAfp={harAfpPrivat}
-						afpEntry={afpPrivatVedGradertUttak}
-						visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-						totalAddToSum={
-							(gradertMaanedligAlderspensjon?.beloep ?? 0) +
-							(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
-						}
-						alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
-						isGradert
-						erUttaksgradNull={erUttaksgradNull}
-					/>
-				)}
+				{gradertMaanedligAlderspensjon && gradertAfpSection}
+				{harAfpPrivat && erUttaksgradNull && gradertAfpSection}
 				{shouldRenderNormertAfpBeforeHeltSection && normertAfpSection}
 
 				<BeregningSection
