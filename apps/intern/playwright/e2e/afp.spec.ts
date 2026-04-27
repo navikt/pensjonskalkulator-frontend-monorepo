@@ -228,7 +228,7 @@ test.describe('AFP', () => {
 				await expect(
 					page
 						.getByTestId('beregning-section-helt-afp')
-						.getByText('AFP i privat sektor')
+						.getByText('Avtalefestet pensjon i privat sektor')
 				).toBeVisible()
 			})
 
