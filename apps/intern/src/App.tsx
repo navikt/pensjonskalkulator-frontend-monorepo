@@ -16,8 +16,8 @@ import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
 	useInntektQuery,
-	useLoependeVedtakQuery,
 	usePersonQuery,
+	useVedtakQuery,
 } from './api/queries.ts'
 import { Beregning } from './components/Beregning/Beregning.tsx'
 import {
@@ -87,8 +87,7 @@ const AppContent = () => {
 		data: person,
 	} = usePersonQuery(fnr)
 
-	const { isLoading: isLoadingVedtak, error: vedtakError } =
-		useLoependeVedtakQuery(fnr)
+	const { isLoading: isLoadingVedtak, error: vedtakError } = useVedtakQuery(fnr)
 
 	const {
 		data: inntekt,

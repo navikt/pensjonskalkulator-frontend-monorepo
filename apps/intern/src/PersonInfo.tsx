@@ -14,8 +14,8 @@ import {
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
-	useLoependeVedtakQuery,
 	usePersonQuery,
+	useVedtakQuery,
 } from './api/queries'
 import { getLoependeVedtakStatus, getPidFromUrl } from './utils'
 
@@ -30,8 +30,8 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const { data: fnr } = useDecryptPidQuery(pid)
 
 	const { data: person, isError, error } = usePersonQuery(fnr)
-	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
-	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
+	const { data: vedtak } = useVedtakQuery(fnr)
+	const vedtakStatus = getLoependeVedtakStatus(vedtak)
 	const { mutate: encryptPid, isPending: isEncrypting } =
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')
@@ -104,7 +104,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			{vedtakStatus && (
 				<BodyShort size="medium">
 					{' / '}
-					{vedtakStatus}
+					{vedtakStatus ? '' : null}
 				</BodyShort>
 			)}
 			<HStack gap="space-4" align="center" style={{ marginLeft: 'auto' }}>

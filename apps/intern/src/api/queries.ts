@@ -4,6 +4,7 @@ import type {
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	keepPreviousData,
@@ -127,6 +128,22 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 	return response.json() as Promise<LoependeVedtak>
 }
 
+async function fetchVedtak(fnr: string): Promise<Vedtak> {
+	const response = await fetch(`${API_BASE}/v1/vedtak`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch decisions: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<Vedtak>
+}
+
 async function fetchEPSOpplysninger({
 	fnr,
 	sivilstatus,
@@ -212,6 +229,14 @@ export function useLoependeVedtakQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['loependeVedtak', fnr],
 		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useVedtakQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['vedtak', fnr],
+		queryFn: fnr ? () => fetchVedtak(fnr) : skipToken,
 		retry: false,
 	})
 }

@@ -1,7 +1,10 @@
-import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	EpsOpplysninger,
+	VedtakInformasjonOmAvdoed,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { format, parseISO } from 'date-fns'
 
-import { Heading, Table, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
@@ -10,9 +13,13 @@ import { getEpsDoedsdato } from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
-function mapEpsOpplysninger(
+function mapEpsOpplysninger({
+	eps,
+	vedtakInfoAvdoed,
+}: {
 	eps: EpsOpplysninger
-): { label: string; value: string }[] {
+	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
+}): { label: string; value: string }[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
 	const registrertDoedsDato = relasjonPersondata?.doedsdato
@@ -30,17 +37,51 @@ function mapEpsOpplysninger(
 				? formatertDoedsdato
 				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
 		},
+		{
+			label: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
+			value:
+				vedtakInfoAvdoed && vedtakInfoAvdoed?.antallAarUtenlands
+					? vedtakInfoAvdoed?.antallAarUtenlands.toString()
+					: '',
+		},
+		{
+			label: 'Minst 1G (130 160 kr) i pensjonsgivende inntekt ved dødsdato',
+			value:
+				vedtakInfoAvdoed &&
+				vedtakInfoAvdoed?.aarligPensjonsgivendeInntektErMinst1G
+					? 'Ja'
+					: 'Nei',
+		},
+		{
+			label: 'Medlem av folketrygden de 5 siste årene før dødsdato',
+			value:
+				vedtakInfoAvdoed &&
+				vedtakInfoAvdoed?.harTilstrekkeligMedlemskapIFolketrygden
+					? 'Ja'
+					: 'Nei',
+		},
+		{
+			label: 'Registrert som flyktning',
+			value: vedtakInfoAvdoed && vedtakInfoAvdoed?.erFlyktning ? 'Ja' : 'Nei',
+		},
 	]
 }
 
 export const OpplysningerInfo = ({
 	EPSOpplysninger,
+	vedtakInfoAvdoed,
+	vedtakAPDato,
 }: {
 	EPSOpplysninger: EpsOpplysninger
+	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
+	vedtakAPDato?: string
 }) => {
-	const rows = mapEpsOpplysninger(EPSOpplysninger)
+	const rows = mapEpsOpplysninger({ eps: EPSOpplysninger, vedtakInfoAvdoed })
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const formatertVedtakAPDato = vedtakAPDato
+		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
+		: undefined
 
 	return (
 		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
@@ -57,34 +98,46 @@ export const OpplysningerInfo = ({
 					))}
 				</Table.Body>
 			</Table>
-			<RHFTextField
-				name="epsAntallUtenlandsOppholdAar"
-				label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
-				style={{ width: '96px' }}
-			/>
+			{vedtakInfoAvdoed && (
+				<BodyLong>
+					Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.
+				</BodyLong>
+			)}
+			{!vedtakInfoAvdoed && (
+				<RHFTextField
+					name="epsAntallUtenlandsOppholdAar"
+					label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
+					style={{ width: '96px' }}
+				/>
+			)}
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
 				label="Pensjonsgivende inntekt året før dødsdato"
 				style={{ width: '184px' }}
 			/>
-			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) && (
-				<RHFRadio
-					name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
-					legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-					className={styles.horizontalRadioGroup}
-					testid="eps-minste-PGI-foer-doedsfall"
-				/>
+			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
+				!vedtakInfoAvdoed && (
+					<RHFRadio
+						name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
+						legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
+						className={styles.horizontalRadioGroup}
+						testid="eps-minste-PGI-foer-doedsfall"
+					/>
+				)}
+			{!vedtakInfoAvdoed && (
+				<>
+					<RHFRadio
+						name="epsMedlemAvFolketrygdenVedDoedsDato"
+						legend="Medlem av folketrygden de 5 siste årene før dødsdato"
+						className={styles.horizontalRadioGroup}
+					/>
+					<RHFRadio
+						name="epsRegistretSomFlykting"
+						legend="Registrert som flyktning"
+						className={styles.horizontalRadioGroup}
+					/>
+				</>
 			)}
-			<RHFRadio
-				name="epsMedlemAvFolketrygdenVedDoedsDato"
-				legend="Medlem av folketrygden de 5 siste årene før dødsdato"
-				className={styles.horizontalRadioGroup}
-			/>
-			<RHFRadio
-				name="epsRegistretSomFlykting"
-				legend="Registrert som flyktning"
-				className={styles.horizontalRadioGroup}
-			/>
 		</VStack>
 	)
 }

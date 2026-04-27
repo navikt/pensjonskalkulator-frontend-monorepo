@@ -1,16 +1,27 @@
-import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Vedtak,
+	VedtakInformasjonOmAvdoed,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 export function getPidFromUrl(): string | undefined {
 	const params = new URLSearchParams(window.location.search)
 	return params.get('pid') ?? undefined
 }
 
-export function getLoependeVedtakStatus(
-	loependeVedtak?: LoependeVedtak
-): string {
-	if (!loependeVedtak || !loependeVedtak.harLoependeVedtak) {
-		return 'Uten vedtak'
+export function getLoependeVedtakStatus(vedtak?: Vedtak): boolean {
+	if (!vedtak || !vedtak.loependeAlderspensjon) {
+		return false
 	}
 
-	return ''
+	return vedtak.harVedtak
+}
+
+export function getEpsVedtakStatus(
+	vedtak?: Vedtak
+): VedtakInformasjonOmAvdoed | undefined {
+	if (vedtak && vedtak.avdoed) {
+		return vedtak.avdoed
+	}
+
+	return
 }
