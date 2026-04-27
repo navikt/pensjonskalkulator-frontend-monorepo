@@ -12,12 +12,14 @@ import {
 import styles from '../BeregningSection/BeregningSection.module.css'
 
 interface AfpBeregningSectionProps {
+	title: string
 	tableCount: number
 	entry: TidsbegrensetOffentligAFP
 	visAarsbelop: boolean
 }
 
 export const AfpBeregningSection = ({
+	title,
 	tableCount,
 	entry,
 	visAarsbelop,
@@ -28,7 +30,7 @@ export const AfpBeregningSection = ({
 	return (
 		<VStack gap="space-12">
 			<Heading level="3" size="small">
-				{`AFP ved ${entry.alderAar} år`}
+				{title}
 			</Heading>
 			<div
 				className={styles.tableGrid}
@@ -36,7 +38,7 @@ export const AfpBeregningSection = ({
 			>
 				<VStack gap="space-8">
 					<BeregningTableWithSum
-						title="Alderspensjon"
+						title="AFP"
 						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 						rows={afpRows}
 						visAarsbelop={visAarsbelop}

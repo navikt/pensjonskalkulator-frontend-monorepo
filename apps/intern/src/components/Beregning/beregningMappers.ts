@@ -201,12 +201,18 @@ export function mapPrivatAfp(
 	]
 }
 
+function formatAlder(aar: number, md: number): string {
+	return md > 0
+		? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
+		: `${aar} år`
+}
+
 export function formatAlderTitle(aar: number, md: number): string {
-	const alderText =
-		md > 0
-			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
-			: `${aar} år`
-	return `Pensjon ved ${alderText}`
+	return `Pensjon ved ${formatAlder(aar, md)}`
+}
+
+export function formatAfpTitle(aar: number, md: number): string {
+	return `AFP ved ${formatAlder(aar, md)}`
 }
 
 export function mapTidsbegrensetAfpToRows(

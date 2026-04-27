@@ -75,9 +75,8 @@ export const Beregning = () => {
 	const normertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
-	const titleHeltUttak = skalBeregningAfpKap19
-		? formatAlderTitle(67, 0)
-		: aktivBeregning &&
+	const titleHeltUttak =
+		(aktivBeregning &&
 			formatAlderTitle(
 				erGradert
 					? (aktivBeregning.alderAarHeltUttak ?? 0)
@@ -85,7 +84,8 @@ export const Beregning = () => {
 				erGradert
 					? (aktivBeregning.alderMdHeltUttak ?? 0)
 					: (aktivBeregning.alderMdUttak ?? 0)
-			)
+			)) ||
+		''
 	const titleGradertUttak =
 		aktivBeregning &&
 		formatAlderTitle(
@@ -164,13 +164,14 @@ export const Beregning = () => {
 				)}
 				{skalBeregningAfpKap19 && beregning.tidsbegrensetOffentligAfp && (
 					<AfpBeregningSection
+						title={titleHeltUttak}
 						tableCount={tableCount}
 						entry={beregning.tidsbegrensetOffentligAfp}
 						visAarsbelop={visAarsbelop}
 					/>
 				)}
 				<BeregningSection
-					title={titleHeltUttak || ''}
+					title={titleHeltUttak}
 					{...sectionCommonProps}
 					entry={
 						skalBeregningAfpKap19
