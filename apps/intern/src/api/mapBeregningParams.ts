@@ -71,13 +71,20 @@ export function mapBeregningParamsToRequest(
 
 	let simuleringstype: SimuleringsType = 'ALDERSPENSJON'
 
+	// Behold samme rekkefølge
 	if (formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid) {
 		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
-	} else if (formData.afp === 'ja_privat') {
+	}
+
+	if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
-	} else if (formData.endringAP) {
+	}
+
+	if (formData.endringAP) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON'
-	} else if (formData.endringAfpPrivat) {
+	}
+
+	if (formData.endringAfpPrivat) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
 	}
 

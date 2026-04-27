@@ -69,8 +69,8 @@ export const BeregningForm = () => {
 
 	useEffect(() => {
 		if (erEndring) {
-			form.setValue('endringAfpPrivat', harVedtakPrivatAFP)
 			form.setValue('endringAP', !harVedtakPrivatAFP)
+			form.setValue('endringAfpPrivat', harVedtakPrivatAFP)
 		}
 	}, [erEndring, harVedtakPrivatAFP, form])
 
