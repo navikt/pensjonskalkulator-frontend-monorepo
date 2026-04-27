@@ -32,6 +32,7 @@ interface BeregningSectionProps {
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
+	testId?: string
 }
 
 export const BeregningSection = ({
@@ -49,6 +50,7 @@ export const BeregningSection = ({
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	visAarsbelop = false,
+	testId,
 }: BeregningSectionProps) => {
 	const afpRows = mapPrivatAfp(afpEntry, visKronetillegg)
 	const alderspensjonRows = entry
@@ -61,7 +63,7 @@ export const BeregningSection = ({
 		: []
 
 	return (
-		<VStack gap="space-12">
+		<VStack gap="space-12" data-testid={testId}>
 			<Heading level="3" size="small">
 				{title}
 			</Heading>

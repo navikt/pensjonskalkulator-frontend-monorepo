@@ -32,6 +32,7 @@ export const Beregning = () => {
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
 				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				data-testid="beregning-result"
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
@@ -139,6 +140,7 @@ export const Beregning = () => {
 							alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 							isGradert
 							visAarsbelop={visAarsbelop}
+							testId="beregning-section-gradert"
 						/>
 						{harAfpPrivat &&
 							(heltUttakAlder.aar ?? 0) > 67 &&
@@ -152,6 +154,7 @@ export const Beregning = () => {
 									alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 									isGradert
 									visAarsbelop={visAarsbelop}
+									testId="beregning-section-gradert-67"
 								/>
 							)}
 					</>
@@ -165,6 +168,7 @@ export const Beregning = () => {
 					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 					alderspensjonGrad={100}
 					visAarsbelop={visAarsbelop}
+					testId="beregning-section-helt"
 				/>
 				{harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67 && (
 					<BeregningSection
@@ -175,6 +179,7 @@ export const Beregning = () => {
 						afpEntry={afpPrivatVed67Aar}
 						alderspensjonGrad={100}
 						visAarsbelop={visAarsbelop}
+						testId="beregning-section-helt-67"
 					/>
 				)}
 			</VStack>

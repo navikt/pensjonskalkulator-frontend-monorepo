@@ -5,7 +5,7 @@
 	"packageManager": "pnpm@10.28.2",
 	"type": "module",
 	"engines": {
-		"node": ">=18.0.0",
+		"node": "^20.19.0 || >=22.12.0",
 		"pnpm": ">=9.0.0"
 	},
 	"scripts": {
@@ -43,9 +43,9 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "9.39.2",
+		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@playwright/test": "catalog:",
 		"@trivago/prettier-plugin-sort-imports": "6.0.2",
-		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"eslint": "9.39.2",
@@ -60,10 +60,10 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"react": "$react",
-			"react-dom": "$react-dom",
-			"@types/react": "$@types/react",
-			"@types/react-dom": "$@types/react-dom",
+			"react": "catalog:",
+			"react-dom": "catalog:",
+			"@types/react": "catalog:",
+			"@types/react-dom": "catalog:",
 			"minimatch@<3.1.4": "3.1.4",
 			"minimatch@>=5 <5.1.8": "5.1.8",
 			"minimatch@>=9 <9.0.7": "9.0.7",
