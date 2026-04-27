@@ -14,6 +14,7 @@ export const OpplysningerFraVedtak = ({
 		},
 		{
 			label: 'Opphold utenfor Norge',
+			//TODO: Fiks verdi når backend har støtte for dette feltet
 			// value: loependeVedtak?.alderspensjon?.oppholdUtland ? 'Ja' : 'Nei',
 			value: 'Ja',
 		},
