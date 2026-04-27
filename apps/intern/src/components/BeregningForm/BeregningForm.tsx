@@ -283,7 +283,12 @@ export const BeregningForm = () => {
 								minAlder: { aar: 62, maaneder: 0 },
 								maxAlder: { aar: 66, maaneder: 11 },
 							}
-						: { foedselsdato: person?.foedselsdato })}
+						: {
+								foedselsdato: person?.foedselsdato,
+								...(erAfpOffentlig
+									? { maxAlder: { aar: 66, maaneder: 11 } }
+									: {}),
+							})}
 				/>
 
 				{erAfpOffentlig && (
