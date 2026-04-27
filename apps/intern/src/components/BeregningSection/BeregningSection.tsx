@@ -27,6 +27,7 @@ interface BeregningSectionProps {
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
 	erUttaksgradNull?: boolean
+	testId?: string
 }
 
 export const BeregningSection = ({
@@ -45,8 +46,9 @@ export const BeregningSection = ({
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	erUttaksgradNull = false,
+	testId,
 }: BeregningSectionProps) => (
-	<VStack gap="space-12">
+	<VStack gap="space-12" data-testid={testId}>
 		{(showAfp || !erUttaksgradNull) && (
 			<Heading level="3" size="small">
 				{title}
@@ -69,7 +71,10 @@ export const BeregningSection = ({
 				/>
 			)}
 			{showAfp && (
-				<VStack gap="space-32">
+				<VStack
+					gap="space-32"
+					data-testid={testId ? `${testId}-afp` : undefined}
+				>
 					<BeregningTableWithSum
 						title="AFP i privat sektor"
 						valueHeader="Kr per måned"

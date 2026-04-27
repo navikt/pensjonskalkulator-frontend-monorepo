@@ -175,8 +175,7 @@ export const VeilederInput = () => {
                 </VStack>
               </form>
               <BodyLong>
-                Denne pensjonskalkulatoren kan foreløpig kun brukes til
-                veiledning.
+                Denne pensjonskalkulatoren kan kun brukes til veiledning.
               </BodyLong>
             </VStack>
           </Card>
