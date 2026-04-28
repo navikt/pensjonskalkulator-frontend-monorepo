@@ -71,19 +71,32 @@ export function mapBeregningParamsToRequest(
 
 	let simuleringstype: SimuleringsType = 'ALDERSPENSJON'
 
+	// Behold samme rekkefølge
 	if (formData.beregnMedGjenlevenderett && formData.epsOpplysninger?.pid) {
 		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
-	} else if (formData.afp === 'ja_privat') {
+	}
+
+	if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
+	}
+
+	if (formData.endringAP) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON'
+	}
+
+	if (formData.endringAfpPrivat) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
 	}
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
 		? getEpsDoedsdato(formData.epsOpplysninger)
 		: undefined
-	const utenlandsperiodeListe = formData.utenlandsOpphold.length
-		? mapUtenlandsperiodeListe(formData.utenlandsOpphold)
-		: undefined
+	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
+	const utenlandsperiodeListe =
+		formData.harOppholdUtenforNorge === true && formData.utenlandsOpphold.length
+			? mapUtenlandsperiodeListe(formData.utenlandsOpphold)
+			: undefined
 
 	return {
 		simuleringstype,
@@ -112,27 +125,30 @@ export function mapBeregningParamsToRequest(
 					: undefined,
 		},
 		sivilstatus: formData.sivilstatus,
-		eps: {
-			levende: {
-				harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
-				harPensjon: Boolean(formData.epsHarPensjon),
-			},
-			avdoed:
-				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
-					? {
-							pid: epsPid,
-							doedsdato: epsDoedsdato,
-							medlemAvFolketrygden: Boolean(
-								formData.epsMedlemAvFolketrygdenVedDoedsDato
-							),
-							inntektFoerDoedBeloep:
-								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? undefined,
-							inntektErOverGrunnbeloepet: Boolean(
-								formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
-							),
-							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
-						}
-					: undefined,
-		},
+		eps: erEndring
+			? null
+			: {
+					levende: {
+						harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
+						harPensjon: Boolean(formData.epsHarPensjon),
+					},
+					avdoed:
+						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
+							? {
+									pid: epsPid,
+									doedsdato: epsDoedsdato,
+									medlemAvFolketrygden: Boolean(
+										formData.epsMedlemAvFolketrygdenVedDoedsDato
+									),
+									inntektFoerDoedBeloep:
+										formData.epsPensjonsgivendeInntektFoerDoedsDato ??
+										undefined,
+									inntektErOverGrunnbeloepet: Boolean(
+										formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
+									),
+									antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
+								}
+							: undefined,
+				},
 	}
 }
