@@ -84,7 +84,10 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ENDRING_ALDERSPENSJON'
 	}
 
-	if (formData.endringAfpPrivat) {
+	if (
+		formData.endringAfpPrivat ||
+		(formData.endringAP && formData.afp === 'ja_privat')
+	) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
 	}
 

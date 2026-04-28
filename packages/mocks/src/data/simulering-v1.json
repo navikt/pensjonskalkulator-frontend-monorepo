@@ -1,386 +1,315 @@
 {
 	"alderspensjonListe": [
 		{
-			"alderAar": 65,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"garantipensjonBeloep": 0,
-			"garantipensjonSats": 251872.0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"alderAar": 62,
+			"beloep": 287368,
+			"inntektspensjonBeloep": 169382,
+			"grunnpensjonBeloep": 37373,
+			"tilleggspensjonBeloep": 83751,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 17.8,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 2943110,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
+			"delingstall": 18.53,
+			"forholdstall": 1.249,
+			"pensjonsbeholdningFoerUttakBeloep": 6513657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
 			"kapittel20Trygdetid": 40,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
+		},
+		{
+			"alderAar": 63,
+			"beloep": 307368,
+			"inntektspensjonBeloep": 184382,
+			"grunnpensjonBeloep": 39373,
+			"tilleggspensjonBeloep": 87751,
+			"pensjonstillegg": 0,
+			"skjermingstillegg": 0,
+			"delingstall": 17.93,
+			"forholdstall": 1.219,
+			"pensjonsbeholdningFoerUttakBeloep": 6413657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
+		},
+		{
+			"alderAar": 64,
+			"beloep": 327368,
+			"inntektspensjonBeloep": 199382,
+			"grunnpensjonBeloep": 41373,
+			"tilleggspensjonBeloep": 91751,
+			"pensjonstillegg": 0,
+			"skjermingstillegg": 0,
+			"delingstall": 17.33,
+			"forholdstall": 1.189,
+			"pensjonsbeholdningFoerUttakBeloep": 6313657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
+		},
+		{
+			"alderAar": 65,
+			"beloep": 347368,
+			"inntektspensjonBeloep": 209382,
+			"grunnpensjonBeloep": 43373,
+			"tilleggspensjonBeloep": 95751,
+			"pensjonstillegg": 0,
+			"skjermingstillegg": 0,
+			"delingstall": 16.73,
+			"forholdstall": 1.159,
+			"pensjonsbeholdningFoerUttakBeloep": 6213657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 66,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 367368,
+			"inntektspensjonBeloep": 219382,
+			"grunnpensjonBeloep": 45373,
+			"tilleggspensjonBeloep": 99751,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 16.23,
+			"forholdstall": 1.129,
+			"pensjonsbeholdningFoerUttakBeloep": 6113657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 67,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"garantipensjonBeloep": 0,
-			"garantipensjonSats": 0.0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 387368,
+			"inntektspensjonBeloep": 229382,
+			"grunnpensjonBeloep": 47373,
+			"tilleggspensjonBeloep": 103751,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 3025395,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
+			"delingstall": 15.73,
+			"forholdstall": 1.099,
+			"pensjonsbeholdningFoerUttakBeloep": 6013657,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
 			"kapittel20Trygdetid": 40,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 68,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 392820,
+			"inntektspensjonBeloep": 232612,
+			"grunnpensjonBeloep": 48047,
+			"tilleggspensjonBeloep": 105229,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 15.13,
+			"forholdstall": 1.065,
+			"pensjonsbeholdningFoerUttakBeloep": 5712345,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 69,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 235890,
+			"grunnpensjonBeloep": 48735,
+			"tilleggspensjonBeloep": 106732,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 14.55,
+			"forholdstall": 1.033,
+			"pensjonsbeholdningFoerUttakBeloep": 5415678,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 70,
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 239218,
+			"grunnpensjonBeloep": 49436,
+			"tilleggspensjonBeloep": 108261,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 13.98,
+			"forholdstall": 1.001,
+			"pensjonsbeholdningFoerUttakBeloep": 5123456,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 71,
-			"beloep": 360846,
-			"inntektspensjonBeloep": 234376,
-			"garantipensjonBeloep": 126465,
-			"garantipensjonSats": 0.0,
-			"garantitilleggBeloep": -173652,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 242596,
+			"grunnpensjonBeloep": 50151,
+			"tilleggspensjonBeloep": 109817,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 12.98,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 3042201,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
+			"delingstall": 13.43,
+			"forholdstall": 0.971,
+			"pensjonsbeholdningFoerUttakBeloep": 4835678,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
 			"kapittel20Trygdetid": 40,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 72,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 246025,
+			"grunnpensjonBeloep": 50879,
+			"tilleggspensjonBeloep": 111400,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 12.89,
+			"forholdstall": 0.942,
+			"pensjonsbeholdningFoerUttakBeloep": 4552345,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 73,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 249505,
+			"grunnpensjonBeloep": 51621,
+			"tilleggspensjonBeloep": 113011,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 12.37,
+			"forholdstall": 0.914,
+			"pensjonsbeholdningFoerUttakBeloep": 4273456,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 74,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 253038,
+			"grunnpensjonBeloep": 52377,
+			"tilleggspensjonBeloep": 114650,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 11.87,
+			"forholdstall": 0.887,
+			"pensjonsbeholdningFoerUttakBeloep": 3998765,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 75,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 256624,
+			"grunnpensjonBeloep": 53147,
+			"tilleggspensjonBeloep": 116318,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 11.38,
+			"forholdstall": 0.861,
+			"pensjonsbeholdningFoerUttakBeloep": 3728456,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 76,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 260263,
+			"grunnpensjonBeloep": 53931,
+			"tilleggspensjonBeloep": 118015,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 10.9,
+			"forholdstall": 0.836,
+			"pensjonsbeholdningFoerUttakBeloep": 3462345,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		},
 		{
 			"alderAar": 77,
-			"beloep": 360912,
-			"inntektspensjonBeloep": 0,
-			"grunnpensjonBeloep": 0,
-			"tilleggspensjonBeloep": 0,
+			"beloep": 393636,
+			"inntektspensjonBeloep": 263956,
+			"grunnpensjonBeloep": 54730,
+			"tilleggspensjonBeloep": 119742,
 			"pensjonstillegg": 0,
 			"skjermingstillegg": 0,
-			"delingstall": 0.0,
-			"forholdstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 0,
-			"kapittel19Andel": 0.0,
-			"kapittel20Andel": 1.0,
-			"sluttpoengtall": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Trygdetid": 0,
-			"poengaarTom1991": 0,
-			"poengaarFom1992": 0
+			"delingstall": 10.44,
+			"forholdstall": 0.812,
+			"pensjonsbeholdningFoerUttakBeloep": 3200123,
+			"kapittel19Andel": 0.4,
+			"kapittel20Andel": 0.6,
+			"sluttpoengtall": 5.29,
+			"kapittel19Trygdetid": 40,
+			"kapittel20Trygdetid": 40,
+			"poengaarTom1991": 6,
+			"poengaarFom1992": 33
 		}
 	],
 	"maanedligAlderspensjonVedUttaksendring": {
-		"gradertUttakMaanedligBeloep": 0,
-		"heltUttakMaanedligBeloep": 30070
-	},
-	"maanedligAlderspensjonForKnekkpunkter": {
-		"vedHeltUttak": {
-			"beloep": 30070,
-			"inntektspensjonBeloep": 19531,
-			"delingstall": 12.98,
-			"pensjonsbeholdningFoerUttakBeloep": 3042201,
-			"pensjonsbeholdningEtterUttakBeloep": 0,
-			"forholdstall": 0.0,
-			"kapittel19Andel": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Andel": 1.0,
-			"kapittel20Trygdetid": 40,
-			"garantipensjonBeloep": 10539,
-			"garantipensjonSats": 251872.0,
-			"garantitilleggBeloep": 0
-		},
-		"vedNormertPensjonsalder": {
-			"beloep": 0,
-			"inntektspensjonBeloep": 0,
-			"delingstall": 0.0,
-			"pensjonsbeholdningFoerUttakBeloep": 3025395,
-			"pensjonsbeholdningEtterUttakBeloep": 3025395,
-			"forholdstall": 0.0,
-			"kapittel19Andel": 0.0,
-			"kapittel19Trygdetid": 0,
-			"kapittel20Andel": 1.0,
-			"kapittel20Trygdetid": 40,
-			"garantipensjonBeloep": 0,
-			"garantipensjonSats": 251872.0
-		}
+		"heltUttakMaanedligBeloep": 31709
 	},
 	"livsvarigOffentligAfpListe": [],
-	"privatAfpListe": [
-		{
-			"alderAar": 65,
-			"aarligBeloep": 56388,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 1600,
-			"livsvarig": 3099,
-			"maanedligBeloep": 4699
-		},
-		{
-			"alderAar": 66,
-			"aarligBeloep": 56388,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 1600,
-			"livsvarig": 3099,
-			"maanedligBeloep": 4699
-		},
-		{
-			"alderAar": 67,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 68,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 69,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 70,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 71,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 72,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 73,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 74,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		},
-		{
-			"alderAar": 75,
-			"aarligBeloep": 37188,
-			"kompensasjonstillegg": 0,
-			"kronetillegg": 0,
-			"livsvarig": 3099,
-			"maanedligBeloep": 3099
-		}
-	],
+	"privatAfpListe": [],
 	"vilkaarsproevingsresultat": {
 		"erInnvilget": true
 	},
@@ -390,184 +319,168 @@
 	},
 	"pensjonsgivendeInntektListe": [
 		{
+			"aarstall": 1986,
+			"beloep": 179557
+		},
+		{
+			"aarstall": 1987,
+			"beloep": 191561
+		},
+		{
+			"aarstall": 1988,
+			"beloep": 201923
+		},
+		{
+			"aarstall": 1989,
+			"beloep": 211250
+		},
+		{
 			"aarstall": 1990,
-			"beloep": 109879
+			"beloep": 219759
 		},
 		{
 			"aarstall": 1991,
-			"beloep": 114651
+			"beloep": 229302
 		},
 		{
 			"aarstall": 1992,
-			"beloep": 118362
+			"beloep": 236724
 		},
 		{
 			"aarstall": 1993,
-			"beloep": 121196
+			"beloep": 242392
 		},
 		{
 			"aarstall": 1994,
-			"beloep": 123772
+			"beloep": 247543
 		},
 		{
 			"aarstall": 1995,
-			"beloep": 127133
+			"beloep": 254266
 		},
 		{
 			"aarstall": 1996,
-			"beloep": 132248
+			"beloep": 264496
 		},
 		{
 			"aarstall": 1997,
-			"beloep": 137451
+			"beloep": 274903
 		},
 		{
 			"aarstall": 1998,
-			"beloep": 145348
+			"beloep": 290697
 		},
 		{
 			"aarstall": 1999,
-			"beloep": 151926
+			"beloep": 303853
 		},
 		{
 			"aarstall": 2000,
-			"beloep": 158321
+			"beloep": 316642
 		},
 		{
 			"aarstall": 2001,
-			"beloep": 165606
+			"beloep": 331212
 		},
 		{
 			"aarstall": 2002,
-			"beloep": 174213
+			"beloep": 348426
 		},
 		{
 			"aarstall": 2003,
-			"beloep": 183151
+			"beloep": 366302
 		},
 		{
 			"aarstall": 2004,
-			"beloep": 190269
+			"beloep": 380538
 		},
 		{
 			"aarstall": 2005,
-			"beloep": 196552
+			"beloep": 393105
 		},
 		{
 			"aarstall": 2006,
-			"beloep": 203431
+			"beloep": 406863
 		},
 		{
 			"aarstall": 2007,
-			"beloep": 214375
+			"beloep": 428750
 		},
 		{
 			"aarstall": 2008,
-			"beloep": 226166
+			"beloep": 452333
 		},
 		{
 			"aarstall": 2009,
-			"beloep": 235651
+			"beloep": 471301
 		},
 		{
 			"aarstall": 2010,
-			"beloep": 244536
+			"beloep": 489072
 		},
 		{
 			"aarstall": 2011,
-			"beloep": 255345
+			"beloep": 510691
 		},
 		{
 			"aarstall": 2012,
-			"beloep": 265586
+			"beloep": 531171
 		},
 		{
 			"aarstall": 2013,
-			"beloep": 275570
+			"beloep": 551141
 		},
 		{
 			"aarstall": 2014,
-			"beloep": 285794
+			"beloep": 571588
 		},
 		{
 			"aarstall": 2015,
-			"beloep": 292909
+			"beloep": 585818
 		},
 		{
 			"aarstall": 2016,
-			"beloep": 300233
+			"beloep": 600466
 		},
 		{
 			"aarstall": 2017,
-			"beloep": 305276
+			"beloep": 610553
 		},
 		{
 			"aarstall": 2018,
-			"beloep": 313520
+			"beloep": 627040
 		},
 		{
 			"aarstall": 2019,
-			"beloep": 323554
+			"beloep": 647108
 		},
 		{
 			"aarstall": 2020,
-			"beloep": 330057
+			"beloep": 660114
 		},
 		{
 			"aarstall": 2021,
-			"beloep": 342699
+			"beloep": 685398
 		},
 		{
 			"aarstall": 2022,
-			"beloep": 359285
+			"beloep": 718570
 		},
 		{
 			"aarstall": 2023,
-			"beloep": 380410
+			"beloep": 760820
 		},
 		{
 			"aarstall": 2024,
-			"beloep": 400000
+			"beloep": 800000
 		},
 		{
 			"aarstall": 2025,
-			"beloep": 400000
+			"beloep": 800000
 		},
 		{
 			"aarstall": 2026,
-			"beloep": 400000
-		},
-		{
-			"aarstall": 2027,
-			"beloep": 400000
-		},
-		{
-			"aarstall": 2028,
-			"beloep": 54611
-		},
-		{
-			"aarstall": 2029,
-			"beloep": 23213
-		},
-		{
-			"aarstall": 2030,
-			"beloep": 23213
-		},
-		{
-			"aarstall": 2031,
-			"beloep": 23213
-		},
-		{
-			"aarstall": 2032,
-			"beloep": 23213
-		},
-		{
-			"aarstall": 2033,
-			"beloep": 23213
-		},
-		{
-			"aarstall": 2034,
-			"beloep": 1934
+			"beloep": 666666
 		}
 	]
 }
