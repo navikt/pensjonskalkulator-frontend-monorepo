@@ -157,6 +157,7 @@ export const Beregning = () => {
 				alderspensjonGrad={normertAfpAlderspensjonGrad}
 				isGradert
 				testId={testId}
+				erUttaksgradNull={erUttaksgradNull}
 			/>
 		)
 	}
