@@ -30,26 +30,31 @@ export function getPartnerBetegnelse(sivilstatus: Sivilstatus): string {
 export function showEpsHarPensjon({
 	sivilstatus,
 	beregnMedGjenlevenderett,
+	erEndring,
 }: {
 	sivilstatus: Sivilstatus | null
 	beregnMedGjenlevenderett: boolean
+	erEndring: boolean
 }): boolean {
-	return harPartner(sivilstatus) && !beregnMedGjenlevenderett
+	return harPartner(sivilstatus) && !beregnMedGjenlevenderett && !erEndring
 }
 
 export function showEpsHarInntektOver2G({
 	sivilstatus,
 	epsHarPensjon,
 	beregnMedGjenlevenderett,
+	erEndring,
 }: {
 	sivilstatus: Sivilstatus | null
 	epsHarPensjon: boolean | null
 	beregnMedGjenlevenderett: boolean
+	erEndring: boolean
 }): boolean {
 	return (
 		harPartner(sivilstatus) &&
 		epsHarPensjon === false &&
-		!beregnMedGjenlevenderett
+		!beregnMedGjenlevenderett &&
+		!erEndring
 	)
 }
 

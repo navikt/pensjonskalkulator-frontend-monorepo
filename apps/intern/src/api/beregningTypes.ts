@@ -50,6 +50,8 @@ export interface BeregningFormData {
 	afp?: InternAfpRadio
 	inntektSisteMaanedFoerUttak: number | null
 	aarsinntektSamtidigMedAfp: number | null
+	endringAP?: boolean
+	endringAfpPrivat?: boolean
 }
 
 export type BeregningParams = BeregningFormData
@@ -86,6 +88,8 @@ export interface ValidationErrors {
 	afp?: string
 	inntektSisteMaanedFoerUttak?: string
 	aarsinntektSamtidigMedAfp?: string
+	endringAP?: string
+	endringAfpPrivat?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -122,4 +126,6 @@ export const defaultBeregningFormData: BeregningFormData = {
 	afp: undefined,
 	inntektSisteMaanedFoerUttak: null,
 	aarsinntektSamtidigMedAfp: null,
+	endringAP: undefined,
+	endringAfpPrivat: undefined,
 }

@@ -14,6 +14,12 @@ import {
 } from '../../api/formConditions'
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
+interface ValidateFormOptions {
+	foedselsdato?: string
+	erEndring?: boolean
+	hideAfpSporsmaal?: boolean
+}
+
 function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
@@ -122,6 +128,7 @@ function validateSivilstand(
 			sivilstatus: formData.sivilstatus,
 			epsHarPensjon: formData.epsHarPensjon,
 			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
+			erEndring: false,
 		}) &&
 		formData.epsHarInntektOver2G === null
 	) {
@@ -317,18 +324,26 @@ export function useFormValidation() {
 	const validate = useCallback(
 		(
 			formData: BeregningFormData,
-			options?: { foedselsdato?: string }
+			{
+				foedselsdato,
+				erEndring = false,
+				hideAfpSporsmaal = false,
+			}: ValidateFormOptions = {}
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
 			const erAfpOffentlig = showAfpOffentligFields({
 				afp: formData.afp,
-				foedselsdato: options?.foedselsdato,
+				foedselsdato,
 			})
 
 			validateGjenlevenderett(formData, errors)
-			validateSivilstand(formData, errors)
-			validateAfp(formData, errors)
+			if (!erEndring) {
+				validateSivilstand(formData, errors)
+			}
+			if (!hideAfpSporsmaal) {
+				validateAfp(formData, errors)
+			}
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
 
@@ -340,8 +355,9 @@ export function useFormValidation() {
 				validateAlderHeltMotGradert(formData, errors)
 				validateInntektVsaHeltUttak(formData, errors)
 			}
-
-			validateUtenlandsOpphold(formData, errors)
+			if (!erEndring) {
+				validateUtenlandsOpphold(formData, errors)
+			}
 
 			setValidationErrors(errors)
 			return errors

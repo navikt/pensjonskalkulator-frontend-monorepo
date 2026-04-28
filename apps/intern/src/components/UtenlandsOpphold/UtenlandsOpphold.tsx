@@ -420,6 +420,7 @@ export const UtenlandsOpphold = ({
 				<RHFRadio
 					name="harOppholdUtenforNorge"
 					legend="Har bruker opphold utenfor Norge?"
+					testid="har-opphold-utenfor-norge"
 				/>
 				{showCopyButton && (
 					<Tooltip content="Kopier opphold">

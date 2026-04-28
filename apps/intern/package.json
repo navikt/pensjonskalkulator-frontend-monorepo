@@ -31,7 +31,7 @@
 		"date-fns": "catalog:",
 		"express": "catalog:",
 		"express-rate-limit": "catalog:",
-		"http-proxy-middleware": "3.0.3",
+		"http-proxy-middleware": "3.0.5",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"react-hook-form": "7.71.2",
@@ -48,7 +48,7 @@
 		"concurrently": "catalog:",
 		"msw": "catalog:",
 		"nodemon": "3.1.11",
-		"vite": "7.3.1"
+		"vite": "7.3.2"
 	},
 	"msw": {
 		"workerDirectory": [
