@@ -1,3 +1,5 @@
+import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
+
 import { Heading, Table } from '@navikt/ds-react'
 
 import styles from '../Gjenlevenderett/OpplysningerInfo.module.css'
@@ -5,7 +7,7 @@ import styles from '../Gjenlevenderett/OpplysningerInfo.module.css'
 export const OpplysningerFraVedtak = ({
 	loependeVedtak,
 }: {
-	loependeVedtak?: LoependeVedtak | undefined
+	loependeVedtak?: LoependeVedtak
 }) => {
 	const rows = [
 		{
