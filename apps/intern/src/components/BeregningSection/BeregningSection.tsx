@@ -45,8 +45,8 @@ export const BeregningSection = ({
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
-	erUttaksgradNull = false,
 	testId,
+	erUttaksgradNull = false,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12" data-testid={testId}>
 		{(showAfp || !erUttaksgradNull) && (

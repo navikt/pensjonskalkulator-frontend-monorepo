@@ -136,6 +136,12 @@ export const Beregning = () => {
 		/>
 	)
 	const renderNormertAfpSection = ({ testId }: { testId: string }) => {
+		if (
+			!shouldRenderNormertAfpBeforeHeltSection &&
+			!shouldRenderNormertAfpAfterHeltSection
+		) {
+			return null
+		}
 		return (
 			<BeregningSection
 				title={formatAlderTitle(67, 0)}
@@ -150,6 +156,7 @@ export const Beregning = () => {
 				alderspensjonGrad={normertAfpAlderspensjonGrad}
 				isGradert
 				testId={testId}
+				erUttaksgradNull={erUttaksgradNull}
 			/>
 		)
 	}
@@ -169,10 +176,12 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertMaanedligAlderspensjon && gradertAfpSection}
-				{harAfpPrivat && erUttaksgradNull && gradertAfpSection}
+				{(gradertMaanedligAlderspensjon ||
+					(harAfpPrivat && erUttaksgradNull)) &&
+					gradertAfpSection}
 				{shouldRenderNormertAfpBeforeHeltSection &&
 					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
+
 				<BeregningSection
 					title={titleHeltUttak || ''}
 					{...sectionCommonProps}
