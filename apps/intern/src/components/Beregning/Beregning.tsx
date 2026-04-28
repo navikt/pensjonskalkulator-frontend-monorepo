@@ -30,6 +30,7 @@ export const Beregning = () => {
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
 				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				data-testid="beregning-result"
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
@@ -135,23 +136,30 @@ export const Beregning = () => {
 			alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 			isGradert
 			erUttaksgradNull={erUttaksgradNull}
+			testId="beregning-section-gradert"
 		/>
 	)
-	const normertAfpSection = shouldRenderNormertAfpSection ? (
-		<BeregningSection
-			title={formatAlderTitle(67, 0)}
-			{...sectionCommonProps}
-			entry={normertMaanedligAlderspensjon}
-			showAfp
-			afpEntry={afpPrivatVed67Aar}
-			totalAddToSum={
-				(normertMaanedligAlderspensjon?.beloep ?? 0) +
-				(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-			}
-			alderspensjonGrad={normertAfpAlderspensjonGrad}
-			isGradert
-		/>
-	) : null
+	const normertAfpSection = (testId: string) => {
+		if (!shouldRenderNormertAfpSection) {
+			return null
+		}
+		return (
+			<BeregningSection
+				title={formatAlderTitle(67, 0)}
+				{...sectionCommonProps}
+				entry={normertMaanedligAlderspensjon}
+				showAfp
+				afpEntry={afpPrivatVed67Aar}
+				totalAddToSum={
+					(normertMaanedligAlderspensjon?.beloep ?? 0) +
+					(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
+				}
+				alderspensjonGrad={normertAfpAlderspensjonGrad}
+				isGradert
+				testId={testId}
+			/>
+		)
+	}
 
 	return (
 		<Box
@@ -170,7 +178,8 @@ export const Beregning = () => {
 				)}
 				{gradertMaanedligAlderspensjon && gradertAfpSection}
 				{harAfpPrivat && erUttaksgradNull && gradertAfpSection}
-				{shouldRenderNormertAfpBeforeHeltSection && normertAfpSection}
+				{shouldRenderNormertAfpBeforeHeltSection &&
+					normertAfpSection('beregning-section-gradert-67')}
 
 				<BeregningSection
 					title={titleHeltUttak || ''}
@@ -184,8 +193,10 @@ export const Beregning = () => {
 						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 					}
 					alderspensjonGrad={100}
+					testId="beregning-section-helt"
 				/>
-				{shouldRenderNormertAfpAfterHeltSection && normertAfpSection}
+				{shouldRenderNormertAfpAfterHeltSection &&
+					normertAfpSection('beregning-section-helt-67')}
 			</VStack>
 		</Box>
 	)

@@ -20,13 +20,19 @@ export const ButtonBar = ({
 		<div className={styles.buttonBar}>
 			<Box paddingBlock="space-24 space-0">
 				<HStack justify="space-between">
-					<Button size="small" variant="secondary" onClick={onReset}>
+					<Button
+						size="small"
+						variant="secondary"
+						onClick={onReset}
+						data-testid="nullstill-button"
+					>
 						Nullstill
 					</Button>
 					<Button
 						size="small"
 						variant="primary"
 						onClick={onSubmit}
+						data-testid="beregn-button"
 						disabled={isSubmitDisabled}
 					>
 						{isDirty ? 'Oppdater pensjon' : 'Beregn pensjon'}
