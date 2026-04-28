@@ -176,8 +176,9 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{gradertMaanedligAlderspensjon && gradertAfpSection}
-				{harAfpPrivat && erUttaksgradNull && gradertAfpSection}
+				{(gradertMaanedligAlderspensjon ||
+					(harAfpPrivat && erUttaksgradNull)) &&
+					gradertAfpSection}
 				{shouldRenderNormertAfpBeforeHeltSection &&
 					normertAfpSection('beregning-section-gradert-67')}
 
