@@ -211,7 +211,9 @@ export const Beregning = () => {
 					/>
 				)}
 				<BeregningSection
-					title={titleHeltUttak}
+					title={
+						skalBeregningAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
+					}
 					{...sectionCommonProps}
 					entry={
 						skalBeregningAfpKap19
