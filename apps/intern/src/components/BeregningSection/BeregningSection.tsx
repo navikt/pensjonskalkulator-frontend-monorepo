@@ -46,9 +46,9 @@ export const BeregningSection = ({
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	visAarsbelop = false,
-	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
+	totalAddToSum,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12" data-testid={testId}>
 		{(showAfp || !erUttaksgradNull) && (

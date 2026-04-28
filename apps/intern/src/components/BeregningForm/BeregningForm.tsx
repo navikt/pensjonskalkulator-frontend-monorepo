@@ -9,6 +9,7 @@ import { Box } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
+	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showEpsHarPensjon,
 	showGradertUttakFields,
@@ -84,6 +85,7 @@ export const BeregningForm = () => {
 		harInntektVedSidenAvUttak,
 		alderAarUttak,
 		alderMdUttak,
+		afp,
 	] = useWatch({
 		control,
 		name: [
@@ -94,6 +96,7 @@ export const BeregningForm = () => {
 			'harInntektVedSidenAvUttak',
 			'alderAarUttak',
 			'alderMdUttak',
+			'afp',
 		] as const,
 	})
 
@@ -120,6 +123,7 @@ export const BeregningForm = () => {
 			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
 		}
 		const errors = validate(normalizedFormData, {
+			foedselsdato: person?.foedselsdato,
 			erEndring,
 			hideAfpSporsmaal,
 		})
@@ -156,6 +160,11 @@ export const BeregningForm = () => {
 			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
 			heltUttakAlder
 		)
+
+	const erAfpOffentlig = showAfpOffentligFields({
+		afp,
+		foedselsdato: person?.foedselsdato,
+	})
 
 	const uttaksGradArray = erEndring
 		? [0, 20, 40, 50, 60, 80, 100]
@@ -243,7 +252,12 @@ export const BeregningForm = () => {
 							legend="Skal AFP inkluderes?"
 							options={[
 								{ value: 'ja_privat', label: 'Ja, privat' },
+								{ value: 'ja_offentlig', label: 'Ja, offentlig' },
 								{ value: 'nei', label: 'Nei' },
+								{
+									value: 'serviceberegning',
+									label: 'Serviceberegning AFP for saksbehandler',
+								},
 							]}
 							className={styles.horizontalRadioGroup}
 							testid="afp"
@@ -304,77 +318,107 @@ export const BeregningForm = () => {
 					mdName="alderMdUttak"
 					aarTestId="alder-uttak-aar"
 					mdTestId="alder-uttak-md"
-					foedselsdato={person?.foedselsdato}
+					{...(afp === 'serviceberegning'
+						? {
+								minAlder: { aar: 62, maaneder: 0 },
+								maxAlder: { aar: 66, maaneder: 11 },
+							}
+						: {
+								foedselsdato: person?.foedselsdato,
+								...(erAfpOffentlig
+									? { maxAlder: { aar: 66, maaneder: 11 } }
+									: {}),
+							})}
 				/>
 
-				<RHFSelect
-					name="uttaksgrad"
-					testId="uttaksgrad"
-					label="Uttaksgrad"
-					className={styles.selectWrapper}
-					numeric
-				>
-					{uttaksgrad == null && <option value="" />}
-					{uttaksGradArray.map((grad) => (
-						<option key={grad} value={String(grad)}>
-							{grad} %
-						</option>
-					))}
-				</RHFSelect>
-
-				{showGradertUttakFields(uttaksgrad) && (
-					<RHFTextField
-						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-						testId="inntekt-vsa-gradert-uttak"
-						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-					/>
-				)}
-
-				{showHeltUttakAlder(uttaksgrad) && (
-					<RHFAlderVelger
-						aarName="alderAarHeltUttak"
-						mdName="alderMdHeltUttak"
-						aarTestId="alder-helt-uttak-aar"
-						mdTestId="alder-helt-uttak-md"
-						aarLabel="Alder (år) for 100 % uttak"
-						mdLabel="Alder (md.) for 100 % uttak"
-						foedselsdato={person?.foedselsdato}
-						{...(alderAarUttak !== null && alderMdUttak !== null
-							? {
-									minAlder: {
-										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
-										maaneder: (alderMdUttak + 1) % 12,
-									},
-								}
-							: {})}
-					/>
-				)}
-				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
-					<RHFRadio
-						name="harInntektVedSidenAvUttak"
-						testid="har-inntekt-vsa-helt-uttak"
-						legend="Har bruker inntekt ved siden av 100 % uttak?"
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{erAfpOffentlig && (
 					<>
 						<RHFTextField
-							name="pensjonsgivendeInntektVedSidenAvUttak"
-							testId="inntekt-vsa-helt-uttak"
-							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+							name="inntektSisteMaanedFoerUttak"
+							label="Inntekt siste måned før uttak"
 						/>
+						<RHFTextField
+							name="aarsinntektSamtidigMedAfp"
+							label="Årsinntekt samtidig med AFP"
+						/>
+					</>
+				)}
 
-						<RHFAlderVelger
-							aarName="alderAarInntektSlutter"
-							mdName="alderMdInntektSlutter"
-							aarTestId="alder-inntekt-slutter-aar"
-							mdTestId="alder-inntekt-slutter-md"
-							aarLabel="Alder (år) inntekt slutter"
-							mdLabel="Alder (md.) inntekt slutter"
-							foedselsdato={person?.foedselsdato}
-						/>
+				{!erAfpOffentlig && (
+					<>
+						<RHFSelect
+							name="uttaksgrad"
+							testId="uttaksgrad"
+							label="Uttaksgrad"
+							className={styles.selectWrapper}
+							numeric
+						>
+							{uttaksgrad == null && <option value="" />}
+							{uttaksGradArray.map((grad) => (
+								<option key={grad} value={String(grad)}>
+									{grad} %
+								</option>
+							))}
+						</RHFSelect>
+
+						{showGradertUttakFields(uttaksgrad) && (
+							<RHFTextField
+								name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+								testId="inntekt-vsa-gradert-uttak"
+								label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+							/>
+						)}
+
+						{showHeltUttakAlder(uttaksgrad) && (
+							<RHFAlderVelger
+								aarName="alderAarHeltUttak"
+								mdName="alderMdHeltUttak"
+								aarTestId="alder-helt-uttak-aar"
+								mdTestId="alder-helt-uttak-md"
+								aarLabel="Alder (år) for 100 % uttak"
+								mdLabel="Alder (md.) for 100 % uttak"
+								foedselsdato={person?.foedselsdato}
+								{...(alderAarUttak !== null && alderMdUttak !== null
+									? {
+											minAlder: {
+												aar:
+													alderMdUttak >= 11
+														? alderAarUttak + 1
+														: alderAarUttak,
+												maaneder: (alderMdUttak + 1) % 12,
+											},
+										}
+									: {})}
+							/>
+						)}
+						{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+							<RHFRadio
+								name="harInntektVedSidenAvUttak"
+								testid="har-inntekt-vsa-helt-uttak"
+								legend="Har bruker inntekt ved siden av 100 % uttak?"
+								className={styles.horizontalRadioGroup}
+							/>
+						)}
+
+						{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+							<>
+								<RHFTextField
+									name="pensjonsgivendeInntektVedSidenAvUttak"
+									testId="inntekt-vsa-helt-uttak"
+									label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+								/>
+
+								<RHFAlderVelger
+									aarName="alderAarInntektSlutter"
+									mdName="alderMdInntektSlutter"
+									aarTestId="alder-inntekt-slutter-aar"
+									mdTestId="alder-inntekt-slutter-md"
+									aarLabel="Alder (år) inntekt slutter"
+									mdLabel="Alder (md.) inntekt slutter"
+									foedselsdato={person?.foedselsdato}
+								/>
+							</>
+						)}
 					</>
 				)}
 			</Box>

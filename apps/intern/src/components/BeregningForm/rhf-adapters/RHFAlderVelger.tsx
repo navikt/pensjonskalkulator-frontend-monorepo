@@ -11,6 +11,7 @@ interface RHFAlderVelgerProps {
 	mdLabel?: string
 	foedselsdato?: string
 	minAlder?: { aar: number; maaneder: number }
+	maxAlder?: { aar: number; maaneder: number }
 	aarTestId?: string
 	mdTestId?: string
 }
@@ -22,6 +23,7 @@ export function RHFAlderVelger({
 	mdLabel,
 	foedselsdato,
 	minAlder,
+	maxAlder,
 	aarTestId,
 	mdTestId,
 }: RHFAlderVelgerProps) {
@@ -46,6 +48,7 @@ export function RHFAlderVelger({
 			mdLabel={mdLabel}
 			foedselsdato={foedselsdato}
 			{...(minAlder ? { minAlder } : {})}
+			{...(maxAlder ? { maxAlder } : {})}
 			aarError={errors[aarName]?.message}
 			mdError={errors[mdName]?.message}
 			aarTestId={aarTestId}

@@ -1,6 +1,7 @@
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
-import type { BeregningFormData } from './beregningTypes'
+import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
 
 export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
@@ -97,4 +98,16 @@ export function validateGradertUttakRequired(formData: BeregningFormData): {
 	}
 
 	return errors
+}
+
+export function showAfpOffentligFields({
+	afp,
+	foedselsdato,
+}: {
+	afp: InternAfpRadio | undefined
+	foedselsdato: string | undefined
+}): boolean {
+	return (
+		afp === 'ja_offentlig' && !!foedselsdato && isFoedtFoer1963(foedselsdato)
+	)
 }

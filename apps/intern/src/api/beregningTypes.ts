@@ -8,6 +8,8 @@ export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
 	| 'DOEDSFALL_REGISTRERT'
 
+export type InternAfpRadio = AfpRadio | 'serviceberegning'
+
 export interface UtenlandsOppholdFormValues {
 	landkode: string
 	arbeidetUtenlands: boolean | null
@@ -45,7 +47,9 @@ export interface BeregningFormData {
 	epsRegistretSomFlykting: boolean | null
 	harOppholdUtenforNorge: boolean | null
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
-	afp?: AfpRadio
+	afp?: InternAfpRadio
+	inntektSisteMaanedFoerUttak: number | null
+	aarsinntektSamtidigMedAfp: number | null
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
 }
@@ -82,6 +86,8 @@ export interface ValidationErrors {
 	harOppholdUtenforNorge?: string
 	utenlandsOpphold?: string
 	afp?: string
+	inntektSisteMaanedFoerUttak?: string
+	aarsinntektSamtidigMedAfp?: string
 	endringAP?: string
 	endringAfpPrivat?: string
 }
@@ -118,6 +124,8 @@ export const defaultBeregningFormData: BeregningFormData = {
 	harOppholdUtenforNorge: null,
 	utenlandsOpphold: [],
 	afp: undefined,
+	inntektSisteMaanedFoerUttak: null,
+	aarsinntektSamtidigMedAfp: null,
 	endringAP: undefined,
 	endringAfpPrivat: undefined,
 }

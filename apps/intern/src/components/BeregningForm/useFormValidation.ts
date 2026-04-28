@@ -6,6 +6,7 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
+	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
 	showInntektGradertFields,
@@ -14,6 +15,7 @@ import {
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
+	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
 }
@@ -273,6 +275,22 @@ function validateInntektVsaHeltUttak(
 	}
 }
 
+function validateTidsbegrensetOffentligAfp(
+	formData: BeregningFormData,
+	errors: ValidationErrors
+) {
+	validateInntektField({
+		formData,
+		errors,
+		field: 'inntektSisteMaanedFoerUttak',
+	})
+	validateInntektField({
+		formData,
+		errors,
+		field: 'aarsinntektSamtidigMedAfp',
+	})
+}
+
 function validateUtenlandsOpphold(
 	formData: BeregningFormData,
 	errors: ValidationErrors
@@ -306,9 +324,18 @@ export function useFormValidation() {
 	const validate = useCallback(
 		(
 			formData: BeregningFormData,
-			{ erEndring = false, hideAfpSporsmaal = false }: ValidateFormOptions = {}
+			{
+				foedselsdato,
+				erEndring = false,
+				hideAfpSporsmaal = false,
+			}: ValidateFormOptions = {}
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
+
+			const erAfpOffentlig = showAfpOffentligFields({
+				afp: formData.afp,
+				foedselsdato,
+			})
 
 			validateGjenlevenderett(formData, errors)
 			if (!erEndring) {
@@ -319,10 +346,15 @@ export function useFormValidation() {
 			}
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
-			validateUttaksgrad(formData, errors)
-			validateInntektVsaGradertUttak(formData, errors)
-			validateAlderHeltMotGradert(formData, errors)
-			validateInntektVsaHeltUttak(formData, errors)
+
+			if (erAfpOffentlig) {
+				validateTidsbegrensetOffentligAfp(formData, errors)
+			} else {
+				validateUttaksgrad(formData, errors)
+				validateInntektVsaGradertUttak(formData, errors)
+				validateAlderHeltMotGradert(formData, errors)
+				validateInntektVsaHeltUttak(formData, errors)
+			}
 			if (!erEndring) {
 				validateUtenlandsOpphold(formData, errors)
 			}

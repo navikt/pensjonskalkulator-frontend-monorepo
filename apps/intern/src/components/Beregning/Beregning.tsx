@@ -11,6 +11,7 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { AfpBeregningSection } from './AfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -23,6 +24,10 @@ export const Beregning = () => {
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
+
+	const skalBeregningAfpKap19 =
+		aktivBeregning?.afp === 'ja_offentlig' &&
+		new Date(person?.foedselsdato ?? '').getFullYear() < 1963
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -73,15 +78,16 @@ export const Beregning = () => {
 
 	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
 	const titleHeltUttak =
-		aktivBeregning &&
-		formatAlderTitle(
-			erGradert || erUttaksgradNull
-				? (aktivBeregning.alderAarHeltUttak ?? 0)
-				: (aktivBeregning.alderAarUttak ?? 0),
-			erGradert || erUttaksgradNull
-				? (aktivBeregning.alderMdHeltUttak ?? 0)
-				: (aktivBeregning.alderMdUttak ?? 0)
-		)
+		(aktivBeregning &&
+			formatAlderTitle(
+				erGradert || erUttaksgradNull
+					? (aktivBeregning.alderAarHeltUttak ?? 0)
+					: (aktivBeregning.alderAarUttak ?? 0),
+				erGradert || erUttaksgradNull
+					? (aktivBeregning.alderMdHeltUttak ?? 0)
+					: (aktivBeregning.alderMdUttak ?? 0)
+			)) ||
+		''
 	const titleGradertUttak =
 		aktivBeregning &&
 		formatAlderTitle(
@@ -196,11 +202,22 @@ export const Beregning = () => {
 					gradertAfpSection}
 				{shouldRenderNormertAfpBeforeHeltSection &&
 					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
-
+				{skalBeregningAfpKap19 && beregning.tidsbegrensetOffentligAfp && (
+					<AfpBeregningSection
+						title={titleHeltUttak}
+						tableCount={tableCount}
+						entry={beregning.tidsbegrensetOffentligAfp}
+						visAarsbelop={visAarsbelop}
+					/>
+				)}
 				<BeregningSection
-					title={titleHeltUttak || ''}
+					title={titleHeltUttak}
 					{...sectionCommonProps}
-					entry={helMaanedligAlderspensjon}
+					entry={
+						skalBeregningAfpKap19
+							? normertMaanedligAlderspensjon
+							: helMaanedligAlderspensjon
+					}
 					showAfp={harAfpPrivat}
 					afpEntry={afpPrivatVedHeltUttak}
 					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
