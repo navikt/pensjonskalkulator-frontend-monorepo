@@ -137,7 +137,7 @@ export const Beregning = () => {
 	)
 	const renderNormertAfpSection = ({ testId }: { testId: string }) => {
 		if (
-			!shouldRenderNormertAfpBeforeHeltSection ||
+			!shouldRenderNormertAfpBeforeHeltSection &&
 			!shouldRenderNormertAfpAfterHeltSection
 		) {
 			return null
