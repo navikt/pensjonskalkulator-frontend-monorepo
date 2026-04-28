@@ -129,6 +129,6 @@ export function isUttakNesteKalenderaar({
 	const uttakYear =
 		birthDate.getFullYear() +
 		alderAarUttak +
-		Math.floor((birthDate.getMonth() + alderMdUttak) / 12)
+		Math.floor((birthDate.getMonth() + alderMdUttak + 1) / 12)
 	return uttakYear > new Date().getFullYear()
 }

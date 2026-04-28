@@ -133,6 +133,7 @@ export const BeregningForm = () => {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
 			hideAfpSporsmaal,
+			initialInntektAar,
 		})
 
 		if (Object.keys(errors).length > 0) {
@@ -181,6 +182,8 @@ export const BeregningForm = () => {
 
 	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
 	const pensjonsgivendeInntektValue = `${formatInntekt(aarligInntektFoerUttakBeloep)} kr`
+	const forrigeAar = new Date().getFullYear() - 1
+	const harIkkeForrigeAarsInntekt = initialInntektAar !== forrigeAar
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -356,6 +359,12 @@ export const BeregningForm = () => {
 										{pensjonsgivendeInntektValue}
 									</BodyShort>
 								</HStack>
+								{harIkkeForrigeAarsInntekt && (
+									<RHFTextField
+										name="pensjonsgivendeInntektForrigeAar"
+										label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
+									/>
+								)}
 								{isUttakNesteKalenderaar({
 									foedselsdato: person?.foedselsdato,
 									alderAarUttak,

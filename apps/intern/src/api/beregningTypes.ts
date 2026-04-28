@@ -49,6 +49,7 @@ export interface BeregningFormData {
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
 	afp?: InternAfpRadio
 	pensjonsgivendeInntektFremTilUttak: number | null
+	pensjonsgivendeInntektForrigeAar: number | null
 	inntektSisteMaanedFoerUttak: number | null
 	aarsinntektSamtidigMedAfp: number | null
 	endringAP?: boolean
@@ -88,6 +89,7 @@ export interface ValidationErrors {
 	utenlandsOpphold?: string
 	afp?: string
 	pensjonsgivendeInntektFremTilUttak?: string
+	pensjonsgivendeInntektForrigeAar?: string
 	inntektSisteMaanedFoerUttak?: string
 	aarsinntektSamtidigMedAfp?: string
 	endringAP?: string
@@ -127,6 +129,7 @@ export const defaultBeregningFormData: BeregningFormData = {
 	utenlandsOpphold: [],
 	afp: undefined,
 	pensjonsgivendeInntektFremTilUttak: null,
+	pensjonsgivendeInntektForrigeAar: null,
 	inntektSisteMaanedFoerUttak: null,
 	aarsinntektSamtidigMedAfp: null,
 	endringAP: undefined,
