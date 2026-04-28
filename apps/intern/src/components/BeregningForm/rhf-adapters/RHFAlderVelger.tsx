@@ -14,6 +14,7 @@ interface RHFAlderVelgerProps {
 	maxAlder?: { aar: number; maaneder: number }
 	aarTestId?: string
 	mdTestId?: string
+	erServiceberegning?: boolean
 }
 
 export function RHFAlderVelger({
@@ -26,6 +27,7 @@ export function RHFAlderVelger({
 	maxAlder,
 	aarTestId,
 	mdTestId,
+	erServiceberegning,
 }: RHFAlderVelgerProps) {
 	const {
 		control,
@@ -53,6 +55,7 @@ export function RHFAlderVelger({
 			mdError={errors[mdName]?.message}
 			aarTestId={aarTestId}
 			mdTestId={mdTestId}
+			erServiceberegning={erServiceberegning}
 		/>
 	)
 }

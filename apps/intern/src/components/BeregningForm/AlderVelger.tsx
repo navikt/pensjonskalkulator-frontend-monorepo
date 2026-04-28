@@ -101,6 +101,7 @@ interface AlderVelgerProps {
 	mdError?: string
 	aarTestId?: string
 	mdTestId?: string
+	erServiceberegning?: boolean
 }
 
 export function AlderVelger({
@@ -117,10 +118,12 @@ export function AlderVelger({
 	mdError,
 	aarTestId,
 	mdTestId,
+	erServiceberegning,
 }: AlderVelgerProps) {
-	const minAlder = foedselsdato
-		? getBrukerensAlderISluttenAvMaaneden(foedselsdato, minAlderProp)
-		: minAlderProp
+	const minAlder =
+		foedselsdato && !erServiceberegning
+			? getBrukerensAlderISluttenAvMaaneden(foedselsdato, minAlderProp)
+			: minAlderProp
 	const selectedYear = alderAar ? Number(alderAar) : undefined
 
 	const aarOptions = []

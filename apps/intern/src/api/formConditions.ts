@@ -108,6 +108,27 @@ export function showAfpOffentligFields({
 	foedselsdato: string | undefined
 }): boolean {
 	return (
-		afp === 'ja_offentlig' && !!foedselsdato && isFoedtFoer1963(foedselsdato)
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
+		!!foedselsdato &&
+		isFoedtFoer1963(foedselsdato)
 	)
+}
+
+export function isUttakNesteKalenderaar({
+	foedselsdato,
+	alderAarUttak,
+	alderMdUttak,
+}: {
+	foedselsdato: string | undefined
+	alderAarUttak: number | null
+	alderMdUttak: number | null
+}): boolean {
+	if (!foedselsdato || alderAarUttak == null || alderMdUttak == null)
+		return false
+	const birthDate = new Date(foedselsdato)
+	const uttakYear =
+		birthDate.getFullYear() +
+		alderAarUttak +
+		Math.floor((birthDate.getMonth() + alderMdUttak) / 12)
+	return uttakYear > new Date().getFullYear()
 }
