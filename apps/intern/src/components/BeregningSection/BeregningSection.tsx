@@ -26,6 +26,7 @@ interface BeregningSectionProps {
 	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
+	erUttaksgradNull?: boolean
 	testId?: string
 }
 
@@ -44,17 +45,20 @@ export const BeregningSection = ({
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
+	erUttaksgradNull = false,
 	testId,
 }: BeregningSectionProps) => (
 	<VStack gap="space-12" data-testid={testId}>
-		<Heading level="3" size="small">
-			{title}
-		</Heading>
+		{(showAfp || !erUttaksgradNull) && (
+			<Heading level="3" size="small">
+				{title}
+			</Heading>
+		)}
 		<div
 			className={styles.tableGrid}
 			style={{ '--table-columns': tableCount } as React.CSSProperties}
 		>
-			{entry && (
+			{entry && !erUttaksgradNull && (
 				<AlderspensjonTables
 					entry={entry}
 					erFoedtFoer1963={erFoedtFoer1963}
@@ -76,11 +80,14 @@ export const BeregningSection = ({
 						valueHeader="Kr per måned"
 						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
 					/>
-					<BeregningTableWithSum
-						title="Alderspensjon og AFP"
-						valueHeader="Kr per måned"
-						addToSum={totalAddToSum}
-					/>
+
+					{!erUttaksgradNull && (
+						<BeregningTableWithSum
+							title="Alderspensjon og AFP"
+							valueHeader="Kr per måned"
+							addToSum={totalAddToSum}
+						/>
+					)}
 				</VStack>
 			)}
 		</div>

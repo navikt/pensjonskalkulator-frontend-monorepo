@@ -22,11 +22,13 @@ export function isSivilstatusWithGjenlevenderett(
 export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
+	erEndring,
 }: {
 	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
+	erEndring: boolean
 }): boolean {
-	if (!sivilstatus) return false
+	if (!sivilstatus || erEndring) return false
 
 	return (
 		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
@@ -36,13 +38,16 @@ export function showSivilstatus({
 export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
+	erEndring,
 }: {
 	initialSivilstatus: EpsSivilstatus
 	person: PersonInternV1
+	erEndring: boolean
 }): boolean {
 	return (
 		isFoedtFoer1963(person?.foedselsdato) &&
-		isSivilstatusWithGjenlevenderett(initialSivilstatus)
+		isSivilstatusWithGjenlevenderett(initialSivilstatus) &&
+		!erEndring
 	)
 }
 
