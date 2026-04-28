@@ -103,10 +103,6 @@ export const Beregning = () => {
 	const shouldRenderNormertAfpAfterHeltSection =
 		harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67
 
-	const shouldRenderNormertAfpSection =
-		shouldRenderNormertAfpBeforeHeltSection ||
-		shouldRenderNormertAfpAfterHeltSection
-
 	const normertAfpAlderspensjonGrad = shouldRenderNormertAfpBeforeHeltSection
 		? (aktivBeregning?.uttaksgrad ?? 0)
 		: 100
@@ -139,8 +135,11 @@ export const Beregning = () => {
 			testId="beregning-section-gradert"
 		/>
 	)
-	const normertAfpSection = (testId: string) => {
-		if (!shouldRenderNormertAfpSection) {
+	const renderNormertAfpSection = ({ testId }: { testId: string }) => {
+		if (
+			!shouldRenderNormertAfpBeforeHeltSection ||
+			!shouldRenderNormertAfpAfterHeltSection
+		) {
 			return null
 		}
 		return (
@@ -181,7 +180,7 @@ export const Beregning = () => {
 					(harAfpPrivat && erUttaksgradNull)) &&
 					gradertAfpSection}
 				{shouldRenderNormertAfpBeforeHeltSection &&
-					normertAfpSection('beregning-section-gradert-67')}
+					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
 
 				<BeregningSection
 					title={titleHeltUttak || ''}
@@ -198,7 +197,7 @@ export const Beregning = () => {
 					testId="beregning-section-helt"
 				/>
 				{shouldRenderNormertAfpAfterHeltSection &&
-					normertAfpSection('beregning-section-helt-67')}
+					renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 			</VStack>
 		</Box>
 	)
