@@ -1,14 +1,18 @@
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
-import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
+import {
+	formatInntekt,
+	formaterAlderString,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { Box } from '@navikt/ds-react'
+import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
+	isUttakNesteKalenderaar,
 	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showEpsHarPensjon,
@@ -60,6 +64,7 @@ export const BeregningForm = () => {
 		person,
 		beregning,
 		loependeVedtak,
+		initialInntektAar,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
@@ -86,6 +91,7 @@ export const BeregningForm = () => {
 		alderAarUttak,
 		alderMdUttak,
 		afp,
+		aarligInntektFoerUttakBeloep,
 	] = useWatch({
 		control,
 		name: [
@@ -97,6 +103,7 @@ export const BeregningForm = () => {
 			'alderAarUttak',
 			'alderMdUttak',
 			'afp',
+			'aarligInntektFoerUttakBeloep',
 		] as const,
 	})
 
@@ -126,6 +133,7 @@ export const BeregningForm = () => {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
 			hideAfpSporsmaal,
+			initialInntektAar,
 		})
 
 		if (Object.keys(errors).length > 0) {
@@ -171,6 +179,11 @@ export const BeregningForm = () => {
 		: [20, 40, 50, 60, 80, 100]
 
 	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
+
+	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
+	const pensjonsgivendeInntektValue = `${formatInntekt(aarligInntektFoerUttakBeloep)} kr`
+	const forrigeAar = new Date().getFullYear() - 1
+	const harIkkeForrigeAarsInntekt = initialInntektAar !== forrigeAar
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -307,24 +320,27 @@ export const BeregningForm = () => {
 							/>
 						</div>
 					)}
-				<RHFTextField
-					name="aarligInntektFoerUttakBeloep"
-					testId="inntekt-foer-uttak"
-					label="Pensjonsgivende inntekt frem til uttak"
-				/>
+				{afp !== 'serviceberegning' && (
+					<RHFTextField
+						name="aarligInntektFoerUttakBeloep"
+						testId="inntekt-foer-uttak"
+						label="Pensjonsgivende inntekt frem til uttak"
+					/>
+				)}
 
 				<RHFAlderVelger
 					aarName="alderAarUttak"
 					mdName="alderMdUttak"
 					aarTestId="alder-uttak-aar"
 					mdTestId="alder-uttak-md"
+					foedselsdato={person?.foedselsdato}
+					erServiceberegning={afp === 'serviceberegning'}
 					{...(afp === 'serviceberegning'
 						? {
 								minAlder: { aar: 62, maaneder: 0 },
 								maxAlder: { aar: 66, maaneder: 11 },
 							}
 						: {
-								foedselsdato: person?.foedselsdato,
 								...(erAfpOffentlig
 									? { maxAlder: { aar: 66, maaneder: 11 } }
 									: {}),
@@ -333,6 +349,34 @@ export const BeregningForm = () => {
 
 				{erAfpOffentlig && (
 					<>
+						{afp === 'serviceberegning' && (
+							<>
+								<HStack gap="space-4">
+									<BodyShort size="small" weight="semibold">
+										{pensjonsgivendeInntektLabel}
+									</BodyShort>
+									<BodyShort size="small">
+										{pensjonsgivendeInntektValue}
+									</BodyShort>
+								</HStack>
+								{harIkkeForrigeAarsInntekt && (
+									<RHFTextField
+										name="pensjonsgivendeInntektForrigeAar"
+										label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
+									/>
+								)}
+								{isUttakNesteKalenderaar({
+									foedselsdato: person?.foedselsdato,
+									alderAarUttak,
+									alderMdUttak,
+								}) && (
+									<RHFTextField
+										name="pensjonsgivendeInntektFremTilUttak"
+										label="Pensjonsgivende årsinntekt frem til uttak"
+									/>
+								)}
+							</>
+						)}
 						<RHFTextField
 							name="inntektSisteMaanedFoerUttak"
 							label="Inntekt siste måned før uttak"

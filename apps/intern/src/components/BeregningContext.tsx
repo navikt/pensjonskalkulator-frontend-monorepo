@@ -45,6 +45,7 @@ interface BeregningContextValue {
 	fnr: string | undefined
 	person: PersonInternV1 | undefined
 	loependeVedtak: LoependeVedtak | undefined
+	initialInntektAar: number | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -54,6 +55,7 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 interface BeregningProviderProps {
 	children: ReactNode
 	initialInntekt?: number
+	initialInntektAar?: number
 	initialSivilstatus?: Sivilstatus
 }
 
@@ -63,6 +65,7 @@ const cloneBeregningParams = (values: BeregningFormData): BeregningParams =>
 export function BeregningProvider({
 	children,
 	initialInntekt,
+	initialInntektAar,
 	initialSivilstatus,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
@@ -252,6 +255,7 @@ export function BeregningProvider({
 					isBeregningLoading,
 					beregningError,
 					loependeVedtak,
+					initialInntektAar,
 					submitBeregning,
 					resetForm,
 				}}

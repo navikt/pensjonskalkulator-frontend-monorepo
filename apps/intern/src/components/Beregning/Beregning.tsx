@@ -12,6 +12,7 @@ import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { AfpBeregningSection } from './AfpBeregningSection'
+import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -28,6 +29,7 @@ export const Beregning = () => {
 	const skalBeregningAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' &&
 		new Date(person?.foedselsdato ?? '').getFullYear() < 1963
+	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -197,37 +199,52 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				{(gradertMaanedligAlderspensjon ||
-					(harAfpPrivat && erUttaksgradNull)) &&
-					gradertAfpSection}
-				{shouldRenderNormertAfpBeforeHeltSection &&
-					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
-				{skalBeregningAfpKap19 && beregning.tidsbegrensetOffentligAfp && (
-					<AfpBeregningSection
+				{erServiceberegning && beregning.serviceberegnetAfp?.beregnetAfp && (
+					<ServiceAfpBeregningSection
 						title={titleHeltUttak}
 						tableCount={tableCount}
-						entry={beregning.tidsbegrensetOffentligAfp}
+						entry={beregning.serviceberegnetAfp.beregnetAfp}
 						visAarsbelop={visAarsbelop}
 					/>
 				)}
-				<BeregningSection
-					title={
-						skalBeregningAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
-					}
-					{...sectionCommonProps}
-					entry={
-						skalBeregningAfpKap19
-							? normertMaanedligAlderspensjon
-							: helMaanedligAlderspensjon
-					}
-					showAfp={harAfpPrivat}
-					afpEntry={afpPrivatVedHeltUttak}
-					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-					alderspensjonGrad={100}
-					visAarsbelop={visAarsbelop}
-					testId="beregning-section-helt"
-				/>
-				{shouldRenderNormertAfpAfterHeltSection &&
+				{!erServiceberegning &&
+					(gradertMaanedligAlderspensjon ||
+						(harAfpPrivat && erUttaksgradNull)) &&
+					gradertAfpSection}
+				{!erServiceberegning &&
+					shouldRenderNormertAfpBeforeHeltSection &&
+					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
+				{!erServiceberegning &&
+					skalBeregningAfpKap19 &&
+					beregning.tidsbegrensetOffentligAfp && (
+						<AfpBeregningSection
+							title={titleHeltUttak}
+							tableCount={tableCount}
+							entry={beregning.tidsbegrensetOffentligAfp}
+							visAarsbelop={visAarsbelop}
+						/>
+					)}
+				{!erServiceberegning && (
+					<BeregningSection
+						title={
+							skalBeregningAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
+						}
+						{...sectionCommonProps}
+						entry={
+							skalBeregningAfpKap19
+								? normertMaanedligAlderspensjon
+								: helMaanedligAlderspensjon
+						}
+						showAfp={harAfpPrivat}
+						afpEntry={afpPrivatVedHeltUttak}
+						visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
+						alderspensjonGrad={100}
+						visAarsbelop={visAarsbelop}
+						testId="beregning-section-helt"
+					/>
+				)}
+				{!erServiceberegning &&
+					shouldRenderNormertAfpAfterHeltSection &&
 					renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 			</VStack>
 		</Box>

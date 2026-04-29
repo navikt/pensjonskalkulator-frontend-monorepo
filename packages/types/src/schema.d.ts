@@ -732,6 +732,7 @@ export interface components {
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
 				| 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+				| 'SERVICEBEREGN_AFP'
 			/** Format: date */
 			foedselsdato: string
 			/** Format: int32 */
@@ -959,6 +960,7 @@ export interface components {
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
 				| 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+				| 'SERVICEBEREGN_AFP'
 				| null
 			/** Format: int32 */
 			aarligInntektFoerUttakBeloep?: number | null
@@ -1163,6 +1165,7 @@ export interface components {
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_PRIVAT'
 				| 'ENDRING_ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
 				| 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+				| 'SERVICEBEREGN_AFP'
 			/** Format: date */
 			foedselsdato: string
 			/** Format: int32 */
@@ -1398,6 +1401,12 @@ export interface components {
 			innvilgetLivsvarigAfpListe?:
 				| components['schemas']['SimuleringV1InnvilgetLivsvarigOffentligAfpSpec'][]
 				| null
+			/** Format: int32 */
+			inntektForrigeKalenderaar?: number | null
+			/** Format: int32 */
+			inntektFremTilUttak?: number | null
+			/** Format: int32 */
+			inntektMaanedFoerAfp?: number | null
 		}
 		SimuleringV1Spec: {
 			/** @enum {string} */
@@ -1411,6 +1420,7 @@ export interface components {
 				| 'ENDRING_ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP'
 				| 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
 				| 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+				| 'SERVICEBEREGN_AFP'
 			/** Format: int32 */
 			aarligInntektFoerUttakBeloep?: number | null
 			gradertUttak?:
@@ -1605,6 +1615,37 @@ export interface components {
 			 */
 			poengaarFom1992?: number | null
 		}
+		SimuleringV1BeregnetAfp: {
+			/** Format: int32 */
+			totalbelopAfp?: number | null
+			/** Format: date */
+			virkFom?: string | null
+			/** Format: int32 */
+			tidligereArbeidsinntekt?: number | null
+			/** Format: int32 */
+			grunnbelop?: number | null
+			/** Format: double */
+			sluttpoengtall?: number | null
+			/** Format: int32 */
+			trygdetid?: number | null
+			/** Format: int32 */
+			poengar?: number | null
+			/** Format: int32 */
+			poeangarF92?: number | null
+			/** Format: int32 */
+			poeangarE91?: number | null
+			/** Format: int32 */
+			grunnpensjon?: number | null
+			/** Format: int32 */
+			tilleggspensjon?: number | null
+			/** Format: int32 */
+			afpTillegg?: number | null
+			/** Format: double */
+			fpp?: number | null
+			/** Format: int32 */
+			sertillegg?: number | null
+			erAvkortet?: boolean | null
+		}
 		SimuleringV1MaanedligAlderspensjon: {
 			/** Format: int32 */
 			beloep: number
@@ -1662,61 +1703,6 @@ export interface components {
 			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
 			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
 		}
-		SimuleringV1MaanedligAlderspensjon: {
-			/** Format: int32 */
-			beloep: number
-			/** Format: int32 */
-			inntektspensjonBeloep?: number
-			/** Format: double */
-			delingstall?: number
-			/** Format: int32 */
-			pensjonsbeholdningFoerUttakBeloep?: number
-			/** Format: int32 */
-			pensjonsbeholdningEtterUttakBeloep?: number
-			/** Format: double */
-			sluttpoengtall?: number
-			/** Format: int32 */
-			poengaarTom1991?: number
-			/** Format: int32 */
-			poengaarFom1992?: number
-			/** Format: double */
-			forholdstall?: number
-			/** Format: int32 */
-			grunnpensjonBeloep?: number
-			/** Format: int32 */
-			tilleggspensjonBeloep?: number
-			/** Format: int32 */
-			pensjonstillegg?: number
-			/** Format: int32 */
-			skjermingstillegg?: number
-			/** Format: double */
-			kapittel19Andel?: number
-			/** Format: int32 */
-			kapittel19Trygdetid?: number
-			/** Format: int32 */
-			basispensjonBeloep?: number
-			/** Format: int32 */
-			restpensjonBeloep?: number
-			/** Format: int32 */
-			gjenlevendetillegg?: number
-			/** Format: double */
-			minstePensjonsnivaaSats?: number
-			/** Format: double */
-			kapittel20Andel?: number
-			/** Format: int32 */
-			kapittel20Trygdetid?: number
-			/** Format: int32 */
-			garantipensjonBeloep?: number
-			/** Format: double */
-			garantipensjonSats?: number
-			/** Format: int32 */
-			garantitilleggBeloep?: number
-		}
-		SimuleringV1MaanedligAlderspensjonForKnekkpunkter: {
-			vedGradertUttak?: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-		}
 		SimuleringV1PrivatAfp: {
 			/**
 			 * Format: int32
@@ -1744,10 +1730,15 @@ export interface components {
 				| 'UGYLDIG_ANTALL_AAR'
 				| 'UGYLDIG_PERSONIDENT'
 				| 'PERSON_IKKE_FUNNET'
+				| 'PERSON_FOR_LAV_ALDER'
 				| 'PERSON_FOR_HOEY_ALDER'
+				| 'UTILSTREKKELIG_INNTEKT'
 				| 'UTILSTREKKELIG_OPPTJENING'
 				| 'UTILSTREKKELIG_TRYGDETID'
 				| 'ANNEN_KLIENTFEIL'
+				| 'INTERN_DATA_INKONSISTENS'
+				| 'IMPLEMENTASJONSFEIL'
+				| 'TREDJEPARTSFEIL'
 				| 'SERVERFEIL'
 			beskrivelse: string
 		}
@@ -1777,6 +1768,12 @@ export interface components {
 				| components['schemas']['SimuleringV1AarligBeloep'][]
 				| null
 			problem?: components['schemas']['SimuleringV1Problem'] | null
+			serviceberegnetAfp?:
+				| components['schemas']['SimuleringV1ServiceberegnetAfp']
+				| null
+		}
+		SimuleringV1ServiceberegnetAfp: {
+			beregnetAfp?: components['schemas']['SimuleringV1BeregnetAfp'] | null
 		}
 		SimuleringV1TidsbegrensetOffentligAfp: {
 			/**

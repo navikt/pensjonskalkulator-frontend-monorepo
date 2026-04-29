@@ -47,6 +47,12 @@ export function mapBeregningParamsToRequest(
 	const skalBeregneAfpKap19 =
 		formData.afp === 'ja_offentlig' && foedselsdato.getFullYear() < 1963
 
+	const skalBeregneServiceberegnetAfp =
+		formData.afp === 'serviceberegning' && foedselsdato.getFullYear() < 1963
+
+	const skalBeregneTidsbegrensetOffentligAfp =
+		skalBeregneAfpKap19 || skalBeregneServiceberegnetAfp
+
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
 		? (formData.pensjonsgivendeInntektVedSidenAvUttak ?? undefined)
@@ -93,7 +99,11 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP'
 	}
 
-	const inntektVsaAfp = skalBeregneAfpKap19
+	if (formData.afp === 'serviceberegning') {
+		simuleringstype = 'SERVICEBEREGN_AFP'
+	}
+
+	const inntektVsaAfp = skalBeregneTidsbegrensetOffentligAfp
 		? formData.aarsinntektSamtidigMedAfp
 		: undefined
 
@@ -123,11 +133,13 @@ export function mapBeregningParamsToRequest(
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		utenlandsperiodeListe,
 		gradertUttak:
-			erGradert || skalBeregneAfpKap19
+			erGradert || skalBeregneTidsbegrensetOffentligAfp
 				? {
-						grad: skalBeregneAfpKap19 ? 100 : grad,
-						uttaksalder: skalBeregneAfpKap19 ? heltUttaksalder : uttaksalder,
-						aarligInntektVsaPensjonBeloep: skalBeregneAfpKap19
+						grad: skalBeregneTidsbegrensetOffentligAfp ? 100 : grad,
+						uttaksalder: skalBeregneTidsbegrensetOffentligAfp
+							? heltUttaksalder
+							: uttaksalder,
+						aarligInntektVsaPensjonBeloep: skalBeregneTidsbegrensetOffentligAfp
 							? inntektVsaAfp
 							: aarligInntektVsaPensjonGradert,
 					}
@@ -181,6 +193,15 @@ export function mapBeregningParamsToRequest(
 						: null,
 					afpOrdning: 'STATLIG',
 				}
-			: undefined,
+			: skalBeregneServiceberegnetAfp
+				? {
+						inntektForrigeKalenderaar:
+							formData.pensjonsgivendeInntektForrigeAar ?? undefined,
+						inntektFremTilUttak:
+							formData.pensjonsgivendeInntektFremTilUttak ?? undefined,
+						inntektMaanedFoerAfp: formData.inntektSisteMaanedFoerUttak,
+						afpOrdning: 'STATLIG',
+					}
+				: undefined,
 	}
 }

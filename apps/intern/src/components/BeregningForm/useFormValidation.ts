@@ -6,6 +6,7 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
+	isUttakNesteKalenderaar,
 	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
@@ -18,6 +19,7 @@ interface ValidateFormOptions {
 	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
+	initialInntektAar?: number
 }
 
 function validateEPSOpplysninger(
@@ -136,12 +138,41 @@ function validateSivilstand(
 	}
 }
 
-function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+function validateAfp(
+	formData: BeregningFormData,
+	errors: ValidationErrors,
+	options?: { foedselsdato?: string; initialInntektAar?: number }
+) {
 	if (formData.beregnMedGjenlevenderett) {
 		return
 	}
 	if (!formData.afp) {
 		errors.afp = 'Velg om AFP skal inkluderes.'
+	}
+
+	if (formData.afp === 'serviceberegning') {
+		if (
+			isUttakNesteKalenderaar({
+				foedselsdato: options?.foedselsdato,
+				alderAarUttak: formData.alderAarUttak,
+				alderMdUttak: formData.alderMdUttak,
+			})
+		) {
+			validateInntektField({
+				formData,
+				errors,
+				field: 'pensjonsgivendeInntektFremTilUttak',
+			})
+		}
+
+		const forrigeAar = new Date().getFullYear() - 1
+		if (options?.initialInntektAar !== forrigeAar) {
+			validateInntektField({
+				formData,
+				errors,
+				field: 'pensjonsgivendeInntektForrigeAar',
+			})
+		}
 	}
 }
 
@@ -328,6 +359,7 @@ export function useFormValidation() {
 				foedselsdato,
 				erEndring = false,
 				hideAfpSporsmaal = false,
+				initialInntektAar,
 			}: ValidateFormOptions = {}
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
@@ -342,7 +374,7 @@ export function useFormValidation() {
 				validateSivilstand(formData, errors)
 			}
 			if (!hideAfpSporsmaal) {
-				validateAfp(formData, errors)
+				validateAfp(formData, errors, { foedselsdato, initialInntektAar })
 			}
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
