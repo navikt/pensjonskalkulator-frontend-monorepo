@@ -4,7 +4,7 @@ import { mockApi } from '../utils/mock'
 
 const DECRYPT_API_URL = '**/api/v1/decrypt'
 const PERSON_API_URL = '**/api/intern/v1/person'
-const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
+const VEDTAK_API_URL = '**/api/v1/vedtak'
 const INNTEKT_API_URL = '**/api/inntekt'
 const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
 const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
@@ -18,7 +18,13 @@ async function setupDefaultMocks(page: Page) {
 		})
 	)
 	await mockApi(page, PERSON_API_URL, 'person-intern.json')
-	await mockApi(page, LOEPENDE_VEDTAK_API_URL, 'loepende-vedtak.json')
+	await mockApi(page, VEDTAK_API_URL, 'vedtak.json', {
+		harVedtak: false,
+		loependeAlderspensjon: null,
+		fremtidigAlderspensjon: null,
+		privatAfpFom: null,
+		avdoed: null,
+	})
 	await mockApi(page, INNTEKT_API_URL, 'inntekt.json')
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
 		dato: '2024-05-01',
