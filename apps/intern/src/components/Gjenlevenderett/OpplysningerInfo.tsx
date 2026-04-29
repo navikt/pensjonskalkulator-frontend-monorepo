@@ -26,7 +26,7 @@ function mapEpsOpplysninger({
 	const doedsdato = getEpsDoedsdato(eps)
 	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
 
-	return [
+	const opplysninger = [
 		{
 			label: 'Navn',
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
@@ -37,34 +37,36 @@ function mapEpsOpplysninger({
 				? formatertDoedsdato
 				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
 		},
-		{
-			label: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
-			value:
-				vedtakInfoAvdoed && vedtakInfoAvdoed?.antallAarUtenlands
+	]
+
+	if (vedtakInfoAvdoed) {
+		opplysninger.push(
+			{
+				label: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
+				value: vedtakInfoAvdoed?.antallAarUtenlands
 					? vedtakInfoAvdoed?.antallAarUtenlands.toString()
 					: '',
-		},
-		{
-			label: 'Minst 1G (130 160 kr) i pensjonsgivende inntekt ved dødsdato',
-			value:
-				vedtakInfoAvdoed &&
-				vedtakInfoAvdoed?.aarligPensjonsgivendeInntektErMinst1G
+			},
+			{
+				label: 'Minst 1G (130 160 kr) i pensjonsgivende inntekt ved dødsdato',
+				value: vedtakInfoAvdoed?.aarligPensjonsgivendeInntektErMinst1G
 					? 'Ja'
 					: 'Nei',
-		},
-		{
-			label: 'Medlem av folketrygden de 5 siste årene før dødsdato',
-			value:
-				vedtakInfoAvdoed &&
-				vedtakInfoAvdoed?.harTilstrekkeligMedlemskapIFolketrygden
+			},
+			{
+				label: 'Medlem av folketrygden de 5 siste årene før dødsdato',
+				value: vedtakInfoAvdoed?.harTilstrekkeligMedlemskapIFolketrygden
 					? 'Ja'
 					: 'Nei',
-		},
-		{
-			label: 'Registrert som flyktning',
-			value: vedtakInfoAvdoed && vedtakInfoAvdoed?.erFlyktning ? 'Ja' : 'Nei',
-		},
-	]
+			},
+			{
+				label: 'Registrert som flyktning',
+				value: vedtakInfoAvdoed?.erFlyktning ? 'Ja' : 'Nei',
+			}
+		)
+	}
+
+	return opplysninger
 }
 
 export const OpplysningerInfo = ({
