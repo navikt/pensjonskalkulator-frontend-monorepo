@@ -14,7 +14,7 @@ import {
 	setupWithEditorOpen,
 } from './helpers'
 
-test.describe('Utenlandsopphold - Validering og datotilfeller', () => {
+test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 	test.describe('Validering av opphold', () => {
 		test.beforeEach(async ({ page }) => {
 			await setupWithEditorOpen(page)
@@ -123,7 +123,7 @@ test.describe('Utenlandsopphold - Validering og datotilfeller', () => {
 		})
 	})
 
-	test.describe('Datotilfeller', () => {
+	test.describe('Dato tilfeller', () => {
 		test.beforeEach(async ({ page }) => {
 			await setupWithEditorOpen(page)
 		})
