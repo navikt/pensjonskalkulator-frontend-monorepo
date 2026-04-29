@@ -12,6 +12,7 @@
 	},
 	"scripts": {
 		"build": "sanity build",
+		"test": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
@@ -32,6 +33,7 @@
 		"styled-components": "catalog:"
 	},
 	"devDependencies": {
-		"sass-embedded": "catalog:"
+		"sass-embedded": "catalog:",
+		"vitest": "catalog:"
 	}
 }
