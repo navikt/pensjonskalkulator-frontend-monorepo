@@ -1,3 +1,7 @@
+import type {
+	SimuleringRequestBody,
+	SimuleringUtenlandsperiode,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { type Page, expect } from '@playwright/test'
 
 import { loadJSONMock } from '../../utils/mock'
@@ -44,16 +48,7 @@ export const OVERLAP_MESSAGES = {
 	jobbperioder: /Du kan ikke ha overlappende jobbperioder\.$/,
 } as const
 
-export type SimuleringUtenlandsperiodePayload = {
-	landkode: string
-	arbeidetUtenlands: boolean
-	fom: string
-	tom?: string
-}
-
-export type SimuleringPayload = {
-	utenlandsperiodeListe?: SimuleringUtenlandsperiodePayload[]
-}
+export type SimuleringPayload = SimuleringRequestBody
 
 export async function setupWithEditorOpen(
 	page: Page,
@@ -218,7 +213,7 @@ export async function setupSimulationCapture(page: Page) {
 
 export async function expectSimulationPeriods(
 	getCapturedBody: () => SimuleringPayload | undefined,
-	expectedPeriods: SimuleringUtenlandsperiodePayload[]
+	expectedPeriods: SimuleringUtenlandsperiode[]
 ) {
 	await expect
 		.poll(() => getCapturedBody()?.utenlandsperiodeListe, {
