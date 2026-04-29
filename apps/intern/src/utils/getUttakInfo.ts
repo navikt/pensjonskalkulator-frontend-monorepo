@@ -2,36 +2,33 @@ import type { Alder } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningParams } from '../api/beregningTypes'
 
+function toAlder(aar?: number | null, maaneder?: number | null): Alder {
+	return {
+		aar: aar ?? 0,
+		maaneder: maaneder ?? 0,
+	}
+}
+
 export function getUttakInfo(aktivBeregning: BeregningParams | null) {
-	const erGradert =
-		aktivBeregning !== null &&
-		aktivBeregning.uttaksgrad !== null &&
-		aktivBeregning.uttaksgrad < 100
-
-	const heltUttakAar = erGradert
-		? aktivBeregning.alderAarHeltUttak
-		: aktivBeregning?.alderAarUttak
-
-	const heltUttakMaaned = erGradert
-		? aktivBeregning.alderMdHeltUttak
-		: aktivBeregning?.alderMdUttak
-
-	const heltUttakAlder: Alder = {
-		aar: heltUttakAar ?? 0,
-		maaneder: heltUttakMaaned ?? 0,
+	if (aktivBeregning === null) {
+		return {
+			erGradert: false,
+			heltUttakAlder: toAlder(),
+			gradertUttakAlder: undefined,
+		}
 	}
 
-	const gradertUttakAar = erGradert ? aktivBeregning?.alderAarUttak : undefined
+	const { uttaksgrad } = aktivBeregning
+	const erUttaksgradNull = uttaksgrad === 0
+	const erGradert = uttaksgrad !== null && uttaksgrad > 0 && uttaksgrad < 100
+	const harGradertEllerNullUttaksgrad = erGradert || erUttaksgradNull
 
-	const gradertUttakMaaned = erGradert
-		? aktivBeregning?.alderMdUttak
-		: undefined
+	const heltUttakAlder = harGradertEllerNullUttaksgrad
+		? toAlder(aktivBeregning.alderAarHeltUttak, aktivBeregning.alderMdHeltUttak)
+		: toAlder(aktivBeregning.alderAarUttak, aktivBeregning.alderMdUttak)
 
-	const gradertUttakAlder: Alder | undefined = erGradert
-		? {
-				aar: gradertUttakAar ?? 0,
-				maaneder: gradertUttakMaaned ?? 0,
-			}
+	const gradertUttakAlder = harGradertEllerNullUttaksgrad
+		? toAlder(aktivBeregning.alderAarUttak, aktivBeregning.alderMdUttak)
 		: undefined
 
 	return { erGradert, heltUttakAlder, gradertUttakAlder }
