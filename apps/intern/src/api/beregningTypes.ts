@@ -46,6 +46,8 @@ export interface BeregningFormData {
 	harOppholdUtenforNorge: boolean | null
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
 	afp?: AfpRadio
+	endringAP?: boolean
+	endringAfpPrivat?: boolean
 }
 
 export type BeregningParams = BeregningFormData
@@ -80,6 +82,8 @@ export interface ValidationErrors {
 	harOppholdUtenforNorge?: string
 	utenlandsOpphold?: string
 	afp?: string
+	endringAP?: string
+	endringAfpPrivat?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -114,4 +118,6 @@ export const defaultBeregningFormData: BeregningFormData = {
 	harOppholdUtenforNorge: null,
 	utenlandsOpphold: [],
 	afp: undefined,
+	endringAP: undefined,
+	endringAfpPrivat: undefined,
 }
