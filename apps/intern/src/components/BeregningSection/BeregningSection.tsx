@@ -23,10 +23,11 @@ interface BeregningSectionProps {
 	afpEntry?: SimuleringAfpPrivat
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
-	totalAddToSum?: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
+	visAarsbelop?: boolean
 	erUttaksgradNull?: boolean
+	totalAddToSum?: number
 	testId?: string
 }
 
@@ -41,55 +42,63 @@ export const BeregningSection = ({
 	showAfp = false,
 	afpEntry,
 	visKronetillegg = false,
-	totalAddToSum = 0,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
+	visAarsbelop = false,
+	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
-}: BeregningSectionProps) => (
-	<VStack gap="space-12" data-testid={testId}>
-		{(showAfp || !erUttaksgradNull) && (
-			<Heading level="3" size="small">
-				{title}
-			</Heading>
-		)}
-		<div
-			className={styles.tableGrid}
-			style={{ '--table-columns': tableCount } as React.CSSProperties}
-		>
-			{entry && !erUttaksgradNull && (
-				<AlderspensjonTables
-					entry={entry}
-					erFoedtFoer1963={erFoedtFoer1963}
-					erOvergangskull={erOvergangskull}
-					erFoedtEtter1963={erFoedtEtter1963}
-					grunnbeloep={grunnbeloep}
-					alderspensjonGrad={alderspensjonGrad}
-					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
-					isGradert={isGradert}
-				/>
-			)}
-			{showAfp && (
-				<VStack
-					gap="space-32"
-					data-testid={testId ? `${testId}-afp` : undefined}
-				>
-					<BeregningTableWithSum
-						title="AFP i privat sektor"
-						valueHeader="Kr per måned"
-						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
-					/>
+}: BeregningSectionProps) => {
+	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 
-					{!erUttaksgradNull && (
-						<BeregningTableWithSum
-							title="Alderspensjon og AFP"
-							valueHeader="Kr per måned"
-							addToSum={totalAddToSum}
-						/>
-					)}
-				</VStack>
+	return (
+		<VStack gap="space-12" data-testid={testId}>
+			{(showAfp || !erUttaksgradNull) && (
+				<Heading level="3" size="small">
+					{title}
+				</Heading>
 			)}
-		</div>
-	</VStack>
-)
+			<div
+				className={styles.tableGrid}
+				style={{ '--table-columns': tableCount } as React.CSSProperties}
+			>
+				{entry && !erUttaksgradNull && (
+					<AlderspensjonTables
+						entry={entry}
+						erFoedtFoer1963={erFoedtFoer1963}
+						erOvergangskull={erOvergangskull}
+						erFoedtEtter1963={erFoedtEtter1963}
+						grunnbeloep={grunnbeloep}
+						alderspensjonGrad={alderspensjonGrad}
+						visAarsbelop={visAarsbelop}
+						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
+						isGradert={isGradert}
+					/>
+				)}
+				{showAfp && (
+					<VStack
+						gap="space-32"
+						data-testid={testId ? `${testId}-afp` : undefined}
+					>
+						<BeregningTableWithSum
+							title="AFP i privat sektor"
+							valueHeader={valueHeader}
+							rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+							visAarsbelop={visAarsbelop}
+						/>
+
+						{!erUttaksgradNull && (
+							<BeregningTableWithSum
+								title="Alderspensjon og AFP"
+								valueHeader={valueHeader}
+								addToSum={totalAddToSum}
+								visAarsbelop={visAarsbelop}
+							/>
+						)}
+					</VStack>
+				)}
+			</div>
+		</VStack>
+	)
+}

@@ -3,8 +3,9 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { useState } from 'react'
 
-import { BodyLong, Box, Loader, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, Loader, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -21,6 +22,7 @@ export const Beregning = () => {
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
+	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -165,8 +167,21 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
+			position="relative"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
+			<Box
+				position="absolute"
+				right={{ sm: 'space-24', xl: 'space-48' }}
+				top="space-24"
+			>
+				<Checkbox
+					onChange={(e) => setVisAarsbelop(e.target.checked)}
+					size="small"
+				>
+					Vis årsbeløp
+				</Checkbox>
+			</Box>
 			<VStack
 				gap="space-32"
 				className={isBeregningLoading ? styles.loadingOverlay : undefined}
@@ -189,11 +204,8 @@ export const Beregning = () => {
 					showAfp={harAfpPrivat}
 					afpEntry={afpPrivatVedHeltUttak}
 					visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-					totalAddToSum={
-						(helMaanedligAlderspensjon?.beloep ?? 0) +
-						(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-					}
 					alderspensjonGrad={100}
+					visAarsbelop={visAarsbelop}
 					testId="beregning-section-helt"
 				/>
 				{shouldRenderNormertAfpAfterHeltSection &&
