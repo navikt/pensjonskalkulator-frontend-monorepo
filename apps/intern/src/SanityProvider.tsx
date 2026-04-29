@@ -20,7 +20,7 @@ const sanityClient = createSanityAppClient({
 })
 
 const alertQuery = `*[_type == "alert"]{name,type,status,overskrift,innhold}`
-const forbeholdAvsnittQuery = `*[_type == "forbeholdAvsnitt" && language == "nb"] | order(order asc) | {overskrift,innhold}`
+const forbeholdAvsnittQuery = `*[_type == "forbeholdAvsnitt" && language == "nb" && visIntern == true] | order(order asc) | {_id,overskrift,"innhold":innholdIntern,alltidSynlig,vilkaar}`
 
 async function fetchSanityAlerts(): Promise<AlertQueryResult> {
 	return sanityClient.fetch<AlertQueryResult>(alertQuery)
