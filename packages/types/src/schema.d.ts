@@ -1401,6 +1401,12 @@ export interface components {
 			innvilgetLivsvarigAfpListe?:
 				| components['schemas']['SimuleringV1InnvilgetLivsvarigOffentligAfpSpec'][]
 				| null
+			/** Format: int32 */
+			inntektForrigeKalenderaar?: number | null
+			/** Format: int32 */
+			inntektFremTilUttak?: number | null
+			/** Format: int32 */
+			inntektMaanedFoerAfp?: number | null
 		}
 		SimuleringV1Spec: {
 			/** @enum {string} */
@@ -1420,7 +1426,7 @@ export interface components {
 			gradertUttak?:
 				| components['schemas']['SimuleringV1GradertUttakSpec']
 				| null
-			heltUttak?: components['schemas']['SimuleringV1HeltUttakSpec'] | null
+			heltUttak: components['schemas']['SimuleringV1HeltUttakSpec']
 			utenlandsperiodeListe?:
 				| components['schemas']['SimuleringV1UtenlandsperiodeSpec'][]
 				| null
@@ -1443,10 +1449,6 @@ export interface components {
 			offentligAfp?:
 				| components['schemas']['SimuleringV1OffentligAfpSpec']
 				| null
-			/** Format: int32 */
-			forventetArbeidsinntekt?: number | null
-			/** Format: int32 */
-			inntektMndForAfp?: number | null
 		}
 		SimuleringV1UtenlandsperiodeSpec: {
 			/** Format: date */
