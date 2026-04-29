@@ -4,6 +4,7 @@ import type {
 	TidsbegrensetOffentligAFP,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
+import type { BeregningResult } from '../../api/beregningTypes'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
@@ -238,6 +239,87 @@ export function mapTidsbegrensetAfpToRows(
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
+		},
+	]
+}
+
+export type ServiceberegnetAfpResult = NonNullable<
+	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
+>
+
+export function mapServiceAfpToRows(
+	entry: ServiceberegnetAfpResult
+): BeregningTableRow[] {
+	return [
+		{
+			label: 'Grunnpensjon',
+			value: Math.round(entry.grunnpensjon ?? 0),
+			yearlyValue: Math.round(entry.grunnpensjon ?? 0) * 12,
+		},
+		{
+			label: 'Tilleggspensjon',
+			value: Math.round(entry.tilleggspensjon ?? 0),
+			yearlyValue: Math.round(entry.tilleggspensjon ?? 0) * 12,
+		},
+		{
+			label: 'AFP-tillegg',
+			value: Math.round(entry.afpTillegg ?? 0),
+			yearlyValue: Math.round(entry.afpTillegg ?? 0) * 12,
+		},
+		{
+			label: 'Særtillegg',
+			value: Math.round(entry.sertillegg ?? 0),
+			yearlyValue: Math.round(entry.sertillegg ?? 0) * 12,
+		},
+	]
+}
+
+export function mapServiceAfpOpptjeningRows(
+	entry: ServiceberegnetAfpResult
+): BeregningDetailRow[] {
+	const poengaar = entry.poengar ?? null
+	const poengaarF92 = entry.poeangarF92 ?? null
+	const poengaarE91 = entry.poeangarE91 ?? null
+
+	return [
+		{
+			label: 'Tidligere arbeidsinntekt',
+			value: formatKr(entry.tidligereArbeidsinntekt),
+		},
+		{
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbelop),
+		},
+		{
+			label: 'Sluttpoengtall',
+			value:
+				entry.sluttpoengtall != null
+					? entry.sluttpoengtall.toLocaleString('nb-NO', {
+							maximumFractionDigits: 2,
+						})
+					: '',
+		},
+		{
+			label: 'Poengår',
+			value: poengaar != null ? `${poengaar} år` : '',
+		},
+		{
+			label: 'Trygdetid',
+			value: entry.trygdetid != null ? `${entry.trygdetid} år` : '',
+		},
+		{
+			label: 'Poengår før 1992 (45 %)',
+			value:
+				poengaarF92 != null && poengaar != null
+					? `${poengaarF92} av ${poengaar} år`
+					: '',
+		},
+		{
+			label: 'Poengår etter 1991 (42 %)',
+			value:
+				poengaarE91 != null && poengaar != null
+					? `${poengaarE91} av ${poengaar} år`
+					: '',
 		},
 	]
 }

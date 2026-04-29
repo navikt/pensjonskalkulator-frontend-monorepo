@@ -65,7 +65,7 @@ export function RHFRadio({
 			data-testid={testid}
 			data-feil={error ? true : false}
 		>
-			<HStack gap={gap}>
+			<HStack gap={gap} wrap style={{ rowGap: 'var(--ax-space-8)' }}>
 				{children ??
 					resolvedOptions.map((option) => (
 						<Radio key={option.value} value={option.value}>
