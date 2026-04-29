@@ -1,6 +1,5 @@
 import type {
 	EpsOpplysninger,
-	LoependeVedtak,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
@@ -112,22 +111,6 @@ async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	return response.json() as Promise<PersonInternV1>
 }
 
-async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
-	const response = await fetch(`${API_BASE}/v4/vedtak/loepende-vedtak`, {
-		headers: {
-			fnr,
-		},
-	})
-
-	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch ongoing decisions: ${response.status} ${response.statusText}`
-		)
-	}
-
-	return response.json() as Promise<LoependeVedtak>
-}
-
 async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	const response = await fetch(`${API_BASE}/v1/vedtak`, {
 		headers: {
@@ -221,14 +204,6 @@ export function usePersonQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['person', fnr],
 		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
-		retry: false,
-	})
-}
-
-export function useLoependeVedtakQuery(fnr?: string) {
-	return useQuery({
-		queryKey: ['loependeVedtak', fnr],
-		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
 		retry: false,
 	})
 }

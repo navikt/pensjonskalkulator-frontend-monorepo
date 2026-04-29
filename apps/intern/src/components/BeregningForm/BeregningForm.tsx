@@ -22,6 +22,7 @@ import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { Divider } from '../Divider/Divider'
 import { Gjenlevenderett } from '../Gjenlevenderett/Gjenlevenderett'
+import { OpplysningerFraVedtak } from '../OpplysningerFraVedtak/OpplysningerFraVedtak'
 import { UtenlandsOpphold } from '../UtenlandsOpphold/UtenlandsOpphold'
 import { ButtonBar } from './ButtonBar'
 import {
@@ -57,10 +58,21 @@ export const BeregningForm = () => {
 		resetForm,
 		person,
 		beregning,
+		vedtak,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
+
+	const erEndring = Boolean(vedtak?.harVedtak)
+	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
+
+	useEffect(() => {
+		if (erEndring) {
+			form.setValue('endringAP', true)
+			form.setValue('endringAfpPrivat', harVedtakPrivatAFP)
+		}
+	}, [erEndring, harVedtakPrivatAFP, form])
 
 	const { control } = form
 
@@ -107,7 +119,10 @@ export const BeregningForm = () => {
 		if (normalizedFormData !== formData) {
 			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
 		}
-		const errors = validate(normalizedFormData)
+		const errors = validate(normalizedFormData, {
+			erEndring,
+			hideAfpSporsmaal,
+		})
 
 		if (Object.keys(errors).length > 0) {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
@@ -142,13 +157,20 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
+	const uttaksGradArray = erEndring
+		? [0, 20, 40, 50, 60, 80, 100]
+		: [20, 40, 50, 60, 80, 100]
+
+	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
+				{erEndring && <OpplysningerFraVedtak vedtak={vedtak} />}
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
+						erEndring,
 					}) && (
 						<>
 							<Gjenlevenderett />
@@ -158,6 +180,7 @@ export const BeregningForm = () => {
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
+					erEndring,
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
@@ -177,7 +200,11 @@ export const BeregningForm = () => {
 					</RHFSelect>
 				)}
 
-				{showEpsHarPensjon({ sivilstatus, beregnMedGjenlevenderett }) && (
+				{showEpsHarPensjon({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+					erEndring,
+				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
 						testid="eps-har-pensjon"
@@ -190,19 +217,26 @@ export const BeregningForm = () => {
 					sivilstatus,
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
+					erEndring,
 				}) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						testid="eps-har-inntekt-over-2g"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
+					<>
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							testid="eps-har-inntekt-over-2g"
+							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
 				)}
-				<Divider noMargin />
-				<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+				{!erEndring && (
+					<>
+						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+						<Divider noMargin />
+					</>
+				)}
 
-				<Divider noMargin />
-				{!beregnMedGjenlevenderett && (
+				{!hideAfpSporsmaal && (
 					<>
 						<RHFRadio
 							name="afp"
@@ -281,7 +315,7 @@ export const BeregningForm = () => {
 					numeric
 				>
 					{uttaksgrad == null && <option value="" />}
-					{[20, 40, 50, 60, 80, 100].map((grad) => (
+					{uttaksGradArray.map((grad) => (
 						<option key={grad} value={String(grad)}>
 							{grad} %
 						</option>
