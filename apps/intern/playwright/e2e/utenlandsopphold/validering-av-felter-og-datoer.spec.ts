@@ -108,8 +108,6 @@ test.describe('Utenlandsopphold - Validering og datotilfeller', () => {
 			await fillStartdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
-			// Datepickeren tillater i dag datoer opptil 120 år etter fødselsdato,
-			// men valideringen stopper fortsatt ved 100 år. Dokumenterer nåværende oppførsel.
 			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoAfterMax)
 		})
 
