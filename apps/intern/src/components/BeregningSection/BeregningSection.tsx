@@ -49,52 +49,56 @@ export const BeregningSection = ({
 	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
-}: BeregningSectionProps) => (
-	<VStack gap="space-12" data-testid={testId}>
-		{(showAfp || !erUttaksgradNull) && (
-			<Heading level="3" size="small">
-				{title}
-			</Heading>
-		)}
-		<div
-			className={styles.tableGrid}
-			style={{ '--table-columns': tableCount } as React.CSSProperties}
-		>
-			{entry && !erUttaksgradNull && (
-				<AlderspensjonTables
-					entry={entry}
-					erFoedtFoer1963={erFoedtFoer1963}
-					erOvergangskull={erOvergangskull}
-					erFoedtEtter1963={erFoedtEtter1963}
-					grunnbeloep={grunnbeloep}
-					alderspensjonGrad={alderspensjonGrad}
-					visAarsbelop={visAarsbelop}
-					simulererMedGjenlevenderett={simulererMedGjenlevenderett}
-					isGradert={isGradert}
-				/>
-			)}
-			{showAfp && (
-				<VStack
-					gap="space-32"
-					data-testid={testId ? `${testId}-afp` : undefined}
-				>
-					<BeregningTableWithSum
-						title="AFP i privat sektor"
-						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
-						rows={mapPrivatAfp(afpEntry, visKronetillegg)}
-						visAarsbelop={visAarsbelop}
-					/>
+}: BeregningSectionProps) => {
+	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 
-					{!erUttaksgradNull && (
+	return (
+		<VStack gap="space-12" data-testid={testId}>
+			{(showAfp || !erUttaksgradNull) && (
+				<Heading level="3" size="small">
+					{title}
+				</Heading>
+			)}
+			<div
+				className={styles.tableGrid}
+				style={{ '--table-columns': tableCount } as React.CSSProperties}
+			>
+				{entry && !erUttaksgradNull && (
+					<AlderspensjonTables
+						entry={entry}
+						erFoedtFoer1963={erFoedtFoer1963}
+						erOvergangskull={erOvergangskull}
+						erFoedtEtter1963={erFoedtEtter1963}
+						grunnbeloep={grunnbeloep}
+						alderspensjonGrad={alderspensjonGrad}
+						visAarsbelop={visAarsbelop}
+						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
+						isGradert={isGradert}
+					/>
+				)}
+				{showAfp && (
+					<VStack
+						gap="space-32"
+						data-testid={testId ? `${testId}-afp` : undefined}
+					>
 						<BeregningTableWithSum
-							title="Alderspensjon og AFP"
-							valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
-							addToSum={totalAddToSum}
+							title="AFP i privat sektor"
+							valueHeader={valueHeader}
+							rows={mapPrivatAfp(afpEntry, visKronetillegg)}
 							visAarsbelop={visAarsbelop}
 						/>
-					)}
-				</VStack>
-			)}
-		</div>
-	</VStack>
-)
+
+						{!erUttaksgradNull && (
+							<BeregningTableWithSum
+								title="Alderspensjon og AFP"
+								valueHeader={valueHeader}
+								addToSum={totalAddToSum}
+								visAarsbelop={visAarsbelop}
+							/>
+						)}
+					</VStack>
+				)}
+			</div>
+		</VStack>
+	)
+}
