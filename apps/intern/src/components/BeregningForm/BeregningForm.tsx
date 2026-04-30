@@ -3,7 +3,10 @@ import {
 	formatInntekt,
 	formaterAlderString,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	isAlderLikAnnenAlder,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -183,7 +186,27 @@ export const BeregningForm = () => {
 	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
 	const pensjonsgivendeInntektValue = `${formatInntekt(aarligInntektFoerUttakBeloep)} kr`
 	const forrigeAar = new Date().getFullYear() - 1
-	const harIkkeForrigeAarsInntekt = initialInntektAar !== forrigeAar
+	const uttaksAar =
+		person?.foedselsdato && alderAarUttak !== null && alderMdUttak !== null
+			? calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				).getFullYear()
+			: null
+	const harUttakIForrigeAarEllerTidligere =
+		uttaksAar !== null && uttaksAar <= forrigeAar
+	const harIkkeForrigeAarsInntekt =
+		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
+
+	useEffect(() => {
+		if (!harIkkeForrigeAarsInntekt) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harIkkeForrigeAarsInntekt, form])
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>

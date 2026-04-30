@@ -1,3 +1,4 @@
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
 import type {
@@ -166,7 +167,26 @@ function validateAfp(
 		}
 
 		const forrigeAar = new Date().getFullYear() - 1
-		if (options?.initialInntektAar !== forrigeAar) {
+		const uttaksAar =
+			options?.foedselsdato &&
+			formData.alderAarUttak !== null &&
+			formData.alderMdUttak !== null
+				? calculateUttaksalderAsDate(
+						{
+							aar: formData.alderAarUttak,
+							maaneder: formData.alderMdUttak,
+						},
+						options.foedselsdato
+					).getFullYear()
+				: null
+
+		const harUttakIForrigeAarEllerTidligere =
+			uttaksAar !== null && uttaksAar <= forrigeAar
+		const skalViseForrigeAarInntektfelt =
+			options?.initialInntektAar !== forrigeAar &&
+			!harUttakIForrigeAarEllerTidligere
+
+		if (skalViseForrigeAarInntektfelt) {
 			validateInntektField({
 				formData,
 				errors,
