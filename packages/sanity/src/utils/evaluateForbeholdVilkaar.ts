@@ -1,7 +1,12 @@
-import type {
-	ForbeholdContext,
-	ForbeholdVilkaarTag,
+import {
+	FORBEHOLD_VILKAAR_TAGS,
+	type ForbeholdContext,
+	type ForbeholdVilkaarTag,
 } from '../schemaTypes/forbeholdVilkaarTags'
+
+const KNOWN_TAGS = new Set<string>(
+	FORBEHOLD_VILKAAR_TAGS.map((t) => t.value)
+)
 
 interface BetingelseLike {
 	tag?: string | null
@@ -29,6 +34,7 @@ interface ForbeholdSynlighetLike {
  *   `negert` er true matcher betingelsen når tagen IKKE er sann i `ctx`.
  * - Ukjente tags (verdier som ikke finnes i ForbeholdVilkaarTag) telles som
  *   ikke-matchende slik at avsnitt med foreldede tags ikke vises ved en feil.
+ *   Dette gjelder også når `negert` er true – ukjent tag gir alltid false.
  * - Avsnittet vises hvis MINST ÉN gruppe matcher.
  */
 
@@ -65,6 +71,8 @@ function betingelseErOppfylt(
 	ctx: ForbeholdContext
 ): boolean {
 	if (!betingelse.tag) return false
+
+	if (!KNOWN_TAGS.has(betingelse.tag)) return false
 
 	const tag = betingelse.tag as ForbeholdVilkaarTag
 	const erSann = ctx[tag] === true

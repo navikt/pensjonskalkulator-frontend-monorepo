@@ -331,9 +331,8 @@ describe('evaluateForbeholdVilkaar', () => {
 			).toBe(false)
 		})
 
-		it('treats negert true on an unknown tag as matching (NOT-of-false)', () => {
-			// Konsistens: ukjent tag => `false` i ctx, så `negert` blir `true`.
-			// Dokumentert med test så vi vet om vi noen gang endrer denne semantikken.
+		it('treats negert true on an unknown tag as not matching', () => {
+			// Ukjent tag => false alltid, negert endrer ikke dette.
 			expect(
 				evaluateForbeholdVilkaar(
 					{
@@ -345,7 +344,7 @@ describe('evaluateForbeholdVilkaar', () => {
 					},
 					ctx()
 				)
-			).toBe(true)
+			).toBe(false)
 		})
 	})
 })
