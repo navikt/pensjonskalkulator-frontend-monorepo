@@ -5,7 +5,7 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { Box, Loader, Tabs, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -24,6 +24,27 @@ export const Beregning = () => {
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [activeTab, setActiveTab] = useState('beregning')
+	const [visAarsbelop, setVisAarsbelop] = useState(false)
+
+	const hasBeregning =
+		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
+	if (!hasBeregning) {
+		return (
+			<Box
+				borderColor="neutral-subtle"
+				borderWidth="0 0 0 1"
+				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				data-testid="beregning-result"
+			>
+				{isBeregningLoading && (
+					<div className={styles.overlayLoader}>
+						<Loader size="3xlarge" title="Beregner pensjon …" />
+					</div>
+				)}
+				<BodyLong>Ingen beregning enda.</BodyLong>
+			</Box>
+		)
+	}
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
@@ -148,6 +169,7 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
+			position="relative"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
@@ -157,6 +179,18 @@ export const Beregning = () => {
 					<Tabs.Tab value="forbehold" label="Forbehold" />
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
+					<Box
+						position="absolute"
+						right={{ sm: 'space-24', xl: 'space-48' }}
+						top="space-24"
+					>
+						<Checkbox
+							onChange={(e) => setVisAarsbelop(e.target.checked)}
+							size="small"
+						>
+							Vis årsbeløp
+						</Checkbox>
+					</Box>
 					<VStack
 						gap="space-32"
 						className={isBeregningLoading ? styles.loadingOverlay : undefined}
@@ -179,11 +213,8 @@ export const Beregning = () => {
 							showAfp={harAfpPrivat}
 							afpEntry={afpPrivatVedHeltUttak}
 							visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-							totalAddToSum={
-								(helMaanedligAlderspensjon?.beloep ?? 0) +
-								(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-							}
 							alderspensjonGrad={100}
+							visAarsbelop={visAarsbelop}
 							testId="beregning-section-helt"
 						/>
 						{shouldRenderNormertAfpAfterHeltSection &&
