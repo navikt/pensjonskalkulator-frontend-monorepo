@@ -59,7 +59,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": null
+			"overskrift": null,
+			"_id": "forbeholdAvsnitt-mock-0"
 		},
 		{
 			"innhold": [
@@ -78,7 +79,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Inntekt"
+			"overskrift": "Inntekt",
+			"_id": "forbeholdAvsnitt-mock-1"
 		},
 		{
 			"innhold": [
@@ -181,7 +183,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Opphold utenfor Norge"
+			"overskrift": "Opphold utenfor Norge",
+			"_id": "forbeholdAvsnitt-mock-2"
 		},
 		{
 			"innhold": [
@@ -200,7 +203,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Sivilstand"
+			"overskrift": "Sivilstand",
+			"_id": "forbeholdAvsnitt-mock-3"
 		},
 		{
 			"innhold": [
@@ -233,7 +237,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "AFP (avtalefestet pensjon)"
+			"overskrift": "AFP (avtalefestet pensjon)",
+			"_id": "forbeholdAvsnitt-mock-4"
 		},
 		{
 			"innhold": [
@@ -294,7 +299,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "AFP i offentlig sektor"
+			"overskrift": "AFP i offentlig sektor",
+			"_id": "forbeholdAvsnitt-mock-5"
 		},
 		{
 			"innhold": [
@@ -355,7 +361,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Uføretrygd"
+			"overskrift": "Uføretrygd",
+			"_id": "forbeholdAvsnitt-mock-6"
 		},
 		{
 			"innhold": [
@@ -444,7 +451,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Uføretrygd og AFP"
+			"overskrift": "Uføretrygd og AFP",
+			"_id": "forbeholdAvsnitt-mock-7"
 		},
 		{
 			"innhold": [
@@ -463,7 +471,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Uførepensjon fra tjenestepensjonsordninger"
+			"overskrift": "Uførepensjon fra tjenestepensjonsordninger",
+			"_id": "forbeholdAvsnitt-mock-8"
 		},
 		{
 			"innhold": [
@@ -482,7 +491,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Gjenlevendepensjon og omstillingsstønad"
+			"overskrift": "Gjenlevendepensjon og omstillingsstønad",
+			"_id": "forbeholdAvsnitt-mock-9"
 		},
 		{
 			"innhold": [
@@ -501,7 +511,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Gjenlevendetillegg i alderspensjon"
+			"overskrift": "Gjenlevendetillegg i alderspensjon",
+			"_id": "forbeholdAvsnitt-mock-10"
 		},
 		{
 			"innhold": [
@@ -576,7 +587,8 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Pensjonsavtaler"
+			"overskrift": "Pensjonsavtaler",
+			"_id": "forbeholdAvsnitt-mock-11"
 		}
 	]
 }

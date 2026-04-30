@@ -69,6 +69,8 @@ export function createConfig({
 							'*.config.js',
 							'*.config.ts',
 							'.github/scripts/*.js',
+							'packages/*/vitest.config.ts',
+							'packages/sanity/migrations/*/index.ts',
 						],
 					},
 					tsconfigRootDir,

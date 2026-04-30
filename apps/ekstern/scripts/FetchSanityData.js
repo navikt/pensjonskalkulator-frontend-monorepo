@@ -11,7 +11,7 @@ const sanityClient = createClient({
 })
 
 const forbeholdAvsnittQuery = defineQuery(
-  '*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}'
+  '*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}'
 )
 
 const guidePanelQuery = defineQuery(

@@ -26,6 +26,10 @@
 	z-index: 2;
 }
 
+.tabPanel {
+	padding-top: var(--ax-space-24);
+}
+
 .loader {
 	display: flex;
 	justify-content: center;
