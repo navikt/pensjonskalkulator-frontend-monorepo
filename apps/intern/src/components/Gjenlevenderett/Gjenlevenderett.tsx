@@ -42,6 +42,12 @@ export const Gjenlevenderett = () => {
 		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
 
 	useEffect(() => {
+		form.setValue('vedtakInfoAvdoed', Boolean(vedtakInfoAvdoed), {
+			shouldDirty: false,
+		})
+	}, [vedtakInfoAvdoed, form])
+
+	useEffect(() => {
 		if (EPSOpplysninger) {
 			form.setValue('epsOpplysninger', EPSOpplysninger, {
 				shouldDirty: false,
@@ -53,6 +59,7 @@ export const Gjenlevenderett = () => {
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
 	})
+
 	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
 		control,
 		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,

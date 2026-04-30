@@ -48,6 +48,7 @@ export interface BeregningFormData {
 	afp?: AfpRadio
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
+	vedtakInfoAvdoed?: boolean
 }
 
 export type BeregningParams = BeregningFormData
@@ -84,6 +85,7 @@ export interface ValidationErrors {
 	afp?: string
 	endringAP?: string
 	endringAfpPrivat?: string
+	vedtakInfoAvdoed?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -120,4 +122,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	afp: undefined,
 	endringAP: undefined,
 	endringAfpPrivat: undefined,
+	vedtakInfoAvdoed: undefined,
 }
