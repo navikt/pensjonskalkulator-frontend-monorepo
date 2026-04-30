@@ -13,20 +13,22 @@ import { getEpsDoedsdato } from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
+type OpplysningerInfoItem = { label: string; value: string | number }
+
 function mapEpsOpplysninger({
 	eps,
 	vedtakInfoAvdoed,
 }: {
 	eps: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
-}): { label: string; value: string }[] {
+}): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
 	const registrertDoedsDato = relasjonPersondata?.doedsdato
 	const doedsdato = getEpsDoedsdato(eps)
 	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
 
-	const opplysninger = [
+	const opplysninger: OpplysningerInfoItem[] = [
 		{
 			label: 'Navn',
 			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
@@ -43,9 +45,7 @@ function mapEpsOpplysninger({
 		opplysninger.push(
 			{
 				label: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
-				value: vedtakInfoAvdoed?.antallAarUtenlands
-					? vedtakInfoAvdoed?.antallAarUtenlands.toString()
-					: '',
+				value: vedtakInfoAvdoed?.antallAarUtenlands ?? 0,
 			},
 			{
 				label: 'Minst 1G (130 160 kr) i pensjonsgivende inntekt ved dødsdato',
