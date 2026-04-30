@@ -23,6 +23,7 @@ import hentPersonInternToggleResponse from './data/unleash-hent-person-intern.js
 import showDownloadPdfToggleResponse from './data/unleash-show-download-pdf.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
+import vedtakResponse from './data/vedtak.json' with { type: 'json' }
 import { DEFAULT_API_PATH, DEFAULT_BASE_URL } from './paths'
 import type {
 	AfpPensjonsberegning,
@@ -263,10 +264,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(offentligTpFoer1963Response)
 		}),
 
-		http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
+		(http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(loependeVedtakResponse)
 		}),
+		http.get(`${baseUrl}/v1/vedtak`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json(vedtakResponse)
+		})),
 
 		http.post(`${baseUrl}/v3/tidligste-hel-uttaksalder`, async () => {
 			await delay(delayMs)

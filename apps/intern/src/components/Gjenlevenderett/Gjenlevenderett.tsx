@@ -10,7 +10,8 @@ import {
 	LocalAlert,
 } from '@navikt/ds-react'
 
-import { useEPSOpplysningerQuery } from '../../api/queries'
+import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
+import { getEpsVedtakStatus } from '../../utils'
 import { useBeregningContext } from '../BeregningContext'
 import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
@@ -34,6 +35,11 @@ export const Gjenlevenderett = () => {
 		isError,
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
+
+	const { data: vedtak, isLoading: isVedtakLoading } = useVedtakQuery(fnr)
+
+	const vedtakInfoAvdoed =
+		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
 
 	useEffect(() => {
 		if (EPSOpplysninger) {
@@ -175,7 +181,11 @@ export const Gjenlevenderett = () => {
 						</LocalAlert>
 					)}
 					{formEpsOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo EPSOpplysninger={formEpsOpplysninger} />
+						<OpplysningerInfo
+							EPSOpplysninger={formEpsOpplysninger}
+							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
+							vedtakAPDato={vedtak?.loependeAlderspensjon?.fom}
+						/>
 					)}
 				</div>
 			)}

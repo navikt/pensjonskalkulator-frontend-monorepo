@@ -1,9 +1,9 @@
 import type {
 	EpsOpplysninger,
-	LoependeVedtak,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	keepPreviousData,
@@ -111,8 +111,8 @@ async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	return response.json() as Promise<PersonInternV1>
 }
 
-async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
-	const response = await fetch(`${API_BASE}/v4/vedtak/loepende-vedtak`, {
+async function fetchVedtak(fnr: string): Promise<Vedtak> {
+	const response = await fetch(`${API_BASE}/v1/vedtak`, {
 		headers: {
 			fnr,
 		},
@@ -120,11 +120,11 @@ async function fetchLoependeVedtak(fnr: string): Promise<LoependeVedtak> {
 
 	if (!response.ok) {
 		throw new Error(
-			`Failed to fetch ongoing decisions: ${response.status} ${response.statusText}`
+			`Failed to fetch decisions: ${response.status} ${response.statusText}`
 		)
 	}
 
-	return response.json() as Promise<LoependeVedtak>
+	return response.json() as Promise<Vedtak>
 }
 
 async function fetchEPSOpplysninger({
@@ -208,10 +208,10 @@ export function usePersonQuery(fnr?: string) {
 	})
 }
 
-export function useLoependeVedtakQuery(fnr?: string) {
+export function useVedtakQuery(fnr?: string) {
 	return useQuery({
-		queryKey: ['loependeVedtak', fnr],
-		queryFn: fnr ? () => fetchLoependeVedtak(fnr) : skipToken,
+		queryKey: ['vedtak', fnr],
+		queryFn: fnr ? () => fetchVedtak(fnr) : skipToken,
 		retry: false,
 	})
 }

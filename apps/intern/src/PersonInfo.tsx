@@ -14,10 +14,10 @@ import {
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
-	useLoependeVedtakQuery,
 	usePersonQuery,
+	useVedtakQuery,
 } from './api/queries'
-import { getLoependeVedtakStatus, getPidFromUrl } from './utils'
+import { getPidFromUrl, getVedtakStatus } from './utils'
 
 import styles from './PersonInfo.module.css'
 
@@ -30,8 +30,8 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const { data: fnr } = useDecryptPidQuery(pid)
 
 	const { data: person, isError, error } = usePersonQuery(fnr)
-	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
-	const vedtakStatus = getLoependeVedtakStatus(loependeVedtak)
+	const { data: vedtak } = useVedtakQuery(fnr)
+	const vedtakStatus = getVedtakStatus(vedtak)
 	const { mutate: encryptPid, isPending: isEncrypting } =
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')

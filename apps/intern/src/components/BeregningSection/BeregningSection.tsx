@@ -52,6 +52,7 @@ export const BeregningSection = ({
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 
+	const shouldShowAP = !erUttaksgradNull || alderspensjonGrad === 100
 	return (
 		<VStack gap="space-12" data-testid={testId}>
 			{(showAfp || !erUttaksgradNull) && (
@@ -63,7 +64,7 @@ export const BeregningSection = ({
 				className={styles.tableGrid}
 				style={{ '--table-columns': tableCount } as React.CSSProperties}
 			>
-				{entry && !erUttaksgradNull && (
+				{entry && shouldShowAP && (
 					<AlderspensjonTables
 						entry={entry}
 						erFoedtFoer1963={erFoedtFoer1963}
