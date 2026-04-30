@@ -18,13 +18,7 @@ async function setupDefaultMocks(page: Page) {
 		})
 	)
 	await mockApi(page, PERSON_API_URL, 'person-intern.json')
-	await mockApi(page, VEDTAK_API_URL, 'vedtak.json', {
-		harVedtak: false,
-		loependeAlderspensjon: null,
-		fremtidigAlderspensjon: null,
-		privatAfpFom: null,
-		avdoed: null,
-	})
+	await mockApi(page, VEDTAK_API_URL, 'vedtak-uten-vedtak.json')
 	await mockApi(page, INNTEKT_API_URL, 'inntekt.json')
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
 		dato: '2024-05-01',

@@ -10,7 +10,7 @@ const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
 const EPS_API_URL = '**/api/intern/v1/eps'
 
 const PERSON_MOCK_FILE = 'person-intern.json'
-const VEDTAK_MOCK_FILE = 'vedtak.json'
+const VEDTAK_MOCK_FILE = 'vedtak-uten-vedtak.json'
 const INNTEKT_MOCK_FILE = 'inntekt.json'
 const ALDERSPENSJON_MOCK_FILE = 'alderspensjon.json'
 const EPS_OPPLYSNING_MOCK_FILE = 'eps-opplysning.json'
@@ -47,13 +47,7 @@ async function setupDefaultMocks(
 		})
 	)
 	await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, personOverrides)
-	await mockApi(page, VEDTAK_API_URL, VEDTAK_MOCK_FILE, {
-		harVedtak: false,
-		loependeAlderspensjon: null,
-		fremtidigAlderspensjon: null,
-		privatAfpFom: null,
-		avdoed: null,
-	})
+	await mockApi(page, VEDTAK_API_URL, VEDTAK_MOCK_FILE)
 	await mockApi(page, INNTEKT_API_URL, INNTEKT_MOCK_FILE)
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
 		dato: '2024-05-01',
