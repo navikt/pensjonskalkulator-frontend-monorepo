@@ -6,7 +6,7 @@ import { type NodePatch, at, defineMigration, set } from 'sanity/migrate'
  * `visEkstern` / `visIntern` toggles to `true` for existing documents so they
  * keep showing up in both apps.
  *
- * Existing `innhold` is duplicated into both new fields and then unset.
+ * Existing `innhold` is duplicated into both new fields.
  *
  * Dry-run (no writes):
  *   pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity exec \
