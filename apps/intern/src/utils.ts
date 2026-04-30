@@ -1,4 +1,7 @@
-import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	LoependeVedtak,
+	OmstillingsstoenadOgGjenlevende,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { format, parseISO } from 'date-fns'
 
 export function getPidFromUrl(): string | undefined {
@@ -7,8 +10,13 @@ export function getPidFromUrl(): string | undefined {
 }
 
 export function getLoependeVedtakStatus(
-	loependeVedtak?: LoependeVedtak
+	loependeVedtak?: LoependeVedtak,
+	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
+	if (omstillingsstoenad?.harLoependeSak) {
+		return 'Gjenlevende eller omstillingsstønad'
+	}
+
 	if (!loependeVedtak || !loependeVedtak.harLoependeVedtak) {
 		return 'Uten vedtak'
 	}

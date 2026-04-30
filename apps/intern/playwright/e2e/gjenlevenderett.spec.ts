@@ -6,6 +6,8 @@ const DECRYPT_API_URL = '**/api/v1/decrypt'
 const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
 const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
 const INNTEKT_API_URL = '**/api/inntekt'
+const OMSTILLINGSSTOENAD_API_URL =
+	'**/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
 const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
 const EPS_API_URL = '**/api/intern/v1/eps'
 
@@ -48,6 +50,11 @@ async function setupDefaultMocks(
 	)
 	await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, personOverrides)
 	await mockApi(page, LOEPENDE_VEDTAK_API_URL, LOEPENDE_VEDTAK_MOCK_FILE)
+	await mockApi(
+		page,
+		OMSTILLINGSSTOENAD_API_URL,
+		'omstillingsstoenad-og-gjenlevende-false.json'
+	)
 	await mockApi(page, INNTEKT_API_URL, INNTEKT_MOCK_FILE)
 	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
 		dato: '2024-05-01',
