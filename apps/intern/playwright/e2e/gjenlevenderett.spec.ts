@@ -1,19 +1,12 @@
-import { expect, test } from '@playwright/test'
-import { mockApi, mockApiError } from 'utils/mock'
+import { type Page, expect, test } from '@playwright/test'
 
-const PERSON_API_URL = '**/api/intern/v1/person'
-const DECRYPT_API_URL = '**/api/v1/decrypt'
-const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
-const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
-const INNTEKT_API_URL = '**/api/inntekt'
-const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
-const EPS_API_URL = '**/api/intern/v1/eps'
-
-const PERSON_MOCK_FILE = 'person-intern.json'
-const LOEPENDE_VEDTAK_MOCK_FILE = 'loepende-vedtak.json'
-const INNTEKT_MOCK_FILE = 'inntekt.json'
-const ALDERSPENSJON_MOCK_FILE = 'alderspensjon.json'
-const EPS_OPPLYSNING_MOCK_FILE = 'eps-opplysning.json'
+import { mockApi, mockApiError } from '../utils/mock'
+import {
+	API_URLS,
+	MOCK_FILES,
+	navigateToApp,
+	setupDefaultMocks,
+} from '../utils/test-helpers'
 
 const GJENLEVENDERETT_FOEDSELSDATO = '1962-04-30'
 
@@ -35,36 +28,7 @@ const sivilstatusUtenGjenlevenderett = [
 	'GJENLEVENDE_PARTNER',
 ]
 
-async function setupDefaultMocks(
-	page: import('@playwright/test').Page,
-	personOverrides?: Record<string, unknown>
-) {
-	await page.route(DECRYPT_API_URL, (route) =>
-		route.fulfill({
-			status: 200,
-			contentType: 'text/plain',
-			body: '04925398980',
-		})
-	)
-	await mockApi(page, PERSON_API_URL, PERSON_MOCK_FILE, personOverrides)
-	await mockApi(page, LOEPENDE_VEDTAK_API_URL, LOEPENDE_VEDTAK_MOCK_FILE)
-	await mockApi(page, INNTEKT_API_URL, INNTEKT_MOCK_FILE)
-	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
-		dato: '2024-05-01',
-		grunnbeløp: 100000,
-		grunnbeløpPerMaaned: 10000,
-		gjennomsnittPerÅr: 99000,
-		omregningsfaktor: 1.05,
-		virkningstidspunktForMinsteinntekt: '2024-09-01',
-	})
-}
-
-async function navigateToApp(page: import('@playwright/test').Page) {
-	await page.goto('/?pid=encrypted-default-pid')
-	await page.waitForSelector('text=Pensjonskalkulator')
-}
-
-async function checkGjenlevenderett(page: import('@playwright/test').Page) {
+async function checkGjenlevenderett(page: Page) {
 	const checkbox = page.getByTestId('beregn-med-gjenlevenderett')
 	await expect(checkbox).toBeVisible()
 	await checkbox.check()
@@ -72,7 +36,7 @@ async function checkGjenlevenderett(page: import('@playwright/test').Page) {
 }
 
 async function selectBakgrunnAndFetch(
-	page: import('@playwright/test').Page,
+	page: Page,
 	label = 'Henvendelse fra begge parter foreligger'
 ) {
 	const radioGroup = page.getByTestId('bakgrunn-for-bruk-EPS')
@@ -80,7 +44,7 @@ async function selectBakgrunnAndFetch(
 	await page.getByTestId('EPS-hent-opplysninger-button').click()
 }
 
-async function fillMainFormFields(page: import('@playwright/test').Page) {
+async function fillMainFormFields(page: Page) {
 	await page
 		.getByRole('textbox', {
 			name: 'Pensjonsgivende inntekt frem til uttak',
@@ -255,7 +219,7 @@ test.describe('Gjenlevenderett', () => {
 			test('Skjema-felter unntatt minste PGI er synlige når gjenlevenderett er valgt', async ({
 				page,
 			}) => {
-				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
 					relasjonPersondata: {
 						foedselsdato: '1955-05-05',
 						doedsdato: '2025-02-20',
@@ -292,7 +256,7 @@ test.describe('Gjenlevenderett', () => {
 			test('Skjema-felter unntatt minste PGI er synlige når gjenlevenderett er valgt', async ({
 				page,
 			}) => {
-				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
 					relasjonPersondata: {
 						foedselsdato: '1955-05-05',
 						doedsdato: null,
@@ -329,7 +293,7 @@ test.describe('Gjenlevenderett', () => {
 			test('Skjema-felter er synlige når gjenlevenderett er valgt', async ({
 				page,
 			}) => {
-				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
 					relasjonPersondata: {
 						foedselsdato: '1965-05-05',
 						doedsdato: '2025-02-20',
@@ -366,7 +330,7 @@ test.describe('Gjenlevenderett', () => {
 			test('Skjema-felter er synlige når gjenlevenderett er valgt', async ({
 				page,
 			}) => {
-				await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE, {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
 					relasjonPersondata: {
 						foedselsdato: '1965-05-05',
 						doedsdato: null,
@@ -423,8 +387,8 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
-			await mockApi(page, SIMULERING_API_URL, ALDERSPENSJON_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+			await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
 			await navigateToApp(page)
 		})
 
@@ -522,7 +486,7 @@ test.describe('Gjenlevenderett', () => {
 		test('Viser opplysninger om avdøde etter vellykket henting', async ({
 			page,
 		}) => {
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
 
 			await checkGjenlevenderett(page)
 			await selectBakgrunnAndFetch(page)
@@ -531,7 +495,7 @@ test.describe('Gjenlevenderett', () => {
 		})
 
 		test('Viser EPS-felter etter vellykket henting', async ({ page }) => {
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
 
 			await checkGjenlevenderett(page)
 			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
@@ -553,7 +517,7 @@ test.describe('Gjenlevenderett', () => {
 		test('Skjuler radiogruppe og hent-knapp etter vellykket henting', async ({
 			page,
 		}) => {
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
 
 			await checkGjenlevenderett(page)
 			await selectBakgrunnAndFetch(page)
@@ -574,7 +538,7 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApiError(page, EPS_API_URL)
+			await mockApiError(page, API_URLS.EPS)
 			await navigateToApp(page)
 
 			await checkGjenlevenderett(page)
@@ -594,7 +558,7 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApiError(page, EPS_API_URL)
+			await mockApiError(page, API_URLS.EPS)
 			await navigateToApp(page)
 
 			await checkGjenlevenderett(page)
@@ -612,7 +576,7 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApi(page, EPS_API_URL, undefined, {
+			await mockApi(page, API_URLS.EPS, undefined, {
 				pid: null,
 				fom: null,
 				relasjonstype: null,
@@ -678,7 +642,7 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
 			await navigateToApp(page)
 
 			await checkGjenlevenderett(page)
@@ -704,8 +668,8 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
-			await mockApi(page, SIMULERING_API_URL, ALDERSPENSJON_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+			await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
 			await navigateToApp(page)
 
 			await checkGjenlevenderett(page)
@@ -757,7 +721,7 @@ test.describe('Gjenlevenderett', () => {
 			await setupDefaultMocks(page, {
 				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
 			})
-			await mockApi(page, EPS_API_URL, EPS_OPPLYSNING_MOCK_FILE)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
 			await navigateToApp(page)
 
 			await checkGjenlevenderett(page)
