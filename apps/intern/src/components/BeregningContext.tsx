@@ -222,6 +222,11 @@ export function BeregningProvider({
 			...defaultBeregningFormData,
 			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
 			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+			...{
+				...(initialInntekt !== undefined
+					? { aarligInntektFoerUttakBeloep: initialInntekt }
+					: {}),
+			},
 		})
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus, initialSivilstatus])

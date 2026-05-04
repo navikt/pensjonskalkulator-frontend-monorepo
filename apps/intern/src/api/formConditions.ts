@@ -70,6 +70,12 @@ export function showInntektGradertFields(uttaksgrad: number | null): boolean {
 	return showGradertUttakFields(uttaksgrad)
 }
 
+export function showAlderspensjonFields(
+	afp: InternAfpRadio | undefined
+): boolean {
+	return afp !== undefined
+}
+
 export function showHarInntektVedSidenAvUttak(
 	uttaksgrad: number | null
 ): boolean {
