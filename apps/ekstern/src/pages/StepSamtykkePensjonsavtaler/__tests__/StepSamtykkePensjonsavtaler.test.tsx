@@ -143,6 +143,122 @@ describe('StepSamtykkePensjonsavtaler', () => {
     })
   })
 
+  describe('Gitt at brukeren endrer samtykke', async () => {
+    it('nullstiller beregning (currentSimulation) når samtykke endres fra Ja til Nei', async () => {
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      const user = userEvent.setup()
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+      })
+
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+        preloadedApiState: { getPerson: personMock },
+      })
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
+
+      const radioButtons = screen.getAllByRole('radio')
+      await user.click(radioButtons[1])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
+    })
+
+    it('nullstiller beregning (currentSimulation) når samtykke endres fra Nei til Ja', async () => {
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      const user = userEvent.setup()
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+      })
+
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+        preloadedApiState: { getPerson: personMock },
+      })
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
+
+      const radioButtons = screen.getAllByRole('radio')
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
+    })
+
+    it('nullstiller ikke beregning når samtykke ikke endres', async () => {
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      const user = userEvent.setup()
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.samtykke}`],
+      })
+
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+        preloadedApiState: { getPerson: personMock },
+      })
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+          'stegvisning.samtykke_pensjonsavtaler.title'
+        )
+      })
+
+      const radioButtons = screen.getAllByRole('radio')
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(flushCurrentSimulationMock).not.toHaveBeenCalled()
+    })
+  })
+
   it('navigerer tilbake når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     const router = createMemoryRouter(routes, {

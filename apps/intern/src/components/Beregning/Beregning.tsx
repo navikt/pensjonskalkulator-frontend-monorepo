@@ -215,6 +215,10 @@ export const Beregning = () => {
 							visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 							alderspensjonGrad={100}
 							visAarsbelop={visAarsbelop}
+							totalAddToSum={
+								(helMaanedligAlderspensjon?.beloep ?? 0) +
+								(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+							}
 							testId="beregning-section-helt"
 						/>
 						{shouldRenderNormertAfpAfterHeltSection &&

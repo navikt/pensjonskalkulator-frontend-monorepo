@@ -51,6 +51,9 @@ export const BeregningSection = ({
 	erUttaksgradNull = false,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
+	const sumAlderspensjonOgAfp = visAarsbelop
+		? (totalAddToSum ?? 0) * 12
+		: totalAddToSum
 
 	return (
 		<VStack gap="space-12" data-testid={testId}>
@@ -92,7 +95,7 @@ export const BeregningSection = ({
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
-								addToSum={totalAddToSum}
+								addToSum={sumAlderspensjonOgAfp}
 								visAarsbelop={visAarsbelop}
 							/>
 						)}

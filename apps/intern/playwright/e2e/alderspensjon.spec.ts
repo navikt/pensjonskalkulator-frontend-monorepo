@@ -1,39 +1,11 @@
 import { type Page, expect, test } from '@playwright/test'
 
 import { mockApi } from '../utils/mock'
-
-const DECRYPT_API_URL = '**/api/v1/decrypt'
-const PERSON_API_URL = '**/api/intern/v1/person'
-const LOEPENDE_VEDTAK_API_URL = '**/api/v4/vedtak/loepende-vedtak'
-const INNTEKT_API_URL = '**/api/inntekt'
-const GRUNNBELOEP_API_URL = '**/api/v1/grunnbel*'
-const SIMULERING_API_URL = '**/api/intern/v1/pensjon/simulering'
-
-async function setupDefaultMocks(page: Page) {
-	await page.route(DECRYPT_API_URL, (route) =>
-		route.fulfill({
-			status: 200,
-			contentType: 'text/plain',
-			body: '04925398980',
-		})
-	)
-	await mockApi(page, PERSON_API_URL, 'person-intern.json')
-	await mockApi(page, LOEPENDE_VEDTAK_API_URL, 'loepende-vedtak.json')
-	await mockApi(page, INNTEKT_API_URL, 'inntekt.json')
-	await mockApi(page, GRUNNBELOEP_API_URL, undefined, {
-		dato: '2024-05-01',
-		grunnbeløp: 100000,
-		grunnbeløpPerMaaned: 10000,
-		gjennomsnittPerÅr: 99000,
-		omregningsfaktor: 1.05,
-		virkningstidspunktForMinsteinntekt: '2024-09-01',
-	})
-}
-
-async function navigateToApp(page: Page) {
-	await page.goto('/?pid=encrypted-default-pid')
-	await page.waitForSelector('text=Pensjonskalkulator')
-}
+import {
+	API_URLS,
+	navigateToApp,
+	setupDefaultMocks,
+} from '../utils/test-helpers'
 
 async function fillMainFormFields(page: Page) {
 	await page.getByTestId('afp').getByLabel('Nei').check()
@@ -387,7 +359,7 @@ test.describe('Alderspensjon beregning', () => {
 	test.describe('Innsending', () => {
 		test('sender beregning med 100 % uttak', async ({ page }) => {
 			await setupDefaultMocks(page)
-			await mockApi(page, SIMULERING_API_URL, 'alderspensjon.json')
+			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
@@ -401,7 +373,7 @@ test.describe('Alderspensjon beregning', () => {
 
 		test('sender beregning med gradert uttak', async ({ page }) => {
 			await setupDefaultMocks(page)
-			await mockApi(page, SIMULERING_API_URL, 'alderspensjon.json')
+			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
@@ -450,7 +422,7 @@ test.describe('Alderspensjon beregning', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-			await mockApi(page, SIMULERING_API_URL, 'alderspensjon.json')
+			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
@@ -463,7 +435,7 @@ test.describe('Alderspensjon beregning', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-			await mockApi(page, SIMULERING_API_URL, 'alderspensjon.json')
+			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
@@ -510,7 +482,7 @@ test.describe('Alderspensjon beregning', () => {
 
 		test('sender beregning med AFP privat', async ({ page }) => {
 			await setupDefaultMocks(page)
-			await mockApi(page, SIMULERING_API_URL, 'alderspensjon.json')
+			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
