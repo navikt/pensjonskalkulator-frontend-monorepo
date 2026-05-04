@@ -5,7 +5,7 @@ import { mockApi } from './mock'
 export const API_URLS = {
 	DECRYPT: '**/api/v1/decrypt',
 	PERSON: '**/api/intern/v1/person',
-	LOEPENDE_VEDTAK: '**/api/v4/vedtak/loepende-vedtak',
+	VEDTAK: '**/api/v1/vedtak**',
 	INNTEKT: '**/api/inntekt',
 	GRUNNBELOEP: '**/api/v1/grunnbel*',
 	SIMULERING: '**/api/intern/v1/pensjon/simulering',
@@ -15,7 +15,8 @@ export const API_URLS = {
 
 export const MOCK_FILES = {
 	PERSON: 'person-intern.json',
-	LOEPENDE_VEDTAK: 'loepende-vedtak.json',
+	VEDTAK: 'vedtak.json',
+	VEDTAK_UTEN_VEDTAK: 'vedtak-uten-vedtak.json',
 	INNTEKT: 'inntekt.json',
 	ALDERSPENSJON: 'alderspensjon.json',
 	EPS_OPPLYSNING: 'eps-opplysning.json',
@@ -44,7 +45,7 @@ export async function setupDefaultMocks(
 		})
 	)
 	await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, personOverrides)
-	await mockApi(page, API_URLS.LOEPENDE_VEDTAK, MOCK_FILES.LOEPENDE_VEDTAK)
+	await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK)
 	await mockApi(page, API_URLS.INNTEKT, MOCK_FILES.INNTEKT)
 	await mockApi(page, API_URLS.GRUNNBELOEP, undefined, DEFAULT_GRUNNBELOEP)
 }
