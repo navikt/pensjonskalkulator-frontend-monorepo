@@ -18,9 +18,11 @@ type OpplysningerInfoItem = { label: string; value: string | number }
 function mapEpsOpplysninger({
 	eps,
 	vedtakInfoAvdoed,
+	grunnbeloepTekst,
 }: {
 	eps: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
+	grunnbeloepTekst?: string
 }): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
@@ -48,7 +50,7 @@ function mapEpsOpplysninger({
 				value: vedtakInfoAvdoed?.antallAarUtenlands ?? 0,
 			},
 			{
-				label: 'Minst 1G (130 160 kr) i pensjonsgivende inntekt ved dødsdato',
+				label: `Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`,
 				value: vedtakInfoAvdoed?.aarligPensjonsgivendeInntektErMinst1G
 					? 'Ja'
 					: 'Nei',
@@ -76,11 +78,15 @@ export const OpplysningerInfo = ({
 }: {
 	EPSOpplysninger: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
-	vedtakAPDato?: string
+	vedtakAPDato?: string | null
 }) => {
-	const rows = mapEpsOpplysninger({ eps: EPSOpplysninger, vedtakInfoAvdoed })
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const rows = mapEpsOpplysninger({
+		eps: EPSOpplysninger,
+		vedtakInfoAvdoed,
+		grunnbeloepTekst,
+	})
 	const formatertVedtakAPDato = vedtakAPDato
 		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
 		: undefined
@@ -90,7 +96,11 @@ export const OpplysningerInfo = ({
 			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
-			<Table className={styles.opplysningerTable} size="small">
+			<Table
+				zebraStripes={rows.length > 4}
+				className={styles.opplysningerTable}
+				size="small"
+			>
 				<Table.Body>
 					{rows.map(({ label, value }) => (
 						<Table.Row key={label}>

@@ -191,7 +191,7 @@ export const Gjenlevenderett = () => {
 						<OpplysningerInfo
 							EPSOpplysninger={formEpsOpplysninger}
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
-							vedtakAPDato={vedtak?.loependeAlderspensjon?.fom}
+							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
 						/>
 					)}
 				</div>
