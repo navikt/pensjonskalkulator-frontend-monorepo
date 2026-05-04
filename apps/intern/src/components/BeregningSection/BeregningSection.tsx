@@ -92,7 +92,7 @@ export const BeregningSection = ({
 							visAarsbelop={visAarsbelop}
 						/>
 
-						{!erUttaksgradNull && (
+						{shouldShowAP && (
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
