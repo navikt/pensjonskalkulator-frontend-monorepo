@@ -33,18 +33,22 @@ export function mapAlderspensjonToRows(
 					{
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
+						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
 						value: Math.round(entry.gjenlevendetillegg ?? 0),
+						yearlyValue: Math.round(entry.gjenlevendetillegg ?? 0) * 12,
 						hide: !simulererMedGjenlevenderett,
 						showWhenZero: true,
 					},
@@ -55,20 +59,24 @@ export function mapAlderspensjonToRows(
 					{
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
+						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
 						value: Math.round(entry.garantitilleggBeloep ?? 0),
+						yearlyValue: Math.round(entry.garantitilleggBeloep ?? 0) * 12,
 					},
 				]
 			: []),
 		{
 			label: 'Skjermingstillegg',
 			value: skjermingstillegg,
+			yearlyValue: skjermingstillegg * 12,
 			hide: skjermingstillegg <= 0,
 		},
 	]
@@ -76,6 +84,7 @@ export function mapAlderspensjonToRows(
 
 export function mapOpptjeningEtterKapittel19ToRows(
 	opptjening: SimuleringMaanedligAlderspensjon,
+	visAarsbelop: boolean,
 	grunnbeloep?: number,
 	isGradert = false
 ): BeregningDetailRow[] {
@@ -122,12 +131,13 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Basispensjon',
 			value: formatKr(opptjening.basispensjonBeloep),
-			hide: !isGradert || (opptjening.basispensjonBeloep ?? 0) <= 0,
+			hide: !visAarsbelop || (opptjening.basispensjonBeloep ?? 0) <= 0,
 		},
 		{
 			label: 'Restpensjon',
 			value: formatKr(opptjening.restpensjonBeloep),
-			hide: !isGradert || (opptjening.restpensjonBeloep ?? 0) <= 0,
+			hide:
+				!visAarsbelop || !isGradert || (opptjening.restpensjonBeloep ?? 0) <= 0,
 		},
 	]
 }
@@ -173,16 +183,19 @@ export function mapPrivatAfp(
 		{
 			label: 'Kompensasjonstillegg',
 			value: kompensasjonstillegg,
+			yearlyValue: kompensasjonstillegg * 12,
 			hide: kompensasjonstillegg <= 0,
 		},
 		{
 			label: 'Kronetillegg',
 			value: entry?.kronetillegg ?? 0,
+			yearlyValue: (entry?.kronetillegg ?? 0) * 12,
 			hide: !visKronetillegg,
 		},
 		{
 			label: 'Livsvarig del',
 			value: entry?.livsvarig ?? 0,
+			yearlyValue: (entry?.livsvarig ?? 0) * 12,
 		},
 	]
 }

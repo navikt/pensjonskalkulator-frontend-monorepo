@@ -7,6 +7,7 @@ export type Unit = 'kr' | 'år'
 export interface BeregningTableRow {
 	label: string
 	value?: number
+	yearlyValue?: number
 	unit?: Unit
 	hide?: boolean
 	showWhenZero?: boolean
@@ -18,10 +19,29 @@ interface BeregningTableWithSumProps {
 	rows?: BeregningTableRow[]
 	sumLabel?: string
 	addToSum?: number
+	visAarsbelop: boolean
 }
 
 const formatKroner = (value?: number) =>
 	value?.toLocaleString('nb-NO', { maximumFractionDigits: 0 }) ?? ''
+
+export function computeRowsSum(
+	rows: BeregningTableRow[],
+	visAarsbelop: boolean
+): number {
+	const getValue = visAarsbelop
+		? (row: BeregningTableRow) => row.yearlyValue
+		: (row: BeregningTableRow) => row.value
+	return rows
+		.filter(
+			(row) =>
+				getValue(row) != null &&
+				((getValue(row) ?? 0) > 0 ||
+					(row.showWhenZero && getValue(row) === 0)) &&
+				!row.hide
+		)
+		.reduce((acc, row) => acc + Math.max(getValue(row) ?? 0, 0), 0)
+}
 
 export const BeregningTableWithSum = ({
 	title,
@@ -29,17 +49,20 @@ export const BeregningTableWithSum = ({
 	rows = [],
 	sumLabel = 'Sum',
 	addToSum = 0,
+	visAarsbelop = false,
 }: BeregningTableWithSumProps) => {
+	const value = visAarsbelop
+		? (row: BeregningTableRow) => row.yearlyValue
+		: (row: BeregningTableRow) => row.value
 	const validRows = rows.filter(
 		(row) =>
-			row.value != null &&
-			(row.value > 0 || (row.showWhenZero && row.value === 0)) &&
+			value(row) != null &&
+			((value(row) ?? 0) > 0 || (row.showWhenZero && value(row) === 0)) &&
 			!row.hide
 	)
 
 	const sum =
-		validRows.reduce((acc, row) => acc + Math.max(row.value ?? 0, 0), 0) +
-		addToSum
+		computeRowsSum(validRows, visAarsbelop) + (addToSum > 0 ? addToSum : 0)
 	return (
 		<Table
 			zebraStripes={validRows.length > 2}
@@ -49,10 +72,14 @@ export const BeregningTableWithSum = ({
 			<Table.Header>
 				<Table.Row className={styles.headerRow}>
 					<Table.HeaderCell>
-						<Label size="small">{title}</Label>
+						<Label style={{ whiteSpace: 'nowrap' }} size="small">
+							{title}
+						</Label>
 					</Table.HeaderCell>
 					<Table.HeaderCell align="right">
-						<Label size="small">{valueHeader}</Label>
+						<Label style={{ whiteSpace: 'nowrap' }} size="small">
+							{valueHeader}
+						</Label>
 					</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
@@ -65,8 +92,8 @@ export const BeregningTableWithSum = ({
 						<Table.DataCell align="right">
 							<BodyShort size="small">
 								{row.unit
-									? `${formatKroner(row.value)} ${row.unit}`
-									: formatKroner(row.value)}
+									? `${formatKroner(value(row))} ${row.unit}`
+									: formatKroner(value(row))}
 							</BodyShort>
 						</Table.DataCell>
 					</Table.Row>
@@ -76,7 +103,7 @@ export const BeregningTableWithSum = ({
 						<Label size="small">{sumLabel}</Label>
 					</Table.DataCell>
 					<Table.DataCell align="right">
-						<Label size="small">{formatKroner(sum)}</Label>
+						<Label size="small">{formatKroner(sum)}&nbsp;kr</Label>
 					</Table.DataCell>
 				</Table.Row>
 			</Table.Body>
