@@ -382,14 +382,16 @@ export const BeregningForm = () => {
 							<>
 								{afp === 'serviceberegning' && (
 									<>
-										<HStack gap="space-4">
-											<BodyShort size="small" weight="semibold">
-												{pensjonsgivendeInntektLabel}
-											</BodyShort>
-											<BodyShort size="small">
-												{pensjonsgivendeInntektValue}
-											</BodyShort>
-										</HStack>
+										{!harUttakIForrigeAarEllerTidligere && (
+											<HStack gap="space-4">
+												<BodyShort size="small" weight="semibold">
+													{pensjonsgivendeInntektLabel}
+												</BodyShort>
+												<BodyShort size="small">
+													{pensjonsgivendeInntektValue}
+												</BodyShort>
+											</HStack>
+										)}
 										{harIkkeForrigeAarsInntekt && (
 											<RHFTextField
 												name="pensjonsgivendeInntektForrigeAar"
