@@ -20,7 +20,10 @@ export function getVedtakStatus(vedtak?: Vedtak): string {
 		: ''
 	const afpPrivatString = vedtak.privatAfpFom ? ' / AFP i privat sektor' : ''
 
-	return `${alderspensjonString}${afpPrivatString}`
+	const ufoeretrygdString = vedtak.ufoeretrygdgrad
+		? `${vedtak.ufoeretrygdgrad}% uføretrygd / `
+		: ''
+	return `${ufoeretrygdString}${alderspensjonString}${afpPrivatString}`
 }
 
 export function getEpsVedtakStatus(

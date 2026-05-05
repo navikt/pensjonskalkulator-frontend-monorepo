@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import { BodyLong, Box, Checkbox, Loader, VStack } from '@navikt/ds-react'
 
-import { useGrunnbeloepQuery } from '../../api/queries'
+import { useGrunnbeloepQuery, useVedtakQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
@@ -16,9 +16,10 @@ import { formatAlderTitle } from './beregningMappers'
 import styles from './Beregning.module.css'
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning, person } =
+	const { isBeregningLoading, beregning, aktivBeregning, person, fnr } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const { data: vedtak } = useVedtakQuery(fnr)
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
@@ -111,6 +112,8 @@ export const Beregning = () => {
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
+	const ufoeretrygdBregningInfo = 'Uføretrygd vises ikke i beregningen.'
+
 	const sectionCommonProps = {
 		tableCount,
 		erFoedtFoer1963,
@@ -170,6 +173,11 @@ export const Beregning = () => {
 			position="relative"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 		>
+			{vedtak?.ufoeretrygdgrad && (
+				<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
+					{ufoeretrygdBregningInfo}
+				</BodyLong>
+			)}
 			<Box
 				position="absolute"
 				right={{ sm: 'space-24', xl: 'space-48' }}
