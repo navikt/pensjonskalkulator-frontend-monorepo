@@ -58,14 +58,14 @@ export const BeregningForm = () => {
 		resetForm,
 		person,
 		beregning,
-		loependeVedtak,
+		vedtak,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
-	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
+	const erEndring = Boolean(vedtak?.harVedtak)
+	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 
 	useEffect(() => {
 		if (erEndring) {
@@ -165,7 +165,7 @@ export const BeregningForm = () => {
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
-				{erEndring && <OpplysningerFraVedtak loependeVedtak={loependeVedtak} />}
+				{erEndring && <OpplysningerFraVedtak vedtak={vedtak} />}
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,

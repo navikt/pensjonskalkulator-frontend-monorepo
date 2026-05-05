@@ -29,7 +29,6 @@ function validateEPSOpplysninger(
 		errors.epsAntallUtenlandsOppholdAar =
 			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
 	}
-
 	if (
 		formData.epsAntallUtenlandsOppholdAar !== null &&
 		Number(formData.epsAntallUtenlandsOppholdAar) > 39
@@ -38,9 +37,9 @@ function validateEPSOpplysninger(
 			'Antall år i utlandet kan ikke være større enn 39 år.'
 	}
 
-	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
-		errors.epsPensjonsgivendeInntektFoerDoedsDato =
-			'Fyll ut inntekt året før dødsdato.'
+	if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
+		errors.epsMedlemAvFolketrygdenVedDoedsDato =
+			'Velg ja/nei om avdøde var medlem av folketrygden.'
 	}
 
 	const epsFoedselsdato =
@@ -59,14 +58,14 @@ function validateEPSOpplysninger(
 			'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
 	}
 
-	if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
-		errors.epsMedlemAvFolketrygdenVedDoedsDato =
-			'Velg ja/nei om avdøde var medlem av folketrygden.'
-	}
-
 	if (formData.epsRegistretSomFlykting === null) {
 		errors.epsRegistretSomFlykting =
 			'Velg ja/nei om avdøde var registrert som flyktning.'
+	}
+
+	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
+		errors.epsPensjonsgivendeInntektFoerDoedsDato =
+			'Fyll ut inntekt året før dødsdato.'
 	}
 }
 
