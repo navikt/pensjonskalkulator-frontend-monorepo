@@ -344,7 +344,7 @@ export const BeregningForm = () => {
 							/>
 						</div>
 					)}
-				{showAlderspensjonFields(afp) && (
+				{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 					<>
 						{afp !== 'serviceberegning' && (
 							<RHFTextField

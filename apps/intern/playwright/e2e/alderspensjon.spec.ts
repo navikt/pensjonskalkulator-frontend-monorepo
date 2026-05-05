@@ -66,6 +66,7 @@ test.describe('Alderspensjon beregning', () => {
 
 			await expect(page.getByTestId('sivilstatus-select')).toBeVisible()
 			await expect(page.getByTestId('afp')).toBeVisible()
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await expect(page.getByTestId('inntekt-foer-uttak')).toBeVisible()
 			await expect(page.getByTestId('alder-uttak-aar')).toBeVisible()
 			await expect(page.getByTestId('alder-uttak-md')).toBeVisible()
@@ -85,6 +86,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await expect(page.getByTestId('inntekt-foer-uttak')).toHaveValue(
 				'521\u00A0338'
 			)
@@ -136,6 +138,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page.getByTestId('uttaksgrad').selectOption('60')
 
 			await expect(page.getByTestId('inntekt-vsa-gradert-uttak')).toBeVisible()
@@ -149,6 +152,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page.getByTestId('uttaksgrad').selectOption('100')
 
 			await expect(
@@ -163,6 +167,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page.getByTestId('uttaksgrad').selectOption('100')
 			await page
 				.getByTestId('har-inntekt-vsa-helt-uttak')
@@ -180,6 +185,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page.getByTestId('uttaksgrad').selectOption('100')
 			await page
 				.getByTestId('har-inntekt-vsa-helt-uttak')
@@ -227,15 +233,6 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
-			await page
-				.getByTestId('alder-uttak-aar')
-
-				.selectOption('67')
-			await page
-				.getByTestId('alder-uttak-md')
-
-				.selectOption('3')
-			await page.getByTestId('uttaksgrad').selectOption('100')
 			await page.getByTestId('beregn-button').click()
 
 			await expect(page.getByText('Velg om AFP skal inkluderes.')).toBeVisible()
@@ -330,9 +327,9 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
-			await page.getByTestId('inntekt-foer-uttak').clear()
 			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
 			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page.getByTestId('inntekt-foer-uttak').clear()
 			await page
 				.getByTestId('alder-uttak-aar')
 
@@ -568,22 +565,23 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('uttaksgrad')).toHaveValue('')
-			await expect(page.getByTestId('alder-uttak-aar')).toHaveValue('')
-			await expect(page.getByTestId('alder-uttak-md')).toHaveValue('')
+			await expect(page.getByTestId('uttaksgrad')).not.toBeVisible()
+			await expect(page.getByTestId('alder-uttak-aar')).not.toBeVisible()
+			await expect(page.getByTestId('alder-uttak-md')).not.toBeVisible()
 		})
 
 		test('tømmer inntekt-feltet etter nullstilling', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page
 				.getByTestId('inntekt-foer-uttak')
 
 				.fill('600000')
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('inntekt-foer-uttak')).toBeEmpty()
+			await expect(page.getByTestId('inntekt-foer-uttak')).not.toBeVisible()
 		})
 
 		test('nullstiller sivilstatus til opprinnelig verdi', async ({ page }) => {
@@ -607,6 +605,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			const aarSelect = page.getByTestId('alder-uttak-aar')
 			const options = aarSelect.locator('option')
 
@@ -622,6 +621,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
+			await page.getByTestId('afp').getByLabel('Nei').check()
 			await page.getByTestId('alder-uttak-aar').selectOption('67')
 
 			const mdSelect = page.getByTestId('alder-uttak-md')
