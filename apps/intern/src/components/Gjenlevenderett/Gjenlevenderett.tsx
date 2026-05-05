@@ -10,7 +10,8 @@ import {
 	LocalAlert,
 } from '@navikt/ds-react'
 
-import { useEPSOpplysningerQuery } from '../../api/queries'
+import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
+import { getEpsVedtakStatus } from '../../utils'
 import { useBeregningContext } from '../BeregningContext'
 import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
@@ -35,6 +36,54 @@ export const Gjenlevenderett = () => {
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
+	const { data: vedtak, isLoading: isVedtakLoading } = useVedtakQuery(fnr)
+
+	const vedtakInfoAvdoed =
+		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
+
+	useEffect(() => {
+		form.setValue('vedtakInfoAvdoed', Boolean(vedtakInfoAvdoed), {
+			shouldDirty: false,
+		})
+
+		if (!vedtakInfoAvdoed) {
+			form.setValue('epsMinstePensjonsgivendeInntektFoerDoedsfall', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsMedlemAvFolketrygdenVedDoedsDato', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsRegistretSomFlykting', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsAntallUtenlandsOppholdAar', undefined, {
+				shouldDirty: false,
+			})
+			return
+		}
+
+		form.setValue(
+			'epsMinstePensjonsgivendeInntektFoerDoedsfall',
+			vedtakInfoAvdoed.aarligPensjonsgivendeInntektErMinst1G ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsMedlemAvFolketrygdenVedDoedsDato',
+			vedtakInfoAvdoed.harTilstrekkeligMedlemskapIFolketrygden ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsRegistretSomFlykting',
+			vedtakInfoAvdoed.erFlyktning ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsAntallUtenlandsOppholdAar',
+			vedtakInfoAvdoed.antallAarUtenlands ?? undefined,
+			{ shouldDirty: false }
+		)
+	}, [vedtakInfoAvdoed, form])
+
 	useEffect(() => {
 		if (EPSOpplysninger) {
 			form.setValue('epsOpplysninger', EPSOpplysninger, {
@@ -47,6 +96,7 @@ export const Gjenlevenderett = () => {
 		control,
 		name: ['beregnMedGjenlevenderett'] as const,
 	})
+
 	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
 		control,
 		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,
@@ -175,7 +225,11 @@ export const Gjenlevenderett = () => {
 						</LocalAlert>
 					)}
 					{formEpsOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo EPSOpplysninger={formEpsOpplysninger} />
+						<OpplysningerInfo
+							EPSOpplysninger={formEpsOpplysninger}
+							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
+							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+						/>
 					)}
 				</div>
 			)}
