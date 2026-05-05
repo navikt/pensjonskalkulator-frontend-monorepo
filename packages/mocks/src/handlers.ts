@@ -264,14 +264,15 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(offentligTpFoer1963Response)
 		}),
 
-		(http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
+		http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(loependeVedtakResponse)
 		}),
+
 		http.get(`${baseUrl}/v1/vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(vedtakResponse)
-		})),
+		}),
 
 		http.post(`${baseUrl}/v3/tidligste-hel-uttaksalder`, async () => {
 			await delay(delayMs)
