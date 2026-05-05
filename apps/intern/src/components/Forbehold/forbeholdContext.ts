@@ -1,7 +1,7 @@
 import { type ForbeholdContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import type {
-	LoependeVedtak,
 	PersonInternV1,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
@@ -13,15 +13,15 @@ import type { BeregningParams } from '../../api/beregningTypes'
 interface BuildForbeholdContextArgs {
 	aktivBeregning: BeregningParams | null
 	person: PersonInternV1 | undefined
-	loependeVedtak: LoependeVedtak | undefined
+	vedtak: Vedtak | undefined
 }
 
 export function buildForbeholdContext({
 	aktivBeregning,
 	person,
-	loependeVedtak,
+	vedtak,
 }: BuildForbeholdContextArgs): ForbeholdContext {
-	const ufoeretrygdgrad = loependeVedtak?.ufoeretrygd?.grad ?? 0
+	const ufoeretrygdgrad = vedtak?.ufoeretrygdgrad ?? 0
 	const harUfoeretrygd = ufoeretrygdgrad > 0
 	const har100Ufoeretrygd = ufoeretrygdgrad === 100
 	const graderUfoeretrygd = ufoeretrygdgrad > 0 && ufoeretrygdgrad < 100
