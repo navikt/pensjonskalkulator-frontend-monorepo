@@ -45,6 +45,43 @@ export const Gjenlevenderett = () => {
 		form.setValue('vedtakInfoAvdoed', Boolean(vedtakInfoAvdoed), {
 			shouldDirty: false,
 		})
+
+		if (!vedtakInfoAvdoed) {
+			form.setValue('epsMinstePensjonsgivendeInntektFoerDoedsfall', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsMedlemAvFolketrygdenVedDoedsDato', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsRegistretSomFlykting', null, {
+				shouldDirty: false,
+			})
+			form.setValue('epsAntallUtenlandsOppholdAar', undefined, {
+				shouldDirty: false,
+			})
+			return
+		}
+
+		form.setValue(
+			'epsMinstePensjonsgivendeInntektFoerDoedsfall',
+			vedtakInfoAvdoed.aarligPensjonsgivendeInntektErMinst1G ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsMedlemAvFolketrygdenVedDoedsDato',
+			vedtakInfoAvdoed.harTilstrekkeligMedlemskapIFolketrygden ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsRegistretSomFlykting',
+			vedtakInfoAvdoed.erFlyktning ?? null,
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'epsAntallUtenlandsOppholdAar',
+			vedtakInfoAvdoed.antallAarUtenlands ?? undefined,
+			{ shouldDirty: false }
+		)
 	}, [vedtakInfoAvdoed, form])
 
 	useEffect(() => {

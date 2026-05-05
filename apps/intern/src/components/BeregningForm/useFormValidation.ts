@@ -22,47 +22,45 @@ function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (!formData.vedtakInfoAvdoed) {
-		if (
-			formData.epsAntallUtenlandsOppholdAar === undefined ||
-			formData.epsAntallUtenlandsOppholdAar === null
-		) {
-			errors.epsAntallUtenlandsOppholdAar =
-				'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
-		}
-		if (
-			formData.epsAntallUtenlandsOppholdAar !== null &&
-			Number(formData.epsAntallUtenlandsOppholdAar) > 39
-		) {
-			errors.epsAntallUtenlandsOppholdAar =
-				'Antall år i utlandet kan ikke være større enn 39 år.'
-		}
+	if (
+		formData.epsAntallUtenlandsOppholdAar === undefined ||
+		formData.epsAntallUtenlandsOppholdAar === null
+	) {
+		errors.epsAntallUtenlandsOppholdAar =
+			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
+	}
+	if (
+		formData.epsAntallUtenlandsOppholdAar !== null &&
+		Number(formData.epsAntallUtenlandsOppholdAar) > 39
+	) {
+		errors.epsAntallUtenlandsOppholdAar =
+			'Antall år i utlandet kan ikke være større enn 39 år.'
+	}
 
-		if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
-			errors.epsMedlemAvFolketrygdenVedDoedsDato =
-				'Velg ja/nei om avdøde var medlem av folketrygden.'
-		}
+	if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
+		errors.epsMedlemAvFolketrygdenVedDoedsDato =
+			'Velg ja/nei om avdøde var medlem av folketrygden.'
+	}
 
-		const epsFoedselsdato =
-			formData.epsOpplysninger?.relasjonPersondata?.foedselsdato
-		const epsDoedsdato = formData.epsOpplysninger?.relasjonPersondata?.doedsdato
+	const epsFoedselsdato =
+		formData.epsOpplysninger?.relasjonPersondata?.foedselsdato
+	const epsDoedsdato = formData.epsOpplysninger?.relasjonPersondata?.doedsdato
 
-		if (
-			epsFoedselsdato &&
-			isEpsUnder67EllerDoedsdatoFoer67aar({
-				epsFoedselsdato,
-				epsDoedsdato,
-			}) &&
-			formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
-		) {
-			errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
-				'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
-		}
+	if (
+		epsFoedselsdato &&
+		isEpsUnder67EllerDoedsdatoFoer67aar({
+			epsFoedselsdato,
+			epsDoedsdato,
+		}) &&
+		formData.epsMinstePensjonsgivendeInntektFoerDoedsfall === null
+	) {
+		errors.epsMinstePensjonsgivendeInntektFoerDoedsfall =
+			'Velg ja/nei om inntekt ved dødsdato var minst 1G.'
+	}
 
-		if (formData.epsRegistretSomFlykting === null) {
-			errors.epsRegistretSomFlykting =
-				'Velg ja/nei om avdøde var registrert som flyktning.'
-		}
+	if (formData.epsRegistretSomFlykting === null) {
+		errors.epsRegistretSomFlykting =
+			'Velg ja/nei om avdøde var registrert som flyktning.'
 	}
 
 	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
