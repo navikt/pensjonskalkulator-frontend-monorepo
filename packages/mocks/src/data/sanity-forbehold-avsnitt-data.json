@@ -45,11 +45,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "c2c0aedd04a0",
+					"_key": "94b08718124d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "556c5ac56d4d",
+							"_key": "13c760607eb6",
 							"_type": "span",
 							"marks": [],
 							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
@@ -83,95 +83,117 @@
 		{
 			"innhold": [
 				{
-					"_key": "d9bc3f2e4431",
+					"_key": "f996cdbdd1d9",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "29ddca3d0120",
+							"_key": "c6f2a48ac305",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "1e3f1b6db890",
+					"_key": "2465f46a167e",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "e6ceb64cf4c5",
+							"_key": "dfeb2b9bde8e",
 							"_type": "span",
 							"marks": [],
-							"text": "Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land."
+							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "865508535f8b",
+					"_key": "d076e361d8e4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "7ce0b914bda7",
+							"_key": "f4b8ce3bf197",
 							"_type": "span",
 							"marks": [],
-							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
+							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "748e58be18d2",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "ffa056bb7d69",
+							"_type": "span",
+							"marks": [],
+							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "63c705003c42",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "43a3e3154915",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "c9330ff8b3d4",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "6233253c9492",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "8326c1981c57",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5b7e0b0b9514",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "d59d8dc50d4e",
+					"_key": "11993af890a4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "466bb12891df",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "e6b4ab3745ce",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6b1dad6d496a",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du lagt til fremtidige perioder med opphold utenfor Norge, bruker kalkulatoren null kroner i inntekt i Norge i disse periodene. "
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "a7318f4cc772",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "7575d6ffba98",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "553d925137bc",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "fb6075052b8b",
+							"_key": "cdde33762926",
 							"_type": "span",
 							"marks": [],
 							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
@@ -252,11 +274,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "4b5d41916893",
+					"_key": "9bebd6676420",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "5fc2f82892df",
+							"_key": "b9ccc683030b",
 							"_type": "span",
 							"marks": [],
 							"text": "Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."

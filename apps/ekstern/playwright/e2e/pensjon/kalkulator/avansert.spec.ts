@@ -15,6 +15,26 @@ const defaultPersonOptions = {
   },
 }
 
+const nbMonthLabels = [
+  'jan.',
+  'feb.',
+  'mars',
+  'apr.',
+  'mai',
+  'juni',
+  'juli',
+  'aug.',
+  'sep.',
+  'okt.',
+  'nov.',
+  'des.',
+]
+
+const expectedMonthOptionText = (maaneder: number) => {
+  const monthIndex = (new Date().getMonth() + maaneder + 1) % 12
+  return `${maaneder} md. (${nbMonthLabels[monthIndex]})`
+}
+
 test.describe('Avansert', () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.install({ time: MOCK_DATE })
@@ -190,14 +210,15 @@ test.describe('Avansert', () => {
         )
         const monthOptions = monthSelect.locator('option')
         await expect(monthOptions).toHaveCount(12)
-        await expect(monthOptions.nth(0)).toHaveText('0 md. (mai)')
-        await expect(monthOptions.nth(11)).toHaveText('11 md. (apr.)')
+        await expect(monthOptions.nth(0)).toHaveAttribute('value', '0')
+        await expect(monthOptions.nth(0)).toHaveText(expectedMonthOptionText(0))
+        await expect(monthOptions.nth(11)).toHaveAttribute('value', '11')
 
         // Select 75 and check month options (only 0 should be available)
         await yearSelect.selectOption('75')
         const monthOptionsAt75 = monthSelect.locator('option')
         await expect(monthOptionsAt75).toHaveCount(1)
-        await expect(monthOptionsAt75.nth(0)).toHaveText('0 md. (mai)')
+        await expect(monthOptionsAt75.nth(0)).toHaveAttribute('value', '0')
       })
 
       // 6
@@ -360,15 +381,16 @@ test.describe('Avansert', () => {
         )
         const monthOptions = monthSelect.locator('option')
         await expect(monthOptions).toHaveCount(8)
-        await expect(monthOptions.nth(0)).toHaveText('4 md. (sep.)')
-        await expect(monthOptions.nth(7)).toHaveText('11 md. (apr.)')
+        await expect(monthOptions.nth(0)).toHaveAttribute('value', '4')
+        await expect(monthOptions.nth(0)).toHaveText(expectedMonthOptionText(4))
+        await expect(monthOptions.nth(7)).toHaveAttribute('value', '11')
 
         // Select 75 and check month options
         await yearSelect.selectOption('75')
         const monthOptionsAt75 = monthSelect.locator('option')
         await expect(monthOptionsAt75).toHaveCount(12)
-        await expect(monthOptionsAt75.nth(0)).toHaveText('0 md. (mai)')
-        await expect(monthOptionsAt75.nth(11)).toHaveText('11 md. (apr.)')
+        await expect(monthOptionsAt75.nth(0)).toHaveAttribute('value', '0')
+        await expect(monthOptionsAt75.nth(11)).toHaveAttribute('value', '11')
 
         // Select month and submit
         await monthSelect.selectOption('3')
@@ -457,14 +479,15 @@ test.describe('Avansert', () => {
         )
         const monthOptions = monthSelect.locator('option')
         await expect(monthOptions).toHaveCount(12)
-        await expect(monthOptions.nth(0)).toHaveText('0 md. (mai)')
-        await expect(monthOptions.nth(11)).toHaveText('11 md. (apr.)')
+        await expect(monthOptions.nth(0)).toHaveAttribute('value', '0')
+        await expect(monthOptions.nth(0)).toHaveText(expectedMonthOptionText(0))
+        await expect(monthOptions.nth(11)).toHaveAttribute('value', '11')
 
         // Select 75 and check month options (only month 0, no placeholder after year change)
         await yearSelect.selectOption('75')
         const monthOptionsAt75 = monthSelect.locator('option')
         await expect(monthOptionsAt75).toHaveCount(1)
-        await expect(monthOptionsAt75.nth(0)).toHaveText('0 md. (mai)')
+        await expect(monthOptionsAt75.nth(0)).toHaveAttribute('value', '0')
       })
 
       // 13
