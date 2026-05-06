@@ -161,7 +161,7 @@ export const forbeholdAvsnittType = defineType({
 		defineField({
 			...innholdField,
 			name: 'innholdEkstern',
-			title: 'Ekstern innhold',
+			title: 'Eksternt innhold',
 			description: 'Innhold som vises i den eksterne kalkulatoren.',
 			hidden: ({ document }) => !document?.visEkstern,
 			validation: (rule) =>
