@@ -78,3 +78,31 @@ export function isEpsUnder67EllerDoedsdatoFoer67aar({
 
 	return new Date() < fylte67
 }
+
+export function getUttaksGradArray({
+	skalBeregneAFPPrivat,
+	erEndring,
+	ufoeretrygdgrad,
+	alderAarUttak,
+}: {
+	skalBeregneAFPPrivat: boolean
+	erEndring: boolean
+	ufoeretrygdgrad?: number | null
+	alderAarUttak: number | null
+}) {
+	let uttaksgradArray = [20, 40, 50, 60, 80, 100]
+	if (
+		ufoeretrygdgrad &&
+		!skalBeregneAFPPrivat &&
+		alderAarUttak !== null &&
+		alderAarUttak < 67
+	) {
+		uttaksgradArray = uttaksgradArray.filter(
+			(grad) => grad < ufoeretrygdgrad || grad === 100
+		)
+	}
+	if (erEndring) {
+		uttaksgradArray = [0, 20, 40, 50, 60, 80, 100]
+	}
+	return uttaksgradArray
+}

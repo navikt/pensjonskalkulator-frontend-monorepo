@@ -32,7 +32,11 @@ import {
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
-import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
+import {
+	getUttaksGradArray,
+	showBeregnMedGjenlevenderett,
+	showSivilstatus,
+} from './utils'
 
 import styles from './BeregningForm.module.css'
 
@@ -84,6 +88,7 @@ export const BeregningForm = () => {
 		harInntektVedSidenAvUttak,
 		alderAarUttak,
 		alderMdUttak,
+		afp,
 	] = useWatch({
 		control,
 		name: [
@@ -94,6 +99,7 @@ export const BeregningForm = () => {
 			'harInntektVedSidenAvUttak',
 			'alderAarUttak',
 			'alderMdUttak',
+			'afp',
 		] as const,
 	})
 
@@ -157,11 +163,21 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
-	const uttaksGradArray = erEndring
-		? [0, 20, 40, 50, 60, 80, 100]
-		: [20, 40, 50, 60, 80, 100]
-
 	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
+
+	const uttaksGradArray = getUttaksGradArray({
+		skalBeregneAFPPrivat: afp === 'ja_privat',
+		erEndring,
+		ufoeretrygdgrad: vedtak?.ufoeretrygdgrad,
+		alderAarUttak,
+	})
+
+	const showAPOgUTOver100Alert =
+		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+
+	const showUTOgAFPAlert =
+		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -248,6 +264,12 @@ export const BeregningForm = () => {
 							className={styles.horizontalRadioGroup}
 							testid="afp"
 						/>
+						{showUTOgAFPAlert && (
+							<SanityAlert
+								id="beregning.uttaksgrad-og-afp"
+								className={styles.sanityAlert}
+							/>
+						)}
 						<Divider noMargin />
 					</>
 				)}
@@ -321,6 +343,12 @@ export const BeregningForm = () => {
 						</option>
 					))}
 				</RHFSelect>
+				{showAPOgUTOver100Alert && (
+					<SanityAlert
+						id="beregning.UT-og-sim-AP-med-uttaksgrad-100"
+						className={styles.sanityAlert}
+					/>
+				)}
 
 				{showGradertUttakFields(uttaksgrad) && (
 					<RHFTextField
