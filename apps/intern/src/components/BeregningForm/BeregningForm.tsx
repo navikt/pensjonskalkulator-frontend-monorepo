@@ -68,8 +68,10 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(vedtak?.harVedtak)
+	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
+	const harVedtakTidsbegrensetOffentligAFP =
+		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
 
 	useEffect(() => {
 		if (erEndring) {
@@ -163,7 +165,10 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
-	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
+	const hideAfpSporsmaal =
+		beregnMedGjenlevenderett ||
+		harVedtakPrivatAFP ||
+		harVedtakTidsbegrensetOffentligAFP
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
@@ -177,6 +182,11 @@ export const BeregningForm = () => {
 
 	const showUTOgAFPAlert =
 		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+
+	const showUTOgFolketrygdBeregnetAFPAlert =
+		!erEndring &&
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
+		vedtak?.ufoeretrygdgrad
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -266,7 +276,13 @@ export const BeregningForm = () => {
 						/>
 						{showUTOgAFPAlert && (
 							<SanityAlert
-								id="beregning.uttaksgrad-og-afp"
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+								className={styles.sanityAlert}
+							/>
+						)}
+						{showUTOgFolketrygdBeregnetAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
 								className={styles.sanityAlert}
 							/>
 						)}
@@ -345,7 +361,7 @@ export const BeregningForm = () => {
 				</RHFSelect>
 				{showAPOgUTOver100Alert && (
 					<SanityAlert
-						id="beregning.UT-og-sim-AP-med-uttaksgrad-100"
+						id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
 						className={styles.sanityAlert}
 					/>
 				)}

@@ -90,7 +90,11 @@ export function getUttaksGradArray({
 	ufoeretrygdgrad?: number | null
 	alderAarUttak: number | null
 }) {
-	let uttaksgradArray = [20, 40, 50, 60, 80, 100]
+	let uttaksgradArray = [0, 20, 40, 50, 60, 80, 100]
+	if (erEndring) {
+		return uttaksgradArray
+	}
+
 	if (
 		ufoeretrygdgrad &&
 		!skalBeregneAFPPrivat &&
@@ -98,11 +102,9 @@ export function getUttaksGradArray({
 		alderAarUttak < 67
 	) {
 		uttaksgradArray = uttaksgradArray.filter(
-			(grad) => grad < ufoeretrygdgrad || grad === 100
+			(grad) => (grad > 0 && grad < ufoeretrygdgrad) || grad === 100
 		)
 	}
-	if (erEndring) {
-		uttaksgradArray = [0, 20, 40, 50, 60, 80, 100]
-	}
+
 	return uttaksgradArray
 }

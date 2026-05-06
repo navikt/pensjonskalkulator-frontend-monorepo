@@ -18,6 +18,10 @@ export function getVedtakStatus(
 		return 'Gjenlevende eller omstillingsstønad'
 	}
 
+	if (vedtak?.tidsbegrensetOffentligAfpFom) {
+		return 'AFP i offentlig sektor'
+	}
+
 	if (!vedtak || !vedtak.harVedtak) {
 		return 'Uten vedtak'
 	}
@@ -29,7 +33,7 @@ export function getVedtakStatus(
 	const afpPrivatString = vedtak.privatAfpFom ? ' / AFP i privat sektor' : ''
 
 	const ufoeretrygdString = vedtak.ufoeretrygdgrad
-		? `${vedtak.ufoeretrygdgrad}% uføretrygd / `
+		? `${vedtak.ufoeretrygdgrad} % uføretrygd ${alderspensjonString.length > 0 ? '/ ' : ''}`
 		: ''
 	return `${ufoeretrygdString}${alderspensjonString}${afpPrivatString}`
 }
