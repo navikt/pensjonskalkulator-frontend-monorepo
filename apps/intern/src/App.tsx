@@ -16,6 +16,7 @@ import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
 	useInntektQuery,
+	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
 } from './api/queries.ts'
@@ -89,6 +90,9 @@ const AppContent = () => {
 
 	const { isLoading: isLoadingVedtak, error: vedtakError } = useVedtakQuery(fnr)
 
+	const { isLoading: isLoadingOmstilling, error: omstillingError } =
+		useOmstillingsstoenadQuery(fnr)
+
 	const {
 		data: inntekt,
 		isLoading: isLoadingInntekt,
@@ -106,7 +110,12 @@ const AppContent = () => {
 		return <PersonInfo onPidChange={handlePidChange} />
 	}
 
-	const error = decryptError || personError || vedtakError || inntektError
+	const error =
+		decryptError ||
+		personError ||
+		vedtakError ||
+		inntektError ||
+		omstillingError
 	const isUnauthorized =
 		error && (error.message.includes('401') || error.message.includes('403'))
 
@@ -150,7 +159,13 @@ const AppContent = () => {
 		)
 	}
 
-	if (isDecrypting || isLoadingPerson || isLoadingVedtak || isLoadingInntekt) {
+	if (
+		isDecrypting ||
+		isLoadingPerson ||
+		isLoadingVedtak ||
+		isLoadingInntekt ||
+		isLoadingOmstilling
+	) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />
 	}
 

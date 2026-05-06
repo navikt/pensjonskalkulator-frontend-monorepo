@@ -1,3 +1,184 @@
 {
-	"result": []
+	"result": [
+		{
+			"innhold": [
+				{
+					"_key": "95419adcc4f3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "811bafab0c77",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e2a2b4e4422f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "811bafab0c77",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "a67fb01c3509",
+							"_type": "dynamicValue",
+							"key": "gradert_alder"
+						},
+						{
+							"_key": "0b06160edd8a",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "c64ab319d3b2",
+							"_type": "dynamicValue",
+							"key": "grad_gradert"
+						},
+						{
+							"_key": "614b448f744c",
+							"_type": "span",
+							"marks": [],
+							"text": ""
+						},
+						{ "_key": "aec625d5d035", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "6530daee9f0b",
+							"_type": "span",
+							"marks": [],
+							"text": "% alderspensjon hvis du tar ut 100"
+						},
+						{ "_key": "e83582663352", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "4ea2ca9672ac",
+							"_type": "span",
+							"marks": [],
+							"text": "% alderspensjon ved "
+						},
+						{ "_key": "a0856a1f5948", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "a1f97e7c83b9",
+							"_type": "span",
+							"marks": [],
+							"text": " eller senere. Prøv gjerne andre kombinasjoner."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_gradert",
+			"overskrift": "Opptjening er ikke høy nok",
+			"status": "warning",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "95419adcc4f3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "811bafab0c77",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e2a2b4e4422f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "811bafab0c77",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{ "_key": "a67fb01c3509", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "0b06160edd8a",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{ "_key": "1928d78fd867", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "4a9ae79c00af",
+							"_type": "span",
+							"marks": [],
+							"text": ""
+						},
+						{ "_key": "d0f60d22eb93", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "6600f1d4ff4d",
+							"_type": "span",
+							"marks": [],
+							"text": "% alderspensjon. Prøv gjerne andre kombinasjoner."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening",
+			"overskrift": "Opptjening er ikke høy nok",
+			"status": "warning",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "98f1518897f9",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "948374df9698",
+							"_type": "span",
+							"marks": [],
+							"text": "Uføretrygd kan ikke kombineres med AFP. Beregningen forutsetter at bruker har sagt fra seg uføretrygd før fylte 62 år. Du kan likevel fortsette beregningen."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ufoeretrygd-med-sim-ap-og-afp-privat",
+			"overskrift": "Du beregner nå en ugyldig kombinasjon",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "5e36a06ce5b5",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "e9c9770d9bac",
+							"_type": "span",
+							"marks": [],
+							"text": "Kombinasjonen uføretrygd og alderspensjon overstiger 100 %. Du kan likevel fortsette beregningen."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100",
+			"overskrift": "Ugyldig kombinasjon",
+			"status": "info",
+			"type": "info-card"
+		}
+	]
 }
