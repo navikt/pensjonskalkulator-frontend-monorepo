@@ -184,7 +184,7 @@ export const forbeholdAvsnittType = defineType({
 		defineField({
 			...innholdField,
 			name: 'innholdIntern',
-			title: 'Intern innhold',
+			title: 'Internt innhold',
 			description: 'Innhold som vises i den interne kalkulatoren.',
 			hidden: ({ document }) => !document?.visIntern,
 			validation: (rule) =>
