@@ -55,7 +55,7 @@ This document walks through the entire codebase: entrypoints, routing, state, AP
   - Schemas: `sanity/schemaTypes` define documents for `forbeholdAvsnitt`, `guidepanel`, `readmore`, tags, and localized string type.
   - Common fields, tag references, preview components (tagged document preview), desk structure grouping tags and tagged documents.
   - Plugins: audit timeline, document ID lock (5-minute editable window), document internationalization, color input, vision, custom structure. Configured in `sanity.config.ts`; CLI config in `sanity.cli.ts`.
-- Scripts: `scripts/FetchSanityData.js` pulls prod Sanity content into `src/playwright` and `src/mocks` JSON fixtures.
+- Sanity mock data is fetched by the shared `packages/sanity` script and written to shared fixtures under `packages/mocks/src/data`.
 
 ## Utilities
 
@@ -116,7 +116,7 @@ The component tree is large; key groups:
 - TypeScript configs: root, node, server, sanity variants.
 - Lint/format: ESLint (with import/react/sonar), Prettier (with sort-imports plugin), Stylelint SCSS.
 - Git hooks via Husky/Lint-Staged.
-- Scripts: `fetch-land-liste` (writes `src/assets/land-liste.json`), `fetch-sanity-data` (writes fixtures), `fetch-dev-types` (openapi-typescript -> `src/types/schema.d.ts`, then prettier/eslint).
+- Scripts: `fetch-land-liste` (writes `src/assets/land-liste.json`), `fetch-dev-types` (openapi-typescript -> `src/types/schema.d.ts`, then prettier/eslint). Sanity fixtures are fetched via `pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity fetch-sanity-data`.
 
 ## Types
 
@@ -248,6 +248,6 @@ This overview should help you navigate every file and understand how the fronten
 
 - **New step or flow change**: update `router/constants.ts` (paths + step arrays), add loader/guard logic in `router/loaders.tsx`, add page under `pages/`, wire navigation in `components/stegvisning`, and extend MSW fixtures + tests.
 - **New backend endpoint**: regenerate types (`npm run fetch-dev-types`), add RTK Query endpoint in `state/api/apiSlice.ts` with typeguards/transformations, extend request builders in `state/api/utils.ts`, add mocks in `src/mocks/handlers.ts` + fixtures, and cover with Vitest + MSW tests.
-- **Sanity schema/content change**: update `sanity/schemaTypes/*`, regenerate Sanity types (`sanity-typegen`), adjust LanguageProvider queries if needed, add fixtures used by tests (`scripts/FetchSanityData.js`), and extend translations for nb/nn/en.
+- **Sanity schema/content change**: update `packages/sanity/src/schemaTypes/*`, regenerate Sanity types (`sanity-typegen`), adjust LanguageProvider queries if needed, update fixtures used by tests (`pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity fetch-sanity-data`), and extend translations for nb/nn/en.
 - **Analytics**: add event names to `utils/loggerConstants.ts` (and optionally `logging.ts` helpers), and ensure components wrap handlers with `wrapLogger` to emit both legacy and new events.
 - **Veileder auth flow**: when changing fnr handling, keep `setVeilederBorgerFnr` and `apiSlice.prepareHeaders` aligned; ensure encrypted fnr passes to the backend and invalidate `getPerson` tags when switching user.

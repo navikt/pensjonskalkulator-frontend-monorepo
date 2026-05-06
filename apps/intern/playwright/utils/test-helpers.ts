@@ -22,6 +22,7 @@ export const MOCK_FILES = {
 	EPS_OPPLYSNING: 'eps-opplysning.json',
 	SIMULERING_V1: 'simulering-v1.json',
 	SIMULERING_V1_AFP_PRIVAT: 'simulering-v1-afp-privat.json',
+	SANITY_ALERT: 'sanity-alert-data.json',
 } as const
 
 const DEFAULT_GRUNNBELOEP = {
@@ -48,6 +49,11 @@ export async function setupDefaultMocks(
 	await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK)
 	await mockApi(page, API_URLS.INNTEKT, MOCK_FILES.INNTEKT)
 	await mockApi(page, API_URLS.GRUNNBELOEP, undefined, DEFAULT_GRUNNBELOEP)
+	await setupSanityMocks(page)
+}
+
+export async function setupSanityMocks(page: Page) {
+	await mockApi(page, API_URLS.SANITY, MOCK_FILES.SANITY_ALERT)
 }
 
 export async function navigateToApp(page: Page) {

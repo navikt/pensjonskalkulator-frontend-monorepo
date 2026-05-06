@@ -13,6 +13,10 @@ import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
+import sanityAlertDataResponse from './data/sanity-alert-data.json' with { type: 'json' }
+import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from './data/sanity-guidepanel-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import simuleringV1AfpOffentligOverlay from './data/simulering-v1-afp-offentlig.json' with { type: 'json' }
 import simuleringV1AfpPrivatOverlay from './data/simulering-v1-afp-privat.json' with { type: 'json' }
 import simuleringV1AfpTidsbegrensetOverlay from './data/simulering-v1-afp-tidsbegrenset.json' with { type: 'json' }
@@ -34,6 +38,18 @@ import type {
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
+
+function getSanityMockResponse(query: string | null) {
+	if (!query) return undefined
+	if (query.includes('_type == "alert"')) return sanityAlertDataResponse
+	if (query.includes('_type == "forbeholdAvsnitt"')) {
+		return sanityForbeholdAvsnittDataResponse
+	}
+	if (query.includes('_type == "guidepanel"'))
+		return sanityGuidePanelDataResponse
+	if (query.includes('_type == "readmore"')) return sanityReadMoreDataResponse
+	return undefined
+}
 
 function buildSimuleringV1Response(body: Record<string, unknown>) {
 	const simType = (body as { simuleringstype: string }).simuleringstype
@@ -187,9 +203,19 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		delayMs = TEST_DELAY,
 	} = options
 
+	const sanityMockHandler = async ({ request }: { request: Request }) => {
+		await delay(delayMs)
+		const url = new URL(request.url)
+		const sanityResponse = getSanityMockResponse(url.searchParams.get('query'))
+
+		return sanityResponse ? HttpResponse.json(sanityResponse) : passthrough()
+	}
+
 	return [
 		...testHandlers,
 		...externalServiceHandlers,
+		http.get('https://g2by7q6m.apicdn.sanity.io/*', sanityMockHandler),
+		http.get('https://g2by7q6m.api.sanity.io/*', sanityMockHandler),
 		http.get(`${hostBaseUrl}/oauth2/session`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json({
