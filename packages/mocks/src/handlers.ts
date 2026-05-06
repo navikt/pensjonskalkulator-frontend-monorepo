@@ -13,6 +13,10 @@ import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
+import sanityAlertDataResponse from './data/sanity-alert-data.json' with { type: 'json' }
+import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
+import sanityGuidePanelDataResponse from './data/sanity-guidepanel-data.json' with { type: 'json' }
+import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import simuleringV1AfpOffentligOverlay from './data/simulering-v1-afp-offentlig.json' with { type: 'json' }
 import simuleringV1AfpPrivatOverlay from './data/simulering-v1-afp-privat.json' with { type: 'json' }
 import simuleringV1AfpTidsbegrensetOverlay from './data/simulering-v1-afp-tidsbegrenset.json' with { type: 'json' }
@@ -34,6 +38,96 @@ import type {
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
+
+type SanityForbeholdAvsnittMock = {
+	_id?: string
+	overskrift?: string | null
+	innhold?: unknown
+	innholdEkstern?: unknown
+	innholdIntern?: unknown
+	visEkstern?: boolean
+	visIntern?: boolean
+	alltidSynlig?: boolean | null
+	vilkaar?: unknown
+}
+
+type SanityForbeholdAvsnittMockResponse = {
+	result?: SanityForbeholdAvsnittMock[]
+}
+
+const matcherVisEkstern = /visEkstern\s*==\s*true/
+const matcherVisIntern = /visIntern\s*==\s*true/
+
+function hasVisibilityFlag(
+	avsnitt: SanityForbeholdAvsnittMock,
+	flag: 'visEkstern' | 'visIntern'
+) {
+	return Object.prototype.hasOwnProperty.call(avsnitt, flag)
+}
+
+function erSynligFor(
+	avsnitt: SanityForbeholdAvsnittMock,
+	flag: 'visEkstern' | 'visIntern'
+) {
+	// Eldre mockdata manglet visEkstern/visIntern. Behold bakoverkompatibilitet
+	// ved å tolke manglende flagg som synlig, men respekter nye eksplisitte flagg.
+	return hasVisibilityFlag(avsnitt, flag) ? avsnitt[flag] === true : true
+}
+
+function getSanityForbeholdAvsnittMockResponse(query: string) {
+	const response =
+		sanityForbeholdAvsnittDataResponse as SanityForbeholdAvsnittMockResponse
+	const result = response.result ?? []
+
+	if (matcherVisIntern.test(query)) {
+		return {
+			result: result
+				.filter((avsnitt) => erSynligFor(avsnitt, 'visIntern'))
+				.map(
+					({
+						_id,
+						overskrift,
+						innhold,
+						innholdIntern,
+						alltidSynlig,
+						vilkaar,
+					}) => ({
+						_id,
+						overskrift,
+						innhold: innholdIntern ?? innhold ?? [],
+						alltidSynlig,
+						vilkaar,
+					})
+				),
+		}
+	}
+
+	if (matcherVisEkstern.test(query)) {
+		return {
+			result: result
+				.filter((avsnitt) => erSynligFor(avsnitt, 'visEkstern'))
+				.map(({ _id, overskrift, innhold, innholdEkstern }) => ({
+					_id,
+					overskrift,
+					innhold: innholdEkstern ?? innhold ?? [],
+				})),
+		}
+	}
+
+	return sanityForbeholdAvsnittDataResponse
+}
+
+function getSanityMockResponse(query: string | null) {
+	if (!query) return undefined
+	if (query.includes('_type == "alert"')) return sanityAlertDataResponse
+	if (query.includes('_type == "forbeholdAvsnitt"')) {
+		return getSanityForbeholdAvsnittMockResponse(query)
+	}
+	if (query.includes('_type == "guidepanel"'))
+		return sanityGuidePanelDataResponse
+	if (query.includes('_type == "readmore"')) return sanityReadMoreDataResponse
+	return undefined
+}
 
 function buildSimuleringV1Response(body: Record<string, unknown>) {
 	const simType = (body as { simuleringstype: string }).simuleringstype
@@ -187,9 +281,19 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		delayMs = TEST_DELAY,
 	} = options
 
+	const sanityMockHandler = async ({ request }: { request: Request }) => {
+		await delay(delayMs)
+		const url = new URL(request.url)
+		const sanityResponse = getSanityMockResponse(url.searchParams.get('query'))
+
+		return sanityResponse ? HttpResponse.json(sanityResponse) : passthrough()
+	}
+
 	return [
 		...testHandlers,
 		...externalServiceHandlers,
+		http.get('https://g2by7q6m.apicdn.sanity.io/*', sanityMockHandler),
+		http.get('https://g2by7q6m.api.sanity.io/*', sanityMockHandler),
 		http.get(`${hostBaseUrl}/oauth2/session`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json({

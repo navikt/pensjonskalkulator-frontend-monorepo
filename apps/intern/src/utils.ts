@@ -1,4 +1,5 @@
 import type {
+	OmstillingsstoenadOgGjenlevende,
 	Vedtak,
 	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -9,7 +10,14 @@ export function getPidFromUrl(): string | undefined {
 	return params.get('pid') ?? undefined
 }
 
-export function getVedtakStatus(vedtak?: Vedtak): string {
+export function getVedtakStatus(
+	vedtak?: Vedtak,
+	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
+): string {
+	if (omstillingsstoenad?.harLoependeSak) {
+		return 'Gjenlevende eller omstillingsstønad'
+	}
+
 	if (!vedtak || !vedtak.harVedtak) {
 		return 'Uten vedtak'
 	}

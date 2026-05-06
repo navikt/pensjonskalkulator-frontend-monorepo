@@ -14,6 +14,7 @@ import {
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
+	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
 } from './api/queries'
@@ -31,7 +32,8 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
-	const vedtakStatus = getVedtakStatus(vedtak)
+	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
+	const vedtakStatus = getVedtakStatus(vedtak, omstillingsstoenad)
 	const { mutate: encryptPid, isPending: isEncrypting } =
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')

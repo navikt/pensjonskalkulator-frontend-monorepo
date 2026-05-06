@@ -6,6 +6,8 @@ export const API_URLS = {
 	DECRYPT: '**/api/v1/decrypt',
 	PERSON: '**/api/intern/v1/person',
 	VEDTAK: '**/api/v1/vedtak**',
+	OMSTILLINGSSTOENAD:
+		'**/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
 	INNTEKT: '**/api/inntekt',
 	GRUNNBELOEP: '**/api/v1/grunnbel*',
 	SIMULERING: '**/api/intern/v1/pensjon/simulering',
@@ -17,11 +19,14 @@ export const MOCK_FILES = {
 	PERSON: 'person-intern.json',
 	VEDTAK: 'vedtak.json',
 	VEDTAK_UTEN_VEDTAK: 'vedtak-uten-vedtak.json',
+	OMSTILLINGSSTOENAD_FALSE: 'omstillingsstoenad-og-gjenlevende-false.json',
+	OMSTILLINGSSTOENAD: 'omstillingsstoenad-og-gjenlevende.json',
 	INNTEKT: 'inntekt.json',
 	ALDERSPENSJON: 'alderspensjon.json',
 	EPS_OPPLYSNING: 'eps-opplysning.json',
 	SIMULERING_V1: 'simulering-v1.json',
 	SIMULERING_V1_AFP_PRIVAT: 'simulering-v1-afp-privat.json',
+	SANITY_ALERT: 'sanity-alert-data.json',
 } as const
 
 const DEFAULT_GRUNNBELOEP = {
@@ -46,8 +51,18 @@ export async function setupDefaultMocks(
 	)
 	await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, personOverrides)
 	await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK)
+	await mockApi(
+		page,
+		API_URLS.OMSTILLINGSSTOENAD,
+		MOCK_FILES.OMSTILLINGSSTOENAD_FALSE
+	)
 	await mockApi(page, API_URLS.INNTEKT, MOCK_FILES.INNTEKT)
 	await mockApi(page, API_URLS.GRUNNBELOEP, undefined, DEFAULT_GRUNNBELOEP)
+	await setupSanityMocks(page)
+}
+
+export async function setupSanityMocks(page: Page) {
+	await mockApi(page, API_URLS.SANITY, MOCK_FILES.SANITY_ALERT)
 }
 
 export async function navigateToApp(page: Page) {
