@@ -31,6 +31,12 @@ export type AfpOffentligLivsvarig =
 // Loepende vedtak
 export type LoependeVedtak = components['schemas']['LoependeVedtakV4']
 
+// Vedtak
+export type Vedtak = components['schemas']['VedtakV1Samling']
+
+export type VedtakInformasjonOmAvdoed =
+	components['schemas']['VedtakV1InformasjonOmAvdoed']
+
 // Omstillingsstoenad
 export type OmstillingsstoenadOgGjenlevende =
 	components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']

@@ -1,6 +1,7 @@
 import type {
-	LoependeVedtak,
 	OmstillingsstoenadOgGjenlevende,
+	Vedtak,
+	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { format, parseISO } from 'date-fns'
 
@@ -9,23 +10,33 @@ export function getPidFromUrl(): string | undefined {
 	return params.get('pid') ?? undefined
 }
 
-export function getLoependeVedtakStatus(
-	loependeVedtak?: LoependeVedtak,
+export function getVedtakStatus(
+	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
 	if (omstillingsstoenad?.harLoependeSak) {
 		return 'Gjenlevende eller omstillingsstønad'
 	}
 
-	if (!loependeVedtak || !loependeVedtak.harLoependeVedtak) {
+	if (!vedtak || !vedtak.harVedtak) {
 		return 'Uten vedtak'
 	}
 
-	const { alderspensjon, afpPrivat } = loependeVedtak
-	const alderspensjonString = alderspensjon
-		? `${alderspensjon.grad} % alderspensjon fra ${format(parseISO(alderspensjon.fom), 'dd.MM.yyyy')}`
+	const loependeAlderspensjon = vedtak.loependeAlderspensjon
+	const alderspensjonString = loependeAlderspensjon
+		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.fom), 'dd.MM.yyyy')}`
 		: ''
-	const afpPrivatString = afpPrivat ? ' / AFP i privat sektor' : ''
+	const afpPrivatString = vedtak.privatAfpFom ? ' / AFP i privat sektor' : ''
 
 	return `${alderspensjonString}${afpPrivatString}`
+}
+
+export function getEpsVedtakStatus(
+	vedtak?: Vedtak
+): VedtakInformasjonOmAvdoed | undefined {
+	if (vedtak && vedtak.avdoed) {
+		return vedtak.avdoed
+	}
+
+	return
 }
