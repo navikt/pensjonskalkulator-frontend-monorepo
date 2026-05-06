@@ -25,24 +25,35 @@ async function setApotekerErrorState(page: Page) {
 }
 
 async function selectLowestNumericOption(select: Locator, fieldName: string) {
-  const options = await select.locator('option').evaluateAll((optionElements) =>
-    optionElements.map((option) => ({
-      disabled: (option as HTMLOptionElement).disabled,
-      label: (option.textContent ?? '').trim(),
-      value: (option as HTMLOptionElement).value,
-    }))
-  )
+  await select.waitFor({ state: 'visible' })
 
-  const validOptions = options
-    .filter(
-      ({ disabled, value }) =>
-        !disabled && value.trim() !== '' && Number.isFinite(Number(value))
+  const hentOptions = async () =>
+    select.locator('option').evaluateAll((optionElements) =>
+      optionElements.map((option) => ({
+        disabled: (option as HTMLOptionElement).disabled,
+        label: (option.textContent ?? '').trim(),
+        value: (option as HTMLOptionElement).value,
+      }))
     )
-    .sort((a, b) => Number(a.value) - Number(b.value))
 
-  const selectedOption = validOptions[0]
+  const hentGyldigeOptions = async () =>
+    (await hentOptions())
+      .filter(
+        ({ disabled, value }) =>
+          !disabled && value.trim() !== '' && Number.isFinite(Number(value))
+      )
+      .sort((a, b) => Number(a.value) - Number(b.value))
+
+  await expect
+    .poll(async () => (await hentGyldigeOptions()).length, {
+      message: `Venter på gyldig ${fieldName}`,
+    })
+    .toBeGreaterThan(0)
+
+  const selectedOption = (await hentGyldigeOptions())[0]
 
   if (!selectedOption) {
+    const options = await hentOptions()
     throw new Error(
       `Fant ingen gyldig ${fieldName}. Tilgjengelige options: ${options
         .map(
