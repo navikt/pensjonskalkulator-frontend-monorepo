@@ -246,7 +246,7 @@
 					"style": "normal"
 				},
 				{
-					"_key": "9ce30059abdd",
+					"_key": "93ae57e82b8a",
 					"_type": "block",
 					"children": [
 						{
@@ -254,6 +254,22 @@
 							"_type": "span",
 							"marks": [],
 							"text": "studier på under 12 måneder eller med støtte fra Lånekassen"
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "f796df162687",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "520a9d162971",
+							"_type": "span",
+							"marks": [],
+							"text": "når du har jobbet i Norge men bodd utenfor Norge"
 						}
 					],
 					"level": 1,
@@ -1129,6 +1145,48 @@
 		{
 			"innhold": [
 				{
+					"_key": "25133285eeb8",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "fa5b0de0e7de",
+							"_type": "span",
+							"marks": [],
+							"text": "Hei, "
+						},
+						{
+							"_key": "d53cba0d02f5",
+							"_type": "dynamicValue",
+							"key": "fornavn"
+						},
+						{
+							"_key": "14476ddf905b",
+							"_type": "span",
+							"marks": [],
+							"text": " født i "
+						},
+						{
+							"_key": "d4ae57cbf873",
+							"_type": "dynamicValue",
+							"key": "foedselsdato"
+						},
+						{
+							"_key": "7cd5712d7c80",
+							"_type": "span",
+							"marks": [],
+							"text": "\n\n"
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "test_dynamiske_verdier",
+			"overskrift": "Test Dynamiske Verdier"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "34356a7ade1a",
 					"_type": "block",
 					"children": [
@@ -1136,29 +1194,10 @@
 							"_key": "58da3b7cf588",
 							"_type": "span",
 							"marks": [],
-							"text": "100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
-						},
-						{
-							"_key": "fc9456d88c89",
-							"_type": "span",
-							"marks": ["026423a264a2"],
-							"text": "55 55 33 34"
-						},
-						{
-							"_key": "3c894e7c468a",
-							"_type": "span",
-							"marks": [],
-							"text": "."
+							"text": "100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
 						}
 					],
-					"markDefs": [
-						{
-							"_key": "026423a264a2",
-							"_type": "link",
-							"className": "nowrap",
-							"href": "tel:55553334"
-						}
-					],
+					"markDefs": [],
 					"style": "normal"
 				}
 			],
@@ -1277,76 +1316,15 @@
 							"_key": "57d6bfb35f0a",
 							"_type": "span",
 							"marks": [],
-							"text": "Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %. Har du spørsmål, kan du kontakte oss på telefon "
-						},
-						{
-							"_key": "3bac1bd51452",
-							"_type": "span",
-							"marks": ["c6bd2d2788df"],
-							"text": "55 55 33 34"
-						},
-						{
-							"_key": "8c20523d90c5",
-							"_type": "span",
-							"marks": [],
-							"text": "."
-						}
-					],
-					"markDefs": [
-						{
-							"_key": "c6bd2d2788df",
-							"_type": "link",
-							"className": "nowrap",
-							"href": "tel:55553334"
-						}
-					],
-					"style": "normal"
-				}
-			],
-			"name": "om_pensjonsalder_UT_gradert_enkel",
-			"overskrift": "Om pensjonsalder og uføretrygd"
-		},
-		{
-			"innhold": [
-				{
-					"_key": "8d49d499067d",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "d0c09102d91c",
-							"_type": "span",
-							"marks": [],
-							"text": "Hei, "
-						},
-						{
-							"_key": "1b4e1c92028d",
-							"_type": "dynamicValue",
-							"key": "fornavn"
-						},
-						{
-							"_key": "b0985c5e9eda",
-							"_type": "span",
-							"marks": [],
-							"text": " født i "
-						},
-						{
-							"_key": "961b0b32ef45",
-							"_type": "dynamicValue",
-							"key": "foedselsdato"
-						},
-						{
-							"_key": "a6859457f761",
-							"_type": "span",
-							"marks": [],
-							"text": "\n\n"
+							"text": "Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"name": "test_dynamiske_verdier",
-			"overskrift": "Test Dynamiske Verdier"
+			"name": "om_pensjonsalder_UT_gradert_enkel",
+			"overskrift": "Om pensjonsalder og uføretrygd"
 		}
 	]
 }

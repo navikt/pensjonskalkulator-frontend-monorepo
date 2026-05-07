@@ -30,6 +30,16 @@ import * as loggerUtils from '@/utils/logging'
 
 import { BeregningAvansert } from '../BeregningAvansert'
 
+const innvilgetLivsvarigOffentligAfpRequest: NonNullable<
+  AlderspensjonRequestBody['innvilgetLivsvarigOffentligAfp']
+> = [
+  {
+    aarligBruttoBeloep: 300000,
+    sistRegulertGrunnbeloep: 118620,
+    uttakFom: '2023-01-01',
+  },
+]
+
 const navigateMock = vi.fn()
 vi.mock(import('react-router'), async (importOriginal) => {
   const actual = await importOriginal()
@@ -356,7 +366,8 @@ describe('BeregningAvansert', () => {
                 maaneder: 6,
               },
             },
-            innvilgetLivsvarigOffentligAfp: undefined,
+            innvilgetLivsvarigOffentligAfp:
+              innvilgetLivsvarigOffentligAfpRequest,
             simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
             sivilstand: 'UGIFT',
             utenlandsperiodeListe: [],

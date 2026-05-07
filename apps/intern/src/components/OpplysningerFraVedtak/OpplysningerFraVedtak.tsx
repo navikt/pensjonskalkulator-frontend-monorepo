@@ -1,23 +1,19 @@
-import type { LoependeVedtak } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { Vedtak } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { Heading, Table } from '@navikt/ds-react'
 
 import styles from '../Gjenlevenderett/OpplysningerInfo.module.css'
 
-export const OpplysningerFraVedtak = ({
-	loependeVedtak,
-}: {
-	loependeVedtak?: LoependeVedtak
-}) => {
+export const OpplysningerFraVedtak = ({ vedtak }: { vedtak?: Vedtak }) => {
 	const rows = [
 		{
 			label: 'Sivilstatus',
-			value: loependeVedtak?.alderspensjon?.sivilstand ?? 'Uoppgitt',
+			value: vedtak?.loependeAlderspensjon?.sivilstatus ?? 'Uoppgitt',
 		},
 		{
 			label: 'Opphold utenfor Norge',
 			//TODO: Fiks verdi når backend har støtte for dette feltet
-			// value: loependeVedtak?.alderspensjon?.oppholdUtland ? 'Ja' : 'Nei',
+			// value: vedtak?.loependeAlderspensjon?.oppholdUtland ? 'Ja' : 'Nei',
 			value: 'Ja',
 		},
 	]

@@ -54,6 +54,7 @@ export interface BeregningFormData {
 	aarsinntektSamtidigMedAfp: number | null
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
+	vedtakInfoAvdoed?: boolean
 }
 
 export type BeregningParams = BeregningFormData
@@ -94,6 +95,7 @@ export interface ValidationErrors {
 	aarsinntektSamtidigMedAfp?: string
 	endringAP?: string
 	endringAfpPrivat?: string
+	vedtakInfoAvdoed?: string
 }
 
 export type BeregningResult = SimuleringResponseBody
@@ -134,4 +136,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	aarsinntektSamtidigMedAfp: null,
 	endringAP: undefined,
 	endringAfpPrivat: undefined,
+	vedtakInfoAvdoed: undefined,
 }

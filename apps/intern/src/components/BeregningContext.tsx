@@ -1,7 +1,7 @@
 import type {
-	LoependeVedtak,
 	PersonInternV1,
 	Sivilstatus,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	type ReactNode,
@@ -30,8 +30,8 @@ import {
 	useBeregningQuery,
 	useDecryptPidQuery,
 	useGrunnbeloepQuery,
-	useLoependeVedtakQuery,
 	usePersonQuery,
+	useVedtakQuery,
 } from '../api/queries'
 import { getPidFromUrl } from '../utils'
 
@@ -44,7 +44,7 @@ interface BeregningContextValue {
 	beregningError: Error | null
 	fnr: string | undefined
 	person: PersonInternV1 | undefined
-	loependeVedtak: LoependeVedtak | undefined
+	vedtak: Vedtak | undefined
 	initialInntektAar: number | undefined
 	submitBeregning: () => void
 	resetForm: () => void
@@ -102,7 +102,7 @@ export function BeregningProvider({
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
-	const { data: loependeVedtak } = useLoependeVedtakQuery(fnr)
+	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 
 	const { isDirty: formIsDirty } = form.formState
@@ -259,7 +259,7 @@ export function BeregningProvider({
 					beregning,
 					isBeregningLoading,
 					beregningError,
-					loependeVedtak,
+					vedtak,
 					initialInntektAar,
 					submitBeregning,
 					resetForm,

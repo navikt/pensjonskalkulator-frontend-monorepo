@@ -26,7 +26,7 @@ export const OppholdListItem = ({
 	}
 
 	return (
-		<VStack>
+		<VStack data-testid="opphold-list-item">
 			<HStack align="center" gap="space-16">
 				<div style={{ flex: 1, minWidth: 0 }}>
 					<VStack gap="space-2">

@@ -41,7 +41,11 @@ import {
 	RHFTextField,
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
-import { showBeregnMedGjenlevenderett, showSivilstatus } from './utils'
+import {
+	getUttaksGradArray,
+	showBeregnMedGjenlevenderett,
+	showSivilstatus,
+} from './utils'
 
 import styles from './BeregningForm.module.css'
 
@@ -67,15 +71,17 @@ export const BeregningForm = () => {
 		resetForm,
 		person,
 		beregning,
-		loependeVedtak,
+		vedtak,
 		initialInntektAar,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(loependeVedtak?.harLoependeVedtak)
-	const harVedtakPrivatAFP = erEndring && Boolean(loependeVedtak?.afpPrivat)
+	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
+	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
+	const harVedtakTidsbegrensetOffentligAFP =
+		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
 
 	useEffect(() => {
 		if (erEndring) {
@@ -178,11 +184,28 @@ export const BeregningForm = () => {
 		foedselsdato: person?.foedselsdato,
 	})
 
-	const uttaksGradArray = erEndring
-		? [0, 20, 40, 50, 60, 80, 100]
-		: [20, 40, 50, 60, 80, 100]
+	const hideAfpSporsmaal =
+		beregnMedGjenlevenderett ||
+		harVedtakPrivatAFP ||
+		harVedtakTidsbegrensetOffentligAFP
 
-	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
+	const uttaksGradArray = getUttaksGradArray({
+		skalBeregneAFPPrivat: afp === 'ja_privat',
+		erEndring,
+		ufoeretrygdgrad: vedtak?.ufoeretrygdgrad,
+		alderAarUttak,
+	})
+
+	const showAPOgUTOver100Alert =
+		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+
+	const showUTOgAFPAlert =
+		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+
+	const showUTOgFolketrygdBeregnetAFPAlert =
+		!erEndring &&
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
+		vedtak?.ufoeretrygdgrad
 
 	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
 	const pensjonsgivendeInntektValue = `${formatInntekt(aarligInntektFoerUttakBeloep)} kr`
@@ -211,7 +234,7 @@ export const BeregningForm = () => {
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
-				{erEndring && <OpplysningerFraVedtak loependeVedtak={loependeVedtak} />}
+				{erEndring && <OpplysningerFraVedtak vedtak={vedtak} />}
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
@@ -299,6 +322,18 @@ export const BeregningForm = () => {
 							className={styles.horizontalRadioGroup}
 							testid="afp"
 						/>
+						{showUTOgAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+								className={styles.sanityAlert}
+							/>
+						)}
+						{showUTOgFolketrygdBeregnetAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+								className={styles.sanityAlert}
+							/>
+						)}
 						<Divider noMargin />
 					</>
 				)}
@@ -437,6 +472,12 @@ export const BeregningForm = () => {
 										</option>
 									))}
 								</RHFSelect>
+								{showAPOgUTOver100Alert && (
+									<SanityAlert
+										id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
+										className={styles.sanityAlert}
+									/>
+								)}
 
 								{showGradertUttakFields(uttaksgrad) && (
 									<RHFTextField
