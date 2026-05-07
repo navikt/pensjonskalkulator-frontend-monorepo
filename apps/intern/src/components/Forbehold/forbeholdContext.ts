@@ -10,17 +10,11 @@ import {
 
 import type { BeregningParams } from '../../api/beregningTypes'
 
-interface BuildForbeholdContextArgs {
-	aktivBeregning: BeregningParams | null
-	person: PersonInternV1 | undefined
+export function buildForbeholdContext(
+	aktivBeregning: BeregningParams | null,
+	person: PersonInternV1 | undefined,
 	vedtak: Vedtak | undefined
-}
-
-export function buildForbeholdContext({
-	aktivBeregning,
-	person,
-	vedtak,
-}: BuildForbeholdContextArgs): ForbeholdContext {
+): ForbeholdContext {
 	const ufoeretrygdgrad = vedtak?.ufoeretrygdgrad ?? 0
 	const harUfoeretrygd = ufoeretrygdgrad > 0
 	const har100Ufoeretrygd = ufoeretrygdgrad === 100

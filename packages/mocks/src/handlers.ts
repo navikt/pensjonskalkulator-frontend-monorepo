@@ -39,6 +39,13 @@ import type {
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
 
+// TODO(TPP-132): Fjern midlertidig Sanity-forbehold-mocking når mockdata ikke
+// lenger må deles som superset mellom ekstern og intern.
+// https://jira.adeo.no/browse/TPP-132
+// Når det skjer kan følgende slettes herfra:
+// SanityForbeholdAvsnittMock-typene, visEkstern/visIntern-projeksjonen i
+// getSanityForbeholdAvsnittMockResponse og bruken av
+// sanity-forbehold-avsnitt-data.json for forbeholdAvsnitt.
 type SanityForbeholdAvsnittMock = {
 	_id?: string
 	overskrift?: string | null

@@ -1,3 +1,4 @@
+import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -11,13 +12,13 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
-import { Forbehold } from '../Forbehold/Forbehold'
+import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning, person } =
+	const { isBeregningLoading, beregning, aktivBeregning, person, vedtak } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
@@ -46,6 +47,8 @@ export const Beregning = () => {
 		)
 	}
 
+	const forbeholdContext = buildForbeholdContext(aktivBeregning, person, vedtak)
+
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
 
@@ -65,13 +68,13 @@ export const Beregning = () => {
 	)
 
 	const helMaanedligAlderspensjon =
-		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
 
 	const gradertMaanedligAlderspensjon =
-		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
 
 	const normertMaanedligAlderspensjon =
-		beregning?.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
 	const titleHeltUttak =
@@ -204,7 +207,9 @@ export const Beregning = () => {
 							(harAfpPrivat && erUttaksgradNull)) &&
 							gradertAfpSection}
 						{shouldRenderNormertAfpBeforeHeltSection &&
-							renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
+							renderNormertAfpSection({
+								testId: 'beregning-section-gradert-67',
+							})}
 
 						<BeregningSection
 							title={titleHeltUttak || ''}
@@ -226,7 +231,7 @@ export const Beregning = () => {
 					</VStack>
 				</Tabs.Panel>
 				<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-					<Forbehold />
+					<SanityVilkaarligForbehold ctx={forbeholdContext} />
 				</Tabs.Panel>
 			</Tabs>
 		</Box>
