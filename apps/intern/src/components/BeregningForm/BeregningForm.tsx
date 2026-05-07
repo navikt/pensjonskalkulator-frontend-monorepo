@@ -222,6 +222,29 @@ export const BeregningForm = () => {
 	const harIkkeForrigeAarsInntekt =
 		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
 
+	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
+
+	useEffect(() => {
+		if (!harAlderUttak) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('pensjonsgivendeInntektFremTilUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('inntektSisteMaanedFoerUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('aarsinntektSamtidigMedAfp', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harAlderUttak, form])
+
 	useEffect(() => {
 		if (!harIkkeForrigeAarsInntekt) {
 			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
@@ -423,44 +446,50 @@ export const BeregningForm = () => {
 
 						{erAfpOffentlig && (
 							<>
-								{afp === 'serviceberegning' && (
+								{afp === 'serviceberegning' &&
+									alderAarUttak != null &&
+									alderMdUttak != null && (
+										<>
+											{!harUttakIForrigeAarEllerTidligere && (
+												<HStack gap="space-4">
+													<BodyShort size="small" weight="semibold">
+														{pensjonsgivendeInntektLabel}
+													</BodyShort>
+													<BodyShort size="small">
+														{pensjonsgivendeInntektValue}
+													</BodyShort>
+												</HStack>
+											)}
+											{harIkkeForrigeAarsInntekt && (
+												<RHFTextField
+													name="pensjonsgivendeInntektForrigeAar"
+													label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
+												/>
+											)}
+											{isUttakNesteKalenderaar({
+												foedselsdato: person?.foedselsdato,
+												alderAarUttak,
+												alderMdUttak,
+											}) && (
+												<RHFTextField
+													name="pensjonsgivendeInntektFremTilUttak"
+													label="Pensjonsgivende årsinntekt frem til uttak"
+												/>
+											)}
+										</>
+									)}
+								{alderAarUttak != null && alderMdUttak != null && (
 									<>
-										{!harUttakIForrigeAarEllerTidligere && (
-											<HStack gap="space-4">
-												<BodyShort size="small" weight="semibold">
-													{pensjonsgivendeInntektLabel}
-												</BodyShort>
-												<BodyShort size="small">
-													{pensjonsgivendeInntektValue}
-												</BodyShort>
-											</HStack>
-										)}
-										{harIkkeForrigeAarsInntekt && (
-											<RHFTextField
-												name="pensjonsgivendeInntektForrigeAar"
-												label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
-											/>
-										)}
-										{isUttakNesteKalenderaar({
-											foedselsdato: person?.foedselsdato,
-											alderAarUttak,
-											alderMdUttak,
-										}) && (
-											<RHFTextField
-												name="pensjonsgivendeInntektFremTilUttak"
-												label="Pensjonsgivende årsinntekt frem til uttak"
-											/>
-										)}
+										<RHFTextField
+											name="inntektSisteMaanedFoerUttak"
+											label="Inntekt siste måned før uttak"
+										/>
+										<RHFTextField
+											name="aarsinntektSamtidigMedAfp"
+											label="Årsinntekt samtidig med AFP"
+										/>
 									</>
 								)}
-								<RHFTextField
-									name="inntektSisteMaanedFoerUttak"
-									label="Inntekt siste måned før uttak"
-								/>
-								<RHFTextField
-									name="aarsinntektSamtidigMedAfp"
-									label="Årsinntekt samtidig med AFP"
-								/>
 							</>
 						)}
 
