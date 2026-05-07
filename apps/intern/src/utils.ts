@@ -15,7 +15,7 @@ export function getVedtakStatus(
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
 	if (omstillingsstoenad?.harLoependeSak) {
-		return 'Gjenlevende eller omstillingsstønad'
+		return 'Gjenlevendepensjon eller omstillingsstønad'
 	}
 
 	if (!vedtak || !vedtak.harVedtak) {
