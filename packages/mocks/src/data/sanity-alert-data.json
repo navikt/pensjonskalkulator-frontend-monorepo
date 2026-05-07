@@ -82,6 +82,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "c7e8f2a8ec19",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "ed0a6694c718",
+							"_type": "span",
+							"marks": [],
+							"text": "Uføretrygd kan ikke kombineres med folketrygdberegnet AFP. Du kan likevel fortsette beregningen."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning",
+			"overskrift": "Du beregner nå en ugyldig kombinasjon",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "95419adcc4f3",
 					"_type": "block",
 					"children": [
@@ -178,6 +200,39 @@
 			"name": "beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100",
 			"overskrift": "Ugyldig kombinasjon",
 			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "4ffce15d72e3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "6dd1976a1cce",
+							"_type": "span",
+							"marks": [],
+							"text": "Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra "
+						},
+						{
+							"_key": "bf06f56e44e2",
+							"_type": "dynamicValue",
+							"key": "tidligst-endring-uttaksgrad-dato"
+						},
+						{
+							"_key": "08179098684e",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ugyldig-uttaksgrad",
+			"overskrift": "Ugyldig uttaksgrad",
+			"status": "warning",
 			"type": "info-card"
 		}
 	]

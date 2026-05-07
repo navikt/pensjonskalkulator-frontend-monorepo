@@ -3,9 +3,26 @@ import type {
 	EpsSivilstatus,
 	PersonInternV1,
 	Sivilstatus,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { addYears, parseISO } from 'date-fns'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	DATE_BACKEND_FORMAT,
+	DATE_ENDUSER_FORMAT,
+} from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import {
+	add,
+	addYears,
+	format,
+	isBefore,
+	isValid,
+	parse,
+	parseISO,
+	startOfMonth,
+} from 'date-fns'
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: EpsSivilstatus
@@ -49,6 +66,66 @@ export function showBeregnMedGjenlevenderett({
 		isSivilstatusWithGjenlevenderett(initialSivilstatus) &&
 		!erEndring
 	)
+}
+
+const UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST = [20, 40, 50, 60, 80]
+
+export function getForTidligEndringAvUttaksgradDato({
+	vedtak,
+	foedselsdato,
+	uttaksgrad,
+	alderAarUttak,
+	alderMdUttak,
+}: {
+	vedtak: Vedtak | undefined
+	foedselsdato: string | undefined
+	uttaksgrad: number | null
+	alderAarUttak: number | null
+	alderMdUttak: number | null
+}): string | null {
+	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+
+	if (
+		!loependeAlderspensjon ||
+		!foedselsdato ||
+		uttaksgrad === null ||
+		alderAarUttak === null ||
+		alderMdUttak === null
+	) {
+		return null
+	}
+
+	if (
+		!UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST.includes(uttaksgrad) ||
+		uttaksgrad === loependeAlderspensjon.grad
+	) {
+		return null
+	}
+
+	const uttaksdato = calculateUttaksalderAsDate(
+		{ aar: alderAarUttak, maaneder: alderMdUttak },
+		foedselsdato
+	)
+	// Matcher ekstern kalkulator: både valgt uttaksdato og tidligste endring
+	// sammenlignes på første dag i måneden.
+	const tidligsteEndringsdato = startOfMonth(
+		add(
+			parse(
+				loependeAlderspensjon.uttaksgradFom,
+				DATE_BACKEND_FORMAT,
+				new Date()
+			),
+			{ months: 12 }
+		)
+	)
+
+	if (!isValid(uttaksdato) || !isValid(tidligsteEndringsdato)) {
+		return null
+	}
+
+	return isBefore(uttaksdato, tidligsteEndringsdato)
+		? format(tidligsteEndringsdato, DATE_ENDUSER_FORMAT)
+		: null
 }
 
 export function showEPSMinstePensjonsgivendeInntektFoerDoedsfall(
