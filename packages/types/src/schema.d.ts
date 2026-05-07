@@ -1644,6 +1644,8 @@ export interface components {
 			fpp?: number | null
 			/** Format: int32 */
 			sertillegg?: number | null
+			/** Format: int32 */
+			afpGrad?: number | null
 			erAvkortet?: boolean | null
 		}
 		SimuleringV1MaanedligAlderspensjon: {

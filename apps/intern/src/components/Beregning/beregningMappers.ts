@@ -283,6 +283,10 @@ export function mapServiceAfpOpptjeningRows(
 
 	return [
 		{
+			label: 'AFP grad',
+			value: `${entry.afpGrad} %`,
+		},
+		{
 			label: 'Tidligere arbeidsinntekt',
 			value: formatKr(entry.tidligereArbeidsinntekt),
 		},
