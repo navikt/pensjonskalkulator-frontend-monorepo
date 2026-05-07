@@ -381,6 +381,14 @@ export const BeregningForm = () => {
 					)}
 				{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 					<>
+						{(afp === 'serviceberegning' || afp === 'ja_offentlig') &&
+							beregning?.vilkaarsproevingsresultat.erInnvilget === false &&
+							!alertDismissed && (
+								<SanityAlert
+									id="afp.vilkaarsproeving.vilkaar-ikke-oppfylt"
+									className={styles.sanityAlert}
+								/>
+							)}
 						{afp !== 'serviceberegning' && (
 							<RHFTextField
 								name="aarligInntektFoerUttakBeloep"
