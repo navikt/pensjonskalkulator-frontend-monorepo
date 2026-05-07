@@ -36,6 +36,7 @@ import {
 	getForTidligEndringAvUttaksgradDato,
 	showBeregnMedGjenlevenderett,
 	showSivilstatus,
+	UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST,
 } from './utils'
 
 import styles from './BeregningForm.module.css'
@@ -185,8 +186,8 @@ export const BeregningForm = () => {
 		)
 
 	const uttaksGradArray = erEndring
-		? [0, 20, 40, 50, 60, 80, 100]
-		: [20, 40, 50, 60, 80, 100]
+		? [0, ...UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST, 100]
+		: [...UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST, 100]
 
 	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
 

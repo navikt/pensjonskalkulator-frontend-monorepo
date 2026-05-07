@@ -68,7 +68,9 @@ export function showBeregnMedGjenlevenderett({
 	)
 }
 
-const UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST = [20, 40, 50, 60, 80]
+export const UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST = [
+	20, 40, 50, 60, 80,
+]
 
 export function getForTidligEndringAvUttaksgradDato({
 	vedtak,
