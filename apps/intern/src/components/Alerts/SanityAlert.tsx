@@ -97,6 +97,7 @@ export const SanityAlert = ({
 					data-color={infoCardColorMap[status]}
 					className={clsx(styles.infoCard, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<InfoCard.Header>

@@ -90,10 +90,9 @@ export function getUttaksGradArray({
 	ufoeretrygdgrad?: number | null
 	alderAarUttak: number | null
 }) {
-	let uttaksgradArray = [0, 20, 40, 50, 60, 80, 100]
-	if (erEndring) {
-		return uttaksgradArray
-	}
+	let uttaksgradArray = erEndring
+		? [0, 20, 40, 50, 60, 80, 100]
+		: [20, 40, 50, 60, 80, 100]
 
 	if (
 		ufoeretrygdgrad &&
