@@ -81,6 +81,7 @@ export const SanityAlert = ({
 					status={alertStatusMap[status]}
 					className={clsx(className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<GlobalAlert.Header>
@@ -114,6 +115,7 @@ export const SanityAlert = ({
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{content}
 				</InlineMessage>
