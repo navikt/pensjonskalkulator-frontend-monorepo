@@ -112,7 +112,7 @@ export const Beregning = () => {
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
-	const ufoeretrygdBregningInfo = 'Uføretrygd vises ikke i beregningen.'
+	const ufoeretrygdBeregningInfo = 'Uføretrygd vises ikke i beregningen.'
 
 	const sectionCommonProps = {
 		tableCount,
@@ -175,7 +175,7 @@ export const Beregning = () => {
 		>
 			{vedtak?.ufoeretrygdgrad && (
 				<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
-					{ufoeretrygdBregningInfo}
+					{ufoeretrygdBeregningInfo}
 				</BodyLong>
 			)}
 			<Box

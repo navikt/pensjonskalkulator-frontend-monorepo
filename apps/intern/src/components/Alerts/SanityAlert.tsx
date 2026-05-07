@@ -128,6 +128,7 @@ export const SanityAlert = ({
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<LocalAlert.Header>
