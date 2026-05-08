@@ -1644,6 +1644,9 @@ export interface components {
 			fpp?: number | null
 			/** Format: int32 */
 			sertillegg?: number | null
+			/** Format: int32 */
+			afpGrad?: number | null
+			erAvkortet?: boolean | null
 		}
 		SimuleringV1MaanedligAlderspensjon: {
 			/** Format: int32 */
@@ -1699,61 +1702,6 @@ export interface components {
 			vedGradertUttak?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
-			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-		}
-		SimuleringV1MaanedligAlderspensjon: {
-			/** Format: int32 */
-			beloep: number
-			/** Format: int32 */
-			inntektspensjonBeloep?: number
-			/** Format: double */
-			delingstall?: number
-			/** Format: int32 */
-			pensjonsbeholdningFoerUttakBeloep?: number
-			/** Format: int32 */
-			pensjonsbeholdningEtterUttakBeloep?: number
-			/** Format: double */
-			sluttpoengtall?: number
-			/** Format: int32 */
-			poengaarTom1991?: number
-			/** Format: int32 */
-			poengaarFom1992?: number
-			/** Format: double */
-			forholdstall?: number
-			/** Format: int32 */
-			grunnpensjonBeloep?: number
-			/** Format: int32 */
-			tilleggspensjonBeloep?: number
-			/** Format: int32 */
-			pensjonstillegg?: number
-			/** Format: int32 */
-			skjermingstillegg?: number
-			/** Format: double */
-			kapittel19Andel?: number
-			/** Format: int32 */
-			kapittel19Trygdetid?: number
-			/** Format: int32 */
-			basispensjonBeloep?: number
-			/** Format: int32 */
-			restpensjonBeloep?: number
-			/** Format: int32 */
-			gjenlevendetillegg?: number
-			/** Format: double */
-			minstePensjonsnivaaSats?: number
-			/** Format: double */
-			kapittel20Andel?: number
-			/** Format: int32 */
-			kapittel20Trygdetid?: number
-			/** Format: int32 */
-			garantipensjonBeloep?: number
-			/** Format: double */
-			garantipensjonSats?: number
-			/** Format: int32 */
-			garantitilleggBeloep?: number
-		}
-		SimuleringV1MaanedligAlderspensjonForKnekkpunkter: {
-			vedGradertUttak?: components['schemas']['SimuleringV1MaanedligAlderspensjon']
 			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
 			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
 		}

@@ -120,8 +120,12 @@ export async function addOpphold(
 
 export async function fillMainFormFields(page: Page) {
 	await page
+		.getByRole('group', { name: 'Skal AFP inkluderes?' })
+		.getByLabel('Nei')
+		.check()
+	await page
 		.getByRole('textbox', {
-			name: 'Pensjonsgivende inntekt frem til uttak',
+			name: 'Pensjonsgivende årsinntekt frem til uttak',
 		})
 		.fill('500000')
 	await page

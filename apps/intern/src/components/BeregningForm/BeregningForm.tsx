@@ -447,8 +447,8 @@ export const BeregningForm = () => {
 						{erAfpOffentlig && (
 							<>
 								{afp === 'serviceberegning' &&
-									alderAarUttak != null &&
-									alderMdUttak != null && (
+									alderAarUttak !== null &&
+									alderMdUttak !== null && (
 										<>
 											{!harUttakIForrigeAarEllerTidligere && (
 												<HStack gap="space-4">
@@ -478,7 +478,8 @@ export const BeregningForm = () => {
 											)}
 										</>
 									)}
-								{alderAarUttak != null && alderMdUttak != null && (
+
+								{(afp !== 'serviceberegning' || harAlderUttak) && (
 									<>
 										<RHFTextField
 											name="inntektSisteMaanedFoerUttak"
