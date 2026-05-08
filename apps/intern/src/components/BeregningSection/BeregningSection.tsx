@@ -51,7 +51,11 @@ export const BeregningSection = ({
 	erUttaksgradNull = false,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
+	const sumAlderspensjonOgAfp = visAarsbelop
+		? (totalAddToSum ?? 0) * 12
+		: totalAddToSum
 
+	const shouldShowAP = !erUttaksgradNull || alderspensjonGrad === 100
 	return (
 		<VStack gap="space-12" data-testid={testId}>
 			{(showAfp || !erUttaksgradNull) && (
@@ -63,7 +67,7 @@ export const BeregningSection = ({
 				className={styles.tableGrid}
 				style={{ '--table-columns': tableCount } as React.CSSProperties}
 			>
-				{entry && !erUttaksgradNull && (
+				{entry && shouldShowAP && (
 					<AlderspensjonTables
 						entry={entry}
 						erFoedtFoer1963={erFoedtFoer1963}
@@ -88,11 +92,11 @@ export const BeregningSection = ({
 							visAarsbelop={visAarsbelop}
 						/>
 
-						{!erUttaksgradNull && (
+						{shouldShowAP && (
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
-								addToSum={totalAddToSum}
+								addToSum={sumAlderspensjonOgAfp}
 								visAarsbelop={visAarsbelop}
 							/>
 						)}

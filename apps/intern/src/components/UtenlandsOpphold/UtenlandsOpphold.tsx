@@ -101,9 +101,9 @@ export const UtenlandsOpphold = ({
 	const foedselsdatoDate = parseEndUserDate(foedselsdato)
 	const startdatoDate = parseEndUserDate(startdato)
 	const maxOppholdDate = foedselsdatoDate
-		? addYears(foedselsdatoDate, 120)
-		: addYears(new Date(), 120)
-	const minStartdato = foedselsdatoDate ?? addYears(new Date(), -120)
+		? addYears(foedselsdatoDate, 100)
+		: addYears(new Date(), 100)
+	const minStartdato = foedselsdatoDate ?? addYears(new Date(), -100)
 	const minSluttdato = startdatoDate ?? foedselsdatoDate ?? new Date()
 
 	const previousLandRef = useRef<string | undefined>(undefined)
