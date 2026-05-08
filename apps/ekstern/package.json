@@ -122,5 +122,10 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "dependenciesMeta": {
+    "@pensjonskalkulator-frontend-monorepo/sanity": {
+      "injected": true
+    }
   }
 }
