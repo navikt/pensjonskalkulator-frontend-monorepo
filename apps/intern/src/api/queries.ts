@@ -18,7 +18,7 @@ import type { BeregningResult } from './beregningTypes'
 export interface Grunnbeloep {
 	dato: string
 	grunnbeløp: number
-	grunnbeløpPerMaaned: number
+	grunnbeløpPerMåned: number
 	gjennomsnittPerÅr: number
 	omregningsfaktor: number
 	virkningstidspunktForMinsteinntekt: string

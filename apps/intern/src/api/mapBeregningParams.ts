@@ -192,7 +192,7 @@ export function mapBeregningParamsToRequest(
 			? {
 					harInntektMaanedenFoerUttak: formData.inntektSisteMaanedFoerUttak
 						? formData.inntektSisteMaanedFoerUttak >
-							(grunnbeloep?.grunnbeløpPerMaaned ?? 0)
+							(grunnbeloep?.grunnbeløpPerMåned ?? 0)
 						: null,
 					afpOrdning: 'STATLIG',
 				}
