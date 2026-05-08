@@ -15,6 +15,9 @@ catalogs:
     '@navikt/ds-react':
       specifier: 7.40.0
       version: 7.40.0
+    '@navikt/ds-tokens':
+      specifier: 7.40.0
+      version: 7.40.0
     '@playwright/test':
       specifier: 1.58.0
       version: 1.58.0
@@ -84,6 +87,19 @@ catalogs:
     winston:
       specifier: 3.19.0
       version: 3.19.0
+  intern:
+    '@navikt/aksel-icons':
+      specifier: 8.9.1
+      version: 8.9.1
+    '@navikt/ds-css':
+      specifier: 8.9.1
+      version: 8.9.1
+    '@navikt/ds-react':
+      specifier: 8.9.1
+      version: 8.9.1
+    '@navikt/ds-tokens':
+      specifier: 8.9.1
+      version: 8.9.1
 
 overrides:
   react: 19.2.4
@@ -248,6 +264,9 @@ importers:
       '@navikt/ds-react':
         specifier: 'catalog:'
         version: 7.40.0(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@navikt/ds-tokens':
+        specifier: 'catalog:'
+        version: 7.40.0
       '@navikt/nav-dekoratoren-moduler':
         specifier: 3.6.1
         version: 3.6.1(csp-header@6.3.1)(html-react-parser@6.0.1(@types/react@19.2.10)(react@19.2.4))(jsdom@26.1.0)(react@19.2.4)
@@ -415,14 +434,17 @@ importers:
   apps/intern:
     dependencies:
       '@navikt/aksel-icons':
-        specifier: 8.9.1
+        specifier: catalog:intern
         version: 8.9.1
       '@navikt/ds-css':
-        specifier: 8.9.1
+        specifier: catalog:intern
         version: 8.9.1
       '@navikt/ds-react':
-        specifier: 8.9.1
+        specifier: catalog:intern
         version: 8.9.1(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@navikt/ds-tokens':
+        specifier: catalog:intern
+        version: 8.9.1
       '@navikt/oasis':
         specifier: 4.1.4
         version: 4.1.4

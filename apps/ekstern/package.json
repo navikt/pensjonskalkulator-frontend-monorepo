@@ -62,6 +62,7 @@
     "@navikt/aksel-icons": "catalog:",
     "@navikt/ds-css": "catalog:",
     "@navikt/ds-react": "catalog:",
+    "@navikt/ds-tokens": "catalog:",
     "@navikt/nav-dekoratoren-moduler": "3.6.1",
     "@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
     "@playwright/test": "catalog:",
