@@ -17,8 +17,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@navikt/aksel-icons": "catalog:",
-		"@navikt/ds-react": "catalog:",
 		"@portabletext/react": "catalog:",
 		"@sanity/client": "catalog:",
 		"@sanity/color-input": "catalog:",
@@ -32,6 +30,10 @@
 		"react-intl": "catalog:",
 		"sanity": "catalog:",
 		"styled-components": "catalog:"
+	},
+	"peerDependencies": {
+		"@navikt/aksel-icons": ">=7",
+		"@navikt/ds-react": ">=7"
 	},
 	"devDependencies": {
 		"sass-embedded": "catalog:",
