@@ -25,7 +25,7 @@ interface BeregningSectionProps {
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
 	isGradert?: boolean
-	visAarsbelop?: boolean
+	visAarsbelop: boolean
 	erUttaksgradNull?: boolean
 	totalAddToSum?: number
 	testId?: string

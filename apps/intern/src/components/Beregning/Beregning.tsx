@@ -145,6 +145,7 @@ export const Beregning = () => {
 			alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 			isGradert
 			erUttaksgradNull={erUttaksgradNull}
+			visAarsbelop={visAarsbelop}
 			testId="beregning-section-gradert"
 		/>
 	)
@@ -170,6 +171,7 @@ export const Beregning = () => {
 				isGradert
 				testId={testId}
 				erUttaksgradNull={erUttaksgradNull}
+				visAarsbelop={visAarsbelop}
 			/>
 		)
 	}
