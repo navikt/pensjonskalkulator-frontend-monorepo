@@ -116,6 +116,8 @@ export const Beregning = () => {
 
 	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
 
+	const ufoeretrygdBeregningInfo = 'Uføretrygd vises ikke i beregningen.'
+
 	const sectionCommonProps = {
 		tableCount,
 		erFoedtFoer1963,
@@ -182,6 +184,11 @@ export const Beregning = () => {
 					<Tabs.Tab value="forbehold" label="Forbehold" />
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
+					{vedtak?.ufoeretrygdgrad && (
+						<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
+							{ufoeretrygdBeregningInfo}
+						</BodyLong>
+					)}
 					<Box
 						position="absolute"
 						right={{ sm: 'space-24', xl: 'space-48' }}

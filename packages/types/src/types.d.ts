@@ -8,7 +8,12 @@ declare global {
 	type Locales = 'nb' | 'nn' | 'en'
 
 	type BooleanRadio = 'ja' | 'nei'
-	type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+	type AfpRadio =
+		| 'ja_offentlig'
+		| 'ja_privat'
+		| 'serviceberegning'
+		| 'nei'
+		| 'vet_ikke'
 	type AfpUtregningValg =
 		| 'KUN_ALDERSPENSJON'
 		| 'AFP_ETTERFULGT_AV_ALDERSPENSJON'
