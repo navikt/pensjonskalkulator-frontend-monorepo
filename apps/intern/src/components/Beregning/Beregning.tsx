@@ -47,7 +47,11 @@ export const Beregning = () => {
 		)
 	}
 
-	const forbeholdContext = buildForbeholdContext(aktivBeregning, person, vedtak)
+	const forbeholdContext = buildForbeholdContext({
+		aktivBeregning,
+		person,
+		vedtak,
+	})
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
