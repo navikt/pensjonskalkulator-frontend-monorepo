@@ -174,7 +174,7 @@ describe('LanguageProvider', () => {
       expect(sanityClientFetchMock).toHaveBeenCalledTimes(8)
 
       expect(sanityClientFetchMock.mock.calls[0]).toStrictEqual([
-        '*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}',
+        '*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}',
         { locale: 'nb' },
       ])
       expect(sanityClientFetchMock.mock.calls[1]).toStrictEqual([
@@ -190,7 +190,7 @@ describe('LanguageProvider', () => {
         { locale: 'nb' },
       ])
       expect(sanityClientFetchMock.mock.calls[4]).toStrictEqual([
-        '*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}',
+        '*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}',
         { locale: 'en' },
       ])
       expect(sanityClientFetchMock.mock.calls[5]).toStrictEqual([

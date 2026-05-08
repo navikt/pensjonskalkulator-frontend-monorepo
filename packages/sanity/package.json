@@ -13,6 +13,7 @@
 	"scripts": {
 		"build": "sanity build",
 		"fetch-sanity-data": "node scripts/FetchSanityData.js",
+		"test": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
@@ -33,6 +34,7 @@
 		"styled-components": "catalog:"
 	},
 	"devDependencies": {
-		"sass-embedded": "catalog:"
+		"sass-embedded": "catalog:",
+		"vitest": "catalog:"
 	}
 }

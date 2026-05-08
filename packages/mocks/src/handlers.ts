@@ -39,11 +39,96 @@ import type {
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
 
+// TODO(TPP-132): Fjern midlertidig Sanity-forbehold-mocking når mockdata ikke
+// lenger må deles som superset mellom ekstern og intern.
+// https://jira.adeo.no/browse/TPP-132
+// Når det skjer kan følgende slettes herfra:
+// SanityForbeholdAvsnittMock-typene, visEkstern/visIntern-projeksjonen i
+// getSanityForbeholdAvsnittMockResponse og bruken av
+// sanity-forbehold-avsnitt-data.json for forbeholdAvsnitt.
+type SanityForbeholdAvsnittMock = {
+	_id?: string
+	overskrift?: string | null
+	innhold?: unknown
+	innholdEkstern?: unknown
+	innholdIntern?: unknown
+	visEkstern?: boolean
+	visIntern?: boolean
+	alltidSynlig?: boolean | null
+	vilkaar?: unknown
+}
+
+type SanityForbeholdAvsnittMockResponse = {
+	result?: SanityForbeholdAvsnittMock[]
+}
+
+const matcherVisEkstern = /visEkstern\s*==\s*true/
+const matcherVisIntern = /visIntern\s*==\s*true/
+
+function hasVisibilityFlag(
+	avsnitt: SanityForbeholdAvsnittMock,
+	flag: 'visEkstern' | 'visIntern'
+) {
+	return Object.prototype.hasOwnProperty.call(avsnitt, flag)
+}
+
+function erSynligFor(
+	avsnitt: SanityForbeholdAvsnittMock,
+	flag: 'visEkstern' | 'visIntern'
+) {
+	// Eldre mockdata manglet visEkstern/visIntern. Behold bakoverkompatibilitet
+	// ved å tolke manglende flagg som synlig, men respekter nye eksplisitte flagg.
+	return hasVisibilityFlag(avsnitt, flag) ? avsnitt[flag] === true : true
+}
+
+function getSanityForbeholdAvsnittMockResponse(query: string) {
+	const response =
+		sanityForbeholdAvsnittDataResponse as SanityForbeholdAvsnittMockResponse
+	const result = response.result ?? []
+
+	if (matcherVisIntern.test(query)) {
+		return {
+			result: result
+				.filter((avsnitt) => erSynligFor(avsnitt, 'visIntern'))
+				.map(
+					({
+						_id,
+						overskrift,
+						innhold,
+						innholdIntern,
+						alltidSynlig,
+						vilkaar,
+					}) => ({
+						_id,
+						overskrift,
+						innhold: innholdIntern ?? innhold ?? [],
+						alltidSynlig,
+						vilkaar,
+					})
+				),
+		}
+	}
+
+	if (matcherVisEkstern.test(query)) {
+		return {
+			result: result
+				.filter((avsnitt) => erSynligFor(avsnitt, 'visEkstern'))
+				.map(({ _id, overskrift, innhold, innholdEkstern }) => ({
+					_id,
+					overskrift,
+					innhold: innholdEkstern ?? innhold ?? [],
+				})),
+		}
+	}
+
+	return sanityForbeholdAvsnittDataResponse
+}
+
 function getSanityMockResponse(query: string | null) {
 	if (!query) return undefined
 	if (query.includes('_type == "alert"')) return sanityAlertDataResponse
 	if (query.includes('_type == "forbeholdAvsnitt"')) {
-		return sanityForbeholdAvsnittDataResponse
+		return getSanityForbeholdAvsnittMockResponse(query)
 	}
 	if (query.includes('_type == "guidepanel"'))
 		return sanityGuidePanelDataResponse

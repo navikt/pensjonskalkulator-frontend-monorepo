@@ -18,7 +18,7 @@ const sanityClient = createClient({
 })
 
 const forbeholdAvsnittQuery =
-	'*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}'
+	'*[_type == "forbeholdAvsnitt" && language == $locale && (visEkstern == true || visIntern == true)] | order(order asc) | {_id,overskrift,visEkstern,visIntern,"innhold":coalesce(innholdEkstern,innholdIntern),innholdEkstern,innholdIntern,alltidSynlig,vilkaar}'
 
 const guidePanelQuery =
 	'*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}'
