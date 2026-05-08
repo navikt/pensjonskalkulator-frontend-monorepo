@@ -34,9 +34,9 @@ import {
 import { useFormValidation } from './useFormValidation'
 import {
 	getForTidligEndringAvUttaksgradDato,
+	getUttaksGradArray,
 	showBeregnMedGjenlevenderett,
 	showSivilstatus,
-	UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST,
 } from './utils'
 
 import styles from './BeregningForm.module.css'
@@ -69,8 +69,10 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(vedtak?.harVedtak)
+	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
+	const harVedtakTidsbegrensetOffentligAFP =
+		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
 
 	useEffect(() => {
 		if (erEndring) {
@@ -89,6 +91,7 @@ export const BeregningForm = () => {
 		harInntektVedSidenAvUttak,
 		alderAarUttak,
 		alderMdUttak,
+		afp,
 	] = useWatch({
 		control,
 		name: [
@@ -99,6 +102,7 @@ export const BeregningForm = () => {
 			'harInntektVedSidenAvUttak',
 			'alderAarUttak',
 			'alderMdUttak',
+			'afp',
 		] as const,
 	})
 
@@ -185,12 +189,28 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
-	const uttaksGradArray = erEndring
-		? [0, ...UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST, 100]
-		: [...UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST, 100]
+	const hideAfpSporsmaal =
+		beregnMedGjenlevenderett ||
+		harVedtakPrivatAFP ||
+		harVedtakTidsbegrensetOffentligAFP
 
-	const hideAfpSporsmaal = beregnMedGjenlevenderett || harVedtakPrivatAFP
+	const uttaksGradArray = getUttaksGradArray({
+		skalBeregneAFPPrivat: afp === 'ja_privat',
+		erEndring,
+		ufoeretrygdgrad: vedtak?.ufoeretrygdgrad,
+		alderAarUttak,
+	})
 
+	const showAPOgUTOver100Alert =
+		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+
+	const showUTOgAFPAlert =
+		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+
+	const showUTOgFolketrygdBeregnetAFPAlert =
+		!erEndring &&
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
+		vedtak?.ufoeretrygdgrad
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -277,6 +297,18 @@ export const BeregningForm = () => {
 							className={styles.horizontalRadioGroup}
 							testid="afp"
 						/>
+						{showUTOgAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+								className={styles.sanityAlert}
+							/>
+						)}
+						{showUTOgFolketrygdBeregnetAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+								className={styles.sanityAlert}
+							/>
+						)}
 						<Divider noMargin />
 					</>
 				)}
@@ -360,6 +392,12 @@ export const BeregningForm = () => {
 						</option>
 					))}
 				</RHFSelect>
+				{showAPOgUTOver100Alert && (
+					<SanityAlert
+						id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
+						className={styles.sanityAlert}
+					/>
+				)}
 
 				{showGradertUttakFields(uttaksgrad) && (
 					<RHFTextField
