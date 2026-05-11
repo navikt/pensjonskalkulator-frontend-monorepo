@@ -93,7 +93,7 @@
     "msw": "catalog:",
     "nodemon": "3.1.10",
     "openapi-typescript": "7.9.1",
-    "postcss": "8.5.6",
+    "postcss": "8.5.14",
     "postcss-modules-extract-imports": "3.1.0",
     "postcss-modules-local-by-default": "4.2.0",
     "postcss-modules-scope": "3.2.1",
