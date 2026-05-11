@@ -163,13 +163,10 @@ export function mapBeregningParamsToRequest(
 		eps: erEndring
 			? null
 			: {
-					levende:
-						formData.beregnMedGjenlevenderett && !epsPid && !epsDoedsdato
-							? {
-									harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
-									harPensjon: Boolean(formData.epsHarPensjon),
-								}
-							: undefined,
+					levende: {
+						harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
+						harPensjon: Boolean(formData.epsHarPensjon),
+					},
 					avdoed:
 						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 							? {
