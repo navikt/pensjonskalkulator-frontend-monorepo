@@ -1,6 +1,9 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+peerDependencyRules:
+  allowedVersions:
+    typescript: '>=5'
 catalog:
   react: 19.2.4
   react-dom: 19.2.4
@@ -12,6 +15,7 @@ catalog:
   vitest: 3.2.4
   '@navikt/ds-react': 7.40.0
   '@navikt/ds-css': 7.31.0
+  '@navikt/ds-tokens': 7.40.0
   '@navikt/aksel-icons': 7.40.0
   '@portabletext/react': 3.2.4
   '@sanity/client': 7.14.1
@@ -32,3 +36,9 @@ catalog:
   clsx: 2.1.1
   sass-embedded: 1.97.3
   openapi-typescript: 7.10.1
+catalogs:
+  intern:
+    '@navikt/ds-react': 8.9.1
+    '@navikt/ds-css': 8.9.1
+    '@navikt/ds-tokens': 8.9.1
+    '@navikt/aksel-icons': 8.9.1

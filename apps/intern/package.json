@@ -18,9 +18,10 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
-		"@navikt/aksel-icons": "8.9.1",
-		"@navikt/ds-css": "8.9.1",
-		"@navikt/ds-react": "8.9.1",
+		"@navikt/aksel-icons": "catalog:intern",
+		"@navikt/ds-css": "catalog:intern",
+		"@navikt/ds-react": "catalog:intern",
+		"@navikt/ds-tokens": "catalog:intern",
 		"@navikt/oasis": "4.1.4",
 		"@pensjonskalkulator-frontend-monorepo/api": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/sanity": "workspace:*",
@@ -54,5 +55,10 @@
 		"workerDirectory": [
 			"public"
 		]
+	},
+	"dependenciesMeta": {
+		"@pensjonskalkulator-frontend-monorepo/sanity": {
+			"injected": true
+		}
 	}
 }
