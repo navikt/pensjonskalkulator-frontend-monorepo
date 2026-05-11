@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test'
+import { type Locator, type Page } from '@playwright/test'
 import { expect, test } from 'base'
 import { authenticate } from 'utils/auth'
 import {
@@ -22,6 +22,49 @@ async function setApotekerErrorState(page: Page) {
       payload: true,
     })
   })
+}
+
+async function selectLowestNumericOption(select: Locator, fieldName: string) {
+  await select.waitFor({ state: 'visible' })
+
+  const hentOptions = async () =>
+    select.locator('option').evaluateAll((optionElements) =>
+      optionElements.map((option) => ({
+        disabled: (option as HTMLOptionElement).disabled,
+        label: (option.textContent ?? '').trim(),
+        value: (option as HTMLOptionElement).value,
+      }))
+    )
+
+  const hentGyldigeOptions = async () =>
+    (await hentOptions())
+      .filter(
+        ({ disabled, value }) =>
+          !disabled && value.trim() !== '' && Number.isFinite(Number(value))
+      )
+      .sort((a, b) => Number(a.value) - Number(b.value))
+
+  await expect
+    .poll(async () => (await hentGyldigeOptions()).length, {
+      message: `Venter på gyldig ${fieldName}`,
+    })
+    .toBeGreaterThan(0)
+
+  const selectedOption = (await hentGyldigeOptions())[0]
+
+  if (!selectedOption) {
+    const options = await hentOptions()
+    throw new Error(
+      `Fant ingen gyldig ${fieldName}. Tilgjengelige options: ${options
+        .map(
+          ({ disabled, label, value }) =>
+            `${value || '<tom>'}${disabled ? ' (disabled)' : ''}: ${label}`
+        )
+        .join(', ')}`
+    )
+  }
+
+  await select.selectOption(selectedOption.value)
 }
 
 async function personFoedtEtter1963() {
@@ -450,15 +493,18 @@ test.describe('AFP', () => {
       }) => {
         await expect(page).toHaveURL(/\/beregning-detaljert/)
 
-        await page
+        const uttaksalderYearSelect = page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="aar"]')
-          .selectOption('64')
+        await selectLowestNumericOption(uttaksalderYearSelect, 'uttaksalder-år')
 
-        await page
+        const uttaksalderMonthSelect = page
           .getByTestId('agepicker-helt-uttaksalder')
           .locator('select[name*="maaned"]')
-          .selectOption('0')
+        await selectLowestNumericOption(
+          uttaksalderMonthSelect,
+          'uttaksalder-måned'
+        )
 
         await page.getByTestId('afp-inntekt-maaned-foer-uttak-radio-ja').check()
 

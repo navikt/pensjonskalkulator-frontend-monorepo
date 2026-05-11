@@ -81,6 +81,7 @@ export const SanityAlert = ({
 					status={alertStatusMap[status]}
 					className={clsx(className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<GlobalAlert.Header>
@@ -97,6 +98,7 @@ export const SanityAlert = ({
 					data-color={infoCardColorMap[status]}
 					className={clsx(styles.infoCard, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<InfoCard.Header>
@@ -113,6 +115,7 @@ export const SanityAlert = ({
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{content}
 				</InlineMessage>
@@ -125,6 +128,7 @@ export const SanityAlert = ({
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					size="small"
 				>
 					{sanityContent.overskrift && (
 						<LocalAlert.Header>

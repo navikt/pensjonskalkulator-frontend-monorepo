@@ -1,12 +1,9 @@
 import {
   SanityContext,
-  getSanityPortableTextComponents,
+  SanityForbehold,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
-import { PortableText } from '@portabletext/react'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-
-import { BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 
@@ -22,33 +19,11 @@ export function Forbehold() {
 
   return (
     <Card hasLargePadding hasMargin>
-      <Heading level="2" size="medium" spacing>
-        <FormattedMessage id="forbehold.title" />
-      </Heading>
-      <>
-        {forbeholdAvsnittData.map((forbeholdAvsnitt, i) => {
-          return forbeholdAvsnitt.overskrift ? (
-            <section data-testid="forbehold-avsnitt" key={i}>
-              <Heading level="3" size="small" spacing>
-                {forbeholdAvsnitt.overskrift}
-              </Heading>
-              <BodyLong spacing as="div">
-                <PortableText
-                  value={forbeholdAvsnitt.innhold}
-                  components={getSanityPortableTextComponents(intl)}
-                />
-              </BodyLong>
-            </section>
-          ) : (
-            <BodyLong data-testid="forbehold-avsnitt" key={i} spacing as="div">
-              <PortableText
-                value={forbeholdAvsnitt.innhold}
-                components={getSanityPortableTextComponents(intl)}
-              />
-            </BodyLong>
-          )
-        })}
-      </>
+      <SanityForbehold
+        avsnitt={forbeholdAvsnittData}
+        title={<FormattedMessage id="forbehold.title" />}
+        avsnittTestId="forbehold-avsnitt"
+      />
     </Card>
   )
 }

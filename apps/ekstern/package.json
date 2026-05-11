@@ -12,11 +12,10 @@
     "sanity-build": "sanity build dist-sanity/ --yes",
     "sanity-typegen": "npx sanity schema extract --enforce-required-fields --workspace pensjonskalkulator-frontend-development-workspace --path schemaTypes/sanity-schema.json && npx sanity typegen generate --config-path schemaTypes/sanity-typegen.json",
     "fetch-land-liste": "node --experimental-fetch ./scripts/FetchLandListe.js",
-    "fetch-sanity-data": "node --experimental-fetch ./scripts/FetchSanityData.js",
     "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/types/schema.d.ts",
     "postfetch-dev-types": "pnpm format:types",
     "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
-    "prebuild": "pnpm fetch-land-liste && pnpm fetch-sanity-data && pnpm run stylelint:check",
+    "prebuild": "pnpm fetch-land-liste && pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity fetch-sanity-data && pnpm run stylelint:check",
     "build": "tsc && vite build --mode staging",
     "build:server": "tsc -p tsconfig.server.json",
     "build:production": "tsc && vite build --mode production",
@@ -36,6 +35,10 @@
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "1.5.3",
+    "@navikt/aksel-icons": "catalog:",
+    "@navikt/ds-css": "catalog:",
+    "@navikt/ds-react": "catalog:",
+    "@navikt/ds-tokens": "catalog:",
     "@navikt/oasis": "4.1.1",
     "@portabletext/react": "catalog:",
     "@sanity/color-input": "catalog:",
@@ -60,9 +63,6 @@
     "@formatjs/intl-numberformat": "8.15.4",
     "@grafana/faro-web-sdk": "1.19.0",
     "@grafana/faro-web-tracing": "1.19.0",
-    "@navikt/aksel-icons": "catalog:",
-    "@navikt/ds-css": "catalog:",
-    "@navikt/ds-react": "catalog:",
     "@navikt/nav-dekoratoren-moduler": "3.6.1",
     "@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
     "@playwright/test": "catalog:",
@@ -122,5 +122,10 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "dependenciesMeta": {
+    "@pensjonskalkulator-frontend-monorepo/sanity": {
+      "injected": true
+    }
   }
 }
