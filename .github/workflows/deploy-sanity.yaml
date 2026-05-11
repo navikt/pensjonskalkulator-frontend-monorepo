@@ -22,7 +22,7 @@ jobs:
       id-token: 'write'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Node.js
         uses: ./.github/actions/setup-node
@@ -33,7 +33,7 @@ jobs:
         run: pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity build
 
       - name: Save build folder
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dist-sanity
           path: packages/sanity/dist
@@ -42,7 +42,7 @@ jobs:
 
       - name: Create Docker image
         id: image-creation
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@be85229e81c0293c265c646c084f05317fb6e0d2 # v0
         with:
           image_suffix: sanity
           dockerfile: packages/sanity/.docker/Dockerfile-sanity
@@ -66,10 +66,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to production
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build.outputs.image }}

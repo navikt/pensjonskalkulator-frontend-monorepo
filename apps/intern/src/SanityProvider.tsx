@@ -1,5 +1,6 @@
 import {
 	type AlertQueryResult,
+	type ForbeholdAvsnittQueryResult,
 	SanityContext,
 	createSanityAppClient,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
@@ -19,9 +20,14 @@ const sanityClient = createSanityAppClient({
 })
 
 const alertQuery = `*[_type == "alert"]{name,type,status,overskrift,innhold}`
+const forbeholdAvsnittQuery = `*[_type == "forbeholdAvsnitt" && language == "nb" && visIntern == true] | order(order asc) | {_id,overskrift,"innhold":innholdIntern,alltidSynlig,vilkaar}`
 
 async function fetchSanityAlerts(): Promise<AlertQueryResult> {
 	return sanityClient.fetch<AlertQueryResult>(alertQuery)
+}
+
+async function fetchSanityForbehold(): Promise<ForbeholdAvsnittQueryResult> {
+	return sanityClient.fetch<ForbeholdAvsnittQueryResult>(forbeholdAvsnittQuery)
 }
 
 interface Props {
@@ -32,6 +38,11 @@ export function SanityProvider({ children }: Props) {
 	const { data: alertsData } = useQuery({
 		queryKey: ['sanityAlerts'],
 		queryFn: fetchSanityAlerts,
+	})
+
+	const { data: forbeholdData } = useQuery({
+		queryKey: ['sanityForbehold'],
+		queryFn: fetchSanityForbehold,
 	})
 
 	const alertData = useMemo(
@@ -47,7 +58,7 @@ export function SanityProvider({ children }: Props) {
 			<SanityContext.Provider
 				value={{
 					alertData,
-					forbeholdAvsnittData: [],
+					forbeholdAvsnittData: forbeholdData ?? [],
 					guidePanelData: {},
 					readMoreData: {},
 					isSanityLoading: false,

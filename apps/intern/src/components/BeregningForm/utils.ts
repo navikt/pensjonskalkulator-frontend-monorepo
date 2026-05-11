@@ -101,7 +101,7 @@ export function getUttaksGradArray({
 		alderAarUttak < 67
 	) {
 		uttaksgradArray = uttaksgradArray.filter(
-			(grad) => (grad > 0 && grad < ufoeretrygdgrad) || grad === 100
+			(grad) => (grad > 0 && grad <= 100 - ufoeretrygdgrad) || grad === 100
 		)
 	}
 
