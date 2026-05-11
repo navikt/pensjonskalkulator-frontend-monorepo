@@ -32,19 +32,13 @@
 			"prettier --write"
 		]
 	},
-	"dependencies": {
-		"@navikt/ds-react": "catalog:",
-		"@sanity/color-input": "catalog:",
-		"@sanity/document-internationalization": "catalog:",
-		"react": "catalog:",
-		"react-dom": "catalog:",
-		"sanity": "catalog:",
-		"sanity-plugin-internationalized-array": "catalog:"
-	},
 	"devDependencies": {
 		"@eslint/js": "9.39.2",
+		"@navikt/ds-react": "catalog:",
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@playwright/test": "catalog:",
+		"@sanity/color-input": "catalog:",
+		"@sanity/document-internationalization": "catalog:",
 		"@trivago/prettier-plugin-sort-imports": "6.0.2",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
@@ -54,6 +48,10 @@
 		"husky": "9.1.7",
 		"lint-staged": "16.2.7",
 		"prettier": "3.8.1",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"sanity": "catalog:",
+		"sanity-plugin-internationalized-array": "catalog:",
 		"typescript": "catalog:",
 		"typescript-eslint": "8.54.0",
 		"vitest": "catalog:"

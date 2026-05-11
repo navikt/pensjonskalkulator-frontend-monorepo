@@ -1,6 +1,15 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22-slim
+ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22.12-slim
+
+FROM ${NODE_DEPLOY_IMG} AS runtime-deps
+
+WORKDIR /workspace
+COPY . .
+
+RUN corepack enable \
+  && pnpm install --frozen-lockfile \
+  && pnpm --filter=@pensjonskalkulator-frontend-monorepo/intern deploy --prod --legacy --strict-peer-dependencies=false /runtime
 
 FROM ${NODE_DEPLOY_IMG}
 
@@ -9,20 +18,14 @@ ENV TZ="Europe/Oslo"
 
 WORKDIR /app
 
-# Copy entire node_modules structure from CI
-# Root node_modules (has .pnpm store and symlinks)
-COPY node_modules /node_modules
+COPY --from=runtime-deps /runtime/package.json ./package.json
+COPY --from=runtime-deps /runtime/node_modules ./node_modules
 
-# App-level node_modules (symlinks to root)
-COPY apps/intern/node_modules /app/node_modules
-
-# Copy pre-built server and assets to /app
-COPY apps/intern/package.json /app/package.json
-COPY apps/intern/dist/server/server.js /app/server.js
-COPY apps/intern/dist/server/ensureEnv.js /app/ensureEnv.js
-COPY apps/intern/dist/assets /app/assets
-COPY apps/intern/dist/index.html /app/
-COPY apps/intern/dist/*.css /app/
+COPY apps/intern/dist/server/server.js ./server.js
+COPY apps/intern/dist/server/ensureEnv.js ./ensureEnv.js
+COPY apps/intern/dist/assets ./assets
+COPY apps/intern/dist/index.html ./
+COPY apps/intern/dist/*.css ./
 
 ENTRYPOINT ["node"]
-CMD ["/app/server.js"]
+CMD ["server.js"]
