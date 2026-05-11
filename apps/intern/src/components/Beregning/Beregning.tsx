@@ -1,3 +1,4 @@
+import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -5,12 +6,13 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, Checkbox, Loader, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
 
-import { useGrunnbeloepQuery, useVedtakQuery } from '../../api/queries'
+import { useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AfpBeregningSection } from './AfpBeregningSection'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
@@ -18,13 +20,13 @@ import { formatAlderTitle } from './beregningMappers'
 import styles from './Beregning.module.css'
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning, person, fnr } =
+	const { isBeregningLoading, beregning, aktivBeregning, person, vedtak } =
 		useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const { data: vedtak } = useVedtakQuery(fnr)
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
+	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
 	const skalBeregningAfpKap19 =
@@ -51,6 +53,12 @@ export const Beregning = () => {
 			</Box>
 		)
 	}
+
+	const forbeholdContext = buildForbeholdContext({
+		aktivBeregning,
+		person,
+		vedtak,
+	})
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
@@ -182,85 +190,102 @@ export const Beregning = () => {
 			borderWidth="0 0 0 1"
 			position="relative"
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+			data-testid="beregning-result"
 		>
-			{vedtak?.ufoeretrygdgrad && (
-				<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
-					{ufoeretrygdBeregningInfo}
-				</BodyLong>
-			)}
-			<Box
-				position="absolute"
-				right={{ sm: 'space-24', xl: 'space-48' }}
-				top="space-24"
-			>
-				<Checkbox
-					onChange={(e) => setVisAarsbelop(e.target.checked)}
-					size="small"
-				>
-					Vis årsbeløp
-				</Checkbox>
-			</Box>
-			<VStack
-				gap="space-32"
-				className={isBeregningLoading ? styles.loadingOverlay : undefined}
-			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
-				{erServiceberegning && beregning.serviceberegnetAfp?.beregnetAfp && (
-					<ServiceAfpBeregningSection
-						title={titleHeltUttak}
-						tableCount={tableCount}
-						entry={beregning.serviceberegnetAfp.beregnetAfp}
-						visAarsbelop={visAarsbelop}
-					/>
-				)}
-				{!erServiceberegning &&
-					(gradertMaanedligAlderspensjon ||
-						(harAfpPrivat && erUttaksgradNull)) &&
-					gradertAfpSection}
-				{!erServiceberegning &&
-					shouldRenderNormertAfpBeforeHeltSection &&
-					renderNormertAfpSection({ testId: 'beregning-section-gradert-67' })}
-				{!erServiceberegning &&
-					skalBeregningAfpKap19 &&
-					beregning.tidsbegrensetOffentligAfp && (
-						<AfpBeregningSection
-							title={titleHeltUttak}
-							tableCount={tableCount}
-							entry={beregning.tidsbegrensetOffentligAfp}
-							visAarsbelop={visAarsbelop}
-						/>
+			<Tabs value={activeTab} onChange={setActiveTab}>
+				<Tabs.List>
+					<Tabs.Tab value="beregning" label="Beregning" />
+					<Tabs.Tab value="forbehold" label="Forbehold" />
+				</Tabs.List>
+				<Tabs.Panel value="beregning" className={styles.tabPanel}>
+					{vedtak?.ufoeretrygdgrad && (
+						<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
+							{ufoeretrygdBeregningInfo}
+						</BodyLong>
 					)}
-				{!erServiceberegning && (
-					<BeregningSection
-						title={
-							skalBeregningAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
-						}
-						{...sectionCommonProps}
-						entry={
-							skalBeregningAfpKap19
-								? normertMaanedligAlderspensjon
-								: helMaanedligAlderspensjon
-						}
-						showAfp={harAfpPrivat}
-						afpEntry={afpPrivatVedHeltUttak}
-						visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-						alderspensjonGrad={100}
-						visAarsbelop={visAarsbelop}
-						totalAddToSum={
-							(helMaanedligAlderspensjon?.beloep ?? 0) +
-							(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-						}
-						testId="beregning-section-helt"
-					/>
-				)}
-				{!erServiceberegning &&
-					shouldRenderNormertAfpAfterHeltSection &&
-					renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
-			</VStack>
+					<Box
+						position="absolute"
+						right={{ sm: 'space-24', xl: 'space-48' }}
+						top="space-24"
+					>
+						<Checkbox
+							onChange={(e) => setVisAarsbelop(e.target.checked)}
+							size="small"
+						>
+							Vis årsbeløp
+						</Checkbox>
+					</Box>
+					<VStack
+						gap="space-32"
+						className={isBeregningLoading ? styles.loadingOverlay : undefined}
+					>
+						{isBeregningLoading && (
+							<div className={styles.overlayLoader}>
+								<Loader size="3xlarge" title="Beregner pensjon …" />
+							</div>
+						)}
+						{erServiceberegning &&
+							beregning.serviceberegnetAfp?.beregnetAfp && (
+								<ServiceAfpBeregningSection
+									title={titleHeltUttak}
+									tableCount={tableCount}
+									entry={beregning.serviceberegnetAfp.beregnetAfp}
+									visAarsbelop={visAarsbelop}
+								/>
+							)}
+						{!erServiceberegning &&
+							(gradertMaanedligAlderspensjon ||
+								(harAfpPrivat && erUttaksgradNull)) &&
+							gradertAfpSection}
+						{!erServiceberegning &&
+							shouldRenderNormertAfpBeforeHeltSection &&
+							renderNormertAfpSection({
+								testId: 'beregning-section-gradert-67',
+							})}
+						{!erServiceberegning &&
+							skalBeregningAfpKap19 &&
+							beregning.tidsbegrensetOffentligAfp && (
+								<AfpBeregningSection
+									title={titleHeltUttak}
+									tableCount={tableCount}
+									entry={beregning.tidsbegrensetOffentligAfp}
+									visAarsbelop={visAarsbelop}
+								/>
+							)}
+						{!erServiceberegning && (
+							<BeregningSection
+								title={
+									skalBeregningAfpKap19
+										? formatAlderTitle(67, 0)
+										: titleHeltUttak
+								}
+								{...sectionCommonProps}
+								entry={
+									skalBeregningAfpKap19
+										? normertMaanedligAlderspensjon
+										: helMaanedligAlderspensjon
+								}
+								showAfp={harAfpPrivat}
+								afpEntry={afpPrivatVedHeltUttak}
+								visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
+								alderspensjonGrad={100}
+								visAarsbelop={visAarsbelop}
+								totalAddToSum={
+									(helMaanedligAlderspensjon?.beloep ?? 0) +
+									(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+								}
+								testId="beregning-section-helt"
+							/>
+						)}
+						{!erServiceberegning &&
+							shouldRenderNormertAfpAfterHeltSection &&
+							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
+					</VStack>
+				</Tabs.Panel>
+				<Tabs.Panel value="forbehold" className={styles.tabPanel}>
+					<SanityVilkaarligForbehold ctx={forbeholdContext} />
+				</Tabs.Panel>
+			</Tabs>
 		</Box>
 	)
 }

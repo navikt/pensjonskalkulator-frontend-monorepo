@@ -110,7 +110,8 @@ export type ForbeholdAvsnitt = {
 	name: string
 	overskrift?: string
 	order?: number
-	innhold: Array<{
+	visEkstern?: boolean
+	innholdEkstern: Array<{
 		children?: Array<{
 			marks?: Array<string>
 			text?: string
@@ -137,6 +138,47 @@ export type ForbeholdAvsnitt = {
 		}>
 		level?: number
 		_type: 'block'
+		_key: string
+	}>
+	visIntern?: boolean
+	innholdIntern: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?:
+			| 'normal'
+			| 'listTitle'
+			| 'h1'
+			| 'h2'
+			| 'h3'
+			| 'h4'
+			| 'h5'
+			| 'h6'
+			| 'blockquote'
+		listItem?: 'bullet' | 'number'
+		markDefs?: Array<{
+			href?: string
+			blank?: boolean
+			className?: '' | 'nowrap'
+			_type: 'link'
+			_key: string
+		}>
+		level?: number
+		_type: 'block'
+		_key: string
+	}>
+	alltidSynlig?: boolean
+	vilkaar?: Array<{
+		betingelser?: Array<{
+			tag?: string
+			negert?: boolean
+			_type: 'forbeholdBetingelse'
+			_key: string
+		}>
+		_type: 'vilkaarGruppe'
 		_key: string
 	}>
 }
@@ -327,8 +369,9 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/context/LanguageProvider/LanguageProvider.tsx
 // Variable: forbeholdAvsnittQuery
-// Query: *[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}
+// Query: *[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}
 export type ForbeholdAvsnittQueryResult = Array<{
+	_id: string
 	overskrift: string | null
 	innhold: Array<{
 		children?: Array<{
@@ -359,6 +402,17 @@ export type ForbeholdAvsnittQueryResult = Array<{
 		_type: 'block'
 		_key: string
 	}>
+	alltidSynlig?: boolean | null
+	vilkaar?: Array<{
+		betingelser?: Array<{
+			tag?: string
+			negert?: boolean
+			_type: 'forbeholdBetingelse'
+			_key: string
+		}>
+		_type: 'vilkaarGruppe'
+		_key: string
+	}> | null
 }>
 // Variable: guidePanelQuery
 // Query: *[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}
@@ -471,7 +525,7 @@ export type AlertQueryResult = Array<{
 declare module '@sanity/client' {
 	interface SanityQueries {
 		'*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}': AlertQueryResult
-		'*[_type == "forbeholdAvsnitt" && language == $locale] | order(order asc) | {overskrift,innhold}': ForbeholdAvsnittQueryResult
+		'*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}': ForbeholdAvsnittQueryResult
 		'*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}': GuidePanelQueryResult
 		'*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}': ReadMoreQueryResult
 	}
