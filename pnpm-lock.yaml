@@ -436,18 +436,6 @@ importers:
 
   apps/intern:
     dependencies:
-      '@navikt/aksel-icons':
-        specifier: catalog:intern
-        version: 8.9.1
-      '@navikt/ds-css':
-        specifier: catalog:intern
-        version: 8.9.1
-      '@navikt/ds-react':
-        specifier: catalog:intern
-        version: 8.9.1(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@navikt/ds-tokens':
-        specifier: catalog:intern
-        version: 8.9.1
       '@navikt/oasis':
         specifier: 4.1.4
         version: 4.1.4
@@ -503,6 +491,18 @@ importers:
       '@pensjonskalkulator-frontend-monorepo/sanity':
         injected: true
     devDependencies:
+      '@navikt/aksel-icons':
+        specifier: catalog:intern
+        version: 8.9.1
+      '@navikt/ds-css':
+        specifier: catalog:intern
+        version: 8.9.1
+      '@navikt/ds-react':
+        specifier: catalog:intern
+        version: 8.9.1(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@navikt/ds-tokens':
+        specifier: catalog:intern
+        version: 8.9.1
       '@pensjonskalkulator-frontend-monorepo/mocks':
         specifier: workspace:*
         version: link:../../packages/mocks
