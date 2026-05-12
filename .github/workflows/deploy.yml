@@ -22,6 +22,10 @@ on:
         description: Deploy to production
         type: boolean
         required: false
+  # Rebuild and redeploy staging weekly so Chainguard base image patches are picked up.
+  # GitHub cron uses UTC; 03:00 UTC is 05:00 in Oslo during daylight saving time.
+  schedule:
+    - cron: '0 3 * * 1'
 
 permissions:
   contents: read
@@ -49,7 +53,7 @@ jobs:
   build-intern:
     name: Build intern
     needs: changes
-    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    if: github.event_name == 'schedule' || needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.image-creation.outputs.image }}
@@ -88,7 +92,7 @@ jobs:
   test-intern:
     name: Unit tests intern
     needs: changes
-    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    if: github.event_name == 'schedule' || needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -108,7 +112,7 @@ jobs:
   e2e-intern:
     name: E2E tests intern
     needs: [changes, build-intern]
-    if: needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    if: github.event_name == 'schedule' || needs.changes.outputs.intern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -135,7 +139,7 @@ jobs:
     name: Deploy intern to staging
     needs: [build-intern, test-intern, e2e-intern]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -206,7 +210,7 @@ jobs:
   build-ekstern:
     name: Build ekstern
     needs: changes
-    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    if: github.event_name == 'schedule' || needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build.outputs.image }}
@@ -229,6 +233,7 @@ jobs:
     needs: [changes, deploy-ekstern-staging]
     if: |
       always() &&
+      github.event_name != 'schedule' &&
       github.ref == 'refs/heads/main' &&
       (
         (needs.deploy-ekstern-staging.result == 'success') ||
@@ -254,7 +259,7 @@ jobs:
   test-ekstern:
     name: Run unit tests ekstern (${{ matrix.shard }}/2)
     needs: changes
-    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    if: github.event_name == 'schedule' || needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -319,7 +324,7 @@ jobs:
     name: Deploy ekstern to staging
     needs: [build-ekstern, test-ekstern, playwright-ekstern]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
