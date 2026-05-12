@@ -17,7 +17,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*"
+		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
+		"@types/node": "24.3.0"
 	},
 	"peerDependencies": {
 		"msw": "catalog:",
