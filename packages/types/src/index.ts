@@ -70,6 +70,10 @@ export type AlderspensjonPensjonsberegning =
 	components['schemas']['PersonligSimuleringAlderspensjonResultV9']
 export type Pre2025OffentligPensjonsberegning =
 	components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV9']
+export type LagreSimuleringSpecDtoV1 =
+	components['schemas']['LagreSimuleringSpecDtoV1']
+export type LagreSimuleringResponseDtoV1 =
+	components['schemas']['LagreSimuleringResponseDtoV1']
 
 // Simulering Intern
 export type SimuleringRequestBody = components['schemas']['SimuleringV1Spec']
@@ -142,6 +146,9 @@ export type TidligstMuligGradertUttakRequestBody =
 
 // Ansatt
 export type Ansatt = components['schemas']['AnsattV1']
+export type AnsattEnhetResult = components['schemas']['AnsattEnhetV1Result']
+export type AnsattEnhetTjenestekontor =
+	components['schemas']['AnsattEnhetV1Tjenestekontor']
 
 // Land
 export type Land = components['schemas']['LandInfo']

@@ -1,5 +1,8 @@
 import type {
+	AnsattEnhetResult,
 	EpsOpplysninger,
+	LagreSimuleringResponseDtoV1,
+	LagreSimuleringSpecDtoV1,
 	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	SimuleringRequestBody,
@@ -289,5 +292,58 @@ export function useBeregningQuery(
 		queryKey: ['beregning', fnr, request],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
+	})
+}
+
+async function lagreSimulering({
+	fnr,
+	spec,
+}: {
+	fnr: string
+	spec: LagreSimuleringSpecDtoV1
+}): Promise<LagreSimuleringResponseDtoV1> {
+	const response = await fetch(`${API_BASE}/intern/v1/lagre-simulering`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			fnr,
+		},
+		body: JSON.stringify(spec),
+	})
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to save simulation: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<LagreSimuleringResponseDtoV1>
+}
+
+export function useLagreSimuleringMutation() {
+	return useMutation<
+		LagreSimuleringResponseDtoV1,
+		Error,
+		{ fnr: string; spec: LagreSimuleringSpecDtoV1 }
+	>({
+		mutationFn: lagreSimulering,
+	})
+}
+
+async function fetchEnheter(): Promise<AnsattEnhetResult> {
+	const response = await fetch(`${API_BASE}/intern/v1/enheter`)
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch enheter: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<AnsattEnhetResult>
+}
+
+export function useEnheterMutation() {
+	return useMutation({
+		mutationFn: fetchEnheter,
 	})
 }

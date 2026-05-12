@@ -1,14 +1,33 @@
 import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import type { LagreSimuleringResponseDtoV1 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { BodyLong, Box, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Box,
+	Button,
+	HStack,
+	Label,
+	Loader,
+	LocalAlert,
+	Modal,
+	Select,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
-import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
+import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
+import {
+	useEnheterMutation,
+	useFeatureToggleQuery,
+	useGrunnbeloepQuery,
+	useLagreSimuleringMutation,
+} from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
@@ -27,17 +46,24 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		fnr,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
 	const visForbehold = forbeholdInternSynlig?.enabled === true
+	const lagreSimulering = useLagreSimuleringMutation()
+	const lagreData: LagreSimuleringResponseDtoV1 | undefined =
+		lagreSimulering.data
+	const hentEnheter = useEnheterMutation()
+	const modalRef = useRef<HTMLDialogElement>(null)
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
+	const [selectedNavEnhetId, setSelectedNavEnhetId] = useState('')
 
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
@@ -210,6 +236,28 @@ export const Beregning = () => {
 		)
 	}
 
+	const handleOpenLagreModal = () => {
+		setSelectedNavEnhetId('')
+		lagreSimulering.reset()
+		modalRef.current?.showModal()
+		hentEnheter.mutate()
+	}
+
+	const handleLagreSimulering = () => {
+		if (!fnr || !selectedNavEnhetId) {
+			return
+		}
+
+		lagreSimulering.mutate({
+			fnr,
+			spec: mapBeregningResultToLagreSpec(
+				beregning,
+				aktivBeregning,
+				selectedNavEnhetId
+			),
+		})
+	}
+
 	return (
 		<Box
 			borderColor="neutral-subtle"
@@ -297,6 +345,15 @@ export const Beregning = () => {
 						{!erServiceberegning &&
 							shouldRenderNormertAfpAfterHeltSection &&
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
+						<Button
+							className={styles.lagreButton}
+							variant="secondary"
+							size="small"
+							disabled={!fnr}
+							onClick={handleOpenLagreModal}
+						>
+							Lagre beregning til brev
+						</Button>
 					</VStack>
 				</Tabs.Panel>
 				{visForbehold && (
@@ -307,6 +364,112 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
+			<Modal
+				ref={modalRef}
+				header={{
+					heading: lagreData ? 'Beregning lagret' : 'Lagre beregning',
+				}}
+			>
+				<Modal.Body>
+					<VStack gap="space-16">
+						{lagreData ? (
+							<>
+								{lagreData.brevId && (
+									<div>
+										<Label size="small">Brev-ID</Label>
+										<BodyLong>{lagreData.brevId}</BodyLong>
+									</div>
+								)}
+								{lagreData.sakId && (
+									<div>
+										<Label size="small">Sak-ID</Label>
+										<BodyLong>{lagreData.sakId}</BodyLong>
+									</div>
+								)}
+							</>
+						) : (
+							<>
+								<BodyLong size="small">
+									Velg enhet for beregningen før du lagrer.
+								</BodyLong>
+								{hentEnheter.isPending && (
+									<Loader size="small" title="Henter enheter" />
+								)}
+								{hentEnheter.isError && (
+									<LocalAlert status="error" size="small">
+										Kunne ikke hente enheter. Prøv igjen.
+									</LocalAlert>
+								)}
+								<Select
+									label="Enhet"
+									size="small"
+									value={selectedNavEnhetId}
+									onChange={(event) =>
+										setSelectedNavEnhetId(event.target.value)
+									}
+									disabled={
+										hentEnheter.isPending ||
+										!hentEnheter.data?.enhetListe.length
+									}
+								>
+									<option value="">Velg enhet</option>
+									{hentEnheter.data?.enhetListe.map((enhet) => (
+										<option key={enhet.id} value={enhet.id}>
+											{enhet.navn} ({enhet.id})
+										</option>
+									))}
+								</Select>
+							</>
+						)}
+					</VStack>
+				</Modal.Body>
+				<Modal.Footer>
+					<HStack gap="space-8" width="20rem">
+						{lagreData ? (
+							<>
+								{lagreData.brevDevQ2Url && (
+									<Button
+										variant="primary"
+										size="small"
+										as="a"
+										href={lagreData.brevDevQ2Url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Åpne brev
+									</Button>
+								)}
+								<Button
+									variant="secondary"
+									size="small"
+									onClick={() => modalRef.current?.close()}
+								>
+									Lukk
+								</Button>
+							</>
+						) : (
+							<>
+								<Button
+									variant="secondary"
+									size="small"
+									onClick={() => modalRef.current?.close()}
+								>
+									Avbryt
+								</Button>
+								<Button
+									variant="primary"
+									size="small"
+									loading={lagreSimulering.isPending}
+									disabled={!selectedNavEnhetId || hentEnheter.isPending}
+									onClick={handleLagreSimulering}
+								>
+									Lagre beregning
+								</Button>
+							</>
+						)}
+					</HStack>
+				</Modal.Footer>
+			</Modal>
 		</Box>
 	)
 }
