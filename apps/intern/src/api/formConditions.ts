@@ -120,7 +120,7 @@ export function showAfpOffentligFields({
 	)
 }
 
-export function isUttakNesteKalenderaar({
+export function isUttakEtterInnevaerendeAar({
 	foedselsdato,
 	alderAarUttak,
 	alderMdUttak,

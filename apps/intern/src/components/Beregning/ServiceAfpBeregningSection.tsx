@@ -12,7 +12,6 @@ import styles from '../BeregningSection/BeregningSection.module.css'
 
 interface ServiceAfpBeregningSectionProps {
 	title: string
-	tableCount: number
 	entry: ServiceberegnetAfpResult
 	visAarsbelop: boolean
 }

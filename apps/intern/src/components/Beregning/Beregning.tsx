@@ -39,9 +39,8 @@ export const Beregning = () => {
 	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
-	const skalBeregningAfpKap19 =
-		aktivBeregning?.afp === 'ja_offentlig' &&
-		new Date(person?.foedselsdato ?? '').getFullYear() < 1963
+	const skalBeregneAfpKap19 =
+		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
 
 	const hasBeregning =
@@ -239,7 +238,6 @@ export const Beregning = () => {
 							beregning.serviceberegnetAfp?.beregnetAfp && (
 								<ServiceAfpBeregningSection
 									title={titleHeltUttak}
-									tableCount={tableCount}
 									entry={beregning.serviceberegnetAfp.beregnetAfp}
 									visAarsbelop={visAarsbelop}
 								/>
@@ -254,7 +252,7 @@ export const Beregning = () => {
 								testId: 'beregning-section-gradert-67',
 							})}
 						{!erServiceberegning &&
-							skalBeregningAfpKap19 &&
+							skalBeregneAfpKap19 &&
 							beregning.tidsbegrensetOffentligAfp && (
 								<AfpBeregningSection
 									title={titleHeltUttak}
@@ -266,13 +264,11 @@ export const Beregning = () => {
 						{!erServiceberegning && (
 							<BeregningSection
 								title={
-									skalBeregningAfpKap19
-										? formatAlderTitle(67, 0)
-										: titleHeltUttak
+									skalBeregneAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
 								}
 								{...sectionCommonProps}
 								entry={
-									skalBeregningAfpKap19
+									skalBeregneAfpKap19
 										? normertMaanedligAlderspensjon
 										: helMaanedligAlderspensjon
 								}

@@ -7,7 +7,7 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
-	isUttakNesteKalenderaar,
+	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
@@ -152,7 +152,7 @@ function validateAfp(
 
 	if (formData.afp === 'serviceberegning') {
 		if (
-			isUttakNesteKalenderaar({
+			isUttakEtterInnevaerendeAar({
 				foedselsdato: options?.foedselsdato,
 				alderAarUttak: formData.alderAarUttak,
 				alderMdUttak: formData.alderMdUttak,

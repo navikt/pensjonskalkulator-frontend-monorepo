@@ -16,7 +16,7 @@ import { BodyShort, Box, HStack } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
-	isUttakNesteKalenderaar,
+	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
 	showAlderspensjonFields,
 	showEpsHarInntektOver2G,
@@ -477,7 +477,7 @@ export const BeregningForm = () => {
 													label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
 												/>
 											)}
-											{isUttakNesteKalenderaar({
+											{isUttakEtterInnevaerendeAar({
 												foedselsdato: person?.foedselsdato,
 												alderAarUttak,
 												alderMdUttak,
