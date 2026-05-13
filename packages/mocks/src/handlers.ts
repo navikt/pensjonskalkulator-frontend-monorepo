@@ -39,17 +39,9 @@ import type {
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 const API_BASE = '/pensjon/kalkulator/api'
 
-// TODO(TPP-132): Fjern midlertidig Sanity-forbehold-mocking når mockdata ikke
-// lenger må deles som superset mellom ekstern og intern.
-// https://jira.adeo.no/browse/TPP-132
-// Når det skjer kan følgende slettes herfra:
-// SanityForbeholdAvsnittMock-typene, visEkstern/visIntern-projeksjonen i
-// getSanityForbeholdAvsnittMockResponse og bruken av
-// sanity-forbehold-avsnitt-data.json for forbeholdAvsnitt.
 type SanityForbeholdAvsnittMock = {
 	_id?: string
 	overskrift?: string | null
-	innhold?: unknown
 	innholdEkstern?: unknown
 	innholdIntern?: unknown
 	visEkstern?: boolean
@@ -65,22 +57,6 @@ type SanityForbeholdAvsnittMockResponse = {
 const matcherVisEkstern = /visEkstern\s*==\s*true/
 const matcherVisIntern = /visIntern\s*==\s*true/
 
-function hasVisibilityFlag(
-	avsnitt: SanityForbeholdAvsnittMock,
-	flag: 'visEkstern' | 'visIntern'
-) {
-	return Object.prototype.hasOwnProperty.call(avsnitt, flag)
-}
-
-function erSynligFor(
-	avsnitt: SanityForbeholdAvsnittMock,
-	flag: 'visEkstern' | 'visIntern'
-) {
-	// Eldre mockdata manglet visEkstern/visIntern. Behold bakoverkompatibilitet
-	// ved å tolke manglende flagg som synlig, men respekter nye eksplisitte flagg.
-	return hasVisibilityFlag(avsnitt, flag) ? avsnitt[flag] === true : true
-}
-
 function getSanityForbeholdAvsnittMockResponse(query: string) {
 	const response =
 		sanityForbeholdAvsnittDataResponse as SanityForbeholdAvsnittMockResponse
@@ -89,34 +65,25 @@ function getSanityForbeholdAvsnittMockResponse(query: string) {
 	if (matcherVisIntern.test(query)) {
 		return {
 			result: result
-				.filter((avsnitt) => erSynligFor(avsnitt, 'visIntern'))
-				.map(
-					({
-						_id,
-						overskrift,
-						innhold,
-						innholdIntern,
-						alltidSynlig,
-						vilkaar,
-					}) => ({
-						_id,
-						overskrift,
-						innhold: innholdIntern ?? innhold ?? [],
-						alltidSynlig,
-						vilkaar,
-					})
-				),
+				.filter((avsnitt) => avsnitt.visIntern === true)
+				.map(({ _id, overskrift, innholdIntern, alltidSynlig, vilkaar }) => ({
+					_id,
+					overskrift,
+					innhold: innholdIntern ?? [],
+					alltidSynlig,
+					vilkaar,
+				})),
 		}
 	}
 
 	if (matcherVisEkstern.test(query)) {
 		return {
 			result: result
-				.filter((avsnitt) => erSynligFor(avsnitt, 'visEkstern'))
-				.map(({ _id, overskrift, innhold, innholdEkstern }) => ({
+				.filter((avsnitt) => avsnitt.visEkstern === true)
+				.map(({ _id, overskrift, innholdEkstern }) => ({
 					_id,
 					overskrift,
-					innhold: innholdEkstern ?? innhold ?? [],
+					innhold: innholdEkstern ?? [],
 				})),
 		}
 	}
