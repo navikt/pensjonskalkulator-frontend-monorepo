@@ -6,6 +6,7 @@ import {
 import {
 	calculateUttaksalderAsDate,
 	isAlderLikAnnenAlder,
+	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
@@ -207,6 +208,24 @@ export const BeregningForm = () => {
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
 
+	const kanVelgeServiceberegning = person?.foedselsdato
+		? isFoedtFoer1963(person.foedselsdato)
+		: false
+
+	const afpOptions = [
+		{ value: 'ja_privat', label: 'Ja, privat' },
+		{ value: 'ja_offentlig', label: 'Ja, offentlig' },
+		{ value: 'nei', label: 'Nei' },
+		...(kanVelgeServiceberegning
+			? [
+					{
+						value: 'serviceberegning',
+						label: 'Serviceberegning AFP for saksbehandler',
+					},
+				]
+			: []),
+	]
+
 	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
 	const pensjonsgivendeInntektValue = `${formatInntekt(initialInntekt)} kr`
 	const forrigeAar = new Date().getFullYear() - 1
@@ -333,15 +352,7 @@ export const BeregningForm = () => {
 						<RHFRadio
 							name="afp"
 							legend="Skal AFP inkluderes?"
-							options={[
-								{ value: 'ja_privat', label: 'Ja, privat' },
-								{ value: 'ja_offentlig', label: 'Ja, offentlig' },
-								{ value: 'nei', label: 'Nei' },
-								{
-									value: 'serviceberegning',
-									label: 'Serviceberegning AFP for saksbehandler',
-								},
-							]}
+							options={afpOptions}
 							className={styles.horizontalRadioGroup}
 							testid="afp"
 						/>
