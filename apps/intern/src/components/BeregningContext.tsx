@@ -1,4 +1,5 @@
 import type {
+	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	Sivilstatus,
 	Vedtak,
@@ -28,6 +29,7 @@ import { harPartner } from '../api/formConditions'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
 } from '../api/queries'
@@ -43,6 +45,7 @@ interface BeregningContextValue {
 	fnr: string | undefined
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
+	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -98,6 +101,7 @@ export function BeregningProvider({
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
+	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
 	const isDirty =
@@ -226,6 +230,7 @@ export function BeregningProvider({
 					isBeregningLoading,
 					beregningError,
 					vedtak,
+					omstillingsstoenad,
 					submitBeregning,
 					resetForm,
 				}}

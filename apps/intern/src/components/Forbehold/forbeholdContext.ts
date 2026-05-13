@@ -1,5 +1,6 @@
 import { type ForbeholdContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import type {
+	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -14,23 +15,38 @@ interface BuildForbeholdContextArgs {
 	aktivBeregning: BeregningParams | null
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
+	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 }
 
 export function buildForbeholdContext({
 	aktivBeregning,
 	person,
 	vedtak,
+	omstillingsstoenad,
 }: BuildForbeholdContextArgs): ForbeholdContext {
 	const ufoeretrygdgrad = vedtak?.ufoeretrygdgrad ?? 0
 	const harUfoeretrygd = ufoeretrygdgrad > 0
 	const har100Ufoeretrygd = ufoeretrygdgrad === 100
 	const graderUfoeretrygd = ufoeretrygdgrad > 0 && ufoeretrygdgrad < 100
 
-	// Intern-kalkulatoren støtter foreløpig kun AFP privat. Når
-	// offentlig/gammel AFP introduseres skal disse utvides her, og
-	// tilhørende tags eksponeres på nytt i FORBEHOLD_VILKAAR_TAGS.
 	const beregnerAfpPrivat = aktivBeregning?.afp === 'ja_privat'
-	const beregnerAfpUavhengigAvAarskull = beregnerAfpPrivat
+	const beregnerAfpOffentlig = aktivBeregning?.afp === 'ja_offentlig'
+	const beregnerGammelAfp = aktivBeregning?.afp === 'serviceberegning'
+	const beregnerAfpUavhengigAvAarskull =
+		beregnerAfpPrivat || beregnerAfpOffentlig || beregnerGammelAfp
+
+	const harUtenlandsopphold =
+		aktivBeregning?.harOppholdUtenforNorge === true ||
+		(aktivBeregning?.utenlandsOpphold?.length ?? 0) > 0
+	const harFremtidigUtenlandsopphold =
+		aktivBeregning?.utenlandsOpphold?.some((opphold) => !opphold.tom) ?? false
+
+	// Forbeholdene skal speile sivilstatusen som faktisk ble brukt i beregningen.
+	// Ikke fall tilbake til person.sivilstatus her, siden PDL-data kan avvike fra
+	// skjema-/beregningsverdien.
+	const sivilstatus = aktivBeregning?.sivilstatus
+	const erGift = sivilstatus === 'GIFT' || sivilstatus === 'REGISTRERT_PARTNER'
+	const erSamboer = sivilstatus === 'SAMBOER'
 
 	const foedselsdato = person?.foedselsdato
 	// `isFoedtEtter1963` returnerer `boolean | null` (null når input mangler).
@@ -45,8 +61,17 @@ export function buildForbeholdContext({
 		graderUfoeretrygd,
 		har100Ufoeretrygd,
 		beregnerAfpPrivat,
+		beregnerAfpOffentlig,
+		beregnerGammelAfp,
 		beregnerAfpUavhengigAvAarskull,
+		harPrivatAfpVedtak: !!vedtak?.privatAfpFom,
+		harTidsbegrensetOffentligAfpVedtak: !!vedtak?.tidsbegrensetOffentligAfpFom,
 		beregnerMedGjenlevenderett: !!aktivBeregning?.beregnMedGjenlevenderett,
+		harGjenlevendeEllerOmstillingsstoenad: !!omstillingsstoenad?.harLoependeSak,
+		harUtenlandsopphold,
+		harFremtidigUtenlandsopphold,
+		erGift,
+		erSamboer,
 		foedtFoer1963,
 		foedtEtter1963: erFoedtEtter1963,
 		erOvergangskull,

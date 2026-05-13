@@ -18,8 +18,14 @@ import { formatAlderTitle } from './beregningMappers'
 import styles from './Beregning.module.css'
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning, person, vedtak } =
-		useBeregningContext()
+	const {
+		isBeregningLoading,
+		beregning,
+		aktivBeregning,
+		person,
+		vedtak,
+		omstillingsstoenad,
+	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
@@ -51,6 +57,7 @@ export const Beregning = () => {
 		aktivBeregning,
 		person,
 		vedtak,
+		omstillingsstoenad,
 	})
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
