@@ -185,10 +185,12 @@ export function mapBeregningParamsToRequest(
 				},
 		offentligAfp: skalBeregneAfpKap19
 			? {
-					harInntektMaanedenFoerUttak: formData.inntektSisteMaanedFoerUttak
-						? formData.inntektSisteMaanedFoerUttak >
-							(grunnbeloep?.grunnbeløpPerMåned ?? 0)
-						: null,
+					harInntektMaanedenFoerUttak:
+						formData.inntektSisteMaanedFoerUttak != null &&
+						grunnbeloep?.grunnbeløpPerMåned != null
+							? formData.inntektSisteMaanedFoerUttak >
+								grunnbeloep.grunnbeløpPerMåned
+							: null,
 					afpOrdning: 'STATLIG',
 				}
 			: skalBeregneServiceberegnetAfp
