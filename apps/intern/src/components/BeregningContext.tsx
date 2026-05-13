@@ -46,6 +46,7 @@ interface BeregningContextValue {
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
 	initialInntektAar: number | undefined
+	initialInntekt?: number
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -261,6 +262,7 @@ export function BeregningProvider({
 					beregningError,
 					vedtak,
 					initialInntektAar,
+					initialInntekt,
 					submitBeregning,
 					resetForm,
 				}}

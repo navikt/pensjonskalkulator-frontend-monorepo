@@ -101,7 +101,6 @@ export const BeregningForm = () => {
 		alderAarUttak,
 		alderMdUttak,
 		afp,
-		aarligInntektFoerUttakBeloep,
 	] = useWatch({
 		control,
 		name: [
@@ -113,11 +112,12 @@ export const BeregningForm = () => {
 			'alderAarUttak',
 			'alderMdUttak',
 			'afp',
-			'aarligInntektFoerUttakBeloep',
 		] as const,
 	})
 
 	const [alertDismissed, setAlertDismissed] = useState(false)
+
+	const { initialInntekt } = useBeregningContext()
 
 	useEffect(() => {
 		setAlertDismissed(false)
@@ -208,7 +208,7 @@ export const BeregningForm = () => {
 		vedtak?.ufoeretrygdgrad
 
 	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
-	const pensjonsgivendeInntektValue = `${formatInntekt(aarligInntektFoerUttakBeloep)} kr`
+	const pensjonsgivendeInntektValue = `${formatInntekt(initialInntekt)} kr`
 	const forrigeAar = new Date().getFullYear() - 1
 	const uttaksAar =
 		person?.foedselsdato && alderAarUttak !== null && alderMdUttak !== null
