@@ -70,8 +70,6 @@ export function mapBeregningParamsToRequest(
 	const grad = formData.uttaksgrad ?? 0
 	const erGradert = grad < 100 && grad !== 0
 
-	console.log('Grad', grad)
-
 	const aarligInntektVsaPensjonGradert =
 		erGradert &&
 		formData.pensjonsgivendeInntektVedSidenAvGradertUttak !== null &&
