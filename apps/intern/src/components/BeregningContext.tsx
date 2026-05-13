@@ -234,7 +234,7 @@ export function BeregningProvider({
 			},
 		})
 		setPendingBeregning(null)
-	}, [form, person?.sivilstatus, initialSivilstatus])
+	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
 	const pendingRequest = pendingBeregning
 		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep)
