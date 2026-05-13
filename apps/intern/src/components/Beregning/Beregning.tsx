@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
 
-import { useGrunnbeloepQuery } from '../../api/queries'
+import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
@@ -20,9 +20,19 @@ import { formatAlderTitle } from './beregningMappers'
 import styles from './Beregning.module.css'
 
 export const Beregning = () => {
-	const { isBeregningLoading, beregning, aktivBeregning, person, vedtak } =
-		useBeregningContext()
+	const {
+		isBeregningLoading,
+		beregning,
+		aktivBeregning,
+		person,
+		vedtak,
+		omstillingsstoenad,
+	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
+		'forbehold-intern-synlig'
+	)
+	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
@@ -58,6 +68,7 @@ export const Beregning = () => {
 		aktivBeregning,
 		person,
 		vedtak,
+		omstillingsstoenad,
 	})
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
@@ -195,7 +206,7 @@ export const Beregning = () => {
 			<Tabs value={activeTab} onChange={setActiveTab}>
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
-					<Tabs.Tab value="forbehold" label="Forbehold" />
+					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
 					{vedtak?.ufoeretrygdgrad && (
@@ -282,9 +293,11 @@ export const Beregning = () => {
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 					</VStack>
 				</Tabs.Panel>
-				<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-					<SanityVilkaarligForbehold ctx={forbeholdContext} />
-				</Tabs.Panel>
+				{visForbehold && (
+					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
+						<SanityVilkaarligForbehold ctx={forbeholdContext} />
+					</Tabs.Panel>
+				)}
 			</Tabs>
 		</Box>
 	)

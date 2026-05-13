@@ -13,7 +13,7 @@ jobs:
 
     name: Backup Sanity dataset
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Set backup file name
         run: |
@@ -30,12 +30,12 @@ jobs:
              "https://${{ secrets.SANITY_PROJECT_ID }}.api.sanity.io/v2025-07-02/data/export/production"
 
       - name: Authenticate to Google Cloud (WIF)
-        uses: google-github-actions/auth@v3
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
           workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
 
-      - uses: google-github-actions/upload-cloud-storage@v3
+      - uses: google-github-actions/upload-cloud-storage@6397bd7208e18d13ba2619ee21b9873edc94427a # v3.0.0
         with:
           path: ./backups/${{ env.FILE_NAME }}
           destination: pkf/sanity-backups/

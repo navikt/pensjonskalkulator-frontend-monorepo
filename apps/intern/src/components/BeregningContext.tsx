@@ -1,4 +1,5 @@
 import type {
+	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	Sivilstatus,
 	Vedtak,
@@ -30,6 +31,7 @@ import {
 	useBeregningQuery,
 	useDecryptPidQuery,
 	useGrunnbeloepQuery,
+	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
 } from '../api/queries'
@@ -47,6 +49,7 @@ interface BeregningContextValue {
 	vedtak: Vedtak | undefined
 	initialInntektAar: number | undefined
 	initialInntekt?: number
+	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -105,6 +108,7 @@ export function BeregningProvider({
 	const { data: person } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
 	const isDirty =
@@ -263,6 +267,7 @@ export function BeregningProvider({
 					vedtak,
 					initialInntektAar,
 					initialInntekt,
+					omstillingsstoenad,
 					submitBeregning,
 					resetForm,
 				}}
