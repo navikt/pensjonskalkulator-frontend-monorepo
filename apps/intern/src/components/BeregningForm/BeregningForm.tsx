@@ -355,6 +355,9 @@ export const BeregningForm = () => {
 							options={afpOptions}
 							className={styles.horizontalRadioGroup}
 							testid="afp"
+							onChange={() => {
+								setAlertDismissed(true)
+							}}
 						/>
 						{showUTOgAFPAlert && (
 							<SanityAlert

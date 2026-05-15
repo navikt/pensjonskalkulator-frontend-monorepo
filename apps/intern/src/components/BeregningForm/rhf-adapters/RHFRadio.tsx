@@ -24,6 +24,7 @@ interface RHFRadioProps {
 	testid?: string
 	options?: RadioOption[]
 	gap?: React.ComponentProps<typeof HStack>['gap']
+	onChange?: (value: string) => void
 }
 
 export function RHFRadio({
@@ -34,6 +35,7 @@ export function RHFRadio({
 	options,
 	testid,
 	gap = 'space-32',
+	onChange,
 }: RHFRadioProps) {
 	const {
 		control,
@@ -61,7 +63,10 @@ export function RHFRadio({
 			className={className}
 			value={toDisplayValue(field.value)}
 			error={error}
-			onChange={(val: string) => field.onChange(fromDisplayValue(val))}
+			onChange={(val: string) => {
+				field.onChange(fromDisplayValue(val))
+				if (onChange) onChange(val)
+			}}
 			data-testid={testid}
 			data-feil={error ? true : false}
 		>
