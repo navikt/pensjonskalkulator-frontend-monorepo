@@ -7,7 +7,7 @@ import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
 } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
-import { format, parse } from 'date-fns'
+import { format, parse, subDays } from 'date-fns'
 
 import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
 import type {
@@ -97,7 +97,8 @@ export function mapBeregningParamsToRequest(
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
-		? getEpsDoedsdato(formData.epsOpplysninger)
+		? (getEpsDoedsdato(formData.epsOpplysninger) ??
+			format(subDays(new Date(), 1), DATE_BACKEND_FORMAT))
 		: undefined
 	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
 	const utenlandsperiodeListe =
