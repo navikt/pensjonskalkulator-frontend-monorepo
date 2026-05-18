@@ -4,19 +4,19 @@ description: 'Detect which apps and packages have changed'
 outputs:
   intern:
     description: 'Whether apps/intern has changed'
-    value: ${{ steps.changes.outputs.intern }}
+    value: ${{ steps.result.outputs.intern }}
   ekstern:
     description: 'Whether apps/ekstern has changed'
-    value: ${{ steps.changes.outputs.ekstern }}
+    value: ${{ steps.result.outputs.ekstern }}
   api:
     description: 'Whether packages/api has changed'
-    value: ${{ steps.changes.outputs.api }}
+    value: ${{ steps.result.outputs.api }}
   lockfile:
     description: 'Whether pnpm-lock.yaml has changed'
-    value: ${{ steps.changes.outputs.lockfile }}
+    value: ${{ steps.result.outputs.lockfile }}
   shared:
     description: 'Whether shared config files have changed'
-    value: ${{ steps.changes.outputs.shared }}
+    value: ${{ steps.result.outputs.shared }}
 
 runs:
   using: 'composite'
@@ -41,14 +41,20 @@ runs:
             - 'tsconfig.base.json'
             - '.github/**'
 
-    # On schedule, mark everything as changed so all apps rebuild with fresh base images
-    - name: Force all outputs on schedule
-      if: github.event_name == 'schedule'
-      id: changes
+    - name: Set outputs
+      id: result
       shell: bash
       run: |
-        echo "intern=true" >> $GITHUB_OUTPUT
-        echo "ekstern=true" >> $GITHUB_OUTPUT
-        echo "api=true" >> $GITHUB_OUTPUT
-        echo "lockfile=false" >> $GITHUB_OUTPUT
-        echo "shared=true" >> $GITHUB_OUTPUT
+        if [ "${{ github.event_name }}" = "schedule" ]; then
+          echo "intern=true" >> $GITHUB_OUTPUT
+          echo "ekstern=true" >> $GITHUB_OUTPUT
+          echo "api=true" >> $GITHUB_OUTPUT
+          echo "lockfile=false" >> $GITHUB_OUTPUT
+          echo "shared=true" >> $GITHUB_OUTPUT
+        else
+          echo "intern=${{ steps.changes.outputs.intern }}" >> $GITHUB_OUTPUT
+          echo "ekstern=${{ steps.changes.outputs.ekstern }}" >> $GITHUB_OUTPUT
+          echo "api=${{ steps.changes.outputs.api }}" >> $GITHUB_OUTPUT
+          echo "lockfile=${{ steps.changes.outputs.lockfile }}" >> $GITHUB_OUTPUT
+          echo "shared=${{ steps.changes.outputs.shared }}" >> $GITHUB_OUTPUT
+        fi
