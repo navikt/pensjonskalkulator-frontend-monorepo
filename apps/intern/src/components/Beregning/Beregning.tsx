@@ -217,9 +217,9 @@ export const Beregning = () => {
 						</BodyLong>
 					)}
 					<Box
-						position="absolute"
-						right={{ sm: 'space-24', xl: 'space-48' }}
-						top="space-24"
+						display="flex"
+						justifyContent="flex-end"
+						padding="space-8"
 					>
 						<Checkbox
 							onChange={(e) => setVisAarsbelop(e.target.checked)}
