@@ -26,9 +26,7 @@ function mapEpsOpplysninger({
 }): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
-	const registrertDoedsDato = relasjonPersondata?.doedsdato
-	const doedsdato = getEpsDoedsdato(eps)
-	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
+	const registrertDoedsDato = getEpsDoedsdato(eps, vedtakInfoAvdoed)
 
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
@@ -38,8 +36,8 @@ function mapEpsOpplysninger({
 		{
 			label: 'Dødsdato',
 			value: registrertDoedsDato
-				? formatertDoedsdato
-				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
+				? format(parseISO(registrertDoedsDato), 'dd.MM.yyyy')
+				: `Ikke registrert. ${registrertDoedsDato} brukes.`,
 		},
 	]
 

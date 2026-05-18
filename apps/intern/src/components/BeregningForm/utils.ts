@@ -55,16 +55,13 @@ export function showSivilstatus({
 export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
-	erEndring,
 }: {
 	initialSivilstatus: EpsSivilstatus
 	person: PersonInternV1
-	erEndring: boolean
 }): boolean {
 	return (
 		isFoedtFoer1963(person?.foedselsdato) &&
-		isSivilstatusWithGjenlevenderett(initialSivilstatus) &&
-		!erEndring
+		isSivilstatusWithGjenlevenderett(initialSivilstatus)
 	)
 }
 
