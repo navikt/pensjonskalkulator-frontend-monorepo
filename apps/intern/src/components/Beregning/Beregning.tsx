@@ -6,7 +6,15 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Box,
+	Checkbox,
+	HStack,
+	Loader,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
 import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -216,18 +224,14 @@ export const Beregning = () => {
 							{ufoeretrygdBeregningInfo}
 						</BodyLong>
 					)}
-					<Box
-						display="flex"
-						justifyContent="flex-end"
-						padding="space-8"
-					>
+					<HStack justify="end" padding="space-8">
 						<Checkbox
 							onChange={(e) => setVisAarsbelop(e.target.checked)}
 							size="small"
 						>
 							Vis årsbeløp
 						</Checkbox>
-					</Box>
+					</HStack>
 					<VStack
 						gap="space-32"
 						className={isBeregningLoading ? styles.loadingOverlay : undefined}
