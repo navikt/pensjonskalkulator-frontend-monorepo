@@ -124,6 +124,13 @@ export const BeregningForm = () => {
 		setAlertDismissed(false)
 	}, [aktivBeregning])
 
+	const resetAlderVelger = (newAfpValue: string) => {
+		if (afp === 'serviceberegning' && newAfpValue !== 'serviceberegning') {
+			form.setValue('alderAarUttak', null, { shouldDirty: false })
+			form.setValue('alderMdUttak', null, { shouldDirty: false })
+		}
+	}
+
 	const handleReset = useCallback(() => {
 		setAlertDismissed(true)
 		resetForm()
@@ -355,8 +362,9 @@ export const BeregningForm = () => {
 							options={afpOptions}
 							className={styles.horizontalRadioGroup}
 							testid="afp"
-							onChange={() => {
+							onChange={(value) => {
 								setAlertDismissed(true)
+								resetAlderVelger(value)
 							}}
 						/>
 						{showUTOgAFPAlert && (
