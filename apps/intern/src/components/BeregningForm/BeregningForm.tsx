@@ -202,7 +202,11 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+		!erEndring &&
+		vedtak?.ufoeretrygdgrad &&
+		uttaksgrad === 100 &&
+		afp === 'nei' &&
+		heltUttakAlder.aar < 67
 
 	const showUTOgAFPAlert =
 		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
