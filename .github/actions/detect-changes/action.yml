@@ -22,6 +22,7 @@ runs:
   using: 'composite'
   steps:
     - name: Check for changes
+      if: github.event_name != 'schedule'
       uses: dorny/paths-filter@d1c1ffe0248fe513906c8e24db8ea791d46f8590 # v3.0.3
       id: changes
       with:
@@ -39,3 +40,15 @@ runs:
             - 'pnpm-lock.yaml'
             - 'tsconfig.base.json'
             - '.github/**'
+
+    # On schedule, mark everything as changed so all apps rebuild with fresh base images
+    - name: Force all outputs on schedule
+      if: github.event_name == 'schedule'
+      id: changes
+      shell: bash
+      run: |
+        echo "intern=true" >> $GITHUB_OUTPUT
+        echo "ekstern=true" >> $GITHUB_OUTPUT
+        echo "api=true" >> $GITHUB_OUTPUT
+        echo "lockfile=false" >> $GITHUB_OUTPUT
+        echo "shared=true" >> $GITHUB_OUTPUT

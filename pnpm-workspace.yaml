@@ -1,6 +1,7 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+minimumReleaseAge: 10080
 peerDependencyRules:
   allowedVersions:
     typescript: '>=5'
