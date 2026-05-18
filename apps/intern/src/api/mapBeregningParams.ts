@@ -84,6 +84,10 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ENDRING_ALDERSPENSJON'
 	}
 
+	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+	}
+
 	if (
 		formData.endringAfpPrivat ||
 		(formData.endringAP && formData.afp === 'ja_privat')
@@ -131,13 +135,12 @@ export function mapBeregningParamsToRequest(
 		eps: erEndring
 			? null
 			: {
-					levende:
-						formData.beregnMedGjenlevenderett && !epsPid && !epsDoedsdato
-							? {
-									harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
-									harPensjon: Boolean(formData.epsHarPensjon),
-								}
-							: undefined,
+					levende: !formData.beregnMedGjenlevenderett
+						? {
+								harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
+								harPensjon: Boolean(formData.epsHarPensjon),
+							}
+						: undefined,
 					avdoed:
 						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 							? {
