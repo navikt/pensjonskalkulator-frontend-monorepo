@@ -27,7 +27,6 @@ function mapEpsOpplysninger({
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
 	const registrertDoedsDato = getEpsDoedsdato(eps, vedtakInfoAvdoed)
-	const fallbackDoedsdato = format(subDays(new Date(), 1), 'yyyy-MM-dd')
 
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
@@ -37,8 +36,8 @@ function mapEpsOpplysninger({
 		{
 			label: 'Dødsdato',
 			value: registrertDoedsDato
-				? format(parseISO(registrertDoedsDato), 'dd.MM.yyyy')
-				: `Ikke registrert. ${format(parseISO(fallbackDoedsdato), 'dd.MM.yyyy')} brukes.`,
+				? format(registrertDoedsDato, 'dd.MM.yyyy')
+				: `Ikke registrert. ${format(subDays(new Date(), 1), 'dd.MM.yyyy')} brukes.`,
 		},
 	]
 

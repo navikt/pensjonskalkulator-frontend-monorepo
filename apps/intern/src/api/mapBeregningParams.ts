@@ -97,8 +97,10 @@ export function mapBeregningParamsToRequest(
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
-		? (getEpsDoedsdato(formData.epsOpplysninger) ??
-			format(subDays(new Date(), 1), DATE_BACKEND_FORMAT))
+		? format(
+				getEpsDoedsdato(formData.epsOpplysninger) ?? subDays(new Date(), 1),
+				DATE_BACKEND_FORMAT
+			)
 		: undefined
 	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
 	const utenlandsperiodeListe =
