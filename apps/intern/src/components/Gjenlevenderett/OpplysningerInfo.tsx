@@ -26,7 +26,10 @@ function mapEpsOpplysninger({
 }): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
-	const registrertDoedsDato = getEpsDoedsdato(eps, vedtakInfoAvdoed)
+	const registrertDoedsDato = getEpsDoedsdato({
+		epsOpplysninger: eps,
+		vedtakInfoAvdoed,
+	})
 
 	const opplysninger: OpplysningerInfoItem[] = [
 		{

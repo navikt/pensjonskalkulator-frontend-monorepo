@@ -98,7 +98,9 @@ export function mapBeregningParamsToRequest(
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
 		? format(
-				getEpsDoedsdato(formData.epsOpplysninger) ?? subDays(new Date(), 1),
+				getEpsDoedsdato({
+					epsOpplysninger: formData.epsOpplysninger,
+				}) ?? subDays(new Date(), 1),
 				DATE_BACKEND_FORMAT
 			)
 		: undefined
