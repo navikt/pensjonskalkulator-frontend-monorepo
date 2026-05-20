@@ -205,7 +205,6 @@ export const BeregningForm = () => {
 		!erEndring &&
 		vedtak?.ufoeretrygdgrad &&
 		uttaksgrad === 100 &&
-		afp === 'nei' &&
 		alderAarUttak &&
 		alderAarUttak < 67
 
