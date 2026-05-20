@@ -2,7 +2,7 @@ import type {
 	EpsOpplysninger,
 	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, parseISO } from 'date-fns'
+import { format, parseISO, subDays } from 'date-fns'
 
 import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
 
@@ -26,9 +26,10 @@ function mapEpsOpplysninger({
 }): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
-	const registrertDoedsDato = relasjonPersondata?.doedsdato
-	const doedsdato = getEpsDoedsdato(eps)
-	const formatertDoedsdato = format(parseISO(doedsdato), 'dd.MM.yyyy')
+	const registrertDoedsDato = getEpsDoedsdato({
+		epsOpplysninger: eps,
+		vedtakInfoAvdoed,
+	})
 
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
@@ -38,8 +39,8 @@ function mapEpsOpplysninger({
 		{
 			label: 'Dødsdato',
 			value: registrertDoedsDato
-				? formatertDoedsdato
-				: `Ikke registrert. ${formatertDoedsdato} brukes.`,
+				? format(registrertDoedsDato, 'dd.MM.yyyy')
+				: `Ikke registrert. ${format(subDays(new Date(), 1), 'dd.MM.yyyy')} brukes.`,
 		},
 	]
 

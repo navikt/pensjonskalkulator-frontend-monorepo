@@ -202,7 +202,11 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+		!erEndring &&
+		vedtak?.ufoeretrygdgrad &&
+		uttaksgrad === 100 &&
+		alderAarUttak &&
+		alderAarUttak < 67
 
 	const showUTOgAFPAlert =
 		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
@@ -219,7 +223,6 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
-						erEndring,
 					}) && (
 						<>
 							<Gjenlevenderett />

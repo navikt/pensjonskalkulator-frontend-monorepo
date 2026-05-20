@@ -1,9 +1,17 @@
-import type { EpsOpplysninger } from '@pensjonskalkulator-frontend-monorepo/types'
-import { format, subDays } from 'date-fns'
+import type {
+	EpsOpplysninger,
+	VedtakInformasjonOmAvdoed,
+} from '@pensjonskalkulator-frontend-monorepo/types'
+import { parseISO } from 'date-fns'
 
-export function getEpsDoedsdato(epsOpplysninger: EpsOpplysninger): string {
-	return (
-		epsOpplysninger.relasjonPersondata?.doedsdato ??
-		format(subDays(new Date(), 1), 'yyyy-MM-dd')
-	)
+export function getEpsDoedsdato({
+	epsOpplysninger,
+	vedtakInfoAvdoed,
+}: {
+	epsOpplysninger: EpsOpplysninger
+	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
+}): Date | undefined {
+	const doedsdato =
+		vedtakInfoAvdoed?.doedsdato ?? epsOpplysninger.relasjonPersondata?.doedsdato
+	return doedsdato ? parseISO(doedsdato) : undefined
 }
