@@ -1,5 +1,4 @@
 .selectLandWrapper,
-.dateFieldWrapper,
 .dateFieldWrapper :global(.aksel-date__field-wrapper) {
 	width: 11.75rem;
 }
@@ -11,7 +10,8 @@
 	   blir det 2 kolonner side om side, under blir det 1 kolonne stablet.
 	   Reflower automatisk både ned og opp når bredden endres. */
 	grid-template-columns: repeat(auto-fill, 11.75rem);
-	gap: 1.5rem;
+	column-gap: 1.5rem;
+	row-gap: 1rem;
 	align-items: start;
 	justify-content: start;
 }
@@ -29,8 +29,7 @@
 	width: 100%;
 }
 
-.radioFieldWrapper,
-.dateFieldWrapper {
+.radioFieldWrapper {
 	flex-shrink: 0;
 }
 
