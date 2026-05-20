@@ -1,27 +1,32 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22-slim
+ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22.12-slim
+
+FROM ${NODE_DEPLOY_IMG} AS runtime-deps
+
+WORKDIR /workspace
+COPY . .
+
+RUN corepack enable \
+  && pnpm install --frozen-lockfile \
+  && pnpm --filter=@pensjonskalkulator-frontend-monorepo/ekstern deploy --prod --legacy --strict-peer-dependencies=false /runtime
 
 FROM ${NODE_DEPLOY_IMG}
 
 ENV NODE_ENV=production
 ENV TZ="Europe/Oslo"
 
-# Copy entire node_modules structure from CI
-# Root node_modules (has .pnpm store and symlinks)
-COPY node_modules /node_modules
+WORKDIR /app
 
-# App-level node_modules (symlinks to root)
-COPY apps/ekstern/node_modules /app/node_modules
+COPY --from=runtime-deps /runtime/package.json ./package.json
+COPY --from=runtime-deps /runtime/node_modules ./node_modules
 
-# Copy pre-built server and assets to /app
-COPY apps/ekstern/package.json /app/package.json
-COPY apps/ekstern/dist/server/server.js /app/server.js
-COPY apps/ekstern/dist/server/ensureEnv.js /app/ensureEnv.js
-COPY apps/ekstern/dist/assets /app/assets
-COPY apps/ekstern/dist/index.html /app/
-COPY apps/ekstern/dist/veileder/index.html /app/veileder/index.html
-COPY apps/ekstern/dist/*.css /app/
+COPY apps/ekstern/dist/server/server.js ./server.js
+COPY apps/ekstern/dist/server/ensureEnv.js ./ensureEnv.js
+COPY apps/ekstern/dist/assets ./assets
+COPY apps/ekstern/dist/index.html ./
+COPY apps/ekstern/dist/veileder/index.html ./veileder/index.html
+COPY apps/ekstern/dist/*.css ./
 
 ENTRYPOINT ["node"]
-CMD ["/app/server.js"]
+CMD ["server.js"]

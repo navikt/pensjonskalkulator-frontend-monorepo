@@ -47,6 +47,10 @@ runs:
       shell: bash
       run: pnpm --filter=ekstern run build:server
 
+    - name: Verify production dependency deployment
+      shell: bash
+      run: pnpm --filter=ekstern deploy --prod --legacy --strict-peer-dependencies=false /tmp/ekstern-runtime
+
     - name: Save build folder
       if: inputs.save-artifact == 'true'
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0

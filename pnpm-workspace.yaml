@@ -4,6 +4,11 @@ packages:
 peerDependencyRules:
   allowedVersions:
     typescript: '>=5'
+  ignoreMissing:
+    - '@babel/runtime'
+    - '@codemirror/lint'
+    - '@codemirror/theme-one-dark'
+    - codemirror
 catalog:
   react: 19.2.4
   react-dom: 19.2.4
