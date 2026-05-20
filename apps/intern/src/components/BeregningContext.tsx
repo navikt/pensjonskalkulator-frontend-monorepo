@@ -47,7 +47,7 @@ interface BeregningContextValue {
 	fnr: string | undefined
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
-	initialInntektAar: number | undefined
+	initialInntektAar?: number
 	initialInntekt?: number
 	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 	submitBeregning: () => void

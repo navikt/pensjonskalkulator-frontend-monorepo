@@ -216,9 +216,16 @@ export function formatAfpTitle(aar: number, md: number): string {
 	return `AFP ved ${formatAlder(aar, md)}`
 }
 
-export function mapTidsbegrensetAfpToRows(
-	entry: TidsbegrensetOffentligAFP
-): BeregningTableRow[] {
+export type ServiceberegnetAfpResult = NonNullable<
+	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
+>
+
+function mapAfpToRows(entry: {
+	grunnpensjon: number
+	tilleggspensjon: number
+	afpTillegg: number
+	saertillegg: number
+}): BeregningTableRow[] {
 	return [
 		{
 			label: 'Grunnpensjon',
@@ -243,35 +250,21 @@ export function mapTidsbegrensetAfpToRows(
 	]
 }
 
-export type ServiceberegnetAfpResult = NonNullable<
-	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
->
+export function mapTidsbegrensetAfpToRows(
+	entry: TidsbegrensetOffentligAFP
+): BeregningTableRow[] {
+	return mapAfpToRows(entry)
+}
 
 export function mapServiceAfpToRows(
 	entry: ServiceberegnetAfpResult
 ): BeregningTableRow[] {
-	return [
-		{
-			label: 'Grunnpensjon',
-			value: Math.round(entry.grunnpensjon ?? 0),
-			yearlyValue: Math.round(entry.grunnpensjon ?? 0) * 12,
-		},
-		{
-			label: 'Tilleggspensjon',
-			value: Math.round(entry.tilleggspensjon ?? 0),
-			yearlyValue: Math.round(entry.tilleggspensjon ?? 0) * 12,
-		},
-		{
-			label: 'AFP-tillegg',
-			value: Math.round(entry.afpTillegg ?? 0),
-			yearlyValue: Math.round(entry.afpTillegg ?? 0) * 12,
-		},
-		{
-			label: 'Særtillegg',
-			value: Math.round(entry.sertillegg ?? 0),
-			yearlyValue: Math.round(entry.sertillegg ?? 0) * 12,
-		},
-	]
+	return mapAfpToRows({
+		grunnpensjon: entry.grunnpensjon ?? 0,
+		tilleggspensjon: entry.tilleggspensjon ?? 0,
+		afpTillegg: entry.afpTillegg ?? 0,
+		saertillegg: entry.saertillegg ?? 0,
+	})
 }
 
 export function mapServiceAfpOpptjeningRows(

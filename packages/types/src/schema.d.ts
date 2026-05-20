@@ -1643,7 +1643,7 @@ export interface components {
 			/** Format: double */
 			fpp?: number | null
 			/** Format: int32 */
-			sertillegg?: number | null
+			saertillegg?: number | null
 			/** Format: int32 */
 			afpGrad?: number | null
 			erAvkortet?: boolean | null
@@ -1901,6 +1901,63 @@ export interface components {
 			/** Format: int32 */
 			gjenlevendetillegg?: number | null
 		}
+		LagreMaanedligAlderspensjonDto: {
+			/** Format: int32 */
+			beloep: number
+			/** Format: int32 */
+			inntektspensjonBeloep?: number | null
+			/** Format: double */
+			delingstall?: number | null
+			/** Format: int32 */
+			pensjonsbeholdningFoerUttakBeloep?: number | null
+			/** Format: int32 */
+			pensjonsbeholdningEtterUttakBeloep?: number | null
+			/** Format: double */
+			sluttpoengtall?: number | null
+			/** Format: int32 */
+			poengaarTom1991?: number | null
+			/** Format: int32 */
+			poengaarFom1992?: number | null
+			/** Format: double */
+			forholdstall?: number | null
+			/** Format: int32 */
+			grunnpensjonBeloep?: number | null
+			/** Format: int32 */
+			tilleggspensjonBeloep?: number | null
+			/** Format: int32 */
+			pensjonstillegg?: number | null
+			/** Format: int32 */
+			skjermingstillegg?: number | null
+			/** Format: double */
+			kapittel19Andel?: number | null
+			/** Format: int32 */
+			kapittel19Trygdetid?: number | null
+			/** Format: int32 */
+			basispensjonBeloep?: number | null
+			/** Format: int32 */
+			restpensjonBeloep?: number | null
+			/** Format: int32 */
+			gjenlevendetillegg?: number | null
+			/** Format: double */
+			minstePensjonsnivaaSats?: number | null
+			/** Format: double */
+			kapittel20Andel?: number | null
+			/** Format: int32 */
+			kapittel20Trygdetid?: number | null
+			/** Format: int32 */
+			garantipensjonBeloep?: number | null
+			/** Format: double */
+			garantipensjonSats?: number | null
+			/** Format: int32 */
+			garantitilleggBeloep?: number | null
+		}
+		LagreMaanedligAlderspensjonForKnekkpunkterDto: {
+			vedGradertUttak?:
+				| components['schemas']['LagreMaanedligAlderspensjonDto']
+				| null
+			vedHeltUttak: components['schemas']['LagreMaanedligAlderspensjonDto']
+			vedNormertPensjonsalder: components['schemas']['LagreMaanedligAlderspensjonDto']
+		}
 		LagrePrivatAfpDto: {
 			/** Format: int32 */
 			alderAar: number
@@ -1929,7 +1986,17 @@ export interface components {
 			pensjonsgivendeInntektListe?:
 				| components['schemas']['LagreAarligBeloepDto'][]
 				| null
+			simuleringsinformasjon?:
+				| components['schemas']['LagreSimuleringsinformasjonDto']
+				| null
 			navEnhetId?: string | null
+		}
+		LagreSimuleringsinformasjonDto: {
+			gradertUttaksalder?: components['schemas']['LagreAlderDto'] | null
+			heltUttaksalder?: components['schemas']['LagreAlderDto'] | null
+			maanedligAlderspensjonForKnekkpunkter?:
+				| components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
+				| null
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
@@ -2242,6 +2309,10 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+			/** @description Hvorvidt personen har rett til gjenlevendeytelse */
+			harGjenlevenderett: boolean
+			/** @description Hvorvidt personen har opphold i utlandet */
+			harUtenlandsopphold: boolean
 		}
 		VedtakV1Samling: {
 			/** @description Hvorvidt personen har løpende eller fremtidig vedtak */

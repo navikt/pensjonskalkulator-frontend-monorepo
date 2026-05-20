@@ -1,5 +1,8 @@
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
-import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
 
@@ -131,10 +134,9 @@ export function isUttakEtterInnevaerendeAar({
 }): boolean {
 	if (!foedselsdato || alderAarUttak == null || alderMdUttak == null)
 		return false
-	const birthDate = new Date(foedselsdato)
-	const uttakYear =
-		birthDate.getFullYear() +
-		alderAarUttak +
-		Math.floor((birthDate.getMonth() + alderMdUttak + 1) / 12)
-	return uttakYear > new Date().getFullYear()
+	const uttaksdato = calculateUttaksalderAsDate(
+		{ aar: alderAarUttak, maaneder: alderMdUttak },
+		foedselsdato
+	)
+	return uttaksdato.getFullYear() > new Date().getFullYear()
 }
