@@ -127,9 +127,14 @@ app.get(
 	'/pensjon/kalkulator/api/feature/:toggle',
 	async (req: Request<{ toggle: string }>, res: Response) => {
 		const toggle = req.params.toggle
+		const hostname = req.hostname
 
 		res.send({
-			enabled: unleashConfigured ? unleash.isEnabled(toggle) : true,
+			enabled: unleashConfigured
+				? unleash.isEnabled(toggle, {
+						properties: { hostname },
+					})
+				: true,
 		})
 	}
 )

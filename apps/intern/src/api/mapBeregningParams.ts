@@ -8,7 +8,7 @@ import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
 } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
-import { format, parse } from 'date-fns'
+import { format, parse, subDays } from 'date-fns'
 
 import { getEpsDoedsdato } from '../components/Gjenlevenderett/utils'
 import type {
@@ -110,6 +110,10 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ENDRING_ALDERSPENSJON'
 	}
 
+	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
+	}
+
 	if (
 		formData.endringAfpPrivat ||
 		(formData.endringAP && formData.afp === 'ja_privat')
@@ -119,7 +123,12 @@ export function mapBeregningParamsToRequest(
 
 	const epsPid = formData.epsOpplysninger?.pid
 	const epsDoedsdato = formData.epsOpplysninger
-		? getEpsDoedsdato(formData.epsOpplysninger)
+		? format(
+				getEpsDoedsdato({
+					epsOpplysninger: formData.epsOpplysninger,
+				}) ?? subDays(new Date(), 1),
+				DATE_BACKEND_FORMAT
+			)
 		: undefined
 	const harPartnerSivilstatus = harPartner(formData.sivilstatus)
 	const harGyldigeLevendeEpsSvar =
@@ -167,15 +176,16 @@ export function mapBeregningParamsToRequest(
 		eps: erEndring
 			? null
 			: {
-					levende: harGyldigeLevendeEpsSvar
-						? {
-								harInntektOver2G:
-									formData.epsHarPensjon === false
-										? Boolean(formData.epsHarInntektOver2G)
-										: false,
-								harPensjon: Boolean(formData.epsHarPensjon),
-							}
-						: undefined,
+					levende:
+						harGyldigeLevendeEpsSvar && !formData.beregnMedGjenlevenderett
+							? {
+									harInntektOver2G:
+										formData.epsHarPensjon === false
+											? Boolean(formData.epsHarInntektOver2G)
+											: false,
+									harPensjon: Boolean(formData.epsHarPensjon),
+								}
+							: undefined,
 					avdoed:
 						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 							? {

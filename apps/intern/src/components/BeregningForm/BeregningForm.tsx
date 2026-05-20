@@ -43,6 +43,7 @@ import {
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
 import {
+	getForTidligEndringAvUttaksgradDato,
 	getUttaksGradArray,
 	showBeregnMedGjenlevenderett,
 	showSivilstatus,
@@ -117,6 +118,10 @@ export const BeregningForm = () => {
 	})
 
 	const [alertDismissed, setAlertDismissed] = useState(false)
+	const [
+		forTidligEndringAvUttaksgradDato,
+		setForTidligEndringAvUttaksgradDato,
+	] = useState<string | null>(null)
 
 	const { initialInntekt } = useBeregningContext()
 
@@ -131,13 +136,19 @@ export const BeregningForm = () => {
 		}
 	}
 
+	useEffect(() => {
+		setForTidligEndringAvUttaksgradDato(null)
+	}, [alderAarUttak, alderMdUttak, uttaksgrad])
+
 	const handleReset = useCallback(() => {
 		setAlertDismissed(true)
+		setForTidligEndringAvUttaksgradDato(null)
 		resetForm()
 	}, [resetForm])
 
 	const handleSubmit = () => {
 		form.clearErrors()
+		setForTidligEndringAvUttaksgradDato(null)
 		const formData = form.getValues()
 		const normalizedFormData =
 			formData.harOppholdUtenforNorge === true
@@ -158,6 +169,19 @@ export const BeregningForm = () => {
 			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
 				form.setError(key, { message: errors[key] })
 			}
+			return
+		}
+
+		const tidligsteEndringsdato = getForTidligEndringAvUttaksgradDato({
+			vedtak,
+			foedselsdato: person?.foedselsdato,
+			uttaksgrad: normalizedFormData.uttaksgrad,
+			alderAarUttak: normalizedFormData.alderAarUttak,
+			alderMdUttak: normalizedFormData.alderMdUttak,
+		})
+
+		if (tidligsteEndringsdato) {
+			setForTidligEndringAvUttaksgradDato(tidligsteEndringsdato)
 			return
 		}
 
@@ -205,7 +229,11 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring && vedtak?.ufoeretrygdgrad && uttaksgrad === 100 && afp === 'nei'
+		!erEndring &&
+		vedtak?.ufoeretrygdgrad &&
+		uttaksgrad === 100 &&
+		alderAarUttak &&
+		alderAarUttak < 67
 
 	const showUTOgAFPAlert =
 		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
@@ -288,7 +316,6 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
-						erEndring,
 					}) && (
 						<>
 							<Gjenlevenderett />
@@ -381,6 +408,16 @@ export const BeregningForm = () => {
 						)}
 						<Divider noMargin />
 					</>
+				)}
+				{forTidligEndringAvUttaksgradDato && (
+					<SanityAlert
+						id="beregning.ugyldig-uttaksgrad"
+						className={styles.sanityAlert}
+						dynamicValues={{
+							'tidligst-endring-uttaksgrad-dato':
+								forTidligEndringAvUttaksgradDato,
+						}}
+					/>
 				)}
 				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
 					vilkaarAlternativHelt &&

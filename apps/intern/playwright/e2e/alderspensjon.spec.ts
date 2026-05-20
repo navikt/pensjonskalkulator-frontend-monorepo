@@ -3,6 +3,7 @@ import { type Page, expect, test } from '@playwright/test'
 import { mockApi } from '../utils/mock'
 import {
 	API_URLS,
+	MOCK_FILES,
 	navigateToApp,
 	setupDefaultMocks,
 } from '../utils/test-helpers'
@@ -28,6 +29,41 @@ async function submitAndExpectSimulering(page: Page) {
 
 	const response = await simuleringResponse
 	expect(response.ok()).toBeTruthy()
+}
+
+async function setupLoependeAlderspensjonFoerEndringsfrist(page: Page) {
+	await setupDefaultMocks(page)
+	await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK, {
+		loependeAlderspensjon: {
+			grad: 100,
+			uttaksgradFom: '2031-01-01',
+		},
+	})
+}
+
+async function fillEndringAvUttaksgradFoerEndringsfrist(page: Page) {
+	await page.getByTestId('afp').getByLabel('Nei').check()
+	await page.getByTestId('inntekt-foer-uttak').fill('500000')
+	await page.getByTestId('alder-uttak-aar').selectOption('67')
+	await page.getByTestId('alder-uttak-md').selectOption('3')
+	await page.getByTestId('uttaksgrad').selectOption('60')
+	await page.getByTestId('inntekt-vsa-gradert-uttak').fill('300000')
+	await page.getByTestId('alder-helt-uttak-aar').selectOption('70')
+	await page.getByTestId('alder-helt-uttak-md').selectOption('0')
+	await page.getByTestId('har-inntekt-vsa-helt-uttak').getByLabel('Nei').check()
+}
+
+function trackSimuleringRequests(page: Page) {
+	let simuleringRequests = 0
+	page.on('request', (request) => {
+		if (
+			request.method() === 'POST' &&
+			request.url().includes('/api/intern/v1/pensjon/simulering')
+		) {
+			simuleringRequests += 1
+		}
+	})
+	return () => simuleringRequests
 }
 
 test.describe('Alderspensjon beregning', () => {
@@ -293,6 +329,25 @@ test.describe('Alderspensjon beregning', () => {
 					/uttaksalder for 100 % alderspensjon må være senere enn alder for gradert pensjon/i
 				)
 			).toBeVisible()
+		})
+
+		test('viser Sanity-varsel når løpende alderspensjon endres til annen grad før 12 måneder', async ({
+			page,
+		}) => {
+			await setupLoependeAlderspensjonFoerEndringsfrist(page)
+			await navigateToApp(page)
+			await fillEndringAvUttaksgradFoerEndringsfrist(page)
+			const getSimuleringRequestCount = trackSimuleringRequests(page)
+
+			await page.getByTestId('beregn-button').click()
+
+			await expect(page.getByText('Ugyldig uttaksgrad')).toBeVisible()
+			await expect(
+				page.getByText(
+					'Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra 01.01.2032.'
+				)
+			).toBeVisible()
+			expect(getSimuleringRequestCount()).toBe(0)
 		})
 
 		test('viser feilmelding når inntekt mangler', async ({ page }) => {
