@@ -213,7 +213,7 @@ export const Beregning = () => {
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
-			<Tabs value={activeTab} onChange={setActiveTab}>
+			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
 					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
@@ -299,7 +299,7 @@ export const Beregning = () => {
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
 						<div style={{ maxWidth: '66%' }}>
-							<SanityVilkaarligForbehold ctx={forbeholdContext} />
+							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
 						</div>
 					</Tabs.Panel>
 				)}

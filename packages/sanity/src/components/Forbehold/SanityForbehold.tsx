@@ -11,6 +11,7 @@ interface Props {
 	avsnitt: ForbeholdAvsnittQueryResult
 	title?: React.ReactNode
 	avsnittTestId?: string
+	size?: 'small' | 'medium'
 }
 
 /**
@@ -22,6 +23,7 @@ export const SanityForbehold = ({
 	avsnitt,
 	title = 'Forbehold',
 	avsnittTestId,
+	size = 'medium',
 }: Props) => {
 	const intl = useIntl()
 
@@ -32,17 +34,25 @@ export const SanityForbehold = ({
 
 	return (
 		<>
-			<Heading level="2" size="medium" spacing>
+			<Heading level="2" size={size} spacing>
 				{title}
 			</Heading>
 			{avsnitt.map((forbeholdAvsnitt, i) => {
 				const key = forbeholdAvsnitt._id ?? i
 				return forbeholdAvsnitt.overskrift ? (
 					<section data-testid={avsnittTestId} key={key}>
-						<Heading level="3" size="small" spacing>
+						<Heading
+							level="3"
+							size={size === 'medium' ? 'small' : 'xsmall'}
+							spacing
+						>
 							{forbeholdAvsnitt.overskrift}
 						</Heading>
-						<BodyLong spacing as="div">
+						<BodyLong
+							size={size === 'medium' ? 'medium' : 'small'}
+							spacing
+							as="div"
+						>
 							<PortableText
 								value={forbeholdAvsnitt.innhold}
 								components={portableTextComponents}
@@ -50,7 +60,13 @@ export const SanityForbehold = ({
 						</BodyLong>
 					</section>
 				) : (
-					<BodyLong data-testid={avsnittTestId} key={key} spacing as="div">
+					<BodyLong
+						size={size === 'medium' ? 'medium' : 'small'}
+						data-testid={avsnittTestId}
+						key={key}
+						spacing
+						as="div"
+					>
 						<PortableText
 							value={forbeholdAvsnitt.innhold}
 							components={portableTextComponents}
