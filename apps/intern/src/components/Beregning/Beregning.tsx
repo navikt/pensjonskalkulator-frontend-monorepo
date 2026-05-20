@@ -298,7 +298,9 @@ export const Beregning = () => {
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<SanityVilkaarligForbehold ctx={forbeholdContext} />
+						<div style={{ maxWidth: '66%' }}>
+							<SanityVilkaarligForbehold ctx={forbeholdContext} />
+						</div>
 					</Tabs.Panel>
 				)}
 			</Tabs>
