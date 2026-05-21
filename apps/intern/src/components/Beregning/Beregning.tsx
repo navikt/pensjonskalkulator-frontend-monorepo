@@ -6,15 +6,7 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import {
-	BodyLong,
-	Box,
-	Checkbox,
-	HStack,
-	Loader,
-	Tabs,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -159,6 +151,15 @@ export const Beregning = () => {
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
 	}
+	const showGradertFirst =
+		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+
+	const visAarsbelopCheckbox = (
+		<Checkbox onChange={(e) => setVisAarsbelop(e.target.checked)} size="small">
+			Vis årsbeløp
+		</Checkbox>
+	)
+
 	const gradertAfpSection = (
 		<BeregningSection
 			title={titleGradertUttak || ''}
@@ -176,6 +177,7 @@ export const Beregning = () => {
 			erUttaksgradNull={erUttaksgradNull}
 			visAarsbelop={visAarsbelop}
 			testId="beregning-section-gradert"
+			headerRight={showGradertFirst ? visAarsbelopCheckbox : undefined}
 		/>
 	)
 	const renderNormertAfpSection = ({ testId }: { testId: string }) => {
@@ -224,14 +226,6 @@ export const Beregning = () => {
 							{ufoeretrygdBeregningInfo}
 						</BodyLong>
 					)}
-					<HStack justify="end" padding="space-8">
-						<Checkbox
-							onChange={(e) => setVisAarsbelop(e.target.checked)}
-							size="small"
-						>
-							Vis årsbeløp
-						</Checkbox>
-					</HStack>
 					<VStack
 						gap="space-32"
 						className={isBeregningLoading ? styles.loadingOverlay : undefined}
@@ -289,6 +283,7 @@ export const Beregning = () => {
 									(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 								}
 								testId="beregning-section-helt"
+								headerRight={!showGradertFirst ? visAarsbelopCheckbox : undefined}
 							/>
 						)}
 						{!erServiceberegning &&

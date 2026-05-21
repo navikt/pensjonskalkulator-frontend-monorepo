@@ -28,8 +28,8 @@ export const SanityForbehold = ({
 	const intl = useIntl()
 
 	const portableTextComponents = React.useMemo(
-		() => getSanityPortableTextComponents(intl),
-		[intl]
+		() => getSanityPortableTextComponents(intl, undefined, undefined, size),
+		[intl, size]
 	)
 
 	return (

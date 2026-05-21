@@ -2,8 +2,9 @@ import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { ReactNode } from 'react'
 
-import { Heading, VStack } from '@navikt/ds-react'
+import { HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
@@ -29,6 +30,7 @@ interface BeregningSectionProps {
 	erUttaksgradNull?: boolean
 	totalAddToSum?: number
 	testId?: string
+	headerRight?: ReactNode
 }
 
 export const BeregningSection = ({
@@ -49,6 +51,7 @@ export const BeregningSection = ({
 	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
+	headerRight,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -59,9 +62,12 @@ export const BeregningSection = ({
 	return (
 		<VStack gap="space-12" data-testid={testId}>
 			{(showAfp || !erUttaksgradNull) && (
-				<Heading level="3" size="small">
-					{title}
-				</Heading>
+				<HStack justify="space-between" align="center">
+					<Heading level="3" size="small">
+						{title}
+					</Heading>
+					{headerRight}
+				</HStack>
 			)}
 			<div
 				className={styles.tableGrid}

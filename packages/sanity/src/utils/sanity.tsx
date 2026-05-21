@@ -26,7 +26,8 @@ export const createSanityAppClient = ({
 export const getSanityPortableTextComponents = (
 	intl: IntlShape,
 	onLinkClick?: () => void,
-	dynamicValues?: DynamicValues
+	dynamicValues?: DynamicValues,
+	size?: 'small' | 'medium'
 ): Partial<PortableTextReactComponents> => {
 	return {
 		types: {
@@ -36,8 +37,16 @@ export const getSanityPortableTextComponents = (
 			},
 		},
 		list: {
-			bullet: ({ children }) => <List as="ul">{children}</List>,
-			number: ({ children }) => <List as="ol">{children}</List>,
+			bullet: ({ children }) => (
+				<List as="ul" size={size}>
+					{children}
+				</List>
+			),
+			number: ({ children }) => (
+				<List as="ol" size={size}>
+					{children}
+				</List>
+			),
 		},
 		listItem: {
 			bullet: ({ children }) => <List.Item>{children}</List.Item>,
