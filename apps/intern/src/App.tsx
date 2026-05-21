@@ -175,6 +175,7 @@ const AppContent = () => {
 			<BeregningProvider
 				initialSivilstatus={person?.sivilstatus}
 				initialInntekt={inntekt?.beloep}
+				initialInntektAar={inntekt?.aar}
 			>
 				<BeregningLayout />
 			</BeregningProvider>

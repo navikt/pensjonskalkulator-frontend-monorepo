@@ -1,6 +1,10 @@
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
-import type { BeregningFormData } from './beregningTypes'
+import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
 
 export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
@@ -69,6 +73,12 @@ export function showInntektGradertFields(uttaksgrad: number | null): boolean {
 	return showGradertUttakFields(uttaksgrad)
 }
 
+export function showAlderspensjonFields(
+	afp: InternAfpRadio | undefined
+): boolean {
+	return afp !== undefined
+}
+
 export function showHarInntektVedSidenAvUttak(
 	uttaksgrad: number | null
 ): boolean {
@@ -97,4 +107,36 @@ export function validateGradertUttakRequired(formData: BeregningFormData): {
 	}
 
 	return errors
+}
+
+export function showAfpOffentligFields({
+	afp,
+	foedselsdato,
+}: {
+	afp: InternAfpRadio | undefined
+	foedselsdato: string | undefined
+}): boolean {
+	return (
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
+		!!foedselsdato &&
+		isFoedtFoer1963(foedselsdato)
+	)
+}
+
+export function isUttakEtterInnevaerendeAar({
+	foedselsdato,
+	alderAarUttak,
+	alderMdUttak,
+}: {
+	foedselsdato: string | undefined
+	alderAarUttak: number | null
+	alderMdUttak: number | null
+}): boolean {
+	if (!foedselsdato || alderAarUttak == null || alderMdUttak == null)
+		return false
+	const uttaksdato = calculateUttaksalderAsDate(
+		{ aar: alderAarUttak, maaneder: alderMdUttak },
+		foedselsdato
+	)
+	return uttaksdato.getFullYear() > new Date().getFullYear()
 }

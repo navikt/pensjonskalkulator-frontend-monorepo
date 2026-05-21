@@ -4,9 +4,7 @@ import {
 	type ForbeholdVilkaarTag,
 } from '../schemaTypes/forbeholdVilkaarTags'
 
-const KNOWN_TAGS = new Set<string>(
-	FORBEHOLD_VILKAAR_TAGS.map((t) => t.value)
-)
+const KNOWN_TAGS = new Set<string>(FORBEHOLD_VILKAAR_TAGS.map((t) => t.value))
 
 interface BetingelseLike {
 	tag?: string | null

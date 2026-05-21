@@ -13,6 +13,7 @@ import { toRawValue } from './utils'
 interface RHFTextFieldProps {
 	name: keyof BeregningFormData
 	label: string
+	description?: string
 	style?: React.CSSProperties
 	formatError?: string
 	testId?: string
@@ -21,6 +22,7 @@ interface RHFTextFieldProps {
 export function RHFTextField({
 	name,
 	label,
+	description,
 	style,
 	formatError,
 	testId,
@@ -57,6 +59,7 @@ export function RHFTextField({
 	return (
 		<TextField
 			label={label}
+			description={description}
 			size="small"
 			type="text"
 			inputMode="numeric"

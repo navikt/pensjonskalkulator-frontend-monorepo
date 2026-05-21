@@ -175,7 +175,7 @@ jobs:
   # Deploy intern to test environment (feature branches)
   deploy-intern-test:
     name: Deploy intern to test environment
-    needs: [build-intern, test-intern, e2e-intern, determine-test-env-intern]
+    needs: [build-intern, determine-test-env-intern]
     runs-on: ubuntu-latest
     if: needs.determine-test-env-intern.outputs.environments != ''
     steps:

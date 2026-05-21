@@ -1,4 +1,5 @@
 import type {
+	PersonInternV1,
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
 	SimuleringsType,
@@ -14,6 +15,7 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
+import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
@@ -31,12 +33,25 @@ const mapUtenlandsperiodeListe = (
 	)
 
 export function mapBeregningParamsToRequest(
-	formData: BeregningFormData
+	formData: BeregningFormData,
+	person?: PersonInternV1,
+	grunnbeloep?: Grunnbeloep
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
 		maaneder: formData.alderMdUttak ?? 0,
 	}
+
+	const foedselsdato = new Date(person?.foedselsdato ?? '')
+
+	const skalBeregneAfpKap19 =
+		formData.afp === 'ja_offentlig' && foedselsdato.getFullYear() < 1963
+
+	const skalBeregneServiceberegnetAfp =
+		formData.afp === 'serviceberegning' && foedselsdato.getFullYear() < 1963
+
+	const skalBeregneTidsbegrensetOffentligAfp =
+		skalBeregneAfpKap19 || skalBeregneServiceberegnetAfp
 
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
@@ -53,7 +68,7 @@ export function mapBeregningParamsToRequest(
 		formData.aarligInntektFoerUttakBeloep ?? undefined
 
 	const grad = formData.uttaksgrad ?? 0
-	const erGradert = grad < 100
+	const erGradert = grad < 100 && grad !== 0
 
 	const aarligInntektVsaPensjonGradert =
 		erGradert &&
@@ -78,7 +93,17 @@ export function mapBeregningParamsToRequest(
 
 	if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
+	} else if (skalBeregneAfpKap19) {
+		simuleringstype = 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP'
 	}
+
+	if (formData.afp === 'serviceberegning') {
+		simuleringstype = 'SERVICEBEREGN_AFP'
+	}
+
+	const inntektVsaAfp = skalBeregneTidsbegrensetOffentligAfp
+		? formData.aarsinntektSamtidigMedAfp
+		: undefined
 
 	if (formData.endringAP) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON'
@@ -114,13 +139,18 @@ export function mapBeregningParamsToRequest(
 		simuleringstype,
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		utenlandsperiodeListe,
-		gradertUttak: erGradert
-			? {
-					grad,
-					uttaksalder,
-					aarligInntektVsaPensjonBeloep: aarligInntektVsaPensjonGradert,
-				}
-			: undefined,
+		gradertUttak:
+			erGradert || skalBeregneTidsbegrensetOffentligAfp
+				? {
+						grad: skalBeregneTidsbegrensetOffentligAfp ? 100 : grad,
+						uttaksalder: skalBeregneTidsbegrensetOffentligAfp
+							? heltUttaksalder
+							: uttaksalder,
+						aarligInntektVsaPensjonBeloep: skalBeregneTidsbegrensetOffentligAfp
+							? inntektVsaAfp
+							: aarligInntektVsaPensjonGradert,
+					}
+				: undefined,
 		heltUttak: {
 			uttaksalder: heltUttaksalder,
 			aarligInntektVsaPensjon:
@@ -142,7 +172,10 @@ export function mapBeregningParamsToRequest(
 			: {
 					levende: !formData.beregnMedGjenlevenderett
 						? {
-								harInntektOver2G: Boolean(formData.epsHarInntektOver2G),
+								harInntektOver2G:
+									formData.epsHarPensjon === false
+										? Boolean(formData.epsHarInntektOver2G)
+										: false,
 								harPensjon: Boolean(formData.epsHarPensjon),
 							}
 						: undefined,
@@ -164,5 +197,25 @@ export function mapBeregningParamsToRequest(
 								}
 							: undefined,
 				},
+		offentligAfp: skalBeregneAfpKap19
+			? {
+					harInntektMaanedenFoerUttak:
+						formData.inntektSisteMaanedFoerUttak != null &&
+						grunnbeloep?.grunnbeløpPerMåned != null
+							? formData.inntektSisteMaanedFoerUttak >
+								grunnbeloep.grunnbeløpPerMåned
+							: null,
+					afpOrdning: 'STATLIG',
+				}
+			: skalBeregneServiceberegnetAfp
+				? {
+						inntektForrigeKalenderaar:
+							formData.pensjonsgivendeInntektForrigeAar ?? undefined,
+						inntektFremTilUttak:
+							formData.pensjonsgivendeInntektFremTilUttak ?? undefined,
+						inntektMaanedFoerAfp: formData.inntektSisteMaanedFoerUttak,
+						afpOrdning: 'STATLIG',
+					}
+				: undefined,
 	}
 }

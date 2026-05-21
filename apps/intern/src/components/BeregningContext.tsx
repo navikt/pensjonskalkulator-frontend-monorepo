@@ -4,6 +4,7 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -25,10 +26,12 @@ import {
 	type BeregningResult,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { harPartner } from '../api/formConditions'
+import { harPartner, showAfpOffentligFields } from '../api/formConditions'
+import { mapBeregningParamsToRequest } from '../api/mapBeregningParams'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useGrunnbeloepQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -45,6 +48,8 @@ interface BeregningContextValue {
 	fnr: string | undefined
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
+	initialInntektAar?: number
+	initialInntekt?: number
 	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 	submitBeregning: () => void
 	resetForm: () => void
@@ -55,6 +60,7 @@ const BeregningContext = createContext<BeregningContextValue | null>(null)
 interface BeregningProviderProps {
 	children: ReactNode
 	initialInntekt?: number
+	initialInntektAar?: number
 	initialSivilstatus?: Sivilstatus
 }
 
@@ -64,6 +70,7 @@ const cloneBeregningParams = (values: BeregningFormData): BeregningParams =>
 export function BeregningProvider({
 	children,
 	initialInntekt,
+	initialInntektAar,
 	initialSivilstatus,
 }: BeregningProviderProps) {
 	const form = useForm<BeregningFormData>({
@@ -101,6 +108,7 @@ export function BeregningProvider({
 	const { data: fnr } = useDecryptPidQuery(pid)
 	const { data: person } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
+	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
 
 	const { isDirty: formIsDirty } = form.formState
@@ -114,6 +122,9 @@ export function BeregningProvider({
 		harInntektVedSidenAvUttak,
 		uttaksgrad,
 		beregnMedGjenlevenderett,
+		afp,
+		alderAarUttak,
+		alderMdUttak,
 	] = useWatch({
 		control: form.control,
 		name: [
@@ -122,6 +133,9 @@ export function BeregningProvider({
 			'harInntektVedSidenAvUttak',
 			'uttaksgrad',
 			'beregnMedGjenlevenderett',
+			'afp',
+			'alderAarUttak',
+			'alderMdUttak',
 		] as const,
 	})
 
@@ -140,6 +154,22 @@ export function BeregningProvider({
 			})
 		}
 	}, [beregnMedGjenlevenderett, form])
+
+	useEffect(() => {
+		if (
+			!showAfpOffentligFields({
+				afp,
+				foedselsdato: person?.foedselsdato,
+			})
+		) {
+			form.setValue('inntektSisteMaanedFoerUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('aarsinntektSamtidigMedAfp', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [afp, person?.foedselsdato, form])
 
 	useEffect(() => {
 		if (!harPartner(sivilstatus)) {
@@ -191,6 +221,50 @@ export function BeregningProvider({
 		}
 	}, [uttaksgrad, form])
 
+	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
+	const forrigeAar = new Date().getFullYear() - 1
+	const uttaksAar =
+		person?.foedselsdato && harAlderUttak
+			? calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				).getFullYear()
+			: null
+	const harUttakIForrigeAarEllerTidligere =
+		uttaksAar !== null && uttaksAar <= forrigeAar
+	const harIkkeForrigeAarsInntekt =
+		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
+
+	useEffect(() => {
+		if (!harAlderUttak) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('pensjonsgivendeInntektFremTilUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('inntektSisteMaanedFoerUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('aarsinntektSamtidigMedAfp', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harAlderUttak, form])
+
+	useEffect(() => {
+		if (!harIkkeForrigeAarsInntekt) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harIkkeForrigeAarsInntekt, form])
+
 	const submitBeregning = useCallback(() => {
 		const values = cloneBeregningParams(form.getValues())
 		setPendingBeregning(values)
@@ -202,14 +276,24 @@ export function BeregningProvider({
 			...defaultBeregningFormData,
 			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
 			...(initialSivilstatus ? { sivilstatus: initialSivilstatus } : {}),
+			...{
+				...(initialInntekt !== undefined
+					? { aarligInntektFoerUttakBeloep: initialInntekt }
+					: {}),
+			},
 		})
 		setPendingBeregning(null)
-	}, [form, person?.sivilstatus, initialSivilstatus])
+	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
+
+	const pendingRequest = pendingBeregning
+		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep)
+		: null
+
 	const {
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingBeregning)
+	} = useBeregningQuery(fnr, pendingRequest)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {
@@ -230,6 +314,8 @@ export function BeregningProvider({
 					isBeregningLoading,
 					beregningError,
 					vedtak,
+					initialInntektAar,
+					initialInntekt,
 					omstillingsstoenad,
 					submitBeregning,
 					resetForm,

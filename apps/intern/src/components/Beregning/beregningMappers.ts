@@ -1,8 +1,10 @@
 import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
+	TidsbegrensetOffentligAFP,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
+import type { BeregningResult } from '../../api/beregningTypes'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
@@ -200,10 +202,144 @@ export function mapPrivatAfp(
 	]
 }
 
+function formatAlder(aar: number, md: number): string {
+	return md > 0
+		? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
+		: `${aar} år`
+}
+
 export function formatAlderTitle(aar: number, md: number): string {
-	const alderText =
-		md > 0
-			? `${aar} år og ${md} ${md !== 1 ? 'måneder' : 'måned'}`
-			: `${aar} år`
-	return `Pensjon ved ${alderText}`
+	return `Pensjon ved ${formatAlder(aar, md)}`
+}
+
+export function formatAfpTitle(aar: number, md: number): string {
+	return `AFP ved ${formatAlder(aar, md)}`
+}
+
+export type ServiceberegnetAfpResult = NonNullable<
+	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
+>
+
+export function mapAfpToRows(entry: {
+	grunnpensjon: number
+	tilleggspensjon: number
+	afpTillegg: number
+	saertillegg: number
+}): BeregningTableRow[] {
+	return [
+		{
+			label: 'Grunnpensjon',
+			value: Math.round(entry.grunnpensjon),
+			yearlyValue: Math.round(entry.grunnpensjon) * 12,
+		},
+		{
+			label: 'Tilleggspensjon',
+			value: Math.round(entry.tilleggspensjon),
+			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
+		},
+		{
+			label: 'AFP-tillegg',
+			value: Math.round(entry.afpTillegg),
+			yearlyValue: Math.round(entry.afpTillegg) * 12,
+		},
+		{
+			label: 'Særtillegg',
+			value: Math.round(entry.saertillegg),
+			yearlyValue: Math.round(entry.saertillegg) * 12,
+		},
+	]
+}
+
+export function mapServiceAfpOpptjeningRows(
+	entry: ServiceberegnetAfpResult
+): BeregningDetailRow[] {
+	const poengaar = entry.poengar ?? null
+	const poengaarF92 = entry.poeangarF92 ?? null
+	const poengaarE91 = entry.poeangarE91 ?? null
+
+	return [
+		{
+			label: 'AFP grad',
+			value: `${entry.afpGrad} %`,
+		},
+		{
+			label: 'Tidligere arbeidsinntekt',
+			value: formatKr(entry.tidligereArbeidsinntekt),
+		},
+		{
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbelop),
+		},
+		{
+			label: 'Sluttpoengtall',
+			value:
+				entry.sluttpoengtall != null
+					? entry.sluttpoengtall.toLocaleString('nb-NO', {
+							maximumFractionDigits: 2,
+						})
+					: '',
+		},
+		{
+			label: 'Poengår',
+			value: poengaar != null ? `${poengaar} år` : '',
+		},
+		{
+			label: 'Trygdetid',
+			value: entry.trygdetid != null ? `${entry.trygdetid} år` : '',
+		},
+		{
+			label: 'Poengår før 1992 (45 %)',
+			value:
+				poengaarF92 != null && poengaar != null
+					? `${poengaarF92} av ${poengaar} år`
+					: '',
+		},
+		{
+			label: 'Poengår etter 1991 (42 %)',
+			value:
+				poengaarE91 != null && poengaar != null
+					? `${poengaarE91} av ${poengaar} år`
+					: '',
+		},
+	]
+}
+
+export function mapTidsbegrensetAfpOpptjeningToRows(
+	entry: TidsbegrensetOffentligAFP
+): BeregningDetailRow[] {
+	const totalPoengaar = entry.poengaarTom1991 + entry.poengaarFom1992
+	return [
+		{
+			label: 'AFP grad',
+			value: `${entry.afpGrad} %`,
+		},
+		{
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbeloep),
+		},
+		{
+			label: 'Tidligere arbeidsinntekt',
+			value: formatKr(entry.tidligereArbeidsinntekt),
+		},
+		{
+			label: 'Sluttpoengtall',
+			value: formatNumber(entry.sluttpoengtall, 2),
+		},
+		{
+			label: 'Poengår',
+			value: `${totalPoengaar} år`,
+		},
+		{
+			label: 'Trygdetid',
+			value: formatAar(entry.trygdetid),
+		},
+		{
+			label: 'Poengår før 1992 (45 %)',
+			value: `${entry.poengaarTom1991} av ${totalPoengaar} år`,
+		},
+		{
+			label: 'Poengår etter 1991 (42 %)',
+			value: `${entry.poengaarFom1992} av ${totalPoengaar} år`,
+		},
+	]
 }
