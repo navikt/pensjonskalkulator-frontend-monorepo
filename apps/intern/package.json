@@ -45,6 +45,7 @@
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/utils": "workspace:*",
 		"@playwright/test": "catalog:",
+		"@types/express": "5.0.3",
 		"@vitejs/plugin-react": "5.1.2",
 		"concurrently": "catalog:",
 		"msw": "catalog:",

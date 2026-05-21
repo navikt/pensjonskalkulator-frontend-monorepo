@@ -526,6 +526,9 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.58.0
+      '@types/express':
+        specifier: 5.0.3
+        version: 5.0.3
       '@vitejs/plugin-react':
         specifier: 5.1.2
         version: 5.1.2(vite@7.3.2(@types/node@24.3.0)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3))
