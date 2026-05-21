@@ -1,14 +1,24 @@
 import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
-import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
-import { isAlderLikAnnenAlder } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	formatInntekt,
+	formaterAlderString,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
+import {
+	calculateUttaksalderAsDate,
+	isAlderLikAnnenAlder,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { Box } from '@navikt/ds-react'
+import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
+	isUttakEtterInnevaerendeAar,
+	showAfpOffentligFields,
+	showAlderspensjonFields,
 	showEpsHarInntektOver2G,
 	showEpsHarPensjon,
 	showGradertUttakFields,
@@ -64,6 +74,7 @@ export const BeregningForm = () => {
 		person,
 		beregning,
 		vedtak,
+		initialInntektAar,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
@@ -113,9 +124,18 @@ export const BeregningForm = () => {
 		setForTidligEndringAvUttaksgradDato,
 	] = useState<string | null>(null)
 
+	const { initialInntekt } = useBeregningContext()
+
 	useEffect(() => {
 		setAlertDismissed(false)
 	}, [aktivBeregning])
+
+	const resetAlderVelger = (newAfpValue: string) => {
+		if (afp === 'serviceberegning' && newAfpValue !== 'serviceberegning') {
+			form.setValue('alderAarUttak', null, { shouldDirty: false })
+			form.setValue('alderMdUttak', null, { shouldDirty: false })
+		}
+	}
 
 	useEffect(() => {
 		setForTidligEndringAvUttaksgradDato(null)
@@ -140,8 +160,10 @@ export const BeregningForm = () => {
 			form.setValue('utenlandsOpphold', [], { shouldDirty: false })
 		}
 		const errors = validate(normalizedFormData, {
+			foedselsdato: person?.foedselsdato,
 			erEndring,
 			hideAfpSporsmaal,
+			initialInntektAar,
 		})
 
 		if (Object.keys(errors).length > 0) {
@@ -190,6 +212,11 @@ export const BeregningForm = () => {
 			heltUttakAlder
 		)
 
+	const erAfpOffentlig = showAfpOffentligFields({
+		afp,
+		foedselsdato: person?.foedselsdato,
+	})
+
 	const hideAfpSporsmaal =
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
@@ -217,6 +244,42 @@ export const BeregningForm = () => {
 		!erEndring &&
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
+
+	const kanVelgeServiceberegning = person?.foedselsdato
+		? isFoedtFoer1963(person.foedselsdato)
+		: false
+
+	const afpOptions = [
+		{ value: 'ja_privat', label: 'Ja, privat' },
+		{ value: 'ja_offentlig', label: 'Ja, offentlig' },
+		{ value: 'nei', label: 'Nei' },
+		...(kanVelgeServiceberegning
+			? [
+					{
+						value: 'serviceberegning',
+						label: 'Serviceberegning AFP for saksbehandler',
+					},
+				]
+			: []),
+	]
+
+	const pensjonsgivendeInntektLabel = `Pensjonsgivende årsinntekt ${initialInntektAar}:`
+	const pensjonsgivendeInntektValue = `${formatInntekt(initialInntekt)} kr`
+	const forrigeAar = new Date().getFullYear() - 1
+	const uttaksAar =
+		person?.foedselsdato && alderAarUttak !== null && alderMdUttak !== null
+			? calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				).getFullYear()
+			: null
+	const harUttakIForrigeAarEllerTidligere =
+		uttaksAar !== null && uttaksAar <= forrigeAar
+	const harIkkeForrigeAarsInntekt =
+		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
+
+	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -295,12 +358,13 @@ export const BeregningForm = () => {
 						<RHFRadio
 							name="afp"
 							legend="Skal AFP inkluderes?"
-							options={[
-								{ value: 'ja_privat', label: 'Ja, privat' },
-								{ value: 'nei', label: 'Nei' },
-							]}
+							options={afpOptions}
 							className={styles.horizontalRadioGroup}
 							testid="afp"
+							onChange={(value) => {
+								setAlertDismissed(true)
+								resetAlderVelger(value)
+							}}
 						/>
 						{showUTOgAFPAlert && (
 							<SanityAlert
@@ -369,94 +433,181 @@ export const BeregningForm = () => {
 							/>
 						</div>
 					)}
-				<RHFTextField
-					name="aarligInntektFoerUttakBeloep"
-					testId="inntekt-foer-uttak"
-					label="Pensjonsgivende inntekt frem til uttak"
-				/>
-
-				<RHFAlderVelger
-					aarName="alderAarUttak"
-					mdName="alderMdUttak"
-					aarTestId="alder-uttak-aar"
-					mdTestId="alder-uttak-md"
-					foedselsdato={person?.foedselsdato}
-				/>
-
-				<RHFSelect
-					name="uttaksgrad"
-					testId="uttaksgrad"
-					label="Uttaksgrad"
-					className={styles.selectWrapper}
-					numeric
-				>
-					{uttaksgrad == null && <option value="" />}
-					{uttaksGradArray.map((grad) => (
-						<option key={grad} value={String(grad)}>
-							{grad} %
-						</option>
-					))}
-				</RHFSelect>
-				{showAPOgUTOver100Alert && (
-					<SanityAlert
-						id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
-						className={styles.sanityAlert}
-					/>
-				)}
-
-				{showGradertUttakFields(uttaksgrad) && (
-					<RHFTextField
-						name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-						testId="inntekt-vsa-gradert-uttak"
-						label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
-					/>
-				)}
-
-				{showHeltUttakAlder(uttaksgrad) && (
-					<RHFAlderVelger
-						aarName="alderAarHeltUttak"
-						mdName="alderMdHeltUttak"
-						aarTestId="alder-helt-uttak-aar"
-						mdTestId="alder-helt-uttak-md"
-						aarLabel="Alder (år) for 100 % uttak"
-						mdLabel="Alder (md.) for 100 % uttak"
-						foedselsdato={person?.foedselsdato}
-						{...(alderAarUttak !== null && alderMdUttak !== null
-							? {
-									minAlder: {
-										aar: alderMdUttak >= 11 ? alderAarUttak + 1 : alderAarUttak,
-										maaneder: (alderMdUttak + 1) % 12,
-									},
-								}
-							: {})}
-					/>
-				)}
-				{showHarInntektVedSidenAvUttak(uttaksgrad) && (
-					<RHFRadio
-						name="harInntektVedSidenAvUttak"
-						testid="har-inntekt-vsa-helt-uttak"
-						legend="Har bruker inntekt ved siden av 100 % uttak?"
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+				{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 					<>
-						<RHFTextField
-							name="pensjonsgivendeInntektVedSidenAvUttak"
-							testId="inntekt-vsa-helt-uttak"
-							label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-						/>
+						{(afp === 'serviceberegning' || afp === 'ja_offentlig') &&
+							beregning?.vilkaarsproevingsresultat.erInnvilget === false &&
+							!alertDismissed && (
+								<SanityAlert
+									id="afp.vilkaarsproeving.vilkaar-ikke-oppfylt"
+									className={styles.sanityAlert}
+								/>
+							)}
+						{afp !== 'serviceberegning' && (
+							<RHFTextField
+								name="aarligInntektFoerUttakBeloep"
+								testId="inntekt-foer-uttak"
+								label="Pensjonsgivende årsinntekt frem til uttak"
+								description={
+									afp === 'ja_offentlig' && initialInntektAar
+										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
+										: undefined
+								}
+							/>
+						)}
 
 						<RHFAlderVelger
-							aarName="alderAarInntektSlutter"
-							mdName="alderMdInntektSlutter"
-							aarTestId="alder-inntekt-slutter-aar"
-							mdTestId="alder-inntekt-slutter-md"
-							aarLabel="Alder (år) inntekt slutter"
-							mdLabel="Alder (md.) inntekt slutter"
+							aarName="alderAarUttak"
+							mdName="alderMdUttak"
+							aarTestId="alder-uttak-aar"
+							mdTestId="alder-uttak-md"
 							foedselsdato={person?.foedselsdato}
+							erServiceberegning={afp === 'serviceberegning'}
+							{...(afp === 'serviceberegning'
+								? {
+										minAlder: { aar: 62, maaneder: 0 },
+										maxAlder: { aar: 66, maaneder: 11 },
+									}
+								: {
+										...(erAfpOffentlig
+											? { maxAlder: { aar: 66, maaneder: 11 } }
+											: {}),
+									})}
 						/>
+
+						{erAfpOffentlig && (
+							<>
+								{afp === 'serviceberegning' &&
+									alderAarUttak !== null &&
+									alderMdUttak !== null && (
+										<>
+											{!harUttakIForrigeAarEllerTidligere && (
+												<HStack gap="space-4">
+													<BodyShort size="small" weight="semibold">
+														{pensjonsgivendeInntektLabel}
+													</BodyShort>
+													<BodyShort size="small">
+														{pensjonsgivendeInntektValue}
+													</BodyShort>
+												</HStack>
+											)}
+											{harIkkeForrigeAarsInntekt && (
+												<RHFTextField
+													name="pensjonsgivendeInntektForrigeAar"
+													label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
+												/>
+											)}
+											{isUttakEtterInnevaerendeAar({
+												foedselsdato: person?.foedselsdato,
+												alderAarUttak,
+												alderMdUttak,
+											}) && (
+												<RHFTextField
+													name="pensjonsgivendeInntektFremTilUttak"
+													label="Pensjonsgivende årsinntekt frem til uttak"
+												/>
+											)}
+										</>
+									)}
+
+								{(afp !== 'serviceberegning' || harAlderUttak) && (
+									<>
+										<RHFTextField
+											name="inntektSisteMaanedFoerUttak"
+											label="Inntekt siste måned før uttak"
+										/>
+										<RHFTextField
+											name="aarsinntektSamtidigMedAfp"
+											label="Årsinntekt samtidig med AFP"
+										/>
+									</>
+								)}
+							</>
+						)}
+
+						{!erAfpOffentlig && (
+							<>
+								<RHFSelect
+									name="uttaksgrad"
+									testId="uttaksgrad"
+									label="Uttaksgrad"
+									className={styles.selectWrapper}
+									numeric
+								>
+									{uttaksgrad == null && <option value="" />}
+									{uttaksGradArray.map((grad) => (
+										<option key={grad} value={String(grad)}>
+											{grad} %
+										</option>
+									))}
+								</RHFSelect>
+								{showAPOgUTOver100Alert && (
+									<SanityAlert
+										id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
+										className={styles.sanityAlert}
+									/>
+								)}
+
+								{showGradertUttakFields(uttaksgrad) && (
+									<RHFTextField
+										name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+										testId="inntekt-vsa-gradert-uttak"
+										label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+									/>
+								)}
+
+								{showHeltUttakAlder(uttaksgrad) && (
+									<RHFAlderVelger
+										aarName="alderAarHeltUttak"
+										mdName="alderMdHeltUttak"
+										aarTestId="alder-helt-uttak-aar"
+										mdTestId="alder-helt-uttak-md"
+										aarLabel="Alder (år) for 100 % uttak"
+										mdLabel="Alder (md.) for 100 % uttak"
+										foedselsdato={person?.foedselsdato}
+										{...(alderAarUttak !== null && alderMdUttak !== null
+											? {
+													minAlder: {
+														aar:
+															alderMdUttak >= 11
+																? alderAarUttak + 1
+																: alderAarUttak,
+														maaneder: (alderMdUttak + 1) % 12,
+													},
+												}
+											: {})}
+									/>
+								)}
+								{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+									<RHFRadio
+										name="harInntektVedSidenAvUttak"
+										testid="har-inntekt-vsa-helt-uttak"
+										legend="Har bruker inntekt ved siden av 100 % uttak?"
+										className={styles.horizontalRadioGroup}
+									/>
+								)}
+
+								{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+									<>
+										<RHFTextField
+											name="pensjonsgivendeInntektVedSidenAvUttak"
+											testId="inntekt-vsa-helt-uttak"
+											label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+										/>
+
+										<RHFAlderVelger
+											aarName="alderAarInntektSlutter"
+											mdName="alderMdInntektSlutter"
+											aarTestId="alder-inntekt-slutter-aar"
+											mdTestId="alder-inntekt-slutter-md"
+											aarLabel="Alder (år) inntekt slutter"
+											mdLabel="Alder (md.) inntekt slutter"
+											foedselsdato={person?.foedselsdato}
+										/>
+									</>
+								)}
+							</>
+						)}
 					</>
 				)}
 			</Box>

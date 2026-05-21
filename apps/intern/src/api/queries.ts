@@ -13,13 +13,12 @@ import {
 	useQuery,
 } from '@tanstack/react-query'
 
-import type { BeregningParams, BeregningResult } from './beregningTypes'
-import { mapBeregningParamsToRequest } from './mapBeregningParams'
+import type { BeregningResult } from './beregningTypes'
 
 export interface Grunnbeloep {
 	dato: string
 	grunnbeløp: number
-	grunnbeløpPerMaaned: number
+	grunnbeløpPerMåned: number
 	gjennomsnittPerÅr: number
 	omregningsfaktor: number
 	virkningstidspunktForMinsteinntekt: string
@@ -284,14 +283,11 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	params: BeregningParams | null
+	request: SimuleringRequestBody | null
 ) {
 	return useQuery({
-		queryKey: ['beregning', fnr, params],
-		queryFn:
-			fnr && params
-				? () => fetchBeregning(fnr, mapBeregningParamsToRequest(params))
-				: skipToken,
+		queryKey: ['beregning', fnr, request],
+		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
 	})
 }

@@ -1,3 +1,4 @@
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
 import type {
@@ -6,6 +7,8 @@ import type {
 } from '../../api/beregningTypes'
 import {
 	harPartner,
+	isUttakEtterInnevaerendeAar,
+	showAfpOffentligFields,
 	showEpsHarInntektOver2G,
 	showGradertUttakFields,
 	showInntektGradertFields,
@@ -14,8 +17,10 @@ import {
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
+	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
+	initialInntektAar?: number
 }
 
 function validateEPSOpplysninger(
@@ -133,12 +138,60 @@ function validateSivilstand(
 	}
 }
 
-function validateAfp(formData: BeregningFormData, errors: ValidationErrors) {
+function validateAfp(
+	formData: BeregningFormData,
+	errors: ValidationErrors,
+	options?: { foedselsdato?: string; initialInntektAar?: number }
+) {
 	if (formData.beregnMedGjenlevenderett) {
 		return
 	}
 	if (!formData.afp) {
 		errors.afp = 'Velg om AFP skal inkluderes.'
+	}
+
+	if (formData.afp === 'serviceberegning') {
+		if (
+			isUttakEtterInnevaerendeAar({
+				foedselsdato: options?.foedselsdato,
+				alderAarUttak: formData.alderAarUttak,
+				alderMdUttak: formData.alderMdUttak,
+			})
+		) {
+			validateInntektField({
+				formData,
+				errors,
+				field: 'pensjonsgivendeInntektFremTilUttak',
+			})
+		}
+
+		const forrigeAar = new Date().getFullYear() - 1
+		const uttaksAar =
+			options?.foedselsdato &&
+			formData.alderAarUttak !== null &&
+			formData.alderMdUttak !== null
+				? calculateUttaksalderAsDate(
+						{
+							aar: formData.alderAarUttak,
+							maaneder: formData.alderMdUttak,
+						},
+						options.foedselsdato
+					).getFullYear()
+				: null
+
+		const harUttakIForrigeAarEllerTidligere =
+			uttaksAar !== null && uttaksAar <= forrigeAar
+		const skalViseForrigeAarInntektfelt =
+			options?.initialInntektAar !== forrigeAar &&
+			!harUttakIForrigeAarEllerTidligere
+
+		if (skalViseForrigeAarInntektfelt) {
+			validateInntektField({
+				formData,
+				errors,
+				field: 'pensjonsgivendeInntektForrigeAar',
+			})
+		}
 	}
 }
 
@@ -272,6 +325,22 @@ function validateInntektVsaHeltUttak(
 	}
 }
 
+function validateTidsbegrensetOffentligAfp(
+	formData: BeregningFormData,
+	errors: ValidationErrors
+) {
+	validateInntektField({
+		formData,
+		errors,
+		field: 'inntektSisteMaanedFoerUttak',
+	})
+	validateInntektField({
+		formData,
+		errors,
+		field: 'aarsinntektSamtidigMedAfp',
+	})
+}
+
 function validateUtenlandsOpphold(
 	formData: BeregningFormData,
 	errors: ValidationErrors
@@ -305,23 +374,38 @@ export function useFormValidation() {
 	const validate = useCallback(
 		(
 			formData: BeregningFormData,
-			{ erEndring = false, hideAfpSporsmaal = false }: ValidateFormOptions = {}
+			{
+				foedselsdato,
+				erEndring = false,
+				hideAfpSporsmaal = false,
+				initialInntektAar,
+			}: ValidateFormOptions = {}
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
+
+			const erAfpOffentlig = showAfpOffentligFields({
+				afp: formData.afp,
+				foedselsdato,
+			})
 
 			validateGjenlevenderett(formData, errors)
 			if (!erEndring) {
 				validateSivilstand(formData, errors)
 			}
 			if (!hideAfpSporsmaal) {
-				validateAfp(formData, errors)
+				validateAfp(formData, errors, { foedselsdato, initialInntektAar })
 			}
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)
-			validateUttaksgrad(formData, errors)
-			validateInntektVsaGradertUttak(formData, errors)
-			validateAlderHeltMotGradert(formData, errors)
-			validateInntektVsaHeltUttak(formData, errors)
+
+			if (erAfpOffentlig) {
+				validateTidsbegrensetOffentligAfp(formData, errors)
+			} else {
+				validateUttaksgrad(formData, errors)
+				validateInntektVsaGradertUttak(formData, errors)
+				validateAlderHeltMotGradert(formData, errors)
+				validateInntektVsaHeltUttak(formData, errors)
+			}
 			if (!erEndring) {
 				validateUtenlandsOpphold(formData, errors)
 			}

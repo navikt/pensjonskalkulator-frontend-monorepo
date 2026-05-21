@@ -128,11 +128,6 @@ test.describe('AFP', () => {
 				await setupDefaultMocks(page)
 				await navigateToApp(page)
 
-				await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-				await page.getByTestId('inntekt-foer-uttak').fill('500000')
-				await page.getByTestId('alder-uttak-aar').selectOption('67')
-				await page.getByTestId('alder-uttak-md').selectOption('3')
-				await page.getByTestId('uttaksgrad').selectOption('100')
 				await page.getByTestId('beregn-button').click()
 
 				await expect(
@@ -144,11 +139,6 @@ test.describe('AFP', () => {
 				await setupDefaultMocks(page)
 				await navigateToApp(page)
 
-				await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-				await page.getByTestId('inntekt-foer-uttak').fill('500000')
-				await page.getByTestId('alder-uttak-aar').selectOption('67')
-				await page.getByTestId('alder-uttak-md').selectOption('3')
-				await page.getByTestId('uttaksgrad').selectOption('100')
 				await page.getByTestId('beregn-button').click()
 
 				await expect(

@@ -85,7 +85,7 @@ export const BeregningTableWithSum = ({
 			</Table.Header>
 			<Table.Body>
 				{validRows.map((row) => (
-					<Table.Row key={row.label}>
+					<Table.Row key={row.label + title}>
 						<Table.DataCell>
 							<BodyShort size="small">{row.label}</BodyShort>
 						</Table.DataCell>
