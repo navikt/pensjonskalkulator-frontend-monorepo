@@ -73,6 +73,7 @@ export const BeregningForm = () => {
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
+	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
 		if (erEndring) {
@@ -192,7 +193,8 @@ export const BeregningForm = () => {
 	const hideAfpSporsmaal =
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
-		harVedtakTidsbegrensetOffentligAFP
+		harVedtakTidsbegrensetOffentligAFP ||
+		nullGradAP
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
