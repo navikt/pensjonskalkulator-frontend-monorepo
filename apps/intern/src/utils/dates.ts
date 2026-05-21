@@ -29,7 +29,7 @@ const twoDigitYearTo4Digit = (yy: string): string => {
 	const year = parseInt(yy, 10)
 	const currentYear = new Date().getFullYear()
 	const currentCentury = Math.floor(currentYear / 100) * 100
-	const pivot = currentYear % 100
+	const pivot = (currentYear + 25) % 100
 	return year <= pivot
 		? `${currentCentury + year}`
 		: `${currentCentury - 100 + year}`
