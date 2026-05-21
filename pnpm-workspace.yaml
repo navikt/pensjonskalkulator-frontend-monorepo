@@ -1,9 +1,15 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+minimumReleaseAge: 10080
 peerDependencyRules:
   allowedVersions:
     typescript: '>=5'
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  msw: true
+  protobufjs: true
 catalog:
   react: 19.2.4
   react-dom: 19.2.4
