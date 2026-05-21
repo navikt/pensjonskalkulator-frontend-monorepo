@@ -278,36 +278,6 @@ export const BeregningForm = () => {
 
 	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
 
-	useEffect(() => {
-		if (!harAlderUttak) {
-			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
-				shouldDirty: false,
-				shouldValidate: false,
-			})
-			form.setValue('pensjonsgivendeInntektFremTilUttak', null, {
-				shouldDirty: false,
-				shouldValidate: false,
-			})
-			form.setValue('inntektSisteMaanedFoerUttak', null, {
-				shouldDirty: false,
-				shouldValidate: false,
-			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
-				shouldDirty: false,
-				shouldValidate: false,
-			})
-		}
-	}, [harAlderUttak, form])
-
-	useEffect(() => {
-		if (!harIkkeForrigeAarsInntekt) {
-			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
-				shouldDirty: false,
-				shouldValidate: false,
-			})
-		}
-	}, [harIkkeForrigeAarsInntekt, form])
-
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>

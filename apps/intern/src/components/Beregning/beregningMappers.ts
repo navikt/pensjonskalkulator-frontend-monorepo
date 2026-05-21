@@ -220,7 +220,7 @@ export type ServiceberegnetAfpResult = NonNullable<
 	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
 >
 
-function mapAfpToRows(entry: {
+export function mapAfpToRows(entry: {
 	grunnpensjon: number
 	tilleggspensjon: number
 	afpTillegg: number
@@ -248,23 +248,6 @@ function mapAfpToRows(entry: {
 			yearlyValue: Math.round(entry.saertillegg) * 12,
 		},
 	]
-}
-
-export function mapTidsbegrensetAfpToRows(
-	entry: TidsbegrensetOffentligAFP
-): BeregningTableRow[] {
-	return mapAfpToRows(entry)
-}
-
-export function mapServiceAfpToRows(
-	entry: ServiceberegnetAfpResult
-): BeregningTableRow[] {
-	return mapAfpToRows({
-		grunnpensjon: entry.grunnpensjon ?? 0,
-		tilleggspensjon: entry.tilleggspensjon ?? 0,
-		afpTillegg: entry.afpTillegg ?? 0,
-		saertillegg: entry.saertillegg ?? 0,
-	})
 }
 
 export function mapServiceAfpOpptjeningRows(

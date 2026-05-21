@@ -120,6 +120,9 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_privat' ||
 		aktivBeregning?.endringAfpPrivat === true
 
+	const harGradertUttakEllerAfpPrivatUtenUttak =
+		gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+
 	const shouldRenderAFPPrivatForGradertSection =
 		gradertMaanedligAlderspensjon || erUttaksgradNull
 
@@ -243,9 +246,9 @@ export const Beregning = () => {
 								/>
 							)}
 						{!erServiceberegning &&
-							(gradertMaanedligAlderspensjon ||
-								(harAfpPrivat && erUttaksgradNull)) &&
+							harGradertUttakEllerAfpPrivatUtenUttak &&
 							gradertAfpSection}
+
 						{!erServiceberegning &&
 							shouldRenderNormertAfpBeforeHeltSection &&
 							renderNormertAfpSection({

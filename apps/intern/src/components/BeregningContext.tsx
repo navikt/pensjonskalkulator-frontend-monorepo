@@ -4,6 +4,7 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -122,6 +123,8 @@ export function BeregningProvider({
 		uttaksgrad,
 		beregnMedGjenlevenderett,
 		afp,
+		alderAarUttak,
+		alderMdUttak,
 	] = useWatch({
 		control: form.control,
 		name: [
@@ -131,6 +134,8 @@ export function BeregningProvider({
 			'uttaksgrad',
 			'beregnMedGjenlevenderett',
 			'afp',
+			'alderAarUttak',
+			'alderMdUttak',
 		] as const,
 	})
 
@@ -215,6 +220,50 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
+
+	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
+	const forrigeAar = new Date().getFullYear() - 1
+	const uttaksAar =
+		person?.foedselsdato && harAlderUttak
+			? calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				).getFullYear()
+			: null
+	const harUttakIForrigeAarEllerTidligere =
+		uttaksAar !== null && uttaksAar <= forrigeAar
+	const harIkkeForrigeAarsInntekt =
+		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
+
+	useEffect(() => {
+		if (!harAlderUttak) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('pensjonsgivendeInntektFremTilUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('inntektSisteMaanedFoerUttak', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+			form.setValue('aarsinntektSamtidigMedAfp', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harAlderUttak, form])
+
+	useEffect(() => {
+		if (!harIkkeForrigeAarsInntekt) {
+			form.setValue('pensjonsgivendeInntektForrigeAar', null, {
+				shouldDirty: false,
+				shouldValidate: false,
+			})
+		}
+	}, [harIkkeForrigeAarsInntekt, form])
 
 	const submitBeregning = useCallback(() => {
 		const values = cloneBeregningParams(form.getValues())

@@ -15,7 +15,6 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
-import { harPartner } from './formConditions'
 import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
@@ -130,11 +129,6 @@ export function mapBeregningParamsToRequest(
 				DATE_BACKEND_FORMAT
 			)
 		: undefined
-	const harPartnerSivilstatus = harPartner(formData.sivilstatus)
-	const harGyldigeLevendeEpsSvar =
-		harPartnerSivilstatus &&
-		formData.epsHarPensjon !== null &&
-		(formData.epsHarPensjon === true || formData.epsHarInntektOver2G !== null)
 	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
 	const utenlandsperiodeListe =
 		formData.harOppholdUtenforNorge === true && formData.utenlandsOpphold.length
@@ -176,16 +170,15 @@ export function mapBeregningParamsToRequest(
 		eps: erEndring
 			? null
 			: {
-					levende:
-						harGyldigeLevendeEpsSvar && !formData.beregnMedGjenlevenderett
-							? {
-									harInntektOver2G:
-										formData.epsHarPensjon === false
-											? Boolean(formData.epsHarInntektOver2G)
-											: false,
-									harPensjon: Boolean(formData.epsHarPensjon),
-								}
-							: undefined,
+					levende: !formData.beregnMedGjenlevenderett
+						? {
+								harInntektOver2G:
+									formData.epsHarPensjon === false
+										? Boolean(formData.epsHarInntektOver2G)
+										: false,
+								harPensjon: Boolean(formData.epsHarPensjon),
+							}
+						: undefined,
 					avdoed:
 						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 							? {
