@@ -14,22 +14,26 @@ export function getVedtakStatus(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
+	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+	const alderspensjonString = loependeAlderspensjon
+		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.fom), 'dd.MM.yyyy')}`
+		: ''
 	if (omstillingsstoenad?.harLoependeSak) {
 		return 'Gjenlevendepensjon eller omstillingsstønad'
 	}
 
 	if (vedtak?.tidsbegrensetOffentligAfpFom) {
-		return 'AFP i offentlig sektor'
+		const AFPOffentligString = 'AFP i offentlig sektor'
+		const nullGradAP = vedtak.loependeAlderspensjon?.grad === 0
+		return nullGradAP
+			? `${alderspensjonString} / ${AFPOffentligString}`
+			: AFPOffentligString
 	}
 
 	if (!vedtak || !vedtak.harVedtak) {
 		return 'Uten vedtak'
 	}
 
-	const loependeAlderspensjon = vedtak.loependeAlderspensjon
-	const alderspensjonString = loependeAlderspensjon
-		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.fom), 'dd.MM.yyyy')}`
-		: ''
 	const afpPrivatString = vedtak.privatAfpFom ? ' / AFP i privat sektor' : ''
 
 	const ufoeretrygdString = vedtak.ufoeretrygdgrad
