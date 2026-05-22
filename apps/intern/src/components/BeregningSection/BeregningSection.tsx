@@ -2,8 +2,7 @@ import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-
-import { Heading, VStack } from '@navikt/ds-react'
+import { Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
@@ -29,6 +28,8 @@ interface BeregningSectionProps {
 	erUttaksgradNull?: boolean
 	totalAddToSum?: number
 	testId?: string
+	showVisAarsbelopCheckbox?: boolean
+	onVisAarsbelopChange?: (checked: boolean) => void
 }
 
 export const BeregningSection = ({
@@ -49,6 +50,8 @@ export const BeregningSection = ({
 	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
+	showVisAarsbelopCheckbox,
+	onVisAarsbelopChange,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -59,9 +62,19 @@ export const BeregningSection = ({
 	return (
 		<VStack gap="space-12" data-testid={testId}>
 			{(showAfp || !erUttaksgradNull) && (
-				<Heading level="3" size="small">
-					{title}
-				</Heading>
+				<HStack justify="space-between" align="center">
+					<Heading level="3" size="small">
+						{title}
+					</Heading>
+					{showVisAarsbelopCheckbox && (
+						<Checkbox
+							onChange={(e) => onVisAarsbelopChange?.(e.target.checked)}
+							size="small"
+						>
+							Vis årsbeløp
+						</Checkbox>
+					)}
+				</HStack>
 			)}
 			<div
 				className={styles.tableGrid}

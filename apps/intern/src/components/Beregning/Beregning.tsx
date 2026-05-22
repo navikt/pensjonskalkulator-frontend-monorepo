@@ -6,7 +6,7 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -151,6 +151,9 @@ export const Beregning = () => {
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
 	}
+	const showGradertFirst =
+		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+
 	const gradertAfpSection = (
 		<BeregningSection
 			title={titleGradertUttak || ''}
@@ -168,6 +171,8 @@ export const Beregning = () => {
 			erUttaksgradNull={erUttaksgradNull}
 			visAarsbelop={visAarsbelop}
 			testId="beregning-section-gradert"
+			showVisAarsbelopCheckbox={showGradertFirst}
+			onVisAarsbelopChange={setVisAarsbelop}
 		/>
 	)
 	const renderNormertAfpSection = ({ testId }: { testId: string }) => {
@@ -205,7 +210,7 @@ export const Beregning = () => {
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
-			<Tabs value={activeTab} onChange={setActiveTab}>
+			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
 					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
@@ -216,18 +221,6 @@ export const Beregning = () => {
 							{ufoeretrygdBeregningInfo}
 						</BodyLong>
 					)}
-					<Box
-						position="absolute"
-						right={{ sm: 'space-24', xl: 'space-48' }}
-						top="space-24"
-					>
-						<Checkbox
-							onChange={(e) => setVisAarsbelop(e.target.checked)}
-							size="small"
-						>
-							Vis årsbeløp
-						</Checkbox>
-					</Box>
 					<VStack
 						gap="space-32"
 						className={isBeregningLoading ? styles.loadingOverlay : undefined}
@@ -285,6 +278,8 @@ export const Beregning = () => {
 									(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 								}
 								testId="beregning-section-helt"
+								showVisAarsbelopCheckbox={!showGradertFirst}
+								onVisAarsbelopChange={setVisAarsbelop}
 							/>
 						)}
 						{!erServiceberegning &&
@@ -294,7 +289,9 @@ export const Beregning = () => {
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<SanityVilkaarligForbehold ctx={forbeholdContext} />
+						<div style={{ maxWidth: '66%' }}>
+							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
+						</div>
 					</Tabs.Panel>
 				)}
 			</Tabs>

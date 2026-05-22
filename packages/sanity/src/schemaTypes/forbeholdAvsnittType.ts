@@ -44,6 +44,29 @@ export const forbeholdAvsnittType = defineType({
 			description: 'Rekkefølge på avsnittet',
 		}),
 		defineField({
+			name: 'visEkstern',
+			title: 'Vis i ekstern kalkulator',
+			type: 'boolean',
+			description:
+				'Slå av/på om avsnittet skal vises i den eksterne kalkulatoren',
+			initialValue: true,
+		}),
+		defineField({
+			...innholdField,
+			name: 'innholdEkstern',
+			title: 'Eksternt innhold',
+			description: 'Innhold som vises i den eksterne kalkulatoren.',
+			hidden: ({ document }) => !document?.visEkstern,
+			validation: (rule) =>
+				rule.custom((value, context) => {
+					const doc = context.document as { visEkstern?: boolean } | undefined
+					if (doc?.visEkstern && (!value || value.length === 0)) {
+						return 'Påkrevd når avsnittet vises i ekstern kalkulator'
+					}
+					return true
+				}),
+		}),
+		defineField({
 			name: 'alltidSynlig',
 			title: 'Alltid synlig (Kun intern)',
 			description:
@@ -149,29 +172,6 @@ export const forbeholdAvsnittType = defineType({
 					},
 				}),
 			],
-		}),
-		defineField({
-			name: 'visEkstern',
-			title: 'Vis i ekstern kalkulator',
-			type: 'boolean',
-			description:
-				'Slå av/på om avsnittet skal vises i den eksterne kalkulatoren',
-			initialValue: true,
-		}),
-		defineField({
-			...innholdField,
-			name: 'innholdEkstern',
-			title: 'Eksternt innhold',
-			description: 'Innhold som vises i den eksterne kalkulatoren.',
-			hidden: ({ document }) => !document?.visEkstern,
-			validation: (rule) =>
-				rule.custom((value, context) => {
-					const doc = context.document as { visEkstern?: boolean } | undefined
-					if (doc?.visEkstern && (!value || value.length === 0)) {
-						return 'Påkrevd når avsnittet vises i ekstern kalkulator'
-					}
-					return true
-				}),
 		}),
 		defineField({
 			name: 'visIntern',
