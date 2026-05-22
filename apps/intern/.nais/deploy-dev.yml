@@ -67,5 +67,7 @@ spec:
       value: 'api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default'
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://pensjon-pselv-q2.dev.adeo.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
+    - name: 'VITE_PESYS_BRUKEROVERSIKT_URL'
+      value: 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
   envFrom:
     - secret: pensjonskalkulator-frontend-intern-unleash-api-token

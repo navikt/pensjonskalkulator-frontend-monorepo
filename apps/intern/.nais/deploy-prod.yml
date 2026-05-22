@@ -71,5 +71,7 @@ spec:
       value: 'api://prod-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default'
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://www.nav.no/pselv/simulering.jsf?simpleMode=true&context=pensjon'
+    - name: 'VITE_PESYS_BRUKEROVERSIKT_URL'
+      value: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
   envFrom:
     - secret: pensjonskalkulator-frontend-intern-unleash-api-token
