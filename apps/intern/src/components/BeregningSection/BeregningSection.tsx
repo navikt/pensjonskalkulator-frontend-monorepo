@@ -2,9 +2,7 @@ import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import type { ReactNode } from 'react'
-
-import { HStack, Heading, VStack } from '@navikt/ds-react'
+import { Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
@@ -30,7 +28,8 @@ interface BeregningSectionProps {
 	erUttaksgradNull?: boolean
 	totalAddToSum?: number
 	testId?: string
-	headerRight?: ReactNode
+	showVisAarsbelopCheckbox?: boolean
+	onVisAarsbelopChange?: (checked: boolean) => void
 }
 
 export const BeregningSection = ({
@@ -51,7 +50,8 @@ export const BeregningSection = ({
 	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
-	headerRight,
+	showVisAarsbelopCheckbox,
+	onVisAarsbelopChange,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -66,7 +66,14 @@ export const BeregningSection = ({
 					<Heading level="3" size="small">
 						{title}
 					</Heading>
-					{headerRight}
+					{showVisAarsbelopCheckbox && (
+						<Checkbox
+							onChange={(e) => onVisAarsbelopChange?.(e.target.checked)}
+							size="small"
+						>
+							Vis årsbeløp
+						</Checkbox>
+					)}
 				</HStack>
 			)}
 			<div
