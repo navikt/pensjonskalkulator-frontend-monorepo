@@ -9,6 +9,7 @@ interface Props {
 	ctx: ForbeholdContext
 	title?: React.ReactNode
 	avsnittTestId?: string
+	size?: 'small' | 'medium'
 }
 
 /**
@@ -23,6 +24,7 @@ export const SanityVilkaarligForbehold = ({
 	ctx,
 	title,
 	avsnittTestId,
+	size,
 }: Props) => {
 	const { forbeholdAvsnittData } = React.useContext(SanityContext)
 
@@ -39,6 +41,7 @@ export const SanityVilkaarligForbehold = ({
 			avsnitt={synligeAvsnitt}
 			title={title}
 			avsnittTestId={avsnittTestId}
+			size={size}
 		/>
 	)
 }
