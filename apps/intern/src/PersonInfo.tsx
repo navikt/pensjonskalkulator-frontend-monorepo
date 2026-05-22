@@ -14,6 +14,7 @@ import {
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
+	useFeatureToggleQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -29,6 +30,10 @@ interface PersonInfoProps {
 export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
+
+	const { data: showHentPersonButton } = useFeatureToggleQuery(
+		'internsimulator.hent-person-button'
+	)
 
 	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
@@ -63,17 +68,22 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		</>
 	)
 
+	const pesysBrukeroversiktUrl = import.meta.env
+		.VITE_PESYS_BRUKEROVERSIKT_URL as string
+
 	if (!pid) {
 		return (
 			<>
-				<HStack
-					gap="space-4"
-					align="center"
-					justify="end"
-					className={styles.personInfoWrapper}
-				>
-					{devInput}
-				</HStack>
+				{showHentPersonButton?.enabled && (
+					<HStack
+						gap="space-4"
+						align="center"
+						justify="end"
+						className={styles.personInfoWrapper}
+					>
+						{devInput}
+					</HStack>
+				)}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
 					<InfoCard.Header>
@@ -81,8 +91,14 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 					</InfoCard.Header>
 					<InfoCard.Content>
 						Du må hente en bruker i &nbsp;
-						<a href="https://pesys.nav.no/brukeroversikt">brukeroversikt</a> i
-						Pesys før du kan gjøre en beregning i Pensjonskalkulator
+						<a
+							href={pesysBrukeroversiktUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							brukeroversikt
+						</a>
+						&nbsp; i Pesys før du kan gjøre en beregning i Pensjonskalkulator
 					</InfoCard.Content>
 				</InfoCard>
 			</>

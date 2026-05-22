@@ -187,6 +187,14 @@ export const App = () => (
 	<SanityProvider>
 		<div className={styles.appContainer}>
 			<PesysHeader />
+			<GlobalAlert status="announcement" size="small" centered={false}>
+				<GlobalAlert.Header className={styles.pilotGlobalAlert}>
+					<GlobalAlert.Title>
+						Denne pensjonskalkulatoren er under utvikling. Er du ikke med i
+						piloten, skal du fortsatt bruke gammel pensjonskalkulator.
+					</GlobalAlert.Title>
+				</GlobalAlert.Header>
+			</GlobalAlert>
 			<Theme className="app-content">
 				<AppContent />
 			</Theme>
