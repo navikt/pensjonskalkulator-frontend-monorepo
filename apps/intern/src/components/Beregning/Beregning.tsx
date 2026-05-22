@@ -154,6 +154,14 @@ export const Beregning = () => {
 	const showGradertFirst =
 		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
 
+	const showCheckboxOnAfpKap19 =
+		!showGradertFirst &&
+		skalBeregneAfpKap19 &&
+		!!beregning.tidsbegrensetOffentligAfp
+
+	const showCheckboxOnHelt =
+		!showGradertFirst && !showCheckboxOnAfpKap19 && !erServiceberegning
+
 	const gradertAfpSection = (
 		<BeregningSection
 			title={titleGradertUttak || ''}
@@ -236,6 +244,8 @@ export const Beregning = () => {
 									title={titleHeltUttak}
 									entry={beregning.serviceberegnetAfp.beregnetAfp}
 									visAarsbelop={visAarsbelop}
+									showVisAarsbelopCheckbox
+									onVisAarsbelopChange={setVisAarsbelop}
 								/>
 							)}
 						{!erServiceberegning &&
@@ -255,6 +265,8 @@ export const Beregning = () => {
 									tableCount={tableCount}
 									entry={beregning.tidsbegrensetOffentligAfp}
 									visAarsbelop={visAarsbelop}
+									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
+									onVisAarsbelopChange={setVisAarsbelop}
 								/>
 							)}
 						{!erServiceberegning && (
@@ -278,7 +290,7 @@ export const Beregning = () => {
 									(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
 								}
 								testId="beregning-section-helt"
-								showVisAarsbelopCheckbox={!showGradertFirst}
+								showVisAarsbelopCheckbox={showCheckboxOnHelt}
 								onVisAarsbelopChange={setVisAarsbelop}
 							/>
 						)}

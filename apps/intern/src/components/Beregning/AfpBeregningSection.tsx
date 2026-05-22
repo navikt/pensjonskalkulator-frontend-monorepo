@@ -1,6 +1,6 @@
 import type { TidsbegrensetOffentligAFP } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import { BodyLong, Heading, VStack } from '@navikt/ds-react'
+import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
@@ -16,6 +16,8 @@ interface AfpBeregningSectionProps {
 	tableCount: number
 	entry: TidsbegrensetOffentligAFP
 	visAarsbelop: boolean
+	showVisAarsbelopCheckbox?: boolean
+	onVisAarsbelopChange?: (checked: boolean) => void
 }
 
 export const AfpBeregningSection = ({
@@ -23,15 +25,27 @@ export const AfpBeregningSection = ({
 	tableCount,
 	entry,
 	visAarsbelop,
+	showVisAarsbelopCheckbox,
+	onVisAarsbelopChange,
 }: AfpBeregningSectionProps) => {
 	const afpRows = mapAfpToRows(entry)
 	const opptjeningRows = mapTidsbegrensetAfpOpptjeningToRows(entry)
 
 	return (
 		<VStack gap="space-12">
-			<Heading level="3" size="small">
-				{title}
-			</Heading>
+			<HStack justify="space-between" align="center">
+				<Heading level="3" size="small">
+					{title}
+				</Heading>
+				{showVisAarsbelopCheckbox && (
+					<Checkbox
+						onChange={(e) => onVisAarsbelopChange?.(e.target.checked)}
+						size="small"
+					>
+						Vis årsbeløp
+					</Checkbox>
+				)}
+			</HStack>
 			<div
 				className={styles.tableGrid}
 				style={{ '--table-columns': tableCount } as React.CSSProperties}
