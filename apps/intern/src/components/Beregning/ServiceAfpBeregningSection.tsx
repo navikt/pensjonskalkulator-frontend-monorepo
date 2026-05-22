@@ -1,4 +1,4 @@
-import { BodyLong, Heading, VStack } from '@navikt/ds-react'
+import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
@@ -14,12 +14,16 @@ interface ServiceAfpBeregningSectionProps {
 	title: string
 	entry: ServiceberegnetAfpResult
 	visAarsbelop: boolean
+	showVisAarsbelopCheckbox?: boolean
+	onVisAarsbelopChange?: (checked: boolean) => void
 }
 
 export const ServiceAfpBeregningSection = ({
 	title,
 	entry,
 	visAarsbelop,
+	showVisAarsbelopCheckbox,
+	onVisAarsbelopChange,
 }: ServiceAfpBeregningSectionProps) => {
 	const afpRows = mapAfpToRows({
 		grunnpensjon: entry.grunnpensjon ?? 0,
@@ -31,9 +35,19 @@ export const ServiceAfpBeregningSection = ({
 
 	return (
 		<VStack gap="space-12">
-			<Heading level="3" size="small">
-				{title}
-			</Heading>
+			<HStack justify="space-between" align="center">
+				<Heading level="3" size="small">
+					{title}
+				</Heading>
+				{showVisAarsbelopCheckbox && (
+					<Checkbox
+						onChange={(e) => onVisAarsbelopChange?.(e.target.checked)}
+						size="small"
+					>
+						Vis årsbeløp
+					</Checkbox>
+				)}
+			</HStack>
 			<div
 				className={styles.tableGrid}
 				style={{ '--table-columns': 3 } as React.CSSProperties}
