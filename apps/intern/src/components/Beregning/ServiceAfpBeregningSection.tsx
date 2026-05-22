@@ -52,13 +52,6 @@ export const ServiceAfpBeregningSection = ({
 					)}
 				</VStack>
 				<BeregningDetailTable title="Opptjening AFP" rows={opptjeningRows} />
-				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
-					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
-					foreløpig beregning av hva du kan forvente deg i pensjon.
-					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
-					juridisk bindende.
-				</BodyLong>
 			</div>
 		</VStack>
 	)

@@ -6,7 +6,15 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, Checkbox, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Box,
+	Checkbox,
+	HGrid,
+	Loader,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
 import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -298,6 +306,15 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
+			<HGrid marginBlock="space-40" columns={3}>
+				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
+					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
+					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
+					foreløpig beregning av hva du kan forvente deg i pensjon.
+					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
+					juridisk bindende.
+				</BodyLong>
+			</HGrid>
 		</Box>
 	)
 }
