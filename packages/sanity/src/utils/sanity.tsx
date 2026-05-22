@@ -16,6 +16,14 @@ interface SanityPortableTextComponentsParams {
 	size?: PortableTextComponentSize
 }
 
+const isSanityPortableTextComponentsParams = (
+	value: IntlShape | SanityPortableTextComponentsParams
+): value is SanityPortableTextComponentsParams =>
+	'intl' in value &&
+	typeof value.intl === 'object' &&
+	value.intl !== null &&
+	'formatMessage' in value.intl
+
 export interface CreateSanityClientOptions {
 	projectId: string
 	dataset: string
@@ -43,14 +51,14 @@ export const getSanityPortableTextComponents = (
 		dynamicValues: resolvedDynamicValues,
 		size: resolvedSize,
 	} =
-		'formatMessage' in intlOrParams
-			? {
+		isSanityPortableTextComponentsParams(intlOrParams)
+			? intlOrParams
+			: {
 					intl: intlOrParams,
 					onLinkClick,
 					dynamicValues,
 					size,
 				}
-			: intlOrParams
 
 	return {
 		types: {
