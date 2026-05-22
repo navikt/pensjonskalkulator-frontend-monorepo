@@ -7,6 +7,14 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link, List } from '@navikt/ds-react'
 
 export type DynamicValues = Record<string, string>
+type PortableTextComponentSize = 'small' | 'medium'
+
+interface SanityPortableTextComponentsParams {
+	intl: IntlShape
+	onLinkClick?: () => void
+	dynamicValues?: DynamicValues
+	size?: PortableTextComponentSize
+}
 
 export interface CreateSanityClientOptions {
 	projectId: string
@@ -24,26 +32,43 @@ export const createSanityAppClient = ({
 	createClient({ projectId, dataset, useCdn, apiVersion })
 
 export const getSanityPortableTextComponents = (
-	intl: IntlShape,
+	intlOrParams: IntlShape | SanityPortableTextComponentsParams,
 	onLinkClick?: () => void,
 	dynamicValues?: DynamicValues,
-	size?: 'small' | 'medium'
+	size?: PortableTextComponentSize
 ): Partial<PortableTextReactComponents> => {
+	const {
+		intl: resolvedIntl,
+		onLinkClick: resolvedOnLinkClick,
+		dynamicValues: resolvedDynamicValues,
+		size: resolvedSize,
+	} =
+		'intl' in intlOrParams
+			? intlOrParams
+			: {
+					intl: intlOrParams,
+					onLinkClick,
+					dynamicValues,
+					size,
+				}
+
 	return {
 		types: {
 			dynamicValue: ({ value }: { value?: { key: string } }) => {
-				const resolved = value?.key ? dynamicValues?.[value.key] : undefined
+				const resolved = value?.key
+					? resolvedDynamicValues?.[value.key]
+					: undefined
 				return <span>{resolved ?? `{${value?.key ?? ''}}`}</span>
 			},
 		},
 		list: {
 			bullet: ({ children }) => (
-				<List as="ul" size={size}>
+				<List as="ul" size={resolvedSize}>
 					{children}
 				</List>
 			),
 			number: ({ children }) => (
-				<List as="ol" size={size}>
+				<List as="ol" size={resolvedSize}>
 					{children}
 				</List>
 			),
@@ -65,7 +90,7 @@ export const getSanityPortableTextComponents = (
 			}) => {
 				return value?.blank ? (
 					<Link
-						onClick={onLinkClick}
+						onClick={resolvedOnLinkClick}
 						href={value?.href}
 						target="_blank"
 						inlineText
@@ -73,7 +98,7 @@ export const getSanityPortableTextComponents = (
 					>
 						{children}
 						<ExternalLinkIcon
-							title={intl.formatMessage({
+							title={resolvedIntl.formatMessage({
 								id: 'application.global.external_link',
 							})}
 							width="1.25rem"
@@ -82,7 +107,7 @@ export const getSanityPortableTextComponents = (
 					</Link>
 				) : (
 					<Link
-						onClick={onLinkClick}
+						onClick={resolvedOnLinkClick}
 						href={value?.href}
 						inlineText
 						className={value?.className}
