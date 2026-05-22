@@ -231,17 +231,14 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring &&
 		vedtak?.ufoeretrygdgrad &&
 		uttaksgrad === 100 &&
 		alderAarUttak &&
 		alderAarUttak < 67
 
-	const showUTOgAFPAlert =
-		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+	const showUTOgAFPAlert = afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
 
 	const showUTOgFolketrygdBeregnetAFPAlert =
-		!erEndring &&
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
 
