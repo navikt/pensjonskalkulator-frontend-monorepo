@@ -43,14 +43,14 @@ export const getSanityPortableTextComponents = (
 		dynamicValues: resolvedDynamicValues,
 		size: resolvedSize,
 	} =
-		'intl' in intlOrParams
-			? intlOrParams
-			: {
+		'formatMessage' in intlOrParams
+			? {
 					intl: intlOrParams,
 					onLinkClick,
 					dynamicValues,
 					size,
 				}
+			: intlOrParams
 
 	return {
 		types: {
