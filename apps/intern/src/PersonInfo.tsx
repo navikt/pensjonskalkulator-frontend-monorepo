@@ -68,8 +68,11 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		</>
 	)
 
-	const pesysBrukeroversiktUrl = import.meta.env
-		.VITE_PESYS_BRUKEROVERSIKT_URL as string
+	const pesysBrukeroversiktUrl = window.location.hostname.endsWith(
+		'.dev.nav.no'
+	)
+		? 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
+		: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
 
 	if (!pid) {
 		return (
