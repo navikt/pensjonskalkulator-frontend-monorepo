@@ -176,8 +176,7 @@ const AppContent = () => {
 
 	return (
 		<>
-			<PersonInfo onPidChange={handlePidChange} />
-			{!showHentPersonButton?.enabled && (
+			{showHentPersonButton?.enabled === false && (
 				<GlobalAlert status="announcement" size="small" centered={false}>
 					<GlobalAlert.Header className={styles.pilotGlobalAlert}>
 						<GlobalAlert.Title>
