@@ -177,7 +177,7 @@ const AppContent = () => {
 	return (
 		<>
 			<PersonInfo onPidChange={handlePidChange} />
-			{!showHentPersonButton && (
+			{!showHentPersonButton?.enabled && (
 				<GlobalAlert status="announcement" size="small" centered={false}>
 					<GlobalAlert.Header className={styles.pilotGlobalAlert}>
 						<GlobalAlert.Title>
@@ -202,7 +202,6 @@ export const App = () => (
 	<SanityProvider>
 		<div className={styles.appContainer}>
 			<PesysHeader />
-
 			<Theme className="app-content">
 				<AppContent />
 			</Theme>
