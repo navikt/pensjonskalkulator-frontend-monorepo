@@ -333,18 +333,16 @@ export const BeregningForm = () => {
 					beregnMedGjenlevenderett,
 					erEndring,
 				}) && (
-					<>
-						<RHFRadio
-							name="epsHarInntektOver2G"
-							testid="eps-har-inntekt-over-2g"
-							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-							className={styles.horizontalRadioGroup}
-						/>
-						<Divider noMargin />
-					</>
+					<RHFRadio
+						name="epsHarInntektOver2G"
+						testid="eps-har-inntekt-over-2g"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 				{!erEndring && (
 					<>
+						<Divider noMargin />
 						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 						<Divider noMargin />
 					</>

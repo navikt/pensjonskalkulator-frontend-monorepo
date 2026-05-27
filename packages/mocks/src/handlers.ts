@@ -523,6 +523,14 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(forbeholdInternSynligToggleResponse)
 		}),
 
+		http.get(
+			`${baseUrl}/feature/internsimulator.hent-person-button`,
+			async () => {
+				await delay(delayMs)
+				return HttpResponse.json(hentPersonInternToggleResponse)
+			}
+		),
+
 		http.post('http://localhost:12347/collect', async ({ request }) => {
 			await request.json()
 			return HttpResponse.json({ data: 'OK' })
