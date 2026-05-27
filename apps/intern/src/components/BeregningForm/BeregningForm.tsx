@@ -255,10 +255,10 @@ export const BeregningForm = () => {
 
 	const afpOptions = [
 		{ value: 'ja_privat', label: 'Ja, privat' },
-		{ value: 'nei', label: 'Nei' },
 		...(kanVelgeOffentligAfp
 			? [{ value: 'ja_offentlig', label: 'Ja, offentlig' }]
 			: []),
+		{ value: 'nei', label: 'Nei' },
 		...(kanVelgeServiceberegning
 			? [
 					{
