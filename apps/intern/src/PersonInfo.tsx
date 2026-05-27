@@ -68,6 +68,17 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		</>
 	)
 
+	const devInputSection = showHentPersonButton?.enabled && (
+		<HStack
+			gap="space-4"
+			align="center"
+			justify="end"
+			className={styles.personInfoWrapper}
+		>
+			{devInput}
+		</HStack>
+	)
+
 	const pesysBrukeroversiktUrl = window.location.hostname.endsWith(
 		'.dev.nav.no'
 	)
@@ -77,16 +88,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	if (!pid) {
 		return (
 			<>
-				{showHentPersonButton?.enabled && (
-					<HStack
-						gap="space-4"
-						align="center"
-						justify="end"
-						className={styles.personInfoWrapper}
-					>
-						{devInput}
-					</HStack>
-				)}
+				{devInputSection}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
 					<InfoCard.Header>
@@ -128,9 +130,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 					{vedtakStatus}
 				</BodyShort>
 			)}
-			<HStack gap="space-4" align="center" style={{ marginLeft: 'auto' }}>
-				{devInput}
-			</HStack>
+			{devInputSection}
 		</HStack>
 	)
 }
