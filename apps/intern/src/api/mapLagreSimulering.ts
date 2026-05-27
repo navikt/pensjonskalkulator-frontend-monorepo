@@ -1,4 +1,11 @@
-import type { LagreSimuleringSpecDtoV1 } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Alder,
+	LagreSimuleringSpecDtoV1,
+} from '@pensjonskalkulator-frontend-monorepo/types'
+import {
+	isFoedtEtter1963,
+	isOvergangskull,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
@@ -6,6 +13,8 @@ import {
 import { format, parse } from 'date-fns'
 
 import { getUttakInfo } from '../utils/getUttakInfo'
+import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
+import { selectByUttakAlder } from '../utils/selectByUttakAlder'
 import type { BeregningParams, BeregningResult } from './beregningTypes'
 
 function toBackendDate(value: string): string {
@@ -22,10 +31,42 @@ function toBackendDate(value: string): string {
 	return format(parsedDate, DATE_BACKEND_FORMAT)
 }
 
+function getNormertPensjonsalderPlassering(
+	aktivBeregning?: BeregningParams | null,
+	heltUttakAlder?: Alder,
+	gradertUttakAlder?: Alder
+): 'MELLOM_GRADERT_OG_HELT' | 'ETTER_HELT' | undefined {
+	const harAfpPrivat =
+		aktivBeregning?.afp === 'ja_privat' ||
+		aktivBeregning?.endringAfpPrivat === true
+
+	if (!harAfpPrivat) {
+		return undefined
+	}
+
+	const heltAar = heltUttakAlder?.aar ?? 0
+	const gradertAar = gradertUttakAlder?.aar ?? 0
+
+	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
+	const harGradertSection = !!gradertUttakAlder || erUttaksgradNull
+
+	if (harGradertSection && heltAar > 67 && gradertAar < 67) {
+		return 'MELLOM_GRADERT_OG_HELT'
+	}
+
+	if (heltAar < 67) {
+		return 'ETTER_HELT'
+	}
+
+	return undefined
+}
+
 export function mapBeregningResultToLagreSpec(
 	result: BeregningResult,
 	aktivBeregning?: BeregningParams | null,
-	navEnhetId?: string | null
+	navEnhetId?: string | null,
+	grunnbeloep?: number | null,
+	foedselsdato?: string | null
 ): LagreSimuleringSpecDtoV1 {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
 		aktivBeregning ?? null
@@ -33,26 +74,21 @@ export function mapBeregningResultToLagreSpec(
 	const heltUttakAar = heltUttakAlder.aar
 	const gradertUttakAar = gradertUttakAlder?.aar
 
-	const privatAfpVedHeltUttak = result.privatAfpListe?.find(
-		(afp) => afp.alderAar === heltUttakAar
-	)
-	const privatAfpVedGradertUttak =
-		gradertUttakAar === undefined
-			? null
-			: (result.privatAfpListe?.find(
-					(afp) => afp.alderAar === gradertUttakAar
-				) ?? null)
+	const {
+		vedHeltUttak: privatAfpVedHeltUttak,
+		vedGradertUttak: privatAfpVedGradertUttak,
+	} = selectByUttakAlder(result.privatAfpListe, {
+		heltUttakAar,
+		gradertUttakAar,
+	})
 
-	const livsvarigOffentligAfpVedHeltUttak =
-		result.livsvarigOffentligAfpListe?.find(
-			(afp) => afp.alderAar === heltUttakAar
-		)
-	const livsvarigOffentligAfpVedGradertUttak =
-		gradertUttakAar === undefined
-			? null
-			: (result.livsvarigOffentligAfpListe?.find(
-					(afp) => afp.alderAar === gradertUttakAar
-				) ?? null)
+	const {
+		vedHeltUttak: livsvarigOffentligAfpVedHeltUttak,
+		vedGradertUttak: livsvarigOffentligAfpVedGradertUttak,
+	} = selectByUttakAlder(result.livsvarigOffentligAfpListe, {
+		heltUttakAar,
+		gradertUttakAar,
+	})
 
 	const utenlandsperioder =
 		aktivBeregning?.harOppholdUtenforNorge === true &&
@@ -61,11 +97,23 @@ export function mapBeregningResultToLagreSpec(
 					fom: toBackendDate(periode.fom),
 					tom: periode.tom ? toBackendDate(periode.tom) : null,
 					landkode: periode.landkode,
-					arbeidetUtenlands: periode.arbeidetUtenlands === true,
+					arbeidetUtenlands: periode.arbeidetUtenlands,
 				}))
 			: null
+	const kull = foedselsdato
+		? isFoedtEtter1963(foedselsdato)
+			? 'KAP20'
+			: isOvergangskull(foedselsdato)
+				? 'OVERGANG'
+				: 'KAP19'
+		: undefined
+
 	const maanedligAlderspensjonForKnekkpunkter =
-		result.maanedligAlderspensjonForKnekkpunkter
+		mapMaanedligAlderspensjonForKnekkpunkter(
+			result.maanedligAlderspensjonForKnekkpunkter,
+			grunnbeloep,
+			kull
+		)
 
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
@@ -196,16 +244,14 @@ export function mapBeregningResultToLagreSpec(
 			},
 			sivilstatus: aktivBeregning?.sivilstatus ?? null,
 			utenlandsperioder,
+			kull,
+			normertPensjonsalderPlassering: getNormertPensjonsalderPlassering(
+				aktivBeregning,
+				heltUttakAlder,
+				gradertUttakAlder
+			),
 		},
-		maanedligAlderspensjonForKnekkpunkter: maanedligAlderspensjonForKnekkpunkter
-			? {
-					vedGradertUttak:
-						maanedligAlderspensjonForKnekkpunkter.vedGradertUttak ?? null,
-					vedHeltUttak: maanedligAlderspensjonForKnekkpunkter.vedHeltUttak,
-					vedNormertPensjonsalder:
-						maanedligAlderspensjonForKnekkpunkter.vedNormertPensjonsalder,
-				}
-			: null,
+		maanedligAlderspensjonForKnekkpunkter,
 		navEnhetId: navEnhetId ?? null,
 	}
 }

@@ -13,7 +13,6 @@
 		"generate": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/schema.d.ts",
 		"generate:local": "openapi-typescript http://localhost:8080/v3/api-docs/current -o ./src/schema.d.ts",
 		"generate:prod": "openapi-typescript https://www.nav.no/pensjon/kalkulator/v3/api-docs/current -o ./src/schema.d.ts",
-		"generate:local": "openapi-typescript http://localhost:8080/v3/api-docs/current -o ./src/schema.d.ts",
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {

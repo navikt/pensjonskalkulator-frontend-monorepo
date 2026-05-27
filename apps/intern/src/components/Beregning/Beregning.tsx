@@ -29,6 +29,7 @@ import {
 	useLagreSimuleringMutation,
 } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
+import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
@@ -104,12 +105,13 @@ export const Beregning = () => {
 		(erFoedtFoer1963 ? 1 : 0) +
 		(erOvergangskull || erFoedtEtter1963 ? 1 : 0)
 
-	const afpPrivatVedGradertUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (gradertUttakAlder?.aar ?? 0)
-	)
-	const afpPrivatVedHeltUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (heltUttakAlder.aar ?? 0)
-	)
+	const {
+		vedGradertUttak: afpPrivatVedGradertUttak,
+		vedHeltUttak: afpPrivatVedHeltUttak,
+	} = selectByUttakAlder(beregning?.privatAfpListe, {
+		heltUttakAar: heltUttakAlder.aar,
+		gradertUttakAar: gradertUttakAlder?.aar,
+	})
 	const afpPrivatVed67Aar = beregning?.privatAfpListe?.find(
 		(entry) => entry.alderAar === 67
 	)
@@ -194,7 +196,7 @@ export const Beregning = () => {
 			{...sectionCommonProps}
 			entry={gradertMaanedligAlderspensjon ?? undefined}
 			showAfp={harAfpPrivat}
-			afpEntry={afpPrivatVedGradertUttak}
+			afpEntry={afpPrivatVedGradertUttak ?? undefined}
 			visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
 			totalAddToSum={
 				(gradertMaanedligAlderspensjon?.beloep ?? 0) +
@@ -253,7 +255,9 @@ export const Beregning = () => {
 			spec: mapBeregningResultToLagreSpec(
 				beregning,
 				aktivBeregning,
-				selectedNavEnhetId
+				selectedNavEnhetId,
+				grunnbeloep?.grunnbeløp,
+				person?.foedselsdato
 			),
 		})
 	}
@@ -329,7 +333,7 @@ export const Beregning = () => {
 										: helMaanedligAlderspensjon
 								}
 								showAfp={harAfpPrivat}
-								afpEntry={afpPrivatVedHeltUttak}
+								afpEntry={afpPrivatVedHeltUttak ?? undefined}
 								visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 								alderspensjonGrad={100}
 								visAarsbelop={visAarsbelop}

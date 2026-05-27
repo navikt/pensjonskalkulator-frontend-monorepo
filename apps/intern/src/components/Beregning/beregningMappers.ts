@@ -5,6 +5,7 @@ import type {
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningResult } from '../../api/beregningTypes'
+import { mapAndelToTeller } from '../../utils/mapAndelToTeller'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
@@ -93,7 +94,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber((opptjening.kapittel19Andel || 0) * 10) + '/10',
+			value: formatNumber(mapAndelToTeller(opptjening.kapittel19Andel)) + '/10',
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -150,7 +151,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber((opptjening.kapittel20Andel || 0) * 10) + '/10',
+			value: formatNumber(mapAndelToTeller(opptjening.kapittel20Andel)) + '/10',
 		},
 		{
 			label: 'Delingstall ved uttak',

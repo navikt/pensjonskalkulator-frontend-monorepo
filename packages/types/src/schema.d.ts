@@ -2023,6 +2023,13 @@ export interface components {
 			utenlandsperioder?:
 				| components['schemas']['LagreUtenlandsperiodeDto'][]
 				| null
+			/** @enum {string} */
+			kull?: 'KAP19' | 'KAP20' | 'OVERGANG'
+			/** @enum {string|null} */
+			normertPensjonsalderPlassering?:
+				| 'MELLOM_GRADERT_OG_HELT'
+				| 'ETTER_HELT'
+				| null
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
@@ -2064,7 +2071,7 @@ export interface components {
 			/** Format: date */
 			tom?: string | null
 			landkode: string
-			arbeidetUtenlands: boolean
+			arbeidetUtenlands: boolean | null
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
