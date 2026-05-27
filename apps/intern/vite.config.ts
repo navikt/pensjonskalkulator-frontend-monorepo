@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => ({
 			mode === 'backend'
 				? {
 						'/pensjon/kalkulator/api': {
-							target: 'http://localhost:8086',
+							target: 'http://localhost:8080',
 							changeOrigin: true,
 						},
 					}
