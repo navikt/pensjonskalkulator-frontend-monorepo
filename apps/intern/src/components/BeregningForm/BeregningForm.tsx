@@ -221,7 +221,7 @@ export const BeregningForm = () => {
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
 		harVedtakTidsbegrensetOffentligAFP ||
-		(nullGradAP && harVedtakTidsbegrensetOffentligAFP)
+		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
