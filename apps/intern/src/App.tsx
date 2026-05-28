@@ -186,6 +186,7 @@ const AppContent = () => {
 					</GlobalAlert.Header>
 				</GlobalAlert>
 			)}
+			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
 				initialSivilstatus={person?.sivilstatus}
 				initialInntekt={inntekt?.beloep}

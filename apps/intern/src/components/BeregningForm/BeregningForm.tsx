@@ -85,6 +85,7 @@ export const BeregningForm = () => {
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
+	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
 		if (erEndring) {
@@ -220,7 +221,8 @@ export const BeregningForm = () => {
 	const hideAfpSporsmaal =
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
-		harVedtakTidsbegrensetOffentligAFP
+		harVedtakTidsbegrensetOffentligAFP ||
+		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
@@ -230,17 +232,14 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring &&
 		vedtak?.ufoeretrygdgrad &&
 		uttaksgrad === 100 &&
 		alderAarUttak &&
 		alderAarUttak < 67
 
-	const showUTOgAFPAlert =
-		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+	const showUTOgAFPAlert = afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
 
 	const showUTOgFolketrygdBeregnetAFPAlert =
-		!erEndring &&
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
 

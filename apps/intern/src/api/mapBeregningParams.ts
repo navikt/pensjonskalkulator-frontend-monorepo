@@ -91,6 +91,10 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ALDERSPENSJON_MED_GJENLEVENDERETT'
 	}
 
+	if (formData.endringAP) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON'
+	}
+
 	if (formData.afp === 'ja_privat') {
 		simuleringstype = 'ALDERSPENSJON_MED_PRIVAT_AFP'
 	} else if (skalBeregneAfpKap19) {
@@ -104,10 +108,6 @@ export function mapBeregningParamsToRequest(
 	const inntektVsaAfp = skalBeregneTidsbegrensetOffentligAfp
 		? formData.aarsinntektSamtidigMedAfp
 		: undefined
-
-	if (formData.endringAP) {
-		simuleringstype = 'ENDRING_ALDERSPENSJON'
-	}
 
 	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
