@@ -22,6 +22,11 @@ export function getVedtakStatus(
 		return 'Gjenlevendepensjon eller omstillingsstønad'
 	}
 
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
+	const fremtidigAlderspensjonString = fremtidigAlderspensjon
+		? `${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
+		: ''
+
 	if (vedtak?.tidsbegrensetOffentligAfpFom) {
 		const AFPOffentligString = 'AFP i offentlig sektor'
 		const nullGradAP = vedtak.loependeAlderspensjon?.grad === 0
@@ -39,7 +44,7 @@ export function getVedtakStatus(
 	const ufoeretrygdString = vedtak.ufoeretrygdgrad
 		? `${vedtak.ufoeretrygdgrad} % uføretrygd ${alderspensjonString.length > 0 ? '/ ' : ''}`
 		: ''
-	return `${ufoeretrygdString}${alderspensjonString}${afpPrivatString}`
+	return `${ufoeretrygdString}${alderspensjonString}${fremtidigAlderspensjonString}${afpPrivatString}`
 }
 
 export function getEpsVedtakStatus(
