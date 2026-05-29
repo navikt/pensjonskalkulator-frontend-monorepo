@@ -112,9 +112,9 @@ export function mapBeregningResultToLagreSpec(
 		mapMaanedligAlderspensjonForKnekkpunkter(
 			result.maanedligAlderspensjonForKnekkpunkter,
 			grunnbeloep,
-			kull
+			kull,
+			aktivBeregning?.afp
 		)
-
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
@@ -129,7 +129,10 @@ export function mapBeregningResultToLagreSpec(
 								aarligBeloep: privatAfpVedGradertUttak.aarligBeloep,
 								kompensasjonstillegg:
 									privatAfpVedGradertUttak.kompensasjonstillegg,
-								kronetillegg: privatAfpVedGradertUttak.kronetillegg,
+								kronetillegg:
+									(gradertUttakAar ?? 0) < 67
+										? privatAfpVedGradertUttak.kronetillegg
+										: null,
 								livsvarig: privatAfpVedGradertUttak.livsvarig,
 								maanedligBeloep: privatAfpVedGradertUttak.maanedligBeloep ?? 0,
 							}
@@ -138,10 +141,24 @@ export function mapBeregningResultToLagreSpec(
 						alderAar: privatAfpVedHeltUttak.alderAar,
 						aarligBeloep: privatAfpVedHeltUttak.aarligBeloep,
 						kompensasjonstillegg: privatAfpVedHeltUttak.kompensasjonstillegg,
-						kronetillegg: privatAfpVedHeltUttak.kronetillegg,
+						kronetillegg:
+							heltUttakAar < 67 ? privatAfpVedHeltUttak.kronetillegg : null,
 						livsvarig: privatAfpVedHeltUttak.livsvarig,
 						maanedligBeloep: privatAfpVedHeltUttak.maanedligBeloep ?? 0,
 					},
+					vedNormertPensjonsalder: (() => {
+						const afpVed67 = result.privatAfpListe?.find(
+							(entry) => entry.alderAar === 67
+						)
+						if (!afpVed67) return null
+						return {
+							alderAar: afpVed67.alderAar,
+							aarligBeloep: afpVed67.aarligBeloep,
+							kompensasjonstillegg: afpVed67.kompensasjonstillegg,
+							livsvarig: afpVed67.livsvarig,
+							maanedligBeloep: afpVed67.maanedligBeloep ?? 0,
+						}
+					})(),
 				}
 			: null,
 		afpOffentligLivsvarig: livsvarigOffentligAfpVedHeltUttak
@@ -164,46 +181,21 @@ export function mapBeregningResultToLagreSpec(
 			: null,
 		afpOffentligTidsbegrenset: result.tidsbegrensetOffentligAfp
 			? {
-					vedGradertUttak: gradertUttakAar
-						? {
-								alderAar: result.tidsbegrensetOffentligAfp.alderAar,
-								totaltAfpBeloep:
-									result.tidsbegrensetOffentligAfp.totaltAfpBeloep,
-								tidligereArbeidsinntekt:
-									result.tidsbegrensetOffentligAfp.tidligereArbeidsinntekt,
-								grunnbeloep: result.tidsbegrensetOffentligAfp.grunnbeloep,
-								sluttpoengtall: result.tidsbegrensetOffentligAfp.sluttpoengtall,
-								trygdetid: result.tidsbegrensetOffentligAfp.trygdetid,
-								poengaarTom1991:
-									result.tidsbegrensetOffentligAfp.poengaarTom1991,
-								poengaarFom1992:
-									result.tidsbegrensetOffentligAfp.poengaarFom1992,
-								grunnpensjon: result.tidsbegrensetOffentligAfp.grunnpensjon,
-								tilleggspensjon:
-									result.tidsbegrensetOffentligAfp.tilleggspensjon,
-								afpTillegg: result.tidsbegrensetOffentligAfp.afpTillegg,
-								saertillegg: result.tidsbegrensetOffentligAfp.saertillegg,
-								afpGrad: result.tidsbegrensetOffentligAfp.afpGrad,
-								erAvkortet: result.tidsbegrensetOffentligAfp.erAvkortet,
-							}
-						: null,
-					vedHeltUttak: {
-						alderAar: result.tidsbegrensetOffentligAfp.alderAar,
-						totaltAfpBeloep: result.tidsbegrensetOffentligAfp.totaltAfpBeloep,
-						tidligereArbeidsinntekt:
-							result.tidsbegrensetOffentligAfp.tidligereArbeidsinntekt,
-						grunnbeloep: result.tidsbegrensetOffentligAfp.grunnbeloep,
-						sluttpoengtall: result.tidsbegrensetOffentligAfp.sluttpoengtall,
-						trygdetid: result.tidsbegrensetOffentligAfp.trygdetid,
-						poengaarTom1991: result.tidsbegrensetOffentligAfp.poengaarTom1991,
-						poengaarFom1992: result.tidsbegrensetOffentligAfp.poengaarFom1992,
-						grunnpensjon: result.tidsbegrensetOffentligAfp.grunnpensjon,
-						tilleggspensjon: result.tidsbegrensetOffentligAfp.tilleggspensjon,
-						afpTillegg: result.tidsbegrensetOffentligAfp.afpTillegg,
-						saertillegg: result.tidsbegrensetOffentligAfp.saertillegg,
-						afpGrad: result.tidsbegrensetOffentligAfp.afpGrad,
-						erAvkortet: result.tidsbegrensetOffentligAfp.erAvkortet,
-					},
+					alderAar: result.tidsbegrensetOffentligAfp.alderAar,
+					totaltAfpBeloep: result.tidsbegrensetOffentligAfp.totaltAfpBeloep,
+					tidligereArbeidsinntekt:
+						result.tidsbegrensetOffentligAfp.tidligereArbeidsinntekt,
+					grunnbeloep: result.tidsbegrensetOffentligAfp.grunnbeloep,
+					sluttpoengtall: result.tidsbegrensetOffentligAfp.sluttpoengtall,
+					trygdetid: result.tidsbegrensetOffentligAfp.trygdetid,
+					poengaarTom1991: result.tidsbegrensetOffentligAfp.poengaarTom1991,
+					poengaarFom1992: result.tidsbegrensetOffentligAfp.poengaarFom1992,
+					grunnpensjon: result.tidsbegrensetOffentligAfp.grunnpensjon,
+					tilleggspensjon: result.tidsbegrensetOffentligAfp.tilleggspensjon,
+					afpTillegg: result.tidsbegrensetOffentligAfp.afpTillegg,
+					saertillegg: result.tidsbegrensetOffentligAfp.saertillegg,
+					afpGrad: result.tidsbegrensetOffentligAfp.afpGrad,
+					erAvkortet: result.tidsbegrensetOffentligAfp.erAvkortet,
 				}
 			: null,
 		vilkaarsproevingsresultat: {
@@ -232,16 +224,28 @@ export function mapBeregningResultToLagreSpec(
 				beloep: inntekt.beloep,
 			})) ?? null,
 		simuleringsinformasjon: {
-			gradertUttaksalder: gradertUttakAlder
-				? {
-						aar: gradertUttakAlder.aar,
-						maaneder: gradertUttakAlder.maaneder,
-					}
-				: null,
-			heltUttaksalder: {
-				aar: heltUttakAlder.aar,
-				maaneder: heltUttakAlder.maaneder,
-			},
+			gradertUttaksalder:
+				aktivBeregning?.afp === 'ja_offentlig'
+					? {
+							aar: heltUttakAlder.aar,
+							maaneder: heltUttakAlder.maaneder,
+						}
+					: gradertUttakAlder
+						? {
+								aar: gradertUttakAlder.aar,
+								maaneder: gradertUttakAlder.maaneder,
+							}
+						: null,
+			heltUttaksalder:
+				aktivBeregning?.afp !== 'ja_offentlig'
+					? {
+							aar: heltUttakAlder.aar,
+							maaneder: heltUttakAlder.maaneder,
+						}
+					: {
+							aar: 67,
+							maaneder: 0,
+						},
 			sivilstatus: aktivBeregning?.sivilstatus ?? null,
 			utenlandsperioder,
 			kull,

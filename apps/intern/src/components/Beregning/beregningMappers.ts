@@ -5,7 +5,6 @@ import type {
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { BeregningResult } from '../../api/beregningTypes'
-import { mapAndelToTeller } from '../../utils/mapAndelToTeller'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
@@ -94,7 +93,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber(mapAndelToTeller(opptjening.kapittel19Andel)) + '/10',
+			value: formatNumber((opptjening.kapittel19Andel || 0) * 10) + '/10',
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -151,7 +150,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 	return [
 		{
 			label: 'Andelsbrøk',
-			value: formatNumber(mapAndelToTeller(opptjening.kapittel20Andel)) + '/10',
+			value: formatNumber((opptjening.kapittel20Andel || 0) * 10) + '/10',
 		},
 		{
 			label: 'Delingstall ved uttak',
@@ -217,16 +216,9 @@ export function formatAfpTitle(aar: number, md: number): string {
 	return `AFP ved ${formatAlder(aar, md)}`
 }
 
-export type ServiceberegnetAfpResult = NonNullable<
-	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
->
-
-export function mapAfpToRows(entry: {
-	grunnpensjon: number
-	tilleggspensjon: number
-	afpTillegg: number
-	saertillegg: number
-}): BeregningTableRow[] {
+export function mapTidsbegrensetAfpToRows(
+	entry: TidsbegrensetOffentligAFP
+): BeregningTableRow[] {
 	return [
 		{
 			label: 'Grunnpensjon',
@@ -247,6 +239,37 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
+		},
+	]
+}
+
+export type ServiceberegnetAfpResult = NonNullable<
+	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
+>
+
+export function mapServiceAfpToRows(
+	entry: ServiceberegnetAfpResult
+): BeregningTableRow[] {
+	return [
+		{
+			label: 'Grunnpensjon',
+			value: Math.round(entry.grunnpensjon ?? 0),
+			yearlyValue: Math.round(entry.grunnpensjon ?? 0) * 12,
+		},
+		{
+			label: 'Tilleggspensjon',
+			value: Math.round(entry.tilleggspensjon ?? 0),
+			yearlyValue: Math.round(entry.tilleggspensjon ?? 0) * 12,
+		},
+		{
+			label: 'AFP-tillegg',
+			value: Math.round(entry.afpTillegg ?? 0),
+			yearlyValue: Math.round(entry.afpTillegg ?? 0) * 12,
+		},
+		{
+			label: 'Særtillegg',
+			value: Math.round(entry.saertillegg ?? 0),
+			yearlyValue: Math.round(entry.saertillegg ?? 0) * 12,
 		},
 	]
 }
