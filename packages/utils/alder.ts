@@ -106,6 +106,15 @@ export const isAlderOver67 = isAlderOver(67)
 
 export const isAlderOver62 = isAlderOver(62)
 
+export const isAlder67MaanedenFylt = (foedselsdato: string): boolean => {
+	const TODAY = new Date()
+	const parsedFoedselsdato = parse(foedselsdato, DATE_BACKEND_FORMAT, TODAY)
+
+	const foedselsdato67 = addYears(parsedFoedselsdato, 67)
+	const foersteDagIMaanedenFylt67 = startOfMonth(foedselsdato67)
+
+	return !isBefore(TODAY, foersteDagIMaanedenFylt67)
+}
 export const isAlder75MaanedenFylt = (foedselsdato: string): boolean => {
 	const TODAY = new Date()
 	const parsedFoedselsdato = parse(foedselsdato, DATE_BACKEND_FORMAT, TODAY)
