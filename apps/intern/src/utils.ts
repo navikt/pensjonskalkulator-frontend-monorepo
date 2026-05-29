@@ -24,7 +24,7 @@ export function getVedtakStatus(
 
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 	const fremtidigAlderspensjonString = fremtidigAlderspensjon
-		? `${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
+		? ` / ${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
 		: ''
 
 	if (vedtak?.tidsbegrensetOffentligAfpFom) {

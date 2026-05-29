@@ -83,7 +83,9 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
+	const erEndring =
+		Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon) ||
+		Boolean(vedtak?.loependeAlderspensjon && vedtak?.fremtidigAlderspensjon)
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)

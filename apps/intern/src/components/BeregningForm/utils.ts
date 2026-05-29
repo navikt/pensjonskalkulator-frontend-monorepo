@@ -83,6 +83,7 @@ export function getForTidligEndringAvUttaksgradDato({
 	alderMdUttak: number | null
 }): string | null {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 
 	if (
 		!loependeAlderspensjon ||
@@ -96,7 +97,10 @@ export function getForTidligEndringAvUttaksgradDato({
 
 	if (
 		!UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST.includes(uttaksgrad) ||
-		uttaksgrad === loependeAlderspensjon.grad
+		uttaksgrad === loependeAlderspensjon.grad ||
+		(loependeAlderspensjon &&
+			fremtidigAlderspensjon &&
+			uttaksgrad === fremtidigAlderspensjon.grad)
 	) {
 		return null
 	}
@@ -110,7 +114,9 @@ export function getForTidligEndringAvUttaksgradDato({
 	const tidligsteEndringsdato = startOfMonth(
 		add(
 			parse(
-				loependeAlderspensjon.uttaksgradFom,
+				fremtidigAlderspensjon
+					? fremtidigAlderspensjon.fom
+					: loependeAlderspensjon.uttaksgradFom,
 				DATE_BACKEND_FORMAT,
 				new Date()
 			),
