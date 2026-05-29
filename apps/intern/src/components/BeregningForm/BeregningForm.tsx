@@ -293,6 +293,8 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
+						harGjenlevenderett:
+							vedtak?.loependeAlderspensjon?.harGjenlevenderett,
 					}) && (
 						<>
 							<Gjenlevenderett />
