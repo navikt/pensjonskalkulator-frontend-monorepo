@@ -9,11 +9,13 @@ import {
 	isAlderOver67,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { format, parseISO } from 'date-fns'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
+import { DATE_ENDUSER_FORMAT } from '../../../../../packages/utils/src/dates'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
@@ -81,7 +83,9 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
+	const erEndring =
+		Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon) ||
+		Boolean(vedtak?.loependeAlderspensjon && vedtak?.fremtidigAlderspensjon)
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
@@ -242,6 +246,17 @@ export const BeregningForm = () => {
 	const showUTOgFolketrygdBeregnetAFPAlert =
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
+
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
+	const showFremtidigAlderspensjonAlert =
+		fremtidigAlderspensjon &&
+		person?.foedselsdato !== undefined &&
+		alderAarUttak !== null &&
+		alderMdUttak !== null &&
+		calculateUttaksalderAsDate(
+			{ aar: alderAarUttak, maaneder: alderMdUttak },
+			person.foedselsdato
+		) < parseISO(fremtidigAlderspensjon.fom)
 
 	const kanVelgeServiceberegning = person?.foedselsdato
 		? isFoedtFoer1963(person.foedselsdato)
@@ -461,6 +476,21 @@ export const BeregningForm = () => {
 							/>
 						)}
 
+						{showFremtidigAlderspensjonAlert && (
+							<SanityAlert
+								id="beregning.fremtidigAlderspensjon"
+								className={styles.sanityAlert}
+								dynamicValues={{
+									grad: String(fremtidigAlderspensjon?.grad ?? 100),
+									alder: fremtidigAlderspensjon
+										? format(
+												parseISO(fremtidigAlderspensjon.fom),
+												DATE_ENDUSER_FORMAT
+											)
+										: '',
+								}}
+							/>
+						)}
 						<RHFAlderVelger
 							aarName="alderAarUttak"
 							mdName="alderMdUttak"

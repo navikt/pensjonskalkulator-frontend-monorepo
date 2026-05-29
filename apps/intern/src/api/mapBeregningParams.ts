@@ -129,7 +129,6 @@ export function mapBeregningParamsToRequest(
 				DATE_BACKEND_FORMAT
 			)
 		: undefined
-	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
 	const utenlandsperiodeListe =
 		formData.harOppholdUtenforNorge === true && formData.utenlandsOpphold.length
 			? mapUtenlandsperiodeListe(formData.utenlandsOpphold)
@@ -167,36 +166,33 @@ export function mapBeregningParamsToRequest(
 					: undefined,
 		},
 		sivilstatus: formData.sivilstatus,
-		eps: erEndring
-			? null
-			: {
-					levende: !formData.beregnMedGjenlevenderett
-						? {
-								harInntektOver2G:
-									formData.epsHarPensjon === false
-										? Boolean(formData.epsHarInntektOver2G)
-										: false,
-								harPensjon: Boolean(formData.epsHarPensjon),
-							}
-						: undefined,
-					avdoed:
-						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
-							? {
-									pid: epsPid,
-									doedsdato: epsDoedsdato,
-									medlemAvFolketrygden: Boolean(
-										formData.epsMedlemAvFolketrygdenVedDoedsDato
-									),
-									inntektFoerDoedBeloep:
-										formData.epsPensjonsgivendeInntektFoerDoedsDato ??
-										undefined,
-									inntektErOverGrunnbeloepet: Boolean(
-										formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
-									),
-									antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
-								}
-							: undefined,
-				},
+		eps: {
+			levende: !formData.beregnMedGjenlevenderett
+				? {
+						harInntektOver2G:
+							formData.epsHarPensjon === false
+								? Boolean(formData.epsHarInntektOver2G)
+								: false,
+						harPensjon: Boolean(formData.epsHarPensjon),
+					}
+				: undefined,
+			avdoed:
+				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
+					? {
+							pid: epsPid,
+							doedsdato: epsDoedsdato,
+							medlemAvFolketrygden: Boolean(
+								formData.epsMedlemAvFolketrygdenVedDoedsDato
+							),
+							inntektFoerDoedBeloep:
+								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? undefined,
+							inntektErOverGrunnbeloepet: Boolean(
+								formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
+							),
+							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
+						}
+					: undefined,
+		},
 		offentligAfp: skalBeregneAfpKap19
 			? {
 					harInntektMaanedenFoerUttak:

@@ -1,62 +1,158 @@
 {
 	"result": [
 		{
-			"_id": "forbeholdAvsnitt-mock-0",
+			"_id": "1467f99a-4ed3-476a-815a-fab0bd5c31c7",
+			"alltidSynlig": true,
+			"innhold": [
+				{
+					"_key": "24d9b3df3a7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "503f84572488",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av pensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "f4195343b75f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5e820cb72ba2",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi anbefaler at du får en ny beregning når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"innholdEkstern": [
+				{
+					"_key": "24d9b3df3a7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "503f84572488",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av pensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "f4195343b75f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5e820cb72ba2",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi anbefaler at du får en ny beregning når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"innholdIntern": [
+				{
+					"_key": "24d9b3df3a7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "503f84572488",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av pensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "f4195343b75f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5e820cb72ba2",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi anbefaler at du får en ny beregning når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "60b36871e2d5",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "6f0e166049ee",
+							"_type": "span",
+							"marks": [],
+							"text": "Dette er et testavsnitt for test av sanity i brev"
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
 			"overskrift": null,
+			"vilkaar": null,
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "7590f009-7edc-43c8-b479-354efec32a45",
+			"alltidSynlig": true,
 			"innhold": [
 				{
-					"_key": "c18cc11897d6",
+					"_key": "898803931638",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ce5aec10e2df",
+							"_key": "9ce7e29e8a7b",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av minstepensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du har oppgitt annen inntekt."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "0ad3998fd714",
+					"_key": "3922170be6e4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "bca0d46f7835",
+							"_key": "bf885f18b193",
 							"_type": "span",
 							"marks": [],
-							"text": "Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+							"text": "Pensjonsgivende inntekt blir først gjeldende i pensjon fra januar året etter den er mottatt fra Skatteetaten. Årlig alderspensjon vil derfor normalt øke som følge av ny opptjening."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "088c6c559718",
+					"_key": "d0d617c59bc4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b2013a8a7bdf",
+							"_key": "52671afc0bb8",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Hvis du fortsetter i jobb etter uttak av alderspensjon, tjener du fortsatt opp til alderspensjon frem til og med året du fyller 75 år."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "94b08718124d",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "13c760607eb6",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+							"text": "I enkelte tilfeller kan man få avslag på en søknad om alderspensjon selv om man har fått beregnet alderspensjon fra samme tidspunkt. Det kan skje hvis du søker om uttak av pensjon fra neste år. I disse tilfellene må man vente med å søke til midten av desember før man søker for å få med siste gjeldende år med pensjonsgivende inntekt."
 						}
 					],
 					"markDefs": [],
@@ -65,56 +161,42 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "c18cc11897d6",
+					"_key": "898803931638",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ce5aec10e2df",
+							"_key": "9ce7e29e8a7b",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av minstepensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du har oppgitt annen inntekt."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "0ad3998fd714",
+					"_key": "3922170be6e4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "bca0d46f7835",
+							"_key": "bf885f18b193",
 							"_type": "span",
 							"marks": [],
-							"text": "Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+							"text": "Pensjonsgivende inntekt blir først gjeldende i pensjon fra januar året etter den er mottatt fra Skatteetaten. Årlig alderspensjon vil derfor normalt øke som følge av ny opptjening."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "088c6c559718",
+					"_key": "d0d617c59bc4",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b2013a8a7bdf",
+							"_key": "52671afc0bb8",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Hvis du fortsetter i jobb etter uttak av alderspensjon, tjener du fortsatt opp til alderspensjon frem til og med året du fyller 75 år."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "94b08718124d",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "13c760607eb6",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+							"text": "I enkelte tilfeller kan man få avslag på en søknad om alderspensjon selv om man har fått beregnet alderspensjon fra samme tidspunkt. Det kan skje hvis du søker om uttak av pensjon fra neste år. I disse tilfellene må man vente med å søke til midten av desember før man søker for å få med siste gjeldende år med pensjonsgivende inntekt."
 						}
 					],
 					"markDefs": [],
@@ -123,80 +205,172 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "c18cc11897d6",
+					"_key": "7d5bc19ba08e",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ce5aec10e2df",
+							"_key": "3ad4aa369b69",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor et foreløpig estimat på hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av minstepensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon."
+							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du har oppgitt annen inntekt."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "0ad3998fd714",
+					"_key": "0b011f11e173",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "bca0d46f7835",
+							"_key": "1d2ae3931e2d",
 							"_type": "span",
 							"marks": [],
-							"text": "Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket."
+							"text": "Pensjonsgivende inntekt blir først gjeldende i pensjon fra januar året etter den er mottatt fra Skatteetaten. Årlig alderspensjon vil derfor normalt øke som følge av ny opptjening."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "088c6c559718",
+					"_key": "3505d020cdbe",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b2013a8a7bdf",
+							"_key": "501576a34de3",
 							"_type": "span",
 							"marks": [],
-							"text": "Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Hvis du fortsetter i jobb etter uttak av alderspensjon, tjener du fortsatt opp til alderspensjon frem til og med året du fyller 75 år."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "94b08718124d",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "13c760607eb6",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+							"text": "I enkelte tilfeller kan man få avslag på en søknad om alderspensjon selv om man har fått beregnet alderspensjon fra samme tidspunkt. Det kan skje hvis du søker om uttak av pensjon fra neste år. I disse tilfellene må man vente med å søke til midten av desember før man søker for å få med siste gjeldende år med pensjonsgivende inntekt."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
+			"overskrift": "Inntekt og godskriving av pensjonsopptjening",
+			"vilkaar": null,
+			"visEkstern": true,
+			"visIntern": true
 		},
 		{
-			"_id": "forbeholdAvsnitt-mock-1",
-			"overskrift": "Inntekt",
-			"visEkstern": true,
-			"visIntern": true,
+			"_id": "c44e4d87-cc85-4bce-acfc-6b97de2ecdc7",
+			"alltidSynlig": true,
 			"innhold": [
 				{
-					"_key": "ce427b87eb59",
+					"_key": "ed65f507e6cb",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "70ef5716d1db",
+							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e8552cb11a66",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a859f7f33eb8",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "25fd52b1256e",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "11325a55a0c0",
+							"_type": "span",
+							"marks": [],
+							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "37e7876c7371",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "158e9585f84c",
+							"_type": "span",
+							"marks": [],
+							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "39f761c43b7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "dfd44eba2f26",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "dae286bfb8ca",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3debe9902140",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "da47cb0e219a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "f773922a04b7",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "9cd940b162d3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "fa0779341215",
+							"_type": "span",
+							"marks": [],
+							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
 						}
 					],
 					"markDefs": [],
@@ -205,14 +379,120 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "ce427b87eb59",
+					"_key": "ed65f507e6cb",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "70ef5716d1db",
+							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e8552cb11a66",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a859f7f33eb8",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "25fd52b1256e",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "11325a55a0c0",
+							"_type": "span",
+							"marks": [],
+							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "37e7876c7371",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "158e9585f84c",
+							"_type": "span",
+							"marks": [],
+							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "39f761c43b7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "dfd44eba2f26",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "dae286bfb8ca",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3debe9902140",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "da47cb0e219a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "f773922a04b7",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "9cd940b162d3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "fa0779341215",
+							"_type": "span",
+							"marks": [],
+							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
 						}
 					],
 					"markDefs": [],
@@ -221,144 +501,176 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "ce427b87eb59",
+					"_key": "ed65f507e6cb",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "70ef5716d1db",
+							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som Nav har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e8552cb11a66",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a859f7f33eb8",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "25fd52b1256e",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "11325a55a0c0",
+							"_type": "span",
+							"marks": [],
+							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "37e7876c7371",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "158e9585f84c",
+							"_type": "span",
+							"marks": [],
+							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "39f761c43b7a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "dfd44eba2f26",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "dae286bfb8ca",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3debe9902140",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "39df1cc027a4",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "fc4a30689a0e",
+							"_type": "span",
+							"marks": [],
+							"text": "Dette er et testpunkt"
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "ef509ee19fb0",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "25299d6a98a7",
+							"_type": "span",
+							"marks": [],
+							"text": "enda et testpunkt"
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "da47cb0e219a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "f773922a04b7",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "9cd940b162d3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "fa0779341215",
+							"_type": "span",
+							"marks": [],
+							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-2",
 			"overskrift": "Opphold utenfor Norge",
+			"vilkaar": null,
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "536aac1e-8d11-4492-b0e6-bc28f7c78219",
+			"alltidSynlig": true,
 			"innhold": [
 				{
-					"_key": "f996cdbdd1d9",
+					"_key": "04081c078559",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c6f2a48ac305",
+							"_key": "954b1007372b",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2465f46a167e",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "dfeb2b9bde8e",
-							"_type": "span",
-							"marks": [],
-							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "d076e361d8e4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "f4b8ce3bf197",
-							"_type": "span",
-							"marks": [],
-							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "748e58be18d2",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "ffa056bb7d69",
-							"_type": "span",
-							"marks": [],
-							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "63c705003c42",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "43a3e3154915",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "c9330ff8b3d4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6233253c9492",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "8326c1981c57",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "5b7e0b0b9514",
-							"_type": "span",
-							"marks": [],
-							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "11993af890a4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "cdde33762926",
-							"_type": "span",
-							"marks": [],
-							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
+							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
@@ -367,120 +679,14 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "f996cdbdd1d9",
+					"_key": "04081c078559",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c6f2a48ac305",
+							"_key": "954b1007372b",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2465f46a167e",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "dfeb2b9bde8e",
-							"_type": "span",
-							"marks": [],
-							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "d076e361d8e4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "f4b8ce3bf197",
-							"_type": "span",
-							"marks": [],
-							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "748e58be18d2",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "ffa056bb7d69",
-							"_type": "span",
-							"marks": [],
-							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "63c705003c42",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "43a3e3154915",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "c9330ff8b3d4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6233253c9492",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "8326c1981c57",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "5b7e0b0b9514",
-							"_type": "span",
-							"marks": [],
-							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "11993af890a4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "cdde33762926",
-							"_type": "span",
-							"marks": [],
-							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
+							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
@@ -489,144 +695,52 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "f996cdbdd1d9",
+					"_key": "e292ee366815",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c6f2a48ac305",
+							"_key": "0fae4d98a277",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2465f46a167e",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "dfeb2b9bde8e",
-							"_type": "span",
-							"marks": [],
-							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "d076e361d8e4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "f4b8ce3bf197",
-							"_type": "span",
-							"marks": [],
-							"text": "Det er opptjeningen din i Norge som brukes når Nav beregner alderspensjonen din. Har du oppgitt fremtidige perioder med opphold utenfor Norge, settes inntekt i Norge til null kroner i disse periodene."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "748e58be18d2",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "ffa056bb7d69",
-							"_type": "span",
-							"marks": [],
-							"text": "Medlemstid i land Norge har trygdeavtale med kan også påvirke om du kan starte uttaket før du er 67 år. Beregningen er derfor gjort med forbehold om at de opplysningene vi bruker er riktige. Merk at det kan komme endringer i trygdeavtaler med andre land."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "63c705003c42",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "43a3e3154915",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav fastsetter endelig trygdetid når du søker om pensjon. Nav kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "c9330ff8b3d4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6233253c9492",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "8326c1981c57",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "5b7e0b0b9514",
-							"_type": "span",
-							"marks": [],
-							"text": "Beregningen tar ikke hensyn til regler om eksport. Det er derfor ikke vurdert om du har rett til å motta hele pensjonen hvis du er bosatt utenfor Norge når du mottar pensjon."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "11993af890a4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "cdde33762926",
-							"_type": "span",
-							"marks": [],
-							"text": "Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen."
+							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-3",
 			"overskrift": "Sivilstand",
+			"vilkaar": null,
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "d81fd7b8-f917-4495-836a-91ab1c090b65",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "111dcd315707",
+					"_key": "caa7705bdc7d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "129ebde5e42e",
+							"_key": "93c4f2ed7fad",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
+							"text": "Nav har ikke vurdert om du fyller alle inngangsvilkårene for AFP, men forutsetter at du har rett til pensjonen du har bedt om beregning på."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "2fee452ce0ff",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "07d524d42f0d",
+							"_type": "span",
+							"marks": [],
+							"text": "Om du har fått en beregning med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
 						}
 					],
 					"markDefs": [],
@@ -635,14 +749,28 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "111dcd315707",
+					"_key": "caa7705bdc7d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "129ebde5e42e",
+							"_key": "93c4f2ed7fad",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
+							"text": "Nav har ikke vurdert om du fyller alle inngangsvilkårene for AFP, men forutsetter at du har rett til pensjonen du har bedt om beregning på."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "2fee452ce0ff",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "07d524d42f0d",
+							"_type": "span",
+							"marks": [],
+							"text": "Om du har fått en beregning med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
 						}
 					],
 					"markDefs": [],
@@ -651,52 +779,107 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "111dcd315707",
+					"_key": "caa7705bdc7d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "129ebde5e42e",
+							"_key": "93c4f2ed7fad",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon."
+							"text": "Nav har ikke vurdert om du fyller alle inngangsvilkårene for AFP, men forutsetter at du har rett til pensjonen du har bedt om beregning på."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "2fee452ce0ff",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "07d524d42f0d",
+							"_type": "span",
+							"marks": [],
+							"text": "Om du har fått en beregning med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-4",
 			"overskrift": "AFP (avtalefestet pensjon)",
+			"vilkaar": [
+				{
+					"_key": "5dd2a9bd8b49",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "9aaa7c6300c2",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "beregnerAfpUavhengigAvAarskull"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "a37806a1-4f26-4ff6-8028-6adc08039847",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "2493082d8e51",
+					"_key": "58acd862b558",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "80cfc5175b09",
+							"_key": "f5bd498a9392",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller alle inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne."
+							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "5a321e835266",
+					"_key": "a2c4559f7c9a",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c496126895c9",
+							"_key": "cdc793b8bdea",
 							"_type": "span",
 							"marks": [],
-							"text": "Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
+							"text": "Beregningen av AFP i offentlig sektor forutsetter at du ikke allerede har vedtak om AFP. Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e94388a1d12f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "20bbfaa455ad",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e0f6930d4c10",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "d8372d6fc32f",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
 						}
 					],
 					"markDefs": [],
@@ -705,28 +888,56 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "2493082d8e51",
+					"_key": "58acd862b558",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "80cfc5175b09",
+							"_key": "f5bd498a9392",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller alle inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne."
+							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "5a321e835266",
+					"_key": "a2c4559f7c9a",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c496126895c9",
+							"_key": "cdc793b8bdea",
 							"_type": "span",
 							"marks": [],
-							"text": "Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
+							"text": "Beregningen av AFP i offentlig sektor forutsetter at du ikke allerede har vedtak om AFP. Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e94388a1d12f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "20bbfaa455ad",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e0f6930d4c10",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "d8372d6fc32f",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
 						}
 					],
 					"markDefs": [],
@@ -735,94 +946,135 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "2493082d8e51",
+					"_key": "777f3f06009c",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "80cfc5175b09",
+							"_key": "50cc50ad89a8",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du velger å beregne med AFP, vurderer ikke Nav om du fyller alle inngangsvilkårene for AFP. Kalkulatoren forutsetter at du har rett til pensjonen du har valgt å beregne."
+							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "5a321e835266",
+					"_key": "ae34528634a7",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "c496126895c9",
+							"_key": "1b5b54ddc1a7",
 							"_type": "span",
 							"marks": [],
-							"text": "Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil."
+							"text": "Beregningen av AFP i offentlig sektor forutsetter at du ikke allerede har vedtak om AFP. Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "2b14b98ec4c5",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "d51d29026efa",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen av AFP i offentlig sektor viser kun folketrygdberegnet AFP. Den tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-5",
 			"overskrift": "AFP i offentlig sektor",
+			"vilkaar": [
+				{
+					"_key": "c565518dda48",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "30c778d76d86",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "beregnerGammelAfp"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "6bbab1a4-8f84-4cde-984f-8aa4f0d3d6f3",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "97659c2b26ec",
+					"_key": "828e98a8206d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "6be1c277f865",
+							"_key": "5086eb8af7b7",
 							"_type": "span",
 							"marks": [],
-							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
+							"text": "Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Beregningen forutsetter at du beholder lik uføregrad frem til den avsluttes ved 67 år."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "9bebd6676420",
+					"_key": "fc9e769a1fb8",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b9ccc683030b",
+							"_key": "be1d5dd68613",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+							"text": "Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "f6dbbcdbbf78",
+					"_key": "f149d36643fa",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ae7fc70a34e4",
+							"_key": "98a3f4e4a97d",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+							"text": "Nav kan ikke simulere fremtidig uføretrygd og kalkulatoren viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "df738ec9cb57",
+					"_key": "8306f373f708",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "7fb193b592fb",
+							"_key": "10778529722a",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
+							"text": "Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og kalkulatoren tar ikke høyde for dette."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "36e72996eda1",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "0d2e871a943a",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder utenfor Norge."
 						}
 					],
 					"markDefs": [],
@@ -831,56 +1083,70 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "97659c2b26ec",
+					"_key": "828e98a8206d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "6be1c277f865",
+							"_key": "5086eb8af7b7",
 							"_type": "span",
 							"marks": [],
-							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
+							"text": "Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Beregningen forutsetter at du beholder lik uføregrad frem til den avsluttes ved 67 år."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "9bebd6676420",
+					"_key": "fc9e769a1fb8",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b9ccc683030b",
+							"_key": "be1d5dd68613",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+							"text": "Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "f6dbbcdbbf78",
+					"_key": "f149d36643fa",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ae7fc70a34e4",
+							"_key": "98a3f4e4a97d",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+							"text": "Nav kan ikke simulere fremtidig uføretrygd og kalkulatoren viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "df738ec9cb57",
+					"_key": "8306f373f708",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "7fb193b592fb",
+							"_key": "10778529722a",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
+							"text": "Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og kalkulatoren tar ikke høyde for dette."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "36e72996eda1",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "0d2e871a943a",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder utenfor Norge."
 						}
 					],
 					"markDefs": [],
@@ -889,122 +1155,163 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "97659c2b26ec",
+					"_key": "71eb355b6e81",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "6be1c277f865",
+							"_key": "e810365f579d",
 							"_type": "span",
 							"marks": [],
-							"text": "AFP i offentlig sektor beregnes etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse."
+							"text": "Har du uføretrygd baseres pensjonsopptjeningen på vedtaket ditt om uføretrygd. Beregningen forutsetter at du beholder lik uføregrad frem til den avsluttes ved 67 år. Ved beregning av 100 % alderspensjon før 67 år, forutsetter vi at uføretrygden din stoppes måneden før uttak."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "9bebd6676420",
+					"_key": "02f160ab234f",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "b9ccc683030b",
+							"_key": "b4f47d7c4f45",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du har vedtak om AFP i offentlig sektor og vi ikke har opplysninger om det fra din tjenestepensjonsordning, kan ny beregning av AFP og alderspensjon bli feil."
+							"text": "Nav kan ikke simulere fremtidig uføretrygd og beregningen viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "f6dbbcdbbf78",
+					"_key": "2fc4c699c461",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ae7fc70a34e4",
+							"_key": "1fb09e5048d5",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født i 1963 eller senere vil den endelige beregningen av livsvarig AFP bli gjort av tjenestepensjonsordningen din når du søker om AFP."
+							"text": "Beregningen gjøres etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og beregningen tar ikke høyde for dette."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "df738ec9cb57",
+					"_key": "449ce8a6db5e",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "7fb193b592fb",
+							"_key": "07cf3a23e561",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 viser kalkulatoren kun folketrygdberegnet AFP. Kalkulatoren tar ikke høyde for bestevurdering av folketrygdberegnet AFP og tjenestepensjonsberegnet AFP. Dette gjøres av tjenestepensjonsordningen din fra fylte 65 år. Dette gjelder ikke hvis du er medlem i Statens pensjonskasse (SPK) og samtykker til å hente pensjonsavtaler. Da vil vi forsøke å hente tjenestepensjonsberegnet AFP fra SPK."
+							"text": "Beregningen tar ikke hensyn til om du kan eksportere uføretrygden din. Beregningen på alderspensjon kan derfor bli feil hvis du legger til fremtidige perioder utenfor Norge."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-6",
 			"overskrift": "Uføretrygd",
+			"vilkaar": [
+				{
+					"_key": "f5771c0b2df2",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "f81a655094f3",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "harUfoeretrygd"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "69d3b18a-85eb-4ac3-b487-fccbdbe6072e",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "cad9708b47f6",
+					"_key": "3cd3affc15d3",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "4f391d1f7092",
+							"_key": "6ed3183a7afe",
 							"_type": "span",
 							"marks": [],
-							"text": "Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres."
+							"text": "Er du født i 1963 eller senere og har gradert uføretrygd kan du velge å simulere at du sier fra deg uføretrygden og i stedet velge AFP."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "fe9f38727359",
+					"_key": "5f4813d1f898",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "a85406570e04",
+							"_key": "56745f271d90",
 							"_type": "span",
 							"marks": [],
-							"text": "Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren."
+							"text": "Har du 100% uføretrygd har du normalt ikke rett til AFP, du kan derfor ikke beregne AFP i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "d960faab1000",
+					"_key": "00eb3912a682",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "fc1c7ff54597",
+							"_key": "2972823a02cc",
 							"_type": "span",
 							"marks": [],
-							"text": "Nav kan ikke simulere fremtidig uføretrygd og kalkulatoren viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
+							"text": "Er du født i 1963 eller senere og har mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP. Du kan derfor ikke beregne AFP i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "70f0947666ec",
+					"_key": "0c7d7ed1719d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "3c6932318075",
+							"_key": "d7ffe01233be",
 							"_type": "span",
 							"marks": [],
-							"text": "Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og kalkulatoren tar ikke høyde for dette."
+							"text": "Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e5923f622a9d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3c88e85f268a",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "904a77d68490",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "331aa7d26d78",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren tar ikke høyde for nevnte unntak."
 						}
 					],
 					"markDefs": [],
@@ -1013,56 +1320,84 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "cad9708b47f6",
+					"_key": "3cd3affc15d3",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "4f391d1f7092",
+							"_key": "6ed3183a7afe",
 							"_type": "span",
 							"marks": [],
-							"text": "Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres."
+							"text": "Er du født i 1963 eller senere og har gradert uføretrygd kan du velge å simulere at du sier fra deg uføretrygden og i stedet velge AFP."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "fe9f38727359",
+					"_key": "5f4813d1f898",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "a85406570e04",
+							"_key": "56745f271d90",
 							"_type": "span",
 							"marks": [],
-							"text": "Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren."
+							"text": "Har du 100% uføretrygd har du normalt ikke rett til AFP, du kan derfor ikke beregne AFP i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "d960faab1000",
+					"_key": "00eb3912a682",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "fc1c7ff54597",
+							"_key": "2972823a02cc",
 							"_type": "span",
 							"marks": [],
-							"text": "Nav kan ikke simulere fremtidig uføretrygd og kalkulatoren viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
+							"text": "Er du født i 1963 eller senere og har mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP. Du kan derfor ikke beregne AFP i kalkulatoren."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				},
 				{
-					"_key": "70f0947666ec",
+					"_key": "0c7d7ed1719d",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "3c6932318075",
+							"_key": "d7ffe01233be",
 							"_type": "span",
 							"marks": [],
-							"text": "Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og kalkulatoren tar ikke høyde for dette."
+							"text": "Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "e5923f622a9d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3c88e85f268a",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "904a77d68490",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "331aa7d26d78",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren tar ikke høyde for nevnte unntak."
 						}
 					],
 					"markDefs": [],
@@ -1071,150 +1406,57 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "cad9708b47f6",
+					"_key": "1b251e2265fe",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "4f391d1f7092",
+							"_key": "62df0034275f",
 							"_type": "span",
 							"marks": [],
-							"text": "Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "fe9f38727359",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "a85406570e04",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "d960faab1000",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "fc1c7ff54597",
-							"_type": "span",
-							"marks": [],
-							"text": "Nav kan ikke simulere fremtidig uføretrygd og kalkulatoren viser derfor ikke uføretrygd når du beregner kombinasjon av gradert alderspensjon og gradert uføretrygd."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "70f0947666ec",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "3c6932318075",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer om økt pensjonsopptjening etter fylte 62 år er ikke endelig vedtatt og kalkulatoren tar ikke høyde for dette."
+							"text": "I beregningen av AFP i privat sektor forutsetter vi at du sier fra deg uføretrygden før du fyller 62 år."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-7",
 			"overskrift": "Uføretrygd og AFP",
+			"vilkaar": [
+				{
+					"_key": "534ffb05bb62",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "d067ae25b5a2",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "harUfoeretrygd"
+						},
+						{
+							"_key": "405827a876dd",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "beregnerAfpPrivat"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "0573a141-58fe-4783-a960-af82571b986c",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "04822b59a4ed",
+					"_key": "7d420be8da97",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "8a07c15786fe",
+							"_key": "c88ac69b5874",
 							"_type": "span",
 							"marks": [],
-							"text": "Er du født i 1963 eller senere og har gradert uføretrygd kan du velge å simulere at du sier fra deg uføretrygden og i stedet velge AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "4cb4e1e193f9",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "2f6014f36025",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du 100% uføretrygd har du normalt ikke rett til AFP, du kan derfor ikke beregne AFP i kalkulatoren."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2d86568fe287",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "715284136f6d",
-							"_type": "span",
-							"marks": [],
-							"text": "Er du ført i 1963 eller senere og har mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP. Du kan derfor ikke beregne AFP i kalkulatoren. "
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "01e29c6c5949",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "21c2699aff35",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "ad0adcb4e586",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "d7fb5fd0caef",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "6ba970dd62da",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "4f0dc821ac7a",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren tar ikke høyde for nevnte unntak."
+							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
 						}
 					],
 					"markDefs": [],
@@ -1223,84 +1465,14 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "04822b59a4ed",
+					"_key": "7d420be8da97",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "8a07c15786fe",
+							"_key": "c88ac69b5874",
 							"_type": "span",
 							"marks": [],
-							"text": "Er du født i 1963 eller senere og har gradert uføretrygd kan du velge å simulere at du sier fra deg uføretrygden og i stedet velge AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "4cb4e1e193f9",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "2f6014f36025",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du 100% uføretrygd har du normalt ikke rett til AFP, du kan derfor ikke beregne AFP i kalkulatoren."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2d86568fe287",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "715284136f6d",
-							"_type": "span",
-							"marks": [],
-							"text": "Er du ført i 1963 eller senere og har mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP. Du kan derfor ikke beregne AFP i kalkulatoren. "
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "01e29c6c5949",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "21c2699aff35",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "ad0adcb4e586",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "d7fb5fd0caef",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "6ba970dd62da",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "4f0dc821ac7a",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren tar ikke høyde for nevnte unntak."
+							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
 						}
 					],
 					"markDefs": [],
@@ -1309,108 +1481,51 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "04822b59a4ed",
+					"_key": "b3b44c6f17df",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "8a07c15786fe",
+							"_key": "d980c98a6dad",
 							"_type": "span",
 							"marks": [],
-							"text": "Er du født i 1963 eller senere og har gradert uføretrygd kan du velge å simulere at du sier fra deg uføretrygden og i stedet velge AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "4cb4e1e193f9",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "2f6014f36025",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du 100% uføretrygd har du normalt ikke rett til AFP, du kan derfor ikke beregne AFP i kalkulatoren."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "2d86568fe287",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "715284136f6d",
-							"_type": "span",
-							"marks": [],
-							"text": "Er du ført i 1963 eller senere og har mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP. Du kan derfor ikke beregne AFP i kalkulatoren. "
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "01e29c6c5949",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "21c2699aff35",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "ad0adcb4e586",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "d7fb5fd0caef",
-							"_type": "span",
-							"marks": [],
-							"text": "Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "6ba970dd62da",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "4f0dc821ac7a",
-							"_type": "span",
-							"marks": [],
-							"text": "Kalkulatoren tar ikke høyde for nevnte unntak."
+							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-8",
 			"overskrift": "Uførepensjon fra tjenestepensjonsordninger",
+			"vilkaar": [
+				{
+					"_key": "fee1bc8441e9",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "a4b4fc2a61b4",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "beregnerGammelAfp"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "9ae5356c-0887-4078-a717-b27a2b317d9f",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "5362ba7f95f7",
+					"_key": "96b4e6c34946",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ececdb8f737e",
+							"_key": "1480a7b7cbdc",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP i kalkulatoren. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
+							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
 						}
 					],
 					"markDefs": [],
@@ -1419,14 +1534,14 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "5362ba7f95f7",
+					"_key": "96b4e6c34946",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ececdb8f737e",
+							"_key": "1480a7b7cbdc",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP i kalkulatoren. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
+							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
 						}
 					],
 					"markDefs": [],
@@ -1435,38 +1550,51 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "5362ba7f95f7",
+					"_key": "1918c0a1712e",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "ececdb8f737e",
+							"_key": "61db1d9f76c3",
 							"_type": "span",
 							"marks": [],
-							"text": "Hvis du er født før 1963 og har mottatt uførepensjon fra en offentlig tjenestepensjonsordning kan du få for lavt resultat ved beregning av AFP i kalkulatoren. Dette gjelder hvis du har mottatt uførepensjon i løpet av de siste 5 årene forut for året før du tar ut AFP i offentlig sektor, uten at du samtidig mottok uføretrygd fra folketrygden."
+							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-9",
 			"overskrift": "Gjenlevendepensjon og omstillingsstønad",
+			"vilkaar": [
+				{
+					"_key": "8a0523ef3ffa",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "ba7b1a4ad93b",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "harGjenlevendeEllerOmstillingsstoenad"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "cf0486e6-a565-460c-aacf-b184edfea416",
+			"alltidSynlig": false,
 			"innhold": [
 				{
-					"_key": "c07e110c9b7c",
+					"_key": "e7807e669479",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "1ea750189c5a",
+							"_key": "fbc4d709c9b6",
 							"_type": "span",
 							"marks": [],
-							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
+							"text": "Hvis du er født før 1963 og har gjenlevenderettigheter kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Beregningen tar ikke høyde for dette. Mottar du allerede alderspensjon med gjenlevendetillegg vil dette bli tatt høyde for."
 						}
 					],
 					"markDefs": [],
@@ -1475,14 +1603,14 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "c07e110c9b7c",
+					"_key": "e7807e669479",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "1ea750189c5a",
+							"_key": "fbc4d709c9b6",
 							"_type": "span",
 							"marks": [],
-							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
+							"text": "Hvis du er født før 1963 og har gjenlevenderettigheter kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Beregningen tar ikke høyde for dette. Mottar du allerede alderspensjon med gjenlevendetillegg vil dette bli tatt høyde for."
 						}
 					],
 					"markDefs": [],
@@ -1491,91 +1619,76 @@
 			],
 			"innholdIntern": [
 				{
-					"_key": "c07e110c9b7c",
+					"_key": "a049da4c704b",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "1ea750189c5a",
+							"_key": "5ceb948b7fa1",
 							"_type": "span",
 							"marks": [],
-							"text": "Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet."
+							"text": "Beregningen forutsetter at du oppfyller vilkårene for gjenlevenderett og ikke bor sammen med noen. Endelige rettigheter fastsettes først ved behandling av søknad."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "c85856ffb877",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "dce68781472c",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen bygger også på opplysninger om ektefelle/partner/samboer og er veiledende. Hvis dødsdato ikke er registrert, settes dødsdato til dagen før beregningen."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
-		},
-		{
-			"_id": "forbeholdAvsnitt-mock-10",
 			"overskrift": "Gjenlevendetillegg i alderspensjon",
+			"vilkaar": [
+				{
+					"_key": "e7eac1a70b59",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "ab14a7873db2",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "beregnerMedGjenlevenderett"
+						}
+					]
+				}
+			],
 			"visEkstern": true,
-			"visIntern": true,
-			"innhold": [
-				{
-					"_key": "0465be836989",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "b1caa8ac145a",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du er født før 1963 og har gjenlevenderettigheter, kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Kalkulatoren tar ikke høyde for dette."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				}
-			],
-			"innholdEkstern": [
-				{
-					"_key": "0465be836989",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "b1caa8ac145a",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du er født før 1963 og har gjenlevenderettigheter, kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Kalkulatoren tar ikke høyde for dette."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				}
-			],
-			"innholdIntern": [
-				{
-					"_key": "0465be836989",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "b1caa8ac145a",
-							"_type": "span",
-							"marks": [],
-							"text": "Hvis du er født før 1963 og har gjenlevenderettigheter, kan alderspensjonen din bli høyere hvis du har rett til gjenlevendetillegg. Kalkulatoren tar ikke høyde for dette."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				}
-			],
-			"alltidSynlig": true,
-			"vilkaar": []
+			"visIntern": true
 		},
 		{
-			"_id": "forbeholdAvsnitt-mock-11",
-			"overskrift": "Pensjonsavtaler",
-			"visEkstern": true,
-			"visIntern": true,
+			"_id": "1fc8c708-1097-404b-8a64-0524d29258de",
+			"alltidSynlig": true,
 			"innhold": [
 				{
-					"_key": "587e61c063fb",
+					"_key": "6f559db0c274",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "0e7741919950",
+							"_key": "f456781a13bc",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "c0ea27a75d33",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "8e6f4ddf152f",
 							"_type": "span",
 							"marks": [],
 							"text": "Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon."
@@ -1585,11 +1698,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "304d406f99b6",
+					"_key": "aa3bcc5b1a38",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "d92f4939e165",
+							"_key": "e33ff99dc5c0",
 							"_type": "span",
 							"marks": [],
 							"text": "Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger."
@@ -1599,11 +1712,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "8cafcf79cd36",
+					"_key": "9a08abe6103c",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "96a90a886475",
+							"_key": "0afb589dde73",
 							"_type": "span",
 							"marks": [],
 							"text": "Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon."
@@ -1613,11 +1726,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "54674ec8b98a",
+					"_key": "8d922360af2f",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "e65a1b499044",
+							"_key": "33daf6197ae7",
 							"_type": "span",
 							"marks": [],
 							"text": "Beregningen av offentlig tjenestepensjon er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i tjenestepensjonsordning fra datoen du beregner pensjonen fra."
@@ -1627,11 +1740,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "25d719f2ed4f",
+					"_key": "2b36d4dad670",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "191409c5ce0b",
+							"_key": "66f0730e40a8",
 							"_type": "span",
 							"marks": [],
 							"text": "Pensjonsavtaler vises med 100 % uttaksgrad. Dette gjelder selv om du har beregnet gradert alderspensjon fra Nav. Hvis du er født før 1963 og har pensjonsavtaler fra Statens pensjonskasse (SPK), kan tjenestepensjonen i noen tilfeller være gradert."
@@ -1643,11 +1756,25 @@
 			],
 			"innholdEkstern": [
 				{
-					"_key": "587e61c063fb",
+					"_key": "6f559db0c274",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "0e7741919950",
+							"_key": "f456781a13bc",
+							"_type": "span",
+							"marks": [],
+							"text": "Nav er ikke ansvarlig for beløpene som er hentet inn fra andre."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "c0ea27a75d33",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "8e6f4ddf152f",
 							"_type": "span",
 							"marks": [],
 							"text": "Hvis du har samtykket til det, henter vi beregning av pensjonsavtalene dine fra offentlige og private pensjonsordninger. Nav har ikke ansvar for beløpene som oppgis. Pensjonsavtalene vises for å gi en omtrentlig oversikt over din totale pensjon."
@@ -1657,11 +1784,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "304d406f99b6",
+					"_key": "aa3bcc5b1a38",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "d92f4939e165",
+							"_key": "e33ff99dc5c0",
 							"_type": "span",
 							"marks": [],
 							"text": "Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon. Vi kan bare hente inn pensjonsavtaler fra enkelte offentlige tjenestepensjonsordninger."
@@ -1671,11 +1798,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "8cafcf79cd36",
+					"_key": "9a08abe6103c",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "96a90a886475",
+							"_key": "0afb589dde73",
 							"_type": "span",
 							"marks": [],
 							"text": "Ta kontakt med den enkelte pensjonsordningen din dersom du trenger en nærmere oversikt over pensjonsavtalene dine eller mer informasjon."
@@ -1685,11 +1812,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "54674ec8b98a",
+					"_key": "8d922360af2f",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "e65a1b499044",
+							"_key": "33daf6197ae7",
 							"_type": "span",
 							"marks": [],
 							"text": "Beregningen av offentlig tjenestepensjon er gjort ut fra dagens regelverk og opplysninger om deg. Beregningen forutsetter at du slutter i stilling med medlemskap i tjenestepensjonsordning fra datoen du beregner pensjonen fra."
@@ -1699,11 +1826,11 @@
 					"style": "normal"
 				},
 				{
-					"_key": "25d719f2ed4f",
+					"_key": "2b36d4dad670",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "191409c5ce0b",
+							"_key": "66f0730e40a8",
 							"_type": "span",
 							"marks": [],
 							"text": "Pensjonsavtaler vises med 100 % uttaksgrad. Dette gjelder selv om du har beregnet gradert alderspensjon fra Nav. Hvis du er født før 1963 og har pensjonsavtaler fra Statens pensjonskasse (SPK), kan tjenestepensjonen i noen tilfeller være gradert."
@@ -1785,8 +1912,10 @@
 					"style": "normal"
 				}
 			],
-			"alltidSynlig": true,
-			"vilkaar": []
+			"overskrift": "Pensjonsavtaler",
+			"vilkaar": null,
+			"visEkstern": true,
+			"visIntern": false
 		}
 	]
 }
