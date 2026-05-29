@@ -190,21 +190,22 @@ jobs:
           RESOURCE: apps/intern/.nais/deploy-dev.yml,apps/intern/.nais/unleash-api-token-dev.yaml
           VAR: branch=${{ needs.determine-test-env-intern.outputs.environments }}
 
-  # Deploy intern to prod (uncomment when ready for production)
-  # deploy-intern-prod:
-  #   name: Deploy intern to prod
-  #   needs: [deploy-intern-staging]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v6
+  # Deploy intern to prod
+  deploy-intern-prod:
+    name: Deploy intern to prod
+    needs: [build-intern, deploy-intern-staging]
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event.inputs.prod == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-  #     - name: Deploy to prod-gcp
-  #       uses: nais/deploy/actions/deploy@v2
-  #       env:
-  #         CLUSTER: prod-gcp
-  #         IMAGE: ${{ needs.build-intern.outputs.image }}
-  #         RESOURCE: apps/intern/.nais/deploy-prod.yml,apps/intern/.nais/unleash-api-token-prod.yaml
+      - name: Deploy to prod-gcp
+        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        env:
+          CLUSTER: prod-gcp
+          IMAGE: ${{ needs.build-intern.outputs.image }}
+          RESOURCE: apps/intern/.nais/deploy-prod.yml,apps/intern/.nais/unleash-api-token-prod.yaml
 
   # Build and deploy ekstern app
   build-ekstern:

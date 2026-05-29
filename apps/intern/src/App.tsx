@@ -15,6 +15,7 @@ import { PesysHeader } from './PesysHeader.tsx'
 import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
+	useFeatureToggleQuery,
 	useInntektQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
@@ -87,6 +88,10 @@ const AppContent = () => {
 		error: personError,
 		data: person,
 	} = usePersonQuery(fnr)
+
+	const { data: showHentPersonButton } = useFeatureToggleQuery(
+		'internsimulator.hent-person-button'
+	)
 
 	const { isLoading: isLoadingVedtak, error: vedtakError } = useVedtakQuery(fnr)
 
@@ -171,6 +176,16 @@ const AppContent = () => {
 
 	return (
 		<>
+			{showHentPersonButton?.enabled === false && (
+				<GlobalAlert status="announcement" size="small" centered={false}>
+					<GlobalAlert.Header className={styles.pilotGlobalAlert}>
+						<GlobalAlert.Title>
+							Denne pensjonskalkulatoren er under utvikling. Er du ikke med i
+							piloten, skal du fortsatt bruke gammel pensjonskalkulator.
+						</GlobalAlert.Title>
+					</GlobalAlert.Header>
+				</GlobalAlert>
+			)}
 			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
 				initialSivilstatus={person?.sivilstatus}

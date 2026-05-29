@@ -1702,8 +1702,12 @@ export interface components {
 			vedGradertUttak?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
-			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
+			vedHeltUttak?:
+				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
+				| null
+			vedNormertPensjonsalder?:
+				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
+				| null
 		}
 		SimuleringV1PrivatAfp: {
 			/**

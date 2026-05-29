@@ -11,6 +11,7 @@ import {
 	BodyLong,
 	Box,
 	Button,
+	HGrid,
 	HStack,
 	Label,
 	Loader,
@@ -222,7 +223,7 @@ export const Beregning = () => {
 			<BeregningSection
 				title={formatAlderTitle(67, 0)}
 				{...sectionCommonProps}
-				entry={normertMaanedligAlderspensjon}
+				entry={normertMaanedligAlderspensjon ?? undefined}
 				showAfp
 				afpEntry={afpPrivatVed67Aar}
 				totalAddToSum={
@@ -329,8 +330,8 @@ export const Beregning = () => {
 								{...sectionCommonProps}
 								entry={
 									skalBeregneAfpKap19
-										? normertMaanedligAlderspensjon
-										: helMaanedligAlderspensjon
+										? (normertMaanedligAlderspensjon ?? undefined)
+										: (helMaanedligAlderspensjon ?? undefined)
 								}
 								showAfp={harAfpPrivat}
 								afpEntry={afpPrivatVedHeltUttak ?? undefined}
@@ -474,6 +475,15 @@ export const Beregning = () => {
 					</HStack>
 				</Modal.Footer>
 			</Modal>
+			<HGrid marginBlock="space-40" columns={3}>
+				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
+					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
+					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
+					foreløpig beregning av hva du kan forvente deg i pensjon.
+					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
+					juridisk bindende.
+				</BodyLong>
+			</HGrid>
 		</Box>
 	)
 }

@@ -6,6 +6,7 @@ import {
 import {
 	calculateUttaksalderAsDate,
 	isAlderLikAnnenAlder,
+	isAlderOver67,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
@@ -84,6 +85,7 @@ export const BeregningForm = () => {
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
+	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
 		if (erEndring) {
@@ -219,7 +221,8 @@ export const BeregningForm = () => {
 	const hideAfpSporsmaal =
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
-		harVedtakTidsbegrensetOffentligAFP
+		harVedtakTidsbegrensetOffentligAFP ||
+		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
@@ -229,17 +232,14 @@ export const BeregningForm = () => {
 	})
 
 	const showAPOgUTOver100Alert =
-		!erEndring &&
 		vedtak?.ufoeretrygdgrad &&
 		uttaksgrad === 100 &&
 		alderAarUttak &&
 		alderAarUttak < 67
 
-	const showUTOgAFPAlert =
-		!erEndring && afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+	const showUTOgAFPAlert = afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
 
 	const showUTOgFolketrygdBeregnetAFPAlert =
-		!erEndring &&
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
 
@@ -247,9 +247,16 @@ export const BeregningForm = () => {
 		? isFoedtFoer1963(person.foedselsdato)
 		: false
 
+	const kanVelgeOffentligAfp = person?.foedselsdato
+		? isFoedtFoer1963(person.foedselsdato) &&
+			!isAlderOver67(person.foedselsdato)
+		: false
+
 	const afpOptions = [
 		{ value: 'ja_privat', label: 'Ja, privat' },
-		{ value: 'ja_offentlig', label: 'Ja, offentlig' },
+		...(kanVelgeOffentligAfp
+			? [{ value: 'ja_offentlig', label: 'Ja, offentlig' }]
+			: []),
 		{ value: 'nei', label: 'Nei' },
 		...(kanVelgeServiceberegning
 			? [
@@ -286,6 +293,8 @@ export const BeregningForm = () => {
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
 						person,
+						harGjenlevenderett:
+							vedtak?.loependeAlderspensjon?.harGjenlevenderett,
 					}) && (
 						<>
 							<Gjenlevenderett />
@@ -334,18 +343,16 @@ export const BeregningForm = () => {
 					beregnMedGjenlevenderett,
 					erEndring,
 				}) && (
-					<>
-						<RHFRadio
-							name="epsHarInntektOver2G"
-							testid="eps-har-inntekt-over-2g"
-							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-							className={styles.horizontalRadioGroup}
-						/>
-						<Divider noMargin />
-					</>
+					<RHFRadio
+						name="epsHarInntektOver2G"
+						testid="eps-har-inntekt-over-2g"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
 				)}
 				{!erEndring && (
 					<>
+						<Divider noMargin />
 						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
 						<Divider noMargin />
 					</>
