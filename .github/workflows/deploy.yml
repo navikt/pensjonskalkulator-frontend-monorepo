@@ -81,7 +81,7 @@ jobs:
 
       - name: Create Docker image
         id: image-creation
-        uses: nais/docker-build-push@be85229e81c0293c265c646c084f05317fb6e0d2 # v0
+        uses: nais/docker-build-push@751a312f0803eb96a05a41fadf51be19b7be362c # v0
         with:
           dockerfile: apps/intern/.docker/Dockerfile
           docker_context: .
@@ -145,7 +145,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to staging
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
@@ -183,7 +183,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to ${{ needs.determine-test-env-intern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
@@ -201,7 +201,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to prod-gcp
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build-intern.outputs.image }}
@@ -331,14 +331,14 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to staging
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-staging.yml,apps/ekstern/.nais/unleash-api-token-dev.yaml
 
       - name: Deploy veiledning to staging
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -374,7 +374,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to ${{ needs.determine-test-env-ekstern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -382,7 +382,7 @@ jobs:
           VAR: branch=${{ needs.determine-test-env-ekstern.outputs.environments }}
 
       - name: Deploy veiledning to ${{ needs.determine-test-env-ekstern.outputs.environments }}
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build-ekstern.outputs.image }}
@@ -400,14 +400,14 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Deploy to prod-gcp
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build-ekstern-prod.outputs.image }}
           RESOURCE: apps/ekstern/.nais/deploy-prod.yml,apps/ekstern/.nais/unleash-api-token-prod.yaml
 
       - name: Deploy veiledning to prod-gcp
-        uses: nais/deploy/actions/deploy@2f28259ff29ea37915f5a0c9e2a8e3542c429df7 # v2
+        uses: nais/deploy/actions/deploy@d57354b433c8d6847ab092467d9fe976a3d008aa # v2
         env:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build-ekstern-prod.outputs.image }}
