@@ -4,8 +4,8 @@ import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
 	type ServiceberegnetAfpResult,
-	mapAfpToRows,
 	mapServiceAfpOpptjeningRows,
+	mapServiceAfpToRows,
 } from './beregningMappers'
 
 import styles from '../BeregningSection/BeregningSection.module.css'
@@ -25,12 +25,7 @@ export const ServiceAfpBeregningSection = ({
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
 }: ServiceAfpBeregningSectionProps) => {
-	const afpRows = mapAfpToRows({
-		grunnpensjon: entry.grunnpensjon ?? 0,
-		tilleggspensjon: entry.tilleggspensjon ?? 0,
-		afpTillegg: entry.afpTillegg ?? 0,
-		saertillegg: entry.saertillegg ?? 0,
-	})
+	const afpRows = mapServiceAfpToRows(entry)
 	const opptjeningRows = mapServiceAfpOpptjeningRows(entry)
 
 	return (

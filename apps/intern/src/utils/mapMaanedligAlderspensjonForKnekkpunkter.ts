@@ -3,6 +3,7 @@ import type {
 	components,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
+import type { InternAfpRadio } from '../api/beregningTypes'
 import { mapLagreMaanedligAlderspensjon } from './mapLagreMaanedligAlderspensjon'
 
 type ResultKnekkpunkter =
@@ -15,7 +16,8 @@ type Kull = 'KAP19' | 'KAP20' | 'OVERGANG'
 export function mapMaanedligAlderspensjonForKnekkpunkter(
 	knekkpunkter: ResultKnekkpunkter,
 	grunnbeloep?: number | null,
-	kull?: Kull | null
+	kull?: Kull | null,
+	afpType?: InternAfpRadio
 ): LagreMaanedligAlderspensjonForKnekkpunkterDto | null {
 	if (!knekkpunkter) {
 		return null
@@ -31,6 +33,15 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 		grunnbeloep,
 		kull
 	)
+
+	if (afpType === 'ja_offentlig' && knekkpunkter.vedNormertPensjonsalder)
+		return {
+			vedHeltUttak: mapLagreMaanedligAlderspensjon(
+				knekkpunkter.vedNormertPensjonsalder,
+				grunnbeloep,
+				kull
+			),
+		}
 
 	if (!vedHeltUttak || !vedNormertPensjonsalder) {
 		return null
