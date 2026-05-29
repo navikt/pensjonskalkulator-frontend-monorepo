@@ -11,7 +11,7 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
-import { parseEndUserDate } from '../../utils/dates'
+import { normalizeDateInput, parseEndUserDate } from '../../utils/dates'
 import { useBeregningContext } from '../BeregningContext'
 import { RHFDatePicker } from '../BeregningForm/rhf-adapters/RHFDatePicker'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
@@ -231,7 +231,12 @@ export const UtenlandsOpphold = ({
 	const saveOpphold = () => {
 		if (activeIndex === null) return
 
-		const opphold = getOppholdValues(activeIndex)
+		const raw = getOppholdValues(activeIndex)
+		const opphold: OppholdValues = {
+			...raw,
+			fom: normalizeDateInput(raw.fom) ?? raw.fom,
+			tom: normalizeDateInput(raw.tom) ?? raw.tom,
+		}
 
 		if (!validateCurrentOpphold(activeIndex, opphold)) {
 			return

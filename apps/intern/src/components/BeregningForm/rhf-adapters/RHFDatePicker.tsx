@@ -36,7 +36,7 @@ export function RHFDatePicker({
 		onDateChange: (date) => {
 			field.onChange(date ? formatEndUserDate(date) : '')
 		},
-		allowTwoDigitYear: false,
+		allowTwoDigitYear: true,
 		fromDate,
 		toDate,
 		disabled,
