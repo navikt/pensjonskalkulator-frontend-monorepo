@@ -1,15 +1,35 @@
 .selectLandWrapper,
-.dateFieldWrapper,
 .dateFieldWrapper :global(.aksel-date__field-wrapper) {
 	width: 11.75rem;
+}
+
+.dateFieldsGrid {
+	display: grid;
+	/* Hver kolonne er nøyaktig én datofelt-bredde. Browseren legger inn så
+	   mange kolonner som det er plass til — over ~25rem container-bredde
+	   blir det 2 kolonner side om side, under blir det 1 kolonne stablet.
+	   Reflower automatisk både ned og opp når bredden endres. */
+	grid-template-columns: repeat(auto-fill, 11.75rem);
+	column-gap: 1.5rem;
+	row-gap: 1rem;
+	align-items: start;
+	justify-content: start;
+}
+
+@media (max-width: 600px) {
+	/* Formpanelet rundt har fast bredde, så grid-containeren shrinker ikke
+	   av seg selv. Tving én kolonne under 600px viewport for å unngå at
+	   datofeltene ligger ved siden av hverandre på små skjermer. */
+	.dateFieldsGrid {
+		grid-template-columns: 11.75rem;
+	}
 }
 
 .selectLand {
 	width: 100%;
 }
 
-.radioFieldWrapper,
-.dateFieldWrapper {
+.radioFieldWrapper {
 	flex-shrink: 0;
 }
 
@@ -19,10 +39,6 @@
 
 .copyButton:hover {
 	background-color: var(--ax-bg-moderate-hoverA);
-}
-
-.dateFieldsHStack {
-	margin-bottom: -20px;
 }
 
 .actionButtonsHStack {
