@@ -9,7 +9,7 @@ import {
 	isAlderOver67,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { format, parseISO } from 'date-fns'
+import { addMonths, format, parseISO } from 'date-fns'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -256,7 +256,7 @@ export const BeregningForm = () => {
 		calculateUttaksalderAsDate(
 			{ aar: alderAarUttak, maaneder: alderMdUttak },
 			person.foedselsdato
-		) < parseISO(fremtidigAlderspensjon.fom)
+		) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
 
 	const kanVelgeServiceberegning = person?.foedselsdato
 		? isFoedtFoer1963(person.foedselsdato)
@@ -484,7 +484,7 @@ export const BeregningForm = () => {
 									grad: String(fremtidigAlderspensjon?.grad ?? 100),
 									alder: fremtidigAlderspensjon
 										? format(
-												parseISO(fremtidigAlderspensjon.fom),
+												addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
 												DATE_ENDUSER_FORMAT
 											)
 										: '',
