@@ -186,6 +186,10 @@ export const BeregningForm = () => {
 			alderMdUttak: normalizedFormData.alderMdUttak,
 		})
 
+		if (showFremtidigAlderspensjonAlert) {
+			return
+		}
+
 		if (tidligsteEndringsdato) {
 			setForTidligEndringAvUttaksgradDato(tidligsteEndringsdato)
 			return
