@@ -70,7 +70,7 @@ export function mapBeregningParamsToRequest(
 		formData.aarligInntektFoerUttakBeloep ?? undefined
 
 	const grad = formData.uttaksgrad ?? 0
-	const erGradert = grad < 100 && grad !== 0
+	const erGradert = grad < 100
 
 	const aarligInntektVsaPensjonGradert =
 		erGradert &&
@@ -141,7 +141,7 @@ export function mapBeregningParamsToRequest(
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		utenlandsperiodeListe,
 		gradertUttak:
-			grad < 100 || skalBeregneTidsbegrensetOffentligAfp
+			erGradert || skalBeregneTidsbegrensetOffentligAfp
 				? {
 						grad: skalBeregneTidsbegrensetOffentligAfp ? 100 : grad,
 						uttaksalder: skalBeregneTidsbegrensetOffentligAfp
