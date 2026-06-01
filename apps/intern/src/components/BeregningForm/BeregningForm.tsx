@@ -253,6 +253,7 @@ export const BeregningForm = () => {
 
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 	const showFremtidigAlderspensjonAlert =
+		vedtak?.loependeAlderspensjon &&
 		fremtidigAlderspensjon &&
 		person?.foedselsdato !== undefined &&
 		alderAarUttak !== null &&
