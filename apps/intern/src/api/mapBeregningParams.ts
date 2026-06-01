@@ -3,6 +3,7 @@ import type {
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
 	SimuleringsType,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	DATE_BACKEND_FORMAT,
@@ -35,7 +36,8 @@ const mapUtenlandsperiodeListe = (
 export function mapBeregningParamsToRequest(
 	formData: BeregningFormData,
 	person?: PersonInternV1,
-	grunnbeloep?: Grunnbeloep
+	grunnbeloep?: Grunnbeloep,
+	vedtak?: Vedtak
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
@@ -167,15 +169,17 @@ export function mapBeregningParamsToRequest(
 		},
 		sivilstatus: formData.sivilstatus,
 		eps: {
-			levende: !formData.beregnMedGjenlevenderett
-				? {
-						harInntektOver2G:
-							formData.epsHarPensjon === false
-								? Boolean(formData.epsHarInntektOver2G)
-								: false,
-						harPensjon: Boolean(formData.epsHarPensjon),
-					}
-				: undefined,
+			levende:
+				!formData.beregnMedGjenlevenderett &&
+				vedtak?.loependeAlderspensjon?.harGjenlevenderett === false
+					? {
+							harInntektOver2G:
+								formData.epsHarPensjon === false
+									? Boolean(formData.epsHarInntektOver2G)
+									: false,
+							harPensjon: Boolean(formData.epsHarPensjon),
+						}
+					: undefined,
 			avdoed:
 				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
 					? {

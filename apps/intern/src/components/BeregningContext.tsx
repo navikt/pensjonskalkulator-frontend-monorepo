@@ -286,7 +286,7 @@ export function BeregningProvider({
 	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
 	const pendingRequest = pendingBeregning
-		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep)
+		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep, vedtak)
 		: null
 
 	const {
