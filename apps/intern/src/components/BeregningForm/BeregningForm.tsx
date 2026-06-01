@@ -15,7 +15,7 @@ import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
-import { DATE_ENDUSER_FORMAT } from '../../../../../packages/utils/src/dates'
+import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
