@@ -5,8 +5,8 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	calculateUttaksalderAsDate,
+	isAlder67MaanedenFylt,
 	isAlderLikAnnenAlder,
-	isAlderOver67,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
@@ -249,7 +249,7 @@ export const BeregningForm = () => {
 
 	const kanVelgeOffentligAfp = person?.foedselsdato
 		? isFoedtFoer1963(person.foedselsdato) &&
-			!isAlderOver67(person.foedselsdato)
+			!isAlder67MaanedenFylt(person.foedselsdato)
 		: false
 
 	const afpOptions = [
