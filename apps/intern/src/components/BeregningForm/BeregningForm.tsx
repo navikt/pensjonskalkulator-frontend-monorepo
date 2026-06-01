@@ -9,13 +9,13 @@ import {
 	isAlderOver67,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { addMonths, format, parseISO } from 'date-fns'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
-import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	getPartnerBetegnelse,
@@ -128,6 +128,9 @@ export const BeregningForm = () => {
 		forTidligEndringAvUttaksgradDato,
 		setForTidligEndringAvUttaksgradDato,
 	] = useState<string | null>(null)
+
+	const [showFremtidigAlderspensjonAlert, setShowFremtidigAlderspensjonAlert] =
+		useState<boolean>(false)
 
 	const { initialInntekt } = useBeregningContext()
 
@@ -252,16 +255,26 @@ export const BeregningForm = () => {
 		vedtak?.ufoeretrygdgrad
 
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
-	const showFremtidigAlderspensjonAlert =
-		vedtak?.loependeAlderspensjon &&
-		fremtidigAlderspensjon &&
-		person?.foedselsdato !== undefined &&
-		alderAarUttak !== null &&
-		alderMdUttak !== null &&
-		calculateUttaksalderAsDate(
-			{ aar: alderAarUttak, maaneder: alderMdUttak },
-			person.foedselsdato
-		) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
+	useEffect(() => {
+		setShowFremtidigAlderspensjonAlert(
+			Boolean(
+				vedtak?.loependeAlderspensjon &&
+				fremtidigAlderspensjon &&
+				person?.foedselsdato !== undefined &&
+				alderAarUttak !== null &&
+				alderMdUttak !== null &&
+				calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
+			)
+		)
+	}, [
+		fremtidigAlderspensjon,
+		person?.foedselsdato,
+		alderAarUttak,
+		alderMdUttak,
+	])
 
 	const kanVelgeServiceberegning = person?.foedselsdato
 		? isFoedtFoer1963(person.foedselsdato)

@@ -100,10 +100,7 @@ export function getForTidligEndringAvUttaksgradDato({
 
 	if (
 		!UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST.includes(uttaksgrad) ||
-		uttaksgrad === loependeAlderspensjon.grad ||
-		(loependeAlderspensjon &&
-			fremtidigAlderspensjon &&
-			uttaksgrad === fremtidigAlderspensjon.grad)
+		uttaksgrad === loependeAlderspensjon.grad
 	) {
 		return null
 	}
