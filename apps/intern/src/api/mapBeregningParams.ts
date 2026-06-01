@@ -141,7 +141,7 @@ export function mapBeregningParamsToRequest(
 		aarligInntektFoerUttakBeloep: aarligInntektFoerUttak,
 		utenlandsperiodeListe,
 		gradertUttak:
-			erGradert || skalBeregneTidsbegrensetOffentligAfp
+			grad < 100 || skalBeregneTidsbegrensetOffentligAfp
 				? {
 						grad: skalBeregneTidsbegrensetOffentligAfp ? 100 : grad,
 						uttaksalder: skalBeregneTidsbegrensetOffentligAfp
