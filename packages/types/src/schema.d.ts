@@ -1702,8 +1702,12 @@ export interface components {
 			vedGradertUttak?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
-			vedHeltUttak: components['schemas']['SimuleringV1MaanedligAlderspensjon']
-			vedNormertPensjonsalder: components['schemas']['SimuleringV1MaanedligAlderspensjon']
+			vedHeltUttak?:
+				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
+				| null
+			vedNormertPensjonsalder?:
+				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
+				| null
 		}
 		SimuleringV1PrivatAfp: {
 			/**
@@ -1879,19 +1883,27 @@ export interface components {
 			/** Format: int32 */
 			beloep: number
 		}
+		LagreAfpOffentligLivsvarigSimuleringDto: {
+			vedGradertUttak?:
+				| components['schemas']['LagreLivsvarigOffentligAfpDto']
+				| null
+			vedHeltUttak: components['schemas']['LagreLivsvarigOffentligAfpDto']
+		}
+		LagreAfpOffentligTidsbegrensetSimuleringDto: {
+			vedGradertUttak?:
+				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
+				| null
+			vedHeltUttak: components['schemas']['LagreTidsbegrensetOffentligAfpDto']
+		}
+		LagreAfpPrivatSimuleringDto: {
+			vedGradertUttak?: components['schemas']['LagrePrivatAfpDto'] | null
+			vedHeltUttak: components['schemas']['LagrePrivatAfpDto']
+		}
 		LagreAlderDto: {
 			/** Format: int32 */
 			aar: number
 			/** Format: int32 */
 			maaneder: number
-		}
-		LagreAldersbestemtUtbetalingDto: {
-			/** Format: int32 */
-			alderAar: number
-			/** Format: int32 */
-			aarligBeloep: number
-			/** Format: int32 */
-			maanedligBeloep?: number | null
 		}
 		LagreAlderspensjonDto: {
 			/** Format: int32 */
@@ -1900,6 +1912,14 @@ export interface components {
 			beloep: number
 			/** Format: int32 */
 			gjenlevendetillegg?: number | null
+		}
+		LagreLivsvarigOffentligAfpDto: {
+			/** Format: int32 */
+			alderAar: number
+			/** Format: int32 */
+			aarligBeloep: number
+			/** Format: int32 */
+			maanedligBeloep: number
 		}
 		LagreMaanedligAlderspensjonDto: {
 			/** Format: int32 */
@@ -1928,8 +1948,8 @@ export interface components {
 			pensjonstillegg?: number | null
 			/** Format: int32 */
 			skjermingstillegg?: number | null
-			/** Format: double */
-			kapittel19Andel?: number | null
+			/** Format: int32 */
+			kapittel19AndelTeller?: number | null
 			/** Format: int32 */
 			kapittel19Trygdetid?: number | null
 			/** Format: int32 */
@@ -1940,16 +1960,22 @@ export interface components {
 			gjenlevendetillegg?: number | null
 			/** Format: double */
 			minstePensjonsnivaaSats?: number | null
-			/** Format: double */
-			kapittel20Andel?: number | null
+			/** Format: int32 */
+			minstePensjonsnivaaBeloep?: number | null
+			/** Format: int32 */
+			kapittel20AndelTeller?: number | null
 			/** Format: int32 */
 			kapittel20Trygdetid?: number | null
 			/** Format: int32 */
 			garantipensjonBeloep?: number | null
+			/** Format: int32 */
+			garantipensjonsnivaaBeloep?: number | null
 			/** Format: double */
 			garantipensjonSats?: number | null
 			/** Format: int32 */
 			garantitilleggBeloep?: number | null
+			/** Format: int32 */
+			grunnbeloep?: number | null
 		}
 		LagreMaanedligAlderspensjonForKnekkpunkterDto: {
 			vedGradertUttak?:
@@ -1970,17 +1996,17 @@ export interface components {
 			/** Format: int32 */
 			livsvarig: number
 			/** Format: int32 */
-			maanedligBeloep?: number | null
+			maanedligBeloep: number
 		}
 		LagreSimuleringSpecDtoV1: {
 			alderspensjonListe: components['schemas']['LagreAlderspensjonDto'][]
-			livsvarigOffentligAfpListe?:
-				| components['schemas']['LagreAldersbestemtUtbetalingDto'][]
+			afpPrivat?: components['schemas']['LagreAfpPrivatSimuleringDto'] | null
+			afpOffentligLivsvarig?:
+				| components['schemas']['LagreAfpOffentligLivsvarigSimuleringDto']
 				| null
-			tidsbegrensetOffentligAfp?:
-				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
+			afpOffentligTidsbegrenset?:
+				| components['schemas']['LagreAfpOffentligTidsbegrensetSimuleringDto']
 				| null
-			privatAfpListe?: components['schemas']['LagrePrivatAfpDto'][] | null
 			vilkaarsproevingsresultat: components['schemas']['LagreVilkaarsproevingsresultatDto']
 			trygdetid?: components['schemas']['LagreTrygdetidDto'] | null
 			pensjonsgivendeInntektListe?:
@@ -1989,13 +2015,24 @@ export interface components {
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
 				| null
+			maanedligAlderspensjonForKnekkpunkter?:
+				| components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
+				| null
 			navEnhetId?: string | null
 		}
 		LagreSimuleringsinformasjonDto: {
 			gradertUttaksalder?: components['schemas']['LagreAlderDto'] | null
-			heltUttaksalder?: components['schemas']['LagreAlderDto'] | null
-			maanedligAlderspensjonForKnekkpunkter?:
-				| components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
+			heltUttaksalder: components['schemas']['LagreAlderDto']
+			sivilstatus?: string | null
+			utenlandsperioder?:
+				| components['schemas']['LagreUtenlandsperiodeDto'][]
+				| null
+			/** @enum {string} */
+			kull?: 'KAP19' | 'KAP20' | 'OVERGANG'
+			/** @enum {string|null} */
+			normertPensjonsalderPlassering?:
+				| 'MELLOM_GRADERT_OG_HELT'
+				| 'ETTER_HELT'
 				| null
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
@@ -2031,6 +2068,14 @@ export interface components {
 			/** Format: int32 */
 			antallAar: number
 			erUtilstrekkelig: boolean
+		}
+		LagreUtenlandsperiodeDto: {
+			/** Format: date */
+			fom: string
+			/** Format: date */
+			tom?: string | null
+			landkode: string
+			arbeidetUtenlands: boolean | null
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2069,15 +2114,21 @@ export interface components {
 			/** Format: date */
 			fom?: string | null
 			/** @enum {string} */
-			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER'
+			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER' | 'UKJENT'
 			relasjonPersondata?:
 				| components['schemas']['EpsV1RelasjonPersondata']
 				| null
+			problem?: components['schemas']['EpsV1Problem'] | null
 		}
 		EpsV1Navn: {
 			fornavn?: string | null
 			mellomnavn?: string | null
 			etternavn?: string | null
+		}
+		EpsV1Problem: {
+			/** @enum {string} */
+			type?: 'TILGANG_NEKTET'
+			beskrivelse?: string
 		}
 		EpsV1RelasjonPersondata: {
 			/** @enum {string|null} */

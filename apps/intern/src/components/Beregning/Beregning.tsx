@@ -198,7 +198,7 @@ export const Beregning = () => {
 			<BeregningSection
 				title={formatAlderTitle(67, 0)}
 				{...sectionCommonProps}
-				entry={normertMaanedligAlderspensjon}
+				entry={normertMaanedligAlderspensjon ?? undefined}
 				showAfp
 				afpEntry={afpPrivatVed67Aar}
 				totalAddToSum={
@@ -282,8 +282,8 @@ export const Beregning = () => {
 								{...sectionCommonProps}
 								entry={
 									skalBeregneAfpKap19
-										? normertMaanedligAlderspensjon
-										: helMaanedligAlderspensjon
+										? (normertMaanedligAlderspensjon ?? undefined)
+										: (helMaanedligAlderspensjon ?? undefined)
 								}
 								showAfp={harAfpPrivat}
 								afpEntry={afpPrivatVedHeltUttak}
