@@ -52,7 +52,7 @@ export function mapAlderspensjonToRows(
 						label: 'Gjenlevendetillegg (kap. 19)',
 						value: Math.round(entry.gjenlevendetillegg ?? 0),
 						yearlyValue: Math.round(entry.gjenlevendetillegg ?? 0) * 12,
-						hide: !simulererMedGjenlevenderett || !harGjenlevenderett,
+						hide: !simulererMedGjenlevenderett && !harGjenlevenderett,
 						showWhenZero: true,
 					},
 				]
