@@ -100,11 +100,11 @@ export function getForTidligEndringAvUttaksgradDato({
 
 	if (
 		!UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST.includes(uttaksgrad) ||
-		uttaksgrad === loependeAlderspensjon.grad
+		(!fremtidigAlderspensjon && uttaksgrad === loependeAlderspensjon.grad) ||
+		(fremtidigAlderspensjon && uttaksgrad === fremtidigAlderspensjon.grad)
 	) {
 		return null
 	}
-
 	const uttaksdato = calculateUttaksalderAsDate(
 		{ aar: alderAarUttak, maaneder: alderMdUttak },
 		foedselsdato
