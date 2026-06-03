@@ -193,7 +193,12 @@ export const BeregningForm = () => {
 			return
 		}
 
-		if (tidligsteEndringsdato) {
+		const tolvMaanedersRegelCheckGjelderIkke =
+			vedtak?.loependeAlderspensjon &&
+			vedtak?.fremtidigAlderspensjon &&
+			(formData.afp === 'ja_offentlig' || formData.afp === 'serviceberegning')
+
+		if (tidligsteEndringsdato && !tolvMaanedersRegelCheckGjelderIkke) {
 			setForTidligEndringAvUttaksgradDato(tidligsteEndringsdato)
 			return
 		}
