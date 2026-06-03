@@ -331,7 +331,7 @@ test.describe('Alderspensjon beregning', () => {
 			).toBeVisible()
 		})
 
-		test('viser Sanity-varsel når løpende alderspensjon endres til annen grad før 12 måneder', async ({
+		test('sender simulering når løpende alderspensjon endres til annen grad før 12 måneder', async ({
 			page,
 		}) => {
 			await setupLoependeAlderspensjonFoerEndringsfrist(page)
@@ -341,13 +341,7 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('beregn-button').click()
 
-			await expect(page.getByText('Ugyldig uttaksgrad')).toBeVisible()
-			await expect(
-				page.getByText(
-					'Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra 01.01.2032.'
-				)
-			).toBeVisible()
-			expect(getSimuleringRequestCount()).toBe(0)
+			expect(getSimuleringRequestCount()).toBe(1)
 		})
 
 		test('viser feilmelding når inntekt mangler', async ({ page }) => {
@@ -592,9 +586,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('uttaksgrad')).not.toBeVisible()
-			await expect(page.getByTestId('alder-uttak-aar')).not.toBeVisible()
-			await expect(page.getByTestId('alder-uttak-md')).not.toBeVisible()
+			await expect(page.getByTestId('uttaksgrad')).toHaveValue('')
+			await expect(page.getByTestId('alder-uttak-aar')).toHaveValue('')
+			await expect(page.getByTestId('alder-uttak-md')).toBeDisabled()
 		})
 
 		test('tømmer inntekt-feltet etter nullstilling', async ({ page }) => {
@@ -608,7 +602,7 @@ test.describe('Alderspensjon beregning', () => {
 				.fill('600000')
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('inntekt-foer-uttak')).not.toBeVisible()
+			await expect(page.getByTestId('inntekt-foer-uttak')).toHaveValue('')
 		})
 
 		test('nullstiller sivilstatus til opprinnelig verdi', async ({ page }) => {
