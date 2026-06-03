@@ -182,9 +182,14 @@ export function getUttaksGradArray({
 		alderAarUttak !== null &&
 		alderAarUttak < 67
 	) {
-		uttaksgradArray = uttaksgradArray.filter(
-			(grad) => (grad > 0 && grad <= 100 - ufoeretrygdgrad) || grad === 100
-		)
+		uttaksgradArray = uttaksgradArray.filter((grad) => {
+			// Ved UT + AP (endring), 0 grad er mulig
+			return (
+				(erEndring && grad === 0) ||
+				(grad > 0 && grad <= 100 - ufoeretrygdgrad) ||
+				grad === 100
+			)
+		})
 	}
 
 	return uttaksgradArray
