@@ -98,6 +98,10 @@ export function useFeatureToggleQuery(feature: string) {
 	})
 }
 
+export function useInternsimulatorLagreBrevButtonQuery() {
+	return useFeatureToggleQuery('internsimulator.lagre-brev-button')
+}
+
 async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	const response = await fetch(`${API_BASE}/intern/v1/person`, {
 		headers: {
@@ -342,8 +346,9 @@ async function fetchEnheter(): Promise<AnsattEnhetResult> {
 	return response.json() as Promise<AnsattEnhetResult>
 }
 
-export function useEnheterMutation() {
-	return useMutation({
-		mutationFn: fetchEnheter,
+export function useEnheterQuery() {
+	return useQuery({
+		queryKey: ['enheter'],
+		queryFn: fetchEnheter,
 	})
 }

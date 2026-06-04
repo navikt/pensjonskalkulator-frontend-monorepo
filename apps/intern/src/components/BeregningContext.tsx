@@ -36,7 +36,7 @@ import {
 	usePersonQuery,
 	useVedtakQuery,
 } from '../api/queries'
-import { getPidFromUrl } from '../utils'
+import { getEnhetsidFromUrl, getPidFromUrl } from '../utils'
 
 interface BeregningContextValue {
 	form: UseFormReturn<BeregningFormData>
@@ -46,6 +46,7 @@ interface BeregningContextValue {
 	isBeregningLoading: boolean
 	beregningError: Error | null
 	fnr: string | undefined
+	enhetsid: string | undefined
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
 	initialInntektAar?: number
@@ -110,6 +111,8 @@ export function BeregningProvider({
 	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
+
+	const enhetsid = getEnhetsidFromUrl()
 
 	const { isDirty: formIsDirty } = form.formState
 	const isDirty =
@@ -309,6 +312,7 @@ export function BeregningProvider({
 					aktivBeregning,
 					isDirty,
 					fnr,
+					enhetsid,
 					person,
 					beregning,
 					isBeregningLoading,

@@ -56,7 +56,7 @@ if (!isDevelopment && !process.env.AZURE_OPENID_CONFIG_ISSUER) {
 
 const OBO_AUDIENCE = process.env.ENTRA_ID_OBO_SCOPE as string
 
-const localBackend = true
+const localBackend = false
 const PORT = 8086
 const PENSJONSKALKULATOR_BACKEND = localBackend
 	? process.env.LOCAL_BACKEND

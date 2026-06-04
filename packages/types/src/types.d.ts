@@ -50,6 +50,9 @@ declare global {
 	>
 	type Inntekt = components['schemas']['InntektDto']
 
+	//Enhetsliste
+	export type Enhet = components['schemas']['AnsattEnhetV1Tjenestekontor']
+
 	// /ekskludert-status
 	export type GetEkskludertStatusQuery = TypedUseQueryStateResult<
 		EkskludertStatus,
