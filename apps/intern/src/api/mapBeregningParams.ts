@@ -3,6 +3,7 @@ import type {
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
 	SimuleringsType,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	DATE_BACKEND_FORMAT,
@@ -35,7 +36,8 @@ const mapUtenlandsperiodeListe = (
 export function mapBeregningParamsToRequest(
 	formData: BeregningFormData,
 	person?: PersonInternV1,
-	grunnbeloep?: Grunnbeloep
+	grunnbeloep?: Grunnbeloep,
+	vedtak?: Vedtak
 ): SimuleringRequestBody {
 	const uttaksalder = {
 		aar: formData.alderAarUttak ?? 0,
@@ -67,8 +69,12 @@ export function mapBeregningParamsToRequest(
 	const aarligInntektFoerUttak =
 		formData.aarligInntektFoerUttakBeloep ?? undefined
 
-	const grad = formData.uttaksgrad ?? 0
-	const erGradert = grad < 100 && grad !== 0
+	const grad = skalBeregneTidsbegrensetOffentligAfp
+		? 100
+		: (formData.uttaksgrad ?? 0)
+	const erGradert = vedtak?.loependeAlderspensjon
+		? grad < 100
+		: grad < 100 && grad !== 0
 
 	const aarligInntektVsaPensjonGradert =
 		erGradert &&
@@ -129,7 +135,6 @@ export function mapBeregningParamsToRequest(
 				DATE_BACKEND_FORMAT
 			)
 		: undefined
-	const erEndring = Boolean(formData.endringAP || formData.endringAfpPrivat)
 	const utenlandsperiodeListe =
 		formData.harOppholdUtenforNorge === true && formData.utenlandsOpphold.length
 			? mapUtenlandsperiodeListe(formData.utenlandsOpphold)
@@ -142,7 +147,7 @@ export function mapBeregningParamsToRequest(
 		gradertUttak:
 			erGradert || skalBeregneTidsbegrensetOffentligAfp
 				? {
-						grad: skalBeregneTidsbegrensetOffentligAfp ? 100 : grad,
+						grad,
 						uttaksalder: skalBeregneTidsbegrensetOffentligAfp
 							? heltUttaksalder
 							: uttaksalder,
@@ -167,36 +172,35 @@ export function mapBeregningParamsToRequest(
 					: undefined,
 		},
 		sivilstatus: formData.sivilstatus,
-		eps: erEndring
-			? null
-			: {
-					levende: !formData.beregnMedGjenlevenderett
-						? {
-								harInntektOver2G:
-									formData.epsHarPensjon === false
-										? Boolean(formData.epsHarInntektOver2G)
-										: false,
-								harPensjon: Boolean(formData.epsHarPensjon),
-							}
-						: undefined,
-					avdoed:
-						formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
-							? {
-									pid: epsPid,
-									doedsdato: epsDoedsdato,
-									medlemAvFolketrygden: Boolean(
-										formData.epsMedlemAvFolketrygdenVedDoedsDato
-									),
-									inntektFoerDoedBeloep:
-										formData.epsPensjonsgivendeInntektFoerDoedsDato ??
-										undefined,
-									inntektErOverGrunnbeloepet: Boolean(
-										formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
-									),
-									antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
-								}
-							: undefined,
-				},
+		eps: {
+			levende:
+				!formData.beregnMedGjenlevenderett &&
+				!vedtak?.loependeAlderspensjon?.harGjenlevenderett
+					? {
+							harInntektOver2G:
+								formData.epsHarPensjon === false
+									? Boolean(formData.epsHarInntektOver2G)
+									: false,
+							harPensjon: Boolean(formData.epsHarPensjon),
+						}
+					: undefined,
+			avdoed:
+				formData.beregnMedGjenlevenderett && epsPid && epsDoedsdato
+					? {
+							pid: epsPid,
+							doedsdato: epsDoedsdato,
+							medlemAvFolketrygden: Boolean(
+								formData.epsMedlemAvFolketrygdenVedDoedsDato
+							),
+							inntektFoerDoedBeloep:
+								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? undefined,
+							inntektErOverGrunnbeloepet: Boolean(
+								formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
+							),
+							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
+						}
+					: undefined,
+		},
 		offentligAfp: skalBeregneAfpKap19
 			? {
 					harInntektMaanedenFoerUttak:

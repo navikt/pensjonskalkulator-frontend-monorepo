@@ -9,6 +9,8 @@ import {
 	isAlderLikAnnenAlder,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import { addMonths, format, parseISO } from 'date-fns'
 import { useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -81,7 +83,9 @@ export const BeregningForm = () => {
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-	const erEndring = Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon)
+	const erEndring =
+		Boolean(vedtak?.harVedtak && vedtak.loependeAlderspensjon) ||
+		Boolean(vedtak?.loependeAlderspensjon && vedtak?.fremtidigAlderspensjon)
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
@@ -124,6 +128,9 @@ export const BeregningForm = () => {
 		forTidligEndringAvUttaksgradDato,
 		setForTidligEndringAvUttaksgradDato,
 	] = useState<string | null>(null)
+
+	const [showFremtidigAlderspensjonAlert, setShowFremtidigAlderspensjonAlert] =
+		useState<boolean>(false)
 
 	const { initialInntekt } = useBeregningContext()
 
@@ -182,7 +189,16 @@ export const BeregningForm = () => {
 			alderMdUttak: normalizedFormData.alderMdUttak,
 		})
 
-		if (tidligsteEndringsdato) {
+		if (showFremtidigAlderspensjonAlert) {
+			return
+		}
+
+		const tolvMaanedersRegelCheckGjelderIkke =
+			vedtak?.loependeAlderspensjon &&
+			vedtak?.fremtidigAlderspensjon &&
+			(formData.afp === 'ja_offentlig' || formData.afp === 'serviceberegning')
+
+		if (tidligsteEndringsdato && !tolvMaanedersRegelCheckGjelderIkke) {
 			setForTidligEndringAvUttaksgradDato(tidligsteEndringsdato)
 			return
 		}
@@ -242,6 +258,28 @@ export const BeregningForm = () => {
 	const showUTOgFolketrygdBeregnetAFPAlert =
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
+
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
+	useEffect(() => {
+		setShowFremtidigAlderspensjonAlert(
+			Boolean(
+				vedtak?.loependeAlderspensjon &&
+				fremtidigAlderspensjon &&
+				person?.foedselsdato !== undefined &&
+				alderAarUttak !== null &&
+				alderMdUttak !== null &&
+				calculateUttaksalderAsDate(
+					{ aar: alderAarUttak, maaneder: alderMdUttak },
+					person.foedselsdato
+				) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
+			)
+		)
+	}, [
+		fremtidigAlderspensjon,
+		person?.foedselsdato,
+		alderAarUttak,
+		alderMdUttak,
+	])
 
 	const kanVelgeServiceberegning = person?.foedselsdato
 		? isFoedtFoer1963(person.foedselsdato)
@@ -461,6 +499,21 @@ export const BeregningForm = () => {
 							/>
 						)}
 
+						{showFremtidigAlderspensjonAlert && (
+							<SanityAlert
+								id="beregning.fremtidigAlderspensjon"
+								className={styles.sanityAlert}
+								dynamicValues={{
+									grad: String(fremtidigAlderspensjon?.grad ?? 100),
+									alder: fremtidigAlderspensjon
+										? format(
+												addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
+												DATE_ENDUSER_FORMAT
+											)
+										: '',
+								}}
+							/>
+						)}
 						<RHFAlderVelger
 							aarName="alderAarUttak"
 							mdName="alderMdUttak"
