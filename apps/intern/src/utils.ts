@@ -16,7 +16,7 @@ export function getVedtakStatus(
 ): string {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const alderspensjonString = loependeAlderspensjon
-		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.fom), 'dd.MM.yyyy')}`
+		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.uttaksgradFom), 'dd.MM.yyyy')}`
 		: ''
 	if (omstillingsstoenad?.harLoependeSak) {
 		return 'Gjenlevendepensjon eller omstillingsstønad'
