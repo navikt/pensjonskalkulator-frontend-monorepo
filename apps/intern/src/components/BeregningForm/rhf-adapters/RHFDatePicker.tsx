@@ -38,10 +38,11 @@ export function RHFDatePicker({
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
-			// Aksel calls this with a parsed Date when the input contains a valid date.
 			const formatted = date ? formatEndUserDate(date) : ''
 			lastFormattedRef.current = formatted
-			field.onChange(formatted)
+			if (date) {
+				field.onChange(formatted)
+			}
 		},
 		allowTwoDigitYear: false,
 		fromDate,
@@ -67,11 +68,15 @@ export function RHFDatePicker({
 			<DatePicker.Input
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
+					const rawInput = event.target.value
 					// inputProps.onBlur triggers Aksel's internal date parsing, which
 					// calls onDateChange and updates lastFormattedRef with the formatted value.
 					inputProps.onBlur?.(event)
-					// Sync RHF with the formatted value (e.g. "11112011" → "11.11.2011").
-					field.onChange(lastFormattedRef.current)
+					// Use the formatted value if available, otherwise preserve the raw
+					// input so validation can surface specific errors (e.g. invalid format,
+					// date before fødselsdato) rather than treating it as empty/required.
+					const value = lastFormattedRef.current || rawInput
+					field.onChange(value)
 					field.onBlur()
 				}}
 				label={label}

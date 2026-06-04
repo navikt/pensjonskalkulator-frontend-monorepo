@@ -43,7 +43,7 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 					await fillStartdato(page, '2000-01-01')
 					await clickLeggTil(page)
 				},
-				expectedMessage: VALIDATION_MESSAGES.startdatoRequired,
+				expectedMessage: VALIDATION_MESSAGES.dateFormat,
 			},
 			{
 				name: 'Viser feil når startdato er før fødselsdato',
@@ -52,7 +52,7 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 					await fillStartdato(page, '01.01.1960')
 					await clickLeggTil(page)
 				},
-				expectedMessage: VALIDATION_MESSAGES.startdatoRequired,
+				expectedMessage: VALIDATION_MESSAGES.startdatoBeforeFoedselsdato,
 			},
 			{
 				name: 'Viser feil når arbeidet utenlands ikke er besvart for avtaleland',
@@ -73,36 +73,6 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			})
 		}
 
-		test('Ignorerer ugyldig datoformat i sluttdato og legger til varig opphold', async ({
-			page,
-		}) => {
-			await selectLand(page, LAND.AFG.kode)
-			await fillStartdato(page, '01.01.2000')
-			await fillSluttdato(page, '2005-12-31')
-			await clickLeggTil(page)
-
-			await expectOppholdInList(
-				page,
-				LAND.AFG.navn,
-				'01.01.2000 (Varig opphold)'
-			)
-		})
-
-		test('Ignorerer sluttdato før startdato og legger til varig opphold', async ({
-			page,
-		}) => {
-			await selectLand(page, LAND.AFG.kode)
-			await fillStartdato(page, '01.01.2000')
-			await fillSluttdato(page, '01.01.1999')
-			await clickLeggTil(page)
-
-			await expectOppholdInList(
-				page,
-				LAND.AFG.navn,
-				'01.01.2000 (Varig opphold)'
-			)
-		})
-
 		test('Fjerner feilmelding når felt korrigeres', async ({ page }) => {
 			await clickLeggTil(page)
 			await expectValidationMessage(page, VALIDATION_MESSAGES.landRequired)
@@ -118,7 +88,7 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await fillStartdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
-			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoRequired)
+			await expectValidationMessage(page, VALIDATION_MESSAGES.startdatoAfterMax)
 		})
 
 		test('Viser feil når sluttdato er etter maks-dato (fødselsdato + 100 år)', async ({
@@ -129,10 +99,27 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await fillSluttdato(page, '01.05.2064')
 			await clickLeggTil(page)
 
-			await expectOppholdInList(
+			await expectValidationMessage(page, VALIDATION_MESSAGES.sluttdatoAfterMax)
+		})
+
+		test('Viser feil for ugyldig datoformat i sluttdato', async ({ page }) => {
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '01.01.2000')
+			await fillSluttdato(page, '2005-12-31')
+			await clickLeggTil(page)
+
+			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
+		})
+
+		test('Viser feil når sluttdato er før startdato', async ({ page }) => {
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '01.01.2000')
+			await fillSluttdato(page, '01.01.1999')
+			await clickLeggTil(page)
+
+			await expectValidationMessage(
 				page,
-				LAND.AFG.navn,
-				'01.01.2060 (Varig opphold)'
+				VALIDATION_MESSAGES.sluttdatoBeforeStartdato
 			)
 		})
 	})
