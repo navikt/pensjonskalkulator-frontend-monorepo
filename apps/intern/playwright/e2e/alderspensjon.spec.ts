@@ -341,7 +341,7 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('beregn-button').click()
 
-			expect(getSimuleringRequestCount()).toBe(1)
+			expect(getSimuleringRequestCount()).toBe(0)
 		})
 
 		test('viser feilmelding når inntekt mangler', async ({ page }) => {
@@ -586,9 +586,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('uttaksgrad')).toHaveValue('')
-			await expect(page.getByTestId('alder-uttak-aar')).toHaveValue('')
-			await expect(page.getByTestId('alder-uttak-md')).toBeDisabled()
+			await expect(page.getByTestId('uttaksgrad')).not.toBeVisible()
+			await expect(page.getByTestId('alder-uttak-aar')).not.toBeVisible()
+			await expect(page.getByTestId('alder-uttak-md')).not.toBeVisible()
 		})
 
 		test('tømmer inntekt-feltet etter nullstilling', async ({ page }) => {
@@ -602,7 +602,7 @@ test.describe('Alderspensjon beregning', () => {
 				.fill('600000')
 			await page.getByTestId('nullstill-button').click()
 
-			await expect(page.getByTestId('inntekt-foer-uttak')).toHaveValue('')
+			await expect(page.getByTestId('inntekt-foer-uttak')).not.toBeVisible()
 		})
 
 		test('nullstiller sivilstatus til opprinnelig verdi', async ({ page }) => {

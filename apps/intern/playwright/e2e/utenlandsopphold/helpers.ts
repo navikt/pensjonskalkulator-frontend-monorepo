@@ -129,7 +129,7 @@ export async function fillMainFormFields(page: Page) {
 		.check()
 	await page
 		.getByRole('textbox', {
-			name: 'Pensjonsgivende inntekt frem til uttak',
+			name: 'Pensjonsgivende årsinntekt frem til uttak',
 		})
 		.fill('500000')
 	await page

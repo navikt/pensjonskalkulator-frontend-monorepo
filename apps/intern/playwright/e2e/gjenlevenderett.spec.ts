@@ -47,7 +47,7 @@ async function selectBakgrunnAndFetch(
 async function fillMainFormFields(page: Page) {
 	await page
 		.getByRole('textbox', {
-			name: 'Pensjonsgivende inntekt frem til uttak',
+			name: 'Pensjonsgivende årsinntekt frem til uttak',
 		})
 		.fill('500000')
 	await page
@@ -230,7 +230,7 @@ test.describe('Gjenlevenderett', () => {
 
 				await expect(
 					page.getByRole('textbox', {
-						name: 'Pensjonsgivende inntekt frem til uttak',
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
 					})
 				).toBeVisible()
 
@@ -267,7 +267,7 @@ test.describe('Gjenlevenderett', () => {
 
 				await expect(
 					page.getByRole('textbox', {
-						name: 'Pensjonsgivende inntekt frem til uttak',
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
 					})
 				).toBeVisible()
 
@@ -304,7 +304,7 @@ test.describe('Gjenlevenderett', () => {
 
 				await expect(
 					page.getByRole('textbox', {
-						name: 'Pensjonsgivende inntekt frem til uttak',
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
 					})
 				).toBeVisible()
 
@@ -341,7 +341,7 @@ test.describe('Gjenlevenderett', () => {
 
 				await expect(
 					page.getByRole('textbox', {
-						name: 'Pensjonsgivende inntekt frem til uttak',
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
 					})
 				).toBeVisible()
 
@@ -436,7 +436,7 @@ test.describe('Gjenlevenderett', () => {
 				)
 			).not.toBeVisible()
 			await expect(
-				page.getByText('Pensjonsgivende inntekt frem til uttak er påkrevd')
+				page.getByText('Pensjonsgivende årsinntekt frem til uttak er påkrevd')
 			).not.toBeVisible()
 		})
 	})
