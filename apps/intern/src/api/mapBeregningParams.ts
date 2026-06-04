@@ -175,7 +175,7 @@ export function mapBeregningParamsToRequest(
 		eps: {
 			levende:
 				!formData.beregnMedGjenlevenderett &&
-				vedtak?.loependeAlderspensjon?.harGjenlevenderett === false
+				!Boolean(vedtak?.loependeAlderspensjon?.harGjenlevenderett)
 					? {
 							harInntektOver2G:
 								formData.epsHarPensjon === false
