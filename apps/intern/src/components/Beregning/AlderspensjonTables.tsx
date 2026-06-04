@@ -16,6 +16,7 @@ interface AlderspensjonTablesProps {
 	grunnbeloep?: number
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
+	harGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
 }
@@ -30,6 +31,7 @@ export const AlderspensjonTables = ({
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	visAarsbelop = false,
+	harGjenlevenderett = false,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
@@ -39,7 +41,8 @@ export const AlderspensjonTables = ({
 				entry,
 				!!erFoedtFoer1963,
 				!!erOvergangskull || !!erFoedtEtter1963,
-				simulererMedGjenlevenderett
+				simulererMedGjenlevenderett,
+				harGjenlevenderett
 			)}
 			visAarsbelop={visAarsbelop}
 		/>

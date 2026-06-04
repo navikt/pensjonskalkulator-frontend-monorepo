@@ -161,6 +161,56 @@
 		{
 			"innhold": [
 				{
+					"_key": "07d96c9cb4e1",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "266fc1886dbd",
+							"_type": "span",
+							"marks": [],
+							"text": "Bruker har vedtak om "
+						},
+						{ "_key": "88538180a852", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "7d9e7af7b151",
+							"_type": "span",
+							"marks": [],
+							"text": ""
+						},
+						{ "_key": "e9b47300a048", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "e41a9942c5c4",
+							"_type": "span",
+							"marks": [],
+							"text": "% alderspensjon fra "
+						},
+						{ "_key": "97279b9bfdc6", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "d0406e5d78d7",
+							"_type": "span",
+							"marks": [],
+							"text": ". Alderspensjon kan derfor tidligst endres fra "
+						},
+						{ "_key": "98c3ac13aadb", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "622fd068561a",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.fremtidigAlderspensjon",
+			"overskrift": "Tidspunkt for endring ikke mulig",
+			"status": "warning",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "98f1518897f9",
 					"_type": "block",
 					"children": [
@@ -178,6 +228,78 @@
 			"name": "beregning.ufoeretrygd-med-sim-ap-og-afp-privat",
 			"overskrift": "Du beregner nå en ugyldig kombinasjon",
 			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "5dc89a490082",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "7021a7a47086",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonsgivende inntekt på minst 1 G året før uttak."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "9a4794bb034c",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "7021a7a47086",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonsgivende inntekt ved uttak tilsvarer minst en årsinntekt på 1 G."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "78a00fb125f0",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "7021a7a47086",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonspoeng i folketrygden i 10 år etter fylte 50 år til og med året før uttak."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "26ee2a3d4e8d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "7021a7a47086",
+							"_type": "span",
+							"marks": [],
+							"text": "Gjennomsnittlig pensjonsgivende inntekt på minst 2 G i 10 år."
+						}
+					],
+					"level": 1,
+					"listItem": "bullet",
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.vilkaarsproeving.vilkaar-ikke-oppfylt",
+			"overskrift": "Ett eller flere av følgende vilkår for uttak av AFP er ikke oppfylt",
+			"status": "warning",
 			"type": "info-card"
 		},
 		{
