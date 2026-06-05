@@ -81,11 +81,15 @@ export async function selectLand(page: Page, landkode: string) {
 }
 
 export async function fillStartdato(page: Page, date: string) {
-	await page.getByLabel('Startdato').fill(date)
+	const startdatoField = page.getByLabel('Startdato')
+	await startdatoField.fill(date)
+	await startdatoField.blur()
 }
 
 export async function fillSluttdato(page: Page, date: string) {
-	await page.getByLabel('Sluttdato (valgfritt)').fill(date)
+	const sluttdatoField = page.getByLabel('Sluttdato (valgfritt)')
+	await sluttdatoField.fill(date)
+	await sluttdatoField.blur()
 }
 
 export async function clickLeggTil(page: Page) {

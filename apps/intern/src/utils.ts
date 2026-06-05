@@ -15,14 +15,19 @@ export function getVedtakStatus(
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
+
+	const APFomDato =
+		loependeAlderspensjon && fremtidigAlderspensjon
+			? loependeAlderspensjon?.fom
+			: (loependeAlderspensjon?.uttaksgradFom ?? '')
 	const alderspensjonString = loependeAlderspensjon
-		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.uttaksgradFom), 'dd.MM.yyyy')}`
+		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''
 	if (omstillingsstoenad?.harLoependeSak) {
 		return 'Gjenlevendepensjon eller omstillingsstønad'
 	}
 
-	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 	const fremtidigAlderspensjonString = fremtidigAlderspensjon
 		? `${alderspensjonString.length > 0 ? ' / ' : ''}${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
 		: ''
