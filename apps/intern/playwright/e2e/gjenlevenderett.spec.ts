@@ -436,7 +436,7 @@ test.describe('Gjenlevenderett', () => {
 				)
 			).not.toBeVisible()
 			await expect(
-				page.getByText('Pensjonsgivende årsinntekt frem til uttak er påkrevd')
+				page.getByText('Pensjonsgivende inntekt frem til uttak er påkrevd')
 			).not.toBeVisible()
 		})
 	})
