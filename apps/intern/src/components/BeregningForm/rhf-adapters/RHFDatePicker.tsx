@@ -64,9 +64,8 @@ export function RHFDatePicker({
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
 					const rawInput = event.target.value
-					// inputProps.onBlur triggers Aksel's internal date parsing, which
-					// calls onDateChange and updates lastKnownValueRef with the formatted value.
-					// Use the formatted value if available, else preserve the raw input
+					// inputProps.onBlur normalizes the visible input value.
+					inputProps.onBlur?.(event)
 					const value = lastKnownValueRef.current || rawInput
 					field.onChange(value)
 					field.onBlur()
