@@ -56,11 +56,9 @@ if (!isDevelopment && !process.env.AZURE_OPENID_CONFIG_ISSUER) {
 
 const OBO_AUDIENCE = process.env.ENTRA_ID_OBO_SCOPE as string
 
-const localBackend = false
-const PORT = 8086
-const PENSJONSKALKULATOR_BACKEND = localBackend
-	? process.env.LOCAL_BACKEND
-	: (process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081')
+const PORT = 8080
+const PENSJONSKALKULATOR_BACKEND =
+	process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081'
 
 const app = express()
 const __dirname = process.cwd()
