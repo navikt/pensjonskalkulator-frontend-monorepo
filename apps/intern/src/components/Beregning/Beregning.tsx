@@ -1,5 +1,4 @@
 import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
-import type { LagreSimuleringResponseDtoV1 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -12,9 +11,7 @@ import {
 	Box,
 	Button,
 	HGrid,
-	HStack,
 	Loader,
-	Modal,
 	Tabs,
 	VStack,
 } from '@navikt/ds-react'
@@ -32,6 +29,7 @@ import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AfpBeregningSection } from './AfpBeregningSection'
+import { LagreBeregningModal } from './LagreBeregningModal'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
 
@@ -57,8 +55,6 @@ export const Beregning = () => {
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
-	const lagreData: LagreSimuleringResponseDtoV1 | undefined =
-		lagreSimulering.data
 	const modalRef = useRef<HTMLDialogElement>(null)
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
@@ -256,7 +252,7 @@ export const Beregning = () => {
 			},
 			{
 				onSuccess: (response) => {
-					if (response.brevDevQ2Url) {
+					if (response.url) {
 						modalRef.current?.showModal()
 					}
 				},
@@ -360,54 +356,11 @@ export const Beregning = () => {
 						</div>
 					</Tabs.Panel>
 				)}
-				{visLagreBrevButton && (
-					<Button
-						className={styles.lagreButton}
-						variant="secondary"
-						size="small"
-						disabled={!fnr || !enhetsid || lagreSimulering.isPending}
-						loading={lagreSimulering.isPending}
-						onClick={handleLagreSimulering}
-					>
-						Lagre beregning til brev
-					</Button>
-				)}
 			</Tabs>
-			<Modal
-				ref={modalRef}
-				header={{
-					heading: 'Beregning lagret',
-				}}
-			>
-				<Modal.Body>
-					<VStack gap="space-16">
-						<BodyLong size="small">Beregningen er lagret.</BodyLong>
-					</VStack>
-				</Modal.Body>
-				<Modal.Footer>
-					<HStack gap="space-8" width="20rem">
-						{lagreData?.brevDevQ2Url && (
-							<Button
-								variant="primary"
-								size="small"
-								as="a"
-								href={lagreData.brevDevQ2Url}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Åpne brev
-							</Button>
-						)}
-						<Button
-							variant="secondary"
-							size="small"
-							onClick={() => modalRef.current?.close()}
-						>
-							Lukk
-						</Button>
-					</HStack>
-				</Modal.Footer>
-			</Modal>
+			<LagreBeregningModal
+				modalRef={modalRef}
+				url={lagreSimulering.data?.url}
+			/>
 			<HGrid marginBlock="space-40" columns={3}>
 				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
 					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
@@ -417,6 +370,18 @@ export const Beregning = () => {
 					juridisk bindende.
 				</BodyLong>
 			</HGrid>
+			{visLagreBrevButton && (
+				<Button
+					className={styles.lagreButton}
+					variant="secondary"
+					size="small"
+					disabled={!fnr || !enhetsid || lagreSimulering.isPending}
+					loading={lagreSimulering.isPending}
+					onClick={handleLagreSimulering}
+				>
+					Lagre beregning til brev
+				</Button>
+			)}
 		</Box>
 	)
 }

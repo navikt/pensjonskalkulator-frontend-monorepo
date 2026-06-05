@@ -2074,7 +2074,7 @@ export interface components {
 			/** Format: date */
 			tom?: string | null
 			landkode: string
-			arbeidetUtenlands: boolean | null
+			arbeidetUtenlands?: boolean | null
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2089,7 +2089,7 @@ export interface components {
 		LagreSimuleringResponseDtoV1: {
 			brevId?: string
 			sakId?: string
-			brevDevQ2Url?: string
+			url?: string
 		}
 		EpsV1EpsSpec: {
 			/** @enum {string} */
