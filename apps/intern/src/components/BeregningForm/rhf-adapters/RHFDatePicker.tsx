@@ -7,6 +7,13 @@ import type { BeregningFormData } from '../../../api/beregningTypes'
 import { formatEndUserDate, parseStrictEndUserDate } from '../../../utils/dates'
 import { getNestedError } from './utils'
 
+function normalizeDateInput(input: string): string {
+	if (/^\d{8}$/.test(input)) {
+		return `${input.slice(0, 2)}.${input.slice(2, 4)}.${input.slice(4)}`
+	}
+	return input
+}
+
 interface RHFDatePickerProps {
 	name: FieldPath<BeregningFormData>
 	label: string
@@ -63,10 +70,9 @@ export function RHFDatePicker({
 			<DatePicker.Input
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
-					const rawInput = event.target.value
-					// inputProps.onBlur normalizes the visible input value.
 					inputProps.onBlur?.(event)
-					const value = lastKnownValueRef.current || rawInput
+					const value =
+						lastKnownValueRef.current || normalizeDateInput(event.target.value)
 					field.onChange(value)
 					field.onBlur()
 				}}

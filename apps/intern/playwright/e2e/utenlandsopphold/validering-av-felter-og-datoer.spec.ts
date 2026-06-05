@@ -193,7 +193,10 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await fillStartdato(page, '01011960')
 			await clickLeggTil(page)
 
-			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
+			await expectValidationMessage(
+				page,
+				VALIDATION_MESSAGES.startdatoBeforeFoedselsdato
+			)
 		})
 	})
 })
