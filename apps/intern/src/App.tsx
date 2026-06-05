@@ -103,7 +103,8 @@ const AppContent = () => {
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
 
-	const { isLoading: isLoadingEnheter, error: enheterError } = useEnheterQuery()
+	const { isLoading: isLoadingEnheter, error: enheterError } =
+		useEnheterQuery(visLagreBrevButton)
 
 	const {
 		data: inntekt,
@@ -210,7 +211,7 @@ export const App = () => {
 	const { data: lagreBrevButtonToggle } =
 		useInternsimulatorLagreBrevButtonQuery()
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
-	const { data: enheterData } = useEnheterQuery()
+	const { data: enheterData } = useEnheterQuery(visLagreBrevButton)
 	const enheter = visLagreBrevButton ? enheterData : undefined
 
 	const enhet = enheter?.enhetListe?.find((e) => e.id === getEnhetsidFromUrl())

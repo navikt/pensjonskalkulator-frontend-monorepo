@@ -346,9 +346,10 @@ async function fetchEnheter(): Promise<AnsattEnhetResult> {
 	return response.json() as Promise<AnsattEnhetResult>
 }
 
-export function useEnheterQuery() {
+export function useEnheterQuery(enabled = true) {
 	return useQuery({
 		queryKey: ['enheter'],
 		queryFn: fetchEnheter,
+		enabled,
 	})
 }
