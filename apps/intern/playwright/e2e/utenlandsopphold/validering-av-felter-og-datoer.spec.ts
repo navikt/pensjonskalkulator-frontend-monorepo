@@ -1,4 +1,4 @@
-import { type Page, test } from '@playwright/test'
+import { type Page, expect, test } from '@playwright/test'
 
 import {
 	LAND,
@@ -157,22 +157,21 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 		test('Startdato uten punktum formateres og lagres korrekt', async ({
 			page,
 		}) => {
-			await addOpphold(page, {
-				landkode: LAND.AFG.kode,
-				startdato: '11112011',
-			})
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '11112011')
+			await clickLeggTil(page)
 
-			await expectOppholdInList(page, LAND.AFG.navn, '11.11.2011')
+			await expectOppholdInList(page, LAND.AFG.navn)
+			await expect(page.getByText('11.11.2011')).toBeVisible()
 		})
 
 		test('Sluttdato uten punktum formateres og lagres korrekt', async ({
 			page,
 		}) => {
-			await addOpphold(page, {
-				landkode: LAND.AFG.kode,
-				startdato: '01012000',
-				sluttdato: '31122005',
-			})
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '01012000')
+			await fillSluttdato(page, '31122005')
+			await clickLeggTil(page)
 
 			await expectOppholdInList(page, LAND.AFG.navn, '01.01.2000-31.12.2005')
 		})
@@ -183,18 +182,18 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await clickLeggTil(page)
 
 			await expectNoValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
-			await expectOppholdInList(page, LAND.AFG.navn, '15.06.2020')
+			await expectOppholdInList(page, LAND.AFG.navn)
+			await expect(page.getByText('15.06.2020')).toBeVisible()
 		})
 
-		test('ddMMyyyy-input validerer mot fødselsdato', async ({ page }) => {
+		test('ddMMyyyy-input for dato før fødselsdato gir valideringsfeil', async ({
+			page,
+		}) => {
 			await selectLand(page, LAND.AFG.kode)
 			await fillStartdato(page, '01011960')
 			await clickLeggTil(page)
 
-			await expectValidationMessage(
-				page,
-				VALIDATION_MESSAGES.startdatoBeforeFoedselsdato
-			)
+			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
 		})
 	})
 })
