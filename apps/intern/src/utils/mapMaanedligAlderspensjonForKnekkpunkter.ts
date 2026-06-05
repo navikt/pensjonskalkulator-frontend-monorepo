@@ -43,7 +43,7 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 			),
 		}
 
-	if (!vedHeltUttak || !vedNormertPensjonsalder) {
+	if (!vedHeltUttak) {
 		return null
 	}
 
