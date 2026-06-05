@@ -36,13 +36,14 @@ export function RHFDatePicker({
 		formState: { errors },
 	} = useFormContext<BeregningFormData>()
 	const { field } = useController({ name, control })
-	const lastKnownValueRef = useRef(field.value)
+	const previousFieldValueRef = useRef(field.value)
+	const lastFormattedRef = useRef(field.value)
 
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
 			const formatted = date ? formatEndUserDate(date) : ''
-			lastKnownValueRef.current = formatted
+			lastFormattedRef.current = formatted
 			if (date) {
 				field.onChange(formatted)
 			}
@@ -54,8 +55,8 @@ export function RHFDatePicker({
 	})
 
 	useEffect(() => {
-		if (lastKnownValueRef.current === field.value) return
-		lastKnownValueRef.current = field.value
+		if (previousFieldValueRef.current === field.value) return
+		previousFieldValueRef.current = field.value
 
 		const selectedDate = parseStrictEndUserDate(field.value)
 		if (field.value === '' || selectedDate) {
@@ -72,7 +73,7 @@ export function RHFDatePicker({
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
 					inputProps.onBlur?.(event)
 					const value =
-						lastKnownValueRef.current || normalizeDateInput(event.target.value)
+						lastFormattedRef.current || normalizeDateInput(event.target.value)
 					field.onChange(value)
 					field.onBlur()
 				}}
