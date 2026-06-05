@@ -148,4 +148,53 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await expectOppholdInList(page, LAND.AFG.navn, '31.12.2005-01.01.2006')
 		})
 	})
+
+	test.describe('ddMMyyyy-input formateres til dd.MM.yyyy', () => {
+		test.beforeEach(async ({ page }) => {
+			await setupWithEditorOpen(page)
+		})
+
+		test('Startdato uten punktum formateres og lagres korrekt', async ({
+			page,
+		}) => {
+			await addOpphold(page, {
+				landkode: LAND.AFG.kode,
+				startdato: '11112011',
+			})
+
+			await expectOppholdInList(page, LAND.AFG.navn, '11.11.2011')
+		})
+
+		test('Sluttdato uten punktum formateres og lagres korrekt', async ({
+			page,
+		}) => {
+			await addOpphold(page, {
+				landkode: LAND.AFG.kode,
+				startdato: '01012000',
+				sluttdato: '31122005',
+			})
+
+			await expectOppholdInList(page, LAND.AFG.navn, '01.01.2000-31.12.2005')
+		})
+
+		test('ddMMyyyy-input gir ingen valideringsfeil', async ({ page }) => {
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '15062020')
+			await clickLeggTil(page)
+
+			await expectNoValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
+			await expectOppholdInList(page, LAND.AFG.navn, '15.06.2020')
+		})
+
+		test('ddMMyyyy-input validerer mot fødselsdato', async ({ page }) => {
+			await selectLand(page, LAND.AFG.kode)
+			await fillStartdato(page, '01011960')
+			await clickLeggTil(page)
+
+			await expectValidationMessage(
+				page,
+				VALIDATION_MESSAGES.startdatoBeforeFoedselsdato
+			)
+		})
+	})
 })
