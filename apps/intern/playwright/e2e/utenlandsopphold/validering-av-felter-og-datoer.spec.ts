@@ -46,6 +46,16 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 				expectedMessage: VALIDATION_MESSAGES.dateFormat,
 			},
 			{
+				name: 'Viser feil for ugyldig datoformat i sluttdato',
+				setup: async (page: Page) => {
+					await selectLand(page, LAND.AFG.kode)
+					await fillStartdato(page, '01.01.2000')
+					await fillSluttdato(page, '2005-12-31')
+					await clickLeggTil(page)
+				},
+				expectedMessage: VALIDATION_MESSAGES.dateFormat,
+			},
+			{
 				name: 'Viser feil når startdato er før fødselsdato',
 				setup: async (page: Page) => {
 					await selectLand(page, LAND.AFG.kode)
@@ -53,6 +63,16 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 					await clickLeggTil(page)
 				},
 				expectedMessage: VALIDATION_MESSAGES.startdatoBeforeFoedselsdato,
+			},
+			{
+				name: 'Viser feil når sluttdato er før startdato',
+				setup: async (page: Page) => {
+					await selectLand(page, LAND.AFG.kode)
+					await fillStartdato(page, '01.01.2000')
+					await fillSluttdato(page, '01.01.1999')
+					await clickLeggTil(page)
+				},
+				expectedMessage: VALIDATION_MESSAGES.sluttdatoBeforeStartdato,
 			},
 			{
 				name: 'Viser feil når arbeidet utenlands ikke er besvart for avtaleland',
@@ -100,27 +120,6 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			await clickLeggTil(page)
 
 			await expectValidationMessage(page, VALIDATION_MESSAGES.sluttdatoAfterMax)
-		})
-
-		test('Viser feil for ugyldig datoformat i sluttdato', async ({ page }) => {
-			await selectLand(page, LAND.AFG.kode)
-			await fillStartdato(page, '01.01.2000')
-			await fillSluttdato(page, '2005-12-31')
-			await clickLeggTil(page)
-
-			await expectValidationMessage(page, VALIDATION_MESSAGES.dateFormat)
-		})
-
-		test('Viser feil når sluttdato er før startdato', async ({ page }) => {
-			await selectLand(page, LAND.AFG.kode)
-			await fillStartdato(page, '01.01.2000')
-			await fillSluttdato(page, '01.01.1999')
-			await clickLeggTil(page)
-
-			await expectValidationMessage(
-				page,
-				VALIDATION_MESSAGES.sluttdatoBeforeStartdato
-			)
 		})
 	})
 

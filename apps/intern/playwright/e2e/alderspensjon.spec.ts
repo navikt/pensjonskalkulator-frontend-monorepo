@@ -331,7 +331,7 @@ test.describe('Alderspensjon beregning', () => {
 			).toBeVisible()
 		})
 
-		test('sender simulering når løpende alderspensjon endres til annen grad før 12 måneder', async ({
+		test('viser Sanity-varsel når løpende alderspensjon endres til annen grad før 12 måneder', async ({
 			page,
 		}) => {
 			await setupLoependeAlderspensjonFoerEndringsfrist(page)
@@ -341,6 +341,12 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('beregn-button').click()
 
+			await expect(page.getByText('Ugyldig uttaksgrad')).toBeVisible()
+			await expect(
+				page.getByText(
+					'Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra 01.01.2032.'
+				)
+			).toBeVisible()
 			expect(getSimuleringRequestCount()).toBe(0)
 		})
 
