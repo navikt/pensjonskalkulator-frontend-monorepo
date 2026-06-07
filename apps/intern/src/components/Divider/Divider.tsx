@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import styles from './Divider.module.css'
 
 interface Props {
@@ -6,6 +8,7 @@ interface Props {
 	mediumMargin?: boolean
 	largeMargin?: boolean
 	extraLargeMargin?: boolean
+	customMargin?: CSSProperties['margin']
 	noMargin?: boolean
 	noMarginBottom?: boolean
 	noMarginTop?: boolean
@@ -17,11 +20,13 @@ export const Divider = ({
 	mediumMargin,
 	largeMargin,
 	extraLargeMargin,
+	customMargin,
 	noMargin,
 	noMarginBottom,
 	noMarginTop,
 }: Props) => (
 	<hr
+		style={customMargin ? { marginBlock: customMargin } : undefined}
 		className={[
 			styles.divider,
 			xsmallMargin && styles.xsmallMargin,

@@ -12,7 +12,9 @@ import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { Divider } from '../Divider/Divider'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
+import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
@@ -27,6 +29,7 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		initialInntekt,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
@@ -313,6 +316,17 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
+			<Divider customMargin="32px" />
+			<AarligPensjonTable
+				alderspensjonListe={beregning.alderspensjonListe}
+				privatAfpListe={beregning.privatAfpListe}
+				tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+				initialInntekt={initialInntekt}
+				heltUttakAlder={heltUttakAlder}
+				gradertUttakAlder={gradertUttakAlder}
+				aktiverBeregning={aktivBeregning}
+			/>
+			<Divider customMargin="32px" />
 			<HGrid marginBlock="space-40" columns={3}>
 				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
 					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
