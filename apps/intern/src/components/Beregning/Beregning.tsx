@@ -29,7 +29,6 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
-		initialInntekt,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
@@ -316,12 +315,11 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			<Divider customMargin="32px" />
 			<AarligPensjonTable
 				alderspensjonListe={beregning.alderspensjonListe}
 				privatAfpListe={beregning.privatAfpListe}
 				tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
-				initialInntekt={initialInntekt}
+				initialInntekt={aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0}
 				heltUttakAlder={heltUttakAlder}
 				gradertUttakAlder={gradertUttakAlder}
 				aktiverBeregning={aktivBeregning}
