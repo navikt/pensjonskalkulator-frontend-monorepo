@@ -17,7 +17,7 @@ import {
 	buildAlderspensjonSerie,
 	buildInntektSerie,
 	filterAndMapSerie,
-} from './aarligPensjonSeries'
+} from '../../utils/aarligPensjonSeries'
 
 import styles from './BeregningTable.module.css'
 
