@@ -249,6 +249,7 @@ export const Beregning = () => {
 									title={titleHeltUttak}
 									entry={beregning.serviceberegnetAfp.beregnetAfp}
 									visAarsbelop={visAarsbelop}
+									testId="beregning-section-helt-afp-serviceberegning"
 									showVisAarsbelopCheckbox
 									onVisAarsbelopChange={setVisAarsbelop}
 								/>
@@ -270,6 +271,7 @@ export const Beregning = () => {
 									tableCount={tableCount}
 									entry={beregning.tidsbegrensetOffentligAfp}
 									visAarsbelop={visAarsbelop}
+									testId="beregning-section-helt-afp-offentlig"
 									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
 									onVisAarsbelopChange={setVisAarsbelop}
 								/>
