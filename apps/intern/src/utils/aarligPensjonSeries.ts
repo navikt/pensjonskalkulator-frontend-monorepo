@@ -9,7 +9,10 @@ import {
 	mergeAarligUtbetalinger,
 	parseStartSluttUtbetaling,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import { getAlderMinus1Maaned } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	getAlderMinus1Maaned,
+	isAlderLikEllerOverAnnenAlder,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import type { BeregningParams } from '../api/beregningTypes'
 import { getUttakInfo } from './getUttakInfo'
@@ -28,11 +31,6 @@ export const filterAndMapSerie = (
 	return serie
 		.filter((item) => item.alder !== Infinity && item.alder <= maxAar)
 		.map((item) => ({ aar: item.alder, beloep: item.beloep }))
-}
-
-const compareAlder = (left: Alder, right: Alder): number => {
-	if (left.aar !== right.aar) return left.aar - right.aar
-	return left.maaneder - right.maaneder
 }
 
 export const buildAlderspensjonSerie = (
@@ -109,7 +107,7 @@ export const buildInntektSerie = ({
 
 	const harGyldigGradertPeriode =
 		gradertStartAlder !== undefined &&
-		compareAlder(gradertStartAlder, gradertSluttAlder) <= 0
+		isAlderLikEllerOverAnnenAlder(gradertSluttAlder, gradertStartAlder)
 
 	const inntektVedSidenAvUttakSluttAlder: Alder | undefined =
 		aktiverBeregning?.alderAarInntektSlutter != null &&
@@ -124,7 +122,10 @@ export const buildInntektSerie = ({
 	const inntektFoerUttak =
 		aarFoerUttak > 0 &&
 		aarFoerUttak <= SISTE_AAR &&
-		compareAlder({ aar: aarFoerUttak, maaneder: 0 }, forsteUttakAlder) <= 0
+		isAlderLikEllerOverAnnenAlder(forsteUttakAlder, {
+			aar: aarFoerUttak,
+			maaneder: 0,
+		})
 			? parseStartSluttUtbetaling({
 					startAlder: { aar: aarFoerUttak, maaneder: 0 },
 					sluttAlder: getAlderMinus1Maaned(forsteUttakAlder),
@@ -148,7 +149,10 @@ export const buildInntektSerie = ({
 	const inntektVedSidenAvHeltUttak =
 		(aktiverBeregning?.pensjonsgivendeInntektVedSidenAvUttak ?? 0) > 0 &&
 		inntektVedSidenAvUttakSluttAlder &&
-		compareAlder(heltUttakAlder, inntektVedSidenAvUttakSluttAlder) <= 0
+		isAlderLikEllerOverAnnenAlder(
+			inntektVedSidenAvUttakSluttAlder,
+			heltUttakAlder
+		)
 			? parseStartSluttUtbetaling({
 					startAlder: heltUttakAlder,
 					sluttAlder: getAlderMinus1Maaned(inntektVedSidenAvUttakSluttAlder),
