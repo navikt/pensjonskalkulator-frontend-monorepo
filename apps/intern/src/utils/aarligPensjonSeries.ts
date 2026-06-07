@@ -14,7 +14,7 @@ import { getAlderMinus1Maaned } from '@pensjonskalkulator-frontend-monorepo/util
 import type { BeregningParams } from '../api/beregningTypes'
 import { getUttakInfo } from './getUttakInfo'
 
-export const SISTE_AAR = 75
+export const SISTE_AAR = 77
 
 export interface AarligBeloep {
 	aar: number
