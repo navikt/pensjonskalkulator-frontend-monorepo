@@ -191,7 +191,7 @@ test.describe('AFP Offentlig', () => {
 						aarligInntektVsaPensjonBeloep: 120000,
 					},
 					offentligAfp: {
-						harInntektMaanedenFoerUttak: null,
+						harInntektMaanedenFoerUttak: true,
 						afpOrdning: 'STATLIG',
 					},
 				})

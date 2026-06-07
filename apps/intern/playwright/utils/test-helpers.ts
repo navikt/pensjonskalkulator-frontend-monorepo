@@ -32,7 +32,7 @@ export const MOCK_FILES = {
 const DEFAULT_GRUNNBELOEP = {
 	dato: '2024-05-01',
 	grunnbeløp: 100000,
-	grunnbeløpPerMaaned: 10000,
+	grunnbeløpPerMåned: 10000,
 	gjennomsnittPerÅr: 99000,
 	omregningsfaktor: 1.05,
 	virkningstidspunktForMinsteinntekt: '2024-09-01',
