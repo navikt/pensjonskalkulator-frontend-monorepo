@@ -54,9 +54,14 @@ export const buildAfpSerie = (
 				alder: alderAar,
 				beloep: aarligBeloep ?? 0,
 			})),
-		...((privatAfpListe?.length ?? 0) > 0
-			? [{ alder: Infinity, beloep: privatAfpListe!.at(-1)!.aarligBeloep ?? 0 }]
-			: []),
+		...parseStartSluttUtbetaling({
+			startAlder: {
+				aar: (privatAfpListe?.at(-1)?.alderAar ?? 75) + 1,
+				maaneder: 0,
+			},
+			sluttAlder: { aar: SISTE_AAR, maaneder: 11 },
+			aarligUtbetaling: privatAfpListe?.at(-1)?.aarligBeloep ?? 0,
+		}),
 	]
 
 	// Offentlig (tidsbegrenset) AFP løper fra helt uttak til 66 år
