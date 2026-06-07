@@ -9,10 +9,7 @@ import {
 	mergeAarligUtbetalinger,
 	parseStartSluttUtbetaling,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import {
-	getAlderMinus1Maaned,
-	isAlderLikEllerOverAnnenAlder,
-} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { getAlderMinus1Maaned } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import type { BeregningParams } from '../api/beregningTypes'
 import { getUttakInfo } from './getUttakInfo'
@@ -91,24 +88,6 @@ export const buildInntektSerie = ({
 	const forsteUttakAlder = gradertUttakAlder ?? heltUttakAlder
 	const aarFoerUttak = forsteUttakAlder.aar - 1
 
-	const gradertStartAlder: Alder | undefined =
-		aktiverBeregning?.alderAarUttak != null &&
-		aktiverBeregning?.alderMdUttak != null
-			? {
-					aar: aktiverBeregning.alderAarUttak,
-					maaneder: aktiverBeregning.alderMdUttak,
-				}
-			: undefined
-
-	const gradertSluttAlder: Alder =
-		heltUttakAlder.maaneder === 0
-			? { aar: heltUttakAlder.aar - 1, maaneder: 11 }
-			: { aar: heltUttakAlder.aar, maaneder: heltUttakAlder.maaneder - 1 }
-
-	const harGyldigGradertPeriode =
-		gradertStartAlder !== undefined &&
-		isAlderLikEllerOverAnnenAlder(gradertSluttAlder, gradertStartAlder)
-
 	const inntektVedSidenAvUttakSluttAlder: Alder | undefined =
 		aktiverBeregning?.alderAarInntektSlutter != null &&
 		aktiverBeregning?.alderMdInntektSlutter != null
@@ -120,12 +99,7 @@ export const buildInntektSerie = ({
 
 	// Inntekt før uttak: året før første uttak frem til uttaksalder
 	const inntektFoerUttak =
-		aarFoerUttak > 0 &&
-		aarFoerUttak <= SISTE_AAR &&
-		isAlderLikEllerOverAnnenAlder(forsteUttakAlder, {
-			aar: aarFoerUttak,
-			maaneder: 0,
-		})
+		aarFoerUttak > 0
 			? parseStartSluttUtbetaling({
 					startAlder: { aar: aarFoerUttak, maaneder: 0 },
 					sluttAlder: getAlderMinus1Maaned(forsteUttakAlder),
@@ -135,41 +109,35 @@ export const buildInntektSerie = ({
 
 	// Inntekt under gradert uttak (frem til helt uttak)
 	const inntektVedGradertUttak =
-		(aktiverBeregning?.pensjonsgivendeInntektVedSidenAvGradertUttak ?? 0) > 0 &&
-		harGyldigGradertPeriode &&
-		gradertStartAlder
+		aktiverBeregning?.pensjonsgivendeInntektVedSidenAvGradertUttak &&
+		gradertUttakAlder
 			? parseStartSluttUtbetaling({
-					startAlder: gradertUttakAlder ?? gradertStartAlder,
+					startAlder: gradertUttakAlder,
 					sluttAlder: getAlderMinus1Maaned(heltUttakAlder),
 					aarligUtbetaling:
-						aktiverBeregning?.pensjonsgivendeInntektVedSidenAvGradertUttak ?? 0,
+						aktiverBeregning.pensjonsgivendeInntektVedSidenAvGradertUttak,
 				})
 			: []
 	// Inntekt ved siden av helt uttak
 	const inntektVedSidenAvHeltUttak =
-		(aktiverBeregning?.pensjonsgivendeInntektVedSidenAvUttak ?? 0) > 0 &&
-		inntektVedSidenAvUttakSluttAlder &&
-		isAlderLikEllerOverAnnenAlder(
-			inntektVedSidenAvUttakSluttAlder,
-			heltUttakAlder
-		)
+		aktiverBeregning?.pensjonsgivendeInntektVedSidenAvUttak &&
+		inntektVedSidenAvUttakSluttAlder
 			? parseStartSluttUtbetaling({
 					startAlder: heltUttakAlder,
 					sluttAlder: getAlderMinus1Maaned(inntektVedSidenAvUttakSluttAlder),
 					aarligUtbetaling:
-						aktiverBeregning?.pensjonsgivendeInntektVedSidenAvUttak ?? 0,
+						aktiverBeregning.pensjonsgivendeInntektVedSidenAvUttak,
 				})
 			: []
 
 	// Inntekt samtidig med AFP (frem til 66 år)
-	const inntektSamtidigMedAfp =
-		(aktiverBeregning?.aarsinntektSamtidigMedAfp ?? 0) > 0
-			? parseStartSluttUtbetaling({
-					startAlder: heltUttakAlder,
-					sluttAlder: { aar: 66, maaneder: 11 },
-					aarligUtbetaling: aktiverBeregning?.aarsinntektSamtidigMedAfp ?? 0,
-				})
-			: []
+	const inntektSamtidigMedAfp = aktiverBeregning?.aarsinntektSamtidigMedAfp
+		? parseStartSluttUtbetaling({
+				startAlder: heltUttakAlder,
+				sluttAlder: { aar: 66, maaneder: 11 },
+				aarligUtbetaling: aktiverBeregning.aarsinntektSamtidigMedAfp,
+			})
+		: []
 
 	return mergeAarligUtbetalinger([
 		inntektFoerUttak,
