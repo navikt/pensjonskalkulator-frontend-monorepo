@@ -319,7 +319,6 @@ export const Beregning = () => {
 				alderspensjonListe={beregning.alderspensjonListe}
 				privatAfpListe={beregning.privatAfpListe}
 				tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
-				initialInntekt={aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0}
 				heltUttakAlder={heltUttakAlder}
 				gradertUttakAlder={gradertUttakAlder}
 				aktiverBeregning={aktivBeregning}

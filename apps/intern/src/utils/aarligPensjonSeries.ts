@@ -79,12 +79,12 @@ export const buildAfpSerie = (
 }
 
 export interface BuildInntektSerieParams {
-	initialInntekt: number
+	aarligInntektFoerUttakBeloep: number
 	aktiverBeregning?: BeregningParams | null
 }
 
 export const buildInntektSerie = ({
-	initialInntekt,
+	aarligInntektFoerUttakBeloep,
 	aktiverBeregning,
 }: BuildInntektSerieParams): AarligUtbetaling[] => {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
@@ -128,7 +128,7 @@ export const buildInntektSerie = ({
 			? parseStartSluttUtbetaling({
 					startAlder: { aar: aarFoerUttak, maaneder: 0 },
 					sluttAlder: getAlderMinus1Maaned(forsteUttakAlder),
-					aarligUtbetaling: initialInntekt,
+					aarligUtbetaling: aarligInntektFoerUttakBeloep,
 				})
 			: []
 

@@ -26,7 +26,7 @@ interface AarligPensjonTableProps {
 	alderspensjonListe: SimuleringAlderspensjon[]
 	privatAfpListe?: SimuleringAfpPrivat[] | null
 	tidsbegrensetOffentligAfp?: TidsbegrensetOffentligAFP | null
-	initialInntekt?: number
+	pensjonsgivendeInntekt?: number
 	heltUttakAlder: Alder
 	gradertUttakAlder?: Alder
 	aktiverBeregning?: BeregningParams | null
@@ -63,7 +63,7 @@ function buildTableRows(
 	alderspensjonListe: SimuleringAlderspensjon[],
 	privatAfpListe: SimuleringAfpPrivat[] | null | undefined,
 	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined,
-	initialInntekt: number,
+	aarligInntektFoerUttakBeloep: number,
 	heltUttakAlder: Alder,
 	aktiverBeregning?: BeregningParams | null
 ): TableRow[] {
@@ -74,7 +74,7 @@ function buildTableRows(
 		heltUttakAlder
 	)
 	const inntektSerie = buildInntektSerie({
-		initialInntekt,
+		aarligInntektFoerUttakBeloep,
 		aktiverBeregning,
 	})
 
@@ -138,15 +138,17 @@ export const AarligPensjonTable = ({
 	alderspensjonListe,
 	privatAfpListe,
 	tidsbegrensetOffentligAfp,
-	initialInntekt = 0,
 	heltUttakAlder,
 	aktiverBeregning,
 }: AarligPensjonTableProps) => {
+	const aarligInntektFoerUttakBeloep =
+		aktiverBeregning?.aarligInntektFoerUttakBeloep ?? 0
+
 	const rows = buildTableRows(
 		alderspensjonListe,
 		privatAfpListe,
 		tidsbegrensetOffentligAfp,
-		initialInntekt,
+		aarligInntektFoerUttakBeloep,
 		heltUttakAlder,
 		aktiverBeregning
 	)
