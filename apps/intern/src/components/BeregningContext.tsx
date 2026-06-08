@@ -275,6 +275,8 @@ export function BeregningProvider({
 	}, [form])
 
 	const resetForm = useCallback(() => {
+		const { endringAP, endringAfpPrivat, vedtakInfoAvdoed } = form.getValues()
+
 		form.reset({
 			...defaultBeregningFormData,
 			...(person?.sivilstatus ? { sivilstatus: person.sivilstatus } : {}),
@@ -284,12 +286,15 @@ export function BeregningProvider({
 					? { aarligInntektFoerUttakBeloep: initialInntekt }
 					: {}),
 			},
+			endringAP,
+			endringAfpPrivat,
+			vedtakInfoAvdoed,
 		})
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
 	const pendingRequest = pendingBeregning
-		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep)
+		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep, vedtak)
 		: null
 
 	const {

@@ -192,6 +192,9 @@ export const Beregning = () => {
 	const showCheckboxOnHelt =
 		!showGradertFirst && !showCheckboxOnAfpKap19 && !erServiceberegning
 
+	const harGjenlevenderett =
+		vedtak?.loependeAlderspensjon?.harGjenlevenderett ?? false
+
 	const gradertAfpSection = (
 		<BeregningSection
 			title={titleGradertUttak || ''}
@@ -210,6 +213,7 @@ export const Beregning = () => {
 			visAarsbelop={visAarsbelop}
 			testId="beregning-section-gradert"
 			showVisAarsbelopCheckbox={showGradertFirst}
+			harGjenlevenderett={harGjenlevenderett}
 			onVisAarsbelopChange={setVisAarsbelop}
 		/>
 	)
@@ -236,6 +240,7 @@ export const Beregning = () => {
 				testId={testId}
 				erUttaksgradNull={erUttaksgradNull}
 				visAarsbelop={visAarsbelop}
+				harGjenlevenderett={harGjenlevenderett}
 			/>
 		)
 	}
@@ -348,6 +353,7 @@ export const Beregning = () => {
 								}
 								testId="beregning-section-helt"
 								showVisAarsbelopCheckbox={showCheckboxOnHelt}
+								harGjenlevenderett={harGjenlevenderett}
 								onVisAarsbelopChange={setVisAarsbelop}
 							/>
 						)}

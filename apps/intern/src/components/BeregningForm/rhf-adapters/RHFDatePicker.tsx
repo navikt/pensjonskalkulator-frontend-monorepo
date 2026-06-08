@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FocusEvent, useEffect, useRef } from 'react'
+import { type FocusEvent, useEffect, useRef } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { DatePicker, useDatepicker } from '@navikt/ds-react'
@@ -6,6 +6,13 @@ import { DatePicker, useDatepicker } from '@navikt/ds-react'
 import type { BeregningFormData } from '../../../api/beregningTypes'
 import { formatEndUserDate, parseStrictEndUserDate } from '../../../utils/dates'
 import { getNestedError } from './utils'
+
+function normalizeDateInput(input: string): string {
+	if (/^\d{8}$/.test(input)) {
+		return `${input.slice(0, 2)}.${input.slice(2, 4)}.${input.slice(4)}`
+	}
+	return input
+}
 
 interface RHFDatePickerProps {
 	name: FieldPath<BeregningFormData>
@@ -30,11 +37,16 @@ export function RHFDatePicker({
 	} = useFormContext<BeregningFormData>()
 	const { field } = useController({ name, control })
 	const previousFieldValueRef = useRef(field.value)
+	const lastFormattedRef = useRef(field.value)
 
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
-			field.onChange(date ? formatEndUserDate(date) : '')
+			const formatted = date ? formatEndUserDate(date) : ''
+			lastFormattedRef.current = formatted
+			if (date) {
+				field.onChange(formatted)
+			}
 		},
 		allowTwoDigitYear: false,
 		fromDate,
@@ -42,7 +54,6 @@ export function RHFDatePicker({
 		disabled,
 	})
 
-	// Keep the Aksel datepicker's internal state aligned when RHF updates the value externally.
 	useEffect(() => {
 		if (previousFieldValueRef.current === field.value) return
 		previousFieldValueRef.current = field.value
@@ -59,12 +70,11 @@ export function RHFDatePicker({
 		<DatePicker {...datepickerProps} dropdownCaption>
 			<DatePicker.Input
 				{...inputProps}
-				onChange={(event: ChangeEvent<HTMLInputElement>) => {
-					inputProps.onChange?.(event)
-					field.onChange(event.target.value)
-				}}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
 					inputProps.onBlur?.(event)
+					const value =
+						lastFormattedRef.current || normalizeDateInput(event.target.value)
+					field.onChange(value)
 					field.onBlur()
 				}}
 				label={label}

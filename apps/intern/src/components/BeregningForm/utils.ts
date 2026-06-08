@@ -86,6 +86,7 @@ export function getForTidligEndringAvUttaksgradDato({
 	alderMdUttak: number | null
 }): string | null {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 
 	if (
 		!loependeAlderspensjon ||
@@ -99,11 +100,11 @@ export function getForTidligEndringAvUttaksgradDato({
 
 	if (
 		!UTTAKSGRADER_MED_TOLV_MAANEDERS_ENDRINGSFRIST.includes(uttaksgrad) ||
-		uttaksgrad === loependeAlderspensjon.grad
+		(!fremtidigAlderspensjon && uttaksgrad === loependeAlderspensjon.grad) ||
+		(fremtidigAlderspensjon && uttaksgrad === fremtidigAlderspensjon.grad)
 	) {
 		return null
 	}
-
 	const uttaksdato = calculateUttaksalderAsDate(
 		{ aar: alderAarUttak, maaneder: alderMdUttak },
 		foedselsdato
@@ -113,7 +114,9 @@ export function getForTidligEndringAvUttaksgradDato({
 	const tidligsteEndringsdato = startOfMonth(
 		add(
 			parse(
-				loependeAlderspensjon.uttaksgradFom,
+				fremtidigAlderspensjon
+					? fremtidigAlderspensjon.fom
+					: loependeAlderspensjon.uttaksgradFom,
 				DATE_BACKEND_FORMAT,
 				new Date()
 			),
@@ -179,9 +182,14 @@ export function getUttaksGradArray({
 		alderAarUttak !== null &&
 		alderAarUttak < 67
 	) {
-		uttaksgradArray = uttaksgradArray.filter(
-			(grad) => (grad > 0 && grad <= 100 - ufoeretrygdgrad) || grad === 100
-		)
+		uttaksgradArray = uttaksgradArray.filter((grad) => {
+			// Ved UT + AP (endring), 0 grad er mulig
+			return (
+				(erEndring && grad === 0) ||
+				(grad > 0 && grad <= 100 - ufoeretrygdgrad) ||
+				grad === 100
+			)
+		})
 	}
 
 	return uttaksgradArray

@@ -20,12 +20,22 @@ export function getVedtakStatus(
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): string {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
+	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
+
+	const APFomDato =
+		loependeAlderspensjon && fremtidigAlderspensjon
+			? loependeAlderspensjon?.fom
+			: (loependeAlderspensjon?.uttaksgradFom ?? '')
 	const alderspensjonString = loependeAlderspensjon
-		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(loependeAlderspensjon.fom), 'dd.MM.yyyy')}`
+		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''
 	if (omstillingsstoenad?.harLoependeSak) {
 		return 'Gjenlevendepensjon eller omstillingsstønad'
 	}
+
+	const fremtidigAlderspensjonString = fremtidigAlderspensjon
+		? `${alderspensjonString.length > 0 ? ' / ' : ''}${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
+		: ''
 
 	if (vedtak?.tidsbegrensetOffentligAfpFom) {
 		const AFPOffentligString = 'AFP i offentlig sektor'
@@ -44,7 +54,7 @@ export function getVedtakStatus(
 	const ufoeretrygdString = vedtak.ufoeretrygdgrad
 		? `${vedtak.ufoeretrygdgrad} % uføretrygd ${alderspensjonString.length > 0 ? '/ ' : ''}`
 		: ''
-	return `${ufoeretrygdString}${alderspensjonString}${afpPrivatString}`
+	return `${ufoeretrygdString}${alderspensjonString}${fremtidigAlderspensjonString}${afpPrivatString}`
 }
 
 export function getEpsVedtakStatus(

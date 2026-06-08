@@ -2,6 +2,7 @@ import type {
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+
 import { Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
@@ -23,6 +24,7 @@ interface BeregningSectionProps {
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
+	harGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop: boolean
 	erUttaksgradNull?: boolean
@@ -51,6 +53,7 @@ export const BeregningSection = ({
 	testId,
 	erUttaksgradNull = false,
 	showVisAarsbelopCheckbox,
+	harGjenlevenderett = false,
 	onVisAarsbelopChange,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
@@ -90,6 +93,7 @@ export const BeregningSection = ({
 						alderspensjonGrad={alderspensjonGrad}
 						visAarsbelop={visAarsbelop}
 						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
+						harGjenlevenderett={harGjenlevenderett}
 						isGradert={isGradert}
 					/>
 				)}
