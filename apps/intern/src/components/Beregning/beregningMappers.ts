@@ -217,7 +217,7 @@ export function formatAfpTitle(aar: number, md: number): string {
 	return `AFP ved ${formatAlder(aar, md)}`
 }
 
-function mapAfpRows({
+export function mapAfpToRows({
 	grunnpensjon,
 	tilleggspensjon,
 	afpTillegg,
@@ -252,31 +252,9 @@ function mapAfpRows({
 	]
 }
 
-export function mapTidsbegrensetAfpToRows(
-	entry: TidsbegrensetOffentligAFP
-): BeregningTableRow[] {
-	return mapAfpRows({
-		grunnpensjon: entry.grunnpensjon,
-		tilleggspensjon: entry.tilleggspensjon,
-		afpTillegg: entry.afpTillegg,
-		saertillegg: entry.saertillegg,
-	})
-}
-
 export type ServiceberegnetAfpResult = NonNullable<
 	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
 >
-
-export function mapServiceAfpToRows(
-	entry: ServiceberegnetAfpResult
-): BeregningTableRow[] {
-	return mapAfpRows({
-		grunnpensjon: entry.grunnpensjon ?? 0,
-		tilleggspensjon: entry.tilleggspensjon ?? 0,
-		afpTillegg: entry.afpTillegg ?? 0,
-		saertillegg: entry.saertillegg ?? 0,
-	})
-}
 
 export function mapServiceAfpOpptjeningRows(
 	entry: ServiceberegnetAfpResult

@@ -5,8 +5,8 @@ import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
+	mapAfpToRows,
 	mapTidsbegrensetAfpOpptjeningToRows,
-	mapTidsbegrensetAfpToRows,
 } from './beregningMappers'
 
 import styles from '../BeregningSection/BeregningSection.module.css'
@@ -28,7 +28,7 @@ export const AfpBeregningSection = ({
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
 }: AfpBeregningSectionProps) => {
-	const afpRows = mapTidsbegrensetAfpToRows(entry)
+	const afpRows = mapAfpToRows(entry)
 	const opptjeningRows = mapTidsbegrensetAfpOpptjeningToRows(entry)
 
 	return (
