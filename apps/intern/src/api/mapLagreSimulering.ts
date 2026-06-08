@@ -163,6 +163,7 @@ export function mapBeregningResultToLagreSpec(
 					})(),
 				}
 			: null,
+		// Livsvarig offentlig AFP mappes separat fra tidsbegrenset AFP i save-spec.
 		afpOffentligLivsvarig: livsvarigOffentligAfpVedHeltUttak
 			? {
 					vedGradertUttak: livsvarigOffentligAfpVedGradertUttak

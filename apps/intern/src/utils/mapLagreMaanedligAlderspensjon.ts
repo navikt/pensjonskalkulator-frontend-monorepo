@@ -8,18 +8,6 @@ import { mapAndelToTeller } from './mapAndelToTeller'
 type LagreMaanedligAlderspensjonDto =
 	components['schemas']['LagreMaanedligAlderspensjonDto']
 
-type Kull = 'KAP19' | 'KAP20' | 'OVERGANG'
-
-export function mapLagreMaanedligAlderspensjon(
-	maanedligAlderspensjon: SimuleringMaanedligAlderspensjon,
-	grunnbeloep?: number | null,
-	kull?: Kull | null
-): LagreMaanedligAlderspensjonDto
-export function mapLagreMaanedligAlderspensjon(
-	maanedligAlderspensjon: SimuleringMaanedligAlderspensjon | null | undefined,
-	grunnbeloep?: number | null,
-	kull?: Kull | null
-): LagreMaanedligAlderspensjonDto | null
 export function mapLagreMaanedligAlderspensjon(
 	maanedligAlderspensjon: SimuleringMaanedligAlderspensjon | null | undefined,
 	grunnbeloep?: number | null,

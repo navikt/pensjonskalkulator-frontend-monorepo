@@ -11,23 +11,14 @@ type ResultKnekkpunkter =
 type LagreMaanedligAlderspensjonForKnekkpunkterDto =
 	components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
 
-type Kull = 'KAP19' | 'KAP20' | 'OVERGANG'
-
 export function mapMaanedligAlderspensjonForKnekkpunkter(
 	knekkpunkter: ResultKnekkpunkter,
 	grunnbeloep?: number | null,
 	kull?: Kull | null,
 	afpType?: InternAfpRadio
 ): LagreMaanedligAlderspensjonForKnekkpunkterDto | null {
-	if (!knekkpunkter) {
-		return null
-	}
+	if (!knekkpunkter) return null
 
-	const vedHeltUttak = mapLagreMaanedligAlderspensjon(
-		knekkpunkter.vedHeltUttak,
-		grunnbeloep,
-		kull
-	)
 	const vedNormertPensjonsalder = mapLagreMaanedligAlderspensjon(
 		knekkpunkter.vedNormertPensjonsalder,
 		grunnbeloep,
@@ -35,18 +26,20 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 	)
 
 	if (afpType === 'ja_offentlig') {
-		if (!vedNormertPensjonsalder) {
-			return null
-		}
+		if (!vedNormertPensjonsalder) return null
 
 		return {
 			vedHeltUttak: vedNormertPensjonsalder,
 		}
 	}
 
-	if (!vedHeltUttak) {
-		return null
-	}
+	const vedHeltUttak = mapLagreMaanedligAlderspensjon(
+		knekkpunkter.vedHeltUttak,
+		grunnbeloep,
+		kull
+	)
+
+	if (!vedHeltUttak) return null
 
 	return {
 		vedGradertUttak: mapLagreMaanedligAlderspensjon(
