@@ -4,7 +4,7 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 import {
 	BodyLong,
@@ -30,7 +30,6 @@ import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AfpBeregningSection } from './AfpBeregningSection'
-import { LagreBeregningModal } from './LagreBeregningModal'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
 
@@ -56,7 +55,6 @@ export const Beregning = () => {
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
-	const modalRef = useRef<HTMLDialogElement>(null)
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
@@ -265,7 +263,7 @@ export const Beregning = () => {
 			{
 				onSuccess: (response) => {
 					if (response.url) {
-						modalRef.current?.showModal()
+						window.open(response.url, '_blank', 'noopener,noreferrer')
 					}
 				},
 			}
@@ -370,10 +368,6 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			<LagreBeregningModal
-				modalRef={modalRef}
-				url={lagreSimulering.data?.url}
-			/>
 			<HGrid marginBlock="space-40" columns={3}>
 				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
 					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
