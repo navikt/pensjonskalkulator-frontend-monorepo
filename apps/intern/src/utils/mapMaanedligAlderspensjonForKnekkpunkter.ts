@@ -34,14 +34,15 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 		kull
 	)
 
-	if (afpType === 'ja_offentlig' && knekkpunkter.vedNormertPensjonsalder)
-		return {
-			vedHeltUttak: mapLagreMaanedligAlderspensjon(
-				knekkpunkter.vedNormertPensjonsalder,
-				grunnbeloep,
-				kull
-			),
+	if (afpType === 'ja_offentlig') {
+		if (!vedNormertPensjonsalder) {
+			return null
 		}
+
+		return {
+			vedHeltUttak: vedNormertPensjonsalder,
+		}
+	}
 
 	if (!vedHeltUttak) {
 		return null

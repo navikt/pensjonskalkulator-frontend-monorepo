@@ -16,6 +16,7 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
+import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
@@ -108,9 +109,14 @@ export const Beregning = () => {
 		heltUttakAar: heltUttakAlder.aar,
 		gradertUttakAar: gradertUttakAlder?.aar,
 	})
-	const afpPrivatVed67Aar = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === 67
+	const { vedHeltUttak: afpPrivatVed67Aar } = selectByUttakAlder(
+		beregning?.privatAfpListe,
+		{ heltUttakAar: 67 }
 	)
+
+	const aktivRequest = aktivBeregning
+		? mapBeregningParamsToRequest(aktivBeregning, person, grunnbeloep)
+		: null
 
 	const helMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
@@ -220,7 +226,7 @@ export const Beregning = () => {
 				{...sectionCommonProps}
 				entry={normertMaanedligAlderspensjon ?? undefined}
 				showAfp
-				afpEntry={afpPrivatVed67Aar}
+				afpEntry={afpPrivatVed67Aar ?? undefined}
 				totalAddToSum={
 					(normertMaanedligAlderspensjon?.beloep ?? 0) +
 					(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
@@ -247,7 +253,8 @@ export const Beregning = () => {
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					person?.foedselsdato
+					person?.foedselsdato,
+					aktivRequest?.utenlandsperiodeListe ?? undefined
 				),
 			},
 			{

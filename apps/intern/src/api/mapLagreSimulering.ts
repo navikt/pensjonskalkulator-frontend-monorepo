@@ -1,35 +1,20 @@
 import type {
 	Alder,
 	LagreSimuleringSpecDtoV1,
+	SimuleringUtenlandsperiode,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import {
-	DATE_BACKEND_FORMAT,
-	DATE_ENDUSER_FORMAT,
-} from '@pensjonskalkulator-frontend-monorepo/utils/dates'
-import { format, parse } from 'date-fns'
 
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
 import { selectByUttakAlder } from '../utils/selectByUttakAlder'
 import type { BeregningParams, BeregningResult } from './beregningTypes'
+import { mapUtenlandsperiodeListe } from './mapBeregningParams'
 
-function toBackendDate(value: string): string {
-	if (!value.includes('.')) {
-		return value
-	}
-
-	const parsedDate = parse(value, DATE_ENDUSER_FORMAT, new Date())
-
-	if (Number.isNaN(parsedDate.getTime())) {
-		return value
-	}
-
-	return format(parsedDate, DATE_BACKEND_FORMAT)
-}
+const NORMERT_PENSJONSALDER_AAR = 67
 
 function getNormertPensjonsalderPlassering(
 	aktivBeregning?: BeregningParams | null,
@@ -50,11 +35,15 @@ function getNormertPensjonsalderPlassering(
 	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
 	const harGradertSection = !!gradertUttakAlder || erUttaksgradNull
 
-	if (harGradertSection && heltAar > 67 && gradertAar < 67) {
+	if (
+		harGradertSection &&
+		heltAar > NORMERT_PENSJONSALDER_AAR &&
+		gradertAar < NORMERT_PENSJONSALDER_AAR
+	) {
 		return 'MELLOM_GRADERT_OG_HELT'
 	}
 
-	if (heltAar < 67) {
+	if (heltAar < NORMERT_PENSJONSALDER_AAR) {
 		return 'ETTER_HELT'
 	}
 
@@ -66,7 +55,8 @@ export function mapBeregningResultToLagreSpec(
 	aktivBeregning?: BeregningParams | null,
 	navEnhetId?: string | null,
 	grunnbeloep?: number | null,
-	foedselsdato?: string | null
+	foedselsdato?: string | null,
+	utenlandsperiodeListe?: SimuleringUtenlandsperiode[]
 ): LagreSimuleringSpecDtoV1 {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
 		aktivBeregning ?? null
@@ -90,15 +80,24 @@ export function mapBeregningResultToLagreSpec(
 		gradertUttakAar,
 	})
 
-	const utenlandsperioder =
-		aktivBeregning?.harOppholdUtenforNorge === true &&
-		aktivBeregning.utenlandsOpphold.length
-			? aktivBeregning.utenlandsOpphold.map((periode) => ({
-					fom: toBackendDate(periode.fom),
-					tom: periode.tom ? toBackendDate(periode.tom) : null,
-					landkode: periode.landkode,
-					arbeidetUtenlands: periode.arbeidetUtenlands,
-				}))
+	const { vedHeltUttak: privatAfpVedNormertPensjonsalder } = selectByUttakAlder(
+		result.privatAfpListe,
+		{ heltUttakAar: NORMERT_PENSJONSALDER_AAR }
+	)
+
+	const utenlandsperioder = utenlandsperiodeListe
+		? utenlandsperiodeListe.map((periode) => ({
+				...periode,
+				tom: periode.tom ?? null,
+			}))
+		: aktivBeregning?.harOppholdUtenforNorge === true &&
+			  aktivBeregning.utenlandsOpphold.length
+			? mapUtenlandsperiodeListe(aktivBeregning.utenlandsOpphold).map(
+					(periode) => ({
+						...periode,
+						tom: periode.tom ?? null,
+					})
+				)
 			: null
 	const kull = foedselsdato
 		? isFoedtEtter1963(foedselsdato)
@@ -130,7 +129,7 @@ export function mapBeregningResultToLagreSpec(
 								kompensasjonstillegg:
 									privatAfpVedGradertUttak.kompensasjonstillegg,
 								kronetillegg:
-									(gradertUttakAar ?? 0) < 67
+									(gradertUttakAar ?? 0) < NORMERT_PENSJONSALDER_AAR
 										? privatAfpVedGradertUttak.kronetillegg
 										: null,
 								livsvarig: privatAfpVedGradertUttak.livsvarig,
@@ -142,21 +141,24 @@ export function mapBeregningResultToLagreSpec(
 						aarligBeloep: privatAfpVedHeltUttak.aarligBeloep,
 						kompensasjonstillegg: privatAfpVedHeltUttak.kompensasjonstillegg,
 						kronetillegg:
-							heltUttakAar < 67 ? privatAfpVedHeltUttak.kronetillegg : null,
+							heltUttakAar < NORMERT_PENSJONSALDER_AAR
+								? privatAfpVedHeltUttak.kronetillegg
+								: null,
 						livsvarig: privatAfpVedHeltUttak.livsvarig,
 						maanedligBeloep: privatAfpVedHeltUttak.maanedligBeloep ?? 0,
 					},
 					vedNormertPensjonsalder: (() => {
-						const afpVed67 = result.privatAfpListe?.find(
-							(entry) => entry.alderAar === 67
-						)
-						if (!afpVed67) return null
+						if (!privatAfpVedNormertPensjonsalder) {
+							return null
+						}
 						return {
-							alderAar: afpVed67.alderAar,
-							aarligBeloep: afpVed67.aarligBeloep,
-							kompensasjonstillegg: afpVed67.kompensasjonstillegg,
-							livsvarig: afpVed67.livsvarig,
-							maanedligBeloep: afpVed67.maanedligBeloep ?? 0,
+							alderAar: privatAfpVedNormertPensjonsalder.alderAar,
+							aarligBeloep: privatAfpVedNormertPensjonsalder.aarligBeloep,
+							kompensasjonstillegg:
+								privatAfpVedNormertPensjonsalder.kompensasjonstillegg,
+							livsvarig: privatAfpVedNormertPensjonsalder.livsvarig,
+							maanedligBeloep:
+								privatAfpVedNormertPensjonsalder.maanedligBeloep ?? 0,
 						}
 					})(),
 				}
