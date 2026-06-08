@@ -1,4 +1,5 @@
 import type {
+	PersonInternV1,
 	SimuleringAfpPrivat,
 	SimuleringAlderspensjon,
 	TidsbegrensetOffentligAFP,
@@ -9,7 +10,10 @@ import {
 	mergeAarligUtbetalinger,
 	parseStartSluttUtbetaling,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import { getAlderMinus1Maaned } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	getAlderMinus1Maaned,
+	transformFoedselsdatoToAlder,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import type { BeregningParams } from '../api/beregningTypes'
 import { getUttakInfo } from './getUttakInfo'
@@ -81,11 +85,13 @@ export const buildAfpSerie = (
 export interface BuildInntektSerieParams {
 	aarligInntektFoerUttakBeloep: number
 	aktiverBeregning?: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 export const buildInntektSerie = ({
 	aarligInntektFoerUttakBeloep,
 	aktiverBeregning,
+	person,
 }: BuildInntektSerieParams): AarligUtbetaling[] => {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
 		aktiverBeregning ?? null
@@ -101,12 +107,21 @@ export const buildInntektSerie = ({
 					maaneder: aktiverBeregning.alderMdInntektSlutter,
 				}
 			: undefined
-
 	// Inntekt før uttak: året før første uttak frem til uttaksalder
+	const brukerAlderNaa = person?.foedselsdato
+		? transformFoedselsdatoToAlder(person.foedselsdato)
+		: undefined
+
 	const inntektFoerUttak =
 		aarFoerUttak > 0
 			? parseStartSluttUtbetaling({
-					startAlder: { aar: aarFoerUttak, maaneder: 0 },
+					startAlder: {
+						aar:
+							aktiverBeregning?.endringAP && brukerAlderNaa
+								? brukerAlderNaa.aar
+								: aarFoerUttak,
+						maaneder: 0,
+					},
 					sluttAlder: getAlderMinus1Maaned(forsteUttakAlder),
 					aarligUtbetaling: aarligInntektFoerUttakBeloep,
 				})
@@ -134,7 +149,6 @@ export const buildInntektSerie = ({
 						aktiverBeregning.pensjonsgivendeInntektVedSidenAvUttak,
 				})
 			: []
-
 	// Inntekt samtidig med AFP (frem til 66 år)
 	const inntektSamtidigMedAfp = aktiverBeregning?.aarsinntektSamtidigMedAfp
 		? parseStartSluttUtbetaling({

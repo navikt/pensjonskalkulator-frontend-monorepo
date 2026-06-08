@@ -1,4 +1,5 @@
 import type {
+	PersonInternV1,
 	SimuleringAfpPrivat,
 	SimuleringAlderspensjon,
 	TidsbegrensetOffentligAFP,
@@ -30,6 +31,7 @@ interface AarligPensjonTableProps {
 	heltUttakAlder: Alder
 	gradertUttakAlder?: Alder
 	aktiverBeregning?: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 const formatNOK = (value: number): string =>
@@ -65,7 +67,8 @@ function buildTableRows(
 	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined,
 	aarligInntektFoerUttakBeloep: number,
 	heltUttakAlder: Alder,
-	aktiverBeregning?: BeregningParams | null
+	aktiverBeregning?: BeregningParams | null,
+	person?: PersonInternV1 | null
 ): TableRow[] {
 	const alderspensjonSerie = buildAlderspensjonSerie(alderspensjonListe)
 	const afpSerie = buildAfpSerie(
@@ -76,6 +79,7 @@ function buildTableRows(
 	const inntektSerie = buildInntektSerie({
 		aarligInntektFoerUttakBeloep,
 		aktiverBeregning,
+		person,
 	})
 
 	const merged = mergeAarligUtbetalinger([
@@ -140,6 +144,7 @@ export const AarligPensjonTable = ({
 	tidsbegrensetOffentligAfp,
 	heltUttakAlder,
 	aktiverBeregning,
+	person,
 }: AarligPensjonTableProps) => {
 	const aarligInntektFoerUttakBeloep =
 		aktiverBeregning?.aarligInntektFoerUttakBeloep ?? 0
@@ -150,7 +155,8 @@ export const AarligPensjonTable = ({
 		tidsbegrensetOffentligAfp,
 		aarligInntektFoerUttakBeloep,
 		heltUttakAlder,
-		aktiverBeregning
+		aktiverBeregning,
+		person
 	)
 
 	if (rows.length === 0 || aktiverBeregning?.afp === 'serviceberegning')

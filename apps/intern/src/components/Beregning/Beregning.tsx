@@ -321,6 +321,7 @@ export const Beregning = () => {
 				tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
 				heltUttakAlder={heltUttakAlder}
 				gradertUttakAlder={gradertUttakAlder}
+				person={person}
 				aktiverBeregning={aktivBeregning}
 			/>
 			<Divider customMargin="32px" />
