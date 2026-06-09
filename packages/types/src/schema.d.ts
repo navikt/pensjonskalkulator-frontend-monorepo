@@ -1889,15 +1889,12 @@ export interface components {
 				| null
 			vedHeltUttak: components['schemas']['LagreLivsvarigOffentligAfpDto']
 		}
-		LagreAfpOffentligTidsbegrensetSimuleringDto: {
-			vedGradertUttak?:
-				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
-				| null
-			vedHeltUttak: components['schemas']['LagreTidsbegrensetOffentligAfpDto']
-		}
 		LagreAfpPrivatSimuleringDto: {
 			vedGradertUttak?: components['schemas']['LagrePrivatAfpDto'] | null
 			vedHeltUttak: components['schemas']['LagrePrivatAfpDto']
+			vedNormertPensjonsalder?:
+				| components['schemas']['LagrePrivatAfpDto']
+				| null
 		}
 		LagreAlderDto: {
 			/** Format: int32 */
@@ -1982,7 +1979,9 @@ export interface components {
 				| components['schemas']['LagreMaanedligAlderspensjonDto']
 				| null
 			vedHeltUttak: components['schemas']['LagreMaanedligAlderspensjonDto']
-			vedNormertPensjonsalder: components['schemas']['LagreMaanedligAlderspensjonDto']
+			vedNormertPensjonsalder?:
+				| components['schemas']['LagreMaanedligAlderspensjonDto']
+				| null
 		}
 		LagrePrivatAfpDto: {
 			/** Format: int32 */
@@ -1992,7 +1991,7 @@ export interface components {
 			/** Format: int32 */
 			kompensasjonstillegg: number
 			/** Format: int32 */
-			kronetillegg: number
+			kronetillegg?: number | null
 			/** Format: int32 */
 			livsvarig: number
 			/** Format: int32 */
@@ -2005,7 +2004,7 @@ export interface components {
 				| components['schemas']['LagreAfpOffentligLivsvarigSimuleringDto']
 				| null
 			afpOffentligTidsbegrenset?:
-				| components['schemas']['LagreAfpOffentligTidsbegrensetSimuleringDto']
+				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
 				| null
 			vilkaarsproevingsresultat: components['schemas']['LagreVilkaarsproevingsresultatDto']
 			trygdetid?: components['schemas']['LagreTrygdetidDto'] | null
@@ -2075,7 +2074,7 @@ export interface components {
 			/** Format: date */
 			tom?: string | null
 			landkode: string
-			arbeidetUtenlands: boolean | null
+			arbeidetUtenlands?: boolean | null
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2090,7 +2089,7 @@ export interface components {
 		LagreSimuleringResponseDtoV1: {
 			brevId?: string
 			sakId?: string
-			brevDevQ2Url?: string
+			url?: string
 		}
 		EpsV1EpsSpec: {
 			/** @enum {string} */
@@ -2127,8 +2126,8 @@ export interface components {
 		}
 		EpsV1Problem: {
 			/** @enum {string} */
-			type?: 'TILGANG_NEKTET'
-			beskrivelse?: string
+			type: 'TILGANG_NEKTET'
+			beskrivelse: string
 		}
 		EpsV1RelasjonPersondata: {
 			/** @enum {string|null} */

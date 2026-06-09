@@ -15,6 +15,7 @@ import { PesysHeader } from './PesysHeader.tsx'
 import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
+	useErApotekerQuery,
 	useFeatureToggleQuery,
 	useInntektQuery,
 	useOmstillingsstoenadQuery,
@@ -98,6 +99,8 @@ const AppContent = () => {
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
 
+	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
+
 	const {
 		data: inntekt,
 		isLoading: isLoadingInntekt,
@@ -169,7 +172,8 @@ const AppContent = () => {
 		isLoadingPerson ||
 		isLoadingVedtak ||
 		isLoadingInntekt ||
-		isLoadingOmstilling
+		isLoadingOmstilling ||
+		isLoadingErApoteker
 	) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />
 	}

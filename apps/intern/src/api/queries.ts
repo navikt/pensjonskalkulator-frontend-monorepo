@@ -291,3 +291,29 @@ export function useBeregningQuery(
 		placeholderData: keepPreviousData,
 	})
 }
+
+async function fetchErApoteker(fnr: string): Promise<boolean> {
+	const response = await fetch(`${API_BASE}/v1/er-apoteker`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch er-apoteker: ${response.status} ${response.statusText}`
+		)
+	}
+
+	const data = (await response.json()) as ApotekerStatusV1
+
+	return data.apoteker
+}
+
+export function useErApotekerQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['erApoteker', fnr],
+		queryFn: fnr ? () => fetchErApoteker(fnr) : skipToken,
+		retry: false,
+	})
+}

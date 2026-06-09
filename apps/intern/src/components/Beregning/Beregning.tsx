@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 import { BodyLong, Box, HGrid, Loader, Tabs, VStack } from '@navikt/ds-react'
 
+import { erKap19EllerApoteker } from '../../api/formConditions'
 import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
@@ -27,6 +28,7 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		erApoteker,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
@@ -40,7 +42,8 @@ export const Beregning = () => {
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
 	const skalBeregneAfpKap19 =
-		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
+		aktivBeregning?.afp === 'ja_offentlig' &&
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
 
 	const hasBeregning =
