@@ -217,12 +217,11 @@ export function formatAfpTitle(aar: number, md: number): string {
 	return `AFP ved ${formatAlder(aar, md)}`
 }
 
-export function mapAfpToRows({
-	grunnpensjon,
-	tilleggspensjon,
-	afpTillegg,
-	saertillegg,
-}: {
+export type ServiceberegnetAfpResult = NonNullable<
+	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
+>
+
+export function mapAfpToRows(entry: {
 	grunnpensjon: number
 	tilleggspensjon: number
 	afpTillegg: number
@@ -231,30 +230,26 @@ export function mapAfpToRows({
 	return [
 		{
 			label: 'Grunnpensjon',
-			value: Math.round(grunnpensjon),
-			yearlyValue: Math.round(grunnpensjon) * 12,
+			value: Math.round(entry.grunnpensjon),
+			yearlyValue: Math.round(entry.grunnpensjon) * 12,
 		},
 		{
 			label: 'Tilleggspensjon',
-			value: Math.round(tilleggspensjon),
-			yearlyValue: Math.round(tilleggspensjon) * 12,
+			value: Math.round(entry.tilleggspensjon),
+			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
 		},
 		{
 			label: 'AFP-tillegg',
-			value: Math.round(afpTillegg),
-			yearlyValue: Math.round(afpTillegg) * 12,
+			value: Math.round(entry.afpTillegg),
+			yearlyValue: Math.round(entry.afpTillegg) * 12,
 		},
 		{
 			label: 'Særtillegg',
-			value: Math.round(saertillegg),
-			yearlyValue: Math.round(saertillegg) * 12,
+			value: Math.round(entry.saertillegg),
+			yearlyValue: Math.round(entry.saertillegg) * 12,
 		},
 	]
 }
-
-export type ServiceberegnetAfpResult = NonNullable<
-	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
->
 
 export function mapServiceAfpOpptjeningRows(
 	entry: ServiceberegnetAfpResult
