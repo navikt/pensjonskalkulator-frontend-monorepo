@@ -1,4 +1,5 @@
 import type {
+	ApotekerStatus,
 	EpsOpplysninger,
 	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
@@ -292,18 +293,18 @@ export function useBeregningQuery(
 	})
 }
 
-async function fetchErApoteker(fnr: string): Promise<boolean | undefined> {
+async function fetchErApoteker(fnr: string): Promise<boolean | null> {
 	const response = await fetch(`${API_BASE}/v1/er-apoteker`, {
 		headers: {
 			fnr,
 		},
-	})
+	}).catch(() => null)
 
-	if (!response.ok) {
-		return undefined
+	if (!response || !response.ok) {
+		return null
 	}
 
-	const data = (await response.json()) as ApotekerStatusV1
+	const data = (await response.json()) as ApotekerStatus
 
 	return data.apoteker
 }

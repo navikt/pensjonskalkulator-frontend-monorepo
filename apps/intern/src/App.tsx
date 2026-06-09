@@ -101,6 +101,8 @@ const AppContent = () => {
 
 	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
 
+	console.log('testset')
+
 	const {
 		data: inntekt,
 		isLoading: isLoadingInntekt,
