@@ -132,6 +132,31 @@ jobs:
           path: apps/ekstern/dist
           retention-days: 1
 
+  # Verify OpenAPI types are up-to-date
+  verify-openapi-types:
+    name: Verify OpenAPI types
+    needs: changes
+    if: needs.changes.outputs.ekstern == 'true' || needs.changes.outputs.shared == 'true' || needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: ./.github/actions/setup-node
+        with:
+          reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Generate types from prod
+        run: pnpm --filter=ekstern run fetch-prod-types
+
+      - name: Check for uncommitted changes
+        run: |
+          if ! git diff --exit-code apps/ekstern/src/types/schema.d.ts; then
+            echo "::error::OpenAPI types are out of date. Run 'pnpm --filter=ekstern run fetch-prod-types' and commit the result."
+            exit 1
+          fi
+
   # Unit tests for intern
   unit-tests-intern:
     name: Unit tests (intern)
@@ -245,6 +270,7 @@ jobs:
       - linting-and-typecheck
       - build-intern
       - build-ekstern
+      - verify-openapi-types
       - unit-tests-intern
       - unit-tests-ekstern
       - e2e-tests-intern
@@ -267,6 +293,10 @@ jobs:
           fi
           if [[ "${{ needs.build-ekstern.result }}" != "success" && "${{ needs.build-ekstern.result }}" != "skipped" ]]; then
             echo "Build ekstern failed"
+            exit 1
+          fi
+          if [[ "${{ needs.verify-openapi-types.result }}" != "success" && "${{ needs.verify-openapi-types.result }}" != "skipped" ]]; then
+            echo "OpenAPI types verification failed"
             exit 1
           fi
           if [[ "${{ needs.unit-tests-intern.result }}" != "success" && "${{ needs.unit-tests-intern.result }}" != "skipped" ]]; then

@@ -225,7 +225,6 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
           is-prod: 'false'
-          openapi-url: ${{ github.ref == 'refs/heads/main' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }}
           save-artifact: 'true'
 
   # Build ekstern for production (main branch only)
@@ -253,7 +252,6 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
           is-prod: 'true'
-          openapi-url: 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current'
           save-artifact: 'false'
 
   # Run unit tests for ekstern
