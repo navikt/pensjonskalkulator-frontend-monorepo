@@ -292,7 +292,7 @@ export function useBeregningQuery(
 	})
 }
 
-async function fetchErApoteker(fnr: string): Promise<boolean> {
+async function fetchErApoteker(fnr: string): Promise<boolean | undefined> {
 	const response = await fetch(`${API_BASE}/v1/er-apoteker`, {
 		headers: {
 			fnr,
@@ -300,9 +300,7 @@ async function fetchErApoteker(fnr: string): Promise<boolean> {
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch er-apoteker: ${response.status} ${response.statusText}`
-		)
+		return undefined
 	}
 
 	const data = (await response.json()) as ApotekerStatusV1
