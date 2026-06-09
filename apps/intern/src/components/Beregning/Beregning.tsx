@@ -306,6 +306,25 @@ export const Beregning = () => {
 							shouldRenderNormertAfpAfterHeltSection &&
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 					</VStack>
+					<AarligPensjonTable
+						alderspensjonListe={beregning.alderspensjonListe}
+						privatAfpListe={beregning.privatAfpListe}
+						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+						heltUttakAlder={heltUttakAlder}
+						gradertUttakAlder={gradertUttakAlder}
+						person={person}
+						aktiverBeregning={aktivBeregning}
+					/>
+					<Divider customMargin="32px" />
+					<HGrid marginBlock="space-40" columns={3}>
+						<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
+							Pensjonen er beregnet på grunnlag av de opplysningene vi har om
+							deg, i tillegg til de opplysningene du har oppgitt selv. Dette er
+							derfor en foreløpig beregning av hva du kan forvente deg i
+							pensjon. Pensjonsberegningen er vist i dagens kroneverdi.
+							Beregningen er ikke juridisk bindende.
+						</BodyLong>
+					</HGrid>
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
@@ -315,25 +334,6 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			<AarligPensjonTable
-				alderspensjonListe={beregning.alderspensjonListe}
-				privatAfpListe={beregning.privatAfpListe}
-				tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
-				heltUttakAlder={heltUttakAlder}
-				gradertUttakAlder={gradertUttakAlder}
-				person={person}
-				aktiverBeregning={aktivBeregning}
-			/>
-			<Divider customMargin="32px" />
-			<HGrid marginBlock="space-40" columns={3}>
-				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
-					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
-					foreløpig beregning av hva du kan forvente deg i pensjon.
-					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
-					juridisk bindende.
-				</BodyLong>
-			</HGrid>
 		</Box>
 	)
 }
