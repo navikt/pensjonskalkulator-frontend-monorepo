@@ -9,9 +9,6 @@ inputs:
     description: 'Build for production (true) or staging (false)'
     required: false
     default: 'false'
-  openapi-url:
-    description: 'URL for openapi backend types'
-    required: true
   save-artifact:
     description: 'Save build folder as artifact for tests'
     required: false
@@ -29,15 +26,6 @@ runs:
       uses: ./.github/actions/setup-node
       with:
         reader-token: ${{ inputs.reader-token }}
-
-    - name: Fetch openapi backend types
-      shell: bash
-      run: |
-        pnpm --filter=ekstern exec openapi-typescript ${{ inputs.openapi-url }} -o ./src/types/schema.d.ts
-
-    - name: Format backend scheme
-      shell: bash
-      run: pnpm --filter=ekstern run format:types
 
     - name: Build application
       shell: bash

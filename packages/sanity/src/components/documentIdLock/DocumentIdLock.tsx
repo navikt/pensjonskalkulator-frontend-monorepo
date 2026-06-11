@@ -36,7 +36,7 @@ export const DocumentIdLock = (props: FieldProps) => {
 	}, [document?._createdAt, hasShownDialog])
 
 	useEffect(() => {
-		let interval: NodeJS.Timeout | null = null
+		let interval: ReturnType<typeof setInterval> | null = null
 
 		const createdAt = document?._createdAt
 		if (createdAt) {

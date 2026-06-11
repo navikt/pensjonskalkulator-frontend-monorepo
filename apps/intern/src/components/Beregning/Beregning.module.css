@@ -42,6 +42,11 @@
 	margin-bottom: var(--ax-space-48);
 }
 
+.lagreButton {
+	align-self: flex-start;
+	width: fit-content;
+}
+
 @media (max-width: 1280px) {
 	.beregning {
 		padding: var(--ax-space-24);

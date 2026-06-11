@@ -5,6 +5,7 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	calculateUttaksalderAsDate,
+	getAlderPlus1Maaned,
 	isAlder67MaanedenFylt,
 	isAlderLikAnnenAlder,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
@@ -109,6 +110,8 @@ export const BeregningForm = () => {
 		harInntektVedSidenAvUttak,
 		alderAarUttak,
 		alderMdUttak,
+		alderAarHeltUttak,
+		alderMdHeltUttak,
 		afp,
 	] = useWatch({
 		control,
@@ -120,6 +123,8 @@ export const BeregningForm = () => {
 			'harInntektVedSidenAvUttak',
 			'alderAarUttak',
 			'alderMdUttak',
+			'alderAarHeltUttak',
+			'alderMdHeltUttak',
 			'afp',
 		] as const,
 	})
@@ -325,6 +330,12 @@ export const BeregningForm = () => {
 		initialInntektAar !== forrigeAar && !harUttakIForrigeAarEllerTidligere
 
 	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
+	const minAlderInntektSlutter =
+		harAlderUttak &&
+		getAlderPlus1Maaned({
+			aar: alderAarHeltUttak ?? alderAarUttak,
+			maaneder: alderMdHeltUttak ?? alderMdUttak,
+		})
 
 	return (
 		<Box className={styles.beregningForm}>
@@ -665,6 +676,9 @@ export const BeregningForm = () => {
 											aarLabel="Alder (år) inntekt slutter"
 											mdLabel="Alder (md.) inntekt slutter"
 											foedselsdato={person?.foedselsdato}
+											{...(minAlderInntektSlutter
+												? { minAlder: minAlderInntektSlutter }
+												: {})}
 										/>
 									</>
 								)}

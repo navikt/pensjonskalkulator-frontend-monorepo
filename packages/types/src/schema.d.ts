@@ -624,6 +624,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/opptjening': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Opptjening
+		 * @description Henter den innloggede brukerens pensjonsopptjening
+		 */
+		get: operations['opptjening']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/intern/v1/enheter': {
 		parameters: {
 			query?: never
@@ -2489,6 +2509,20 @@ export interface components {
 				| 'SAMBOER'
 			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
+		OpptjeningV1: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt: number
+			/** Format: double */
+			pensjonspoeng: number
+			/** Format: int32 */
+			omsorgspoeng?: number | null
+			pensjonspoengType: string
+		}
+		OpptjeningV1Result: {
+			opptjeningListe: components['schemas']['OpptjeningV1'][]
+		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
 			kode: 'ANSATT_IKKE_FUNNET' | 'ANNEN_KLIENTFEIL' | 'SERVERFEIL'
@@ -3692,6 +3726,44 @@ export interface operations {
 				}
 			}
 			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	opptjening: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av opptjening utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['OpptjeningV1Result']
+				}
+			}
+			/** @description Henting av opptjening kunne ikke utføres av tekniske årsaker */
 			503: {
 				headers: {
 					[name: string]: unknown

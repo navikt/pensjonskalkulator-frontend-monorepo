@@ -15,9 +15,11 @@ import { PesysHeader } from './PesysHeader.tsx'
 import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
+	useEnheterQuery,
 	useErApotekerQuery,
 	useFeatureToggleQuery,
 	useInntektQuery,
+	useInternsimulatorLagreBrevButtonQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -28,7 +30,7 @@ import {
 	useBeregningContext,
 } from './components/BeregningContext.tsx'
 import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
-import { getPidFromUrl } from './utils.ts'
+import { getEnhetsidFromUrl, getPidFromUrl } from './utils.ts'
 
 import styles from './styles/global.module.css'
 
@@ -93,6 +95,9 @@ const AppContent = () => {
 	const { data: showHentPersonButton } = useFeatureToggleQuery(
 		'internsimulator.hent-person-button'
 	)
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 
 	const { isLoading: isLoadingVedtak, error: vedtakError } = useVedtakQuery(fnr)
 
@@ -102,6 +107,8 @@ const AppContent = () => {
 	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
 
 	console.log('testset')
+	const { isLoading: isLoadingEnheter, error: enheterError } =
+		useEnheterQuery(visLagreBrevButton)
 
 	const {
 		data: inntekt,
@@ -119,13 +126,13 @@ const AppContent = () => {
 	if (!pid) {
 		return <PersonInfo onPidChange={handlePidChange} />
 	}
-
 	const error =
 		decryptError ||
 		personError ||
 		vedtakError ||
 		inntektError ||
-		omstillingError
+		omstillingError ||
+		(visLagreBrevButton ? enheterError : undefined)
 	const isUnauthorized =
 		error && (error.message.includes('401') || error.message.includes('403'))
 
@@ -175,7 +182,8 @@ const AppContent = () => {
 		isLoadingVedtak ||
 		isLoadingInntekt ||
 		isLoadingOmstilling ||
-		isLoadingErApoteker
+		isLoadingErApoteker ||
+		(visLagreBrevButton ? isLoadingEnheter : false)
 	) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />
 	}
@@ -204,13 +212,23 @@ const AppContent = () => {
 	)
 }
 
-export const App = () => (
-	<SanityProvider>
-		<div className={styles.appContainer}>
-			<PesysHeader />
-			<Theme className="app-content">
-				<AppContent />
-			</Theme>
-		</div>
-	</SanityProvider>
-)
+export const App = () => {
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const { data: enheterData } = useEnheterQuery(visLagreBrevButton)
+	const enheter = visLagreBrevButton ? enheterData : undefined
+
+	const enhet = enheter?.enhetListe?.find((e) => e.id === getEnhetsidFromUrl())
+
+	return (
+		<SanityProvider>
+			<div className={styles.appContainer}>
+				<PesysHeader enhet={enhet} />
+				<Theme className="app-content">
+					<AppContent />
+				</Theme>
+			</div>
+		</SanityProvider>
+	)
+}
