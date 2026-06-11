@@ -62,36 +62,14 @@ export function mapLagreMaanedligAlderspensjon(
 		}
 	}
 
+	const { kapittel19Andel, kapittel20Andel, ...rest } = maanedligAlderspensjon
+
 	return {
-		...common,
-		inntektspensjonBeloep: maanedligAlderspensjon.inntektspensjonBeloep,
-		delingstall: maanedligAlderspensjon.delingstall,
-		pensjonsbeholdningFoerUttakBeloep:
-			maanedligAlderspensjon.pensjonsbeholdningFoerUttakBeloep,
-		pensjonsbeholdningEtterUttakBeloep:
-			maanedligAlderspensjon.pensjonsbeholdningEtterUttakBeloep,
-		sluttpoengtall: maanedligAlderspensjon.sluttpoengtall,
-		poengaarTom1991: maanedligAlderspensjon.poengaarTom1991,
-		poengaarFom1992: maanedligAlderspensjon.poengaarFom1992,
-		forholdstall: maanedligAlderspensjon.forholdstall,
-		grunnpensjonBeloep: maanedligAlderspensjon.grunnpensjonBeloep,
-		tilleggspensjonBeloep: maanedligAlderspensjon.tilleggspensjonBeloep,
-		pensjonstillegg: maanedligAlderspensjon.pensjonstillegg,
-		kapittel19AndelTeller: mapAndelToTeller(
-			maanedligAlderspensjon.kapittel19Andel
-		),
-		kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid,
-		basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep,
-		restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep,
-		gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg,
-		minstePensjonsnivaaSats: maanedligAlderspensjon.minstePensjonsnivaaSats,
+		...rest,
+		garantipensjonsnivaaBeloep: null,
+		grunnbeloep: grunnbeloep,
+		kapittel19AndelTeller: mapAndelToTeller(kapittel19Andel),
+		kapittel20AndelTeller: mapAndelToTeller(kapittel20Andel),
 		minstePensjonsnivaaBeloep: maanedligAlderspensjon.minstePensjonsnivaaSats,
-		kapittel20AndelTeller: mapAndelToTeller(
-			maanedligAlderspensjon.kapittel20Andel
-		),
-		kapittel20Trygdetid: maanedligAlderspensjon.kapittel20Trygdetid,
-		garantipensjonBeloep: maanedligAlderspensjon.garantipensjonBeloep,
-		garantipensjonSats: maanedligAlderspensjon.garantipensjonSats,
-		garantitilleggBeloep: maanedligAlderspensjon.garantitilleggBeloep,
 	}
 }
