@@ -21,7 +21,7 @@ import type { Grunnbeloep } from './queries'
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
 
-const mapUtenlandsperiodeListe = (
+export const mapUtenlandsperiodeListe = (
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
 ): SimuleringUtenlandsperiode[] =>
 	utenlandsOpphold.map(

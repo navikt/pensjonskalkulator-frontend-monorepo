@@ -6,10 +6,26 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, HGrid, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Box,
+	Button,
+	HGrid,
+	Loader,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
-import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
+import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
+import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
+import {
+	useFeatureToggleQuery,
+	useGrunnbeloepQuery,
+	useInternsimulatorLagreBrevButtonQuery,
+	useLagreSimuleringMutation,
+} from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
+import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { Divider } from '../Divider/Divider'
@@ -29,12 +45,18 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		fnr,
+		enhetsid,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
 	const visForbehold = forbeholdInternSynlig?.enabled === true
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
@@ -80,15 +102,21 @@ export const Beregning = () => {
 		(erFoedtFoer1963 ? 1 : 0) +
 		(erOvergangskull || erFoedtEtter1963 ? 1 : 0)
 
-	const afpPrivatVedGradertUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (gradertUttakAlder?.aar ?? 0)
+	const {
+		vedGradertUttak: afpPrivatVedGradertUttak,
+		vedHeltUttak: afpPrivatVedHeltUttak,
+	} = selectByUttakAlder(beregning?.privatAfpListe, {
+		heltUttakAar: heltUttakAlder.aar,
+		gradertUttakAar: gradertUttakAlder?.aar,
+	})
+	const { vedHeltUttak: afpPrivatVed67Aar } = selectByUttakAlder(
+		beregning?.privatAfpListe,
+		{ heltUttakAar: 67 }
 	)
-	const afpPrivatVedHeltUttak = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === (heltUttakAlder.aar ?? 0)
-	)
-	const afpPrivatVed67Aar = beregning?.privatAfpListe?.find(
-		(entry) => entry.alderAar === 67
-	)
+
+	const aktivRequest = aktivBeregning
+		? mapBeregningParamsToRequest(aktivBeregning, person, grunnbeloep)
+		: null
 
 	const helMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
@@ -173,7 +201,7 @@ export const Beregning = () => {
 			{...sectionCommonProps}
 			entry={gradertMaanedligAlderspensjon ?? undefined}
 			showAfp={harAfpPrivat}
-			afpEntry={afpPrivatVedGradertUttak}
+			afpEntry={afpPrivatVedGradertUttak ?? undefined}
 			visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
 			totalAddToSum={
 				(gradertMaanedligAlderspensjon?.beloep ?? 0) +
@@ -202,7 +230,7 @@ export const Beregning = () => {
 				{...sectionCommonProps}
 				entry={normertMaanedligAlderspensjon ?? undefined}
 				showAfp
-				afpEntry={afpPrivatVed67Aar}
+				afpEntry={afpPrivatVed67Aar ?? undefined}
 				totalAddToSum={
 					(normertMaanedligAlderspensjon?.beloep ?? 0) +
 					(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
@@ -214,6 +242,33 @@ export const Beregning = () => {
 				visAarsbelop={visAarsbelop}
 				harGjenlevenderett={harGjenlevenderett}
 			/>
+		)
+	}
+
+	const handleLagreSimulering = () => {
+		if (!fnr || !enhetsid) {
+			return
+		}
+
+		lagreSimulering.mutate(
+			{
+				fnr,
+				spec: mapBeregningResultToLagreSpec(
+					beregning,
+					aktivBeregning,
+					enhetsid,
+					grunnbeloep?.grunnbeløp,
+					person?.foedselsdato,
+					aktivRequest?.utenlandsperiodeListe ?? undefined
+				),
+			},
+			{
+				onSuccess: (response) => {
+					if (response.url) {
+						window.open(response.url, '_blank', 'noopener,noreferrer')
+					}
+				},
+			}
 		)
 	}
 
@@ -288,7 +343,7 @@ export const Beregning = () => {
 										: (helMaanedligAlderspensjon ?? undefined)
 								}
 								showAfp={harAfpPrivat}
-								afpEntry={afpPrivatVedHeltUttak}
+								afpEntry={afpPrivatVedHeltUttak ?? undefined}
 								visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
 								alderspensjonGrad={100}
 								visAarsbelop={visAarsbelop}
@@ -326,6 +381,18 @@ export const Beregning = () => {
 							Beregningen er ikke juridisk bindende.
 						</BodyLong>
 					</HGrid>
+					{visLagreBrevButton && (
+						<Button
+							className={styles.lagreButton}
+							variant="secondary"
+							size="small"
+							disabled={!fnr || !enhetsid || lagreSimulering.isPending}
+							loading={lagreSimulering.isPending}
+							onClick={handleLagreSimulering}
+						>
+							Opprett brev
+						</Button>
+					)}
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
