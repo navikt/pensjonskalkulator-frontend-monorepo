@@ -160,7 +160,10 @@ export const AarligPensjonTable = ({
 	person,
 }: AarligPensjonTableProps) => {
 	const aarligInntektFoerUttakBeloep =
-		aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0
+		aktivBeregning?.pensjonsgivendeInntektFremTilUttak ??
+		aktivBeregning?.pensjonsgivendeInntektForrigeAar ??
+		aktivBeregning?.aarligInntektFoerUttakBeloep ??
+		0
 
 	const rows = buildTableRows(
 		alderspensjonListe,
