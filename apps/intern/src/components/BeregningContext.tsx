@@ -1,5 +1,6 @@
 import type {
 	OmstillingsstoenadOgGjenlevende,
+	Opptjening,
 	PersonInternV1,
 	Sivilstatus,
 	Vedtak,
@@ -33,6 +34,7 @@ import {
 	useDecryptPidQuery,
 	useGrunnbeloepQuery,
 	useOmstillingsstoenadQuery,
+	useOpptjeningQuery,
 	usePersonQuery,
 	useVedtakQuery,
 } from '../api/queries'
@@ -50,6 +52,7 @@ interface BeregningContextValue {
 	vedtak: Vedtak | undefined
 	initialInntektAar?: number
 	initialInntekt?: number
+	opptjening?: Opptjening
 	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
 	submitBeregning: () => void
 	resetForm: () => void
@@ -306,6 +309,12 @@ export function BeregningProvider({
 		}
 	}, [isBeregningLoading, pendingBeregning])
 
+	const {
+		data: opptjening,
+		// isFetching: isOpptjeningLoading,
+		// error: opptjeningError,
+	} = useOpptjeningQuery(fnr)
+
 	return (
 		<FormProvider {...form}>
 			<BeregningContext.Provider
@@ -322,6 +331,7 @@ export function BeregningProvider({
 					initialInntektAar,
 					initialInntekt,
 					omstillingsstoenad,
+					opptjening,
 					submitBeregning,
 					resetForm,
 				}}

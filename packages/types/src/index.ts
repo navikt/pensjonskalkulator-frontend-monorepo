@@ -155,3 +155,6 @@ export type Locales = 'nb' | 'nn' | 'en'
 
 // EPS Opplysninger
 export type EpsOpplysninger = components['schemas']['EpsV1Familierelasjon']
+
+// OpptjeningV1Result
+export type Opptjening = components['schemas']['OpptjeningV1Result']

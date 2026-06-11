@@ -624,6 +624,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/opptjening': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Opptjening
+		 * @description Henter den innloggede brukerens pensjonsopptjening
+		 */
+		get: operations['opptjening']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/intern/v1/enheter': {
 		parameters: {
 			query?: never
@@ -1889,15 +1909,12 @@ export interface components {
 				| null
 			vedHeltUttak: components['schemas']['LagreLivsvarigOffentligAfpDto']
 		}
-		LagreAfpOffentligTidsbegrensetSimuleringDto: {
-			vedGradertUttak?:
-				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
-				| null
-			vedHeltUttak: components['schemas']['LagreTidsbegrensetOffentligAfpDto']
-		}
 		LagreAfpPrivatSimuleringDto: {
 			vedGradertUttak?: components['schemas']['LagrePrivatAfpDto'] | null
 			vedHeltUttak: components['schemas']['LagrePrivatAfpDto']
+			vedNormertPensjonsalder?:
+				| components['schemas']['LagrePrivatAfpDto']
+				| null
 		}
 		LagreAlderDto: {
 			/** Format: int32 */
@@ -1982,7 +1999,9 @@ export interface components {
 				| components['schemas']['LagreMaanedligAlderspensjonDto']
 				| null
 			vedHeltUttak: components['schemas']['LagreMaanedligAlderspensjonDto']
-			vedNormertPensjonsalder: components['schemas']['LagreMaanedligAlderspensjonDto']
+			vedNormertPensjonsalder?:
+				| components['schemas']['LagreMaanedligAlderspensjonDto']
+				| null
 		}
 		LagrePrivatAfpDto: {
 			/** Format: int32 */
@@ -1992,7 +2011,7 @@ export interface components {
 			/** Format: int32 */
 			kompensasjonstillegg: number
 			/** Format: int32 */
-			kronetillegg: number
+			kronetillegg?: number | null
 			/** Format: int32 */
 			livsvarig: number
 			/** Format: int32 */
@@ -2005,7 +2024,7 @@ export interface components {
 				| components['schemas']['LagreAfpOffentligLivsvarigSimuleringDto']
 				| null
 			afpOffentligTidsbegrenset?:
-				| components['schemas']['LagreAfpOffentligTidsbegrensetSimuleringDto']
+				| components['schemas']['LagreTidsbegrensetOffentligAfpDto']
 				| null
 			vilkaarsproevingsresultat: components['schemas']['LagreVilkaarsproevingsresultatDto']
 			trygdetid?: components['schemas']['LagreTrygdetidDto'] | null
@@ -2075,7 +2094,7 @@ export interface components {
 			/** Format: date */
 			tom?: string | null
 			landkode: string
-			arbeidetUtenlands: boolean | null
+			arbeidetUtenlands?: boolean | null
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2090,7 +2109,7 @@ export interface components {
 		LagreSimuleringResponseDtoV1: {
 			brevId?: string
 			sakId?: string
-			brevDevQ2Url?: string
+			url?: string
 		}
 		EpsV1EpsSpec: {
 			/** @enum {string} */
@@ -2127,8 +2146,8 @@ export interface components {
 		}
 		EpsV1Problem: {
 			/** @enum {string} */
-			type?: 'TILGANG_NEKTET'
-			beskrivelse?: string
+			type: 'TILGANG_NEKTET'
+			beskrivelse: string
 		}
 		EpsV1RelasjonPersondata: {
 			/** @enum {string|null} */
@@ -2489,6 +2508,20 @@ export interface components {
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
 			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
+		}
+		OpptjeningV1: {
+			/** Format: int32 */
+			aar: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt: number
+			/** Format: double */
+			pensjonspoeng: number
+			/** Format: int32 */
+			omsorgspoeng?: number | null
+			pensjonspoengType: string
+		}
+		OpptjeningV1Result: {
+			opptjeningListe: components['schemas']['OpptjeningV1'][]
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
@@ -3693,6 +3726,44 @@ export interface operations {
 				}
 			}
 			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+			503: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					/**
+					 * @example {
+					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
+					 *       "status": 503,
+					 *       "error": "Service Unavailable",
+					 *       "message": "En feil inntraff",
+					 *       "path": "/api/ressurs"
+					 *     }
+					 */
+					'*/*': unknown
+				}
+			}
+		}
+	}
+	opptjening: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av opptjening utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['OpptjeningV1Result']
+				}
+			}
+			/** @description Henting av opptjening kunne ikke utføres av tekniske årsaker */
 			503: {
 				headers: {
 					[name: string]: unknown

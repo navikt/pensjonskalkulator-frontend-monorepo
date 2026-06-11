@@ -1,6 +1,7 @@
 import type {
 	EpsOpplysninger,
 	OmstillingsstoenadOgGjenlevende,
+	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
@@ -289,5 +290,26 @@ export function useBeregningQuery(
 		queryKey: ['beregning', fnr, request],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
+	})
+}
+async function fetchOpptjening(fnr: string): Promise<Opptjening> {
+	const response = await fetch(`${API_BASE}/v1/opptjening`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch opptjening: ${response.status}`)
+	}
+
+	return response.json() as Promise<Opptjening>
+}
+
+export function useOpptjeningQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['opptjening', fnr],
+		queryFn: fnr ? () => fetchOpptjening(fnr) : skipToken,
+		retry: false,
 	})
 }
