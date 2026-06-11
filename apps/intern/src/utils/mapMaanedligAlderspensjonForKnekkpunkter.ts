@@ -1,6 +1,6 @@
 import type {
+	LagreMaanedligAlderspensjonForKnekkpunkterDto,
 	SimuleringResponseBody,
-	components,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import type { InternAfpRadio } from '../api/beregningTypes'
@@ -8,8 +8,6 @@ import { mapLagreMaanedligAlderspensjon } from './mapLagreMaanedligAlderspensjon
 
 type ResultKnekkpunkter =
 	SimuleringResponseBody['maanedligAlderspensjonForKnekkpunkter']
-type LagreMaanedligAlderspensjonForKnekkpunkterDto =
-	components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
 
 export function mapMaanedligAlderspensjonForKnekkpunkter(
 	knekkpunkter: ResultKnekkpunkter,

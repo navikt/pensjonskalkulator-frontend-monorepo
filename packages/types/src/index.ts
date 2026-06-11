@@ -74,6 +74,10 @@ export type LagreSimuleringSpecDtoV1 =
 	components['schemas']['LagreSimuleringSpecDtoV1']
 export type LagreSimuleringResponseDtoV1 =
 	components['schemas']['LagreSimuleringResponseDtoV1']
+export type LagreMaanedligAlderspensjonDto =
+	components['schemas']['LagreMaanedligAlderspensjonDto']
+export type LagreMaanedligAlderspensjonForKnekkpunkterDto =
+	components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
 
 // Simulering Intern
 export type SimuleringRequestBody = components['schemas']['SimuleringV1Spec']

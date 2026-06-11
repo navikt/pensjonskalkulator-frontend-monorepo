@@ -1,12 +1,9 @@
 import type {
+	LagreMaanedligAlderspensjonDto,
 	SimuleringMaanedligAlderspensjon,
-	components,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { mapAndelToTeller } from './mapAndelToTeller'
-
-type LagreMaanedligAlderspensjonDto =
-	components['schemas']['LagreMaanedligAlderspensjonDto']
 
 export function mapLagreMaanedligAlderspensjon(
 	maanedligAlderspensjon: SimuleringMaanedligAlderspensjon | null | undefined,
@@ -19,109 +16,82 @@ export function mapLagreMaanedligAlderspensjon(
 
 	const common = {
 		beloep: maanedligAlderspensjon.beloep,
-		skjermingstillegg: maanedligAlderspensjon.skjermingstillegg ?? null,
+		skjermingstillegg: maanedligAlderspensjon.skjermingstillegg,
 		garantipensjonsnivaaBeloep: null,
-		grunnbeloep: grunnbeloep ?? null,
+		grunnbeloep: grunnbeloep,
 	}
 
 	if (kull === 'KAP19') {
 		return {
 			...common,
-			inntektspensjonBeloep: null,
-			delingstall: null,
-			pensjonsbeholdningFoerUttakBeloep: null,
-			pensjonsbeholdningEtterUttakBeloep: null,
-			sluttpoengtall: maanedligAlderspensjon.sluttpoengtall ?? null,
-			poengaarTom1991: maanedligAlderspensjon.poengaarTom1991 ?? null,
-			poengaarFom1992: maanedligAlderspensjon.poengaarFom1992 ?? null,
-			forholdstall: maanedligAlderspensjon.forholdstall ?? null,
-			grunnpensjonBeloep: maanedligAlderspensjon.grunnpensjonBeloep ?? null,
-			tilleggspensjonBeloep:
-				maanedligAlderspensjon.tilleggspensjonBeloep ?? null,
-			pensjonstillegg: maanedligAlderspensjon.pensjonstillegg ?? null,
+			sluttpoengtall: maanedligAlderspensjon.sluttpoengtall,
+			poengaarTom1991: maanedligAlderspensjon.poengaarTom1991,
+			poengaarFom1992: maanedligAlderspensjon.poengaarFom1992,
+			forholdstall: maanedligAlderspensjon.forholdstall,
+			grunnpensjonBeloep: maanedligAlderspensjon.grunnpensjonBeloep,
+			tilleggspensjonBeloep: maanedligAlderspensjon.tilleggspensjonBeloep,
+			pensjonstillegg: maanedligAlderspensjon.pensjonstillegg,
 			kapittel19AndelTeller: mapAndelToTeller(
 				maanedligAlderspensjon.kapittel19Andel
 			),
-			kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid ?? null,
-			basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep ?? null,
-			restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep ?? null,
-			gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg ?? null,
-			minstePensjonsnivaaSats:
-				maanedligAlderspensjon.minstePensjonsnivaaSats ?? null,
+			kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid,
+			basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep,
+			restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep,
+			gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg,
+			minstePensjonsnivaaSats: maanedligAlderspensjon.minstePensjonsnivaaSats,
 			minstePensjonsnivaaBeloep: maanedligAlderspensjon.minstePensjonsnivaaSats,
-			kapittel20AndelTeller: null,
-			kapittel20Trygdetid: null,
-			garantipensjonBeloep: null,
-			garantipensjonSats: null,
-			garantitilleggBeloep: null,
 		}
 	}
 
 	if (kull === 'KAP20') {
 		return {
 			...common,
-			inntektspensjonBeloep:
-				maanedligAlderspensjon.inntektspensjonBeloep ?? null,
-			delingstall: maanedligAlderspensjon.delingstall ?? null,
+			inntektspensjonBeloep: maanedligAlderspensjon.inntektspensjonBeloep,
+			delingstall: maanedligAlderspensjon.delingstall,
 			pensjonsbeholdningFoerUttakBeloep:
-				maanedligAlderspensjon.pensjonsbeholdningFoerUttakBeloep ?? null,
+				maanedligAlderspensjon.pensjonsbeholdningFoerUttakBeloep,
 			pensjonsbeholdningEtterUttakBeloep:
-				maanedligAlderspensjon.pensjonsbeholdningEtterUttakBeloep ?? null,
-			sluttpoengtall: null,
-			poengaarTom1991: null,
-			poengaarFom1992: null,
-			forholdstall: null,
-			grunnpensjonBeloep: null,
-			tilleggspensjonBeloep: null,
-			pensjonstillegg: null,
-			kapittel19AndelTeller: null,
-			kapittel19Trygdetid: null,
-			basispensjonBeloep: null,
-			restpensjonBeloep: null,
-			gjenlevendetillegg: null,
-			minstePensjonsnivaaSats: null,
-			minstePensjonsnivaaBeloep: null,
+				maanedligAlderspensjon.pensjonsbeholdningEtterUttakBeloep,
 			kapittel20AndelTeller: mapAndelToTeller(
 				maanedligAlderspensjon.kapittel20Andel
 			),
-			kapittel20Trygdetid: maanedligAlderspensjon.kapittel20Trygdetid ?? null,
-			garantipensjonBeloep: maanedligAlderspensjon.garantipensjonBeloep ?? null,
-			garantipensjonSats: maanedligAlderspensjon.garantipensjonSats ?? null,
-			garantitilleggBeloep: maanedligAlderspensjon.garantitilleggBeloep ?? null,
+			kapittel20Trygdetid: maanedligAlderspensjon.kapittel20Trygdetid,
+			garantipensjonBeloep: maanedligAlderspensjon.garantipensjonBeloep,
+			garantipensjonSats: maanedligAlderspensjon.garantipensjonSats,
+			garantitilleggBeloep: maanedligAlderspensjon.garantitilleggBeloep,
 		}
 	}
 
 	return {
 		...common,
-		inntektspensjonBeloep: maanedligAlderspensjon.inntektspensjonBeloep ?? null,
-		delingstall: maanedligAlderspensjon.delingstall ?? null,
+		inntektspensjonBeloep: maanedligAlderspensjon.inntektspensjonBeloep,
+		delingstall: maanedligAlderspensjon.delingstall,
 		pensjonsbeholdningFoerUttakBeloep:
-			maanedligAlderspensjon.pensjonsbeholdningFoerUttakBeloep ?? null,
+			maanedligAlderspensjon.pensjonsbeholdningFoerUttakBeloep,
 		pensjonsbeholdningEtterUttakBeloep:
-			maanedligAlderspensjon.pensjonsbeholdningEtterUttakBeloep ?? null,
-		sluttpoengtall: maanedligAlderspensjon.sluttpoengtall ?? null,
-		poengaarTom1991: maanedligAlderspensjon.poengaarTom1991 ?? null,
-		poengaarFom1992: maanedligAlderspensjon.poengaarFom1992 ?? null,
-		forholdstall: maanedligAlderspensjon.forholdstall ?? null,
-		grunnpensjonBeloep: maanedligAlderspensjon.grunnpensjonBeloep ?? null,
-		tilleggspensjonBeloep: maanedligAlderspensjon.tilleggspensjonBeloep ?? null,
-		pensjonstillegg: maanedligAlderspensjon.pensjonstillegg ?? null,
+			maanedligAlderspensjon.pensjonsbeholdningEtterUttakBeloep,
+		sluttpoengtall: maanedligAlderspensjon.sluttpoengtall,
+		poengaarTom1991: maanedligAlderspensjon.poengaarTom1991,
+		poengaarFom1992: maanedligAlderspensjon.poengaarFom1992,
+		forholdstall: maanedligAlderspensjon.forholdstall,
+		grunnpensjonBeloep: maanedligAlderspensjon.grunnpensjonBeloep,
+		tilleggspensjonBeloep: maanedligAlderspensjon.tilleggspensjonBeloep,
+		pensjonstillegg: maanedligAlderspensjon.pensjonstillegg,
 		kapittel19AndelTeller: mapAndelToTeller(
 			maanedligAlderspensjon.kapittel19Andel
 		),
-		kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid ?? null,
-		basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep ?? null,
-		restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep ?? null,
-		gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg ?? null,
-		minstePensjonsnivaaSats:
-			maanedligAlderspensjon.minstePensjonsnivaaSats ?? null,
+		kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid,
+		basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep,
+		restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep,
+		gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg,
+		minstePensjonsnivaaSats: maanedligAlderspensjon.minstePensjonsnivaaSats,
 		minstePensjonsnivaaBeloep: maanedligAlderspensjon.minstePensjonsnivaaSats,
 		kapittel20AndelTeller: mapAndelToTeller(
 			maanedligAlderspensjon.kapittel20Andel
 		),
-		kapittel20Trygdetid: maanedligAlderspensjon.kapittel20Trygdetid ?? null,
-		garantipensjonBeloep: maanedligAlderspensjon.garantipensjonBeloep ?? null,
-		garantipensjonSats: maanedligAlderspensjon.garantipensjonSats ?? null,
-		garantitilleggBeloep: maanedligAlderspensjon.garantitilleggBeloep ?? null,
+		kapittel20Trygdetid: maanedligAlderspensjon.kapittel20Trygdetid,
+		garantipensjonBeloep: maanedligAlderspensjon.garantipensjonBeloep,
+		garantipensjonSats: maanedligAlderspensjon.garantipensjonSats,
+		garantitilleggBeloep: maanedligAlderspensjon.garantitilleggBeloep,
 	}
 }

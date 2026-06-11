@@ -88,14 +88,14 @@ export function mapBeregningResultToLagreSpec(
 	const utenlandsperioder = utenlandsperiodeListe
 		? utenlandsperiodeListe.map((periode) => ({
 				...periode,
-				tom: periode.tom ?? null,
+				tom: periode.tom,
 			}))
 		: aktivBeregning?.harOppholdUtenforNorge === true &&
 			  aktivBeregning.utenlandsOpphold.length
 			? mapUtenlandsperiodeListe(aktivBeregning.utenlandsOpphold).map(
 					(periode) => ({
 						...periode,
-						tom: periode.tom ?? null,
+						tom: periode.tom,
 					})
 				)
 			: null
@@ -118,49 +118,36 @@ export function mapBeregningResultToLagreSpec(
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
 			beloep: ap.beloep,
-			gjenlevendetillegg: ap.gjenlevendetillegg ?? null,
+			gjenlevendetillegg: ap.gjenlevendetillegg,
 		})),
 		afpPrivat: privatAfpVedHeltUttak
 			? {
 					vedGradertUttak: privatAfpVedGradertUttak
 						? {
-								alderAar: privatAfpVedGradertUttak.alderAar,
-								aarligBeloep: privatAfpVedGradertUttak.aarligBeloep,
-								kompensasjonstillegg:
-									privatAfpVedGradertUttak.kompensasjonstillegg,
+								...privatAfpVedGradertUttak,
 								kronetillegg:
 									(gradertUttakAar ?? 0) < NORMERT_PENSJONSALDER_AAR
 										? privatAfpVedGradertUttak.kronetillegg
 										: null,
-								livsvarig: privatAfpVedGradertUttak.livsvarig,
 								maanedligBeloep: privatAfpVedGradertUttak.maanedligBeloep ?? 0,
 							}
 						: null,
 					vedHeltUttak: {
-						alderAar: privatAfpVedHeltUttak.alderAar,
-						aarligBeloep: privatAfpVedHeltUttak.aarligBeloep,
-						kompensasjonstillegg: privatAfpVedHeltUttak.kompensasjonstillegg,
+						...privatAfpVedHeltUttak,
 						kronetillegg:
 							heltUttakAar < NORMERT_PENSJONSALDER_AAR
 								? privatAfpVedHeltUttak.kronetillegg
 								: null,
-						livsvarig: privatAfpVedHeltUttak.livsvarig,
 						maanedligBeloep: privatAfpVedHeltUttak.maanedligBeloep ?? 0,
 					},
-					vedNormertPensjonsalder: (() => {
-						if (!privatAfpVedNormertPensjonsalder) {
-							return null
-						}
-						return {
-							alderAar: privatAfpVedNormertPensjonsalder.alderAar,
-							aarligBeloep: privatAfpVedNormertPensjonsalder.aarligBeloep,
-							kompensasjonstillegg:
-								privatAfpVedNormertPensjonsalder.kompensasjonstillegg,
-							livsvarig: privatAfpVedNormertPensjonsalder.livsvarig,
-							maanedligBeloep:
-								privatAfpVedNormertPensjonsalder.maanedligBeloep ?? 0,
-						}
-					})(),
+					vedNormertPensjonsalder: privatAfpVedNormertPensjonsalder
+						? {
+								...privatAfpVedNormertPensjonsalder,
+								kronetillegg: null,
+								maanedligBeloep:
+									privatAfpVedNormertPensjonsalder.maanedligBeloep ?? 0,
+							}
+						: null,
 				}
 			: null,
 		// Livsvarig offentlig AFP mappes separat fra tidsbegrenset AFP i save-spec.
@@ -168,15 +155,13 @@ export function mapBeregningResultToLagreSpec(
 			? {
 					vedGradertUttak: livsvarigOffentligAfpVedGradertUttak
 						? {
-								alderAar: livsvarigOffentligAfpVedGradertUttak.alderAar,
-								aarligBeloep: livsvarigOffentligAfpVedGradertUttak.aarligBeloep,
+								...livsvarigOffentligAfpVedGradertUttak,
 								maanedligBeloep:
 									livsvarigOffentligAfpVedGradertUttak.maanedligBeloep ?? 0,
 							}
 						: null,
 					vedHeltUttak: {
-						alderAar: livsvarigOffentligAfpVedHeltUttak.alderAar,
-						aarligBeloep: livsvarigOffentligAfpVedHeltUttak.aarligBeloep,
+						...livsvarigOffentligAfpVedHeltUttak,
 						maanedligBeloep:
 							livsvarigOffentligAfpVedHeltUttak.maanedligBeloep ?? 0,
 					},
@@ -184,72 +169,42 @@ export function mapBeregningResultToLagreSpec(
 			: null,
 		afpOffentligTidsbegrenset: result.tidsbegrensetOffentligAfp
 			? {
-					alderAar: result.tidsbegrensetOffentligAfp.alderAar,
-					totaltAfpBeloep: result.tidsbegrensetOffentligAfp.totaltAfpBeloep,
-					tidligereArbeidsinntekt:
-						result.tidsbegrensetOffentligAfp.tidligereArbeidsinntekt,
-					grunnbeloep: result.tidsbegrensetOffentligAfp.grunnbeloep,
-					sluttpoengtall: result.tidsbegrensetOffentligAfp.sluttpoengtall,
-					trygdetid: result.tidsbegrensetOffentligAfp.trygdetid,
-					poengaarTom1991: result.tidsbegrensetOffentligAfp.poengaarTom1991,
-					poengaarFom1992: result.tidsbegrensetOffentligAfp.poengaarFom1992,
-					grunnpensjon: result.tidsbegrensetOffentligAfp.grunnpensjon,
-					tilleggspensjon: result.tidsbegrensetOffentligAfp.tilleggspensjon,
-					afpTillegg: result.tidsbegrensetOffentligAfp.afpTillegg,
-					saertillegg: result.tidsbegrensetOffentligAfp.saertillegg,
-					afpGrad: result.tidsbegrensetOffentligAfp.afpGrad,
-					erAvkortet: result.tidsbegrensetOffentligAfp.erAvkortet,
+					...result.tidsbegrensetOffentligAfp,
 				}
 			: null,
 		vilkaarsproevingsresultat: {
 			erInnvilget: result.vilkaarsproevingsresultat.erInnvilget,
 			alternativ: result.vilkaarsproevingsresultat.alternativ
 				? {
-						gradertUttakAlder:
-							result.vilkaarsproevingsresultat.alternativ.gradertUttakAlder ??
-							null,
-						uttaksgrad:
-							result.vilkaarsproevingsresultat.alternativ.uttaksgrad ?? null,
-						heltUttakAlder:
-							result.vilkaarsproevingsresultat.alternativ.heltUttakAlder,
+						...result.vilkaarsproevingsresultat.alternativ,
 					}
 				: null,
 		},
 		trygdetid: result.trygdetid
 			? {
-					antallAar: result.trygdetid.antallAar,
-					erUtilstrekkelig: result.trygdetid.erUtilstrekkelig,
+					...result.trygdetid,
 				}
 			: null,
-		pensjonsgivendeInntektListe:
-			result.pensjonsgivendeInntektListe?.map((inntekt) => ({
-				aarstall: inntekt.aarstall,
-				beloep: inntekt.beloep,
-			})) ?? null,
+		pensjonsgivendeInntektListe: result.pensjonsgivendeInntektListe?.map(
+			(inntekt) => ({
+				...inntekt,
+			})
+		),
 		simuleringsinformasjon: {
 			gradertUttaksalder:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? {
-							aar: heltUttakAlder.aar,
-							maaneder: heltUttakAlder.maaneder,
-						}
+					? { ...heltUttakAlder }
 					: gradertUttakAlder
-						? {
-								aar: gradertUttakAlder.aar,
-								maaneder: gradertUttakAlder.maaneder,
-							}
+						? { ...gradertUttakAlder }
 						: null,
 			heltUttaksalder:
 				aktivBeregning?.afp !== 'ja_offentlig'
-					? {
-							aar: heltUttakAlder.aar,
-							maaneder: heltUttakAlder.maaneder,
-						}
+					? { ...heltUttakAlder }
 					: {
 							aar: 67,
 							maaneder: 0,
 						},
-			sivilstatus: aktivBeregning?.sivilstatus ?? null,
+			sivilstatus: aktivBeregning?.sivilstatus,
 			utenlandsperioder,
 			kull,
 			normertPensjonsalderPlassering: getNormertPensjonsalderPlassering(
@@ -259,6 +214,6 @@ export function mapBeregningResultToLagreSpec(
 			),
 		},
 		maanedligAlderspensjonForKnekkpunkter,
-		navEnhetId: navEnhetId ?? null,
+		navEnhetId: navEnhetId,
 	}
 }
