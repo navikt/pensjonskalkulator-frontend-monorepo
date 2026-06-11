@@ -6,6 +6,13 @@ import {
 
 import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
 
+export function erKap19EllerApoteker(
+	foedselsdato: string | undefined,
+	erApoteker: boolean
+): boolean {
+	return !!foedselsdato && (isFoedtFoer1963(foedselsdato) || erApoteker)
+}
+
 export function harPartner(sivilstatus: Sivilstatus | null): boolean {
 	return (
 		sivilstatus !== null &&
@@ -112,14 +119,15 @@ export function validateGradertUttakRequired(formData: BeregningFormData): {
 export function showAfpOffentligFields({
 	afp,
 	foedselsdato,
+	erApoteker,
 }: {
 	afp: InternAfpRadio | undefined
 	foedselsdato: string | undefined
+	erApoteker: boolean
 }): boolean {
 	return (
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
-		!!foedselsdato &&
-		isFoedtFoer1963(foedselsdato)
+		erKap19EllerApoteker(foedselsdato, erApoteker)
 	)
 }
 

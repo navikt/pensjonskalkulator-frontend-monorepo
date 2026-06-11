@@ -34,6 +34,7 @@ import { mapBeregningParamsToRequest } from '../api/mapBeregningParams'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useErApotekerQuery,
 	useGrunnbeloepQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
@@ -55,6 +56,7 @@ interface BeregningContextValue {
 	initialInntektAar?: number
 	initialInntekt?: number
 	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
+	erApoteker: boolean
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -114,6 +116,7 @@ export function BeregningProvider({
 	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
+	const { data: erApoteker } = useErApotekerQuery(fnr)
 
 	const enhetsid = getEnhetsidFromUrl()
 
@@ -171,6 +174,7 @@ export function BeregningProvider({
 			!showAfpOffentligFields({
 				afp,
 				foedselsdato: person?.foedselsdato,
+				erApoteker: !!erApoteker,
 			})
 		) {
 			form.setValue('inntektSisteMaanedFoerUttak', null, {
@@ -322,7 +326,13 @@ export function BeregningProvider({
 	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
 	const pendingRequest = pendingBeregning
-		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep, vedtak)
+		? mapBeregningParamsToRequest(
+				pendingBeregning,
+				!!erApoteker,
+				person,
+				grunnbeloep,
+				vedtak
+			)
 		: null
 
 	const {
@@ -354,6 +364,7 @@ export function BeregningProvider({
 					initialInntektAar,
 					initialInntekt,
 					omstillingsstoenad,
+					erApoteker: !!erApoteker,
 					submitBeregning,
 					resetForm,
 				}}

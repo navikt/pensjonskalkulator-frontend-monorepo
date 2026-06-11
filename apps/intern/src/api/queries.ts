@@ -1,5 +1,6 @@
 import type {
 	AnsattEnhetResult,
+	ApotekerStatus,
 	EpsOpplysninger,
 	LagreSimuleringResponseDtoV1,
 	LagreSimuleringSpecDtoV1,
@@ -296,6 +297,30 @@ export function useBeregningQuery(
 		queryKey: ['beregning', fnr, request],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
+	})
+}
+
+async function fetchErApoteker(fnr: string): Promise<boolean | null> {
+	const response = await fetch(`${API_BASE}/v1/er-apoteker`, {
+		headers: {
+			fnr,
+		},
+	}).catch(() => null)
+
+	if (!response || !response.ok) {
+		return null
+	}
+
+	const data = (await response.json()) as ApotekerStatus
+
+	return data.apoteker
+}
+
+export function useErApotekerQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['erApoteker', fnr],
+		queryFn: fnr ? () => fetchErApoteker(fnr) : skipToken,
+		retry: false,
 	})
 }
 

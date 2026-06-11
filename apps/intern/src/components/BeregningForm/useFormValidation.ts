@@ -21,6 +21,7 @@ import {
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
+	erApoteker: boolean
 	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
@@ -400,17 +401,19 @@ export function useFormValidation() {
 		(
 			formData: BeregningFormData,
 			{
+				erApoteker,
 				foedselsdato,
 				erEndring = false,
 				hideAfpSporsmaal = false,
 				initialInntektAar,
-			}: ValidateFormOptions = {}
+			}: ValidateFormOptions
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
 			const erAfpOffentlig = showAfpOffentligFields({
 				afp: formData.afp,
 				foedselsdato,
+				erApoteker,
 			})
 
 			validateGjenlevenderett(formData, errors)
