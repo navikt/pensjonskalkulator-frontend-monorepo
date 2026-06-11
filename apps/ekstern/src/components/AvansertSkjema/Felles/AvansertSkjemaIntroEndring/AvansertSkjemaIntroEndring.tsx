@@ -27,7 +27,10 @@ export const AvansertSkjemaIntroEndring = () => {
           values={{
             dato: format(
               parse(
-                loependeVedtak?.alderspensjon?.fom as string,
+                loependeVedtak?.alderspensjon &&
+                  loependeVedtak?.fremtidigAlderspensjon
+                  ? loependeVedtak?.alderspensjon?.fom
+                  : (loependeVedtak?.alderspensjon?.uttaksgradFom ?? ''),
                 DATE_BACKEND_FORMAT,
                 new Date()
               ),
