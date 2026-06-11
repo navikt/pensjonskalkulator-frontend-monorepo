@@ -48,7 +48,7 @@ export function RHFDatePicker({
 				field.onChange(formatted)
 			}
 		},
-		allowTwoDigitYear: false,
+		allowTwoDigitYear: true,
 		fromDate,
 		toDate,
 		disabled,
