@@ -1,5 +1,6 @@
 import type {
 	PersonInternV1,
+	ServiceberegnetAfp,
 	SimuleringAfpPrivat,
 	SimuleringAlderspensjon,
 	TidsbegrensetOffentligAFP,
@@ -13,11 +14,11 @@ import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react'
 
 import type { BeregningParams } from '../../api/beregningTypes'
 import {
-	SISTE_AAR,
 	buildAfpSerie,
 	buildAlderspensjonSerie,
 	buildInntektSerie,
 	filterAndMapSerie,
+	getSisteAar,
 } from '../../utils/aarligPensjonSeries'
 import { Divider } from '../Divider/Divider'
 
@@ -27,10 +28,11 @@ interface AarligPensjonTableProps {
 	alderspensjonListe: SimuleringAlderspensjon[]
 	privatAfpListe?: SimuleringAfpPrivat[] | null
 	tidsbegrensetOffentligAfp?: TidsbegrensetOffentligAFP | null
+	serviceberegnetAfp?: ServiceberegnetAfp | null
 	pensjonsgivendeInntekt?: number
 	heltUttakAlder: Alder
 	gradertUttakAlder?: Alder
-	aktiverBeregning?: BeregningParams | null
+	aktivBeregning?: BeregningParams | null
 	person?: PersonInternV1 | null
 }
 
@@ -65,20 +67,28 @@ function buildTableRows(
 	alderspensjonListe: SimuleringAlderspensjon[],
 	privatAfpListe: SimuleringAfpPrivat[] | null | undefined,
 	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined,
+	serviceberegnetAfp: ServiceberegnetAfp | null | undefined,
 	aarligInntektFoerUttakBeloep: number,
 	heltUttakAlder: Alder,
-	aktiverBeregning?: BeregningParams | null,
+	aktivBeregning?: BeregningParams | null,
 	person?: PersonInternV1 | null
 ): TableRow[] {
-	const alderspensjonSerie = buildAlderspensjonSerie(alderspensjonListe)
+	const sisteAar = getSisteAar(aktivBeregning)
+
+	const alderspensjonSerie = buildAlderspensjonSerie(
+		alderspensjonListe,
+		sisteAar
+	)
 	const afpSerie = buildAfpSerie(
 		privatAfpListe,
 		tidsbegrensetOffentligAfp,
-		heltUttakAlder
+		heltUttakAlder,
+		sisteAar,
+		serviceberegnetAfp
 	)
 	const inntektSerie = buildInntektSerie({
 		aarligInntektFoerUttakBeloep,
-		aktiverBeregning,
+		aktivBeregning,
 		person,
 	})
 
@@ -88,10 +98,10 @@ function buildTableRows(
 		inntektSerie,
 	])
 
-	// Convert series to component data (filter Infinity and cap at SISTE_AAR)
-	const alderspensjonMap = filterAndMapSerie(alderspensjonSerie, SISTE_AAR)
-	const afpMap = filterAndMapSerie(afpSerie, SISTE_AAR)
-	const inntektMap = filterAndMapSerie(inntektSerie, SISTE_AAR)
+	// Convert series to component data (filter Infinity and cap at sisteAar)
+	const alderspensjonMap = filterAndMapSerie(alderspensjonSerie, sisteAar)
+	const afpMap = filterAndMapSerie(afpSerie, sisteAar)
+	const inntektMap = filterAndMapSerie(inntektSerie, sisteAar)
 
 	type RawRow = {
 		alderAar: number
@@ -100,7 +110,7 @@ function buildTableRows(
 		inntekt: number
 	}
 
-	const raw: RawRow[] = filterAndMapSerie(merged, SISTE_AAR).map(({ aar }) => ({
+	const raw: RawRow[] = filterAndMapSerie(merged, sisteAar).map(({ aar }) => ({
 		alderAar: aar,
 		alderspensjon: alderspensjonMap.find((s) => s.aar === aar)?.beloep ?? 0,
 		afp: afpMap.find((s) => s.aar === aar)?.beloep ?? 0,
@@ -115,13 +125,15 @@ function buildTableRows(
 			a.inntekt === b.inntekt
 	)
 
+	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+
 	return groups.map((group, idx) => {
 		const first = group[0]
 		const last = group.at(-1)!
 		const isLastGroup = idx === groups.length - 1
 
 		let alderLabel: string
-		if (isLastGroup) {
+		if (isLastGroup && !erServiceberegning) {
 			alderLabel = `Livsvarig fra ${first.alderAar} år`
 		} else if (group.length === 1) {
 			alderLabel = `${first.alderAar} år`
@@ -142,28 +154,30 @@ export const AarligPensjonTable = ({
 	alderspensjonListe,
 	privatAfpListe,
 	tidsbegrensetOffentligAfp,
+	serviceberegnetAfp,
 	heltUttakAlder,
-	aktiverBeregning,
+	aktivBeregning,
 	person,
 }: AarligPensjonTableProps) => {
 	const aarligInntektFoerUttakBeloep =
-		aktiverBeregning?.aarligInntektFoerUttakBeloep ?? 0
+		aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0
 
 	const rows = buildTableRows(
 		alderspensjonListe,
 		privatAfpListe,
 		tidsbegrensetOffentligAfp,
+		serviceberegnetAfp,
 		aarligInntektFoerUttakBeloep,
 		heltUttakAlder,
-		aktiverBeregning,
+		aktivBeregning,
 		person
 	)
 
-	if (rows.length === 0 || aktiverBeregning?.afp === 'serviceberegning')
-		return null
+	if (rows.length === 0) return null
 
 	const visAfpKolonne = rows.some((r) => r.afp > 0)
 	const visInntektKolonne = rows.some((r) => r.inntekt > 0)
+	const visAlderspensjonKolonne = aktivBeregning?.afp !== 'serviceberegning'
 
 	return (
 		<>
@@ -184,11 +198,13 @@ export const AarligPensjonTable = ({
 									Alder
 								</Label>
 							</Table.HeaderCell>
-							<Table.HeaderCell scope="col" align="right">
-								<Label style={{ whiteSpace: 'nowrap' }} size="small">
-									Alderspensjon
-								</Label>
-							</Table.HeaderCell>
+							{visAlderspensjonKolonne && (
+								<Table.HeaderCell scope="col" align="right">
+									<Label style={{ whiteSpace: 'nowrap' }} size="small">
+										Alderspensjon
+									</Label>
+								</Table.HeaderCell>
+							)}
 							{visAfpKolonne && (
 								<Table.HeaderCell scope="col" align="right">
 									<Label style={{ whiteSpace: 'nowrap' }} size="small">
@@ -218,11 +234,13 @@ export const AarligPensjonTable = ({
 									<Table.DataCell>
 										<BodyShort size="small">{row.alderLabel}</BodyShort>
 									</Table.DataCell>
-									<Table.DataCell align="right">
-										<BodyShort size="small">
-											{formatNOK(row.alderspensjon)}
-										</BodyShort>
-									</Table.DataCell>
+									{visAlderspensjonKolonne && (
+										<Table.DataCell align="right">
+											<BodyShort size="small">
+												{formatNOK(row.alderspensjon)}
+											</BodyShort>
+										</Table.DataCell>
+									)}
 									{visAfpKolonne && (
 										<Table.DataCell align="right">
 											<BodyShort size="small">{formatNOK(row.afp)}</BodyShort>

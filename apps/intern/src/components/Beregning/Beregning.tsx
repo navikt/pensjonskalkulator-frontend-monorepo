@@ -310,10 +310,11 @@ export const Beregning = () => {
 						alderspensjonListe={beregning.alderspensjonListe}
 						privatAfpListe={beregning.privatAfpListe}
 						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+						serviceberegnetAfp={beregning.serviceberegnetAfp}
 						heltUttakAlder={heltUttakAlder}
 						gradertUttakAlder={gradertUttakAlder}
 						person={person}
-						aktiverBeregning={aktivBeregning}
+						aktivBeregning={aktivBeregning}
 					/>
 					<Divider customMargin="32px" />
 					<HGrid marginBlock="space-40" columns={3}>

@@ -87,6 +87,9 @@ export type SimuleringAlderspensjon =
 export type SimuleringMaanedligAlderspensjon =
 	components['schemas']['SimuleringV1MaanedligAlderspensjon']
 export type SimuleringAfpPrivat = components['schemas']['SimuleringV1PrivatAfp']
+export type ServiceberegnetAfp =
+	components['schemas']['SimuleringV1ServiceberegnetAfp']
+export type BeregnetAfp = components['schemas']['SimuleringV1BeregnetAfp']
 export type SimuleringAfpOffentlig =
 	components['schemas']['SimuleringV1OffentligAfpSpec']
 export type SimuleringGradertUttak =
