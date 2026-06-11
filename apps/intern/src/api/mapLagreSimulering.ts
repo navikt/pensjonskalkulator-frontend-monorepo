@@ -1,13 +1,20 @@
 import type {
 	Alder,
 	LagreSimuleringSpecDtoV1,
+	LagreUttaksinformasjonDto,
 	SimuleringUtenlandsperiode,
+	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import {
+	isFoedtFoer1963,
+	transformUttaksalderToDate,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
+import { getLandDetails } from '../components/UtenlandsOpphold/utils'
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
 import { selectByUttakAlder } from '../utils/selectByUttakAlder'
@@ -15,6 +22,23 @@ import type { BeregningParams, BeregningResult } from './beregningTypes'
 import { mapUtenlandsperiodeListe } from './mapBeregningParams'
 
 const NORMERT_PENSJONSALDER_AAR = 67
+
+const NORMERT_PENSJONSALDER_ALDER: Alder = {
+	aar: NORMERT_PENSJONSALDER_AAR,
+	maaneder: 0,
+}
+
+function mapUttaksinformasjon(
+	alder: Alder,
+	foedselsdato?: string | null
+): LagreUttaksinformasjonDto {
+	return {
+		alder: { ...alder },
+		uttaksdato: foedselsdato
+			? transformUttaksalderToDate(alder, foedselsdato)
+			: '',
+	}
+}
 
 function getNormertPensjonsalderPlassering(
 	aktivBeregning?: BeregningParams | null,
@@ -56,8 +80,44 @@ export function mapBeregningResultToLagreSpec(
 	navEnhetId?: string | null,
 	grunnbeloep?: number | null,
 	foedselsdato?: string | null,
-	utenlandsperiodeListe?: SimuleringUtenlandsperiode[]
+	utenlandsperiodeListe?: SimuleringUtenlandsperiode[],
+	vedtak?: Vedtak,
+	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
 ): LagreSimuleringSpecDtoV1 {
+	const forbeholdVisningsvilkaar: Vilkaarsliste = []
+
+	if (
+		aktivBeregning?.afp === 'ja_offentlig' ||
+		aktivBeregning?.afp === 'serviceberegning'
+	) {
+		forbeholdVisningsvilkaar.push(
+			'BEREGNER_GAMMEL_AFP',
+			'BEREGNER_AFP_GENERELT'
+		)
+	}
+
+	if (aktivBeregning?.afp === 'ja_privat') {
+		forbeholdVisningsvilkaar.push(
+			'BEREGNER_AFP_GENERELT',
+			'BEREGNER_AFP_PRIVAT'
+		)
+	}
+
+	if (vedtak?.ufoeretrygdgrad && vedtak.ufoeretrygdgrad > 0) {
+		forbeholdVisningsvilkaar.push('HAR_UFOERETRYGD')
+	}
+
+	if (omstillingsstoenad?.harLoependeSak) {
+		forbeholdVisningsvilkaar.push('HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD')
+	}
+
+	if (
+		aktivBeregning?.beregnMedGjenlevenderett &&
+		foedselsdato &&
+		isFoedtFoer1963(foedselsdato)
+	) {
+		forbeholdVisningsvilkaar.push('BEREGNER_MED_GJENLEVENDERETT')
+	}
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
 		aktivBeregning ?? null
 	)
@@ -88,6 +148,7 @@ export function mapBeregningResultToLagreSpec(
 	const utenlandsperioder = utenlandsperiodeListe
 		? utenlandsperiodeListe.map((periode) => ({
 				...periode,
+				landkode: getLandDetails(periode.landkode)?.navn ?? periode.landkode,
 				tom: periode.tom,
 			}))
 		: aktivBeregning?.harOppholdUtenforNorge === true &&
@@ -95,6 +156,8 @@ export function mapBeregningResultToLagreSpec(
 			? mapUtenlandsperiodeListe(aktivBeregning.utenlandsOpphold).map(
 					(periode) => ({
 						...periode,
+						landkode:
+							getLandDetails(periode.landkode)?.navn ?? periode.landkode,
 						tom: periode.tom,
 					})
 				)
@@ -191,22 +254,24 @@ export function mapBeregningResultToLagreSpec(
 			})
 		),
 		simuleringsinformasjon: {
-			gradertUttaksalder:
+			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? { ...heltUttakAlder }
+					? mapUttaksinformasjon(heltUttakAlder, foedselsdato)
 					: gradertUttakAlder
-						? { ...gradertUttakAlder }
+						? mapUttaksinformasjon(gradertUttakAlder, foedselsdato)
 						: null,
-			heltUttaksalder:
+			heltUttakInformasjon:
 				aktivBeregning?.afp !== 'ja_offentlig'
-					? { ...heltUttakAlder }
-					: {
-							aar: 67,
-							maaneder: 0,
-						},
+					? mapUttaksinformasjon(heltUttakAlder, foedselsdato)
+					: mapUttaksinformasjon(NORMERT_PENSJONSALDER_ALDER, foedselsdato),
+			normertUttakInformasjon: mapUttaksinformasjon(
+				NORMERT_PENSJONSALDER_ALDER,
+				foedselsdato
+			),
 			sivilstatus: aktivBeregning?.sivilstatus,
 			utenlandsperioder,
 			kull,
+			forbeholdVisningsvilkaar: forbeholdVisningsvilkaar,
 			normertPensjonsalderPlassering: getNormertPensjonsalderPlassering(
 				aktivBeregning,
 				heltUttakAlder,

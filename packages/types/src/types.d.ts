@@ -53,6 +53,8 @@ declare global {
 	//Brev
 	export type Kull =
 		components['schemas']['LagreSimuleringsinformasjonDto']['kull']
+	export type Vilkaarsliste =
+		components['schemas']['LagreSimuleringsinformasjonDto']['forbeholdVisningsvilkaar']
 
 	//Enhetsliste
 	export type Enhet = components['schemas']['AnsattEnhetV1Tjenestekontor']
