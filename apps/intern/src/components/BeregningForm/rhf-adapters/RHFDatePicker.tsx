@@ -12,12 +12,11 @@ export function expandTwoDigitYear(year: number): number {
 	return year >= pivot ? 1900 + year : 2000 + year
 }
 
-export function normalizeDateInput(input: string): string {
-	const match = input.match(/^(\d{2})\.?(\d{2})\.?(\d{2,4})$/)
+export function normalizeTwoDigitYear(input: string): string {
+	const match = input.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2})$/)
 	if (!match) return input
 	const [, dd, mm, yy] = match
-	const year = yy.length === 2 ? expandTwoDigitYear(parseInt(yy, 10)) : yy
-	return `${dd}.${mm}.${year}`
+	return `${dd}.${mm}.${expandTwoDigitYear(parseInt(yy, 10))}`
 }
 
 interface RHFDatePickerProps {
@@ -48,11 +47,7 @@ export function RHFDatePicker({
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
-			const formatted = date ? formatEndUserDate(date) : ''
-			lastFormattedRef.current = formatted
-			if (date) {
-				field.onChange(formatted)
-			}
+			lastFormattedRef.current = date ? formatEndUserDate(date) : ''
 		},
 		allowTwoDigitYear: true,
 		fromDate,
@@ -77,10 +72,10 @@ export function RHFDatePicker({
 			<DatePicker.Input
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
-					lastFormattedRef.current = ''
+					event.target.value = normalizeTwoDigitYear(event.target.value)
 					inputProps.onBlur?.(event)
-					const value =
-						lastFormattedRef.current || normalizeDateInput(event.target.value)
+					const value = lastFormattedRef.current || event.target.value
+					lastFormattedRef.current = ''
 					field.onChange(value)
 					field.onBlur()
 				}}
