@@ -1,4 +1,4 @@
-ARG NGINX_DEPLOY_IMG=cgr.dev/chainguard/nginx:latest
+ARG NGINX_DEPLOY_IMG=nginxinc/nginx-unprivileged:1.30-alpine3.23-slim
 
 FROM ${NGINX_DEPLOY_IMG}
 
