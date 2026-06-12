@@ -115,15 +115,15 @@ export function mapBeregningParamsToRequest(
 		? formData.aarsinntektSamtidigMedAfp
 		: undefined
 
-	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
-		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
-	}
-
 	if (
 		formData.endringAfpPrivat ||
 		(formData.endringAP && formData.afp === 'ja_privat')
 	) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
+	}
+
+	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
 	}
 
 	const epsPid = formData.epsOpplysninger?.pid
