@@ -77,6 +77,7 @@ export function RHFDatePicker({
 			<DatePicker.Input
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
+					lastFormattedRef.current = ''
 					inputProps.onBlur?.(event)
 					const value =
 						lastFormattedRef.current || normalizeDateInput(event.target.value)
