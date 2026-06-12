@@ -7,11 +7,17 @@ import type { BeregningFormData } from '../../../api/beregningTypes'
 import { formatEndUserDate, parseStrictEndUserDate } from '../../../utils/dates'
 import { getNestedError } from './utils'
 
-function normalizeDateInput(input: string): string {
-	if (/^\d{8}$/.test(input)) {
-		return `${input.slice(0, 2)}.${input.slice(2, 4)}.${input.slice(4)}`
-	}
-	return input
+export function expandTwoDigitYear(year: number): number {
+	const pivot = (new Date().getFullYear() - 75) % 100
+	return year >= pivot ? 1900 + year : 2000 + year
+}
+
+export function normalizeDateInput(input: string): string {
+	const match = input.match(/^(\d{2})\.?(\d{2})\.?(\d{2,4})$/)
+	if (!match) return input
+	const [, dd, mm, yy] = match
+	const year = yy.length === 2 ? expandTwoDigitYear(parseInt(yy, 10)) : yy
+	return `${dd}.${mm}.${year}`
 }
 
 interface RHFDatePickerProps {

@@ -544,6 +544,9 @@ importers:
       vite:
         specifier: 7.3.2
         version: 7.3.2(@types/node@24.3.0)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3)
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.6(@types/node@24.3.0)(@vitest/ui@3.2.6)(jiti@2.6.1)(jsdom@28.1.0(@noble/hashes@2.2.0))(msw@2.12.7(@types/node@24.3.0)(typescript@5.9.3))(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3)
 
   packages/api:
     dependencies:
