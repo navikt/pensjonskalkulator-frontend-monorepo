@@ -367,7 +367,6 @@ export const Beregning = () => {
 						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
 						serviceberegnetAfp={beregning.serviceberegnetAfp}
 						heltUttakAlder={heltUttakAlder}
-						gradertUttakAlder={gradertUttakAlder}
 						person={person}
 						aktivBeregning={aktivBeregning}
 					/>

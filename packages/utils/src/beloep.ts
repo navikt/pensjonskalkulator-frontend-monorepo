@@ -2,11 +2,9 @@
  * Utilities for building and merging annual payment series
  * Used by both ekstern simulering and intern beregning apps
  */
+import type { Alder } from '@pensjonskalkulator-frontend-monorepo/types'
 
-export type Alder = {
-	aar: number
-	maaneder: number
-}
+export type { Alder }
 
 export type AarligUtbetaling = {
 	alder: number

@@ -29,9 +29,7 @@ interface AarligPensjonTableProps {
 	privatAfpListe?: SimuleringAfpPrivat[] | null
 	tidsbegrensetOffentligAfp?: TidsbegrensetOffentligAFP | null
 	serviceberegnetAfp?: ServiceberegnetAfp | null
-	pensjonsgivendeInntekt?: number
 	heltUttakAlder: Alder
-	gradertUttakAlder?: Alder
 	aktivBeregning?: BeregningParams | null
 	person?: PersonInternV1 | null
 }

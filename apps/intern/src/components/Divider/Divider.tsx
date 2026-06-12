@@ -8,7 +8,7 @@ interface Props {
 	mediumMargin?: boolean
 	largeMargin?: boolean
 	extraLargeMargin?: boolean
-	customMargin?: CSSProperties['margin']
+	customMargin?: CSSProperties['marginBlock']
 	noMargin?: boolean
 	noMarginBottom?: boolean
 	noMarginTop?: boolean

@@ -160,7 +160,7 @@ export const buildInntektSerie = ({
 
 	// Inntekt under gradert uttak (frem til helt uttak)
 	const inntektVedGradertUttak =
-		aktivBeregning?.pensjonsgivendeInntektVedSidenAvGradertUttak &&
+		aktivBeregning?.pensjonsgivendeInntektVedSidenAvGradertUttak != null &&
 		gradertUttakAlder
 			? parseStartSluttUtbetaling({
 					startAlder: gradertUttakAlder,
@@ -171,7 +171,7 @@ export const buildInntektSerie = ({
 			: []
 	// Inntekt ved siden av helt uttak
 	const inntektVedSidenAvHeltUttak =
-		aktivBeregning?.pensjonsgivendeInntektVedSidenAvUttak &&
+		aktivBeregning?.pensjonsgivendeInntektVedSidenAvUttak != null &&
 		inntektVedSidenAvUttakSluttAlder
 			? parseStartSluttUtbetaling({
 					startAlder: heltUttakAlder,
@@ -181,13 +181,14 @@ export const buildInntektSerie = ({
 				})
 			: []
 	// Inntekt samtidig med AFP (frem til 66 år)
-	const inntektSamtidigMedAfp = aktivBeregning?.aarsinntektSamtidigMedAfp
-		? parseStartSluttUtbetaling({
-				startAlder: heltUttakAlder,
-				sluttAlder: { aar: 66, maaneder: 11 },
-				aarligUtbetaling: aktivBeregning.aarsinntektSamtidigMedAfp,
-			})
-		: []
+	const inntektSamtidigMedAfp =
+		aktivBeregning?.aarsinntektSamtidigMedAfp != null
+			? parseStartSluttUtbetaling({
+					startAlder: heltUttakAlder,
+					sluttAlder: { aar: 66, maaneder: 11 },
+					aarligUtbetaling: aktivBeregning.aarsinntektSamtidigMedAfp,
+				})
+			: []
 
 	return mergeAarligUtbetalinger([
 		inntektFoerUttak,
