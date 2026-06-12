@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { expandTwoDigitYear, normalizeDateInput } from './RHFDatePicker'
+import { expandTwoDigitYear, normalizeTwoDigitYear } from './RHFDatePicker'
 
 describe('expandTwoDigitYear', () => {
 	it('tolker år >= pivot som 1900-tallet', () => {
@@ -40,35 +40,35 @@ describe('expandTwoDigitYear', () => {
 	})
 })
 
-describe('normalizeDateInput', () => {
+describe('normalizeTwoDigitYear', () => {
 	it('håndterer 6 siffer (ddmmyy)', () => {
 		vi.useFakeTimers()
 		vi.setSystemTime(new Date('2026-06-12'))
 
-		expect(normalizeDateInput('010142')).toBe('01.01.2042')
-		expect(normalizeDateInput('010160')).toBe('01.01.1960')
+		expect(normalizeTwoDigitYear('010142')).toBe('01.01.2042')
+		expect(normalizeTwoDigitYear('010160')).toBe('01.01.1960')
 
 		vi.useRealTimers()
 	})
 
 	it('håndterer 8 siffer (ddmmyyyy)', () => {
-		expect(normalizeDateInput('01011942')).toBe('01.01.1942')
-		expect(normalizeDateInput('01012042')).toBe('01.01.2042')
+		expect(normalizeTwoDigitYear('01011942')).toBe('01.01.1942')
+		expect(normalizeTwoDigitYear('01012042')).toBe('01.01.2042')
 	})
 
 	it('håndterer dd.mm.yy format', () => {
 		vi.useFakeTimers()
 		vi.setSystemTime(new Date('2026-06-12'))
 
-		expect(normalizeDateInput('01.01.42')).toBe('01.01.2042')
-		expect(normalizeDateInput('15.06.99')).toBe('15.06.1999')
+		expect(normalizeTwoDigitYear('01.01.42')).toBe('01.01.2042')
+		expect(normalizeTwoDigitYear('15.06.99')).toBe('15.06.1999')
 
 		vi.useRealTimers()
 	})
 
 	it('returnerer input uendret hvis det ikke matcher', () => {
-		expect(normalizeDateInput('abc')).toBe('abc')
-		expect(normalizeDateInput('1.1.1990')).toBe('1.1.1990')
-		expect(normalizeDateInput('')).toBe('')
+		expect(normalizeTwoDigitYear('abc')).toBe('abc')
+		expect(normalizeTwoDigitYear('1.1.1990')).toBe('1.1.1990')
+		expect(normalizeTwoDigitYear('')).toBe('')
 	})
 })
