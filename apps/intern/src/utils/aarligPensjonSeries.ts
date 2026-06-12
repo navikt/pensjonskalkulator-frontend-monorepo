@@ -127,7 +127,8 @@ export const buildInntektSerie = ({
 		aktivBeregning ?? null
 	)
 	const forsteUttakAlder = gradertUttakAlder ?? heltUttakAlder
-	const aarFoerUttak = forsteUttakAlder.aar - 1
+	const aarFoerUttak =
+		forsteUttakAlder.aar - (aktivBeregning?.afp === 'serviceberegning' ? 0 : 1)
 
 	const inntektVedSidenAvUttakSluttAlder: Alder | undefined =
 		aktivBeregning?.alderAarInntektSlutter != null &&
