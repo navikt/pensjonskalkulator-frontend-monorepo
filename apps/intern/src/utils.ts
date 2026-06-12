@@ -22,10 +22,7 @@ export function getVedtakStatus(
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 
-	const APFomDato =
-		loependeAlderspensjon && fremtidigAlderspensjon
-			? loependeAlderspensjon?.fom
-			: (loependeAlderspensjon?.uttaksgradFom ?? '')
+	const APFomDato = loependeAlderspensjon?.uttaksgradFom ?? ''
 	const alderspensjonString = loependeAlderspensjon
 		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''
