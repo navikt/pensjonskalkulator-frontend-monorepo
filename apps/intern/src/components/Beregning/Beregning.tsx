@@ -28,7 +28,9 @@ import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { Divider } from '../Divider/Divider'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
+import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
@@ -359,6 +361,37 @@ export const Beregning = () => {
 							shouldRenderNormertAfpAfterHeltSection &&
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 					</VStack>
+					<AarligPensjonTable
+						alderspensjonListe={beregning.alderspensjonListe}
+						privatAfpListe={beregning.privatAfpListe}
+						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+						serviceberegnetAfp={beregning.serviceberegnetAfp}
+						heltUttakAlder={heltUttakAlder}
+						person={person}
+						aktivBeregning={aktivBeregning}
+					/>
+					<Divider customMargin="32px" />
+					<HGrid marginBlock="space-40" columns={3}>
+						<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
+							Pensjonen er beregnet på grunnlag av de opplysningene vi har om
+							deg, i tillegg til de opplysningene du har oppgitt selv. Dette er
+							derfor en foreløpig beregning av hva du kan forvente deg i
+							pensjon. Pensjonsberegningen er vist i dagens kroneverdi.
+							Beregningen er ikke juridisk bindende.
+						</BodyLong>
+					</HGrid>
+					{visLagreBrevButton && (
+						<Button
+							className={styles.lagreButton}
+							variant="secondary"
+							size="small"
+							disabled={!fnr || !enhetsid || lagreSimulering.isPending}
+							loading={lagreSimulering.isPending}
+							onClick={handleLagreSimulering}
+						>
+							Opprett brev
+						</Button>
+					)}
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
@@ -368,27 +401,6 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			<HGrid marginBlock="space-40" columns={3}>
-				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
-					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
-					foreløpig beregning av hva du kan forvente deg i pensjon.
-					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
-					juridisk bindende.
-				</BodyLong>
-			</HGrid>
-			{visLagreBrevButton && (
-				<Button
-					className={styles.lagreButton}
-					variant="secondary"
-					size="small"
-					disabled={!fnr || !enhetsid || lagreSimulering.isPending}
-					loading={lagreSimulering.isPending}
-					onClick={handleLagreSimulering}
-				>
-					Lagre beregning til brev
-				</Button>
-			)}
 		</Box>
 	)
 }

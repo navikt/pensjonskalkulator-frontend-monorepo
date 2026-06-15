@@ -21,3 +21,7 @@
 .table tbody tr:nth-child(even) {
 	background-color: var(--ax-bg-raised);
 }
+
+.table tbody tr:nth-child(even):hover {
+	background-color: var(--ax-bg-neutral-moderate-hoverA);
+}
