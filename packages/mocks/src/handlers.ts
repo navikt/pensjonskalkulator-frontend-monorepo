@@ -11,6 +11,7 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpFoer1963Response from './data/offentlig-tp-foer-1963.json' with { type: 'json' }
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import opptjeningResponse from './data/opptjening.json' with { type: 'json' }
 import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import sanityAlertDataResponse from './data/sanity-alert-data.json' with { type: 'json' }
@@ -346,6 +347,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		http.get(`${baseUrl}/v4/vedtak/loepende-vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(loependeVedtakResponse)
+		}),
+
+		http.get(`${baseUrl}/v1/opptjening`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json(opptjeningResponse)
 		}),
 
 		http.get(`${baseUrl}/v1/vedtak`, async () => {

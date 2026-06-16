@@ -8,12 +8,17 @@ import { useState } from 'react'
 
 import { BodyLong, Box, HGrid, Loader, Tabs, VStack } from '@navikt/ds-react'
 
-import { useFeatureToggleQuery, useGrunnbeloepQuery } from '../../api/queries'
+import {
+	useFeatureToggleQuery,
+	useGrunnbeloepQuery,
+	useOpptjeningQuery,
+} from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AfpBeregningSection } from './AfpBeregningSection'
+import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { formatAlderTitle } from './beregningMappers'
 
@@ -27,6 +32,7 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		fnr,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
@@ -42,6 +48,13 @@ export const Beregning = () => {
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+
+	const { data: opptjening, isLoading: isOpptjeningLoading } =
+		useOpptjeningQuery(fnr)
+
+	const { data: opptjeningAvdoed } = useOpptjeningQuery(
+		vedtak?.avdoed?.pid || undefined
+	)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -226,6 +239,7 @@ export const Beregning = () => {
 			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
+					{opptjening && <Tabs.Tab value="opptjening" label="Opptjening" />}
 					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
@@ -305,6 +319,39 @@ export const Beregning = () => {
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 					</VStack>
 				</Tabs.Panel>
+				{opptjening && (
+					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
+						{isOpptjeningLoading && (
+							<div className={styles.overlayLoader}>
+								<Loader size="3xlarge" title="Henter opptjening …" />
+							</div>
+						)}
+						<VStack
+							gap="space-32"
+							className={
+								isOpptjeningLoading ? styles.loadingOverlay : undefined
+							}
+						>
+							{opptjening && (
+								<OpptjeningTable
+									opptjening={opptjening}
+									erOvergangskull={erOvergangskull}
+									erFoedtEtter1963={erFoedtEtter1963}
+									isOpptjeningAvdoedSection={false}
+								/>
+							)}
+
+							{opptjeningAvdoed && (
+								<OpptjeningTable
+									opptjening={opptjeningAvdoed}
+									erOvergangskull={erOvergangskull}
+									erFoedtEtter1963={erFoedtEtter1963}
+									isOpptjeningAvdoedSection={true}
+								/>
+							)}
+						</VStack>
+					</Tabs.Panel>
+				)}
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
 						<div style={{ maxWidth: '66%' }}>
