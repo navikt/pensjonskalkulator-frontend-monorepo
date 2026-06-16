@@ -91,20 +91,6 @@
 					],
 					"markDefs": [],
 					"style": "normal"
-				},
-				{
-					"_key": "60b36871e2d5",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6f0e166049ee",
-							"_type": "span",
-							"marks": [],
-							"text": "Dette er et testavsnitt for test av sanity i brev"
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
 				}
 			],
 			"overskrift": null,
@@ -585,38 +571,6 @@
 							"_type": "span",
 							"marks": [],
 							"text": "Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi den bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du ha rett til høyere pensjon."
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "39df1cc027a4",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "fc4a30689a0e",
-							"_type": "span",
-							"marks": [],
-							"text": "Dette er et testpunkt"
-						}
-					],
-					"level": 1,
-					"listItem": "bullet",
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "ef509ee19fb0",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "25299d6a98a7",
-							"_type": "span",
-							"marks": [],
-							"text": "enda et testpunkt"
 						}
 					],
 					"level": 1,

@@ -48,7 +48,12 @@ const pluginsArray = [
 	colorInput(),
 	documentInternationalization({
 		supportedLanguages,
-		schemaTypes: ['readmore', 'forbeholdAvsnitt', 'guidepanel'],
+		schemaTypes: [
+			'readmore',
+			'forbeholdAvsnitt',
+			'guidepanel',
+			'kortforbehold',
+		],
 		languageField: 'language',
 	}),
 	auditTimelinePlugin(),
