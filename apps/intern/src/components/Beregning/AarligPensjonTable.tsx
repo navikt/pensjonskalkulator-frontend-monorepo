@@ -190,7 +190,7 @@ export const AarligPensjonTable = ({
 		<>
 			<Divider customMargin="32px" />
 			<VStack gap="space-12">
-				<VStack gap="space-4">
+				<VStack gap="space-8">
 					<Heading level="3" size="small" as="h3">
 						Årlig inntekt og pensjon
 					</Heading>
