@@ -349,7 +349,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(loependeVedtakResponse)
 		}),
 
-		http.get(`${baseUrl}/v1/opptjening`, async () => {
+		http.get(`${baseUrl}/intern/v1/opptjening`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(opptjeningResponse)
 		}),

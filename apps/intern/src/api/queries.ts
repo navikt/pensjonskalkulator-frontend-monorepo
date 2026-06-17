@@ -301,7 +301,7 @@ export function useBeregningQuery(
 }
 
 async function fetchOpptjening(fnr: string): Promise<Opptjening> {
-	const response = await fetch(`${API_BASE}/v1/opptjening`, {
+	const response = await fetch(`${API_BASE}/intern/v1/opptjening`, {
 		headers: {
 			fnr,
 		},
