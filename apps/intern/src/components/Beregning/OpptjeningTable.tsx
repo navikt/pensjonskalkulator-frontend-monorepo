@@ -51,7 +51,9 @@ export function OpptjeningTable({
 	erFoedtEtter1963,
 	isOpptjeningAvdoedSection,
 }: OpptjeningTableProps) {
-	const showPensjonsbeholdning = Boolean(erFoedtEtter1963 || erOvergangskull)
+	const showPensjonsbeholdning =
+		!isOpptjeningAvdoedSection && Boolean(erFoedtEtter1963 || erOvergangskull)
+	const showPensjonspoeng = !erFoedtEtter1963 || erOvergangskull
 	const rows = mapOpptjeningToTableRows(opptjening, showPensjonsbeholdning)
 
 	const title = isOpptjeningAvdoedSection
@@ -80,11 +82,13 @@ export function OpptjeningTable({
 								Pensjonsgivende inntekt
 							</BodyShort>
 						</Table.HeaderCell>
-						<Table.HeaderCell align="right">
-							<BodyShort size="small" weight="semibold">
-								Pensjonspoeng
-							</BodyShort>
-						</Table.HeaderCell>
+						{showPensjonspoeng && (
+							<Table.HeaderCell align="right">
+								<BodyShort size="small" weight="semibold">
+									Pensjonspoeng
+								</BodyShort>
+							</Table.HeaderCell>
+						)}
 						{showPensjonsbeholdning && (
 							<Table.HeaderCell align="right">
 								<BodyShort size="small" weight="semibold">
@@ -108,9 +112,11 @@ export function OpptjeningTable({
 							<Table.DataCell align="right">
 								<BodyShort size="small">{row.pensjonsgivendeInntekt}</BodyShort>
 							</Table.DataCell>
-							<Table.DataCell align="right">
-								<BodyShort size="small">{row.pensjonspoeng}</BodyShort>
-							</Table.DataCell>
+							{showPensjonspoeng && (
+								<Table.DataCell align="right">
+									<BodyShort size="small">{row.pensjonspoeng}</BodyShort>
+								</Table.DataCell>
+							)}
 							{showPensjonsbeholdning && (
 								<Table.DataCell align="right">
 									<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>

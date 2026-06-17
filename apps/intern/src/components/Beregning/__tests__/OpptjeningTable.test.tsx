@@ -56,7 +56,7 @@ describe('mapOpptjeningToTableRows', () => {
 })
 
 describe('OpptjeningTable', () => {
-	test('renders pensjonsbeholdning column for erFoedtEtter1963', () => {
+	test('renders pensjonsbeholdning column and hides pensjonspoeng for erFoedtEtter1963', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
@@ -68,9 +68,10 @@ describe('OpptjeningTable', () => {
 		expect(screen.getByText('Pensjonsopptjening bruker')).toBeInTheDocument()
 		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
 		expect(screen.getAllByText(/501.831/)).toHaveLength(2)
+		expect(screen.queryByText('Pensjonspoeng')).not.toBeInTheDocument()
 	})
 
-	test('renders pensjonsbeholdning column for erOvergangskull', () => {
+	test('renders both pensjonsbeholdning and pensjonspoeng for erOvergangskull', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
@@ -80,9 +81,10 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
+		expect(screen.getByText('Pensjonspoeng')).toBeInTheDocument()
 	})
 
-	test('hides pensjonsbeholdning column for kap19 users', () => {
+	test('hides pensjonsbeholdning and shows pensjonspoeng for kap19 users', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap19}
@@ -92,6 +94,7 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
+		expect(screen.getByText('Pensjonspoeng')).toBeInTheDocument()
 	})
 
 	test('renders with avdoed title', () => {
@@ -118,7 +121,7 @@ describe('OpptjeningTable', () => {
 		expect(screen.getAllByText('100 % alderspensjon')).toHaveLength(3)
 	})
 
-	test('renders avdoed opptjening table with correct title', () => {
+	test('renders avdoed opptjening table without pensjonsbeholdning even for kap20', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningAvdoed}
@@ -128,9 +131,8 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
-		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
+		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
 		expect(screen.getAllByText(/350.000 kr/)).toHaveLength(1)
-		expect(screen.getAllByText(/420.000/)).toHaveLength(1)
 	})
 
 	test('renders avdoed opptjening table without pensjonsbeholdning for kap19', () => {
