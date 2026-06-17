@@ -72,9 +72,10 @@ export const Beregning = () => {
 	const { data: opptjening, isLoading: isOpptjeningLoading } =
 		useOpptjeningQuery(fnr)
 
-	const { data: opptjeningAvdoed } = useOpptjeningQuery(
-		vedtak?.avdoed?.pid || undefined
-	)
+	const avdoedPid =
+		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
+
+	const { data: opptjeningAvdoed } = useOpptjeningQuery(avdoedPid)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
