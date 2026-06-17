@@ -418,11 +418,6 @@ test.describe('Gjenlevenderett', () => {
 				})
 				.getByLabel('Ja')
 				.check()
-			await page
-				.getByRole('group', { name: 'Registrert som flyktning' })
-				.getByLabel('Nei')
-				.check()
-
 			await fillMainFormFields(page)
 
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
@@ -512,6 +507,23 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 			).toBeVisible()
+		})
+
+		test('Registrert som flyktning har Nei som standardverdi', async ({
+			page,
+		}) => {
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+
+			const flyktningGroup = page.getByRole('group', {
+				name: 'Registrert som flyktning',
+			})
+			await expect(flyktningGroup.getByLabel('Nei')).toBeChecked()
+			await expect(flyktningGroup.getByLabel('Ja')).not.toBeChecked()
 		})
 
 		test('Skjuler radiogruppe og hent-knapp etter vellykket henting', async ({
@@ -698,12 +710,6 @@ test.describe('Gjenlevenderett', () => {
 			})
 			await expect(medlemGroup).toBeVisible()
 			await medlemGroup.getByLabel('Ja').check()
-
-			const flyktningGroup = page.getByRole('group', {
-				name: 'Registrert som flyktning',
-			})
-			await expect(flyktningGroup).toBeVisible()
-			await flyktningGroup.getByLabel('Nei').check()
 
 			await fillMainFormFields(page)
 

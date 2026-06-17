@@ -193,11 +193,11 @@ export function mapBeregningParamsToRequest(
 								formData.epsMedlemAvFolketrygdenVedDoedsDato
 							),
 							inntektFoerDoedBeloep:
-								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? undefined,
+								formData.epsPensjonsgivendeInntektFoerDoedsDato ?? null,
 							inntektErOverGrunnbeloepet: Boolean(
 								formData.epsMinstePensjonsgivendeInntektFoerDoedsfall
 							),
-							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar,
+							antallAarUtenlands: formData.epsAntallUtenlandsOppholdAar ?? null,
 						}
 					: undefined,
 		},

@@ -53,7 +53,7 @@ export const Gjenlevenderett = () => {
 			form.setValue('epsMedlemAvFolketrygdenVedDoedsDato', null, {
 				shouldDirty: false,
 			})
-			form.setValue('epsRegistretSomFlykting', null, {
+			form.setValue('epsRegistretSomFlykting', false, {
 				shouldDirty: false,
 			})
 			form.setValue('epsAntallUtenlandsOppholdAar', undefined, {
