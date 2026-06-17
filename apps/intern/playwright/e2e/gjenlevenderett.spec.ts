@@ -667,10 +667,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.')
-			).toBeVisible()
-			await expect(
-				page.getByText('Fyll ut inntekt året før dødsdato.')
+				page.getByText('Velg ja/nei om avdøde var medlem av folketrygden.')
 			).toBeVisible()
 		})
 
@@ -716,10 +713,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.')
-			).not.toBeVisible()
-			await expect(
-				page.getByText('Fyll ut inntekt året før dødsdato.')
+				page.getByText('Velg ja/nei om avdøde var medlem av folketrygden.')
 			).not.toBeVisible()
 		})
 
