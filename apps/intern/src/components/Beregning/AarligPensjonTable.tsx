@@ -190,12 +190,14 @@ export const AarligPensjonTable = ({
 		<>
 			<Divider customMargin="32px" />
 			<VStack gap="space-12">
-				<Heading level="3" size="small" as="h3">
-					Årlig inntekt og pensjon
-				</Heading>
-				<BodyLong size="small" textColor="subtle">
-					Eventuell tilvekst av alderspensjon er inkludert i beløpene
-				</BodyLong>
+				<VStack gap="space-4">
+					<Heading level="3" size="small" as="h3">
+						Årlig inntekt og pensjon
+					</Heading>
+					<BodyLong size="small" textColor="subtle">
+						Eventuell tilvekst av alderspensjon er inkludert i beløpene
+					</BodyLong>
+				</VStack>
 				<Table
 					zebraStripes={rows.length > 2}
 					size="small"
