@@ -21,7 +21,7 @@ import type { Grunnbeloep } from './queries'
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
 
-const mapUtenlandsperiodeListe = (
+export const mapUtenlandsperiodeListe = (
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
 ): SimuleringUtenlandsperiode[] =>
 	utenlandsOpphold.map(
@@ -115,15 +115,15 @@ export function mapBeregningParamsToRequest(
 		? formData.aarsinntektSamtidigMedAfp
 		: undefined
 
-	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
-		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
-	}
-
 	if (
 		formData.endringAfpPrivat ||
 		(formData.endringAP && formData.afp === 'ja_privat')
 	) {
 		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_PRIVAT_AFP'
+	}
+
+	if (formData.endringAP && formData.beregnMedGjenlevenderett) {
+		simuleringstype = 'ENDRING_ALDERSPENSJON_MED_GJENLEVENDERETT'
 	}
 
 	const epsPid = formData.epsOpplysninger?.pid

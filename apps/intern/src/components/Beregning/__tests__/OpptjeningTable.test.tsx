@@ -65,9 +65,7 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(
-			screen.getByText('Inntekt og pensjonsopptjening')
-		).toBeInTheDocument()
+		expect(screen.getByText('Pensjonsopptjening bruker')).toBeInTheDocument()
 		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
 		expect(screen.getAllByText(/501.831/)).toHaveLength(2)
 	})
@@ -105,9 +103,7 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(
-			screen.getByText('Inntekt og pensjonsopptjening (avdød)')
-		).toBeInTheDocument()
+		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
 	})
 
 	test('renders merknad column with pensjonspoengType', () => {
@@ -131,9 +127,7 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(
-			screen.getByText('Inntekt og pensjonsopptjening (avdød)')
-		).toBeInTheDocument()
+		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
 		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
 		expect(screen.getAllByText(/350.000 kr/)).toHaveLength(1)
 		expect(screen.getAllByText(/420.000/)).toHaveLength(1)
@@ -149,9 +143,7 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(
-			screen.getByText('Inntekt og pensjonsopptjening (avdød)')
-		).toBeInTheDocument()
+		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
 		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
 	})
 })

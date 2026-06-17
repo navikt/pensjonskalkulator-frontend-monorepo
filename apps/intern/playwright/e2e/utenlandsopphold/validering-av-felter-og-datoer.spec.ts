@@ -190,7 +190,7 @@ test.describe('Utenlandsopphold - Validering og dato tilfeller', () => {
 			page,
 		}) => {
 			await selectLand(page, LAND.AFG.kode)
-			await fillStartdato(page, '01011960')
+			await fillStartdato(page, '01.01.1960')
 			await clickLeggTil(page)
 
 			await expectValidationMessage(

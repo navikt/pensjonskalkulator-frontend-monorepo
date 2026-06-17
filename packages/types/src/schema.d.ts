@@ -624,26 +624,6 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
-	'/api/intern/v1/opptjening': {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		/**
-		 * Opptjening
-		 * @description Henter den innloggede brukerens pensjonsopptjening
-		 */
-		get: operations['opptjening']
-		put?: never
-		post?: never
-		delete?: never
-		options?: never
-		head?: never
-		patch?: never
-		trace?: never
-	}
 	'/api/intern/v1/enheter': {
 		parameters: {
 			query?: never
@@ -1903,15 +1883,6 @@ export interface components {
 			/** Format: int32 */
 			beloep: number
 		}
-		LagreAarligInntektOgPensjonDto: {
-			alderLabel: string
-			/** Format: int32 */
-			alderspensjon: number
-			/** Format: int32 */
-			avtalefestetPensjon: number
-			/** Format: int32 */
-			pensjonsgivendeInntekt: number
-		}
 		LagreAfpOffentligLivsvarigSimuleringDto: {
 			vedGradertUttak?:
 				| components['schemas']['LagreLivsvarigOffentligAfpDto']
@@ -2040,9 +2011,6 @@ export interface components {
 			pensjonsgivendeInntektListe?:
 				| components['schemas']['LagreAarligBeloepDto'][]
 				| null
-			aarligInntektOgPensjonListe?:
-				| components['schemas']['LagreAarligInntektOgPensjonDto'][]
-				| null
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
 				| null
@@ -2052,13 +2020,8 @@ export interface components {
 			navEnhetId?: string | null
 		}
 		LagreSimuleringsinformasjonDto: {
-			gradertUttakInformasjon?:
-				| components['schemas']['LagreUttaksinformasjonDto']
-				| null
-			heltUttakInformasjon: components['schemas']['LagreUttaksinformasjonDto']
-			normertUttakInformasjon?:
-				| components['schemas']['LagreUttaksinformasjonDto']
-				| null
+			gradertUttaksalder?: components['schemas']['LagreAlderDto'] | null
+			heltUttaksalder: components['schemas']['LagreAlderDto']
 			sivilstatus?: string | null
 			utenlandsperioder?:
 				| components['schemas']['LagreUtenlandsperiodeDto'][]
@@ -2070,14 +2033,6 @@ export interface components {
 				| 'MELLOM_GRADERT_OG_HELT'
 				| 'ETTER_HELT'
 				| null
-			forbeholdVisningsvilkaar?: (
-				| 'BEREGNER_GAMMEL_AFP'
-				| 'BEREGNER_AFP_GENERELT'
-				| 'BEREGNER_AFP_PRIVAT'
-				| 'BEREGNER_MED_GJENLEVENDERETT'
-				| 'HAR_UFOERETRYGD'
-				| 'HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD'
-			)[]
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
@@ -2120,10 +2075,6 @@ export interface components {
 			tom?: string | null
 			landkode: string
 			arbeidetUtenlands?: boolean | null
-		}
-		LagreUttaksinformasjonDto: {
-			alder: components['schemas']['LagreAlderDto']
-			uttaksdato: string
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2550,9 +2501,6 @@ export interface components {
 			/** Format: int32 */
 			beholdning?: number | null
 			pensjonspoengType: string
-		}
-		OpptjeningV1Result: {
-			opptjeningListe: components['schemas']['OpptjeningV1'][]
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
@@ -3757,44 +3705,6 @@ export interface operations {
 				}
 			}
 			/** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
-			503: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					/**
-					 * @example {
-					 *       "timestamp": "2023-09-12T10:37:47.056+00:00",
-					 *       "status": 503,
-					 *       "error": "Service Unavailable",
-					 *       "message": "En feil inntraff",
-					 *       "path": "/api/ressurs"
-					 *     }
-					 */
-					'*/*': unknown
-				}
-			}
-		}
-	}
-	opptjening: {
-		parameters: {
-			query?: never
-			header?: never
-			path?: never
-			cookie?: never
-		}
-		requestBody?: never
-		responses: {
-			/** @description Henting av opptjening utført. */
-			200: {
-				headers: {
-					[name: string]: unknown
-				}
-				content: {
-					'*/*': components['schemas']['OpptjeningV1Result']
-				}
-			}
-			/** @description Henting av opptjening kunne ikke utføres av tekniske årsaker */
 			503: {
 				headers: {
 					[name: string]: unknown

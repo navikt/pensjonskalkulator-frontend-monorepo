@@ -4,7 +4,10 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -36,7 +39,7 @@ import {
 	usePersonQuery,
 	useVedtakQuery,
 } from '../api/queries'
-import { getPidFromUrl } from '../utils'
+import { getEnhetsidFromUrl, getPidFromUrl } from '../utils'
 
 interface BeregningContextValue {
 	form: UseFormReturn<BeregningFormData>
@@ -46,6 +49,7 @@ interface BeregningContextValue {
 	isBeregningLoading: boolean
 	beregningError: Error | null
 	fnr: string | undefined
+	enhetsid: string | undefined
 	person: PersonInternV1 | undefined
 	vedtak: Vedtak | undefined
 	initialInntektAar?: number
@@ -111,6 +115,8 @@ export function BeregningProvider({
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
 
+	const enhetsid = getEnhetsidFromUrl()
+
 	const { isDirty: formIsDirty } = form.formState
 	const isDirty =
 		(!!pendingBeregning && formIsDirty) ||
@@ -138,6 +144,11 @@ export function BeregningProvider({
 			'alderMdUttak',
 		] as const,
 	})
+
+	const skalBeregneAfpKap19 =
+		afp === 'ja_offentlig' &&
+		!!person?.foedselsdato &&
+		isFoedtFoer1963(person.foedselsdato)
 
 	useEffect(() => {
 		if (person?.sivilstatus) {
@@ -220,6 +231,26 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
+
+	useEffect(() => {
+		if (skalBeregneAfpKap19) {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderMdHeltUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderAarHeltUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('uttaksgrad', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [skalBeregneAfpKap19, form])
 
 	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
 	const forrigeAar = new Date().getFullYear() - 1
@@ -314,6 +345,7 @@ export function BeregningProvider({
 					aktivBeregning,
 					isDirty,
 					fnr,
+					enhetsid,
 					person,
 					beregning,
 					isBeregningLoading,

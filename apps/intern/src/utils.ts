@@ -10,6 +10,11 @@ export function getPidFromUrl(): string | undefined {
 	return params.get('pid') ?? undefined
 }
 
+export function getEnhetsidFromUrl(): string | undefined {
+	const params = new URLSearchParams(window.location.search)
+	return params.get('saksbehandlerValgtEnhet') ?? undefined
+}
+
 export function getVedtakStatus(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
@@ -17,10 +22,7 @@ export function getVedtakStatus(
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 
-	const APFomDato =
-		loependeAlderspensjon && fremtidigAlderspensjon
-			? loependeAlderspensjon?.fom
-			: (loependeAlderspensjon?.uttaksgradFom ?? '')
+	const APFomDato = loependeAlderspensjon?.uttaksgradFom ?? ''
 	const alderspensjonString = loependeAlderspensjon
 		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''

@@ -1,4 +1,8 @@
-import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	getAlderPlus1Maaned,
+	isAlderLikEllerOverAnnenAlder,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
 import type {
@@ -321,6 +325,27 @@ function validateInntektVsaHeltUttak(
 		) {
 			errors.alderAarInntektSlutter =
 				'Velg år og måned for når inntekt slutter.'
+		} else {
+			const baseAar = formData.alderAarHeltUttak ?? formData.alderAarUttak
+			const baseMd = formData.alderMdHeltUttak ?? formData.alderMdUttak
+
+			if (baseAar === null || baseMd === null) return
+
+			const minInntektSlutterAlder = getAlderPlus1Maaned({
+				aar: baseAar,
+				maaneder: baseMd,
+			})
+
+			const slutterAar = formData.alderAarInntektSlutter
+			const slutterMd = formData.alderMdInntektSlutter
+			const slutterAlder = { aar: slutterAar, maaneder: slutterMd }
+
+			if (
+				!isAlderLikEllerOverAnnenAlder(slutterAlder, minInntektSlutterAlder)
+			) {
+				errors.alderAarInntektSlutter =
+					'Alder for når inntekt slutter må være senere enn uttaksalder.'
+			}
 		}
 	}
 }
