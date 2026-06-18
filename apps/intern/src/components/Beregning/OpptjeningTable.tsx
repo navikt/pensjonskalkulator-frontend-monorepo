@@ -62,8 +62,12 @@ export function OpptjeningTable({
 		? 'Pensjonsopptjening avdøde'
 		: 'Pensjonsopptjening bruker'
 
+	const testId = isOpptjeningAvdoedSection
+		? 'opptjening-table-avdoed'
+		: 'opptjening-table-bruker'
+
 	return (
-		<div>
+		<div data-testid={testId}>
 			<Heading size="xsmall" spacing>
 				{title}
 			</Heading>

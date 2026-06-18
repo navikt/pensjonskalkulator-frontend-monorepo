@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
+import { defaultBeregningFormData } from '../../../api/beregningTypes'
+import {
+	augmentOpptjening,
+	augmentOpptjeningAvdoed,
+} from '../../../utils/augmentOpptjening'
 import { OpptjeningTable, mapOpptjeningToTableRows } from '../OpptjeningTable'
 import {
 	mockOpptjeningAvdoed,
@@ -11,7 +16,7 @@ import {
 const nbsp = '\u00A0'
 
 describe('mapOpptjeningToTableRows', () => {
-	test('maps opptjening with pensjonsbeholdning for kap20 users', () => {
+	test('mapper opptjening med pensjonsbeholdning for kap20-brukere', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 
 		expect(rows).toHaveLength(6)
@@ -31,7 +36,7 @@ describe('mapOpptjeningToTableRows', () => {
 		})
 	})
 
-	test('maps opptjening without pensjonsbeholdning for kap19 users', () => {
+	test('mapper opptjening uten pensjonsbeholdning for kap19-brukere', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap19, false)
 
 		expect(rows).toHaveLength(3)
@@ -44,19 +49,19 @@ describe('mapOpptjeningToTableRows', () => {
 		})
 	})
 
-	test('formats pensjonspoeng with two decimal places', () => {
+	test('formaterer pensjonspoeng med to desimaler', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 		expect(rows[2].pensjonspoeng).toBe('3,47')
 	})
 
-	test('shows 0 for zero pensjonsgivendeInntekt', () => {
+	test('viser 0 for null pensjonsgivendeInntekt', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, false)
 		expect(rows[0].pensjonsgivendeInntekt).toBe('0')
 	})
 })
 
 describe('OpptjeningTable', () => {
-	test('renders pensjonsbeholdning column and hides pensjonspoeng for erFoedtEtter1963', () => {
+	test('viser pensjonsbeholdning-kolonne og skjuler pensjonspoeng for erFoedtEtter1963', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
@@ -65,13 +70,19 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('Pensjonsopptjening bruker')).toBeInTheDocument()
-		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
-		expect(screen.getAllByText(/501.831/)).toHaveLength(2)
-		expect(screen.queryByText('Pensjonspoeng')).not.toBeInTheDocument()
+		expect(
+			screen.getByRole('heading', { name: 'Pensjonsopptjening bruker' })
+		).toBeInTheDocument()
+		expect(
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+		).toBeInTheDocument()
+		expect(screen.getAllByRole('cell', { name: /501.831/ })).toHaveLength(2)
+		expect(
+			screen.queryByRole('columnheader', { name: 'Pensjonspoeng' })
+		).not.toBeInTheDocument()
 	})
 
-	test('renders both pensjonsbeholdning and pensjonspoeng for erOvergangskull', () => {
+	test('viser både pensjonsbeholdning og pensjonspoeng for overgangskull', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
@@ -80,11 +91,15 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('Pensjonsbeholdning')).toBeInTheDocument()
-		expect(screen.getByText('Pensjonspoeng')).toBeInTheDocument()
+		expect(
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+		).toBeInTheDocument()
+		expect(
+			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
+		).toBeInTheDocument()
 	})
 
-	test('hides pensjonsbeholdning and shows pensjonspoeng for kap19 users', () => {
+	test('skjuler pensjonsbeholdning og viser pensjonspoeng for kap19-brukere', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap19}
@@ -93,11 +108,15 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
-		expect(screen.getByText('Pensjonspoeng')).toBeInTheDocument()
+		expect(
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+		).not.toBeInTheDocument()
+		expect(
+			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
+		).toBeInTheDocument()
 	})
 
-	test('renders with avdoed title', () => {
+	test('viser tittel for avdød', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap19}
@@ -106,10 +125,12 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
+		expect(
+			screen.getByRole('heading', { name: 'Pensjonsopptjening avdøde' })
+		).toBeInTheDocument()
 	})
 
-	test('renders merknad column with pensjonspoengType', () => {
+	test('viser merknad-kolonne med pensjonspoengType', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
@@ -117,11 +138,13 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('AFP')).toBeInTheDocument()
-		expect(screen.getAllByText('100 % alderspensjon')).toHaveLength(3)
+		expect(screen.getByRole('cell', { name: 'AFP' })).toBeInTheDocument()
+		expect(
+			screen.getAllByRole('cell', { name: '100 % alderspensjon' })
+		).toHaveLength(3)
 	})
 
-	test('renders avdoed opptjening table without pensjonsbeholdning even for kap20', () => {
+	test('viser avdød opptjening uten pensjonsbeholdning selv for kap20', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningAvdoed}
@@ -130,12 +153,16 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
-		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
-		expect(screen.getAllByText(/350.000 kr/)).toHaveLength(1)
+		expect(
+			screen.getByRole('heading', { name: 'Pensjonsopptjening avdøde' })
+		).toBeInTheDocument()
+		expect(
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+		).not.toBeInTheDocument()
+		expect(screen.getAllByRole('cell', { name: /350.000 kr/ })).toHaveLength(1)
 	})
 
-	test('renders avdoed opptjening table without pensjonsbeholdning for kap19', () => {
+	test('viser avdød opptjening uten pensjonsbeholdning for kap19', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningAvdoed}
@@ -145,7 +172,160 @@ describe('OpptjeningTable', () => {
 			/>
 		)
 
-		expect(screen.getByText('Pensjonsopptjening avdøde')).toBeInTheDocument()
-		expect(screen.queryByText('Pensjonsbeholdning')).not.toBeInTheDocument()
+		expect(
+			screen.getByRole('heading', { name: 'Pensjonsopptjening avdøde' })
+		).toBeInTheDocument()
+		expect(
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+		).not.toBeInTheDocument()
+	})
+})
+
+// foedselsdato 1960-06-15: alderAarUttak=67, alderMdUttak=0 → uttak 2027-07-01 → year 2027
+const foedselsdato = '1960-06-15'
+
+describe('augmentOpptjening', () => {
+	test('returnerer opptjening uendret når alderAarUttak er null', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{ ...defaultBeregningFormData, aarligInntektFoerUttakBeloep: 600000 },
+			foedselsdato
+		)
+		expect(result).toEqual(mockOpptjeningKap19)
+	})
+
+	test('returnerer opptjening uendret når aarligInntektFoerUttakBeloep er null', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{ ...defaultBeregningFormData, alderAarUttak: 67, alderMdUttak: 0 },
+			foedselsdato
+		)
+		expect(result).toEqual(mockOpptjeningKap19)
+	})
+
+	test('legger til rad med aarligInntektFoerUttakBeloep for uttaksår', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{
+				...defaultBeregningFormData,
+				alderAarUttak: 67,
+				alderMdUttak: 0,
+				aarligInntektFoerUttakBeloep: 600000,
+			},
+			foedselsdato
+		)
+		expect(result).toHaveLength(mockOpptjeningKap19.length + 1)
+		expect(result[result.length - 1]).toEqual({
+			aar: 2027,
+			pensjonsgivendeInntekt: 600000,
+			pensjonspoeng: 0,
+			omsorgspoeng: null,
+			beholdning: null,
+			pensjonspoengType: 'Oppgitt inntekt',
+		})
+	})
+
+	test('legger til rad med pensjonsgivendeInntektVedSidenAvGradertUttak med uttaksgrad i merknad', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{
+				...defaultBeregningFormData,
+				alderAarUttak: 67,
+				alderMdUttak: 0,
+				uttaksgrad: 40,
+				pensjonsgivendeInntektVedSidenAvGradertUttak: 300000,
+			},
+			foedselsdato
+		)
+		expect(result).toHaveLength(mockOpptjeningKap19.length + 1)
+		expect(result[result.length - 1]).toEqual({
+			aar: 2027,
+			pensjonsgivendeInntekt: 300000,
+			pensjonspoeng: 0,
+			omsorgspoeng: null,
+			beholdning: null,
+			pensjonspoengType: 'Alderspensjon 40%',
+		})
+	})
+
+	test('legger til begge rader når begge inntektsfelt er satt', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{
+				...defaultBeregningFormData,
+				alderAarUttak: 67,
+				alderMdUttak: 0,
+				uttaksgrad: 60,
+				aarligInntektFoerUttakBeloep: 600000,
+				pensjonsgivendeInntektVedSidenAvGradertUttak: 250000,
+			},
+			foedselsdato
+		)
+		expect(result).toHaveLength(mockOpptjeningKap19.length + 2)
+		expect(result[result.length - 2]?.pensjonspoengType).toBe('Oppgitt inntekt')
+		expect(result[result.length - 1]?.pensjonspoengType).toBe(
+			'Alderspensjon 60%'
+		)
+	})
+
+	test('legger til rad selv om året allerede finnes i opptjening', () => {
+		const result = augmentOpptjening(
+			mockOpptjeningKap19,
+			{
+				...defaultBeregningFormData,
+				alderAarUttak: 62,
+				alderMdUttak: 0,
+				aarligInntektFoerUttakBeloep: 600000,
+			},
+			foedselsdato
+		)
+		// 62 år + foedselsdato 1960-06-15 → 2022, which exists in mockOpptjeningKap19
+		expect(result).toHaveLength(mockOpptjeningKap19.length + 1)
+		expect(result[result.length - 1]?.pensjonspoengType).toBe('Oppgitt inntekt')
+		expect(result[result.length - 1]?.aar).toBe(2022)
+	})
+})
+
+describe('augmentOpptjeningAvdoed', () => {
+	test('returnerer opptjening uendret når epsPensjonsgivendeInntektFoerDoedsDato er null', () => {
+		const result = augmentOpptjeningAvdoed(mockOpptjeningAvdoed, {
+			...defaultBeregningFormData,
+			epsOpplysninger: {
+				pid: '12345678901',
+				relasjonstype: 'EKTEFELLE',
+				relasjonPersondata: { doedsdato: '2023-03-15' },
+			},
+		})
+		expect(result).toEqual(mockOpptjeningAvdoed)
+	})
+
+	test('returnerer opptjening uendret når epsDoedsdato mangler', () => {
+		const result = augmentOpptjeningAvdoed(mockOpptjeningAvdoed, {
+			...defaultBeregningFormData,
+			epsPensjonsgivendeInntektFoerDoedsDato: 450000,
+			epsOpplysninger: undefined,
+		})
+		expect(result).toEqual(mockOpptjeningAvdoed)
+	})
+
+	test('legger til rad for året før dødsdato med riktig merknad', () => {
+		const result = augmentOpptjeningAvdoed(mockOpptjeningAvdoed, {
+			...defaultBeregningFormData,
+			epsPensjonsgivendeInntektFoerDoedsDato: 450000,
+			epsOpplysninger: {
+				pid: '12345678901',
+				relasjonstype: 'EKTEFELLE',
+				relasjonPersondata: { doedsdato: '2023-03-15' },
+			},
+		})
+		expect(result).toHaveLength(mockOpptjeningAvdoed.length + 1)
+		expect(result[result.length - 1]).toEqual({
+			aar: 2022,
+			pensjonsgivendeInntekt: 450000,
+			pensjonspoeng: 0,
+			omsorgspoeng: null,
+			beholdning: null,
+			pensjonspoengType: 'Oppgitt inntekt',
+		})
 	})
 })
