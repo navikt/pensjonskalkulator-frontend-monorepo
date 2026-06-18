@@ -23,26 +23,28 @@ export function mapOpptjeningToTableRows(
 	opptjening: Opptjening,
 	showPensjonsbeholdning: boolean
 ): OpptjeningTableRow[] {
-	return opptjening.map((entry) => ({
-		aar: entry.aar,
-		pensjonsgivendeInntekt:
-			entry.pensjonsgivendeInntekt > 0
-				? `${entry.pensjonsgivendeInntekt.toLocaleString('nb-NO')} kr`
-				: '0',
-		pensjonspoeng:
-			entry.pensjonspoeng > 0
-				? entry.pensjonspoeng.toLocaleString('nb-NO', {
-						minimumFractionDigits: 2,
-						maximumFractionDigits: 2,
-					})
-				: '0',
-		pensjonsbeholdning: showPensjonsbeholdning
-			? entry.beholdning != null && entry.beholdning > 0
-				? entry.beholdning.toLocaleString('nb-NO')
-				: '0'
-			: null,
-		merknad: entry.pensjonspoengType ?? '',
-	}))
+	return [...opptjening]
+		.sort((a, b) => b.aar - a.aar)
+		.map((entry) => ({
+			aar: entry.aar,
+			pensjonsgivendeInntekt:
+				entry.pensjonsgivendeInntekt > 0
+					? `${entry.pensjonsgivendeInntekt.toLocaleString('nb-NO')} kr`
+					: '0',
+			pensjonspoeng:
+				entry.pensjonspoeng > 0
+					? entry.pensjonspoeng.toLocaleString('nb-NO', {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})
+					: '0',
+			pensjonsbeholdning: showPensjonsbeholdning
+				? entry.beholdning != null && entry.beholdning > 0
+					? entry.beholdning.toLocaleString('nb-NO')
+					: '0'
+				: null,
+			merknad: entry.pensjonspoengType ?? '',
+		}))
 }
 
 export function OpptjeningTable({

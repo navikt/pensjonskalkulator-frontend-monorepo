@@ -4,7 +4,7 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
 	BodyLong,
@@ -25,6 +25,10 @@ import {
 	useLagreSimuleringMutation,
 	useOpptjeningQuery,
 } from '../../api/queries'
+import {
+	augmentOpptjening,
+	augmentOpptjeningAvdoed,
+} from '../../utils/augmentOpptjening'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
@@ -106,6 +110,16 @@ export const Beregning = () => {
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
+
+	const augmentedOpptjening = useMemo(() => {
+		if (!opptjening) return undefined
+		return augmentOpptjening(opptjening, aktivBeregning!, person!.foedselsdato)
+	}, [opptjening, aktivBeregning, person?.foedselsdato])
+
+	const augmentedOpptjeningAvdoed = useMemo(() => {
+		if (!opptjeningAvdoed) return undefined
+		return augmentOpptjeningAvdoed(opptjeningAvdoed, aktivBeregning!)
+	}, [opptjeningAvdoed, aktivBeregning])
 
 	const tableCount =
 		1 +
@@ -417,18 +431,18 @@ export const Beregning = () => {
 								isOpptjeningLoading ? styles.loadingOverlay : undefined
 							}
 						>
-							{opptjening && (
+							{augmentedOpptjening && (
 								<OpptjeningTable
-									opptjening={opptjening}
+									opptjening={augmentedOpptjening}
 									erOvergangskull={erOvergangskull}
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={false}
 								/>
 							)}
 
-							{opptjeningAvdoed && (
+							{augmentedOpptjeningAvdoed && (
 								<OpptjeningTable
-									opptjening={opptjeningAvdoed}
+									opptjening={augmentedOpptjeningAvdoed}
 									erOvergangskull={erOvergangskull}
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={true}
