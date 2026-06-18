@@ -29,19 +29,28 @@ const readMoreQuery =
 const alertQuery =
 	'*[_type == "alert" && (!defined(language) || language == $locale)] | {name,type,status,overskrift,innhold}'
 
+const kortForbeholdQuery =
+	'*[_type == "kortforbehold" && language == $locale] | {name,innhold}'
+
 async function fetchAndSaveSanityData() {
 	try {
 		console.log(
 			`📡 Fetching Sanity data (dataset=${dataset}, locale=${locale})…`
 		)
 
-		const [forbeholdAvsnittData, guidePanelData, readMoreData, alertData] =
-			await Promise.all([
-				sanityClient.fetch(forbeholdAvsnittQuery, { locale }),
-				sanityClient.fetch(guidePanelQuery, { locale }),
-				sanityClient.fetch(readMoreQuery, { locale }),
-				sanityClient.fetch(alertQuery, { locale }),
-			])
+		const [
+			forbeholdAvsnittData,
+			guidePanelData,
+			readMoreData,
+			alertData,
+			kortForbeholdData,
+		] = await Promise.all([
+			sanityClient.fetch(forbeholdAvsnittQuery, { locale }),
+			sanityClient.fetch(guidePanelQuery, { locale }),
+			sanityClient.fetch(readMoreQuery, { locale }),
+			sanityClient.fetch(alertQuery, { locale }),
+			sanityClient.fetch(kortForbeholdQuery, { locale }),
+		])
 
 		const files = [
 			{
@@ -51,6 +60,7 @@ async function fetchAndSaveSanityData() {
 			{ name: 'sanity-guidepanel-data.json', data: guidePanelData },
 			{ name: 'sanity-readmore-data.json', data: readMoreData },
 			{ name: 'sanity-alert-data.json', data: alertData },
+			{ name: 'sanity-kort-forbehold-data.json', data: kortForbeholdData },
 		]
 
 		for (const { name, data } of files) {

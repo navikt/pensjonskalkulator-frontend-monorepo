@@ -16,6 +16,7 @@ import personResponse from './data/person.json' with { type: 'json' }
 import sanityAlertDataResponse from './data/sanity-alert-data.json' with { type: 'json' }
 import sanityForbeholdAvsnittDataResponse from './data/sanity-forbehold-avsnitt-data.json' with { type: 'json' }
 import sanityGuidePanelDataResponse from './data/sanity-guidepanel-data.json' with { type: 'json' }
+import sanityKortforbeholdDataResponse from './data/sanity-kort-forbehold-data.json' with { type: 'json' }
 import sanityReadMoreDataResponse from './data/sanity-readmore-data.json' with { type: 'json' }
 import simuleringV1AfpOffentligOverlay from './data/simulering-v1-afp-offentlig.json' with { type: 'json' }
 import simuleringV1AfpPrivatOverlay from './data/simulering-v1-afp-privat.json' with { type: 'json' }
@@ -101,6 +102,8 @@ function getSanityMockResponse(query: string | null) {
 	if (query.includes('_type == "guidepanel"'))
 		return sanityGuidePanelDataResponse
 	if (query.includes('_type == "readmore"')) return sanityReadMoreDataResponse
+	if (query.includes('_type == "kortforbehold"'))
+		return sanityKortforbeholdDataResponse
 	return undefined
 }
 

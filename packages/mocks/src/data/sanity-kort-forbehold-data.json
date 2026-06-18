@@ -1,0 +1,37 @@
+{
+	"result": [
+		{
+			"innhold": [
+				{
+					"_key": "3497725ee4cc",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "76983dfc6f9d",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonen er beregnet med opplysninger Nav har om deg og opplysninger du har gitt på beregningstidspunktet. Dette er et foreløpig estimat. Det er ikke et vedtak og gir ikke rett til pensjon. Beregningen er vist i dagens kroneverdi før skatt. Den er gjort etter gjeldende regelverk og satser."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "b643fea7a184",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a1b2c3d4e5f6",
+							"_type": "span",
+							"marks": [],
+							"text": "Endringer i opplysninger, opptjening eller regelverk kan påvirke resultatet. Det kan også påvirke når du tidligst kan starte uttak av alderspensjon. Vi anbefaler å gjøre en ny beregning når du nærmer deg tidspunktet for uttak av pensjon."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "kortforbehold"
+		}
+	]
+}

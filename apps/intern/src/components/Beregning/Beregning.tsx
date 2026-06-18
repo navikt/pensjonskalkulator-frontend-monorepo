@@ -1,4 +1,7 @@
-import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import {
+	SanityKortforbehold,
+	SanityVilkaarligForbehold,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -6,15 +9,7 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import {
-	BodyLong,
-	Box,
-	Button,
-	HGrid,
-	Loader,
-	Tabs,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
@@ -371,15 +366,11 @@ export const Beregning = () => {
 						aktivBeregning={aktivBeregning}
 					/>
 					<Divider customMargin="32px" />
-					<HGrid marginBlock="space-40" columns={3}>
-						<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-							Pensjonen er beregnet på grunnlag av de opplysningene vi har om
-							deg, i tillegg til de opplysningene du har oppgitt selv. Dette er
-							derfor en foreløpig beregning av hva du kan forvente deg i
-							pensjon. Pensjonsberegningen er vist i dagens kroneverdi.
-							Beregningen er ikke juridisk bindende.
-						</BodyLong>
-					</HGrid>
+					<SanityKortforbehold
+						id="kortforbehold"
+						size="small"
+						className={styles.kortforbehold}
+					/>
 					{visLagreBrevButton && (
 						<Button
 							className={styles.lagreButton}
@@ -395,7 +386,7 @@ export const Beregning = () => {
 				</Tabs.Panel>
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<div style={{ maxWidth: '66%' }}>
+						<div className={styles.forbeholdTekst}>
 							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
 						</div>
 					</Tabs.Panel>
