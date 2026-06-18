@@ -81,6 +81,17 @@ export const Beregning = () => {
 
 	const { data: opptjeningAvdoed } = useOpptjeningQuery(avdoedPid)
 
+	const augmentedOpptjening = useMemo(() => {
+		if (!opptjening || !aktivBeregning || !person?.foedselsdato)
+			return undefined
+		return augmentOpptjening(opptjening, aktivBeregning, person.foedselsdato)
+	}, [opptjening, aktivBeregning, person?.foedselsdato])
+
+	const augmentedOpptjeningAvdoed = useMemo(() => {
+		if (!opptjeningAvdoed || !aktivBeregning) return undefined
+		return augmentOpptjeningAvdoed(opptjeningAvdoed, aktivBeregning)
+	}, [opptjeningAvdoed, aktivBeregning])
+
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
 	if (!hasBeregning) {
@@ -110,16 +121,6 @@ export const Beregning = () => {
 
 	const { erGradert, heltUttakAlder, gradertUttakAlder } =
 		getUttakInfo(aktivBeregning)
-
-	const augmentedOpptjening = useMemo(() => {
-		if (!opptjening) return undefined
-		return augmentOpptjening(opptjening, aktivBeregning!, person!.foedselsdato)
-	}, [opptjening, aktivBeregning, person?.foedselsdato])
-
-	const augmentedOpptjeningAvdoed = useMemo(() => {
-		if (!opptjeningAvdoed) return undefined
-		return augmentOpptjeningAvdoed(opptjeningAvdoed, aktivBeregning!)
-	}, [opptjeningAvdoed, aktivBeregning])
 
 	const tableCount =
 		1 +
