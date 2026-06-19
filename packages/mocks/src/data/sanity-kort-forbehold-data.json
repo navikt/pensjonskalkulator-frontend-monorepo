@@ -17,14 +17,14 @@
 					"style": "normal"
 				},
 				{
-					"_key": "b643fea7a184",
+					"_key": "5eec6d5f540b",
 					"_type": "block",
 					"children": [
 						{
-							"_key": "a1b2c3d4e5f6",
+							"_key": "76983dfc6f9d",
 							"_type": "span",
 							"marks": [],
-							"text": "Endringer i opplysninger, opptjening eller regelverk kan påvirke resultatet. Det kan også påvirke når du tidligst kan starte uttak av alderspensjon. Vi anbefaler å gjøre en ny beregning når du nærmer deg tidspunktet for uttak av pensjon."
+							"text": "\nEndringer i opplysninger, opptjening eller regelverk kan påvirke resultatet. Det kan også påvirke når du tidligst kan starte uttak av alderspensjon. Vi anbefaler å gjøre en ny beregning når du nærmer deg tidspunktet for uttak av pensjon."
 						}
 					],
 					"markDefs": [],

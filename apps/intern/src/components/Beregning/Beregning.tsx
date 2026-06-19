@@ -16,7 +16,7 @@ import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
-	useInternsimulatorLagreBrevButtonQuery,
+	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -47,10 +47,13 @@ export const Beregning = () => {
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
-	const { data: lagreBrevButtonToggle } =
-		useInternsimulatorLagreBrevButtonQuery()
+
+	// Midlertidig skjul brev knappen
+	// const { data: lagreBrevButtonToggle } =
+	// 	useInternsimulatorLagreBrevButtonQuery()
+	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const visLagreBrevButton = false
 	const visForbehold = forbeholdInternSynlig?.enabled === true
-	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
