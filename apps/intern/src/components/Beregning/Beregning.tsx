@@ -4,7 +4,7 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import {
 	BodyLong,
@@ -25,10 +25,6 @@ import {
 	useLagreSimuleringMutation,
 	useOpptjeningQuery,
 } from '../../api/queries'
-import {
-	augmentOpptjening,
-	augmentOpptjeningAvdoed,
-} from '../../utils/augmentOpptjening'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
@@ -80,17 +76,6 @@ export const Beregning = () => {
 		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
 
 	const { data: opptjeningAvdoed } = useOpptjeningQuery(avdoedPid)
-
-	const augmentedOpptjening = useMemo(() => {
-		if (!opptjening || !aktivBeregning || !person?.foedselsdato)
-			return undefined
-		return augmentOpptjening(opptjening, aktivBeregning, person.foedselsdato)
-	}, [opptjening, aktivBeregning, person?.foedselsdato])
-
-	const augmentedOpptjeningAvdoed = useMemo(() => {
-		if (!opptjeningAvdoed || !aktivBeregning) return undefined
-		return augmentOpptjeningAvdoed(opptjeningAvdoed, aktivBeregning)
-	}, [opptjeningAvdoed, aktivBeregning])
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -432,18 +417,16 @@ export const Beregning = () => {
 								isOpptjeningLoading ? styles.loadingOverlay : undefined
 							}
 						>
-							{augmentedOpptjening && (
-								<OpptjeningTable
-									opptjening={augmentedOpptjening}
-									erOvergangskull={erOvergangskull}
-									erFoedtEtter1963={erFoedtEtter1963}
-									isOpptjeningAvdoedSection={false}
-								/>
-							)}
+							<OpptjeningTable
+								opptjening={opptjening}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								isOpptjeningAvdoedSection={false}
+							/>
 
-							{augmentedOpptjeningAvdoed && (
+							{opptjeningAvdoed && (
 								<OpptjeningTable
-									opptjening={augmentedOpptjeningAvdoed}
+									opptjening={opptjeningAvdoed}
 									erOvergangskull={erOvergangskull}
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={true}
