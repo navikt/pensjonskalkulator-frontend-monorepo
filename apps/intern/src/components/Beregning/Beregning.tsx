@@ -28,6 +28,7 @@ import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
+import { SimuleringFeil } from './SimuleringFeil'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -36,12 +37,14 @@ export const Beregning = () => {
 	const {
 		isBeregningLoading,
 		beregning,
+		beregningError,
 		aktivBeregning,
 		person,
 		vedtak,
 		omstillingsstoenad,
 		fnr,
 		enhetsid,
+		submitBeregning,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
@@ -80,7 +83,14 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				<BodyLong>Ingen beregning enda.</BodyLong>
+				{beregningError ? (
+					<SimuleringFeil
+						message={beregningError.message}
+						onRetry={submitBeregning}
+					/>
+				) : (
+					<BodyLong>Ingen beregning enda.</BodyLong>
+				)}
 			</Box>
 		)
 	}
@@ -278,6 +288,12 @@ export const Beregning = () => {
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
+			{beregningError && (
+				<SimuleringFeil
+					message={beregningError.message}
+					onRetry={submitBeregning}
+				/>
+			)}
 			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />

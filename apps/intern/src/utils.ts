@@ -15,6 +15,12 @@ export function getEnhetsidFromUrl(): string | undefined {
 	return params.get('saksbehandlerValgtEnhet') ?? undefined
 }
 
+export function getPesysBrukeroversiktUrl(): string {
+	return window.location.hostname.endsWith('.dev.nav.no')
+		? 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
+		: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
+}
+
 export function getVedtakStatus(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
