@@ -10,7 +10,7 @@
 		"build:server": "tsc -p tsconfig.server.json",
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit",
-		"test": "playwright test --project=chromium",
+		"test": "vitest run --pool=forks",
 		"test:e2e": "playwright test --project=chromium",
 		"pw:open": "playwright test --ui --project=chromium",
 		"pw:test": "playwright test --project=chromium",
@@ -50,7 +50,8 @@
 		"concurrently": "catalog:",
 		"msw": "catalog:",
 		"nodemon": "3.1.11",
-		"vite": "7.3.2"
+		"vite": "7.3.2",
+		"vitest": "catalog:"
 	},
 	"msw": {
 		"workerDirectory": [
