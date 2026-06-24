@@ -1903,6 +1903,15 @@ export interface components {
 			/** Format: int32 */
 			beloep: number
 		}
+		LagreAarligInntektOgPensjonDto: {
+			alderLabel: string
+			/** Format: int32 */
+			alderspensjon: number
+			/** Format: int32 */
+			avtalefestetPensjon: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt: number
+		}
 		LagreAfpOffentligLivsvarigSimuleringDto: {
 			vedGradertUttak?:
 				| components['schemas']['LagreLivsvarigOffentligAfpDto']
@@ -2031,6 +2040,9 @@ export interface components {
 			pensjonsgivendeInntektListe?:
 				| components['schemas']['LagreAarligBeloepDto'][]
 				| null
+			aarligInntektOgPensjonListe?:
+				| components['schemas']['LagreAarligInntektOgPensjonDto'][]
+				| null
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
 				| null
@@ -2040,8 +2052,13 @@ export interface components {
 			navEnhetId?: string | null
 		}
 		LagreSimuleringsinformasjonDto: {
-			gradertUttaksalder?: components['schemas']['LagreAlderDto'] | null
-			heltUttaksalder: components['schemas']['LagreAlderDto']
+			gradertUttakInformasjon?:
+				| components['schemas']['LagreUttaksinformasjonDto']
+				| null
+			heltUttakInformasjon: components['schemas']['LagreUttaksinformasjonDto']
+			normertUttakInformasjon?:
+				| components['schemas']['LagreUttaksinformasjonDto']
+				| null
 			sivilstatus?: string | null
 			utenlandsperioder?:
 				| components['schemas']['LagreUtenlandsperiodeDto'][]
@@ -2053,6 +2070,14 @@ export interface components {
 				| 'MELLOM_GRADERT_OG_HELT'
 				| 'ETTER_HELT'
 				| null
+			forbeholdVisningsvilkaar?: (
+				| 'BEREGNER_GAMMEL_AFP'
+				| 'BEREGNER_AFP_GENERELT'
+				| 'BEREGNER_AFP_PRIVAT'
+				| 'BEREGNER_MED_GJENLEVENDERETT'
+				| 'HAR_UFOERETRYGD'
+				| 'HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD'
+			)[]
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
@@ -2095,6 +2120,10 @@ export interface components {
 			tom?: string | null
 			landkode: string
 			arbeidetUtenlands?: boolean | null
+		}
+		LagreUttaksinformasjonDto: {
+			alder: components['schemas']['LagreAlderDto']
+			uttaksdato: string
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2518,10 +2547,8 @@ export interface components {
 			pensjonspoeng: number
 			/** Format: int32 */
 			omsorgspoeng?: number | null
-			pensjonspoengType: string
-		}
-		OpptjeningV1Result: {
-			opptjeningListe: components['schemas']['OpptjeningV1'][]
+			/** Format: int32 */
+			beholdning: number
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
@@ -3760,7 +3787,7 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['OpptjeningV1Result']
+					'*/*': components['schemas']['OpptjeningV1'][]
 				}
 			}
 			/** @description Henting av opptjening kunne ikke utføres av tekniske årsaker */
