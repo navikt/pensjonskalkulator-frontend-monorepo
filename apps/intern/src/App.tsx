@@ -124,8 +124,9 @@ const AppContent = () => {
 	}
 
 	if (!pid) {
-		return <PersonInfo onPidChange={handlePidChange} />
+		return <ErrorPage400 />
 	}
+
 	const error =
 		decryptError ||
 		personError ||
