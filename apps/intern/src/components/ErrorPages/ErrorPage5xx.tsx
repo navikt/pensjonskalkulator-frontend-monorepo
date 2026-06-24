@@ -9,6 +9,8 @@ import {
 
 import { getPesysBrukeroversiktUrl } from '../../utils.ts'
 
+import styles from './ErrorPages.module.css'
+
 interface ErrorPage5xxProps {
 	message?: string
 }
@@ -19,18 +21,20 @@ export const ErrorPage5xx = ({ message }: ErrorPage5xxProps) => {
 			align="center"
 			justify="center"
 			data-testid="error-page-5xx"
-			// style={{ flex: 1, padding: '2rem' }}
+			className={styles.container}
 		>
-			<VStack gap="space-4" style={{ maxWidth: '600px' }}>
+			<VStack gap="space-4" className={styles.content}>
 				<BodyShort size="small">Statuskode 5XX</BodyShort>
-				<Heading level="2" size="medium">
+				<Heading level="3" size="medium">
 					Beklager, noe gikk galt
 				</Heading>
-				<BodyLong>
+				<BodyLong size="medium" spacing>
 					En teknisk feil gjør at siden ikke er tilgjengelig. Dette skyldes ikke
 					noe du gjorde.
 				</BodyLong>
-				<BodyLong>Du kan prøve å</BodyLong>
+				<BodyLong size="medium" spacing>
+					Du kan prøve å
+				</BodyLong>
 				<List>
 					<List.Item>
 						<Link
@@ -52,7 +56,7 @@ export const ErrorPage5xx = ({ message }: ErrorPage5xxProps) => {
 				{message && (
 					<BodyShort
 						size="small"
-						style={{ marginTop: '2rem' }}
+						style={{ marginTop: '3rem' }}
 						data-testid="error-page-5xx-feil-id"
 					>
 						Feil-id: {message}

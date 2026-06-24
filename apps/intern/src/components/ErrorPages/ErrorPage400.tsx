@@ -2,15 +2,17 @@ import { BodyLong, Button, Heading, VStack } from '@navikt/ds-react'
 
 import { getPesysBrukeroversiktUrl } from '../../utils.ts'
 
+import styles from './ErrorPages.module.css'
+
 export const ErrorPage400 = () => {
 	return (
 		<VStack
 			align="center"
 			justify="center"
 			data-testid="error-page-400"
-			// style={{ flex: 1, padding: '2rem' }}
+			className={styles.container}
 		>
-			<VStack gap="space-4" style={{ maxWidth: '600px' }}>
+			<VStack gap="space-4" className={styles.content}>
 				<Heading level="2" size="medium">
 					Beklager, vi fant ikke siden
 				</Heading>
@@ -25,6 +27,7 @@ export const ErrorPage400 = () => {
 						href={getPesysBrukeroversiktUrl()}
 						size="small"
 						data-testid="error-page-400-link"
+						style={{ marginTop: '1rem' }}
 					>
 						Gå til Pesys brukeroversikt
 					</Button>
