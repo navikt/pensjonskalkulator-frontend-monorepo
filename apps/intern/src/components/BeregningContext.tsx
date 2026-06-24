@@ -151,10 +151,12 @@ export function BeregningProvider({
 		isFoedtFoer1963(person.foedselsdato)
 
 	useEffect(() => {
-		if (person?.sivilstatus) {
-			form.setValue('sivilstatus', person.sivilstatus, { shouldDirty: false })
+		const sivilstatusFromVedtak = vedtak?.loependeAlderspensjon?.sivilstatus
+		const sivilstatusValue = sivilstatusFromVedtak ?? person?.sivilstatus
+		if (sivilstatusValue) {
+			form.setValue('sivilstatus', sivilstatusValue, { shouldDirty: false })
 		}
-	}, [person?.sivilstatus, form])
+	}, [vedtak?.loependeAlderspensjon?.sivilstatus, person?.sivilstatus, form])
 
 	useEffect(() => {
 		if (beregnMedGjenlevenderett) {
