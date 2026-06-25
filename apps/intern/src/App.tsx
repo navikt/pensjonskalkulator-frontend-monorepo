@@ -124,7 +124,7 @@ const AppContent = () => {
 	}
 
 	if (!pid) {
-		return <ErrorPage404 />
+		return <PersonInfo onPidChange={handlePidChange} />
 	}
 
 	const error =
