@@ -7,6 +7,8 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { format } from 'date-fns'
 
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
@@ -191,19 +193,41 @@ export function mapBeregningResultToLagreSpec(
 			})
 		),
 		simuleringsinformasjon: {
-			gradertUttaksalder:
+			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? { ...heltUttakAlder }
+					? foedselsdato
+						? {
+								alder: { ...heltUttakAlder },
+								uttaksdato: format(
+									calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+									'yyyy-MM-dd'
+								),
+							}
+						: null
 					: gradertUttakAlder
-						? { ...gradertUttakAlder }
+						? foedselsdato
+							? {
+									alder: { ...gradertUttakAlder },
+									uttaksdato: format(
+										calculateUttaksalderAsDate(gradertUttakAlder, foedselsdato),
+										'yyyy-MM-dd'
+									),
+								}
+							: null
 						: null,
-			heltUttaksalder:
-				aktivBeregning?.afp !== 'ja_offentlig'
-					? { ...heltUttakAlder }
-					: {
-							aar: 67,
-							maaneder: 0,
-						},
+			heltUttakInformasjon: (() => {
+				const alder =
+					aktivBeregning?.afp !== 'ja_offentlig'
+						? { ...heltUttakAlder }
+						: { aar: 67, maaneder: 0 }
+				const uttaksdato = foedselsdato
+					? format(
+							calculateUttaksalderAsDate(alder, foedselsdato),
+							'yyyy-MM-dd'
+						)
+					: '1970-01-01'
+				return { alder, uttaksdato }
+			})(),
 			sivilstatus: aktivBeregning?.sivilstatus,
 			utenlandsperioder,
 			kull,

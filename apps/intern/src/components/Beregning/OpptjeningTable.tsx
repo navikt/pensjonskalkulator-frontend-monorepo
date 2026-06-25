@@ -1,4 +1,7 @@
-import type { Opptjening } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Opptjening,
+	OpptjeningAvdoed,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { BodyShort, Heading, Table } from '@navikt/ds-react'
 
@@ -9,27 +12,27 @@ export interface OpptjeningTableRow {
 	pensjonsgivendeInntekt: string
 	pensjonspoeng: string
 	pensjonsbeholdning: string | null
-	merknad: string
+	merknad?: string
 }
 
 interface OpptjeningTableProps {
-	opptjening: Opptjening
+	opptjening: Opptjening | OpptjeningAvdoed
 	erOvergangskull?: boolean
 	erFoedtEtter1963?: boolean | null
 	isOpptjeningAvdoedSection?: boolean
 }
 
 export function mapOpptjeningToTableRows(
-	opptjening: Opptjening,
+	opptjening: Opptjening | OpptjeningAvdoed,
 	showPensjonsbeholdning: boolean
 ): OpptjeningTableRow[] {
 	return [...opptjening]
-		.sort((a, b) => b.aar - a.aar)
+		.sort((a, b) => b.aarstall - a.aarstall)
 		.map((entry) => ({
-			aar: entry.aar,
+			aar: entry.aarstall,
 			pensjonsgivendeInntekt:
-				entry.pensjonsgivendeInntekt > 0
-					? `${entry.pensjonsgivendeInntekt.toLocaleString('nb-NO')} kr`
+				entry.pensjonsgivendeInntektBeloep > 0
+					? `${entry.pensjonsgivendeInntektBeloep.toLocaleString('nb-NO')} kr`
 					: '0',
 			pensjonspoeng:
 				entry.pensjonspoeng > 0
@@ -39,11 +42,11 @@ export function mapOpptjeningToTableRows(
 						})
 					: '0',
 			pensjonsbeholdning: showPensjonsbeholdning
-				? entry.beholdning != null && entry.beholdning > 0
-					? entry.beholdning.toLocaleString('nb-NO')
+				? entry.pensjonsbeholdningBeloep != null &&
+					entry.pensjonsbeholdningBeloep > 0
+					? entry.pensjonsbeholdningBeloep.toLocaleString('nb-NO')
 					: '0'
 				: null,
-			merknad: entry.pensjonspoengType ?? '',
 		}))
 }
 

@@ -23,7 +23,7 @@ import {
 	useGrunnbeloepQuery,
 	useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
-	useOpptjeningQuery,
+	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
@@ -69,13 +69,13 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
 
-	const { data: opptjening, isLoading: isOpptjeningLoading } =
-		useOpptjeningQuery(fnr)
+	const opptjening = beregning?.opptjeningListe
 
 	const avdoedPid =
 		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
 
-	const { data: opptjeningAvdoed } = useOpptjeningQuery(avdoedPid)
+	const { data: opptjeningAvdoed, isLoading: isOpptjeningLoading } =
+		useOpptjeningQueryForAvdoed(avdoedPid)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false

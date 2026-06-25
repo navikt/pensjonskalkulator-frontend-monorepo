@@ -314,7 +314,7 @@ async function fetchOpptjening(fnr: string): Promise<Opptjening> {
 	return response.json() as Promise<Opptjening>
 }
 
-export function useOpptjeningQuery(fnr?: string) {
+export function useOpptjeningQueryForAvdoed(fnr?: string) {
 	return useQuery({
 		queryKey: ['opptjening', fnr],
 		queryFn: fnr ? () => fetchOpptjening(fnr) : skipToken,

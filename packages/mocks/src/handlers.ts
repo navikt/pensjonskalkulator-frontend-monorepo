@@ -33,6 +33,7 @@ import vedtakResponse from './data/vedtak.json' with { type: 'json' }
 import { DEFAULT_API_PATH, DEFAULT_BASE_URL } from './paths'
 import type {
 	AfpPensjonsberegning,
+	AfpPrivatPensjonsberegning,
 	AlderspensjonPensjonsberegning,
 	AlderspensjonRequestBody,
 	PensjonsavtalerRequestBody,
@@ -379,7 +380,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
 			const data = await import(`./data/alderspensjon/${aar}.json`)
 			const mergedData = structuredClone(data.default) as object
-			let afpPrivat: AfpPensjonsberegning[] = []
+			let afpPrivat: AfpPrivatPensjonsberegning[] = []
 			let afpOffentlig: AfpPensjonsberegning[] = []
 
 			if (
