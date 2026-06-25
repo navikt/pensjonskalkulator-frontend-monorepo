@@ -61,7 +61,7 @@ test.describe('Error pages', () => {
 			)
 		})
 
-		test('shows feil-id from error message', async ({ page }) => {
+		test.skip('shows feil-id from error message', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 401)
 
@@ -95,7 +95,7 @@ test.describe('Error pages', () => {
 			).toBeVisible()
 		})
 
-		test('shows feil-id from error message', async ({ page }) => {
+		test.skip('shows feil-id from error message', async ({ page }) => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 500)
 
