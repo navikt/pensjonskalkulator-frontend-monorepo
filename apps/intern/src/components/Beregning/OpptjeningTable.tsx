@@ -26,7 +26,22 @@ export function mapOpptjeningToTableRows(
 	opptjening: Opptjening | OpptjeningAvdoed,
 	showPensjonsbeholdning: boolean
 ): OpptjeningTableRow[] {
+	const yearsWithIncome = opptjening.filter(
+		(entry) => entry.pensjonsgivendeInntektBeloep > 0
+	)
+
+	if (yearsWithIncome.length === 0) {
+		return []
+	}
+
+	const firstIncomeYear = Math.min(...yearsWithIncome.map((e) => e.aarstall))
+	const lastIncomeYear = Math.max(...yearsWithIncome.map((e) => e.aarstall))
+
 	return [...opptjening]
+		.filter(
+			(entry) =>
+				entry.aarstall >= firstIncomeYear && entry.aarstall <= lastIncomeYear
+		)
 		.sort((a, b) => b.aarstall - a.aarstall)
 		.map((entry) => ({
 			aar: entry.aarstall,

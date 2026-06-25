@@ -15,18 +15,18 @@ describe('mapOpptjeningToTableRows', () => {
 	test('mapper opptjening med pensjonsbeholdning for kap20-brukere', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 
-		expect(rows).toHaveLength(6)
+		expect(rows).toHaveLength(4)
 		expect(rows[0]).toEqual({
-			aar: 2024,
-			pensjonsgivendeInntekt: '0',
-			pensjonspoeng: '0',
+			aar: 2022,
+			pensjonsgivendeInntekt: `193${nbsp}192 kr`,
+			pensjonspoeng: '3,47',
 			pensjonsbeholdning: '0',
 		})
-		expect(rows[3]).toEqual({
-			aar: 2021,
-			pensjonsgivendeInntekt: `278${nbsp}034 kr`,
+		expect(rows[2]).toEqual({
+			aar: 2020,
+			pensjonsgivendeInntekt: `639${nbsp}932 kr`,
 			pensjonspoeng: '3,47',
-			pensjonsbeholdning: `501${nbsp}831`,
+			pensjonsbeholdning: `498${nbsp}943`,
 		})
 	})
 
@@ -47,9 +47,9 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows[2].pensjonspoeng).toBe('3,47')
 	})
 
-	test('viser 0 for null pensjonsgivendeInntekt', () => {
+	test('filtrerer bort år uten inntekt utenfor inntektsperioden', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, false)
-		expect(rows[0].pensjonsgivendeInntekt).toBe('0')
+		expect(rows.every((r) => r.aar >= 2019 && r.aar <= 2022)).toBe(true)
 	})
 })
 
@@ -164,28 +164,27 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 	test('mapper opptjeningListe fra simulering korrekt', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, true)
 
-		expect(rows).toHaveLength(4)
+		expect(rows).toHaveLength(3)
 		expect(rows[0]).toEqual({
-			aar: 2013,
-			pensjonsgivendeInntekt: '0',
-			pensjonspoeng: '0',
-			pensjonsbeholdning: `410${nbsp}000`,
-		})
-		expect(rows[1]).toEqual({
 			aar: 2012,
 			pensjonsgivendeInntekt: `500${nbsp}000 kr`,
 			pensjonspoeng: '4,50',
 			pensjonsbeholdning: `410${nbsp}000`,
+		})
+		expect(rows[1]).toEqual({
+			aar: 2011,
+			pensjonsgivendeInntekt: `400${nbsp}000 kr`,
+			pensjonspoeng: '3,60',
+			pensjonsbeholdning: `250${nbsp}000`,
 		})
 	})
 
 	test('sorterer opptjeningListe fra simulering i synkende rekkefølge', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, false)
 
-		expect(rows[0].aar).toBe(2013)
-		expect(rows[1].aar).toBe(2012)
-		expect(rows[2].aar).toBe(2011)
-		expect(rows[3].aar).toBe(2010)
+		expect(rows[0].aar).toBe(2012)
+		expect(rows[1].aar).toBe(2011)
+		expect(rows[2].aar).toBe(2010)
 	})
 
 	test('rendrer opptjeningListe fra simulering med pensjonsbeholdning for kap20', () => {
@@ -203,7 +202,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		expect(
 			screen.queryByRole('columnheader', { name: 'Pensjonspoeng' })
 		).not.toBeInTheDocument()
-		expect(screen.getAllByRole('cell', { name: /410.000/ })).toHaveLength(2)
+		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: /500.000 kr/ })).toBeInTheDocument()
 	})
 
@@ -242,18 +241,13 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
 		).toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: '4,50' })).toBeInTheDocument()
-		expect(screen.getAllByRole('cell', { name: /410.000/ })).toHaveLength(2)
+		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
 	})
 
-	test('viser 0 for aar uten inntekt i opptjeningListe fra simulering', () => {
+	test('filtrerer bort år etter siste inntektsår i opptjeningListe fra simulering', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, true)
 
-		const yearWithoutIncome = rows.find((r) => r.aar === 2013)
-		expect(yearWithoutIncome).toEqual({
-			aar: 2013,
-			pensjonsgivendeInntekt: '0',
-			pensjonspoeng: '0',
-			pensjonsbeholdning: `410${nbsp}000`,
-		})
+		expect(rows.find((r) => r.aar === 2013)).toBeUndefined()
+		expect(rows[0].aar).toBe(2012)
 	})
 })
