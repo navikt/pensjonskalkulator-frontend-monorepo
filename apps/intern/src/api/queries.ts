@@ -290,10 +290,11 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	request: SimuleringRequestBody | null
+	request: SimuleringRequestBody | null,
+	submitCount: number
 ) {
 	return useQuery({
-		queryKey: ['beregning', fnr, request],
+		queryKey: ['beregning', fnr, request, submitCount],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
 	})

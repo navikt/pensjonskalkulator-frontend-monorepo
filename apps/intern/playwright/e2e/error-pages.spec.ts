@@ -1,11 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { mockApiError } from '../utils/mock'
-import {
-	API_URLS,
-	navigateToApp,
-	setupDefaultMocks,
-} from '../utils/test-helpers'
+import { API_URLS, setupDefaultMocks } from '../utils/test-helpers'
 
 test.describe('Error pages', () => {
 	test.describe('400 - invalid URL / missing pid', () => {
@@ -39,7 +35,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 401)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-4xx')).toBeVisible()
 			await expect(page.getByTestId('error-page-4xx-status')).toContainText(
@@ -53,7 +49,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 403)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-4xx')).toBeVisible()
 			await expect(page.getByTestId('error-page-4xx-status')).toContainText(
@@ -65,7 +61,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 401)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-4xx-feil-id')).toBeVisible()
 		})
@@ -78,7 +74,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 500)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-5xx')).toBeVisible()
 		})
@@ -87,7 +83,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 500)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-5xx-reload')).toBeVisible()
 			await expect(
@@ -99,7 +95,7 @@ test.describe('Error pages', () => {
 			await setupDefaultMocks(page)
 			await mockApiError(page, API_URLS.PERSON, 500)
 
-			await navigateToApp(page)
+			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-5xx-feil-id')).toBeVisible()
 		})

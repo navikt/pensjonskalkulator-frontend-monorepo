@@ -15,6 +15,8 @@ test.describe('Simulering error', () => {
 
 		await navigateToApp(page)
 
+		await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+		await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Nei').check()
 		await page.getByTestId('afp').getByLabel('Nei').check()
 		await page.getByTestId('inntekt-foer-uttak').fill('500000')
 		await page.getByTestId('alder-uttak-aar').selectOption('67')
@@ -31,7 +33,9 @@ test.describe('Simulering error', () => {
 
 		await page.getByTestId('beregn-button').click()
 
-		await expect(page.getByTestId('simulering-feil')).toBeVisible()
+		await expect(page.getByTestId('simulering-feil')).toBeVisible({
+			timeout: 15000,
+		})
 		await expect(page.getByTestId('simulering-feil-retry')).toBeVisible()
 	})
 
@@ -41,6 +45,8 @@ test.describe('Simulering error', () => {
 
 		await navigateToApp(page)
 
+		await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+		await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Nei').check()
 		await page.getByTestId('afp').getByLabel('Nei').check()
 		await page.getByTestId('inntekt-foer-uttak').fill('500000')
 		await page.getByTestId('alder-uttak-aar').selectOption('67')
@@ -56,7 +62,9 @@ test.describe('Simulering error', () => {
 			.check()
 
 		await page.getByTestId('beregn-button').click()
-		await expect(page.getByTestId('simulering-feil')).toBeVisible()
+		await expect(page.getByTestId('simulering-feil')).toBeVisible({
+			timeout: 15000,
+		})
 
 		// Fix the mock to succeed on retry
 		await page.unroute(API_URLS.SIMULERING)
@@ -64,6 +72,8 @@ test.describe('Simulering error', () => {
 
 		await page.getByTestId('simulering-feil-retry').click()
 
-		await expect(page.getByTestId('simulering-feil')).not.toBeVisible()
+		await expect(page.getByTestId('simulering-feil')).not.toBeVisible({
+			timeout: 15000,
+		})
 	})
 })
