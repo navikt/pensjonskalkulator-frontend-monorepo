@@ -123,6 +123,10 @@ const AppContent = () => {
 		setPid(encryptedPid)
 	}
 
+	if (!pid) {
+		return <ErrorPage404 />
+	}
+
 	const error =
 		decryptError ||
 		personError ||
