@@ -31,7 +31,7 @@ import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
 import {
 	ErrorPage4xx,
 	ErrorPage5xx,
-	ErrorPage400,
+	ErrorPage404,
 } from './components/ErrorPages/index.ts'
 import { getEnhetsidFromUrl, getPidFromUrl } from './utils.ts'
 
@@ -123,10 +123,6 @@ const AppContent = () => {
 		setPid(encryptedPid)
 	}
 
-	if (!pid) {
-		return <ErrorPage400 />
-	}
-
 	const error =
 		decryptError ||
 		personError ||
@@ -136,15 +132,21 @@ const AppContent = () => {
 		(visLagreBrevButton ? enheterError : undefined)
 
 	if (error) {
+		if (decryptError) {
+			return <ErrorPage404 />
+		}
+
 		const statusMatch = error.message.match(/(\d{3})/)
 		const status = statusMatch ? parseInt(statusMatch[1], 10) : undefined
 
-		if (status === 400) {
-			return <ErrorPage400 />
+		if (status === 404) {
+			return <ErrorPage404 />
 		}
+
 		if (status && status >= 401 && status <= 499) {
 			return <ErrorPage4xx status={status} message={error.message} />
 		}
+
 		return <ErrorPage5xx message={error.message} />
 	}
 

@@ -6,6 +6,7 @@ interface SimuleringFeilProps {
 }
 
 export const SimuleringFeil = ({ message, onRetry }: SimuleringFeilProps) => {
+	console.log('Message', message)
 	return (
 		<VStack align="center" justify="center" style={{ height: '100%' }}>
 			<LocalAlert
@@ -18,10 +19,10 @@ export const SimuleringFeil = ({ message, onRetry }: SimuleringFeilProps) => {
 					<LocalAlert.Title>Noe gikk galt med beregningen</LocalAlert.Title>
 				</LocalAlert.Header>
 				<LocalAlert.Content>
-					<BodyLong spacing>
+					<BodyLong>
 						Vi klarte dessverre ikke å beregne pensjon akkurat nå.
 					</BodyLong>
-					{message && <BodyLong>{message}</BodyLong>}
+					{/* TODO: Replace with message from backend {message && <BodyLong>{message}</BodyLong>} */}
 					<Button
 						variant="secondary"
 						size="small"

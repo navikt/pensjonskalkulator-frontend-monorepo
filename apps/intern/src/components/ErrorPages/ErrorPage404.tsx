@@ -4,7 +4,7 @@ import { getPesysBrukeroversiktUrl } from '../../utils.ts'
 
 import styles from './ErrorPages.module.css'
 
-export const ErrorPage400 = () => {
+export const ErrorPage404 = () => {
 	return (
 		<VStack
 			align="center"
