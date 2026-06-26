@@ -351,6 +351,36 @@ export const BeregningForm = () => {
 							{!beregnMedGjenlevenderett && <Divider noMargin />}
 						</>
 					)}
+
+				{!hideAfpSporsmaal && (
+					<>
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP inkluderes?"
+							options={afpOptions}
+							className={styles.horizontalRadioGroup}
+							testid="afp"
+							onChange={(value) => {
+								setAlertDismissed(true)
+								resetAlderVelger(value)
+							}}
+						/>
+						{showUTOgAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+								className={styles.sanityAlert}
+							/>
+						)}
+						{showUTOgFolketrygdBeregnetAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+								className={styles.sanityAlert}
+							/>
+						)}
+						<Divider noMargin />
+					</>
+				)}
+
 				{showSivilstatus({
 					sivilstatus,
 					beregnMedGjenlevenderett,
@@ -411,34 +441,6 @@ export const BeregningForm = () => {
 					</>
 				)}
 
-				{!hideAfpSporsmaal && (
-					<>
-						<RHFRadio
-							name="afp"
-							legend="Skal AFP inkluderes?"
-							options={afpOptions}
-							className={styles.horizontalRadioGroup}
-							testid="afp"
-							onChange={(value) => {
-								setAlertDismissed(true)
-								resetAlderVelger(value)
-							}}
-						/>
-						{showUTOgAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-								className={styles.sanityAlert}
-							/>
-						)}
-						{showUTOgFolketrygdBeregnetAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-								className={styles.sanityAlert}
-							/>
-						)}
-						<Divider noMargin />
-					</>
-				)}
 				{forTidligEndringAvUttaksgradDato && (
 					<SanityAlert
 						id="beregning.ugyldig-uttaksgrad"
