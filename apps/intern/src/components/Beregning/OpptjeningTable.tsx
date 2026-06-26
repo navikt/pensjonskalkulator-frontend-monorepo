@@ -120,11 +120,6 @@ export function OpptjeningTable({
 								</BodyShort>
 							</Table.HeaderCell>
 						)}
-						<Table.HeaderCell>
-							<BodyShort size="small" weight="semibold">
-								Merknad
-							</BodyShort>
-						</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
@@ -146,9 +141,6 @@ export function OpptjeningTable({
 									<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
 								</Table.DataCell>
 							)}
-							<Table.DataCell>
-								<BodyShort size="small">{row.merknad}</BodyShort>
-							</Table.DataCell>
 						</Table.Row>
 					))}
 				</Table.Body>
