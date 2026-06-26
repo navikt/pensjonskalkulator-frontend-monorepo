@@ -54,10 +54,10 @@ function getNormertPensjonsalderPlassering(
 
 export function mapBeregningResultToLagreSpec(
 	result: BeregningResult,
+	foedselsdato: string,
 	aktivBeregning?: BeregningParams | null,
 	navEnhetId?: string | null,
 	grunnbeloep?: number | null,
-	foedselsdato?: string | null,
 	utenlandsperiodeListe?: SimuleringUtenlandsperiode[]
 ): LagreSimuleringSpecDtoV1 {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
@@ -101,13 +101,11 @@ export function mapBeregningResultToLagreSpec(
 					})
 				)
 			: null
-	const kull = foedselsdato
-		? isFoedtEtter1963(foedselsdato)
-			? 'KAP20'
-			: isOvergangskull(foedselsdato)
-				? 'OVERGANG'
-				: 'KAP19'
-		: undefined
+	const kull = isFoedtEtter1963(foedselsdato)
+		? 'KAP20'
+		: isOvergangskull(foedselsdato)
+			? 'OVERGANG'
+			: 'KAP19'
 
 	const maanedligAlderspensjonForKnekkpunkter =
 		mapMaanedligAlderspensjonForKnekkpunkter(
@@ -195,37 +193,31 @@ export function mapBeregningResultToLagreSpec(
 		simuleringsinformasjon: {
 			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? foedselsdato
+					? {
+							alder: { ...heltUttakAlder },
+							uttaksdato: format(
+								calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+								'yyyy-MM-dd'
+							),
+						}
+					: gradertUttakAlder
 						? {
-								alder: { ...heltUttakAlder },
+								alder: { ...gradertUttakAlder },
 								uttaksdato: format(
-									calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+									calculateUttaksalderAsDate(gradertUttakAlder, foedselsdato),
 									'yyyy-MM-dd'
 								),
 							}
-						: null
-					: gradertUttakAlder
-						? foedselsdato
-							? {
-									alder: { ...gradertUttakAlder },
-									uttaksdato: format(
-										calculateUttaksalderAsDate(gradertUttakAlder, foedselsdato),
-										'yyyy-MM-dd'
-									),
-								}
-							: null
 						: null,
 			heltUttakInformasjon: (() => {
 				const alder =
 					aktivBeregning?.afp !== 'ja_offentlig'
 						? { ...heltUttakAlder }
 						: { aar: 67, maaneder: 0 }
-				const uttaksdato = foedselsdato
-					? format(
-							calculateUttaksalderAsDate(alder, foedselsdato),
-							'yyyy-MM-dd'
-						)
-					: '1970-01-01'
+				const uttaksdato = format(
+					calculateUttaksalderAsDate(alder, foedselsdato),
+					'yyyy-MM-dd'
+				)
 				return { alder, uttaksdato }
 			})(),
 			sivilstatus: aktivBeregning?.sivilstatus,

@@ -256,7 +256,7 @@ export const Beregning = () => {
 	}
 
 	const handleLagreSimulering = () => {
-		if (!fnr || !enhetsid) {
+		if (!fnr || !enhetsid || !person) {
 			return
 		}
 
@@ -265,10 +265,10 @@ export const Beregning = () => {
 				fnr,
 				spec: mapBeregningResultToLagreSpec(
 					beregning,
+					person.foedselsdato,
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					person?.foedselsdato,
 					aktivRequest?.utenlandsperiodeListe ?? undefined
 				),
 			},
