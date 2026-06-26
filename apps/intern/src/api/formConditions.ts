@@ -42,7 +42,7 @@ export function showEpsHarPensjon({
 	serviceBeregning: boolean
 }): boolean {
 	return (
-		(erEndring && serviceBeregning) ||
+		(erEndring && serviceBeregning && harPartner(sivilstatus)) ||
 		(harPartner(sivilstatus) && !beregnMedGjenlevenderett && !erEndring)
 	)
 }
@@ -61,7 +61,7 @@ export function showEpsHarInntektOver2G({
 	serviceBeregning: boolean
 }): boolean {
 	return (
-		(erEndring && serviceBeregning) ||
+		(erEndring && serviceBeregning && harPartner(sivilstatus)) ||
 		(harPartner(sivilstatus) &&
 			epsHarPensjon === false &&
 			!beregnMedGjenlevenderett &&

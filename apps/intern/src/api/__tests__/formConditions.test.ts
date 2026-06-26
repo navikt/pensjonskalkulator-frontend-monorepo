@@ -34,6 +34,17 @@ describe('showEpsHarPensjon', () => {
 			showEpsHarPensjon({ ...base, erEndring: true, serviceBeregning: true })
 		).toBe(true)
 	})
+
+	test('hides when erEndring with serviceBeregning but no partner', () => {
+		expect(
+			showEpsHarPensjon({
+				...base,
+				sivilstatus: 'UGIFT',
+				erEndring: true,
+				serviceBeregning: true,
+			})
+		).toBe(false)
+	})
 })
 
 describe('showEpsHarInntektOver2G', () => {
@@ -76,6 +87,17 @@ describe('showEpsHarInntektOver2G', () => {
 			})
 		).toBe(true)
 	})
+
+	test('hides when erEndring with serviceBeregning but no partner', () => {
+		expect(
+			showEpsHarInntektOver2G({
+				...over2gBase,
+				sivilstatus: 'UGIFT',
+				erEndring: true,
+				serviceBeregning: true,
+			})
+		).toBe(false)
+	})
 })
 
 describe('showSivilstatus', () => {
@@ -90,6 +112,18 @@ describe('showSivilstatus', () => {
 	test('shows when erEndring with serviceBeregning', () => {
 		expect(
 			showSivilstatus({ ...base, erEndring: true, serviceBeregning: true })
+		).toBe(true)
+	})
+
+	test('hides when erEndring with serviceBeregning but sivilstatus without gjenlevenderett', () => {
+		expect(
+			showSivilstatus({
+				...base,
+				sivilstatus: 'UGIFT',
+				erEndring: true,
+				serviceBeregning: true,
+				beregnMedGjenlevenderett: true,
+			})
 		).toBe(true)
 	})
 
