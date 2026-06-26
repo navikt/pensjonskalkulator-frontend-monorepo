@@ -25,18 +25,24 @@ export const RevidertBudsjettAlert: React.FC = () => {
   }
 
   return (
-    <Alert
-      variant="info"
-      fullWidth
-      contentMaxWidth={false}
-      data-testid="revidert-budsjett-alert"
+    <div
+      style={{
+        width: '100vw',
+      }}
     >
-      <FormattedMessage
-        id="beregning.revidert_budsjett.alert"
-        values={{
-          link: RegjeringenLink,
-        }}
-      />
-    </Alert>
+      <Alert
+        variant="info"
+        contentMaxWidth={false}
+        data-testid="revidert-budsjett-alert"
+        style={{ marginLeft: -1, marginRight: -1, borderRadius: 0 }}
+      >
+        <FormattedMessage
+          id="beregning.revidert_budsjett.alert"
+          values={{
+            link: RegjeringenLink,
+          }}
+        />
+      </Alert>
+    </div>
   )
 }
