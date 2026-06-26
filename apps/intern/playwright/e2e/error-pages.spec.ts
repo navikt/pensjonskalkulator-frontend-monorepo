@@ -77,6 +77,9 @@ test.describe('Error pages', () => {
 			await page.goto('/?pid=encrypted-default-pid')
 
 			await expect(page.getByTestId('error-page-5xx')).toBeVisible()
+			await expect(page.getByTestId('error-page-5xx')).toContainText(
+				'Statuskode 500'
+			)
 		})
 
 		test('shows action links', async ({ page }) => {

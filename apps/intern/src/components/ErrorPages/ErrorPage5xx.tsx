@@ -12,10 +12,11 @@ import { getPesysBrukeroversiktUrl } from '../../utils.ts'
 import styles from './ErrorPages.module.css'
 
 interface ErrorPage5xxProps {
+	status?: number
 	message?: string
 }
 
-export const ErrorPage5xx = ({ message }: ErrorPage5xxProps) => {
+export const ErrorPage5xx = ({ status, message }: ErrorPage5xxProps) => {
 	return (
 		<VStack
 			align="center"
@@ -24,7 +25,7 @@ export const ErrorPage5xx = ({ message }: ErrorPage5xxProps) => {
 			className={styles.container}
 		>
 			<VStack gap="space-4" className={styles.content}>
-				<BodyShort size="small">Statuskode 5XX</BodyShort>
+				<BodyShort size="small">Statuskode {status ?? '5XX'}</BodyShort>
 				<Heading level="3" size="medium">
 					Beklager, noe gikk galt
 				</Heading>

@@ -151,7 +151,7 @@ const AppContent = () => {
 			return <ErrorPage4xx status={status} message={error.message} />
 		}
 
-		return <ErrorPage5xx message={error.message} />
+		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
 	if (
