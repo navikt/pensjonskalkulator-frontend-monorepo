@@ -1636,86 +1636,204 @@ export interface components {
 			poengaarFom1992?: number | null
 		}
 		SimuleringV1BeregnetAfp: {
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Totalbeløp (beløp i norske kroner)
+			 */
 			totalbelopAfp?: number | null
-			/** Format: date */
+			/**
+			 * Format: date
+			 * @description Virkningsdato (fra og med) på formatet yyyy-MM-dd
+			 */
 			virkFom?: string | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Tidligere arbeidsinntekt (beløp i norske kroner)
+			 */
 			tidligereArbeidsinntekt?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Grunnbeløp (beløp i norske kroner)
+			 */
 			grunnbelop?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Sluttpoengtall
+			 */
 			sluttpoengtall?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Trygdetid i antall år
+			 */
 			trygdetid?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Totalt antall poengår
+			 */
 			poengar?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår før 1992 (til og med 1991)
+			 */
 			poeangarF92?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår etter 1991 (fra og med 1992)
+			 */
 			poeangarE91?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Grunnpensjon (beløp i norske kroner)
+			 */
 			grunnpensjon?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Tilleggspensjon (beløp i norske kroner)
+			 */
 			tilleggspensjon?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description AFP-tillegg (beløp i norske kroner)
+			 */
 			afpTillegg?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Framtidige pensjonspoeng
+			 */
 			fpp?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Særtillegg (beløp i norske kroner)
+			 */
 			saertillegg?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description AFP-grad
+			 */
 			afpGrad?: number | null
+			/** @description Hvorvidt den avtalefestede pensjonen er avkortet */
 			erAvkortet?: boolean | null
 		}
 		SimuleringV1MaanedligAlderspensjon: {
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Pensjonsbeløp i norske kroner
+			 */
 			beloep: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Inntektspensjon (beløp i norske kroner)
+			 */
 			inntektspensjonBeloep?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Delingstall
+			 */
 			delingstall?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Pensjonsbeholdning før uttak (beløp i norske kroner)
+			 */
 			pensjonsbeholdningFoerUttakBeloep?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Pensjonsbeholdning ettr uttak (beløp i norske kroner)
+			 */
 			pensjonsbeholdningEtterUttakBeloep?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Sluttpoengtall
+			 */
 			sluttpoengtall?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår til og med 1991
+			 */
 			poengaarTom1991?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall poengår fra og med 1992
+			 */
 			poengaarFom1992?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Forholdstall
+			 */
 			forholdstall?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Grunnpensjon (beløp i norske kroner)
+			 */
 			grunnpensjonBeloep?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Tilleggspensjon (beløp i norske kroner)
+			 */
 			tilleggspensjonBeloep?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Pensjonstillegg (beløp i norske kroner)
+			 */
 			pensjonstillegg?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Skjermingstillegg (beløp i norske kroner)
+			 */
 			skjermingstillegg?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Andel av pensjonen som er beregnet i henhold til kapittel 19 i Folketrygdloven
+			 */
 			kapittel19Andel?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Trygdetid (antall år) beregnet i henhold til kapittel 19 i Folketrygdloven
+			 */
 			kapittel19Trygdetid?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Basispensjon (beløp i norske kroner)
+			 */
 			basispensjonBeloep?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Restpensjon (beløp i norske kroner)
+			 */
 			restpensjonBeloep?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Gjenlevendetillegg (beløp i norske kroner)
+			 */
 			gjenlevendetillegg?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Sats for minste pensjonsnivå
+			 */
 			minstePensjonsnivaaSats?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Andel av pensjonen som er beregnet i henhold til kapittel 20 i Folketrygdloven
+			 */
 			kapittel20Andel?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Trygdetid (antall år) beregnet i henhold til kapittel 20 i Folketrygdloven
+			 */
 			kapittel20Trygdetid?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Garantipensjon (beløp i norske kroner)
+			 */
 			garantipensjonBeloep?: number | null
-			/** Format: double */
+			/**
+			 * Format: double
+			 * @description Sats for garantipensjon
+			 */
 			garantipensjonSats?: number | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Garantitillegg (beløp i norske kroner)
+			 */
 			garantitilleggBeloep?: number | null
 		}
 		SimuleringV1MaanedligAlderspensjonForKnekkpunkter: {
@@ -1729,25 +1847,65 @@ export interface components {
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
 		}
+		SimuleringV1Opptjening: {
+			/**
+			 * Format: int32
+			 * @description Hvilket årstall (kalenderår) som informasjonen gjelder for
+			 */
+			aarstall: number
+			/**
+			 * Format: int32
+			 * @description Årlig pensjonsgivende inntekt (beløp i norske kroner)
+			 */
+			pensjonsgivendeInntektBeloep: number
+			/**
+			 * Format: double
+			 * @description Opptjente pensjonspoeng
+			 */
+			pensjonspoeng: number
+			/**
+			 * Format: int32
+			 * @description Pensjonsbeholdning (beløp i norske kroner)
+			 */
+			pensjonsbeholdningBeloep: number
+		}
 		SimuleringV1PrivatAfp: {
 			/**
 			 * Format: int32
 			 * @description Personens alder (år) som informasjonen gjelder for
 			 */
 			alderAar: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Årlig beløp (beløp i norske kroner)
+			 */
 			aarligBeloep: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Kompensasjonstillegg (beløp i norske kroner)
+			 */
 			kompensasjonstillegg: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Kronetillegg (beløp i norske kroner)
+			 */
 			kronetillegg: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Livsvarig del (beløp i norske kroner)
+			 */
 			livsvarig: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Månedlig beløp (beløp i norske kroner)
+			 */
 			maanedligBeloep?: number | null
 		}
 		SimuleringV1Problem: {
-			/** @enum {string} */
+			/**
+			 * @description Type problem
+			 * @enum {string}
+			 */
 			kode:
 				| 'UGYLDIG_UTTAKSDATO'
 				| 'UGYLDIG_UTTAKSGRAD'
@@ -1766,6 +1924,7 @@ export interface components {
 				| 'IMPLEMENTASJONSFEIL'
 				| 'TREDJEPARTSFEIL'
 				| 'SERVERFEIL'
+			/** @description Fritekstlig beskrivelse av problemet */
 			beskrivelse: string
 		}
 		SimuleringV1Result: {
@@ -1784,6 +1943,9 @@ export interface components {
 			tidsbegrensetOffentligAfp?:
 				| components['schemas']['SimuleringV1TidsbegrensetOffentligAfp']
 				| null
+			serviceberegnetAfp?:
+				| components['schemas']['SimuleringV1ServiceberegnetAfp']
+				| null
 			/** @description AFP i privat sektor for hvert år */
 			privatAfpListe?: components['schemas']['SimuleringV1PrivatAfp'][] | null
 			/** @description Resultatet av vilkårsprøvingen */
@@ -1793,10 +1955,9 @@ export interface components {
 			pensjonsgivendeInntektListe?:
 				| components['schemas']['SimuleringV1AarligBeloep'][]
 				| null
+			/** @description Opptjeningsdata brukt i beregningen for hvert år */
+			opptjeningListe: components['schemas']['SimuleringV1Opptjening'][]
 			problem?: components['schemas']['SimuleringV1Problem'] | null
-			serviceberegnetAfp?:
-				| components['schemas']['SimuleringV1ServiceberegnetAfp']
-				| null
 		}
 		SimuleringV1ServiceberegnetAfp: {
 			beregnetAfp?: components['schemas']['SimuleringV1BeregnetAfp'] | null
@@ -1871,8 +2032,12 @@ export interface components {
 			erAvkortet: boolean
 		}
 		SimuleringV1Trygdetid: {
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Trygdetid i antall år
+			 */
 			antallAar: number
+			/** @description Hvorvidt trygdetiden er utilstrekkelig (dvs. ikke nok for innvilgelse av pensjon) */
 			erUtilstrekkelig: boolean
 		}
 		SimuleringV1Uttaksbeloep: {
@@ -1889,11 +2054,16 @@ export interface components {
 		}
 		SimuleringV1Uttaksparametre: {
 			gradertUttakAlder?: components['schemas']['SimuleringV1Alder'] | null
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Uttaksgrad i prosent (manglende verdi betyr 100 %)
+			 */
 			uttaksgrad?: number | null
+			/** @description Alder ved start av helt uttak */
 			heltUttakAlder: components['schemas']['SimuleringV1Alder']
 		}
 		SimuleringV1Vilkaarsproevingsresultat: {
+			/** @description Hvorvidt 'kravet' om pensjon er innvilget */
 			erInnvilget: boolean
 			alternativ?: components['schemas']['SimuleringV1Uttaksparametre'] | null
 		}
@@ -1902,6 +2072,15 @@ export interface components {
 			aarstall: number
 			/** Format: int32 */
 			beloep: number
+		}
+		LagreAarligInntektOgPensjonDto: {
+			alderLabel: string
+			/** Format: int32 */
+			alderspensjon: number
+			/** Format: int32 */
+			avtalefestetPensjon: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt: number
 		}
 		LagreAfpOffentligLivsvarigSimuleringDto: {
 			vedGradertUttak?:
@@ -2031,6 +2210,9 @@ export interface components {
 			pensjonsgivendeInntektListe?:
 				| components['schemas']['LagreAarligBeloepDto'][]
 				| null
+			aarligInntektOgPensjonListe?:
+				| components['schemas']['LagreAarligInntektOgPensjonDto'][]
+				| null
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
 				| null
@@ -2040,8 +2222,13 @@ export interface components {
 			navEnhetId?: string | null
 		}
 		LagreSimuleringsinformasjonDto: {
-			gradertUttaksalder?: components['schemas']['LagreAlderDto'] | null
-			heltUttaksalder: components['schemas']['LagreAlderDto']
+			gradertUttakInformasjon?:
+				| components['schemas']['LagreUttaksinformasjonDto']
+				| null
+			heltUttakInformasjon: components['schemas']['LagreUttaksinformasjonDto']
+			normertUttakInformasjon?:
+				| components['schemas']['LagreUttaksinformasjonDto']
+				| null
 			sivilstatus?: string | null
 			utenlandsperioder?:
 				| components['schemas']['LagreUtenlandsperiodeDto'][]
@@ -2053,6 +2240,14 @@ export interface components {
 				| 'MELLOM_GRADERT_OG_HELT'
 				| 'ETTER_HELT'
 				| null
+			forbeholdVisningsvilkaar?: (
+				| 'BEREGNER_GAMMEL_AFP'
+				| 'BEREGNER_AFP_GENERELT'
+				| 'BEREGNER_AFP_PRIVAT'
+				| 'BEREGNER_MED_GJENLEVENDERETT'
+				| 'HAR_UFOERETRYGD'
+				| 'HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD'
+			)[]
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
@@ -2095,6 +2290,10 @@ export interface components {
 			tom?: string | null
 			landkode: string
 			arbeidetUtenlands?: boolean | null
+		}
+		LagreUttaksinformasjonDto: {
+			alder: components['schemas']['LagreAlderDto']
+			uttaksdato: string
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
@@ -2510,18 +2709,26 @@ export interface components {
 			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
 		OpptjeningV1: {
-			/** Format: int32 */
-			aar: number
-			/** Format: int32 */
-			pensjonsgivendeInntekt: number
-			/** Format: double */
+			/**
+			 * Format: int32
+			 * @description Hvilket årstall (kalenderår) som informasjonen gjelder for
+			 */
+			aarstall: number
+			/**
+			 * Format: int32
+			 * @description Årlig pensjonsgivende inntekt (beløp i norske kroner)
+			 */
+			pensjonsgivendeInntektBeloep: number
+			/**
+			 * Format: double
+			 * @description Opptjente pensjonspoeng
+			 */
 			pensjonspoeng: number
-			/** Format: int32 */
-			omsorgspoeng?: number | null
-			pensjonspoengType: string
-		}
-		OpptjeningV1Result: {
-			opptjeningListe: components['schemas']['OpptjeningV1'][]
+			/**
+			 * Format: int32
+			 * @description Pensjonsbeholdning (beløp i norske kroner)
+			 */
+			pensjonsbeholdningBeloep: number
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
@@ -3760,7 +3967,7 @@ export interface operations {
 					[name: string]: unknown
 				}
 				content: {
-					'*/*': components['schemas']['OpptjeningV1Result']
+					'*/*': components['schemas']['OpptjeningV1'][]
 				}
 			}
 			/** @description Henting av opptjening kunne ikke utføres av tekniske årsaker */

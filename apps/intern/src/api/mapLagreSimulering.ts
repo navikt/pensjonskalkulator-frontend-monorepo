@@ -7,6 +7,9 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { DATE_BACKEND_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import { format } from 'date-fns'
 
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
@@ -191,18 +194,53 @@ export function mapBeregningResultToLagreSpec(
 			})
 		),
 		simuleringsinformasjon: {
-			gradertUttaksalder:
+			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? { ...heltUttakAlder }
+					? {
+							alder: { ...heltUttakAlder },
+							uttaksdato: foedselsdato
+								? format(
+										calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+										DATE_BACKEND_FORMAT
+									)
+								: '',
+						}
 					: gradertUttakAlder
-						? { ...gradertUttakAlder }
+						? {
+								alder: { ...gradertUttakAlder },
+								uttaksdato: foedselsdato
+									? format(
+											calculateUttaksalderAsDate(
+												gradertUttakAlder,
+												foedselsdato
+											),
+											DATE_BACKEND_FORMAT
+										)
+									: '',
+							}
 						: null,
-			heltUttaksalder:
+			heltUttakInformasjon:
 				aktivBeregning?.afp !== 'ja_offentlig'
-					? { ...heltUttakAlder }
+					? {
+							alder: { ...heltUttakAlder },
+							uttaksdato: foedselsdato
+								? format(
+										calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+										DATE_BACKEND_FORMAT
+									)
+								: '',
+						}
 					: {
-							aar: 67,
-							maaneder: 0,
+							alder: { aar: 67, maaneder: 0 },
+							uttaksdato: foedselsdato
+								? format(
+										calculateUttaksalderAsDate(
+											{ aar: 67, maaneder: 0 },
+											foedselsdato
+										),
+										DATE_BACKEND_FORMAT
+									)
+								: '',
 						},
 			sivilstatus: aktivBeregning?.sivilstatus,
 			utenlandsperioder,

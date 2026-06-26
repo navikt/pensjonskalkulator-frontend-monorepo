@@ -10,7 +10,7 @@
 		"build:server": "tsc -p tsconfig.server.json",
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit",
-		"test": "echo 'No tests yet' && exit 0",
+		"test": "vitest run --pool=forks",
 		"test:e2e": "playwright test --project=chromium",
 		"pw:open": "playwright test --ui --project=chromium",
 		"pw:test": "playwright test --project=chromium",

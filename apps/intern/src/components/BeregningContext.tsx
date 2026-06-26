@@ -107,6 +107,7 @@ export function BeregningProvider({
 	)
 	const [pendingBeregning, setPendingBeregning] =
 		useState<BeregningParams | null>(null)
+	const [submitCount, setSubmitCount] = useState(0)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
@@ -301,6 +302,7 @@ export function BeregningProvider({
 	const submitBeregning = useCallback(() => {
 		const values = cloneBeregningParams(form.getValues())
 		setPendingBeregning(values)
+		setSubmitCount((c) => c + 1)
 		form.reset(values, { keepValues: true })
 	}, [form])
 
@@ -331,7 +333,7 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingRequest)
+	} = useBeregningQuery(fnr, pendingRequest, submitCount)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {

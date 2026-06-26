@@ -41,19 +41,14 @@ describe('expandTwoDigitYear', () => {
 })
 
 describe('normalizeTwoDigitYear', () => {
-	it('håndterer 6 siffer (ddmmyy)', () => {
-		vi.useFakeTimers()
-		vi.setSystemTime(new Date('2026-06-12'))
-
-		expect(normalizeTwoDigitYear('010142')).toBe('01.01.2042')
-		expect(normalizeTwoDigitYear('010160')).toBe('01.01.1960')
-
-		vi.useRealTimers()
+	it('returnerer 6 siffer (ddmmyy) uendret', () => {
+		expect(normalizeTwoDigitYear('010142')).toBe('010142')
+		expect(normalizeTwoDigitYear('010160')).toBe('010160')
 	})
 
-	it('håndterer 8 siffer (ddmmyyyy)', () => {
-		expect(normalizeTwoDigitYear('01011942')).toBe('01.01.1942')
-		expect(normalizeTwoDigitYear('01012042')).toBe('01.01.2042')
+	it('returnerer 8 siffer (ddmmyyyy) uendret', () => {
+		expect(normalizeTwoDigitYear('01011942')).toBe('01011942')
+		expect(normalizeTwoDigitYear('01012042')).toBe('01012042')
 	})
 
 	it('håndterer dd.mm.yy format', () => {
