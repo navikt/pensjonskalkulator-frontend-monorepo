@@ -355,6 +355,7 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
 				}) && (
 					<RHFSelect
 						name="sivilstatus"
@@ -378,6 +379,7 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
 				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
@@ -392,6 +394,7 @@ export const BeregningForm = () => {
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
