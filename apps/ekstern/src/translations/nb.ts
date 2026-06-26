@@ -346,6 +346,8 @@ const translations = {
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',
   'velguttaksalderafp.title': 'Når vil du ta ut AFP?',
+  'beregning.revidert_budsjett.alert':
+    'I revidert nasjonalbudsjett øker minstepensjon fra 1. mai. Kalkulatoren tar ikke høyde for nye satser før endringen trer i kraft 1. september. Les mer om endringen på <link>regjeringen.no</link>',
   'beregning.intro.title': 'Estimert pensjon',
   'beregning.intro.title.endring': 'Beregning',
   'beregning.intro.description_1': 'Alle beløp vises i dagens verdi før skatt.',

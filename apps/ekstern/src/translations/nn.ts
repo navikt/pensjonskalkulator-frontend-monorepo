@@ -262,6 +262,8 @@ export default {
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'MANGLER_TEKST',
   'velguttaksalderafp.title': 'MANGLER_TEKST',
+  'beregning.revidert_budsjett.alert':
+    'I revidert nasjonalbudsjett aukar minstepensjon frå 1. mai. Kalkulatoren tek ikkje høgde for nye satsar før endringa trer i kraft 1. september. Les meir om endringa på <link>regjeringen.no</link>',
   'beregning.intro.title': 'MANGLER_TEKST',
   'beregning.intro.title.endring': 'MANGLER_TEKST',
   'beregning.intro.description_1': 'MANGLER_TEKST',
