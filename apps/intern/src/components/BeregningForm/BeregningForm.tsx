@@ -426,13 +426,17 @@ export const BeregningForm = () => {
 					erEndring,
 					serviceBeregning: afp === 'serviceberegning',
 				}) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						testid="eps-har-inntekt-over-2g"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
+					<>
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							testid="eps-har-inntekt-over-2g"
+							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
 				)}
+
 				{!erEndring && (
 					<>
 						<Divider noMargin />
