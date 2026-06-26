@@ -25,7 +25,7 @@ export const ErrorPage5xx = ({ status, message }: ErrorPage5xxProps) => {
 			className={styles.container}
 		>
 			<VStack gap="space-4" className={styles.content}>
-				<BodyShort size="small">Statuskode {status ?? '5XX'}</BodyShort>
+				{status && <BodyShort size="small">Statuskode {status}</BodyShort>}
 				<Heading level="3" size="medium">
 					Beklager, noe gikk galt
 				</Heading>
