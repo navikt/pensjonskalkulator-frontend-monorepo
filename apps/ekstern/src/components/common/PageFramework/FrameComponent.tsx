@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 
-import { BASE_PATH } from '@/router/constants'
+import { BASE_PATH, externalUrls } from '@/router/constants'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
 
@@ -24,6 +24,12 @@ export const FrameComponent: React.FC<{
   noMinHeight = false,
 }) => {
   const intl = useIntl()
+  const breadcrumbs = [
+    {
+      url: externalUrls.dinPensjon,
+      title: intl.formatMessage({ id: 'dinpensjon-tittel' }),
+    },
+  ]
 
   return (
     <div
@@ -39,11 +45,12 @@ export const FrameComponent: React.FC<{
       >
         <div className={styles.headerGroup}>
           <representasjon-banner
-            representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_SKRIV,PENSJON_PENGEMOTTAKER,PENSJON_VERGE,PENSJON_VERGE_PENGEMOTTAKER"
+            representasjonstyper="PENSJON_LES,PENSJON_SKRIV,VERGE_PENSJON_LES,VERGE_PENSJON_SKRIV"
             redirectTo={`${window.location.origin}${BASE_PATH}/start`}
             style={{
               marginBottom: 'var(--a-spacing-6)',
             }}
+            breadcrumbs={JSON.stringify(breadcrumbs)}
           />
 
           <div

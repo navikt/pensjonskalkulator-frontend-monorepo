@@ -1,4 +1,7 @@
-import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import {
+	SanityKortforbehold,
+	SanityVilkaarligForbehold,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -6,22 +9,14 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import {
-	BodyLong,
-	Box,
-	Button,
-	HGrid,
-	Loader,
-	Tabs,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
-	useInternsimulatorLagreBrevButtonQuery,
+	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
@@ -35,6 +30,7 @@ import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
 import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
+import { SimuleringFeil } from './SimuleringFeil'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -43,21 +39,26 @@ export const Beregning = () => {
 	const {
 		isBeregningLoading,
 		beregning,
+		beregningError,
 		aktivBeregning,
 		person,
 		vedtak,
 		omstillingsstoenad,
 		fnr,
 		enhetsid,
+		submitBeregning,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
-	const { data: lagreBrevButtonToggle } =
-		useInternsimulatorLagreBrevButtonQuery()
+
+	// Midlertidig skjul brev knappen
+	// const { data: lagreBrevButtonToggle } =
+	// 	useInternsimulatorLagreBrevButtonQuery()
+	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const visLagreBrevButton = false
 	const visForbehold = forbeholdInternSynlig?.enabled === true
-	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
@@ -92,7 +93,14 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				<BodyLong>Ingen beregning enda.</BodyLong>
+				{beregningError ? (
+					<SimuleringFeil
+						message={beregningError.message}
+						onRetry={submitBeregning}
+					/>
+				) : (
+					<BodyLong>Ingen beregning enda.</BodyLong>
+				)}
 			</Box>
 		)
 	}
@@ -290,6 +298,12 @@ export const Beregning = () => {
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
+			{beregningError && (
+				<SimuleringFeil
+					message={beregningError.message}
+					onRetry={submitBeregning}
+				/>
+			)}
 			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
@@ -382,15 +396,11 @@ export const Beregning = () => {
 						aktivBeregning={aktivBeregning}
 					/>
 					<Divider customMargin="32px" />
-					<HGrid marginBlock="space-40" columns={3}>
-						<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-							Pensjonen er beregnet på grunnlag av de opplysningene vi har om
-							deg, i tillegg til de opplysningene du har oppgitt selv. Dette er
-							derfor en foreløpig beregning av hva du kan forvente deg i
-							pensjon. Pensjonsberegningen er vist i dagens kroneverdi.
-							Beregningen er ikke juridisk bindende.
-						</BodyLong>
-					</HGrid>
+					<SanityKortforbehold
+						id="kortforbehold"
+						size="small"
+						className={styles.kortforbehold}
+					/>
 					{visLagreBrevButton && (
 						<Button
 							className={styles.lagreButton}
@@ -437,7 +447,7 @@ export const Beregning = () => {
 				)}
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<div style={{ maxWidth: '66%' }}>
+						<div className={styles.forbeholdTekst}>
 							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
 						</div>
 					</Tabs.Panel>

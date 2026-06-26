@@ -30,6 +30,23 @@
 	padding-top: var(--ax-space-24);
 }
 
+.kortforbehold {
+	max-width: 856px;
+	margin-bottom: var(--ax-space-32);
+}
+
+.forbeholdTekst {
+	max-width: 640px;
+}
+
+.kortforbehold :global(p) {
+	margin-block: 0;
+}
+
+.kortforbehold :global(p + p) {
+	margin-top: var(--ax-space-16);
+}
+
 .loader {
 	display: flex;
 	justify-content: center;

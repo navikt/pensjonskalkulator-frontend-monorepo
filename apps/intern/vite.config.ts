@@ -7,6 +7,9 @@ import { defineConfig } from 'vite'
 // - "backend": Real backend via proxy to BFF
 export default defineConfig(({ mode }) => ({
 	plugins: [react()],
+	test: {
+		exclude: ['**/node_modules/**', '**/dist/**', '**/playwright/**'],
+	},
 	server: {
 		port: 5174,
 		proxy:

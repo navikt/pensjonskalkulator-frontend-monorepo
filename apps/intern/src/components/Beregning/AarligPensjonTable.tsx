@@ -10,7 +10,14 @@ import {
 	mergeAarligUtbetalinger,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 
-import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	BodyShort,
+	Heading,
+	Label,
+	Table,
+	VStack,
+} from '@navikt/ds-react'
 
 import type { BeregningParams } from '../../api/beregningTypes'
 import {
@@ -183,9 +190,14 @@ export const AarligPensjonTable = ({
 		<>
 			<Divider customMargin="32px" />
 			<VStack gap="space-12">
-				<Heading level="3" size="small" as="h3">
-					Årlig inntekt og pensjon
-				</Heading>
+				<VStack gap="space-8">
+					<Heading level="3" size="small" as="h3">
+						Årlig inntekt og pensjon
+					</Heading>
+					<BodyLong size="small" textColor="subtle">
+						Eventuell tilvekst av alderspensjon er inkludert i beløpene
+					</BodyLong>
+				</VStack>
 				<Table
 					zebraStripes={rows.length > 2}
 					size="small"

@@ -218,7 +218,8 @@ export const BeregningForm = () => {
 	const vilkaarAlternativHelt =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
-	const initialSivilstatus = person && person.sivilstatus
+	const initialSivilstatus =
+		vedtak?.loependeAlderspensjon?.sivilstatus ?? (person && person.sivilstatus)
 	const sanityTextGradert =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
