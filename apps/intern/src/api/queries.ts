@@ -4,6 +4,7 @@ import type {
 	LagreSimuleringResponseDtoV1,
 	LagreSimuleringSpecDtoV1,
 	OmstillingsstoenadOgGjenlevende,
+	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
@@ -297,6 +298,28 @@ export function useBeregningQuery(
 		queryKey: ['beregning', fnr, request, submitCount],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
+	})
+}
+
+async function fetchOpptjening(fnr: string): Promise<Opptjening> {
+	const response = await fetch(`${API_BASE}/intern/v1/opptjening`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch opptjening: ${response.status}`)
+	}
+
+	return response.json() as Promise<Opptjening>
+}
+
+export function useOpptjeningQueryForAvdoed(fnr?: string) {
+	return useQuery({
+		queryKey: ['opptjening', fnr],
+		queryFn: fnr ? () => fetchOpptjening(fnr) : skipToken,
+		retry: false,
 	})
 }
 

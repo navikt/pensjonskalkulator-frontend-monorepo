@@ -125,7 +125,7 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
-	epsRegistretSomFlykting: null,
+	epsRegistretSomFlykting: false,
 	harHentetEPSOpplysninger: false,
 	harOppholdUtenforNorge: null,
 	utenlandsOpphold: [],

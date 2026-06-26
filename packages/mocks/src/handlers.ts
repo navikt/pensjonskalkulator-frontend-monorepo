@@ -11,6 +11,7 @@ import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'j
 import offentligTpFoer1963Response from './data/offentlig-tp-foer-1963.json' with { type: 'json' }
 import offentligTpResponse from './data/offentlig-tp.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import opptjeningResponse from './data/opptjening.json' with { type: 'json' }
 import personInternV1Response from './data/person-intern.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import sanityAlertDataResponse from './data/sanity-alert-data.json' with { type: 'json' }
@@ -33,6 +34,7 @@ import vedtakResponse from './data/vedtak.json' with { type: 'json' }
 import { DEFAULT_API_PATH, DEFAULT_BASE_URL } from './paths'
 import type {
 	AfpPensjonsberegning,
+	AfpPrivatPensjonsberegning,
 	AlderspensjonPensjonsberegning,
 	AlderspensjonRequestBody,
 	PensjonsavtalerRequestBody,
@@ -351,6 +353,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(loependeVedtakResponse)
 		}),
 
+		http.get(`${baseUrl}/intern/v1/opptjening`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json(opptjeningResponse)
+		}),
+
 		http.get(`${baseUrl}/v1/vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(vedtakResponse)
@@ -376,7 +383,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
 			const data = await import(`./data/alderspensjon/${aar}.json`)
 			const mergedData = structuredClone(data.default) as object
-			let afpPrivat: AfpPensjonsberegning[] = []
+			let afpPrivat: AfpPrivatPensjonsberegning[] = []
 			let afpOffentlig: AfpPensjonsberegning[] = []
 
 			if (

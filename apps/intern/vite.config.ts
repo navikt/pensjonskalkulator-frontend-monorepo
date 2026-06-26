@@ -7,9 +7,6 @@ import { defineConfig } from 'vite'
 // - "backend": Real backend via proxy to BFF
 export default defineConfig(({ mode }) => ({
 	plugins: [react()],
-	test: {
-		exclude: ['**/node_modules/**', '**/dist/**', '**/playwright/**'],
-	},
 	server: {
 		port: 5174,
 		proxy:
@@ -21,5 +18,12 @@ export default defineConfig(({ mode }) => ({
 						},
 					}
 				: undefined,
+	},
+	test: {
+		exclude: ['**/node_modules/**', '**/dist/**', '**/playwright/**'],
+		environment: 'jsdom',
+		globals: true,
+		setupFiles: 'src/test-setup.ts',
+		include: ['src/**/*.{test,spec}.{ts,tsx}'],
 	},
 }))

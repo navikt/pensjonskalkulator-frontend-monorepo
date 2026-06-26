@@ -529,6 +529,12 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.58.0
+      '@testing-library/jest-dom':
+        specifier: 6.7.0
+        version: 6.7.0
+      '@testing-library/react':
+        specifier: 16.3.0
+        version: 16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.10))(@types/react@19.2.10)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/express':
         specifier: 5.0.6
         version: 5.0.6
@@ -538,6 +544,9 @@ importers:
       concurrently:
         specifier: 'catalog:'
         version: 10.0.3
+      jsdom:
+        specifier: 26.1.0
+        version: 26.1.0
       msw:
         specifier: 'catalog:'
         version: 2.12.7(@types/node@24.3.0)(typescript@5.9.3)
@@ -549,7 +558,7 @@ importers:
         version: 7.3.2(@types/node@24.3.0)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 'catalog:'
-        version: 3.2.6(@types/node@24.3.0)(@vitest/ui@3.2.6)(jiti@2.6.1)(jsdom@28.1.0(@noble/hashes@2.2.0))(msw@2.12.7(@types/node@24.3.0)(typescript@5.9.3))(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3)
+        version: 3.2.6(@types/node@24.3.0)(@vitest/ui@3.2.6)(jiti@2.6.1)(jsdom@26.1.0)(msw@2.12.7(@types/node@24.3.0)(typescript@5.9.3))(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.3)
 
   packages/api:
     dependencies:

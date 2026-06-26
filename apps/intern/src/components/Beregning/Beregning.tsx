@@ -18,6 +18,7 @@ import {
 	useGrunnbeloepQuery,
 	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
+	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
@@ -27,6 +28,7 @@ import { Divider } from '../Divider/Divider'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
+import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { SimuleringFeil } from './SimuleringFeil'
 import { formatAlderTitle } from './beregningMappers'
@@ -67,6 +69,14 @@ export const Beregning = () => {
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+
+	const opptjening = beregning?.opptjeningListe
+
+	const avdoedPid =
+		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
+
+	const { data: opptjeningAvdoed, isLoading: isOpptjeningLoading } =
+		useOpptjeningQueryForAvdoed(avdoedPid)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -254,7 +264,7 @@ export const Beregning = () => {
 	}
 
 	const handleLagreSimulering = () => {
-		if (!fnr || !enhetsid) {
+		if (!fnr || !enhetsid || !person) {
 			return
 		}
 
@@ -263,10 +273,10 @@ export const Beregning = () => {
 				fnr,
 				spec: mapBeregningResultToLagreSpec(
 					beregning,
+					person.foedselsdato,
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					person?.foedselsdato,
 					aktivRequest?.utenlandsperiodeListe ?? undefined
 				),
 			},
@@ -297,6 +307,7 @@ export const Beregning = () => {
 			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
+					{opptjening && <Tabs.Tab value="opptjening" label="Opptjening" />}
 					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
@@ -403,6 +414,37 @@ export const Beregning = () => {
 						</Button>
 					)}
 				</Tabs.Panel>
+				{opptjening && (
+					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
+						{isOpptjeningLoading && (
+							<div className={styles.overlayLoader}>
+								<Loader size="3xlarge" title="Henter opptjening …" />
+							</div>
+						)}
+						<VStack
+							gap="space-32"
+							className={
+								isOpptjeningLoading ? styles.loadingOverlay : undefined
+							}
+						>
+							<OpptjeningTable
+								opptjening={opptjening}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								isOpptjeningAvdoedSection={false}
+							/>
+
+							{opptjeningAvdoed && (
+								<OpptjeningTable
+									opptjening={opptjeningAvdoed}
+									erOvergangskull={erOvergangskull}
+									erFoedtEtter1963={erFoedtEtter1963}
+									isOpptjeningAvdoedSection={true}
+								/>
+							)}
+						</VStack>
+					</Tabs.Panel>
+				)}
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
 						<div className={styles.forbeholdTekst}>
