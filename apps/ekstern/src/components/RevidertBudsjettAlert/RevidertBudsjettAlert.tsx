@@ -9,7 +9,7 @@ import { isFoedtFoer1963 } from '@/utils/alder'
 
 const RegjeringenLink = (chunks: React.ReactNode) => (
   <Link
-    href="https://www.regjeringen.no"
+    href="https://www.regjeringen.no/no/aktuelt/minstepensjonistene-far-okt-pensjon-i-september/id3167312/"
     target="_blank"
     rel="noopener noreferrer"
   >
