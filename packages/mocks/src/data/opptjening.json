@@ -1,122 +1,92 @@
 [
 	{
-		"aar": 2024,
-		"pensjonsgivendeInntekt": 0,
+		"aarstall": 2024,
+		"pensjonsgivendeInntektBeloep": 0,
 		"pensjonspoeng": 0,
-		"omsorgspoeng": null,
-		"beholdning": 0,
-		"pensjonspoengType": "100 % alderspensjon"
+		"pensjonsbeholdningBeloep": 0
 	},
 	{
-		"aar": 2023,
-		"pensjonsgivendeInntekt": 0,
+		"aarstall": 2023,
+		"pensjonsgivendeInntektBeloep": 0,
 		"pensjonspoeng": 0,
-		"omsorgspoeng": null,
-		"beholdning": 0,
-		"pensjonspoengType": "100 % alderspensjon"
+		"pensjonsbeholdningBeloep": 0
 	},
 	{
-		"aar": 2022,
-		"pensjonsgivendeInntekt": 193192,
+		"aarstall": 2022,
+		"pensjonsgivendeInntektBeloep": 193192,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 0,
-		"pensjonspoengType": "100 % alderspensjon"
+		"pensjonsbeholdningBeloep": 0
 	},
 	{
-		"aar": 2021,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2021,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": "AFP"
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2020,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2020,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	},
 	{
-		"aar": 2019,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2019,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2018,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2018,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	},
 	{
-		"aar": 2017,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2017,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2016,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2016,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	},
 	{
-		"aar": 2015,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2015,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2014,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2014,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	},
 	{
-		"aar": 2013,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2013,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2012,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2012,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	},
 	{
-		"aar": 2011,
-		"pensjonsgivendeInntekt": 278034,
+		"aarstall": 2011,
+		"pensjonsgivendeInntektBeloep": 278034,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 501831,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 501831
 	},
 	{
-		"aar": 2010,
-		"pensjonsgivendeInntekt": 639932,
+		"aarstall": 2010,
+		"pensjonsgivendeInntektBeloep": 639932,
 		"pensjonspoeng": 3.47,
-		"omsorgspoeng": null,
-		"beholdning": 498943,
-		"pensjonspoengType": ""
+		"pensjonsbeholdningBeloep": 498943
 	}
 ]
