@@ -113,7 +113,7 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsHarPensjon: null,
 	epsHarInntektOver2G: null,
 	aarligInntektFoerUttakBeloep: null,
-	harInntektVedSidenAvUttak: false,
+	harInntektVedSidenAvUttak: null,
 	pensjonsgivendeInntektVedSidenAvUttak: 0,
 	alderAarInntektSlutter: null,
 	alderMdInntektSlutter: null,

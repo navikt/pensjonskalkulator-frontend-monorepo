@@ -210,7 +210,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (uttaksgrad === null) {
-			form.setValue('harInntektVedSidenAvUttak', false, {
+			form.setValue('harInntektVedSidenAvUttak', null, {
 				shouldDirty: false,
 			})
 		}

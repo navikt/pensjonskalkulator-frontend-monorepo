@@ -240,6 +240,19 @@ export const BeregningForm = () => {
 		foedselsdato: person?.foedselsdato,
 	})
 
+	useEffect(() => {
+		if (
+			!erEndring &&
+			!erAfpOffentlig &&
+			showHarInntektVedSidenAvUttak(uttaksgrad) &&
+			harInntektVedSidenAvUttak === null
+		) {
+			form.setValue('harInntektVedSidenAvUttak', false, {
+				shouldDirty: false,
+			})
+		}
+	}, [erEndring, erAfpOffentlig, uttaksgrad, harInntektVedSidenAvUttak, form])
+
 	const hideAfpSporsmaal =
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
