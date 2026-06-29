@@ -3,6 +3,7 @@ import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -56,23 +57,19 @@ export function SamtykkeOffentligAFP({
         id: 'stegvisning.samtykke_offentlig_afp.validation_error',
       })
       setValidationError(tekst)
-      logger('skjemavalidering feilet', {
+      logger(Events.SKJEMA_VALIDERING_FEILET, {
         skjemanavn: STEGVISNING_FORM_NAMES.samtykkeOffentligAFP,
-        data: intl.formatMessage({
-          id: 'stegvisning.samtykke_offentlig_afp.radio_label',
-        }),
-        tekst,
       })
     } else {
-      logger('radiogroup valgt', {
+      logger.custom('radiogroup valgt', {
         tekst: 'Samtykke Offentlig AFP',
         valg: samtykkeData,
       })
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger('button klikk', {
+      logger.custom('button klikk', {
         tekst: `Neste fra ${paths.samtykkeOffentligAFP}`,
       })
-      logger('knapp klikket', {
+      logger(Events.KNAPP_KLIKKET, {
         tekst: `Neste fra ${paths.samtykkeOffentligAFP}`,
       })
       onNext(samtykkeData)

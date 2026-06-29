@@ -147,7 +147,7 @@ export const stepStartAccessGuard = async () => {
         }
       }
 
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Redirect til /uventet-feil',
         data: `fra Step Start Loader pga. feil med getPerson med status: ${getErrorStatus(getPersonRes.error)}`,
       })
@@ -170,7 +170,7 @@ export const stepStartAccessGuard = async () => {
         }
       }
 
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Redirect til /uventet-feil',
         data: `fra Step Start Loader pga. feil med getLoependeVedtak med status: ${getErrorStatus(getLoependeVedtakRes.error)}`,
       })
@@ -179,12 +179,12 @@ export const stepStartAccessGuard = async () => {
 
     const isKap19 = isFoedtFoer1963(getPersonRes.data.foedselsdato)
 
-    logger('info', {
+    logger.custom('info', {
       tekst: 'Født før 1963',
       data: isKap19 ? 'Ja' : 'Nei',
     })
 
-    logger('info', {
+    logger.custom('info', {
       tekst: 'hent uføregrad',
       data:
         getLoependeVedtakRes.data.ufoeretrygd.grad === 0
@@ -195,32 +195,32 @@ export const stepStartAccessGuard = async () => {
     })
 
     if (getLoependeVedtakRes.data.alderspensjon) {
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Vedtak alderspensjon',
         data: getLoependeVedtakRes.data.alderspensjon.grad,
       })
     }
 
     if (getLoependeVedtakRes.data.afpPrivat) {
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Vedtak AFP Privat',
       })
     }
 
     if (getLoependeVedtakRes.data.afpOffentlig) {
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Vedtak AFP Offentlig',
       })
     }
 
     if (getLoependeVedtakRes.data.fremtidigAlderspensjon) {
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Fremtidig vedtak',
       })
     }
 
     if (getLoependeVedtakRes.data.pre2025OffentligAfp) {
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Vedtak om offentlig AFP pre 2025',
       })
     }

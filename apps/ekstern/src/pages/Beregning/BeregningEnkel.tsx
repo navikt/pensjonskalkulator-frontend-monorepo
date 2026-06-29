@@ -190,8 +190,8 @@ export const BeregningEnkel = () => {
 
   useEffect(() => {
     if (alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-      logger('resultat vist', { tekst: 'Beregning enkel' })
-      logger('grunnlag for beregningen', {
+      logger.custom('resultat vist', { tekst: 'Beregning enkel' })
+      logger.custom('grunnlag for beregningen', {
         tekst: 'antall opphold',
         data: utenlandsperioder?.length ?? 0,
       })
@@ -221,7 +221,7 @@ export const BeregningEnkel = () => {
         (error as FetchBaseQueryError).status === 'PARSING_ERROR')
     ) {
       navigate(paths.uventetFeil)
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Redirect til /uventet-feil',
         data: 'fra Beregning Enkel',
       })

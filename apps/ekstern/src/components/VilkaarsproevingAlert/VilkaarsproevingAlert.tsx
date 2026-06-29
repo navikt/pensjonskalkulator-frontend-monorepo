@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Alert, Link } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -176,8 +177,10 @@ export const VilkaarsproevingAlert = ({
                     userInputActions.setCurrentSimulationUttaksalder(null)
                   )
                   // TODO: fjern når amplitude er ikke i bruk lenger
-                  logger('button klikk', { tekst: 'Grunnlag AFP: Gå til AFP' })
-                  logger('knapp klikket', {
+                  logger.custom('button klikk', {
+                    tekst: 'Grunnlag AFP: Gå til AFP',
+                  })
+                  logger(Events.KNAPP_KLIKKET, {
                     tekst: 'Grunnlag AFP: Gå til AFP',
                   })
                   navigate(paths.afp)

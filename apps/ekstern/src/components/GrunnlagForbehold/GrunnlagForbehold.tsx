@@ -47,9 +47,13 @@ export const GrunnlagForbehold = ({ headingLevel }: Props) => {
           onClick={() => {
             logger(LINK_AAPNET, {
               href,
-              target: '_blank',
+              tekst: intl.formatMessage({
+                id: 'grunnlag.forbehold.link',
+              }),
+              apnerINyttVindu: true,
+              erEkstern: true,
             })
-            logger(LINK_AAPNET_OLD, {
+            logger.custom(LINK_AAPNET_OLD, {
               href,
               target: '_blank',
             })

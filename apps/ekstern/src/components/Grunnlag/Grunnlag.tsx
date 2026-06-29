@@ -154,7 +154,9 @@ export const Grunnlag: React.FC<Props> = ({
     }
 
     const name = `Grunnlag: Vis detaljer for ${ytelse}`
-    logger(isOpen ? SHOW_MORE_AAPNET : SHOW_MORE_LUKKET, { tekst: name })
+    logger.custom(isOpen ? SHOW_MORE_AAPNET : SHOW_MORE_LUKKET, {
+      tekst: name,
+    })
   }
 
   return (
@@ -332,8 +334,12 @@ export const Grunnlag: React.FC<Props> = ({
                         rel="noopener noreferrer"
                         onClick={() => {
                           logger(LINK_AAPNET, {
-                            href: `/pensjon/kalkulator${paths.forbehold}`,
-                            target: '_blank',
+                            href: 'https://www.nav.no/afp-offentlig#beregning',
+                            tekst: intl.formatMessage({
+                              id: 'grunnlag.afp.link.text',
+                            }),
+                            apnerINyttVindu: true,
+                            erEkstern: true,
                           })
                         }}
                       >

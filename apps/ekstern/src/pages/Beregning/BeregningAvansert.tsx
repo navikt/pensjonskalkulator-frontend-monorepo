@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router'
 
 import { ArrowLeftIcon } from '@navikt/aksel-icons'
 import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
@@ -171,7 +172,7 @@ export const BeregningAvansert = () => {
         (error as FetchBaseQueryError).status === 'PARSING_ERROR')
     ) {
       navigate(paths.uventetFeil)
-      logger('info', {
+      logger.custom('info', {
         tekst: 'Redirect til /uventet-feil',
         data: 'fra Beregning Avansert',
       })
@@ -184,8 +185,8 @@ export const BeregningAvansert = () => {
       setAvansertSkjemaModus('redigering')
     }
     if (alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-      logger('resultat vist', { tekst: 'Beregning avansert' })
-      logger('grunnlag for beregningen', {
+      logger.custom('resultat vist', { tekst: 'Beregning avansert' })
+      logger.custom('grunnlag for beregningen', {
         tekst: 'antall opphold',
         data: utenlandsperioder?.length ?? 0,
       })
@@ -232,12 +233,12 @@ export const BeregningAvansert = () => {
           onClick={(e) => {
             e?.preventDefault()
             // TODO: fjern når amplitude er ikke i bruk lenger
-            logger('button klikk', {
+            logger.custom('button klikk', {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'
                 : 'Beregning avansert: Endre avanserte valg',
             })
-            logger('knapp klikket', {
+            logger(Events.KNAPP_KLIKKET, {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'
                 : 'Beregning avansert: Endre avanserte valg',

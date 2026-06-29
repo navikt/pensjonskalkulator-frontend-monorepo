@@ -7,6 +7,11 @@ import {
   validateOpphold,
 } from '../utils'
 
+const spyOnLogger = () => {
+  const loggerSpy = vi.spyOn(loggerUtils, 'logger')
+  return Object.assign(loggerSpy, { custom: loggerSpy })
+}
+
 describe('UtenlandsoppholdModal-utils', () => {
   const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
 
@@ -35,7 +40,7 @@ describe('UtenlandsoppholdModal-utils', () => {
 
     describe('Gitt at landFormData ikke er gyldig', () => {
       it('returnerer false når landFormData er null', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -48,15 +53,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - land',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error',
         })
       })
       it('returnerer false når landFormData er tom', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -70,11 +72,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - land',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error',
         })
       })
     })
@@ -82,7 +81,7 @@ describe('UtenlandsoppholdModal-utils', () => {
     describe('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
       describe('Når land ikke har krav om arbeid', () => {
         it('returnerer true når arbeidetUtenlandsFormData er null', () => {
-          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const loggerMock = spyOnLogger()
           const updateErrorMessageMock = vi.fn()
           expect(
             validateOpphold(
@@ -101,7 +100,7 @@ describe('UtenlandsoppholdModal-utils', () => {
       })
       describe('Når land har krav om arbeid', () => {
         it('returnerer false når arbeidetUtenlandsFormData er null', () => {
-          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const loggerMock = spyOnLogger()
           const updateErrorMessageMock = vi.fn()
           expect(
             validateOpphold(
@@ -119,15 +118,12 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
             skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-            data: 'Utenlandsopphold - arbeidet utenlands',
-            tekst:
-              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
           })
         })
         it('returnerer false når arbeidetUtenlandsFormData er tom', () => {
-          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const loggerMock = spyOnLogger()
           const updateErrorMessageMock = vi.fn()
           expect(
             validateOpphold(
@@ -144,15 +140,12 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
             skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-            data: 'Utenlandsopphold - arbeidet utenlands',
-            tekst:
-              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
           })
         })
         it('returnerer false når arbeidetUtenlandsFormData er ulik "ja" eller "nei"', () => {
-          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const loggerMock = spyOnLogger()
           const updateErrorMessageMock = vi.fn()
           expect(
             validateOpphold(
@@ -169,11 +162,8 @@ describe('UtenlandsoppholdModal-utils', () => {
             )
           ).toBeFalsy()
           expect(updateErrorMessageMock).toHaveBeenCalled()
-          expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+          expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
             skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-            data: 'Utenlandsopphold - arbeidet utenlands',
-            tekst:
-              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
           })
         })
       })
@@ -181,7 +171,7 @@ describe('UtenlandsoppholdModal-utils', () => {
 
     describe('Gitt at startdato ikke er gyldig', () => {
       it('returnerer false når startdatoFormData er null', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -194,15 +184,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - startdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required',
         })
       })
       it('returnerer false når startdatoFormData er tom', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -215,15 +202,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - startdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required',
         })
       })
       it('returnerer false når startdatoFormData har feil format', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -236,15 +220,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - startdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format',
         })
       })
       it('returnerer false når startdatoFormData er før fødselsdato', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -257,15 +238,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - startdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min',
         })
       })
       it('returnerer false når startdatoFormData er etter fødselsdato + 100 år', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -278,18 +256,15 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - startdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max',
         })
       })
     })
 
     describe('Gitt at sluttdato ikke er gyldig', () => {
       it('returnerer false når sluttdatoFormData har feil format', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -302,15 +277,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - sluttdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format',
         })
       })
       it('returnerer false når sluttdatoFormData er før startdatoFormData', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -323,15 +295,12 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - sluttdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min',
         })
       })
       it('returnerer false når sluttdatoFormData er etter fødselsdato + 100 år', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -344,11 +313,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - sluttdato',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max',
         })
       })
       it('returnerer true når sluttdatoFormData er null', () => {
@@ -405,7 +371,7 @@ describe('UtenlandsoppholdModal-utils', () => {
       })
 
       it('returnerer false når den nye perioden overlapper med et ikke-avtale-land', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -421,16 +387,13 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - overlappende perioder',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland',
         })
       })
 
       it('returnerer false når den nye perioden som overlapper er i et annet land', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -448,16 +411,13 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - overlappende perioder',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land',
         })
       })
 
       it('returnerer false når den nye perioden som overlapper er i samme land med lik bostatus', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -475,16 +435,13 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - overlappende perioder',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus',
         })
       })
 
       it('returnerer false når den nye perioden som overlapper er i samme land med lik jobbstatus', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -502,11 +459,8 @@ describe('UtenlandsoppholdModal-utils', () => {
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+        expect(loggerMock).toHaveBeenCalledWith('skjema validering feilet', {
           skjemanavn: 'utenlandsopphold-oppholdet-ditt',
-          data: 'Utenlandsopphold - overlappende perioder',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus',
         })
       })
     })
@@ -566,7 +520,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           }
         }
 
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const closeMock = vi.fn()
         const dispatchMock = vi.fn()
         const onSubmitCallbackMock = vi.fn()
@@ -628,7 +582,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           }
         }
 
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const loggerMock = spyOnLogger()
         const closeMock = vi.fn()
         const dispatchMock = vi.fn()
         const onSubmitCallbackMock = vi.fn()

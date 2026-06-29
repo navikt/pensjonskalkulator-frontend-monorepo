@@ -3,6 +3,7 @@ import React, { FormEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
@@ -41,21 +42,17 @@ export function AFPPrivat({
         id: 'stegvisning.afpPrivat.validation_error',
       })
       setValidationError(tekst)
-      logger('skjemavalidering feilet', {
+      logger(Events.SKJEMA_VALIDERING_FEILET, {
         skjemanavn: STEGVISNING_FORM_NAMES.afp,
-        data: intl.formatMessage({
-          id: 'stegvisning.afp.radio_label',
-        }),
-        tekst,
       })
     } else {
-      logger('radiogroup valgt', {
+      logger.custom('radiogroup valgt', {
         tekst: 'Rett til AFP',
         valg: afpInput,
       })
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger('button klikk', { tekst: `Neste fra ${paths.afp}` })
-      logger('knapp klikket', {
+      logger.custom('button klikk', { tekst: `Neste fra ${paths.afp}` })
+      logger(Events.KNAPP_KLIKKET, {
         tekst: `Neste fra ${paths.afp}`,
       })
       onNext(afpInput)

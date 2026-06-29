@@ -506,7 +506,7 @@ export const usePensjonsavtalerAlerts = ({
     const variant = ALERT_VARIANTS.INLINE_INFO
     logger(ALERT_VIST, {
       tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-      variant,
+      variant: 'info',
     })
     alertsList.push({
       variant,

@@ -79,7 +79,7 @@ export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
 }
 
 export function onPointClick(this: Point): void {
-  logger(GRAF_TOOLTIP_AAPNET, {
+  logger.custom(GRAF_TOOLTIP_AAPNET, {
     data: this.category as string,
   })
   this.series.chart.tooltip.update({

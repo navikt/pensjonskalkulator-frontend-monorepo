@@ -13,9 +13,9 @@ interface IProps {
 
 const logIsOpen = (name: string, isOpen: boolean) => {
   if (isOpen) {
-    logger('expansion card åpnet', { tekst: name })
+    logger.custom('expansion card åpnet', { tekst: name })
   } else {
-    logger('expansion card lukket', { tekst: name })
+    logger.custom('expansion card lukket', { tekst: name })
   }
 }
 

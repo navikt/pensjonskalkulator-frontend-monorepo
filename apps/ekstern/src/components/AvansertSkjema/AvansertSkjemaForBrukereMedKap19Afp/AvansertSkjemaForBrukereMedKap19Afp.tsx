@@ -12,6 +12,7 @@ import {
   Select,
   TextField,
 } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { AgePicker } from '@/components/common/AgePicker'
@@ -433,10 +434,10 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
                               )
                             )
                             // TODO: fjern når amplitude er ikke i bruk lenger
-                            logger('button klikk', {
+                            logger.custom('button klikk', {
                               tekst: 'Grunnlag AFP: Gå til AFP',
                             })
-                            logger('knapp klikket', {
+                            logger(Events.KNAPP_KLIKKET, {
                               tekst: 'Grunnlag AFP: Gå til AFP',
                             })
                             navigate(paths.afp)

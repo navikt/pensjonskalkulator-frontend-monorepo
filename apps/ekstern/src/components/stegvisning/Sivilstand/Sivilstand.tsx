@@ -9,6 +9,7 @@ import {
   Select,
   VStack,
 } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
@@ -150,29 +151,21 @@ export function Sivilstand({
       }
       setValidationError(validationErrorText)
       if (validationErrorText.epsHarPensjon) {
-        logger('skjemavalidering feilet', {
+        logger(Events.SKJEMA_VALIDERING_FEILET, {
           skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
-          data: intl.formatMessage({
-            id: 'stegvisning.sivilstand.radio_epsHarPensjon_label',
-          }),
-          tekst: validationErrorText.epsHarPensjon,
         })
       }
       if (validationErrorText.epsHarInntektOver2G) {
-        logger('skjemavalidering feilet', {
+        logger(Events.SKJEMA_VALIDERING_FEILET, {
           skjemanavn: STEGVISNING_FORM_NAMES.sivilstand,
-          data: intl.formatMessage({
-            id: 'stegvisning.sivilstand.radio_epsHarInntektOver2G_label',
-          }),
-          tekst: validationErrorText.epsHarInntektOver2G,
         })
       }
       return
     }
 
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger('button klikk', { tekst: `Neste fra ${paths.sivilstand}` })
-    logger('knapp klikket', {
+    logger.custom('button klikk', { tekst: `Neste fra ${paths.sivilstand}` })
+    logger(Events.KNAPP_KLIKKET, {
       tekst: `Neste fra ${paths.sivilstand}`,
     })
 

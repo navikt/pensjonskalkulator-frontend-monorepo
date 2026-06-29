@@ -106,7 +106,7 @@ const GoToAFP = (chunks: React.ReactNode) => {
     logger(KNAPP_KLIKKET, {
       tekst: 'Grunnlag AFP: Gå til AFP',
     })
-    logger(BUTTON_KLIKK, {
+    logger.custom(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til AFP',
     })
     dispatch(userInputActions.flushCurrentSimulation())
@@ -130,7 +130,7 @@ const GoToAvansert = (chunks: React.ReactNode) => {
     logger(KNAPP_KLIKKET, {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
-    logger(BUTTON_KLIKK, {
+    logger.custom(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
     if (avansertSkjemaModus === 'resultat') {
@@ -155,7 +155,7 @@ const GoToStart = (chunks: React.ReactNode) => {
     logger(KNAPP_KLIKKET, {
       tekst: 'Grunnlag AFP: Gå til start',
     })
-    logger(BUTTON_KLIKK, {
+    logger.custom(BUTTON_KLIKK, {
       tekst: 'Grunnlag AFP: Gå til start',
     })
     dispatch(userInputActions.flush())

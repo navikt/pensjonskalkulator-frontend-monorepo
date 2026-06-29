@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { AccordionItem } from '@/components/common/AccordionItem'
@@ -42,12 +43,12 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const oppholdUtenforNorge = useOppholdUtenforNorge({ harForLiteTrygdetid })
   React.useEffect(() => {
     if (oppholdUtenforNorge === 'for_lite_trygdetid') {
-      logger('grunnlag for beregningen', {
+      logger.custom('grunnlag for beregningen', {
         tekst: 'trygdetid',
         data: 'under 5 år',
       })
     } else {
-      logger('grunnlag for beregningen', {
+      logger.custom('grunnlag for beregningen', {
         tekst: 'trygdetid',
         data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
       })
@@ -77,8 +78,12 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
             type="button"
             onClick={() => {
               // TODO: fjern når amplitude er ikke i bruk lenger
-              logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
-              logger('knapp klikket', { tekst: 'Tilbake til utenlandsopphold' })
+              logger.custom('button klikk', {
+                tekst: 'Tilbake til utenlandsopphold',
+              })
+              logger(Events.KNAPP_KLIKKET, {
+                tekst: 'Tilbake til utenlandsopphold',
+              })
               dispatch(userInputActions.flushCurrentSimulation())
               avbrytModalRef.current?.close()
               navigate(paths.utenlandsopphold)

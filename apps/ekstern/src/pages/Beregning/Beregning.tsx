@@ -90,11 +90,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     let isEventAdded
     const onPopState = () => {
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger(MODAL_AAPNET, {
+      logger.custom('modal åpnet', {
         tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       logger(MODAL_AAPNET, {
-        modalId: 'bekreftelses-modal',
         tittel: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       avbrytModalRef.current?.showModal()
@@ -139,7 +138,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     logger(KNAPP_KLIKKET, {
       tekst: `Toggle viser fane ${v}`,
     })
-    logger(BUTTON_KLIKK, {
+    logger.custom(BUTTON_KLIKK, {
       tekst: `Toggle viser fane ${v}`,
     })
     if (
@@ -150,11 +149,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         (avansertSkjemaModus === 'redigering' && uttaksalder))
     ) {
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger(MODAL_AAPNET, {
+      logger.custom('modal åpnet', {
         tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       logger(MODAL_AAPNET, {
-        modalId: 'bekreftelses-modal',
         tittel: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
       })
       avbrytModalRef.current?.showModal()

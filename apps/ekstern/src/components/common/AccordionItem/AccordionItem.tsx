@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Accordion } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { logger } from '@/utils/logging'
 
@@ -32,12 +33,12 @@ export const AccordionContext = React.createContext<AccordionContextType>({
 const logIsOpen = (name: string, isOpen: boolean) => {
   if (isOpen) {
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger('accordion åpnet', { tekst: name })
-    logger('accordion åpnet', { tittel: name })
+    logger.custom('accordion åpnet', { tekst: name })
+    logger(Events.ACCORDION_APNET, { tittel: name })
   } else {
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger('accordion lukket', { tekst: name })
-    logger('accordion lukket', { tittel: name })
+    logger.custom('accordion lukket', { tekst: name })
+    logger(Events.ACCORDION_LUKKET, { tittel: name })
   }
 }
 
