@@ -351,62 +351,6 @@ export const BeregningForm = () => {
 							{!beregnMedGjenlevenderett && <Divider noMargin />}
 						</>
 					)}
-				{showSivilstatus({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-				}) && (
-					<RHFSelect
-						name="sivilstatus"
-						testId="sivilstatus-select"
-						label="Sivilstatus ved uttak"
-						className={styles.selectWrapper}
-					>
-						{(initialSivilstatus === 'UOPPGITT' ||
-							initialSivilstatus === 'UNKNOWN') && <option value="" />}
-						{sivilstandOptions.map(({ value, label }) => {
-							return (
-								<option key={value} value={value ?? ''}>
-									{label}
-								</option>
-							)
-						})}
-					</RHFSelect>
-				)}
-
-				{showEpsHarPensjon({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-				}) && (
-					<RHFRadio
-						name="epsHarPensjon"
-						testid="eps-har-pensjon"
-						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{showEpsHarInntektOver2G({
-					sivilstatus,
-					epsHarPensjon,
-					beregnMedGjenlevenderett,
-					erEndring,
-				}) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						testid="eps-har-inntekt-over-2g"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-				{!erEndring && (
-					<>
-						<Divider noMargin />
-						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
-						<Divider noMargin />
-					</>
-				)}
 
 				{!hideAfpSporsmaal && (
 					<>
@@ -436,6 +380,71 @@ export const BeregningForm = () => {
 						<Divider noMargin />
 					</>
 				)}
+
+				{showSivilstatus({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
+				}) && (
+					<RHFSelect
+						name="sivilstatus"
+						testId="sivilstatus-select"
+						label="Sivilstatus ved uttak"
+						className={styles.selectWrapper}
+					>
+						{(initialSivilstatus === 'UOPPGITT' ||
+							initialSivilstatus === 'UNKNOWN') && <option value="" />}
+						{sivilstandOptions.map(({ value, label }) => {
+							return (
+								<option key={value} value={value ?? ''}>
+									{label}
+								</option>
+							)
+						})}
+					</RHFSelect>
+				)}
+
+				{showEpsHarPensjon({
+					sivilstatus,
+					beregnMedGjenlevenderett,
+					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
+				}) && (
+					<RHFRadio
+						name="epsHarPensjon"
+						testid="eps-har-pensjon"
+						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
+				)}
+
+				{showEpsHarInntektOver2G({
+					sivilstatus,
+					epsHarPensjon,
+					beregnMedGjenlevenderett,
+					erEndring,
+					serviceBeregning: afp === 'serviceberegning',
+				}) && (
+					<>
+						<RHFRadio
+							name="epsHarInntektOver2G"
+							testid="eps-har-inntekt-over-2g"
+							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+							className={styles.horizontalRadioGroup}
+						/>
+						<Divider noMargin />
+					</>
+				)}
+
+				{!erEndring && (
+					<>
+						<Divider noMargin />
+						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
+						<Divider noMargin />
+					</>
+				)}
+
 				{forTidligEndringAvUttaksgradDato && (
 					<SanityAlert
 						id="beregning.ugyldig-uttaksgrad"
