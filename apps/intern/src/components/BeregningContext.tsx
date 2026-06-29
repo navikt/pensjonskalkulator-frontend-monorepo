@@ -179,7 +179,7 @@ export function BeregningProvider({
 			form.setValue('inntektSisteMaanedFoerUttak', null, {
 				shouldDirty: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 			})
 		}
@@ -200,7 +200,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (harInntektVedSidenAvUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
@@ -210,7 +210,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (uttaksgrad === null) {
-			form.setValue('harInntektVedSidenAvUttak', null, {
+			form.setValue('harInntektVedSidenAvUttak', false, {
 				shouldDirty: false,
 			})
 		}
@@ -223,7 +223,7 @@ export function BeregningProvider({
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektGradertSlutter', null, {
@@ -237,10 +237,10 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (skalBeregneAfpKap19) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
 				shouldDirty: false,
 			})
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderMdHeltUttak', null, {
@@ -283,7 +283,7 @@ export function BeregningProvider({
 				shouldDirty: false,
 				shouldValidate: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 				shouldValidate: false,
 			})
