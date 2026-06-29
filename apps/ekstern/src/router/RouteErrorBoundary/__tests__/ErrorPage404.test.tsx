@@ -4,6 +4,7 @@ import { externalUrls, paths } from '@/router/constants'
 import { render, screen, userEvent } from '@/test-utils'
 import {
   logOpenLinkSpy,
+  loggerCustomSpy,
   loggerSpy,
   loggerTeardown,
 } from '@/utils/__tests__/logging-stub'
@@ -38,7 +39,12 @@ describe('ErrorPage404', () => {
 
   it('logger når feilside åpnes', async () => {
     render(<ErrorPage404 />)
-    expect(loggerSpy).toHaveBeenNthCalledWith(1, 'feilside', expect.any(Object))
+    expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      1,
+      'feilside',
+      expect.any(Object)
+    )
+    expect(loggerSpy).not.toHaveBeenCalled()
   })
 
   it('logger når bruker går til Din pensjon', async () => {
@@ -52,5 +58,9 @@ describe('ErrorPage404', () => {
 
     expect(logOpenLinkSpy).toHaveBeenCalledTimes(1)
     expect(windowOpenMock).toHaveBeenCalledTimes(1)
+    expect(windowOpenMock).toHaveBeenCalledWith(
+      externalUrls.dinPensjon,
+      '_self'
+    )
   })
 })

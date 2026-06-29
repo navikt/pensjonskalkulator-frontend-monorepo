@@ -81,16 +81,21 @@ export const logOpenLink: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
 
     const { href, target, textContent } = anchor
+    const windowTarget = target || '_self'
 
     logEvent(Events.LINK_KLIKKET, {
       href,
       tekst: textContent?.trim() || href,
-      apnerINyttVindu: target === '_blank',
+      apnerINyttVindu: windowTarget === '_blank',
       erEkstern:
         new URL(href, window.location.href).origin !== window.location.origin,
     })
-    logCustomEvent('link åpnet', { href, target })
+    logCustomEvent('link åpnet', { href, target: windowTarget })
 
-    window.open(href, target)
+    if (windowTarget === '_blank') {
+      window.open(href, windowTarget, 'noopener,noreferrer')
+    } else {
+      window.open(href, windowTarget)
+    }
   }
 }
