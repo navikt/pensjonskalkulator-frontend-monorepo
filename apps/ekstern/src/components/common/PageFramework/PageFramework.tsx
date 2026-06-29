@@ -30,6 +30,7 @@ export const PageFramework: React.FC<{
   shouldRedirectNonAuthenticated?: boolean
   showLoader?: boolean
   noMinHeight?: boolean
+  announcement?: React.ReactNode
   children?: React.JSX.Element
 }> = ({
   shouldRedirectNonAuthenticated = true,
