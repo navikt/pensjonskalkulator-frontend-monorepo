@@ -504,7 +504,7 @@ export const BeregningForm = () => {
 								testId="inntekt-foer-uttak"
 								label="Pensjonsgivende årsinntekt frem til uttak"
 								description={
-									afp === 'ja_offentlig' && initialInntektAar
+									initialInntektAar
 										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
 										: undefined
 								}
