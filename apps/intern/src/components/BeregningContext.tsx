@@ -208,13 +208,21 @@ export function BeregningProvider({
 		}
 	}, [harInntektVedSidenAvUttak, form])
 
+	const visHarInntektVedSidenAvUttak =
+		uttaksgrad !== null &&
+		!showAfpOffentligFields({ afp, foedselsdato: person?.foedselsdato })
+
 	useEffect(() => {
-		if (uttaksgrad === null) {
+		if (!visHarInntektVedSidenAvUttak) {
 			form.setValue('harInntektVedSidenAvUttak', null, {
 				shouldDirty: false,
 			})
+		} else if (harInntektVedSidenAvUttak === null) {
+			form.setValue('harInntektVedSidenAvUttak', false, {
+				shouldDirty: false,
+			})
 		}
-	}, [uttaksgrad, form])
+	}, [visHarInntektVedSidenAvUttak, harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
