@@ -246,6 +246,15 @@ export const BeregningForm = () => {
 		harVedtakTidsbegrensetOffentligAFP ||
 		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
+	const serviceBeregning = afp === 'serviceberegning'
+
+	const sivilstatusVisible = showSivilstatus({
+		sivilstatus,
+		beregnMedGjenlevenderett,
+		erEndring,
+		serviceBeregning,
+	})
+
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
 		erEndring,
@@ -381,12 +390,7 @@ export const BeregningForm = () => {
 					</>
 				)}
 
-				{showSivilstatus({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-					serviceBeregning: afp === 'serviceberegning',
-				}) && (
+				{sivilstatusVisible && (
 					<RHFSelect
 						name="sivilstatus"
 						testId="sivilstatus-select"
@@ -409,7 +413,7 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 					erEndring,
-					serviceBeregning: afp === 'serviceberegning',
+					serviceBeregning,
 				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
@@ -424,17 +428,18 @@ export const BeregningForm = () => {
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
 					erEndring,
-					serviceBeregning: afp === 'serviceberegning',
+					serviceBeregning,
 				}) && (
-					<>
-						<RHFRadio
-							name="epsHarInntektOver2G"
-							testid="eps-har-inntekt-over-2g"
-							legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
-							className={styles.horizontalRadioGroup}
-						/>
-						<Divider noMargin />
-					</>
+					<RHFRadio
+						name="epsHarInntektOver2G"
+						testid="eps-har-inntekt-over-2g"
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+						className={styles.horizontalRadioGroup}
+					/>
+				)}
+
+				{erEndring && serviceBeregning && sivilstatusVisible && (
+					<Divider noMargin />
 				)}
 
 				{!erEndring && (

@@ -98,6 +98,28 @@ describe('showEpsHarInntektOver2G', () => {
 			})
 		).toBe(false)
 	})
+
+	test('hides when erEndring with serviceBeregning but epsHarPensjon=true', () => {
+		expect(
+			showEpsHarInntektOver2G({
+				...over2gBase,
+				epsHarPensjon: true,
+				erEndring: true,
+				serviceBeregning: true,
+			})
+		).toBe(false)
+	})
+
+	test('hides when erEndring with serviceBeregning but epsHarPensjon=null', () => {
+		expect(
+			showEpsHarInntektOver2G({
+				...over2gBase,
+				epsHarPensjon: null,
+				erEndring: true,
+				serviceBeregning: true,
+			})
+		).toBe(false)
+	})
 })
 
 describe('showSivilstatus', () => {
@@ -141,5 +163,16 @@ describe('showSivilstatus', () => {
 				beregnMedGjenlevenderett: true,
 			})
 		).toBe(true)
+	})
+
+	test('hides when not erEndring, serviceBeregning selected, but beregnMedGjenlevenderett and sivilstatus with gjenlevenderett (unchanged for users without vedtak)', () => {
+		expect(
+			showSivilstatus({
+				...base,
+				erEndring: false,
+				serviceBeregning: true,
+				beregnMedGjenlevenderett: true,
+			})
+		).toBe(false)
 	})
 })

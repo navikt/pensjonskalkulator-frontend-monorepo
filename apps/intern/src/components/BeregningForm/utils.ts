@@ -50,7 +50,9 @@ export function showSivilstatus({
 	if (!sivilstatus || (erEndring && !serviceBeregning)) return false
 
 	return (
-		(serviceBeregning && isSivilstatusWithGjenlevenderett(sivilstatus)) ||
+		(erEndring &&
+			serviceBeregning &&
+			isSivilstatusWithGjenlevenderett(sivilstatus)) ||
 		!isSivilstatusWithGjenlevenderett(sivilstatus) ||
 		!beregnMedGjenlevenderett
 	)
