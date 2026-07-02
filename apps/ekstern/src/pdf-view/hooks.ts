@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useEffect } from 'react'
 import { IntlShape, useIntl } from 'react-intl'
 
 import { HeadingProps } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { generateAfpContent } from '@/components/Grunnlag/GrunnlagAFP/utils'
 import {
@@ -785,7 +784,7 @@ export const usePdfView = ({
 
   // #region Print Handler
   const handlePDF = useCallback(() => {
-    logger(Events.KNAPP_KLIKKET, {
+    logger('knapp klikket', {
       tekst: 'Last ned PDF eller print',
     })
     const content = createPdfContent()

@@ -3,7 +3,6 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -34,10 +33,8 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('button klikk', {
-      tekst: `Neste fra ${paths.ufoeretrygdAFP}`,
-    })
-    logger(Events.KNAPP_KLIKKET, {
+    logger('button klikk', { tekst: `Neste fra ${paths.ufoeretrygdAFP}` })
+    logger('knapp klikket', {
       tekst: `Neste fra ${paths.ufoeretrygdAFP}`,
     })
     if (onNext) {

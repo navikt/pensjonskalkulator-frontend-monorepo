@@ -1,9 +1,5 @@
 import { render, screen, userEvent } from '@/test-utils'
-import {
-  loggerCustomSpy,
-  loggerSpy,
-  loggerTeardown,
-} from '@/utils/__tests__/logging-stub'
+import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 import { ReadMore } from '../ReadMore'
 
@@ -28,22 +24,12 @@ describe('ReadMore', () => {
         'les mer åpnet',
         expect.any(Object)
       )
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
-        1,
-        'readmore åpnet',
-        expect.any(Object)
-      )
 
       await user.click(screen.getByTestId('readmore'))
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
-        2,
+        3,
         'les mer lukket',
-        expect.any(Object)
-      )
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
-        2,
-        'readmore lukket',
         expect.any(Object)
       )
     })
@@ -72,11 +58,6 @@ describe('ReadMore', () => {
         'les mer åpnet',
         expect.any(Object)
       )
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
-        1,
-        'readmore åpnet',
-        expect.any(Object)
-      )
     })
 
     it('lukke og logg', async () => {
@@ -100,11 +81,6 @@ describe('ReadMore', () => {
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'les mer lukket',
-        expect.any(Object)
-      )
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
-        1,
-        'readmore lukket',
         expect.any(Object)
       )
     })

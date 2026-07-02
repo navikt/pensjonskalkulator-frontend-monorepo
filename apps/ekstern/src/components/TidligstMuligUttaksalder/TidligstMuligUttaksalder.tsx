@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Alert, BodyLong, Link } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { TelefonLink } from '@/components/common/TelefonLink'
 import { paths } from '@/router/constants'
@@ -64,8 +63,8 @@ export const TidligstMuligUttaksalder = ({
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('button klikk', { tekst: 'Grunnlag AFP: Gå til avansert' })
-    logger(Events.KNAPP_KLIKKET, {
+    logger('button klikk', { tekst: 'Grunnlag AFP: Gå til avansert' })
+    logger('knapp klikket', {
       tekst: 'Grunnlag AFP: Gå til avansert',
     })
     navigate(paths.beregningAvansert)

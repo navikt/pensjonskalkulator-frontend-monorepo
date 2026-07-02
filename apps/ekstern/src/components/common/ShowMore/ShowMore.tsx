@@ -140,13 +140,13 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
     }
     const toggleOpen = () => {
       if (isOpen) {
-        logger.custom('show more lukket', { tekst: name })
+        logger('show more lukket', { tekst: name })
         setIsOpen(false)
         if (scrollBackOnCollapse) {
           scrollTo()
         }
       } else {
-        logger.custom('show more åpnet', { tekst: name })
+        logger('show more åpnet', { tekst: name })
         setIsOpen(true)
       }
     }

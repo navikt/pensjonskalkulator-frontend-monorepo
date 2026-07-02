@@ -107,7 +107,7 @@ export function LanguageProvider({ children }: Props) {
         return data
       })
       .catch(() => {
-        logger.custom('info', {
+        logger('info', {
           tekst: logTekst,
           data: logData,
         })
@@ -128,7 +128,7 @@ export function LanguageProvider({ children }: Props) {
         return data
       })
       .catch(() => {
-        logger.custom('info', {
+        logger('info', {
           tekst: logTekst,
           data: logData,
         })
@@ -149,7 +149,7 @@ export function LanguageProvider({ children }: Props) {
         return data
       })
       .catch(() => {
-        logger.custom('info', {
+        logger('info', {
           tekst: logTekst,
           data: logData,
         })
@@ -167,7 +167,7 @@ export function LanguageProvider({ children }: Props) {
         return data
       })
       .catch(() => {
-        logger.custom('info', {
+        logger('info', {
           tekst: logTekst,
           data: logData,
         })
@@ -191,7 +191,7 @@ export function LanguageProvider({ children }: Props) {
           fetchPromise.then(() => 'fetched' as const),
           new Promise<'timeout'>((resolve) => {
             timeoutId = window.setTimeout(() => {
-              logger.custom('info', {
+              logger('info', {
                 tekst: 'Timeout ved henting av innhold fra Sanity',
                 data: logData,
               })

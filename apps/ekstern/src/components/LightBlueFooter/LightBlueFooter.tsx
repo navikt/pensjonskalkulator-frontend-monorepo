@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
 import { Button, Modal } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
@@ -45,8 +44,8 @@ export function LightBlueFooter() {
             type="button"
             onClick={() => {
               // TODO: fjern når amplitude er ikke i bruk lenger
-              logger.custom('button klikk', { tekst: 'Tilbake til start' })
-              logger(Events.KNAPP_KLIKKET, { tekst: 'Tilbake til start' })
+              logger('button klikk', { tekst: 'Tilbake til start' })
+              logger('knapp klikket', { tekst: 'Tilbake til start' })
               dispatch(userInputActions.flush())
               avbrytModalRef.current?.close()
               navigate(paths.start)

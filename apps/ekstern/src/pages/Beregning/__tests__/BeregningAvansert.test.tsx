@@ -546,7 +546,6 @@ describe('BeregningAvansert', () => {
 
       it('Når simuleringen svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        Object.assign(loggerSpy, { custom: loggerSpy })
         mockResponse('/v9/alderspensjon/simulering', {
           status: 200,
           method: 'post',
@@ -608,7 +607,6 @@ describe('BeregningAvansert', () => {
       it('Når simuleringen feiler, logges det alert og vises resultatkort med informasjon om feilen og mulighet til å prøve på nytt', async () => {
         const user = userEvent.setup()
         const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-        Object.assign(loggerSpy, { custom: loggerSpy })
         mockErrorResponse('/v9/alderspensjon/simulering', {
           method: 'post',
         })

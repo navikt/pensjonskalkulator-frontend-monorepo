@@ -56,10 +56,11 @@ export function UtenlandsoppholdListe({
 
   const openUtenlandsoppholdModal = () => {
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('modal åpnet', {
+    logger(MODAL_AAPNET, {
       tekst: `Modal: Om oppholdet ditt`,
     })
     logger(MODAL_AAPNET, {
+      modalId: 'utenlandsopphold-modal',
       tittel: 'Modal: Om oppholdet ditt',
     })
     utenlandsoppholdModalRef.current?.showModal()
@@ -67,10 +68,11 @@ export function UtenlandsoppholdListe({
 
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
-    logger.custom('modal åpnet', {
+    logger(MODAL_AAPNET, {
       tekst: 'Modal: Om oppholdet ditt',
     })
     logger(MODAL_AAPNET, {
+      modalId: 'edit-utenlandsopphold-modal',
       tittel: 'Modal: Om oppholdet ditt (rediger)',
     })
     utenlandsoppholdModalRef.current?.showModal()
@@ -86,7 +88,7 @@ export function UtenlandsoppholdListe({
   useEffect(() => {
     if (erVisningIGrunnlag) {
       utenlandsperioder.forEach((utenlandsperiode) => {
-        logger.custom(GRUNNLAG_FOR_BEREGNINGEN, {
+        logger(GRUNNLAG_FOR_BEREGNINGEN, {
           tekst: 'utenlandsopphold',
           data: utenlandsperiode.landkode,
           valg: utenlandsperiode.arbeidetUtenlands,
@@ -119,7 +121,7 @@ export function UtenlandsoppholdListe({
               logger(KNAPP_KLIKKET, {
                 tekst: `sletter utenlandsopphold`,
               })
-              logger.custom(BUTTON_KLIKK, {
+              logger(BUTTON_KLIKK, {
                 tekst: `sletter utenlandsopphold`,
               })
               avbrytModalRef.current?.close()

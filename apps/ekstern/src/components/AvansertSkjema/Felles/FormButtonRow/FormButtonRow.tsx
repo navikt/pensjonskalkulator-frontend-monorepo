@@ -3,7 +3,6 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { Button } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { Divider } from '@/components/common/Divider/Divider'
 import { BeregningContext } from '@/pages/Beregning/context'
@@ -76,10 +75,10 @@ export const FormButtonRow: React.FC<{
             className={styles.button}
             onClick={() => {
               // TODO: fjern når amplitude er ikke i bruk lenger
-              logger.custom('button klikk', {
+              logger('button klikk', {
                 tekst: 'Beregning avansert: Avbryt endring',
               })
-              logger(Events.KNAPP_KLIKKET, {
+              logger('knapp klikket', {
                 tekst: 'Beregning avansert: Avbryt endring',
               })
               gaaTilResultat()

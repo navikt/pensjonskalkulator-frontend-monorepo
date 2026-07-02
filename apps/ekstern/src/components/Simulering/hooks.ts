@@ -3,8 +3,6 @@ import HighchartsReact from 'highcharts-react-official'
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 
-import type { PropertiesFor } from '@navikt/nav-dekoratoren-moduler'
-
 import {
   useAlderspensjonQuery,
   useGetAfpOffentligLivsvarigQuery,
@@ -116,19 +114,6 @@ const ALERT_VARIANTS = {
   WARNING: 'warning',
   INLINE_INFO: 'inline-info',
 } as const
-
-type AnalyticsAlertVariant = NonNullable<
-  PropertiesFor<typeof ALERT_VIST>['variant']
->
-
-const alertVariantToAnalyticsVariant: Record<
-  AlertVariant,
-  AnalyticsAlertVariant
-> = {
-  [ALERT_VARIANTS.INFO]: ALERT_VARIANTS.INFO,
-  [ALERT_VARIANTS.WARNING]: ALERT_VARIANTS.WARNING,
-  [ALERT_VARIANTS.INLINE_INFO]: ALERT_VARIANTS.INFO,
-}
 
 export const useSimuleringChartLocalState = (initialValues: {
   styles: Partial<typeof globalClassNames>
@@ -521,7 +506,7 @@ export const usePensjonsavtalerAlerts = ({
     const variant = ALERT_VARIANTS.INLINE_INFO
     logger(ALERT_VIST, {
       tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
-      variant: alertVariantToAnalyticsVariant[variant],
+      variant,
     })
     alertsList.push({
       variant,

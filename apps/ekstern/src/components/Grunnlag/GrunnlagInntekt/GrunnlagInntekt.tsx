@@ -2,7 +2,6 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
@@ -36,10 +35,11 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
   ) => {
     e?.preventDefault()
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('modal åpnet', {
+    logger('modal åpnet', {
       tekst: 'Grunnlag: info om pensjonsgivende inntekt',
     })
-    logger(Events.MODAL_APNET, {
+    logger('modal åpnet', {
+      modalId: 'info-modal',
       tittel: 'Grunnlag: info om pensjonsgivende inntekt',
     })
     infoModalRef.current?.showModal()

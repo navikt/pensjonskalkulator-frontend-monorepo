@@ -3,7 +3,6 @@ import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -69,17 +68,21 @@ export function SamtykkePensjonsavtaler({
         id: 'stegvisning.samtykke_pensjonsavtaler.validation_error',
       })
       setValidationError(tekst)
-      logger(Events.SKJEMA_VALIDERING_FEILET, {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.samtykkePensjonsavtaler,
+        data: intl.formatMessage({
+          id: 'stegvisning.samtykke_pensjonsavtaler.radio_label',
+        }),
+        tekst,
       })
     } else {
-      logger.custom('radiogroup valgt', {
+      logger('radiogroup valgt', {
         tekst: 'Samtykke',
         valg: samtykkeData,
       })
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger.custom('button klikk', { tekst: `Neste fra ${paths.samtykke}` })
-      logger(Events.KNAPP_KLIKKET, {
+      logger('button klikk', { tekst: `Neste fra ${paths.samtykke}` })
+      logger('knapp klikket', {
         tekst: `Neste fra ${paths.samtykke}`,
       })
       onNext(samtykkeData)

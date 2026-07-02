@@ -2,7 +2,7 @@ import { Accordion } from '@navikt/ds-react'
 
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
 import { render, screen, userEvent } from '@/test-utils'
-import { loggerCustomSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 import { AccordionItem } from '../AccordionItem'
 
@@ -26,7 +26,7 @@ describe('AccordionItem', () => {
 
       await user.click(screen.getByTestId('accordion-header'))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'accordion åpnet',
         expect.any(Object)
@@ -34,8 +34,8 @@ describe('AccordionItem', () => {
 
       await user.click(screen.getByTestId('accordion-header'))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
-        2,
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        3,
         'accordion lukket',
         expect.any(Object)
       )
@@ -59,7 +59,7 @@ describe('AccordionItem', () => {
 
       await user.click(screen.getByTestId('accordion-header'))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'accordion åpnet',
         expect.any(Object)

@@ -11,7 +11,7 @@ import { logOpenLink, logger } from '@/utils/logging'
 
 export const ErrorPage404 = () => {
   React.useEffect(() => {
-    logger.custom('feilside', {
+    logger('feilside', {
       feil: '404 Not found',
     })
     window.scrollTo(0, 0)

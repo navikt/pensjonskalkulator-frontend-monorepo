@@ -1,7 +1,5 @@
 import { IntlShape } from 'react-intl'
 
-import { Events } from '@navikt/nav-dekoratoren-moduler'
-
 import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
 
@@ -26,8 +24,12 @@ export const onSubmit = (
         top: tekst,
       }
     })
-    logger(Events.SKJEMA_VALIDERING_FEILET, {
+    logger('skjemavalidering feilet', {
       skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
+      data: intl.formatMessage({
+        id: 'stegvisning.utenlandsopphold.radio_label',
+      }),
+      tekst,
     })
   } else {
     const utenlandsoppholdData = data as BooleanRadio
@@ -42,19 +44,21 @@ export const onSubmit = (
           bottom: tekst,
         }
       })
-      logger(Events.SKJEMA_VALIDERING_FEILET, {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.utenlandsopphold,
+        data: intl.formatMessage({
+          id: 'stegvisning.utenlandsopphold.radio_label',
+        }),
+        tekst,
       })
     } else {
-      logger.custom('radiogroup valgt', {
+      logger('radiogroup valgt', {
         tekst: 'Utenlandsopphold',
         valg: utenlandsoppholdData,
       })
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger.custom('button klikk', {
-        tekst: `Neste fra ${paths.utenlandsopphold}`,
-      })
-      logger(Events.KNAPP_KLIKKET, {
+      logger('button klikk', { tekst: `Neste fra ${paths.utenlandsopphold}` })
+      logger('knapp klikket', {
         tekst: `Neste fra ${paths.utenlandsopphold}`,
       })
       onNext(utenlandsoppholdData)

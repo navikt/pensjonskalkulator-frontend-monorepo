@@ -10,7 +10,6 @@ import {
   TextField,
   VStack,
 } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -77,10 +76,11 @@ export const EndreInntekt: React.FC<Props> = ({
 
   const openInntektModal = () => {
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('modal åpnet', {
+    logger('modal åpnet', {
       tekst: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
     })
-    logger(Events.MODAL_APNET, {
+    logger('modal åpnet', {
+      modalId: 'inntekt-modal',
       tittel: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
     })
     inntektModalRef.current?.showModal()
@@ -90,8 +90,12 @@ export const EndreInntekt: React.FC<Props> = ({
     const tekst = intl.formatMessage({
       id,
     })
-    logger(Events.SKJEMA_VALIDERING_FEILET, {
+    logger('skjemavalidering feilet', {
       skjemanavn: ENDRE_INNTEKT_FORM_NAME,
+      data: intl.formatMessage({
+        id: 'inntekt.endre_inntekt_modal.textfield.label',
+      }),
+      tekst,
     })
     setValidationError(tekst)
   }
@@ -108,10 +112,10 @@ export const EndreInntekt: React.FC<Props> = ({
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger.custom('button klikk', {
+      logger('button klikk', {
         tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })
-      logger(Events.KNAPP_KLIKKET, {
+      logger('knapp klikket', {
         tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })
       window.scrollTo(0, 0)

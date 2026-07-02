@@ -1,7 +1,7 @@
 import { ExpansionCard as ExpansionCardAksel } from '@navikt/ds-react'
 
 import { render, screen, userEvent } from '@/test-utils'
-import { loggerCustomSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
+import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 import { ExpansionCard } from '../ExpansionCard'
 
@@ -28,7 +28,7 @@ describe('ExpansionCard', () => {
 
       await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'expansion card åpnet',
         expect.any(Object)
@@ -36,7 +36,7 @@ describe('ExpansionCard', () => {
 
       await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         2,
         'expansion card lukket',
         expect.any(Object)
@@ -69,7 +69,7 @@ describe('ExpansionCard', () => {
 
       await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'expansion card åpnet',
         expect.any(Object)
@@ -101,7 +101,7 @@ describe('ExpansionCard', () => {
 
       await user.click(screen.getByRole('button', { name: 'Vis mer' }))
 
-      expect(loggerCustomSpy).toHaveBeenNthCalledWith(
+      expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'expansion card lukket',
         expect.any(Object)

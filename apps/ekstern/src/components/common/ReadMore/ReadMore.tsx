@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { ReadMore as ReadMoreAksel, ReadMoreProps } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { logger } from '@/utils/logging'
 
@@ -11,13 +10,13 @@ interface IProps extends ReadMoreProps {
 
 const logIsOpen = (name: string, isOpen: boolean) => {
   if (isOpen) {
-    logger(Events.LES_MER_APNET, { tittel: name })
+    logger('les mer åpnet', { tittel: name })
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('readmore åpnet', { tekst: name })
+    logger('readmore åpnet', { tekst: name })
   } else {
-    logger(Events.LES_MER_LUKKET, { tittel: name })
+    logger('les mer lukket', { tittel: name })
     // TODO: fjern når amplitude er ikke i bruk lenger
-    logger.custom('readmore lukket', { tekst: name })
+    logger('readmore lukket', { tekst: name })
   }
 }
 

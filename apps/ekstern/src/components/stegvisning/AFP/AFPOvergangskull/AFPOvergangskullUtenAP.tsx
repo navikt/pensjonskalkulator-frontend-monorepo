@@ -3,7 +3,6 @@ import React, { FormEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
-import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
@@ -58,8 +57,12 @@ export function AFPOvergangskullUtenAP({
         id: 'stegvisning.afp.validation_error',
       })
       setValidationError((prev) => ({ ...prev, afp: errorMessage }))
-      logger(Events.SKJEMA_VALIDERING_FEILET, {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.afp,
+        data: intl.formatMessage({
+          id: 'stegvisning.afp.radio_label',
+        }),
+        tekst: errorMessage,
       })
     } else if (jaAFPOffentlig && !simuleringstypeInput) {
       const errorMessage = intl.formatMessage({
@@ -69,17 +72,21 @@ export function AFPOvergangskullUtenAP({
         ...prev,
         skalBeregneAfp: errorMessage,
       }))
-      logger(Events.SKJEMA_VALIDERING_FEILET, {
+      logger('skjemavalidering feilet', {
         skjemanavn: STEGVISNING_FORM_NAMES.afp,
+        data: intl.formatMessage({
+          id: 'stegvisning.afp.radio_label',
+        }),
+        tekst: errorMessage,
       })
     } else {
-      logger.custom('radiogroup valgt', {
+      logger('radiogroup valgt', {
         tekst: 'Rett til AFP',
         valg: afpInput,
       })
       // TODO: fjern når amplitude er ikke i bruk lenger
-      logger.custom('button klikk', { tekst: `Neste fra ${paths.afp}` })
-      logger(Events.KNAPP_KLIKKET, {
+      logger('button klikk', { tekst: `Neste fra ${paths.afp}` })
+      logger('knapp klikket', {
         tekst: `Neste fra ${paths.afp}`,
       })
 
@@ -87,7 +94,7 @@ export function AFPOvergangskullUtenAP({
         // If the user does not select AFPOffentlig then send only afpInput
         onNext(afpInput, null)
       } else {
-        logger.custom('radiogroup valgt', {
+        logger('radiogroup valgt', {
           tekst: 'Hva vil du beregne',
           valg:
             simuleringstypeInput && simuleringstypeInput === 'KUN_ALDERSPENSJON'
