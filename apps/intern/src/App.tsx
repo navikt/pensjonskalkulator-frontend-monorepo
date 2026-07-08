@@ -110,7 +110,6 @@ const AppContent = () => {
 
 	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
 
-	console.log('testset')
 	const { isLoading: isLoadingEnheter, error: enheterError } =
 		useEnheterQuery(visLagreBrevButton)
 
