@@ -10,7 +10,8 @@
 		"build:server": "tsc -p tsconfig.server.json",
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit",
-		"test": "echo 'No tests yet' && exit 0",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"test:e2e": "playwright test --project=chromium",
 		"pw:open": "playwright test --ui --project=chromium",
 		"pw:test": "playwright test --project=chromium",
@@ -45,12 +46,16 @@
 		"@pensjonskalkulator-frontend-monorepo/types": "workspace:*",
 		"@pensjonskalkulator-frontend-monorepo/utils": "workspace:*",
 		"@playwright/test": "catalog:",
+		"@testing-library/jest-dom": "6.7.0",
+		"@testing-library/react": "16.3.0",
 		"@types/express": "5.0.6",
 		"@vitejs/plugin-react": "5.1.2",
 		"concurrently": "catalog:",
+		"jsdom": "26.1.0",
 		"msw": "catalog:",
 		"nodemon": "3.1.11",
-		"vite": "7.3.2"
+		"vite": "7.3.2",
+		"vitest": "catalog:"
 	},
 	"msw": {
 		"workerDirectory": [

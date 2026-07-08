@@ -1,4 +1,7 @@
-import { SanityVilkaarligForbehold } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import {
+	SanityKortforbehold,
+	SanityVilkaarligForbehold,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -6,15 +9,7 @@ import {
 import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import {
-	BodyLong,
-	Box,
-	Button,
-	HGrid,
-	Loader,
-	Tabs,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { erKap19EllerApoteker } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
@@ -22,16 +17,21 @@ import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
-	useInternsimulatorLagreBrevButtonQuery,
+	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
+	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
+import { Divider } from '../Divider/Divider'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
+import { AarligPensjonTable } from './AarligPensjonTable'
 import { AfpBeregningSection } from './AfpBeregningSection'
+import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
+import { SimuleringFeil } from './SimuleringFeil'
 import { formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
@@ -40,6 +40,7 @@ export const Beregning = () => {
 	const {
 		isBeregningLoading,
 		beregning,
+		beregningError,
 		aktivBeregning,
 		person,
 		vedtak,
@@ -47,15 +48,19 @@ export const Beregning = () => {
 		erApoteker,
 		fnr,
 		enhetsid,
+		submitBeregning,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
-	const { data: lagreBrevButtonToggle } =
-		useInternsimulatorLagreBrevButtonQuery()
+
+	// Midlertidig skjul brev knappen
+	// const { data: lagreBrevButtonToggle } =
+	// 	useInternsimulatorLagreBrevButtonQuery()
+	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const visLagreBrevButton = false
 	const visForbehold = forbeholdInternSynlig?.enabled === true
-	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
 	const erFoedtEtter1963 = person && isFoedtEtter1963(person.foedselsdato)
@@ -67,6 +72,14 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_offentlig' &&
 		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+
+	const opptjening = beregning?.opptjeningListe
+
+	const avdoedPid =
+		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
+
+	const { data: opptjeningAvdoed, isLoading: isOpptjeningLoading } =
+		useOpptjeningQueryForAvdoed(avdoedPid)
 
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
@@ -83,7 +96,14 @@ export const Beregning = () => {
 						<Loader size="3xlarge" title="Beregner pensjon …" />
 					</div>
 				)}
-				<BodyLong>Ingen beregning enda.</BodyLong>
+				{beregningError ? (
+					<SimuleringFeil
+						message={beregningError.message}
+						onRetry={submitBeregning}
+					/>
+				) : (
+					<BodyLong>Ingen beregning enda.</BodyLong>
+				)}
 			</Box>
 		)
 	}
@@ -252,7 +272,7 @@ export const Beregning = () => {
 	}
 
 	const handleLagreSimulering = () => {
-		if (!fnr || !enhetsid) {
+		if (!fnr || !enhetsid || !person) {
 			return
 		}
 
@@ -261,10 +281,10 @@ export const Beregning = () => {
 				fnr,
 				spec: mapBeregningResultToLagreSpec(
 					beregning,
+					person.foedselsdato,
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					person?.foedselsdato,
 					aktivRequest?.utenlandsperiodeListe ?? undefined
 				),
 			},
@@ -286,9 +306,16 @@ export const Beregning = () => {
 			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
 			data-testid="beregning-result"
 		>
+			{beregningError && (
+				<SimuleringFeil
+					message={beregningError.message}
+					onRetry={submitBeregning}
+				/>
+			)}
 			<Tabs value={activeTab} onChange={setActiveTab} size="small">
 				<Tabs.List>
 					<Tabs.Tab value="beregning" label="Beregning" />
+					{opptjening && <Tabs.Tab value="opptjening" label="Opptjening" />}
 					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
 				</Tabs.List>
 				<Tabs.Panel value="beregning" className={styles.tabPanel}>
@@ -367,36 +394,73 @@ export const Beregning = () => {
 							shouldRenderNormertAfpAfterHeltSection &&
 							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
 					</VStack>
+					<AarligPensjonTable
+						alderspensjonListe={beregning.alderspensjonListe}
+						privatAfpListe={beregning.privatAfpListe}
+						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+						serviceberegnetAfp={beregning.serviceberegnetAfp}
+						heltUttakAlder={heltUttakAlder}
+						person={person}
+						aktivBeregning={aktivBeregning}
+					/>
+					<Divider customMargin="32px" />
+					<SanityKortforbehold
+						id="kortforbehold"
+						size="small"
+						className={styles.kortforbehold}
+					/>
+					{visLagreBrevButton && (
+						<Button
+							className={styles.lagreButton}
+							variant="secondary"
+							size="small"
+							disabled={!fnr || !enhetsid || lagreSimulering.isPending}
+							loading={lagreSimulering.isPending}
+							onClick={handleLagreSimulering}
+						>
+							Opprett brev
+						</Button>
+					)}
 				</Tabs.Panel>
+				{opptjening && (
+					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
+						{isOpptjeningLoading && (
+							<div className={styles.overlayLoader}>
+								<Loader size="3xlarge" title="Henter opptjening …" />
+							</div>
+						)}
+						<VStack
+							gap="space-32"
+							className={
+								isOpptjeningLoading ? styles.loadingOverlay : undefined
+							}
+						>
+							<OpptjeningTable
+								opptjening={opptjening}
+								erOvergangskull={erOvergangskull}
+								erFoedtEtter1963={erFoedtEtter1963}
+								isOpptjeningAvdoedSection={false}
+							/>
+
+							{opptjeningAvdoed && (
+								<OpptjeningTable
+									opptjening={opptjeningAvdoed}
+									erOvergangskull={erOvergangskull}
+									erFoedtEtter1963={erFoedtEtter1963}
+									isOpptjeningAvdoedSection={true}
+								/>
+							)}
+						</VStack>
+					</Tabs.Panel>
+				)}
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<div style={{ maxWidth: '66%' }}>
+						<div className={styles.forbeholdTekst}>
 							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
 						</div>
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			<HGrid marginBlock="space-40" columns={3}>
-				<BodyLong size="small" style={{ gridColumn: 'span 2' }}>
-					Pensjonen er beregnet på grunnlag av de opplysningene vi har om deg, i
-					tillegg til de opplysningene du har oppgitt selv. Dette er derfor en
-					foreløpig beregning av hva du kan forvente deg i pensjon.
-					Pensjonsberegningen er vist i dagens kroneverdi. Beregningen er ikke
-					juridisk bindende.
-				</BodyLong>
-			</HGrid>
-			{visLagreBrevButton && (
-				<Button
-					className={styles.lagreButton}
-					variant="secondary"
-					size="small"
-					disabled={!fnr || !enhetsid || lagreSimulering.isPending}
-					loading={lagreSimulering.isPending}
-					onClick={handleLagreSimulering}
-				>
-					Lagre beregning til brev
-				</Button>
-			)}
 		</Box>
 	)
 }

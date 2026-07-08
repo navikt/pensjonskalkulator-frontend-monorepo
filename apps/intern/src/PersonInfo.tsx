@@ -19,7 +19,11 @@ import {
 	usePersonQuery,
 	useVedtakQuery,
 } from './api/queries'
-import { getPidFromUrl, getVedtakStatus } from './utils'
+import {
+	getPesysBrukeroversiktUrl,
+	getPidFromUrl,
+	getVedtakStatus,
+} from './utils'
 
 import styles from './PersonInfo.module.css'
 
@@ -79,11 +83,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		</HStack>
 	)
 
-	const pesysBrukeroversiktUrl = window.location.hostname.endsWith(
-		'.dev.nav.no'
-	)
-		? 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
-		: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
+	const pesysBrukeroversiktUrl = getPesysBrukeroversiktUrl()
 
 	if (!pid) {
 		return (

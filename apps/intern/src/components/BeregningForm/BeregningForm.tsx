@@ -220,7 +220,8 @@ export const BeregningForm = () => {
 	const vilkaarAlternativHelt =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
-	const initialSivilstatus = person && person.sivilstatus
+	const initialSivilstatus =
+		vedtak?.loependeAlderspensjon?.sivilstatus ?? (person && person.sivilstatus)
 	const sanityTextGradert =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
@@ -507,7 +508,7 @@ export const BeregningForm = () => {
 								testId="inntekt-foer-uttak"
 								label="Pensjonsgivende årsinntekt frem til uttak"
 								description={
-									afp === 'ja_offentlig' && initialInntektAar
+									initialInntektAar
 										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
 										: undefined
 								}

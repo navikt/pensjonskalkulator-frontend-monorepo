@@ -33,13 +33,6 @@ function validateEPSOpplysninger(
 	errors: ValidationErrors
 ) {
 	if (
-		formData.epsAntallUtenlandsOppholdAar === undefined ||
-		formData.epsAntallUtenlandsOppholdAar === null
-	) {
-		errors.epsAntallUtenlandsOppholdAar =
-			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
-	}
-	if (
 		formData.epsAntallUtenlandsOppholdAar !== null &&
 		Number(formData.epsAntallUtenlandsOppholdAar) > 39
 	) {
@@ -71,11 +64,6 @@ function validateEPSOpplysninger(
 	if (formData.epsRegistretSomFlykting === null) {
 		errors.epsRegistretSomFlykting =
 			'Velg ja/nei om avdøde var registrert som flyktning.'
-	}
-
-	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
-		errors.epsPensjonsgivendeInntektFoerDoedsDato =
-			'Fyll ut inntekt året før dødsdato.'
 	}
 }
 

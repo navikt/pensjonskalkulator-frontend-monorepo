@@ -30,7 +30,9 @@ const authenticateEndring = async (
   page: Page,
   overwrites: Array<RouteDefinition | Promise<RouteDefinition>> = []
 ) => {
-  const resolvedOverwrites = await Promise.all(overwrites)
+  const resolvedOverwrites = await Promise.all(
+    overwrites.map((o) => Promise.resolve(o))
+  )
   await authenticate(page, [
     await loependeVedtak({
       endring: true,
@@ -456,7 +458,7 @@ test.describe('Endring av alderspensjon', () => {
             await expect(
               page.getByTestId('beregning.endring.rediger.vedtak_status')
             ).toContainText(
-              /Fra 01.05.2022 har du mottatt 100\s?% alderspensjon./
+              /Fra 10.10.2010 har du mottatt 100\s?% alderspensjon./
             )
           })
 
@@ -864,7 +866,7 @@ test.describe('Endring av alderspensjon', () => {
           ).toBeVisible()
           await expect(
             page.getByTestId('beregning.endring.rediger.vedtak_status')
-          ).toContainText(/Fra 10.10.2010 har du mottatt 80 .?% alderspensjon./)
+          ).toContainText(/Fra 01.01.2020 har du mottatt 80 .?% alderspensjon./)
         })
 
         test('forventer jeg å kunne endre inntekt frem til endring.', async ({

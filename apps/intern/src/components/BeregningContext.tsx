@@ -4,7 +4,10 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -106,6 +109,7 @@ export function BeregningProvider({
 	)
 	const [pendingBeregning, setPendingBeregning] =
 		useState<BeregningParams | null>(null)
+	const [submitCount, setSubmitCount] = useState(0)
 
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
@@ -145,11 +149,18 @@ export function BeregningProvider({
 		] as const,
 	})
 
+	const skalBeregneAfpKap19 =
+		afp === 'ja_offentlig' &&
+		!!person?.foedselsdato &&
+		isFoedtFoer1963(person.foedselsdato)
+
 	useEffect(() => {
-		if (person?.sivilstatus) {
-			form.setValue('sivilstatus', person.sivilstatus, { shouldDirty: false })
+		const sivilstatusFromVedtak = vedtak?.loependeAlderspensjon?.sivilstatus
+		const sivilstatusValue = sivilstatusFromVedtak ?? person?.sivilstatus
+		if (sivilstatusValue) {
+			form.setValue('sivilstatus', sivilstatusValue, { shouldDirty: false })
 		}
-	}, [person?.sivilstatus, form])
+	}, [vedtak?.loependeAlderspensjon?.sivilstatus, person?.sivilstatus, form])
 
 	useEffect(() => {
 		if (beregnMedGjenlevenderett) {
@@ -172,7 +183,7 @@ export function BeregningProvider({
 			form.setValue('inntektSisteMaanedFoerUttak', null, {
 				shouldDirty: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 			})
 		}
@@ -193,7 +204,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (harInntektVedSidenAvUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
@@ -201,13 +212,21 @@ export function BeregningProvider({
 		}
 	}, [harInntektVedSidenAvUttak, form])
 
+	const visHarInntektVedSidenAvUttak =
+		uttaksgrad !== null &&
+		!showAfpOffentligFields({ afp, foedselsdato: person?.foedselsdato })
+
 	useEffect(() => {
-		if (uttaksgrad === null) {
+		if (!visHarInntektVedSidenAvUttak) {
 			form.setValue('harInntektVedSidenAvUttak', null, {
 				shouldDirty: false,
 			})
+		} else if (harInntektVedSidenAvUttak === null) {
+			form.setValue('harInntektVedSidenAvUttak', false, {
+				shouldDirty: false,
+			})
 		}
-	}, [uttaksgrad, form])
+	}, [visHarInntektVedSidenAvUttak, harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
@@ -216,7 +235,7 @@ export function BeregningProvider({
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektGradertSlutter', null, {
@@ -227,6 +246,26 @@ export function BeregningProvider({
 			})
 		}
 	}, [uttaksgrad, form])
+
+	useEffect(() => {
+		if (skalBeregneAfpKap19) {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
+				shouldDirty: false,
+			})
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
+				shouldDirty: false,
+			})
+			form.setValue('alderMdHeltUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('alderAarHeltUttak', null, {
+				shouldDirty: false,
+			})
+			form.setValue('uttaksgrad', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [skalBeregneAfpKap19, form])
 
 	const harAlderUttak = alderAarUttak !== null && alderMdUttak !== null
 	const forrigeAar = new Date().getFullYear() - 1
@@ -256,7 +295,7 @@ export function BeregningProvider({
 				shouldDirty: false,
 				shouldValidate: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 				shouldValidate: false,
 			})
@@ -275,6 +314,7 @@ export function BeregningProvider({
 	const submitBeregning = useCallback(() => {
 		const values = cloneBeregningParams(form.getValues())
 		setPendingBeregning(values)
+		setSubmitCount((c) => c + 1)
 		form.reset(values, { keepValues: true })
 	}, [form])
 
@@ -311,7 +351,7 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingRequest)
+	} = useBeregningQuery(fnr, pendingRequest, submitCount)
 
 	useEffect(() => {
 		if (!isBeregningLoading && pendingBeregning) {

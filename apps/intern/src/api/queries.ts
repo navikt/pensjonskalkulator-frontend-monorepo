@@ -5,6 +5,7 @@ import type {
 	LagreSimuleringResponseDtoV1,
 	LagreSimuleringSpecDtoV1,
 	OmstillingsstoenadOgGjenlevende,
+	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstatus,
@@ -291,10 +292,11 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	request: SimuleringRequestBody | null
+	request: SimuleringRequestBody | null,
+	submitCount: number
 ) {
 	return useQuery({
-		queryKey: ['beregning', fnr, request],
+		queryKey: ['beregning', fnr, request, submitCount],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
 	})
@@ -320,6 +322,28 @@ export function useErApotekerQuery(fnr?: string) {
 	return useQuery({
 		queryKey: ['erApoteker', fnr],
 		queryFn: fnr ? () => fetchErApoteker(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+async function fetchOpptjening(fnr: string): Promise<Opptjening> {
+	const response = await fetch(`${API_BASE}/intern/v1/opptjening`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch opptjening: ${response.status}`)
+	}
+
+	return response.json() as Promise<Opptjening>
+}
+
+export function useOpptjeningQueryForAvdoed(fnr?: string) {
+	return useQuery({
+		queryKey: ['opptjening', fnr],
+		queryFn: fnr ? () => fetchOpptjening(fnr) : skipToken,
 		retry: false,
 	})
 }

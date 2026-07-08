@@ -8,6 +8,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./alder": "./alder.ts",
+		"./beloep": "./src/beloep.ts",
 		"./dates": "./dates.ts",
 		"./string": "./string.ts",
 		"./land-list": "./land-list.json"

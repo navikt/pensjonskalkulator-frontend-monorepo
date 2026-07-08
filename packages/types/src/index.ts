@@ -95,6 +95,9 @@ export type SimuleringAlderspensjon =
 export type SimuleringMaanedligAlderspensjon =
 	components['schemas']['SimuleringV1MaanedligAlderspensjon']
 export type SimuleringAfpPrivat = components['schemas']['SimuleringV1PrivatAfp']
+export type ServiceberegnetAfp =
+	components['schemas']['SimuleringV1ServiceberegnetAfp']
+export type BeregnetAfp = components['schemas']['SimuleringV1BeregnetAfp']
 export type SimuleringAfpOffentlig =
 	components['schemas']['SimuleringV1OffentligAfpSpec']
 export type SimuleringGradertUttak =
@@ -112,6 +115,7 @@ export type SimuleringMaanedligVedEndring =
 export type Eps = components['schemas']['SimuleringV1EpsSpec']
 export type LevendeEps = components['schemas']['SimuleringV1LevendeEps']
 export type AvdoedEps = components['schemas']['SimuleringV1AvdoedEps']
+export type Opptjening = components['schemas']['SimuleringV1Opptjening'][]
 
 // Pensjonsavtaler
 export type PensjonsavtalerRequestBody =
@@ -166,3 +170,6 @@ export type Locales = 'nb' | 'nn' | 'en'
 
 // EPS Opplysninger
 export type EpsOpplysninger = components['schemas']['EpsV1Familierelasjon']
+
+// OpptjeningV1Result
+export type OpptjeningAvdoed = components['schemas']['OpptjeningV1'][]

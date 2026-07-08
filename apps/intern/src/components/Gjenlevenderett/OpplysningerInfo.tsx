@@ -119,13 +119,13 @@ export const OpplysningerInfo = ({
 			{!vedtakInfoAvdoed && (
 				<RHFTextField
 					name="epsAntallUtenlandsOppholdAar"
-					label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
+					label="Antall år bodd/jobbet i utlandet etter fylte 16 år (valgfritt)"
 					style={{ width: '96px' }}
 				/>
 			)}
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
-				label="Pensjonsgivende inntekt året før dødsdato"
+				label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
 				style={{ width: '184px' }}
 			/>
 			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&

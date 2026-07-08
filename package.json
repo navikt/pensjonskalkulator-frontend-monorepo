@@ -12,6 +12,7 @@
 		"dev": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
+		"dev:sanity": "pnpm --dir packages/sanity exec sanity dev -- --port 3333",
 		"build": "pnpm -r build",
 		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
 		"build:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern build",
@@ -39,7 +40,8 @@
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"sanity": "catalog:",
-		"sanity-plugin-internationalized-array": "catalog:"
+		"sanity-plugin-internationalized-array": "catalog:",
+		"styled-components": "catalog:"
 	},
 	"devDependencies": {
 		"@eslint/js": "9.39.2",

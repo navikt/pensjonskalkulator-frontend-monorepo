@@ -12,6 +12,7 @@ export const API_URLS = {
 	GRUNNBELOEP: '**/api/v1/grunnbel*',
 	SIMULERING: '**/api/intern/v1/pensjon/simulering',
 	EPS: '**/api/intern/v1/eps',
+	OPPTJENING: '**/api/intern/v1/opptjening',
 	SANITY: '**/g2by7q6m**/data/query/**',
 } as const
 
@@ -26,6 +27,7 @@ export const MOCK_FILES = {
 	EPS_OPPLYSNING: 'eps-opplysning.json',
 	SIMULERING_V1: 'simulering-v1.json',
 	SIMULERING_V1_AFP_PRIVAT: 'simulering-v1-afp-privat.json',
+	OPPTJENING: 'opptjening.json',
 	SANITY_ALERT: 'sanity-alert-data.json',
 } as const
 
@@ -58,6 +60,7 @@ export async function setupDefaultMocks(
 	)
 	await mockApi(page, API_URLS.INNTEKT, MOCK_FILES.INNTEKT)
 	await mockApi(page, API_URLS.GRUNNBELOEP, undefined, DEFAULT_GRUNNBELOEP)
+	await mockApi(page, API_URLS.OPPTJENING, MOCK_FILES.OPPTJENING)
 	await setupSanityMocks(page)
 }
 

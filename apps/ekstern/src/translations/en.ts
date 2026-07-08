@@ -296,6 +296,8 @@ export default {
   'velguttaksalder.endring.title':
     'When do you want to change your retirement pension?',
   'velguttaksalderafp.title': 'MANGLER_TEKST',
+  'beregning.revidert_budsjett.alert':
+    'In the revised national budget, minimum pension increases from 1 May. The calculator does not account for new rates until the change takes effect on 1 September. Read more about the change at <link>regjeringen.no</link>',
   'beregning.intro.title': 'MANGLER_TEKST',
   'beregning.intro.title.endring': 'MANGLER_TEKST',
   'beregning.intro.description_1': 'MANGLER_TEKST',

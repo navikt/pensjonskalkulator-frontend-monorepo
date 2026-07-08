@@ -223,6 +223,45 @@ export type Readmore = {
 	}>
 }
 
+export type Kortforbehold = {
+	_id: string
+	_type: 'kortforbehold'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	language?: string
+	name: string
+	innhold: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?:
+			| 'normal'
+			| 'listTitle'
+			| 'h1'
+			| 'h2'
+			| 'h3'
+			| 'h4'
+			| 'h5'
+			| 'h6'
+			| 'blockquote'
+		listItem?: 'bullet' | 'number'
+		markDefs?: Array<{
+			href?: string
+			blank?: boolean
+			className?: '' | 'nowrap'
+			_type: 'link'
+			_key: string
+		}>
+		level?: number
+		_type: 'block'
+		_key: string
+	}>
+}
+
 export type InternationalizedArrayReference = Array<
 	{
 		_key: string
@@ -354,6 +393,7 @@ export type AllSanitySchemaTypes =
 	| Guidepanel
 	| ForbeholdAvsnitt
 	| Readmore
+	| Kortforbehold
 	| InternationalizedArrayReference
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
@@ -454,6 +494,40 @@ export type GuidePanelQueryResult = Array<{
 export type ReadMoreQueryResult = Array<{
 	name: string
 	overskrift: string | null
+	innhold: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?:
+			| 'blockquote'
+			| 'h1'
+			| 'h2'
+			| 'h3'
+			| 'h4'
+			| 'h5'
+			| 'h6'
+			| 'listTitle'
+			| 'normal'
+		listItem?: 'bullet' | 'number'
+		markDefs?: Array<{
+			href?: string
+			blank?: boolean
+			className?: '' | 'nowrap'
+			_type: 'link'
+			_key: string
+		}>
+		level?: number
+		_type: 'block'
+		_key: string
+	}>
+}>
+// Variable: kortforbeholdQuery
+// Query: *[_type == "kortforbehold" && language == $locale] | {name,innhold}
+export type KortforbeholdQueryResult = Array<{
+	name: string
 	innhold: Array<{
 		children?: Array<{
 			marks?: Array<string>

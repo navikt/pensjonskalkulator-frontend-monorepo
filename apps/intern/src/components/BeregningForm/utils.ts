@@ -58,11 +58,11 @@ export function showBeregnMedGjenlevenderett({
 	erApoteker,
 }: {
 	initialSivilstatus: EpsSivilstatus
-	person: PersonInternV1
+	person?: PersonInternV1
 	harGjenlevenderett?: boolean
 	erApoteker: boolean
 }): boolean {
-	if (harGjenlevenderett === true) return false
+	if (harGjenlevenderett === true || !person) return false
 	return (
 		erKap19EllerApoteker(person?.foedselsdato, erApoteker) &&
 		isSivilstatusWithGjenlevenderett(initialSivilstatus)

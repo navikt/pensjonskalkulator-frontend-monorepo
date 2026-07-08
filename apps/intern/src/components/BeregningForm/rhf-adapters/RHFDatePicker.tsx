@@ -7,11 +7,16 @@ import type { BeregningFormData } from '../../../api/beregningTypes'
 import { formatEndUserDate, parseStrictEndUserDate } from '../../../utils/dates'
 import { getNestedError } from './utils'
 
-function normalizeDateInput(input: string): string {
-	if (/^\d{8}$/.test(input)) {
-		return `${input.slice(0, 2)}.${input.slice(2, 4)}.${input.slice(4)}`
-	}
-	return input
+export function expandTwoDigitYear(year: number): number {
+	const pivot = (new Date().getFullYear() - 75) % 100
+	return year >= pivot ? 1900 + year : 2000 + year
+}
+
+export function normalizeTwoDigitYear(input: string): string {
+	const match = input.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2})$/)
+	if (!match) return input
+	const [, dd, mm, yy] = match
+	return `${dd}.${mm}.${expandTwoDigitYear(parseInt(yy, 10))}`
 }
 
 interface RHFDatePickerProps {
@@ -42,13 +47,9 @@ export function RHFDatePicker({
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
-			const formatted = date ? formatEndUserDate(date) : ''
-			lastFormattedRef.current = formatted
-			if (date) {
-				field.onChange(formatted)
-			}
+			lastFormattedRef.current = date ? formatEndUserDate(date) : ''
 		},
-		allowTwoDigitYear: false,
+		allowTwoDigitYear: true,
 		fromDate,
 		toDate,
 		disabled,
@@ -71,9 +72,10 @@ export function RHFDatePicker({
 			<DatePicker.Input
 				{...inputProps}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
+					event.target.value = normalizeTwoDigitYear(event.target.value)
 					inputProps.onBlur?.(event)
-					const value =
-						lastFormattedRef.current || normalizeDateInput(event.target.value)
+					const value = lastFormattedRef.current || event.target.value
+					lastFormattedRef.current = ''
 					field.onChange(value)
 					field.onBlur()
 				}}

@@ -7,6 +7,8 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { format } from 'date-fns'
 
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
@@ -52,10 +54,10 @@ function getNormertPensjonsalderPlassering(
 
 export function mapBeregningResultToLagreSpec(
 	result: BeregningResult,
+	foedselsdato: string,
 	aktivBeregning?: BeregningParams | null,
 	navEnhetId?: string | null,
 	grunnbeloep?: number | null,
-	foedselsdato?: string | null,
 	utenlandsperiodeListe?: SimuleringUtenlandsperiode[]
 ): LagreSimuleringSpecDtoV1 {
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
@@ -99,13 +101,11 @@ export function mapBeregningResultToLagreSpec(
 					})
 				)
 			: null
-	const kull = foedselsdato
-		? isFoedtEtter1963(foedselsdato)
-			? 'KAP20'
-			: isOvergangskull(foedselsdato)
-				? 'OVERGANG'
-				: 'KAP19'
-		: undefined
+	const kull = isFoedtEtter1963(foedselsdato)
+		? 'KAP20'
+		: isOvergangskull(foedselsdato)
+			? 'OVERGANG'
+			: 'KAP19'
 
 	const maanedligAlderspensjonForKnekkpunkter =
 		mapMaanedligAlderspensjonForKnekkpunkter(
@@ -191,19 +191,35 @@ export function mapBeregningResultToLagreSpec(
 			})
 		),
 		simuleringsinformasjon: {
-			gradertUttaksalder:
+			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? { ...heltUttakAlder }
+					? {
+							alder: { ...heltUttakAlder },
+							uttaksdato: format(
+								calculateUttaksalderAsDate(heltUttakAlder, foedselsdato),
+								'yyyy-MM-dd'
+							),
+						}
 					: gradertUttakAlder
-						? { ...gradertUttakAlder }
+						? {
+								alder: { ...gradertUttakAlder },
+								uttaksdato: format(
+									calculateUttaksalderAsDate(gradertUttakAlder, foedselsdato),
+									'yyyy-MM-dd'
+								),
+							}
 						: null,
-			heltUttaksalder:
-				aktivBeregning?.afp !== 'ja_offentlig'
-					? { ...heltUttakAlder }
-					: {
-							aar: 67,
-							maaneder: 0,
-						},
+			heltUttakInformasjon: (() => {
+				const alder =
+					aktivBeregning?.afp !== 'ja_offentlig'
+						? { ...heltUttakAlder }
+						: { aar: 67, maaneder: 0 }
+				const uttaksdato = format(
+					calculateUttaksalderAsDate(alder, foedselsdato),
+					'yyyy-MM-dd'
+				)
+				return { alder, uttaksdato }
+			})(),
 			sivilstatus: aktivBeregning?.sivilstatus,
 			utenlandsperioder,
 			kull,
