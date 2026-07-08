@@ -246,6 +246,15 @@ export const BeregningForm = () => {
 		harVedtakTidsbegrensetOffentligAFP ||
 		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
+	const serviceBeregning = afp === 'serviceberegning'
+
+	const sivilstatusVisible = showSivilstatus({
+		sivilstatus,
+		beregnMedGjenlevenderett,
+		erEndring,
+		serviceBeregning,
+	})
+
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
 		erEndring,
@@ -335,6 +344,35 @@ export const BeregningForm = () => {
 			maaneder: alderMdHeltUttak ?? alderMdUttak,
 		})
 
+	const afpSporsmaal = !hideAfpSporsmaal && (
+		<>
+			<RHFRadio
+				name="afp"
+				legend="Skal AFP inkluderes?"
+				options={afpOptions}
+				className={styles.horizontalRadioGroup}
+				testid="afp"
+				onChange={(value) => {
+					setAlertDismissed(true)
+					resetAlderVelger(value)
+				}}
+			/>
+			{showUTOgAFPAlert && (
+				<SanityAlert
+					id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+					className={styles.sanityAlert}
+				/>
+			)}
+			{showUTOgFolketrygdBeregnetAFPAlert && (
+				<SanityAlert
+					id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+					className={styles.sanityAlert}
+				/>
+			)}
+			<Divider noMargin />
+		</>
+	)
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -351,11 +389,10 @@ export const BeregningForm = () => {
 							{!beregnMedGjenlevenderett && <Divider noMargin />}
 						</>
 					)}
-				{showSivilstatus({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-				}) && (
+
+				{erEndring && afpSporsmaal}
+
+				{sivilstatusVisible && (
 					<RHFSelect
 						name="sivilstatus"
 						testId="sivilstatus-select"
@@ -378,6 +415,7 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning,
 				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
@@ -392,6 +430,7 @@ export const BeregningForm = () => {
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning,
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
@@ -400,6 +439,11 @@ export const BeregningForm = () => {
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
+
+				{erEndring && serviceBeregning && sivilstatusVisible && (
+					<Divider noMargin />
+				)}
+
 				{!erEndring && (
 					<>
 						<Divider noMargin />
@@ -408,34 +452,8 @@ export const BeregningForm = () => {
 					</>
 				)}
 
-				{!hideAfpSporsmaal && (
-					<>
-						<RHFRadio
-							name="afp"
-							legend="Skal AFP inkluderes?"
-							options={afpOptions}
-							className={styles.horizontalRadioGroup}
-							testid="afp"
-							onChange={(value) => {
-								setAlertDismissed(true)
-								resetAlderVelger(value)
-							}}
-						/>
-						{showUTOgAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-								className={styles.sanityAlert}
-							/>
-						)}
-						{showUTOgFolketrygdBeregnetAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-								className={styles.sanityAlert}
-							/>
-						)}
-						<Divider noMargin />
-					</>
-				)}
+				{!erEndring && afpSporsmaal}
+
 				{forTidligEndringAvUttaksgradDato && (
 					<SanityAlert
 						id="beregning.ugyldig-uttaksgrad"
