@@ -124,6 +124,7 @@ function validateSivilstand(
 			epsHarPensjon: formData.epsHarPensjon,
 			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
 			erEndring: false,
+			serviceBeregning: false,
 		}) &&
 		formData.epsHarInntektOver2G === null
 	) {

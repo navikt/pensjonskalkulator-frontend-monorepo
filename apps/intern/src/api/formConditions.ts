@@ -41,12 +41,17 @@ export function showEpsHarPensjon({
 	sivilstatus,
 	beregnMedGjenlevenderett,
 	erEndring,
+	serviceBeregning,
 }: {
 	sivilstatus: Sivilstatus | null
 	beregnMedGjenlevenderett: boolean
 	erEndring: boolean
+	serviceBeregning: boolean
 }): boolean {
-	return harPartner(sivilstatus) && !beregnMedGjenlevenderett && !erEndring
+	return (
+		(erEndring && serviceBeregning && harPartner(sivilstatus)) ||
+		(harPartner(sivilstatus) && !beregnMedGjenlevenderett && !erEndring)
+	)
 }
 
 export function showEpsHarInntektOver2G({
@@ -54,17 +59,23 @@ export function showEpsHarInntektOver2G({
 	epsHarPensjon,
 	beregnMedGjenlevenderett,
 	erEndring,
+	serviceBeregning,
 }: {
 	sivilstatus: Sivilstatus | null
 	epsHarPensjon: boolean | null
 	beregnMedGjenlevenderett: boolean
 	erEndring: boolean
+	serviceBeregning: boolean
 }): boolean {
 	return (
-		harPartner(sivilstatus) &&
-		epsHarPensjon === false &&
-		!beregnMedGjenlevenderett &&
-		!erEndring
+		(erEndring &&
+			serviceBeregning &&
+			harPartner(sivilstatus) &&
+			epsHarPensjon === false) ||
+		(harPartner(sivilstatus) &&
+			epsHarPensjon === false &&
+			!beregnMedGjenlevenderett &&
+			!erEndring)
 	)
 }
 
