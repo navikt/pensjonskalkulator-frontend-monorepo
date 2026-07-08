@@ -416,17 +416,17 @@ export const Beregning = () => {
 				</Tabs.Panel>
 				{opptjening && (
 					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
-						{isOpptjeningLoading && (
-							<div className={styles.overlayLoader}>
-								<Loader size="3xlarge" title="Henter opptjening …" />
-							</div>
-						)}
 						<VStack
 							gap="space-32"
 							className={
 								isOpptjeningLoading ? styles.loadingOverlay : undefined
 							}
 						>
+							{isOpptjeningLoading && (
+								<div className={styles.overlayLoader}>
+									<Loader size="3xlarge" title="Henter opptjening …" />
+								</div>
+							)}
 							<OpptjeningTable
 								opptjening={opptjening}
 								erOvergangskull={erOvergangskull}

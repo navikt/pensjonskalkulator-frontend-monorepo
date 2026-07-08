@@ -116,7 +116,9 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				<LocalAlert.Header>
 					<LocalAlert.Title>Kunne ikke hente bruker</LocalAlert.Title>
 				</LocalAlert.Header>
-				<LocalAlert.Content>{error?.message}</LocalAlert.Content>
+				<LocalAlert.Content>
+					{error?.message ?? 'Ukjent feil'}
+				</LocalAlert.Content>
 			</LocalAlert>
 		)
 	}
