@@ -4,10 +4,7 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import {
-	calculateUttaksalderAsDate,
-	isFoedtFoer1963,
-} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -29,7 +26,11 @@ import {
 	type BeregningResult,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { harPartner, showAfpOffentligFields } from '../api/formConditions'
+import {
+	erKap19EllerApoteker,
+	harPartner,
+	showAfpOffentligFields,
+} from '../api/formConditions'
 import { mapBeregningParamsToRequest } from '../api/mapBeregningParams'
 import {
 	useBeregningQuery,
@@ -152,7 +153,7 @@ export function BeregningProvider({
 	const skalBeregneAfpKap19 =
 		afp === 'ja_offentlig' &&
 		!!person?.foedselsdato &&
-		isFoedtFoer1963(person.foedselsdato)
+		erKap19EllerApoteker(person.foedselsdato, !!erApoteker)
 
 	useEffect(() => {
 		const sivilstatusFromVedtak = vedtak?.loependeAlderspensjon?.sivilstatus
@@ -214,7 +215,11 @@ export function BeregningProvider({
 
 	const visHarInntektVedSidenAvUttak =
 		uttaksgrad !== null &&
-		!showAfpOffentligFields({ afp, foedselsdato: person?.foedselsdato })
+		!showAfpOffentligFields({
+			afp,
+			foedselsdato: person?.foedselsdato,
+			erApoteker: !!erApoteker,
+		})
 
 	useEffect(() => {
 		if (!visHarInntektVedSidenAvUttak) {
