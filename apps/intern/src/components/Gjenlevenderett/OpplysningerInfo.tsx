@@ -2,6 +2,7 @@ import type {
 	EpsOpplysninger,
 	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { format, parseISO, subDays } from 'date-fns'
 
 import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
@@ -82,7 +83,9 @@ export const OpplysningerInfo = ({
 	vedtakAPDato?: string | null
 }) => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const grunnbeloepTekst = grunnbeloep
+		? `(${formatInntekt(grunnbeloep.grunnbeløp)} kr)`
+		: ''
 	const rows = mapEpsOpplysninger({
 		eps: EPSOpplysninger,
 		vedtakInfoAvdoed,
