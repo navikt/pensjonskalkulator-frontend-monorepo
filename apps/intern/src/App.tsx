@@ -15,6 +15,7 @@ import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
 	useEnheterQuery,
+	useErApotekerQuery,
 	useFeatureToggleQuery,
 	useInntektQuery,
 	useInternsimulatorLagreBrevButtonQuery,
@@ -107,6 +108,8 @@ const AppContent = () => {
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
 
+	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
+
 	const { isLoading: isLoadingEnheter, error: enheterError } =
 		useEnheterQuery(visLagreBrevButton)
 
@@ -160,6 +163,7 @@ const AppContent = () => {
 		isLoadingVedtak ||
 		isLoadingInntekt ||
 		isLoadingOmstilling ||
+		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
 	) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />

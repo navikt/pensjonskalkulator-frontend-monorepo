@@ -11,6 +11,7 @@ import { useState } from 'react'
 
 import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
+import { erKap19EllerApoteker } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
@@ -44,6 +45,7 @@ export const Beregning = () => {
 		person,
 		vedtak,
 		omstillingsstoenad,
+		erApoteker,
 		fnr,
 		enhetsid,
 		submitBeregning,
@@ -67,7 +69,8 @@ export const Beregning = () => {
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
 	const skalBeregneAfpKap19 =
-		aktivBeregning?.afp === 'ja_offentlig' && erFoedtFoer1963
+		aktivBeregning?.afp === 'ja_offentlig' &&
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
 
 	const opptjening = beregning?.opptjeningListe
@@ -133,7 +136,12 @@ export const Beregning = () => {
 	)
 
 	const aktivRequest = aktivBeregning
-		? mapBeregningParamsToRequest(aktivBeregning, person, grunnbeloep)
+		? mapBeregningParamsToRequest(
+				aktivBeregning,
+				erApoteker,
+				person,
+				grunnbeloep
+			)
 		: null
 
 	const helMaanedligAlderspensjon =

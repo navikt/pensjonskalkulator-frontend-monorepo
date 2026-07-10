@@ -16,6 +16,7 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
+import { erKap19EllerApoteker } from './formConditions'
 import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
@@ -35,6 +36,7 @@ export const mapUtenlandsperiodeListe = (
 
 export function mapBeregningParamsToRequest(
 	formData: BeregningFormData,
+	erApoteker: boolean,
 	person?: PersonInternV1,
 	grunnbeloep?: Grunnbeloep,
 	vedtak?: Vedtak
@@ -44,13 +46,13 @@ export function mapBeregningParamsToRequest(
 		maaneder: formData.alderMdUttak ?? 0,
 	}
 
-	const foedselsdato = new Date(person?.foedselsdato ?? '')
-
 	const skalBeregneAfpKap19 =
-		formData.afp === 'ja_offentlig' && foedselsdato.getFullYear() < 1963
+		formData.afp === 'ja_offentlig' &&
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 
 	const skalBeregneServiceberegnetAfp =
-		formData.afp === 'serviceberegning' && foedselsdato.getFullYear() < 1963
+		formData.afp === 'serviceberegning' &&
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 
 	const skalBeregneTidsbegrensetOffentligAfp =
 		skalBeregneAfpKap19 || skalBeregneServiceberegnetAfp

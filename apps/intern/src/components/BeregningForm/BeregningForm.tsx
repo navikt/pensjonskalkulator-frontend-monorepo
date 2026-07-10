@@ -8,7 +8,6 @@ import {
 	getAlderPlus1Maaned,
 	isAlder67MaanedenFylt,
 	isAlderLikAnnenAlder,
-	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { addMonths, format, parseISO } from 'date-fns'
@@ -19,6 +18,7 @@ import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
+	erKap19EllerApoteker,
 	getPartnerBetegnelse,
 	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
@@ -79,6 +79,7 @@ export const BeregningForm = () => {
 		beregning,
 		vedtak,
 		initialInntektAar,
+		erApoteker,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
@@ -177,6 +178,7 @@ export const BeregningForm = () => {
 			erEndring,
 			hideAfpSporsmaal,
 			initialInntektAar,
+			erApoteker,
 		})
 
 		if (Object.keys(errors).length > 0) {
@@ -238,6 +240,7 @@ export const BeregningForm = () => {
 	const erAfpOffentlig = showAfpOffentligFields({
 		afp,
 		foedselsdato: person?.foedselsdato,
+		erApoteker,
 	})
 
 	const hideAfpSporsmaal =
@@ -297,11 +300,11 @@ export const BeregningForm = () => {
 	])
 
 	const kanVelgeServiceberegning = person?.foedselsdato
-		? isFoedtFoer1963(person.foedselsdato)
+		? erKap19EllerApoteker(person.foedselsdato, erApoteker)
 		: false
 
 	const kanVelgeOffentligAfp = person?.foedselsdato
-		? isFoedtFoer1963(person.foedselsdato) &&
+		? erKap19EllerApoteker(person.foedselsdato, erApoteker) &&
 			!isAlder67MaanedenFylt(person.foedselsdato)
 		: false
 
@@ -383,6 +386,7 @@ export const BeregningForm = () => {
 						person,
 						harGjenlevenderett:
 							vedtak?.loependeAlderspensjon?.harGjenlevenderett,
+						erApoteker,
 					}) && (
 						<>
 							<Gjenlevenderett />
