@@ -8,7 +8,6 @@ import {
 	getAlderPlus1Maaned,
 	isAlder67MaanedenFylt,
 	isAlderLikAnnenAlder,
-	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { addMonths, format, parseISO } from 'date-fns'
@@ -19,6 +18,7 @@ import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
 import type { BeregningFormData } from '../../api/beregningTypes'
 import {
+	erKap19EllerApoteker,
 	getPartnerBetegnelse,
 	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
@@ -79,6 +79,7 @@ export const BeregningForm = () => {
 		beregning,
 		vedtak,
 		initialInntektAar,
+		erApoteker,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { validate } = useFormValidation()
@@ -177,6 +178,7 @@ export const BeregningForm = () => {
 			erEndring,
 			hideAfpSporsmaal,
 			initialInntektAar,
+			erApoteker,
 		})
 
 		if (Object.keys(errors).length > 0) {
@@ -218,7 +220,8 @@ export const BeregningForm = () => {
 	const vilkaarAlternativHelt =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
-	const initialSivilstatus = person && person.sivilstatus
+	const initialSivilstatus =
+		vedtak?.loependeAlderspensjon?.sivilstatus ?? (person && person.sivilstatus)
 	const sanityTextGradert =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
@@ -237,6 +240,7 @@ export const BeregningForm = () => {
 	const erAfpOffentlig = showAfpOffentligFields({
 		afp,
 		foedselsdato: person?.foedselsdato,
+		erApoteker,
 	})
 
 	const hideAfpSporsmaal =
@@ -244,6 +248,15 @@ export const BeregningForm = () => {
 		harVedtakPrivatAFP ||
 		harVedtakTidsbegrensetOffentligAFP ||
 		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
+
+	const serviceBeregning = afp === 'serviceberegning'
+
+	const sivilstatusVisible = showSivilstatus({
+		sivilstatus,
+		beregnMedGjenlevenderett,
+		erEndring,
+		serviceBeregning,
+	})
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
@@ -287,11 +300,11 @@ export const BeregningForm = () => {
 	])
 
 	const kanVelgeServiceberegning = person?.foedselsdato
-		? isFoedtFoer1963(person.foedselsdato)
+		? erKap19EllerApoteker(person.foedselsdato, erApoteker)
 		: false
 
 	const kanVelgeOffentligAfp = person?.foedselsdato
-		? isFoedtFoer1963(person.foedselsdato) &&
+		? erKap19EllerApoteker(person.foedselsdato, erApoteker) &&
 			!isAlder67MaanedenFylt(person.foedselsdato)
 		: false
 
@@ -334,6 +347,35 @@ export const BeregningForm = () => {
 			maaneder: alderMdHeltUttak ?? alderMdUttak,
 		})
 
+	const afpSporsmaal = !hideAfpSporsmaal && (
+		<>
+			<RHFRadio
+				name="afp"
+				legend="Skal AFP inkluderes?"
+				options={afpOptions}
+				className={styles.horizontalRadioGroup}
+				testid="afp"
+				onChange={(value) => {
+					setAlertDismissed(true)
+					resetAlderVelger(value)
+				}}
+			/>
+			{showUTOgAFPAlert && (
+				<SanityAlert
+					id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+					className={styles.sanityAlert}
+				/>
+			)}
+			{showUTOgFolketrygdBeregnetAFPAlert && (
+				<SanityAlert
+					id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+					className={styles.sanityAlert}
+				/>
+			)}
+			<Divider noMargin />
+		</>
+	)
+
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
@@ -344,17 +386,17 @@ export const BeregningForm = () => {
 						person,
 						harGjenlevenderett:
 							vedtak?.loependeAlderspensjon?.harGjenlevenderett,
+						erApoteker,
 					}) && (
 						<>
 							<Gjenlevenderett />
 							{!beregnMedGjenlevenderett && <Divider noMargin />}
 						</>
 					)}
-				{showSivilstatus({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-				}) && (
+
+				{erEndring && afpSporsmaal}
+
+				{sivilstatusVisible && (
 					<RHFSelect
 						name="sivilstatus"
 						testId="sivilstatus-select"
@@ -377,6 +419,7 @@ export const BeregningForm = () => {
 					sivilstatus,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning,
 				}) && (
 					<RHFRadio
 						name="epsHarPensjon"
@@ -391,6 +434,7 @@ export const BeregningForm = () => {
 					epsHarPensjon,
 					beregnMedGjenlevenderett,
 					erEndring,
+					serviceBeregning,
 				}) && (
 					<RHFRadio
 						name="epsHarInntektOver2G"
@@ -399,6 +443,11 @@ export const BeregningForm = () => {
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
+
+				{erEndring && serviceBeregning && sivilstatusVisible && (
+					<Divider noMargin />
+				)}
+
 				{!erEndring && (
 					<>
 						<Divider noMargin />
@@ -407,34 +456,8 @@ export const BeregningForm = () => {
 					</>
 				)}
 
-				{!hideAfpSporsmaal && (
-					<>
-						<RHFRadio
-							name="afp"
-							legend="Skal AFP inkluderes?"
-							options={afpOptions}
-							className={styles.horizontalRadioGroup}
-							testid="afp"
-							onChange={(value) => {
-								setAlertDismissed(true)
-								resetAlderVelger(value)
-							}}
-						/>
-						{showUTOgAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-								className={styles.sanityAlert}
-							/>
-						)}
-						{showUTOgFolketrygdBeregnetAFPAlert && (
-							<SanityAlert
-								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-								className={styles.sanityAlert}
-							/>
-						)}
-						<Divider noMargin />
-					</>
-				)}
+				{!erEndring && afpSporsmaal}
+
 				{forTidligEndringAvUttaksgradDato && (
 					<SanityAlert
 						id="beregning.ugyldig-uttaksgrad"
@@ -503,7 +526,7 @@ export const BeregningForm = () => {
 								testId="inntekt-foer-uttak"
 								label="Pensjonsgivende årsinntekt frem til uttak"
 								description={
-									afp === 'ja_offentlig' && initialInntektAar
+									initialInntektAar
 										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
 										: undefined
 								}

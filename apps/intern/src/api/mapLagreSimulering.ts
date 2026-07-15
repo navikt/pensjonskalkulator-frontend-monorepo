@@ -2,8 +2,10 @@ import type {
 	Alder,
 	LagreSimuleringSpecDtoV1,
 	LagreUttaksinformasjonDto,
+	OmstillingsstoenadOgGjenlevende,
 	SimuleringUtenlandsperiode,
 	Vedtak,
+	Vilkaarsliste,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
@@ -76,10 +78,10 @@ function getNormertPensjonsalderPlassering(
 
 export function mapBeregningResultToLagreSpec(
 	result: BeregningResult,
+	foedselsdato: string,
 	aktivBeregning?: BeregningParams | null,
 	navEnhetId?: string | null,
 	grunnbeloep?: number | null,
-	foedselsdato?: string | null,
 	utenlandsperiodeListe?: SimuleringUtenlandsperiode[],
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
@@ -162,13 +164,11 @@ export function mapBeregningResultToLagreSpec(
 					})
 				)
 			: null
-	const kull = foedselsdato
-		? isFoedtEtter1963(foedselsdato)
-			? 'KAP20'
-			: isOvergangskull(foedselsdato)
-				? 'OVERGANG'
-				: 'KAP19'
-		: undefined
+	const kull = isFoedtEtter1963(foedselsdato)
+		? 'KAP20'
+		: isOvergangskull(foedselsdato)
+			? 'OVERGANG'
+			: 'KAP19'
 
 	const maanedligAlderspensjonForKnekkpunkter =
 		mapMaanedligAlderspensjonForKnekkpunkter(

@@ -4,6 +4,7 @@ import type {
 	AlertQueryResult,
 	ForbeholdAvsnittQueryResult,
 	GuidePanelQueryResult,
+	KortforbeholdQueryResult,
 	ReadMoreQueryResult,
 } from '../types/sanity.types'
 
@@ -12,6 +13,7 @@ interface SanityContext {
 	guidePanelData: Record<string, GuidePanelQueryResult[number]>
 	readMoreData: Record<string, ReadMoreQueryResult[number]>
 	forbeholdAvsnittData: ForbeholdAvsnittQueryResult
+	kortforbeholdData?: Record<string, KortforbeholdQueryResult[number]>
 	isSanityLoading: boolean
 }
 
@@ -20,5 +22,6 @@ export const SanityContext = React.createContext<SanityContext>({
 	guidePanelData: {},
 	readMoreData: {},
 	forbeholdAvsnittData: [],
+	kortforbeholdData: {},
 	isSanityLoading: true,
 })

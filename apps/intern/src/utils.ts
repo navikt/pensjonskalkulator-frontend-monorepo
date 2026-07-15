@@ -15,6 +15,12 @@ export function getEnhetsidFromUrl(): string | undefined {
 	return params.get('saksbehandlerValgtEnhet') ?? undefined
 }
 
+export function getPesysBrukeroversiktUrl(): string {
+	return window.location.hostname.endsWith('.dev.nav.no')
+		? 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
+		: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
+}
+
 export function getVedtakStatus(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
@@ -22,10 +28,7 @@ export function getVedtakStatus(
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
 
-	const APFomDato =
-		loependeAlderspensjon && fremtidigAlderspensjon
-			? loependeAlderspensjon?.fom
-			: (loependeAlderspensjon?.uttaksgradFom ?? '')
+	const APFomDato = loependeAlderspensjon?.uttaksgradFom ?? ''
 	const alderspensjonString = loependeAlderspensjon
 		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''

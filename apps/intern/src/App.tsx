@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import {
-	BodyLong,
 	Box,
 	GlobalAlert,
 	HStack,
@@ -16,6 +15,7 @@ import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
 	useEnheterQuery,
+	useErApotekerQuery,
 	useFeatureToggleQuery,
 	useInntektQuery,
 	useInternsimulatorLagreBrevButtonQuery,
@@ -29,6 +29,11 @@ import {
 	useBeregningContext,
 } from './components/BeregningContext.tsx'
 import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
+import {
+	ErrorPage4xx,
+	ErrorPage5xx,
+	ErrorPage404,
+} from './components/ErrorPages/index.ts'
 import { getEnhetsidFromUrl, getPidFromUrl } from './utils.ts'
 
 import styles from './styles/global.module.css'
@@ -103,6 +108,8 @@ const AppContent = () => {
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
 
+	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
+
 	const { isLoading: isLoadingEnheter, error: enheterError } =
 		useEnheterQuery(visLagreBrevButton)
 
@@ -122,6 +129,7 @@ const AppContent = () => {
 	if (!pid) {
 		return <PersonInfo onPidChange={handlePidChange} />
 	}
+
 	const error =
 		decryptError ||
 		personError ||
@@ -129,47 +137,24 @@ const AppContent = () => {
 		inntektError ||
 		omstillingError ||
 		(visLagreBrevButton ? enheterError : undefined)
-	const isUnauthorized =
-		error && (error.message.includes('401') || error.message.includes('403'))
-
-	if (isUnauthorized) {
-		return (
-			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
-				<GlobalAlert status="error">
-					<GlobalAlert.Header>
-						<GlobalAlert.Title>Ikke autorisert</GlobalAlert.Title>
-					</GlobalAlert.Header>
-					<BodyLong spacing>
-						Du har ikke tilgang til denne tjenesten. Vennligst kontakt
-						systemadministrator hvis du mener du burde ha tilgang.
-					</BodyLong>
-					{error && (
-						<BodyLong size="small" style={{ opacity: 0.8 }}>
-							Feilmelding: {error.message}
-						</BodyLong>
-					)}
-				</GlobalAlert>
-			</Box>
-		)
-	}
 
 	if (error) {
-		return (
-			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
-				<GlobalAlert status="error">
-					<GlobalAlert.Header>
-						<GlobalAlert.Title>Noe gikk galt</GlobalAlert.Title>
-					</GlobalAlert.Header>
-					<BodyLong spacing>
-						Det oppstod en feil ved henting av brukerdata. Vennligst prøv igjen
-						senere.
-					</BodyLong>
-					<BodyLong size="small" style={{ opacity: 0.8 }}>
-						Feilmelding: {error.message}
-					</BodyLong>
-				</GlobalAlert>
-			</Box>
-		)
+		if (decryptError) {
+			return <ErrorPage404 />
+		}
+
+		const statusMatch = error.message.match(/(\d{3})/)
+		const status = statusMatch ? parseInt(statusMatch[1], 10) : undefined
+
+		if (status === 404) {
+			return <ErrorPage404 />
+		}
+
+		if (status && status >= 401 && status <= 499) {
+			return <ErrorPage4xx status={status} message={error.message} />
+		}
+
+		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
 	if (
@@ -178,6 +163,7 @@ const AppContent = () => {
 		isLoadingVedtak ||
 		isLoadingInntekt ||
 		isLoadingOmstilling ||
+		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
 	) {
 		return <Loader size="xlarge" title="Henter brukerdata..." />

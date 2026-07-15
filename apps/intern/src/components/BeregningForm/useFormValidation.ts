@@ -21,6 +21,7 @@ import {
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
+	erApoteker: boolean
 	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
@@ -31,13 +32,6 @@ function validateEPSOpplysninger(
 	formData: BeregningFormData,
 	errors: ValidationErrors
 ) {
-	if (
-		formData.epsAntallUtenlandsOppholdAar === undefined ||
-		formData.epsAntallUtenlandsOppholdAar === null
-	) {
-		errors.epsAntallUtenlandsOppholdAar =
-			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
-	}
 	if (
 		formData.epsAntallUtenlandsOppholdAar !== null &&
 		Number(formData.epsAntallUtenlandsOppholdAar) > 39
@@ -70,11 +64,6 @@ function validateEPSOpplysninger(
 	if (formData.epsRegistretSomFlykting === null) {
 		errors.epsRegistretSomFlykting =
 			'Velg ja/nei om avdøde var registrert som flyktning.'
-	}
-
-	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
-		errors.epsPensjonsgivendeInntektFoerDoedsDato =
-			'Fyll ut inntekt året før dødsdato.'
 	}
 }
 
@@ -135,6 +124,7 @@ function validateSivilstand(
 			epsHarPensjon: formData.epsHarPensjon,
 			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
 			erEndring: false,
+			serviceBeregning: false,
 		}) &&
 		formData.epsHarInntektOver2G === null
 	) {
@@ -400,17 +390,19 @@ export function useFormValidation() {
 		(
 			formData: BeregningFormData,
 			{
+				erApoteker,
 				foedselsdato,
 				erEndring = false,
 				hideAfpSporsmaal = false,
 				initialInntektAar,
-			}: ValidateFormOptions = {}
+			}: ValidateFormOptions
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
 			const erAfpOffentlig = showAfpOffentligFields({
 				afp: formData.afp,
 				foedselsdato,
+				erApoteker,
 			})
 
 			validateGjenlevenderett(formData, errors)

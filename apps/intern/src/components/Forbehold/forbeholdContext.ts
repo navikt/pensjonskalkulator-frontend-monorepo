@@ -8,6 +8,7 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
+import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import type { BeregningParams } from '../../api/beregningTypes'
 
@@ -31,7 +32,15 @@ export function buildForbeholdContext({
 
 	const beregnerAfpPrivat = aktivBeregning?.afp === 'ja_privat'
 	const beregnerAfpOffentlig = aktivBeregning?.afp === 'ja_offentlig'
-	const beregnerGammelAfp = aktivBeregning?.afp === 'serviceberegning'
+	// Gammel AFP offentlig (kap. 19) beregnes både ved serviceberegning og ved
+	// "AFP etterfulgt av alderspensjon" – dvs. ja_offentlig for årskull født før
+	// 1963 (inkludert overgangskullene 1954–1962). Begge tilfellene skal vise
+	// forbeholdene som er knyttet til gammel AFP offentlig.
+	const erFoedtFoer1963 =
+		!!person?.foedselsdato && isFoedtFoer1963(person.foedselsdato)
+	const beregnerGammelAfp =
+		aktivBeregning?.afp === 'serviceberegning' ||
+		(beregnerAfpOffentlig && erFoedtFoer1963)
 	const beregnerAfpUavhengigAvAarskull =
 		beregnerAfpPrivat || beregnerAfpOffentlig || beregnerGammelAfp
 
