@@ -375,7 +375,7 @@ test.describe('Gjenlevenderett', () => {
 				.getByLabel('Henvendelse fra begge parter foreligger')
 				.check()
 
-			await page.getByRole('button', { name: 'Nullstill' }).click()
+			await page.getByRole('button', { name: 'Nullstill skjema' }).click()
 
 			await expect(checkbox).not.toBeChecked()
 			await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).not.toBeVisible()
