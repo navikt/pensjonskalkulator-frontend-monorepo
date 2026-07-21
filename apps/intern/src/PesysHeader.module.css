@@ -2,7 +2,10 @@
 	padding: 0 var(--ax-space-24);
 }
 
-.button {
-	text-decoration: none;
-	color: var(--ax-text-neutral);
+.title {
+	font-size: var(--ax-font-size-heading-xlarge);
+	font-weight: 650;
+	line-height: var(--ax-font-line-height-heading-xlarge);
+	padding-top: var(--ax-space-4);
+	padding-bottom: var(--ax-space-4);
 }

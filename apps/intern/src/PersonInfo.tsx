@@ -77,7 +77,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			gap="space-4"
 			align="center"
 			justify="end"
-			className={styles.personInfoWrapper}
+			className={`${styles.personInfoWrapper} ${styles.hentPersonSection}`}
 		>
 			{devInput}
 		</HStack>
@@ -126,14 +126,14 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		<HStack gap="space-4" className={styles.personInfoWrapper}>
 			<PersonIcon title="a11y-title" fontSize="1.5rem" />
 			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} />
+			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
 			<BodyShort size="medium">
-				<span>{' / '}</span>
+				<span className={styles.slash}>/</span>
 				{person.navn}
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
-					{' / '}
+					<span className={styles.slash}>/</span>
 					{vedtakStatus}
 				</BodyShort>
 			)}
