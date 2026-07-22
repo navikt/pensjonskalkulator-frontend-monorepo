@@ -77,7 +77,11 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			gap="space-4"
 			align="center"
 			justify="end"
-			className={`${styles.personInfoWrapper} ${styles.hentPersonSection}`}
+			className={
+				pid
+					? styles.hentPersonSection
+					: `${styles.personInfoWrapper} ${styles.hentPersonSection}`
+			}
 		>
 			{devInput}
 		</HStack>
@@ -123,8 +127,12 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		)
 	}
 	return (
-		<HStack gap="space-4" className={styles.personInfoWrapper}>
-			<PersonIcon title="a11y-title" fontSize="1.5rem" />
+		<HStack className={styles.personInfoWrapper}>
+			<PersonIcon
+				title="a11y-title"
+				fontSize="1.5rem"
+				className={styles.personInfoIcon}
+			/>
 			<BodyShort size="medium">{fnr}</BodyShort>
 			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
 			<BodyShort size="medium">

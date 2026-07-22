@@ -6,14 +6,13 @@
 .personInfoWrapper {
 	display: flex;
 	align-items: center;
-	gap: var(--ax-space-12);
 	padding: var(--ax-space-8) var(--ax-space-44);
 	background-color: var(--ax-bg-neutral-moderate);
 	border-bottom: var(--ax-space-2) solid var(--ax-border-neutral-subtle);
 }
 
 .copyButton {
-	padding: 0;
+	padding-left: 0;
 }
 
 .slash {
@@ -22,10 +21,11 @@
 
 .hentPersonSection {
 	margin-left: auto;
-	padding: 0;
+	padding-block: 0;
 }
 
 .personInfoIcon {
 	width: 24px;
 	height: 24px;
+	margin-right: var(--ax-space-12);
 }
