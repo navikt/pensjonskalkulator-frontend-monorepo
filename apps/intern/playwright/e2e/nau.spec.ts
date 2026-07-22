@@ -13,7 +13,7 @@ function createSanityAlertResponse(alertName: string) {
 		result: [
 			{
 				name: alertName,
-				type: 'local-alert',
+				type: 'info-card',
 				status: 'warning',
 				overskrift: 'Ikke nok opptjening',
 				innhold: [
@@ -43,7 +43,7 @@ function createSanityAlertResponse(alertName: string) {
 			},
 			{
 				name: 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert',
-				type: 'local-alert',
+				type: 'info-card',
 				status: 'warning',
 				overskrift: 'Ikke nok opptjening',
 				innhold: [

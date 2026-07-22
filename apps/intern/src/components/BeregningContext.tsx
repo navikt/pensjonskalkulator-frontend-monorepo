@@ -4,10 +4,7 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import {
-	calculateUttaksalderAsDate,
-	isFoedtFoer1963,
-} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	type ReactNode,
 	createContext,
@@ -29,11 +26,16 @@ import {
 	type BeregningResult,
 	defaultBeregningFormData,
 } from '../api/beregningTypes'
-import { harPartner, showAfpOffentligFields } from '../api/formConditions'
+import {
+	erKap19EllerApoteker,
+	harPartner,
+	showAfpOffentligFields,
+} from '../api/formConditions'
 import { mapBeregningParamsToRequest } from '../api/mapBeregningParams'
 import {
 	useBeregningQuery,
 	useDecryptPidQuery,
+	useErApotekerQuery,
 	useGrunnbeloepQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
@@ -55,6 +57,7 @@ interface BeregningContextValue {
 	initialInntektAar?: number
 	initialInntekt?: number
 	omstillingsstoenad: OmstillingsstoenadOgGjenlevende | undefined
+	erApoteker: boolean
 	submitBeregning: () => void
 	resetForm: () => void
 }
@@ -115,6 +118,7 @@ export function BeregningProvider({
 	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
+	const { data: erApoteker } = useErApotekerQuery(fnr)
 
 	const enhetsid = getEnhetsidFromUrl()
 
@@ -149,7 +153,7 @@ export function BeregningProvider({
 	const skalBeregneAfpKap19 =
 		afp === 'ja_offentlig' &&
 		!!person?.foedselsdato &&
-		isFoedtFoer1963(person.foedselsdato)
+		erKap19EllerApoteker(person.foedselsdato, !!erApoteker)
 
 	useEffect(() => {
 		const sivilstatusFromVedtak = vedtak?.loependeAlderspensjon?.sivilstatus
@@ -174,12 +178,13 @@ export function BeregningProvider({
 			!showAfpOffentligFields({
 				afp,
 				foedselsdato: person?.foedselsdato,
+				erApoteker: !!erApoteker,
 			})
 		) {
 			form.setValue('inntektSisteMaanedFoerUttak', null, {
 				shouldDirty: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 			})
 		}
@@ -200,7 +205,7 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (harInntektVedSidenAvUttak !== true) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektSlutter', null, { shouldDirty: false })
@@ -208,13 +213,25 @@ export function BeregningProvider({
 		}
 	}, [harInntektVedSidenAvUttak, form])
 
+	const visHarInntektVedSidenAvUttak =
+		uttaksgrad !== null &&
+		!showAfpOffentligFields({
+			afp,
+			foedselsdato: person?.foedselsdato,
+			erApoteker: !!erApoteker,
+		})
+
 	useEffect(() => {
-		if (uttaksgrad === null) {
+		if (!visHarInntektVedSidenAvUttak) {
 			form.setValue('harInntektVedSidenAvUttak', null, {
 				shouldDirty: false,
 			})
+		} else if (harInntektVedSidenAvUttak === null) {
+			form.setValue('harInntektVedSidenAvUttak', false, {
+				shouldDirty: false,
+			})
 		}
-	}, [uttaksgrad, form])
+	}, [visHarInntektVedSidenAvUttak, harInntektVedSidenAvUttak, form])
 
 	useEffect(() => {
 		if (uttaksgrad === null || uttaksgrad === 100) {
@@ -223,7 +240,7 @@ export function BeregningProvider({
 			})
 			form.setValue('alderAarHeltUttak', null, { shouldDirty: false })
 			form.setValue('alderMdHeltUttak', null, { shouldDirty: false })
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderAarInntektGradertSlutter', null, {
@@ -237,10 +254,10 @@ export function BeregningProvider({
 
 	useEffect(() => {
 		if (skalBeregneAfpKap19) {
-			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvGradertUttak', 0, {
 				shouldDirty: false,
 			})
-			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', null, {
+			form.setValue('pensjonsgivendeInntektVedSidenAvUttak', 0, {
 				shouldDirty: false,
 			})
 			form.setValue('alderMdHeltUttak', null, {
@@ -283,7 +300,7 @@ export function BeregningProvider({
 				shouldDirty: false,
 				shouldValidate: false,
 			})
-			form.setValue('aarsinntektSamtidigMedAfp', null, {
+			form.setValue('aarsinntektSamtidigMedAfp', 0, {
 				shouldDirty: false,
 				shouldValidate: false,
 			})
@@ -326,7 +343,13 @@ export function BeregningProvider({
 	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
 	const pendingRequest = pendingBeregning
-		? mapBeregningParamsToRequest(pendingBeregning, person, grunnbeloep, vedtak)
+		? mapBeregningParamsToRequest(
+				pendingBeregning,
+				!!erApoteker,
+				person,
+				grunnbeloep,
+				vedtak
+			)
 		: null
 
 	const {
@@ -358,6 +381,7 @@ export function BeregningProvider({
 					initialInntektAar,
 					initialInntekt,
 					omstillingsstoenad,
+					erApoteker: !!erApoteker,
 					submitBeregning,
 					resetForm,
 				}}

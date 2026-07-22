@@ -5,10 +5,7 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import {
-	calculateUttaksalderAsDate,
-	isFoedtFoer1963,
-} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
@@ -23,6 +20,8 @@ import {
 	parseISO,
 	startOfMonth,
 } from 'date-fns'
+
+import { erKap19EllerApoteker } from '../../api/formConditions'
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: EpsSivilstatus
@@ -40,15 +39,21 @@ export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
 	erEndring,
+	serviceBeregning,
 }: {
 	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
 	erEndring: boolean
+	serviceBeregning: boolean
 }): boolean {
-	if (!sivilstatus || erEndring) return false
+	if (!sivilstatus || (erEndring && !serviceBeregning)) return false
 
 	return (
-		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
+		(erEndring &&
+			serviceBeregning &&
+			isSivilstatusWithGjenlevenderett(sivilstatus)) ||
+		!isSivilstatusWithGjenlevenderett(sivilstatus) ||
+		!beregnMedGjenlevenderett
 	)
 }
 
@@ -56,14 +61,16 @@ export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
 	harGjenlevenderett,
+	erApoteker,
 }: {
 	initialSivilstatus: EpsSivilstatus
 	person?: PersonInternV1
 	harGjenlevenderett?: boolean
+	erApoteker: boolean
 }): boolean {
 	if (harGjenlevenderett === true || !person) return false
 	return (
-		isFoedtFoer1963(person?.foedselsdato) &&
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker) &&
 		isSivilstatusWithGjenlevenderett(initialSivilstatus)
 	)
 }

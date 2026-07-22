@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { PersonIcon } from '@navikt/aksel-icons'
+import { InformationSquareFillIcon, PersonIcon } from '@navikt/aksel-icons'
 import {
-	Alert,
 	BodyShort,
 	Button,
 	CopyButton,
 	HStack,
 	InfoCard,
+	LocalAlert,
 	TextField,
 } from '@navikt/ds-react'
 
@@ -91,7 +91,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				{devInputSection}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
-					<InfoCard.Header>
+					<InfoCard.Header icon={<InformationSquareFillIcon aria-hidden />}>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>
 					<InfoCard.Content>
@@ -112,7 +112,14 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	if (isError || !fnr || !person) {
 		return (
-			<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
+			<LocalAlert status="error" size="small">
+				<LocalAlert.Header>
+					<LocalAlert.Title>Kunne ikke hente bruker</LocalAlert.Title>
+				</LocalAlert.Header>
+				<LocalAlert.Content>
+					{error?.message ?? 'Ukjent feil'}
+				</LocalAlert.Content>
+			</LocalAlert>
 		)
 	}
 	return (

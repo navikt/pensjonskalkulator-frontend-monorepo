@@ -5,9 +5,15 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
+import {
+	CheckmarkCircleFillIcon,
+	ExclamationmarkTriangleFillIcon,
+	InformationSquareFillIcon,
+	XMarkOctagonFillIcon,
+} from '@navikt/aksel-icons'
 import {
 	GlobalAlert,
 	InfoCard,
@@ -26,6 +32,13 @@ const infoCardColorMap = {
 	warning: 'warning',
 	error: 'danger',
 } as const
+
+const infoCardIconMap: Record<AlertStatus, ReactNode> = {
+	info: <InformationSquareFillIcon aria-hidden />,
+	success: <CheckmarkCircleFillIcon aria-hidden />,
+	warning: <ExclamationmarkTriangleFillIcon aria-hidden />,
+	error: <XMarkOctagonFillIcon aria-hidden />,
+}
 
 const alertStatusMap: Record<
 	AlertStatus,
@@ -101,7 +114,7 @@ export const SanityAlert = ({
 					size="small"
 				>
 					{sanityContent.overskrift && (
-						<InfoCard.Header>
+						<InfoCard.Header icon={infoCardIconMap[status]}>
 							<InfoCard.Title>{sanityContent.overskrift}</InfoCard.Title>
 						</InfoCard.Header>
 					)}
