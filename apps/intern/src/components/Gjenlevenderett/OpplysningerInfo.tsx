@@ -16,6 +16,19 @@ import styles from './OpplysningerInfo.module.css'
 
 type OpplysningerInfoItem = { label: string; value: string | number }
 
+const formatPersonnavn = (navn?: string | null): string =>
+	(navn ?? '')
+		.toLowerCase()
+		.split(' ')
+		.filter(Boolean)
+		.map((word) =>
+			word
+				.split('-')
+				.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+				.join('-')
+		)
+		.join(' ')
+
 function mapEpsOpplysninger({
 	eps,
 	vedtakInfoAvdoed,
@@ -35,7 +48,7 @@ function mapEpsOpplysninger({
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
 			label: 'Navn',
-			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
+			value: `${formatPersonnavn(navn?.etternavn)}, ${formatPersonnavn(navn?.fornavn)}${navn?.mellomnavn ? ` ${formatPersonnavn(navn.mellomnavn)}` : ''}`,
 		},
 		{
 			label: 'Dødsdato',

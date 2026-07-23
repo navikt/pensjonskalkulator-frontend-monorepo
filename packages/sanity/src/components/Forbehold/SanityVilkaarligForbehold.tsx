@@ -8,6 +8,7 @@ import { SanityForbehold } from './SanityForbehold'
 interface Props {
 	ctx: ForbeholdContext
 	title?: React.ReactNode
+	titleLevel?: '1' | '2' | '3' | '4' | '5' | '6'
 	avsnittTestId?: string
 	size?: 'small' | 'medium'
 }
@@ -23,6 +24,7 @@ interface Props {
 export const SanityVilkaarligForbehold = ({
 	ctx,
 	title,
+	titleLevel,
 	avsnittTestId,
 	size,
 }: Props) => {
@@ -40,6 +42,7 @@ export const SanityVilkaarligForbehold = ({
 		<SanityForbehold
 			avsnitt={synligeAvsnitt}
 			title={title}
+			titleLevel={titleLevel}
 			avsnittTestId={avsnittTestId}
 			size={size}
 		/>

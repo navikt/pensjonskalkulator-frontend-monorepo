@@ -7,6 +7,7 @@ import {
 	CopyButton,
 	HStack,
 	InfoCard,
+	Link,
 	LocalAlert,
 	TextField,
 } from '@navikt/ds-react'
@@ -95,15 +96,15 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>
 					<InfoCard.Content>
-						Du må hente en bruker i &nbsp;
-						<a
+						Du må hente en bruker i{' '}
+						<Link
 							href={pesysBrukeroversiktUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
 							brukeroversikt
-						</a>
-						&nbsp; i Pesys før du kan gjøre en beregning i Pensjonskalkulator
+						</Link>{' '}
+						i Pesys før du kan gjøre en beregning i Pensjonskalkulator
 					</InfoCard.Content>
 				</InfoCard>
 			</>
