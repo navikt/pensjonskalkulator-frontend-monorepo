@@ -2,14 +2,30 @@
 	width: 480px;
 	margin: 230px auto;
 }
+
 .personInfoWrapper {
 	display: flex;
 	align-items: center;
-	padding: var(--ax-space-12) var(--ax-space-44);
+	padding: var(--ax-space-8) var(--ax-space-44);
 	background-color: var(--ax-bg-neutral-moderate);
+	border-bottom: var(--ax-space-2) solid var(--ax-border-neutral-subtle);
+}
+
+.copyButton {
+	padding-left: 0;
+}
+
+.slash {
+	margin: 0 var(--ax-space-8);
+}
+
+.hentPersonSection {
+	margin-left: auto;
+	padding-block: 0;
 }
 
 .personInfoIcon {
 	width: 24px;
 	height: 24px;
+	margin-right: var(--ax-space-12);
 }
