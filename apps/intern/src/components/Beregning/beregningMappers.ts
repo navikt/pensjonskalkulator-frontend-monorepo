@@ -89,12 +89,14 @@ export function mapOpptjeningEtterKapittel19ToRows(
 	opptjening: SimuleringMaanedligAlderspensjon,
 	visAarsbelop: boolean,
 	grunnbeloep?: number,
-	isGradert = false
+	isGradert = false,
+	visAndelsbroek = true
 ): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
 			value: formatNumber((opptjening.kapittel19Andel || 0) * 10) + '/10',
+			hide: !visAndelsbroek,
 		},
 		{
 			label: 'Grunnbeløp (G)',
@@ -146,19 +148,21 @@ export function mapOpptjeningEtterKapittel19ToRows(
 }
 
 export function mapOpptjeningEtterKapittel20ToRows(
-	opptjening: SimuleringMaanedligAlderspensjon
+	opptjening: SimuleringMaanedligAlderspensjon,
+	visAndelsbroek = true
 ): BeregningDetailRow[] {
 	return [
 		{
 			label: 'Andelsbrøk',
 			value: formatNumber((opptjening.kapittel20Andel || 0) * 10) + '/10',
+			hide: !visAndelsbroek,
 		},
 		{
 			label: 'Delingstall ved uttak',
 			value: formatNumber(opptjening.delingstall, 2),
 		},
 		{
-			label: 'Garantipensjon',
+			label: 'Garantipensjonsnivå',
 			value: formatKr(opptjening.garantipensjonSats),
 		},
 
@@ -209,8 +213,13 @@ function formatAlder(aar: number, md: number): string {
 		: `${aar} år`
 }
 
-export function formatAlderTitle(aar: number, md: number): string {
-	return `Pensjon ved ${formatAlder(aar, md)}`
+export function formatAlderTitle(
+	aar: number,
+	md: number,
+	uttaksdato?: string
+): string {
+	const base = `Pensjon ved ${formatAlder(aar, md)}`
+	return uttaksdato ? `${base} (${uttaksdato})` : base
 }
 
 export function formatAfpTitle(aar: number, md: number): string {

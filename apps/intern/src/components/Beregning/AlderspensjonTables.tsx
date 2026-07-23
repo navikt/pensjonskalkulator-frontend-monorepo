@@ -37,6 +37,7 @@ export const AlderspensjonTables = ({
 		<BeregningTableWithSum
 			title={`${alderspensjonGrad} % alderspensjon`}
 			valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
+			sumLabel="Sum alderspensjon"
 			rows={mapAlderspensjonToRows(
 				entry,
 				!!erFoedtFoer1963,
@@ -48,19 +49,20 @@ export const AlderspensjonTables = ({
 		/>
 		{erFoedtFoer1963 && (
 			<BeregningDetailTable
-				title="Opptjening etter kapittel 19"
+				title="Opptjening alderspensjon etter kapittel 19"
 				rows={mapOpptjeningEtterKapittel19ToRows(
 					entry,
 					visAarsbelop,
 					grunnbeloep,
-					isGradert
+					isGradert,
+					!!erOvergangskull
 				)}
 			/>
 		)}
 		{(erOvergangskull || erFoedtEtter1963) && (
 			<BeregningDetailTable
-				title="Opptjening etter kapittel 20"
-				rows={mapOpptjeningEtterKapittel20ToRows(entry)}
+				title="Opptjening alderspensjon etter kapittel 20"
+				rows={mapOpptjeningEtterKapittel20ToRows(entry, !erFoedtEtter1963)}
 			/>
 		)}
 	</>
