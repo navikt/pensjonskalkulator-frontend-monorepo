@@ -1,46 +1,17 @@
-import {
-  AnalyticsEvent,
-  getAnalyticsInstance,
-} from '@navikt/nav-dekoratoren-moduler'
+import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler'
 
 import { isAnchorTag } from '@/state/api/typeguards'
 
-type IExtendedAnalyticsEvents =
-  | AnalyticsEvent<'les mer åpnet', { tittel: string }>
-  | AnalyticsEvent<'les mer lukket', { tittel: string }>
-  | AnalyticsEvent<'readmore åpnet', { tekst: string }> // TODO: fjern når amplitude er ikke i bruk lenger
-  | AnalyticsEvent<'readmore lukket', { tekst: string }> // TODO: fjern når amplitude er ikke i bruk lenger
-  | AnalyticsEvent<'radiogroup valgt', { tekst: string; valg: string }>
-  | AnalyticsEvent<'knapp klikket', { tekst: string }>
-  | AnalyticsEvent<'button click', { tekst: string }>
-  | AnalyticsEvent<'chip valgt', { tekst: string; chipVerdi: string }>
-  | AnalyticsEvent<
-      'nedtrekksliste valg endret',
-      { valgtVerdi: string; tekst: string; listeId: string }
-    >
-  | AnalyticsEvent<
-      'grunnlag for beregningen',
-      { tekst: string; data: string | number }
-    >
-  | AnalyticsEvent<'graf tooltip åpnet', { data: string }>
-  | AnalyticsEvent<'help text åpnet', { tekst: string }>
-  | AnalyticsEvent<'help text lukket', { tekst: string }>
-  | AnalyticsEvent<'feilside', { tekst: string }>
-  | AnalyticsEvent<'lenke klikket', { href?: string; target?: string }>
-  | AnalyticsEvent<'link åpnet', { href?: string; target?: string }> // TODO: fjern når amplitude er ikke i bruk lenger
-  | AnalyticsEvent<'info', { tekst: string; data: string | number }>
-  | AnalyticsEvent<'show more åpnet', { tekst: string }>
-  | AnalyticsEvent<'show more lukket', { tekst: string }>
-  | AnalyticsEvent<'resultat vist', { tekst: string }>
+type CustomEventProperties = Record<string, unknown>
 
-export const logger =
-  getAnalyticsInstance<IExtendedAnalyticsEvents>('dekoratoren')
+// logger sender alt videre som frittstående (custom) events via analytics.custom.
+const analytics = getAnalyticsInstance('dekoratoren')
+
+export const logger = (eventName: string, eventData?: CustomEventProperties) =>
+  analytics.custom(eventName, eventData)
 
 export const wrapLogger =
-  (
-    name: IExtendedAnalyticsEvents['name'],
-    properties: IExtendedAnalyticsEvents['properties']
-  ) =>
+  (name: string, properties?: CustomEventProperties) =>
   (func: () => void) =>
   () => {
     // TODO: fjern når amplitude er ikke i bruk lenger
@@ -53,9 +24,16 @@ export const logOpenLink: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
   if (isAnchorTag(e.target)) {
     e.preventDefault()
     const { href, target } = e.target
-    logger('lenke klikket', { href, target })
-    logger('link åpnet', { href, target })
+    const windowTarget = target || '_self'
 
-    window.open(href, target)
+    logger('lenke klikket', { href, target: windowTarget })
+    // TODO: fjern når amplitude er ikke i bruk lenger
+    logger('link åpnet', { href, target: windowTarget })
+
+    if (windowTarget === '_blank') {
+      window.open(href, windowTarget, 'noopener,noreferrer')
+    } else {
+      window.open(href, windowTarget)
+    }
   }
 }
