@@ -8,6 +8,7 @@ import type {
 	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
+	Sivilstand,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -137,17 +138,17 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 
 async function fetchEPSOpplysninger({
 	fnr,
-	sivilstand,
+	sivilstatus,
 	bakgrunn,
 }: {
 	fnr: string
-	sivilstand: Sivilstand
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json', fnr },
-		body: JSON.stringify({ sivilstand, bakgrunn }),
+		body: JSON.stringify({ sivilstatus, bakgrunn }),
 	})
 
 	if (!response.ok) {
@@ -255,18 +256,18 @@ export function useOmstillingsstoenadQuery(fnr?: string) {
 
 export function useEPSOpplysningerQuery({
 	fnr,
-	sivilstand,
+	sivilstatus,
 	bakgrunn,
 }: {
 	fnr?: string
-	sivilstand: Sivilstand
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }) {
 	return useQuery({
-		queryKey: ['EPSOpplysningerQuery', fnr, sivilstand, bakgrunn],
+		queryKey: ['EPSOpplysningerQuery', fnr, sivilstatus, bakgrunn],
 		queryFn:
-			fnr && sivilstand && bakgrunn
-				? () => fetchEPSOpplysninger({ fnr, sivilstand, bakgrunn })
+			fnr && sivilstatus && bakgrunn
+				? () => fetchEPSOpplysninger({ fnr, sivilstatus, bakgrunn })
 				: skipToken,
 		retry: false,
 	})

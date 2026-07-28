@@ -26,9 +26,9 @@ export const Gjenlevenderett = () => {
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [epsQueryParams, setEpsQueryParams] = useState<{
-		sivilstand: Sivilstand
+		sivilstatus: Sivilstand
 		bakgrunn: string
-	}>({} as { sivilstand: Sivilstand; bakgrunn: string })
+	}>({} as { sivilstatus: Sivilstand; bakgrunn: string })
 
 	const {
 		data: EPSOpplysninger,
@@ -126,7 +126,7 @@ export const Gjenlevenderett = () => {
 
 		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
-			sivilstand: person!.sivilstand,
+			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
 		})
 	}
