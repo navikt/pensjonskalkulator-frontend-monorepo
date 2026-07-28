@@ -9,10 +9,10 @@ import { type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import {
-	CheckmarkCircleFillIcon,
-	ExclamationmarkTriangleFillIcon,
-	InformationSquareFillIcon,
-	XMarkOctagonFillIcon,
+	CheckmarkCircleIcon,
+	ExclamationmarkTriangleIcon,
+	InformationSquareIcon,
+	XMarkOctagonIcon,
 } from '@navikt/aksel-icons'
 import {
 	GlobalAlert,
@@ -34,10 +34,10 @@ const infoCardColorMap = {
 } as const
 
 const infoCardIconMap: Record<AlertStatus, ReactNode> = {
-	info: <InformationSquareFillIcon aria-hidden />,
-	success: <CheckmarkCircleFillIcon aria-hidden />,
-	warning: <ExclamationmarkTriangleFillIcon aria-hidden />,
-	error: <XMarkOctagonFillIcon aria-hidden />,
+	info: <InformationSquareIcon aria-hidden />,
+	success: <CheckmarkCircleIcon aria-hidden />,
+	warning: <ExclamationmarkTriangleIcon aria-hidden />,
+	error: <XMarkOctagonIcon aria-hidden />,
 }
 
 const alertStatusMap: Record<
