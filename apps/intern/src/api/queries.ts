@@ -138,17 +138,19 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 
 async function fetchEPSOpplysninger({
 	fnr,
+	sivilstand,
 	sivilstatus,
 	bakgrunn,
 }: {
 	fnr: string
-	sivilstatus: Sivilstatus
+	sivilstand?: Sivilstand
+	sivilstatus?: Sivilstatus
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json', fnr },
-		body: JSON.stringify({ sivilstatus, bakgrunn }),
+		body: JSON.stringify({ sivilstand, sivilstatus, bakgrunn }),
 	})
 
 	if (!response.ok) {
@@ -256,18 +258,20 @@ export function useOmstillingsstoenadQuery(fnr?: string) {
 
 export function useEPSOpplysningerQuery({
 	fnr,
+	sivilstand,
 	sivilstatus,
 	bakgrunn,
 }: {
 	fnr?: string
-	sivilstatus: Sivilstatus
+	sivilstand?: Sivilstand
+	sivilstatus?: Sivilstatus
 	bakgrunn: string
 }) {
 	return useQuery({
-		queryKey: ['EPSOpplysningerQuery', fnr, sivilstatus, bakgrunn],
+		queryKey: ['EPSOpplysningerQuery', fnr, sivilstand, sivilstatus, bakgrunn],
 		queryFn:
-			fnr && sivilstatus && bakgrunn
-				? () => fetchEPSOpplysninger({ fnr, sivilstatus, bakgrunn })
+			fnr && sivilstand && sivilstatus && bakgrunn
+				? () => fetchEPSOpplysninger({ fnr, sivilstand, sivilstatus, bakgrunn })
 				: skipToken,
 		retry: false,
 	})
