@@ -21,7 +21,7 @@ import { OpplysningerInfo } from './OpplysningerInfo'
 import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
-	const { form, fnr } = useBeregningContext()
+	const { form, fnr, person } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
@@ -103,10 +103,10 @@ export const Gjenlevenderett = () => {
 	})
 
 	useEffect(() => {
-		if (!harHentetEPSOpplysninger) {
+		if (!harHentetEPSOpplysninger || !person) {
 			setEpsQueryParams({} as { sivilstand: Sivilstand; bakgrunn: string })
 		}
-	}, [harHentetEPSOpplysninger])
+	}, [harHentetEPSOpplysninger, person])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -126,7 +126,7 @@ export const Gjenlevenderett = () => {
 
 		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
-			sivilstand: formData.sivilstatus as Sivilstand,
+			sivilstand: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
 		})
 	}
@@ -144,7 +144,10 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const isEPSInfoEmpty = formEpsOpplysninger && formEpsOpplysninger.pid === null
+	const isEPSInfoEmpty =
+		formEpsOpplysninger &&
+		(formEpsOpplysninger.pid === null ||
+			formEpsOpplysninger?.relasjonstype === 'UKJENT')
 
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'

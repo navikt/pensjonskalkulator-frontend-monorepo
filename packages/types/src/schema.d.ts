@@ -1868,6 +1868,20 @@ export interface components {
 			 * @description Pensjonsbeholdning (beløp i norske kroner)
 			 */
 			pensjonsbeholdningBeloep: number
+			/** @description Merknader som er knyttet til opptjeningen */
+			merknadListe: (
+				| 'AFP'
+				| 'REFORM'
+				| 'INGEN_OPPTJENING'
+				| 'UFOEREGRAD'
+				| 'DAGPENGER'
+				| 'FOERSTEGANGSTJENESTE'
+				| 'OMSORGSOPPTJENING'
+				| 'GRADERT_UTTAK'
+				| 'HELT_UTTAK'
+				| 'UNKNOWN'
+				| 'NONE'
+			)[]
 		}
 		SimuleringV1PrivatAfp: {
 			/**
@@ -2678,21 +2692,53 @@ export interface components {
 				| 'SAMBOER'
 		}
 		PersonInternV1Alder: {
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall fylte år
+			 */
 			aar: number
-			/** Format: int32 */
+			/**
+			 * Format: int32
+			 * @description Antall fylte måneder (0-11)
+			 */
 			maaneder: number
 		}
 		PersonInternV1Pensjonsaldre: {
+			/** @description Normert pensjonsalder (alder for ubetinget start av pensjonsuttak) */
 			normertPensjoneringsalder: components['schemas']['PersonInternV1Alder']
+			/** @description Nedre aldersgrense for start av pensjonsuttak */
 			nedreAldersgrense: components['schemas']['PersonInternV1Alder']
+			/** @description Øvre aldersgrense for start av pensjonsuttak */
 			oevreAldersgrense: components['schemas']['PersonInternV1Alder']
 		}
 		PersonInternV1Person: {
+			/** @description Personens navn, format: Fornavn (Mellomnavn) Etternavn */
 			navn: string
-			/** Format: date */
+			/**
+			 * Format: date
+			 * @description Personens fødselsdato
+			 */
 			foedselsdato: string
-			/** @enum {string} */
+			/**
+			 * @description Personens sivilstand
+			 * @enum {string}
+			 */
+			sivilstand:
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'UNKNOWN'
+			/**
+			 * @description Personens sivilstatus (sivilstand pluss samboerskap)
+			 * @enum {string}
+			 */
 			sivilstatus:
 				| 'UNKNOWN'
 				| 'UOPPGITT'
@@ -2706,6 +2752,7 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+			/** @description Personens mulige pensjoneringsaldre */
 			pensjoneringAldre: components['schemas']['PersonInternV1Pensjonsaldre']
 		}
 		OpptjeningV1: {
@@ -2729,6 +2776,20 @@ export interface components {
 			 * @description Pensjonsbeholdning (beløp i norske kroner)
 			 */
 			pensjonsbeholdningBeloep: number
+			/** @description Merknader som er knyttet til opptjeningen */
+			merknadListe: (
+				| 'AFP'
+				| 'REFORM'
+				| 'INGEN_OPPTJENING'
+				| 'UFOEREGRAD'
+				| 'DAGPENGER'
+				| 'FOERSTEGANGSTJENESTE'
+				| 'OMSORGSOPPTJENING'
+				| 'GRADERT_UTTAK'
+				| 'HELT_UTTAK'
+				| 'UNKNOWN'
+				| 'NONE'
+			)[]
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
