@@ -104,7 +104,7 @@ export const Gjenlevenderett = () => {
 
 	useEffect(() => {
 		if (!harHentetEPSOpplysninger || !person) {
-			setEpsQueryParams({} as { sivilstand: Sivilstand; bakgrunn: string })
+			setEpsQueryParams({} as { sivilstatus: Sivilstand; bakgrunn: string })
 		}
 	}, [harHentetEPSOpplysninger, person])
 
