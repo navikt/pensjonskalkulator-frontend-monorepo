@@ -4,8 +4,7 @@
 
 .title {
 	font-size: var(--ax-font-size-heading-xlarge);
-	font-weight: 650;
-	line-height: var(--ax-font-line-height-heading-2xlarge);
+	line-height: var(--ax-font-line-height-heading-large);
 	padding-top: var(--ax-space-4);
 	padding-bottom: var(--ax-space-4);
 }

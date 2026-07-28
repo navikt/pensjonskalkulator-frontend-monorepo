@@ -141,8 +141,12 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
-					<span className={styles.slash}>/</span>
-					{vedtakStatus}
+					{vedtakStatus.split(/\s*\/\s*/).map((status, index) => (
+						<span key={`${status}-${index}`}>
+							<span className={styles.slash}>/</span>
+							{status}
+						</span>
+					))}
 				</BodyShort>
 			)}
 			{devInputSection}
