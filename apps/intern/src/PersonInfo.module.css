@@ -20,8 +20,11 @@
 }
 
 .hentPersonSection {
-	margin-left: auto;
 	padding-block: 0;
+}
+
+.hentPersonSectionWithPerson {
+	margin-left: auto;
 }
 
 .personInfoIcon {
