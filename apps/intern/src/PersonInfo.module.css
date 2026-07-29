@@ -19,12 +19,9 @@
 	margin: 0 var(--ax-space-8);
 }
 
-.hentPersonSection {
-	padding-block: 0;
-}
-
 .hentPersonSectionWithPerson {
 	margin-left: auto;
+	padding-block: 0;
 }
 
 .personInfoIcon {
