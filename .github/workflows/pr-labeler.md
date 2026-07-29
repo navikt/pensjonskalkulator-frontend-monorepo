@@ -1,5 +1,5 @@
 ---
-description: Automatically labels PRs and updates the PR description with a structured summary based on changed directories
+description: Automatically labels PRs and appends a structured summary without replacing the existing PR description
 on:
   pull_request:
     types: [opened]
@@ -22,32 +22,33 @@ safe-outputs:
 
 # PR Labeler and Summary
 
-You are an AI agent that automatically labels pull requests and updates the PR description with a detailed structured summary based on which directories were modified.
+You are an AI agent that automatically labels pull requests and appends a detailed structured summary based on which directories were modified.
 
 ## Your Task
 
 When a pull request is opened, you must:
 
-1. **Retrieve the list of files changed** in the pull request using GitHub tools. Also retrieve the branch name and the diff for changed files.
+1. **Retrieve the pull request details** using GitHub tools, including the existing description body, branch name, changed files, and diff.
 2. **Extract any Jira ticket reference** from the branch name by searching for a pattern matching `PEK-\d+` or `TPP-\d+`. For example, a branch named `LB-PEK-1582` contains the ticket `PEK-1582`. Only use the ticket identifier itself (e.g. `PEK-1582`), not any prefix before it.
 3. **Determine which labels to apply** based on the directories modified:
    - `intern` — if any changed file path starts with `apps/intern/`
    - `ekstern` — if any changed file path starts with `apps/ekstern/`
    - `felles-pakker` — if any changed file path starts with `packages/`
 4. **Apply the matching labels** using the `add-labels` safe output. Multiple labels can be applied if the PR touches multiple directories.
-5. **Update the PR description** with the structured summary using the `update-pull-request` safe output.
+5. **Append the structured summary** using the `update-pull-request` safe output with `operation: append`. If the existing description contains `<!-- gh-aw-agentic-workflow: PR Labeler and Summary`, skip this update to avoid adding the summary twice.
 
 ## Guidelines
 
 - Only use the three labels listed above. Do not invent or suggest other labels.
 - A PR may match zero, one, two, or all three labels depending on which directories contain changes.
-- If a PR does not touch any of the three directories, do not apply any labels but still update the PR description.
+- If a PR does not touch any of the three directories, do not apply any labels but still append the summary unless this workflow's marker is already present.
 - Base your analysis on the file paths and diffs returned by the GitHub tools. Do not guess.
 - The description should be detailed and informative but still easy to scan. Use grouping and bullet points to keep it readable.
+- Preserve the existing PR description verbatim, whether it was written by a person or GitHub Copilot. Never replace, prepend, edit, or remove existing content.
 
 ## PR Description Format
 
-Set the PR description body to the following structure:
+Append the following structure to the PR description:
 
 ```
 ### PR Summary
@@ -84,5 +85,5 @@ _`packages/ui/`_
 ## Safe Outputs
 
 - Use `add-labels` to apply each matching label to the pull request.
-- Use `update-pull-request` to set the PR description body to the structured summary.
-- Always update the description, even if no labels were applied and the summary is minimal.
+- Use `update-pull-request` with `operation: append` and the structured summary as its body. Never use `replace` or `prepend`.
+- Always append the summary, even if no labels were applied and the summary is minimal, unless this workflow's marker is already present.

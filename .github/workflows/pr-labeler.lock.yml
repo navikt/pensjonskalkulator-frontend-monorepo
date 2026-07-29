@@ -21,9 +21,9 @@
 #
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
-# Automatically labels PRs and updates the PR description with a structured summary based on changed directories
+# Automatically labels PRs and appends a structured summary without replacing the existing PR description
 #
-# gh-aw-metadata: {"schema_version":"v2","frontmatter_hash":"90de057bca689c7913dfa6a9be88dc08e43c4e993b9aaf48b82cdfb50a1948e8","compiler_version":"v0.57.0","strict":true}
+# gh-aw-metadata: {"schema_version":"v2","frontmatter_hash":"937be30a92d958a56559dec900a9b560c8e4d8531a67889a444d45c6adf46d4b","compiler_version":"v0.57.0","strict":true}
 
 name: 'PR Labeler and Summary'
 'on':
@@ -65,7 +65,7 @@ jobs:
         env:
           GH_AW_INFO_ENGINE_ID: 'copilot'
           GH_AW_INFO_ENGINE_NAME: 'GitHub Copilot CLI'
-          GH_AW_INFO_MODEL: 'claude-haiku-4-5'
+          GH_AW_INFO_MODEL: 'claude-haiku-4.5'
           GH_AW_INFO_VERSION: ''
           GH_AW_INFO_AGENT_VERSION: 'latest'
           GH_AW_INFO_CLI_VERSION: 'v0.57.0'
@@ -729,7 +729,7 @@ jobs:
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-          COPILOT_MODEL: claude-haiku-4-5
+          COPILOT_MODEL: claude-haiku-4.5
           GH_AW_MCP_CONFIG: /home/runner/.copilot/mcp-config.json
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
@@ -928,7 +928,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           WORKFLOW_NAME: 'PR Labeler and Summary'
-          WORKFLOW_DESCRIPTION: 'Automatically labels PRs and updates the PR description with a structured summary based on changed directories'
+          WORKFLOW_DESCRIPTION: 'Automatically labels PRs and appends a structured summary without replacing the existing PR description'
           HAS_PATCH: ${{ steps.collect_output.outputs.has_patch }}
         with:
           script: |
@@ -962,7 +962,7 @@ jobs:
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-          COPILOT_MODEL: claude-haiku-4-5
+          COPILOT_MODEL: claude-haiku-4.5
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GITHUB_API_URL: ${{ github.api_url }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
@@ -1151,7 +1151,7 @@ jobs:
     env:
       GH_AW_CALLER_WORKFLOW_ID: '${{ github.repository }}/pr-labeler'
       GH_AW_ENGINE_ID: 'copilot'
-      GH_AW_ENGINE_MODEL: 'claude-haiku-4-5'
+      GH_AW_ENGINE_MODEL: 'claude-haiku-4.5'
       GH_AW_WORKFLOW_ID: 'pr-labeler'
       GH_AW_WORKFLOW_NAME: 'PR Labeler and Summary'
     outputs:
