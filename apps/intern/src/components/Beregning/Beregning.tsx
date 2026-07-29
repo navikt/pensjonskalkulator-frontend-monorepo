@@ -440,6 +440,7 @@ export const Beregning = () => {
 								erOvergangskull={erOvergangskull}
 								erFoedtEtter1963={erFoedtEtter1963}
 								isOpptjeningAvdoedSection={false}
+								ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 							/>
 
 							{opptjeningAvdoed && (
@@ -448,6 +449,7 @@ export const Beregning = () => {
 									erOvergangskull={erOvergangskull}
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={true}
+									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 								/>
 							)}
 						</VStack>

@@ -7,12 +7,43 @@ import { BodyShort, Heading, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
+const merknadTextMap: Record<string, string> = {
+	AFP: 'AFP (dersom du har hatt flere perioder med AFP vises kun merknader for siste periode)',
+	REFORM:
+		'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse.',
+	PRE_2010:
+		'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse.',
+	INGEN_OPPTJENING: 'Du har ingen registrert opptjening dette året',
+	DAGPENGER: 'Mottak av dagpenger',
+	FOERSTEGANGSTJENESTE: 'Avtjent førstegangstjeneste',
+	OMSORGSOPPTJENING:
+		'Du er godskrevet omsorgsopptjening for ulønnet omsorgsarbeid i dette året',
+	GRADERT_UTTAK: 'Gradert uttak',
+	HELT_UTTAK: 'Alderspensjon: 100 prosent',
+}
+
+function mapMerknadListe(
+	merknadListe: string[],
+	ufoeretrygdgrad?: number | null
+): string {
+	if (merknadListe.length === 0) return ''
+	return merknadListe
+		.filter((merknad) => merknad !== 'NONE' && merknad !== 'UNKNOWN')
+		.map((merknad) => {
+			if (merknad === 'UFOEREGRAD') {
+				return `Uføretrygd: ${ufoeretrygdgrad} prosent`
+			}
+			return merknadTextMap[merknad] ?? ''
+		})
+		.join(', ')
+}
+
 export interface OpptjeningTableRow {
 	aar: number
 	pensjonsgivendeInntekt: string
 	pensjonspoeng: string
 	pensjonsbeholdning: string | null
-	merknad?: string
+	merknad: string
 }
 
 interface OpptjeningTableProps {
@@ -20,11 +51,13 @@ interface OpptjeningTableProps {
 	erOvergangskull?: boolean
 	erFoedtEtter1963?: boolean | null
 	isOpptjeningAvdoedSection?: boolean
+	ufoeretrygdgrad?: number | null
 }
 
 export function mapOpptjeningToTableRows(
 	opptjening: Opptjening | OpptjeningAvdoed,
-	showPensjonsbeholdning: boolean
+	showPensjonsbeholdning: boolean,
+	ufoeretrygdgrad?: number | null
 ): OpptjeningTableRow[] {
 	const yearsWithIncome = opptjening.filter(
 		(entry) => entry.pensjonsgivendeInntektBeloep > 0
@@ -62,6 +95,7 @@ export function mapOpptjeningToTableRows(
 					? entry.pensjonsbeholdningBeloep.toLocaleString('nb-NO')
 					: '0'
 				: null,
+			merknad: mapMerknadListe(entry.merknadListe, ufoeretrygdgrad),
 		}))
 }
 
@@ -70,11 +104,16 @@ export function OpptjeningTable({
 	erOvergangskull,
 	erFoedtEtter1963,
 	isOpptjeningAvdoedSection,
+	ufoeretrygdgrad,
 }: OpptjeningTableProps) {
 	const showPensjonsbeholdning =
 		!isOpptjeningAvdoedSection && Boolean(erFoedtEtter1963 || erOvergangskull)
 	const showPensjonspoeng = !erFoedtEtter1963 || erOvergangskull
-	const rows = mapOpptjeningToTableRows(opptjening, showPensjonsbeholdning)
+	const rows = mapOpptjeningToTableRows(
+		opptjening,
+		showPensjonsbeholdning,
+		ufoeretrygdgrad
+	)
 
 	const title = isOpptjeningAvdoedSection
 		? 'Pensjonsopptjening avdøde'
@@ -120,6 +159,11 @@ export function OpptjeningTable({
 								</BodyShort>
 							</Table.HeaderCell>
 						)}
+						<Table.HeaderCell>
+							<BodyShort size="small" weight="semibold">
+								Merknad
+							</BodyShort>
+						</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
@@ -141,6 +185,9 @@ export function OpptjeningTable({
 									<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
 								</Table.DataCell>
 							)}
+							<Table.DataCell>
+								<BodyShort size="small">{row.merknad}</BodyShort>
+							</Table.DataCell>
 						</Table.Row>
 					))}
 				</Table.Body>

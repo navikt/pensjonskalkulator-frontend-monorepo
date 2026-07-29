@@ -267,6 +267,7 @@ export const BeregningForm = () => {
 
 	const showAPOgUTOver100Alert =
 		vedtak?.ufoeretrygdgrad &&
+		(afp === 'nei' || !vedtak?.loependeAlderspensjon) &&
 		uttaksgrad === 100 &&
 		alderAarUttak &&
 		alderAarUttak < 67
