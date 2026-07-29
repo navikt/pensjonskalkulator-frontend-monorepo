@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { InformationSquareFillIcon, PersonIcon } from '@navikt/aksel-icons'
+import { InformationSquareIcon, PersonIcon } from '@navikt/aksel-icons'
 import {
 	BodyShort,
 	Button,
@@ -92,7 +92,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				{devInputSection}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
-					<InfoCard.Header icon={<InformationSquareFillIcon aria-hidden />}>
+					<InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>
 					<InfoCard.Content>
@@ -101,10 +101,12 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 							href={pesysBrukeroversiktUrl}
 							target="_blank"
 							rel="noopener noreferrer"
+							variant="neutral"
+							inlineText
 						>
-							brukeroversikt
+							brukeroversikt i Pesys
 						</Link>{' '}
-						i Pesys før du kan gjøre en beregning i Pensjonskalkulator
+						før du kan gjøre en beregning i pensjonskalkulatoren.
 					</InfoCard.Content>
 				</InfoCard>
 			</>
