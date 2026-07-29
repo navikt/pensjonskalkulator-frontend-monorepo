@@ -78,7 +78,9 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			align="center"
 			justify="end"
 			className={
-				pid ? styles.hentPersonSectionWithPerson : styles.personInfoWrapper
+				pid
+					? `${styles.hentPersonSection} ${styles.hentPersonSectionWithPerson}`
+					: `${styles.personInfoWrapper} ${styles.hentPersonSection}`
 			}
 		>
 			{devInput}
