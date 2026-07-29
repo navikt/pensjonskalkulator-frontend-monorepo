@@ -1,89 +1,59 @@
-# Copilot Instructions
+# Repository guide
 
-## Project Overview
+This is NAV's Norwegian pension-calculator frontend monorepo. It uses pnpm workspaces, React 19, TypeScript, Vite, Redux Toolkit, React Router, SCSS modules, Vitest, and Playwright.
 
-Norwegian pension calculator ("pensjonskalkulator") frontend monorepo for NAV. pnpm workspace with two React 19 apps (Vite + TypeScript + Redux Toolkit + React Router + SCSS modules) and shared packages.
+## Work efficiently
 
-## Workspace Structure
+- Treat these instructions and the nearest matching implementation as the source of truth. Search further only when they are incomplete or conflict with the code.
+- Start in the affected workspace and inspect only the target plus one or two comparable files. Avoid repository-wide discovery for a scoped task.
+- Make the smallest complete change. Preserve public behavior unless the request explicitly changes it.
+- Reuse existing components, helpers, fixtures, selectors, and test utilities before adding abstractions.
+- Keep related surfaces in sync: implementation, translations, tests, barrel exports, mocks, and documentation when applicable.
 
-- `apps/ekstern` — Public-facing pension calculator (mature). Express server for auth, proxying, Unleash toggles.
-- `apps/intern` — Internal pension calculator (early stage). Express BFF with Azure AD auth.
-- `packages/api` — Shared API utilities (scaffold).
-- `packages/mocks` — Shared mock data (empty).
+## Repository map
+
+- `apps/ekstern`: mature citizen-facing calculator, including the Express auth/proxy server.
+- `apps/intern`: internal caseworker calculator and Express BFF.
+- `packages/api`: shared API utilities.
+- `packages/mocks`: shared mock data.
+
+For `apps/ekstern`, `@/` resolves to `src/`. All routes use the `/pensjon/kalkulator` base path.
 
 ## Commands
 
-### Root-level (pnpm monorepo)
+Use pnpm only. The pinned version is in the root `packageManager` field.
 
-```bash
-pnpm install              # Install all dependencies
-pnpm dev                  # Start intern app dev server
-pnpm dev:ekstern          # Start ekstern app dev server
-pnpm build                # Build all packages
-pnpm build:ekstern        # Build only ekstern
-pnpm build:intern         # Build only intern
-pnpm test                 # Run all unit tests
-pnpm lint                 # ESLint across all apps
-pnpm lint:fix             # ESLint with auto-fix
-pnpm typecheck            # TypeScript check all packages
-pnpm format               # Prettier format all files
-pnpm format:check         # Prettier check (no write)
-pnpm --filter @pensjonskalkulaotor-frontend-monorepo/sanity sanity build/start  # Build / start Sanity Studio
-pnpm --filter @pensjonskalkulaotor-frontend-monorepo/<package> <command>  # Run command in specific package
-```
+| Scope                    | Command                                                                       |
+| ------------------------ | ----------------------------------------------------------------------------- |
+| Install                  | `pnpm install`                                                                |
+| Typecheck all workspaces | `pnpm typecheck`                                                              |
+| Lint both apps           | `pnpm lint`                                                                   |
+| Test all workspaces      | `pnpm test`                                                                   |
+| Build all workspaces     | `pnpm build`                                                                  |
+| Ekstern typecheck        | `pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern typecheck`       |
+| Ekstern lint             | `pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern lint`            |
+| Ekstern stylelint        | `pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern stylelint:check` |
+| Intern typecheck         | `pnpm --filter @pensjonskalkulator-frontend-monorepo/intern typecheck`        |
 
-### Ekstern app (`apps/ekstern`)
+Run the narrowest relevant check first. Run a targeted Vitest or Playwright file for test changes, the affected workspace's typecheck for TypeScript changes, and stylelint for SCSS changes. Escalate to root checks only for cross-workspace or build/configuration changes.
 
-```bash
-cd apps/ekstern
-pnpm test                         # Vitest (all, with coverage, --pool=forks)
-pnpm vitest run src/path/to/file.test.tsx  # Run a single test file
-pnpm vitest run -t "test name"    # Run tests matching a name pattern
-pnpm test:watch                   # Vitest in watch mode
-pnpm test:e2e                     # Playwright E2E (chromium)
-pnpm pw:open                      # Playwright UI mode
-pnpm lint                         # ESLint
-pnpm typecheck                    # TypeScript check (app + server)
-pnpm stylelint:check              # Stylelint for SCSS/CSS
-```
+## Repository rules
 
-### Intern app (`apps/intern`)
+- Use named exports and existing `index.ts` barrel patterns; do not add default exports.
+- Prefer Aksel components from `@navikt/ds-react`. Use SCSS modules and the design tokens already used nearby.
+- Put all user-facing text in the existing `react-intl` translation files and keep supported locales aligned.
+- Use typed Redux hooks and existing RTK Query hooks. Do not introduce manual fetching for API state already owned by RTK Query.
+- Never hand-edit `apps/ekstern/src/types/schema.d.ts`; regenerate it with the workspace's `fetch-dev-types` script.
+- Do not use npm or yarn.
 
-```bash
-cd apps/intern
-pnpm test                 # (No tests yet — exits 0)
-pnpm lint                 # ESLint
-pnpm typecheck            # TypeScript check
-```
+## Confirm before changing
 
-## Key Conventions
+Ask before changing:
 
-- **Package manager**: pnpm with strict peer deps. `@navikt` packages from GitHub Packages registry.
-- **Component structure**: Each component folder has the component file, SCSS module, `index.ts` re-export, and `__tests__/` folder. Named exports only — no default exports.
-- **Generated types**: `src/types/schema.d.ts` is generated from OpenAPI spec — 🚫 never hand-edit. Regenerate with `pnpm fetch-dev-types`.
-- **Path aliases**: `@/` maps to `src/` in ekstern.
-- **Base path**: All routes live under `/pensjon/kalkulator`. Changing it requires updates in `router/constants.ts`, `vite.config.ts`, `index.html`, and `veileder/index.html`.
-- **Monitoring**: Grafana Faro Web SDK for frontend observability (paused on localhost).
+- route or step-flow order,
+- guard/loader redirect behavior,
+- RTK Query endpoints or cache configuration,
+- Express authentication or proxy behavior,
+- production Nais resources or access policies.
 
-## Boundaries
-
-### ✅ Always
-
-- Use pnpm (not npm/yarn)
-- Use named exports from `index.ts` barrel files
-- Use SCSS modules with Aksel design tokens (`--a-spacing-*`, `--a-border-radius-*`)
-- Write test names in Norwegian Bokmål (`rendrer korrekt`, `håndterer klikk`)
-- Assert on translation keys, not hardcoded Norwegian text
-
-### ⚠️ Ask First
-
-- Changes to route/step flow order (`router/constants.ts`)
-- Changes to RTK Query endpoints or cache configuration
-- Changes to the Express server auth/proxy layer
-
-### 🚫 Never
-
-- Hand-edit `src/types/schema.d.ts` — it's generated
-- Use default exports
-- Use npm or yarn
-- Skip running `pnpm typecheck` after changing types
+Path-specific instructions under `.github/instructions/` add rules for React/Aksel source files and tests.
