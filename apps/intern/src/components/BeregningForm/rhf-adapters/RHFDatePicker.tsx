@@ -47,7 +47,12 @@ export function RHFDatePicker({
 	const { datepickerProps, inputProps, setSelected } = useDatepicker({
 		defaultSelected: parseStrictEndUserDate(field.value),
 		onDateChange: (date) => {
-			lastFormattedRef.current = date ? formatEndUserDate(date) : ''
+			const formatted = date ? formatEndUserDate(date) : ''
+			lastFormattedRef.current = formatted
+			if (date) {
+				previousFieldValueRef.current = formatted
+				field.onChange(formatted)
+			}
 		},
 		allowTwoDigitYear: true,
 		fromDate,
