@@ -34,8 +34,8 @@ When a pull request is opened, you must:
    - `intern` — if any changed file path starts with `apps/intern/`
    - `ekstern` — if any changed file path starts with `apps/ekstern/`
    - `felles-pakker` — if any changed file path starts with `packages/`
-4. **Apply the matching labels** using the `add-labels` safe output. Multiple labels can be applied if the PR touches multiple directories.
-5. **Append the structured summary** using the `update-pull-request` safe output with `operation: append`. If the existing description contains `<!-- gh-aw-agentic-workflow: PR Labeler and Summary`, skip this update to avoid adding the summary twice.
+4. **Apply the matching labels** using the `add_labels` safe output. Multiple labels can be applied if the PR touches multiple directories.
+5. **Append the structured summary** using the `update_pull_request` safe output with `operation: append`. If the existing description contains `<!-- gh-aw-agentic-workflow: PR Labeler and Summary`, skip this update to avoid adding the summary twice.
 
 ## Guidelines
 
@@ -48,9 +48,11 @@ When a pull request is opened, you must:
 
 ## PR Description Format
 
-Append the following structure to the PR description:
+Append the following structure to the PR description. The first line must be the marker comment verbatim so that reruns can detect an existing summary and skip:
 
 ```
+<!-- gh-aw-agentic-workflow: PR Labeler and Summary -->
+
 ### PR Summary
 
 **Labels applied:** `intern`, `ekstern` (list whichever apply, or "None" if no directories matched)
@@ -84,6 +86,7 @@ _`packages/ui/`_
 
 ## Safe Outputs
 
-- Use `add-labels` to apply each matching label to the pull request.
-- Use `update-pull-request` with `operation: append` and the structured summary as its body. Never use `replace` or `prepend`.
+- Use `add_labels` to apply each matching label to the pull request.
+- Use `update_pull_request` with `operation: append` and the structured summary as its body. Never use `replace` or `prepend`.
+- Always include the `<!-- gh-aw-agentic-workflow: PR Labeler and Summary -->` marker as the first line of the appended body.
 - Always append the summary, even if no labels were applied and the summary is minimal, unless this workflow's marker is already present.
