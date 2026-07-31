@@ -6,7 +6,10 @@ import {
 	isFoedtEtter1963,
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
-import { isFoedtFoer1963 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	isFoedtFoer1963,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
 import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
@@ -21,6 +24,7 @@ import {
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
+import { formatEndUserDate } from '../../utils/dates'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
 import { useBeregningContext } from '../BeregningContext'
@@ -154,6 +158,31 @@ export const Beregning = () => {
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
 
 	const erUttaksgradNull = aktivBeregning?.uttaksgrad === 0
+
+	const formatUttaksdatoForAlder = (
+		aar: number,
+		md: number
+	): string | undefined =>
+		person?.foedselsdato
+			? formatEndUserDate(
+					calculateUttaksalderAsDate({ aar, maaneder: md }, person.foedselsdato)
+				)
+			: undefined
+
+	const heltUttakDato = formatUttaksdatoForAlder(
+		erGradert || erUttaksgradNull
+			? (aktivBeregning?.alderAarHeltUttak ?? 0)
+			: (aktivBeregning?.alderAarUttak ?? 0),
+		erGradert || erUttaksgradNull
+			? (aktivBeregning?.alderMdHeltUttak ?? 0)
+			: (aktivBeregning?.alderMdUttak ?? 0)
+	)
+	const gradertUttakDato = formatUttaksdatoForAlder(
+		aktivBeregning?.alderAarUttak ?? 0,
+		aktivBeregning?.alderMdUttak ?? 0
+	)
+	const normertUttakDato = formatUttaksdatoForAlder(67, 0)
+
 	const titleHeltUttak =
 		(aktivBeregning &&
 			formatAlderTitle(
@@ -162,14 +191,16 @@ export const Beregning = () => {
 					: (aktivBeregning.alderAarUttak ?? 0),
 				erGradert || erUttaksgradNull
 					? (aktivBeregning.alderMdHeltUttak ?? 0)
-					: (aktivBeregning.alderMdUttak ?? 0)
+					: (aktivBeregning.alderMdUttak ?? 0),
+				heltUttakDato
 			)) ||
 		''
 	const titleGradertUttak =
 		aktivBeregning &&
 		formatAlderTitle(
 			aktivBeregning.alderAarUttak ?? 0,
-			aktivBeregning.alderMdUttak ?? 0
+			aktivBeregning.alderMdUttak ?? 0,
+			gradertUttakDato
 		)
 
 	const harAfpPrivat =
@@ -252,7 +283,7 @@ export const Beregning = () => {
 		}
 		return (
 			<BeregningSection
-				title={formatAlderTitle(67, 0)}
+				title={formatAlderTitle(67, 0, normertUttakDato)}
 				{...sectionCommonProps}
 				entry={normertMaanedligAlderspensjon ?? undefined}
 				showAfp
@@ -367,7 +398,9 @@ export const Beregning = () => {
 						{!erServiceberegning && (
 							<BeregningSection
 								title={
-									skalBeregneAfpKap19 ? formatAlderTitle(67, 0) : titleHeltUttak
+									skalBeregneAfpKap19
+										? formatAlderTitle(67, 0, normertUttakDato)
+										: titleHeltUttak
 								}
 								{...sectionCommonProps}
 								entry={
@@ -456,7 +489,11 @@ export const Beregning = () => {
 				{visForbehold && (
 					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
 						<div className={styles.forbeholdTekst}>
-							<SanityVilkaarligForbehold ctx={forbeholdContext} size="small" />
+							<SanityVilkaarligForbehold
+								ctx={forbeholdContext}
+								size="small"
+								titleLevel="3"
+							/>
 						</div>
 					</Tabs.Panel>
 				)}

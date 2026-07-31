@@ -47,7 +47,7 @@ export function mapOpptjeningToTableRows(
 			aar: entry.aarstall,
 			pensjonsgivendeInntekt:
 				entry.pensjonsgivendeInntektBeloep > 0
-					? `${entry.pensjonsgivendeInntektBeloep.toLocaleString('nb-NO')} kr`
+					? entry.pensjonsgivendeInntektBeloep.toLocaleString('nb-NO')
 					: '0',
 			pensjonspoeng:
 				entry.pensjonspoeng > 0
@@ -86,7 +86,7 @@ export function OpptjeningTable({
 
 	return (
 		<div data-testid={testId}>
-			<Heading size="xsmall" spacing>
+			<Heading level="3" size="small" spacing>
 				{title}
 			</Heading>
 			<Table
@@ -103,7 +103,7 @@ export function OpptjeningTable({
 						</Table.HeaderCell>
 						<Table.HeaderCell align="right">
 							<BodyShort size="small" weight="semibold">
-								Pensjonsgivende inntekt
+								Pensjonsgivende inntekt (kr)
 							</BodyShort>
 						</Table.HeaderCell>
 						{showPensjonspoeng && (
@@ -116,7 +116,7 @@ export function OpptjeningTable({
 						{showPensjonsbeholdning && (
 							<Table.HeaderCell align="right">
 								<BodyShort size="small" weight="semibold">
-									Pensjonsbeholdning
+									Pensjonsbeholdning (kr)
 								</BodyShort>
 							</Table.HeaderCell>
 						)}
