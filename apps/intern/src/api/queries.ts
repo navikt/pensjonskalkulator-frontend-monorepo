@@ -8,7 +8,7 @@ import type {
 	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
-	Sivilstatus,
+	Sivilstand,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -142,7 +142,7 @@ async function fetchEPSOpplysninger({
 	bakgrunn,
 }: {
 	fnr: string
-	sivilstatus: Sivilstatus
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
@@ -260,7 +260,7 @@ export function useEPSOpplysningerQuery({
 	bakgrunn,
 }: {
 	fnr?: string
-	sivilstatus: Sivilstatus
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }) {
 	return useQuery({
