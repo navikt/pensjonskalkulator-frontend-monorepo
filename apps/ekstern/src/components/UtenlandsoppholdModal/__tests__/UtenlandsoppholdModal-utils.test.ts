@@ -509,6 +509,41 @@ describe('UtenlandsoppholdModal-utils', () => {
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus',
         })
       })
+
+      it('returnerer false når startdato er lik sluttdato på en eksisterende periode i et annet land', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'FRA',
+              arbeidetUtenlandsFormData: 'nei',
+              startdatoFormData: '01.04.2024',
+              sluttdatoFormData: '01.06.2025',
+            },
+            foedselsdato,
+            undefined,
+            [
+              {
+                id: '0',
+                landkode: 'BEL',
+                arbeidetUtenlands: false,
+                startdato: '01.01.2023',
+                sluttdato: '01.04.2024',
+              },
+            ],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('skjemavalidering feilet', {
+          skjemanavn: 'utenlandsopphold-oppholdet-ditt',
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land',
+        })
+      })
     })
   })
 
