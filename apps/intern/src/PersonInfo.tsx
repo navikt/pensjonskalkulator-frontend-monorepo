@@ -78,7 +78,9 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			gap="space-4"
 			align="center"
 			justify="end"
-			className={styles.personInfoWrapper}
+			className={
+				pid ? styles.hentPersonSectionWithPerson : styles.personInfoWrapper
+			}
 		>
 			{devInput}
 		</HStack>
@@ -126,18 +128,26 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		)
 	}
 	return (
-		<HStack gap="space-4" className={styles.personInfoWrapper}>
-			<PersonIcon title="a11y-title" fontSize="1.5rem" />
+		<HStack className={styles.personInfoWrapper}>
+			<PersonIcon
+				title="a11y-title"
+				fontSize="1.5rem"
+				className={styles.personInfoIcon}
+			/>
 			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} />
+			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
 			<BodyShort size="medium">
-				<span>{' / '}</span>
+				<span className={styles.slash}>/</span>
 				{person.navn}
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
-					{' / '}
-					{vedtakStatus}
+					{vedtakStatus.split(/\s*\/\s*/).map((status, index) => (
+						<span key={`${status}-${index}`}>
+							<span className={styles.slash}>/</span>
+							{status}
+						</span>
+					))}
 				</BodyShort>
 			)}
 			{devInputSection}
