@@ -105,7 +105,7 @@ test.describe('Utenlandsopphold - API-feil, tilstand og knappetilstander', () =>
 
 			await expectOppholdInList(page, LAND.AFG.navn)
 
-			await page.getByRole('button', { name: 'Nullstill' }).click()
+			await page.getByRole('button', { name: 'Nullstill skjema' }).click()
 
 			await expectNoOppholdInList(page, LAND.AFG.navn)
 			await expect(

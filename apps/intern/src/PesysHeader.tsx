@@ -10,7 +10,9 @@ export const PesysHeader = (props: PesysHeaderProps) => {
 	const { enhet } = props
 	return (
 		<InternalHeader className={styles.pesysHeader}>
-			<InternalHeader.Title as="h1">Pesys</InternalHeader.Title>
+			<InternalHeader.Title as="h1" className={styles.title}>
+				Pesys
+			</InternalHeader.Title>
 			<Spacer />
 			{enhet && (
 				<InternalHeader.Button

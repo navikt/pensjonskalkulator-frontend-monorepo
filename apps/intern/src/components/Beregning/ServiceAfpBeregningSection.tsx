@@ -54,9 +54,10 @@ export const ServiceAfpBeregningSection = ({
 			>
 				<VStack gap="space-8">
 					<BeregningTableWithSum
-						title="AFP"
+						title="AFP i offentlig sektor"
 						valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 						rows={afpRows}
+						sumLabel="Sum AFP"
 						visAarsbelop={visAarsbelop}
 					/>
 					{entry.erAvkortet && (
@@ -65,7 +66,10 @@ export const ServiceAfpBeregningSection = ({
 						</BodyLong>
 					)}
 				</VStack>
-				<BeregningDetailTable title="Opptjening AFP" rows={opptjeningRows} />
+				<BeregningDetailTable
+					title="Opptjening AFP i offentlig sektor"
+					rows={opptjeningRows}
+				/>
 			</div>
 		</VStack>
 	)

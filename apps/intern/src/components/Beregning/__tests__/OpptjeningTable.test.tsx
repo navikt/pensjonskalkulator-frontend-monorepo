@@ -6,6 +6,7 @@ import {
 	mockOpptjeningAvdoed,
 	mockOpptjeningKap19,
 	mockOpptjeningKap20,
+	mockOpptjeningMedUfoeregrad,
 	mockOpptjeningSimulering,
 } from '../__mocks__/opptjening'
 
@@ -18,15 +19,17 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows).toHaveLength(4)
 		expect(rows[0]).toEqual({
 			aar: 2022,
-			pensjonsgivendeInntekt: `193${nbsp}192 kr`,
+			pensjonsgivendeInntekt: `193${nbsp}192`,
 			pensjonspoeng: '3,47',
 			pensjonsbeholdning: '0',
+			merknad: 'Mottak av dagpenger',
 		})
 		expect(rows[2]).toEqual({
 			aar: 2020,
-			pensjonsgivendeInntekt: `639${nbsp}932 kr`,
+			pensjonsgivendeInntekt: `639${nbsp}932`,
 			pensjonspoeng: '3,47',
 			pensjonsbeholdning: `498${nbsp}943`,
+			merknad: '',
 		})
 	})
 
@@ -36,9 +39,10 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows).toHaveLength(3)
 		expect(rows[0]).toEqual({
 			aar: 2022,
-			pensjonsgivendeInntekt: `450${nbsp}000 kr`,
+			pensjonsgivendeInntekt: `450${nbsp}000`,
 			pensjonspoeng: '4,12',
 			pensjonsbeholdning: null,
+			merknad: '',
 		})
 	})
 
@@ -51,9 +55,50 @@ describe('mapOpptjeningToTableRows', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, false)
 		expect(rows.every((r) => r.aar >= 2019 && r.aar <= 2022)).toBe(true)
 	})
+
+	test('mapper flere merknader komma-separert', () => {
+		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
+		const rowWith2019 = rows.find((r) => r.aar === 2019)
+
+		expect(rowWith2019?.merknad).toBe(
+			'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse., Mottak av dagpenger'
+		)
+	})
+
+	test('mapper UFOEREGRAD merknad med ufoeretrygdgrad', () => {
+		const rows = mapOpptjeningToTableRows(mockOpptjeningMedUfoeregrad, true, 75)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('Uføretrygd: 75 prosent')
+	})
+
+	test('mapper UFOEREGRAD merknad til tom streng når ufoeretrygdgrad er null', () => {
+		const rows = mapOpptjeningToTableRows(
+			mockOpptjeningMedUfoeregrad,
+			true,
+			null
+		)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('')
+	})
 })
 
 describe('OpptjeningTable', () => {
+	test('viser Merknad-kolonne', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningKap20}
+				erFoedtEtter1963={true}
+				erOvergangskull={false}
+			/>
+		)
+
+		expect(
+			screen.getByRole('columnheader', { name: 'Merknad' })
+		).toBeInTheDocument()
+	})
+
 	test('viser pensjonsbeholdning-kolonne og skjuler pensjonspoeng for erFoedtEtter1963', () => {
 		render(
 			<OpptjeningTable
@@ -67,7 +112,7 @@ describe('OpptjeningTable', () => {
 			screen.getByRole('heading', { name: 'Pensjonsopptjening bruker' })
 		).toBeInTheDocument()
 		expect(
-			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).toBeInTheDocument()
 		expect(screen.getAllByRole('cell', { name: /501.831/ })).toHaveLength(2)
 		expect(
@@ -85,7 +130,7 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(
-			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
@@ -102,7 +147,7 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(
-			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).not.toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
@@ -136,9 +181,9 @@ describe('OpptjeningTable', () => {
 			screen.getByRole('heading', { name: 'Pensjonsopptjening avdøde' })
 		).toBeInTheDocument()
 		expect(
-			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).not.toBeInTheDocument()
-		expect(screen.getAllByRole('cell', { name: /350.000 kr/ })).toHaveLength(1)
+		expect(screen.getAllByRole('cell', { name: /350.000/ })).toHaveLength(1)
 	})
 
 	test('viser avdød opptjening uten pensjonsbeholdning for kap19', () => {
@@ -155,7 +200,7 @@ describe('OpptjeningTable', () => {
 			screen.getByRole('heading', { name: 'Pensjonsopptjening avdøde' })
 		).toBeInTheDocument()
 		expect(
-			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).not.toBeInTheDocument()
 	})
 })
@@ -167,15 +212,17 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		expect(rows).toHaveLength(3)
 		expect(rows[0]).toEqual({
 			aar: 2012,
-			pensjonsgivendeInntekt: `500${nbsp}000 kr`,
+			pensjonsgivendeInntekt: `500${nbsp}000`,
 			pensjonspoeng: '4,50',
 			pensjonsbeholdning: `410${nbsp}000`,
+			merknad: 'Alderspensjon: 100 prosent',
 		})
 		expect(rows[1]).toEqual({
 			aar: 2011,
-			pensjonsgivendeInntekt: `400${nbsp}000 kr`,
+			pensjonsgivendeInntekt: `400${nbsp}000`,
 			pensjonspoeng: '3,60',
 			pensjonsbeholdning: `250${nbsp}000`,
+			merknad: '',
 		})
 	})
 
@@ -197,13 +244,13 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		)
 
 		expect(
-			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).toBeInTheDocument()
 		expect(
 			screen.queryByRole('columnheader', { name: 'Pensjonspoeng' })
 		).not.toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
-		expect(screen.getByRole('cell', { name: /500.000 kr/ })).toBeInTheDocument()
+		expect(screen.getByRole('cell', { name: /500.000/ })).toBeInTheDocument()
 	})
 
 	test('rendrer opptjeningListe fra simulering med pensjonspoeng for kap19', () => {
@@ -216,7 +263,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		)
 
 		expect(
-			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).not.toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
@@ -235,7 +282,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		)
 
 		expect(
-			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning' })
+			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
 		).toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })

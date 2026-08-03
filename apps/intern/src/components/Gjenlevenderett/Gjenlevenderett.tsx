@@ -1,4 +1,4 @@
-import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import type { Sivilstand } from '@pensjonskalkulator-frontend-monorepo/types'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -21,14 +21,14 @@ import { OpplysningerInfo } from './OpplysningerInfo'
 import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
-	const { form, fnr } = useBeregningContext()
+	const { form, fnr, person } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
 	const [epsQueryParams, setEpsQueryParams] = useState<{
-		sivilstatus: Sivilstatus
+		sivilstatus: Sivilstand
 		bakgrunn: string
-	}>({} as { sivilstatus: Sivilstatus; bakgrunn: string })
+	}>({} as { sivilstatus: Sivilstand; bakgrunn: string })
 
 	const {
 		data: EPSOpplysninger,
@@ -103,10 +103,10 @@ export const Gjenlevenderett = () => {
 	})
 
 	useEffect(() => {
-		if (!harHentetEPSOpplysninger) {
-			setEpsQueryParams({} as { sivilstatus: Sivilstatus; bakgrunn: string })
+		if (!harHentetEPSOpplysninger || !person) {
+			setEpsQueryParams({} as { sivilstatus: Sivilstand; bakgrunn: string })
 		}
-	}, [harHentetEPSOpplysninger])
+	}, [harHentetEPSOpplysninger, person])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -126,7 +126,7 @@ export const Gjenlevenderett = () => {
 
 		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
-			sivilstatus: formData.sivilstatus,
+			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
 		})
 	}
@@ -144,7 +144,10 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const isEPSInfoEmpty = formEpsOpplysninger && formEpsOpplysninger.pid === null
+	const isEPSInfoEmpty =
+		formEpsOpplysninger &&
+		(formEpsOpplysninger.pid === null ||
+			formEpsOpplysninger?.relasjonstype === 'UKJENT')
 
 	const EPSButtonText = isError
 		? 'Hent opplysninger om EPS på nytt'

@@ -26,7 +26,7 @@ export const ButtonBar = ({
 						onClick={onReset}
 						data-testid="nullstill-button"
 					>
-						Nullstill
+						Nullstill skjema
 					</Button>
 					<Button
 						size="small"

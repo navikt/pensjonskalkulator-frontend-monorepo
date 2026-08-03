@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
-import { PersonIcon } from '@navikt/aksel-icons'
+import { InformationSquareIcon, PersonIcon } from '@navikt/aksel-icons'
 import {
-	Alert,
 	BodyShort,
 	Button,
 	CopyButton,
 	HStack,
 	InfoCard,
+	Link,
+	LocalAlert,
 	TextField,
 } from '@navikt/ds-react'
 
@@ -77,7 +78,9 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			gap="space-4"
 			align="center"
 			justify="end"
-			className={styles.personInfoWrapper}
+			className={
+				pid ? styles.hentPersonSectionWithPerson : styles.personInfoWrapper
+			}
 		>
 			{devInput}
 		</HStack>
@@ -91,19 +94,21 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				{devInputSection}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
-					<InfoCard.Header>
+					<InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>
 					<InfoCard.Content>
-						Du må hente en bruker i &nbsp;
-						<a
+						Du må hente en bruker i{' '}
+						<Link
 							href={pesysBrukeroversiktUrl}
 							target="_blank"
 							rel="noopener noreferrer"
+							variant="neutral"
+							inlineText
 						>
-							brukeroversikt
-						</a>
-						&nbsp; i Pesys før du kan gjøre en beregning i Pensjonskalkulator
+							brukeroversikt i Pesys
+						</Link>{' '}
+						før du kan gjøre en beregning i pensjonskalkulatoren.
 					</InfoCard.Content>
 				</InfoCard>
 			</>
@@ -112,22 +117,37 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	if (isError || !fnr || !person) {
 		return (
-			<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
+			<LocalAlert status="error" size="small">
+				<LocalAlert.Header>
+					<LocalAlert.Title>Kunne ikke hente bruker</LocalAlert.Title>
+				</LocalAlert.Header>
+				<LocalAlert.Content>
+					{error?.message ?? 'Ukjent feil'}
+				</LocalAlert.Content>
+			</LocalAlert>
 		)
 	}
 	return (
-		<HStack gap="space-4" className={styles.personInfoWrapper}>
-			<PersonIcon title="a11y-title" fontSize="1.5rem" />
+		<HStack className={styles.personInfoWrapper}>
+			<PersonIcon
+				title="a11y-title"
+				fontSize="1.5rem"
+				className={styles.personInfoIcon}
+			/>
 			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} />
+			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
 			<BodyShort size="medium">
-				<span>{' / '}</span>
+				<span className={styles.slash}>/</span>
 				{person.navn}
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
-					{' / '}
-					{vedtakStatus}
+					{vedtakStatus.split(/\s*\/\s*/).map((status, index) => (
+						<span key={`${status}-${index}`}>
+							<span className={styles.slash}>/</span>
+							{status}
+						</span>
+					))}
 				</BodyShort>
 			)}
 			{devInputSection}

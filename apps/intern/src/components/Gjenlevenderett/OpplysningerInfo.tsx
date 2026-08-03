@@ -2,6 +2,7 @@ import type {
 	EpsOpplysninger,
 	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { format, parseISO, subDays } from 'date-fns'
 
 import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
@@ -14,6 +15,19 @@ import { getEpsDoedsdato } from './utils'
 import styles from './OpplysningerInfo.module.css'
 
 type OpplysningerInfoItem = { label: string; value: string | number }
+
+const formatPersonnavn = (navn?: string | null): string =>
+	(navn ?? '')
+		.toLowerCase()
+		.split(' ')
+		.filter(Boolean)
+		.map((word) =>
+			word
+				.split('-')
+				.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+				.join('-')
+		)
+		.join(' ')
 
 function mapEpsOpplysninger({
 	eps,
@@ -34,7 +48,7 @@ function mapEpsOpplysninger({
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
 			label: 'Navn',
-			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
+			value: `${formatPersonnavn(navn?.etternavn)}, ${formatPersonnavn(navn?.fornavn)}${navn?.mellomnavn ? ` ${formatPersonnavn(navn.mellomnavn)}` : ''}`,
 		},
 		{
 			label: 'Dødsdato',
@@ -82,7 +96,9 @@ export const OpplysningerInfo = ({
 	vedtakAPDato?: string | null
 }) => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const grunnbeloepTekst = grunnbeloep
+		? `(${formatInntekt(grunnbeloep.grunnbeløp)} kr)`
+		: ''
 	const rows = mapEpsOpplysninger({
 		eps: EPSOpplysninger,
 		vedtakInfoAvdoed,

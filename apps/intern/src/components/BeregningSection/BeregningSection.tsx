@@ -106,6 +106,7 @@ export const BeregningSection = ({
 							title="AFP i privat sektor"
 							valueHeader={valueHeader}
 							rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+							sumLabel="Sum AFP"
 							visAarsbelop={visAarsbelop}
 						/>
 
@@ -113,6 +114,7 @@ export const BeregningSection = ({
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
+								sumLabel="Sum pensjon"
 								addToSum={sumAlderspensjonOgAfp}
 								visAarsbelop={visAarsbelop}
 							/>

@@ -267,6 +267,7 @@ export const BeregningForm = () => {
 
 	const showAPOgUTOver100Alert =
 		vedtak?.ufoeretrygdgrad &&
+		afp === 'nei' &&
 		uttaksgrad === 100 &&
 		alderAarUttak &&
 		alderAarUttak < 67
@@ -379,7 +380,12 @@ export const BeregningForm = () => {
 	return (
 		<Box className={styles.beregningForm}>
 			<Box className={styles.section}>
-				{erEndring && <OpplysningerFraVedtak vedtak={vedtak} />}
+				{erEndring && (
+					<>
+						<OpplysningerFraVedtak vedtak={vedtak} />
+						<Divider noMargin />
+					</>
+				)}
 				{initialSivilstatus &&
 					showBeregnMedGjenlevenderett({
 						initialSivilstatus,
@@ -439,7 +445,7 @@ export const BeregningForm = () => {
 					<RHFRadio
 						name="epsHarInntektOver2G"
 						testid="eps-har-inntekt-over-2g"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${2 * grunnbeloep.grunnbeløp} kr)` : ''} ved uttak?`}
+						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${formatInntekt(2 * grunnbeloep.grunnbeløp)} kr)` : ''} ved uttak?`}
 						className={styles.horizontalRadioGroup}
 					/>
 				)}
