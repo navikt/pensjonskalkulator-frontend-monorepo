@@ -9,8 +9,8 @@
 }
 
 .opptjeningTable {
-	table-layout: fixed;
 	width: 100%;
+	table-layout: fixed;
 }
 
 .opptjeningTable th:first-child,
