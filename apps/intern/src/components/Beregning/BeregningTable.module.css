@@ -8,6 +8,16 @@
 	border: 1px solid var(--ax-border-neutral-subtle);
 }
 
+.opptjeningTable {
+	table-layout: fixed;
+	width: 100%;
+}
+
+.opptjeningTable th:first-child,
+.opptjeningTable td:first-child {
+	width: 100px;
+}
+
 .table th,
 .table td {
 	padding: 8px;
