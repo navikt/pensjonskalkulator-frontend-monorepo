@@ -149,7 +149,7 @@ async function fillForm(
 		heltUttakMd?: string
 	}
 ) {
-	const { uttaksgrad = '100', alderAar = '62', alderMd = '3' } = options ?? {}
+	const { uttaksgrad = '100', alderAar = '63', alderMd = '0' } = options ?? {}
 
 	await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
 	await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
@@ -235,8 +235,8 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 
 			await fillForm(page, {
 				uttaksgrad: '60',
-				alderAar: '62',
-				alderMd: '3',
+				alderAar: '63',
+				alderMd: '0',
 				heltUttakAar: '67',
 				heltUttakMd: '0',
 			})
@@ -260,8 +260,8 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 
 			await fillForm(page, {
 				uttaksgrad: '60',
-				alderAar: '62',
-				alderMd: '3',
+				alderAar: '63',
+				alderMd: '0',
 				heltUttakAar: '65',
 				heltUttakMd: '0',
 			})
