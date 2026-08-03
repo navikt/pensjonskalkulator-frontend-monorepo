@@ -31,7 +31,9 @@ function mapMerknadListe(
 		.filter((merknad) => merknad !== 'NONE' && merknad !== 'UNKNOWN')
 		.map((merknad) => {
 			if (merknad === 'UFOEREGRAD') {
-				return `Uføretrygd: ${ufoeretrygdgrad} prosent`
+				return ufoeretrygdgrad != null
+					? `Uføretrygd: ${ufoeretrygdgrad} prosent`
+					: 'Uføretrygd'
 			}
 			return merknadTextMap[merknad] ?? ''
 		})
