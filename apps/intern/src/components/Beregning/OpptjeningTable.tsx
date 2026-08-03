@@ -33,7 +33,7 @@ function mapMerknadListe(
 			if (merknad === 'UFOEREGRAD') {
 				return ufoeretrygdgrad != null
 					? `Uføretrygd: ${ufoeretrygdgrad} prosent`
-					: 'Uføretrygd'
+					: ''
 			}
 			return merknadTextMap[merknad] ?? ''
 		})

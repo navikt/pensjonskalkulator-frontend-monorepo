@@ -93,6 +93,23 @@ export const mockOpptjeningAvdoed: Opptjening = [
 	},
 ]
 
+export const mockOpptjeningMedUfoeregrad: Opptjening = [
+	{
+		aarstall: 2022,
+		pensjonsgivendeInntektBeloep: 300000,
+		pensjonspoeng: 2.7,
+		pensjonsbeholdningBeloep: 350000,
+		merknadListe: ['UFOEREGRAD'],
+	},
+	{
+		aarstall: 2021,
+		pensjonsgivendeInntektBeloep: 280000,
+		pensjonspoeng: 2.52,
+		pensjonsbeholdningBeloep: 320000,
+		merknadListe: [],
+	},
+]
+
 export const mockOpptjeningSimulering: Opptjening = [
 	{
 		aarstall: 2010,

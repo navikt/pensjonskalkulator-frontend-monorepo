@@ -6,6 +6,7 @@ import {
 	mockOpptjeningAvdoed,
 	mockOpptjeningKap19,
 	mockOpptjeningKap20,
+	mockOpptjeningMedUfoeregrad,
 	mockOpptjeningSimulering,
 } from '../__mocks__/opptjening'
 
@@ -62,6 +63,24 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rowWith2019?.merknad).toBe(
 			'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse., Mottak av dagpenger'
 		)
+	})
+
+	test('mapper UFOEREGRAD merknad med ufoeretrygdgrad', () => {
+		const rows = mapOpptjeningToTableRows(mockOpptjeningMedUfoeregrad, true, 75)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('Uføretrygd: 75 prosent')
+	})
+
+	test('mapper UFOEREGRAD merknad til tom streng når ufoeretrygdgrad er null', () => {
+		const rows = mapOpptjeningToTableRows(
+			mockOpptjeningMedUfoeregrad,
+			true,
+			null
+		)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('')
 	})
 })
 
