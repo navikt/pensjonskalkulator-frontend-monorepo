@@ -148,20 +148,31 @@ export function mapBeregningResultToLagreSpec(
 	)
 
 	const utenlandsperioder = utenlandsperiodeListe
-		? utenlandsperiodeListe.map((periode) => ({
-				...periode,
-				landkode: getLandDetails(periode.landkode)?.navn ?? periode.landkode,
-				tom: periode.tom,
-			}))
+		? utenlandsperiodeListe.map((periode) => {
+				const land = getLandDetails(periode.landkode)
+
+				return {
+					...periode,
+					arbeidetUtenlands: land?.kravOmArbeid
+						? periode.arbeidetUtenlands
+						: null,
+					landkode: land?.navn ?? periode.landkode,
+				}
+			})
 		: aktivBeregning?.harOppholdUtenforNorge === true &&
 			  aktivBeregning.utenlandsOpphold.length
 			? mapUtenlandsperiodeListe(aktivBeregning.utenlandsOpphold).map(
-					(periode) => ({
-						...periode,
-						landkode:
-							getLandDetails(periode.landkode)?.navn ?? periode.landkode,
-						tom: periode.tom,
-					})
+					(periode) => {
+						const land = getLandDetails(periode.landkode)
+
+						return {
+							...periode,
+							arbeidetUtenlands: land?.kravOmArbeid
+								? periode.arbeidetUtenlands
+								: null,
+							landkode: land?.navn ?? periode.landkode,
+						}
+					}
 				)
 			: null
 	const kull = isFoedtEtter1963(foedselsdato)
