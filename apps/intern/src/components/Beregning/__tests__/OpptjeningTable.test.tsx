@@ -6,6 +6,7 @@ import {
 	mockOpptjeningAvdoed,
 	mockOpptjeningKap19,
 	mockOpptjeningKap20,
+	mockOpptjeningMedUfoeregrad,
 	mockOpptjeningSimulering,
 } from '../__mocks__/opptjening'
 
@@ -21,12 +22,14 @@ describe('mapOpptjeningToTableRows', () => {
 			pensjonsgivendeInntekt: `193${nbsp}192`,
 			pensjonspoeng: '3,47',
 			pensjonsbeholdning: '0',
+			merknad: 'Mottak av dagpenger',
 		})
 		expect(rows[2]).toEqual({
 			aar: 2020,
 			pensjonsgivendeInntekt: `639${nbsp}932`,
 			pensjonspoeng: '3,47',
 			pensjonsbeholdning: `498${nbsp}943`,
+			merknad: '',
 		})
 	})
 
@@ -39,6 +42,7 @@ describe('mapOpptjeningToTableRows', () => {
 			pensjonsgivendeInntekt: `450${nbsp}000`,
 			pensjonspoeng: '4,12',
 			pensjonsbeholdning: null,
+			merknad: '',
 		})
 	})
 
@@ -51,9 +55,50 @@ describe('mapOpptjeningToTableRows', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, false)
 		expect(rows.every((r) => r.aar >= 2019 && r.aar <= 2022)).toBe(true)
 	})
+
+	test('mapper flere merknader komma-separert', () => {
+		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
+		const rowWith2019 = rows.find((r) => r.aar === 2019)
+
+		expect(rowWith2019?.merknad).toBe(
+			'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse., Mottak av dagpenger'
+		)
+	})
+
+	test('mapper UFOEREGRAD merknad med ufoeretrygdgrad', () => {
+		const rows = mapOpptjeningToTableRows(mockOpptjeningMedUfoeregrad, true, 75)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('Uføretrygd: 75 prosent')
+	})
+
+	test('mapper UFOEREGRAD merknad til tom streng når ufoeretrygdgrad er null', () => {
+		const rows = mapOpptjeningToTableRows(
+			mockOpptjeningMedUfoeregrad,
+			true,
+			null
+		)
+		const rowWith2022 = rows.find((r) => r.aar === 2022)
+
+		expect(rowWith2022?.merknad).toBe('')
+	})
 })
 
 describe('OpptjeningTable', () => {
+	test('viser Merknad-kolonne', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningKap20}
+				erFoedtEtter1963={true}
+				erOvergangskull={false}
+			/>
+		)
+
+		expect(
+			screen.getByRole('columnheader', { name: 'Merknad' })
+		).toBeInTheDocument()
+	})
+
 	test('viser pensjonsbeholdning-kolonne og skjuler pensjonspoeng for erFoedtEtter1963', () => {
 		render(
 			<OpptjeningTable
@@ -170,12 +215,14 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 			pensjonsgivendeInntekt: `500${nbsp}000`,
 			pensjonspoeng: '4,50',
 			pensjonsbeholdning: `410${nbsp}000`,
+			merknad: 'Alderspensjon: 100 prosent',
 		})
 		expect(rows[1]).toEqual({
 			aar: 2011,
 			pensjonsgivendeInntekt: `400${nbsp}000`,
 			pensjonspoeng: '3,60',
 			pensjonsbeholdning: `250${nbsp}000`,
+			merknad: '',
 		})
 	})
 
