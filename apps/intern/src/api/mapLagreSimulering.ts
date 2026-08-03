@@ -175,7 +175,9 @@ export function mapBeregningResultToLagreSpec(
 			result.maanedligAlderspensjonForKnekkpunkter,
 			grunnbeloep,
 			kull,
-			aktivBeregning?.afp
+			aktivBeregning?.afp,
+			!!aktivBeregning?.beregnMedGjenlevenderett,
+			vedtak?.loependeAlderspensjon?.harGjenlevenderett ?? false
 		)
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
@@ -268,7 +270,9 @@ export function mapBeregningResultToLagreSpec(
 				NORMERT_PENSJONSALDER_ALDER,
 				foedselsdato
 			),
-			sivilstatus: aktivBeregning?.sivilstatus,
+			sivilstatus: aktivBeregning?.beregnMedGjenlevenderett
+				? 'ENKE_ELLER_ENKEMANN'
+				: aktivBeregning?.sivilstatus,
 			utenlandsperioder,
 			kull,
 			forbeholdVisningsvilkaar: forbeholdVisningsvilkaar,

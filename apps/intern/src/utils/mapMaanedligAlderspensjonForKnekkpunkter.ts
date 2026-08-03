@@ -13,7 +13,9 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 	knekkpunkter: ResultKnekkpunkter,
 	grunnbeloep?: number | null,
 	kull?: Kull | null,
-	afpType?: InternAfpRadio
+	afpType?: InternAfpRadio,
+	simulererMedGjenlevenderett?: boolean,
+	harGjenlevenderett?: boolean
 ): LagreMaanedligAlderspensjonForKnekkpunkterDto | null {
 	if (!knekkpunkter) return null
 
@@ -39,12 +41,23 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 
 	if (!vedHeltUttak) return null
 
+	const vedGradertUttak = mapLagreMaanedligAlderspensjon(
+		knekkpunkter.vedGradertUttak,
+		grunnbeloep,
+		kull
+	)
+
+	if (
+		vedGradertUttak &&
+		'gjenlevendetillegg' in vedGradertUttak &&
+		vedGradertUttak.gjenlevendetillegg == null &&
+		(simulererMedGjenlevenderett || harGjenlevenderett)
+	) {
+		vedGradertUttak.gjenlevendetillegg = 0
+	}
+
 	return {
-		vedGradertUttak: mapLagreMaanedligAlderspensjon(
-			knekkpunkter.vedGradertUttak,
-			grunnbeloep,
-			kull
-		),
+		vedGradertUttak,
 		vedHeltUttak,
 		vedNormertPensjonsalder,
 	}

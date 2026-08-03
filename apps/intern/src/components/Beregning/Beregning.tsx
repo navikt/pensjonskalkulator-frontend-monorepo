@@ -17,6 +17,7 @@ import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
+	useInternsimulatorLagreBrevButtonQuery,
 	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
@@ -56,10 +57,10 @@ export const Beregning = () => {
 	)
 
 	// Midlertidig skjul brev knappen
-	// const { data: lagreBrevButtonToggle } =
-	// 	useInternsimulatorLagreBrevButtonQuery()
-	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
-	const visLagreBrevButton = false
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	// const visLagreBrevButton = false
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
