@@ -18,6 +18,10 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
 import { buildTableRows } from '../components/Beregning/AarligPensjonTable'
+import {
+	mapMerknadListe,
+	selectOpptjeningRows,
+} from '../components/Beregning/OpptjeningTable'
 import { getLandDetails } from '../components/UtenlandsOpphold/utils'
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
@@ -76,6 +80,27 @@ function getNormertPensjonsalderPlassering(
 	}
 
 	return undefined
+}
+
+export function mapPensjonsopptjeningToLagreDto(
+	opptjening: BeregningResult['opptjeningListe'],
+	showPensjonsbeholdning: boolean,
+	ufoeretrygdgrad?: number | null
+) {
+	return selectOpptjeningRows(opptjening).map((entry) => ({
+		aarstall: entry.aarstall,
+		pensjonsgivendeInntekt:
+			entry.pensjonsgivendeInntektBeloep > 0
+				? entry.pensjonsgivendeInntektBeloep
+				: 0,
+		pensjonspoeng: entry.pensjonspoeng > 0 ? entry.pensjonspoeng : 0,
+		pensjonsbeholdning: !showPensjonsbeholdning
+			? null
+			: entry.pensjonsbeholdningBeloep > 0
+				? entry.pensjonsbeholdningBeloep
+				: 0,
+		merknad: mapMerknadListe(entry.merknadListe, ufoeretrygdgrad),
+	}))
 }
 
 export function mapBeregningResultToLagreSpec(
@@ -212,6 +237,11 @@ export function mapBeregningResultToLagreSpec(
 		avtalefestetPensjon: row.afp,
 		pensjonsgivendeInntekt: row.inntekt,
 	}))
+	const pensjonsopptjeningListe = mapPensjonsopptjeningToLagreDto(
+		result.opptjeningListe,
+		isFoedtEtter1963(foedselsdato) || isOvergangskull(foedselsdato),
+		vedtak?.ufoeretrygdgrad
+	)
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
@@ -289,6 +319,7 @@ export function mapBeregningResultToLagreSpec(
 			})
 		),
 		aarligInntektOgPensjonListe,
+		pensjonsopptjeningListe,
 		simuleringsinformasjon: {
 			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'

@@ -22,7 +22,7 @@ const merknadTextMap: Record<string, string> = {
 	HELT_UTTAK: 'Alderspensjon: 100 prosent',
 }
 
-function mapMerknadListe(
+export function mapMerknadListe(
 	merknadListe: string[],
 	ufoeretrygdgrad?: number | null
 ): string {
@@ -38,6 +38,28 @@ function mapMerknadListe(
 			return merknadTextMap[merknad] ?? ''
 		})
 		.join(', ')
+}
+
+export function selectOpptjeningRows(
+	opptjening: Opptjening | OpptjeningAvdoed
+): Opptjening | OpptjeningAvdoed {
+	const yearsWithIncome = opptjening.filter(
+		(entry) => entry.pensjonsgivendeInntektBeloep > 0
+	)
+
+	if (yearsWithIncome.length === 0) {
+		return []
+	}
+
+	const firstIncomeYear = Math.min(...yearsWithIncome.map((e) => e.aarstall))
+	const lastIncomeYear = Math.max(...yearsWithIncome.map((e) => e.aarstall))
+
+	return [...opptjening]
+		.filter(
+			(entry) =>
+				entry.aarstall >= firstIncomeYear && entry.aarstall <= lastIncomeYear
+		)
+		.sort((a, b) => b.aarstall - a.aarstall)
 }
 
 export interface OpptjeningTableRow {
@@ -61,44 +83,27 @@ export function mapOpptjeningToTableRows(
 	showPensjonsbeholdning: boolean,
 	ufoeretrygdgrad?: number | null
 ): OpptjeningTableRow[] {
-	const yearsWithIncome = opptjening.filter(
-		(entry) => entry.pensjonsgivendeInntektBeloep > 0
-	)
-
-	if (yearsWithIncome.length === 0) {
-		return []
-	}
-
-	const firstIncomeYear = Math.min(...yearsWithIncome.map((e) => e.aarstall))
-	const lastIncomeYear = Math.max(...yearsWithIncome.map((e) => e.aarstall))
-
-	return [...opptjening]
-		.filter(
-			(entry) =>
-				entry.aarstall >= firstIncomeYear && entry.aarstall <= lastIncomeYear
-		)
-		.sort((a, b) => b.aarstall - a.aarstall)
-		.map((entry) => ({
-			aar: entry.aarstall,
-			pensjonsgivendeInntekt:
-				entry.pensjonsgivendeInntektBeloep > 0
-					? entry.pensjonsgivendeInntektBeloep.toLocaleString('nb-NO')
-					: '0',
-			pensjonspoeng:
-				entry.pensjonspoeng > 0
-					? entry.pensjonspoeng.toLocaleString('nb-NO', {
-							minimumFractionDigits: 2,
-							maximumFractionDigits: 2,
-						})
-					: '0',
-			pensjonsbeholdning: showPensjonsbeholdning
-				? entry.pensjonsbeholdningBeloep != null &&
-					entry.pensjonsbeholdningBeloep > 0
-					? entry.pensjonsbeholdningBeloep.toLocaleString('nb-NO')
-					: '0'
-				: null,
-			merknad: mapMerknadListe(entry.merknadListe, ufoeretrygdgrad),
-		}))
+	return selectOpptjeningRows(opptjening).map((entry) => ({
+		aar: entry.aarstall,
+		pensjonsgivendeInntekt:
+			entry.pensjonsgivendeInntektBeloep > 0
+				? entry.pensjonsgivendeInntektBeloep.toLocaleString('nb-NO')
+				: '0',
+		pensjonspoeng:
+			entry.pensjonspoeng > 0
+				? entry.pensjonspoeng.toLocaleString('nb-NO', {
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					})
+				: '0',
+		pensjonsbeholdning: showPensjonsbeholdning
+			? entry.pensjonsbeholdningBeloep != null &&
+				entry.pensjonsbeholdningBeloep > 0
+				? entry.pensjonsbeholdningBeloep.toLocaleString('nb-NO')
+				: '0'
+			: null,
+		merknad: mapMerknadListe(entry.merknadListe, ufoeretrygdgrad),
+	}))
 }
 
 export function OpptjeningTable({

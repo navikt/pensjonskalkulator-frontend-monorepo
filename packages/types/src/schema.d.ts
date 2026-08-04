@@ -2196,6 +2196,17 @@ export interface components {
 				| components['schemas']['LagreMaanedligAlderspensjonDto']
 				| null
 		}
+		LagrePensjonsopptjeningDto: {
+			/** Format: int32 */
+			aarstall: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt?: number | null
+			/** Format: double */
+			pensjonspoeng?: number | null
+			/** Format: int32 */
+			pensjonsbeholdning?: number | null
+			merknad?: string | null
+		}
 		LagrePrivatAfpDto: {
 			/** Format: int32 */
 			alderAar: number
@@ -2226,6 +2237,9 @@ export interface components {
 				| null
 			aarligInntektOgPensjonListe?:
 				| components['schemas']['LagreAarligInntektOgPensjonDto'][]
+				| null
+			pensjonsopptjeningListe?:
+				| components['schemas']['LagrePensjonsopptjeningDto'][]
 				| null
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
@@ -2776,6 +2790,20 @@ export interface components {
 			 * @description Pensjonsbeholdning (beløp i norske kroner)
 			 */
 			pensjonsbeholdningBeloep: number
+			/** @description Merknader som er knyttet til opptjeningen */
+			merknadListe: (
+				| 'AFP'
+				| 'REFORM'
+				| 'INGEN_OPPTJENING'
+				| 'UFOEREGRAD'
+				| 'DAGPENGER'
+				| 'FOERSTEGANGSTJENESTE'
+				| 'OMSORGSOPPTJENING'
+				| 'GRADERT_UTTAK'
+				| 'HELT_UTTAK'
+				| 'UNKNOWN'
+				| 'NONE'
+			)[]
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */
