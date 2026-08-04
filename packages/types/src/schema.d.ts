@@ -624,6 +624,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/intern/v1/opptjening': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Opptjening
+		 * @description Henter den innloggede brukerens pensjonsopptjening
+		 */
+		get: operations['opptjening']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/intern/v1/enheter': {
 		parameters: {
 			query?: never
@@ -2756,20 +2776,6 @@ export interface components {
 			 * @description Pensjonsbeholdning (beløp i norske kroner)
 			 */
 			pensjonsbeholdningBeloep: number
-			/** @description Merknader som er knyttet til opptjeningen */
-			merknadListe: (
-				| 'AFP'
-				| 'REFORM'
-				| 'INGEN_OPPTJENING'
-				| 'UFOEREGRAD'
-				| 'DAGPENGER'
-				| 'FOERSTEGANGSTJENESTE'
-				| 'OMSORGSOPPTJENING'
-				| 'GRADERT_UTTAK'
-				| 'HELT_UTTAK'
-				| 'UNKNOWN'
-				| 'NONE'
-			)[]
 		}
 		AnsattEnhetV1Problem: {
 			/** @enum {string} */

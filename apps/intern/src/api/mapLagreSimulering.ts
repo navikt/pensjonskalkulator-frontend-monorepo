@@ -3,6 +3,7 @@ import type {
 	LagreSimuleringSpecDtoV1,
 	LagreUttaksinformasjonDto,
 	OmstillingsstoenadOgGjenlevende,
+	PersonInternV1,
 	SimuleringUtenlandsperiode,
 	Vedtak,
 	Vilkaarsliste,
@@ -16,6 +17,7 @@ import {
 	transformUttaksalderToDate,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
+import { buildTableRows } from '../components/Beregning/AarligPensjonTable'
 import { getLandDetails } from '../components/UtenlandsOpphold/utils'
 import { getUttakInfo } from '../utils/getUttakInfo'
 import { mapMaanedligAlderspensjonForKnekkpunkter } from '../utils/mapMaanedligAlderspensjonForKnekkpunkter'
@@ -84,7 +86,8 @@ export function mapBeregningResultToLagreSpec(
 	grunnbeloep?: number | null,
 	utenlandsperiodeListe?: SimuleringUtenlandsperiode[],
 	vedtak?: Vedtak,
-	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
+	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende,
+	person?: PersonInternV1 | null
 ): LagreSimuleringSpecDtoV1 {
 	const forbeholdVisningsvilkaar: Vilkaarsliste = []
 
@@ -190,6 +193,25 @@ export function mapBeregningResultToLagreSpec(
 			!!aktivBeregning?.beregnMedGjenlevenderett,
 			vedtak?.loependeAlderspensjon?.harGjenlevenderett ?? false
 		)
+	const aarligInntektFoerUttakBeloep =
+		aktivBeregning?.afp !== 'serviceberegning'
+			? (aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0)
+			: 0
+	const aarligInntektOgPensjonListe = buildTableRows(
+		result.alderspensjonListe,
+		result.privatAfpListe,
+		result.tidsbegrensetOffentligAfp,
+		result.serviceberegnetAfp,
+		aarligInntektFoerUttakBeloep,
+		heltUttakAlder,
+		aktivBeregning,
+		person
+	).map((row) => ({
+		alderLabel: row.alderLabel,
+		alderspensjon: row.alderspensjon,
+		avtalefestetPensjon: row.afp,
+		pensjonsgivendeInntekt: row.inntekt,
+	}))
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
@@ -266,6 +288,7 @@ export function mapBeregningResultToLagreSpec(
 				...inntekt,
 			})
 		),
+		aarligInntektOgPensjonListe,
 		simuleringsinformasjon: {
 			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'

@@ -319,7 +319,8 @@ export const Beregning = () => {
 					grunnbeloep?.grunnbeløp,
 					aktivRequest?.utenlandsperiodeListe ?? undefined,
 					vedtak,
-					omstillingsstoenad
+					omstillingsstoenad,
+					person
 				),
 			},
 			{
