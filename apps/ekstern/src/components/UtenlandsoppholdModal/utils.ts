@@ -344,7 +344,8 @@ export const validateOpphold = (
                   ),
                   100
                 ),
-          }
+          },
+          { inclusive: true }
         )
       ) {
         // Når det allerede er registrert et opphold med et land uten krav om arbeid
