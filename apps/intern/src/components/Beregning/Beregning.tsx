@@ -21,7 +21,6 @@ import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
 	useInternsimulatorLagreBrevButtonQuery,
-	// useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'

@@ -218,7 +218,7 @@ export function mapBeregningResultToLagreSpec(
 			kull,
 			aktivBeregning?.afp,
 			!!aktivBeregning?.beregnMedGjenlevenderett,
-			vedtak?.loependeAlderspensjon?.harGjenlevenderett ?? false
+			Boolean(vedtak?.loependeAlderspensjon?.harGjenlevenderett)
 		)
 	const aarligInntektFoerUttakBeloep =
 		aktivBeregning?.afp !== 'serviceberegning'
