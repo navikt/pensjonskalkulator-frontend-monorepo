@@ -44,17 +44,10 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 	const vedGradertUttak = mapLagreMaanedligAlderspensjon(
 		knekkpunkter.vedGradertUttak,
 		grunnbeloep,
-		kull
+		kull,
+		simulererMedGjenlevenderett,
+		harGjenlevenderett
 	)
-
-	if (
-		vedGradertUttak &&
-		'gjenlevendetillegg' in vedGradertUttak &&
-		vedGradertUttak.gjenlevendetillegg == null &&
-		(simulererMedGjenlevenderett || harGjenlevenderett)
-	) {
-		vedGradertUttak.gjenlevendetillegg = 0
-	}
 
 	return {
 		vedGradertUttak,

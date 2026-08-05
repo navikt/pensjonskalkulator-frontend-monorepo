@@ -38,13 +38,15 @@ const NORMERT_PENSJONSALDER_ALDER: Alder = {
 
 function mapUttaksinformasjon(
 	alder: Alder,
-	foedselsdato?: string | null
+	foedselsdato: string | null | undefined,
+	grad: number
 ): LagreUttaksinformasjonDto {
 	return {
 		alder: { ...alder },
 		uttaksdato: foedselsdato
 			? transformUttaksalderToDate(alder, foedselsdato)
 			: '',
+		grad,
 	}
 }
 
@@ -242,6 +244,13 @@ export function mapBeregningResultToLagreSpec(
 		isFoedtEtter1963(foedselsdato) || isOvergangskull(foedselsdato),
 		vedtak?.ufoeretrygdgrad
 	)
+	const uttaksgrad = aktivBeregning?.uttaksgrad ?? 100
+
+	const normertPensjonsalderPlassering = getNormertPensjonsalderPlassering(
+		aktivBeregning,
+		heltUttakAlder,
+		gradertUttakAlder
+	)
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
@@ -323,17 +332,24 @@ export function mapBeregningResultToLagreSpec(
 		simuleringsinformasjon: {
 			gradertUttakInformasjon:
 				aktivBeregning?.afp === 'ja_offentlig'
-					? mapUttaksinformasjon(heltUttakAlder, foedselsdato)
+					? mapUttaksinformasjon(heltUttakAlder, foedselsdato, uttaksgrad)
 					: gradertUttakAlder
-						? mapUttaksinformasjon(gradertUttakAlder, foedselsdato)
+						? mapUttaksinformasjon(gradertUttakAlder, foedselsdato, uttaksgrad)
 						: null,
 			heltUttakInformasjon:
 				aktivBeregning?.afp !== 'ja_offentlig'
-					? mapUttaksinformasjon(heltUttakAlder, foedselsdato)
-					: mapUttaksinformasjon(NORMERT_PENSJONSALDER_ALDER, foedselsdato),
+					? mapUttaksinformasjon(heltUttakAlder, foedselsdato, 100)
+					: mapUttaksinformasjon(
+							NORMERT_PENSJONSALDER_ALDER,
+							foedselsdato,
+							100
+						),
 			normertUttakInformasjon: mapUttaksinformasjon(
 				NORMERT_PENSJONSALDER_ALDER,
-				foedselsdato
+				foedselsdato,
+				normertPensjonsalderPlassering === 'MELLOM_GRADERT_OG_HELT'
+					? uttaksgrad
+					: 100
 			),
 			sivilstatus: aktivBeregning?.beregnMedGjenlevenderett
 				? 'ENKE_ELLER_ENKEMANN'
@@ -341,11 +357,7 @@ export function mapBeregningResultToLagreSpec(
 			utenlandsperioder,
 			kull,
 			forbeholdVisningsvilkaar: forbeholdVisningsvilkaar,
-			normertPensjonsalderPlassering: getNormertPensjonsalderPlassering(
-				aktivBeregning,
-				heltUttakAlder,
-				gradertUttakAlder
-			),
+			normertPensjonsalderPlassering: normertPensjonsalderPlassering,
 		},
 		maanedligAlderspensjonForKnekkpunkter,
 		navEnhetId: navEnhetId,

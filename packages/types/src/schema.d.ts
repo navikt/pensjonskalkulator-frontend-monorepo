@@ -2322,6 +2322,8 @@ export interface components {
 		LagreUttaksinformasjonDto: {
 			alder: components['schemas']['LagreAlderDto']
 			uttaksdato: string
+			/** Format: int32 */
+			grad: number
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null
