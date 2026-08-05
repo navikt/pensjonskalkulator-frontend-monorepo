@@ -138,7 +138,7 @@ export function OpptjeningTable({
 			<Table
 				zebraStripes={rows.length > 3}
 				size="small"
-				className={styles.table}
+				className={`${styles.table} ${styles.opptjeningTable}`}
 			>
 				<Table.Header>
 					<Table.Row className={styles.headerRow}>
