@@ -210,7 +210,10 @@ export const Gjenlevenderett = () => {
 					)}
 					{isError && EPSError}
 					{tilgangsbegrensningAlertId && (
-						<SanityAlert id={tilgangsbegrensningAlertId} />
+						<SanityAlert
+							id={tilgangsbegrensningAlertId}
+							className={styles.sanityAlert}
+						/>
 					)}
 					{!isEPSLoading && !formEpsOpplysninger && (
 						<Button
@@ -245,13 +248,15 @@ export const Gjenlevenderett = () => {
 							</LocalAlert.Content>
 						</LocalAlert>
 					)}
-					{formEpsOpplysninger && !isEPSInfoEmpty && (
-						<OpplysningerInfo
-							EPSOpplysninger={formEpsOpplysninger}
-							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
-							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
-						/>
-					)}
+					{formEpsOpplysninger &&
+						!isEPSInfoEmpty &&
+						!tilgangsbegrensningAlertId && (
+							<OpplysningerInfo
+								EPSOpplysninger={formEpsOpplysninger}
+								vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
+								vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+							/>
+						)}
 				</div>
 			)}
 		</>
