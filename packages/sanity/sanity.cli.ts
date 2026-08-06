@@ -1,11 +1,10 @@
 import path from 'path'
 import { defineCliConfig } from 'sanity/cli'
 
-import { projectId } from './sanity.config'
-
+// Do NOT import from sanity.config — jiti (CLI loader) cannot parse TSX in the import chain
 export default defineCliConfig({
 	api: {
-		projectId,
+		projectId: 'g2by7q6m',
 		dataset: 'development',
 	},
 	/**

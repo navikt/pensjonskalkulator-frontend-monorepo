@@ -209,7 +209,7 @@ export const Gjenlevenderett = () => {
 						/>
 					)}
 					{isError && EPSError}
-					{isError && tilgangsbegrensningAlertId && (
+					{tilgangsbegrensningAlertId && (
 						<SanityAlert id={tilgangsbegrensningAlertId} />
 					)}
 					{!isEPSLoading && !formEpsOpplysninger && (

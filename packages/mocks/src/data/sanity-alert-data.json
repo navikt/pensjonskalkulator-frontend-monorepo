@@ -120,7 +120,7 @@
 			],
 			"name": "beregning.gjenlevenderett.strengt.fortrolig",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
@@ -271,7 +271,7 @@
 			],
 			"name": "beregning.gjenlevenderett.fortrolig",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
@@ -365,7 +365,7 @@
 			],
 			"name": "beregning.gjenlevenderett.verge",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
@@ -387,7 +387,29 @@
 			],
 			"name": "beregning.gjenlevenderett.habilitet",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "4764ce85763a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "e100ffab10df",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.brukerens.verge",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
@@ -431,7 +453,7 @@
 			],
 			"name": "beregning.gjenlevenderett.strengt.fortrolig.utland",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
@@ -453,7 +475,7 @@
 			],
 			"name": "beregning.gjenlevenderett.skjerming",
 			"overskrift": "Ingen tilgang",
-			"status": "info",
+			"status": "warning",
 			"type": "local-alert"
 		},
 		{
