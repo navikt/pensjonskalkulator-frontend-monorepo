@@ -12,6 +12,7 @@ import {
 
 import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
 import { getEpsVedtakStatus } from '../../utils'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
@@ -144,6 +145,21 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
+	const epsAccessAlertMap: Record<string, string> = {
+		STRENGT_FORTROLIG: 'beregning.gjenlevenderett.strengt.fortrolig',
+		STRENGT_FORTROLIG_UTLAND:
+			'beregning.gjenlevenderett.strengt.fortrolig.utland',
+		FORTROLIG: 'beregning.gjenlevenderett.fortrolig',
+		SKJERMING: 'beregning.gjenlevenderett.skjerming',
+		HABILITET: 'beregning.gjenlevenderett.habilitet',
+		VERGE: 'beregning.gjenlevenderett.verge',
+	}
+
+	const tilgangsbegrensningAlertId =
+		epsAccessAlertMap[
+			formEpsOpplysninger?.relasjonPersondata?.tilgangsbegrensning ?? ''
+		] ?? epsAccessAlertMap[formEpsOpplysninger?.problem?.type ?? '']
+
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
 		(formEpsOpplysninger.pid === null ||
@@ -193,7 +209,9 @@ export const Gjenlevenderett = () => {
 						/>
 					)}
 					{isError && EPSError}
-
+					{isError && tilgangsbegrensningAlertId && (
+						<SanityAlert id={tilgangsbegrensningAlertId} />
+					)}
 					{!isEPSLoading && !formEpsOpplysninger && (
 						<Button
 							variant="secondary"
