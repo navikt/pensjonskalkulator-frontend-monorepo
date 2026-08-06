@@ -2196,6 +2196,17 @@ export interface components {
 				| components['schemas']['LagreMaanedligAlderspensjonDto']
 				| null
 		}
+		LagrePensjonsopptjeningDto: {
+			/** Format: int32 */
+			aarstall: number
+			/** Format: int32 */
+			pensjonsgivendeInntekt?: number | null
+			/** Format: double */
+			pensjonspoeng?: number | null
+			/** Format: int32 */
+			pensjonsbeholdning?: number | null
+			merknad?: string | null
+		}
 		LagrePrivatAfpDto: {
 			/** Format: int32 */
 			alderAar: number
@@ -2226,6 +2237,9 @@ export interface components {
 				| null
 			aarligInntektOgPensjonListe?:
 				| components['schemas']['LagreAarligInntektOgPensjonDto'][]
+				| null
+			pensjonsopptjeningListe?:
+				| components['schemas']['LagrePensjonsopptjeningDto'][]
 				| null
 			simuleringsinformasjon?:
 				| components['schemas']['LagreSimuleringsinformasjonDto']
@@ -2308,6 +2322,8 @@ export interface components {
 		LagreUttaksinformasjonDto: {
 			alder: components['schemas']['LagreAlderDto']
 			uttaksdato: string
+			/** Format: int32 */
+			grad: number
 		}
 		LagreUttaksparametreDto: {
 			gradertUttakAlder?: components['schemas']['LagreAlderDto'] | null

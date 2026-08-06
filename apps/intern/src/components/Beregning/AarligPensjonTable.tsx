@@ -68,7 +68,7 @@ const groupConsecutive = <T,>(
 	return groups
 }
 
-function buildTableRows(
+export function buildTableRows(
 	alderspensjonListe: SimuleringAlderspensjon[],
 	privatAfpListe: SimuleringAfpPrivat[] | null | undefined,
 	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined,

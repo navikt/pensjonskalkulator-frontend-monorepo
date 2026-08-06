@@ -8,7 +8,9 @@ import { mapAndelToTeller } from './mapAndelToTeller'
 export function mapLagreMaanedligAlderspensjon(
 	maanedligAlderspensjon: SimuleringMaanedligAlderspensjon | null | undefined,
 	grunnbeloep?: number | null,
-	kull?: Kull | null
+	kull?: Kull | null,
+	simulererMedGjenlevenderett = false,
+	harGjenlevenderett = false
 ): LagreMaanedligAlderspensjonDto | null {
 	if (!maanedligAlderspensjon) {
 		return null
@@ -20,6 +22,10 @@ export function mapLagreMaanedligAlderspensjon(
 		garantipensjonsnivaaBeloep: null,
 		grunnbeloep: grunnbeloep,
 	}
+	const gjenlevendetillegg =
+		simulererMedGjenlevenderett || harGjenlevenderett
+			? (maanedligAlderspensjon.gjenlevendetillegg ?? 0)
+			: maanedligAlderspensjon.gjenlevendetillegg
 
 	if (kull === 'KAP19') {
 		return {
@@ -37,7 +43,7 @@ export function mapLagreMaanedligAlderspensjon(
 			kapittel19Trygdetid: maanedligAlderspensjon.kapittel19Trygdetid,
 			basispensjonBeloep: maanedligAlderspensjon.basispensjonBeloep,
 			restpensjonBeloep: maanedligAlderspensjon.restpensjonBeloep,
-			gjenlevendetillegg: maanedligAlderspensjon.gjenlevendetillegg,
+			gjenlevendetillegg,
 			minstePensjonsnivaaSats: maanedligAlderspensjon.minstePensjonsnivaaSats,
 			minstePensjonsnivaaBeloep: maanedligAlderspensjon.minstePensjonsnivaaSats,
 		}
@@ -66,6 +72,7 @@ export function mapLagreMaanedligAlderspensjon(
 
 	return {
 		...rest,
+		gjenlevendetillegg,
 		garantipensjonsnivaaBeloep: null,
 		grunnbeloep: grunnbeloep,
 		kapittel19AndelTeller: mapAndelToTeller(kapittel19Andel),

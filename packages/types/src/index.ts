@@ -72,12 +72,16 @@ export type Pre2025OffentligPensjonsberegning =
 	components['schemas']['PersonligSimuleringPre2025OffentligAfpResultV9']
 export type LagreSimuleringSpecDtoV1 =
 	components['schemas']['LagreSimuleringSpecDtoV1']
+export type LagreUttaksinformasjonDto =
+	components['schemas']['LagreUttaksinformasjonDto']
 export type LagreSimuleringResponseDtoV1 =
 	components['schemas']['LagreSimuleringResponseDtoV1']
 export type LagreMaanedligAlderspensjonDto =
 	components['schemas']['LagreMaanedligAlderspensjonDto']
 export type LagreMaanedligAlderspensjonForKnekkpunkterDto =
 	components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
+export type Vilkaarsliste =
+	components['schemas']['LagreSimuleringsinformasjonDto']['forbeholdVisningsvilkaar']
 
 // Simulering Intern
 export type SimuleringRequestBody = components['schemas']['SimuleringV1Spec']

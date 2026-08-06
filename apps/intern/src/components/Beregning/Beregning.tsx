@@ -20,7 +20,7 @@ import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
-	// useInternsimulatorLagreBrevButtonQuery,
+	useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
@@ -60,10 +60,9 @@ export const Beregning = () => {
 	)
 
 	// Midlertidig skjul brev knappen
-	// const { data: lagreBrevButtonToggle } =
-	// 	useInternsimulatorLagreBrevButtonQuery()
-	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
-	const visLagreBrevButton = false
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
@@ -316,7 +315,10 @@ export const Beregning = () => {
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					aktivRequest?.utenlandsperiodeListe ?? undefined
+					aktivRequest?.utenlandsperiodeListe ?? undefined,
+					vedtak,
+					omstillingsstoenad,
+					person
 				),
 			},
 			{
