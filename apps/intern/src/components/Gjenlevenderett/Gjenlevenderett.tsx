@@ -89,6 +89,9 @@ export const Gjenlevenderett = () => {
 			form.setValue('epsOpplysninger', EPSOpplysninger, {
 				shouldDirty: false,
 			})
+			form.setValue('harHentetEPSOpplysninger', true, {
+				shouldDirty: false,
+			})
 		}
 	}, [EPSOpplysninger, form])
 
@@ -124,7 +127,6 @@ export const Gjenlevenderett = () => {
 			return
 		}
 
-		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
 			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
