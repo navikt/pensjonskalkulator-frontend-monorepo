@@ -270,6 +270,30 @@ const getOboToken = async (req: Request) => {
 	return obo.token
 }
 
+app.post(
+	'/logs',
+	express.text({ type: 'text/plain', limit: '4kb' }),
+	async (req: Request, res: Response) => {
+		try {
+			await getUsernameFromAzureToken(req)
+		} catch {
+			res.sendStatus(401)
+			return
+		}
+
+		if (typeof req.body !== 'string' || !req.body.trim()) {
+			res.status(400).send({ error: 'Expected a non-empty text/plain message' })
+			return
+		}
+
+		logger.info('Client log', {
+			message: sanitizeForLog(req.body),
+			'x_correlation-id': req.headers['x_correlation-id'],
+		})
+		res.sendStatus(204)
+	}
+)
+
 // Proxy til backend med token exchange
 app.use(
 	'/pensjon/kalkulator/api',

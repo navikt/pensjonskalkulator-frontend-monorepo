@@ -18,6 +18,7 @@ import {
 	showInntektGradertFields,
 	showInntektHeltFields,
 } from '../../api/formConditions'
+import { useLogMutation } from '../../api/queries'
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
@@ -372,6 +373,7 @@ function validateUtenlandsOpphold(
 
 export function useFormValidation() {
 	const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
+	const { mutate: logMessage } = useLogMutation()
 
 	useEffect(() => {
 		const ariaInvalidElements = document.querySelectorAll(
@@ -432,13 +434,15 @@ export function useFormValidation() {
 			}
 
 			if (Object.keys(errors).length > 0) {
-				console.log('Validation errors on fields:', Object.keys(errors))
+				logMessage(
+					`Validation errors on fields: ${Object.keys(errors).join(', ')}`
+				)
 			}
 
 			setValidationErrors(errors)
 			return errors
 		},
-		[]
+		[logMessage]
 	)
 
 	const validatebakgrunnForBrukAvOpplysningerOmEPS = useCallback(

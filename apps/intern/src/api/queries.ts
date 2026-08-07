@@ -31,6 +31,24 @@ export interface Grunnbeloep {
 
 const API_BASE = '/pensjon/kalkulator/api'
 
+async function logMessage(message: string): Promise<void> {
+	const response = await fetch('/logs', {
+		method: 'POST',
+		headers: { 'Content-Type': 'text/plain' },
+		body: message,
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to send log message: ${response.status}`)
+	}
+}
+
+export function useLogMutation() {
+	return useMutation<void, Error, string>({
+		mutationFn: logMessage,
+	})
+}
+
 async function decryptPid(encryptedPid: string): Promise<string> {
 	const response = await fetch(`${API_BASE}/v1/decrypt`, {
 		method: 'POST',

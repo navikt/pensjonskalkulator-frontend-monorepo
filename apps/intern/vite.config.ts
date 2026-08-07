@@ -12,6 +12,10 @@ export default defineConfig(({ mode }) => ({
 		proxy:
 			mode === 'backend'
 				? {
+						'/logs': {
+							target: 'http://localhost:8080',
+							changeOrigin: true,
+						},
 						'/pensjon/kalkulator/api': {
 							target: 'http://localhost:8080',
 							changeOrigin: true,
