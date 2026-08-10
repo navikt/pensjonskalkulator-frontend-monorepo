@@ -766,7 +766,6 @@ export interface components {
 				| null
 			/** @enum {string|null} */
 			sivilstand?:
-				| 'UNKNOWN'
 				| 'UOPPGITT'
 				| 'UGIFT'
 				| 'GIFT'
@@ -778,6 +777,7 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+				| 'UNKNOWN'
 				| null
 			epsHarInntektOver2G?: boolean | null
 			epsHarPensjon?: boolean | null
@@ -992,7 +992,6 @@ export interface components {
 				| null
 			/** @enum {string|null} */
 			sivilstand?:
-				| 'UNKNOWN'
 				| 'UOPPGITT'
 				| 'UGIFT'
 				| 'GIFT'
@@ -1004,6 +1003,7 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+				| 'UNKNOWN'
 				| null
 			epsHarInntektOver2G: boolean
 			epsHarPensjon: boolean
@@ -1199,7 +1199,6 @@ export interface components {
 				| null
 			/** @enum {string|null} */
 			sivilstand?:
-				| 'UNKNOWN'
 				| 'UOPPGITT'
 				| 'UGIFT'
 				| 'GIFT'
@@ -1211,6 +1210,7 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+				| 'UNKNOWN'
 				| null
 			epsHarInntektOver2G?: boolean | null
 			epsHarPensjon?: boolean | null
@@ -2221,6 +2221,13 @@ export interface components {
 			/** Format: int32 */
 			maanedligBeloep: number
 		}
+		LagreServiceberegningDto: {
+			uttaksalder: components['schemas']['LagreAlderDto']
+			uttaksdato: string
+			/** Format: int32 */
+			forventetFremtidigInntekt: number | null
+			afp?: components['schemas']['LagreTidsbegrensetOffentligAfpDto'] | null
+		}
 		LagreSimuleringSpecDtoV1: {
 			alderspensjonListe: components['schemas']['LagreAlderspensjonDto'][]
 			afpPrivat?: components['schemas']['LagreAfpPrivatSimuleringDto'] | null
@@ -2248,6 +2255,9 @@ export interface components {
 				| components['schemas']['LagreMaanedligAlderspensjonForKnekkpunkterDto']
 				| null
 			navEnhetId?: string | null
+			serviceberegning?:
+				| components['schemas']['LagreServiceberegningDto']
+				| null
 		}
 		LagreSimuleringsinformasjonDto: {
 			gradertUttakInformasjon?:
@@ -2341,7 +2351,27 @@ export interface components {
 			url?: string
 		}
 		EpsV1EpsSpec: {
-			/** @enum {string} */
+			/**
+			 * @description Sivilstand (i Folkeregisteret) - må angis hvis ikke sivilstatus angis
+			 * @enum {string|null}
+			 */
+			sivilstand?:
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'UNKNOWN'
+				| null
+			/**
+			 * @description Sivilstatus (inkludert samboerskap) - brukes kun hvis sivilstand ikke angis
+			 * @enum {string|null}
+			 */
 			sivilstatus?:
 				| 'UNKNOWN'
 				| 'UOPPGITT'
@@ -2355,6 +2385,8 @@ export interface components {
 				| 'SKILT_PARTNER'
 				| 'GJENLEVENDE_PARTNER'
 				| 'SAMBOER'
+				| null
+			/** @description Bakgrunn for henting av opplysningene */
 			bakgrunn?: string | null
 		}
 		EpsV1Familierelasjon: {
@@ -2362,7 +2394,24 @@ export interface components {
 			/** Format: date */
 			fom?: string | null
 			/** @enum {string} */
-			relasjonstype: 'EKTEFELLE' | 'REGISTRERT_PARTNER' | 'SAMBOER' | 'UKJENT'
+			relasjonstype:
+				| 'EKTEFELLE'
+				| 'REGISTRERT_PARTNER'
+				| 'FRASKILT_EKTEFELLE'
+				| 'FRASKILT_PARTNER'
+				| 'FRASEPARERT_EKTEFELLE'
+				| 'FRASEPARERT_PARTNER'
+				| 'AVDOED_EKTEFELLE'
+				| 'AVDOED_PARTNER'
+				| 'SAMBOER'
+				| 'BARN'
+				| 'FAR'
+				| 'MEDMOR'
+				| 'MOR'
+				| 'HELSOESKEN'
+				| 'HALVSOESKEN_FELLES_MOR'
+				| 'HALVSOESKEN_FELLES_FAR_MEDMOR'
+				| 'UKJENT'
 			relasjonPersondata?:
 				| components['schemas']['EpsV1RelasjonPersondata']
 				| null
@@ -2375,7 +2424,7 @@ export interface components {
 		}
 		EpsV1Problem: {
 			/** @enum {string} */
-			type: 'TILGANG_NEKTET'
+			type: 'TILGANG_NEKTET' | 'MANGELFULL_SPESIFIKASJON'
 			beskrivelse: string
 		}
 		EpsV1RelasjonPersondata: {
@@ -3247,6 +3296,24 @@ export interface operations {
 		responses: {
 			/** @description Henting av EPS utført. */
 			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['EpsV1Familierelasjon']
+				}
+			}
+			/** @description Henting av EPS kunne ikke utføres pga. mangelfull spesifikasjon. */
+			400: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['EpsV1Familierelasjon']
+				}
+			}
+			/** @description Henting av EPS kunne ikke utføres pga. manglende tilganger. */
+			403: {
 				headers: {
 					[name: string]: unknown
 				}

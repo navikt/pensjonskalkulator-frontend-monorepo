@@ -361,5 +361,49 @@ export function mapBeregningResultToLagreSpec(
 		},
 		maanedligAlderspensjonForKnekkpunkter,
 		navEnhetId: navEnhetId,
+		serviceberegning:
+			aktivBeregning?.afp === 'serviceberegning'
+				? {
+						uttaksalder: { ...heltUttakAlder },
+						uttaksdato: transformUttaksalderToDate(
+							heltUttakAlder,
+							foedselsdato
+						),
+						forventetFremtidigInntekt:
+							aktivBeregning.pensjonsgivendeInntektFremTilUttak ??
+							aktivBeregning.pensjonsgivendeInntektForrigeAar,
+						afp: result.serviceberegnetAfp?.beregnetAfp
+							? {
+									alderAar: heltUttakAlder.aar,
+									totaltAfpBeloep:
+										result.serviceberegnetAfp.beregnetAfp.totalbelopAfp ?? 0,
+									tidligereArbeidsinntekt:
+										result.serviceberegnetAfp.beregnetAfp
+											.tidligereArbeidsinntekt ?? 0,
+									grunnbeloep:
+										result.serviceberegnetAfp.beregnetAfp.grunnbelop ?? 0,
+									sluttpoengtall:
+										result.serviceberegnetAfp.beregnetAfp.sluttpoengtall ?? 0,
+									trygdetid:
+										result.serviceberegnetAfp.beregnetAfp.trygdetid ?? 0,
+									poengaarTom1991:
+										result.serviceberegnetAfp.beregnetAfp.poeangarE91 ?? 0,
+									poengaarFom1992:
+										result.serviceberegnetAfp.beregnetAfp.poeangarF92 ?? 0,
+									grunnpensjon:
+										result.serviceberegnetAfp.beregnetAfp.grunnpensjon ?? 0,
+									tilleggspensjon:
+										result.serviceberegnetAfp.beregnetAfp.tilleggspensjon ?? 0,
+									afpTillegg:
+										result.serviceberegnetAfp.beregnetAfp.afpTillegg ?? 0,
+									saertillegg:
+										result.serviceberegnetAfp.beregnetAfp.saertillegg ?? 0,
+									afpGrad: result.serviceberegnetAfp.beregnetAfp.afpGrad ?? 0,
+									erAvkortet:
+										result.serviceberegnetAfp.beregnetAfp.erAvkortet ?? false,
+								}
+							: null,
+					}
+				: null,
 	}
 }
