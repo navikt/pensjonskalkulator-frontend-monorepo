@@ -104,6 +104,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "ab5befbd9be8",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "007ce0d2dc06",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til brukere med strengt fortrolig adresse (kode 6)."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.strengt.fortrolig",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "95419adcc4f3",
 					"_type": "block",
 					"children": [
@@ -233,6 +255,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "d0303e68018b",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "66a32cf8bf07",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til brukere med fortrolig adresse (kode 7)."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.fortrolig",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "5dc89a490082",
 					"_type": "block",
 					"children": [
@@ -305,6 +349,72 @@
 		{
 			"innhold": [
 				{
+					"_key": "01053d6d1208",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "2d295fb501c3",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.verge",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "d52b2c432fd7",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "825d7494023e",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til data om deg selv eller dine nærstående."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.habilitet",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "4764ce85763a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "e100ffab10df",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.brukerens.verge",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "5e36a06ce5b5",
 					"_type": "block",
 					"children": [
@@ -323,6 +433,72 @@
 			"overskrift": "Ugyldig kombinasjon",
 			"status": "info",
 			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "a255c3402fbe",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "e1cdb6d9bc91",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til brukere med strengt fortrolig adresse i utlandet (§19)."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.strengt.fortrolig.utland",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "489b0f4238f6",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5daa34d00f53",
+							"_type": "span",
+							"marks": [],
+							"text": "Dødsfall er ikke registrert på bruker. For å beregne gjenlevenderett må henvendelse fra begge parter foreligge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.doedsfall.ikke.registrert",
+			"overskrift": "Kan ikke hente opplysninger",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "bff9a081d558",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "0943bdf532a1",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til Nav-ansatte og deres nærmeste familie."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.skjerming",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
 		},
 		{
 			"innhold": [
