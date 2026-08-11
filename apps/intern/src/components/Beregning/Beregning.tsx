@@ -12,7 +12,15 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useState } from 'react'
 
-import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	Box,
+	Button,
+	Loader,
+	LocalAlert,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
 import { erKap19EllerApoteker } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
@@ -444,7 +452,7 @@ export const Beregning = () => {
 						size="small"
 						className={styles.kortforbehold}
 					/>
-					{visLagreBrevButton && (
+					{visLagreBrevButton && !lagreSimulering.isError && (
 						<Button
 							className={styles.lagreButton}
 							variant="secondary"
@@ -455,6 +463,34 @@ export const Beregning = () => {
 						>
 							Opprett brev
 						</Button>
+					)}
+					{visLagreBrevButton && lagreSimulering.isError && (
+						<LocalAlert
+							status="error"
+							size="small"
+							data-testid="lagre-brev-feil"
+							style={{ width: 'fit-content' }}
+						>
+							<LocalAlert.Header>
+								<LocalAlert.Title>
+									Noe gikk galt med opprettelse av brev
+								</LocalAlert.Title>
+							</LocalAlert.Header>
+							<LocalAlert.Content>
+								<BodyLong>
+									Vi klarte dessverre ikke å opprette brev akkurat nå.
+								</BodyLong>
+								<Button
+									variant="secondary"
+									size="small"
+									onClick={handleLagreSimulering}
+									style={{ marginTop: '1rem' }}
+									data-testid="lagre-brev-feil-retry"
+								>
+									Prøv på nytt
+								</Button>
+							</LocalAlert.Content>
+						</LocalAlert>
 					)}
 				</Tabs.Panel>
 				{opptjening && (
