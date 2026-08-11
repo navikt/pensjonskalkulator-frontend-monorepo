@@ -327,7 +327,7 @@ export const UtenlandsOpphold = ({
 
 	const renderEditor = (index: number) => (
 		<VStack gap="space-24">
-			<HStack justify="start" align="end" gap="space-24">
+			<HStack justify="start" align="end" gap="space-24" wrap={false}>
 				<div className={styles.selectLandWrapper}>
 					<RHFSelect
 						name={getOppholdFieldName(index, 'landkode')}

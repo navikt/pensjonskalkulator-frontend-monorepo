@@ -22,6 +22,15 @@
 	scroll-timeline: --section-scroll block;
 }
 
+@supports not (animation-timeline: scroll()) {
+	.section {
+		background:
+			linear-gradient(to top, white, white) bottom / 100% 8px no-repeat local,
+			linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent 6px) bottom /
+				100% 6px no-repeat scroll;
+	}
+}
+
 .section::after {
 	content: '';
 	display: block;

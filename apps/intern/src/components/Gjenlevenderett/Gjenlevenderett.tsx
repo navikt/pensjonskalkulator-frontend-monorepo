@@ -8,6 +8,7 @@ import {
 	ErrorMessage,
 	Loader,
 	LocalAlert,
+	VStack,
 } from '@navikt/ds-react'
 
 import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
@@ -23,7 +24,7 @@ import { getEpsDoedsdato } from './utils'
 import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
-	const { form, fnr, person } = useBeregningContext()
+	const { form, fnr, person, resetForm } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
@@ -246,7 +247,15 @@ export const Gjenlevenderett = () => {
 						!isEPSInfoEmpty &&
 						erBakgrunnDoedsfallRegistrert &&
 						!harRegistrertDoedsdato && (
-							<SanityAlert id="beregning.gjenlevenderett.doedsfall.ikke.registrert" />
+							<VStack gap="space-24" align="start">
+								<SanityAlert
+									id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
+									className={styles.doedsfallSanityAlert}
+								/>
+								<Button variant="secondary" size="small" onClick={resetForm}>
+									Start på nytt
+								</Button>
+							</VStack>
 						)}
 					{formEpsOpplysninger &&
 						!isEPSInfoEmpty &&
