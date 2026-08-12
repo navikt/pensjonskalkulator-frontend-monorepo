@@ -490,7 +490,11 @@ test.describe('Gjenlevenderett', () => {
 		})
 
 		test('Viser EPS-felter etter vellykket henting', async ({ page }) => {
-			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+				relasjonPersondata: {
+					doedsdato: '2025-02-20',
+				},
+			})
 
 			await checkGjenlevenderett(page)
 			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
@@ -524,6 +528,24 @@ test.describe('Gjenlevenderett', () => {
 			})
 			await expect(flyktningGroup.getByLabel('Nei')).toBeChecked()
 			await expect(flyktningGroup.getByLabel('Ja')).not.toBeChecked()
+		})
+
+		test('Viser varsel når dødsfall er valgt som bakgrunn men dødsdato ikke er registrert', async ({
+			page,
+		}) => {
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+				relasjonPersondata: {
+					doedsdato: null,
+				},
+			})
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.doedsfall.ikke.registrert')
+			).toBeVisible()
+			await expect(page.getByTestId('EPS-opplysninger-info')).not.toBeVisible()
 		})
 
 		test('Skjuler radiogruppe og hent-knapp etter vellykket henting', async ({

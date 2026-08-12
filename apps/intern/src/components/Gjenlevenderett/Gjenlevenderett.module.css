@@ -16,3 +16,7 @@
 .customErrorMessage {
 	margin-top: var(--ax-space-8);
 }
+
+.doedsfallSanityAlert {
+	padding: 0;
+}
