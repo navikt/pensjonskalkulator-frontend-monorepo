@@ -370,8 +370,7 @@ export function mapBeregningResultToLagreSpec(
 							foedselsdato
 						),
 						forventetFremtidigInntekt:
-							aktivBeregning.pensjonsgivendeInntektFremTilUttak ??
-							aktivBeregning.pensjonsgivendeInntektForrigeAar,
+							aktivBeregning.aarsinntektSamtidigMedAfp ?? 0,
 						afp: result.serviceberegnetAfp?.beregnetAfp
 							? {
 									alderAar: heltUttakAlder.aar,
