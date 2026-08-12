@@ -1,6 +1,9 @@
 import { describe, expect, test } from 'vitest'
 
-import { showSivilstatus } from '../../components/BeregningForm/utils'
+import {
+	getAlderForAfpEndring,
+	showSivilstatus,
+} from '../../components/BeregningForm/utils'
 import { showEpsHarInntektOver2G, showEpsHarPensjon } from '../formConditions'
 
 const base = {
@@ -174,5 +177,79 @@ describe('showSivilstatus', () => {
 				beregnMedGjenlevenderett: true,
 			})
 		).toBe(false)
+	})
+})
+
+describe('getAlderForAfpEndring', () => {
+	test('returns 62/0 when switching to serviceberegning and age > 66', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'serviceberegning',
+				alderAarUttak: 67,
+			})
+		).toEqual({ aar: 62, md: 0 })
+	})
+
+	test('returns 67/1 when switching to ja_offentlig and age > 66', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'ja_offentlig',
+				alderAarUttak: 70,
+			})
+		).toEqual({ aar: 67, md: 1 })
+	})
+
+	test('returns null when switching to serviceberegning and age <= 66', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'serviceberegning',
+				alderAarUttak: 66,
+			})
+		).toBeNull()
+	})
+
+	test('returns null when switching to ja_offentlig and age <= 66', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'ja_offentlig',
+				alderAarUttak: 65,
+			})
+		).toBeNull()
+	})
+
+	test('returns null when switching to ja_privat regardless of age', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'ja_privat',
+				alderAarUttak: 70,
+			})
+		).toBeNull()
+	})
+
+	test('returns null when switching to nei regardless of age', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'nei',
+				alderAarUttak: 70,
+			})
+		).toBeNull()
+	})
+
+	test('returns null when alderAarUttak is null', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'serviceberegning',
+				alderAarUttak: null,
+			})
+		).toBeNull()
+	})
+
+	test('returns null when alderMdUttak is null', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'serviceberegning',
+				alderAarUttak: 67,
+			})
+		).toBeNull()
 	})
 })

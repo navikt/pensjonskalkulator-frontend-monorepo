@@ -201,3 +201,22 @@ export function getUttaksGradArray({
 
 	return uttaksgradArray
 }
+
+export function getAlderForAfpEndring({
+	newAfpValue,
+	alderAarUttak,
+}: {
+	newAfpValue: string
+	alderAarUttak: number | null
+}): { aar: number; md: number } | null {
+	const alderOverMaksForOffentligAfp =
+		alderAarUttak !== null && alderAarUttak > 66
+
+	if (newAfpValue === 'serviceberegning' && alderOverMaksForOffentligAfp) {
+		return { aar: 62, md: 0 }
+	}
+	if (newAfpValue === 'ja_offentlig' && alderOverMaksForOffentligAfp) {
+		return { aar: 67, md: 1 }
+	}
+	return null
+}

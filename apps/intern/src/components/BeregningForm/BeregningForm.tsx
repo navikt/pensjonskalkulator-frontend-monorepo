@@ -47,6 +47,7 @@ import {
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
 import {
+	getAlderForAfpEndring,
 	getForTidligEndringAvUttaksgradDato,
 	getUttaksGradArray,
 	showBeregnMedGjenlevenderett,
@@ -148,6 +149,16 @@ export const BeregningForm = () => {
 		if (afp === 'serviceberegning' && newAfpValue !== 'serviceberegning') {
 			form.setValue('alderAarUttak', null, { shouldDirty: false })
 			form.setValue('alderMdUttak', null, { shouldDirty: false })
+		}
+
+		const alderForAfp = getAlderForAfpEndring({
+			newAfpValue,
+			alderAarUttak,
+		})
+
+		if (alderForAfp) {
+			form.setValue('alderAarUttak', alderForAfp.aar, { shouldDirty: true })
+			form.setValue('alderMdUttak', alderForAfp.md, { shouldDirty: true })
 		}
 	}
 
