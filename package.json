@@ -12,7 +12,7 @@
 		"dev": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern dev",
 		"dev:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern dev",
-		"dev:sanity": "pnpm --dir packages/sanity exec sanity dev -- --port 3333",
+		"dev:sanity": "pnpm --dir packages/sanity exec sanity dev --port 3333",
 		"build": "pnpm -r build",
 		"build:intern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/intern build",
 		"build:ekstern": "pnpm --filter @pensjonskalkulator-frontend-monorepo/ekstern build",

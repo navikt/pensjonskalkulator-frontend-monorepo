@@ -282,6 +282,7 @@ export const BeregningForm = () => {
 	useEffect(() => {
 		setShowFremtidigAlderspensjonAlert(
 			Boolean(
+				afp !== 'serviceberegning' &&
 				vedtak?.loependeAlderspensjon &&
 				fremtidigAlderspensjon &&
 				person?.foedselsdato !== undefined &&
@@ -294,6 +295,7 @@ export const BeregningForm = () => {
 			)
 		)
 	}, [
+		afp,
 		fremtidigAlderspensjon,
 		person?.foedselsdato,
 		alderAarUttak,
@@ -545,9 +547,17 @@ export const BeregningForm = () => {
 								className={styles.sanityAlert}
 								dynamicValues={{
 									grad: String(fremtidigAlderspensjon?.grad ?? 100),
-									alder: fremtidigAlderspensjon
+									vedtakDato: fremtidigAlderspensjon
 										? format(
-												addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
+												parseISO(fremtidigAlderspensjon.fom),
+												DATE_ENDUSER_FORMAT
+											)
+										: '',
+									tidligstEndringDato: fremtidigAlderspensjon
+										? format(
+												fremtidigAlderspensjon.grad === 0
+													? parseISO(fremtidigAlderspensjon.fom)
+													: addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
 												DATE_ENDUSER_FORMAT
 											)
 										: '',
