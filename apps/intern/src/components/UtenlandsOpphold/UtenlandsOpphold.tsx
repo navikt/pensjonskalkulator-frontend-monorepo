@@ -356,6 +356,7 @@ export const UtenlandsOpphold = ({
 					<HStack
 						justify="start"
 						gap="space-24"
+						wrap={false}
 						className={styles.dateFieldsHStack}
 					>
 						<div className={styles.dateFieldWrapper}>
