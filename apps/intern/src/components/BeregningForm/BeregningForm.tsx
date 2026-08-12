@@ -154,6 +154,7 @@ export const BeregningForm = () => {
 		const alderForAfp = getAlderForAfpEndring({
 			newAfpValue,
 			alderAarUttak,
+			foedselsdato: person?.foedselsdato,
 		})
 
 		if (alderForAfp) {
@@ -302,7 +303,10 @@ export const BeregningForm = () => {
 				calculateUttaksalderAsDate(
 					{ aar: alderAarUttak, maaneder: alderMdUttak },
 					person.foedselsdato
-				) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
+				) <
+					(fremtidigAlderspensjon.grad === 0
+						? parseISO(fremtidigAlderspensjon.fom)
+						: addMonths(parseISO(fremtidigAlderspensjon.fom), 1))
 			)
 		)
 	}, [

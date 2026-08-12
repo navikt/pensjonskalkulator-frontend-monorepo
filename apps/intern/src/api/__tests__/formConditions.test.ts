@@ -186,17 +186,29 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'serviceberegning',
 				alderAarUttak: 67,
+				foedselsdato: undefined,
 			})
 		).toEqual({ aar: 62, md: 0 })
 	})
 
-	test('returns 67/1 when switching to ja_offentlig and age > 66', () => {
+	test('returns brukers alder + 1 md when switching to ja_offentlig and age > 66', () => {
 		expect(
 			getAlderForAfpEndring({
 				newAfpValue: 'ja_offentlig',
 				alderAarUttak: 70,
+				foedselsdato: '1960-01-15',
 			})
-		).toEqual({ aar: 67, md: 1 })
+		).toEqual({ aar: 66, md: 7 })
+	})
+
+	test('returns min alder fallback when switching to ja_offentlig without foedselsdato', () => {
+		expect(
+			getAlderForAfpEndring({
+				newAfpValue: 'ja_offentlig',
+				alderAarUttak: 70,
+				foedselsdato: undefined,
+			})
+		).toEqual({ aar: 62, md: 0 })
 	})
 
 	test('returns null when switching to serviceberegning and age <= 66', () => {
@@ -204,6 +216,7 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'serviceberegning',
 				alderAarUttak: 66,
+				foedselsdato: undefined,
 			})
 		).toBeNull()
 	})
@@ -213,6 +226,7 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'ja_offentlig',
 				alderAarUttak: 65,
+				foedselsdato: '1960-01-15',
 			})
 		).toBeNull()
 	})
@@ -222,6 +236,7 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'ja_privat',
 				alderAarUttak: 70,
+				foedselsdato: undefined,
 			})
 		).toBeNull()
 	})
@@ -231,6 +246,7 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'nei',
 				alderAarUttak: 70,
+				foedselsdato: undefined,
 			})
 		).toBeNull()
 	})
@@ -240,6 +256,7 @@ describe('getAlderForAfpEndring', () => {
 			getAlderForAfpEndring({
 				newAfpValue: 'serviceberegning',
 				alderAarUttak: null,
+				foedselsdato: undefined,
 			})
 		).toBeNull()
 	})
