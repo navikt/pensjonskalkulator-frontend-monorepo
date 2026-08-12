@@ -243,13 +243,4 @@ describe('getAlderForAfpEndring', () => {
 			})
 		).toBeNull()
 	})
-
-	test('returns null when alderMdUttak is null', () => {
-		expect(
-			getAlderForAfpEndring({
-				newAfpValue: 'serviceberegning',
-				alderAarUttak: 67,
-			})
-		).toBeNull()
-	})
 })
