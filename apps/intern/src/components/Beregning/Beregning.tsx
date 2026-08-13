@@ -462,10 +462,12 @@ export const Beregning = () => {
 						<VStack
 							gap="space-32"
 							className={
-								isOpptjeningLoading ? styles.loadingOverlay : undefined
+								isBeregningLoading || isOpptjeningLoading
+									? styles.loadingOverlay
+									: undefined
 							}
 						>
-							{isOpptjeningLoading && (
+							{(isBeregningLoading || isOpptjeningLoading) && (
 								<div className={styles.overlayLoader}>
 									<Loader size="3xlarge" title="Henter opptjening …" />
 								</div>
