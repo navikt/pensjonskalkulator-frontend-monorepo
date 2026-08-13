@@ -236,6 +236,8 @@ export const Beregning = () => {
 		erFoedtEtter1963,
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
+		aktivBeregning,
+		person,
 	}
 	const showGradertFirst =
 		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)

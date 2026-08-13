@@ -1,10 +1,12 @@
 import type {
+	PersonInternV1,
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
+import type { BeregningParams } from '../../api/beregningTypes'
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
 import { mapPrivatAfp } from '../Beregning/beregningMappers'
@@ -32,6 +34,8 @@ interface BeregningSectionProps {
 	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
+	aktivBeregning?: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 export const BeregningSection = ({
@@ -55,6 +59,8 @@ export const BeregningSection = ({
 	showVisAarsbelopCheckbox,
 	harGjenlevenderett = false,
 	onVisAarsbelopChange,
+	aktivBeregning = null,
+	person = null,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -95,6 +101,8 @@ export const BeregningSection = ({
 						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
 						harGjenlevenderett={harGjenlevenderett}
 						isGradert={isGradert}
+						aktivBeregning={aktivBeregning}
+						person={person}
 					/>
 				)}
 				{showAfp && (

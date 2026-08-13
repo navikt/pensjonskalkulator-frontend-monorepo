@@ -1,0 +1,1672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="afp3">
+    <mrow>
+  <mi>AFP livsvarig del</mi>
+  <mo>×</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mn>1</mn>
+    <mo>-</mo>
+    <mfrac>
+     <mrow>
+      <mi>Reguleringsfaktor</mi>
+      <mo>×</mo>
+      <mi>Gjennomsnittlig uttaksgrad AFP siste år</mi>
+     </mrow>
+     <mn>100%</mn>
+    </mfrac>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>×</mo>
+  <msup>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>1</mn>
+     <mo>-</mo>
+     <mi>Reguleringsfaktor</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mi>Gap</mi>
+  </msup>
+ </mrow></entry>
+  <entry key="afp4">  <mrow>
+   <mi>AFP livsvarig del</mi>
+  </mrow></entry>
+  <entry key="afp_privat.kompt1"> <mfrac>
+  <mi>Referansebeløp</mi>
+  <mi>Forholdstall kompensasjonstillegg ved uttak</mi>
+ </mfrac></entry>
+  <entry key="afp_privat.kompt2"> <mfrac>
+  <mi>AFP livsvarig del</mi>
+  <mn>2</mn>
+ </mfrac></entry>
+  <entry key="afp_privat.livsvd1"> <mfrac>
+  <mrow>
+   <mi>Opptjeningsgrunnlag</mi>
+   <mo>×</mo>
+   <mi>Opptjeningsprosent</mi>
+  </mrow>
+  <mi>Forholdstall ved uttak</mi>
+ </mfrac></entry>
+  <entry key="afp_privat.livsvd2"> <mrow>
+  <mfrac>
+   <mrow>
+    <mi>Opptjeningsgrunnlag</mi>
+    <mo>×</mo>
+    <mi>Opptjeningsprosent</mi>
+   </mrow>
+   <mi>Forholdstall ved uttak</mi>
+  </mfrac>
+  <mo>-</mo>
+  <mi>Justeringsbeløp</mi>
+ </mrow></entry>
+  <entry key="afp_privat.livsvd3"> <mfrac>
+  <mrow>
+   <mi>Andel av AFP livsvarig del</mi>
+   <mo>×</mo>
+   <mi>Opptjeningsgrunnlag</mi>
+   <mo>×</mo>
+   <mi>Opptjeningsprosent</mi>
+  </mrow>
+  <mi>Forholdstall ved uttak</mi>
+ </mfrac></entry>
+  <entry key="afp_privat.livsvd4"> <mrow>
+  <mfrac>
+   <mrow>
+    <mi>Andel av AFP livsvarig del</mi>
+    <mo>×</mo>
+    <mi>Opptjeningsgrunnlag</mi>
+    <mo>×</mo>
+    <mi>Opptjeningsprosent</mi>
+   </mrow>
+   <mi>Forholdstall ved uttak</mi>
+  </mfrac>
+  <mo>-</mo>
+  <mi>Justeringsbeløp</mi>
+ </mrow></entry>
+  <entry key="ap2016gjt"> <mrow>
+  <mi>Alderspenjson kap. 19 med gjenlevenderettighet</mi>
+  <mo>-</mo>
+  <mi>Alderspensjon kap. 19 uten gjenlevenderettighet</mi>
+ </mrow></entry>
+  <entry key="ap2016_1_avsl"> <mfrac>
+  <mrow>
+   <mi>Pensjon ved uttak</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>1</mn>
+     <mo>-</mo>
+     <mrow>
+      <mo>(</mo>
+      <mrow>
+       <mrow>
+        <mn>0.75%</mn>
+       </mrow>
+       <mo>×</mo>
+       <mfrac>
+        <mi>Gjennomsnittlig uttaksgrad siste år</mi>
+        <mi>Uttaksgrad</mi>
+       </mfrac>
+      </mrow>
+      <mo>)</mo>
+     <mo>)</mo>
+     </mrow>
+     <mo>×</mo>
+     <msup>
+      <mrow>
+       <mo>(</mo>
+       <mrow>
+        <mn>1</mn>
+        <mo>-</mo>
+        <mn>0.75%</mn>
+       </mrow>
+       <mo>)</mo>
+      </mrow>
+      <mi>antall reguleringer</mi>
+     </msup>
+     <mo>×</mo>
+     <mi>Delingstall ved 67 år</mi>
+     <mo>+</mo>
+     <mi>Pensjonsbeholdning etter omregning</mi>
+    </mrow>
+   </mrow>
+  </mrow>
+  <mi>Delingstall ved 67 år</mi>
+ </mfrac></entry>
+  <entry key="ap2016_2_avsl"> <mfrac>
+  <mrow>
+   <mi>Pensjon før omregning</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>1</mn>
+     <mo>-</mo>
+     <mrow>
+      <mo>(</mo>
+      <mrow>
+       <mrow>
+        <mn>0.75%</mn>
+       </mrow>
+       <mo>×</mo>
+       <mfrac>
+        <mi>Gjennomsnittlig uttaksgrad siste år</mi>
+        <mi>Uttaksgrad</mi>
+       </mfrac>
+      </mrow>
+      <mo>)</mo>
+     <mo>)</mo>
+     </mrow>
+     <mo>×</mo>
+     <msup>
+      <mrow>
+       <mo>(</mo>
+       <mrow>
+        <mn>1</mn>
+        <mo>-</mo>
+        <mn>0.75%</mn>
+       </mrow>
+       <mo>)</mo>
+      </mrow>
+      <mi>antall reguleringer</mi>
+     </msup>
+     <mo>×</mo>
+     <mi>Delingstall ved 67 år</mi>
+     <mo>+</mo>
+     <mi>Pensjonsbeholdning etter omregning</mi>
+    </mrow>
+   </mrow>
+  </mrow>
+  <mi>Delingstall ved 67 år</mi>
+ </mfrac></entry>
+  <entry key="basgp1"> <mfrac>
+  <mrow>
+   <mi>Grunnpensjonssats</mi>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Anvendt trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="basgp2"><math xmlns='http://www.w3.org/1998/Math/MathML'>
+ <mfrac>
+  <mrow>
+   <mi>Grunnpensjonssats</mi>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Avdødes trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac>
+ </math></entry>
+  <entry key="basis_grunnpensjon"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="basis_grunnpensjon_redusert"> <mfrac>
+  <mrow>
+   <mn>0.90</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="basis_tilleggspensjon"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 1992</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 1991</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="baspentp3"> <mrow>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mi>Minste pensjonsnivå ved uttak</mi>
+    <mo>×</mo>
+    <mi>Fremskrivningsfaktor</mi>
+    <mo>×</mo>
+    <mi>Forholdstall ved 67 år</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>-</mo>
+  <mi>Basisgrunnpensjon</mi>
+  <mo>-</mo>
+  <mi>Basistilleggspensjon</mi>
+ </mrow></entry>
+  <entry key="bastp1"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 1992</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 1991</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="bastp2"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="bastp3"> <mfrac>
+  <mrow>
+   <mn>0,55</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>0,45</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 1992</mi>
+     <mo>+</mo>
+     <mn>0,42</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 1991</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac>
+ <mo>+</mo>
+ <mn>0,55</mn>
+ <mo>×</mo>
+ <mi>Avdødes tilleggspensjon</mi></entry>
+  <entry key="bastp4"> <mfrac>
+  <mrow>
+   <mn>0,55</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>0,45</mn>
+     <mo>×</mo>
+     <mi>Antall poengår</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac>
+ <mo>+</mo>
+ <mn>0,55</mn>
+ <mo>×</mo>
+ <mi>Avdødes tilleggspensjon</mi></entry>
+  <entry key="berpensjonveduttak"> <mfrac>
+  <mrow>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mi>Utbetalt pensjon før endring</mi>
+     <mo>×</mo>
+     <mi>Forholdstall ved uttak</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>+</mo>
+   <mi>Respensjon før endring</mi>
+  </mrow>
+  <mi>Forholdstall ved uttak</mi>
+ </mfrac>
+ <mo>×</mo>
+ <mi>Uttaksgrad</mi></entry>
+  <entry key="bgordiner" />
+  <entry key="bt1"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats for forsørgingstillegg</mi>
+   <mo>×</mo>
+   <mi>Trygdetid for forsørgningtillegg</mi>
+   <mo>×</mo>
+   <mn>0,20</mn>
+   <mo>×</mo>
+   <mi>Antall barn</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac>
+ <mo>-</mo>
+ <mn>0,5</mn>
+ <mo>×</mo>
+ <mo>(</mo>
+ <mi>Avkortingsinntekt</mi>
+ <mo>-</mo>
+ <mi>Fribeløp</mi>
+ <mo>)</mo></entry>
+  <entry key="bt2"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats for forsørgingstillegg</mi>
+   <mo>×</mo>
+   <mi>Trygdetid for forsørgningtillegg</mi>
+   <mo>×</mo>
+   <mn>0,20</mn>
+   <mo>×</mo>
+   <mi>Antall barn</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="et1"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats for forsørgingstillegg</mi>
+   <mo>×</mo>
+   <mi>Trygdetid for forsørgingtillegg</mi>
+   <mo>×</mo>
+   <mn>0,25</mn>
+  </mrow>
+  <mn>40</mn>
+ </mfrac>
+ <mo>-</mo>
+ <mn>0,5</mn>
+ <mo>×</mo>
+ <mo>(</mo>
+ <mi>Avkortingsinntekt</mi>
+ <mo>-</mo>
+ <mi>Fribeløp</mi>
+ <mo>)</mo></entry>
+  <entry key="et2"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats for forsørgingstillegg</mi>
+   <mo>×</mo>
+   <mi>Trygdetid for forsørgingtillegg</mi>
+   <mo>×</mo>
+   <mn>0,25</mn>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.basis_grunnpensjon"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.basis_grunnpensjon_redusert"> <mfrac>
+  <mrow>
+   <mn>0,90</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.basis_tilleggspensjon"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 1992</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 1991</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.fullpensjon "> <mfrac>
+  <mi>Basispensjon</mi>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.garantipensjon"> <mfrac>
+  <mi>Garantipensjonsbeholdning</mi>
+  <mi>Delingstall</mi>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_1"> <mfrac>
+  <mrow>
+   <mi>1G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_2"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_3"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_4"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>×</mo>
+   <mi>Andel dagens regler</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_redusert_1"> <mfrac>
+  <mrow>
+   <mn>90%</mn>
+   <mo>×</mo>
+   <mi>1G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+  <mn>40</mn>
+  <mo>×</mo>
+  <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_redusert_2"> <mfrac>
+  <mrow>
+   <mn>90%</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+   <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_redusert_3"> <mfrac>
+  <mrow>
+   <mn>90%</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnpensjon_redusert_4"> <mfrac>
+  <mrow>
+   <mn>90%</mn>
+   <mo>×</mo>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>×</mo>
+   <mi>Andel dagens regler</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.grunnytelse"> <mfrac>
+  <mrow>
+   <mi>Sum PGI yrkesaktive år</mi>
+   <mo>×</mo>
+   <mn>0,314%</mn>
+  </mrow>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.inntektspensjon_1"> <mfrac>
+  <mi>Pensjonsbeholdning</mi>
+  <mi>Delingstall</mi>
+ </mfrac></entry>
+  <entry key="formler.inntektspensjon_2"> <mfrac>
+  <mrow>
+   <mi>Pensjonsbeholdning</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mi>Delingstall</mi>
+ </mfrac></entry>
+  <entry key="formler.inntektspensjon_3"> <mfrac>
+  <mrow>
+   <mi>Pensjonsbeholdning</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>×</mo>
+   <mi>Andel nye regler</mi>
+  </mrow>
+  <mi>Delingstall</mi>
+ </mfrac></entry>
+  <entry key="formler.mpn_uttak_brukers_tt"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.mpn_uttak_full_tt"> <mfrac>
+  <mrow>
+   <mi>Minste pensjonsnivåsats</mi>
+   <mo>×</mo>
+   <mn>40</mn>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.pensjonstillegg_1"> <mfrac>
+  <mrow>
+   <mi>Minstepensjonsnivå</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved 67 år</mi>
+   <mo>-</mo>
+   <mi>Basispensjon</mi>
+  </mrow>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.pensjonstillegg_2"> <mfrac>
+  <mrow>
+   <mi>Minstepensjonsnivå</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved 67 år</mi>
+   <mo>-</mo>
+   <mi>Basispensjon</mi>
+  </mrow>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.pensjonstillegg_3"> <mfrac>
+  <mrow>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mi>Minstepensjonsnivå</mi>
+     <mo>×</mo>
+     <mi>Forholdstall ved 67 år</mi>
+     <mo>-</mo>
+     <mi>Basispensjon</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.pensjonstillegg_4"> <mfrac>
+  <mrow>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mi>Minstepensjonsnivå</mi>
+     <mo>×</mo>
+     <mi>Forholdstall ved 67 år</mi>
+     <mo>-</mo>
+     <mi>Basispensjon</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>×</mo>
+   <mi>Andel dagens regler</mi>
+  </mrow>
+  <mi>Forholdstall</mi>
+ </mfrac></entry>
+  <entry key="formler.tilleggspensjon_1"> <mfrac>
+  <mrow>
+   <mi>1G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 92</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 91</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.tilleggspensjon_2"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 92</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 91</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+  </mrow>
+  <mn>40</mn>
+ </mfrac></entry>
+  <entry key="formler.tilleggspensjon_3"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår før 92</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 91</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="formler.tilleggspensjon_4"> <mfrac>
+  <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Sluttpoengtall</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>45%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår for 92</mi>
+     <mo>+</mo>
+     <mn>42%</mn>
+     <mo>×</mo>
+     <mi>Antall poengår etter 91</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>×</mo>
+   <mi>Andel dagens regler</mi>
+  </mrow>
+  <mrow>
+   <mn>40</mn>
+   <mo>×</mo>
+   <mi>Forholdstall</mi>
+  </mrow>
+ </mfrac></entry>
+  <entry key="fullpensjon67"> <mfrac>
+  <mrow>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mi>Beregnet pensjon ved uttak fremskrevet til 67 år</mi>
+     <mo>×</mo>
+     <mi>Forholdstall ved 67 år</mi>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>+</mo>
+   <mi>Restpensjon</mi>
+  </mrow>
+  <mi>Forholdstall ved 67 år</mi>
+ </mfrac></entry>
+  <entry key="fullpensjon672">  <mrow>
+   <mi>Beregnet pensjon ved uttak</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>1</mn>
+     <mo>-</mo>
+     <mfrac>
+      <mrow>
+       <mi>Reguleringsfaktor</mi>
+       <mo>×</mo>
+       <mi>Gjennomsnittlig uttaksgrad siste år</mi>
+      </mrow>
+      <mi>Uttaksgrad</mi>
+     </mfrac>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+        <mfrac>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <msup>
+      <mrow>
+       <mo>(</mo>
+       <mrow>
+        <mn>1</mn>
+        <mo>-</mo>
+        <mi>Reguleringsfaktor</mi>
+       </mrow>
+       <mo>)</mo>
+      </mrow>
+      <mi>Gap</mi>
+     </msup>
+         <mo>×</mo>
+     <mi>Forholdstall ved 67 år</mi>
+         <mo>)</mo>
+         <mo>+</mo>
+     <mi>Restpensjon</mi>
+    </mrow>
+  </mrow>
+  <mi>Forholdstall ved 67 år</mi>
+  </mfrac>
+  </mrow></entry>
+  <entry key="fullpensjon673">  <mrow>
+   <mi>Beregnet pensjon ved uttak</mi>
+   <mo>×</mo>
+   <mrow>
+    <mo>(</mo>
+    <mrow>
+     <mn>1</mn>
+     <mo>-</mo>
+     <mfrac>
+      <mrow>
+       <mi>Reguleringsfaktor</mi>
+       <mo>+</mo>
+       <mi>Gjennomsnittlig uttaksgrad siste år</mi>
+      </mrow>
+      <mi>Uttaksgrad per 1.mai</mi>
+     </mfrac>
+    </mrow>
+    <mo>)</mo>
+   </mrow>
+   <mo>×</mo>
+   <mrow>
+    <mrow>
+     <msup>
+      <mrow>
+       <mo>(</mo>
+       <mrow>
+        <mn>1</mn>
+        <mo>-</mo>
+        <mi>Reguleringsfaktor</mi>
+       </mrow>
+       <mo>)</mo>
+      </mrow>
+      <mi>Gap</mi>
+     </msup>
+    </mrow>
+   </mrow>
+  </mrow></entry>
+  <entry key="fullpensjon674"> <mrow>
+  <mi>Beregnet alderspensjon ved uttak</mi>
+  <mo>+</mo>
+  <mfrac>
+   <mi>Restpensjon</mi>
+   <mi>Forholdtall ved 67 år</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gap1"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsbeholdning</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Delingstall ved uttak</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gap1_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsbeholdning på ønsket uttakstidspunkt</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Delingstall på ønsket uttakstidspunkt</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gap2"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Garantipensjonsbeholdning før endring</mi>
+   </mrow>
+   <mi>Delingstall ved endring</mi>
+  </mfrac>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow></entry>
+  <entry key="gap2_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Garantipensjonsbeholdning før endring</mi>
+   </mrow>
+   <mrow>
+   <mi>Delingstall ved endring</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gar_pen_b1"> <mrow>
+  <mfrac>
+   <mi>Garantipensjonsbeholding før uttak</mi>
+   <mrow>
+   <mo>(</mo>
+   <mn>100%</mn>
+   <mo>-</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>)</mo>
+   </mrow>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gar_pen_b1_avsl"> <mrow>
+   <mi>Garantipensjonsnivå ved uttak</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved 67 år</mi>
+   <mo>-</mo>
+   <mn>80%</mn>
+   <mo>×</mo>
+   <mi>pensjonsbeholdning</mi>
+ </mrow></entry>
+  <entry key="gar_pen_b2"> <mrow>
+  <mfrac>
+   <mrow>
+   <mi>Garantipensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Garantipensjonsbeholdning før endring</mi>
+   </mrow>
+   <mrow>
+   <mn>100%</mn>
+   <mo>-</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gar_t_b1"> <mrow>
+   <mi>Garantitilleggsbeholdning før uttak</mi>
+   <mo>×</mo>
+   <mo>(</mo>
+   <mn>100%</mn>
+   <mo>-</mo>
+   <mi>Uttaksgrad</mi>
+   <mo>)</mo>
+ </mrow></entry>
+  <entry key="gar_t_b2"> <mrow>
+  <mfrac>
+   <mrow>
+   <mi>Garantitillegg før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Garantipensjonsbeholdning før endring</mi>
+   </mrow>
+   <mrow>
+   <mn>100%</mn>
+   <mo>-</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gat1"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>Garantitilleggsbeholdning</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Delingstall ved uttak</mi>
+ </mfrac>
+ </mrow></entry>
+  <entry key="gat2"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantitilleggsbeholdning før endring</mi>
+   <mo>+</mo>
+   <mi>Garantitillegg før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   </mrow>
+   <mi>Delingstall ved endring</mi>
+  </mfrac>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow></entry>
+  <entry key="gp1"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>Basisgrunnpensjon</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Forholdstall ved uttak</mi>
+ </mfrac>
+ </mrow></entry>
+  <entry key="gp2"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>Basisgrunnpensjon</mi>
+   <mo>×</mo>
+   <mi>Grunnpensjon før endring</mi>
+   </mrow>
+   <mi>Basisgrunnpensjon før endring</mi>
+ </mfrac>
+ </mrow></entry>
+  <entry key="gp3"> <mrow>
+  <mfrac>
+  <mrow>
+  <mo>(</mo>
+   <mi>Grunnpensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved uttak</mi>
+   <mo>)</mo>
+   <mo>+</mo>
+   <mi>Restgrunnpensjon før endring</mi>
+   </mrow>
+   <mi>Forholdstall ved uttak</mi>
+  </mfrac>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow></entry>
+  <entry key="gpn_hoy_2029_1_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsnivå ved uttak (full trygdetid og beregnet som enslig)</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved uttak</mi>
+   </mrow>
+   <mi>Forholdstall ved 67 år</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gpn_hoy_2029_2_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsnivå ved endring (full trygdetid og med sivilstand ensling)</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved endring</mi>
+   </mrow>
+   <mi>Forholdstall ved 67 år</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gpn_hoy_2030_1_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsnivå ved uttak (full trygdetid og beregnet som enslig)</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved uttak</mi>
+   </mrow>
+   <mi>Delingstall ved 67 år</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="gpn_hoy_2030_2_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Garantipensjonsnivå ved endring (full trygdetid og med sivilstand enslig)</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   </mrow>
+   <mi>Delingstall ved 67 år</mi>
+  </mfrac>
+ </mrow></entry>
+  <entry key="grunnpensjon"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>G</mi>
+   <mo>×</mo>
+   <mi>Trygdetid</mi>
+   </mrow>
+   <mn>40</mn>
+ </mfrac>
+ </mrow></entry>
+  <entry key="ip1"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>Pensjonsbeholdning</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Delingstall ved uttak</mi>
+ </mfrac>
+ </mrow></entry>
+  <entry key="ip1_avsl"> <mrow>
+ <mfrac>
+   <mrow>
+   <mi>Pensjonsbeholdning på ønsket uttakstidspunkt</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+   <mi>Delingstall på ønsket uttakstidspunkt</mi>
+ </mfrac>
+ </mrow></entry>
+  <entry key="ip2"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Inntektspensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Pensjonsbeholdning før endring</mi>
+   </mrow>
+   <mi>Delingstall ved endring</mi>
+  </mfrac>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow></entry>
+  <entry key="ip2_avsl"> <mrow>
+  <mfrac>
+  <mrow>
+   <mi>Inntektspensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Delingstall ved endring</mi>
+   <mo>+</mo>
+   <mi>Pensjonsbeholdning før endring</mi>
+   </mrow>
+   <mrow>
+   <mi>Delingstall ved endring</mi>
+   <mo>×</mo>
+   <mi>Uttaksgrad</mi>
+   </mrow>
+  </mfrac>
+ </mrow></entry>
+  <entry key="min_niva_till_indv1"> <mrow>
+  <mi>Minste pensjonsnivå</mi>
+  <mo>-</mo>
+  <mi>Samlet pensjon til utbetaling</mi>
+ </mrow></entry>
+  <entry key="min_niva_till_indv2"> <mrow>
+  <mi>Minste pensjonsnivå og Garantipensjonsnivå</mi>
+  <mo>-</mo>
+  <mi>Samlet pensjon til utbetaling</mi>
+ </mrow></entry>
+  <entry key="min_niva_till_indv3"> <mrow>
+  <mi>Garantipensjonsnivå</mi>
+  <mo>-</mo>
+  <mi>Samlet pensjon til utbetaling</mi>
+ </mrow></entry>
+  <entry key="mpn1"><mfrac>
+ <mrow>
+  <mi>Minste pensjonsnivåsats</mi>
+  <mo>×</mo>
+  <mi>Anvendt trygdetid</mi>
+ </mrow>
+ <mn>40</mn>
+</mfrac></entry>
+  <entry key="mpnuttakfulltt"><mfrac>
+ <mrow>
+  <mi>Minste pensjonsnivåsats</mi>
+  <mo>×</mo>
+  <mn>40</mn>
+ </mrow>
+ <mn>40</mn>
+</mfrac></entry>
+  <entry key="mpnvilk1"> <mrow>
+  <mi>Minste pensjonsnivå ved uttak (full trygdetid)</mi>
+  <mo>×</mo>
+  <mi>Fremskrivningsfaktor</mi>
+ </mrow></entry>
+  <entry key="mpnvilk2"><mfrac>
+ <mrow>
+  <mi>Minste pensjonsnivå ved uttak (full trygdetid)</mi>
+  <mo>×</mo>
+  <mi>Fremskrivningsfaktor</mi>
+  <mo>×</mo>
+  <mi>Norsk faktisk trygdetid i mnd</mi>
+ </mrow>
+ <mi>Faktisk trygdetid i Norge og land med trygdeavtaler i mnd</mi>
+</mfrac></entry>
+  <entry key="mpn_3"><mfrac>
+ <mrow>
+  <mi>Minste pensjonsnivåsats</mi>
+  <mo>×</mo>
+  <mi>Avdødes trygdetid</mi>
+ </mrow>
+ <mn>40</mn>
+</mfrac></entry>
+  <entry key="mpn_uttak_brukers_tt"><mfrac>
+ <mrow>
+  <mi>Minste pensjonsnivåsats</mi>
+  <mo>×</mo>
+  <mi>Trygdetid</mi>
+ </mrow>
+ <mn>40</mn>
+</mfrac></entry>
+  <entry key="pensjonstillegg"> <mfrac>
+ <mrow>
+   <mi>Minstepensjonsnivå</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved 67 år</mi>
+   <mo>-</mo>
+   <mi>Basispensjon</mi>
+ </mrow>
+  <mi>Forholdstall</mi>
+</mfrac></entry>
+  <entry key="pent1"><mfrac>
+ <mrow>
+  <mi>Basispensjonstillegg</mi>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow>
+  <mi>Forholdstall ved uttak</mi>
+</mfrac></entry>
+  <entry key="pent2"><mfrac>
+ <mrow>
+  <mi>Basispensjonstillegg</mi>
+  <mo>×</mo>
+  <mi>Pensjonstillegg før endring</mi>
+ </mrow>
+  <mi>Basispensjonstillegg før endring</mi>
+</mfrac></entry>
+  <entry key="pent3"><mfrac>
+ <mrow>
+  <mi>Pensjonstillegg før endring</mi>
+  <mo>×</mo>
+  <mi>Forholdstall ved uttak</mi>
+  <mo>+</mo>
+  <mi>Restpensjonstillegg før endring</mi>
+  </mrow>
+  <mi>Forholdstall ved uttak</mi>
+</mfrac>
+<mo>×</mo>
+<mi>Uttaksgrad</mi></entry>
+  <entry key="pen_avsl"> <mrow>
+  <mi>Pensjonsbeholdning før uttak</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+ </mrow></entry>
+  <entry key="pen_b1"><mfrac>
+ <mrow>
+  <mi>Pensjonsbeholdning før uttak</mi>
+ </mrow>
+ <mrow>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+ </mrow>
+</mfrac></entry>
+  <entry key="pen_b2"><mfrac>
+ <mrow>
+  <mi>Inntektspensjon før endring</mi>
+  <mo>×</mo>
+  <mi>Delingstall ved endring</mi>
+  <mo>+</mo>
+  <mi>Pensjonsbeholdning før endring</mi>
+ </mrow>
+ <mrow>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  </mrow>
+</mfrac></entry>
+  <entry key="pp233321_dfa_pselv_basgp1_basisgrunnpensjon_fg_sive-001"><mfrac>
+ <mrow>
+  <mi>Grunnpensjonssats</mi>
+  <mo>×</mo>
+  <mi>G</mi>
+  <mo>×</mo>
+  <mi>Trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+</mfrac></entry>
+  <entry key="pp233321_dfa_pselv_basgp2_basisgrunnpensjon_fg_sive_gjenl-001"><mfrac>
+ <mrow>
+  <mi>Grunnpensjonssats</mi>
+  <mo>×</mo>
+  <mi>G</mi>
+  <mo>×</mo>
+  <mi>Avdødes trygdetid</mi>
+  </mrow>
+  <mn>40</mn>
+</mfrac></entry>
+  <entry key="resgp0"> <mrow>
+  <mi>Basisgrunnpensjon</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="resgp1"><mfrac>
+ <mrow>
+  <mi>Basisgrunnpensjon</mi>
+  <mo>×</mo>
+  <mi>Restgrunnpensjon før endring</mi>
+ </mrow>
+  <mi>Basisgrunnpensjon før endring</mi>
+</mfrac></entry>
+  <entry key="resgp2"> <mrow>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mrow>
+     <mo>(</mo>
+     <mrow>
+      <mi>Grunnpensjon før endring</mi>
+      <mo>×</mo>
+      <mi>Forholdstall ved uttak</mi>
+     </mrow>
+     <mo>)</mo>
+    </mrow>
+    <mo>+</mo>
+    <mi>Restgrunnpensjon før endring</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>×</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mn>100</mn>
+    <mo>-</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow></entry>
+  <entry key="resp1"> <mrow>
+  <mi>Basispensjon</mi>
+  <mo>-</mo>
+  <mo>(</mo>
+  <mi>Basispensjon</mi>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="resp2"> <mrow>
+  <mi>Basispensjon</mi>
+  <mo>-</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mi>Basispensjon</mi>
+    <mo>×</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>+</mo>
+  <mi>Basispensjonstillegg</mi>
+  <mo>-</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mi>Basispensjonstillegg</mi>
+    <mo>×</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow></entry>
+  <entry key="resp3"> <mrow>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mrow>
+     <mo>(</mo>
+     <mrow>
+      <mi>Utbetalt pensjon før endring</mi>
+      <mo>×</mo>
+      <mi>Forholdstall ved uttak</mi>
+     </mrow>
+     <mo>)</mo>
+    </mrow>
+    <mo>+</mo>
+    <mi>Restpensjon før endring</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>×</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mn>100</mn>
+    <mo>-</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow></entry>
+  <entry key="respent0"> <mrow>
+  <mi>Basispensjonstillegg</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="respent1"><mfrac>
+ <mrow>
+  <mi>Basispensjonstillegg</mi>
+  <mo>×</mo>
+  <mi>Restpensjonstillegg før endring</mi>
+ </mrow>
+  <mi>Basispensjonstillegg før endring</mi>
+</mfrac></entry>
+  <entry key="respent2"> <mrow>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mrow>
+     <mo>(</mo>
+     <mrow>
+      <mi>Pensjonstillegg før endring</mi>
+      <mo>×</mo>
+      <mi>Forholdstall ved uttak</mi>
+     </mrow>
+     <mo>)</mo>
+    </mrow>
+    <mo>+</mo>
+    <mi>Restpensjonstillegg før endring</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>×</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mn>100</mn>
+    <mo>-</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow></entry>
+  <entry key="restp0"> <mrow>
+  <mi>Basistilleggspensjon</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="restp1"> <mrow>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mrow>
+     <mo>(</mo>
+     <mrow>
+      <mi>Tilleggspensjon før endring</mi>
+      <mo>×</mo>
+      <mi>Forholdstall ved uttak</mi>
+     </mrow>
+     <mo>)</mo>
+    </mrow>
+    <mo>+</mo>
+    <mi>Resttilleggspensjon før endring</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+  <mo>×</mo>
+  <mrow>
+   <mo>(</mo>
+   <mrow>
+    <mn>100%</mn>
+    <mo>-</mo>
+    <mi>Uttaksgrad</mi>
+   </mrow>
+   <mo>)</mo>
+  </mrow>
+ </mrow></entry>
+  <entry key="restp3"><mfrac>
+ <mrow>
+  <mi>Basistilleggspensjon</mi>
+  <mo>×</mo>
+  <mi>Resttilleggspensjon før endring</mi>
+ </mrow>
+  <mi>Basistilleggspensjon før endring</mi>
+</mfrac></entry>
+  <entry key="res_gar_pen_b1_avsl"> <mrow>
+  <mi>Garantipensjonsbeholdning før uttak</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="res_gar_pen_b2_avsl"> <mrow>
+  <mo>(</mo>
+  <mi>Garantipensjon før endring</mi>
+  <mo>×</mo>
+  <mi>Delingstall ved endring</mi>
+  <mo>+</mo>
+  <mi>Garantipensjonsbeholdning før endring</mi>
+  <mo>)</mo>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="res_pen_b1_avsl"> <mrow>
+  <mi>Pensjonsbeholdning før uttak</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="res_pen_b2_avsl"> <mrow>
+  <mo>(</mo>
+  <mi>Inntektspensjon før endring</mi>
+  <mo>×</mo>
+  <mi>Delingstall ved endring</mi>
+  <mo>+</mo>
+  <mi>Pensjonsbeholdning før endring</mi>
+  <mo>)</mo>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>100%</mn>
+  <mo>-</mo>
+  <mi>Uttaksgrad</mi>
+  <mo>)</mo>
+  </mrow></entry>
+  <entry key="skjerm1"><mfrac>
+ <mrow>
+  <mi>Skjermingsgrad</mi>
+  <mo>×</mo>
+  <mi>Uførepensjon måneden før pensjonering</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mi>Forholdstall ved 67</mi>
+  <mo>-</mo>
+  <mn>1</mn>
+  <mo>)</mo>
+ </mrow>
+  <mi>Forholdstall ved 67</mi>
+</mfrac></entry>
+  <entry key="skjerm2"><mfrac>
+ <mrow>
+  <mi>Skjermingsgrad</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mi>Forholdstall ved 67</mi>
+  <mo>-</mo>
+  <mn>1</mn>
+  <mo>)</mo>
+  <mo>×</mo>
+  <mi>Gjenlevendepensjon måneden før pensjonering</mi>
+ </mrow>
+  <mi>Forholdstall ved 67</mi>
+</mfrac></entry>
+  <entry key="tilleggspensjon"> <mfrac>
+ <mrow>
+  <mi>G</mi>
+  <mo>×</mo>
+  <mi>Sluttpoengtall</mi>
+  <mo>×</mo>
+  <mo>(</mo>
+  <mn>45%</mn>
+  <mo>×</mo>
+  <mi>Antall poengår før 92</mi>
+  <mo>+</mo>
+  <mn>42%</mn>
+  <mo>×</mo>
+  <mi>Antall poengår etter 91</mi>
+  <mo>)</mo>
+ </mrow>
+  <mn>40</mn>
+</mfrac></entry>
+  <entry key="tp1"><mfrac>
+ <mrow>
+  <mi>Basistilleggspensjon</mi>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow>
+  <mi>Forholdstall ved uttak</mi>
+</mfrac></entry>
+  <entry key="tp2"><mfrac>
+ <mrow>
+  <mi>Basistilleggspensjon etter endring</mi>
+  <mo>×</mo>
+  <mi>Tilleggspensjon før endring</mi>
+ </mrow>
+  <mi>Basistilleggspensjon før endring</mi>
+</mfrac></entry>
+  <entry key="tp3"> <mrow>
+  <mfrac>
+  <mrow>
+  <mi>Resttilleggspensjon før endring</mi>
+  <mo>+</mo>
+  <mo>(</mo>
+   <mi>Tilleggspensjon før endring</mi>
+   <mo>×</mo>
+   <mi>Forholdstall ved uttak</mi>
+   <mo>)</mo>
+   </mrow>
+   <mi>Forholdstall ved uttak</mi>
+  </mfrac>
+  <mo>×</mo>
+  <mi>Uttaksgrad</mi>
+ </mrow></entry>
+  </properties>

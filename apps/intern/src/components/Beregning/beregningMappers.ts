@@ -4,7 +4,13 @@ import type {
 	TidsbegrensetOffentligAFP,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import type { BeregningResult } from '../../api/beregningTypes'
+import type { BeregningParams, BeregningResult } from '../../api/beregningTypes'
+import {
+	resolveGrunnpensjonFormel,
+	resolveInntektspensjonFormel,
+	resolvePensjonstilleggFormel,
+	resolveUserGroup,
+} from '../../utils/formler/formler'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
 
@@ -27,26 +33,37 @@ export function mapAlderspensjonToRows(
 	visKap19: boolean,
 	visKap20: boolean,
 	simulererMedGjenlevenderett: boolean,
-	harGjenlevenderett: boolean
+	harGjenlevenderett: boolean,
+	aktivBeregning: BeregningParams | null,
+	person: Person
 ): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
+	const usergroup = resolveUserGroup(person)
+	const grunnpensjonFormel =
+		aktivBeregning && resolveGrunnpensjonFormel({ aktivBeregning, person })
+	const inntektspensjonFormel =
+		aktivBeregning && resolveInntektspensjonFormel(usergroup)
+	const pensjonstilleggFormel = resolvePensjonstilleggFormel(usergroup)
 	return [
 		...(visKap19
-			? [
+			? ([
 					{
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
+						formlerKode: grunnpensjonFormel ?? undefined,
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
+						formlerKode: 'Tilleggspensjon',
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
 						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
+						formlerKode: pensjonstilleggFormel ?? undefined,
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
@@ -55,14 +72,15 @@ export function mapAlderspensjonToRows(
 						hide: !simulererMedGjenlevenderett && !harGjenlevenderett,
 						showWhenZero: true,
 					},
-				]
+				] as BeregningTableRow[])
 			: []),
 		...(visKap20
-			? [
+			? ([
 					{
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
+						formlerKode: inntektspensjonFormel,
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
@@ -74,7 +92,7 @@ export function mapAlderspensjonToRows(
 						value: Math.round(entry.garantitilleggBeloep ?? 0),
 						yearlyValue: Math.round(entry.garantitilleggBeloep ?? 0) * 12,
 					},
-				]
+				] as BeregningTableRow[])
 			: []),
 		{
 			label: 'Skjermingstillegg',

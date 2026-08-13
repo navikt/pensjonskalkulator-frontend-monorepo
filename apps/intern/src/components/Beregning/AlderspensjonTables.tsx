@@ -1,5 +1,9 @@
-import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	PersonInternV1,
+	SimuleringMaanedligAlderspensjon,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
+import type { BeregningParams } from '../../api/beregningTypes'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
@@ -19,6 +23,8 @@ interface AlderspensjonTablesProps {
 	harGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
+	aktivBeregning?: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 export const AlderspensjonTables = ({
@@ -32,6 +38,8 @@ export const AlderspensjonTables = ({
 	isGradert = false,
 	visAarsbelop = false,
 	harGjenlevenderett = false,
+	aktivBeregning = null,
+	person = null,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
@@ -43,7 +51,9 @@ export const AlderspensjonTables = ({
 				!!erFoedtFoer1963,
 				!!erOvergangskull || !!erFoedtEtter1963,
 				simulererMedGjenlevenderett,
-				harGjenlevenderett
+				harGjenlevenderett,
+				aktivBeregning,
+				person
 			)}
 			visAarsbelop={visAarsbelop}
 		/>
