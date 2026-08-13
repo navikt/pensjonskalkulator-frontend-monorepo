@@ -740,8 +740,8 @@ test.describe('Alderspensjon beregning', () => {
 			await navigateToApp(page)
 
 			await page.getByTestId('afp').getByLabel('Nei').check()
-			await page.getByTestId('alder-uttak-aar').selectOption('67')
-			await page.getByTestId('alder-uttak-md').selectOption('0')
+			await page.getByTestId('alder-uttak-aar').selectOption('66')
+			await page.getByTestId('alder-uttak-md').selectOption('11')
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
