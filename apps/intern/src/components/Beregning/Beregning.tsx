@@ -10,17 +10,9 @@ import {
 	calculateUttaksalderAsDate,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import {
-	BodyLong,
-	Box,
-	Button,
-	Loader,
-	LocalAlert,
-	Tabs,
-	VStack,
-} from '@navikt/ds-react'
+import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
 import { erKap19EllerApoteker } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
@@ -35,6 +27,7 @@ import {
 import { formatEndUserDate } from '../../utils/dates'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { Divider } from '../Divider/Divider'
@@ -78,6 +71,11 @@ export const Beregning = () => {
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
+
+	const { reset: resetLagreSimulering } = lagreSimulering
+	useEffect(() => {
+		resetLagreSimulering()
+	}, [aktivBeregning, resetLagreSimulering])
 
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' &&
@@ -465,32 +463,16 @@ export const Beregning = () => {
 						</Button>
 					)}
 					{visLagreBrevButton && lagreSimulering.isError && (
-						<LocalAlert
-							status="error"
-							size="small"
-							data-testid="lagre-brev-feil"
-							style={{ width: 'fit-content' }}
-						>
-							<LocalAlert.Header>
-								<LocalAlert.Title>
-									Noe gikk galt med opprettelse av brev
-								</LocalAlert.Title>
-							</LocalAlert.Header>
-							<LocalAlert.Content>
-								<BodyLong>
-									Vi klarte dessverre ikke å opprette brev akkurat nå.
-								</BodyLong>
-								<Button
-									variant="secondary"
-									size="small"
-									onClick={handleLagreSimulering}
-									style={{ marginTop: '1rem' }}
-									data-testid="lagre-brev-feil-retry"
-								>
-									Prøv på nytt
-								</Button>
-							</LocalAlert.Content>
-						</LocalAlert>
+						<SanityAlert id="beregning.opprett-brev-feil">
+							<Button
+								variant="secondary"
+								size="small"
+								onClick={handleLagreSimulering}
+								data-testid="lagre-brev-feil-retry"
+							>
+								Prøv på nytt
+							</Button>
+						</SanityAlert>
 					)}
 				</Tabs.Panel>
 				{opptjening && (
