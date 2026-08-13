@@ -37,11 +37,25 @@ export function mapAlderspensjonToRows(
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
+						formula: {
+							title: 'Grunnpensjon',
+							numerator: ['G × Trygdetid × Uttaksgrad × Andel dagens regler'],
+							denominator: '40 × Forholdstall',
+						},
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
+						formula: {
+							title: 'Tilleggspensjon',
+							numerator: [
+								'G × Sluttpoengtall',
+								'× (45% × Antall poengår før 92 + 42% × Antall poengår etter 91)',
+								'× Uttaksgrad × Andel dagens regler',
+							],
+							denominator: '40 × Forholdstall',
+						},
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
@@ -63,11 +77,23 @@ export function mapAlderspensjonToRows(
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
+						formula: {
+							title: 'Inntektspensjon',
+							numerator: [
+								'Pensjonsbeholdning × Uttaksgrad × Andel dagens regler',
+							],
+							denominator: 'Delingstall',
+						},
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
+						formula: {
+							title: 'Garantipensjon',
+							numerator: ['Garantipensjonsbeholdning'],
+							denominator: 'Delingstall',
+						},
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
@@ -113,6 +139,11 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(opptjening.sluttpoengtall),
+			formula: {
+				title: 'Sluttpoengtall',
+				numerator: ['Gjennomsnittet av de 20 beste poengårene'],
+				denominator: '',
+			},
 		},
 		{
 			label: 'Trygdetid',
@@ -169,6 +200,14 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: formatKr(opptjening.pensjonsbeholdningFoerUttakBeloep),
+			formula: {
+				title: 'Pensjonsbeholdning',
+				numerator: [
+					'Summen av 18,1% × Pensjonsgivende inntekt opptil 7,1G',
+					'for alle yrkesaktive år',
+				],
+				denominator: '',
+			},
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',

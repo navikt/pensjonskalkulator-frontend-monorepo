@@ -1,11 +1,15 @@
 import { BodyShort, Label, Table } from '@navikt/ds-react'
 
+import type { Formula } from './FormulaPopover'
+import { FormulaPopover } from './FormulaPopover'
+
 import styles from './BeregningTable.module.css'
 
 export interface BeregningDetailRow {
 	label: string
 	value: string
 	hide?: boolean
+	formula?: Formula
 }
 
 interface BeregningDetailTableProps {
@@ -38,7 +42,10 @@ export const BeregningDetailTable = ({
 				{validRows.map((row) => (
 					<Table.Row key={row.label}>
 						<Table.DataCell>
-							<BodyShort size="small">{row.label}</BodyShort>
+							<BodyShort size="small">
+								{row.label}
+								{row.formula && <FormulaPopover formula={row.formula} />}
+							</BodyShort>
 						</Table.DataCell>
 						<Table.DataCell align="right">
 							<BodyShort size="small">{row.value}</BodyShort>
