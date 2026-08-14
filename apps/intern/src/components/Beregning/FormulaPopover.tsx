@@ -10,6 +10,12 @@ export interface Formula {
 	denominator: string
 }
 
+function formulaToAriaLabel(formula: Formula): string {
+	const numerator = formula.numerator.join(' ')
+	if (!formula.denominator) return `${formula.title}: ${numerator}`
+	return `${formula.title}: ${numerator} delt på ${formula.denominator}`
+}
+
 interface FormulaPopoverProps {
 	formula: Formula
 }
@@ -18,6 +24,10 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
+
+	const numeratorLength = formula.numerator.join('').length
+	const denominatorLength = formula.denominator.length
+	const numeratorIsWider = numeratorLength >= denominatorLength
 
 	const handleClickOutside = useCallback((e: MouseEvent) => {
 		const target = e.target as Node
@@ -80,11 +90,18 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				onClose={() => {}}
 			>
 				<Popover.Content>
-					<div ref={popoverRef} className={styles.formulaContent}>
-						<span className={styles.formulaTitle}>{formula.title}</span>
-						<div className={styles.fraction}>
+					<div
+						ref={popoverRef}
+						className={styles.formulaContent}
+						role="math"
+						aria-label={formulaToAriaLabel(formula)}
+					>
+						<span className={styles.formulaTitle} aria-hidden="true">
+							{formula.title}
+						</span>
+						<div className={styles.fraction} aria-hidden="true">
 							<div
-								className={`${styles.numerator} ${formula.denominator ? styles.numeratorWithDivider : ''}`}
+								className={`${styles.numerator} ${formula.denominator && numeratorIsWider ? styles.numeratorWithDivider : ''}`}
 								style={{
 									alignItems:
 										formula.numerator.length > 2 ? 'flex-start' : 'center',
@@ -97,7 +114,9 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 							{formula.denominator && (
 								<>
 									<span className={styles.divider}> / </span>
-									<span className={styles.denominator}>
+									<span
+										className={`${styles.denominator} ${!numeratorIsWider ? styles.denominatorWithDivider : ''}`}
+									>
 										{formula.denominator}
 									</span>
 								</>

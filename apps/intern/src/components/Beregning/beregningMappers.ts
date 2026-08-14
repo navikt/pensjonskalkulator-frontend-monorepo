@@ -7,6 +7,7 @@ import type {
 import type { BeregningResult } from '../../api/beregningTypes'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
+import { getFormula } from './formulas'
 
 const formatNumber = (
 	value?: number | null,
@@ -37,30 +38,19 @@ export function mapAlderspensjonToRows(
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
-						formula: {
-							title: 'Grunnpensjon',
-							numerator: ['G × Trygdetid × Uttaksgrad × Andel dagens regler'],
-							denominator: '40 × Forholdstall',
-						},
+						formula: getFormula('formler.grunnpensjon_4'),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
-						formula: {
-							title: 'Tilleggspensjon',
-							numerator: [
-								'G × Sluttpoengtall',
-								'× (45% × Antall poengår før 92 + 42% × Antall poengår etter 91)',
-								'× Uttaksgrad × Andel dagens regler',
-							],
-							denominator: '40 × Forholdstall',
-						},
+						formula: getFormula('formler.tilleggspensjon_4'),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
 						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
+						formula: getFormula('formler.pensjonstillegg_4'),
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
@@ -77,23 +67,13 @@ export function mapAlderspensjonToRows(
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
-						formula: {
-							title: 'Inntektspensjon',
-							numerator: [
-								'Pensjonsbeholdning × Uttaksgrad × Andel dagens regler',
-							],
-							denominator: 'Delingstall',
-						},
+						formula: getFormula('formler.inntektspensjon_3'),
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
-						formula: {
-							title: 'Garantipensjon',
-							numerator: ['Garantipensjonsbeholdning'],
-							denominator: 'Delingstall',
-						},
+						formula: getFormula('formler.garantipensjon'),
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
@@ -139,11 +119,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(opptjening.sluttpoengtall),
-			formula: {
-				title: 'Sluttpoengtall',
-				numerator: ['Gjennomsnittet av de 20 beste poengårene'],
-				denominator: '',
-			},
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Trygdetid',
@@ -200,14 +176,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: formatKr(opptjening.pensjonsbeholdningFoerUttakBeloep),
-			formula: {
-				title: 'Pensjonsbeholdning',
-				numerator: [
-					'Summen av 18,1% × Pensjonsgivende inntekt opptil 7,1G',
-					'for alle yrkesaktive år',
-				],
-				denominator: '',
-			},
+			formula: getFormula('pensjonsbeholdning'),
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
@@ -231,6 +200,7 @@ export function mapPrivatAfp(
 			value: kompensasjonstillegg,
 			yearlyValue: kompensasjonstillegg * 12,
 			hide: kompensasjonstillegg <= 0,
+			formula: getFormula('afp_privat.kompt1'),
 		},
 		{
 			label: 'Kronetillegg',
@@ -242,6 +212,7 @@ export function mapPrivatAfp(
 			label: 'Livsvarig del',
 			value: entry?.livsvarig ?? 0,
 			yearlyValue: (entry?.livsvarig ?? 0) * 12,
+			formula: getFormula('afp_privat.livsvd1'),
 		},
 	]
 }
@@ -280,11 +251,13 @@ export function mapAfpToRows(entry: {
 			label: 'Grunnpensjon',
 			value: Math.round(entry.grunnpensjon),
 			yearlyValue: Math.round(entry.grunnpensjon) * 12,
+			formula: getFormula('basis_grunnpensjon'),
 		},
 		{
 			label: 'Tilleggspensjon',
 			value: Math.round(entry.tilleggspensjon),
 			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
+			formula: getFormula('basis_tilleggspensjon'),
 		},
 		{
 			label: 'AFP-tillegg',
@@ -295,6 +268,7 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
+			formula: getFormula('saertillegg'),
 		},
 	]
 }
@@ -327,6 +301,7 @@ export function mapServiceAfpOpptjeningRows(
 							maximumFractionDigits: 2,
 						})
 					: '',
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Poengår',
@@ -373,6 +348,7 @@ export function mapTidsbegrensetAfpOpptjeningToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(entry.sluttpoengtall, 2),
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Poengår',
