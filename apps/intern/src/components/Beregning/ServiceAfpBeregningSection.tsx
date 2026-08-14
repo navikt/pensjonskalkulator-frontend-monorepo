@@ -1,5 +1,8 @@
+import type { PersonInternV1 } from '@pensjonskalkulator-frontend-monorepo/types'
+
 import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
+import type { BeregningParams } from '../../api/beregningTypes'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
@@ -16,6 +19,8 @@ interface ServiceAfpBeregningSectionProps {
 	visAarsbelop: boolean
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
+	aktivBeregning: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 export const ServiceAfpBeregningSection = ({
@@ -24,13 +29,19 @@ export const ServiceAfpBeregningSection = ({
 	visAarsbelop,
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
+	aktivBeregning,
+	person = null,
 }: ServiceAfpBeregningSectionProps) => {
-	const afpRows = mapAfpToRows({
-		grunnpensjon: entry.grunnpensjon ?? 0,
-		tilleggspensjon: entry.tilleggspensjon ?? 0,
-		afpTillegg: entry.afpTillegg ?? 0,
-		saertillegg: entry.saertillegg ?? 0,
-	})
+	const afpRows = mapAfpToRows(
+		{
+			grunnpensjon: entry.grunnpensjon ?? 0,
+			tilleggspensjon: entry.tilleggspensjon ?? 0,
+			afpTillegg: entry.afpTillegg ?? 0,
+			saertillegg: entry.saertillegg ?? 0,
+		},
+		aktivBeregning,
+		person
+	)
 	const opptjeningRows = mapServiceAfpOpptjeningRows(entry)
 
 	return (

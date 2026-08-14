@@ -1,6 +1,7 @@
 // staticFormelKode.ts
 // Ported from StaticFormelKode.java
 // Maps a formula code to its i18n key (the MathML entry in tekster-properties.xml).
+import type { PersonInternV1 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	isFoedtEtter1963,
 	isOvergangskull,
@@ -51,6 +52,7 @@ export type StaticFormelKode =
 	| 'PP233321_DFA_PSELV_BasGP2_Basisgrunnpensjon_FG_SIVE_GJENL_001'
 	| 'PT2og3'
 	| 'PT4'
+	| 'Sluttpoengtall'
 	| 'Tilleggspensjon'
 	| 'Tilleggspensjon1'
 	| 'Tilleggspensjon2'
@@ -59,6 +61,8 @@ export type StaticFormelKode =
 	| 'TP'
 	| 'TP2og3'
 	| 'TP4'
+	| 'saertillegg'
+	| 'saertillegg_redusert'
 
 /**
  * The i18n key each formula code resolves to (equivalent to getFormulaKey()).
@@ -109,6 +113,7 @@ export const FORMULA_KEY: Record<StaticFormelKode, string | null> = {
 		'pp233321_dfa_pselv_basgp2_basisgrunnpensjon_fg_sive_gjenl-001',
 	PT2og3: 'formler.pensjonstillegg_3',
 	PT4: 'formler.pensjonstillegg_4',
+	Sluttpoengtall: 'sluttpoengtall',
 	Tilleggspensjon: 'tilleggspensjon',
 	Tilleggspensjon1: 'formler.tilleggspensjon_1',
 	Tilleggspensjon2: 'formler.tilleggspensjon_2',
@@ -117,6 +122,8 @@ export const FORMULA_KEY: Record<StaticFormelKode, string | null> = {
 	TP: 'formler.tilleggspensjon_2',
 	TP2og3: 'formler.tilleggspensjon_3',
 	TP4: 'formler.tilleggspensjon_4',
+	saertillegg: 'saertillegg',
+	saertillegg_redusert: 'saertillegg_redusert',
 }
 
 export type UserGroup =
@@ -126,7 +133,7 @@ export type UserGroup =
 	| 'USER_GROUP4'
 	| 'USER_GROUP5'
 
-export function resolveUserGroup(person: Person): UserGroup {
+export function resolveUserGroup(person: PersonInternV1): UserGroup {
 	const { foedselsdato } = person
 	// Group 4: overgangskull 1954–1962 (AP2016, blended kap. 19 + kap. 20)
 	if (isOvergangskull(foedselsdato)) {
@@ -159,14 +166,6 @@ export function resolveInntektspensjonFormel(
 	return null
 }
 
-export function resolveSaertilleggFormel(
-	variantAfpEtterfAlder: boolean,
-	epsHarPensjon: boolean
-): string | null {
-	if (!variantAfpEtterfAlder) return null
-	return epsHarPensjon ? '94 % x Grunnbeløpet' : '74 % x Grunnbeløpet'
-}
-
 export function resolvePensjonstilleggFormel(
 	g: UserGroup
 ): StaticFormelKode | null {
@@ -181,42 +180,39 @@ export function getFormulaKey(kode: StaticFormelKode): string | null {
 }
 
 export interface ResolveGrunnpensjonFormelParams {
+	usergroup: UserGroup
 	aktivBeregning: BeregningParams
-	person: Person
+	beregningGjelderAfpOffentlig: boolean
 }
 
 export function resolveGrunnpensjonFormel({
+	usergroup,
 	aktivBeregning,
-	person,
+	beregningGjelderAfpOffentlig,
 }: ResolveGrunnpensjonFormelParams): StaticFormelKode | null {
 	const full =
 		!aktivBeregning.epsHarPensjon && !aktivBeregning.epsHarInntektOver2G
-	const gjelderAfpOffentlig = aktivBeregning.afp === 'ja_offentlig'
-	if (!gjelderAfpOffentlig && isOvergangskull(person.foedselsdato))
-		return full ? 'GP4' : 'GPR4'
-	if (gjelderAfpOffentlig) return full ? 'GP' : 'GPR'
+	if (beregningGjelderAfpOffentlig) return full ? 'GP' : 'GPR'
+	if (usergroup === 'USER_GROUP2' || usergroup === 'USER_GROUP3')
+		return full ? 'GP2og3' : 'GPR2og3'
+	if (usergroup === 'USER_GROUP4') return full ? 'GP4' : 'GPR4'
 	return null
-}
-
-export interface TilleggspensjonFormelContext {
-	userGroup: UserGroup
-	variantAfp: boolean
-	variantAfpEtterfAlder: boolean
-	detaljerAlderspensjon: boolean
 }
 
 /** Ported from detaljerutregKAP19.xhtml (lines 322–330). Order = view order. */
-export function resolveTilleggspensjonFormel({
-	userGroup,
-	variantAfpEtterfAlder,
-	detaljerAlderspensjon,
-}: TilleggspensjonFormelContext): StaticFormelKode | null {
-	if (variantAfpEtterfAlder && !detaljerAlderspensjon) return 'TP'
-	if (
-		(userGroup === 'USER_GROUP2' || userGroup === 'USER_GROUP3') &&
-		detaljerAlderspensjon
-	)
+export function resolveTilleggspensjonFormel(
+	userGroup: UserGroup,
+	variantAfpEtterfAlder: boolean
+): StaticFormelKode | null {
+	if (variantAfpEtterfAlder) return 'TP'
+	if (userGroup === 'USER_GROUP2' || userGroup === 'USER_GROUP3')
 		return 'TP2og3'
 	if (userGroup === 'USER_GROUP4') return 'TP4'
 	return null
+}
+
+export function resolveSaertilleggFormel(
+	epsHarPensjon: boolean
+): StaticFormelKode | null {
+	return epsHarPensjon ? 'saertillegg_redusert' : 'saertillegg'
 }

@@ -1,4 +1,5 @@
 import type {
+	PersonInternV1,
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 	TidsbegrensetOffentligAFP,
@@ -9,6 +10,8 @@ import {
 	resolveGrunnpensjonFormel,
 	resolveInntektspensjonFormel,
 	resolvePensjonstilleggFormel,
+	resolveSaertilleggFormel,
+	resolveTilleggspensjonFormel,
 	resolveUserGroup,
 } from '../../utils/formler/formler'
 import type { BeregningDetailRow } from './BeregningDetailTable'
@@ -35,15 +38,27 @@ export function mapAlderspensjonToRows(
 	simulererMedGjenlevenderett: boolean,
 	harGjenlevenderett: boolean,
 	aktivBeregning: BeregningParams | null,
-	person: Person
+	person: PersonInternV1 | null
 ): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
-	const usergroup = resolveUserGroup(person)
+	const usergroup = person ? resolveUserGroup(person) : null
 	const grunnpensjonFormel =
-		aktivBeregning && resolveGrunnpensjonFormel({ aktivBeregning, person })
+		aktivBeregning &&
+		usergroup &&
+		resolveGrunnpensjonFormel({
+			aktivBeregning,
+			usergroup,
+			beregningGjelderAfpOffentlig: false,
+		})
 	const inntektspensjonFormel =
-		aktivBeregning && resolveInntektspensjonFormel(usergroup)
-	const pensjonstilleggFormel = resolvePensjonstilleggFormel(usergroup)
+		aktivBeregning && usergroup && resolveInntektspensjonFormel(usergroup)
+	const pensjonstilleggFormel = usergroup
+		? resolvePensjonstilleggFormel(usergroup)
+		: null
+	const tillegspensjonFormel = usergroup
+		? resolveTilleggspensjonFormel(usergroup, false)
+		: null
+
 	return [
 		...(visKap19
 			? ([
@@ -51,19 +66,19 @@ export function mapAlderspensjonToRows(
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
-						formlerKode: grunnpensjonFormel ?? undefined,
+						formlerKode: grunnpensjonFormel,
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
-						formlerKode: 'Tilleggspensjon',
+						formlerKode: tillegspensjonFormel,
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
 						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
-						formlerKode: pensjonstilleggFormel ?? undefined,
+						formlerKode: pensjonstilleggFormel,
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
@@ -131,6 +146,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(opptjening.sluttpoengtall),
+			formlerKode: 'Sluttpoengtall',
 		},
 		{
 			label: 'Trygdetid',
@@ -248,22 +264,46 @@ export type ServiceberegnetAfpResult = NonNullable<
 	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
 >
 
-export function mapAfpToRows(entry: {
-	grunnpensjon: number
-	tilleggspensjon: number
-	afpTillegg: number
-	saertillegg: number
-}): BeregningTableRow[] {
+export function mapAfpToRows(
+	entry: {
+		grunnpensjon: number
+		tilleggspensjon: number
+		afpTillegg: number
+		saertillegg: number
+	},
+	aktivBeregning: BeregningParams | null,
+	person: PersonInternV1 | null
+): BeregningTableRow[] {
+	const usergroup = person ? resolveUserGroup(person) : null
+	const grunnpensjonFormel =
+		aktivBeregning &&
+		usergroup &&
+		resolveGrunnpensjonFormel({
+			aktivBeregning,
+			usergroup,
+			beregningGjelderAfpOffentlig: true,
+		})
+	const tilleggspensjonFormel =
+		usergroup &&
+		resolveTilleggspensjonFormel(
+			usergroup,
+			true /* beregningGjelderAfpOffentlig */
+		)
+	const saertilleggFormel = resolveSaertilleggFormel(
+		aktivBeregning?.epsHarPensjon ?? false
+	)
 	return [
 		{
 			label: 'Grunnpensjon',
 			value: Math.round(entry.grunnpensjon),
 			yearlyValue: Math.round(entry.grunnpensjon) * 12,
+			formlerKode: grunnpensjonFormel || undefined,
 		},
 		{
 			label: 'Tilleggspensjon',
 			value: Math.round(entry.tilleggspensjon),
 			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
+			formlerKode: tilleggspensjonFormel || undefined,
 		},
 		{
 			label: 'AFP-tillegg',
@@ -274,6 +314,7 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
+			formlerKode: saertilleggFormel || undefined,
 		},
 	]
 }
@@ -306,6 +347,7 @@ export function mapServiceAfpOpptjeningRows(
 							maximumFractionDigits: 2,
 						})
 					: '',
+			formlerKode: 'Sluttpoengtall',
 		},
 		{
 			label: 'Poengår',
@@ -352,6 +394,7 @@ export function mapTidsbegrensetAfpOpptjeningToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(entry.sluttpoengtall, 2),
+			formlerKode: 'Sluttpoengtall',
 		},
 		{
 			label: 'Poengår',

@@ -1,7 +1,11 @@
-import type { TidsbegrensetOffentligAFP } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	PersonInternV1,
+	TidsbegrensetOffentligAFP,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
+import type { BeregningParams } from '../../api/beregningTypes'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
@@ -18,6 +22,8 @@ interface AfpBeregningSectionProps {
 	visAarsbelop: boolean
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
+	aktivBeregning: BeregningParams | null
+	person?: PersonInternV1 | null
 }
 
 export const AfpBeregningSection = ({
@@ -27,8 +33,10 @@ export const AfpBeregningSection = ({
 	visAarsbelop,
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
+	aktivBeregning,
+	person = null,
 }: AfpBeregningSectionProps) => {
-	const afpRows = mapAfpToRows(entry)
+	const afpRows = mapAfpToRows(entry, aktivBeregning, person)
 	const opptjeningRows = mapTidsbegrensetAfpOpptjeningToRows(entry)
 
 	return (

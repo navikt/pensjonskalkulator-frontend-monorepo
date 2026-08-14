@@ -376,6 +376,8 @@ export const Beregning = () => {
 									visAarsbelop={visAarsbelop}
 									showVisAarsbelopCheckbox
 									onVisAarsbelopChange={setVisAarsbelop}
+									aktivBeregning={aktivBeregning}
+									person={person}
 								/>
 							)}
 						{!erServiceberegning &&
@@ -397,6 +399,8 @@ export const Beregning = () => {
 									visAarsbelop={visAarsbelop}
 									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
 									onVisAarsbelopChange={setVisAarsbelop}
+									aktivBeregning={aktivBeregning}
+									person={person}
 								/>
 							)}
 						{!erServiceberegning && (

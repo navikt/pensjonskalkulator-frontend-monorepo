@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
+  <entry key="sluttpoengtall"><mtext>Gjennomsnittet av de 20 beste poengårene</mtext></entry>
   <entry key="afp3">
     <mrow>
   <mi>AFP livsvarig del</mi>
@@ -1668,5 +1669,15 @@
   </mfrac>
   <mo>×</mo>
   <mi>Uttaksgrad</mi>
+ </mrow></entry>
+   <entry key="saertillegg"> <mrow>
+  <mn>74%</mn>
+  <mo>×</mo>
+  <mi>Grunnbeløpet</mi>
+ </mrow></entry>
+  <entry key="saertillegg_redusert"> <mrow>
+  <mn>94%</mn>
+  <mo>×</mo>
+  <mi>Grunnbeløpet</mi>
  </mrow></entry>
   </properties>

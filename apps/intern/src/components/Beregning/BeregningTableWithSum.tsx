@@ -1,20 +1,7 @@
-import { useRef, useState } from 'react'
+import { BodyShort, Label, Table } from '@navikt/ds-react'
 
-import {
-	BodyShort,
-	Button,
-	CopyButton,
-	Label,
-	Popover,
-	Table,
-} from '@navikt/ds-react'
-
-import formelKnapp from '../../assets/formel-knapp.svg'
 import type { StaticFormelKode } from '../../utils/formler/formler'
-import {
-	getFormulaMathML,
-	getFormulaText,
-} from '../../utils/formler/formlerMathML'
+import { RowLabelWithFormula } from './RowLabelWithFormula'
 
 import styles from './BeregningTable.module.css'
 
@@ -41,61 +28,6 @@ interface BeregningTableWithSumProps {
 
 const formatKroner = (value?: number) =>
 	value?.toLocaleString('nb-NO', { maximumFractionDigits: 0 }) ?? ''
-
-const RowLabelWithFormula = ({
-	label,
-	formlerKode,
-}: {
-	label: string
-	formlerKode?: StaticFormelKode
-}) => {
-	const popoverButtonRef = useRef<HTMLButtonElement>(null)
-	const [popoverOpen, setPopoverOpen] = useState(false)
-	const mathML = formlerKode ? getFormulaMathML(formlerKode) : null
-	if (!mathML) {
-		return <BodyShort size="small">{label}</BodyShort>
-	}
-	const formulaText = formlerKode ? getFormulaText(formlerKode) : null
-	return (
-		<span
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				gap: 'var(--a-spacing-2)',
-				justifyContent: 'space-between',
-			}}
-		>
-			<BodyShort size="small">{label}</BodyShort>
-			<Button
-				ref={popoverButtonRef}
-				type="button"
-				size="xsmall"
-				variant="tertiary"
-				icon={<img src={formelKnapp} alt="" aria-hidden />}
-				onClick={() => setPopoverOpen((open) => !open)}
-				aria-expanded={popoverOpen}
-				title={`Vis formel for ${label}`}
-			/>
-			<Popover
-				open={popoverOpen}
-				onClose={() => setPopoverOpen(false)}
-				anchorEl={popoverButtonRef.current}
-			>
-				<Popover.Content>
-					<div dangerouslySetInnerHTML={{ __html: mathML }} />
-					{formulaText && (
-						<CopyButton
-							size="xsmall"
-							copyText={formulaText}
-							text="Kopier formel"
-							activeText="Formel kopiert"
-						/>
-					)}
-				</Popover.Content>
-			</Popover>
-		</span>
-	)
-}
 
 export function computeRowsSum(
 	rows: BeregningTableRow[],

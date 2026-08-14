@@ -1,11 +1,15 @@
 import { BodyShort, Label, Table } from '@navikt/ds-react'
 
+import type { StaticFormelKode } from '../../utils/formler/formler'
+import { RowLabelWithFormula } from './RowLabelWithFormula'
+
 import styles from './BeregningTable.module.css'
 
 export interface BeregningDetailRow {
 	label: string
 	value: string
 	hide?: boolean
+	formlerKode?: StaticFormelKode
 }
 
 interface BeregningDetailTableProps {
@@ -38,7 +42,10 @@ export const BeregningDetailTable = ({
 				{validRows.map((row) => (
 					<Table.Row key={row.label}>
 						<Table.DataCell>
-							<BodyShort size="small">{row.label}</BodyShort>
+							<RowLabelWithFormula
+								label={row.label}
+								formlerKode={row.formlerKode}
+							/>
 						</Table.DataCell>
 						<Table.DataCell align="right">
 							<BodyShort size="small">{row.value}</BodyShort>
