@@ -1,11 +1,9 @@
 import path from 'path'
 import { defineCliConfig } from 'sanity/cli'
 
-import { projectId } from './sanity.config'
-
 export default defineCliConfig({
 	api: {
-		projectId,
+		projectId: 'g2by7q6m',
 		dataset: 'development',
 	},
 	/**
