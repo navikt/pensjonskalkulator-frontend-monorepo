@@ -304,7 +304,7 @@ export const BeregningForm = () => {
 					{ aar: alderAarUttak, maaneder: alderMdUttak },
 					person.foedselsdato
 				) <
-					(fremtidigAlderspensjon.grad === 0
+					(fremtidigAlderspensjon.grad === 0 && afp === 'ja_offentlig'
 						? parseISO(fremtidigAlderspensjon.fom)
 						: addMonths(parseISO(fremtidigAlderspensjon.fom), 1))
 			)
@@ -570,7 +570,8 @@ export const BeregningForm = () => {
 										: '',
 									tidligstEndringDato: fremtidigAlderspensjon
 										? format(
-												fremtidigAlderspensjon.grad === 0
+												fremtidigAlderspensjon.grad === 0 &&
+													afp === 'ja_offentlig'
 													? parseISO(fremtidigAlderspensjon.fom)
 													: addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
 												DATE_ENDUSER_FORMAT

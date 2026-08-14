@@ -467,11 +467,6 @@ export const Beregning = () => {
 									: undefined
 							}
 						>
-							{(isBeregningLoading || isOpptjeningLoading) && (
-								<div className={styles.overlayLoader}>
-									<Loader size="3xlarge" title="Henter opptjening …" />
-								</div>
-							)}
 							<OpptjeningTable
 								opptjening={opptjening}
 								erOvergangskull={erOvergangskull}
@@ -504,6 +499,11 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
+			{(isBeregningLoading || isOpptjeningLoading) && (
+				<div className={styles.overlayLoader}>
+					<Loader size="3xlarge" title="Henter opptjening …" />
+				</div>
+			)}
 		</Box>
 	)
 }

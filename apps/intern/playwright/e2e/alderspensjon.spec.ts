@@ -733,13 +733,32 @@ test.describe('Alderspensjon beregning', () => {
 			await expect(alert).toContainText('01.06.2031')
 		})
 
-		test('viser alert med begge datoer lik vedtakdato for grad 0', async ({
+		test('viser alert med tidligst endring en måned etter for grad 0 uten AFP offentlig', async ({
 			page,
 		}) => {
 			await setupFremtidigVedtak(page, 0)
 			await navigateToApp(page)
 
 			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page.getByTestId('alder-uttak-aar').selectOption('66')
+			await page.getByTestId('alder-uttak-md').selectOption('11')
+
+			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
+			await expect(alert).toBeVisible()
+			await expect(alert).toContainText('01.05.2031')
+			await expect(alert).toContainText('01.06.2031')
+		})
+
+		test('viser alert med begge datoer lik vedtakdato for grad 0 med AFP offentlig', async ({
+			page,
+		}) => {
+			await setupFremtidigVedtak(page, 0)
+			await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, {
+				foedselsdato: '1960-04-30',
+			})
+			await navigateToApp(page)
+
+			await page.getByTestId('afp').getByLabel('Ja, offentlig').check()
 			await page.getByTestId('alder-uttak-aar').selectOption('66')
 			await page.getByTestId('alder-uttak-md').selectOption('11')
 
