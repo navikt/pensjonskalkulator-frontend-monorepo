@@ -16,7 +16,8 @@ export const RowLabelWithFormula = ({
 	label: string
 	formlerKode?: StaticFormelKode
 }) => {
-	const popoverButtonRef = useRef<HTMLButtonElement>(null)
+	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+	const popoverContentRef = useRef<HTMLDivElement>(null)
 	const [popoverOpen, setPopoverOpen] = useState(false)
 	const mathML = formlerKode ? getFormulaMathML(formlerKode) : null
 	if (!mathML) {
@@ -34,7 +35,7 @@ export const RowLabelWithFormula = ({
 		>
 			<BodyShort size="small">{label}</BodyShort>
 			<Button
-				ref={popoverButtonRef}
+				ref={setAnchorEl}
 				type="button"
 				size="xsmall"
 				variant="tertiary"
@@ -46,9 +47,9 @@ export const RowLabelWithFormula = ({
 			<Popover
 				open={popoverOpen}
 				onClose={() => setPopoverOpen(false)}
-				anchorEl={popoverButtonRef.current}
+				anchorEl={anchorEl}
 			>
-				<Popover.Content>
+				<Popover.Content ref={popoverContentRef} tabIndex={-1}>
 					<BodyShort size="small" weight="semibold">
 						{label}
 					</BodyShort>
