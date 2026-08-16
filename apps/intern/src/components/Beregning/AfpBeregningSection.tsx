@@ -16,6 +16,7 @@ interface AfpBeregningSectionProps {
 	tableCount: number
 	entry: TidsbegrensetOffentligAFP
 	visAarsbelop: boolean
+	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
 }
@@ -25,6 +26,7 @@ export const AfpBeregningSection = ({
 	tableCount,
 	entry,
 	visAarsbelop,
+	testId,
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
 }: AfpBeregningSectionProps) => {
@@ -32,7 +34,7 @@ export const AfpBeregningSection = ({
 	const opptjeningRows = mapTidsbegrensetAfpOpptjeningToRows(entry)
 
 	return (
-		<VStack gap="space-12">
+		<VStack gap="space-12" data-testid={testId}>
 			<HStack justify="space-between" align="center">
 				<Heading level="3" size="small">
 					{title}

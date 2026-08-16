@@ -592,6 +592,7 @@ export const BeregningForm = () => {
 											{harIkkeForrigeAarsInntekt && (
 												<RHFTextField
 													name="pensjonsgivendeInntektForrigeAar"
+													testId="inntekt-forrige-aar"
 													label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
 												/>
 											)}
@@ -602,6 +603,7 @@ export const BeregningForm = () => {
 											}) && (
 												<RHFTextField
 													name="pensjonsgivendeInntektFremTilUttak"
+													testId="inntekt-frem-til-uttak"
 													label="Pensjonsgivende årsinntekt frem til uttak"
 												/>
 											)}
@@ -612,10 +614,12 @@ export const BeregningForm = () => {
 									<>
 										<RHFTextField
 											name="inntektSisteMaanedFoerUttak"
+											testId="inntekt-siste-maaned-foer-uttak"
 											label="Inntekt siste måned før uttak"
 										/>
 										<RHFTextField
 											name="aarsinntektSamtidigMedAfp"
+											testId="aarsinntekt-samtidig-med-afp"
 											label="Årsinntekt samtidig med AFP"
 										/>
 									</>

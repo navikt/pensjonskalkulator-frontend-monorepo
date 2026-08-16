@@ -14,6 +14,7 @@ interface ServiceAfpBeregningSectionProps {
 	title: string
 	entry: ServiceberegnetAfpResult
 	visAarsbelop: boolean
+	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
 }
@@ -22,6 +23,7 @@ export const ServiceAfpBeregningSection = ({
 	title,
 	entry,
 	visAarsbelop,
+	testId,
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
 }: ServiceAfpBeregningSectionProps) => {
@@ -34,7 +36,7 @@ export const ServiceAfpBeregningSection = ({
 	const opptjeningRows = mapServiceAfpOpptjeningRows(entry)
 
 	return (
-		<VStack gap="space-12">
+		<VStack gap="space-12" data-testid={testId}>
 			<HStack justify="space-between" align="center">
 				<Heading level="3" size="small">
 					{title}
