@@ -4,18 +4,11 @@
 	padding: var(--ax-space-24) var(--ax-space-48);
 	box-sizing: border-box;
 	overflow-y: auto;
-}
-
-.loadingOverlay {
 	position: relative;
 }
 
-.loadingOverlay::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background-color: rgba(255, 255, 255, 0.6);
-	z-index: 1;
+.beregningLoading {
+	overflow: hidden;
 }
 
 .overlayLoader {
@@ -24,8 +17,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	background-color: rgba(255, 255, 255, 0.6);
 	z-index: 2;
-	pointer-events: none;
 }
 
 .tabPanel {

@@ -1,4 +1,5 @@
 import {
+	SanityContext,
 	SanityKortforbehold,
 	SanityVilkaarligForbehold,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
@@ -10,7 +11,7 @@ import {
 	calculateUttaksalderAsDate,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
@@ -55,6 +56,7 @@ export const Beregning = () => {
 		enhetsid,
 		submitBeregning,
 	} = useBeregningContext()
+	const { isSanityLoading } = useContext(SanityContext)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
@@ -97,12 +99,13 @@ export const Beregning = () => {
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				position="relative"
+				className={styles.beregning}
 				data-testid="beregning-result"
 			>
 				{isBeregningLoading && (
 					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
+						<Loader size="3xlarge" title="Laster …" />
 					</div>
 				)}
 				{beregningError ? (
@@ -337,12 +340,13 @@ export const Beregning = () => {
 		)
 	}
 
+	const isLoading = isBeregningLoading || isOpptjeningLoading || isSanityLoading
+
 	return (
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
-			position="relative"
-			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+			className={`${styles.beregning} ${isLoading ? styles.beregningLoading : ''}`}
 			data-testid="beregning-result"
 		>
 			{beregningError && (
@@ -363,15 +367,7 @@ export const Beregning = () => {
 							{ufoeretrygdBeregningInfo}
 						</BodyLong>
 					)}
-					<VStack
-						gap="space-32"
-						className={isBeregningLoading ? styles.loadingOverlay : undefined}
-					>
-						{isBeregningLoading && (
-							<div className={styles.overlayLoader}>
-								<Loader size="3xlarge" title="Beregner pensjon …" />
-							</div>
-						)}
+					<VStack gap="space-32">
 						{erServiceberegning &&
 							beregning.serviceberegnetAfp?.beregnetAfp && (
 								<ServiceAfpBeregningSection
@@ -433,7 +429,9 @@ export const Beregning = () => {
 						)}
 						{!erServiceberegning &&
 							shouldRenderNormertAfpAfterHeltSection &&
-							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
+							renderNormertAfpSection({
+								testId: 'beregning-section-helt-67',
+							})}
 					</VStack>
 					<AarligPensjonTable
 						alderspensjonListe={beregning.alderspensjonListe}
@@ -477,14 +475,7 @@ export const Beregning = () => {
 				</Tabs.Panel>
 				{opptjening && (
 					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
-						<VStack
-							gap="space-32"
-							className={
-								isBeregningLoading || isOpptjeningLoading
-									? styles.loadingOverlay
-									: undefined
-							}
-						>
+						<VStack gap="space-32">
 							<OpptjeningTable
 								opptjening={opptjening}
 								erOvergangskull={erOvergangskull}
@@ -517,9 +508,14 @@ export const Beregning = () => {
 					</Tabs.Panel>
 				)}
 			</Tabs>
-			{(isBeregningLoading || isOpptjeningLoading) && (
-				<div className={styles.overlayLoader}>
-					<Loader size="3xlarge" title="Henter opptjening …" />
+			{isLoading && (
+				<div
+					className={styles.overlayLoader}
+					role="alert"
+					aria-live="assertive"
+					aria-busy="true"
+				>
+					<Loader size="3xlarge" title="Beregner pensjon" />
 				</div>
 			)}
 		</Box>
