@@ -191,14 +191,22 @@ describe('getAlderForAfpEndring', () => {
 		).toEqual({ aar: 62, md: 0 })
 	})
 
-	test('returns brukers alder + 1 md when switching to ja_offentlig and age > 66', () => {
+	test('returns brukers alder + 1 md when switching to ja_offentlig and age > 66', async () => {
+		const { getBrukerensAlderISluttenAvMaaneden } = await import(
+			'@pensjonskalkulator-frontend-monorepo/utils/alder'
+		)
+		const expected = getBrukerensAlderISluttenAvMaaneden('1960-01-15', {
+			aar: 62,
+			maaneder: 0,
+		})
+
 		expect(
 			getAlderForAfpEndring({
 				newAfpValue: 'ja_offentlig',
 				alderAarUttak: 70,
 				foedselsdato: '1960-01-15',
 			})
-		).toEqual({ aar: 66, md: 7 })
+		).toEqual({ aar: expected.aar, md: expected.maaneder })
 	})
 
 	test('returns min alder fallback when switching to ja_offentlig without foedselsdato', () => {
