@@ -1837,12 +1837,15 @@ export interface components {
 			garantitilleggBeloep?: number | null
 		}
 		SimuleringV1MaanedligAlderspensjonForKnekkpunkter: {
+			/** @description Månedlig alderspensjon ved gradert uttak */
 			vedGradertUttak?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
+			/** @description Månedlig alderspensjon ved helt uttak */
 			vedHeltUttak?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
+			/** @description Månedlig alderspensjon ved normert pensjonsalder */
 			vedNormertPensjonsalder?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjon']
 				| null
@@ -1944,9 +1947,11 @@ export interface components {
 		SimuleringV1Result: {
 			/** @description Alderspensjon for hvert år */
 			alderspensjonListe: components['schemas']['SimuleringV1Alderspensjon'][]
+			/** @description Månedlig alderspensjon ved endring av uttaksgrad */
 			maanedligAlderspensjonVedUttaksendring?:
 				| components['schemas']['SimuleringV1Uttaksbeloep']
 				| null
+			/** @description Månedlig alderspensjon for knekkpunkter */
 			maanedligAlderspensjonForKnekkpunkter?:
 				| components['schemas']['SimuleringV1MaanedligAlderspensjonForKnekkpunkter']
 				| null
@@ -1954,9 +1959,11 @@ export interface components {
 			livsvarigOffentligAfpListe?:
 				| components['schemas']['SimuleringV1AldersbestemtUtbetaling'][]
 				| null
+			/** @description Tidsbegrenset AFP i offentlig sektor ('gammel ordning') for hvert år */
 			tidsbegrensetOffentligAfp?:
 				| components['schemas']['SimuleringV1TidsbegrensetOffentligAfp']
 				| null
+			/** @description Resultat av serviceberegnet AFP (kun for simuleringstype SERVICEBEREGN_AFP) */
 			serviceberegnetAfp?:
 				| components['schemas']['SimuleringV1ServiceberegnetAfp']
 				| null
@@ -1964,6 +1971,7 @@ export interface components {
 			privatAfpListe?: components['schemas']['SimuleringV1PrivatAfp'][] | null
 			/** @description Resultatet av vilkårsprøvingen */
 			vilkaarsproevingsresultat: components['schemas']['SimuleringV1Vilkaarsproevingsresultat']
+			/** @description Personens trygdetid */
 			trygdetid?: components['schemas']['SimuleringV1Trygdetid'] | null
 			/** @description Pensjonsgivende inntekter for hvert år */
 			pensjonsgivendeInntektListe?:
@@ -1971,9 +1979,11 @@ export interface components {
 				| null
 			/** @description Opptjeningsdata brukt i beregningen for hvert år */
 			opptjeningListe: components['schemas']['SimuleringV1Opptjening'][]
+			/** @description Eventuelt problem som oppstod under simuleringen */
 			problem?: components['schemas']['SimuleringV1Problem'] | null
 		}
 		SimuleringV1ServiceberegnetAfp: {
+			/** @description Beregnet avtalefestet pensjon */
 			beregnetAfp?: components['schemas']['SimuleringV1BeregnetAfp'] | null
 		}
 		SimuleringV1TidsbegrensetOffentligAfp: {
@@ -2067,6 +2077,7 @@ export interface components {
 			heltUttakMaanedligBeloep: number
 		}
 		SimuleringV1Uttaksparametre: {
+			/** @description Alder ved start av gradert uttak */
 			gradertUttakAlder?: components['schemas']['SimuleringV1Alder'] | null
 			/**
 			 * Format: int32
@@ -2079,6 +2090,7 @@ export interface components {
 		SimuleringV1Vilkaarsproevingsresultat: {
 			/** @description Hvorvidt 'kravet' om pensjon er innvilget */
 			erInnvilget: boolean
+			/** @description Et alternativ sett av uttaksparametre som vil resultere i innvilget pensjon (relevant når de opprinnelig angitte parametre ga avslag) */
 			alternativ?: components['schemas']['SimuleringV1Uttaksparametre'] | null
 		}
 		LagreAarligBeloepDto: {
@@ -2289,32 +2301,32 @@ export interface components {
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
-			alderAar: number
+			alderAar: number | null
 			/** Format: int32 */
-			totaltAfpBeloep: number
+			totaltAfpBeloep: number | null
 			/** Format: int32 */
-			tidligereArbeidsinntekt: number
+			tidligereArbeidsinntekt: number | null
 			/** Format: int32 */
-			grunnbeloep: number
+			grunnbeloep: number | null
 			/** Format: double */
-			sluttpoengtall: number
+			sluttpoengtall: number | null
 			/** Format: int32 */
-			trygdetid: number
+			trygdetid: number | null
 			/** Format: int32 */
-			poengaarTom1991: number
+			poengaarTom1991: number | null
 			/** Format: int32 */
-			poengaarFom1992: number
+			poengaarFom1992: number | null
 			/** Format: int32 */
-			grunnpensjon: number
+			grunnpensjon: number | null
 			/** Format: int32 */
-			tilleggspensjon: number
+			tilleggspensjon: number | null
 			/** Format: int32 */
-			afpTillegg: number
+			afpTillegg: number | null
 			/** Format: int32 */
-			saertillegg: number
+			saertillegg: number | null
 			/** Format: int32 */
-			afpGrad: number
-			erAvkortet: boolean
+			afpGrad: number | null
+			erAvkortet: boolean | null
 		}
 		LagreTrygdetidDto: {
 			/** Format: int32 */
@@ -2639,6 +2651,7 @@ export interface components {
 			 * @description Startdato (fra og med) for uttaksgraden
 			 */
 			uttaksgradFom: string
+			/** @description Siste utbetaling av alderspensjon */
 			sisteUtbetaling?: components['schemas']['VedtakV1Utbetaling'] | null
 			/**
 			 * @description Sivilstatus
@@ -2665,9 +2678,11 @@ export interface components {
 		VedtakV1Samling: {
 			/** @description Hvorvidt personen har løpende eller fremtidig vedtak */
 			harVedtak: boolean
+			/** @description Løpende alderspensjon */
 			loependeAlderspensjon?:
 				| components['schemas']['VedtakV1LoependeAlderspensjon']
 				| null
+			/** @description Fremtidig alderspensjon */
 			fremtidigAlderspensjon?:
 				| components['schemas']['VedtakV1Alderspensjonsuttak']
 				| null
@@ -2686,6 +2701,7 @@ export interface components {
 			 * @description Startdato (fra og med) for tidsbegrenset AFP i offentlig sektor ('gammel ordning')
 			 */
 			tidsbegrensetOffentligAfpFom?: string | null
+			/** @description Informasjon om eventuell avdød ektefelle/partner/samboer */
 			avdoed?: components['schemas']['VedtakV1InformasjonOmAvdoed'] | null
 		}
 		VedtakV1Utbetaling: {
@@ -2864,6 +2880,7 @@ export interface components {
 		AnsattEnhetV1Result: {
 			/** @description Liste over enheter (tjenestekontor) */
 			enhetListe: components['schemas']['AnsattEnhetV1Tjenestekontor'][]
+			/** @description Eventuelt problem som oppstod ved henting av enheter */
 			problem?: components['schemas']['AnsattEnhetV1Problem'] | null
 		}
 		AnsattEnhetV1Tjenestekontor: {
