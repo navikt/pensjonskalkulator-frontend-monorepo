@@ -116,7 +116,7 @@ export const Beregning = () => {
 						onRetry={submitBeregning}
 					/>
 				) : (
-					<BodyLong>Ingen beregning enda.</BodyLong>
+					!isBeregningLoading && <BodyLong>Ingen beregning enda.</BodyLong>
 				)}
 			</Box>
 		)
