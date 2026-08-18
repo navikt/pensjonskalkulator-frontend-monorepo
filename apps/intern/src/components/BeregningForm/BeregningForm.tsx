@@ -132,11 +132,12 @@ export const BeregningForm = () => {
 	})
 
 	const epsRestrictionCode =
+		epsOpplysninger?.problem?.tilgangsnekt?.aarsak ??
 		epsOpplysninger?.relasjonPersondata?.tilgangsbegrensning
 	const blockingCodes: string[] = [
-		'STRENGT_FORTROLIG',
+		'STRENGT_FORTROLIG_ADRESSE',
 		'STRENGT_FORTROLIG_UTLAND',
-		'FORTROLIG',
+		'FORTROLIG_ADRESSE',
 	]
 	const hasTilgangsbegrensning = blockingCodes.includes(
 		epsRestrictionCode ?? ''
