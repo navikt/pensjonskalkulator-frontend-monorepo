@@ -146,19 +146,20 @@ export const Gjenlevenderett = () => {
 	)
 
 	const epsAccessAlertMap: Record<string, string> = {
-		STRENGT_FORTROLIG: 'beregning.gjenlevenderett.strengt.fortrolig',
+		STRENGT_FORTROLIG_ADRESSE: 'beregning.gjenlevenderett.strengt.fortrolig',
 		STRENGT_FORTROLIG_UTLAND:
 			'beregning.gjenlevenderett.strengt.fortrolig.utland',
-		FORTROLIG: 'beregning.gjenlevenderett.fortrolig',
+		FORTROLIG_ADRESSE: 'beregning.gjenlevenderett.fortrolig',
 		SKJERMING: 'beregning.gjenlevenderett.skjerming',
 		HABILITET: 'beregning.gjenlevenderett.habilitet',
-		VERGE: 'beregning.gjenlevenderett.verge',
+		VERGEMAAL: 'beregning.gjenlevenderett.verge',
 	}
 
 	const tilgangsbegrensningAlertId =
 		epsAccessAlertMap[
 			formEpsOpplysninger?.relasjonPersondata?.tilgangsbegrensning ?? ''
-		] ?? epsAccessAlertMap[formEpsOpplysninger?.problem?.type ?? '']
+		] ??
+		epsAccessAlertMap[formEpsOpplysninger?.problem?.tilgangsnekt?.aarsak ?? '']
 
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
