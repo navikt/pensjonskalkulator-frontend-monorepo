@@ -699,4 +699,92 @@ test.describe('Alderspensjon beregning', () => {
 			).toContainText(/partner/i)
 		})
 	})
+
+	test.describe('Fremtidig alderspensjon alert', () => {
+		async function setupFremtidigVedtak(page: Page, grad: number) {
+			await setupDefaultMocks(page)
+			await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK, {
+				loependeAlderspensjon: {
+					grad: 100,
+					fom: '2025-05-01',
+					uttaksgradFom: '2025-05-01',
+					sivilstatus: 'ENKE_ELLER_ENKEMANN',
+				},
+				fremtidigAlderspensjon: {
+					grad,
+					fom: '2031-05-01',
+				},
+			})
+		}
+
+		test('viser alert med vedtakdato og tidligst endring en måned etter for grad > 0', async ({
+			page,
+		}) => {
+			await setupFremtidigVedtak(page, 100)
+			await navigateToApp(page)
+
+			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page.getByTestId('alder-uttak-aar').selectOption('67')
+			await page.getByTestId('alder-uttak-md').selectOption('0')
+
+			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
+			await expect(alert).toBeVisible()
+			await expect(alert).toContainText('01.05.2031')
+			await expect(alert).toContainText('01.06.2031')
+		})
+
+		test('viser alert med tidligst endring en måned etter for grad 0 uten AFP offentlig', async ({
+			page,
+		}) => {
+			await setupFremtidigVedtak(page, 0)
+			await navigateToApp(page)
+
+			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page.getByTestId('alder-uttak-aar').selectOption('66')
+			await page.getByTestId('alder-uttak-md').selectOption('11')
+
+			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
+			await expect(alert).toBeVisible()
+			await expect(alert).toContainText('01.05.2031')
+			await expect(alert).toContainText('01.06.2031')
+		})
+
+		test('viser alert med begge datoer lik vedtakdato for grad 0 med AFP offentlig', async ({
+			page,
+		}) => {
+			await setupFremtidigVedtak(page, 0)
+			await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, {
+				foedselsdato: '1960-04-30',
+			})
+			await navigateToApp(page)
+
+			await page.getByTestId('afp').getByLabel('Ja, offentlig').check()
+			await page.getByTestId('alder-uttak-aar').selectOption('66')
+			await page.getByTestId('alder-uttak-md').selectOption('11')
+
+			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
+			await expect(alert).toBeVisible()
+			const vedtakDatoCount = await alert.getByText('01.05.2031').count()
+			expect(vedtakDatoCount).toBe(2)
+		})
+
+		test('viser ikke alert ved serviceberegning', async ({ page }) => {
+			await setupFremtidigVedtak(page, 100)
+			await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, {
+				foedselsdato: '1960-04-30',
+			})
+			await navigateToApp(page)
+
+			await page
+				.getByTestId('afp')
+				.getByLabel('Serviceberegning AFP for saksbehandler')
+				.check()
+			await page.getByTestId('alder-uttak-aar').selectOption('63')
+			await page.getByTestId('alder-uttak-md').selectOption('0')
+
+			await expect(
+				page.getByTestId('beregning.fremtidigAlderspensjon')
+			).not.toBeVisible()
+		})
+	})
 })

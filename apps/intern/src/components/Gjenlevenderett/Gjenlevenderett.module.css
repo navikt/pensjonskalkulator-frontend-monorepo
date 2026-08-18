@@ -17,6 +17,6 @@
 	margin-top: var(--ax-space-8);
 }
 
-.doedsfallSanityAlert {
-	padding: 0;
+.doedsfallSanityAlert p {
+	margin: 0;
 }

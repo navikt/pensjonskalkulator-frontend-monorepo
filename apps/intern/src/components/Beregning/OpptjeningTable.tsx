@@ -123,8 +123,8 @@ export function OpptjeningTable({
 	)
 
 	const title = isOpptjeningAvdoedSection
-		? 'Pensjonsopptjening avdøde'
-		: 'Pensjonsopptjening bruker'
+		? 'Inntekt og pensjonsopptjening avdøde'
+		: 'Inntekt og pensjonsopptjening'
 
 	const testId = isOpptjeningAvdoedSection
 		? 'opptjening-table-avdoed'

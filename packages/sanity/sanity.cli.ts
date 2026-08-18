@@ -1,7 +1,7 @@
 import path from 'path'
 import { defineCliConfig } from 'sanity/cli'
 
-import { projectId } from './sanity.config'
+import { projectId } from './src/projectId'
 
 export default defineCliConfig({
 	api: {
@@ -12,7 +12,7 @@ export default defineCliConfig({
 	 * Enable auto-updates for studios.
 	 * Learn more at https://www.sanity.io/docs/cli#auto-updates
 	 */
-	autoUpdates: true,
+	deployment: { autoUpdates: true },
 	vite: {
 		resolve: {
 			alias: {

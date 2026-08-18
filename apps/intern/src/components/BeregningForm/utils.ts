@@ -5,7 +5,10 @@ import type {
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import {
+	calculateUttaksalderAsDate,
+	getBrukerensAlderISluttenAvMaaneden,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
@@ -200,4 +203,29 @@ export function getUttaksGradArray({
 	}
 
 	return uttaksgradArray
+}
+
+export function getAlderForAfpEndring({
+	newAfpValue,
+	alderAarUttak,
+	foedselsdato,
+}: {
+	newAfpValue: string
+	alderAarUttak: number | null
+	foedselsdato: string | undefined
+}): { aar: number; md: number } | null {
+	const alderOverMaksForOffentligAfp =
+		alderAarUttak !== null && alderAarUttak > 66
+
+	if (newAfpValue === 'serviceberegning' && alderOverMaksForOffentligAfp) {
+		return { aar: 62, md: 0 }
+	}
+	if (newAfpValue === 'ja_offentlig' && alderOverMaksForOffentligAfp) {
+		const minAlder = getBrukerensAlderISluttenAvMaaneden(foedselsdato, {
+			aar: 62,
+			maaneder: 0,
+		})
+		return { aar: minAlder.aar, md: minAlder.maaneder }
+	}
+	return null
 }
