@@ -384,9 +384,9 @@ export function mapBeregningResultToLagreSpec(
 										result.serviceberegnetAfp.beregnetAfp.sluttpoengtall,
 									trygdetid: result.serviceberegnetAfp.beregnetAfp.trygdetid,
 									poengaarTom1991:
-										result.serviceberegnetAfp.beregnetAfp.poeangarE91,
-									poengaarFom1992:
 										result.serviceberegnetAfp.beregnetAfp.poeangarF92,
+									poengaarFom1992:
+										result.serviceberegnetAfp.beregnetAfp.poeangarE91,
 									grunnpensjon:
 										result.serviceberegnetAfp.beregnetAfp.grunnpensjon,
 									tilleggspensjon:
