@@ -40,6 +40,10 @@ function validateEPSOpplysninger(
 			'Antall år i utlandet kan ikke være større enn 39 år.'
 	}
 
+	if (formData.vedtakInfoAvdoed) {
+		return
+	}
+
 	if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
 		errors.epsMedlemAvFolketrygdenVedDoedsDato =
 			'Velg ja/nei om avdøde var medlem av folketrygden.'
@@ -425,6 +429,10 @@ export function useFormValidation() {
 			}
 			if (!erEndring) {
 				validateUtenlandsOpphold(formData, errors)
+			}
+
+			if (Object.keys(errors).length > 0) {
+				console.log('Validation errors on fields:', Object.keys(errors))
 			}
 
 			setValidationErrors(errors)

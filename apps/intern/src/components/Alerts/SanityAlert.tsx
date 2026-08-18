@@ -55,6 +55,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	children?: ReactNode
 }
 
 export const SanityAlert = ({
@@ -62,6 +63,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	children,
 }: Props) => {
 	dynamicValues = { nbsp: '\u00A0', ...dynamicValues }
 	const intl = useIntl()
@@ -81,10 +83,13 @@ export const SanityAlert = ({
 	)
 
 	const content = (
-		<PortableText
-			value={sanityContent.innhold}
-			components={portableTextComponents}
-		/>
+		<>
+			<PortableText
+				value={sanityContent.innhold}
+				components={portableTextComponents}
+			/>
+			{children}
+		</>
 	)
 
 	switch (alertType) {

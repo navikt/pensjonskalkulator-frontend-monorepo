@@ -8,6 +8,7 @@ import {
 	ErrorMessage,
 	Loader,
 	LocalAlert,
+	VStack,
 } from '@navikt/ds-react'
 
 import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
@@ -18,11 +19,12 @@ import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { useFormValidation } from '../BeregningForm/useFormValidation'
 import { OpplysningerInfo } from './OpplysningerInfo'
+import { getEpsDoedsdato } from './utils'
 
 import styles from './Gjenlevenderett.module.css'
 
 export const Gjenlevenderett = () => {
-	const { form, fnr, person } = useBeregningContext()
+	const { form, fnr, person, resetForm } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
 
@@ -90,6 +92,9 @@ export const Gjenlevenderett = () => {
 			form.setValue('epsOpplysninger', EPSOpplysninger, {
 				shouldDirty: false,
 			})
+			form.setValue('harHentetEPSOpplysninger', true, {
+				shouldDirty: false,
+			})
 		}
 	}, [EPSOpplysninger, form])
 
@@ -125,7 +130,6 @@ export const Gjenlevenderett = () => {
 			return
 		}
 
-		form.setValue('harHentetEPSOpplysninger', true)
 		setEpsQueryParams({
 			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
@@ -171,6 +175,17 @@ export const Gjenlevenderett = () => {
 		: 'Hent opplysninger om EPS'
 
 	const harHentetError = form.formState.errors.harHentetEPSOpplysninger?.message
+
+	const erBakgrunnDoedsfallRegistrert =
+		epsQueryParams.bakgrunn === 'DOEDSFALL_REGISTRERT'
+	const harRegistrertDoedsdato =
+		formEpsOpplysninger &&
+		Boolean(
+			getEpsDoedsdato({
+				epsOpplysninger: formEpsOpplysninger,
+				vedtakInfoAvdoed: vedtakInfoAvdoed ?? undefined,
+			})
+		)
 
 	return (
 		<>
@@ -251,7 +266,22 @@ export const Gjenlevenderett = () => {
 					)}
 					{formEpsOpplysninger &&
 						!isEPSInfoEmpty &&
+						erBakgrunnDoedsfallRegistrert &&
+						!harRegistrertDoedsdato &&
 						!tilgangsbegrensningAlertId && (
+							<VStack gap="space-24" align="start">
+								<SanityAlert
+									id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
+									className={styles.doedsfallSanityAlert}
+								/>
+								<Button variant="secondary" size="small" onClick={resetForm}>
+									Start på nytt
+								</Button>
+							</VStack>
+						)}
+					{formEpsOpplysninger &&
+						!isEPSInfoEmpty &&
+						(!erBakgrunnDoedsfallRegistrert || harRegistrertDoedsdato) && (
 							<OpplysningerInfo
 								EPSOpplysninger={formEpsOpplysninger}
 								vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}

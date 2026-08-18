@@ -10,7 +10,7 @@ import {
 	calculateUttaksalderAsDate,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
@@ -20,13 +20,14 @@ import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
 	useFeatureToggleQuery,
 	useGrunnbeloepQuery,
-	// useInternsimulatorLagreBrevButtonQuery,
+	useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
 import { formatEndUserDate } from '../../utils/dates'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { Divider } from '../Divider/Divider'
@@ -60,10 +61,9 @@ export const Beregning = () => {
 	)
 
 	// Midlertidig skjul brev knappen
-	// const { data: lagreBrevButtonToggle } =
-	// 	useInternsimulatorLagreBrevButtonQuery()
-	// const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
-	const visLagreBrevButton = false
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
@@ -71,6 +71,11 @@ export const Beregning = () => {
 	const erFoedtFoer1963 = person && isFoedtFoer1963(person.foedselsdato)
 	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
+
+	const { reset: resetLagreSimulering } = lagreSimulering
+	useEffect(() => {
+		resetLagreSimulering()
+	}, [aktivBeregning, resetLagreSimulering])
 
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' &&
@@ -316,7 +321,10 @@ export const Beregning = () => {
 					aktivBeregning,
 					enhetsid,
 					grunnbeloep?.grunnbeløp,
-					aktivRequest?.utenlandsperiodeListe ?? undefined
+					aktivRequest?.utenlandsperiodeListe ?? undefined,
+					vedtak,
+					omstillingsstoenad,
+					person
 				),
 			},
 			{
@@ -442,7 +450,7 @@ export const Beregning = () => {
 						size="small"
 						className={styles.kortforbehold}
 					/>
-					{visLagreBrevButton && (
+					{visLagreBrevButton && !lagreSimulering.isError && (
 						<Button
 							className={styles.lagreButton}
 							variant="secondary"
@@ -453,6 +461,18 @@ export const Beregning = () => {
 						>
 							Opprett brev
 						</Button>
+					)}
+					{visLagreBrevButton && lagreSimulering.isError && (
+						<SanityAlert id="beregning.opprett-brev-feil">
+							<Button
+								variant="secondary"
+								size="small"
+								onClick={handleLagreSimulering}
+								data-testid="lagre-brev-feil-retry"
+							>
+								Prøv på nytt
+							</Button>
+						</SanityAlert>
 					)}
 				</Tabs.Panel>
 				{opptjening && (

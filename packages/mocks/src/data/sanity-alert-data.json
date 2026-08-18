@@ -459,6 +459,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "489b0f4238f6",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5daa34d00f53",
+							"_type": "span",
+							"marks": [],
+							"text": "Dødsfall er ikke registrert på bruker. For å beregne gjenlevenderett må henvendelse fra begge parter foreligge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevenderett.doedsfall.ikke.registrert",
+			"overskrift": "Kan ikke hente opplysninger",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "bff9a081d558",
 					"_type": "block",
 					"children": [
