@@ -164,10 +164,16 @@ export const Gjenlevenderett = () => {
 		VERGEMAAL: 'beregning.gjenlevenderett.verge',
 	}
 
-	const tilgangsbegrensningAlertId =
-		epsAccessAlertMap[
-			(epsError && 'aarsak' in epsError && (epsError as EpsError).aarsak) || ''
-		]
+	const epsAarsak = (epsError instanceof EpsError && epsError.aarsak) || ''
+
+	const tilgangsbegrensningAlertId = epsAccessAlertMap[epsAarsak]
+
+	const skjulSkjemaForTilgang = [
+		'STRENGT_FORTROLIG_ADRESSE',
+		'STRENGT_FORTROLIG_UTLAND',
+		'FORTROLIG_ADRESSE',
+		'SKJERMING',
+	].includes(epsAarsak)
 
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
@@ -197,6 +203,7 @@ export const Gjenlevenderett = () => {
 				name="beregnMedGjenlevenderett"
 				label="Beregn med gjenlevenderett (valgfritt)"
 				testid="beregn-med-gjenlevenderett"
+				disabled={skjulSkjemaForTilgang}
 			/>
 
 			{beregnMedGjenlevenderett && (
@@ -235,7 +242,7 @@ export const Gjenlevenderett = () => {
 							className={styles.sanityAlert}
 						/>
 					)}
-					{!isEPSLoading && !formEpsOpplysninger && (
+					{!isEPSLoading && !formEpsOpplysninger && !skjulSkjemaForTilgang && (
 						<Button
 							variant="secondary"
 							onClick={handleHentEPSOpplysninger}
