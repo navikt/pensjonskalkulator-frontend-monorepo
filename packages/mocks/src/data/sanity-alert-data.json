@@ -104,6 +104,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "c0e48dd754e3",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "699ee9611c28",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte dessverre ikke å opprette brev akkurat nå."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.opprett-brev-feil",
+			"overskrift": "Noe gikk galt med opprettelse av brev",
+			"status": "error",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "ab5befbd9be8",
 					"_type": "block",
 					"children": [
@@ -206,14 +228,22 @@
 							"marks": [],
 							"text": "% alderspensjon fra "
 						},
-						{ "_key": "97279b9bfdc6", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "97279b9bfdc6",
+							"_type": "dynamicValue",
+							"key": "vedtakDato"
+						},
 						{
 							"_key": "d0406e5d78d7",
 							"_type": "span",
 							"marks": [],
 							"text": ". Alderspensjon kan derfor tidligst endres fra "
 						},
-						{ "_key": "98c3ac13aadb", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "98c3ac13aadb",
+							"_type": "dynamicValue",
+							"key": "tidligstEndringDato"
+						},
 						{
 							"_key": "622fd068561a",
 							"_type": "span",

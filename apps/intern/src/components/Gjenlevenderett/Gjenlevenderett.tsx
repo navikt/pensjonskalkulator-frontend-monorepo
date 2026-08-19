@@ -286,7 +286,7 @@ export const Gjenlevenderett = () => {
 						erBakgrunnDoedsfallRegistrert &&
 						!harRegistrertDoedsdato &&
 						!tilgangsbegrensningAlertId && (
-							<VStack gap="space-24" align="start">
+							<VStack gap="space-16" align="start">
 								<SanityAlert
 									id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
 									className={styles.sanityAlert}

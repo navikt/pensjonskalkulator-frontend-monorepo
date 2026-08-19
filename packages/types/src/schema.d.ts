@@ -2301,32 +2301,32 @@ export interface components {
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
-			alderAar: number
+			alderAar: number | null
 			/** Format: int32 */
-			totaltAfpBeloep: number
+			totaltAfpBeloep: number | null
 			/** Format: int32 */
-			tidligereArbeidsinntekt: number
+			tidligereArbeidsinntekt: number | null
 			/** Format: int32 */
-			grunnbeloep: number
+			grunnbeloep: number | null
 			/** Format: double */
-			sluttpoengtall: number
+			sluttpoengtall: number | null
 			/** Format: int32 */
-			trygdetid: number
+			trygdetid: number | null
 			/** Format: int32 */
-			poengaarTom1991: number
+			poengaarTom1991: number | null
 			/** Format: int32 */
-			poengaarFom1992: number
+			poengaarFom1992: number | null
 			/** Format: int32 */
-			grunnpensjon: number
+			grunnpensjon: number | null
 			/** Format: int32 */
-			tilleggspensjon: number
+			tilleggspensjon: number | null
 			/** Format: int32 */
-			afpTillegg: number
+			afpTillegg: number | null
 			/** Format: int32 */
-			saertillegg: number
+			saertillegg: number | null
 			/** Format: int32 */
-			afpGrad: number
-			erAvkortet: boolean
+			afpGrad: number | null
+			erAvkortet: boolean | null
 		}
 		LagreTrygdetidDto: {
 			/** Format: int32 */
@@ -2435,12 +2435,8 @@ export interface components {
 			etternavn?: string | null
 		}
 		EpsV1Problem: {
-			/**
-			 * @description Type problem
-			 * @enum {string}
-			 */
+			/** @enum {string} */
 			type: 'TILGANG_NEKTET' | 'MANGELFULL_SPESIFIKASJON'
-			/** @description Beskrivelse av problemet */
 			beskrivelse: string
 			/** @description Begrunnelse for nekting av tilgang til person */
 			tilgangsnekt?: components['schemas']['EpsV1Tilgangsnekt'] | null

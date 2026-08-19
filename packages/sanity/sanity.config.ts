@@ -11,7 +11,7 @@ import { visionTool } from '@sanity/vision'
 import { createAuthStore, defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 
-export const projectId = 'g2by7q6m'
+import { projectId } from './src/projectId'
 
 interface AuthProvider {
 	name: string
