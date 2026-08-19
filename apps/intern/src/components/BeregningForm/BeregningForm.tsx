@@ -605,21 +605,6 @@ export const BeregningForm = () => {
 									/>
 								)}
 
-								{showFremtidigAlderspensjonAlert && (
-									<SanityAlert
-										id="beregning.fremtidigAlderspensjon"
-										className={styles.sanityAlert}
-										dynamicValues={{
-											grad: String(fremtidigAlderspensjon?.grad ?? 100),
-											alder: fremtidigAlderspensjon
-												? format(
-														addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
-														DATE_ENDUSER_FORMAT
-													)
-												: '',
-										}}
-									/>
-								)}
 								<RHFAlderVelger
 									aarName="alderAarUttak"
 									mdName="alderMdUttak"

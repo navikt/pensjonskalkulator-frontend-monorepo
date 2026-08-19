@@ -237,7 +237,7 @@
 							"_key": "d0406e5d78d7",
 							"_type": "span",
 							"marks": [],
-							"text": ". Alderspensjon kan derfor tidligst endres fra "
+							"text": ". Pensjon kan derfor tidligst endres fra "
 						},
 						{
 							"_key": "98c3ac13aadb",
@@ -256,7 +256,7 @@
 				}
 			],
 			"name": "beregning.fremtidigAlderspensjon",
-			"overskrift": "Tidspunkt for endring ikke mulig",
+			"overskrift": "Tidspunkt for beregning ikke mulig",
 			"status": "warning",
 			"type": "info-card"
 		},
