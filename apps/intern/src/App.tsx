@@ -169,7 +169,11 @@ const AppContent = () => {
 		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
 	) {
-		return <Loader size="xlarge" title="Henter brukerdata..." />
+		return (
+			<div role="alert" aria-live="assertive" aria-busy="true">
+				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			</div>
+		)
 	}
 
 	if (visLagreBrevButton) {

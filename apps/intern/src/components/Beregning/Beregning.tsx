@@ -106,8 +106,16 @@ export const Beregning = () => {
 				data-testid="beregning-result"
 			>
 				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Laster …" />
+					<div
+						className={styles.overlayLoader}
+						role="alert"
+						aria-live="assertive"
+						aria-busy="true"
+					>
+						<Loader
+							size="3xlarge"
+							title="Vent litt mens vi beregner pensjon."
+						/>
 					</div>
 				)}
 				{beregningError ? (
@@ -356,7 +364,7 @@ export const Beregning = () => {
 					aria-live="assertive"
 					aria-busy="true"
 				>
-					<Loader size="3xlarge" title="Laster \u2026" />
+					<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
 				</div>
 			)}
 			<div className={styles.scrollContent}>
