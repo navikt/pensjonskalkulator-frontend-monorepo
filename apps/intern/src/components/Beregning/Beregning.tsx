@@ -106,12 +106,7 @@ export const Beregning = () => {
 				data-testid="beregning-result"
 			>
 				{isBeregningLoading && (
-					<div
-						className={styles.overlayLoader}
-						role="alert"
-						aria-live="assertive"
-						aria-busy="true"
-					>
+					<div className={styles.overlayLoader}>
 						<Loader
 							size="3xlarge"
 							title="Vent litt mens vi beregner pensjon."
@@ -358,12 +353,7 @@ export const Beregning = () => {
 			data-testid="beregning-result"
 		>
 			{isLoading && (
-				<div
-					className={styles.overlayLoader}
-					role="alert"
-					aria-live="assertive"
-					aria-busy="true"
-				>
+				<div className={styles.overlayLoader}>
 					<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
 				</div>
 			)}
