@@ -175,6 +175,12 @@ export const Gjenlevenderett = () => {
 		'SKJERMING',
 	].includes(epsAarsak)
 
+	useEffect(() => {
+		form.setValue('epsTilgangNektAarsak', epsAarsak || undefined, {
+			shouldDirty: false,
+		})
+	}, [skjulSkjemaForTilgang, epsAarsak, form])
+
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
 		(formEpsOpplysninger.pid === null ||

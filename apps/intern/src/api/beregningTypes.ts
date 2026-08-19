@@ -55,6 +55,7 @@ export interface BeregningFormData {
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
 	vedtakInfoAvdoed?: boolean
+	epsTilgangNektAarsak?: string
 }
 
 export type BeregningParams = BeregningFormData
@@ -137,4 +138,5 @@ export const defaultBeregningFormData: BeregningFormData = {
 	endringAP: undefined,
 	endringAfpPrivat: undefined,
 	vedtakInfoAvdoed: undefined,
+	epsTilgangNektAarsak: undefined,
 }

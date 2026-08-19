@@ -16,7 +16,6 @@ import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
-import type { BeregningFormData } from '../../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
 	getPartnerBetegnelse,
@@ -114,6 +113,7 @@ export const BeregningForm = () => {
 		alderMdHeltUttak,
 		afp,
 		epsOpplysninger,
+		epsTilgangNektAarsak,
 	] = useWatch({
 		control,
 		name: [
@@ -128,16 +128,17 @@ export const BeregningForm = () => {
 			'alderMdHeltUttak',
 			'afp',
 			'epsOpplysninger',
+			'epsTilgangNektAarsak',
 		] as const,
 	})
 
 	const epsRestrictionCode =
-		epsOpplysninger?.problem?.tilgangsnekt?.aarsak ??
-		epsOpplysninger?.relasjonPersondata?.tilgangsbegrensning
+		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
 	const blockingCodes: string[] = [
 		'STRENGT_FORTROLIG_ADRESSE',
 		'STRENGT_FORTROLIG_UTLAND',
 		'FORTROLIG_ADRESSE',
+		'SKJERMING',
 	]
 	const hasTilgangsbegrensning = blockingCodes.includes(
 		epsRestrictionCode ?? ''
@@ -196,8 +197,11 @@ export const BeregningForm = () => {
 		})
 
 		if (Object.keys(errors).length > 0) {
-			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
-				form.setError(key, { message: errors[key] })
+			for (const key of Object.keys(errors) as (keyof typeof errors)[]) {
+				const message = errors[key]
+				if (message) {
+					form.setError(key, { message })
+				}
 			}
 			return
 		}
