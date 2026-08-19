@@ -289,7 +289,7 @@ export const Gjenlevenderett = () => {
 							<VStack gap="space-24" align="start">
 								<SanityAlert
 									id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
-									className={styles.doedsfallSanityAlert}
+									className={styles.sanityAlert}
 								/>
 								<Button variant="secondary" size="small" onClick={resetForm}>
 									Start på nytt
