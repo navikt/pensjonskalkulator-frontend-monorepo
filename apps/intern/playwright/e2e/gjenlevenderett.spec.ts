@@ -766,4 +766,48 @@ test.describe('Gjenlevenderett', () => {
 			).toBeVisible()
 		})
 	})
+
+	test.describe('Tilgang nektet', () => {
+		test.beforeEach(async ({ page }) => {
+			await setupDefaultMocks(page, {
+				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+			})
+			await navigateToApp(page)
+		})
+
+		test('Viser strengt fortrolig alert ved STRENGT_FORTROLIG_ADRESSE', async ({
+			page,
+		}) => {
+			await mockApiError(page, API_URLS.EPS, 403, {
+				relasjonstype: 'UKJENT',
+				problem: {
+					type: 'TILGANG_NEKTET',
+					beskrivelse: 'Ikke tilgang til personen',
+					tilgangsnekt: {
+						aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+						begrunnelse:
+							'Du har ikke tilgang til brukere med strengt fortrolig adresse (kode 6)',
+					},
+				},
+			})
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.strengt.fortrolig')
+			).toBeVisible()
+
+			await expect(page.getByTestId('EPS-henting-feil')).not.toBeVisible()
+		})
+
+		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
+			await mockApiError(page, API_URLS.EPS, 500)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(page.getByTestId('EPS-henting-feil')).toBeVisible()
+		})
+	})
 })

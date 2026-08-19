@@ -11,7 +11,11 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
-import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
+import {
+	EpsError,
+	useEPSOpplysningerQuery,
+	useVedtakQuery,
+} from '../../api/queries'
 import { getEpsVedtakStatus } from '../../utils'
 import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
@@ -35,6 +39,7 @@ export const Gjenlevenderett = () => {
 
 	const {
 		data: EPSOpplysninger,
+		error: epsError,
 		isError,
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
@@ -161,9 +166,8 @@ export const Gjenlevenderett = () => {
 
 	const tilgangsbegrensningAlertId =
 		epsAccessAlertMap[
-			formEpsOpplysninger?.relasjonPersondata?.tilgangsbegrensning ?? ''
-		] ??
-		epsAccessAlertMap[formEpsOpplysninger?.problem?.tilgangsnekt?.aarsak ?? '']
+			(epsError && 'aarsak' in epsError && (epsError as EpsError).aarsak) || ''
+		]
 
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
@@ -224,7 +228,7 @@ export const Gjenlevenderett = () => {
 							]}
 						/>
 					)}
-					{isError && EPSError}
+					{isError && !tilgangsbegrensningAlertId && EPSError}
 					{tilgangsbegrensningAlertId && (
 						<SanityAlert
 							id={tilgangsbegrensningAlertId}
@@ -252,7 +256,7 @@ export const Gjenlevenderett = () => {
 							{harHentetError}
 						</ErrorMessage>
 					)}
-					{isEPSInfoEmpty && (
+					{isEPSInfoEmpty && !tilgangsbegrensningAlertId && (
 						<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
 							<LocalAlert.Header>
 								<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
