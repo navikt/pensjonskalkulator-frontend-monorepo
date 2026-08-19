@@ -3,7 +3,7 @@
 	"fom": "2025-02-24",
 	"relasjonstype": "EKTEFELLE",
 	"relasjonPersondata": {
-		"tilgangsbegrensning": "FORTROLIG_ADRESSE",
+		"tilgangsbegrensning": null,
 		"navn": {
 			"fornavn": "Trollman",
 			"mellomnavn": "Blyant",

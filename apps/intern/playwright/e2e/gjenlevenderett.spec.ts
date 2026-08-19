@@ -801,6 +801,68 @@ test.describe('Gjenlevenderett', () => {
 			await expect(page.getByTestId('EPS-henting-feil')).not.toBeVisible()
 		})
 
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.strengt.fortrolig',
+				label: 'kode 6',
+			},
+			{
+				aarsak: 'FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.fortrolig',
+				label: 'kode 7',
+			},
+			{
+				aarsak: 'SKJERMING',
+				alertId: 'beregning.gjenlevenderett.skjerming',
+				label: 'kode 19',
+			},
+		]) {
+			test(`Skjuler skjemaet og viser kun alert for ${label} (${aarsak})`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
+					})
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).not.toBeVisible()
+			})
+		}
+
 		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
 			await mockApiError(page, API_URLS.EPS, 500)
 
