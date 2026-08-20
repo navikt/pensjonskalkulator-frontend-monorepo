@@ -105,7 +105,10 @@ export const Beregning = () => {
 				className={styles.beregning}
 				data-testid="beregning-result"
 			>
-				<div className={styles.overlayLoader} role="status">
+				<div
+					className={isBeregningLoading ? styles.overlayLoader : undefined}
+					role="status"
+				>
 					{isBeregningLoading && (
 						<Loader
 							size="3xlarge"
@@ -352,7 +355,10 @@ export const Beregning = () => {
 			className={styles.beregning}
 			data-testid="beregning-result"
 		>
-			<div className={styles.overlayLoader} role="status">
+			<div
+				className={isLoading ? styles.overlayLoader : undefined}
+				role="status"
+			>
 				{isLoading && (
 					<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
 				)}
