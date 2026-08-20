@@ -170,7 +170,9 @@ const AppContent = () => {
 		(visLagreBrevButton ? isLoadingEnheter : false)
 	) {
 		return (
-			<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			<div role="status">
+				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			</div>
 		)
 	}
 

@@ -136,7 +136,11 @@ export const Gjenlevenderett = () => {
 		})
 	}
 
-	const EPSLoader = <Loader>Henter opplysninger</Loader>
+	const EPSLoader = (
+		<div role="status">
+			<Loader>Henter opplysninger</Loader>
+		</div>
+	)
 	const EPSError = (
 		<LocalAlert status="warning" size="small" data-testid="EPS-henting-feil">
 			<LocalAlert.Header>
