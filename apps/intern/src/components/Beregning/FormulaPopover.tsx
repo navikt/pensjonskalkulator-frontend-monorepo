@@ -16,6 +16,12 @@ function formulaToAriaLabel(formula: Formula): string {
 	return `${formula.title}: ${numerator} delt på ${formula.denominator}`
 }
 
+function formulaToCopyText(formula: Formula): string {
+	const numerator = formula.numerator.join(' ')
+	if (!formula.denominator) return numerator
+	return `(${numerator}) / (${formula.denominator})`
+}
+
 interface FormulaPopoverProps {
 	formula: Formula
 }
@@ -23,6 +29,7 @@ interface FormulaPopoverProps {
 export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
+	const fractionRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
 
 	const numeratorLength = formula.numerator.join('').length
@@ -47,6 +54,12 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 		}
 	}, [open, handleClickOutside])
 
+	useEffect(() => {
+		if (open && popoverRef.current) {
+			popoverRef.current.focus()
+		}
+	}, [open])
+
 	return (
 		<>
 			<button
@@ -54,6 +67,7 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				type="button"
 				className={styles.formulaButton}
 				aria-label={`Vis formel for ${formula.title}`}
+				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
 				<svg
@@ -94,12 +108,32 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 						ref={popoverRef}
 						className={styles.formulaContent}
 						role="math"
+						aria-roledescription="formel"
 						aria-label={formulaToAriaLabel(formula)}
+						tabIndex={-1}
+						onKeyDown={(e) => {
+							if (e.key === 'Escape') {
+								setOpen(false)
+								buttonRef.current?.focus()
+							}
+							if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
+								e.preventDefault()
+								navigator.clipboard.writeText(formulaToCopyText(formula))
+							}
+						}}
+						onCopy={(e) => {
+							e.preventDefault()
+							e.clipboardData.setData('text/plain', formulaToCopyText(formula))
+						}}
 					>
 						<span className={styles.formulaTitle} aria-hidden="true">
 							{formula.title}
 						</span>
-						<div className={styles.fraction} aria-hidden="true">
+						<div
+							ref={fractionRef}
+							className={styles.fraction}
+							aria-hidden="true"
+						>
 							<div
 								className={`${styles.numerator} ${formula.denominator && numeratorIsWider ? styles.numeratorWithDivider : ''}`}
 								style={{

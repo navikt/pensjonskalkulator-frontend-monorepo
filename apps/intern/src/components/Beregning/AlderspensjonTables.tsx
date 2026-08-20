@@ -19,6 +19,7 @@ interface AlderspensjonTablesProps {
 	harGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
+	reducedGrunnpensjon?: boolean
 }
 
 export const AlderspensjonTables = ({
@@ -32,19 +33,22 @@ export const AlderspensjonTables = ({
 	isGradert = false,
 	visAarsbelop = false,
 	harGjenlevenderett = false,
+	reducedGrunnpensjon = false,
 }: AlderspensjonTablesProps) => (
 	<>
 		<BeregningTableWithSum
 			title={`${alderspensjonGrad} % alderspensjon`}
 			valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
 			sumLabel="Sum alderspensjon"
-			rows={mapAlderspensjonToRows(
+			rows={mapAlderspensjonToRows({
 				entry,
-				!!erFoedtFoer1963,
-				!!erOvergangskull || !!erFoedtEtter1963,
+				visKap19: Boolean(erFoedtFoer1963),
+				visKap20: Boolean(erOvergangskull) || Boolean(erFoedtEtter1963),
 				simulererMedGjenlevenderett,
-				harGjenlevenderett
-			)}
+				harGjenlevenderett,
+				erOvergangskull: Boolean(erOvergangskull),
+				reducedGrunnpensjon,
+			})}
 			visAarsbelop={visAarsbelop}
 		/>
 		{erFoedtFoer1963 && (

@@ -23,14 +23,33 @@ const formatKr = (value?: number | null): string =>
 const formatAar = (value?: number | null): string =>
 	value != null ? `${value} år` : ''
 
-export function mapAlderspensjonToRows(
-	entry: SimuleringMaanedligAlderspensjon,
-	visKap19: boolean,
-	visKap20: boolean,
-	simulererMedGjenlevenderett: boolean,
+export function mapAlderspensjonToRows({
+	entry,
+	visKap19,
+	visKap20,
+	simulererMedGjenlevenderett,
+	harGjenlevenderett,
+	erOvergangskull = false,
+	reducedGrunnpensjon = false,
+}: {
+	entry: SimuleringMaanedligAlderspensjon
+	visKap19: boolean
+	visKap20: boolean
+	simulererMedGjenlevenderett: boolean
 	harGjenlevenderett: boolean
-): BeregningTableRow[] {
+	erOvergangskull?: boolean
+	reducedGrunnpensjon?: boolean
+}): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
+
+	const gpSuffix = erOvergangskull ? '_4' : '_3'
+	const gpPrefix = reducedGrunnpensjon
+		? 'formler.grunnpensjon_redusert'
+		: 'formler.grunnpensjon'
+	const tpSuffix = erOvergangskull ? '_4' : '_3'
+	const ptSuffix = erOvergangskull ? '_4' : '_3'
+	const ipSuffix = erOvergangskull ? '_3' : '_2'
+
 	return [
 		...(visKap19
 			? [
@@ -38,19 +57,19 @@ export function mapAlderspensjonToRows(
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
-						formula: getFormula('formler.grunnpensjon_4'),
+						formula: getFormula(`${gpPrefix}${gpSuffix}`),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
-						formula: getFormula('formler.tilleggspensjon_4'),
+						formula: getFormula(`formler.tilleggspensjon${tpSuffix}`),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
 						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
-						formula: getFormula('formler.pensjonstillegg_4'),
+						formula: getFormula(`formler.pensjonstillegg${ptSuffix}`),
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
@@ -67,7 +86,7 @@ export function mapAlderspensjonToRows(
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
-						formula: getFormula('formler.inntektspensjon_3'),
+						formula: getFormula(`formler.inntektspensjon${ipSuffix}`),
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
@@ -87,6 +106,7 @@ export function mapAlderspensjonToRows(
 			value: skjermingstillegg,
 			yearlyValue: skjermingstillegg * 12,
 			hide: skjermingstillegg <= 0,
+			formula: getFormula('skjerm1'),
 		},
 	]
 }
@@ -212,7 +232,9 @@ export function mapPrivatAfp(
 			label: 'Livsvarig del',
 			value: entry?.livsvarig ?? 0,
 			yearlyValue: (entry?.livsvarig ?? 0) * 12,
-			formula: getFormula('afp_privat.livsvd1'),
+			formula: getFormula(
+				visKronetillegg ? 'afp_privat.livsvd2' : 'afp_privat.livsvd1'
+			),
 		},
 	]
 }

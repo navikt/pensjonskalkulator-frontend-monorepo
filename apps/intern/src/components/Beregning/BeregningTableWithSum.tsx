@@ -91,7 +91,7 @@ export const BeregningTableWithSum = ({
 				{validRows.map((row) => (
 					<Table.Row key={row.label + title}>
 						<Table.DataCell>
-							<BodyShort size="small">
+							<BodyShort size="small" className={styles.labelCell}>
 								{row.label}
 								{row.formula && <FormulaPopover formula={row.formula} />}
 							</BodyShort>
