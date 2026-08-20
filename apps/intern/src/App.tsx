@@ -171,7 +171,7 @@ const AppContent = () => {
 
 	if (isAppLoading) {
 		return (
-			<div role="status" aria-live="assertive">
+			<div role="status" aria-live="polite">
 				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
 			</div>
 		)

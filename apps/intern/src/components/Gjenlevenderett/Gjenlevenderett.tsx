@@ -137,7 +137,7 @@ export const Gjenlevenderett = () => {
 	}
 
 	const EPSLoader = (
-		<div role="status" aria-live="assertive">
+		<div role="status" aria-live="polite">
 			<Loader>Henter opplysninger</Loader>
 		</div>
 	)
