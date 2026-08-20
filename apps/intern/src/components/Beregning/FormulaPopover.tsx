@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { SquarerootIcon } from '@navikt/aksel-icons'
 import { Popover } from '@navikt/ds-react'
 
 import styles from './FormulaPopover.module.css'
@@ -70,32 +71,7 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
-				<svg
-					width="20"
-					height="20"
-					viewBox="0 0 20 20"
-					fill="none"
-					aria-hidden="true"
-				>
-					<circle
-						cx="10"
-						cy="10"
-						r="9"
-						stroke="currentColor"
-						strokeWidth="1.5"
-					/>
-					<text
-						x="10"
-						y="14"
-						textAnchor="middle"
-						fontSize="10"
-						fill="currentColor"
-						fontFamily="serif"
-						fontStyle="italic"
-					>
-						fx
-					</text>
-				</svg>
+				<SquarerootIcon aria-hidden="true" fontSize="1.25rem" />
 			</button>
 			<Popover
 				open={open}

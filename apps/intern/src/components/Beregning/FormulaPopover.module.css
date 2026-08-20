@@ -3,9 +3,10 @@
 	align-items: center;
 	justify-content: center;
 	background: none;
-	border: none;
+	border: 1px solid currentColor;
+	border-radius: 50%;
 	cursor: pointer;
-	padding: 0;
+	padding: 2px;
 	margin-left: 0.25rem;
 	color: var(--ax-text-neutral-subtle);
 	vertical-align: middle;
@@ -26,6 +27,7 @@
 .formulaTitle {
 	font-weight: 600;
 	font-size: 0.95rem;
+	align-self: flex-start;
 }
 
 .fraction {
