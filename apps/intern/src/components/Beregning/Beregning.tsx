@@ -94,9 +94,16 @@ export const Beregning = () => {
 
 	const isLoading = isBeregningLoading || isOpptjeningLoading || isSanityLoading
 
-	const loadingOverlay = isLoading && (
-		<div className={styles.overlayLoader} aria-live="polite" role="status">
-			<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
+	const loadingOverlay = (
+		<div
+			role="status"
+			aria-live="polite"
+			aria-atomic="true"
+			className={isLoading ? styles.overlayLoader : styles.srOnly}
+		>
+			{isLoading && (
+				<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
+			)}
 		</div>
 	)
 

@@ -136,11 +136,7 @@ export const Gjenlevenderett = () => {
 		})
 	}
 
-	const EPSLoader = (
-		<div role="status" aria-live="polite">
-			<Loader>Henter opplysninger</Loader>
-		</div>
-	)
+	const EPSLoader = <Loader>Henter opplysninger</Loader>
 	const EPSError = (
 		<LocalAlert status="warning" size="small" data-testid="EPS-henting-feil">
 			<LocalAlert.Header>
@@ -194,6 +190,14 @@ export const Gjenlevenderett = () => {
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					{isEPSLoading && EPSLoader}
+					<div
+						role="status"
+						aria-live="polite"
+						aria-atomic="true"
+						className={styles.srOnly}
+					>
+						{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
+					</div>
 					{!isEPSLoading && !isError && !formEpsOpplysninger && (
 						<RHFRadio
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
