@@ -105,14 +105,14 @@ export const Beregning = () => {
 				className={styles.beregning}
 				data-testid="beregning-result"
 			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader} role="status">
+				<div className={styles.overlayLoader} role="status">
+					{isBeregningLoading && (
 						<Loader
 							size="3xlarge"
 							title="Vent litt mens vi beregner pensjon."
 						/>
-					</div>
-				)}
+					)}
+				</div>
 				{beregningError ? (
 					<SimuleringFeil
 						message={beregningError.message}
@@ -352,11 +352,11 @@ export const Beregning = () => {
 			className={styles.beregning}
 			data-testid="beregning-result"
 		>
-			{isLoading && (
-				<div className={styles.overlayLoader} role="status">
+			<div className={styles.overlayLoader} role="status">
+				{isLoading && (
 					<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
-				</div>
-			)}
+				)}
+			</div>
 			<div className={styles.scrollContent}>
 				{beregningError && (
 					<SimuleringFeil

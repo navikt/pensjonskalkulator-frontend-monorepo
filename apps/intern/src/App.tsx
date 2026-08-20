@@ -160,7 +160,7 @@ const AppContent = () => {
 		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
-	if (
+	const isAppLoading =
 		isDecrypting ||
 		isLoadingPerson ||
 		isLoadingVedtak ||
@@ -168,9 +168,10 @@ const AppContent = () => {
 		isLoadingOmstilling ||
 		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
-	) {
+
+	if (isAppLoading) {
 		return (
-			<div role="status">
+			<div role="status" aria-live="assertive">
 				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
 			</div>
 		)
