@@ -13,6 +13,7 @@ import {
 import {
 	BodyLong,
 	BodyShort,
+	Box,
 	Heading,
 	Label,
 	Table,
@@ -198,83 +199,89 @@ export const AarligPensjonTable = ({
 						Eventuell tilvekst av alderspensjon er inkludert i beløpene
 					</BodyLong>
 				</VStack>
-				<Table
-					zebraStripes={rows.length > 2}
-					size="small"
-					className={styles.table}
-				>
-					<Table.Header>
-						<Table.Row className={styles.headerRow}>
-							<Table.HeaderCell scope="col">
-								<Label style={{ whiteSpace: 'nowrap' }} size="small">
-									Alder
-								</Label>
-							</Table.HeaderCell>
-							{visAlderspensjonKolonne && (
-								<Table.HeaderCell scope="col" align="right">
+				<Box overflowX="auto">
+					<Table
+						zebraStripes={rows.length > 2}
+						size="small"
+						className={styles.table}
+					>
+						<Table.Header>
+							<Table.Row className={styles.headerRow}>
+								<Table.HeaderCell scope="col">
 									<Label style={{ whiteSpace: 'nowrap' }} size="small">
-										Alderspensjon
+										Alder
 									</Label>
 								</Table.HeaderCell>
-							)}
-							{visAfpKolonne && (
-								<Table.HeaderCell scope="col" align="right">
-									<Label style={{ whiteSpace: 'nowrap' }} size="small">
-										Avtalefestet pensjon
-									</Label>
-								</Table.HeaderCell>
-							)}
-							{visInntektKolonne && (
-								<Table.HeaderCell scope="col" align="right">
-									<Label style={{ whiteSpace: 'nowrap' }} size="small">
-										Pensjonsgivende inntekt
-									</Label>
-								</Table.HeaderCell>
-							)}
-							<Table.HeaderCell scope="col" align="right">
-								<Label style={{ whiteSpace: 'nowrap' }} size="small" as="span">
-									Sum kr per år
-								</Label>
-							</Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{rows.map((row) => {
-							const sum = row.alderspensjon + row.afp + row.inntekt
-							return (
-								<Table.Row key={row.alderLabel}>
-									<Table.DataCell>
-										<BodyShort size="small">{row.alderLabel}</BodyShort>
-									</Table.DataCell>
-									{visAlderspensjonKolonne && (
-										<Table.DataCell align="right">
-											<BodyShort size="small">
-												{formatNOK(row.alderspensjon)}
-											</BodyShort>
-										</Table.DataCell>
-									)}
-									{visAfpKolonne && (
-										<Table.DataCell align="right">
-											<BodyShort size="small">{formatNOK(row.afp)}</BodyShort>
-										</Table.DataCell>
-									)}
-									{visInntektKolonne && (
-										<Table.DataCell align="right">
-											<BodyShort size="small">
-												{formatNOK(row.inntekt)}
-											</BodyShort>
-										</Table.DataCell>
-									)}
-									<Table.DataCell align="right">
-										<Label size="small" as="span">
-											{formatNOK(sum)}
+								{visAlderspensjonKolonne && (
+									<Table.HeaderCell scope="col" align="right">
+										<Label style={{ whiteSpace: 'nowrap' }} size="small">
+											Alderspensjon
 										</Label>
-									</Table.DataCell>
-								</Table.Row>
-							)
-						})}
-					</Table.Body>
-				</Table>
+									</Table.HeaderCell>
+								)}
+								{visAfpKolonne && (
+									<Table.HeaderCell scope="col" align="right">
+										<Label style={{ whiteSpace: 'nowrap' }} size="small">
+											Avtalefestet pensjon
+										</Label>
+									</Table.HeaderCell>
+								)}
+								{visInntektKolonne && (
+									<Table.HeaderCell scope="col" align="right">
+										<Label style={{ whiteSpace: 'nowrap' }} size="small">
+											Pensjonsgivende inntekt
+										</Label>
+									</Table.HeaderCell>
+								)}
+								<Table.HeaderCell scope="col" align="right">
+									<Label
+										style={{ whiteSpace: 'nowrap' }}
+										size="small"
+										as="span"
+									>
+										Sum kr per år
+									</Label>
+								</Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
+						<Table.Body>
+							{rows.map((row) => {
+								const sum = row.alderspensjon + row.afp + row.inntekt
+								return (
+									<Table.Row key={row.alderLabel}>
+										<Table.DataCell>
+											<BodyShort size="small">{row.alderLabel}</BodyShort>
+										</Table.DataCell>
+										{visAlderspensjonKolonne && (
+											<Table.DataCell align="right">
+												<BodyShort size="small">
+													{formatNOK(row.alderspensjon)}
+												</BodyShort>
+											</Table.DataCell>
+										)}
+										{visAfpKolonne && (
+											<Table.DataCell align="right">
+												<BodyShort size="small">{formatNOK(row.afp)}</BodyShort>
+											</Table.DataCell>
+										)}
+										{visInntektKolonne && (
+											<Table.DataCell align="right">
+												<BodyShort size="small">
+													{formatNOK(row.inntekt)}
+												</BodyShort>
+											</Table.DataCell>
+										)}
+										<Table.DataCell align="right">
+											<Label size="small" as="span">
+												{formatNOK(sum)}
+											</Label>
+										</Table.DataCell>
+									</Table.Row>
+								)
+							})}
+						</Table.Body>
+					</Table>
+				</Box>
 			</VStack>
 		</>
 	)

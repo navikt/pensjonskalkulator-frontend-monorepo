@@ -5,7 +5,7 @@ import type {
 import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { format, parseISO, subDays } from 'date-fns'
 
-import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Heading, Table, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
@@ -113,20 +113,22 @@ export const OpplysningerInfo = ({
 			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
-			<Table
-				zebraStripes={rows.length > 4}
-				className={styles.opplysningerTable}
-				size="small"
-			>
-				<Table.Body>
-					{rows.map(({ label, value }) => (
-						<Table.Row key={label}>
-							<Table.DataCell textSize="small">{label}</Table.DataCell>
-							<Table.DataCell textSize="small">{value}</Table.DataCell>
-						</Table.Row>
-					))}
-				</Table.Body>
-			</Table>
+			<Box overflowX="auto">
+				<Table
+					zebraStripes={rows.length > 4}
+					className={styles.opplysningerTable}
+					size="small"
+				>
+					<Table.Body>
+						{rows.map(({ label, value }) => (
+							<Table.Row key={label}>
+								<Table.DataCell textSize="small">{label}</Table.DataCell>
+								<Table.DataCell textSize="small">{value}</Table.DataCell>
+							</Table.Row>
+						))}
+					</Table.Body>
+				</Table>
+			</Box>
 			{vedtakInfoAvdoed && (
 				<BodyLong>
 					Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.

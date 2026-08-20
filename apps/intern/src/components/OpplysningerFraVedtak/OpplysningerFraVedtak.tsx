@@ -1,6 +1,6 @@
 import type { Vedtak } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import { Heading, Table } from '@navikt/ds-react'
+import { Box, Heading, Table } from '@navikt/ds-react'
 
 import styles from '../Gjenlevenderett/OpplysningerInfo.module.css'
 
@@ -30,16 +30,18 @@ export const OpplysningerFraVedtak = ({ vedtak }: { vedtak?: Vedtak }) => {
 			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger hentet fra vedtak om alderspensjon
 			</Heading>
-			<Table className={styles.opplysningerTable} size="small">
-				<Table.Body>
-					{rows.map(({ label, value }) => (
-						<Table.Row key={label}>
-							<Table.DataCell textSize="small">{label}</Table.DataCell>
-							<Table.DataCell textSize="small">{value}</Table.DataCell>
-						</Table.Row>
-					))}
-				</Table.Body>
-			</Table>
+			<Box overflowX="auto">
+				<Table className={styles.opplysningerTable} size="small">
+					<Table.Body>
+						{rows.map(({ label, value }) => (
+							<Table.Row key={label}>
+								<Table.DataCell textSize="small">{label}</Table.DataCell>
+								<Table.DataCell textSize="small">{value}</Table.DataCell>
+							</Table.Row>
+						))}
+					</Table.Body>
+				</Table>
+			</Box>
 		</>
 	)
 }
