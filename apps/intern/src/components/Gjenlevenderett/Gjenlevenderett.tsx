@@ -190,6 +190,14 @@ export const Gjenlevenderett = () => {
 						ektefelle/partner/samboer (EPS) hentes.
 					</BodyLong>
 					{isEPSLoading && EPSLoader}
+					<div
+						role="status"
+						aria-live="polite"
+						aria-atomic="true"
+						className="srOnly"
+					>
+						{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
+					</div>
 					{!isEPSLoading && !isError && !formEpsOpplysninger && (
 						<RHFRadio
 							name="bakgrunnForBrukAvOpplysningerOmEPS"
