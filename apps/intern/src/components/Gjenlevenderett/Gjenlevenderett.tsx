@@ -194,7 +194,7 @@ export const Gjenlevenderett = () => {
 						role="status"
 						aria-live="polite"
 						aria-atomic="true"
-						className={styles.srOnly}
+						className="srOnly"
 					>
 						{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
 					</div>
