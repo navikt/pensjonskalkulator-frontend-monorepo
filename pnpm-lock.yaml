@@ -108,7 +108,7 @@ overrides:
   '@types/react-dom': 19.2.3
   minimatch@<3.1.4: 3.1.4
   minimatch@>=5 <5.1.8: 5.1.8
-  minimatch@>=9 <9.0.7: 9.0.7
+  minimatch@>=9.0.6 <9.0.7: 9.0.7
   minimatch@>=10 <10.2.3: 10.2.3
   tar@<7.5.16: 7.5.19
   postcss@<8.5.14: 8.5.14
@@ -131,6 +131,7 @@ overrides:
   undici@>=7 <7.28.0: 7.29.0
   ws@<8.21.1: 8.21.1
   brace-expansion@>=5 <5.0.6: 5.0.6
+  brace-expansion@>=1 <=1.1.18: 1.1.18
   js-yaml@<3.15.0: 3.15.0
   js-yaml@>=4 <=4.1.1: 4.3.0
   json-2-csv@>=3.15.0 <5.5.11: 5.5.11
@@ -4080,8 +4081,8 @@ packages:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
 
-  brace-expansion@1.1.15:
-    resolution: {integrity: sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==}
+  brace-expansion@1.1.18:
+    resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
 
   brace-expansion@2.1.1:
     resolution: {integrity: sha512-WR1cURNjuvBLMZBMbqM0UoE+WAfdUcEV1ccD8PVBVOI+Z3ND4+SZbN8RsfT2bMuG1qwz5RFvPukSZm5fF2D5eA==}
@@ -6130,6 +6131,10 @@ packages:
   minimatch@5.1.9:
     resolution: {integrity: sha512-7o1wEA2RyMP7Iu7GNba9vc0RWWGACJOCZBJX2GJWip0ikV+wcOsgVuY9uE8CPiyQhkGFSlhuSkZPavN7u1c2Fw==}
     engines: {node: '>=10'}
+
+  minimatch@9.0.5:
+    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
+    engines: {node: '>=16 || 14 >=14.17'}
 
   minimatch@9.0.7:
     resolution: {integrity: sha512-MOwgjc8tfrpn5QQEvjijjmDVtMw2oL88ugTevzxQnzRLm6l3fVEF2gzU0kYeYYKD8C66+IdGX6peJ4MyUlUnPg==}
@@ -12954,7 +12959,7 @@ snapshots:
       widest-line: 5.0.0
       wrap-ansi: 9.0.2
 
-  brace-expansion@1.1.15:
+  brace-expansion@1.1.18:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
@@ -13775,7 +13780,7 @@ snapshots:
       functional-red-black-tree: 1.0.1
       jsx-ast-utils: 3.3.5
       lodash.merge: 4.6.2
-      minimatch: 9.0.7
+      minimatch: 9.0.5
       scslre: 0.3.0
       semver: 7.7.2
       typescript: 6.0.2
@@ -15178,17 +15183,21 @@ snapshots:
 
   minimatch@3.1.4:
     dependencies:
-      brace-expansion: 1.1.15
+      brace-expansion: 1.1.18
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.15
+      brace-expansion: 1.1.18
 
   minimatch@5.1.8:
     dependencies:
       brace-expansion: 2.1.1
 
   minimatch@5.1.9:
+    dependencies:
+      brace-expansion: 2.1.1
+
+  minimatch@9.0.5:
     dependencies:
       brace-expansion: 2.1.1
 
