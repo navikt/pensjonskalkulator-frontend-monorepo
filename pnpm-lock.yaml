@@ -473,7 +473,7 @@ importers:
         version: 16.23.1(supports-color@5.5.0)(typescript@5.9.3)
       stylelint-config-standard-scss:
         specifier: 15.0.1
-        version: 15.0.1(postcss@8.5.23)(stylelint@16.23.1(typescript@6.0.2))
+        version: 15.0.1(postcss@8.5.23)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))
       timers:
         specifier: 0.1.1
         version: 0.1.1
@@ -485,10 +485,10 @@ importers:
         version: 1.8.1(eslint@9.39.2(jiti@2.7.0)(supports-color@5.5.0))(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
       vite-plugin-sass-dts:
         specifier: 1.3.31
-        version: 1.3.31(postcss@8.5.23)(prettier@3.9.6)(sass-embedded@1.97.3)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
+        version: 1.3.31(postcss@8.5.23)(prettier@3.8.1)(sass-embedded@1.97.3)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
       vite-plugin-stylelint:
         specifier: 6.0.2
-        version: 6.0.2(postcss@8.5.23)(rollup@4.62.2)(stylelint@16.23.1(typescript@6.0.2))(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
+        version: 6.0.2(postcss@8.5.23)(rollup@4.62.2)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))(supports-color@5.5.0)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
       vite-tsconfig-paths:
         specifier: 5.1.4
         version: 5.1.4(supports-color@5.5.0)(typescript@5.9.3)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0))
@@ -4833,6 +4833,7 @@ packages:
   eslint@9.39.2:
     resolution: {integrity: sha512-LEyamqS7W5HB3ujJyvi0HQK/dtVINZvd5mAAp9eT5S/ujByGjiZLCzPcHVzuXbpJDJF/cxwHlfceVUDZ2lnSTw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -10875,7 +10876,7 @@ snapshots:
       globals: 14.0.0
       ignore: 5.3.2
       import-fresh: 3.3.1
-      js-yaml: 4.3.0
+      js-yaml: 4.3.1
       minimatch: 3.1.5
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
@@ -12592,7 +12593,7 @@ snapshots:
       semver: 7.8.5
       skills: 1.5.21
       smol-toml: 1.7.1
-      tar: 7.5.16
+      tar: 7.5.21
       tar-fs: 3.1.3
       tar-stream: 3.2.0
       tinyglobby: 0.2.17
@@ -12996,7 +12997,7 @@ snapshots:
       get-it: 8.8.2
       json-stream-stringify: 3.1.7
       p-queue: 9.3.3
-      tar: 7.5.16
+      tar: 7.5.21
       tar-stream: 3.2.0
     transitivePeerDependencies:
       - bare-abort-controller
@@ -13010,7 +13011,7 @@ snapshots:
       get-it: 8.8.2
       json-stream-stringify: 3.1.7
       p-queue: 9.3.3
-      tar: 7.5.16
+      tar: 7.5.21
       tar-stream: 3.2.0
     transitivePeerDependencies:
       - bare-abort-controller
@@ -14823,11 +14824,11 @@ snapshots:
 
   bintrees@1.0.2: {}
 
-  body-parser@2.3.0:
+  body-parser@2.3.0(supports-color@5.5.0):
     dependencies:
       bytes: 3.1.2
       content-type: 2.1.0
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@5.5.0)
       http-errors: 2.0.1
       iconv-lite: 0.7.3
       on-finished: 2.4.1
@@ -15938,13 +15939,13 @@ snapshots:
 
   express-rate-limit@8.2.2(express@5.2.1(supports-color@5.5.0)):
     dependencies:
-      express: 5.2.1
+      express: 5.2.1(supports-color@5.5.0)
       ip-address: 10.3.1
 
   express@5.2.1(supports-color@5.5.0):
     dependencies:
       accepts: 2.0.0
-      body-parser: 2.3.0
+      body-parser: 2.3.0(supports-color@5.5.0)
       content-disposition: 1.1.0
       content-type: 1.0.5
       cookie: 0.7.2
@@ -16797,7 +16798,7 @@ snapshots:
   isomorphic-dompurify@2.26.0(supports-color@10.2.2):
     dependencies:
       dompurify: 3.4.13
-      jsdom: 26.1.0
+      jsdom: 26.1.0(supports-color@10.2.2)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -16807,7 +16808,45 @@ snapshots:
   isomorphic-dompurify@2.26.0(supports-color@5.5.0):
     dependencies:
       dompurify: 3.4.13
-      jsdom: 28.1.0(@noble/hashes@2.2.0)
+      jsdom: 26.1.0(supports-color@5.5.0)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - utf-8-validate
+
+  isomorphic-dompurify@2.26.0(supports-color@8.1.1):
+    dependencies:
+      dompurify: 3.4.13
+      jsdom: 26.1.0(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - utf-8-validate
+
+  isomorphic-dompurify@2.36.0(@noble/hashes@2.2.0)(supports-color@10.2.2):
+    dependencies:
+      dompurify: 3.4.13
+      jsdom: 28.1.0(@noble/hashes@2.2.0)(supports-color@10.2.2)
+    transitivePeerDependencies:
+      - '@noble/hashes'
+      - canvas
+      - supports-color
+
+  isomorphic-dompurify@2.36.0(@noble/hashes@2.2.0)(supports-color@5.5.0):
+    dependencies:
+      dompurify: 3.4.13
+      jsdom: 28.1.0(@noble/hashes@2.2.0)(supports-color@5.5.0)
+    transitivePeerDependencies:
+      - '@noble/hashes'
+      - canvas
+      - supports-color
+
+  isomorphic-dompurify@2.36.0(@noble/hashes@2.2.0)(supports-color@8.1.1):
+    dependencies:
+      dompurify: 3.4.13
+      jsdom: 28.1.0(@noble/hashes@2.2.0)(supports-color@8.1.1)
     transitivePeerDependencies:
       - '@noble/hashes'
       - canvas
@@ -17005,7 +17044,7 @@ snapshots:
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 6.0.2
-      undici: 7.28.0
+      undici: 7.29.0
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
@@ -17032,7 +17071,7 @@ snapshots:
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 6.0.2
-      undici: 7.28.0
+      undici: 7.29.0
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
@@ -18855,7 +18894,7 @@ snapshots:
       mendoza: 3.0.8
       motion: 12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       nano-pubsub: 3.0.0
-      nanoid: 3.3.17
+      nanoid: 3.3.18
       observable-callback: 1.0.3(rxjs@7.8.2)
       path-to-regexp: 6.3.0
       player.style: 0.1.10(react@19.2.7)
@@ -18991,7 +19030,7 @@ snapshots:
       mendoza: 3.0.8
       motion: 12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       nano-pubsub: 3.0.0
-      nanoid: 3.3.17
+      nanoid: 3.3.18
       observable-callback: 1.0.3(rxjs@7.8.2)
       path-to-regexp: 6.3.0
       player.style: 0.1.10(react@19.2.7)
@@ -19530,12 +19569,12 @@ snapshots:
     optionalDependencies:
       react-dom: 19.2.7(react@19.2.7)
 
-  stylelint-config-recommended-scss@15.0.1(postcss@8.5.23)(stylelint@16.23.1(typescript@6.0.2)):
+  stylelint-config-recommended-scss@15.0.1(postcss@8.5.23)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3)):
     dependencies:
       postcss-scss: 4.0.9(postcss@8.5.23)
-      stylelint: 16.23.1(typescript@6.0.2)
-      stylelint-config-recommended: 16.0.0(stylelint@16.23.1(typescript@6.0.2))
-      stylelint-scss: 6.14.0(stylelint@16.23.1(typescript@6.0.2))
+      stylelint: 16.23.1(supports-color@5.5.0)(typescript@5.9.3)
+      stylelint-config-recommended: 16.0.0(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))
+      stylelint-scss: 6.14.0(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))
     optionalDependencies:
       postcss: 8.5.23
 
@@ -19543,11 +19582,11 @@ snapshots:
     dependencies:
       stylelint: 16.23.1(supports-color@5.5.0)(typescript@5.9.3)
 
-  stylelint-config-standard-scss@15.0.1(postcss@8.5.23)(stylelint@16.23.1(typescript@6.0.2)):
+  stylelint-config-standard-scss@15.0.1(postcss@8.5.23)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3)):
     dependencies:
-      stylelint: 16.23.1(typescript@6.0.2)
-      stylelint-config-recommended-scss: 15.0.1(postcss@8.5.23)(stylelint@16.23.1(typescript@6.0.2))
-      stylelint-config-standard: 38.0.0(stylelint@16.23.1(typescript@6.0.2))
+      stylelint: 16.23.1(supports-color@5.5.0)(typescript@5.9.3)
+      stylelint-config-recommended-scss: 15.0.1(postcss@8.5.23)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))
+      stylelint-config-standard: 38.0.0(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))
     optionalDependencies:
       postcss: 8.5.23
 
@@ -19966,8 +20005,8 @@ snapshots:
 
   unleash-client@6.4.0(supports-color@5.5.0):
     dependencies:
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.6(supports-color@10.2.2)
+      http-proxy-agent: 7.0.2(supports-color@5.5.0)
+      https-proxy-agent: 7.0.6(supports-color@5.5.0)
       ip-address: 10.3.1
       launchdarkly-eventsource: 2.0.3
       make-fetch-happen: 13.0.1(supports-color@5.5.0)
@@ -19979,8 +20018,8 @@ snapshots:
 
   unleash-client@6.6.0(supports-color@5.5.0):
     dependencies:
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.6(supports-color@10.2.2)
+      http-proxy-agent: 7.0.2(supports-color@5.5.0)
+      https-proxy-agent: 7.0.6(supports-color@5.5.0)
       ip-address: 10.3.1
       launchdarkly-eventsource: 2.0.3
       make-fetch-happen: 13.0.1(supports-color@5.5.0)
@@ -20155,15 +20194,15 @@ snapshots:
       rollup: 2.80.0
       vite: 7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)
 
-  vite-plugin-sass-dts@1.3.31(postcss@8.5.23)(prettier@3.9.6)(sass-embedded@1.97.3)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)):
+  vite-plugin-sass-dts@1.3.31(postcss@8.5.23)(prettier@3.8.1)(sass-embedded@1.97.3)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)):
     dependencies:
       postcss: 8.5.23
       postcss-js: 4.1.0(postcss@8.5.23)
-      prettier: 3.9.6
+      prettier: 3.8.1
       sass-embedded: 1.97.3
       vite: 7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)
 
-  vite-plugin-stylelint@6.0.2(postcss@8.5.23)(rollup@4.62.2)(stylelint@16.23.1(typescript@6.0.2))(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)):
+  vite-plugin-stylelint@6.0.2(postcss@8.5.23)(rollup@4.62.2)(stylelint@16.23.1(supports-color@5.5.0)(typescript@5.9.3))(supports-color@5.5.0)(vite@7.3.6(@types/node@24.3.0)(jiti@2.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(tsx@4.23.5)(yaml@2.9.0)):
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.62.2)
       debug: 4.4.3(supports-color@5.5.0)
