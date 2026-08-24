@@ -94,6 +94,19 @@ export const Beregning = () => {
 
 	const isLoading = isBeregningLoading || isOpptjeningLoading || isSanityLoading
 
+	const loadingOverlay = (
+		<div
+			role="status"
+			aria-live="polite"
+			aria-atomic="true"
+			className={isLoading ? styles.overlayLoader : 'srOnly'}
+		>
+			{isLoading && (
+				<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
+			)}
+		</div>
+	)
+
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
 	if (!hasBeregning) {
@@ -105,11 +118,7 @@ export const Beregning = () => {
 				className={styles.beregning}
 				data-testid="beregning-result"
 			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Laster …" />
-					</div>
-				)}
+				{loadingOverlay}
 				{beregningError ? (
 					<SimuleringFeil
 						message={beregningError.message}
@@ -349,16 +358,7 @@ export const Beregning = () => {
 			className={styles.beregning}
 			data-testid="beregning-result"
 		>
-			{isLoading && (
-				<div
-					className={styles.overlayLoader}
-					role="alert"
-					aria-live="assertive"
-					aria-busy="true"
-				>
-					<Loader size="3xlarge" title="Laster \u2026" />
-				</div>
-			)}
+			{loadingOverlay}
 			<div className={styles.scrollContent}>
 				{beregningError && (
 					<SimuleringFeil
