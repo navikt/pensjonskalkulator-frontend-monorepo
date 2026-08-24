@@ -113,7 +113,7 @@ export const OpplysningerInfo = ({
 			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger om avdøde
 			</Heading>
-			<Box overflowX="auto">
+			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 				<Table
 					zebraStripes={rows.length > 4}
 					className={styles.opplysningerTable}

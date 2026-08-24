@@ -135,7 +135,7 @@ export function OpptjeningTable({
 			<Heading level="3" size="small" spacing>
 				{title}
 			</Heading>
-			<Box overflowX="auto">
+			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 				<Table
 					zebraStripes={rows.length > 3}
 					size="small"

@@ -64,7 +64,7 @@ export const BeregningTableWithSum = ({
 	const sum =
 		computeRowsSum(validRows, visAarsbelop) + (addToSum > 0 ? addToSum : 0)
 	return (
-		<Box overflowX="auto">
+		<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 			<Table
 				zebraStripes={validRows.length > 2}
 				size="small"

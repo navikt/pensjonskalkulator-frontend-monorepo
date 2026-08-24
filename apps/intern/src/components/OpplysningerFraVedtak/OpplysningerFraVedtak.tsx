@@ -30,7 +30,7 @@ export const OpplysningerFraVedtak = ({ vedtak }: { vedtak?: Vedtak }) => {
 			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
 				Opplysninger hentet fra vedtak om alderspensjon
 			</Heading>
-			<Box overflowX="auto">
+			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 				<Table className={styles.opplysningerTable} size="small">
 					<Table.Body>
 						{rows.map(({ label, value }) => (

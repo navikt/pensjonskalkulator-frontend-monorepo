@@ -199,7 +199,7 @@ export const AarligPensjonTable = ({
 						Eventuell tilvekst av alderspensjon er inkludert i beløpene
 					</BodyLong>
 				</VStack>
-				<Box overflowX="auto">
+				<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 					<Table
 						zebraStripes={rows.length > 2}
 						size="small"

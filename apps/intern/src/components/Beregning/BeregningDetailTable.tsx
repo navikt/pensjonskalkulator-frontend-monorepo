@@ -20,7 +20,7 @@ export const BeregningDetailTable = ({
 	const validRows = rows.filter((row) => row.value !== '' && !row.hide)
 
 	return (
-		<Box overflowX="auto">
+		<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 			<Table
 				zebraStripes={validRows.length > 3}
 				size="small"
