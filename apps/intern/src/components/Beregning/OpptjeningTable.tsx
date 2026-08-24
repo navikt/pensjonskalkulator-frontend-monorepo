@@ -190,7 +190,7 @@ export function OpptjeningTable({
 									<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
 								</Table.DataCell>
 							)}
-							<Table.DataCell>
+							<Table.DataCell data-testid={`merknad-${row.aar}`}>
 								<BodyShort size="small">{row.merknad}</BodyShort>
 							</Table.DataCell>
 						</Table.Row>
