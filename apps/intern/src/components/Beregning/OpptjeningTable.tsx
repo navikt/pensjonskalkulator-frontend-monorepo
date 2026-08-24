@@ -19,7 +19,7 @@ const merknadTextMap: Record<string, string> = {
 	OMSORGSOPPTJENING:
 		'Du er godskrevet omsorgsopptjening for ulønnet omsorgsarbeid i dette året',
 	GRADERT_UTTAK: 'Gradert uttak',
-	HELT_UTTAK: 'Alderspensjon: 100 prosent',
+	HELT_UTTAK: 'Alderspensjon: 100 %',
 }
 
 export function mapMerknadListe(
@@ -31,9 +31,7 @@ export function mapMerknadListe(
 		.filter((merknad) => merknad !== 'NONE' && merknad !== 'UNKNOWN')
 		.map((merknad) => {
 			if (merknad === 'UFOEREGRAD') {
-				return ufoeretrygdgrad != null
-					? `Uføretrygd: ${ufoeretrygdgrad} prosent`
-					: ''
+				return ufoeretrygdgrad != null ? `Uføretrygd: ${ufoeretrygdgrad} %` : ''
 			}
 			return merknadTextMap[merknad] ?? ''
 		})
