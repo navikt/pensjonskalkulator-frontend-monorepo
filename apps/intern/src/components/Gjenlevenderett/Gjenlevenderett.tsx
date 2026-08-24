@@ -172,7 +172,6 @@ export const Gjenlevenderett = () => {
 		'STRENGT_FORTROLIG_ADRESSE',
 		'STRENGT_FORTROLIG_UTLAND',
 		'FORTROLIG_ADRESSE',
-		'SKJERMING',
 	].includes(epsAarsak)
 
 	useEffect(() => {

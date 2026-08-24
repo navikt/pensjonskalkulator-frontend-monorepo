@@ -139,7 +139,6 @@ export const BeregningForm = () => {
 		'STRENGT_FORTROLIG_ADRESSE',
 		'STRENGT_FORTROLIG_UTLAND',
 		'FORTROLIG_ADRESSE',
-		'SKJERMING',
 	]
 	const hasTilgangsbegrensning = blockingCodes.includes(
 		epsRestrictionCode ?? ''

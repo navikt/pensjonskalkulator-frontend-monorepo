@@ -812,11 +812,6 @@ test.describe('Gjenlevenderett', () => {
 				alertId: 'beregning.gjenlevenderett.fortrolig',
 				label: 'kode 7',
 			},
-			{
-				aarsak: 'SKJERMING',
-				alertId: 'beregning.gjenlevenderett.skjerming',
-				label: 'kode 19',
-			},
 		]) {
 			test(`Skjuler skjemaet og viser kun alert for ${label} (${aarsak})`, async ({
 				page,
@@ -862,6 +857,40 @@ test.describe('Gjenlevenderett', () => {
 				).not.toBeVisible()
 			})
 		}
+
+		test('Viser alert for skjerming (egen ansatt) uten å skjule skjemaet', async ({
+			page,
+		}) => {
+			await mockApiError(page, API_URLS.EPS, 403, {
+				relasjonstype: 'UKJENT',
+				problem: {
+					type: 'TILGANG_NEKTET',
+					beskrivelse: 'Ikke tilgang',
+					tilgangsnekt: { aarsak: 'SKJERMING' },
+				},
+			})
+			await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.skjerming')
+			).toBeVisible()
+
+			await expect(
+				page.getByTestId('beregn-med-gjenlevenderett')
+			).not.toBeDisabled()
+
+			await expect(
+				page.getByTestId('EPS-hent-opplysninger-button')
+			).toBeVisible()
+
+			await fillMainFormFields(page)
+			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
+
+			await expect(page.getByTestId('beregn-med-gjenlevenderett')).toBeChecked()
+		})
 
 		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
 			await mockApiError(page, API_URLS.EPS, 500)
