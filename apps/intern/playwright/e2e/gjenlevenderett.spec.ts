@@ -858,39 +858,57 @@ test.describe('Gjenlevenderett', () => {
 			})
 		}
 
-		test('Viser alert for skjerming (egen ansatt) uten å skjule skjemaet', async ({
-			page,
-		}) => {
-			await mockApiError(page, API_URLS.EPS, 403, {
-				relasjonstype: 'UKJENT',
-				problem: {
-					type: 'TILGANG_NEKTET',
-					beskrivelse: 'Ikke tilgang',
-					tilgangsnekt: { aarsak: 'SKJERMING' },
-				},
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'SKJERMING',
+				alertId: 'beregning.gjenlevenderett.skjerming',
+				label: 'egen ansatt',
+			},
+			{
+				aarsak: 'HABILITET',
+				alertId: 'beregning.gjenlevenderett.habilitet',
+				label: 'egne data / egen familie',
+			},
+			{
+				aarsak: 'VERGEMAAL',
+				alertId: 'beregning.gjenlevenderett.verge',
+				label: 'verge',
+			},
+		]) {
+			test(`Viser alert for ${label} (${aarsak}) uten å skjule skjemaet`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+				await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).not.toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await fillMainFormFields(page)
+				await page.getByRole('button', { name: 'Beregn pensjon' }).click()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeChecked()
 			})
-			await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
-
-			await checkGjenlevenderett(page)
-			await selectBakgrunnAndFetch(page)
-
-			await expect(
-				page.getByTestId('beregning.gjenlevenderett.skjerming')
-			).toBeVisible()
-
-			await expect(
-				page.getByTestId('beregn-med-gjenlevenderett')
-			).not.toBeDisabled()
-
-			await expect(
-				page.getByTestId('EPS-hent-opplysninger-button')
-			).toBeVisible()
-
-			await fillMainFormFields(page)
-			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
-
-			await expect(page.getByTestId('beregn-med-gjenlevenderett')).toBeChecked()
-		})
+		}
 
 		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
 			await mockApiError(page, API_URLS.EPS, 500)

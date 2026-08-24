@@ -255,17 +255,19 @@ export const Gjenlevenderett = () => {
 							className={styles.sanityAlert}
 						/>
 					)}
-					{!isEPSLoading && !formEpsOpplysninger && !skjulSkjemaForTilgang && (
-						<Button
-							variant="secondary"
-							onClick={handleHentEPSOpplysninger}
-							className={styles.epsSubmitButton}
-							data-testid="EPS-hent-opplysninger-button"
-							size="small"
-						>
-							{EPSButtonText}
-						</Button>
-					)}
+					{!isEPSLoading &&
+						!formEpsOpplysninger &&
+						!tilgangsbegrensningAlertId && (
+							<Button
+								variant="secondary"
+								onClick={handleHentEPSOpplysninger}
+								className={styles.epsSubmitButton}
+								data-testid="EPS-hent-opplysninger-button"
+								size="small"
+							>
+								{EPSButtonText}
+							</Button>
+						)}
 					{harHentetError && (
 						<ErrorMessage
 							size="small"

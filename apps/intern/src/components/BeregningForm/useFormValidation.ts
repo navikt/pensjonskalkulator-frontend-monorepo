@@ -79,6 +79,15 @@ function validateGjenlevenderett(
 		return
 	}
 
+	const nonBlockingTilgangCodes = ['SKJERMING', 'HABILITET', 'VERGEMAAL']
+	const hasNonBlockingTilgang = nonBlockingTilgangCodes.includes(
+		formData.epsTilgangNektAarsak ?? ''
+	)
+
+	if (hasNonBlockingTilgang) {
+		return
+	}
+
 	if (formData.bakgrunnForBrukAvOpplysningerOmEPS === null) {
 		errors.bakgrunnForBrukAvOpplysningerOmEPS =
 			'Velg grunnlag for å hente opplysninger om EPS.'
