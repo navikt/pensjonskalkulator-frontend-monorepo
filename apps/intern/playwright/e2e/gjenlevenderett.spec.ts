@@ -909,9 +909,7 @@ test.describe('Gjenlevenderett', () => {
 				).toBeChecked()
 
 				await expect(
-					page.getByText(
-						'Ingen tilgang til EPS. Beregn alderspensjon uten gjenlevenderett.'
-					)
+					page.getByRole('button', { name: 'Beregn pensjon' })
 				).toBeVisible()
 			})
 		}

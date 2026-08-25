@@ -99,6 +99,7 @@ export interface ValidationErrors {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
 	epsMedlemAvFolketrygdenVedDoedsDato?: string
 	epsRegistretSomFlykting?: string
+	epsTilgangNektAarsak?: string
 	harOppholdUtenforNorge?: string
 	utenlandsOpphold?: string
 	afp?: string
