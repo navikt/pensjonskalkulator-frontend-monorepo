@@ -547,7 +547,7 @@ export const BeregningForm = () => {
 							<RHFTextField
 								name="aarligInntektFoerUttakBeloep"
 								testId="inntekt-foer-uttak"
-								label="Pensjonsgivende årsinntekt frem til uttak"
+								label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 								description={
 									initialInntektAar
 										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
@@ -628,7 +628,7 @@ export const BeregningForm = () => {
 											}) && (
 												<RHFTextField
 													name="pensjonsgivendeInntektFremTilUttak"
-													label="Pensjonsgivende årsinntekt frem til uttak"
+													label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 												/>
 											)}
 										</>
