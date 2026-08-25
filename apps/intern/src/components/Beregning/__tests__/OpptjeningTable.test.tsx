@@ -303,4 +303,19 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		expect(rows.find((r) => r.aar === 2013)).toBeUndefined()
 		expect(rows[0].aar).toBe(2012)
 	})
+
+	test('skjuler pensjonsbeholdning for serviceberegning selv for kap20', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningSimulering}
+				erFoedtEtter1963={true}
+				erOvergangskull={false}
+				erServiceberegning={true}
+			/>
+		)
+
+		expect(
+			screen.queryByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
+		).not.toBeInTheDocument()
+	})
 })

@@ -99,7 +99,7 @@ export const Beregning = () => {
 			role="status"
 			aria-live="polite"
 			aria-atomic="true"
-			className={isLoading ? styles.overlayLoader : "srOnly"}
+			className={isLoading ? styles.overlayLoader : 'srOnly'}
 		>
 			{isLoading && (
 				<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
@@ -493,6 +493,7 @@ export const Beregning = () => {
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={false}
 									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+									erServiceberegning={erServiceberegning}
 								/>
 
 								{opptjeningAvdoed && (
@@ -502,6 +503,7 @@ export const Beregning = () => {
 										erFoedtEtter1963={erFoedtEtter1963}
 										isOpptjeningAvdoedSection={true}
 										ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+										erServiceberegning={erServiceberegning}
 									/>
 								)}
 							</VStack>
