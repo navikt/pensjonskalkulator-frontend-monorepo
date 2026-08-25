@@ -83,7 +83,7 @@ function validateGjenlevenderett(
 	if (
 		NON_BLOCKING_TILGANG_CODES.includes(formData.epsTilgangNektAarsak ?? '')
 	) {
-		errors.beregnMedGjenlevenderett =
+		errors.harHentetEPSOpplysninger =
 			'Ingen tilgang til EPS. Beregn alderspensjon uten gjenlevenderett.'
 		return
 	}

@@ -875,7 +875,7 @@ test.describe('Gjenlevenderett', () => {
 				label: 'verge',
 			},
 		]) {
-			test(`Viser alert for ${label} (${aarsak}) uten å skjule skjemaet`, async ({
+			test(`Viser alert for ${label} (${aarsak}) uten å skjule skjemaet og blokkerer innsending`, async ({
 				page,
 			}) => {
 				await mockApiError(page, API_URLS.EPS, 403, {
@@ -907,6 +907,12 @@ test.describe('Gjenlevenderett', () => {
 				await expect(
 					page.getByTestId('beregn-med-gjenlevenderett')
 				).toBeChecked()
+
+				await expect(
+					page.getByText(
+						'Ingen tilgang til EPS. Beregn alderspensjon uten gjenlevenderett.'
+					)
+				).toBeVisible()
 			})
 		}
 
