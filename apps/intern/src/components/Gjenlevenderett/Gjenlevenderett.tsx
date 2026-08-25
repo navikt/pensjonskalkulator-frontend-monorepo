@@ -11,6 +11,7 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
+import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
 	EpsError,
 	useEPSOpplysningerQuery,
@@ -168,11 +169,7 @@ export const Gjenlevenderett = () => {
 
 	const tilgangsbegrensningAlertId = epsAccessAlertMap[epsAarsak]
 
-	const skjulSkjemaForTilgang = [
-		'STRENGT_FORTROLIG_ADRESSE',
-		'STRENGT_FORTROLIG_UTLAND',
-		'FORTROLIG_ADRESSE',
-	].includes(epsAarsak)
+	const skjulSkjemaForTilgang = BLOCKING_TILGANG_CODES.includes(epsAarsak)
 
 	useEffect(() => {
 		form.setValue('epsTilgangNektAarsak', epsAarsak || undefined, {

@@ -4,6 +4,18 @@ import type {
 	Sivilstatus,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
+export const BLOCKING_TILGANG_CODES: string[] = [
+	'STRENGT_FORTROLIG_ADRESSE',
+	'STRENGT_FORTROLIG_UTLAND',
+	'FORTROLIG_ADRESSE',
+]
+
+export const NON_BLOCKING_TILGANG_CODES: string[] = [
+	'SKJERMING',
+	'HABILITET',
+	'VERGEMAAL',
+]
+
 export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
 	| 'DOEDSFALL_REGISTRERT'

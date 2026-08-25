@@ -16,6 +16,7 @@ import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
+import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
 	getPartnerBetegnelse,
@@ -135,12 +136,7 @@ export const BeregningForm = () => {
 
 	const epsRestrictionCode =
 		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
-	const blockingCodes: string[] = [
-		'STRENGT_FORTROLIG_ADRESSE',
-		'STRENGT_FORTROLIG_UTLAND',
-		'FORTROLIG_ADRESSE',
-	]
-	const hasTilgangsbegrensning = blockingCodes.includes(
+	const hasTilgangsbegrensning = BLOCKING_TILGANG_CODES.includes(
 		epsRestrictionCode ?? ''
 	)
 

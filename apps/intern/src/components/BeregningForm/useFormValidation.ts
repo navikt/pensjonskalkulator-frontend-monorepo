@@ -5,9 +5,10 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
-import type {
-	BeregningFormData,
-	ValidationErrors,
+import {
+	type BeregningFormData,
+	NON_BLOCKING_TILGANG_CODES,
+	type ValidationErrors,
 } from '../../api/beregningTypes'
 import {
 	harPartner,
@@ -79,12 +80,11 @@ function validateGjenlevenderett(
 		return
 	}
 
-	const nonBlockingTilgangCodes = ['SKJERMING', 'HABILITET', 'VERGEMAAL']
-	const hasNonBlockingTilgang = nonBlockingTilgangCodes.includes(
-		formData.epsTilgangNektAarsak ?? ''
-	)
-
-	if (hasNonBlockingTilgang) {
+	if (
+		NON_BLOCKING_TILGANG_CODES.includes(formData.epsTilgangNektAarsak ?? '')
+	) {
+		errors.beregnMedGjenlevenderett =
+			'Ingen tilgang til EPS. Beregn alderspensjon uten gjenlevenderett.'
 		return
 	}
 
