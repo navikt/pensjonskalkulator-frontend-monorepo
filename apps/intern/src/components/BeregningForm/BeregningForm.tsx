@@ -467,11 +467,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{erEndring && serviceBeregning && sivilstatusVisible && (
-					<Divider noMargin />
-				)}
-
-				{!erEndring && (
+				{(!erEndring || serviceBeregning) && (
 					<>
 						<Divider noMargin />
 						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />

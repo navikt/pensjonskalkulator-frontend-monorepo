@@ -99,7 +99,7 @@ export const Beregning = () => {
 			role="status"
 			aria-live="polite"
 			aria-atomic="true"
-			className={isLoading ? styles.overlayLoader : "srOnly"}
+			className={isLoading ? styles.overlayLoader : 'srOnly'}
 		>
 			{isLoading && (
 				<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />

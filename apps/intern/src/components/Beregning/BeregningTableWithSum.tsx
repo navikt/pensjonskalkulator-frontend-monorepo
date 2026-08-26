@@ -1,4 +1,4 @@
-import { BodyShort, Label, Table } from '@navikt/ds-react'
+import { BodyShort, Box, Label, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
@@ -64,49 +64,51 @@ export const BeregningTableWithSum = ({
 	const sum =
 		computeRowsSum(validRows, visAarsbelop) + (addToSum > 0 ? addToSum : 0)
 	return (
-		<Table
-			zebraStripes={validRows.length > 2}
-			size="small"
-			className={styles.table}
-		>
-			<Table.Header>
-				<Table.Row className={styles.headerRow}>
-					<Table.HeaderCell>
-						<Label style={{ whiteSpace: 'nowrap' }} size="small">
-							{title}
-						</Label>
-					</Table.HeaderCell>
-					<Table.HeaderCell align="right">
-						<Label style={{ whiteSpace: 'nowrap' }} size="small">
-							{valueHeader}
-						</Label>
-					</Table.HeaderCell>
-				</Table.Row>
-			</Table.Header>
-			<Table.Body>
-				{validRows.map((row) => (
-					<Table.Row key={row.label + title}>
+		<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
+			<Table
+				zebraStripes={validRows.length > 2}
+				size="small"
+				className={styles.table}
+			>
+				<Table.Header>
+					<Table.Row className={styles.headerRow}>
+						<Table.HeaderCell>
+							<Label style={{ whiteSpace: 'nowrap' }} size="small">
+								{title}
+							</Label>
+						</Table.HeaderCell>
+						<Table.HeaderCell align="right">
+							<Label style={{ whiteSpace: 'nowrap' }} size="small">
+								{valueHeader}
+							</Label>
+						</Table.HeaderCell>
+					</Table.Row>
+				</Table.Header>
+				<Table.Body>
+					{validRows.map((row) => (
+						<Table.Row key={row.label + title}>
+							<Table.DataCell>
+								<BodyShort size="small">{row.label}</BodyShort>
+							</Table.DataCell>
+							<Table.DataCell align="right">
+								<BodyShort size="small">
+									{row.unit
+										? `${formatKroner(value(row))} ${row.unit}`
+										: formatKroner(value(row))}
+								</BodyShort>
+							</Table.DataCell>
+						</Table.Row>
+					))}
+					<Table.Row>
 						<Table.DataCell>
-							<BodyShort size="small">{row.label}</BodyShort>
+							<Label size="small">{sumLabel}</Label>
 						</Table.DataCell>
 						<Table.DataCell align="right">
-							<BodyShort size="small">
-								{row.unit
-									? `${formatKroner(value(row))} ${row.unit}`
-									: formatKroner(value(row))}
-							</BodyShort>
+							<Label size="small">{formatKroner(sum)}</Label>
 						</Table.DataCell>
 					</Table.Row>
-				))}
-				<Table.Row>
-					<Table.DataCell>
-						<Label size="small">{sumLabel}</Label>
-					</Table.DataCell>
-					<Table.DataCell align="right">
-						<Label size="small">{formatKroner(sum)}</Label>
-					</Table.DataCell>
-				</Table.Row>
-			</Table.Body>
-		</Table>
+				</Table.Body>
+			</Table>
+		</Box>
 	)
 }
