@@ -9,9 +9,6 @@
 	width: 100%;
 }
 
-.dateFieldWrapper {
-	flex-shrink: 0;
-}
 
 .radioFieldWrapper {
 	flex-shrink: 1;
