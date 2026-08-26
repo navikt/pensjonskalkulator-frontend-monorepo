@@ -386,7 +386,7 @@
 							"_key": "2d295fb501c3",
 							"_type": "span",
 							"marks": [],
-							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge."
+							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge. Du kan beregne alderspensjon uten gjenlevenderett i stedet."
 						}
 					],
 					"markDefs": [],
@@ -408,7 +408,7 @@
 							"_key": "825d7494023e",
 							"_type": "span",
 							"marks": [],
-							"text": "Du har ikke tilgang til data om deg selv eller dine nærstående."
+							"text": "Du har ikke tilgang til data om deg selv eller dine nærstående. Du kan beregne alderspensjon uten gjenlevenderett i stedet."
 						}
 					],
 					"markDefs": [],
@@ -430,7 +430,7 @@
 							"_key": "e100ffab10df",
 							"_type": "span",
 							"marks": [],
-							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge."
+							"text": "Du har ikke tilgang fordi du er registrert som brukerens verge. Du kan beregne alderspensjon uten gjenlevenderett i stedet."
 						}
 					],
 					"markDefs": [],
@@ -518,7 +518,7 @@
 							"_key": "0943bdf532a1",
 							"_type": "span",
 							"marks": [],
-							"text": "Du har ikke tilgang til Nav-ansatte og deres nærmeste familie."
+							"text": "Du har ikke tilgang til Nav-ansatte og deres nærmeste familie. Du kan beregne alderspensjon uten gjenlevenderett i stedet."
 						}
 					],
 					"markDefs": [],
