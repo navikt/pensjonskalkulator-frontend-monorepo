@@ -74,6 +74,7 @@ interface OpptjeningTableProps {
 	erFoedtEtter1963?: boolean | null
 	isOpptjeningAvdoedSection?: boolean
 	ufoeretrygdgrad?: number | null
+	erServiceberegning?: boolean
 }
 
 export function mapOpptjeningToTableRows(
@@ -110,9 +111,12 @@ export function OpptjeningTable({
 	erFoedtEtter1963,
 	isOpptjeningAvdoedSection,
 	ufoeretrygdgrad,
+	erServiceberegning,
 }: OpptjeningTableProps) {
 	const showPensjonsbeholdning =
-		!isOpptjeningAvdoedSection && Boolean(erFoedtEtter1963 || erOvergangskull)
+		!isOpptjeningAvdoedSection &&
+		!erServiceberegning &&
+		Boolean(erFoedtEtter1963 || erOvergangskull)
 	const showPensjonspoeng = !erFoedtEtter1963 || erOvergangskull
 	const rows = mapOpptjeningToTableRows(
 		opptjening,

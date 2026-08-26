@@ -484,36 +484,7 @@ export const BeregningForm = () => {
 							/>
 						)}
 
-						{showFremtidigAlderspensjonAlert && (
-							<SanityAlert
-								id="beregning.fremtidigAlderspensjon"
-								className={styles.sanityAlert}
-								dynamicValues={{
-									grad: String(fremtidigAlderspensjon?.grad ?? 100),
-									vedtakDato: fremtidigAlderspensjon
-										? format(
-												parseISO(fremtidigAlderspensjon.fom),
-												DATE_ENDUSER_FORMAT
-											)
-										: '',
-									tidligstEndringDato: fremtidigAlderspensjon
-										? format(
-												fremtidigAlderspensjon.grad === 0 &&
-													afp === 'ja_offentlig'
-													? parseISO(fremtidigAlderspensjon.fom)
-													: addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
-												DATE_ENDUSER_FORMAT
-											)
-										: '',
-								}}
-							/>
-						)}
-
-						{erEndring && serviceBeregning && sivilstatusVisible && (
-							<Divider noMargin />
-						)}
-
-						{!erEndring && (
+						{(!erEndring || serviceBeregning) && (
 							<>
 								<Divider noMargin />
 								<UtenlandsOpphold
@@ -591,12 +562,40 @@ export const BeregningForm = () => {
 									<RHFTextField
 										name="aarligInntektFoerUttakBeloep"
 										testId="inntekt-foer-uttak"
-										label="Pensjonsgivende årsinntekt frem til uttak"
+										label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 										description={
 											initialInntektAar
 												? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
 												: undefined
 										}
+									/>
+								)}
+
+								{showFremtidigAlderspensjonAlert && (
+									<SanityAlert
+										id="beregning.fremtidigAlderspensjon"
+										className={styles.sanityAlert}
+										dynamicValues={{
+											grad: String(fremtidigAlderspensjon?.grad ?? 100),
+											vedtakDato: fremtidigAlderspensjon
+												? format(
+														parseISO(fremtidigAlderspensjon.fom),
+														DATE_ENDUSER_FORMAT
+													)
+												: '',
+											tidligstEndringDato: fremtidigAlderspensjon
+												? format(
+														fremtidigAlderspensjon.grad === 0 &&
+															afp === 'ja_offentlig'
+															? parseISO(fremtidigAlderspensjon.fom)
+															: addMonths(
+																	parseISO(fremtidigAlderspensjon.fom),
+																	1
+																),
+														DATE_ENDUSER_FORMAT
+													)
+												: '',
+										}}
 									/>
 								)}
 
