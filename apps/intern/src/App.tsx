@@ -160,7 +160,7 @@ const AppContent = () => {
 		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
-	if (
+	const isAppLoading =
 		isDecrypting ||
 		isLoadingPerson ||
 		isLoadingVedtak ||
@@ -168,8 +168,13 @@ const AppContent = () => {
 		isLoadingOmstilling ||
 		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
-	) {
-		return <Loader size="xlarge" title="Henter brukerdata..." />
+
+	if (isAppLoading) {
+		return (
+			<div role="status" aria-live="polite">
+				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			</div>
+		)
 	}
 
 	if (visLagreBrevButton) {
