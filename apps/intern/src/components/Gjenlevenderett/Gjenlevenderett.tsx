@@ -6,6 +6,7 @@ import {
 	BodyLong,
 	Button,
 	ErrorMessage,
+	Heading,
 	Loader,
 	LocalAlert,
 	VStack,
@@ -280,6 +281,9 @@ export const Gjenlevenderett = () => {
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
 						/>
 					)}
+					<Heading level="3" size="small" visuallyHidden>
+						Opplysninger om gjenlevende
+					</Heading>
 				</div>
 			)}
 		</>
