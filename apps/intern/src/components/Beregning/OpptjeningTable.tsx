@@ -3,7 +3,7 @@ import type {
 	OpptjeningAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import { BodyShort, Heading, Table } from '@navikt/ds-react'
+import { BodyShort, Box, Heading, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
@@ -137,70 +137,74 @@ export function OpptjeningTable({
 			<Heading level="3" size="small" spacing>
 				{title}
 			</Heading>
-			<Table
-				zebraStripes={rows.length > 3}
-				size="small"
-				className={`${styles.table} ${styles.opptjeningTable}`}
-			>
-				<Table.Header>
-					<Table.Row className={styles.headerRow}>
-						<Table.HeaderCell>
-							<BodyShort size="small" weight="semibold">
-								År
-							</BodyShort>
-						</Table.HeaderCell>
-						<Table.HeaderCell align="right">
-							<BodyShort size="small" weight="semibold">
-								Pensjonsgivende inntekt (kr)
-							</BodyShort>
-						</Table.HeaderCell>
-						{showPensjonspoeng && (
-							<Table.HeaderCell align="right">
+			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
+				<Table
+					zebraStripes={rows.length > 3}
+					size="small"
+					className={`${styles.table} ${styles.opptjeningTable}`}
+				>
+					<Table.Header>
+						<Table.Row className={styles.headerRow}>
+							<Table.HeaderCell>
 								<BodyShort size="small" weight="semibold">
-									Pensjonspoeng
+									År
 								</BodyShort>
 							</Table.HeaderCell>
-						)}
-						{showPensjonsbeholdning && (
 							<Table.HeaderCell align="right">
 								<BodyShort size="small" weight="semibold">
-									Pensjonsbeholdning (kr)
+									Pensjonsgivende inntekt (kr)
 								</BodyShort>
 							</Table.HeaderCell>
-						)}
-						<Table.HeaderCell>
-							<BodyShort size="small" weight="semibold">
-								Merknad
-							</BodyShort>
-						</Table.HeaderCell>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{rows.map((row) => (
-						<Table.Row key={row.aar}>
-							<Table.DataCell>
-								<BodyShort size="small">{row.aar}</BodyShort>
-							</Table.DataCell>
-							<Table.DataCell align="right">
-								<BodyShort size="small">{row.pensjonsgivendeInntekt}</BodyShort>
-							</Table.DataCell>
 							{showPensjonspoeng && (
-								<Table.DataCell align="right">
-									<BodyShort size="small">{row.pensjonspoeng}</BodyShort>
-								</Table.DataCell>
+								<Table.HeaderCell align="right">
+									<BodyShort size="small" weight="semibold">
+										Pensjonspoeng
+									</BodyShort>
+								</Table.HeaderCell>
 							)}
 							{showPensjonsbeholdning && (
-								<Table.DataCell align="right">
-									<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
-								</Table.DataCell>
+								<Table.HeaderCell align="right">
+									<BodyShort size="small" weight="semibold">
+										Pensjonsbeholdning (kr)
+									</BodyShort>
+								</Table.HeaderCell>
 							)}
-							<Table.DataCell data-testid={`merknad-${row.aar}`}>
-								<BodyShort size="small">{row.merknad}</BodyShort>
-							</Table.DataCell>
+							<Table.HeaderCell>
+								<BodyShort size="small" weight="semibold">
+									Merknad
+								</BodyShort>
+							</Table.HeaderCell>
 						</Table.Row>
-					))}
-				</Table.Body>
-			</Table>
+					</Table.Header>
+					<Table.Body>
+						{rows.map((row) => (
+							<Table.Row key={row.aar}>
+								<Table.DataCell>
+									<BodyShort size="small">{row.aar}</BodyShort>
+								</Table.DataCell>
+								<Table.DataCell align="right">
+									<BodyShort size="small">
+										{row.pensjonsgivendeInntekt}
+									</BodyShort>
+								</Table.DataCell>
+								{showPensjonspoeng && (
+									<Table.DataCell align="right">
+										<BodyShort size="small">{row.pensjonspoeng}</BodyShort>
+									</Table.DataCell>
+								)}
+								{showPensjonsbeholdning && (
+									<Table.DataCell align="right">
+										<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
+									</Table.DataCell>
+								)}
+								<Table.DataCell data-testid={`merknad-${row.aar}`}>
+									<BodyShort size="small">{row.merknad}</BodyShort>
+								</Table.DataCell>
+							</Table.Row>
+						))}
+					</Table.Body>
+				</Table>
+			</Box>
 		</div>
 	)
 }
