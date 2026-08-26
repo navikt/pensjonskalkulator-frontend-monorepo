@@ -290,26 +290,20 @@ export function mapServiceAfpOpptjeningRows(
 					: '',
 		},
 		{
-			label: 'Poengår',
-			value: poengaar != null ? `${poengaar} år` : '',
-		},
-		{
 			label: 'Trygdetid',
 			value: entry.trygdetid != null ? `${entry.trygdetid} år` : '',
 		},
 		{
+			label: 'Poengår',
+			value: poengaar != null ? `${poengaar} år` : '',
+		},
+		{
 			label: 'Poengår før 1992 (45 %)',
-			value:
-				poengaarF92 != null && poengaar != null
-					? `${poengaarF92} av ${poengaar} år`
-					: '',
+			value: poengaarF92 != null ? `${poengaarF92} år` : '',
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value:
-				poengaarE91 != null && poengaar != null
-					? `${poengaarE91} av ${poengaar} år`
-					: '',
+			value: poengaarE91 != null ? `${poengaarE91} år` : '',
 		},
 	]
 }
@@ -324,32 +318,32 @@ export function mapTidsbegrensetAfpOpptjeningToRows(
 			value: `${entry.afpGrad} %`,
 		},
 		{
-			label: 'Grunnbeløp (G)',
-			value: formatKr(entry.grunnbeloep),
-		},
-		{
 			label: 'Tidligere arbeidsinntekt',
 			value: formatKr(entry.tidligereArbeidsinntekt),
+		},
+		{
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbeloep),
 		},
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(entry.sluttpoengtall, 2),
 		},
 		{
-			label: 'Poengår',
-			value: `${totalPoengaar} år`,
-		},
-		{
 			label: 'Trygdetid',
 			value: formatAar(entry.trygdetid),
 		},
 		{
+			label: 'Poengår',
+			value: `${totalPoengaar} år`,
+		},
+		{
 			label: 'Poengår før 1992 (45 %)',
-			value: `${entry.poengaarTom1991} av ${totalPoengaar} år`,
+			value: `${entry.poengaarTom1991} år`,
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: `${entry.poengaarFom1992} av ${totalPoengaar} år`,
+			value: `${entry.poengaarFom1992} år`,
 		},
 	]
 }
