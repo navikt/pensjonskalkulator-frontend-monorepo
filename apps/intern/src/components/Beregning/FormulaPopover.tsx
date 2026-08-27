@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { SquarerootIcon } from '@navikt/aksel-icons'
 import { Popover } from '@navikt/ds-react'
+
+import { useFeatureToggleQuery } from '../../api/queries'
 
 import styles from './FormulaPopover.module.css'
 
@@ -9,12 +11,6 @@ export interface Formula {
 	title: string
 	numerator: string[]
 	denominator: string
-}
-
-function formulaToAriaLabel(formula: Formula): string {
-	const numerator = formula.numerator.join(' ')
-	if (!formula.denominator) return `${formula.title}: ${numerator}`
-	return `${formula.title}: ${numerator} delt på ${formula.denominator}`
 }
 
 function formulaToCopyText(formula: Formula): string {
@@ -28,38 +24,38 @@ interface FormulaPopoverProps {
 }
 
 export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
+	const { data: formlerToggle } = useFeatureToggleQuery(
+		'internsimulator.vis-formler'
+	)
+
+	if (!formlerToggle?.enabled) return null
+
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
-	const fractionRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
 
-	const numeratorLength = formula.numerator.join('').length
-	const denominatorLength = formula.denominator.length
-	const numeratorIsWider = numeratorLength >= denominatorLength
-
-	const handleClickOutside = useCallback((e: MouseEvent) => {
-		const target = e.target as Node
-		if (
-			popoverRef.current?.contains(target) ||
-			buttonRef.current?.contains(target)
-		) {
-			return
-		}
-		setOpen(false)
-	}, [])
+	const numeratorIsWider =
+		formula.numerator.join('').length >= formula.denominator.length
 
 	useEffect(() => {
-		if (open) {
-			document.addEventListener('mousedown', handleClickOutside)
-			return () => document.removeEventListener('mousedown', handleClickOutside)
-		}
-	}, [open, handleClickOutside])
-
-	useEffect(() => {
-		if (open && popoverRef.current) {
-			popoverRef.current.focus()
-		}
+		if (open) popoverRef.current?.focus()
 	}, [open])
+
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === 'Escape') {
+			setOpen(false)
+			buttonRef.current?.focus()
+		}
+		if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault()
+			navigator.clipboard.writeText(formulaToCopyText(formula))
+		}
+	}
+
+	const handleCopy = (e: React.ClipboardEvent) => {
+		e.preventDefault()
+		e.clipboardData.setData('text/plain', formulaToCopyText(formula))
+	}
 
 	return (
 		<>
@@ -67,7 +63,6 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				ref={buttonRef}
 				type="button"
 				className={styles.formulaButton}
-				aria-label={`Vis formel for ${formula.title}`}
 				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
@@ -77,39 +72,19 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				open={open}
 				anchorEl={buttonRef.current}
 				placement="top"
-				onClose={() => {}}
+				onClose={() => setOpen(false)}
 			>
 				<Popover.Content>
 					<div
 						ref={popoverRef}
 						className={styles.formulaContent}
 						role="math"
-						aria-roledescription="formel"
-						aria-label={formulaToAriaLabel(formula)}
 						tabIndex={-1}
-						onKeyDown={(e) => {
-							if (e.key === 'Escape') {
-								setOpen(false)
-								buttonRef.current?.focus()
-							}
-							if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
-								e.preventDefault()
-								navigator.clipboard.writeText(formulaToCopyText(formula))
-							}
-						}}
-						onCopy={(e) => {
-							e.preventDefault()
-							e.clipboardData.setData('text/plain', formulaToCopyText(formula))
-						}}
+						onKeyDown={handleKeyDown}
+						onCopy={handleCopy}
 					>
-						<span className={styles.formulaTitle} aria-hidden="true">
-							{formula.title}
-						</span>
-						<div
-							ref={fractionRef}
-							className={styles.fraction}
-							aria-hidden="true"
-						>
+						<span className={styles.formulaTitle}>{formula.title}</span>
+						<div className={styles.fraction}>
 							<div
 								className={`${styles.numerator} ${formula.denominator && numeratorIsWider ? styles.numeratorWithDivider : ''}`}
 								style={{

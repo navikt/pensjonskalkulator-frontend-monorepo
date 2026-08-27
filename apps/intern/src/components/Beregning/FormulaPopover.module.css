@@ -8,12 +8,8 @@
 	cursor: pointer;
 	padding: 2px;
 	margin-left: 0.25rem;
-	color: var(--ax-text-neutral-subtle);
+	color: var(--ax-text-accent-subtle);
 	vertical-align: middle;
-}
-
-.formulaButton:hover {
-	color: var(--ax-text-neutral);
 }
 
 .formulaContent {
@@ -35,7 +31,6 @@
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	border-collapse: collapse;
 }
 
 .numerator {
@@ -53,7 +48,7 @@
 	width: 1px;
 	height: 1px;
 	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
 	white-space: nowrap;
 }
 
