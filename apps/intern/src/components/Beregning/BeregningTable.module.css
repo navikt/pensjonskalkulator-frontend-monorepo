@@ -10,6 +10,7 @@
 
 .opptjeningTable {
 	width: 100%;
+	min-width: 800px;
 	table-layout: fixed;
 }
 

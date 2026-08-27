@@ -6,6 +6,7 @@ import {
 	BodyLong,
 	Button,
 	ErrorMessage,
+	Heading,
 	Loader,
 	LocalAlert,
 	VStack,
@@ -171,6 +172,11 @@ export const Gjenlevenderett = () => {
 			})
 		)
 
+	const visOpplysningerInfo =
+		formEpsOpplysninger &&
+		!isEPSInfoEmpty &&
+		(!erBakgrunnDoedsfallRegistrert || harRegistrertDoedsdato)
+
 	return (
 		<>
 			<RHFCheckbox
@@ -180,92 +186,104 @@ export const Gjenlevenderett = () => {
 			/>
 
 			{beregnMedGjenlevenderett && (
-				<div className={styles.gjenlevenderettSection}>
-					<BodyLong
-						size="small"
-						className={styles.opplysningerOmEPSInfo}
-						data-testid="EPS-samtykke-tekst"
-					>
-						For å beregne gjenlevenderett, må opplysninger om
-						ektefelle/partner/samboer (EPS) hentes.
-					</BodyLong>
-					{isEPSLoading && EPSLoader}
-					{!isEPSLoading && !isError && !formEpsOpplysninger && (
-						<RHFRadio
-							name="bakgrunnForBrukAvOpplysningerOmEPS"
-							legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
-							testid="bakgrunn-for-bruk-EPS"
-							gap="space-0"
-							options={[
-								{
-									value: 'DOEDSFALL_REGISTRERT',
-									label: 'Dødsfall er registrert',
-								},
-								{
-									value: 'SAMTYKKE_BEGGE_PARTER',
-									label: 'Henvendelse fra begge parter foreligger',
-								},
-							]}
-						/>
-					)}
-					{isError && EPSError}
-
-					{!isEPSLoading && !formEpsOpplysninger && (
-						<Button
-							variant="secondary"
-							onClick={handleHentEPSOpplysninger}
-							className={styles.epsSubmitButton}
-							data-testid="EPS-hent-opplysninger-button"
-							size="small"
-						>
-							{EPSButtonText}
-						</Button>
-					)}
-					{harHentetError && (
-						<ErrorMessage
-							size="small"
-							showIcon
-							spacing
-							className={styles.customErrorMessage}
-						>
-							{harHentetError}
-						</ErrorMessage>
-					)}
-					{isEPSInfoEmpty && (
-						<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
-							<LocalAlert.Header>
-								<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
-							</LocalAlert.Header>
-							<LocalAlert.Content>
-								Vi fant ikke opplysninger om EPS. Gjenlevenderett kan derfor
-								ikke beregnes. Du kan beregne alderspensjon uten gjenlevenderett
-								i stedet.
-							</LocalAlert.Content>
-						</LocalAlert>
-					)}
-					{formEpsOpplysninger &&
-						!isEPSInfoEmpty &&
-						erBakgrunnDoedsfallRegistrert &&
-						!harRegistrertDoedsdato && (
-							<VStack gap="space-24" align="start">
-								<SanityAlert
-									id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
-									className={styles.doedsfallSanityAlert}
-								/>
-								<Button variant="secondary" size="small" onClick={resetForm}>
-									Start på nytt
-								</Button>
-							</VStack>
+				<div>
+					<div className={styles.gjenlevenderettSection}>
+						{!visOpplysningerInfo && (
+							<BodyLong
+								size="small"
+								className={styles.opplysningerOmEPSInfo}
+								data-testid="EPS-samtykke-tekst"
+							>
+								For å beregne gjenlevenderett, må opplysninger om
+								ektefelle/partner/samboer (EPS) hentes.
+							</BodyLong>
 						)}
-					{formEpsOpplysninger &&
-						!isEPSInfoEmpty &&
-						(!erBakgrunnDoedsfallRegistrert || harRegistrertDoedsdato) && (
-							<OpplysningerInfo
-								EPSOpplysninger={formEpsOpplysninger}
-								vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
-								vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+						{isEPSLoading && EPSLoader}
+						<div
+							role="status"
+							aria-live="polite"
+							aria-atomic="true"
+							className="srOnly"
+						>
+							{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
+						</div>
+						{!isEPSLoading && !isError && !formEpsOpplysninger && (
+							<RHFRadio
+								name="bakgrunnForBrukAvOpplysningerOmEPS"
+								legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
+								testid="bakgrunn-for-bruk-EPS"
+								gap="space-0"
+								options={[
+									{
+										value: 'DOEDSFALL_REGISTRERT',
+										label: 'Dødsfall er registrert',
+									},
+									{
+										value: 'SAMTYKKE_BEGGE_PARTER',
+										label: 'Henvendelse fra begge parter foreligger',
+									},
+								]}
 							/>
 						)}
+						{isError && EPSError}
+						{!isEPSLoading && !formEpsOpplysninger && (
+							<Button
+								variant="secondary"
+								onClick={handleHentEPSOpplysninger}
+								className={styles.epsSubmitButton}
+								data-testid="EPS-hent-opplysninger-button"
+								size="small"
+							>
+								{EPSButtonText}
+							</Button>
+						)}
+						{harHentetError && (
+							<ErrorMessage
+								size="small"
+								showIcon
+								spacing
+								className={styles.customErrorMessage}
+							>
+								{harHentetError}
+							</ErrorMessage>
+						)}
+						{isEPSInfoEmpty && (
+							<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
+								<LocalAlert.Header>
+									<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
+								</LocalAlert.Header>
+								<LocalAlert.Content>
+									Vi fant ikke opplysninger om EPS. Gjenlevenderett kan derfor
+									ikke beregnes. Du kan beregne alderspensjon uten
+									gjenlevenderett i stedet.
+								</LocalAlert.Content>
+							</LocalAlert>
+						)}
+						{formEpsOpplysninger &&
+							!isEPSInfoEmpty &&
+							erBakgrunnDoedsfallRegistrert &&
+							!harRegistrertDoedsdato && (
+								<VStack gap="space-16" align="start">
+									<SanityAlert
+										id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
+										className={styles.doedsfallSanityAlert}
+									/>
+									<Button variant="secondary" size="small" onClick={resetForm}>
+										Start på nytt
+									</Button>
+								</VStack>
+							)}
+					</div>
+					{visOpplysningerInfo && (
+						<OpplysningerInfo
+							EPSOpplysninger={formEpsOpplysninger}
+							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
+							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+						/>
+					)}
+					<Heading level="3" size="small" visuallyHidden>
+						Opplysninger om gjenlevende
+					</Heading>
 				</div>
 			)}
 		</>

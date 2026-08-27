@@ -47,6 +47,7 @@ import {
 } from './rhf-adapters'
 import { useFormValidation } from './useFormValidation'
 import {
+	getAlderForAfpEndring,
 	getForTidligEndringAvUttaksgradDato,
 	getUttaksGradArray,
 	showBeregnMedGjenlevenderett,
@@ -148,6 +149,17 @@ export const BeregningForm = () => {
 		if (afp === 'serviceberegning' && newAfpValue !== 'serviceberegning') {
 			form.setValue('alderAarUttak', null, { shouldDirty: false })
 			form.setValue('alderMdUttak', null, { shouldDirty: false })
+		}
+
+		const alderForAfp = getAlderForAfpEndring({
+			newAfpValue,
+			alderAarUttak,
+			foedselsdato: person?.foedselsdato,
+		})
+
+		if (alderForAfp) {
+			form.setValue('alderAarUttak', alderForAfp.aar, { shouldDirty: true })
+			form.setValue('alderMdUttak', alderForAfp.md, { shouldDirty: true })
 		}
 	}
 
@@ -282,6 +294,7 @@ export const BeregningForm = () => {
 	useEffect(() => {
 		setShowFremtidigAlderspensjonAlert(
 			Boolean(
+				afp !== 'serviceberegning' &&
 				vedtak?.loependeAlderspensjon &&
 				fremtidigAlderspensjon &&
 				person?.foedselsdato !== undefined &&
@@ -290,10 +303,14 @@ export const BeregningForm = () => {
 				calculateUttaksalderAsDate(
 					{ aar: alderAarUttak, maaneder: alderMdUttak },
 					person.foedselsdato
-				) < addMonths(parseISO(fremtidigAlderspensjon.fom), 1)
+				) <
+					(fremtidigAlderspensjon.grad === 0 && afp === 'ja_offentlig'
+						? parseISO(fremtidigAlderspensjon.fom)
+						: addMonths(parseISO(fremtidigAlderspensjon.fom), 1))
 			)
 		)
 	}, [
+		afp,
 		fremtidigAlderspensjon,
 		person?.foedselsdato,
 		alderAarUttak,
@@ -450,11 +467,7 @@ export const BeregningForm = () => {
 					/>
 				)}
 
-				{erEndring && serviceBeregning && sivilstatusVisible && (
-					<Divider noMargin />
-				)}
-
-				{!erEndring && (
+				{(!erEndring || serviceBeregning) && (
 					<>
 						<Divider noMargin />
 						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
@@ -530,7 +543,7 @@ export const BeregningForm = () => {
 							<RHFTextField
 								name="aarligInntektFoerUttakBeloep"
 								testId="inntekt-foer-uttak"
-								label="Pensjonsgivende årsinntekt frem til uttak"
+								label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 								description={
 									initialInntektAar
 										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
@@ -545,9 +558,18 @@ export const BeregningForm = () => {
 								className={styles.sanityAlert}
 								dynamicValues={{
 									grad: String(fremtidigAlderspensjon?.grad ?? 100),
-									alder: fremtidigAlderspensjon
+									vedtakDato: fremtidigAlderspensjon
 										? format(
-												addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
+												parseISO(fremtidigAlderspensjon.fom),
+												DATE_ENDUSER_FORMAT
+											)
+										: '',
+									tidligstEndringDato: fremtidigAlderspensjon
+										? format(
+												fremtidigAlderspensjon.grad === 0 &&
+													afp === 'ja_offentlig'
+													? parseISO(fremtidigAlderspensjon.fom)
+													: addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
 												DATE_ENDUSER_FORMAT
 											)
 										: '',
@@ -602,7 +624,7 @@ export const BeregningForm = () => {
 											}) && (
 												<RHFTextField
 													name="pensjonsgivendeInntektFremTilUttak"
-													label="Pensjonsgivende årsinntekt frem til uttak"
+													label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 												/>
 											)}
 										</>

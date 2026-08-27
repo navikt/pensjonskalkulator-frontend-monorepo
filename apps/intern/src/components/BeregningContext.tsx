@@ -151,7 +151,7 @@ export function BeregningProvider({
 	})
 
 	const skalBeregneAfpKap19 =
-		afp === 'ja_offentlig' &&
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		!!person?.foedselsdato &&
 		erKap19EllerApoteker(person.foedselsdato, !!erApoteker)
 

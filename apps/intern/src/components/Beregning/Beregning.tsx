@@ -1,4 +1,5 @@
 import {
+	SanityContext,
 	SanityKortforbehold,
 	SanityVilkaarligForbehold,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
@@ -10,7 +11,7 @@ import {
 	calculateUttaksalderAsDate,
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
 
@@ -27,6 +28,7 @@ import {
 import { formatEndUserDate } from '../../utils/dates'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { selectByUttakAlder } from '../../utils/selectByUttakAlder'
+import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
 import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { Divider } from '../Divider/Divider'
@@ -54,6 +56,7 @@ export const Beregning = () => {
 		enhetsid,
 		submitBeregning,
 	} = useBeregningContext()
+	const { isSanityLoading } = useContext(SanityContext)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
@@ -71,6 +74,11 @@ export const Beregning = () => {
 	const [activeTab, setActiveTab] = useState('beregning')
 	const [visAarsbelop, setVisAarsbelop] = useState(false)
 
+	const { reset: resetLagreSimulering } = lagreSimulering
+	useEffect(() => {
+		resetLagreSimulering()
+	}, [aktivBeregning, resetLagreSimulering])
+
 	const skalBeregneAfpKap19 =
 		aktivBeregning?.afp === 'ja_offentlig' &&
 		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
@@ -84,6 +92,21 @@ export const Beregning = () => {
 	const { data: opptjeningAvdoed, isLoading: isOpptjeningLoading } =
 		useOpptjeningQueryForAvdoed(avdoedPid)
 
+	const isLoading = isBeregningLoading || isOpptjeningLoading || isSanityLoading
+
+	const loadingOverlay = (
+		<div
+			role="status"
+			aria-live="polite"
+			aria-atomic="true"
+			className={isLoading ? styles.overlayLoader : 'srOnly'}
+		>
+			{isLoading && (
+				<Loader size="3xlarge" title="Vent litt mens vi beregner pensjon." />
+			)}
+		</div>
+	)
+
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
 	if (!hasBeregning) {
@@ -91,21 +114,18 @@ export const Beregning = () => {
 			<Box
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
-				className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+				position="relative"
+				className={styles.beregning}
 				data-testid="beregning-result"
 			>
-				{isBeregningLoading && (
-					<div className={styles.overlayLoader}>
-						<Loader size="3xlarge" title="Beregner pensjon …" />
-					</div>
-				)}
+				{loadingOverlay}
 				{beregningError ? (
 					<SimuleringFeil
 						message={beregningError.message}
 						onRetry={submitBeregning}
 					/>
 				) : (
-					<BodyLong>Ingen beregning enda.</BodyLong>
+					!isBeregningLoading && <BodyLong>Ingen beregning enda.</BodyLong>
 				)}
 			</Box>
 		)
@@ -340,173 +360,171 @@ export const Beregning = () => {
 		<Box
 			borderColor="neutral-subtle"
 			borderWidth="0 0 0 1"
-			position="relative"
-			className={`${styles.beregning} ${isBeregningLoading ? styles.loadingOverlay : ''}`}
+			className={styles.beregning}
 			data-testid="beregning-result"
 		>
-			{beregningError && (
-				<SimuleringFeil
-					message={beregningError.message}
-					onRetry={submitBeregning}
-				/>
-			)}
-			<Tabs value={activeTab} onChange={setActiveTab} size="small">
-				<Tabs.List>
-					<Tabs.Tab value="beregning" label="Beregning" />
-					{opptjening && <Tabs.Tab value="opptjening" label="Opptjening" />}
-					{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
-				</Tabs.List>
-				<Tabs.Panel value="beregning" className={styles.tabPanel}>
-					{vedtak?.ufoeretrygdgrad && (
-						<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
-							{ufoeretrygdBeregningInfo}
-						</BodyLong>
-					)}
-					<VStack
-						gap="space-32"
-						className={isBeregningLoading ? styles.loadingOverlay : undefined}
-					>
-						{isBeregningLoading && (
-							<div className={styles.overlayLoader}>
-								<Loader size="3xlarge" title="Beregner pensjon …" />
-							</div>
+			{loadingOverlay}
+			<div className={styles.scrollContent}>
+				{beregningError && (
+					<SimuleringFeil
+						message={beregningError.message}
+						onRetry={submitBeregning}
+					/>
+				)}
+				<Tabs value={activeTab} onChange={setActiveTab} size="small">
+					<Tabs.List>
+						<Tabs.Tab value="beregning" label="Beregning" />
+						{opptjening && <Tabs.Tab value="opptjening" label="Opptjening" />}
+						{visForbehold && <Tabs.Tab value="forbehold" label="Forbehold" />}
+					</Tabs.List>
+					<Tabs.Panel value="beregning" className={styles.tabPanel}>
+						{vedtak?.ufoeretrygdgrad && (
+							<BodyLong size="small" spacing data-testid="ufoeretrygd-info">
+								{ufoeretrygdBeregningInfo}
+							</BodyLong>
 						)}
-						{erServiceberegning &&
-							beregning.serviceberegnetAfp?.beregnetAfp && (
-								<ServiceAfpBeregningSection
-									title={titleHeltUttak}
-									entry={beregning.serviceberegnetAfp.beregnetAfp}
-									visAarsbelop={visAarsbelop}
-									showVisAarsbelopCheckbox
-									onVisAarsbelopChange={setVisAarsbelop}
-								/>
-							)}
-						{!erServiceberegning &&
-							harGradertUttakEllerAfpPrivatUtenUttak &&
-							gradertAfpSection}
+						<VStack gap="space-32">
+							{erServiceberegning &&
+								beregning.serviceberegnetAfp?.beregnetAfp && (
+									<ServiceAfpBeregningSection
+										title={titleHeltUttak}
+										entry={beregning.serviceberegnetAfp.beregnetAfp}
+										visAarsbelop={visAarsbelop}
+										showVisAarsbelopCheckbox
+										onVisAarsbelopChange={setVisAarsbelop}
+									/>
+								)}
+							{!erServiceberegning &&
+								harGradertUttakEllerAfpPrivatUtenUttak &&
+								gradertAfpSection}
 
-						{!erServiceberegning &&
-							shouldRenderNormertAfpBeforeHeltSection &&
-							renderNormertAfpSection({
-								testId: 'beregning-section-gradert-67',
-							})}
-						{!erServiceberegning &&
-							skalBeregneAfpKap19 &&
-							beregning.tidsbegrensetOffentligAfp && (
-								<AfpBeregningSection
-									title={titleHeltUttak}
-									tableCount={tableCount}
-									entry={beregning.tidsbegrensetOffentligAfp}
+							{!erServiceberegning &&
+								shouldRenderNormertAfpBeforeHeltSection &&
+								renderNormertAfpSection({
+									testId: 'beregning-section-gradert-67',
+								})}
+							{!erServiceberegning &&
+								skalBeregneAfpKap19 &&
+								beregning.tidsbegrensetOffentligAfp && (
+									<AfpBeregningSection
+										title={titleHeltUttak}
+										tableCount={tableCount}
+										entry={beregning.tidsbegrensetOffentligAfp}
+										visAarsbelop={visAarsbelop}
+										showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
+										onVisAarsbelopChange={setVisAarsbelop}
+									/>
+								)}
+							{!erServiceberegning && (
+								<BeregningSection
+									title={
+										skalBeregneAfpKap19
+											? formatAlderTitle(67, 0, normertUttakDato)
+											: titleHeltUttak
+									}
+									{...sectionCommonProps}
+									entry={
+										skalBeregneAfpKap19
+											? (normertMaanedligAlderspensjon ?? undefined)
+											: (helMaanedligAlderspensjon ?? undefined)
+									}
+									showAfp={harAfpPrivat}
+									afpEntry={afpPrivatVedHeltUttak ?? undefined}
+									visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
+									alderspensjonGrad={100}
 									visAarsbelop={visAarsbelop}
-									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
+									totalAddToSum={
+										(helMaanedligAlderspensjon?.beloep ?? 0) +
+										(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
+									}
+									testId="beregning-section-helt"
+									showVisAarsbelopCheckbox={showCheckboxOnHelt}
+									harGjenlevenderett={harGjenlevenderett}
 									onVisAarsbelopChange={setVisAarsbelop}
 								/>
 							)}
-						{!erServiceberegning && (
-							<BeregningSection
-								title={
-									skalBeregneAfpKap19
-										? formatAlderTitle(67, 0, normertUttakDato)
-										: titleHeltUttak
-								}
-								{...sectionCommonProps}
-								entry={
-									skalBeregneAfpKap19
-										? (normertMaanedligAlderspensjon ?? undefined)
-										: (helMaanedligAlderspensjon ?? undefined)
-								}
-								showAfp={harAfpPrivat}
-								afpEntry={afpPrivatVedHeltUttak ?? undefined}
-								visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-								alderspensjonGrad={100}
-								visAarsbelop={visAarsbelop}
-								totalAddToSum={
-									(helMaanedligAlderspensjon?.beloep ?? 0) +
-									(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-								}
-								testId="beregning-section-helt"
-								showVisAarsbelopCheckbox={showCheckboxOnHelt}
-								harGjenlevenderett={harGjenlevenderett}
-								onVisAarsbelopChange={setVisAarsbelop}
-							/>
-						)}
-						{!erServiceberegning &&
-							shouldRenderNormertAfpAfterHeltSection &&
-							renderNormertAfpSection({ testId: 'beregning-section-helt-67' })}
-					</VStack>
-					<AarligPensjonTable
-						alderspensjonListe={beregning.alderspensjonListe}
-						privatAfpListe={beregning.privatAfpListe}
-						tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
-						serviceberegnetAfp={beregning.serviceberegnetAfp}
-						heltUttakAlder={heltUttakAlder}
-						person={person}
-						aktivBeregning={aktivBeregning}
-					/>
-					<Divider customMargin="32px" />
-					<SanityKortforbehold
-						id="kortforbehold"
-						size="small"
-						className={styles.kortforbehold}
-					/>
-					{visLagreBrevButton && (
-						<Button
-							className={styles.lagreButton}
-							variant="secondary"
+							{!erServiceberegning &&
+								shouldRenderNormertAfpAfterHeltSection &&
+								renderNormertAfpSection({
+									testId: 'beregning-section-helt-67',
+								})}
+						</VStack>
+						<AarligPensjonTable
+							alderspensjonListe={beregning.alderspensjonListe}
+							privatAfpListe={beregning.privatAfpListe}
+							tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+							serviceberegnetAfp={beregning.serviceberegnetAfp}
+							heltUttakAlder={heltUttakAlder}
+							person={person}
+							aktivBeregning={aktivBeregning}
+						/>
+						<Divider customMargin="32px" />
+						<SanityKortforbehold
+							id="kortforbehold"
 							size="small"
-							disabled={!fnr || !enhetsid || lagreSimulering.isPending}
-							loading={lagreSimulering.isPending}
-							onClick={handleLagreSimulering}
-						>
-							Opprett brev
-						</Button>
-					)}
-				</Tabs.Panel>
-				{opptjening && (
-					<Tabs.Panel value="opptjening" className={styles.tabPanel}>
-						<VStack
-							gap="space-32"
-							className={
-								isOpptjeningLoading ? styles.loadingOverlay : undefined
-							}
-						>
-							{isOpptjeningLoading && (
-								<div className={styles.overlayLoader}>
-									<Loader size="3xlarge" title="Henter opptjening …" />
-								</div>
-							)}
-							<OpptjeningTable
-								opptjening={opptjening}
-								erOvergangskull={erOvergangskull}
-								erFoedtEtter1963={erFoedtEtter1963}
-								isOpptjeningAvdoedSection={false}
-								ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
-							/>
-
-							{opptjeningAvdoed && (
+							className={styles.kortforbehold}
+						/>
+						{visLagreBrevButton && !lagreSimulering.isError && (
+							<Button
+								className={styles.lagreButton}
+								variant="secondary"
+								size="small"
+								disabled={!fnr || !enhetsid || lagreSimulering.isPending}
+								loading={lagreSimulering.isPending}
+								onClick={handleLagreSimulering}
+							>
+								Opprett brev
+							</Button>
+						)}
+						{visLagreBrevButton && lagreSimulering.isError && (
+							<SanityAlert id="beregning.opprett-brev-feil">
+								<Button
+									variant="secondary"
+									size="small"
+									onClick={handleLagreSimulering}
+									data-testid="lagre-brev-feil-retry"
+								>
+									Prøv på nytt
+								</Button>
+							</SanityAlert>
+						)}
+					</Tabs.Panel>
+					{opptjening && (
+						<Tabs.Panel value="opptjening" className={styles.tabPanel}>
+							<VStack gap="space-32">
 								<OpptjeningTable
-									opptjening={opptjeningAvdoed}
+									opptjening={opptjening}
 									erOvergangskull={erOvergangskull}
 									erFoedtEtter1963={erFoedtEtter1963}
-									isOpptjeningAvdoedSection={true}
+									isOpptjeningAvdoedSection={false}
 									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 								/>
-							)}
-						</VStack>
-					</Tabs.Panel>
-				)}
-				{visForbehold && (
-					<Tabs.Panel value="forbehold" className={styles.tabPanel}>
-						<div className={styles.forbeholdTekst}>
-							<SanityVilkaarligForbehold
-								ctx={forbeholdContext}
-								size="small"
-								titleLevel="3"
-							/>
-						</div>
-					</Tabs.Panel>
-				)}
-			</Tabs>
+
+								{opptjeningAvdoed && (
+									<OpptjeningTable
+										opptjening={opptjeningAvdoed}
+										erOvergangskull={erOvergangskull}
+										erFoedtEtter1963={erFoedtEtter1963}
+										isOpptjeningAvdoedSection={true}
+										ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+									/>
+								)}
+							</VStack>
+						</Tabs.Panel>
+					)}
+					{visForbehold && (
+						<Tabs.Panel value="forbehold" className={styles.tabPanel}>
+							<div className={styles.forbeholdTekst}>
+								<SanityVilkaarligForbehold
+									ctx={forbeholdContext}
+									size="small"
+									titleLevel="3"
+								/>
+							</div>
+						</Tabs.Panel>
+					)}
+				</Tabs>
+			</div>
 		</Box>
 	)
 }

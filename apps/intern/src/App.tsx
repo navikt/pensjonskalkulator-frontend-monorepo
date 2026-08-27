@@ -110,8 +110,11 @@ const AppContent = () => {
 
 	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
 
-	const { isLoading: isLoadingEnheter, error: enheterError } =
-		useEnheterQuery(visLagreBrevButton)
+	const {
+		data: enheterData,
+		isLoading: isLoadingEnheter,
+		error: enheterError,
+	} = useEnheterQuery(visLagreBrevButton)
 
 	const {
 		data: inntekt,
@@ -157,7 +160,7 @@ const AppContent = () => {
 		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
-	if (
+	const isAppLoading =
 		isDecrypting ||
 		isLoadingPerson ||
 		isLoadingVedtak ||
@@ -165,8 +168,24 @@ const AppContent = () => {
 		isLoadingOmstilling ||
 		isLoadingErApoteker ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
-	) {
-		return <Loader size="xlarge" title="Henter brukerdata..." />
+
+	if (isAppLoading) {
+		return (
+			<div role="status" aria-live="polite">
+				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			</div>
+		)
+	}
+
+	if (visLagreBrevButton) {
+		const enhetsid = getEnhetsidFromUrl()
+		const harTilgangTilEnhet = enheterData?.enhetListe?.some(
+			(e) => e.id === enhetsid
+		)
+
+		if (!enhetsid || !harTilgangTilEnhet) {
+			return <ErrorPage404 />
+		}
 	}
 
 	return (
