@@ -1,4 +1,7 @@
-import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Sivilstatus,
+	TilgangsnektAarsak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	formatInntekt,
 	formaterAlderString,
@@ -137,7 +140,7 @@ export const BeregningForm = () => {
 	const epsRestrictionCode =
 		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
 	const hasTilgangsbegrensning = BLOCKING_TILGANG_CODES.includes(
-		epsRestrictionCode ?? ''
+		epsRestrictionCode ?? ('' as TilgangsnektAarsak)
 	)
 
 	const [alertDismissed, setAlertDismissed] = useState(false)

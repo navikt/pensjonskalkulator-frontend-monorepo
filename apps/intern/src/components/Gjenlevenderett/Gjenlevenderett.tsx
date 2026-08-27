@@ -1,4 +1,7 @@
-import type { Sivilstand } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Sivilstand,
+	TilgangsnektAarsak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -156,7 +159,7 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
-	const epsAccessAlertMap: Record<string, string> = {
+	const epsAccessAlertMap: Partial<Record<TilgangsnektAarsak, string>> = {
 		STRENGT_FORTROLIG_ADRESSE: 'beregning.gjenlevenderett.strengt.fortrolig',
 		STRENGT_FORTROLIG_UTLAND:
 			'beregning.gjenlevenderett.strengt.fortrolig.utland',
@@ -168,9 +171,12 @@ export const Gjenlevenderett = () => {
 
 	const epsAarsak = (epsError instanceof EpsError && epsError.aarsak) || ''
 
-	const tilgangsbegrensningAlertId = epsAccessAlertMap[epsAarsak]
+	const tilgangsbegrensningAlertId = epsAarsak
+		? epsAccessAlertMap[epsAarsak]
+		: undefined
 
-	const skjulSkjemaForTilgang = BLOCKING_TILGANG_CODES.includes(epsAarsak)
+	const skjulSkjemaForTilgang =
+		!!epsAarsak && BLOCKING_TILGANG_CODES.includes(epsAarsak)
 
 	useEffect(() => {
 		form.setValue('epsTilgangNektAarsak', epsAarsak || undefined, {

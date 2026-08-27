@@ -2,15 +2,16 @@ import type {
 	EpsOpplysninger,
 	SimuleringResponseBody,
 	Sivilstatus,
+	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
-export const BLOCKING_TILGANG_CODES: string[] = [
+export const BLOCKING_TILGANG_CODES: TilgangsnektAarsak[] = [
 	'STRENGT_FORTROLIG_ADRESSE',
 	'STRENGT_FORTROLIG_UTLAND',
 	'FORTROLIG_ADRESSE',
 ]
 
-export const NON_BLOCKING_TILGANG_CODES: string[] = [
+export const NON_BLOCKING_TILGANG_CODES: TilgangsnektAarsak[] = [
 	'SKJERMING',
 	'HABILITET',
 	'VERGEMAAL',
@@ -67,7 +68,7 @@ export interface BeregningFormData {
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
 	vedtakInfoAvdoed?: boolean
-	epsTilgangNektAarsak?: string
+	epsTilgangNektAarsak?: TilgangsnektAarsak
 }
 
 export type BeregningParams = BeregningFormData

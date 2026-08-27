@@ -9,6 +9,7 @@ import type {
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstand,
+	TilgangsnektAarsak,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -137,9 +138,9 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 }
 
 export class EpsError extends Error {
-	aarsak?: string
+	aarsak?: TilgangsnektAarsak
 
-	constructor(message: string, tilgangsnektAarsak?: string) {
+	constructor(message: string, tilgangsnektAarsak?: TilgangsnektAarsak) {
 		super(message)
 		this.aarsak = tilgangsnektAarsak
 	}
@@ -161,10 +162,10 @@ async function fetchEPSOpplysninger({
 	})
 
 	if (!response.ok) {
-		let aarsak: string | undefined
+		let aarsak: TilgangsnektAarsak | undefined
 		try {
 			const body = (await response.json()) as {
-				problem?: { tilgangsnekt?: { aarsak?: string } }
+				problem?: { tilgangsnekt?: { aarsak?: TilgangsnektAarsak } }
 			}
 			aarsak = body?.problem?.tilgangsnekt?.aarsak
 		} catch {
