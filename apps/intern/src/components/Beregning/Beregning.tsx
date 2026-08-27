@@ -90,7 +90,10 @@ export const Beregning = () => {
 		vedtak?.avdoed?.pid || aktivBeregning?.epsOpplysninger?.pid || undefined
 
 	const { data: opptjeningAvdoed, isLoading: isOpptjeningLoading } =
-		useOpptjeningQueryForAvdoed(avdoedPid)
+		useOpptjeningQueryForAvdoed(
+			avdoedPid,
+			aktivBeregning?.beregnMedGjenlevenderett
+		)
 
 	const isLoading = isBeregningLoading || isOpptjeningLoading || isSanityLoading
 
@@ -495,15 +498,16 @@ export const Beregning = () => {
 									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 								/>
 
-								{opptjeningAvdoed && (
-									<OpptjeningTable
-										opptjening={opptjeningAvdoed}
-										erOvergangskull={erOvergangskull}
-										erFoedtEtter1963={erFoedtEtter1963}
-										isOpptjeningAvdoedSection={true}
-										ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
-									/>
-								)}
+								{aktivBeregning?.beregnMedGjenlevenderett &&
+									opptjeningAvdoed && (
+										<OpptjeningTable
+											opptjening={opptjeningAvdoed}
+											erOvergangskull={erOvergangskull}
+											erFoedtEtter1963={erFoedtEtter1963}
+											isOpptjeningAvdoedSection={true}
+											ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+										/>
+									)}
 							</VStack>
 						</Tabs.Panel>
 					)}
