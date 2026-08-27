@@ -149,7 +149,7 @@ describe('showSivilstatus', () => {
 				serviceBeregning: true,
 				beregnMedGjenlevenderett: true,
 			})
-		).toBe(true)
+		).toBe(false)
 	})
 
 	test('hides when beregnMedGjenlevenderett and sivilstatus with gjenlevenderett', () => {
@@ -165,7 +165,7 @@ describe('showSivilstatus', () => {
 				sivilstatus: 'UGIFT',
 				beregnMedGjenlevenderett: true,
 			})
-		).toBe(true)
+		).toBe(false)
 	})
 
 	test('hides when not erEndring, serviceBeregning selected, but beregnMedGjenlevenderett and sivilstatus with gjenlevenderett (unchanged for users without vedtak)', () => {
@@ -192,9 +192,8 @@ describe('getAlderForAfpEndring', () => {
 	})
 
 	test('returns brukers alder + 1 md when switching to ja_offentlig and age > 66', async () => {
-		const { getBrukerensAlderISluttenAvMaaneden } = await import(
-			'@pensjonskalkulator-frontend-monorepo/utils/alder'
-		)
+		const { getBrukerensAlderISluttenAvMaaneden } =
+			await import('@pensjonskalkulator-frontend-monorepo/utils/alder')
 		const expected = getBrukerensAlderISluttenAvMaaneden('1960-01-15', {
 			aar: 62,
 			maaneder: 0,
