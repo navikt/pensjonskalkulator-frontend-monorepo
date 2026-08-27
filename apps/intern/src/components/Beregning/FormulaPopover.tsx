@@ -27,9 +27,6 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	const { data: formlerToggle } = useFeatureToggleQuery(
 		'internsimulator.vis-formler'
 	)
-
-	if (!formlerToggle?.enabled) return null
-
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
@@ -40,6 +37,8 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	useEffect(() => {
 		if (open) popoverRef.current?.focus()
 	}, [open])
+
+	if (!formlerToggle?.enabled) return null
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === 'Escape') {
