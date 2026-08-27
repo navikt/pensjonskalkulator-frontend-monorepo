@@ -342,12 +342,12 @@ async function fetchOpptjening(fnr: string): Promise<Opptjening> {
 
 export function useOpptjeningQueryForAvdoed(
 	fnr?: string,
-	beregngerMedGjenlevenderett?: boolean
+	beregnMedGjenlevenderett?: boolean
 ) {
 	return useQuery({
-		queryKey: ['opptjening', fnr, beregngerMedGjenlevenderett],
+		queryKey: ['opptjening', fnr, beregnMedGjenlevenderett],
 		queryFn:
-			fnr && beregngerMedGjenlevenderett
+			fnr && beregnMedGjenlevenderett
 				? () => fetchOpptjening(fnr)
 				: skipToken,
 		retry: false,
