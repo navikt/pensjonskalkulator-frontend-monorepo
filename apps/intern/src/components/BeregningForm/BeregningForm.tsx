@@ -650,7 +650,7 @@ export const BeregningForm = () => {
 													}) && (
 														<RHFTextField
 															name="pensjonsgivendeInntektFremTilUttak"
-															label="Pensjonsgivende årsinntekt frem til uttak"
+															label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
 														/>
 													)}
 												</>

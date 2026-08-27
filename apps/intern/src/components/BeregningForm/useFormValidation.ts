@@ -312,10 +312,6 @@ function validateInntektVsaHeltUttak(
 	errors: ValidationErrors
 ) {
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak
-	if (harInntektVedSiden === null) {
-		errors.harInntektVedSidenAvUttak =
-			'Velg ja/nei om bruker har inntekt ved siden av 100 % uttak.'
-	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
 		validateInntektField({
