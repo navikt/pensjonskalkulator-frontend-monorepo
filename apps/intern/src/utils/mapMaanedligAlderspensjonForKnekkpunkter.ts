@@ -15,15 +15,18 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 	kull?: Kull | null,
 	afpType?: InternAfpRadio,
 	simulererMedGjenlevenderett?: boolean,
-	harGjenlevenderett?: boolean
+	harGjenlevenderett?: boolean,
+	removeNormertPensjonsalder?: boolean
 ): LagreMaanedligAlderspensjonForKnekkpunkterDto | null {
 	if (!knekkpunkter) return null
 
-	const vedNormertPensjonsalder = mapLagreMaanedligAlderspensjon(
-		knekkpunkter.vedNormertPensjonsalder,
-		grunnbeloep,
-		kull
-	)
+	const vedNormertPensjonsalder = removeNormertPensjonsalder
+		? null
+		: mapLagreMaanedligAlderspensjon(
+				knekkpunkter.vedNormertPensjonsalder,
+				grunnbeloep,
+				kull
+			)
 
 	if (afpType === 'ja_offentlig') {
 		if (!vedNormertPensjonsalder) return null

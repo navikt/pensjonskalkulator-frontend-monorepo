@@ -73,7 +73,6 @@ export function mapLagreMaanedligAlderspensjon(
 	return {
 		...rest,
 		gjenlevendetillegg,
-		garantipensjonsnivaaBeloep: null,
 		grunnbeloep: grunnbeloep,
 		kapittel19AndelTeller: mapAndelToTeller(kapittel19Andel),
 		kapittel20AndelTeller: mapAndelToTeller(kapittel20Andel),

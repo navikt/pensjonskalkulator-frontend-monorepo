@@ -13,6 +13,7 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
+	isAlderLikEllerOverAnnenAlder,
 	isFoedtFoer1963,
 	transformUttaksalderToDate,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
@@ -177,6 +178,10 @@ export function mapBeregningResultToLagreSpec(
 		{ heltUttakAar: NORMERT_PENSJONSALDER_AAR }
 	)
 
+	const simulererEndringMedAfpPrivat =
+		(aktivBeregning?.endringAfpPrivat || aktivBeregning?.afp === 'ja_privat') &&
+		aktivBeregning.uttaksgrad === 0
+
 	const utenlandsperioder = utenlandsperiodeListe
 		? utenlandsperiodeListe.map((periode) => {
 				const land = getLandDetails(periode.landkode)
@@ -218,7 +223,9 @@ export function mapBeregningResultToLagreSpec(
 			kull,
 			aktivBeregning?.afp,
 			!!aktivBeregning?.beregnMedGjenlevenderett,
-			Boolean(vedtak?.loependeAlderspensjon?.harGjenlevenderett)
+			Boolean(vedtak?.loependeAlderspensjon?.harGjenlevenderett),
+			isAlderLikEllerOverAnnenAlder(heltUttakAlder, { aar: 67, maaneder: 0 }) &&
+				simulererEndringMedAfpPrivat
 		)
 	const aarligInntektFoerUttakBeloep =
 		aktivBeregning?.afp !== 'serviceberegning'
@@ -251,6 +258,7 @@ export function mapBeregningResultToLagreSpec(
 		heltUttakAlder,
 		gradertUttakAlder
 	)
+
 	return {
 		alderspensjonListe: result.alderspensjonListe.map((ap) => ({
 			alderAar: ap.alderAar,
@@ -358,6 +366,7 @@ export function mapBeregningResultToLagreSpec(
 			kull,
 			forbeholdVisningsvilkaar: forbeholdVisningsvilkaar,
 			normertPensjonsalderPlassering: normertPensjonsalderPlassering,
+			simulererEndringMedAfpPrivat: simulererEndringMedAfpPrivat ?? false, //Brukes til å fortelle brevbaker at den kun skal vise afp tabeller (ikke AP tabelller)
 		},
 		maanedligAlderspensjonForKnekkpunkter,
 		navEnhetId: navEnhetId,

@@ -2191,8 +2191,6 @@ export interface components {
 			/** Format: int32 */
 			garantipensjonBeloep?: number | null
 			/** Format: int32 */
-			garantipensjonsnivaaBeloep?: number | null
-			/** Format: double */
 			garantipensjonSats?: number | null
 			/** Format: int32 */
 			garantitilleggBeloep?: number | null
@@ -2237,7 +2235,7 @@ export interface components {
 			uttaksalder: components['schemas']['LagreAlderDto']
 			uttaksdato: string
 			/** Format: int32 */
-			forventetFremtidigInntekt: number | null
+			forventetFremtidigInntekt?: number | null
 			afp?: components['schemas']['LagreTidsbegrensetOffentligAfpDto'] | null
 		}
 		LagreSimuleringSpecDtoV1: {
@@ -2298,35 +2296,36 @@ export interface components {
 				| 'HAR_UFOERETRYGD'
 				| 'HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD'
 			)[]
+			simulererEndringMedAfpPrivat: boolean
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */
-			alderAar: number | null
+			alderAar?: number | null
 			/** Format: int32 */
-			totaltAfpBeloep: number | null
+			totaltAfpBeloep?: number | null
 			/** Format: int32 */
-			tidligereArbeidsinntekt: number | null
+			tidligereArbeidsinntekt?: number | null
 			/** Format: int32 */
-			grunnbeloep: number | null
+			grunnbeloep?: number | null
 			/** Format: double */
-			sluttpoengtall: number | null
+			sluttpoengtall?: number | null
 			/** Format: int32 */
-			trygdetid: number | null
+			trygdetid?: number | null
 			/** Format: int32 */
-			poengaarTom1991: number | null
+			poengaarTom1991?: number | null
 			/** Format: int32 */
-			poengaarFom1992: number | null
+			poengaarFom1992?: number | null
 			/** Format: int32 */
-			grunnpensjon: number | null
+			grunnpensjon?: number | null
 			/** Format: int32 */
-			tilleggspensjon: number | null
+			tilleggspensjon?: number | null
 			/** Format: int32 */
-			afpTillegg: number | null
+			afpTillegg?: number | null
 			/** Format: int32 */
-			saertillegg: number | null
+			saertillegg?: number | null
 			/** Format: int32 */
-			afpGrad: number | null
-			erAvkortet: boolean | null
+			afpGrad?: number | null
+			erAvkortet?: boolean | null
 		}
 		LagreTrygdetidDto: {
 			/** Format: int32 */
@@ -2435,9 +2434,15 @@ export interface components {
 			etternavn?: string | null
 		}
 		EpsV1Problem: {
-			/** @enum {string} */
+			/**
+			 * @description Type problem
+			 * @enum {string}
+			 */
 			type: 'TILGANG_NEKTET' | 'MANGELFULL_SPESIFIKASJON'
+			/** @description Beskrivelse av problemet */
 			beskrivelse: string
+			/** @description Begrunnelse for nekting av tilgang til person */
+			tilgangsnekt?: components['schemas']['EpsV1Tilgangsnekt'] | null
 		}
 		EpsV1RelasjonPersondata: {
 			/** @enum {string|null} */
@@ -2453,6 +2458,27 @@ export interface components {
 			/** Format: date */
 			doedsdato?: string | null
 			statsborgerskap?: string | null
+		}
+		EpsV1Tilgangsnekt: {
+			/**
+			 * @description Årsakskode for nekting av tilgang til person
+			 * @enum {string}
+			 */
+			aarsak:
+				| 'STRENGT_FORTROLIG_ADRESSE'
+				| 'STRENGT_FORTROLIG_UTLAND'
+				| 'AVDOED'
+				| 'VERGEMAAL'
+				| 'PERSON_UTLAND'
+				| 'SKJERMING'
+				| 'FORTROLIG_ADRESSE'
+				| 'UKJENT_BOSTED'
+				| 'GEOGRAFISK'
+				| 'HABILITET'
+				| 'POPULASJONSTILGANGSSJEKK_FEIL'
+				| 'UNKNOWN'
+			/** @description Begrunnelse for nekting av tilgang til person */
+			begrunnelse: string
 		}
 		PersonV7Alder: {
 			/** Format: int32 */
