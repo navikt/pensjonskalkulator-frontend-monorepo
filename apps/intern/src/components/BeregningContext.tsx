@@ -166,10 +166,6 @@ export function BeregningProvider({
 	useEffect(() => {
 		if (beregnMedGjenlevenderett) {
 			form.setValue('afp', undefined, { shouldDirty: false })
-		} else {
-			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
-				shouldDirty: false,
-			})
 		}
 	}, [beregnMedGjenlevenderett, form])
 
