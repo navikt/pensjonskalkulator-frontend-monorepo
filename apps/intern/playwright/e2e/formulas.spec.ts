@@ -41,13 +41,17 @@ async function fillFormAndSubmit(page: Page) {
 	await page.getByTestId('beregn-button').click()
 }
 
+const FORMULA_KEY = 'formler.inntektspensjon_2'
+const SECTION = 'beregning-section-helt'
+
 async function openFormulaPopover(page: Page): Promise<{
 	button: Locator
 	mathContent: Locator
 }> {
-	const button = page.getByTestId('formula-button').first()
+	const section = page.getByTestId(SECTION)
+	const button = section.getByTestId(`formula-button-${FORMULA_KEY}`)
 	await button.click()
-	const mathContent = page.getByTestId('formula-content')
+	const mathContent = section.getByTestId(`formula-content-${FORMULA_KEY}`)
 	await expect(mathContent).toBeVisible()
 	return { button, mathContent }
 }
@@ -60,9 +64,12 @@ test.describe('Formler', () => {
 		await navigateToApp(page)
 
 		await fillFormAndSubmit(page)
-		await expect(page.getByText('alderspensjon')).toBeVisible()
+		const section = page.getByTestId(SECTION)
+		await expect(section).toBeVisible()
 
-		await expect(page.getByTestId('formula-button').first()).not.toBeVisible()
+		await expect(
+			section.getByTestId(`formula-button-${FORMULA_KEY}`)
+		).not.toBeVisible()
 	})
 
 	test('viser formelknapper når Vis årsbeløp er avkrysset og toggle er på', async ({
@@ -74,11 +81,14 @@ test.describe('Formler', () => {
 		await navigateToApp(page)
 
 		await fillFormAndSubmit(page)
-		await expect(page.getByText('alderspensjon')).toBeVisible()
+		const section = page.getByTestId(SECTION)
+		await expect(section).toBeVisible()
 
 		await page.getByLabel('Vis årsbeløp').check()
 
-		await expect(page.getByTestId('formula-button').first()).toBeVisible()
+		await expect(
+			section.getByTestId(`formula-button-${FORMULA_KEY}`)
+		).toBeVisible()
 	})
 
 	test('viser ikke formelknapper når toggle er av', async ({ page }) => {
@@ -88,11 +98,14 @@ test.describe('Formler', () => {
 		await navigateToApp(page)
 
 		await fillFormAndSubmit(page)
-		await expect(page.getByText('alderspensjon')).toBeVisible()
+		const section = page.getByTestId(SECTION)
+		await expect(section).toBeVisible()
 
 		await page.getByLabel('Vis årsbeløp').check()
 
-		await expect(page.getByTestId('formula-button').first()).not.toBeVisible()
+		await expect(
+			section.getByTestId(`formula-button-${FORMULA_KEY}`)
+		).not.toBeVisible()
 	})
 
 	test('klikk på formelknapp åpner popover med formel', async ({ page }) => {
@@ -102,6 +115,8 @@ test.describe('Formler', () => {
 		await navigateToApp(page)
 
 		await fillFormAndSubmit(page)
+		const section = page.getByTestId(SECTION)
+		await expect(section).toBeVisible()
 		await page.getByLabel('Vis årsbeløp').check()
 
 		const { button, mathContent } = await openFormulaPopover(page)

@@ -8,6 +8,7 @@ import { useFeatureToggleQuery } from '../../api/queries'
 import styles from './FormulaPopover.module.css'
 
 export interface Formula {
+	key?: string
 	title: string
 	numerator: string[]
 	denominator: string
@@ -66,7 +67,7 @@ export const FormulaPopover = ({
 				ref={buttonRef}
 				type="button"
 				className={styles.formulaButton}
-				data-testid="formula-button"
+				data-testid={`formula-button-${formula.key}`}
 				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
@@ -82,7 +83,7 @@ export const FormulaPopover = ({
 					<div
 						ref={popoverRef}
 						className={styles.formulaContent}
-						data-testid="formula-content"
+						data-testid={`formula-content-${formula.key}`}
 						role="math"
 						tabIndex={-1}
 						onKeyDown={handleKeyDown}

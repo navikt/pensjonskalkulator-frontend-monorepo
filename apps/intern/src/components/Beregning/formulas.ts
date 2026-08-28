@@ -222,5 +222,7 @@ const formulas: Record<string, Formula> = {
 }
 
 export function getFormula(key: string): Formula | undefined {
-	return formulas[key]
+	const formula = formulas[key]
+	if (!formula) return undefined
+	return { ...formula, key }
 }

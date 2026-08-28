@@ -35,11 +35,17 @@ async function setupLoependeAlderspensjonFoerEndringsfrist(page: Page) {
 async function fillEndringAvUttaksgradFoerEndringsfrist(page: Page) {
 	await fillMainFormFields({
 		page,
+		withDefaults: false,
 		fields: {
+			afp: 'Nei',
+			'inntekt-foer-uttak': '500000',
+			'alder-uttak-aar': '67',
+			'alder-uttak-md': '3',
 			uttaksgrad: '60',
 			'inntekt-vsa-gradert-uttak': '300000',
 			'alder-helt-uttak-aar': '70',
 			'alder-helt-uttak-md': '0',
+			'har-inntekt-vsa-helt-uttak': 'Nei',
 		},
 	})
 }
