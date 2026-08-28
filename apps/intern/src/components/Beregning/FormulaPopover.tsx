@@ -65,7 +65,7 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
-				<SquarerootIcon aria-hidden="true" fontSize="1.25rem" />
+				<SquarerootIcon aria-hidden="true" fontSize="16.5px" />
 			</button>
 			<Popover
 				open={open}

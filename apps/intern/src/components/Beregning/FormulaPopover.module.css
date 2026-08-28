@@ -3,13 +3,16 @@
 	align-items: center;
 	justify-content: center;
 	background: none;
-	border: 1px solid currentColor;
+	border: 1.25px solid var(--ax-text-accent-subtle);
 	border-radius: 50%;
 	cursor: pointer;
-	padding: 2px;
+	width: 24px;
+	height: 24px;
+	padding: 2.5px;
+	box-sizing: border-box;
 	margin-left: 0.25rem;
-	color: var(--ax-text-accent-subtle);
 	vertical-align: middle;
+	color: var(--ax-text-accent-subtle);
 }
 
 .formulaContent {
