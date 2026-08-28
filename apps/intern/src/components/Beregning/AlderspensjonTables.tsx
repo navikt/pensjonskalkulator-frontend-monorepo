@@ -1,5 +1,6 @@
 import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 
+import { useBeregningContext } from '../BeregningContext'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
@@ -19,6 +20,7 @@ interface AlderspensjonTablesProps {
 	harGjenlevenderett?: boolean
 	isGradert?: boolean
 	visAarsbelop?: boolean
+	reducedGrunnpensjon?: boolean
 }
 
 export const AlderspensjonTables = ({
@@ -32,38 +34,49 @@ export const AlderspensjonTables = ({
 	isGradert = false,
 	visAarsbelop = false,
 	harGjenlevenderett = false,
-}: AlderspensjonTablesProps) => (
-	<>
-		<BeregningTableWithSum
-			title={`${alderspensjonGrad} % alderspensjon`}
-			valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
-			sumLabel="Sum alderspensjon"
-			rows={mapAlderspensjonToRows(
-				entry,
-				!!erFoedtFoer1963,
-				!!erOvergangskull || !!erFoedtEtter1963,
-				simulererMedGjenlevenderett,
-				harGjenlevenderett
-			)}
-			visAarsbelop={visAarsbelop}
-		/>
-		{erFoedtFoer1963 && (
-			<BeregningDetailTable
-				title="Opptjening alderspensjon etter kapittel 19"
-				rows={mapOpptjeningEtterKapittel19ToRows(
+	reducedGrunnpensjon = false,
+}: AlderspensjonTablesProps) => {
+	const { aktivBeregning } = useBeregningContext()
+	const erEndring = Boolean(aktivBeregning?.endringAP)
+
+	return (
+		<>
+			<BeregningTableWithSum
+				title={`${alderspensjonGrad} % alderspensjon`}
+				valueHeader={visAarsbelop ? 'Kr per år' : 'Kr per måned'}
+				sumLabel="Sum alderspensjon"
+				rows={mapAlderspensjonToRows({
 					entry,
-					visAarsbelop,
-					grunnbeloep,
-					isGradert,
-					!!erOvergangskull
-				)}
+					visKap19: Boolean(erFoedtFoer1963),
+					visKap20: Boolean(erOvergangskull) || Boolean(erFoedtEtter1963),
+					simulererMedGjenlevenderett,
+					harGjenlevenderett,
+					erOvergangskull: Boolean(erOvergangskull),
+					reducedGrunnpensjon,
+					erEndring,
+				})}
+				visAarsbelop={visAarsbelop}
 			/>
-		)}
-		{(erOvergangskull || erFoedtEtter1963) && (
-			<BeregningDetailTable
-				title="Opptjening alderspensjon etter kapittel 20"
-				rows={mapOpptjeningEtterKapittel20ToRows(entry, !erFoedtEtter1963)}
-			/>
-		)}
-	</>
-)
+			{erFoedtFoer1963 && (
+				<BeregningDetailTable
+					title="Opptjening alderspensjon etter kapittel 19"
+					rows={mapOpptjeningEtterKapittel19ToRows(
+						entry,
+						visAarsbelop,
+						grunnbeloep,
+						isGradert,
+						!!erOvergangskull
+					)}
+					visAarsbelop={visAarsbelop}
+				/>
+			)}
+			{(erOvergangskull || erFoedtEtter1963) && (
+				<BeregningDetailTable
+					title="Opptjening alderspensjon etter kapittel 20"
+					rows={mapOpptjeningEtterKapittel20ToRows(entry, !erFoedtEtter1963)}
+					visAarsbelop={visAarsbelop}
+				/>
+			)}
+		</>
+	)
+}
