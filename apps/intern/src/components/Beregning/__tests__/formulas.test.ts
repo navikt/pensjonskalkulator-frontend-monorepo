@@ -10,6 +10,7 @@ describe('getFormula', () => {
 	test('returnerer grunnpensjon-formel', () => {
 		const formula = getFormula('formler.grunnpensjon_3')
 		expect(formula).toEqual({
+			key: 'formler.grunnpensjon_3',
 			title: 'Grunnpensjon',
 			numerator: ['G × Trygdetid × Uttaksgrad'],
 			denominator: '40 × Forholdstall',
@@ -25,6 +26,7 @@ describe('getFormula', () => {
 
 	test('returnerer ordinær særtillegg med 94%', () => {
 		expect(getFormula('saertillegg_ordinaer')).toEqual({
+			key: 'saertillegg_ordinaer',
 			title: 'Særtillegg',
 			numerator: ['94% × Grunnbeløpet'],
 			denominator: '',
@@ -33,6 +35,7 @@ describe('getFormula', () => {
 
 	test('returnerer redusert særtillegg med 74%', () => {
 		expect(getFormula('saertillegg_redusert')).toEqual({
+			key: 'saertillegg_redusert',
 			title: 'Særtillegg',
 			numerator: ['74% × Grunnbeløpet'],
 			denominator: '',
