@@ -5,7 +5,7 @@ import { projectId } from './src/projectId'
 
 export default defineCliConfig({
 	api: {
-		projectId,
+		projectId: 'g2by7q6m',
 		dataset: 'development',
 	},
 	/**

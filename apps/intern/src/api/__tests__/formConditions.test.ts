@@ -192,9 +192,8 @@ describe('getAlderForAfpEndring', () => {
 	})
 
 	test('returns brukers alder + 1 md when switching to ja_offentlig and age > 66', async () => {
-		const { getBrukerensAlderISluttenAvMaaneden } = await import(
-			'@pensjonskalkulator-frontend-monorepo/utils/alder'
-		)
+		const { getBrukerensAlderISluttenAvMaaneden } =
+			await import('@pensjonskalkulator-frontend-monorepo/utils/alder')
 		const expected = getBrukerensAlderISluttenAvMaaneden('1960-01-15', {
 			aar: 62,
 			maaneder: 0,

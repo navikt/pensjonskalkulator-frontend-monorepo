@@ -19,7 +19,7 @@ const merknadTextMap: Record<string, string> = {
 	OMSORGSOPPTJENING:
 		'Du er godskrevet omsorgsopptjening for ulønnet omsorgsarbeid i dette året',
 	GRADERT_UTTAK: 'Gradert uttak',
-	HELT_UTTAK: 'Alderspensjon: 100 prosent',
+	HELT_UTTAK: 'Alderspensjon: 100 %',
 }
 
 export function mapMerknadListe(
@@ -31,9 +31,7 @@ export function mapMerknadListe(
 		.filter((merknad) => merknad !== 'NONE' && merknad !== 'UNKNOWN')
 		.map((merknad) => {
 			if (merknad === 'UFOEREGRAD') {
-				return ufoeretrygdgrad != null
-					? `Uføretrygd: ${ufoeretrygdgrad} prosent`
-					: ''
+				return ufoeretrygdgrad != null ? `Uføretrygd: ${ufoeretrygdgrad} %` : ''
 			}
 			return merknadTextMap[merknad] ?? ''
 		})
@@ -76,6 +74,7 @@ interface OpptjeningTableProps {
 	erFoedtEtter1963?: boolean | null
 	isOpptjeningAvdoedSection?: boolean
 	ufoeretrygdgrad?: number | null
+	erServiceberegning?: boolean
 }
 
 export function mapOpptjeningToTableRows(
@@ -112,9 +111,12 @@ export function OpptjeningTable({
 	erFoedtEtter1963,
 	isOpptjeningAvdoedSection,
 	ufoeretrygdgrad,
+	erServiceberegning,
 }: OpptjeningTableProps) {
 	const showPensjonsbeholdning =
-		!isOpptjeningAvdoedSection && Boolean(erFoedtEtter1963 || erOvergangskull)
+		!isOpptjeningAvdoedSection &&
+		!erServiceberegning &&
+		Boolean(erFoedtEtter1963 || erOvergangskull)
 	const showPensjonspoeng = !erFoedtEtter1963 || erOvergangskull
 	const rows = mapOpptjeningToTableRows(
 		opptjening,
@@ -195,7 +197,7 @@ export function OpptjeningTable({
 										<BodyShort size="small">{row.pensjonsbeholdning}</BodyShort>
 									</Table.DataCell>
 								)}
-								<Table.DataCell>
+								<Table.DataCell data-testid={`merknad-${row.aar}`}>
 									<BodyShort size="small">{row.merknad}</BodyShort>
 								</Table.DataCell>
 							</Table.Row>

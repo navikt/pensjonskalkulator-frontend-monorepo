@@ -9,6 +9,7 @@ import type {
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstand,
+	TilgangsnektAarsak,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -136,6 +137,15 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	return response.json() as Promise<Vedtak>
 }
 
+export class EpsError extends Error {
+	aarsak?: TilgangsnektAarsak
+
+	constructor(message: string, tilgangsnektAarsak?: TilgangsnektAarsak) {
+		super(message)
+		this.aarsak = tilgangsnektAarsak
+	}
+}
+
 async function fetchEPSOpplysninger({
 	fnr,
 	sivilstatus,
@@ -152,8 +162,18 @@ async function fetchEPSOpplysninger({
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch EPS information: ${response.status} ${response.statusText}`
+		let aarsak: TilgangsnektAarsak | undefined
+		try {
+			const body = (await response.json()) as {
+				problem?: { tilgangsnekt?: { aarsak?: TilgangsnektAarsak } }
+			}
+			aarsak = body?.problem?.tilgangsnekt?.aarsak
+		} catch {
+			// ignore parse errors
+		}
+		throw new EpsError(
+			`Failed to fetch EPS information: ${response.status} ${response.statusText}`,
+			aarsak
 		)
 	}
 

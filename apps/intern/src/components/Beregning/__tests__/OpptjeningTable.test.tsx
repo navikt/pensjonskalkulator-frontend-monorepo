@@ -69,7 +69,7 @@ describe('mapOpptjeningToTableRows', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningMedUfoeregrad, true, 75)
 		const rowWith2022 = rows.find((r) => r.aar === 2022)
 
-		expect(rowWith2022?.merknad).toBe('Uføretrygd: 75 prosent')
+		expect(rowWith2022?.merknad).toBe('Uføretrygd: 75 %')
 	})
 
 	test('mapper UFOEREGRAD merknad til tom streng når ufoeretrygdgrad er null', () => {
@@ -221,7 +221,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 			pensjonsgivendeInntekt: `500${nbsp}000`,
 			pensjonspoeng: '4,50',
 			pensjonsbeholdning: `410${nbsp}000`,
-			merknad: 'Alderspensjon: 100 prosent',
+			merknad: 'Alderspensjon: 100 %',
 		})
 		expect(rows[1]).toEqual({
 			aar: 2011,
@@ -295,6 +295,36 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		).toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: '4,50' })).toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
+	})
+
+	test('rendrer UFOEREGRAD merknad med data-testid', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningMedUfoeregrad}
+				erFoedtEtter1963={true}
+				erOvergangskull={false}
+				ufoeretrygdgrad={75}
+			/>
+		)
+
+		expect(screen.getByTestId('merknad-2022')).toHaveTextContent(
+			'Uføretrygd: 75 %'
+		)
+	})
+
+	test('rendrer HELT_UTTAK merknad med data-testid', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningSimulering}
+				erFoedtEtter1963={true}
+				erOvergangskull={false}
+			/>
+		)
+
+		expect(screen.getByTestId('merknad-2012')).toHaveTextContent(
+			'Alderspensjon: 100 %'
+		)
+		expect(screen.getByTestId('merknad-2011')).toHaveTextContent('')
 	})
 
 	test('filtrerer bort år etter siste inntektsår i opptjeningListe fra simulering', () => {
