@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { SquarerootIcon } from '@navikt/aksel-icons'
 import { Popover } from '@navikt/ds-react'
 
+import { useFeatureToggleQuery } from '../../api/queries'
+
 import styles from './FormulaPopover.module.css'
 
 export interface Formula {
@@ -19,9 +21,16 @@ function formulaToCopyText(formula: Formula): string {
 
 interface FormulaPopoverProps {
 	formula: Formula
+	visAarsbelop?: boolean
 }
 
-export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
+export const FormulaPopover = ({
+	formula,
+	visAarsbelop,
+}: FormulaPopoverProps) => {
+	const { data: formlerToggle } = useFeatureToggleQuery(
+		'internsimulator.vis-formler'
+	)
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
@@ -32,6 +41,8 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	useEffect(() => {
 		if (open) popoverRef.current?.focus()
 	}, [open])
+
+	if (!formlerToggle?.enabled || !visAarsbelop) return null
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === 'Escape') {
@@ -55,6 +66,7 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 				ref={buttonRef}
 				type="button"
 				className={styles.formulaButton}
+				data-testid="formula-button"
 				aria-expanded={open}
 				onClick={() => setOpen((prev) => !prev)}
 			>
@@ -70,6 +82,7 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 					<div
 						ref={popoverRef}
 						className={styles.formulaContent}
+						data-testid="formula-content"
 						role="math"
 						tabIndex={-1}
 						onKeyDown={handleKeyDown}

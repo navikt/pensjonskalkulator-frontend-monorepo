@@ -4,19 +4,10 @@ import { mockApi } from '../utils/mock'
 import {
 	API_URLS,
 	MOCK_FILES,
+	fillMainFormFields,
 	navigateToApp,
 	setupDefaultMocks,
 } from '../utils/test-helpers'
-
-async function fillMainFormFields(page: Page) {
-	await page.getByTestId('afp').getByLabel('Nei').check()
-	await page.getByTestId('inntekt-foer-uttak').fill('500000')
-	await page.getByTestId('alder-uttak-aar').selectOption('67')
-	await page.getByTestId('alder-uttak-md').selectOption('3')
-	await page.getByTestId('uttaksgrad').selectOption('100')
-	await page.getByTestId('har-opphold-utenfor-norge').getByLabel('Nei').check()
-	await page.getByTestId('har-inntekt-vsa-helt-uttak').getByLabel('Nei').check()
-}
 
 async function submitAndExpectSimulering(page: Page) {
 	const simuleringResponse = page.waitForResponse(
@@ -42,15 +33,15 @@ async function setupLoependeAlderspensjonFoerEndringsfrist(page: Page) {
 }
 
 async function fillEndringAvUttaksgradFoerEndringsfrist(page: Page) {
-	await page.getByTestId('afp').getByLabel('Nei').check()
-	await page.getByTestId('inntekt-foer-uttak').fill('500000')
-	await page.getByTestId('alder-uttak-aar').selectOption('67')
-	await page.getByTestId('alder-uttak-md').selectOption('3')
-	await page.getByTestId('uttaksgrad').selectOption('60')
-	await page.getByTestId('inntekt-vsa-gradert-uttak').fill('300000')
-	await page.getByTestId('alder-helt-uttak-aar').selectOption('70')
-	await page.getByTestId('alder-helt-uttak-md').selectOption('0')
-	await page.getByTestId('har-inntekt-vsa-helt-uttak').getByLabel('Nei').check()
+	await fillMainFormFields({
+		page,
+		fields: {
+			uttaksgrad: '60',
+			'inntekt-vsa-gradert-uttak': '300000',
+			'alder-helt-uttak-aar': '70',
+			'alder-helt-uttak-md': '0',
+		},
+	})
 }
 
 function trackSimuleringRequests(page: Page) {
@@ -252,7 +243,7 @@ test.describe('Alderspensjon beregning', () => {
 			await setupDefaultMocks(page)
 			await navigateToApp(page)
 
-			await fillMainFormFields(page)
+			await fillMainFormFields({ page })
 			await page.getByTestId('beregn-button').click()
 
 			await expect(
@@ -414,12 +405,13 @@ test.describe('Alderspensjon beregning', () => {
 			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
-			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await page
-				.getByTestId('eps-har-inntekt-over-2g')
-				.getByLabel('Nei')
-				.check()
-			await fillMainFormFields(page)
+			await fillMainFormFields({
+				page,
+				fields: {
+					'eps-har-pensjon': 'Nei',
+					'eps-har-inntekt-over-2g': 'Nei',
+				},
+			})
 			await submitAndExpectSimulering(page)
 		})
 
@@ -428,45 +420,17 @@ test.describe('Alderspensjon beregning', () => {
 			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
-			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await page
-				.getByTestId('eps-har-inntekt-over-2g')
-				.getByLabel('Nei')
-				.check()
-			await page.getByTestId('afp').getByLabel('Nei').check()
-			await page
-				.getByTestId('har-opphold-utenfor-norge')
-				.getByLabel('Nei')
-				.check()
-			await page
-				.getByTestId('inntekt-foer-uttak')
-
-				.fill('500000')
-			await page
-				.getByTestId('alder-uttak-aar')
-
-				.selectOption('67')
-			await page
-				.getByTestId('alder-uttak-md')
-
-				.selectOption('3')
-			await page.getByTestId('uttaksgrad').selectOption('60')
-			await page
-				.getByTestId('inntekt-vsa-gradert-uttak')
-
-				.fill('300000')
-			await page
-				.getByTestId('alder-helt-uttak-aar')
-
-				.selectOption('70')
-			await page
-				.getByTestId('alder-helt-uttak-md')
-
-				.selectOption('0')
-			await page
-				.getByTestId('har-inntekt-vsa-helt-uttak')
-				.getByLabel('Nei')
-				.check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					'eps-har-pensjon': 'Nei',
+					'eps-har-inntekt-over-2g': 'Nei',
+					uttaksgrad: '60',
+					'inntekt-vsa-gradert-uttak': '300000',
+					'alder-helt-uttak-aar': '70',
+					'alder-helt-uttak-md': '0',
+				},
+			})
 			await submitAndExpectSimulering(page)
 		})
 
@@ -477,9 +441,13 @@ test.describe('Alderspensjon beregning', () => {
 			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
-			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await fillMainFormFields(page)
-			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').click()
+			await fillMainFormFields({
+				page,
+				fields: {
+					'eps-har-pensjon': 'Nei',
+					'eps-har-inntekt-over-2g': 'Ja',
+				},
+			})
 			await submitAndExpectSimulering(page)
 		})
 
@@ -490,45 +458,17 @@ test.describe('Alderspensjon beregning', () => {
 			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
-			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await page
-				.getByTestId('eps-har-inntekt-over-2g')
-				.getByLabel('Nei')
-				.check()
-			await page.getByTestId('afp').getByLabel('Nei').check()
-			await page
-				.getByTestId('har-opphold-utenfor-norge')
-				.getByLabel('Nei')
-				.check()
-			await page
-				.getByTestId('inntekt-foer-uttak')
-
-				.fill('500000')
-			await page
-				.getByTestId('alder-uttak-aar')
-
-				.selectOption('67')
-			await page
-				.getByTestId('alder-uttak-md')
-
-				.selectOption('3')
-			await page.getByTestId('uttaksgrad').selectOption('100')
-			await page
-				.getByTestId('har-inntekt-vsa-helt-uttak')
-				.getByLabel('Ja')
-				.check()
-			await page
-				.getByTestId('inntekt-vsa-helt-uttak')
-
-				.fill('200000')
-			await page
-				.getByTestId('alder-inntekt-slutter-aar')
-
-				.selectOption('72')
-			await page
-				.getByTestId('alder-inntekt-slutter-md')
-
-				.selectOption('0')
+			await fillMainFormFields({
+				page,
+				fields: {
+					'eps-har-pensjon': 'Nei',
+					'eps-har-inntekt-over-2g': 'Nei',
+					'har-inntekt-vsa-helt-uttak': 'Ja',
+					'inntekt-vsa-helt-uttak': '200000',
+					'alder-inntekt-slutter-aar': '72',
+					'alder-inntekt-slutter-md': '0',
+				},
+			})
 			await submitAndExpectSimulering(page)
 		})
 
@@ -537,33 +477,14 @@ test.describe('Alderspensjon beregning', () => {
 			await mockApi(page, API_URLS.SIMULERING, 'alderspensjon.json')
 			await navigateToApp(page)
 
-			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
-			await page
-				.getByTestId('eps-har-inntekt-over-2g')
-				.getByLabel('Nei')
-				.check()
-			await page
-				.getByTestId('har-opphold-utenfor-norge')
-				.getByLabel('Nei')
-				.check()
-			await page.getByTestId('afp').getByLabel('Ja, privat').check()
-			await page
-				.getByTestId('inntekt-foer-uttak')
-
-				.fill('500000')
-			await page
-				.getByTestId('alder-uttak-aar')
-
-				.selectOption('67')
-			await page
-				.getByTestId('alder-uttak-md')
-
-				.selectOption('3')
-			await page.getByTestId('uttaksgrad').selectOption('100')
-			await page
-				.getByTestId('har-inntekt-vsa-helt-uttak')
-				.getByLabel('Nei')
-				.check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					'eps-har-pensjon': 'Nei',
+					'eps-har-inntekt-over-2g': 'Nei',
+					afp: 'Ja, privat',
+				},
+			})
 			await submitAndExpectSimulering(page)
 		})
 	})
