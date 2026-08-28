@@ -136,7 +136,7 @@ const formulas: Record<string, Formula> = {
 			'Inntektspensjon før endring × Delingstall ved endring',
 			'+ Pensjonsbeholdning før endring',
 		],
-		denominator: 'Delingstall ved endring × Uttaksgrad',
+		denominator: 'Delingstall',
 	},
 	gp3: {
 		title: 'Grunnpensjon',
@@ -144,7 +144,7 @@ const formulas: Record<string, Formula> = {
 			'(Grunnpensjon før endring × Forholdstall ved uttak)',
 			'+ Restgrunnpensjon før endring',
 		],
-		denominator: 'Forholdstall ved uttak × Uttaksgrad',
+		denominator: 'Forholdstall',
 	},
 	tp3: {
 		title: 'Tilleggspensjon',
@@ -152,7 +152,7 @@ const formulas: Record<string, Formula> = {
 			'Resttilleggspensjon før endring',
 			'+ (Tilleggspensjon før endring × Forholdstall ved uttak)',
 		],
-		denominator: 'Forholdstall ved uttak × Uttaksgrad',
+		denominator: 'Forholdstall',
 	},
 	gap2: {
 		title: 'Garantipensjon',
@@ -160,7 +160,7 @@ const formulas: Record<string, Formula> = {
 			'Garantipensjon før endring × Delingstall ved endring',
 			'+ Garantipensjonsbeholdning før endring',
 		],
-		denominator: 'Delingstall ved endring × Uttaksgrad',
+		denominator: 'Delingstall',
 	},
 	'afp_privat.livsvd1': {
 		title: 'AFP livsvarig del',
@@ -209,9 +209,14 @@ const formulas: Record<string, Formula> = {
 		],
 		denominator: 'Forholdstall ved 67',
 	},
-	saertillegg: {
+	saertillegg_redusert: {
 		title: 'Særtillegg',
 		numerator: ['74% × Grunnbeløpet'],
+		denominator: '',
+	},
+	saertillegg_ordinaer: {
+		title: 'Særtillegg',
+		numerator: ['94% × Grunnbeløpet'],
 		denominator: '',
 	},
 }

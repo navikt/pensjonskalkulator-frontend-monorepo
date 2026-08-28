@@ -31,6 +31,7 @@ export function mapAlderspensjonToRows({
 	harGjenlevenderett,
 	erOvergangskull = false,
 	reducedGrunnpensjon = false,
+	erEndring = false,
 }: {
 	entry: SimuleringMaanedligAlderspensjon
 	visKap19: boolean
@@ -39,6 +40,7 @@ export function mapAlderspensjonToRows({
 	harGjenlevenderett: boolean
 	erOvergangskull?: boolean
 	reducedGrunnpensjon?: boolean
+	erEndring?: boolean
 }): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
 
@@ -57,13 +59,15 @@ export function mapAlderspensjonToRows({
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
-						formula: getFormula(`${gpPrefix}${gpSuffix}`),
+						formula: getFormula(erEndring ? 'gp3' : `${gpPrefix}${gpSuffix}`),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
-						formula: getFormula(`formler.tilleggspensjon${tpSuffix}`),
+						formula: getFormula(
+							erEndring ? 'tp3' : `formler.tilleggspensjon${tpSuffix}`
+						),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
@@ -86,13 +90,15 @@ export function mapAlderspensjonToRows({
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
-						formula: getFormula(`formler.inntektspensjon${ipSuffix}`),
+						formula: getFormula(
+							erEndring ? 'ip2' : `formler.inntektspensjon${ipSuffix}`
+						),
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
-						formula: getFormula('formler.garantipensjon'),
+						formula: getFormula(erEndring ? 'gap2' : 'formler.garantipensjon'),
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
@@ -267,13 +273,8 @@ export function mapAfpToRows(entry: {
 	tilleggspensjon: number
 	afpTillegg: number
 	saertillegg: number
-	grunnbeloep: number
+	epsHarPensjon?: boolean | null
 }): BeregningTableRow[] {
-	const saertilleggSats =
-		entry.grunnbeloep > 0
-			? Math.round((entry.saertillegg * 12 * 100) / entry.grunnbeloep)
-			: 74
-
 	return [
 		{
 			label: 'Grunnpensjon',
@@ -296,11 +297,9 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
-			formula: {
-				title: 'Særtillegg',
-				numerator: [`${saertilleggSats}% × Grunnbeløpet`],
-				denominator: '',
-			},
+			formula: getFormula(
+				entry.epsHarPensjon ? 'saertillegg_redusert' : 'saertillegg_ordinaer'
+			),
 		},
 	]
 }

@@ -2,6 +2,7 @@ import type { TidsbegrensetOffentligAFP } from '@pensjonskalkulator-frontend-mon
 
 import { BodyLong, Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
+import { useBeregningContext } from '../BeregningContext'
 import { BeregningDetailTable } from './BeregningDetailTable'
 import { BeregningTableWithSum } from './BeregningTableWithSum'
 import {
@@ -28,7 +29,11 @@ export const AfpBeregningSection = ({
 	showVisAarsbelopCheckbox,
 	onVisAarsbelopChange,
 }: AfpBeregningSectionProps) => {
-	const afpRows = mapAfpToRows(entry)
+	const { aktivBeregning } = useBeregningContext()
+	const afpRows = mapAfpToRows({
+		...entry,
+		epsHarPensjon: aktivBeregning?.epsHarPensjon,
+	})
 	const opptjeningRows = mapTidsbegrensetAfpOpptjeningToRows(entry)
 
 	return (
@@ -67,6 +72,7 @@ export const AfpBeregningSection = ({
 				<BeregningDetailTable
 					title="Opptjening AFP i offentlig sektor"
 					rows={opptjeningRows}
+					visAarsbelop={visAarsbelop}
 				/>
 			</div>
 		</VStack>

@@ -1,5 +1,6 @@
 import { BodyShort, Box, Label, Table } from '@navikt/ds-react'
 
+import { useFeatureToggleQuery } from '../../api/queries'
 import type { Formula } from './FormulaPopover'
 import { FormulaPopover } from './FormulaPopover'
 
@@ -15,12 +16,18 @@ export interface BeregningDetailRow {
 interface BeregningDetailTableProps {
 	title: string
 	rows?: BeregningDetailRow[]
+	visAarsbelop?: boolean
 }
 
 export const BeregningDetailTable = ({
 	title,
 	rows = [],
+	visAarsbelop = false,
 }: BeregningDetailTableProps) => {
+	const { data: formlerToggle } = useFeatureToggleQuery(
+		'internsimulator.vis-formler'
+	)
+	const showFormulas = visAarsbelop && formlerToggle?.enabled
 	const validRows = rows.filter((row) => row.value !== '' && !row.hide)
 
 	return (
@@ -45,7 +52,9 @@ export const BeregningDetailTable = ({
 							<Table.DataCell>
 								<BodyShort size="small" className={styles.labelCell}>
 									{row.label}
-									{row.formula && <FormulaPopover formula={row.formula} />}
+									{showFormulas && row.formula && (
+										<FormulaPopover formula={row.formula} />
+									)}
 								</BodyShort>
 							</Table.DataCell>
 							<Table.DataCell align="right">

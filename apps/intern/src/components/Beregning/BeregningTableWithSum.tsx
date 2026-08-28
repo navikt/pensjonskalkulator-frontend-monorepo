@@ -1,5 +1,6 @@
 import { BodyShort, Box, Label, Table } from '@navikt/ds-react'
 
+import { useFeatureToggleQuery } from '../../api/queries'
 import type { Formula } from './FormulaPopover'
 import { FormulaPopover } from './FormulaPopover'
 
@@ -55,6 +56,10 @@ export const BeregningTableWithSum = ({
 	addToSum = 0,
 	visAarsbelop = false,
 }: BeregningTableWithSumProps) => {
+	const { data: formlerToggle } = useFeatureToggleQuery(
+		'internsimulator.vis-formler'
+	)
+	const showFormulas = visAarsbelop && formlerToggle?.enabled
 	const value = visAarsbelop
 		? (row: BeregningTableRow) => row.yearlyValue
 		: (row: BeregningTableRow) => row.value
@@ -94,7 +99,9 @@ export const BeregningTableWithSum = ({
 							<Table.DataCell>
 								<BodyShort size="small" className={styles.labelCell}>
 									{row.label}
-									{row.formula && <FormulaPopover formula={row.formula} />}
+									{showFormulas && row.formula && (
+										<FormulaPopover formula={row.formula} />
+									)}
 								</BodyShort>
 							</Table.DataCell>
 							<Table.DataCell align="right">

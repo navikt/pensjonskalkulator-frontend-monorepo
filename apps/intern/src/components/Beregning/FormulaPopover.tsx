@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { SquarerootIcon } from '@navikt/aksel-icons'
 import { Popover } from '@navikt/ds-react'
 
-import { useFeatureToggleQuery } from '../../api/queries'
-
 import styles from './FormulaPopover.module.css'
 
 export interface Formula {
@@ -24,9 +22,6 @@ interface FormulaPopoverProps {
 }
 
 export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
-	const { data: formlerToggle } = useFeatureToggleQuery(
-		'internsimulator.vis-formler'
-	)
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const popoverRef = useRef<HTMLDivElement>(null)
 	const [open, setOpen] = useState(false)
@@ -37,8 +32,6 @@ export const FormulaPopover = ({ formula }: FormulaPopoverProps) => {
 	useEffect(() => {
 		if (open) popoverRef.current?.focus()
 	}, [open])
-
-	if (!formlerToggle?.enabled) return null
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (e.key === 'Escape') {
