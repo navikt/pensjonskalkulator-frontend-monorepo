@@ -267,7 +267,13 @@ export function mapAfpToRows(entry: {
 	tilleggspensjon: number
 	afpTillegg: number
 	saertillegg: number
+	grunnbeloep: number
 }): BeregningTableRow[] {
+	const saertilleggSats =
+		entry.grunnbeloep > 0
+			? Math.round((entry.saertillegg * 12 * 100) / entry.grunnbeloep)
+			: 74
+
 	return [
 		{
 			label: 'Grunnpensjon',
@@ -290,7 +296,11 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
-			formula: getFormula('saertillegg'),
+			formula: {
+				title: 'Særtillegg',
+				numerator: [`${saertilleggSats}% × Grunnbeløpet`],
+				denominator: '',
+			},
 		},
 	]
 }

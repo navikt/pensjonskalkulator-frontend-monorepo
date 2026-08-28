@@ -30,6 +30,7 @@ export const ServiceAfpBeregningSection = ({
 		tilleggspensjon: entry.tilleggspensjon ?? 0,
 		afpTillegg: entry.afpTillegg ?? 0,
 		saertillegg: entry.saertillegg ?? 0,
+		grunnbeloep: entry.grunnbelop ?? 0,
 	})
 	const opptjeningRows = mapServiceAfpOpptjeningRows(entry)
 
