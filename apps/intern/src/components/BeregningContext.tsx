@@ -318,6 +318,9 @@ export function BeregningProvider({
 
 	const submitBeregning = useCallback(() => {
 		const values = cloneBeregningParams(form.getValues())
+		if (values.beregnMedGjenlevenderett && !values.epsOpplysninger) {
+			values.beregnMedGjenlevenderett = false
+		}
 		setPendingBeregning(values)
 		setSubmitCount((c) => c + 1)
 		form.reset(values, { keepValues: true })

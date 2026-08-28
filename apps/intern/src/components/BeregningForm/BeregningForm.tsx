@@ -1,4 +1,7 @@
-import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Sivilstatus,
+	TilgangsnektAarsak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	formatInntekt,
 	formaterAlderString,
@@ -16,7 +19,7 @@ import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
-import type { BeregningFormData } from '../../api/beregningTypes'
+import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
 	getPartnerBetegnelse,
@@ -114,6 +117,8 @@ export const BeregningForm = () => {
 		alderAarHeltUttak,
 		alderMdHeltUttak,
 		afp,
+		epsOpplysninger,
+		epsTilgangNektAarsak,
 	] = useWatch({
 		control,
 		name: [
@@ -127,8 +132,16 @@ export const BeregningForm = () => {
 			'alderAarHeltUttak',
 			'alderMdHeltUttak',
 			'afp',
+			'epsOpplysninger',
+			'epsTilgangNektAarsak',
 		] as const,
 	})
+
+	const epsRestrictionCode =
+		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
+	const hasTilgangsbegrensning = BLOCKING_TILGANG_CODES.includes(
+		epsRestrictionCode ?? ('' as TilgangsnektAarsak)
+	)
 
 	const [alertDismissed, setAlertDismissed] = useState(false)
 	const [
@@ -194,8 +207,11 @@ export const BeregningForm = () => {
 		})
 
 		if (Object.keys(errors).length > 0) {
-			for (const key of Object.keys(errors) as (keyof BeregningFormData)[]) {
-				form.setError(key, { message: errors[key] })
+			for (const key of Object.keys(errors) as (keyof typeof errors)[]) {
+				const message = errors[key]
+				if (message) {
+					form.setError(key, { message })
+				}
 			}
 			return
 		}
@@ -413,320 +429,332 @@ export const BeregningForm = () => {
 					}) && (
 						<>
 							<Gjenlevenderett />
-							{!beregnMedGjenlevenderett && <Divider noMargin />}
+							{!beregnMedGjenlevenderett && !hasTilgangsbegrensning && (
+								<Divider noMargin />
+							)}
 						</>
 					)}
 
-				{erEndring && afpSporsmaal}
-
-				{sivilstatusVisible && (
-					<RHFSelect
-						name="sivilstatus"
-						testId="sivilstatus-select"
-						label="Sivilstatus ved uttak"
-						className={styles.selectWrapper}
-					>
-						{(initialSivilstatus === 'UOPPGITT' ||
-							initialSivilstatus === 'UNKNOWN') && <option value="" />}
-						{sivilstandOptions.map(({ value, label }) => {
-							return (
-								<option key={value} value={value ?? ''}>
-									{label}
-								</option>
-							)
-						})}
-					</RHFSelect>
-				)}
-
-				{showEpsHarPensjon({
-					sivilstatus,
-					beregnMedGjenlevenderett,
-					erEndring,
-					serviceBeregning,
-				}) && (
-					<RHFRadio
-						name="epsHarPensjon"
-						testid="eps-har-pensjon"
-						legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{showEpsHarInntektOver2G({
-					sivilstatus,
-					epsHarPensjon,
-					beregnMedGjenlevenderett,
-					erEndring,
-					serviceBeregning,
-				}) && (
-					<RHFRadio
-						name="epsHarInntektOver2G"
-						testid="eps-har-inntekt-over-2g"
-						legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${formatInntekt(2 * grunnbeloep.grunnbeløp)} kr)` : ''} ved uttak?`}
-						className={styles.horizontalRadioGroup}
-					/>
-				)}
-
-				{(!erEndring || serviceBeregning) && (
+				{!hasTilgangsbegrensning && (
 					<>
-						<Divider noMargin />
-						<UtenlandsOpphold onSubmitDisabledChange={setIsSubmitDisabled} />
-						<Divider noMargin />
-					</>
-				)}
+						{erEndring && afpSporsmaal}
 
-				{!erEndring && afpSporsmaal}
+						{sivilstatusVisible && (
+							<RHFSelect
+								name="sivilstatus"
+								testId="sivilstatus-select"
+								label="Sivilstatus ved uttak"
+								className={styles.selectWrapper}
+							>
+								{(initialSivilstatus === 'UOPPGITT' ||
+									initialSivilstatus === 'UNKNOWN') && <option value="" />}
+								{sivilstandOptions.map(({ value, label }) => {
+									return (
+										<option key={value} value={value ?? ''}>
+											{label}
+										</option>
+									)
+								})}
+							</RHFSelect>
+						)}
 
-				{forTidligEndringAvUttaksgradDato && (
-					<SanityAlert
-						id="beregning.ugyldig-uttaksgrad"
-						className={styles.sanityAlert}
-						dynamicValues={{
-							'tidligst-endring-uttaksgrad-dato':
-								forTidligEndringAvUttaksgradDato,
-						}}
-					/>
-				)}
-				{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
-					vilkaarAlternativHelt &&
-					!alertDismissed && (
-						<div data-testid="vilkaarsproeving-alert">
-							<SanityAlert
-								id={
-									sanityTextGradert
-										? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
-										: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
-								}
-								className={styles.sanityAlert}
-								dynamicValues={{
-									grad: visGradert
-										? String(
-												beregning.vilkaarsproevingsresultat?.alternativ
-													?.uttaksgrad ?? 100
-											)
-										: '100',
-									alder:
-										visGradert && vilkaarAlternativGradert
-											? formaterAlderString(
-													vilkaarAlternativGradert.aar,
-													vilkaarAlternativGradert.maaneder
-												)
-											: formaterAlderString(
-													vilkaarAlternativHelt.aar,
-													vilkaarAlternativHelt.maaneder
-												),
-									grad_gradert: String(
-										beregning.vilkaarsproevingsresultat?.alternativ
-											?.uttaksgrad ?? 100
-									),
-									gradert_alder: vilkaarAlternativGradert
-										? formaterAlderString(
-												vilkaarAlternativGradert.aar,
-												vilkaarAlternativGradert.maaneder
-											)
-										: '',
-								}}
-							/>
-						</div>
-					)}
-				{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
-					<>
-						{(afp === 'serviceberegning' || afp === 'ja_offentlig') &&
-							beregning?.vilkaarsproevingsresultat.erInnvilget === false &&
-							!alertDismissed && (
-								<SanityAlert
-									id="afp.vilkaarsproeving.vilkaar-ikke-oppfylt"
-									className={styles.sanityAlert}
-								/>
-							)}
-						{afp !== 'serviceberegning' && (
-							<RHFTextField
-								name="aarligInntektFoerUttakBeloep"
-								testId="inntekt-foer-uttak"
-								label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
-								description={
-									initialInntektAar
-										? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
-										: undefined
-								}
+						{showEpsHarPensjon({
+							sivilstatus,
+							beregnMedGjenlevenderett,
+							erEndring,
+							serviceBeregning,
+						}) && (
+							<RHFRadio
+								name="epsHarPensjon"
+								testid="eps-har-pensjon"
+								legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
+								className={styles.horizontalRadioGroup}
 							/>
 						)}
 
-						{showFremtidigAlderspensjonAlert && (
-							<SanityAlert
-								id="beregning.fremtidigAlderspensjon"
-								className={styles.sanityAlert}
-								dynamicValues={{
-									grad: String(fremtidigAlderspensjon?.grad ?? 100),
-									vedtakDato: fremtidigAlderspensjon
-										? format(
-												parseISO(fremtidigAlderspensjon.fom),
-												DATE_ENDUSER_FORMAT
-											)
-										: '',
-									tidligstEndringDato: fremtidigAlderspensjon
-										? format(
-												fremtidigAlderspensjon.grad === 0 &&
-													afp === 'ja_offentlig'
-													? parseISO(fremtidigAlderspensjon.fom)
-													: addMonths(parseISO(fremtidigAlderspensjon.fom), 1),
-												DATE_ENDUSER_FORMAT
-											)
-										: '',
-								}}
+						{showEpsHarInntektOver2G({
+							sivilstatus,
+							epsHarPensjon,
+							beregnMedGjenlevenderett,
+							erEndring,
+							serviceBeregning,
+						}) && (
+							<RHFRadio
+								name="epsHarInntektOver2G"
+								testid="eps-har-inntekt-over-2g"
+								legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${formatInntekt(2 * grunnbeloep.grunnbeløp)} kr)` : ''} ved uttak?`}
+								className={styles.horizontalRadioGroup}
 							/>
 						)}
-						<RHFAlderVelger
-							aarName="alderAarUttak"
-							mdName="alderMdUttak"
-							aarTestId="alder-uttak-aar"
-							mdTestId="alder-uttak-md"
-							foedselsdato={person?.foedselsdato}
-							erServiceberegning={afp === 'serviceberegning'}
-							{...(afp === 'serviceberegning'
-								? {
-										minAlder: { aar: 62, maaneder: 0 },
-										maxAlder: { aar: 66, maaneder: 11 },
-									}
-								: {
-										...(erAfpOffentlig
-											? { maxAlder: { aar: 66, maaneder: 11 } }
-											: {}),
-									})}
-						/>
 
-						{erAfpOffentlig && (
+						{(!erEndring || serviceBeregning) && (
 							<>
-								{afp === 'serviceberegning' &&
-									alderAarUttak !== null &&
-									alderMdUttak !== null && (
-										<>
-											{!harUttakIForrigeAarEllerTidligere && (
-												<HStack gap="space-4">
-													<BodyShort size="small" weight="semibold">
-														{pensjonsgivendeInntektLabel}
-													</BodyShort>
-													<BodyShort size="small">
-														{pensjonsgivendeInntektValue}
-													</BodyShort>
-												</HStack>
-											)}
-											{harIkkeForrigeAarsInntekt && (
-												<RHFTextField
-													name="pensjonsgivendeInntektForrigeAar"
-													label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
-												/>
-											)}
-											{isUttakEtterInnevaerendeAar({
-												foedselsdato: person?.foedselsdato,
-												alderAarUttak,
-												alderMdUttak,
-											}) && (
-												<RHFTextField
-													name="pensjonsgivendeInntektFremTilUttak"
-													label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
-												/>
-											)}
-										</>
-									)}
-
-								{(afp !== 'serviceberegning' || harAlderUttak) && (
-									<>
-										<RHFTextField
-											name="inntektSisteMaanedFoerUttak"
-											label="Inntekt siste måned før uttak"
-										/>
-										<RHFTextField
-											name="aarsinntektSamtidigMedAfp"
-											label="Årsinntekt samtidig med AFP"
-										/>
-									</>
-								)}
+								<Divider noMargin />
+								<UtenlandsOpphold
+									onSubmitDisabledChange={setIsSubmitDisabled}
+								/>
+								<Divider noMargin />
 							</>
 						)}
 
-						{!erAfpOffentlig && (
-							<>
-								<RHFSelect
-									name="uttaksgrad"
-									testId="uttaksgrad"
-									label="Uttaksgrad"
-									className={styles.selectWrapper}
-									numeric
-								>
-									{uttaksgrad == null && <option value="" />}
-									{uttaksGradArray.map((grad) => (
-										<option key={grad} value={String(grad)}>
-											{grad} %
-										</option>
-									))}
-								</RHFSelect>
-								{showAPOgUTOver100Alert && (
+						{!erEndring && afpSporsmaal}
+
+						{forTidligEndringAvUttaksgradDato && (
+							<SanityAlert
+								id="beregning.ugyldig-uttaksgrad"
+								className={styles.sanityAlert}
+								dynamicValues={{
+									'tidligst-endring-uttaksgrad-dato':
+										forTidligEndringAvUttaksgradDato,
+								}}
+							/>
+						)}
+						{beregning?.vilkaarsproevingsresultat?.erInnvilget === false &&
+							vilkaarAlternativHelt &&
+							!alertDismissed && (
+								<div data-testid="vilkaarsproeving-alert">
 									<SanityAlert
-										id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
+										id={
+											sanityTextGradert
+												? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+												: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+										}
 										className={styles.sanityAlert}
+										dynamicValues={{
+											grad: visGradert
+												? String(
+														beregning.vilkaarsproevingsresultat?.alternativ
+															?.uttaksgrad ?? 100
+													)
+												: '100',
+											alder:
+												visGradert && vilkaarAlternativGradert
+													? formaterAlderString(
+															vilkaarAlternativGradert.aar,
+															vilkaarAlternativGradert.maaneder
+														)
+													: formaterAlderString(
+															vilkaarAlternativHelt.aar,
+															vilkaarAlternativHelt.maaneder
+														),
+											grad_gradert: String(
+												beregning.vilkaarsproevingsresultat?.alternativ
+													?.uttaksgrad ?? 100
+											),
+											gradert_alder: vilkaarAlternativGradert
+												? formaterAlderString(
+														vilkaarAlternativGradert.aar,
+														vilkaarAlternativGradert.maaneder
+													)
+												: '',
+										}}
 									/>
-								)}
-
-								{showGradertUttakFields(uttaksgrad) && (
+								</div>
+							)}
+						{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
+							<>
+								{(afp === 'serviceberegning' || afp === 'ja_offentlig') &&
+									beregning?.vilkaarsproevingsresultat.erInnvilget === false &&
+									!alertDismissed && (
+										<SanityAlert
+											id="afp.vilkaarsproeving.vilkaar-ikke-oppfylt"
+											className={styles.sanityAlert}
+										/>
+									)}
+								{afp !== 'serviceberegning' && (
 									<RHFTextField
-										name="pensjonsgivendeInntektVedSidenAvGradertUttak"
-										testId="inntekt-vsa-gradert-uttak"
-										label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+										name="aarligInntektFoerUttakBeloep"
+										testId="inntekt-foer-uttak"
+										label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
+										description={
+											initialInntektAar
+												? `Forhåndsutfylt med inntekt for ${initialInntektAar}`
+												: undefined
+										}
 									/>
 								)}
 
-								{showHeltUttakAlder(uttaksgrad) && (
-									<RHFAlderVelger
-										aarName="alderAarHeltUttak"
-										mdName="alderMdHeltUttak"
-										aarTestId="alder-helt-uttak-aar"
-										mdTestId="alder-helt-uttak-md"
-										aarLabel="Alder (år) for 100 % uttak"
-										mdLabel="Alder (md.) for 100 % uttak"
-										foedselsdato={person?.foedselsdato}
-										{...(alderAarUttak !== null && alderMdUttak !== null
-											? {
-													minAlder: {
-														aar:
-															alderMdUttak >= 11
-																? alderAarUttak + 1
-																: alderAarUttak,
-														maaneder: (alderMdUttak + 1) % 12,
-													},
-												}
-											: {})}
-									/>
-								)}
-								{showHarInntektVedSidenAvUttak(uttaksgrad) && (
-									<RHFRadio
-										name="harInntektVedSidenAvUttak"
-										testid="har-inntekt-vsa-helt-uttak"
-										legend="Har bruker inntekt ved siden av 100 % uttak?"
-										className={styles.horizontalRadioGroup}
+								{showFremtidigAlderspensjonAlert && (
+									<SanityAlert
+										id="beregning.fremtidigAlderspensjon"
+										className={styles.sanityAlert}
+										dynamicValues={{
+											grad: String(fremtidigAlderspensjon?.grad ?? 100),
+											vedtakDato: fremtidigAlderspensjon
+												? format(
+														parseISO(fremtidigAlderspensjon.fom),
+														DATE_ENDUSER_FORMAT
+													)
+												: '',
+											tidligstEndringDato: fremtidigAlderspensjon
+												? format(
+														fremtidigAlderspensjon.grad === 0 &&
+															afp === 'ja_offentlig'
+															? parseISO(fremtidigAlderspensjon.fom)
+															: addMonths(
+																	parseISO(fremtidigAlderspensjon.fom),
+																	1
+																),
+														DATE_ENDUSER_FORMAT
+													)
+												: '',
+										}}
 									/>
 								)}
 
-								{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+								<RHFAlderVelger
+									aarName="alderAarUttak"
+									mdName="alderMdUttak"
+									aarTestId="alder-uttak-aar"
+									mdTestId="alder-uttak-md"
+									foedselsdato={person?.foedselsdato}
+									erServiceberegning={afp === 'serviceberegning'}
+									{...(afp === 'serviceberegning'
+										? {
+												minAlder: { aar: 62, maaneder: 0 },
+												maxAlder: { aar: 66, maaneder: 11 },
+											}
+										: {
+												...(erAfpOffentlig
+													? { maxAlder: { aar: 66, maaneder: 11 } }
+													: {}),
+											})}
+								/>
+
+								{erAfpOffentlig && (
 									<>
-										<RHFTextField
-											name="pensjonsgivendeInntektVedSidenAvUttak"
-											testId="inntekt-vsa-helt-uttak"
-											label="Pensjonsgivende inntekt ved siden av 100 % uttak"
-										/>
+										{afp === 'serviceberegning' &&
+											alderAarUttak !== null &&
+											alderMdUttak !== null && (
+												<>
+													{!harUttakIForrigeAarEllerTidligere && (
+														<HStack gap="space-4">
+															<BodyShort size="small" weight="semibold">
+																{pensjonsgivendeInntektLabel}
+															</BodyShort>
+															<BodyShort size="small">
+																{pensjonsgivendeInntektValue}
+															</BodyShort>
+														</HStack>
+													)}
+													{harIkkeForrigeAarsInntekt && (
+														<RHFTextField
+															name="pensjonsgivendeInntektForrigeAar"
+															label={`Pensjonsgivende årsinntekt ${forrigeAar}`}
+														/>
+													)}
+													{isUttakEtterInnevaerendeAar({
+														foedselsdato: person?.foedselsdato,
+														alderAarUttak,
+														alderMdUttak,
+													}) && (
+														<RHFTextField
+															name="pensjonsgivendeInntektFremTilUttak"
+															label={`Pensjonsgivende årsinntekt frem til ${erEndring ? 'endring' : 'uttak'}`}
+														/>
+													)}
+												</>
+											)}
 
-										<RHFAlderVelger
-											aarName="alderAarInntektSlutter"
-											mdName="alderMdInntektSlutter"
-											aarTestId="alder-inntekt-slutter-aar"
-											mdTestId="alder-inntekt-slutter-md"
-											aarLabel="Alder (år) inntekt slutter"
-											mdLabel="Alder (md.) inntekt slutter"
-											foedselsdato={person?.foedselsdato}
-											{...(minAlderInntektSlutter
-												? { minAlder: minAlderInntektSlutter }
-												: {})}
-										/>
+										{(afp !== 'serviceberegning' || harAlderUttak) && (
+											<>
+												<RHFTextField
+													name="inntektSisteMaanedFoerUttak"
+													label="Inntekt siste måned før uttak"
+												/>
+												<RHFTextField
+													name="aarsinntektSamtidigMedAfp"
+													label="Årsinntekt samtidig med AFP"
+												/>
+											</>
+										)}
+									</>
+								)}
+
+								{!erAfpOffentlig && (
+									<>
+										<RHFSelect
+											name="uttaksgrad"
+											testId="uttaksgrad"
+											label="Uttaksgrad"
+											className={styles.selectWrapper}
+											numeric
+										>
+											{uttaksgrad == null && <option value="" />}
+											{uttaksGradArray.map((grad) => (
+												<option key={grad} value={String(grad)}>
+													{grad} %
+												</option>
+											))}
+										</RHFSelect>
+										{showAPOgUTOver100Alert && (
+											<SanityAlert
+												id="beregning.ufoeretrygd-og-sim-AP-med-uttaksgrad-100"
+												className={styles.sanityAlert}
+											/>
+										)}
+
+										{showGradertUttakFields(uttaksgrad) && (
+											<RHFTextField
+												name="pensjonsgivendeInntektVedSidenAvGradertUttak"
+												testId="inntekt-vsa-gradert-uttak"
+												label={`Pensjonsgivende inntekt ved siden av ${uttaksgrad} % uttak`}
+											/>
+										)}
+
+										{showHeltUttakAlder(uttaksgrad) && (
+											<RHFAlderVelger
+												aarName="alderAarHeltUttak"
+												mdName="alderMdHeltUttak"
+												aarTestId="alder-helt-uttak-aar"
+												mdTestId="alder-helt-uttak-md"
+												aarLabel="Alder (år) for 100 % uttak"
+												mdLabel="Alder (md.) for 100 % uttak"
+												foedselsdato={person?.foedselsdato}
+												{...(alderAarUttak !== null && alderMdUttak !== null
+													? {
+															minAlder: {
+																aar:
+																	alderMdUttak >= 11
+																		? alderAarUttak + 1
+																		: alderAarUttak,
+																maaneder: (alderMdUttak + 1) % 12,
+															},
+														}
+													: {})}
+											/>
+										)}
+										{showHarInntektVedSidenAvUttak(uttaksgrad) && (
+											<RHFRadio
+												name="harInntektVedSidenAvUttak"
+												testid="har-inntekt-vsa-helt-uttak"
+												legend="Har bruker inntekt ved siden av 100 % uttak?"
+												className={styles.horizontalRadioGroup}
+											/>
+										)}
+
+										{showInntektHeltFields(harInntektVedSidenAvUttak) && (
+											<>
+												<RHFTextField
+													name="pensjonsgivendeInntektVedSidenAvUttak"
+													testId="inntekt-vsa-helt-uttak"
+													label="Pensjonsgivende inntekt ved siden av 100 % uttak"
+												/>
+
+												<RHFAlderVelger
+													aarName="alderAarInntektSlutter"
+													mdName="alderMdInntektSlutter"
+													aarTestId="alder-inntekt-slutter-aar"
+													mdTestId="alder-inntekt-slutter-md"
+													aarLabel="Alder (år) inntekt slutter"
+													mdLabel="Alder (md.) inntekt slutter"
+													foedselsdato={person?.foedselsdato}
+													{...(minAlderInntektSlutter
+														? { minAlder: minAlderInntektSlutter }
+														: {})}
+												/>
+											</>
+										)}
 									</>
 								)}
 							</>
@@ -734,13 +762,15 @@ export const BeregningForm = () => {
 					</>
 				)}
 			</Box>
-			<ButtonBar
-				onSubmit={handleSubmit}
-				onReset={handleReset}
-				isDirty={isDirty}
-				harAktivBeregning={!!aktivBeregning}
-				isSubmitDisabled={isSubmitDisabled}
-			/>
+			{!hasTilgangsbegrensning && (
+				<ButtonBar
+					onSubmit={handleSubmit}
+					onReset={handleReset}
+					isDirty={isDirty}
+					harAktivBeregning={!!aktivBeregning}
+					isSubmitDisabled={isSubmitDisabled}
+				/>
+			)}
 		</Box>
 	)
 }

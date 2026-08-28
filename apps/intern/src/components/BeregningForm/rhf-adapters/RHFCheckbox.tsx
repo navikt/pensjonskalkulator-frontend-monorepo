@@ -9,6 +9,7 @@ interface RHFCheckboxProps {
 	label: string
 	className?: string
 	testid?: string
+	disabled?: boolean
 }
 
 export function RHFCheckbox({
@@ -16,6 +17,7 @@ export function RHFCheckbox({
 	label,
 	className,
 	testid,
+	disabled,
 }: RHFCheckboxProps) {
 	const {
 		control,
@@ -33,6 +35,7 @@ export function RHFCheckbox({
 			error={!!error}
 			data-testid={testid}
 			size="small"
+			disabled={disabled}
 		>
 			{label}
 		</Checkbox>
