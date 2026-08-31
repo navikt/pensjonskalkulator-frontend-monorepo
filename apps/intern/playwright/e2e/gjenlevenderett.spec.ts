@@ -766,4 +766,161 @@ test.describe('Gjenlevenderett', () => {
 			).toBeVisible()
 		})
 	})
+
+	test.describe('Tilgang nektet', () => {
+		test.beforeEach(async ({ page }) => {
+			await setupDefaultMocks(page, {
+				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+			})
+			await navigateToApp(page)
+		})
+
+		test('Viser strengt fortrolig alert ved STRENGT_FORTROLIG_ADRESSE', async ({
+			page,
+		}) => {
+			await mockApiError(page, API_URLS.EPS, 403, {
+				relasjonstype: 'UKJENT',
+				problem: {
+					type: 'TILGANG_NEKTET',
+					beskrivelse: 'Ikke tilgang til personen',
+					tilgangsnekt: {
+						aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+						begrunnelse:
+							'Du har ikke tilgang til brukere med strengt fortrolig adresse (kode 6)',
+					},
+				},
+			})
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.strengt.fortrolig')
+			).toBeVisible()
+
+			await expect(page.getByTestId('EPS-henting-feil')).not.toBeVisible()
+		})
+
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.strengt.fortrolig',
+				label: 'kode 6',
+			},
+			{
+				aarsak: 'FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.fortrolig',
+				label: 'kode 7',
+			},
+		]) {
+			test(`Skjuler skjemaet og viser kun alert for ${label} (${aarsak})`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
+					})
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).not.toBeVisible()
+			})
+		}
+
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'SKJERMING',
+				alertId: 'beregning.gjenlevenderett.skjerming',
+				label: 'egen ansatt',
+			},
+			{
+				aarsak: 'HABILITET',
+				alertId: 'beregning.gjenlevenderett.habilitet',
+				label: 'egne data / egen familie',
+			},
+			{
+				aarsak: 'VERGEMAAL',
+				alertId: 'beregning.gjenlevenderett.verge',
+				label: 'verge',
+			},
+		]) {
+			test(`Viser alert for ${label} (${aarsak}) uten å skjule skjemaet og blokkerer innsending`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+				await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).not.toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await fillMainFormFields(page)
+				await page.getByRole('button', { name: 'Beregn pensjon' }).click()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeChecked()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
+		}
+
+		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
+			await mockApiError(page, API_URLS.EPS, 500)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(page.getByTestId('EPS-henting-feil')).toBeVisible()
+		})
+	})
 })

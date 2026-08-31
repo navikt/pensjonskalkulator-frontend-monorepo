@@ -7,6 +7,7 @@ import type {
 import type { BeregningResult } from '../../api/beregningTypes'
 import type { BeregningDetailRow } from './BeregningDetailTable'
 import type { BeregningTableRow } from './BeregningTableWithSum'
+import { getFormula } from './formulas'
 
 const formatNumber = (
 	value?: number | null,
@@ -22,14 +23,35 @@ const formatKr = (value?: number | null): string =>
 const formatAar = (value?: number | null): string =>
 	value != null ? `${value} år` : ''
 
-export function mapAlderspensjonToRows(
-	entry: SimuleringMaanedligAlderspensjon,
-	visKap19: boolean,
-	visKap20: boolean,
-	simulererMedGjenlevenderett: boolean,
+export function mapAlderspensjonToRows({
+	entry,
+	visKap19,
+	visKap20,
+	simulererMedGjenlevenderett,
+	harGjenlevenderett,
+	erOvergangskull = false,
+	reducedGrunnpensjon = false,
+	erEndring = false,
+}: {
+	entry: SimuleringMaanedligAlderspensjon
+	visKap19: boolean
+	visKap20: boolean
+	simulererMedGjenlevenderett: boolean
 	harGjenlevenderett: boolean
-): BeregningTableRow[] {
+	erOvergangskull?: boolean
+	reducedGrunnpensjon?: boolean
+	erEndring?: boolean
+}): BeregningTableRow[] {
 	const skjermingstillegg = Math.round(entry.skjermingstillegg ?? 0)
+
+	const gpSuffix = erOvergangskull ? '_4' : '_3'
+	const gpPrefix = reducedGrunnpensjon
+		? 'formler.grunnpensjon_redusert'
+		: 'formler.grunnpensjon'
+	const tpSuffix = erOvergangskull ? '_4' : '_3'
+	const ptSuffix = erOvergangskull ? '_4' : '_3'
+	const ipSuffix = erOvergangskull ? '_3' : '_2'
+
 	return [
 		...(visKap19
 			? [
@@ -37,16 +59,21 @@ export function mapAlderspensjonToRows(
 						label: 'Grunnpensjon (kap. 19)',
 						value: Math.round(entry.grunnpensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.grunnpensjonBeloep ?? 0) * 12,
+						formula: getFormula(erEndring ? 'gp3' : `${gpPrefix}${gpSuffix}`),
 					},
 					{
 						label: 'Tilleggspensjon (kap. 19)',
 						value: Math.round(entry.tilleggspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.tilleggspensjonBeloep ?? 0) * 12,
+						formula: getFormula(
+							erEndring ? 'tp3' : `formler.tilleggspensjon${tpSuffix}`
+						),
 					},
 					{
 						label: 'Pensjonstillegg (kap. 19)',
 						value: Math.round(entry.pensjonstillegg ?? 0),
 						yearlyValue: Math.round(entry.pensjonstillegg ?? 0) * 12,
+						formula: getFormula(`formler.pensjonstillegg${ptSuffix}`),
 					},
 					{
 						label: 'Gjenlevendetillegg (kap. 19)',
@@ -63,11 +90,15 @@ export function mapAlderspensjonToRows(
 						label: 'Inntektspensjon (kap. 20)',
 						value: Math.round(entry.inntektspensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.inntektspensjonBeloep ?? 0) * 12,
+						formula: getFormula(
+							erEndring ? 'ip2' : `formler.inntektspensjon${ipSuffix}`
+						),
 					},
 					{
 						label: 'Garantipensjon (kap. 20)',
 						value: Math.round(entry.garantipensjonBeloep ?? 0),
 						yearlyValue: Math.round(entry.garantipensjonBeloep ?? 0) * 12,
+						formula: getFormula(erEndring ? 'gap2' : 'formler.garantipensjon'),
 					},
 					{
 						label: 'Garantitillegg (kap. 20)',
@@ -81,6 +112,7 @@ export function mapAlderspensjonToRows(
 			value: skjermingstillegg,
 			yearlyValue: skjermingstillegg * 12,
 			hide: skjermingstillegg <= 0,
+			formula: getFormula('skjerm1'),
 		},
 	]
 }
@@ -113,6 +145,7 @@ export function mapOpptjeningEtterKapittel19ToRows(
 		{
 			label: 'Sluttpoengtall',
 			value: formatNumber(opptjening.sluttpoengtall),
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Trygdetid',
@@ -169,6 +202,7 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		{
 			label: 'Pensjonsbeholdning før uttak',
 			value: formatKr(opptjening.pensjonsbeholdningFoerUttakBeloep),
+			formula: getFormula('pensjonsbeholdning'),
 		},
 		{
 			label: 'Pensjonsbeholdning etter uttak',
@@ -192,6 +226,7 @@ export function mapPrivatAfp(
 			value: kompensasjonstillegg,
 			yearlyValue: kompensasjonstillegg * 12,
 			hide: kompensasjonstillegg <= 0,
+			formula: getFormula('afp_privat.kompt1'),
 		},
 		{
 			label: 'Kronetillegg',
@@ -203,6 +238,9 @@ export function mapPrivatAfp(
 			label: 'Livsvarig del',
 			value: entry?.livsvarig ?? 0,
 			yearlyValue: (entry?.livsvarig ?? 0) * 12,
+			formula: getFormula(
+				visKronetillegg ? 'afp_privat.livsvd2' : 'afp_privat.livsvd1'
+			),
 		},
 	]
 }
@@ -235,17 +273,20 @@ export function mapAfpToRows(entry: {
 	tilleggspensjon: number
 	afpTillegg: number
 	saertillegg: number
+	epsHarPensjon?: boolean | null
 }): BeregningTableRow[] {
 	return [
 		{
 			label: 'Grunnpensjon',
 			value: Math.round(entry.grunnpensjon),
 			yearlyValue: Math.round(entry.grunnpensjon) * 12,
+			formula: getFormula('basis_grunnpensjon'),
 		},
 		{
 			label: 'Tilleggspensjon',
 			value: Math.round(entry.tilleggspensjon),
 			yearlyValue: Math.round(entry.tilleggspensjon) * 12,
+			formula: getFormula('basis_tilleggspensjon'),
 		},
 		{
 			label: 'AFP-tillegg',
@@ -256,6 +297,9 @@ export function mapAfpToRows(entry: {
 			label: 'Særtillegg',
 			value: Math.round(entry.saertillegg),
 			yearlyValue: Math.round(entry.saertillegg) * 12,
+			formula: getFormula(
+				entry.epsHarPensjon ? 'saertillegg_redusert' : 'saertillegg_ordinaer'
+			),
 		},
 	]
 }
@@ -288,28 +332,23 @@ export function mapServiceAfpOpptjeningRows(
 							maximumFractionDigits: 2,
 						})
 					: '',
-		},
-		{
-			label: 'Poengår',
-			value: poengaar != null ? `${poengaar} år` : '',
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Trygdetid',
 			value: entry.trygdetid != null ? `${entry.trygdetid} år` : '',
 		},
 		{
+			label: 'Poengår',
+			value: poengaar != null ? `${poengaar} år` : '',
+		},
+		{
 			label: 'Poengår før 1992 (45 %)',
-			value:
-				poengaarF92 != null && poengaar != null
-					? `${poengaarF92} av ${poengaar} år`
-					: '',
+			value: poengaarF92 != null ? `${poengaarF92} år` : '',
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value:
-				poengaarE91 != null && poengaar != null
-					? `${poengaarE91} av ${poengaar} år`
-					: '',
+			value: poengaarE91 != null ? `${poengaarE91} år` : '',
 		},
 	]
 }
@@ -324,32 +363,33 @@ export function mapTidsbegrensetAfpOpptjeningToRows(
 			value: `${entry.afpGrad} %`,
 		},
 		{
-			label: 'Grunnbeløp (G)',
-			value: formatKr(entry.grunnbeloep),
-		},
-		{
 			label: 'Tidligere arbeidsinntekt',
 			value: formatKr(entry.tidligereArbeidsinntekt),
 		},
 		{
-			label: 'Sluttpoengtall',
-			value: formatNumber(entry.sluttpoengtall, 2),
+			label: 'Grunnbeløp (G)',
+			value: formatKr(entry.grunnbeloep),
 		},
 		{
-			label: 'Poengår',
-			value: `${totalPoengaar} år`,
+			label: 'Sluttpoengtall',
+			value: formatNumber(entry.sluttpoengtall, 2),
+			formula: getFormula('sluttpoengtall'),
 		},
 		{
 			label: 'Trygdetid',
 			value: formatAar(entry.trygdetid),
 		},
 		{
+			label: 'Poengår',
+			value: `${totalPoengaar} år`,
+		},
+		{
 			label: 'Poengår før 1992 (45 %)',
-			value: `${entry.poengaarTom1991} av ${totalPoengaar} år`,
+			value: `${entry.poengaarTom1991} år`,
 		},
 		{
 			label: 'Poengår etter 1991 (42 %)',
-			value: `${entry.poengaarFom1992} av ${totalPoengaar} år`,
+			value: `${entry.poengaarFom1992} år`,
 		},
 	]
 }

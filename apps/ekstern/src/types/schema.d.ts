@@ -2128,6 +2128,23 @@ export interface components {
       /** @enum {string} */
       type: 'TILGANG_NEKTET'
       beskrivelse: string
+      tilgangsnekt?: {
+        /** @enum {string} */
+        aarsak:
+          | 'STRENGT_FORTROLIG_ADRESSE'
+          | 'STRENGT_FORTROLIG_UTLAND'
+          | 'AVDOED'
+          | 'VERGEMAAL'
+          | 'PERSON_UTLAND'
+          | 'SKJERMING'
+          | 'FORTROLIG_ADRESSE'
+          | 'UKJENT_BOSTED'
+          | 'GEOGRAFISK'
+          | 'HABILITET'
+          | 'POPULASJONSTILGANGSSJEKK_FEIL'
+          | 'UNKNOWN'
+        begrunnelse: string
+      } | null
     }
     EpsV1RelasjonPersondata: {
       /** @enum {string|null} */

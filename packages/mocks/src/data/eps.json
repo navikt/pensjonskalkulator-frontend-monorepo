@@ -3,7 +3,7 @@
 	"fom": "2026-02-24",
 	"relasjonstype": "EKTEFELLE",
 	"relasjonPersondata": {
-		"tilgangsbegrensning": "FORTROLIG",
+		"tilgangsbegrensning": "FORTROLIG_ADRESSE",
 		"navn": {
 			"fornavn": "string",
 			"mellomnavn": "string",

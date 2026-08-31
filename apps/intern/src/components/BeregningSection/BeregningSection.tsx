@@ -32,6 +32,7 @@ interface BeregningSectionProps {
 	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
+	reducedGrunnpensjon?: boolean
 }
 
 export const BeregningSection = ({
@@ -55,6 +56,7 @@ export const BeregningSection = ({
 	showVisAarsbelopCheckbox,
 	harGjenlevenderett = false,
 	onVisAarsbelopChange,
+	reducedGrunnpensjon = false,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -95,6 +97,7 @@ export const BeregningSection = ({
 						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
 						harGjenlevenderett={harGjenlevenderett}
 						isGradert={isGradert}
+						reducedGrunnpensjon={reducedGrunnpensjon}
 					/>
 				)}
 				{showAfp && (
