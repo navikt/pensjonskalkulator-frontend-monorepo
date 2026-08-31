@@ -2729,6 +2729,8 @@ export interface components {
 			tidsbegrensetOffentligAfpFom?: string | null
 			/** @description Informasjon om eventuell avdød ektefelle/partner/samboer */
 			avdoed?: components['schemas']['VedtakV1InformasjonOmAvdoed'] | null
+			/** @description Informasjon om hvorvidt personen kan simulere med gjenlevenderett */
+			kanSimulereMedGjenlevenderett: boolean
 		}
 		VedtakV1Utbetaling: {
 			/** @description Beløp utbetalt */
