@@ -2296,6 +2296,7 @@ export interface components {
 				| 'HAR_UFOERETRYGD'
 				| 'HAR_GJENLEVENDE_ELLER_OMSTILLINGSSTOENAD'
 			)[]
+			simulererEndringMedAfpPrivat: boolean
 		}
 		LagreTidsbegrensetOffentligAfpDto: {
 			/** Format: int32 */

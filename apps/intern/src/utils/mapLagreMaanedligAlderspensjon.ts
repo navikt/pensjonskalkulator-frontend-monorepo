@@ -19,7 +19,6 @@ export function mapLagreMaanedligAlderspensjon(
 	const common = {
 		beloep: maanedligAlderspensjon.beloep,
 		skjermingstillegg: maanedligAlderspensjon.skjermingstillegg,
-		garantipensjonsnivaaBeloep: null,
 		grunnbeloep: grunnbeloep,
 	}
 	const gjenlevendetillegg =
@@ -73,7 +72,6 @@ export function mapLagreMaanedligAlderspensjon(
 	return {
 		...rest,
 		gjenlevendetillegg,
-		garantipensjonBeloep: null,
 		grunnbeloep: grunnbeloep,
 		kapittel19AndelTeller: mapAndelToTeller(kapittel19Andel),
 		kapittel20AndelTeller: mapAndelToTeller(kapittel20Andel),
