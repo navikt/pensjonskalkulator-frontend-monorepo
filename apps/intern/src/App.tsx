@@ -16,7 +16,6 @@ import {
 	useDecryptPidQuery,
 	useEnheterQuery,
 	useErApotekerQuery,
-	useFeatureToggleQuery,
 	useInntektQuery,
 	useInternsimulatorLagreBrevButtonQuery,
 	useOmstillingsstoenadQuery,
@@ -96,9 +95,6 @@ const AppContent = () => {
 		data: person,
 	} = usePersonQuery(fnr)
 
-	const { data: showHentPersonButton } = useFeatureToggleQuery(
-		'internsimulator.hent-person-button'
-	)
 	const { data: lagreBrevButtonToggle } =
 		useInternsimulatorLagreBrevButtonQuery()
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
@@ -190,16 +186,6 @@ const AppContent = () => {
 
 	return (
 		<>
-			{showHentPersonButton?.enabled === false && (
-				<GlobalAlert status="announcement" size="small" centered={false}>
-					<GlobalAlert.Header className={styles.pilotGlobalAlert}>
-						<GlobalAlert.Title>
-							Denne pensjonskalkulatoren er under utvikling. Er du ikke med i
-							piloten, skal du fortsatt bruke gammel pensjonskalkulator.
-						</GlobalAlert.Title>
-					</GlobalAlert.Header>
-				</GlobalAlert>
-			)}
 			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
 				initialSivilstatus={person?.sivilstatus}
