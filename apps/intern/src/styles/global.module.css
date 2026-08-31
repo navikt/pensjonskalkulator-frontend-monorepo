@@ -34,10 +34,6 @@
 	overflow: hidden;
 }
 
-.pilotGlobalAlert {
-	padding: 0 var(--ax-space-48);
-}
-
 .heading {
 	font-size: var(--ax-font-size-medium);
 	line-height: var(--ax-font-line-height-medium);
