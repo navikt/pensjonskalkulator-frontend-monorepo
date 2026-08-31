@@ -121,12 +121,7 @@ export const Gjenlevenderett = () => {
 				shouldDirty: false,
 			})
 		}
-	}, [
-		harHentetEPSOpplysninger,
-		person,
-		harHentetEPSOpplysninger,
-		beregnMedGjenlevenderett,
-	])
+	}, [harHentetEPSOpplysninger, person, beregnMedGjenlevenderett])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
