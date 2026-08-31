@@ -108,21 +108,29 @@ export const Gjenlevenderett = () => {
 		}
 	}, [EPSOpplysninger, form])
 
-	const [beregnMedGjenlevenderett] = useWatch({
+	const [
+		formEpsOpplysninger,
+		harHentetEPSOpplysninger,
+		beregnMedGjenlevenderett,
+	] = useWatch({
 		control,
-		name: ['beregnMedGjenlevenderett'] as const,
-	})
-
-	const [formEpsOpplysninger, harHentetEPSOpplysninger] = useWatch({
-		control,
-		name: ['epsOpplysninger', 'harHentetEPSOpplysninger'] as const,
+		name: [
+			'epsOpplysninger',
+			'harHentetEPSOpplysninger',
+			'beregnMedGjenlevenderett',
+		] as const,
 	})
 
 	useEffect(() => {
 		if (!harHentetEPSOpplysninger || !person) {
 			setEpsQueryParams({} as { sivilstatus: Sivilstand; bakgrunn: string })
 		}
-	}, [harHentetEPSOpplysninger, person])
+		if (!harHentetEPSOpplysninger && !beregnMedGjenlevenderett) {
+			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
+				shouldDirty: false,
+			})
+		}
+	}, [harHentetEPSOpplysninger, person, beregnMedGjenlevenderett])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([

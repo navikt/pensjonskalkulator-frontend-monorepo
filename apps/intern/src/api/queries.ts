@@ -360,10 +360,14 @@ async function fetchOpptjening(fnr: string): Promise<Opptjening> {
 	return response.json() as Promise<Opptjening>
 }
 
-export function useOpptjeningQueryForAvdoed(fnr?: string) {
+export function useOpptjeningQueryForAvdoed(
+	fnr?: string,
+	beregnMedGjenlevenderett?: boolean
+) {
 	return useQuery({
-		queryKey: ['opptjening', fnr],
-		queryFn: fnr ? () => fetchOpptjening(fnr) : skipToken,
+		queryKey: ['opptjening', fnr, beregnMedGjenlevenderett],
+		queryFn:
+			fnr && beregnMedGjenlevenderett ? () => fetchOpptjening(fnr) : skipToken,
 		retry: false,
 	})
 }

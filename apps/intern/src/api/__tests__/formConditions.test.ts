@@ -140,7 +140,7 @@ describe('showSivilstatus', () => {
 		).toBe(true)
 	})
 
-	test('hides when erEndring with serviceBeregning but sivilstatus without gjenlevenderett', () => {
+	test('hides when beregning med gjenlevenderett is selected, even for endring with serviceberegning', () => {
 		expect(
 			showSivilstatus({
 				...base,
@@ -149,7 +149,7 @@ describe('showSivilstatus', () => {
 				serviceBeregning: true,
 				beregnMedGjenlevenderett: true,
 			})
-		).toBe(true)
+		).toBe(false)
 	})
 
 	test('hides when beregnMedGjenlevenderett and sivilstatus with gjenlevenderett', () => {
@@ -158,14 +158,14 @@ describe('showSivilstatus', () => {
 		)
 	})
 
-	test('shows when beregnMedGjenlevenderett but sivilstatus without gjenlevenderett', () => {
+	test('hides when beregnMedGjenlevenderett and sivilstatus without gjenlevenderett', () => {
 		expect(
 			showSivilstatus({
 				...base,
 				sivilstatus: 'UGIFT',
 				beregnMedGjenlevenderett: true,
 			})
-		).toBe(true)
+		).toBe(false)
 	})
 
 	test('hides when not erEndring, serviceBeregning selected, but beregnMedGjenlevenderett and sivilstatus with gjenlevenderett (unchanged for users without vedtak)', () => {

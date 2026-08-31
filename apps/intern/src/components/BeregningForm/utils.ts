@@ -49,15 +49,14 @@ export function showSivilstatus({
 	erEndring: boolean
 	serviceBeregning: boolean
 }): boolean {
-	if (!sivilstatus || (erEndring && !serviceBeregning)) return false
-
-	return (
-		(erEndring &&
-			serviceBeregning &&
-			isSivilstatusWithGjenlevenderett(sivilstatus)) ||
-		!isSivilstatusWithGjenlevenderett(sivilstatus) ||
-		!beregnMedGjenlevenderett
+	if (
+		!sivilstatus ||
+		beregnMedGjenlevenderett ||
+		(erEndring && !serviceBeregning)
 	)
+		return false
+
+	return true
 }
 
 export function showBeregnMedGjenlevenderett({
