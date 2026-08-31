@@ -366,7 +366,7 @@ export function mapBeregningResultToLagreSpec(
 			kull,
 			forbeholdVisningsvilkaar: forbeholdVisningsvilkaar,
 			normertPensjonsalderPlassering: normertPensjonsalderPlassering,
-			simulererEndringMedAfpPrivat: simulererEndringMedAfpPrivat ?? false, //Brukes til å fortelle brevbaker at den kun skal vise afp tabeller (ikke AP tabelller)
+			simulererEndringMedAfpPrivat: simulererEndringMedAfpPrivat ?? false, //Brukes til å fortelle brevbaker at den kun skal vise afp tabeller (ikke AP tabeller)
 		},
 		maanedligAlderspensjonForKnekkpunkter,
 		navEnhetId: navEnhetId,
