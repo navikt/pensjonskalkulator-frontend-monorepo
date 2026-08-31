@@ -1,0 +1,64 @@
+.formulaButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: 1.25px solid var(--ax-text-accent-subtle);
+	border-radius: 50%;
+	cursor: pointer;
+	width: 24px;
+	height: 24px;
+	padding: 2.5px;
+	box-sizing: border-box;
+	margin-left: 0.25rem;
+	vertical-align: middle;
+	color: var(--ax-text-accent-subtle);
+}
+
+.formulaContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.25rem;
+}
+
+.formulaTitle {
+	font-weight: 600;
+	font-size: 0.95rem;
+	align-self: flex-start;
+}
+
+.fraction {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.numerator {
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 0.2rem;
+}
+
+.numeratorWithDivider {
+	border-bottom: 1px solid currentColor;
+}
+
+.divider {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.denominator {
+	padding: 0.2rem 0.5rem 0;
+}
+
+.denominatorWithDivider {
+	border-top: 1px solid currentColor;
+}

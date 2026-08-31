@@ -1,4 +1,7 @@
-import type { Sivilstand } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Sivilstand,
+	TilgangsnektAarsak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
@@ -12,7 +15,12 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
-import { useEPSOpplysningerQuery, useVedtakQuery } from '../../api/queries'
+import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
+import {
+	EpsError,
+	useEPSOpplysningerQuery,
+	useVedtakQuery,
+} from '../../api/queries'
 import { getEpsVedtakStatus } from '../../utils'
 import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
@@ -36,6 +44,7 @@ export const Gjenlevenderett = () => {
 
 	const {
 		data: EPSOpplysninger,
+		error: epsError,
 		isError,
 		isLoading: isEPSLoading,
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
@@ -150,6 +159,31 @@ export const Gjenlevenderett = () => {
 		</LocalAlert>
 	)
 
+	const epsAccessAlertMap: Partial<Record<TilgangsnektAarsak, string>> = {
+		STRENGT_FORTROLIG_ADRESSE: 'beregning.gjenlevenderett.strengt.fortrolig',
+		STRENGT_FORTROLIG_UTLAND:
+			'beregning.gjenlevenderett.strengt.fortrolig.utland',
+		FORTROLIG_ADRESSE: 'beregning.gjenlevenderett.fortrolig',
+		SKJERMING: 'beregning.gjenlevenderett.skjerming',
+		HABILITET: 'beregning.gjenlevenderett.habilitet',
+		VERGEMAAL: 'beregning.gjenlevenderett.verge',
+	}
+
+	const epsAarsak = (epsError instanceof EpsError && epsError.aarsak) || ''
+
+	const tilgangsbegrensningAlertId = epsAarsak
+		? epsAccessAlertMap[epsAarsak]
+		: undefined
+
+	const skjulSkjemaForTilgang =
+		!!epsAarsak && BLOCKING_TILGANG_CODES.includes(epsAarsak)
+
+	useEffect(() => {
+		form.setValue('epsTilgangNektAarsak', epsAarsak || undefined, {
+			shouldDirty: false,
+		})
+	}, [skjulSkjemaForTilgang, epsAarsak, form])
+
 	const isEPSInfoEmpty =
 		formEpsOpplysninger &&
 		(formEpsOpplysninger.pid === null ||
@@ -183,6 +217,7 @@ export const Gjenlevenderett = () => {
 				name="beregnMedGjenlevenderett"
 				label="Beregn med gjenlevenderett (valgfritt)"
 				testid="beregn-med-gjenlevenderett"
+				disabled={skjulSkjemaForTilgang}
 			/>
 
 			{beregnMedGjenlevenderett && (
@@ -225,18 +260,26 @@ export const Gjenlevenderett = () => {
 								]}
 							/>
 						)}
-						{isError && EPSError}
-						{!isEPSLoading && !formEpsOpplysninger && (
-							<Button
-								variant="secondary"
-								onClick={handleHentEPSOpplysninger}
-								className={styles.epsSubmitButton}
-								data-testid="EPS-hent-opplysninger-button"
-								size="small"
-							>
-								{EPSButtonText}
-							</Button>
+						{isError && !tilgangsbegrensningAlertId && EPSError}
+						{tilgangsbegrensningAlertId && (
+							<SanityAlert
+								id={tilgangsbegrensningAlertId}
+								className={styles.sanityAlert}
+							/>
 						)}
+						{!isEPSLoading &&
+							!formEpsOpplysninger &&
+							!tilgangsbegrensningAlertId && (
+								<Button
+									variant="secondary"
+									onClick={handleHentEPSOpplysninger}
+									className={styles.epsSubmitButton}
+									data-testid="EPS-hent-opplysninger-button"
+									size="small"
+								>
+									{EPSButtonText}
+								</Button>
+							)}
 						{harHentetError && (
 							<ErrorMessage
 								size="small"
@@ -247,7 +290,7 @@ export const Gjenlevenderett = () => {
 								{harHentetError}
 							</ErrorMessage>
 						)}
-						{isEPSInfoEmpty && (
+						{isEPSInfoEmpty && !tilgangsbegrensningAlertId && (
 							<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
 								<LocalAlert.Header>
 									<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
@@ -262,7 +305,8 @@ export const Gjenlevenderett = () => {
 						{formEpsOpplysninger &&
 							!isEPSInfoEmpty &&
 							erBakgrunnDoedsfallRegistrert &&
-							!harRegistrertDoedsdato && (
+							!harRegistrertDoedsdato &&
+							!tilgangsbegrensningAlertId && (
 								<VStack gap="space-16" align="start">
 									<SanityAlert
 										id="beregning.gjenlevenderett.doedsfall.ikke.registrert"

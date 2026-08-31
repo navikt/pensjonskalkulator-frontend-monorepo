@@ -1,5 +1,8 @@
 import { BodyShort, Box, Label, Table } from '@navikt/ds-react'
 
+import type { Formula } from './FormulaPopover'
+import { FormulaPopover } from './FormulaPopover'
+
 import styles from './BeregningTable.module.css'
 
 export type Unit = 'kr' | 'år'
@@ -11,6 +14,7 @@ export interface BeregningTableRow {
 	unit?: Unit
 	hide?: boolean
 	showWhenZero?: boolean
+	formula?: Formula
 }
 
 interface BeregningTableWithSumProps {
@@ -88,7 +92,15 @@ export const BeregningTableWithSum = ({
 					{validRows.map((row) => (
 						<Table.Row key={row.label + title}>
 							<Table.DataCell>
-								<BodyShort size="small">{row.label}</BodyShort>
+								<BodyShort size="small" className={styles.labelCell}>
+									{row.label}
+									{row.formula && (
+										<FormulaPopover
+											formula={row.formula}
+											visAarsbelop={visAarsbelop}
+										/>
+									)}
+								</BodyShort>
 							</Table.DataCell>
 							<Table.DataCell align="right">
 								<BodyShort size="small">

@@ -249,6 +249,10 @@ export const Beregning = () => {
 
 	const ufoeretrygdBeregningInfo = 'Uføretrygd vises ikke i beregningen.'
 
+	const reducedGrunnpensjon =
+		Boolean(aktivBeregning?.epsHarPensjon) ||
+		Boolean(aktivBeregning?.epsHarInntektOver2G)
+
 	const sectionCommonProps = {
 		tableCount,
 		erFoedtFoer1963,
@@ -256,6 +260,7 @@ export const Beregning = () => {
 		erFoedtEtter1963,
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
+		reducedGrunnpensjon,
 	}
 	const showGradertFirst =
 		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
@@ -493,6 +498,7 @@ export const Beregning = () => {
 									erFoedtEtter1963={erFoedtEtter1963}
 									isOpptjeningAvdoedSection={false}
 									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+									erServiceberegning={erServiceberegning}
 								/>
 
 								{opptjeningAvdoed && (
@@ -502,6 +508,7 @@ export const Beregning = () => {
 										erFoedtEtter1963={erFoedtEtter1963}
 										isOpptjeningAvdoedSection={true}
 										ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+										erServiceberegning={erServiceberegning}
 									/>
 								)}
 							</VStack>

@@ -24,6 +24,12 @@
 	padding: 8px;
 }
 
+.labelCell {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .table th + th,
 .table td + td {
 	border-left: 1px solid var(--ax-border-neutral-subtle);

@@ -75,3 +75,58 @@ export async function navigateToApp(page: Page) {
 	await page.goto('/?pid=encrypted-default-pid')
 	await page.waitForSelector('text=Pensjonskalkulator')
 }
+
+const RADIO_FIELDS = new Set([
+	'eps-har-pensjon',
+	'eps-har-inntekt-over-2g',
+	'afp',
+	'har-opphold-utenfor-norge',
+	'har-inntekt-vsa-helt-uttak',
+])
+
+const SELECT_FIELDS = new Set([
+	'sivilstatus-select',
+	'alder-uttak-aar',
+	'alder-uttak-md',
+	'uttaksgrad',
+	'alder-helt-uttak-aar',
+	'alder-helt-uttak-md',
+	'alder-inntekt-slutter-aar',
+	'alder-inntekt-slutter-md',
+])
+
+export type FormFields = Record<string, string>
+
+export const DEFAULT_FORM_FIELDS: FormFields = {
+	afp: 'Nei',
+	'inntekt-foer-uttak': '500000',
+	'alder-uttak-aar': '67',
+	'alder-uttak-md': '3',
+	uttaksgrad: '100',
+	'har-opphold-utenfor-norge': 'Nei',
+	'har-inntekt-vsa-helt-uttak': 'Nei',
+}
+
+export async function fillMainFormFields({
+	page,
+	fields = {},
+	withDefaults = true,
+}: {
+	page: Page
+	fields?: FormFields
+	withDefaults?: boolean
+}) {
+	const allFields = withDefaults
+		? { ...DEFAULT_FORM_FIELDS, ...fields }
+		: fields
+
+	for (const [testId, value] of Object.entries(allFields)) {
+		if (RADIO_FIELDS.has(testId)) {
+			await page.getByTestId(testId).getByLabel(value).check()
+		} else if (SELECT_FIELDS.has(testId)) {
+			await page.getByTestId(testId).selectOption(value)
+		} else {
+			await page.getByTestId(testId).fill(value)
+		}
+	}
+}

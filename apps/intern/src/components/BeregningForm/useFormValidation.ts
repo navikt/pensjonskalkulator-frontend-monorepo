@@ -1,3 +1,4 @@
+import type { TilgangsnektAarsak } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	calculateUttaksalderAsDate,
 	getAlderPlus1Maaned,
@@ -5,9 +6,10 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
-import type {
-	BeregningFormData,
-	ValidationErrors,
+import {
+	type BeregningFormData,
+	NON_BLOCKING_TILGANG_CODES,
+	type ValidationErrors,
 } from '../../api/beregningTypes'
 import {
 	harPartner,
@@ -76,6 +78,15 @@ function validateGjenlevenderett(
 	errors: ValidationErrors
 ) {
 	if (!formData.beregnMedGjenlevenderett) {
+		return
+	}
+
+	if (
+		NON_BLOCKING_TILGANG_CODES.includes(
+			formData.epsTilgangNektAarsak ?? ('' as TilgangsnektAarsak)
+		)
+	) {
+		errors.epsTilgangNektAarsak = formData.epsTilgangNektAarsak
 		return
 	}
 
