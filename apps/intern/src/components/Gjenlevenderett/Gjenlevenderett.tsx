@@ -118,11 +118,6 @@ export const Gjenlevenderett = () => {
 			mapGjenlevenderettTilEpsOpplysninger(gjenlevenderettFraVedtak),
 			{ shouldDirty: false }
 		)
-		form.setValue(
-			'bakgrunnForBrukAvOpplysningerOmEPS',
-			'DOEDSFALL_REGISTRERT',
-			{ shouldDirty: false }
-		)
 		form.setValue('harHentetEPSOpplysninger', true, { shouldDirty: false })
 	}, [gjenlevenderettFraVedtak, form])
 
@@ -143,12 +138,27 @@ export const Gjenlevenderett = () => {
 		if (!harHentetEPSOpplysninger || !person) {
 			setEpsQueryParams({} as { sivilstatus: Sivilstand; bakgrunn: string })
 		}
+
+		if (gjenlevenderettFraVedtak) {
+			form.setValue(
+				'bakgrunnForBrukAvOpplysningerOmEPS',
+				'DOEDSFALL_REGISTRERT',
+				{ shouldDirty: false }
+			)
+			return
+		}
+
 		if (!harHentetEPSOpplysninger && !beregnMedGjenlevenderett) {
 			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
 				shouldDirty: false,
 			})
 		}
-	}, [harHentetEPSOpplysninger, person, beregnMedGjenlevenderett])
+	}, [
+		harHentetEPSOpplysninger,
+		person,
+		beregnMedGjenlevenderett,
+		gjenlevenderettFraVedtak,
+	])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
