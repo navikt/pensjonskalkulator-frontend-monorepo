@@ -39,23 +39,13 @@ export function mapMerknadListe(
 }
 
 export function selectOpptjeningRows(
-	opptjening: Opptjening | OpptjeningAvdoed
+	opptjening: Opptjening | OpptjeningAvdoed,
+	heltUttakAarstall?: number | null
 ): Opptjening | OpptjeningAvdoed {
-	const yearsWithIncome = opptjening.filter(
-		(entry) => entry.pensjonsgivendeInntektBeloep > 0
-	)
-
-	if (yearsWithIncome.length === 0) {
-		return []
-	}
-
-	const firstIncomeYear = Math.min(...yearsWithIncome.map((e) => e.aarstall))
-	const lastIncomeYear = Math.max(...yearsWithIncome.map((e) => e.aarstall))
-
 	return [...opptjening]
 		.filter(
 			(entry) =>
-				entry.aarstall >= firstIncomeYear && entry.aarstall <= lastIncomeYear
+				heltUttakAarstall == null || entry.aarstall <= heltUttakAarstall
 		)
 		.sort((a, b) => b.aarstall - a.aarstall)
 }
@@ -75,14 +65,16 @@ interface OpptjeningTableProps {
 	isOpptjeningAvdoedSection?: boolean
 	ufoeretrygdgrad?: number | null
 	erServiceberegning?: boolean
+	heltUttakAarstall?: number | null
 }
 
 export function mapOpptjeningToTableRows(
 	opptjening: Opptjening | OpptjeningAvdoed,
 	showPensjonsbeholdning: boolean,
-	ufoeretrygdgrad?: number | null
+	ufoeretrygdgrad?: number | null,
+	heltUttakAarstall?: number | null
 ): OpptjeningTableRow[] {
-	return selectOpptjeningRows(opptjening).map((entry) => ({
+	return selectOpptjeningRows(opptjening, heltUttakAarstall).map((entry) => ({
 		aar: entry.aarstall,
 		pensjonsgivendeInntekt:
 			entry.pensjonsgivendeInntektBeloep > 0
@@ -112,6 +104,7 @@ export function OpptjeningTable({
 	isOpptjeningAvdoedSection,
 	ufoeretrygdgrad,
 	erServiceberegning,
+	heltUttakAarstall,
 }: OpptjeningTableProps) {
 	const showPensjonsbeholdning =
 		!isOpptjeningAvdoedSection &&
@@ -121,7 +114,8 @@ export function OpptjeningTable({
 	const rows = mapOpptjeningToTableRows(
 		opptjening,
 		showPensjonsbeholdning,
-		ufoeretrygdgrad
+		ufoeretrygdgrad,
+		heltUttakAarstall
 	)
 
 	const title = isOpptjeningAvdoedSection
