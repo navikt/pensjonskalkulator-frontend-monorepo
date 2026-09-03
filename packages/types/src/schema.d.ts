@@ -2636,6 +2636,22 @@ export interface components {
 			 */
 			fom: string
 		}
+		VedtakV1Gjenlevenderett: {
+			/** @description Avdødes personidentifikator (som oftest fødselsnummer) */
+			avdoedPid: string
+			/** @description Avdødes navn */
+			avdoedNavn?: components['schemas']['VedtakV1Navn'] | null
+			/**
+			 * Format: date
+			 * @description Dødsdato
+			 */
+			doedsdato?: string | null
+			/**
+			 * Format: date
+			 * @description Første virkningsdato for gjenlevenderetten
+			 */
+			foersteVirkningsdato?: string | null
+		}
 		VedtakV1InformasjonOmAvdoed: {
 			/** @description Avdødes person-ID */
 			pid?: string | null
@@ -2701,6 +2717,14 @@ export interface components {
 			/** @description Hvorvidt personen har opphold i utlandet */
 			harUtenlandsopphold: boolean
 		}
+		VedtakV1Navn: {
+			/** @description Fornavn */
+			fornavn?: string | null
+			/** @description Mellomnavn */
+			mellomnavn?: string | null
+			/** @description Etternavn */
+			etternavn?: string | null
+		}
 		VedtakV1Samling: {
 			/** @description Hvorvidt personen har løpende eller fremtidig vedtak */
 			harVedtak: boolean
@@ -2727,6 +2751,8 @@ export interface components {
 			 * @description Startdato (fra og med) for tidsbegrenset AFP i offentlig sektor ('gammel ordning')
 			 */
 			tidsbegrensetOffentligAfpFom?: string | null
+			/** @description Gjenlevenderett */
+			gjenlevenderett?: components['schemas']['VedtakV1Gjenlevenderett'] | null
 			/** @description Informasjon om eventuell avdød ektefelle/partner/samboer */
 			avdoed?: components['schemas']['VedtakV1InformasjonOmAvdoed'] | null
 			/** @description Informasjon om hvorvidt personen kan simulere med gjenlevenderett */

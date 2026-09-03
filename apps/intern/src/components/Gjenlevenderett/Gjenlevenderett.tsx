@@ -28,7 +28,7 @@ import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { useFormValidation } from '../BeregningForm/useFormValidation'
 import { OpplysningerInfo } from './OpplysningerInfo'
-import { getEpsDoedsdato } from './utils'
+import { getEpsDoedsdato, mapGjenlevenderettTilEpsOpplysninger } from './utils'
 
 import styles from './Gjenlevenderett.module.css'
 
@@ -50,6 +50,8 @@ export const Gjenlevenderett = () => {
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
 	const { data: vedtak, isLoading: isVedtakLoading } = useVedtakQuery(fnr)
+
+	const gjenlevenderettFraVedtak = vedtak?.gjenlevenderett ?? undefined
 
 	const vedtakInfoAvdoed =
 		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
@@ -107,6 +109,22 @@ export const Gjenlevenderett = () => {
 			})
 		}
 	}, [EPSOpplysninger, form])
+
+	useEffect(() => {
+		if (!gjenlevenderettFraVedtak) return
+
+		form.setValue(
+			'epsOpplysninger',
+			mapGjenlevenderettTilEpsOpplysninger(gjenlevenderettFraVedtak),
+			{ shouldDirty: false }
+		)
+		form.setValue(
+			'bakgrunnForBrukAvOpplysningerOmEPS',
+			'DOEDSFALL_REGISTRERT',
+			{ shouldDirty: false }
+		)
+		form.setValue('harHentetEPSOpplysninger', true, { shouldDirty: false })
+	}, [gjenlevenderettFraVedtak, form])
 
 	const [
 		formEpsOpplysninger,
@@ -250,24 +268,27 @@ export const Gjenlevenderett = () => {
 						>
 							{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
 						</div>
-						{!isEPSLoading && !isError && !formEpsOpplysninger && (
-							<RHFRadio
-								name="bakgrunnForBrukAvOpplysningerOmEPS"
-								legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
-								testid="bakgrunn-for-bruk-EPS"
-								gap="space-0"
-								options={[
-									{
-										value: 'DOEDSFALL_REGISTRERT',
-										label: 'Dødsfall er registrert',
-									},
-									{
-										value: 'SAMTYKKE_BEGGE_PARTER',
-										label: 'Henvendelse fra begge parter foreligger',
-									},
-								]}
-							/>
-						)}
+						{!isEPSLoading &&
+							!isError &&
+							!formEpsOpplysninger &&
+							!gjenlevenderettFraVedtak && (
+								<RHFRadio
+									name="bakgrunnForBrukAvOpplysningerOmEPS"
+									legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
+									testid="bakgrunn-for-bruk-EPS"
+									gap="space-0"
+									options={[
+										{
+											value: 'DOEDSFALL_REGISTRERT',
+											label: 'Dødsfall er registrert',
+										},
+										{
+											value: 'SAMTYKKE_BEGGE_PARTER',
+											label: 'Henvendelse fra begge parter foreligger',
+										},
+									]}
+								/>
+							)}
 						{isError && !tilgangsbegrensningAlertId && EPSError}
 						{tilgangsbegrensningAlertId && (
 							<SanityAlert
@@ -277,6 +298,7 @@ export const Gjenlevenderett = () => {
 						)}
 						{!isEPSLoading &&
 							!formEpsOpplysninger &&
+							!gjenlevenderettFraVedtak &&
 							!tilgangsbegrensningAlertId && (
 								<Button
 									variant="secondary"
