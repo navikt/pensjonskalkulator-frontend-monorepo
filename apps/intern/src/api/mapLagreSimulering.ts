@@ -13,6 +13,7 @@ import {
 	isOvergangskull,
 } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
+	calculateUttaksalderAsDate,
 	isAlderLikEllerOverAnnenAlder,
 	isFoedtFoer1963,
 	transformUttaksalderToDate,
@@ -88,9 +89,10 @@ function getNormertPensjonsalderPlassering(
 export function mapPensjonsopptjeningToLagreDto(
 	opptjening: BeregningResult['opptjeningListe'],
 	showPensjonsbeholdning: boolean,
-	ufoeretrygdgrad?: number | null
+	ufoeretrygdgrad?: number | null,
+	heltUttakAarstall?: number | null
 ) {
-	return selectOpptjeningRows(opptjening).map((entry) => ({
+	return selectOpptjeningRows(opptjening, heltUttakAarstall).map((entry) => ({
 		aarstall: entry.aarstall,
 		pensjonsgivendeInntekt:
 			entry.pensjonsgivendeInntektBeloep > 0
@@ -249,7 +251,10 @@ export function mapBeregningResultToLagreSpec(
 	const pensjonsopptjeningListe = mapPensjonsopptjeningToLagreDto(
 		result.opptjeningListe,
 		isFoedtEtter1963(foedselsdato) || isOvergangskull(foedselsdato),
-		vedtak?.ufoeretrygdgrad
+		vedtak?.ufoeretrygdgrad,
+		foedselsdato
+			? calculateUttaksalderAsDate(heltUttakAlder, foedselsdato).getFullYear()
+			: null
 	)
 	const uttaksgrad = aktivBeregning?.uttaksgrad ?? 100
 

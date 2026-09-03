@@ -16,15 +16,22 @@ describe('mapOpptjeningToTableRows', () => {
 	test('mapper opptjening med pensjonsbeholdning for kap20-brukere', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 
-		expect(rows).toHaveLength(4)
+		expect(rows).toHaveLength(6)
 		expect(rows[0]).toEqual({
+			aar: 2024,
+			pensjonsgivendeInntekt: '0',
+			pensjonspoeng: '0',
+			pensjonsbeholdning: '0',
+			merknad: '',
+		})
+		expect(rows[2]).toEqual({
 			aar: 2022,
 			pensjonsgivendeInntekt: `193${nbsp}192`,
 			pensjonspoeng: '3,47',
 			pensjonsbeholdning: '0',
 			merknad: 'Mottak av dagpenger',
 		})
-		expect(rows[2]).toEqual({
+		expect(rows[4]).toEqual({
 			aar: 2020,
 			pensjonsgivendeInntekt: `639${nbsp}932`,
 			pensjonspoeng: '3,47',
@@ -51,9 +58,19 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows[2].pensjonspoeng).toBe('3,47')
 	})
 
-	test('filtrerer bort år uten inntekt utenfor inntektsperioden', () => {
+	test('viser år uten inntekt', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, false)
-		expect(rows.every((r) => r.aar >= 2019 && r.aar <= 2022)).toBe(true)
+		expect(rows.map((r) => r.aar)).toEqual([2024, 2023, 2022, 2021, 2020, 2019])
+	})
+
+	test('filtrerer bort år etter året for helt uttak', () => {
+		const rows = mapOpptjeningToTableRows(
+			mockOpptjeningKap20,
+			false,
+			null,
+			2022
+		)
+		expect(rows.map((r) => r.aar)).toEqual([2022, 2021, 2020, 2019])
 	})
 
 	test('mapper flere merknader komma-separert', () => {
@@ -215,15 +232,15 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 	test('mapper opptjeningListe fra simulering korrekt', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, true)
 
-		expect(rows).toHaveLength(3)
-		expect(rows[0]).toEqual({
+		expect(rows).toHaveLength(4)
+		expect(rows[1]).toEqual({
 			aar: 2012,
 			pensjonsgivendeInntekt: `500${nbsp}000`,
 			pensjonspoeng: '4,50',
 			pensjonsbeholdning: `410${nbsp}000`,
 			merknad: 'Alderspensjon: 100 %',
 		})
-		expect(rows[1]).toEqual({
+		expect(rows[2]).toEqual({
 			aar: 2011,
 			pensjonsgivendeInntekt: `400${nbsp}000`,
 			pensjonspoeng: '3,60',
@@ -235,9 +252,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 	test('sorterer opptjeningListe fra simulering i synkende rekkefølge', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, false)
 
-		expect(rows[0].aar).toBe(2012)
-		expect(rows[1].aar).toBe(2011)
-		expect(rows[2].aar).toBe(2010)
+		expect(rows.map((r) => r.aar)).toEqual([2013, 2012, 2011, 2010])
 	})
 
 	test('rendrer opptjeningListe fra simulering med pensjonsbeholdning for kap20', () => {
@@ -255,7 +270,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		expect(
 			screen.queryByRole('columnheader', { name: 'Pensjonspoeng' })
 		).not.toBeInTheDocument()
-		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
+		expect(screen.getAllByRole('cell', { name: /410.000/ })).toHaveLength(2)
 		expect(screen.getByRole('cell', { name: /500.000/ })).toBeInTheDocument()
 	})
 
@@ -294,7 +309,7 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 			screen.getByRole('columnheader', { name: 'Pensjonspoeng' })
 		).toBeInTheDocument()
 		expect(screen.getByRole('cell', { name: '4,50' })).toBeInTheDocument()
-		expect(screen.getByRole('cell', { name: /410.000/ })).toBeInTheDocument()
+		expect(screen.getAllByRole('cell', { name: /410.000/ })).toHaveLength(2)
 	})
 
 	test('rendrer UFOEREGRAD merknad med data-testid', () => {
@@ -327,10 +342,15 @@ describe('OpptjeningTable med opptjeningListe fra simuleringsendepunkt', () => {
 		expect(screen.getByTestId('merknad-2011')).toHaveTextContent('')
 	})
 
-	test('filtrerer bort år etter siste inntektsår i opptjeningListe fra simulering', () => {
+	test('viser år uten inntekt etter siste inntektsår i opptjeningListe fra simulering', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningSimulering, true)
 
-		expect(rows.find((r) => r.aar === 2013)).toBeUndefined()
-		expect(rows[0].aar).toBe(2012)
+		expect(rows[0]).toEqual({
+			aar: 2013,
+			pensjonsgivendeInntekt: '0',
+			pensjonspoeng: '0',
+			pensjonsbeholdning: `410${nbsp}000`,
+			merknad: '',
+		})
 	})
 })

@@ -7,8 +7,22 @@ import {
 import { mapPensjonsopptjeningToLagreDto } from './mapLagreSimulering'
 
 describe('mapPensjonsopptjeningToLagreDto', () => {
-	test('maps the same filtered and sorted rows shown in the accrual table', () => {
+	test('maps the same sorted rows shown in the accrual table', () => {
 		expect(mapPensjonsopptjeningToLagreDto(mockOpptjeningKap20, true)).toEqual([
+			{
+				aarstall: 2024,
+				pensjonsgivendeInntekt: 0,
+				pensjonspoeng: 0,
+				pensjonsbeholdning: 0,
+				merknad: '',
+			},
+			{
+				aarstall: 2023,
+				pensjonsgivendeInntekt: 0,
+				pensjonspoeng: 0,
+				pensjonsbeholdning: 0,
+				merknad: '',
+			},
 			{
 				aarstall: 2022,
 				pensjonsgivendeInntekt: 193192,
