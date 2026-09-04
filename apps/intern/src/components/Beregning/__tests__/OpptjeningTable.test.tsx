@@ -73,6 +73,17 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows.map((r) => r.aar)).toEqual([2022, 2021, 2020, 2019])
 	})
 
+	test('filtrerer på året inntekten slutter fremfor året for helt uttak', () => {
+		const rows = mapOpptjeningToTableRows(
+			mockOpptjeningKap20,
+			false,
+			null,
+			2021,
+			2023
+		)
+		expect(rows.map((r) => r.aar)).toEqual([2023, 2022, 2021, 2020, 2019])
+	})
+
 	test('mapper flere merknader komma-separert', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 		const rowWith2019 = rows.find((r) => r.aar === 2019)

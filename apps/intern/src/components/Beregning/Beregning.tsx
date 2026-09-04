@@ -151,6 +151,19 @@ export const Beregning = () => {
 			).getFullYear()
 		: null
 
+	const inntektSlutterAarstall =
+		person?.foedselsdato &&
+		aktivBeregning?.alderAarInntektSlutter != null &&
+		aktivBeregning?.alderMdInntektSlutter != null
+			? calculateUttaksalderAsDate(
+					{
+						aar: aktivBeregning.alderAarInntektSlutter,
+						maaneder: aktivBeregning.alderMdInntektSlutter,
+					},
+					person.foedselsdato
+				).getFullYear()
+			: null
+
 	const tableCount =
 		1 +
 		(erFoedtFoer1963 ? 1 : 0) +
@@ -510,6 +523,7 @@ export const Beregning = () => {
 									ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 									erServiceberegning={erServiceberegning}
 									heltUttakAarstall={heltUttakAarstall}
+									inntektSlutterAarstall={inntektSlutterAarstall}
 								/>
 
 								{aktivBeregning?.beregnMedGjenlevenderett &&
@@ -522,6 +536,7 @@ export const Beregning = () => {
 											ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 											erServiceberegning={erServiceberegning}
 											heltUttakAarstall={heltUttakAarstall}
+											inntektSlutterAarstall={inntektSlutterAarstall}
 										/>
 									)}
 							</VStack>

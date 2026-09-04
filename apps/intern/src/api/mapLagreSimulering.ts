@@ -90,9 +90,14 @@ export function mapPensjonsopptjeningToLagreDto(
 	opptjening: BeregningResult['opptjeningListe'],
 	showPensjonsbeholdning: boolean,
 	ufoeretrygdgrad?: number | null,
-	heltUttakAarstall?: number | null
+	heltUttakAarstall?: number | null,
+	inntektSlutterAarstall?: number | null
 ) {
-	return selectOpptjeningRows(opptjening, heltUttakAarstall).map((entry) => ({
+	return selectOpptjeningRows(
+		opptjening,
+		heltUttakAarstall,
+		inntektSlutterAarstall
+	).map((entry) => ({
 		aarstall: entry.aarstall,
 		pensjonsgivendeInntekt:
 			entry.pensjonsgivendeInntektBeloep > 0
@@ -254,6 +259,17 @@ export function mapBeregningResultToLagreSpec(
 		vedtak?.ufoeretrygdgrad,
 		foedselsdato
 			? calculateUttaksalderAsDate(heltUttakAlder, foedselsdato).getFullYear()
+			: null,
+		foedselsdato &&
+			aktivBeregning?.alderAarInntektSlutter != null &&
+			aktivBeregning?.alderMdInntektSlutter != null
+			? calculateUttaksalderAsDate(
+					{
+						aar: aktivBeregning.alderAarInntektSlutter,
+						maaneder: aktivBeregning.alderMdInntektSlutter,
+					},
+					foedselsdato
+				).getFullYear()
 			: null
 	)
 	const uttaksgrad = aktivBeregning?.uttaksgrad ?? 100
