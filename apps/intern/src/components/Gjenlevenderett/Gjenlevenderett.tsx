@@ -363,6 +363,9 @@ export const Gjenlevenderett = () => {
 							EPSOpplysninger={formEpsOpplysninger}
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+							brukerHarVedtakGjenlevendepensjon={Boolean(
+								vedtak?.gjenlevenderett
+							)}
 						/>
 					)}
 					<Heading level="3" size="small" visuallyHidden>
