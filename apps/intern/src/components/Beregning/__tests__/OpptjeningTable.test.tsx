@@ -84,6 +84,32 @@ describe('mapOpptjeningToTableRows', () => {
 		expect(rows.map((r) => r.aar)).toEqual([2023, 2022, 2021, 2020, 2019])
 	})
 
+	test('filtrerer bort år som kun har merknad INGEN_OPPTJENING', () => {
+		const rows = mapOpptjeningToTableRows(
+			[
+				...mockOpptjeningKap20,
+				{
+					aarstall: 2018,
+					pensjonsgivendeInntektBeloep: 0,
+					pensjonspoeng: 0,
+					pensjonsbeholdningBeloep: 0,
+					merknadListe: ['INGEN_OPPTJENING'],
+				},
+				{
+					aarstall: 2017,
+					pensjonsgivendeInntektBeloep: 0,
+					pensjonspoeng: 0,
+					pensjonsbeholdningBeloep: 0,
+					merknadListe: ['INGEN_OPPTJENING', 'DAGPENGER'],
+				},
+			],
+			false
+		)
+
+		expect(rows.find((r) => r.aar === 2018)).toBeUndefined()
+		expect(rows.find((r) => r.aar === 2017)).toBeDefined()
+	})
+
 	test('mapper flere merknader komma-separert', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningKap20, true)
 		const rowWith2019 = rows.find((r) => r.aar === 2019)

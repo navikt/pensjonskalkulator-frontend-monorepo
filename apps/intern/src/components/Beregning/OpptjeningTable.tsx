@@ -46,7 +46,14 @@ export function selectOpptjeningRows(
 	const sisteAarstall = inntektSlutterAarstall ?? heltUttakAarstall
 
 	return [...opptjening]
-		.filter((entry) => sisteAarstall == null || entry.aarstall <= sisteAarstall)
+		.filter(
+			(entry) =>
+				(sisteAarstall == null || entry.aarstall <= sisteAarstall) &&
+				!(
+					entry.merknadListe.length > 0 &&
+					entry.merknadListe.every((merknad) => merknad === 'INGEN_OPPTJENING')
+				)
+		)
 		.sort((a, b) => b.aarstall - a.aarstall)
 }
 
