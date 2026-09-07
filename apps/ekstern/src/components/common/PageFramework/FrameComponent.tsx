@@ -16,14 +16,12 @@ export const FrameComponent: React.FC<{
   shouldShowLogo?: boolean
   children?: React.JSX.Element
   noMinHeight?: boolean
-  announcement?: React.ReactNode
 }> = ({
   isFullWidth,
   hasWhiteBg = false,
   shouldShowLogo = false,
   children,
   noMinHeight = false,
-  announcement,
 }) => {
   const intl = useIntl()
   const breadcrumbs = [
@@ -40,7 +38,6 @@ export const FrameComponent: React.FC<{
         [styles.main__noMinHeight]: noMinHeight,
       })}
     >
-      {announcement}
       <div
         className={clsx(styles.content, {
           [styles.content__isFramed]: !isFullWidth,
