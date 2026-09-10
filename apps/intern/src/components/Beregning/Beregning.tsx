@@ -535,8 +535,6 @@ export const Beregning = () => {
 											isOpptjeningAvdoedSection={true}
 											ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
 											erServiceberegning={erServiceberegning}
-											heltUttakAarstall={heltUttakAarstall}
-											inntektSlutterAarstall={inntektSlutterAarstall}
 										/>
 									)}
 							</VStack>
