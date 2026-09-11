@@ -357,51 +357,53 @@ export const UtenlandsOpphold = ({
 				)}
 			</HStack>
 			{currentLand && (
-				<>
-					<HStack
-						justify="start"
-						gap="space-24"
-						wrap={false}
-						className={styles.dateFieldsHStack}
-					>
-						<div className={styles.dateFieldWrapper}>
-							<RHFDatePicker
-								name={getOppholdFieldName(index, 'fom')}
-								label="Startdato"
-								className={styles.dateFieldInput}
-								fromDate={minStartdato}
-								toDate={maxOppholdDate}
-							/>
-						</div>
-						<div className={styles.dateFieldWrapper}>
-							<RHFDatePicker
-								name={getOppholdFieldName(index, 'tom')}
-								label="Sluttdato (valgfritt)"
-								className={styles.dateFieldInput}
-								fromDate={minSluttdato}
-								toDate={maxOppholdDate}
-							/>
-						</div>
-					</HStack>
-					<Checkbox
-						size="small"
-						checked={brukFoedselsdato ?? false}
-						onChange={(e) => {
-							const checked = (e.target as HTMLInputElement).checked
-							form.setValue(
-								getOppholdFieldName(index, 'brukFoedselsdato'),
-								checked
-							)
-							if (checked && foedselsdato) {
-								form.setValue(getOppholdFieldName(index, 'fom'), foedselsdato, {
-									shouldDirty: true,
-								})
-							}
-						}}
-					>
-						Bruk fødselsdato
-					</Checkbox>
-				</>
+				<HStack
+					justify="start"
+					gap="space-24"
+					wrap={false}
+					className={styles.dateFieldsHStack}
+				>
+					<VStack gap="space-4" className={styles.dateFieldWrapper}>
+						<RHFDatePicker
+							name={getOppholdFieldName(index, 'fom')}
+							label="Startdato"
+							className={styles.dateFieldInput}
+							fromDate={minStartdato}
+							toDate={maxOppholdDate}
+						/>
+						<Checkbox
+							size="small"
+							checked={brukFoedselsdato ?? false}
+							onChange={(e) => {
+								const checked = (e.target as HTMLInputElement).checked
+								form.setValue(
+									getOppholdFieldName(index, 'brukFoedselsdato'),
+									checked
+								)
+								if (checked && foedselsdato) {
+									form.setValue(
+										getOppholdFieldName(index, 'fom'),
+										foedselsdato,
+										{
+											shouldDirty: true,
+										}
+									)
+								}
+							}}
+						>
+							Bruk fødselsdato
+						</Checkbox>
+					</VStack>
+					<div className={styles.dateFieldWrapper}>
+						<RHFDatePicker
+							name={getOppholdFieldName(index, 'tom')}
+							label="Sluttdato (valgfritt)"
+							className={styles.dateFieldInput}
+							fromDate={minSluttdato}
+							toDate={maxOppholdDate}
+						/>
+					</div>
+				</HStack>
 			)}
 			<HStack
 				justify="end"
