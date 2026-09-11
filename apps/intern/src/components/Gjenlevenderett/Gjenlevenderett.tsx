@@ -2,7 +2,7 @@ import type {
 	Sivilstand,
 	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import {
@@ -41,6 +41,10 @@ export const Gjenlevenderett = () => {
 		sivilstatus: Sivilstand
 		bakgrunn: string
 	}>({} as { sivilstatus: Sivilstand; bakgrunn: string })
+
+	const opplysningerHeadingRef = useRef<HTMLHeadingElement>(null)
+	const [skalFlytteFokusTilOpplysninger, setSkalFlytteFokusTilOpplysninger] =
+		useState(false)
 
 	const {
 		data: EPSOpplysninger,
@@ -152,6 +156,7 @@ export const Gjenlevenderett = () => {
 			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
 		})
+		setSkalFlytteFokusTilOpplysninger(true)
 	}
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
@@ -218,6 +223,13 @@ export const Gjenlevenderett = () => {
 		formEpsOpplysninger &&
 		!isEPSInfoEmpty &&
 		(!erBakgrunnDoedsfallRegistrert || harRegistrertDoedsdato)
+
+	useEffect(() => {
+		if (visOpplysningerInfo && skalFlytteFokusTilOpplysninger) {
+			opplysningerHeadingRef.current?.focus()
+			setSkalFlytteFokusTilOpplysninger(false)
+		}
+	}, [visOpplysningerInfo, skalFlytteFokusTilOpplysninger])
 
 	return (
 		<>
@@ -331,6 +343,7 @@ export const Gjenlevenderett = () => {
 							EPSOpplysninger={formEpsOpplysninger}
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+							headingRef={opplysningerHeadingRef}
 						/>
 					)}
 					<Heading level="3" size="small" visuallyHidden>
