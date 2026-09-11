@@ -19,6 +19,7 @@ import { RHFSelect } from '../BeregningForm/rhf-adapters/RHFSelect'
 import { Divider } from '../Divider/Divider'
 import { OppholdListItem } from './OppholdListItem'
 import type { OppholdField, OppholdValues } from './types'
+import { useOppholdFokus } from './useOppholdFokus'
 import {
 	emptyOpphold,
 	formatFoedselsdato,
@@ -129,6 +130,20 @@ export const UtenlandsOpphold = ({
 	const hasOpphold = fields.length > 0
 	const isSubmitDisabled =
 		harOppholdUtenforNorge === true && (activeIndex !== null || !hasOpphold)
+
+	const {
+		startdatoWrapperRef,
+		sluttdatoInputRef,
+		leggTilNyttOppholdRef,
+		landSelectRef,
+		fokuserLeggTilNyttOpphold,
+		fokuserLandSelect,
+	} = useOppholdFokus({
+		activeIndex,
+		startdato,
+		isEditorClosed: mode === 'closed',
+		hasOpphold,
+	})
 
 	const setOppholdValues = (index: number, values: OppholdValues) => {
 		form.setValue(getOppholdFieldName(index, 'landkode'), values.landkode)
@@ -244,6 +259,7 @@ export const UtenlandsOpphold = ({
 		}
 
 		closeOppholdEditor()
+		fokuserLeggTilNyttOpphold()
 	}
 
 	useEffect(() => {
@@ -318,8 +334,13 @@ export const UtenlandsOpphold = ({
 	}
 
 	const handleDelete = (index: number) => {
-		reopenEmptyOppholdRef.current = fields.length === 1
+		const erSisteOpphold = fields.length === 1
+		reopenEmptyOppholdRef.current = erSisteOpphold
 		remove(index)
+
+		if (!erSisteOpphold) {
+			fokuserLeggTilNyttOpphold()
+		}
 	}
 
 	const showCopyButton = Boolean(harOppholdUtenforNorge && hasOpphold)
@@ -338,6 +359,7 @@ export const UtenlandsOpphold = ({
 						name={getOppholdFieldName(index, 'landkode')}
 						label="Land"
 						className={styles.selectLand}
+						selectRef={landSelectRef}
 					>
 						{landOptions.map((land) => (
 							<option key={land.landkode || 'empty'} value={land.landkode}>
@@ -363,7 +385,11 @@ export const UtenlandsOpphold = ({
 					wrap={false}
 					className={styles.dateFieldsHStack}
 				>
-					<VStack gap="space-4" className={styles.dateFieldWrapper}>
+					<VStack
+						gap="space-8"
+						className={styles.dateFieldWrapper}
+						ref={startdatoWrapperRef}
+					>
 						<RHFDatePicker
 							name={getOppholdFieldName(index, 'fom')}
 							label="Startdato"
@@ -401,6 +427,7 @@ export const UtenlandsOpphold = ({
 							className={styles.dateFieldInput}
 							fromDate={minSluttdato}
 							toDate={maxOppholdDate}
+							inputRef={sluttdatoInputRef}
 						/>
 					</div>
 				</HStack>
@@ -474,7 +501,15 @@ export const UtenlandsOpphold = ({
 
 					{mode === 'closed' && hasOpphold && (
 						<HStack justify="end">
-							<Button variant="secondary" size="small" onClick={openNewOpphold}>
+							<Button
+								variant="secondary"
+								size="small"
+								onClick={() => {
+									openNewOpphold()
+									fokuserLandSelect()
+								}}
+								ref={leggTilNyttOppholdRef}
+							>
 								Legg til nytt opphold
 							</Button>
 						</HStack>
