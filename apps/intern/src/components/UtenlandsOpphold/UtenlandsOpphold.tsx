@@ -23,6 +23,7 @@ import { useOppholdFokus } from './useOppholdFokus'
 import {
 	emptyOpphold,
 	formatFoedselsdato,
+	getLandDetails,
 	getOppholdCopyText,
 	getOppholdFieldName,
 	getOppholdValidationMessage,
@@ -57,6 +58,7 @@ export const UtenlandsOpphold = ({
 	})
 
 	const [activeIndex, setActiveIndex] = useState<number | null>(null)
+	const [bekreftelse, setBekreftelse] = useState('')
 	const mode =
 		activeIndex === null
 			? 'closed'
@@ -141,8 +143,6 @@ export const UtenlandsOpphold = ({
 	} = useOppholdFokus({
 		activeIndex,
 		startdato,
-		isEditorClosed: mode === 'closed',
-		hasOpphold,
 	})
 
 	const setOppholdValues = (index: number, values: OppholdValues) => {
@@ -228,6 +228,7 @@ export const UtenlandsOpphold = ({
 		clearOppholdErrors(index)
 		setOppholdValues(index, values)
 		setActiveIndex(index)
+		setBekreftelse('')
 	}
 
 	const closeOppholdEditor = () => {
@@ -256,6 +257,8 @@ export const UtenlandsOpphold = ({
 			update(activeIndex, opphold)
 		} else {
 			replace([...savedOpphold, opphold])
+			const land = getLandDetails(opphold.landkode)?.navn ?? opphold.landkode
+			setBekreftelse(`Opphold i ${land} er lagt til`)
 		}
 
 		closeOppholdEditor()
@@ -451,6 +454,14 @@ export const UtenlandsOpphold = ({
 
 	return (
 		<>
+			<div
+				role="status"
+				aria-live="polite"
+				aria-atomic="true"
+				className="srOnly"
+			>
+				{bekreftelse}
+			</div>
 			<HStack justify="space-between" align="end">
 				<RHFRadio
 					name="harOppholdUtenforNorge"

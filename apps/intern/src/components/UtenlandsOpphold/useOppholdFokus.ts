@@ -1,27 +1,48 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 import { parseStrictEndUserDate } from '../../utils/dates'
 
 type UseOppholdFokusArgs = {
 	activeIndex: number | null
 	startdato: string
-	isEditorClosed: boolean
-	hasOpphold: boolean
+}
+
+function useFokusVedMount<T extends HTMLElement>() {
+	const nodeRef = useRef<T | null>(null)
+	const skalFokusereRef = useRef(false)
+
+	const ref = useCallback((node: T | null) => {
+		nodeRef.current = node
+		if (node && skalFokusereRef.current) {
+			skalFokusereRef.current = false
+			node.focus()
+		}
+	}, [])
+
+	const fokuser = useCallback(() => {
+		if (nodeRef.current) {
+			nodeRef.current.focus()
+			return
+		}
+		// Elementet mountes først ved neste render
+		skalFokusereRef.current = true
+	}, [])
+
+	return [ref, fokuser] as const
 }
 
 export function useOppholdFokus({
 	activeIndex,
 	startdato,
-	isEditorClosed,
-	hasOpphold,
 }: UseOppholdFokusArgs) {
 	const startdatoWrapperRef = useRef<HTMLDivElement>(null)
 	const sluttdatoInputRef = useRef<HTMLInputElement>(null)
-	const leggTilNyttOppholdRef = useRef<HTMLButtonElement>(null)
-	const landSelectRef = useRef<HTMLSelectElement>(null)
 	const previousStartdatoRef = useRef(startdato)
-	const [skalFokusereLeggTil, setSkalFokusereLeggTil] = useState(false)
-	const [skalFokusereLand, setSkalFokusereLand] = useState(false)
+
+	const [leggTilNyttOppholdRef, fokuserLeggTilNyttOpphold] =
+		useFokusVedMount<HTMLButtonElement>()
+	const [landSelectRef, fokuserLandSelect] =
+		useFokusVedMount<HTMLSelectElement>()
 
 	useEffect(() => {
 		const previousStartdato = previousStartdatoRef.current
@@ -36,28 +57,12 @@ export function useOppholdFokus({
 		sluttdatoInputRef.current?.focus()
 	}, [activeIndex, startdato])
 
-	useEffect(() => {
-		if (!skalFokusereLeggTil) return
-		if (!isEditorClosed || !hasOpphold) return
-
-		leggTilNyttOppholdRef.current?.focus()
-		setSkalFokusereLeggTil(false)
-	}, [hasOpphold, isEditorClosed, skalFokusereLeggTil])
-
-	useEffect(() => {
-		if (!skalFokusereLand) return
-		if (activeIndex === null) return
-
-		landSelectRef.current?.focus()
-		setSkalFokusereLand(false)
-	}, [activeIndex, skalFokusereLand])
-
 	return {
 		startdatoWrapperRef,
 		sluttdatoInputRef,
 		leggTilNyttOppholdRef,
 		landSelectRef,
-		fokuserLeggTilNyttOpphold: () => setSkalFokusereLeggTil(true),
-		fokuserLandSelect: () => setSkalFokusereLand(true),
+		fokuserLeggTilNyttOpphold,
+		fokuserLandSelect,
 	}
 }

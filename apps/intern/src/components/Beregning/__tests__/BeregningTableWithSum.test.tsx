@@ -17,7 +17,7 @@ describe('BeregningTableWithSum', () => {
 
 		const sumRow = screen.getByRole('row', { name: /Sum alderspensjon/ })
 		expect(
-			within(sumRow).getByRole('cell', { name: 'Sum alderspensjon' })
+			within(sumRow).getByRole('rowheader', { name: 'Sum alderspensjon' })
 		).toBeVisible()
 		expect(within(sumRow).getByRole('cell', { name: '1 000' })).toBeVisible()
 		expect(within(sumRow).queryByText(/kr/)).not.toBeInTheDocument()
