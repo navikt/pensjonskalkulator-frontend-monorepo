@@ -19,9 +19,11 @@ import { RHFSelect } from '../BeregningForm/rhf-adapters/RHFSelect'
 import { Divider } from '../Divider/Divider'
 import { OppholdListItem } from './OppholdListItem'
 import type { OppholdField, OppholdValues } from './types'
+import { useOppholdFokus } from './useOppholdFokus'
 import {
 	emptyOpphold,
 	formatFoedselsdato,
+	getLandDetails,
 	getOppholdCopyText,
 	getOppholdFieldName,
 	getOppholdValidationMessage,
@@ -56,6 +58,7 @@ export const UtenlandsOpphold = ({
 	})
 
 	const [activeIndex, setActiveIndex] = useState<number | null>(null)
+	const [bekreftelse, setBekreftelse] = useState('')
 	const mode =
 		activeIndex === null
 			? 'closed'
@@ -129,6 +132,18 @@ export const UtenlandsOpphold = ({
 	const hasOpphold = fields.length > 0
 	const isSubmitDisabled =
 		harOppholdUtenforNorge === true && (activeIndex !== null || !hasOpphold)
+
+	const {
+		startdatoWrapperRef,
+		sluttdatoInputRef,
+		leggTilNyttOppholdRef,
+		landSelectRef,
+		fokuserLeggTilNyttOpphold,
+		fokuserLandSelect,
+	} = useOppholdFokus({
+		activeIndex,
+		startdato,
+	})
 
 	const setOppholdValues = (index: number, values: OppholdValues) => {
 		form.setValue(getOppholdFieldName(index, 'landkode'), values.landkode)
@@ -213,6 +228,7 @@ export const UtenlandsOpphold = ({
 		clearOppholdErrors(index)
 		setOppholdValues(index, values)
 		setActiveIndex(index)
+		setBekreftelse('')
 	}
 
 	const closeOppholdEditor = () => {
@@ -241,9 +257,12 @@ export const UtenlandsOpphold = ({
 			update(activeIndex, opphold)
 		} else {
 			replace([...savedOpphold, opphold])
+			const land = getLandDetails(opphold.landkode)?.navn ?? opphold.landkode
+			setBekreftelse(`Opphold i ${land} er lagt til`)
 		}
 
 		closeOppholdEditor()
+		fokuserLeggTilNyttOpphold()
 	}
 
 	useEffect(() => {
@@ -318,8 +337,13 @@ export const UtenlandsOpphold = ({
 	}
 
 	const handleDelete = (index: number) => {
-		reopenEmptyOppholdRef.current = fields.length === 1
+		const erSisteOpphold = fields.length === 1
+		reopenEmptyOppholdRef.current = erSisteOpphold
 		remove(index)
+
+		if (!erSisteOpphold) {
+			fokuserLeggTilNyttOpphold()
+		}
 	}
 
 	const showCopyButton = Boolean(harOppholdUtenforNorge && hasOpphold)
@@ -338,6 +362,7 @@ export const UtenlandsOpphold = ({
 						name={getOppholdFieldName(index, 'landkode')}
 						label="Land"
 						className={styles.selectLand}
+						selectRef={landSelectRef}
 					>
 						{landOptions.map((land) => (
 							<option key={land.landkode || 'empty'} value={land.landkode}>
@@ -357,51 +382,58 @@ export const UtenlandsOpphold = ({
 				)}
 			</HStack>
 			{currentLand && (
-				<>
-					<HStack
-						justify="start"
-						gap="space-24"
-						wrap={false}
-						className={styles.dateFieldsHStack}
+				<HStack
+					justify="start"
+					gap="space-24"
+					wrap={false}
+					className={styles.dateFieldsHStack}
+				>
+					<VStack
+						gap="space-8"
+						className={styles.dateFieldWrapper}
+						ref={startdatoWrapperRef}
 					>
-						<div className={styles.dateFieldWrapper}>
-							<RHFDatePicker
-								name={getOppholdFieldName(index, 'fom')}
-								label="Startdato"
-								className={styles.dateFieldInput}
-								fromDate={minStartdato}
-								toDate={maxOppholdDate}
-							/>
-						</div>
-						<div className={styles.dateFieldWrapper}>
-							<RHFDatePicker
-								name={getOppholdFieldName(index, 'tom')}
-								label="Sluttdato (valgfritt)"
-								className={styles.dateFieldInput}
-								fromDate={minSluttdato}
-								toDate={maxOppholdDate}
-							/>
-						</div>
-					</HStack>
-					<Checkbox
-						size="small"
-						checked={brukFoedselsdato ?? false}
-						onChange={(e) => {
-							const checked = (e.target as HTMLInputElement).checked
-							form.setValue(
-								getOppholdFieldName(index, 'brukFoedselsdato'),
-								checked
-							)
-							if (checked && foedselsdato) {
-								form.setValue(getOppholdFieldName(index, 'fom'), foedselsdato, {
-									shouldDirty: true,
-								})
-							}
-						}}
-					>
-						Bruk fødselsdato
-					</Checkbox>
-				</>
+						<RHFDatePicker
+							name={getOppholdFieldName(index, 'fom')}
+							label="Startdato"
+							className={styles.dateFieldInput}
+							fromDate={minStartdato}
+							toDate={maxOppholdDate}
+						/>
+						<Checkbox
+							size="small"
+							checked={brukFoedselsdato ?? false}
+							onChange={(e) => {
+								const checked = (e.target as HTMLInputElement).checked
+								form.setValue(
+									getOppholdFieldName(index, 'brukFoedselsdato'),
+									checked
+								)
+								if (checked && foedselsdato) {
+									form.setValue(
+										getOppholdFieldName(index, 'fom'),
+										foedselsdato,
+										{
+											shouldDirty: true,
+										}
+									)
+								}
+							}}
+						>
+							Bruk fødselsdato
+						</Checkbox>
+					</VStack>
+					<div className={styles.dateFieldWrapper}>
+						<RHFDatePicker
+							name={getOppholdFieldName(index, 'tom')}
+							label="Sluttdato (valgfritt)"
+							className={styles.dateFieldInput}
+							fromDate={minSluttdato}
+							toDate={maxOppholdDate}
+							inputRef={sluttdatoInputRef}
+						/>
+					</div>
+				</HStack>
 			)}
 			<HStack
 				justify="end"
@@ -422,6 +454,14 @@ export const UtenlandsOpphold = ({
 
 	return (
 		<>
+			<div
+				role="status"
+				aria-live="polite"
+				aria-atomic="true"
+				className="srOnly"
+			>
+				{bekreftelse}
+			</div>
 			<HStack justify="space-between" align="end">
 				<RHFRadio
 					name="harOppholdUtenforNorge"
@@ -472,7 +512,15 @@ export const UtenlandsOpphold = ({
 
 					{mode === 'closed' && hasOpphold && (
 						<HStack justify="end">
-							<Button variant="secondary" size="small" onClick={openNewOpphold}>
+							<Button
+								variant="secondary"
+								size="small"
+								onClick={() => {
+									openNewOpphold()
+									fokuserLandSelect()
+								}}
+								ref={leggTilNyttOppholdRef}
+							>
 								Legg til nytt opphold
 							</Button>
 						</HStack>

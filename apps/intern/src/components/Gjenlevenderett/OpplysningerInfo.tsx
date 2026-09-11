@@ -4,7 +4,7 @@ import type {
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { format, parseISO, subDays } from 'date-fns'
-import { Fragment } from 'react'
+import { Fragment, type Ref } from 'react'
 
 import { BodyLong, BodyShort, Box, Heading, VStack } from '@navikt/ds-react'
 
@@ -93,11 +93,13 @@ export const OpplysningerInfo = ({
 	vedtakInfoAvdoed,
 	vedtakAPDato,
 	brukerHarVedtakGjenlevendepensjon,
+	headingRef,
 }: {
 	EPSOpplysninger: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
 	vedtakAPDato?: string | null
 	brukerHarVedtakGjenlevendepensjon: boolean
+	headingRef?: Ref<HTMLHeadingElement>
 }) => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep
@@ -120,7 +122,13 @@ export const OpplysningerInfo = ({
 			borderRadius="8"
 		>
 			<VStack gap="space-24" data-testid="EPS-opplysninger-info">
-				<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
+				<Heading
+					ref={headingRef}
+					tabIndex={-1}
+					level="3"
+					size="xsmall"
+					className={styles.opplysningerHeading}
+				>
 					Opplysninger om avdøde
 				</Heading>
 				<dl className={styles.opplysningerListe}>

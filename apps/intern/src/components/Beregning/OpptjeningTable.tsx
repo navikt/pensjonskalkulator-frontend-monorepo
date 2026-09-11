@@ -152,6 +152,7 @@ export function OpptjeningTable({
 					size="small"
 					className={`${styles.table} ${styles.opptjeningTable}`}
 				>
+					<caption className="srOnly">{title}</caption>
 					<Table.Header>
 						<Table.Row className={styles.headerRow}>
 							<Table.HeaderCell>

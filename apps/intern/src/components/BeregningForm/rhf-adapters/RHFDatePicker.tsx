@@ -1,4 +1,4 @@
-import { type FocusEvent, useEffect, useRef } from 'react'
+import { type FocusEvent, type Ref, useEffect, useRef } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { DatePicker, useDatepicker } from '@navikt/ds-react'
@@ -26,6 +26,7 @@ interface RHFDatePickerProps {
 	fromDate?: Date
 	toDate?: Date
 	disabled?: NonNullable<Parameters<typeof useDatepicker>[0]>['disabled']
+	inputRef?: Ref<HTMLInputElement>
 }
 
 export function RHFDatePicker({
@@ -35,6 +36,7 @@ export function RHFDatePicker({
 	fromDate,
 	toDate,
 	disabled,
+	inputRef,
 }: RHFDatePickerProps) {
 	const {
 		control,
@@ -76,6 +78,7 @@ export function RHFDatePicker({
 		<DatePicker {...datepickerProps} dropdownCaption>
 			<DatePicker.Input
 				{...inputProps}
+				ref={inputRef}
 				onBlur={(event: FocusEvent<HTMLInputElement>) => {
 					event.target.value = normalizeTwoDigitYear(event.target.value)
 					inputProps.onBlur?.(event)
