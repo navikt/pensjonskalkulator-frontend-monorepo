@@ -129,33 +129,6 @@ const AppContent = () => {
 		return <PersonInfo onPidChange={handlePidChange} />
 	}
 
-	const error =
-		decryptError ||
-		personError ||
-		vedtakError ||
-		inntektError ||
-		omstillingError ||
-		(visLagreBrevButton ? enheterError : undefined)
-
-	if (error) {
-		if (decryptError) {
-			return <ErrorPage404 />
-		}
-
-		const statusMatch = error.message.match(/(\d{3})/)
-		const status = statusMatch ? parseInt(statusMatch[1], 10) : undefined
-
-		if (status === 404) {
-			return <ErrorPage404 />
-		}
-
-		if (status && status >= 401 && status <= 499) {
-			return <ErrorPage4xx status={status} message={error.message} />
-		}
-
-		return <ErrorPage5xx status={status} message={error.message} />
-	}
-
 	const isAppLoading =
 		isDecrypting ||
 		isLoadingPerson ||
@@ -171,6 +144,38 @@ const AppContent = () => {
 				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
 			</div>
 		)
+	}
+
+	const error =
+		decryptError ||
+		personError ||
+		vedtakError ||
+		inntektError ||
+		omstillingError ||
+		(visLagreBrevButton ? enheterError : null)
+
+	if (error) {
+		if (decryptError) {
+			return <ErrorPage404 />
+		}
+
+		const status = error.status
+
+		if (status === 404) {
+			return <ErrorPage404 />
+		}
+
+		if (status && status >= 401 && status <= 499) {
+			return (
+				<ErrorPage4xx
+					status={status}
+					message={error.message}
+					tilgangsnekt={error?.tilgangsnekt?.message}
+				/>
+			)
+		}
+
+		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
 	if (visLagreBrevButton) {
