@@ -99,28 +99,6 @@ export const Gjenlevenderett = () => {
 		)
 	}, [vedtakInfoAvdoed, form])
 
-	useEffect(() => {
-		if (EPSOpplysninger) {
-			form.setValue('epsOpplysninger', EPSOpplysninger, {
-				shouldDirty: false,
-			})
-			form.setValue('harHentetEPSOpplysninger', true, {
-				shouldDirty: false,
-			})
-		}
-	}, [EPSOpplysninger, form])
-
-	useEffect(() => {
-		if (!gjenlevenderettFraVedtak) return
-
-		form.setValue(
-			'epsOpplysninger',
-			mapGjenlevenderettTilEpsOpplysninger(gjenlevenderettFraVedtak),
-			{ shouldDirty: false }
-		)
-		form.setValue('harHentetEPSOpplysninger', true, { shouldDirty: false })
-	}, [gjenlevenderettFraVedtak, form])
-
 	const [
 		formEpsOpplysninger,
 		harHentetEPSOpplysninger,
@@ -133,6 +111,28 @@ export const Gjenlevenderett = () => {
 			'beregnMedGjenlevenderett',
 		] as const,
 	})
+
+	useEffect(() => {
+		if (EPSOpplysninger) {
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
+			form.setValue('harHentetEPSOpplysninger', true, {
+				shouldDirty: false,
+			})
+		}
+	}, [EPSOpplysninger, form])
+
+	useEffect(() => {
+		if (!gjenlevenderettFraVedtak || harHentetEPSOpplysninger) return
+
+		form.setValue(
+			'epsOpplysninger',
+			mapGjenlevenderettTilEpsOpplysninger(gjenlevenderettFraVedtak),
+			{ shouldDirty: false }
+		)
+		form.setValue('harHentetEPSOpplysninger', true, { shouldDirty: false })
+	}, [gjenlevenderettFraVedtak, harHentetEPSOpplysninger, form])
 
 	useEffect(() => {
 		if (!harHentetEPSOpplysninger || !person) {
