@@ -1,7 +1,6 @@
 import { FormattedMessage } from 'react-intl'
 import { Navigate, Outlet, RouteObject } from 'react-router'
 
-import { RevidertBudsjettAlert } from '@/components/RevidertBudsjettAlert/RevidertBudsjettAlert'
 import { Loader } from '@/components/common/Loader'
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
@@ -154,12 +153,7 @@ export const routes: RouteObject[] = [
     loader: authenticationGuard,
     // showLoader={false} trengs for at det skal virke å vise modal i avansert skjema når man trykker på tilbakeknappen i nettleseren
     element: (
-      <PageFramework
-        isFullWidth
-        hasWhiteBg
-        showLoader={false}
-        announcement={<RevidertBudsjettAlert />}
-      >
+      <PageFramework isFullWidth hasWhiteBg showLoader={false}>
         <Outlet />
       </PageFramework>
     ),
