@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type SubmitEvent, useState } from 'react'
 
 import { InformationSquareIcon, PersonIcon } from '@navikt/aksel-icons'
 import {
@@ -48,7 +48,8 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')
 
-	const handleHent = () => {
+	const handleHent = (event: SubmitEvent) => {
+		event.preventDefault()
 		if (!pidInput.trim()) return
 		encryptPid(pidInput.trim(), {
 			onSuccess: (encryptedPid) => {
@@ -67,7 +68,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				onChange={(e) => setPidInput(e.target.value)}
 				htmlSize={15}
 			/>
-			<Button size="small" onClick={handleHent} loading={isEncrypting}>
+			<Button size="small" type="submit" loading={isEncrypting}>
 				Hent person
 			</Button>
 		</>
@@ -75,6 +76,8 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	const devInputSection = showHentPersonButton?.enabled && (
 		<HStack
+			as="form"
+			onSubmit={handleHent}
 			gap="space-4"
 			align="center"
 			justify="end"
