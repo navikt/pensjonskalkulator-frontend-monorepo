@@ -5,9 +5,14 @@ import styles from './ErrorPages.module.css'
 interface ErrorPage4xxProps {
 	status?: number
 	message?: string
+	tilgangsnekt?: string
 }
 
-export const ErrorPage4xx = ({ status, message }: ErrorPage4xxProps) => {
+export const ErrorPage4xx = ({
+	status,
+	message,
+	tilgangsnekt,
+}: ErrorPage4xxProps) => {
 	return (
 		<VStack
 			align="center"
@@ -20,14 +25,16 @@ export const ErrorPage4xx = ({ status, message }: ErrorPage4xxProps) => {
 					Statuskode {status ?? '4XX'}
 				</BodyShort>
 				<Heading level="2" size="medium">
-					Du har ikke tilgang til kalkulatoren eller brukeren
+					{tilgangsnekt
+						? 'Ingen tilgang'
+						: 'Du har ikke tilgang til kalkulatoren eller brukeren'}
 				</Heading>
 				<BodyLong size="medium">
-					Tilgangen din kan ha utløpt eller du har prøvd å slå opp en bruker du
-					ikke har tilgang til. Sjekk at du er innlogget i Pesys eller kontakt
-					din lokale IT-ansvarlig.
+					{tilgangsnekt
+						? tilgangsnekt
+						: 'Tilgangen din kan ha utløpt eller du har prøvd å slå opp en bruker du ikke har tilgang til. Sjekk at du er innlogget i Pesys eller kontakt din lokale IT-ansvarlig.'}
 				</BodyLong>
-				{message && (
+				{message && !tilgangsnekt && (
 					<BodyShort
 						size="small"
 						style={{ marginTop: '3rem' }}

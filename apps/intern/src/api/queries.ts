@@ -20,6 +20,8 @@ import {
 } from '@tanstack/react-query'
 
 import type { BeregningResult } from './beregningTypes'
+import type { TilgangsnektResponse } from './typeguards'
+import { isTilgangsnektResponse } from './typeguards'
 
 export interface Grunnbeloep {
 	dato: string
@@ -32,6 +34,37 @@ export interface Grunnbeloep {
 
 const API_BASE = '/pensjon/kalkulator/api'
 
+export class KalkulatorError extends Error {
+	status: number
+	tilgangsnekt?: TilgangsnektResponse
+
+	constructor(
+		message: string,
+		status: number,
+		tilgangsnekt?: TilgangsnektResponse
+	) {
+		super(message)
+		this.name = 'KalkulatorError'
+		this.status = status
+		this.tilgangsnekt = tilgangsnekt
+	}
+}
+
+async function toKalkulatorError(
+	response: Response,
+	message: string
+): Promise<KalkulatorError> {
+	const body: unknown = await response.json().catch(() => undefined)
+	const tilgangsnekt = isTilgangsnektResponse(body) ? body : undefined
+
+	return new KalkulatorError(
+		tilgangsnekt?.message ??
+			`${message}: ${response.status} ${response.statusText}`,
+		response.status,
+		tilgangsnekt
+	)
+}
+
 async function decryptPid(encryptedPid: string): Promise<string> {
 	const response = await fetch(`${API_BASE}/v1/decrypt`, {
 		method: 'POST',
@@ -42,16 +75,14 @@ async function decryptPid(encryptedPid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to decrypt pid: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to decrypt pid')
 	}
 
 	return response.text()
 }
 
 export function useDecryptPidQuery(encryptedPid?: string) {
-	return useQuery({
+	return useQuery<string, KalkulatorError>({
 		queryKey: ['decryptPid', encryptedPid],
 		queryFn: encryptedPid ? () => decryptPid(encryptedPid) : skipToken,
 		retry: false,
@@ -68,14 +99,14 @@ async function encryptPid(pid: string): Promise<string> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to encrypt pid: ${response.status}`)
+		throw await toKalkulatorError(response, 'Failed to encrypt pid')
 	}
 
 	return response.text()
 }
 
 export function useEncryptPidMutation() {
-	return useMutation({
+	return useMutation<string, KalkulatorError, string>({
 		mutationFn: encryptPid,
 	})
 }
@@ -88,14 +119,14 @@ async function fetchFeatureToggle(feature: string): Promise<FeatureToggle> {
 	const response = await fetch(`${API_BASE}/feature/${feature}`)
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch feature toggle: ${response.status}`)
+		throw await toKalkulatorError(response, 'Failed to fetch feature toggle')
 	}
 
 	return response.json() as Promise<FeatureToggle>
 }
 
 export function useFeatureToggleQuery(feature: string) {
-	return useQuery({
+	return useQuery<FeatureToggle, KalkulatorError>({
 		queryKey: ['featureToggle', feature],
 		queryFn: () => fetchFeatureToggle(feature),
 	})
@@ -113,9 +144,7 @@ async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch person data: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to fetch person')
 	}
 
 	return response.json() as Promise<PersonInternV1>
@@ -129,19 +158,22 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch decisions: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to fetch decisions')
 	}
 
 	return response.json() as Promise<Vedtak>
 }
 
-export class EpsError extends Error {
+export class EpsError extends KalkulatorError {
 	aarsak?: TilgangsnektAarsak
 
-	constructor(message: string, tilgangsnektAarsak?: TilgangsnektAarsak) {
-		super(message)
+	constructor(
+		message: string,
+		status: number,
+		tilgangsnektAarsak?: TilgangsnektAarsak
+	) {
+		super(message, status)
+		this.name = 'EpsError'
 		this.aarsak = tilgangsnektAarsak
 	}
 }
@@ -173,6 +205,7 @@ async function fetchEPSOpplysninger({
 		}
 		throw new EpsError(
 			`Failed to fetch EPS information: ${response.status} ${response.statusText}`,
+			response.status,
 			aarsak
 		)
 	}
@@ -193,14 +226,14 @@ async function fetchInntekt(fnr: string): Promise<Inntekt> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch inntekt: ${response.status}`)
+		throw await toKalkulatorError(response, 'Failed to fetch inntekt')
 	}
 
 	return response.json() as Promise<Inntekt>
 }
 
 export function useInntektQuery(fnr?: string) {
-	return useQuery({
+	return useQuery<Inntekt, KalkulatorError>({
 		queryKey: ['inntekt', fnr],
 		queryFn: fnr ? () => fetchInntekt(fnr) : skipToken,
 		retry: false,
@@ -221,16 +254,14 @@ async function fetchBeregning(
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to calculate pension: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to calculate pension')
 	}
 
 	return response.json() as Promise<BeregningResult>
 }
 
 export function usePersonQuery(fnr?: string) {
-	return useQuery({
+	return useQuery<PersonInternV1, KalkulatorError>({
 		queryKey: ['person', fnr],
 		queryFn: fnr ? () => fetchPerson(fnr) : skipToken,
 		retry: false,
@@ -238,7 +269,7 @@ export function usePersonQuery(fnr?: string) {
 }
 
 export function useVedtakQuery(fnr?: string) {
-	return useQuery({
+	return useQuery<Vedtak, KalkulatorError>({
 		queryKey: ['vedtak', fnr],
 		queryFn: fnr ? () => fetchVedtak(fnr) : skipToken,
 		retry: false,
@@ -258,8 +289,9 @@ async function fetchOmstillingsstoenadOgGjenlevende(
 	)
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch omstillingsstønad/gjenlevende: ${response.status} ${response.statusText}`
+		throw await toKalkulatorError(
+			response,
+			'Failed to fetch omstillingsstønad/gjenlevende'
 		)
 	}
 
@@ -267,7 +299,7 @@ async function fetchOmstillingsstoenadOgGjenlevende(
 }
 
 export function useOmstillingsstoenadQuery(fnr?: string) {
-	return useQuery({
+	return useQuery<OmstillingsstoenadOgGjenlevende, KalkulatorError>({
 		queryKey: ['omstillingsstoenad', fnr],
 		queryFn: fnr ? () => fetchOmstillingsstoenadOgGjenlevende(fnr) : skipToken,
 		retry: false,
@@ -283,7 +315,7 @@ export function useEPSOpplysningerQuery({
 	sivilstatus: Sivilstand
 	bakgrunn: string
 }) {
-	return useQuery({
+	return useQuery<EpsOpplysninger, EpsError>({
 		queryKey: ['EPSOpplysningerQuery', fnr, sivilstatus, bakgrunn],
 		queryFn:
 			fnr && sivilstatus && bakgrunn
@@ -297,14 +329,14 @@ async function fetchGrunnbeloep(): Promise<Grunnbeloep> {
 	const response = await fetch('https://g.nav.no/api/v1/grunnbel%C3%B8p')
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch grunnbeløp: ${response.status}`)
+		throw await toKalkulatorError(response, 'Failed to fetch grunnbeløp')
 	}
 
 	return response.json() as Promise<Grunnbeloep>
 }
 
 export function useGrunnbeloepQuery() {
-	return useQuery({
+	return useQuery<Grunnbeloep, KalkulatorError>({
 		queryKey: ['grunnbeloep'],
 		queryFn: fetchGrunnbeloep,
 	})
@@ -315,7 +347,7 @@ export function useBeregningQuery(
 	request: SimuleringRequestBody | null,
 	submitCount: number
 ) {
-	return useQuery({
+	return useQuery<BeregningResult, KalkulatorError>({
 		queryKey: ['beregning', fnr, request, submitCount],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
@@ -339,7 +371,7 @@ async function fetchErApoteker(fnr: string): Promise<boolean | null> {
 }
 
 export function useErApotekerQuery(fnr?: string) {
-	return useQuery({
+	return useQuery<boolean | null, KalkulatorError>({
 		queryKey: ['erApoteker', fnr],
 		queryFn: fnr ? () => fetchErApoteker(fnr) : skipToken,
 		retry: false,
@@ -354,7 +386,7 @@ async function fetchOpptjening(fnr: string): Promise<Opptjening> {
 	})
 
 	if (!response.ok) {
-		throw new Error(`Failed to fetch opptjening: ${response.status}`)
+		throw await toKalkulatorError(response, 'Failed to fetch opptjening')
 	}
 
 	return response.json() as Promise<Opptjening>
@@ -364,7 +396,7 @@ export function useOpptjeningQueryForAvdoed(
 	fnr?: string,
 	beregnMedGjenlevenderett?: boolean
 ) {
-	return useQuery({
+	return useQuery<Opptjening, KalkulatorError>({
 		queryKey: ['opptjening', fnr, beregnMedGjenlevenderett],
 		queryFn:
 			fnr && beregnMedGjenlevenderett ? () => fetchOpptjening(fnr) : skipToken,
@@ -389,9 +421,7 @@ async function lagreSimulering({
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to save simulation: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to save simulation')
 	}
 
 	return response.json() as Promise<LagreSimuleringResponseDtoV1>
@@ -400,7 +430,7 @@ async function lagreSimulering({
 export function useLagreSimuleringMutation() {
 	return useMutation<
 		LagreSimuleringResponseDtoV1,
-		Error,
+		KalkulatorError,
 		{ fnr: string; spec: LagreSimuleringSpecDtoV1 }
 	>({
 		mutationFn: lagreSimulering,
@@ -411,16 +441,14 @@ async function fetchEnheter(): Promise<AnsattEnhetResult> {
 	const response = await fetch(`${API_BASE}/intern/v1/enheter`)
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch enheter: ${response.status} ${response.statusText}`
-		)
+		throw await toKalkulatorError(response, 'Failed to fetch enheter')
 	}
 
 	return response.json() as Promise<AnsattEnhetResult>
 }
 
 export function useEnheterQuery(enabled = true) {
-	return useQuery({
+	return useQuery<AnsattEnhetResult, KalkulatorError>({
 		queryKey: ['enheter'],
 		queryFn: fetchEnheter,
 		enabled,
