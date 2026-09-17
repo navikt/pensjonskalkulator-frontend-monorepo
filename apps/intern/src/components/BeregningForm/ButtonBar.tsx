@@ -3,7 +3,6 @@ import { Box, Button, HStack } from '@navikt/ds-react'
 import styles from './BeregningForm.module.css'
 
 interface ButtonBarProps {
-	onSubmit: () => void
 	onReset: () => void
 	isDirty: boolean
 	harAktivBeregning: boolean
@@ -11,7 +10,6 @@ interface ButtonBarProps {
 }
 
 export const ButtonBar = ({
-	onSubmit,
 	onReset,
 	isDirty,
 	isSubmitDisabled = false,
@@ -23,6 +21,7 @@ export const ButtonBar = ({
 					<Button
 						size="small"
 						variant="secondary"
+						type="button"
 						onClick={onReset}
 						data-testid="nullstill-button"
 					>
@@ -31,7 +30,7 @@ export const ButtonBar = ({
 					<Button
 						size="small"
 						variant="primary"
-						onClick={onSubmit}
+						type="submit"
 						data-testid="beregn-button"
 						disabled={isSubmitDisabled}
 					>
