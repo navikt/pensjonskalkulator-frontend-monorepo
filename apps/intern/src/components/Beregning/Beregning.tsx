@@ -472,15 +472,17 @@ export const Beregning = () => {
 									testId: 'beregning-section-helt-67',
 								})}
 						</VStack>
-						<AarligPensjonTable
-							alderspensjonListe={beregning.alderspensjonListe}
-							privatAfpListe={beregning.privatAfpListe}
-							tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
-							serviceberegnetAfp={beregning.serviceberegnetAfp}
-							heltUttakAlder={heltUttakAlder}
-							person={person}
-							aktivBeregning={aktivBeregning}
-						/>
+						{!erServiceberegning && (
+							<AarligPensjonTable
+								alderspensjonListe={beregning.alderspensjonListe}
+								privatAfpListe={beregning.privatAfpListe}
+								tidsbegrensetOffentligAfp={beregning.tidsbegrensetOffentligAfp}
+								serviceberegnetAfp={beregning.serviceberegnetAfp}
+								heltUttakAlder={heltUttakAlder}
+								person={person}
+								aktivBeregning={aktivBeregning}
+							/>
+						)}
 						<Divider customMargin="32px" />
 						<SanityKortforbehold
 							id="kortforbehold"
