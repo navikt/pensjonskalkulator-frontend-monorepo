@@ -1,0 +1,15 @@
+name: 'Fetch OpenAPI types'
+description: 'Generate packages/types/src/schema.d.ts from the backend OpenAPI spec. Requires setup-node to be run first.'
+
+inputs:
+  is-prod:
+    description: 'Fetch the spec from production (true) or staging (false)'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Fetch openapi backend types
+      shell: bash
+      run: pnpm --filter=types run ${{ inputs.is-prod == 'true' && 'generate:prod' || 'generate:staging' }}
