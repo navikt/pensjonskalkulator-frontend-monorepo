@@ -426,6 +426,8 @@ export const BeregningForm = () => {
 						harGjenlevenderett:
 							vedtak?.loependeAlderspensjon?.harGjenlevenderett,
 						erApoteker,
+						kanBeregneMedGjenlevenderett:
+							(vedtak && vedtak.gjenlevenderett != null) ?? false,
 					}) && (
 						<>
 							<Gjenlevenderett />
