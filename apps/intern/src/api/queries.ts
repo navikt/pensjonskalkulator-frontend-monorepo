@@ -58,7 +58,7 @@ async function toKalkulatorError(
 	const tilgangsnekt = isTilgangsnektResponse(body) ? body : undefined
 
 	return new KalkulatorError(
-		tilgangsnekt?.message ??
+		tilgangsnekt?.detail ??
 			`${message}: ${response.status} ${response.statusText}`,
 		response.status,
 		tilgangsnekt
