@@ -1,8 +1,8 @@
-export const TILGANGSNEKT_MESSAGE_PREFIX = 'Tilgang nektet pga'
+export const TILGANGSNEKT_TYPE = 'TILGANGSNEKT'
 
 export interface TilgangsnektResponse {
-	message: string
-	error?: string
+	type: string
+	detail?: string
 }
 
 export const isTilgangsnektResponse = (
@@ -12,11 +12,11 @@ export const isTilgangsnektResponse = (
 		return false
 	}
 
-	const { message, error } = data as Record<string, unknown>
+	const { type, detail } = data as Record<string, unknown>
 
 	return (
-		typeof message === 'string' &&
-		message.includes(TILGANGSNEKT_MESSAGE_PREFIX) &&
-		(typeof error === 'string' || error === undefined)
+		typeof type === 'string' &&
+		type === TILGANGSNEKT_TYPE &&
+		(typeof detail === 'string' || detail === undefined)
 	)
 }

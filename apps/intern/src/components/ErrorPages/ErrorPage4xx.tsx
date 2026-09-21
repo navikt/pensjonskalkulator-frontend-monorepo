@@ -31,7 +31,7 @@ export const ErrorPage4xx = ({
 				</Heading>
 				<BodyLong size="medium">
 					{tilgangsnekt
-						? tilgangsnekt
+						? tilgangsnekt + '.'
 						: 'Tilgangen din kan ha utløpt eller du har prøvd å slå opp en bruker du ikke har tilgang til. Sjekk at du er innlogget i Pesys eller kontakt din lokale IT-ansvarlig.'}
 				</BodyLong>
 				{message && !tilgangsnekt && (

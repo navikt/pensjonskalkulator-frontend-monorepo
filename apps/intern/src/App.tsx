@@ -170,7 +170,7 @@ const AppContent = () => {
 				<ErrorPage4xx
 					status={status}
 					message={error.message}
-					tilgangsnekt={error?.tilgangsnekt?.message}
+					tilgangsnekt={error?.tilgangsnekt?.detail}
 				/>
 			)
 		}
