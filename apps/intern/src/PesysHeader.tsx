@@ -15,7 +15,7 @@ export const PesysHeader = (props: PesysHeaderProps) => {
 			</InternalHeader.Title>
 			<Spacer />
 			{enhet && (
-				<div style={{ fontSize: '1rem', fontWeight: 'normal' }}>
+				<div className={styles.enhetInfo}>
 					{enhet?.id} {enhet?.navn}
 				</div>
 			)}
