@@ -6,13 +6,18 @@
 .personInfoWrapper {
 	display: flex;
 	align-items: center;
-	padding: var(--ax-space-8) var(--ax-space-44);
-	background-color: var(--ax-bg-neutral-moderate);
+	padding: 7px var(--ax-space-44);
+	background-color: var(--ax-neutral-100);
 	border-bottom: var(--ax-space-2) solid var(--ax-border-neutral-subtle);
 }
 
 .copyButton {
 	padding-left: 0;
+	color: var(--ax-text-accent-subtle);
+}
+
+.copyButton:hover {
+	background-color: var(--ax-bg-moderate-hoverA);
 }
 
 .slash {

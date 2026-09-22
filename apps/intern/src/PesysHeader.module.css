@@ -3,7 +3,7 @@
 }
 
 .title {
-	font-size: var(--ax-font-size-heading-xlarge);
+	font-size: var(--ax-font-size-heading-medium);
 	line-height: var(--ax-font-line-height-heading-large);
 	padding-top: var(--ax-space-4);
 	padding-bottom: var(--ax-space-4);

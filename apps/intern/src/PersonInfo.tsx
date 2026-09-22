@@ -134,8 +134,15 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				fontSize="1.5rem"
 				className={styles.personInfoIcon}
 			/>
-			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
+			<BodyShort size="medium">
+				{fnr.slice(0, 7)}&nbsp;{fnr.slice(7)}
+			</BodyShort>
+			<CopyButton
+				size="small"
+				copyText={fnr}
+				data-color="accent"
+				className={styles.copyButton}
+			/>
 			<BodyShort size="medium">
 				<span className={styles.slash}>/</span>
 				{person.navn}
