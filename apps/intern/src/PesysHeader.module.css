@@ -1,4 +1,6 @@
 .pesysHeader {
+	height: 48px;
+	box-sizing: border-box;
 	padding: 0 var(--ax-space-24);
 }
 

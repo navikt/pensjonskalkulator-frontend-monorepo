@@ -144,7 +144,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				className={styles.personInfoIcon}
 			/>
 			<BodyShort size="medium">
-				{fnr.slice(0, 7)}&nbsp;{fnr.slice(7)}
+				{fnr.slice(0, 6)}&nbsp;{fnr.slice(6)}
 			</BodyShort>
 			<CopyButton
 				size="small"
