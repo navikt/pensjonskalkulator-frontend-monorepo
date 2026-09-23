@@ -8,7 +8,7 @@
 	align-items: center;
 	height: 48px;
 	box-sizing: border-box;
-	padding: 7px var(--ax-space-44);
+	padding: var(--ax-space-8) var(--ax-space-44);
 	background-color: var(--ax-neutral-100);
 	border-bottom: var(--ax-space-2) solid var(--ax-border-neutral-subtle);
 }
