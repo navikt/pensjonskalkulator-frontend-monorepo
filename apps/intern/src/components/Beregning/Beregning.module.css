@@ -61,6 +61,7 @@
 .lagreButton {
 	align-self: flex-start;
 	width: fit-content;
+	position: relative;
 }
 
 @media (max-width: 1280px) {
