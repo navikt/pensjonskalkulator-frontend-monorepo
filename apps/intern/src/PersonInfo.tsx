@@ -36,9 +36,9 @@ export const formatPersonnavn = (navn: string): string => {
 	const nameParts = navn.trim().split(/\s+/)
 	const etternavn = nameParts.pop()
 	const fornavnOgMellomnavn = nameParts.join(' ')
-	return etternavn
+	return fornavnOgMellomnavn
 		? `${etternavn}, ${fornavnOgMellomnavn}`
-		: fornavnOgMellomnavn
+		: (etternavn ?? '')
 }
 
 export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
