@@ -28,7 +28,7 @@ import { RHFCheckbox } from '../BeregningForm/rhf-adapters/RHFCheckbox'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { useFormValidation } from '../BeregningForm/useFormValidation'
 import { OpplysningerInfo } from './OpplysningerInfo'
-import { getEpsDoedsdato } from './utils'
+import { getEpsDoedsdato, mapGjenlevenderettTilEpsOpplysninger } from './utils'
 
 import styles from './Gjenlevenderett.module.css'
 
@@ -54,6 +54,8 @@ export const Gjenlevenderett = () => {
 	} = useEPSOpplysningerQuery({ fnr, ...epsQueryParams })
 
 	const { data: vedtak, isLoading: isVedtakLoading } = useVedtakQuery(fnr)
+
+	const gjenlevenderettFraVedtak = vedtak?.gjenlevenderett ?? undefined
 
 	const vedtakInfoAvdoed =
 		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
@@ -101,17 +103,6 @@ export const Gjenlevenderett = () => {
 		)
 	}, [vedtakInfoAvdoed, form])
 
-	useEffect(() => {
-		if (EPSOpplysninger) {
-			form.setValue('epsOpplysninger', EPSOpplysninger, {
-				shouldDirty: false,
-			})
-			form.setValue('harHentetEPSOpplysninger', true, {
-				shouldDirty: false,
-			})
-		}
-	}, [EPSOpplysninger, form])
-
 	const [
 		formEpsOpplysninger,
 		harHentetEPSOpplysninger,
@@ -126,15 +117,52 @@ export const Gjenlevenderett = () => {
 	})
 
 	useEffect(() => {
+		if (EPSOpplysninger) {
+			form.setValue('epsOpplysninger', EPSOpplysninger, {
+				shouldDirty: false,
+			})
+			form.setValue('harHentetEPSOpplysninger', true, {
+				shouldDirty: false,
+			})
+		}
+	}, [EPSOpplysninger, form])
+
+	useEffect(() => {
+		if (!gjenlevenderettFraVedtak || harHentetEPSOpplysninger) return
+
+		form.setValue(
+			'epsOpplysninger',
+			mapGjenlevenderettTilEpsOpplysninger(gjenlevenderettFraVedtak),
+			{ shouldDirty: false }
+		)
+		form.setValue('harHentetEPSOpplysninger', true, { shouldDirty: false })
+	}, [gjenlevenderettFraVedtak, harHentetEPSOpplysninger, form])
+
+	useEffect(() => {
 		if (!harHentetEPSOpplysninger || !person) {
 			setEpsQueryParams({} as { sivilstatus: Sivilstand; bakgrunn: string })
 		}
+
+		if (gjenlevenderettFraVedtak) {
+			form.setValue(
+				'bakgrunnForBrukAvOpplysningerOmEPS',
+				'DOEDSFALL_REGISTRERT',
+				{ shouldDirty: false }
+			)
+			return
+		}
+
 		if (!harHentetEPSOpplysninger && !beregnMedGjenlevenderett) {
 			form.setValue('bakgrunnForBrukAvOpplysningerOmEPS', null, {
 				shouldDirty: false,
 			})
 		}
-	}, [harHentetEPSOpplysninger, person, beregnMedGjenlevenderett])
+	}, [
+		harHentetEPSOpplysninger,
+		person,
+		beregnMedGjenlevenderett,
+		gjenlevenderettFraVedtak,
+	])
 
 	const handleHentEPSOpplysninger = () => {
 		form.clearErrors([
@@ -262,24 +290,27 @@ export const Gjenlevenderett = () => {
 						>
 							{isEPSLoading ? 'Henter opplysninger om EPS.' : ''}
 						</div>
-						{!isEPSLoading && !isError && !formEpsOpplysninger && (
-							<RHFRadio
-								name="bakgrunnForBrukAvOpplysningerOmEPS"
-								legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
-								testid="bakgrunn-for-bruk-EPS"
-								gap="space-0"
-								options={[
-									{
-										value: 'DOEDSFALL_REGISTRERT',
-										label: 'Dødsfall er registrert',
-									},
-									{
-										value: 'SAMTYKKE_BEGGE_PARTER',
-										label: 'Henvendelse fra begge parter foreligger',
-									},
-								]}
-							/>
-						)}
+						{!isEPSLoading &&
+							!isError &&
+							!formEpsOpplysninger &&
+							!gjenlevenderettFraVedtak && (
+								<RHFRadio
+									name="bakgrunnForBrukAvOpplysningerOmEPS"
+									legend="Hva er grunnlaget for å hente opplysninger om EPS i denne veiledningen?"
+									testid="bakgrunn-for-bruk-EPS"
+									gap="space-0"
+									options={[
+										{
+											value: 'DOEDSFALL_REGISTRERT',
+											label: 'Dødsfall er registrert',
+										},
+										{
+											value: 'SAMTYKKE_BEGGE_PARTER',
+											label: 'Henvendelse fra begge parter foreligger',
+										},
+									]}
+								/>
+							)}
 						{isError && !tilgangsbegrensningAlertId && EPSError}
 						{tilgangsbegrensningAlertId && (
 							<SanityAlert
@@ -289,6 +320,7 @@ export const Gjenlevenderett = () => {
 						)}
 						{!isEPSLoading &&
 							!formEpsOpplysninger &&
+							!gjenlevenderettFraVedtak &&
 							!tilgangsbegrensningAlertId && (
 								<Button
 									variant="secondary"
@@ -344,6 +376,9 @@ export const Gjenlevenderett = () => {
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
 							headingRef={opplysningerHeadingRef}
+							brukerHarVedtakGjenlevendepensjon={Boolean(
+								vedtak?.gjenlevenderett
+							)}
 						/>
 					)}
 					<Heading level="3" size="small" visuallyHidden>

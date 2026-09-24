@@ -37,6 +37,9 @@ export type Vedtak = components['schemas']['VedtakV1Samling']
 export type VedtakInformasjonOmAvdoed =
 	components['schemas']['VedtakV1InformasjonOmAvdoed']
 
+export type VedtakGjenlevenderett =
+	components['schemas']['VedtakV1Gjenlevenderett']
+
 // Omstillingsstoenad
 export type OmstillingsstoenadOgGjenlevende =
 	components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
