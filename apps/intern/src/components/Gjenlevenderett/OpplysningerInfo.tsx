@@ -10,7 +10,10 @@ import { BodyLong, BodyShort, Box, Heading, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
-import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
+import {
+	isEpsOver67EllerDoedsdatoEtter67aar,
+	showEPSMinstePensjonsgivendeInntektFoerDoedsfall,
+} from '../BeregningForm/utils'
 import { Divider } from '../Divider/Divider'
 import { getEpsDoedsdato } from './utils'
 
@@ -111,6 +114,22 @@ export const OpplysningerInfo = ({
 	const formatertVedtakAPDato = vedtakAPDato
 		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
 		: undefined
+	const epsFoedselsdato = EPSOpplysninger.relasjonPersondata?.foedselsdato
+	const skalVisePensjonsgivendeInntektFoerUtenlandsopphold =
+		epsFoedselsdato !== null &&
+		epsFoedselsdato !== undefined &&
+		isEpsOver67EllerDoedsdatoEtter67aar({
+			epsFoedselsdato,
+			epsDoedsdato: EPSOpplysninger.relasjonPersondata?.doedsdato ?? undefined,
+		})
+	const pensjonsgivendeInntektFoerDoedsdato =
+		!brukerHarVedtakGjenlevendepensjon ? (
+			<RHFTextField
+				name="epsPensjonsgivendeInntektFoerDoedsDato"
+				label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
+				style={{ width: '184px' }}
+			/>
+		) : null
 
 	return (
 		<Box
@@ -141,6 +160,8 @@ export const OpplysningerInfo = ({
 						Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.
 					</BodyLong>
 				)}
+				{skalVisePensjonsgivendeInntektFoerUtenlandsopphold &&
+					pensjonsgivendeInntektFoerDoedsdato}
 				{!vedtakInfoAvdoed && (
 					<RHFTextField
 						name="epsAntallUtenlandsOppholdAar"
@@ -148,13 +169,8 @@ export const OpplysningerInfo = ({
 						style={{ width: '96px' }}
 					/>
 				)}
-				{!brukerHarVedtakGjenlevendepensjon && (
-					<RHFTextField
-						name="epsPensjonsgivendeInntektFoerDoedsDato"
-						label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
-						style={{ width: '184px' }}
-					/>
-				)}
+				{!skalVisePensjonsgivendeInntektFoerUtenlandsopphold &&
+					pensjonsgivendeInntektFoerDoedsdato}
 				{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
 					!vedtakInfoAvdoed && (
 						<RHFRadio
