@@ -140,9 +140,18 @@ const AppContent = () => {
 
 	if (isAppLoading) {
 		return (
-			<div role="status" aria-live="polite">
-				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
-			</div>
+			<Box
+				role="status"
+				aria-live="polite"
+				height="100%"
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignContent: 'center',
+				}}
+			>
+				<Loader size="3xlarge" title="Vent litt mens vi henter informasjon." />
+			</Box>
 		)
 	}
 
