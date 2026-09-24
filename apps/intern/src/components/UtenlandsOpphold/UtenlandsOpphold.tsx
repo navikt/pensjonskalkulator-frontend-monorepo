@@ -140,6 +140,7 @@ export const UtenlandsOpphold = ({
 		landSelectRef,
 		fokuserLeggTilNyttOpphold,
 		fokuserLandSelect,
+		fokuserSluttdato,
 	} = useOppholdFokus({
 		activeIndex,
 		startdato,
@@ -228,7 +229,6 @@ export const UtenlandsOpphold = ({
 		clearOppholdErrors(index)
 		setOppholdValues(index, values)
 		setActiveIndex(index)
-		setBekreftelse('')
 	}
 
 	const closeOppholdEditor = () => {
@@ -333,15 +333,23 @@ export const UtenlandsOpphold = ({
 	}
 
 	const handleEdit = (index: number) => {
+		setBekreftelse('')
 		openOppholdEditor(index, getOppholdValues(index))
 	}
 
 	const handleDelete = (index: number) => {
 		const erSisteOpphold = fields.length === 1
+		const landkode = savedOpphold[index]?.landkode ?? ''
+		const land = getLandDetails(landkode)?.navn ?? landkode
+
 		reopenEmptyOppholdRef.current = erSisteOpphold
 		remove(index)
+		setBekreftelse(`Opphold i ${land} er slettet`)
 
-		if (!erSisteOpphold) {
+		// Uten flere opphold åpnes et tomt skjema i stedet for «Legg til nytt opphold»
+		if (erSisteOpphold) {
+			fokuserLandSelect()
+		} else {
 			fokuserLeggTilNyttOpphold()
 		}
 	}
@@ -407,6 +415,7 @@ export const UtenlandsOpphold = ({
 							className={styles.dateFieldInput}
 							fromDate={minStartdato}
 							toDate={maxOppholdDate}
+							onCalendarSelect={fokuserSluttdato}
 						/>
 						<Checkbox
 							size="small"
@@ -534,6 +543,7 @@ export const UtenlandsOpphold = ({
 								variant="secondary"
 								size="small"
 								onClick={() => {
+									setBekreftelse('')
 									openNewOpphold()
 									fokuserLandSelect()
 								}}

@@ -57,6 +57,11 @@ export function useOppholdFokus({
 		sluttdatoInputRef.current?.focus()
 	}, [activeIndex, startdato])
 
+	// Kalenderpanelet flytter fokus til kalenderknappen når det lukkes, så vi venter til det er ferdig
+	const fokuserSluttdato = useCallback(() => {
+		window.setTimeout(() => sluttdatoInputRef.current?.focus(), 0)
+	}, [])
+
 	return {
 		startdatoWrapperRef,
 		sluttdatoInputRef,
@@ -64,5 +69,6 @@ export function useOppholdFokus({
 		landSelectRef,
 		fokuserLeggTilNyttOpphold,
 		fokuserLandSelect,
+		fokuserSluttdato,
 	}
 }
