@@ -63,6 +63,15 @@
 	width: fit-content;
 }
 
+.tomBeregning {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--ax-text-neutral-subtle);
+	border: 1px dashed var(--ax-border-neutral-strong);
+}
+
 @media (max-width: 1280px) {
 	.beregning {
 		padding: var(--ax-space-24);
