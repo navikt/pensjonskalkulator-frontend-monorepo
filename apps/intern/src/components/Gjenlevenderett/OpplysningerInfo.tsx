@@ -92,10 +92,12 @@ export const OpplysningerInfo = ({
 	EPSOpplysninger,
 	vedtakInfoAvdoed,
 	vedtakAPDato,
+	brukerHarVedtakGjenlevendepensjon,
 }: {
 	EPSOpplysninger: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
 	vedtakAPDato?: string | null
+	brukerHarVedtakGjenlevendepensjon: boolean
 }) => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const grunnbeloepTekst = grunnbeloep
@@ -146,11 +148,13 @@ export const OpplysningerInfo = ({
 						style={{ width: '96px' }}
 					/>
 				)}
-				<RHFTextField
-					name="epsPensjonsgivendeInntektFoerDoedsDato"
-					label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
-					style={{ width: '184px' }}
-				/>
+				{!brukerHarVedtakGjenlevendepensjon && (
+					<RHFTextField
+						name="epsPensjonsgivendeInntektFoerDoedsDato"
+						label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
+						style={{ width: '184px' }}
+					/>
+				)}
 				{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
 					!vedtakInfoAvdoed && (
 						<RHFRadio
