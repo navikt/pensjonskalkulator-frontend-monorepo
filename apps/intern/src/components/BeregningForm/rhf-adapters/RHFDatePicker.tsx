@@ -27,6 +27,7 @@ interface RHFDatePickerProps {
 	toDate?: Date
 	disabled?: NonNullable<Parameters<typeof useDatepicker>[0]>['disabled']
 	inputRef?: Ref<HTMLInputElement>
+	onCalendarSelect?: () => void
 }
 
 export function RHFDatePicker({
@@ -37,6 +38,7 @@ export function RHFDatePicker({
 	toDate,
 	disabled,
 	inputRef,
+	onCalendarSelect,
 }: RHFDatePickerProps) {
 	const {
 		control,
@@ -75,7 +77,14 @@ export function RHFDatePicker({
 	const errorMessage = getNestedError(errors, name)
 
 	return (
-		<DatePicker {...datepickerProps} dropdownCaption>
+		<DatePicker
+			{...datepickerProps}
+			dropdownCaption
+			onDayClick={(day, modifiers, event) => {
+				datepickerProps.onDayClick?.(day, modifiers, event)
+				if (day && !modifiers.selected) onCalendarSelect?.()
+			}}
+		>
 			<DatePicker.Input
 				{...inputProps}
 				ref={inputRef}
