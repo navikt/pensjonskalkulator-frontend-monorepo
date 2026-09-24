@@ -14,7 +14,6 @@ const vedtak: Vedtak = {
 		harGjenlevenderett: false,
 		harUtenlandsopphold: false,
 	},
-	kanSimulereMedGjenlevenderett: false,
 }
 
 describe('OpplysningerFraVedtak', () => {
