@@ -32,6 +32,15 @@ interface PersonInfoProps {
 	onPidChange?: (encryptedPid: string) => void
 }
 
+export const formatPersonnavn = (navn: string): string => {
+	const nameParts = navn.trim().split(/\s+/)
+	const etternavn = nameParts.pop()
+	const fornavnOgMellomnavn = nameParts.join(' ')
+	return fornavnOgMellomnavn
+		? `${etternavn}, ${fornavnOgMellomnavn}`
+		: (etternavn ?? '')
+}
+
 export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const pid = getPidFromUrl()
 	const { data: fnr } = useDecryptPidQuery(pid)
@@ -137,11 +146,18 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				fontSize="1.5rem"
 				className={styles.personInfoIcon}
 			/>
-			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} className={styles.copyButton} />
+			<BodyShort size="medium">
+				{fnr.slice(0, 6)}&nbsp;{fnr.slice(6)}
+			</BodyShort>
+			<CopyButton
+				size="small"
+				copyText={fnr}
+				data-color="accent"
+				className={styles.copyButton}
+			/>
 			<BodyShort size="medium">
 				<span className={styles.slash}>/</span>
-				{person.navn}
+				{formatPersonnavn(person.navn)}
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
