@@ -14,7 +14,7 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { addMonths, format, parseISO } from 'date-fns'
-import { useCallback, useEffect, useState } from 'react'
+import { type SubmitEvent, useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import { BodyShort, Box, HStack } from '@navikt/ds-react'
@@ -186,7 +186,8 @@ export const BeregningForm = () => {
 		resetForm()
 	}, [resetForm])
 
-	const handleSubmit = () => {
+	const handleSubmit = (event?: SubmitEvent) => {
+		event?.preventDefault()
 		form.clearErrors()
 		setForTidligEndringAvUttaksgradDato(null)
 		const formData = form.getValues()
@@ -411,7 +412,7 @@ export const BeregningForm = () => {
 	)
 
 	return (
-		<Box className={styles.beregningForm}>
+		<Box as="form" onSubmit={handleSubmit} className={styles.beregningForm}>
 			<Box className={styles.section}>
 				{erEndring && (
 					<>
@@ -766,7 +767,6 @@ export const BeregningForm = () => {
 			</Box>
 			{!hasTilgangsbegrensning && (
 				<ButtonBar
-					onSubmit={handleSubmit}
 					onReset={handleReset}
 					isDirty={isDirty}
 					harAktivBeregning={!!aktivBeregning}
