@@ -4,6 +4,7 @@ import {
 	mockOpptjeningKap19,
 	mockOpptjeningKap20,
 } from '../components/Beregning/__mocks__/opptjening'
+import { mapUtenlandsperiodeListe } from './mapBeregningParams'
 import { mapPensjonsopptjeningToLagreDto } from './mapLagreSimulering'
 
 describe('mapPensjonsopptjeningToLagreDto', () => {
@@ -66,5 +67,28 @@ describe('mapPensjonsopptjeningToLagreDto', () => {
 			pensjonspoeng: 4.12,
 			pensjonsbeholdning: null,
 		})
+	})
+})
+
+describe('mapUtenlandsperiodeListe', () => {
+	test('sorts foreign stays with the newest start date first', () => {
+		const periods = mapUtenlandsperiodeListe([
+			{
+				landkode: 'DZA',
+				arbeidetUtenlands: false,
+				fom: '01.01.2020',
+				tom: '31.12.2020',
+				brukFoedselsdato: false,
+			},
+			{
+				landkode: 'BEL',
+				arbeidetUtenlands: false,
+				fom: '01.01.2024',
+				tom: '31.12.2024',
+				brukFoedselsdato: false,
+			},
+		])
+
+		expect(periods.map(({ fom }) => fom)).toEqual(['2024-01-01', '2020-01-01'])
 	})
 })

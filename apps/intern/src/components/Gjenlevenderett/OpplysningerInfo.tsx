@@ -115,12 +115,18 @@ export const OpplysningerInfo = ({
 		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
 		: undefined
 	const epsFoedselsdato = EPSOpplysninger.relasjonPersondata?.foedselsdato
+	const registrertDoedsDato = getEpsDoedsdato({
+		epsOpplysninger: EPSOpplysninger,
+		vedtakInfoAvdoed,
+	})
 	const skalVisePensjonsgivendeInntektFoerUtenlandsopphold =
 		epsFoedselsdato !== null &&
 		epsFoedselsdato !== undefined &&
 		isEpsOver67EllerDoedsdatoEtter67aar({
 			epsFoedselsdato,
-			epsDoedsdato: EPSOpplysninger.relasjonPersondata?.doedsdato ?? undefined,
+			epsDoedsdato: registrertDoedsDato
+				? format(registrertDoedsDato, 'yyyy-MM-dd')
+				: undefined,
 		})
 	const pensjonsgivendeInntektFoerDoedsdato =
 		!brukerHarVedtakGjenlevendepensjon ? (

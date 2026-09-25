@@ -248,7 +248,7 @@ export const UtenlandsOpphold = ({
 				const firstStartdato = parseEndUserDate(firstOpphold.fom)
 				const secondStartdato = parseEndUserDate(secondOpphold.fom)
 
-				return firstStartdato.getTime() - secondStartdato.getTime()
+				return secondStartdato.getTime() - firstStartdato.getTime()
 			})
 		)
 

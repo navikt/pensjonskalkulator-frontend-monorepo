@@ -35,7 +35,7 @@ export const mapUtenlandsperiodeListe = (
 			})
 		)
 		.sort((firstPeriode, secondPeriode) =>
-			firstPeriode.fom.localeCompare(secondPeriode.fom)
+			secondPeriode.fom.localeCompare(firstPeriode.fom)
 		)
 
 export function mapBeregningParamsToRequest(
