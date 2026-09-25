@@ -196,9 +196,7 @@ test.describe('AFP Offentlig', () => {
 					},
 				})
 
-				await expect(
-					page.getByTestId('beregning-section-helt-afp-offentlig')
-				).toBeVisible()
+				await expect(page.getByTestId('beregning-section-helt')).toBeVisible()
 			})
 		})
 	})

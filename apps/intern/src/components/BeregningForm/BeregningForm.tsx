@@ -663,10 +663,12 @@ export const BeregningForm = () => {
 												<RHFTextField
 													name="inntektSisteMaanedFoerUttak"
 													label="Inntekt siste måned før uttak"
+													testId="inntekt-siste-maaned-foer-uttak"
 												/>
 												<RHFTextField
 													name="aarsinntektSamtidigMedAfp"
 													label="Årsinntekt samtidig med AFP"
+													testId="aarsinntekt-samtidig-med-afp"
 												/>
 											</>
 										)}
