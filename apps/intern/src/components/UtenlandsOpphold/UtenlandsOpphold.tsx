@@ -50,7 +50,7 @@ export const UtenlandsOpphold = ({
 		name: ['harOppholdUtenforNorge'] as const,
 	})
 
-	const { fields, remove, replace, update } = useFieldArray({
+	const { fields, remove, replace } = useFieldArray({
 		control,
 		name: 'utenlandsOpphold',
 	})
@@ -237,11 +237,20 @@ export const UtenlandsOpphold = ({
 			return
 		}
 
-		if (mode === 'edit') {
-			update(activeIndex, opphold)
-		} else {
-			replace([...savedOpphold, opphold])
-		}
+		const oppholdList =
+			mode === 'edit'
+				? savedOpphold.map((saved, index) =>
+						index === activeIndex ? opphold : saved
+					)
+				: [...savedOpphold, opphold]
+		replace(
+			oppholdList.sort((firstOpphold, secondOpphold) => {
+				const firstStartdato = parseEndUserDate(firstOpphold.fom)
+				const secondStartdato = parseEndUserDate(secondOpphold.fom)
+
+				return secondStartdato.getTime() - firstStartdato.getTime()
+			})
+		)
 
 		closeOppholdEditor()
 	}
