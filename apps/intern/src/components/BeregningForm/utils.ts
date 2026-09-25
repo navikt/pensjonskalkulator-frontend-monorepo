@@ -36,6 +36,9 @@ export function isSivilstatusWithGjenlevenderett(
 		'ENKE_ELLER_ENKEMANN',
 		'SKILT',
 		'SEPARERT',
+		'SEPARERT_PARTNER',
+		'SKILT_PARTNER',
+		'GJENLEVENDE_PARTNER',
 	]
 
 	return inkluderteSivilstatuser.includes(sivilstatus)
