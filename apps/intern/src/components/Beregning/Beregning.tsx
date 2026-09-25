@@ -13,7 +13,15 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useContext, useEffect, useState } from 'react'
 
-import { BodyLong, Box, Button, Loader, Tabs, VStack } from '@navikt/ds-react'
+import {
+	BodyLong,
+	BodyShort,
+	Box,
+	Button,
+	Loader,
+	Tabs,
+	VStack,
+} from '@navikt/ds-react'
 
 import { erKap19EllerApoteker } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
@@ -110,6 +118,12 @@ export const Beregning = () => {
 		</div>
 	)
 
+	const tomBeregningSide = (
+		<BodyShort size="large" className={styles.tomBeregning}>
+			Du har ikke gjort en beregning enda
+		</BodyShort>
+	)
+
 	const hasBeregning =
 		beregning && beregning.vilkaarsproevingsresultat.erInnvilget !== false
 	if (!hasBeregning) {
@@ -118,7 +132,8 @@ export const Beregning = () => {
 				borderColor="neutral-subtle"
 				borderWidth="0 0 0 1"
 				position="relative"
-				className={styles.beregning}
+				width="100%"
+				padding="space-24"
 				data-testid="beregning-result"
 			>
 				{loadingOverlay}
@@ -128,7 +143,7 @@ export const Beregning = () => {
 						onRetry={submitBeregning}
 					/>
 				) : (
-					!isBeregningLoading && <BodyLong>Ingen beregning enda.</BodyLong>
+					!isBeregningLoading && tomBeregningSide
 				)}
 			</Box>
 		)
