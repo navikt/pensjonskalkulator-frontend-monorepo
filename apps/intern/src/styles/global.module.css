@@ -34,10 +34,6 @@
 	overflow: hidden;
 }
 
-.pilotGlobalAlert {
-	padding: 0 var(--ax-space-48);
-}
-
 .heading {
 	font-size: var(--ax-font-size-medium);
 	line-height: var(--ax-font-line-height-medium);
@@ -52,4 +48,16 @@
 	.headerBox {
 		width: 448px;
 	}
+}
+
+:global(.srOnly) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }

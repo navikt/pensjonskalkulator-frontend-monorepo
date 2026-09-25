@@ -2,15 +2,20 @@
 .dateFieldWrapper,
 .dateFieldWrapper :global(.aksel-date__field-wrapper) {
 	width: 11.75rem;
+	flex-shrink: 0;
 }
 
 .selectLand {
 	width: 100%;
 }
 
-.radioFieldWrapper,
-.dateFieldWrapper {
-	flex-shrink: 0;
+.radioFieldWrapper {
+	flex-shrink: 1;
+	min-width: 11rem;
+}
+
+.landRadioHStack {
+	flex-wrap: nowrap;
 }
 
 .dateFieldInput {

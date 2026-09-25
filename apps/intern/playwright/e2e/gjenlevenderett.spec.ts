@@ -375,7 +375,7 @@ test.describe('Gjenlevenderett', () => {
 				.getByLabel('Henvendelse fra begge parter foreligger')
 				.check()
 
-			await page.getByRole('button', { name: 'Nullstill' }).click()
+			await page.getByRole('button', { name: 'Nullstill skjema' }).click()
 
 			await expect(checkbox).not.toBeChecked()
 			await expect(page.getByTestId('bakgrunn-for-bruk-EPS')).not.toBeVisible()
@@ -418,11 +418,6 @@ test.describe('Gjenlevenderett', () => {
 				})
 				.getByLabel('Ja')
 				.check()
-			await page
-				.getByRole('group', { name: 'Registrert som flyktning' })
-				.getByLabel('Nei')
-				.check()
-
 			await fillMainFormFields(page)
 
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
@@ -495,7 +490,11 @@ test.describe('Gjenlevenderett', () => {
 		})
 
 		test('Viser EPS-felter etter vellykket henting', async ({ page }) => {
-			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+				relasjonPersondata: {
+					doedsdato: '2025-02-20',
+				},
+			})
 
 			await checkGjenlevenderett(page)
 			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
@@ -512,6 +511,41 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 			).toBeVisible()
+		})
+
+		test('Registrert som flyktning har Nei som standardverdi', async ({
+			page,
+		}) => {
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+
+			const flyktningGroup = page.getByRole('group', {
+				name: 'Registrert som flyktning',
+			})
+			await expect(flyktningGroup.getByLabel('Nei')).toBeChecked()
+			await expect(flyktningGroup.getByLabel('Ja')).not.toBeChecked()
+		})
+
+		test('Viser varsel når dødsfall er valgt som bakgrunn men dødsdato ikke er registrert', async ({
+			page,
+		}) => {
+			await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+				relasjonPersondata: {
+					doedsdato: null,
+				},
+			})
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.doedsfall.ikke.registrert')
+			).toBeVisible()
+			await expect(page.getByTestId('EPS-opplysninger-info')).not.toBeVisible()
 		})
 
 		test('Skjuler radiogruppe og hent-knapp etter vellykket henting', async ({
@@ -655,10 +689,7 @@ test.describe('Gjenlevenderett', () => {
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.')
-			).toBeVisible()
-			await expect(
-				page.getByText('Fyll ut inntekt året før dødsdato.')
+				page.getByText('Velg ja/nei om avdøde var medlem av folketrygden.')
 			).toBeVisible()
 		})
 
@@ -699,21 +730,12 @@ test.describe('Gjenlevenderett', () => {
 			await expect(medlemGroup).toBeVisible()
 			await medlemGroup.getByLabel('Ja').check()
 
-			const flyktningGroup = page.getByRole('group', {
-				name: 'Registrert som flyktning',
-			})
-			await expect(flyktningGroup).toBeVisible()
-			await flyktningGroup.getByLabel('Nei').check()
-
 			await fillMainFormFields(page)
 
 			await page.getByRole('button', { name: 'Beregn pensjon' }).click()
 
 			await expect(
-				page.getByText('Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.')
-			).not.toBeVisible()
-			await expect(
-				page.getByText('Fyll ut inntekt året før dødsdato.')
+				page.getByText('Velg ja/nei om avdøde var medlem av folketrygden.')
 			).not.toBeVisible()
 		})
 
@@ -742,6 +764,163 @@ test.describe('Gjenlevenderett', () => {
 			await expect(
 				page.getByText('Antall år i utlandet kan ikke være større enn 39 år.')
 			).toBeVisible()
+		})
+	})
+
+	test.describe('Tilgang nektet', () => {
+		test.beforeEach(async ({ page }) => {
+			await setupDefaultMocks(page, {
+				foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+			})
+			await navigateToApp(page)
+		})
+
+		test('Viser strengt fortrolig alert ved STRENGT_FORTROLIG_ADRESSE', async ({
+			page,
+		}) => {
+			await mockApiError(page, API_URLS.EPS, 403, {
+				relasjonstype: 'UKJENT',
+				problem: {
+					type: 'TILGANG_NEKTET',
+					beskrivelse: 'Ikke tilgang til personen',
+					tilgangsnekt: {
+						aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+						begrunnelse:
+							'Du har ikke tilgang til brukere med strengt fortrolig adresse (kode 6)',
+					},
+				},
+			})
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(
+				page.getByTestId('beregning.gjenlevenderett.strengt.fortrolig')
+			).toBeVisible()
+
+			await expect(page.getByTestId('EPS-henting-feil')).not.toBeVisible()
+		})
+
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'STRENGT_FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.strengt.fortrolig',
+				label: 'kode 6',
+			},
+			{
+				aarsak: 'FORTROLIG_ADRESSE',
+				alertId: 'beregning.gjenlevenderett.fortrolig',
+				label: 'kode 7',
+			},
+		]) {
+			test(`Skjuler skjemaet og viser kun alert for ${label} (${aarsak})`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende årsinntekt frem til uttak',
+					})
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Alder (år) for uttak' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('combobox', { name: 'Uttaksgrad' })
+				).not.toBeVisible()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).not.toBeVisible()
+			})
+		}
+
+		for (const { aarsak, alertId, label } of [
+			{
+				aarsak: 'SKJERMING',
+				alertId: 'beregning.gjenlevenderett.skjerming',
+				label: 'egen ansatt',
+			},
+			{
+				aarsak: 'HABILITET',
+				alertId: 'beregning.gjenlevenderett.habilitet',
+				label: 'egne data / egen familie',
+			},
+			{
+				aarsak: 'VERGEMAAL',
+				alertId: 'beregning.gjenlevenderett.verge',
+				label: 'verge',
+			},
+		]) {
+			test(`Viser alert for ${label} (${aarsak}) uten å skjule skjemaet og blokkerer innsending`, async ({
+				page,
+			}) => {
+				await mockApiError(page, API_URLS.EPS, 403, {
+					relasjonstype: 'UKJENT',
+					problem: {
+						type: 'TILGANG_NEKTET',
+						beskrivelse: 'Ikke tilgang',
+						tilgangsnekt: { aarsak },
+					},
+				})
+				await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.ALDERSPENSJON)
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId(alertId)).toBeVisible()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).not.toBeDisabled()
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+
+				await fillMainFormFields(page)
+				await page.getByRole('button', { name: 'Beregn pensjon' }).click()
+
+				await expect(
+					page.getByTestId('beregn-med-gjenlevenderett')
+				).toBeChecked()
+
+				await expect(
+					page.getByRole('button', { name: 'Beregn pensjon' })
+				).toBeVisible()
+			})
+		}
+
+		test('Viser generisk feilmelding ved ukjent feil', async ({ page }) => {
+			await mockApiError(page, API_URLS.EPS, 500)
+
+			await checkGjenlevenderett(page)
+			await selectBakgrunnAndFetch(page)
+
+			await expect(page.getByTestId('EPS-henting-feil')).toBeVisible()
 		})
 	})
 })

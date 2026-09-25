@@ -2,18 +2,34 @@ import type {
 	EpsOpplysninger,
 	VedtakInformasjonOmAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import { format, parseISO, subDays } from 'date-fns'
+import { Fragment } from 'react'
 
-import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Box, Heading, VStack } from '@navikt/ds-react'
 
 import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
 import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
+import { Divider } from '../Divider/Divider'
 import { getEpsDoedsdato } from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
 type OpplysningerInfoItem = { label: string; value: string | number }
+
+const formatPersonnavn = (navn?: string | null): string =>
+	(navn ?? '')
+		.toLowerCase()
+		.split(' ')
+		.filter(Boolean)
+		.map((word) =>
+			word
+				.split('-')
+				.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+				.join('-')
+		)
+		.join(' ')
 
 function mapEpsOpplysninger({
 	eps,
@@ -34,7 +50,7 @@ function mapEpsOpplysninger({
 	const opplysninger: OpplysningerInfoItem[] = [
 		{
 			label: 'Navn',
-			value: `${navn?.etternavn}, ${navn?.fornavn} ${navn?.mellomnavn ?? ''}`,
+			value: `${formatPersonnavn(navn?.etternavn)}, ${formatPersonnavn(navn?.fornavn)}${navn?.mellomnavn ? ` ${formatPersonnavn(navn.mellomnavn)}` : ''}`,
 		},
 		{
 			label: 'Dødsdato',
@@ -76,13 +92,17 @@ export const OpplysningerInfo = ({
 	EPSOpplysninger,
 	vedtakInfoAvdoed,
 	vedtakAPDato,
+	brukerHarVedtakGjenlevendepensjon,
 }: {
 	EPSOpplysninger: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
 	vedtakAPDato?: string | null
+	brukerHarVedtakGjenlevendepensjon: boolean
 }) => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const grunnbeloepTekst = grunnbeloep ? `(${grunnbeloep.grunnbeløp} kr)` : ''
+	const grunnbeloepTekst = grunnbeloep
+		? `(${formatInntekt(grunnbeloep.grunnbeløp)} kr)`
+		: ''
 	const rows = mapEpsOpplysninger({
 		eps: EPSOpplysninger,
 		vedtakInfoAvdoed,
@@ -93,64 +113,72 @@ export const OpplysningerInfo = ({
 		: undefined
 
 	return (
-		<VStack gap="space-24" data-testid="EPS-opplysninger-info">
-			<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
-				Opplysninger om avdøde
-			</Heading>
-			<Table
-				zebraStripes={rows.length > 4}
-				className={styles.opplysningerTable}
-				size="small"
-			>
-				<Table.Body>
+		<Box
+			background="neutral-softA"
+			paddingBlock="space-24"
+			paddingInline="space-28"
+			borderRadius="8"
+		>
+			<VStack gap="space-24" data-testid="EPS-opplysninger-info">
+				<Heading level="3" size="xsmall" className={styles.opplysningerHeading}>
+					Opplysninger om avdøde
+				</Heading>
+				<dl className={styles.opplysningerListe}>
 					{rows.map(({ label, value }) => (
-						<Table.Row key={label}>
-							<Table.DataCell textSize="small">{label}</Table.DataCell>
-							<Table.DataCell textSize="small">{value}</Table.DataCell>
-						</Table.Row>
+						<Fragment key={label}>
+							<BodyShort as="dt" size="small" weight="semibold">
+								{`${label}:`}
+							</BodyShort>
+							<BodyShort as="dd" size="small">
+								{value}
+							</BodyShort>
+						</Fragment>
 					))}
-				</Table.Body>
-			</Table>
-			{vedtakInfoAvdoed && (
-				<BodyLong>
-					Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.
-				</BodyLong>
-			)}
-			{!vedtakInfoAvdoed && (
-				<RHFTextField
-					name="epsAntallUtenlandsOppholdAar"
-					label="Antall år bodd/jobbet i utlandet etter fylte 16 år"
-					style={{ width: '96px' }}
-				/>
-			)}
-			<RHFTextField
-				name="epsPensjonsgivendeInntektFoerDoedsDato"
-				label="Pensjonsgivende inntekt året før dødsdato"
-				style={{ width: '184px' }}
-			/>
-			{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
-				!vedtakInfoAvdoed && (
-					<RHFRadio
-						name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
-						legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-						className={styles.horizontalRadioGroup}
-						testid="eps-minste-PGI-foer-doedsfall"
+				</dl>
+				<Divider noMargin />
+				{vedtakInfoAvdoed && (
+					<BodyLong>
+						Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.
+					</BodyLong>
+				)}
+				{!vedtakInfoAvdoed && (
+					<RHFTextField
+						name="epsAntallUtenlandsOppholdAar"
+						label="Antall år bodd/jobbet i utlandet etter fylte 16 år (valgfritt)"
+						style={{ width: '96px' }}
 					/>
 				)}
-			{!vedtakInfoAvdoed && (
-				<>
-					<RHFRadio
-						name="epsMedlemAvFolketrygdenVedDoedsDato"
-						legend="Medlem av folketrygden de 5 siste årene før dødsdato"
-						className={styles.horizontalRadioGroup}
+				{!brukerHarVedtakGjenlevendepensjon && (
+					<RHFTextField
+						name="epsPensjonsgivendeInntektFoerDoedsDato"
+						label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
+						style={{ width: '184px' }}
 					/>
-					<RHFRadio
-						name="epsRegistretSomFlykting"
-						legend="Registrert som flyktning"
-						className={styles.horizontalRadioGroup}
-					/>
-				</>
-			)}
-		</VStack>
+				)}
+				{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
+					!vedtakInfoAvdoed && (
+						<RHFRadio
+							name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
+							legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
+							className={styles.horizontalRadioGroup}
+							testid="eps-minste-PGI-foer-doedsfall"
+						/>
+					)}
+				{!vedtakInfoAvdoed && (
+					<>
+						<RHFRadio
+							name="epsMedlemAvFolketrygdenVedDoedsDato"
+							legend="Medlem av folketrygden de 5 siste årene før dødsdato"
+							className={styles.horizontalRadioGroup}
+						/>
+						<RHFRadio
+							name="epsRegistretSomFlykting"
+							legend="Registrert som flyktning"
+							className={styles.horizontalRadioGroup}
+						/>
+					</>
+				)}
+			</VStack>
+		</Box>
 	)
 }

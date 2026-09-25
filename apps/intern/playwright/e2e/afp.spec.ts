@@ -222,7 +222,7 @@ test.describe('AFP', () => {
 				await expect(
 					page
 						.getByTestId('beregning-section-helt-afp')
-						.getByText('Livsvarig del')
+						.getByText('Livsvarig del', { exact: true })
 				).toBeVisible()
 			})
 		})

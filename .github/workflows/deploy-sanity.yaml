@@ -13,6 +13,10 @@ on:
         description: Deploy Sanity
         type: boolean
         required: false
+  # Rebuild and redeploy twice weekly so rolling base-image security patches are picked up.
+  # GitHub cron uses UTC; 03:00 UTC is 05:00 in Oslo during daylight saving time.
+  schedule:
+    - cron: '0 3 * * 1,4'
 
 jobs:
   build:
@@ -61,6 +65,7 @@ jobs:
       github.ref == 'refs/heads/main' &&
       (
         github.event_name == 'push' ||
+        github.event_name == 'schedule' ||
         (github.event_name == 'workflow_dispatch' && github.event.inputs.sanity == 'true')
       )
 

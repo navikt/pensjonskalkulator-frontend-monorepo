@@ -1,0 +1,8 @@
+.container {
+	flex: 1;
+	padding: 2rem;
+}
+
+.content {
+	max-width: 36rem;
+}

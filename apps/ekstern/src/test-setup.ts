@@ -48,7 +48,7 @@ vi.mock(
 
     return {
       ...mod.default,
-      getAnalyticsInstance: () => vi.fn(),
+      getAnalyticsInstance: () => Object.assign(vi.fn(), { custom: vi.fn() }),
       onLanguageSelect: vi.fn(() => vi.fn()),
       setAvailableLanguages: vi.fn(),
     }

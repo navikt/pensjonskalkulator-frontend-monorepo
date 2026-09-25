@@ -2,7 +2,20 @@ import type {
 	EpsOpplysninger,
 	SimuleringResponseBody,
 	Sivilstatus,
+	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+
+export const BLOCKING_TILGANG_CODES: TilgangsnektAarsak[] = [
+	'STRENGT_FORTROLIG_ADRESSE',
+	'STRENGT_FORTROLIG_UTLAND',
+	'FORTROLIG_ADRESSE',
+]
+
+export const NON_BLOCKING_TILGANG_CODES: TilgangsnektAarsak[] = [
+	'SKJERMING',
+	'HABILITET',
+	'VERGEMAAL',
+]
 
 export type BakgrunnForBrukAvOpplysningerOmEPS =
 	| 'SAMTYKKE_BEGGE_PARTER'
@@ -55,6 +68,7 @@ export interface BeregningFormData {
 	endringAP?: boolean
 	endringAfpPrivat?: boolean
 	vedtakInfoAvdoed?: boolean
+	epsTilgangNektAarsak?: TilgangsnektAarsak
 }
 
 export type BeregningParams = BeregningFormData
@@ -86,6 +100,7 @@ export interface ValidationErrors {
 	epsMinstePensjonsgivendeInntektFoerDoedsfall?: string
 	epsMedlemAvFolketrygdenVedDoedsDato?: string
 	epsRegistretSomFlykting?: string
+	epsTilgangNektAarsak?: string
 	harOppholdUtenforNorge?: string
 	utenlandsOpphold?: string
 	afp?: string
@@ -114,10 +129,10 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsHarInntektOver2G: null,
 	aarligInntektFoerUttakBeloep: null,
 	harInntektVedSidenAvUttak: null,
-	pensjonsgivendeInntektVedSidenAvUttak: null,
+	pensjonsgivendeInntektVedSidenAvUttak: 0,
 	alderAarInntektSlutter: null,
 	alderMdInntektSlutter: null,
-	pensjonsgivendeInntektVedSidenAvGradertUttak: null,
+	pensjonsgivendeInntektVedSidenAvGradertUttak: 0,
 	alderAarInntektGradertSlutter: null,
 	alderMdInntektGradertSlutter: null,
 	epsAntallUtenlandsOppholdAar: undefined,
@@ -125,7 +140,7 @@ export const defaultBeregningFormData: BeregningFormData = {
 	epsPensjonsgivendeInntektFoerDoedsDato: null,
 	epsMinstePensjonsgivendeInntektFoerDoedsfall: null,
 	epsMedlemAvFolketrygdenVedDoedsDato: null,
-	epsRegistretSomFlykting: null,
+	epsRegistretSomFlykting: false,
 	harHentetEPSOpplysninger: false,
 	harOppholdUtenforNorge: null,
 	utenlandsOpphold: [],
@@ -133,8 +148,9 @@ export const defaultBeregningFormData: BeregningFormData = {
 	pensjonsgivendeInntektFremTilUttak: null,
 	pensjonsgivendeInntektForrigeAar: null,
 	inntektSisteMaanedFoerUttak: null,
-	aarsinntektSamtidigMedAfp: null,
+	aarsinntektSamtidigMedAfp: 0,
 	endringAP: undefined,
 	endringAfpPrivat: undefined,
 	vedtakInfoAvdoed: undefined,
+	epsTilgangNektAarsak: undefined,
 }

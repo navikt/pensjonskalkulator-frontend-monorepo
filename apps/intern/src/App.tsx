@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import {
-	BodyLong,
 	Box,
 	GlobalAlert,
 	HStack,
@@ -15,8 +14,10 @@ import { PesysHeader } from './PesysHeader.tsx'
 import { SanityProvider } from './SanityProvider.tsx'
 import {
 	useDecryptPidQuery,
-	useFeatureToggleQuery,
+	useEnheterQuery,
+	useErApotekerQuery,
 	useInntektQuery,
+	useInternsimulatorLagreBrevButtonQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -27,7 +28,12 @@ import {
 	useBeregningContext,
 } from './components/BeregningContext.tsx'
 import { BeregningForm } from './components/BeregningForm/BeregningForm.tsx'
-import { getPidFromUrl } from './utils.ts'
+import {
+	ErrorPage4xx,
+	ErrorPage5xx,
+	ErrorPage404,
+} from './components/ErrorPages/index.ts'
+import { getEnhetsidFromUrl, getPidFromUrl } from './utils.ts'
 
 import styles from './styles/global.module.css'
 
@@ -89,14 +95,22 @@ const AppContent = () => {
 		data: person,
 	} = usePersonQuery(fnr)
 
-	const { data: showHentPersonButton } = useFeatureToggleQuery(
-		'internsimulator.hent-person-button'
-	)
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
 
 	const { isLoading: isLoadingVedtak, error: vedtakError } = useVedtakQuery(fnr)
 
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
+
+	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
+
+	const {
+		data: enheterData,
+		isLoading: isLoadingEnheter,
+		error: enheterError,
+	} = useEnheterQuery(visLagreBrevButton)
 
 	const {
 		data: inntekt,
@@ -120,72 +134,58 @@ const AppContent = () => {
 		personError ||
 		vedtakError ||
 		inntektError ||
-		omstillingError
-	const isUnauthorized =
-		error && (error.message.includes('401') || error.message.includes('403'))
-
-	if (isUnauthorized) {
-		return (
-			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
-				<GlobalAlert status="error">
-					<GlobalAlert.Header>
-						<GlobalAlert.Title>Ikke autorisert</GlobalAlert.Title>
-					</GlobalAlert.Header>
-					<BodyLong spacing>
-						Du har ikke tilgang til denne tjenesten. Vennligst kontakt
-						systemadministrator hvis du mener du burde ha tilgang.
-					</BodyLong>
-					{error && (
-						<BodyLong size="small" style={{ opacity: 0.8 }}>
-							Feilmelding: {error.message}
-						</BodyLong>
-					)}
-				</GlobalAlert>
-			</Box>
-		)
-	}
+		omstillingError ||
+		(visLagreBrevButton ? enheterError : undefined)
 
 	if (error) {
-		return (
-			<Box style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem' }}>
-				<GlobalAlert status="error">
-					<GlobalAlert.Header>
-						<GlobalAlert.Title>Noe gikk galt</GlobalAlert.Title>
-					</GlobalAlert.Header>
-					<BodyLong spacing>
-						Det oppstod en feil ved henting av brukerdata. Vennligst prøv igjen
-						senere.
-					</BodyLong>
-					<BodyLong size="small" style={{ opacity: 0.8 }}>
-						Feilmelding: {error.message}
-					</BodyLong>
-				</GlobalAlert>
-			</Box>
-		)
+		if (decryptError) {
+			return <ErrorPage404 />
+		}
+
+		const statusMatch = error.message.match(/(\d{3})/)
+		const status = statusMatch ? parseInt(statusMatch[1], 10) : undefined
+
+		if (status === 404) {
+			return <ErrorPage404 />
+		}
+
+		if (status && status >= 401 && status <= 499) {
+			return <ErrorPage4xx status={status} message={error.message} />
+		}
+
+		return <ErrorPage5xx status={status} message={error.message} />
 	}
 
-	if (
+	const isAppLoading =
 		isDecrypting ||
 		isLoadingPerson ||
 		isLoadingVedtak ||
 		isLoadingInntekt ||
-		isLoadingOmstilling
-	) {
-		return <Loader size="xlarge" title="Henter brukerdata..." />
+		isLoadingOmstilling ||
+		isLoadingErApoteker ||
+		(visLagreBrevButton ? isLoadingEnheter : false)
+
+	if (isAppLoading) {
+		return (
+			<div role="status" aria-live="polite">
+				<Loader size="xlarge" title="Vent litt mens vi henter informasjon." />
+			</div>
+		)
+	}
+
+	if (visLagreBrevButton) {
+		const enhetsid = getEnhetsidFromUrl()
+		const harTilgangTilEnhet = enheterData?.enhetListe?.some(
+			(e) => e.id === enhetsid
+		)
+
+		if (!enhetsid || !harTilgangTilEnhet) {
+			return <ErrorPage404 />
+		}
 	}
 
 	return (
 		<>
-			{showHentPersonButton?.enabled === false && (
-				<GlobalAlert status="announcement" size="small" centered={false}>
-					<GlobalAlert.Header className={styles.pilotGlobalAlert}>
-						<GlobalAlert.Title>
-							Denne pensjonskalkulatoren er under utvikling. Er du ikke med i
-							piloten, skal du fortsatt bruke gammel pensjonskalkulator.
-						</GlobalAlert.Title>
-					</GlobalAlert.Header>
-				</GlobalAlert>
-			)}
 			<PersonInfo onPidChange={handlePidChange} />
 			<BeregningProvider
 				initialSivilstatus={person?.sivilstatus}
@@ -198,13 +198,23 @@ const AppContent = () => {
 	)
 }
 
-export const App = () => (
-	<SanityProvider>
-		<div className={styles.appContainer}>
-			<PesysHeader />
-			<Theme className="app-content">
-				<AppContent />
-			</Theme>
-		</div>
-	</SanityProvider>
-)
+export const App = () => {
+	const { data: lagreBrevButtonToggle } =
+		useInternsimulatorLagreBrevButtonQuery()
+	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const { data: enheterData } = useEnheterQuery(visLagreBrevButton)
+	const enheter = visLagreBrevButton ? enheterData : undefined
+
+	const enhet = enheter?.enhetListe?.find((e) => e.id === getEnhetsidFromUrl())
+
+	return (
+		<SanityProvider>
+			<div className={styles.appContainer}>
+				<PesysHeader enhet={enhet} />
+				<Theme className="app-content">
+					<AppContent />
+				</Theme>
+			</div>
+		</SanityProvider>
+	)
+}

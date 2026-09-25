@@ -177,7 +177,8 @@ const getOverlapValidationResult = ({
 		if (
 			!areIntervalsOverlapping(
 				currentInterval,
-				getPeriodInterval(utenlandsperiode, foedselsdato)
+				getPeriodInterval(utenlandsperiode, foedselsdato),
+				{ inclusive: true }
 			)
 		) {
 			continue

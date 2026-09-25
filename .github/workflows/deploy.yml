@@ -66,6 +66,11 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
 
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
+
       - name: Build application
         run: pnpm build:intern
 
@@ -102,6 +107,11 @@ jobs:
         uses: ./.github/actions/setup-node
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests
@@ -225,7 +235,6 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
           is-prod: 'false'
-          openapi-url: ${{ github.ref == 'refs/heads/main' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }}
           save-artifact: 'true'
 
   # Build ekstern for production (main branch only)
@@ -253,7 +262,6 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
           is-prod: 'true'
-          openapi-url: 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current'
           save-artifact: 'false'
 
   # Run unit tests for ekstern
@@ -274,6 +282,11 @@ jobs:
         uses: ./.github/actions/setup-node
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests

@@ -63,12 +63,17 @@ export async function mockApi(
 	)
 }
 
-export async function mockApiError(page: Page, url: string, status = 500) {
+export async function mockApiError(
+	page: Page,
+	url: string,
+	status = 500,
+	body?: Record<string, unknown>
+) {
 	await page.route(url, (route) =>
 		route.fulfill({
 			status,
 			contentType: 'application/json',
-			body: JSON.stringify({ message: 'Error' }),
+			body: JSON.stringify(body ?? { message: 'Error' }),
 		})
 	)
 }

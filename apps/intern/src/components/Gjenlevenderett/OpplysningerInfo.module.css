@@ -19,3 +19,16 @@
 	border: none;
 	padding-left: 0;
 }
+
+.opplysningerListe {
+	margin: 0;
+	display: grid;
+	grid-template-columns: 80px 1fr;
+	column-gap: var(--ax-space-12);
+	row-gap: var(--ax-space-12);
+}
+
+.opplysningerListe dd {
+	margin: 0;
+	text-align: left;
+}

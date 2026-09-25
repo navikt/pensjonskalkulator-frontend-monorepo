@@ -2,14 +2,36 @@
 	width: 480px;
 	margin: 230px auto;
 }
+
 .personInfoWrapper {
 	display: flex;
 	align-items: center;
-	padding: var(--ax-space-12) var(--ax-space-44);
-	background-color: var(--ax-bg-neutral-moderate);
+	height: 48px;
+	box-sizing: border-box;
+	padding: var(--ax-space-8) var(--ax-space-44);
+	background-color: var(--ax-neutral-100);
+	border-bottom: var(--ax-space-2) solid var(--ax-border-neutral-subtle);
+}
+
+.copyButton {
+	color: var(--ax-text-accent-subtle);
+}
+
+.copyButton:hover {
+	background-color: var(--ax-bg-moderate-hoverA);
+}
+
+.slash {
+	margin: 0 var(--ax-space-8);
+}
+
+.hentPersonSectionWithPerson {
+	margin-left: auto;
+	padding-block: 0;
 }
 
 .personInfoIcon {
 	width: 24px;
 	height: 24px;
+	margin-right: var(--ax-space-12);
 }

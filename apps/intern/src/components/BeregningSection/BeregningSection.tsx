@@ -32,6 +32,7 @@ interface BeregningSectionProps {
 	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
+	reducedGrunnpensjon?: boolean
 }
 
 export const BeregningSection = ({
@@ -55,6 +56,7 @@ export const BeregningSection = ({
 	showVisAarsbelopCheckbox,
 	harGjenlevenderett = false,
 	onVisAarsbelopChange,
+	reducedGrunnpensjon = false,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
 	const sumAlderspensjonOgAfp = visAarsbelop
@@ -95,6 +97,7 @@ export const BeregningSection = ({
 						simulererMedGjenlevenderett={simulererMedGjenlevenderett}
 						harGjenlevenderett={harGjenlevenderett}
 						isGradert={isGradert}
+						reducedGrunnpensjon={reducedGrunnpensjon}
 					/>
 				)}
 				{showAfp && (
@@ -106,6 +109,7 @@ export const BeregningSection = ({
 							title="AFP i privat sektor"
 							valueHeader={valueHeader}
 							rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+							sumLabel="Sum AFP"
 							visAarsbelop={visAarsbelop}
 						/>
 
@@ -113,6 +117,7 @@ export const BeregningSection = ({
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
+								sumLabel="Sum pensjon"
 								addToSum={sumAlderspensjonOgAfp}
 								visAarsbelop={visAarsbelop}
 							/>

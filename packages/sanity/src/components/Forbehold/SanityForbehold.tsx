@@ -10,6 +10,7 @@ import { getSanityPortableTextComponents } from '../../utils/sanity'
 interface Props {
 	avsnitt: ForbeholdAvsnittQueryResult
 	title?: React.ReactNode
+	titleLevel?: '1' | '2' | '3' | '4' | '5' | '6'
 	avsnittTestId?: string
 	size?: 'small' | 'medium'
 }
@@ -22,6 +23,7 @@ interface Props {
 export const SanityForbehold = ({
 	avsnitt,
 	title = 'Forbehold',
+	titleLevel = '2',
 	avsnittTestId,
 	size = 'medium',
 }: Props) => {
@@ -34,7 +36,7 @@ export const SanityForbehold = ({
 
 	return (
 		<>
-			<Heading level="2" size={size} spacing>
+			<Heading level={titleLevel} size={size} spacing>
 				{title}
 			</Heading>
 			{avsnitt.map((forbeholdAvsnitt, i) => {

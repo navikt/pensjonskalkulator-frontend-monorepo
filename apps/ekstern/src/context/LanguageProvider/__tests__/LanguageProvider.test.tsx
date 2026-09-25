@@ -55,7 +55,8 @@ function TestComponent() {
 }
 
 describe('LanguageProvider', () => {
-  let defaultFetchSpy: ReturnType<typeof vi.spyOn>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let defaultFetchSpy: MockInstance<(...args: any[]) => any>
   let setTimeoutSpy: MockInstance<typeof window.setTimeout> | undefined
 
   beforeAll(() => {

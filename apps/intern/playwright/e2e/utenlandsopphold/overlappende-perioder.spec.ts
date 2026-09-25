@@ -223,24 +223,4 @@ test.describe('Utenlandsopphold - Overlappende perioder', () => {
 
 		await expectValidationMessage(page, OVERLAP_MESSAGES.sameCountry)
 	})
-
-	test('Tillater nytt opphold som starter samme dag som forrige slutter i samme land', async ({
-		page,
-	}) => {
-		await addOpphold(page, {
-			landkode: LAND.AFG.kode,
-			startdato: '01.01.2000',
-			sluttdato: '31.12.2005',
-		})
-
-		await clickLeggTilNyttOpphold(page)
-
-		await addOpphold(page, {
-			landkode: LAND.AFG.kode,
-			startdato: '31.12.2005',
-			sluttdato: '31.12.2010',
-		})
-
-		await expect(oppholdListItems(page, LAND.AFG.navn)).toHaveCount(2)
-	})
 })

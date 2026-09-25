@@ -5,9 +5,15 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
+import {
+	CheckmarkCircleFillIcon,
+	ExclamationmarkTriangleFillIcon,
+	InformationSquareFillIcon,
+	XMarkOctagonFillIcon,
+} from '@navikt/aksel-icons'
 import {
 	GlobalAlert,
 	InfoCard,
@@ -27,6 +33,13 @@ const infoCardColorMap = {
 	error: 'danger',
 } as const
 
+const infoCardIconMap: Record<AlertStatus, ReactNode> = {
+	info: <InformationSquareFillIcon aria-hidden />,
+	success: <CheckmarkCircleFillIcon aria-hidden />,
+	warning: <ExclamationmarkTriangleFillIcon aria-hidden />,
+	error: <XMarkOctagonFillIcon aria-hidden />,
+}
+
 const alertStatusMap: Record<
 	AlertStatus,
 	'announcement' | 'success' | 'warning' | 'error'
@@ -42,6 +55,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	children?: ReactNode
 }
 
 export const SanityAlert = ({
@@ -49,6 +63,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	children,
 }: Props) => {
 	dynamicValues = { nbsp: '\u00A0', ...dynamicValues }
 	const intl = useIntl()
@@ -68,10 +83,13 @@ export const SanityAlert = ({
 	)
 
 	const content = (
-		<PortableText
-			value={sanityContent.innhold}
-			components={portableTextComponents}
-		/>
+		<>
+			<PortableText
+				value={sanityContent.innhold}
+				components={portableTextComponents}
+			/>
+			{children}
+		</>
 	)
 
 	switch (alertType) {
@@ -101,7 +119,7 @@ export const SanityAlert = ({
 					size="small"
 				>
 					{sanityContent.overskrift && (
-						<InfoCard.Header>
+						<InfoCard.Header icon={infoCardIconMap[status]}>
 							<InfoCard.Title>{sanityContent.overskrift}</InfoCard.Title>
 						</InfoCard.Header>
 					)}

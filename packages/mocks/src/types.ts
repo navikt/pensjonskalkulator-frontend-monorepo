@@ -42,16 +42,82 @@ export interface AlderspensjonRequestBody {
 export interface AfpPensjonsberegning {
 	alder: number
 	beloep: number
+	maanedligBeloep?: number | null
+}
+
+export interface AfpPrivatPensjonsberegning {
+	alder: number
+	beloep: number
+	kompensasjonstillegg: number
+	kronetillegg: number
+	livsvarig: number
+	maanedligBeloep?: number | null
+}
+
+export interface AlderspensjonResult {
+	alder: number
+	beloep: number
+	inntektspensjonBeloep?: number | null
+	garantipensjonBeloep?: number | null
+	delingstall?: number | null
+	pensjonBeholdningFoerUttakBeloep?: number | null
+	andelsbroekKap19?: number | null
+	andelsbroekKap20?: number | null
+	sluttpoengtall?: number | null
+	trygdetidKap19?: number | null
+	trygdetidKap20?: number | null
+	poengaarFoer92?: number | null
+	poengaarEtter91?: number | null
+	forholdstall?: number | null
+	grunnpensjon?: number | null
+	tilleggspensjon?: number | null
+	pensjonstillegg?: number | null
+	skjermingstillegg?: number | null
+	kapittel19Gjenlevendetillegg?: number | null
+}
+
+export interface Pre2025OffentligAfp {
+	alderAar: number
+	totaltAfpBeloep: number
+	tidligereArbeidsinntekt: number
+	grunnbeloep: number
+	sluttpoengtall: number
+	trygdetid: number
+	poengaarTom1991: number
+	poengaarFom1992: number
+	grunnpensjon: number
+	tilleggspensjon: number
+	afpTillegg: number
+	saertillegg: number
+	afpGrad: number
+	afpAvkortetTil70Prosent: boolean
 }
 
 export interface AlderspensjonPensjonsberegning {
-	alderspensjon: AfpPensjonsberegning[]
-	afpPrivat?: AfpPensjonsberegning[]
+	alderspensjon: AlderspensjonResult[]
+	alderspensjonMaanedligVedEndring?: {
+		gradertUttakMaanedligBeloep?: number | null
+		heltUttakMaanedligBeloep: number
+	} | null
+	pre2025OffentligAfp?: Pre2025OffentligAfp | null
+	afpPrivat?: AfpPrivatPensjonsberegning[]
 	afpOffentlig?: AfpPensjonsberegning[]
 	vilkaarsproeving?: {
 		vilkaarErOppfylt: boolean
+		alternativ?: {
+			gradertUttaksalder?: Uttaksalder | null
+			uttaksgrad?: number | null
+			heltUttaksalder: Uttaksalder
+		} | null
 	}
-	harForLiteTrygdetid?: boolean
+	harForLiteTrygdetid?: boolean | null
+	trygdetid?: number | null
+	opptjeningGrunnlagListe?:
+		| {
+				aar: number
+				pensjonsgivendeInntektBeloep: number
+		  }[]
+		| null
 }
 
 export type Sivilstand =
@@ -67,13 +133,15 @@ export type Sivilstand =
 	| 'SKILT_PARTNER'
 	| 'GJENLEVENDE_PARTNER'
 
+export type AlderspensjonSivilstand = Sivilstand | 'SAMBOER'
+
 export interface LoependeVedtak {
 	harLoependeVedtak: boolean
 	alderspensjon?: {
 		grad: number
 		uttaksgradFom: string
 		fom: string
-		sivilstand: Sivilstand
+		sivilstand: AlderspensjonSivilstand
 		sisteUtbetaling?: {
 			beloep: number
 			utbetalingsdato: string

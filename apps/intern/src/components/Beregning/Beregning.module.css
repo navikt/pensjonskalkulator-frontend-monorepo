@@ -1,33 +1,49 @@
 .beregning {
 	flex: 1;
-	background-color: var(--a-bg-subtle);
-	padding: var(--ax-space-24) var(--ax-space-48);
-	box-sizing: border-box;
-	overflow-y: auto;
-}
-
-.loadingOverlay {
 	position: relative;
+	overflow: hidden;
+	background-color: var(--a-bg-subtle);
+	padding: var(--ax-space-24) var(--ax-space-48) 0;
+	box-sizing: border-box;
 }
 
-.loadingOverlay::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background-color: rgba(255, 255, 255, 0.6);
-	z-index: 1;
+.scrollContent {
+	overflow-y: auto;
+	height: 100%;
+	margin: calc(-1 * var(--ax-space-24)) calc(-1 * var(--ax-space-48)) 0;
+	padding: var(--ax-space-24) var(--ax-space-48) 0;
+	box-sizing: border-box;
 }
 
 .overlayLoader {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 0.6);
 	z-index: 2;
 }
 
 .tabPanel {
 	padding-top: var(--ax-space-24);
+}
+
+.kortforbehold {
+	max-width: 856px;
+	margin-bottom: var(--ax-space-32);
+}
+
+.forbeholdTekst {
+	max-width: 640px;
+}
+
+.kortforbehold :global(p) {
+	margin-block: 0;
+}
+
+.kortforbehold :global(p + p) {
+	margin-top: var(--ax-space-16);
 }
 
 .loader {
@@ -40,6 +56,12 @@
 .globalAlert {
 	margin: calc(-1 * var(--ax-space-48));
 	margin-bottom: var(--ax-space-48);
+}
+
+.lagreButton {
+	align-self: flex-start;
+	width: fit-content;
+	position: relative;
 }
 
 @media (max-width: 1280px) {

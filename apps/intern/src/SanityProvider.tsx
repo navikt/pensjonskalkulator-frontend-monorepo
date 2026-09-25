@@ -1,6 +1,7 @@
 import {
 	type AlertQueryResult,
 	type ForbeholdAvsnittQueryResult,
+	type KortforbeholdQueryResult,
 	SanityContext,
 	createSanityAppClient,
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
@@ -21,6 +22,7 @@ const sanityClient = createSanityAppClient({
 
 const alertQuery = `*[_type == "alert"]{name,type,status,overskrift,innhold}`
 const forbeholdAvsnittQuery = `*[_type == "forbeholdAvsnitt" && language == "nb" && visIntern == true] | order(order asc) | {_id,overskrift,"innhold":innholdIntern,alltidSynlig,vilkaar}`
+const kortforbeholdQuery = `*[_type == "kortforbehold" && language == "nb"]{name,innhold}`
 
 async function fetchSanityAlerts(): Promise<AlertQueryResult> {
 	return sanityClient.fetch<AlertQueryResult>(alertQuery)
@@ -28,6 +30,10 @@ async function fetchSanityAlerts(): Promise<AlertQueryResult> {
 
 async function fetchSanityForbehold(): Promise<ForbeholdAvsnittQueryResult> {
 	return sanityClient.fetch<ForbeholdAvsnittQueryResult>(forbeholdAvsnittQuery)
+}
+
+async function fetchSanityKortforbehold(): Promise<KortforbeholdQueryResult> {
+	return sanityClient.fetch<KortforbeholdQueryResult>(kortforbeholdQuery)
 }
 
 interface Props {
@@ -45,6 +51,11 @@ export function SanityProvider({ children }: Props) {
 		queryFn: fetchSanityForbehold,
 	})
 
+	const { data: kortforbeholdResult } = useQuery({
+		queryKey: ['sanityKortforbehold'],
+		queryFn: fetchSanityKortforbehold,
+	})
+
 	const alertData = useMemo(
 		() =>
 			Object.fromEntries(
@@ -53,12 +64,24 @@ export function SanityProvider({ children }: Props) {
 		[alertsData]
 	)
 
+	const kortforbeholdData = useMemo(
+		() =>
+			Object.fromEntries(
+				(kortforbeholdResult ?? []).map((kortforbehold) => [
+					kortforbehold.name,
+					kortforbehold,
+				])
+			),
+		[kortforbeholdResult]
+	)
+
 	return (
 		<IntlProvider locale="nb" messages={{}}>
 			<SanityContext.Provider
 				value={{
 					alertData,
 					forbeholdAvsnittData: forbeholdData ?? [],
+					kortforbeholdData,
 					guidePanelData: {},
 					readMoreData: {},
 					isSanityLoading: false,

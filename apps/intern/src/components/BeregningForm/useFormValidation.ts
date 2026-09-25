@@ -1,9 +1,15 @@
-import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
+import type { TilgangsnektAarsak } from '@pensjonskalkulator-frontend-monorepo/types'
+import {
+	calculateUttaksalderAsDate,
+	getAlderPlus1Maaned,
+	isAlderLikEllerOverAnnenAlder,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { useCallback, useEffect, useState } from 'react'
 
-import type {
-	BeregningFormData,
-	ValidationErrors,
+import {
+	type BeregningFormData,
+	NON_BLOCKING_TILGANG_CODES,
+	type ValidationErrors,
 } from '../../api/beregningTypes'
 import {
 	harPartner,
@@ -17,6 +23,7 @@ import {
 import { isEpsUnder67EllerDoedsdatoFoer67aar } from './utils'
 
 interface ValidateFormOptions {
+	erApoteker: boolean
 	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
@@ -28,18 +35,15 @@ function validateEPSOpplysninger(
 	errors: ValidationErrors
 ) {
 	if (
-		formData.epsAntallUtenlandsOppholdAar === undefined ||
-		formData.epsAntallUtenlandsOppholdAar === null
-	) {
-		errors.epsAntallUtenlandsOppholdAar =
-			'Fyll ut år bodd/jobbet i utlandet etter fylte 16 år.'
-	}
-	if (
 		formData.epsAntallUtenlandsOppholdAar !== null &&
 		Number(formData.epsAntallUtenlandsOppholdAar) > 39
 	) {
 		errors.epsAntallUtenlandsOppholdAar =
 			'Antall år i utlandet kan ikke være større enn 39 år.'
+	}
+
+	if (formData.vedtakInfoAvdoed) {
+		return
 	}
 
 	if (formData.epsMedlemAvFolketrygdenVedDoedsDato === null) {
@@ -67,11 +71,6 @@ function validateEPSOpplysninger(
 		errors.epsRegistretSomFlykting =
 			'Velg ja/nei om avdøde var registrert som flyktning.'
 	}
-
-	if (formData.epsPensjonsgivendeInntektFoerDoedsDato === null) {
-		errors.epsPensjonsgivendeInntektFoerDoedsDato =
-			'Fyll ut inntekt året før dødsdato.'
-	}
 }
 
 function validateGjenlevenderett(
@@ -79,6 +78,15 @@ function validateGjenlevenderett(
 	errors: ValidationErrors
 ) {
 	if (!formData.beregnMedGjenlevenderett) {
+		return
+	}
+
+	if (
+		NON_BLOCKING_TILGANG_CODES.includes(
+			formData.epsTilgangNektAarsak ?? ('' as TilgangsnektAarsak)
+		)
+	) {
+		errors.epsTilgangNektAarsak = formData.epsTilgangNektAarsak
 		return
 	}
 
@@ -131,6 +139,7 @@ function validateSivilstand(
 			epsHarPensjon: formData.epsHarPensjon,
 			beregnMedGjenlevenderett: formData.beregnMedGjenlevenderett,
 			erEndring: false,
+			serviceBeregning: false,
 		}) &&
 		formData.epsHarInntektOver2G === null
 	) {
@@ -303,10 +312,6 @@ function validateInntektVsaHeltUttak(
 	errors: ValidationErrors
 ) {
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak
-	if (harInntektVedSiden === null) {
-		errors.harInntektVedSidenAvUttak =
-			'Velg ja/nei om bruker har inntekt ved siden av 100 % uttak.'
-	}
 
 	if (showInntektHeltFields(harInntektVedSiden)) {
 		validateInntektField({
@@ -321,6 +326,27 @@ function validateInntektVsaHeltUttak(
 		) {
 			errors.alderAarInntektSlutter =
 				'Velg år og måned for når inntekt slutter.'
+		} else {
+			const baseAar = formData.alderAarHeltUttak ?? formData.alderAarUttak
+			const baseMd = formData.alderMdHeltUttak ?? formData.alderMdUttak
+
+			if (baseAar === null || baseMd === null) return
+
+			const minInntektSlutterAlder = getAlderPlus1Maaned({
+				aar: baseAar,
+				maaneder: baseMd,
+			})
+
+			const slutterAar = formData.alderAarInntektSlutter
+			const slutterMd = formData.alderMdInntektSlutter
+			const slutterAlder = { aar: slutterAar, maaneder: slutterMd }
+
+			if (
+				!isAlderLikEllerOverAnnenAlder(slutterAlder, minInntektSlutterAlder)
+			) {
+				errors.alderAarInntektSlutter =
+					'Alder for når inntekt slutter må være senere enn uttaksalder.'
+			}
 		}
 	}
 }
@@ -375,17 +401,19 @@ export function useFormValidation() {
 		(
 			formData: BeregningFormData,
 			{
+				erApoteker,
 				foedselsdato,
 				erEndring = false,
 				hideAfpSporsmaal = false,
 				initialInntektAar,
-			}: ValidateFormOptions = {}
+			}: ValidateFormOptions
 		): ValidationErrors => {
 			const errors: ValidationErrors = {}
 
 			const erAfpOffentlig = showAfpOffentligFields({
 				afp: formData.afp,
 				foedselsdato,
+				erApoteker,
 			})
 
 			validateGjenlevenderett(formData, errors)
@@ -408,6 +436,10 @@ export function useFormValidation() {
 			}
 			if (!erEndring) {
 				validateUtenlandsOpphold(formData, errors)
+			}
+
+			if (Object.keys(errors).length > 0) {
+				console.log('Validation errors on fields:', Object.keys(errors))
 			}
 
 			setValidationErrors(errors)

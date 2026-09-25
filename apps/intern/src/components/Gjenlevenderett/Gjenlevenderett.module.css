@@ -2,7 +2,7 @@
 
 .gjenlevenderettSection {
 	padding-left: var(--ax-space-24);
-	margin-top: -16px;
+	margin-top: -8px;
 }
 
 .opplysningerOmEPSInfo {
@@ -15,4 +15,9 @@
 
 .customErrorMessage {
 	margin-top: var(--ax-space-8);
+}
+
+.sanityAlert p,
+.doedsfallSanityAlert p {
+	margin: 0;
 }

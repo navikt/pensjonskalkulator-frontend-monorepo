@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
-import { PersonIcon } from '@navikt/aksel-icons'
+import { InformationSquareIcon, PersonIcon } from '@navikt/aksel-icons'
 import {
-	Alert,
 	BodyShort,
 	Button,
 	CopyButton,
 	HStack,
 	InfoCard,
+	Link,
+	LocalAlert,
 	TextField,
 } from '@navikt/ds-react'
 
@@ -19,12 +20,25 @@ import {
 	usePersonQuery,
 	useVedtakQuery,
 } from './api/queries'
-import { getPidFromUrl, getVedtakStatus } from './utils'
+import {
+	getPesysBrukeroversiktUrl,
+	getPidFromUrl,
+	getVedtakStatus,
+} from './utils'
 
 import styles from './PersonInfo.module.css'
 
 interface PersonInfoProps {
 	onPidChange?: (encryptedPid: string) => void
+}
+
+export const formatPersonnavn = (navn: string): string => {
+	const nameParts = navn.trim().split(/\s+/)
+	const etternavn = nameParts.pop()
+	const fornavnOgMellomnavn = nameParts.join(' ')
+	return fornavnOgMellomnavn
+		? `${etternavn}, ${fornavnOgMellomnavn}`
+		: (etternavn ?? '')
 }
 
 export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
@@ -73,17 +87,15 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			gap="space-4"
 			align="center"
 			justify="end"
-			className={styles.personInfoWrapper}
+			className={
+				pid ? styles.hentPersonSectionWithPerson : styles.personInfoWrapper
+			}
 		>
 			{devInput}
 		</HStack>
 	)
 
-	const pesysBrukeroversiktUrl = window.location.hostname.endsWith(
-		'.dev.nav.no'
-	)
-		? 'https://pensjon-psak-q2.intern.dev.nav.no/psak/bruker/brukeroversikt'
-		: 'https://pensjon-psak.nais.adeo.no/psak/bruker/brukeroversikt'
+	const pesysBrukeroversiktUrl = getPesysBrukeroversiktUrl()
 
 	if (!pid) {
 		return (
@@ -91,19 +103,21 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 				{devInputSection}
 
 				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
-					<InfoCard.Header>
+					<InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>
 					<InfoCard.Content>
-						Du må hente en bruker i &nbsp;
-						<a
+						Du må hente en bruker i{' '}
+						<Link
 							href={pesysBrukeroversiktUrl}
 							target="_blank"
 							rel="noopener noreferrer"
+							variant="neutral"
+							inlineText
 						>
-							brukeroversikt
-						</a>
-						&nbsp; i Pesys før du kan gjøre en beregning i Pensjonskalkulator
+							brukeroversikt i Pesys
+						</Link>{' '}
+						før du kan gjøre en beregning i pensjonskalkulatoren.
 					</InfoCard.Content>
 				</InfoCard>
 			</>
@@ -112,22 +126,44 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	if (isError || !fnr || !person) {
 		return (
-			<Alert variant="error">Kunne ikke hente bruker: {error?.message}</Alert>
+			<LocalAlert status="error" size="small">
+				<LocalAlert.Header>
+					<LocalAlert.Title>Kunne ikke hente bruker</LocalAlert.Title>
+				</LocalAlert.Header>
+				<LocalAlert.Content>
+					{error?.message ?? 'Ukjent feil'}
+				</LocalAlert.Content>
+			</LocalAlert>
 		)
 	}
 	return (
-		<HStack gap="space-4" className={styles.personInfoWrapper}>
-			<PersonIcon title="a11y-title" fontSize="1.5rem" />
-			<BodyShort size="medium">{fnr}</BodyShort>
-			<CopyButton size="small" copyText={fnr} />
+		<HStack className={styles.personInfoWrapper}>
+			<PersonIcon
+				title="a11y-title"
+				fontSize="1.5rem"
+				className={styles.personInfoIcon}
+			/>
 			<BodyShort size="medium">
-				<span>{' / '}</span>
-				{person.navn}
+				{fnr.slice(0, 6)}&nbsp;{fnr.slice(6)}
+			</BodyShort>
+			<CopyButton
+				size="small"
+				copyText={fnr}
+				data-color="accent"
+				className={styles.copyButton}
+			/>
+			<BodyShort size="medium">
+				<span className={styles.slash}>/</span>
+				{formatPersonnavn(person.navn)}
 			</BodyShort>
 			{vedtakStatus && (
 				<BodyShort size="medium">
-					{' / '}
-					{vedtakStatus}
+					{vedtakStatus.split(/\s*\/\s*/).map((status, index) => (
+						<span key={`${status}-${index}`}>
+							<span className={styles.slash}>/</span>
+							{status}
+						</span>
+					))}
 				</BodyShort>
 			)}
 			{devInputSection}

@@ -1,6 +1,7 @@
 export { SanityContext } from './context/SanityContext'
 export { SanityReadmore } from './components/SanityReadmore'
 export { SanityGuidePanel } from './components/SanityGuidePanel'
+export { SanityKortforbehold } from './components/SanityKortforbehold'
 export {
 	SanityForbehold,
 	SanityVilkaarligForbehold,
@@ -24,5 +25,6 @@ export type {
 	AlertQueryResult,
 	ForbeholdAvsnittQueryResult,
 	GuidePanelQueryResult,
+	KortforbeholdQueryResult,
 	ReadMoreQueryResult,
 } from './types/sanity.types'

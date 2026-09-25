@@ -21,7 +21,6 @@
 		"@sanity/client": "catalog:",
 		"@sanity/color-input": "catalog:",
 		"@sanity/document-internationalization": "catalog:",
-		"sanity-plugin-internationalized-array": "catalog:",
 		"@sanity/icons": "catalog:",
 		"@sanity/ui": "catalog:",
 		"@sanity/vision": "catalog:",
@@ -29,6 +28,7 @@
 		"react": "catalog:",
 		"react-intl": "catalog:",
 		"sanity": "catalog:",
+		"sanity-plugin-internationalized-array": "catalog:",
 		"styled-components": "catalog:"
 	},
 	"peerDependencies": {

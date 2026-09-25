@@ -8,9 +8,26 @@
 	border: 1px solid var(--ax-border-neutral-subtle);
 }
 
+.opptjeningTable {
+	width: 100%;
+	min-width: 800px;
+	table-layout: fixed;
+}
+
+.opptjeningTable th:first-child,
+.opptjeningTable td:first-child {
+	width: 100px;
+}
+
 .table th,
 .table td {
 	padding: 8px;
+}
+
+.labelCell {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .table th + th,
@@ -20,4 +37,8 @@
 
 .table tbody tr:nth-child(even) {
 	background-color: var(--ax-bg-raised);
+}
+
+.table tbody tr:nth-child(even):hover {
+	background-color: var(--ax-bg-neutral-moderate-hoverA);
 }

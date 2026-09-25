@@ -7,7 +7,7 @@ import type {
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	calculateUttaksalderAsDate,
-	isFoedtFoer1963,
+	getBrukerensAlderISluttenAvMaaneden,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	DATE_BACKEND_FORMAT,
@@ -23,6 +23,8 @@ import {
 	parseISO,
 	startOfMonth,
 } from 'date-fns'
+
+import { erKap19EllerApoteker } from '../../api/formConditions'
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: EpsSivilstatus
@@ -40,31 +42,42 @@ export function showSivilstatus({
 	sivilstatus,
 	beregnMedGjenlevenderett,
 	erEndring,
+	serviceBeregning,
 }: {
 	sivilstatus: Sivilstatus
 	beregnMedGjenlevenderett: boolean
 	erEndring: boolean
+	serviceBeregning: boolean
 }): boolean {
-	if (!sivilstatus || erEndring) return false
-
-	return (
-		!isSivilstatusWithGjenlevenderett(sivilstatus) || !beregnMedGjenlevenderett
+	if (
+		!sivilstatus ||
+		beregnMedGjenlevenderett ||
+		(erEndring && !serviceBeregning)
 	)
+		return false
+
+	return true
 }
 
 export function showBeregnMedGjenlevenderett({
 	initialSivilstatus,
 	person,
 	harGjenlevenderett,
+	erApoteker,
+	kanBeregneMedGjenlevenderett,
 }: {
 	initialSivilstatus: EpsSivilstatus
-	person: PersonInternV1
+	person?: PersonInternV1
 	harGjenlevenderett?: boolean
+	erApoteker: boolean
+	kanBeregneMedGjenlevenderett: boolean
 }): boolean {
-	if (harGjenlevenderett === true) return false
+	if (harGjenlevenderett === true || !person) return false
+
 	return (
-		isFoedtFoer1963(person?.foedselsdato) &&
-		isSivilstatusWithGjenlevenderett(initialSivilstatus)
+		erKap19EllerApoteker(person?.foedselsdato, erApoteker) &&
+		(isSivilstatusWithGjenlevenderett(initialSivilstatus) ||
+			kanBeregneMedGjenlevenderett)
 	)
 }
 
@@ -193,4 +206,29 @@ export function getUttaksGradArray({
 	}
 
 	return uttaksgradArray
+}
+
+export function getAlderForAfpEndring({
+	newAfpValue,
+	alderAarUttak,
+	foedselsdato,
+}: {
+	newAfpValue: string
+	alderAarUttak: number | null
+	foedselsdato: string | undefined
+}): { aar: number; md: number } | null {
+	const alderOverMaksForOffentligAfp =
+		alderAarUttak !== null && alderAarUttak > 66
+
+	if (newAfpValue === 'serviceberegning' && alderOverMaksForOffentligAfp) {
+		return { aar: 62, md: 0 }
+	}
+	if (newAfpValue === 'ja_offentlig' && alderOverMaksForOffentligAfp) {
+		const minAlder = getBrukerensAlderISluttenAvMaaneden(foedselsdato, {
+			aar: 62,
+			maaneder: 0,
+		})
+		return { aar: minAlder.aar, md: minAlder.maaneder }
+	}
+	return null
 }

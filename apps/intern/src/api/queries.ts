@@ -1,9 +1,15 @@
 import type {
+	AnsattEnhetResult,
+	ApotekerStatus,
 	EpsOpplysninger,
+	LagreSimuleringResponseDtoV1,
+	LagreSimuleringSpecDtoV1,
 	OmstillingsstoenadOgGjenlevende,
+	Opptjening,
 	PersonInternV1,
 	SimuleringRequestBody,
-	Sivilstatus,
+	Sivilstand,
+	TilgangsnektAarsak,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import {
@@ -95,6 +101,10 @@ export function useFeatureToggleQuery(feature: string) {
 	})
 }
 
+export function useInternsimulatorLagreBrevButtonQuery() {
+	return useFeatureToggleQuery('internsimulator.lagre-brev-button')
+}
+
 async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 	const response = await fetch(`${API_BASE}/intern/v1/person`, {
 		headers: {
@@ -127,13 +137,22 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	return response.json() as Promise<Vedtak>
 }
 
+export class EpsError extends Error {
+	aarsak?: TilgangsnektAarsak
+
+	constructor(message: string, tilgangsnektAarsak?: TilgangsnektAarsak) {
+		super(message)
+		this.aarsak = tilgangsnektAarsak
+	}
+}
+
 async function fetchEPSOpplysninger({
 	fnr,
 	sivilstatus,
 	bakgrunn,
 }: {
 	fnr: string
-	sivilstatus: Sivilstatus
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }): Promise<EpsOpplysninger> {
 	const response = await fetch(`${API_BASE}/intern/v1/eps`, {
@@ -143,8 +162,18 @@ async function fetchEPSOpplysninger({
 	})
 
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch EPS information: ${response.status} ${response.statusText}`
+		let aarsak: TilgangsnektAarsak | undefined
+		try {
+			const body = (await response.json()) as {
+				problem?: { tilgangsnekt?: { aarsak?: TilgangsnektAarsak } }
+			}
+			aarsak = body?.problem?.tilgangsnekt?.aarsak
+		} catch {
+			// ignore parse errors
+		}
+		throw new EpsError(
+			`Failed to fetch EPS information: ${response.status} ${response.statusText}`,
+			aarsak
 		)
 	}
 
@@ -251,7 +280,7 @@ export function useEPSOpplysningerQuery({
 	bakgrunn,
 }: {
 	fnr?: string
-	sivilstatus: Sivilstatus
+	sivilstatus: Sivilstand
 	bakgrunn: string
 }) {
 	return useQuery({
@@ -283,11 +312,117 @@ export function useGrunnbeloepQuery() {
 
 export function useBeregningQuery(
 	fnr: string | undefined,
-	request: SimuleringRequestBody | null
+	request: SimuleringRequestBody | null,
+	submitCount: number
 ) {
 	return useQuery({
-		queryKey: ['beregning', fnr, request],
+		queryKey: ['beregning', fnr, request, submitCount],
 		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
 		placeholderData: keepPreviousData,
+	})
+}
+
+async function fetchErApoteker(fnr: string): Promise<boolean | null> {
+	const response = await fetch(`${API_BASE}/v1/er-apoteker`, {
+		headers: {
+			fnr,
+		},
+	}).catch(() => null)
+
+	if (!response || !response.ok) {
+		return null
+	}
+
+	const data = (await response.json()) as ApotekerStatus
+
+	return data.apoteker
+}
+
+export function useErApotekerQuery(fnr?: string) {
+	return useQuery({
+		queryKey: ['erApoteker', fnr],
+		queryFn: fnr ? () => fetchErApoteker(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+async function fetchOpptjening(fnr: string): Promise<Opptjening> {
+	const response = await fetch(`${API_BASE}/intern/v1/opptjening`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch opptjening: ${response.status}`)
+	}
+
+	return response.json() as Promise<Opptjening>
+}
+
+export function useOpptjeningQueryForAvdoed(
+	fnr?: string,
+	beregnMedGjenlevenderett?: boolean
+) {
+	return useQuery({
+		queryKey: ['opptjening', fnr, beregnMedGjenlevenderett],
+		queryFn:
+			fnr && beregnMedGjenlevenderett ? () => fetchOpptjening(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+async function lagreSimulering({
+	fnr,
+	spec,
+}: {
+	fnr: string
+	spec: LagreSimuleringSpecDtoV1
+}): Promise<LagreSimuleringResponseDtoV1> {
+	const response = await fetch(`${API_BASE}/intern/v1/lagre-simulering`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			fnr,
+		},
+		body: JSON.stringify(spec),
+	})
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to save simulation: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<LagreSimuleringResponseDtoV1>
+}
+
+export function useLagreSimuleringMutation() {
+	return useMutation<
+		LagreSimuleringResponseDtoV1,
+		Error,
+		{ fnr: string; spec: LagreSimuleringSpecDtoV1 }
+	>({
+		mutationFn: lagreSimulering,
+	})
+}
+
+async function fetchEnheter(): Promise<AnsattEnhetResult> {
+	const response = await fetch(`${API_BASE}/intern/v1/enheter`)
+
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch enheter: ${response.status} ${response.statusText}`
+		)
+	}
+
+	return response.json() as Promise<AnsattEnhetResult>
+}
+
+export function useEnheterQuery(enabled = true) {
+	return useQuery({
+		queryKey: ['enheter'],
+		queryFn: fetchEnheter,
+		enabled,
 	})
 }
