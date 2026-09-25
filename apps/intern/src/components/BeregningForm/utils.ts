@@ -29,13 +29,16 @@ import { erKap19EllerApoteker } from '../../api/formConditions'
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: EpsSivilstatus
 ): boolean {
-	return [
+	const inkluderteSivilstatuser: EpsSivilstatus[] = [
 		'GIFT',
 		'REGISTRERT_PARTNER',
 		'SAMBOER',
 		'ENKE_ELLER_ENKEMANN',
 		'SKILT',
-	].includes(sivilstatus)
+		'SEPARERT',
+	]
+
+	return inkluderteSivilstatuser.includes(sivilstatus)
 }
 
 export function showSivilstatus({
