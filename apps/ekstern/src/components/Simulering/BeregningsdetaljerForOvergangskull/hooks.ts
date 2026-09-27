@@ -151,7 +151,7 @@ function getAlderspensjonDetaljerListe(
         tekst: shouldShowParentheses
           ? 'Garantitillegg (kap. 20)'
           : 'Garantitillegg',
-        verdi: `${formatInntekt(garantipensjonBeloep)} kr`,
+        verdi: `${formatInntekt(garantitillegg)} kr`,
       },
 
       {
