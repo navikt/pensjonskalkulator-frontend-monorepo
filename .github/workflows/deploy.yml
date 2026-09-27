@@ -66,6 +66,11 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
 
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
+
       - name: Build application
         run: pnpm build:intern
 
@@ -102,6 +107,11 @@ jobs:
         uses: ./.github/actions/setup-node
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests
@@ -272,6 +282,11 @@ jobs:
         uses: ./.github/actions/setup-node
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        uses: ./.github/actions/fetch-openapi-types
+        with:
+          is-prod: ${{ github.event.inputs.prod == 'true' }}
 
       - name: Run unit tests
         uses: ./.github/actions/run-unit-tests

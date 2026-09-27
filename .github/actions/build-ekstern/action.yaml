@@ -27,6 +27,11 @@ runs:
       with:
         reader-token: ${{ inputs.reader-token }}
 
+    - name: Fetch openapi backend types
+      uses: ./.github/actions/fetch-openapi-types
+      with:
+        is-prod: ${{ inputs.is-prod }}
+
     - name: Build application
       shell: bash
       run: pnpm --filter=ekstern run ${{ inputs.is-prod == 'true' && 'build:production' || 'build' }}

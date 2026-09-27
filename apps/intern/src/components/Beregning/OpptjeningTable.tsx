@@ -39,23 +39,20 @@ export function mapMerknadListe(
 }
 
 export function selectOpptjeningRows(
-	opptjening: Opptjening | OpptjeningAvdoed
+	opptjening: Opptjening | OpptjeningAvdoed,
+	heltUttakAarstall?: number | null,
+	inntektSlutterAarstall?: number | null
 ): Opptjening | OpptjeningAvdoed {
-	const yearsWithIncome = opptjening.filter(
-		(entry) => entry.pensjonsgivendeInntektBeloep > 0
-	)
-
-	if (yearsWithIncome.length === 0) {
-		return []
-	}
-
-	const firstIncomeYear = Math.min(...yearsWithIncome.map((e) => e.aarstall))
-	const lastIncomeYear = Math.max(...yearsWithIncome.map((e) => e.aarstall))
+	const sisteAarstall = inntektSlutterAarstall ?? heltUttakAarstall
 
 	return [...opptjening]
 		.filter(
 			(entry) =>
-				entry.aarstall >= firstIncomeYear && entry.aarstall <= lastIncomeYear
+				(sisteAarstall == null || entry.aarstall <= sisteAarstall) &&
+				!(
+					entry.merknadListe.length > 0 &&
+					entry.merknadListe.every((merknad) => merknad === 'INGEN_OPPTJENING')
+				)
 		)
 		.sort((a, b) => b.aarstall - a.aarstall)
 }
@@ -75,14 +72,22 @@ interface OpptjeningTableProps {
 	isOpptjeningAvdoedSection?: boolean
 	ufoeretrygdgrad?: number | null
 	erServiceberegning?: boolean
+	heltUttakAarstall?: number | null
+	inntektSlutterAarstall?: number | null
 }
 
 export function mapOpptjeningToTableRows(
 	opptjening: Opptjening | OpptjeningAvdoed,
 	showPensjonsbeholdning: boolean,
-	ufoeretrygdgrad?: number | null
+	ufoeretrygdgrad?: number | null,
+	heltUttakAarstall?: number | null,
+	inntektSlutterAarstall?: number | null
 ): OpptjeningTableRow[] {
-	return selectOpptjeningRows(opptjening).map((entry) => ({
+	return selectOpptjeningRows(
+		opptjening,
+		heltUttakAarstall,
+		inntektSlutterAarstall
+	).map((entry) => ({
 		aar: entry.aarstall,
 		pensjonsgivendeInntekt:
 			entry.pensjonsgivendeInntektBeloep > 0
@@ -112,6 +117,8 @@ export function OpptjeningTable({
 	isOpptjeningAvdoedSection,
 	ufoeretrygdgrad,
 	erServiceberegning,
+	heltUttakAarstall,
+	inntektSlutterAarstall,
 }: OpptjeningTableProps) {
 	const showPensjonsbeholdning =
 		!isOpptjeningAvdoedSection &&
@@ -121,7 +128,9 @@ export function OpptjeningTable({
 	const rows = mapOpptjeningToTableRows(
 		opptjening,
 		showPensjonsbeholdning,
-		ufoeretrygdgrad
+		ufoeretrygdgrad,
+		heltUttakAarstall,
+		inntektSlutterAarstall
 	)
 
 	const title = isOpptjeningAvdoedSection
