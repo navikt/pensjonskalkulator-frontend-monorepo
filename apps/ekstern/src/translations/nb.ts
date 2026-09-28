@@ -99,7 +99,7 @@ const translations = {
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'alderspensjon (Nav)',
   'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
-  'stegvisning.start.list_item3': 'pensjonsavtaler (arbeidsgivere m.m.)',
+  'stegvisning.start.list_item3': 'pensjon fra andre',
   'stegvisning.start.endring.ingress_2':
     'Du må svare på alle spørsmålene som kommer.',
   'stegvisning.start.ingress_2':
@@ -192,7 +192,7 @@ const translations = {
     'Er du sikker på at du vil slette oppholdet ditt?',
   'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
-  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjon fra andre',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vil du se tjenestepensjon og andre pensjonsavtaler i kalkulatoren, må du samtykke til at Nav henter disse opplysningene fra andre pensjonsordninger. Samtykket er frivillig.{br}{br} Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
@@ -399,7 +399,7 @@ const translations = {
   'beregning.highcharts.yaxis': 'Kroner',
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
-  'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.highcharts.serie.tp.name': 'Pensjon fra andre',
   'beregning.highcharts.serie.afp.name': 'AFP (avtalefestet pensjon)',
   'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (Nav)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
@@ -445,8 +445,7 @@ const translations = {
   'beregning.avansert.maanedsbeloep.table_title': 'Månedlig pensjon',
   'beregning.avansert.maanedsbeloep.box_title': 'Ved ',
   'beregning.avansert.maanedsbeloep.afp': 'AFP (avtalefestet pensjon)',
-  'beregning.avansert.maanedsbeloep.pensjonsavtaler':
-    'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.avansert.maanedsbeloep.pensjonsavtaler': 'Pensjon fra andre',
   'beregning.avansert.maanedsbeloep.alderspensjon':
     'Alderspensjon (Nav) {prosent} %',
   'beregning.avansert.maanedsbeloep.sum': 'Sum pensjon {maanedOgAar}',
