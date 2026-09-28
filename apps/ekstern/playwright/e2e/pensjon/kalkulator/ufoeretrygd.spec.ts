@@ -48,11 +48,6 @@ async function clickNeste(page: Page) {
   await page.getByTestId('stegvisning-neste-button').click()
 }
 
-async function clickStart(page: Page) {
-  await page.getByTestId('stegvisning-start-button').click()
-  await page.waitForURL(/\/sivilstand/)
-}
-
 async function navigateToAfpStep(page: Page) {
   await fillOutStegvisning(page, {
     navigateTo: 'afp',
@@ -103,7 +98,7 @@ test.describe('Med ufoeretrygd', () => {
       ).toBeVisible()
       await expect(
         page.getByTestId('stegvisning.samtykke_pensjonsavtaler.title')
-      ).toHaveText('Pensjonsavtaler')
+      ).toHaveText('Pensjon fra andre')
     })
   })
 

@@ -57,7 +57,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
       }) => {
         // Verify pensjonsavtaler is not in chart legend
         await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
+          page.getByText('Pensjon fra andre').first()
         ).not.toBeVisible()
       })
 
@@ -105,9 +105,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 4
@@ -150,9 +148,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 6
@@ -214,7 +210,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
       }) => {
         // Verify pensjonsavtaler is not in chart legend
         await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
+          page.getByText('Pensjon fra andre').first()
         ).not.toBeVisible()
       })
 
@@ -275,7 +271,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
       }) => {
         // Verify pensjonsavtaler is not in chart legend
         await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
+          page.getByText('Pensjon fra andre').first()
         ).not.toBeVisible()
       })
 
@@ -350,9 +346,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend (use first match since there can be multiple)
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 15
