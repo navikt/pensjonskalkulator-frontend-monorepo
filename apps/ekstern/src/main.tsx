@@ -23,20 +23,22 @@ if (process.env.NODE_ENV === 'development') {
       resolveMSW = resolve
     })
 
-  const { worker } = await import('./mocks/browser')
-  await worker.start({
-    serviceWorker: {
-      url: '/pensjon/kalkulator/mockServiceWorker.js',
-      options: {
-        scope: '/',
+  if (import.meta.env.VITE_DISABLE_MSW !== 'true') {
+    const { worker } = await import('./mocks/browser')
+    await worker.start({
+      serviceWorker: {
+        url: '/pensjon/kalkulator/mockServiceWorker.js',
+        options: {
+          scope: '/',
+        },
       },
-    },
-    onUnhandledRequest: 'bypass',
-  })
+      onUnhandledRequest: 'bypass',
+    })
+    console.log('[MSW] Ready - external scripts can now load')
+  }
 
   // Signal that MSW is ready
   resolveMSW!()
-  console.log('[MSW] Ready - external scripts can now load')
 }
 
 applyGoogleTranslateFix()

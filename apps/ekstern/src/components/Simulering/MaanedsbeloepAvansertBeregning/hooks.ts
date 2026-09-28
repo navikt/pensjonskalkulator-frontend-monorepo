@@ -8,6 +8,7 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 import {
+  REDUKSJON_AFP_PRIVAT_ALDER,
   UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
   calculateUttaksalderAsDate,
   isAlderLikEllerOverAnnenAlder,
@@ -179,6 +180,29 @@ export const usePensjonBeregninger = ({
       alderspensjon: alderspensjonMaanedligVedEndring?.heltUttakMaanedligBeloep,
       pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
       uttaksgrad: 'helt',
+    })
+  }
+
+  const simulererMedAfpPrivat = !!afpPrivatListe
+  const plassering =
+    pensjonsdata.findLastIndex((data) =>
+      isAlderOverAnnenAlder(REDUKSJON_AFP_PRIVAT_ALDER, data.alder)
+    ) + 1
+  const nesteKnekkpunkt = pensjonsdata.at(plassering)
+  const visEkstraKnekkpunktVed67 =
+    simulererMedAfpPrivat &&
+    plassering > 0 &&
+    (!nesteKnekkpunkt ||
+      isAlderOverAnnenAlder(nesteKnekkpunkt.alder, REDUKSJON_AFP_PRIVAT_ALDER))
+
+  if (visEkstraKnekkpunktVed67) {
+    pensjonsdata.splice(plassering, 0, {
+      ...pensjonsdata[plassering - 1],
+      alder: REDUKSJON_AFP_PRIVAT_ALDER,
+      afp: afpVedUttak('privat', REDUKSJON_AFP_PRIVAT_ALDER),
+      pensjonsavtale:
+        sumPensjonsavtaler(REDUKSJON_AFP_PRIVAT_ALDER) +
+        sumTjenestepensjon(REDUKSJON_AFP_PRIVAT_ALDER),
     })
   }
 
