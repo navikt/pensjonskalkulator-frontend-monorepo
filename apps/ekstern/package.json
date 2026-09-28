@@ -51,6 +51,7 @@
     "express-prom-bundle": "8.0.0",
     "express-rate-limit": "catalog:",
     "@pensjonskalkulator-frontend-monorepo/sanity": "workspace:*",
+    "@pensjonskalkulator-frontend-monorepo/utils": "workspace:*",
     "groq": "4.6.0",
     "http-proxy-middleware": "3.0.7",
     "prom-client": "15.1.3",
