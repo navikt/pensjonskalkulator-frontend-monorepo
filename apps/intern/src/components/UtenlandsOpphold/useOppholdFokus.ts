@@ -1,11 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
-
-import { parseStrictEndUserDate } from '../../utils/dates'
-
-type UseOppholdFokusArgs = {
-	activeIndex: number | null
-	startdato: string
-}
+import { useCallback, useRef } from 'react'
 
 function useFokusVedMount<T extends HTMLElement>() {
 	const nodeRef = useRef<T | null>(null)
@@ -31,31 +24,13 @@ function useFokusVedMount<T extends HTMLElement>() {
 	return [ref, fokuser] as const
 }
 
-export function useOppholdFokus({
-	activeIndex,
-	startdato,
-}: UseOppholdFokusArgs) {
-	const startdatoWrapperRef = useRef<HTMLDivElement>(null)
+export function useOppholdFokus() {
 	const sluttdatoInputRef = useRef<HTMLInputElement>(null)
-	const previousStartdatoRef = useRef(startdato)
 
 	const [leggTilNyttOppholdRef, fokuserLeggTilNyttOpphold] =
 		useFokusVedMount<HTMLButtonElement>()
 	const [landSelectRef, fokuserLandSelect] =
 		useFokusVedMount<HTMLSelectElement>()
-
-	useEffect(() => {
-		const previousStartdato = previousStartdatoRef.current
-		previousStartdatoRef.current = startdato
-
-		if (activeIndex === null) return
-		if (previousStartdato === startdato) return
-		if (!parseStrictEndUserDate(startdato)) return
-		// Bare flytt fokus når brukeren selv fyller ut startdato
-		if (!startdatoWrapperRef.current?.contains(document.activeElement)) return
-
-		sluttdatoInputRef.current?.focus()
-	}, [activeIndex, startdato])
 
 	// Kalenderpanelet flytter fokus til kalenderknappen når det lukkes, så vi venter til det er ferdig
 	const fokuserSluttdato = useCallback(() => {
@@ -63,7 +38,6 @@ export function useOppholdFokus({
 	}, [])
 
 	return {
-		startdatoWrapperRef,
 		sluttdatoInputRef,
 		leggTilNyttOppholdRef,
 		landSelectRef,

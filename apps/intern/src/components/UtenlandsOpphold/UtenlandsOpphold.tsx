@@ -134,17 +134,13 @@ export const UtenlandsOpphold = ({
 		harOppholdUtenforNorge === true && (activeIndex !== null || !hasOpphold)
 
 	const {
-		startdatoWrapperRef,
 		sluttdatoInputRef,
 		leggTilNyttOppholdRef,
 		landSelectRef,
 		fokuserLeggTilNyttOpphold,
 		fokuserLandSelect,
 		fokuserSluttdato,
-	} = useOppholdFokus({
-		activeIndex,
-		startdato,
-	})
+	} = useOppholdFokus()
 
 	const setOppholdValues = (index: number, values: OppholdValues) => {
 		form.setValue(getOppholdFieldName(index, 'landkode'), values.landkode)
@@ -404,11 +400,7 @@ export const UtenlandsOpphold = ({
 					wrap={false}
 					className={styles.dateFieldsHStack}
 				>
-					<VStack
-						gap="space-8"
-						className={styles.dateFieldWrapper}
-						ref={startdatoWrapperRef}
-					>
+					<VStack gap="space-8" className={styles.dateFieldWrapper}>
 						<RHFDatePicker
 							name={getOppholdFieldName(index, 'fom')}
 							label="Startdato"
@@ -434,6 +426,7 @@ export const UtenlandsOpphold = ({
 											shouldDirty: true,
 										}
 									)
+									fokuserSluttdato()
 								}
 							}}
 						>
