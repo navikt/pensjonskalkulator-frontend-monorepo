@@ -1,5 +1,5 @@
 import { addYears } from 'date-fns'
-import { useEffect, useRef, useState } from 'react'
+import { type KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { useFieldArray, useWatch } from 'react-hook-form'
 
 import {
@@ -325,8 +325,16 @@ export const UtenlandsOpphold = ({
 	const showCopyButton = Boolean(harOppholdUtenforNorge && hasOpphold)
 	const showCancelButton = mode === 'edit' || hasOpphold
 
+	// Enter i oppholdsfeltene skal lagre oppholdet, ikke submitte beregningsskjemaet
+	const handleEditorKeyDown = (event: KeyboardEvent) => {
+		if (event.key !== 'Enter' || event.defaultPrevented) return
+		if ((event.target as HTMLElement).closest('button')) return
+		event.preventDefault()
+		saveOpphold()
+	}
+
 	const renderEditor = (index: number) => (
-		<VStack gap="space-24">
+		<VStack gap="space-24" onKeyDown={handleEditorKeyDown}>
 			<HStack
 				justify="start"
 				align="start"
@@ -409,11 +417,21 @@ export const UtenlandsOpphold = ({
 				className={styles.actionButtonsHStack}
 			>
 				{showCancelButton && (
-					<Button variant="tertiary" size="small" onClick={handleAvbryt}>
+					<Button
+						variant="tertiary"
+						size="small"
+						type="button"
+						onClick={handleAvbryt}
+					>
 						Avbryt
 					</Button>
 				)}
-				<Button variant="secondary" size="small" onClick={saveOpphold}>
+				<Button
+					variant="secondary"
+					size="small"
+					type="button"
+					onClick={saveOpphold}
+				>
 					{mode === 'edit' ? 'Oppdater' : 'Legg til'}
 				</Button>
 			</HStack>
@@ -472,7 +490,12 @@ export const UtenlandsOpphold = ({
 
 					{mode === 'closed' && hasOpphold && (
 						<HStack justify="end">
-							<Button variant="secondary" size="small" onClick={openNewOpphold}>
+							<Button
+								variant="secondary"
+								size="small"
+								type="button"
+								onClick={openNewOpphold}
+							>
 								Legg til nytt opphold
 							</Button>
 						</HStack>
