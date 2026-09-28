@@ -370,17 +370,17 @@ const translations = {
   'beregning.pensjonsavtaler.alert.endring':
     'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
   'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.afp_offentlig.error':
     'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
   'beregning.pensjonsavtaler.alert.offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
@@ -714,7 +714,7 @@ const translations = {
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
-  'pensjonsavtaler.title': 'Pensjonsavtaler',
+  'pensjonsavtaler.title': 'Pensjon fra andre',
   'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
   'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning {chunk}.',

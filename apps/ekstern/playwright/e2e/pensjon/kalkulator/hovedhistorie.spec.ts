@@ -794,7 +794,7 @@ test.describe('Hovedhistorie', () => {
         })
 
         await expect(
-          page.getByRole('heading', { name: 'Pensjonsavtaler' })
+          page.getByRole('heading', { name: 'Pensjon fra andre' })
         ).toBeVisible()
         await expect(
           page.getByTestId('stegvisning.samtykke_pensjonsavtaler.radio_label')
@@ -1255,7 +1255,7 @@ test.describe('Hovedhistorie', () => {
       }) => {
         await page.getByRole('button', { name: '70' }).click()
         await expect(
-          page.getByRole('heading', { name: 'Pensjonsavtaler' })
+          page.getByRole('heading', { name: 'Pensjon fra andre' })
         ).toBeVisible()
       })
 

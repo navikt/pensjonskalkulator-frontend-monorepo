@@ -56,9 +56,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is not in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).not.toBeVisible()
+        await expect(page.getByText('Pensjon fra andre')).toHaveCount(1) //Exists once on the bottom of the page
       })
 
       // 2
@@ -66,7 +64,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         await expect(
-          page.getByRole('heading', { name: 'Pensjonsavtaler', level: 3 })
+          page.getByRole('heading', { name: 'Pensjon fra andre', level: 3 })
         ).toBeVisible()
         await expect(
           page.getByText(/Vi fant ingen pensjonsavtaler/i).first()
@@ -105,9 +103,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 4
@@ -150,9 +146,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 6
@@ -213,9 +207,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is not in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).not.toBeVisible()
+        await expect(page.getByText('Pensjon fra andre')).toHaveCount(2)
       })
 
       // 9
@@ -274,9 +266,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is not in chart legend
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).not.toBeVisible()
+        await expect(page.getByText('Pensjon fra andre')).toHaveCount(2)
       })
 
       // 12
@@ -350,9 +340,7 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
         page,
       }) => {
         // Verify pensjonsavtaler is in chart legend (use first match since there can be multiple)
-        await expect(
-          page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
-        ).toBeVisible()
+        await expect(page.getByText('Pensjon fra andre').first()).toBeVisible()
       })
 
       // 15
