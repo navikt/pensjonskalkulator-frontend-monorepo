@@ -91,6 +91,8 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_offentlig' &&
 		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+	const beregnesMedGjenlevenderett =
+		aktivBeregning?.beregnMedGjenlevenderett === true
 
 	const opptjening = beregning?.opptjeningListe
 
@@ -542,19 +544,20 @@ export const Beregning = () => {
 									erServiceberegning={erServiceberegning}
 									heltUttakAarstall={heltUttakAarstall}
 									inntektSlutterAarstall={inntektSlutterAarstall}
+									beregnesMedGjenlevenderett={beregnesMedGjenlevenderett}
 								/>
 
-								{aktivBeregning?.beregnMedGjenlevenderett &&
-									opptjeningAvdoed && (
-										<OpptjeningTable
-											opptjening={opptjeningAvdoed}
-											erOvergangskull={erOvergangskull}
-											erFoedtEtter1963={erFoedtEtter1963}
-											isOpptjeningAvdoedSection={true}
-											ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
-											erServiceberegning={erServiceberegning}
-										/>
-									)}
+								{beregnesMedGjenlevenderett && opptjeningAvdoed && (
+									<OpptjeningTable
+										opptjening={opptjeningAvdoed}
+										erOvergangskull={erOvergangskull}
+										erFoedtEtter1963={erFoedtEtter1963}
+										isOpptjeningAvdoedSection={true}
+										ufoeretrygdgrad={vedtak?.ufoeretrygdgrad}
+										erServiceberegning={erServiceberegning}
+										beregnesMedGjenlevenderett={beregnesMedGjenlevenderett}
+									/>
+								)}
 							</VStack>
 						</Tabs.Panel>
 					)}
