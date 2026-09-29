@@ -25,18 +25,14 @@ const toBackendDate = (value: string) =>
 export const mapUtenlandsperiodeListe = (
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
 ): SimuleringUtenlandsperiode[] =>
-	utenlandsOpphold
-		.map(
-			(opphold): SimuleringUtenlandsperiode => ({
-				fom: toBackendDate(opphold.fom),
-				tom: opphold.tom ? toBackendDate(opphold.tom) : undefined,
-				landkode: opphold.landkode,
-				arbeidetUtenlands: opphold.arbeidetUtenlands === true,
-			})
-		)
-		.sort((firstPeriode, secondPeriode) =>
-			secondPeriode.fom.localeCompare(firstPeriode.fom)
-		)
+	utenlandsOpphold.map(
+		(opphold): SimuleringUtenlandsperiode => ({
+			fom: toBackendDate(opphold.fom),
+			tom: opphold.tom ? toBackendDate(opphold.tom) : undefined,
+			landkode: opphold.landkode,
+			arbeidetUtenlands: opphold.arbeidetUtenlands === true,
+		})
+	)
 
 export function mapBeregningParamsToRequest(
 	formData: BeregningFormData,

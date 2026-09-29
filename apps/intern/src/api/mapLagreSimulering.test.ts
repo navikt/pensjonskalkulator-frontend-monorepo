@@ -71,7 +71,7 @@ describe('mapPensjonsopptjeningToLagreDto', () => {
 })
 
 describe('mapUtenlandsperiodeListe', () => {
-	test('sorts foreign stays with the newest start date first', () => {
+	test('preserves the input order when mapping foreign stays', () => {
 		const periods = mapUtenlandsperiodeListe([
 			{
 				landkode: 'DZA',
@@ -89,6 +89,6 @@ describe('mapUtenlandsperiodeListe', () => {
 			},
 		])
 
-		expect(periods.map(({ fom }) => fom)).toEqual(['2024-01-01', '2020-01-01'])
+		expect(periods.map(({ fom }) => fom)).toEqual(['2020-01-01', '2024-01-01'])
 	})
 })
