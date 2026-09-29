@@ -17,12 +17,10 @@ import {
 	add,
 	addYears,
 	format,
-	isAfter,
 	isBefore,
 	isValid,
 	parse,
 	parseISO,
-	startOfDay,
 	startOfMonth,
 } from 'date-fns'
 
@@ -174,22 +172,6 @@ export function isEpsUnder67EllerDoedsdatoFoer67aar({
 	}
 
 	return new Date() < fylte67
-}
-
-export function isEpsOver67EllerDoedsdatoEtter67aar({
-	epsFoedselsdato,
-	epsDoedsdato,
-}: {
-	epsFoedselsdato: string
-	epsDoedsdato?: string | null
-}): boolean {
-	const fylte67 = addYears(parseISO(epsFoedselsdato), 67)
-
-	if (epsDoedsdato) {
-		return isAfter(parseISO(epsDoedsdato), fylte67)
-	}
-
-	return isAfter(startOfDay(new Date()), fylte67)
 }
 
 export function getUttaksGradArray({
