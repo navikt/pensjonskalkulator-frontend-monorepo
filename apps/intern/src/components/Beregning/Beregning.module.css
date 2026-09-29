@@ -64,6 +64,16 @@
 	position: relative;
 }
 
+.tomBeregning {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--ax-text-neutral-subtle);
+	border: 2px dashed var(--ax-border-neutral-subtle);
+	border-radius: var(--ax-radius-12);
+}
+
 @media (max-width: 1280px) {
 	.beregning {
 		padding: var(--ax-space-24);

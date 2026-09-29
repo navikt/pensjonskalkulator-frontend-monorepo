@@ -324,6 +324,7 @@ export const Gjenlevenderett = () => {
 							!tilgangsbegrensningAlertId && (
 								<Button
 									variant="secondary"
+									type="button"
 									onClick={handleHentEPSOpplysninger}
 									className={styles.epsSubmitButton}
 									data-testid="EPS-hent-opplysninger-button"
@@ -364,7 +365,12 @@ export const Gjenlevenderett = () => {
 										id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
 										className={styles.doedsfallSanityAlert}
 									/>
-									<Button variant="secondary" size="small" onClick={resetForm}>
+									<Button
+										variant="secondary"
+										size="small"
+										type="button"
+										onClick={resetForm}
+									>
 										Start på nytt
 									</Button>
 								</VStack>

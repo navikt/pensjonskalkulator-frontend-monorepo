@@ -42,10 +42,20 @@ export const OppholdListItem = ({
 						align="end"
 						style={{ flexShrink: 0, marginLeft: 'auto' }}
 					>
-						<Button variant="tertiary" size="small" onClick={onEdit}>
+						<Button
+							variant="tertiary"
+							size="small"
+							type="button"
+							onClick={onEdit}
+						>
 							<PencilIcon title="Endre" fontSize="1.5rem" />
 						</Button>
-						<Button variant="tertiary" size="small" onClick={onDelete}>
+						<Button
+							variant="tertiary"
+							size="small"
+							type="button"
+							onClick={onDelete}
+						>
 							<TrashIcon title="Slett" fontSize="1.5rem" />
 						</Button>
 					</HStack>
