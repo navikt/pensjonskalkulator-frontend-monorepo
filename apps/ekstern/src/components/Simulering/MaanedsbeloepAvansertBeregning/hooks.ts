@@ -183,7 +183,7 @@ export const usePensjonBeregninger = ({
     })
   }
 
-  const simulererMedAfpPrivat = !!afpPrivatListe
+  const simulererMedAfpPrivat = Boolean(afpPrivatListe?.length)
   const plassering =
     pensjonsdata.findLastIndex((data) =>
       isAlderOverAnnenAlder(REDUKSJON_AFP_PRIVAT_ALDER, data.alder)
