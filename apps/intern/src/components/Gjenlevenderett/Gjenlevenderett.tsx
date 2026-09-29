@@ -2,7 +2,7 @@ import type {
 	Sivilstand,
 	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
 import {
@@ -41,6 +41,10 @@ export const Gjenlevenderett = () => {
 		sivilstatus: Sivilstand
 		bakgrunn: string
 	}>({} as { sivilstatus: Sivilstand; bakgrunn: string })
+
+	const opplysningerHeadingRef = useRef<HTMLHeadingElement>(null)
+	const [skalFlytteFokusTilOpplysninger, setSkalFlytteFokusTilOpplysninger] =
+		useState(false)
 
 	const {
 		data: EPSOpplysninger,
@@ -180,6 +184,7 @@ export const Gjenlevenderett = () => {
 			sivilstatus: person!.sivilstand,
 			bakgrunn: formData.bakgrunnForBrukAvOpplysningerOmEPS!,
 		})
+		setSkalFlytteFokusTilOpplysninger(true)
 	}
 
 	const EPSLoader = <Loader>Henter opplysninger</Loader>
@@ -247,6 +252,13 @@ export const Gjenlevenderett = () => {
 		!isEPSInfoEmpty &&
 		(!erBakgrunnDoedsfallRegistrert || harRegistrertDoedsdato)
 
+	useEffect(() => {
+		if (visOpplysningerInfo && skalFlytteFokusTilOpplysninger) {
+			opplysningerHeadingRef.current?.focus()
+			setSkalFlytteFokusTilOpplysninger(false)
+		}
+	}, [visOpplysningerInfo, skalFlytteFokusTilOpplysninger])
+
 	return (
 		<>
 			<RHFCheckbox
@@ -312,6 +324,7 @@ export const Gjenlevenderett = () => {
 							!tilgangsbegrensningAlertId && (
 								<Button
 									variant="secondary"
+									type="button"
 									onClick={handleHentEPSOpplysninger}
 									className={styles.epsSubmitButton}
 									data-testid="EPS-hent-opplysninger-button"
@@ -352,7 +365,12 @@ export const Gjenlevenderett = () => {
 										id="beregning.gjenlevenderett.doedsfall.ikke.registrert"
 										className={styles.doedsfallSanityAlert}
 									/>
-									<Button variant="secondary" size="small" onClick={resetForm}>
+									<Button
+										variant="secondary"
+										size="small"
+										type="button"
+										onClick={resetForm}
+									>
 										Start på nytt
 									</Button>
 								</VStack>
@@ -363,6 +381,7 @@ export const Gjenlevenderett = () => {
 							EPSOpplysninger={formEpsOpplysninger}
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
+							headingRef={opplysningerHeadingRef}
 							brukerHarVedtakGjenlevendepensjon={Boolean(
 								vedtak?.gjenlevenderett
 							)}

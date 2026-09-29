@@ -4,6 +4,19 @@
 	background-color: var(--ax-bg-meta-purple-softA);
 }
 
+.tableCaption {
+	background-color: var(--ax-bg-meta-purple-softA);
+	border: 1px solid var(--ax-border-neutral-subtle);
+	border-bottom: 1px solid var(--ax-border-neutral-subtleA);
+	padding: 8px;
+	text-align: left;
+}
+
+/* Caption ligger utenfor tabellens rammeboks og erstatter topprammen */
+.captionTable {
+	border-top: 0;
+}
+
 .table {
 	border: 1px solid var(--ax-border-neutral-subtle);
 }
@@ -31,8 +44,13 @@
 }
 
 .table th + th,
+.table th + td,
 .table td + td {
 	border-left: 1px solid var(--ax-border-neutral-subtle);
+}
+
+.table tbody th {
+	font-weight: inherit;
 }
 
 .table tbody tr:nth-child(even) {
