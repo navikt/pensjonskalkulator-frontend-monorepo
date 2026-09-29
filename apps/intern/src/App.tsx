@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
 	Box,
@@ -36,6 +36,34 @@ import {
 import { getEnhetsidFromUrl, getPidFromUrl } from './utils.ts'
 
 import styles from './styles/global.module.css'
+
+const LASTEMELDING = 'Vent litt mens vi henter informasjon.'
+
+const AppLoader = () => {
+	const [melding, setMelding] = useState('')
+
+	// Skjermlesere leser bare endringer i en live region som allerede finnes i DOM-en
+	useEffect(() => {
+		const id = window.setTimeout(() => setMelding(LASTEMELDING), 100)
+		return () => window.clearTimeout(id)
+	}, [])
+
+	return (
+		<Box
+			height="100%"
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignContent: 'center',
+			}}
+		>
+			<div role="status" aria-live="polite" className="srOnly">
+				{melding}
+			</div>
+			<Loader size="3xlarge" title={LASTEMELDING} />
+		</Box>
+	)
+}
 
 const BeregningLayout = () => {
 	const { isDirty } = useBeregningContext()
@@ -166,20 +194,7 @@ const AppContent = () => {
 		(visLagreBrevButton ? isLoadingEnheter : false)
 
 	if (isAppLoading) {
-		return (
-			<Box
-				role="status"
-				aria-live="polite"
-				height="100%"
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignContent: 'center',
-				}}
-			>
-				<Loader size="3xlarge" title="Vent litt mens vi henter informasjon." />
-			</Box>
-		)
+		return <AppLoader />
 	}
 
 	if (visLagreBrevButton) {
