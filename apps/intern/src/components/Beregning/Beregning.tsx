@@ -430,6 +430,7 @@ export const Beregning = () => {
 										visAarsbelop={visAarsbelop}
 										showVisAarsbelopCheckbox
 										onVisAarsbelopChange={setVisAarsbelop}
+										testId="beregning-section-helt-afp-serviceberegning"
 									/>
 								)}
 							{!erServiceberegning &&

@@ -539,6 +539,7 @@ export const UtenlandsOpphold = ({
 									setBekreftelse('')
 									openNewOpphold()
 									fokuserLandSelect()
+									openNewOpphold()
 								}}
 								ref={leggTilNyttOppholdRef}
 								type="button"
