@@ -190,7 +190,7 @@ test.describe('AFP', () => {
 				await expect(
 					page
 						.getByTestId('beregning-section-helt-afp')
-						.getByText('AFP i privat sektor')
+						.getByRole('table', { name: 'AFP i privat sektor', exact: true })
 				).toBeVisible()
 			})
 
@@ -207,7 +207,7 @@ test.describe('AFP', () => {
 				await expect(
 					page
 						.getByTestId('beregning-section-helt-afp')
-						.getByText('Alderspensjon og AFP')
+						.getByRole('table', { name: 'Alderspensjon og AFP', exact: true })
 				).toBeVisible()
 			})
 
