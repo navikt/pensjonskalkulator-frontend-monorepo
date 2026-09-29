@@ -112,6 +112,15 @@ export const OpplysningerInfo = ({
 		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
 		: undefined
 
+	const pensjonsgivendeInntektFoerDoedsdato =
+		!brukerHarVedtakGjenlevendepensjon ? (
+			<RHFTextField
+				name="epsPensjonsgivendeInntektFoerDoedsDato"
+				label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
+				style={{ width: '184px' }}
+			/>
+		) : null
+
 	return (
 		<Box
 			background="neutral-softA"
@@ -141,6 +150,7 @@ export const OpplysningerInfo = ({
 						Hentet fra vedtak om alderspensjon, {formatertVedtakAPDato}.
 					</BodyLong>
 				)}
+				{pensjonsgivendeInntektFoerDoedsdato}
 				{!vedtakInfoAvdoed && (
 					<RHFTextField
 						name="epsAntallUtenlandsOppholdAar"
@@ -148,13 +158,7 @@ export const OpplysningerInfo = ({
 						style={{ width: '96px' }}
 					/>
 				)}
-				{!brukerHarVedtakGjenlevendepensjon && (
-					<RHFTextField
-						name="epsPensjonsgivendeInntektFoerDoedsDato"
-						label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
-						style={{ width: '184px' }}
-					/>
-				)}
+
 				{showEPSMinstePensjonsgivendeInntektFoerDoedsfall(EPSOpplysninger) &&
 					!vedtakInfoAvdoed && (
 						<RHFRadio

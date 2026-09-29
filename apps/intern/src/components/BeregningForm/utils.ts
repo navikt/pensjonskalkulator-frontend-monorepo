@@ -229,6 +229,7 @@ export function getAlderForAfpEndring({
 	if (newAfpValue === 'serviceberegning' && alderOverMaksForOffentligAfp) {
 		return { aar: 62, md: 0 }
 	}
+
 	if (newAfpValue === 'ja_offentlig' && alderOverMaksForOffentligAfp) {
 		const minAlder = getBrukerensAlderISluttenAvMaaneden(foedselsdato, {
 			aar: 62,
