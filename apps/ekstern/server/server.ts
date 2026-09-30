@@ -375,11 +375,6 @@ const getDecoratorLanguage = (req: Request): DecoratorLanguage => {
   return SUPPORTED_LANGUAGES.find((lang) => lang === value) ?? 'nb'
 }
 
-const IS_LOCAL_DEVELOPMENT = process.env.LOCAL_DEVELOPMENT === 'true'
-if (IS_LOCAL_DEVELOPMENT && process.env.NAIS_CLUSTER_NAME) {
-  throw new Error('LOCAL_DEVELOPMENT kan ikke brukes i Nais')
-}
-
 let indexHtmlTemplate: string | undefined
 
 const renderIndexHtml = async (language: DecoratorLanguage) => {
@@ -387,14 +382,6 @@ const renderIndexHtml = async (language: DecoratorLanguage) => {
     path.join(__dirname, 'index.html'),
     'utf8'
   )
-
-  // Klienten injiserer dekoratøren selv når denne meta-taggen finnes (se src/utils/decorator.ts)
-  if (IS_LOCAL_DEVELOPMENT) {
-    return indexHtmlTemplate.replace(
-      '<!-- DECORATOR_HEAD_ASSETS -->',
-      () => '<meta name="decorator-render" content="client-side" />'
-    )
-  }
 
   // Falls back to CSR elements internally if the decorator can't be fetched
   const decorator = await fetchDecoratorHtml({
