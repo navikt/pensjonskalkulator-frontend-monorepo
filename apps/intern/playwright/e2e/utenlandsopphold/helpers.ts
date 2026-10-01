@@ -77,7 +77,11 @@ export function jobbetGroup(page: Page) {
 }
 
 export async function selectLand(page: Page, landkode: string) {
-	await page.getByRole('combobox', { name: 'Land' }).selectOption(landkode)
+	const land = Object.values(LAND).find(({ kode }) => kode === landkode)
+	if (!land) throw new Error(`Ukjent landkode i test: ${landkode}`)
+
+	await page.getByRole('combobox', { name: 'Land' }).fill(land.navn)
+	await page.getByRole('option', { name: land.navn, exact: true }).click()
 }
 
 export async function fillStartdato(page: Page, date: string) {

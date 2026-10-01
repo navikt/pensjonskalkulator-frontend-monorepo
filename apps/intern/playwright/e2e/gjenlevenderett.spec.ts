@@ -500,15 +500,15 @@ test.describe('Gjenlevenderett', () => {
 			await selectBakgrunnAndFetch(page, 'Dødsfall er registrert')
 
 			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+			await expect(
+				page.getByRole('textbox', {
+					name: 'Pensjonsgivende inntekt året før dødsdato',
+				})
+			).toBeVisible()
 
 			await expect(
 				page.getByRole('textbox', {
 					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
-				})
-			).toBeVisible()
-			await expect(
-				page.getByRole('textbox', {
-					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 			).toBeVisible()
 		})

@@ -30,7 +30,7 @@ export function useOppholdFokus() {
 	const [leggTilNyttOppholdRef, fokuserLeggTilNyttOpphold] =
 		useFokusVedMount<HTMLButtonElement>()
 	const [landSelectRef, fokuserLandSelect] =
-		useFokusVedMount<HTMLSelectElement>()
+		useFokusVedMount<HTMLInputElement>()
 
 	// Kalenderpanelet flytter fokus til kalenderknappen når det lukkes, så vi venter til det er ferdig
 	const fokuserSluttdato = useCallback(() => {
