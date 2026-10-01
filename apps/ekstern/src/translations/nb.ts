@@ -380,7 +380,7 @@ const translations = {
   'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
     'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjon fra andre</scrollTo>.',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
