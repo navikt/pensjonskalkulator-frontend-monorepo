@@ -9,6 +9,7 @@ import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
 
 import { store } from './state/store'
+import { injectDecoratorIfLocal } from './utils/decorator'
 import { applyGoogleTranslateFix } from './utils/googleTranslateWorkaround'
 
 import '@/utils/logging'
@@ -41,6 +42,7 @@ if (process.env.NODE_ENV === 'development') {
   resolveMSW!()
 }
 
+injectDecoratorIfLocal()
 applyGoogleTranslateFix()
 const root = document.getElementById('root')
 

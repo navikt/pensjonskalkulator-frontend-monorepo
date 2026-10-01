@@ -65,7 +65,7 @@ Vi bruker react-intl for tekster (men noe ligger også i Sanity). Hvis du bruker
 
 ## environment variables
 
-VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
+Dekoratøren server-side-rendres av Express-serveren (`server/server.ts`) og vises derfor ikke ved `pnpm dev` eller `pnpm preview`.
 
 ## oversikt over portene
 
