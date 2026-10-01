@@ -1,17 +1,22 @@
 import React from 'react'
 import { describe, it } from 'vitest'
 
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  userEvent,
-  waitFor,
-} from '@/test-utils'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { UtenlandsoppholdModal } from '..'
 import * as utenlandsoppholdModalUtils from '../utils'
+
+const velgLand = async (
+  user: ReturnType<typeof userEvent.setup>,
+  landnavn: string
+) => {
+  await user.click(
+    await screen.findByTestId(
+      utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
+    )
+  )
+  await user.click(await screen.findByRole('option', { name: landnavn }))
+}
 
 describe('UtenlandsoppholdModal', () => {
   describe('Gitt at det skal registreres et nytt opphold', () => {
@@ -70,6 +75,7 @@ describe('UtenlandsoppholdModal', () => {
     })
 
     it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet har krav om arbeid', async () => {
+      const user = userEvent.setup()
       const modalRef = React.createRef<HTMLDialogElement>()
 
       render(
@@ -93,14 +99,7 @@ describe('UtenlandsoppholdModal', () => {
         )
       ).not.toBeInTheDocument()
 
-      fireEvent.change(
-        await screen.findByTestId(
-          utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
-        ),
-        {
-          target: { value: 'AFG' },
-        }
-      )
+      await velgLand(user, 'Afghanistan')
 
       expect(
         screen.queryByText(
@@ -119,14 +118,7 @@ describe('UtenlandsoppholdModal', () => {
         )
       ).toBeVisible()
 
-      fireEvent.change(
-        await screen.findByTestId(
-          utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
-        ),
-        {
-          target: { value: 'FRA' },
-        }
-      )
+      await velgLand(user, 'Frankrike')
 
       expect(
         await screen.findByText(
@@ -148,16 +140,7 @@ describe('UtenlandsoppholdModal', () => {
       )
       modalRef.current?.showModal()
 
-      await act(async () => {
-        fireEvent.change(
-          await screen.findByTestId(
-            utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
-          ),
-          {
-            target: { value: 'FRA' },
-          }
-        )
-      })
+      await velgLand(user, 'Frankrike')
       await waitFor(() => {
         expect(
           screen.getByText(
@@ -219,13 +202,10 @@ describe('UtenlandsoppholdModal', () => {
           'utenlandsopphold.om_oppholdet_ditt_modal.title'
         )
       ).toBeVisible()
-      expect(
-        (
-          await screen.findByTestId<HTMLSelectElement>(
-            utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
-          )
-        ).value
-      ).toBe('FRA')
+      expect(screen.getByDisplayValue('FRA')).toHaveAttribute(
+        'name',
+        utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
+      )
       expect(
         await screen.findByText(
           'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description'

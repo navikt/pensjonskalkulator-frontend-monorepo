@@ -1,3 +1,4 @@
+import { type Ref } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { UNSAFE_Combobox as Combobox } from '@navikt/ds-react'
@@ -13,6 +14,7 @@ interface RHFComboboxProps {
 	options: RHFComboboxOption[]
 	className?: string
 	testId?: string
+	inputRef?: Ref<HTMLInputElement>
 }
 
 export function RHFCombobox({
@@ -21,6 +23,7 @@ export function RHFCombobox({
 	options,
 	className,
 	testId,
+	inputRef,
 }: RHFComboboxProps) {
 	const {
 		control,
@@ -38,6 +41,7 @@ export function RHFCombobox({
 			size="small"
 			className={className}
 			data-testid={testId}
+			ref={inputRef}
 			options={options}
 			selectedOptions={selectedOptions}
 			onToggleSelected={(value, isSelected) =>
