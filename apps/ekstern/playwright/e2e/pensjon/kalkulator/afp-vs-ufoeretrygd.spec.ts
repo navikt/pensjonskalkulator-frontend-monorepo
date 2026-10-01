@@ -640,7 +640,7 @@ test.describe('AFP vs uføretrygd', () => {
             page.getByText('AFP (avtalefestet pensjon)').first()
           ).toBeVisible()
           await expect(
-            page.getByText('Pensjonsavtaler (arbeidsgivere m.m.)').first()
+            page.getByText('Pensjon fra andre').first()
           ).toBeVisible()
           await expect(
             page.getByText('Alderspensjon (Nav)').first()
