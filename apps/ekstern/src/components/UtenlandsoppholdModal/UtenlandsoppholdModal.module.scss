@@ -8,8 +8,7 @@
 
 .select {
   :global {
-    select,
-    .navds-select__container {
+    .navds-combobox__wrapper {
       width: variables.$input-width-l;
     }
   }

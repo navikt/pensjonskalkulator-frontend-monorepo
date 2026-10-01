@@ -104,7 +104,7 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
     },
   })
 
-  const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLandChange = (landkode: string) => {
     setValidationErrors((prevState) => {
       return {
         ...prevState,
@@ -114,7 +114,7 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
     setLocalUtenlandsperiode((previous) => {
       return {
         ...previous,
-        landkode: e.target.value,
+        landkode,
         arbeidetUtenlands: undefined,
       }
     })

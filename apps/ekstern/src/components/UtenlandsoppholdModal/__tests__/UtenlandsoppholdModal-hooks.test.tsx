@@ -300,9 +300,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       act(() => {
-        handleLandChange({
-          target: { value: 'ETH' },
-        } as React.ChangeEvent<HTMLSelectElement>)
+        handleLandChange('ETH')
       })
 
       // validationErrors
@@ -417,9 +415,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
             [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: 'something-random',
           }
         })
-        handleLandChange({
-          target: { value: 'ETH' },
-        } as React.ChangeEvent<HTMLSelectElement>)
+        handleLandChange('ETH')
       })
 
       // validationErrors
