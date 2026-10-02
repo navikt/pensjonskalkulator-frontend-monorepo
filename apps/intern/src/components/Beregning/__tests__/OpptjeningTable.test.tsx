@@ -231,7 +231,7 @@ describe('OpptjeningTable', () => {
 		)
 
 		expect(
-			screen.getByRole('heading', { name: 'Inntekt og pensjonsopptjening' })
+			screen.getByRole('heading', { name: 'Gjenlevende' })
 		).toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
@@ -287,7 +287,7 @@ describe('OpptjeningTable', () => {
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 	})
@@ -303,7 +303,7 @@ describe('OpptjeningTable', () => {
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 		expect(
@@ -324,7 +324,7 @@ describe('OpptjeningTable', () => {
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 		expect(
