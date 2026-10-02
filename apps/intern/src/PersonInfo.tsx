@@ -113,8 +113,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 						Du må hente en bruker i{' '}
 						<Link
 							href={pesysBrukeroversiktUrl}
-							target="_blank"
-							rel="noopener noreferrer"
+							rel="noreferrer"
 							variant="neutral"
 							inlineText
 						>
