@@ -143,9 +143,7 @@ export function OpptjeningTable({
 		setVisAlleAar(false)
 	}, [beregnesMedGjenlevenderett, opptjening])
 
-	const title = isOpptjeningAvdoedSection
-		? 'Inntekt og pensjonsopptjening avdøde'
-		: 'Inntekt og pensjonsopptjening'
+	const title = isOpptjeningAvdoedSection ? 'Avdøde' : 'Gjenlevende'
 
 	const testId = isOpptjeningAvdoedSection
 		? 'opptjening-table-avdoed'
@@ -153,7 +151,7 @@ export function OpptjeningTable({
 
 	return (
 		<div data-testid={testId}>
-			<Heading level="3" size="small" spacing>
+			<Heading level="4" size="xsmall" spacing>
 				{title}
 			</Heading>
 			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>

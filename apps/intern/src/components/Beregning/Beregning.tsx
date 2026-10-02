@@ -18,6 +18,7 @@ import {
 	BodyShort,
 	Box,
 	Button,
+	Heading,
 	Loader,
 	Tabs,
 	VStack,
@@ -535,6 +536,9 @@ export const Beregning = () => {
 					{opptjening && (
 						<Tabs.Panel value="opptjening" className={styles.tabPanel}>
 							<VStack gap="space-32">
+								<Heading level="3" size="small" spacing>
+									Inntekt og pensjonsopptjening
+								</Heading>
 								<OpptjeningTable
 									opptjening={opptjening}
 									erOvergangskull={erOvergangskull}
