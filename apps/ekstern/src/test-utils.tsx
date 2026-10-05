@@ -136,9 +136,14 @@ export function renderWithProviders(
           <SanityContext.Provider
             value={{
               alertData: Object.fromEntries(
-                (sanityAlertDataResponse.result as AlertQueryResult).map(
-                  (alert) => [alert.name, alert]
-                )
+                (
+                  sanityAlertDataResponse.result as Array<
+                    Omit<AlertQueryResult[number], 'infoCardStatus'>
+                  >
+                ).map((alert) => [
+                  alert.name,
+                  { ...alert, infoCardStatus: null },
+                ])
               ),
               readMoreData: Object.fromEntries(
                 (sanityReadMoreDataResponse.result as ReadMoreQueryResult).map(
