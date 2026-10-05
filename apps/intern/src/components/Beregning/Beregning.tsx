@@ -535,7 +535,7 @@ export const Beregning = () => {
 					</Tabs.Panel>
 					{opptjening && (
 						<Tabs.Panel value="opptjening" className={styles.tabPanel}>
-							<VStack gap="space-24">
+							<VStack gap="space-16">
 								<Heading level="3" size="small">
 									Inntekt og pensjonsopptjening
 								</Heading>
