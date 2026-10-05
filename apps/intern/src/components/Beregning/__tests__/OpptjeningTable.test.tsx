@@ -186,6 +186,9 @@ describe('OpptjeningTable', () => {
 			within(screen.getByTestId('opptjening-table-bruker')).getAllByRole('row')
 		).toHaveLength(10)
 		expect(
+			screen.queryByRole('heading', { name: 'Gjenlevende' })
+		).not.toBeInTheDocument()
+		expect(
 			screen.queryByRole('button', { name: 'Vis alle år' })
 		).not.toBeInTheDocument()
 	})
@@ -213,6 +216,7 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningKap20}
 				erFoedtEtter1963={true}
 				erOvergangskull={false}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
@@ -227,6 +231,7 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningKap20}
 				erFoedtEtter1963={true}
 				erOvergangskull={false}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
@@ -282,6 +287,7 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningKap19}
 				erFoedtEtter1963={false}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
@@ -298,6 +304,7 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningAvdoed}
 				erFoedtEtter1963={true}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
@@ -319,6 +326,7 @@ describe('OpptjeningTable', () => {
 				erFoedtEtter1963={false}
 				erOvergangskull={false}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 

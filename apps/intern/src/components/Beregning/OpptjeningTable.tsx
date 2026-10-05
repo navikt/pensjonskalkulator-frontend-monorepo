@@ -151,9 +151,11 @@ export function OpptjeningTable({
 
 	return (
 		<div data-testid={testId}>
-			<Heading level="4" size="xsmall" spacing>
-				{title}
-			</Heading>
+			{beregnesMedGjenlevenderett && (
+				<Heading level="4" size="xsmall" spacing>
+					{title}
+				</Heading>
+			)}
 			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 				<Table
 					zebraStripes={rows.length > 3}
