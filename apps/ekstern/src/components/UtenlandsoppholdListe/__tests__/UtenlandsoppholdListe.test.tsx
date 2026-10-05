@@ -214,13 +214,10 @@ describe('UtenlandsoppholdListe', () => {
           'utenlandsopphold.om_oppholdet_ditt_modal.title'
         )
       ).toBeVisible()
-      expect(
-        (
-          await screen.findByTestId<HTMLSelectElement>(
-            UTENLANDSOPPHOLD_FORM_NAMES.land
-          )
-        ).value
-      ).toBe('DZA')
+      expect(screen.getByDisplayValue('DZA')).toHaveAttribute(
+        'name',
+        UTENLANDSOPPHOLD_FORM_NAMES.land
+      )
     })
 
     it('Når brukeren ønsker å slette et opphold, åpnes det modalen og oppholdet slettes ved bekreftelse', async () => {

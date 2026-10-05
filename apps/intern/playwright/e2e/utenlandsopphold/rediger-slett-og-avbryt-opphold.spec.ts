@@ -29,9 +29,9 @@ test.describe('Utenlandsopphold - Rediger, slett og avbryt', () => {
 
 			await page.getByRole('button', { name: 'Endre' }).click()
 
-			await expect(page.getByRole('combobox', { name: 'Land' })).toHaveValue(
-				LAND.AFG.kode
-			)
+			await expect(
+				page.getByText(LAND.AFG.navn, { exact: true }).filter({ visible: true })
+			).toBeVisible()
 			await expect(page.getByLabel('Startdato')).toHaveValue('01.01.2000')
 			await expect(page.getByLabel('Sluttdato (valgfritt)')).toHaveValue(
 				'31.12.2005'

@@ -4,11 +4,11 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
   Button,
+  UNSAFE_Combobox as Combobox,
   DatePicker,
   Modal,
   Radio,
   RadioGroup,
-  Select,
   VStack,
 } from '@navikt/ds-react'
 
@@ -69,6 +69,18 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     onSubmitCallback,
   })
 
+  const landOptions = React.useMemo(
+    () =>
+      landListeData.map((land) => ({
+        label: getTranslatedLand(land, locale),
+        value: land.landkode,
+      })),
+    [locale]
+  )
+  const selectedLandOptions = landOptions.filter(
+    (option) => option.value === localUtenlandsperiode?.landkode
+  )
+
   return (
     <Modal
       ref={modalRef}
@@ -103,20 +115,23 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
           }}
         >
           <VStack gap="6">
-            <Select
+            <input
+              type="hidden"
               form={UTENLANDSOPPHOLD_FORM_NAMES.form}
               name={UTENLANDSOPPHOLD_FORM_NAMES.land}
+              value={localUtenlandsperiode?.landkode ?? ''}
+            />
+            <Combobox
               data-testid={UTENLANDSOPPHOLD_FORM_NAMES.land}
               className={styles.select}
               label={intl.formatMessage({
                 id: 'utenlandsopphold.om_oppholdet_ditt_modal.land.label',
               })}
-              value={
-                localUtenlandsperiode?.landkode
-                  ? localUtenlandsperiode?.landkode
-                  : ''
+              options={landOptions}
+              selectedOptions={selectedLandOptions}
+              onToggleSelected={(landkode, isSelected) =>
+                handleLandChange(isSelected ? landkode : '')
               }
-              onChange={handleLandChange}
               error={
                 validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land]
                   ? intl.formatMessage(
@@ -147,16 +162,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     )
                   : ''
               }
-            >
-              <option disabled value="">
-                {' '}
-              </option>
-              {landListeData.map((land) => (
-                <option key={land.landkode} value={land.landkode}>
-                  {getTranslatedLand(land, locale)}
-                </option>
-              ))}
-            </Select>
+            />
             {localUtenlandsperiode?.landkode && (
               <>
                 {harLocalLandKravOmArbeid && (

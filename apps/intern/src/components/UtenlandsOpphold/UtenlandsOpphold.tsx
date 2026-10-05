@@ -13,9 +13,9 @@ import {
 
 import { parseEndUserDate } from '../../utils/dates'
 import { useBeregningContext } from '../BeregningContext'
+import { RHFCombobox } from '../BeregningForm/rhf-adapters/RHFCombobox'
 import { RHFDatePicker } from '../BeregningForm/rhf-adapters/RHFDatePicker'
 import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
-import { RHFSelect } from '../BeregningForm/rhf-adapters/RHFSelect'
 import { Divider } from '../Divider/Divider'
 import { OppholdListItem } from './OppholdListItem'
 import type { OppholdField, OppholdValues } from './types'
@@ -36,6 +36,11 @@ import type {
 
 import styles from './UtenlandsOpphold.module.css'
 
+const landOptions = landList.map(({ landkode, navn }) => ({
+	label: navn,
+	value: landkode,
+}))
+
 type UtenlandsOppholdProps = {
 	onSubmitDisabledChange?: (isDisabled: boolean) => void
 }
@@ -50,7 +55,7 @@ export const UtenlandsOpphold = ({
 		name: ['harOppholdUtenforNorge'] as const,
 	})
 
-	const { fields, remove, replace, update } = useFieldArray({
+	const { fields, remove, replace } = useFieldArray({
 		control,
 		name: 'utenlandsOpphold',
 	})
@@ -92,10 +97,6 @@ export const UtenlandsOpphold = ({
 		control,
 		name: activeFieldName('arbeidetUtenlands'),
 	})
-
-	const landOptions = currentLand
-		? landList
-		: [{ landkode: '', navn: '' }, ...landList]
 
 	const foedselsdato = formatFoedselsdato(person?.foedselsdato)
 	const foedselsdatoDate = parseEndUserDate(foedselsdato)
@@ -237,11 +238,20 @@ export const UtenlandsOpphold = ({
 			return
 		}
 
-		if (mode === 'edit') {
-			update(activeIndex, opphold)
-		} else {
-			replace([...savedOpphold, opphold])
-		}
+		const oppholdList =
+			mode === 'edit'
+				? savedOpphold.map((saved, index) =>
+						index === activeIndex ? opphold : saved
+					)
+				: [...savedOpphold, opphold]
+		replace(
+			oppholdList.sort((firstOpphold, secondOpphold) => {
+				const firstStartdato = parseEndUserDate(firstOpphold.fom)
+				const secondStartdato = parseEndUserDate(secondOpphold.fom)
+
+				return secondStartdato.getTime() - firstStartdato.getTime()
+			})
+		)
 
 		closeOppholdEditor()
 	}
@@ -342,17 +352,12 @@ export const UtenlandsOpphold = ({
 				className={styles.landRadioHStack}
 			>
 				<div className={styles.selectLandWrapper}>
-					<RHFSelect
+					<RHFCombobox
 						name={getOppholdFieldName(index, 'landkode')}
 						label="Land"
 						className={styles.selectLand}
-					>
-						{landOptions.map((land) => (
-							<option key={land.landkode || 'empty'} value={land.landkode}>
-								{land.navn}
-							</option>
-						))}
-					</RHFSelect>
+						options={landOptions}
+					/>
 				</div>
 
 				{currentLand && harKravOmArbeidFromLandkode(currentLand) && (

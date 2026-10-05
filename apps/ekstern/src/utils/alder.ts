@@ -27,6 +27,11 @@ export const UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP: Alder = {
   maaneder: 0,
 }
 
+export const REDUKSJON_AFP_PRIVAT_ALDER: Alder = {
+  aar: 67,
+  maaneder: 0,
+}
+
 export const formatUttaksalder = (
   intl: IntlShape,
   { aar, maaneder }: Alder,

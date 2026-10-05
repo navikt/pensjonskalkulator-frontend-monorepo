@@ -15,9 +15,7 @@ async function expectAfpOgPensjonsavtalerIGrafOgTabell(page: Page) {
     const chart = page.getByTestId('highcharts-aria-wrapper')
     await expect(chart.getByText('Pensjonsgivende inntekt')).toBeVisible()
     await expect(chart.getByText(/AFP \(avtalefestet pensjon\)/)).toBeVisible()
-    await expect(
-      chart.getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
-    ).toBeVisible()
+    await expect(chart.getByText('Pensjon fra andre')).toBeVisible()
     await expect(chart.getByText('Alderspensjon (Nav)').first()).toBeVisible()
 
     await page.getByRole('button', { name: /Vis tabell/i }).click()
@@ -30,7 +28,7 @@ async function expectAfpOgPensjonsavtalerIGrafOgTabell(page: Page) {
     ).toBeVisible()
     await expect(
       page.getByRole('columnheader', {
-        name: /Pensjonsavtaler \(arbeidsgivere m\.m\.\)/i,
+        name: 'Pensjon fra andre',
       })
     ).toBeVisible()
     await expect(
@@ -43,9 +41,7 @@ async function expectPensjonsavtalerIGrafOgTabell(page: Page) {
   await test.step('Verify pensjonsavtaler in graph and table (without AFP)', async () => {
     const chart = page.getByTestId('highcharts-aria-wrapper')
     await expect(chart.getByText('Pensjonsgivende inntekt')).toBeVisible()
-    await expect(
-      chart.getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
-    ).toBeVisible()
+    await expect(chart.getByText('Pensjon fra andre')).toBeVisible()
     await expect(chart.getByText('Alderspensjon (Nav)').first()).toBeVisible()
 
     await page.getByRole('button', { name: /Vis tabell/i }).click()
@@ -55,7 +51,7 @@ async function expectPensjonsavtalerIGrafOgTabell(page: Page) {
     ).toBeVisible()
     await expect(
       page.getByRole('columnheader', {
-        name: /Pensjonsavtaler \(arbeidsgivere m\.m\.\)/i,
+        name: 'Pensjon fra andre',
       })
     ).toBeVisible()
     await expect(
@@ -68,9 +64,7 @@ async function expectIkkePensjonsavtalerIGrafOgTabell(page: Page) {
   await test.step('Verify pensjonsavtaler NOT in graph or table', async () => {
     const chart = page.getByTestId('highcharts-aria-wrapper')
     await expect(chart.getByText('Pensjonsgivende inntekt')).toBeVisible()
-    await expect(
-      chart.getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
-    ).not.toBeVisible()
+    await expect(chart.getByText('Pensjon fra andre')).not.toBeVisible()
     await expect(chart.getByText('Alderspensjon (Nav)').first()).toBeVisible()
 
     await page.getByRole('button', { name: /Vis tabell/i }).click()
@@ -80,7 +74,7 @@ async function expectIkkePensjonsavtalerIGrafOgTabell(page: Page) {
     ).toBeVisible()
     await expect(
       page.getByRole('columnheader', {
-        name: /Pensjonsavtaler \(arbeidsgivere m\.m\.\)/i,
+        name: 'Pensjon fra andre',
       })
     ).toHaveCount(0)
     await expect(

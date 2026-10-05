@@ -99,7 +99,7 @@ const translations = {
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'alderspensjon (Nav)',
   'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
-  'stegvisning.start.list_item3': 'pensjonsavtaler (arbeidsgivere m.m.)',
+  'stegvisning.start.list_item3': 'pensjon fra andre',
   'stegvisning.start.endring.ingress_2':
     'Du må svare på alle spørsmålene som kommer.',
   'stegvisning.start.ingress_2':
@@ -192,7 +192,7 @@ const translations = {
     'Er du sikker på at du vil slette oppholdet ditt?',
   'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
-  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjon fra andre',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vil du se tjenestepensjon og andre pensjonsavtaler i kalkulatoren, må du samtykke til at Nav henter disse opplysningene fra andre pensjonsordninger. Samtykket er frivillig.{br}{br} Hvis du svarer nei, får du beregnet alderspensjon (Nav) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.radio_label':
@@ -370,17 +370,17 @@ const translations = {
   'beregning.pensjonsavtaler.alert.endring':
     'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
   'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.afp_offentlig.error':
     'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
   'beregning.pensjonsavtaler.alert.offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo> pensjonsavtaler</scrollTo>.',
+    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
@@ -399,7 +399,7 @@ const translations = {
   'beregning.highcharts.yaxis': 'Kroner',
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
-  'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.highcharts.serie.tp.name': 'Pensjon fra andre',
   'beregning.highcharts.serie.afp.name': 'AFP (avtalefestet pensjon)',
   'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (Nav)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
@@ -445,8 +445,7 @@ const translations = {
   'beregning.avansert.maanedsbeloep.table_title': 'Månedlig pensjon',
   'beregning.avansert.maanedsbeloep.box_title': 'Ved ',
   'beregning.avansert.maanedsbeloep.afp': 'AFP (avtalefestet pensjon)',
-  'beregning.avansert.maanedsbeloep.pensjonsavtaler':
-    'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.avansert.maanedsbeloep.pensjonsavtaler': 'Pensjon fra andre',
   'beregning.avansert.maanedsbeloep.alderspensjon':
     'Alderspensjon (Nav) {prosent} %',
   'beregning.avansert.maanedsbeloep.sum': 'Sum pensjon {maanedOgAar}',
@@ -715,7 +714,7 @@ const translations = {
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
-  'pensjonsavtaler.title': 'Pensjonsavtaler',
+  'pensjonsavtaler.title': 'Pensjon fra andre',
   'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
   'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning {chunk}.',

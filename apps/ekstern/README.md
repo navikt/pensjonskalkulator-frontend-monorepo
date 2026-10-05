@@ -75,11 +75,16 @@ VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 ## Kjøre lokalt mot Q2
 
 1. Hent ut ACCESS_TOKEN fra <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:pensjonskalkulator:pensjonskalkulator-backend>
-1. Sett ACCESS_TOKEN som miljøvariabel
-1. Sett PENSJONSKALKULATOR_BACKEND miljøvariabel til: <https://pensjonskalkulator-backend.intern.dev.nav.no>
-1. `set -a` for å kunne source .env-filen i terminal
-1. `source .env.development-q2`
-1. Kjør `npm run start:q2`
+1. Opprett `.env.development-q2` (gitignored) i `apps/ekstern`:
+   ```
+   ACCESS_TOKEN=<token>
+   PENSJONSKALKULATOR_BACKEND=https://pensjonskalkulator-backend.intern.dev.nav.no
+   DETALJERT_KALKULATOR_URL=https://example.invalid
+   TOKEN_X_ISSUER=dummy
+   ```
+1. Kjør `pnpm dev:q2` og åpne <http://localhost:5173/pensjon/kalkulator>
+
+MSW er deaktivert i `dev:q2` (`VITE_DISABLE_MSW=true`), slik at API-kall går via Express-serveren til Q2. Tokenet utløper etter kort tid og må da hentes på nytt.
 
 Dekoratøren vil ikke matche opp med innlogget bruker, siden ACCESS_TOKEN hentes fra environment. For å bytte bruker må man logge ut med <https://logout.ekstern.nav.no/oauth2/logout>
 
