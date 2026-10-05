@@ -112,7 +112,7 @@ export default defineConfig({
   },
   test: {
     cache: false,
-    environment: 'jsdom',
+    environment: './scripts/vitest-environment-jsdom.ts',
     globals: true,
     setupFiles: 'src/test-setup.ts',
     testTimeout: 10000,
