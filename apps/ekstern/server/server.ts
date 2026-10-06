@@ -2,11 +2,13 @@ import { isBefore, isSameDay } from 'date-fns'
 import express, { NextFunction, Request, Response } from 'express'
 import promBundle from 'express-prom-bundle'
 import rateLimit from 'express-rate-limit'
+import { readFile } from 'fs/promises'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
 import { initialize } from 'unleash-client'
 import winston from 'winston'
 
+import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr/index.js'
 import {
   getToken,
   parseAzureUserToken,
@@ -352,9 +354,67 @@ app.get(
   }
 )
 
-app.get('/*splat', async (_req: Request, res: Response) => {
+const DECORATOR_ENV =
+  process.env.NAIS_CLUSTER_NAME === 'prod-gcp' ? 'prod' : 'dev'
+
+// Påkrevd for idporten (borger). Azure-appen (veileder) bruker ikke dekoratøren.
+const DECORATOR_REDIRECT_URL = process.env.DECORATOR_REDIRECT_URL
+if (AUTH_PROVIDER === 'idporten' && !DECORATOR_REDIRECT_URL) {
+  throw new Error('Missing DECORATOR_REDIRECT_URL')
+}
+
+const SUPPORTED_LANGUAGES = ['nb', 'nn', 'en'] as const
+type DecoratorLanguage = (typeof SUPPORTED_LANGUAGES)[number]
+
+// Cookie-verdien er brukerstyrt: kun verdier fra hvitelisten slipper gjennom
+const getDecoratorLanguage = (req: Request): DecoratorLanguage => {
+  const match = req.headers.cookie?.match(
+    /(?:^|;\s*)decorator-language=([^;]*)/
+  )
+  const value = match?.[1]
+  return SUPPORTED_LANGUAGES.find((lang) => lang === value) ?? 'nb'
+}
+
+let indexHtmlTemplate: string | undefined
+
+const renderIndexHtml = async (language: DecoratorLanguage) => {
+  indexHtmlTemplate ??= await readFile(
+    path.join(__dirname, 'index.html'),
+    'utf8'
+  )
+
+  // Falls back to CSR elements internally if the decorator can't be fetched
+  const decorator = await fetchDecoratorHtml({
+    env: DECORATOR_ENV,
+    params: {
+      context: 'privatperson',
+      chatbot: false,
+      logoutWarning: true,
+      redirectToUrl: DECORATOR_REDIRECT_URL,
+      language,
+      availableLanguages: unleash.isEnabled(
+        'pensjonskalkulator.disable-spraakvelger'
+      )
+        ? []
+        : SUPPORTED_LANGUAGES.map((locale) => ({ locale, handleInApp: true })),
+    },
+  })
+
+  // Function replacers avoid `$` patterns in the decorator markup being interpreted
+  return indexHtmlTemplate
+    .replace('<html lang="nb">', () => `<html lang="${language}">`)
+    .replace(
+      '<!-- DECORATOR_HEAD_ASSETS -->',
+      () => decorator.DECORATOR_HEAD_ASSETS
+    )
+    .replace('<!-- DECORATOR_HEADER -->', () => decorator.DECORATOR_HEADER)
+    .replace('<!-- DECORATOR_FOOTER -->', () => decorator.DECORATOR_FOOTER)
+    .replace('<!-- DECORATOR_SCRIPTS -->', () => decorator.DECORATOR_SCRIPTS)
+}
+
+app.get('/*splat', async (req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
-    res.sendFile(__dirname + '/index.html')
+    res.send(await renderIndexHtml(getDecoratorLanguage(req)))
     return
   } else if (AUTH_PROVIDER === 'azure') {
     res.redirect('/pensjon/kalkulator/veileder')

@@ -6,6 +6,7 @@ minimumReleaseAgeExclude:
   - ws
   - esbuild
   - '@babel/core'
+  - '@navikt/nav-dekoratoren-moduler@4.5.0'
 peerDependencyRules:
   allowedVersions:
     typescript: '>=5'

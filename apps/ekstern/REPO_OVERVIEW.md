@@ -127,7 +127,7 @@ The component tree is large; key groups:
 ## Paths & Environment
 
 - `src/paths.ts` builds API/HOST base URLs using Vite `BASE_URL`; `getHost` adds test host.
-- Env vars: `VITE_DECORATOR_URL`, `VITE_BYTT_BRUKER_URL`, `VITE_REPRESENTASJON_BANNER` used in templates and loaders; server expects OAuth/provider settings plus backend URL and Unleash settings.
+- Env vars: `VITE_BYTT_BRUKER_URL`, `VITE_REPRESENTASJON_BANNER` used in templates and loaders; server expects OAuth/provider settings plus backend URL and Unleash settings.
 
 ## Pages & Component Testing Notes
 

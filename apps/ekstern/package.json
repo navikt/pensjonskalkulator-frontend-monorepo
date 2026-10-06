@@ -68,7 +68,7 @@
     "@formatjs/intl-numberformat": "8.15.4",
     "@grafana/faro-web-sdk": "1.19.0",
     "@grafana/faro-web-tracing": "1.19.0",
-    "@navikt/nav-dekoratoren-moduler": "4.2.2",
+    "@navikt/nav-dekoratoren-moduler": "4.5.0",
     "@pensjonskalkulator-frontend-monorepo/mocks": "workspace:*",
     "@playwright/test": "catalog:",
     "@reduxjs/toolkit": "2.8.2",
