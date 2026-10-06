@@ -187,7 +187,7 @@ describe('LanguageProvider', () => {
         { locale: 'nb' },
       ])
       expect(sanityClientFetchMock.mock.calls[3]).toStrictEqual([
-        '*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}',
+        '*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,innhold}',
         { locale: 'nb' },
       ])
       expect(sanityClientFetchMock.mock.calls[4]).toStrictEqual([
@@ -203,7 +203,7 @@ describe('LanguageProvider', () => {
         { locale: 'en' },
       ])
       expect(sanityClientFetchMock.mock.calls[7]).toStrictEqual([
-        '*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}',
+        '*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,innhold}',
         { locale: 'en' },
       ])
     })

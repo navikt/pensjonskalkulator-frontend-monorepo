@@ -559,11 +559,20 @@ export type KortforbeholdQueryResult = Array<{
 	}>
 }>
 // Variable: alertQuery
-// Query: *[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}
+// Query: *[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,innhold}
 export type AlertQueryResult = Array<{
 	name: string
 	type: 'global-alert' | 'info-card' | 'inline-message' | 'local-alert' | null
 	status: 'error' | 'info' | 'success' | 'warning' | null
+	infoCardStatus:
+		| 'attention'
+		| 'error'
+		| 'info'
+		| 'message'
+		| 'success'
+		| 'tips'
+		| 'warning'
+		| null
 	overskrift: string | null
 	innhold: Array<{
 		children?: Array<{
@@ -598,7 +607,7 @@ export type AlertQueryResult = Array<{
 
 declare module '@sanity/client' {
 	interface SanityQueries {
-		'*[_type == "alert" && language == $locale] | {name,type,status,overskrift,innhold}': AlertQueryResult
+		'*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,innhold}': AlertQueryResult
 		'*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}': ForbeholdAvsnittQueryResult
 		'*[_type == "guidepanel" && language == $locale] | {name,overskrift,innhold}': GuidePanelQueryResult
 		'*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}': ReadMoreQueryResult

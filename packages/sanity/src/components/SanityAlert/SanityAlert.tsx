@@ -1,8 +1,13 @@
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { useContext } from 'react'
+import { type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
+import {
+	ExclamationmarkTriangleIcon,
+	InformationSquareIcon,
+	LightBulbIcon,
+} from '@navikt/aksel-icons'
 import {
 	GlobalAlert,
 	InfoCard,
@@ -25,7 +30,16 @@ const infoCardColorMap = {
 	success: 'success',
 	warning: 'warning',
 	error: 'danger',
+	message: 'info',
+	attention: 'warning',
+	tips: 'info',
 } as const
+
+const infoCardIconMap: Record<'message' | 'attention' | 'tips', ReactNode> = {
+	message: <InformationSquareIcon aria-hidden />,
+	attention: <ExclamationmarkTriangleIcon aria-hidden />,
+	tips: <LightBulbIcon aria-hidden />,
+}
 
 const alertStatusMap: Record<
 	AlertStatus,
@@ -60,6 +74,7 @@ export const SanityAlert = ({
 
 	const alertType = (sanityContent.type ?? 'local-alert') as AlertType
 	const status = (sanityContent.status ?? 'info') as AlertStatus
+	const infoCardStatus = sanityContent.infoCardStatus ?? status
 	const portableTextComponents = getSanityPortableTextComponents(
 		intl,
 		onLinkClick,
@@ -90,21 +105,42 @@ export const SanityAlert = ({
 				</GlobalAlert>
 			)
 
-		case 'info-card':
+		case 'info-card': {
+			if (infoCardStatus === 'message') {
+				return (
+					<InfoCard
+						data-color={infoCardColorMap[infoCardStatus]}
+						className={clsx(styles.wrapper, className)}
+						data-testid={sanityContent.name}
+					>
+						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
+							{content}
+						</InfoCard.Message>
+					</InfoCard>
+				)
+			}
+
 			return (
 				<InfoCard
-					data-color={infoCardColorMap[status]}
+					data-color={infoCardColorMap[infoCardStatus]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 				>
 					{sanityContent.overskrift && (
-						<InfoCard.Header>
+						<InfoCard.Header
+							icon={
+								infoCardStatus === 'attention' || infoCardStatus === 'tips'
+									? infoCardIconMap[infoCardStatus]
+									: undefined
+							}
+						>
 							<InfoCard.Title>{sanityContent.overskrift}</InfoCard.Title>
 						</InfoCard.Header>
 					)}
 					<InfoCard.Content>{content}</InfoCard.Content>
 				</InfoCard>
 			)
+		}
 
 		case 'inline-message':
 			return (
