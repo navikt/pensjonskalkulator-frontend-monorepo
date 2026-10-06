@@ -19,7 +19,7 @@
     "postfetch-dev-types": "pnpm format:types",
     "postfetch-prod-types": "pnpm format:types",
     "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
-    "prebuild": "pnpm fetch-land-liste && pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity fetch-sanity-data && pnpm run stylelint:check",
+    "prebuild": "pnpm --filter @pensjonskalkulator-frontend-monorepo/sanity fetch-sanity-data && pnpm run stylelint:check",
     "build": "tsc && vite build --mode staging",
     "build:server": "tsc -p tsconfig.server.json",
     "build:production": "tsc && vite build --mode production",

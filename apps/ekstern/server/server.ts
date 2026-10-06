@@ -156,6 +156,34 @@ app.get(
   }
 )
 
+// Åpent endepunkt i backend, trenger ikke autentisering
+app.get(
+  '/pensjon/kalkulator/api/v1/land-liste',
+  async (_: Request, res: Response) => {
+    try {
+      const landListeResponse = await fetch(
+        `${PENSJONSKALKULATOR_BACKEND}/api/v1/land-liste`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        }
+      )
+
+      res
+        .status(landListeResponse.status)
+        .type('application/json')
+        .send(await landListeResponse.text())
+    } catch (error) {
+      logger.error('Error fetching land-liste', {
+        error,
+      })
+      res.status(500).send({ error: 'Internal Server Error' })
+    }
+  }
+)
+
 // Unntak for feature toggle, trenger ikke autentisering
 app.get(
   '/pensjon/kalkulator/api/feature/:toggle',
