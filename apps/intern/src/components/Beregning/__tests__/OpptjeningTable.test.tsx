@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
 import { OpptjeningTable, mapOpptjeningToTableRows } from '../OpptjeningTable'
@@ -11,6 +11,10 @@ import {
 } from '../__mocks__/opptjening'
 
 const nbsp = '\u00A0'
+const mockOpptjeningMedNiAar = Array.from({ length: 9 }, (_, index) => ({
+	...mockOpptjeningKap20[0],
+	aarstall: 2024 - index,
+}))
 
 describe('mapOpptjeningToTableRows', () => {
 	test('mapper opptjening med pensjonsbeholdning for kap20-brukere', () => {
@@ -139,12 +143,80 @@ describe('mapOpptjeningToTableRows', () => {
 })
 
 describe('OpptjeningTable', () => {
+	test.each([
+		{
+			isOpptjeningAvdoedSection: false,
+			testId: 'opptjening-table-bruker',
+		},
+		{
+			isOpptjeningAvdoedSection: true,
+			testId: 'opptjening-table-avdoed',
+		},
+	])(
+		'viser åtte år først og kan åpne alle år for gjenlevenderett-tabeller',
+		({ isOpptjeningAvdoedSection, testId }) => {
+			render(
+				<OpptjeningTable
+					opptjening={mockOpptjeningMedNiAar}
+					erFoedtEtter1963={true}
+					isOpptjeningAvdoedSection={isOpptjeningAvdoedSection}
+					beregnesMedGjenlevenderett={true}
+				/>
+			)
+
+			const table = within(screen.getByTestId(testId))
+			expect(table.getAllByRole('row')).toHaveLength(9)
+			fireEvent.click(screen.getByRole('button', { name: 'Vis alle år' }))
+			expect(table.getAllByRole('row')).toHaveLength(10)
+			fireEvent.click(screen.getByRole('button', { name: 'Vis færre år' }))
+			expect(table.getAllByRole('row')).toHaveLength(9)
+		}
+	)
+
+	test('viser alle år uten gjenlevenderett og skjuler ReadMore', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningMedNiAar}
+				erFoedtEtter1963={true}
+				beregnesMedGjenlevenderett={false}
+			/>
+		)
+
+		expect(
+			within(screen.getByTestId('opptjening-table-bruker')).getAllByRole('row')
+		).toHaveLength(10)
+		expect(
+			screen.queryByRole('heading', { name: 'Gjenlevende' })
+		).not.toBeInTheDocument()
+		expect(
+			screen.queryByRole('button', { name: 'Vis alle år' })
+		).not.toBeInTheDocument()
+	})
+
+	test('viser alle år uten ReadMore når tabellen har åtte rader', () => {
+		render(
+			<OpptjeningTable
+				opptjening={mockOpptjeningMedNiAar.slice(0, 8)}
+				erFoedtEtter1963={true}
+				beregnesMedGjenlevenderett={true}
+			/>
+		)
+
+		expect(
+			within(screen.getByTestId('opptjening-table-bruker')).getAllByRole('row')
+		).toHaveLength(9)
+		expect(
+			screen.queryByRole('button', { name: 'Vis alle år' })
+		).not.toBeInTheDocument()
+	})
+
 	test('viser Merknad-kolonne', () => {
 		render(
 			<OpptjeningTable
 				opptjening={mockOpptjeningKap20}
 				erFoedtEtter1963={true}
 				erOvergangskull={false}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
@@ -159,11 +231,12 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningKap20}
 				erFoedtEtter1963={true}
 				erOvergangskull={false}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
 		expect(
-			screen.getByRole('heading', { name: 'Inntekt og pensjonsopptjening' })
+			screen.getByRole('heading', { name: 'Gjenlevende' })
 		).toBeInTheDocument()
 		expect(
 			screen.getByRole('columnheader', { name: 'Pensjonsbeholdning (kr)' })
@@ -214,12 +287,13 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningKap19}
 				erFoedtEtter1963={false}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 	})
@@ -230,12 +304,13 @@ describe('OpptjeningTable', () => {
 				opptjening={mockOpptjeningAvdoed}
 				erFoedtEtter1963={true}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 		expect(
@@ -251,12 +326,13 @@ describe('OpptjeningTable', () => {
 				erFoedtEtter1963={false}
 				erOvergangskull={false}
 				isOpptjeningAvdoedSection={true}
+				beregnesMedGjenlevenderett={true}
 			/>
 		)
 
 		expect(
 			screen.getByRole('heading', {
-				name: 'Inntekt og pensjonsopptjening avdøde',
+				name: 'Avdøde',
 			})
 		).toBeInTheDocument()
 		expect(

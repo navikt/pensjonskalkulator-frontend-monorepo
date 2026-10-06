@@ -2,8 +2,9 @@ import type {
 	Opptjening,
 	OpptjeningAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { useEffect, useState } from 'react'
 
-import { BodyShort, Box, Heading, Table } from '@navikt/ds-react'
+import { BodyShort, Box, Heading, ReadMore, Table } from '@navikt/ds-react'
 
 import styles from './BeregningTable.module.css'
 
@@ -74,6 +75,7 @@ interface OpptjeningTableProps {
 	erServiceberegning?: boolean
 	heltUttakAarstall?: number | null
 	inntektSlutterAarstall?: number | null
+	beregnesMedGjenlevenderett?: boolean
 }
 
 export function mapOpptjeningToTableRows(
@@ -119,7 +121,9 @@ export function OpptjeningTable({
 	erServiceberegning,
 	heltUttakAarstall,
 	inntektSlutterAarstall,
+	beregnesMedGjenlevenderett,
 }: OpptjeningTableProps) {
+	const [visAlleAar, setVisAlleAar] = useState(false)
 	const showPensjonsbeholdning =
 		!isOpptjeningAvdoedSection &&
 		!erServiceberegning &&
@@ -132,10 +136,14 @@ export function OpptjeningTable({
 		heltUttakAarstall,
 		inntektSlutterAarstall
 	)
+	const visReadMore = beregnesMedGjenlevenderett && rows.length > 8
+	const synligeRader = visReadMore && !visAlleAar ? rows.slice(0, 8) : rows
 
-	const title = isOpptjeningAvdoedSection
-		? 'Inntekt og pensjonsopptjening avdøde'
-		: 'Inntekt og pensjonsopptjening'
+	useEffect(() => {
+		setVisAlleAar(false)
+	}, [beregnesMedGjenlevenderett, opptjening])
+
+	const title = isOpptjeningAvdoedSection ? 'Avdøde' : 'Gjenlevende'
 
 	const testId = isOpptjeningAvdoedSection
 		? 'opptjening-table-avdoed'
@@ -143,9 +151,11 @@ export function OpptjeningTable({
 
 	return (
 		<div data-testid={testId}>
-			<Heading level="3" size="small" spacing>
-				{title}
-			</Heading>
+			{beregnesMedGjenlevenderett && (
+				<Heading level="4" size="xsmall" spacing>
+					{title}
+				</Heading>
+			)}
 			<Box overflowX={{ xs: 'auto', xl: 'visible' }}>
 				<Table
 					zebraStripes={rows.length > 3}
@@ -186,7 +196,7 @@ export function OpptjeningTable({
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{rows.map((row) => (
+						{synligeRader.map((row) => (
 							<Table.Row key={row.aar}>
 								<Table.DataCell>
 									<BodyShort size="small">{row.aar}</BodyShort>
@@ -214,6 +224,17 @@ export function OpptjeningTable({
 					</Table.Body>
 				</Table>
 			</Box>
+			{visReadMore && (
+				<ReadMore
+					header={visAlleAar ? 'Vis færre år' : 'Vis alle år'}
+					size="small"
+					style={{ marginTop: '8px' }}
+					open={visAlleAar}
+					onOpenChange={setVisAlleAar}
+				>
+					<span className="srOnly">Flere år vises i tabellen over.</span>
+				</ReadMore>
+			)}
 		</div>
 	)
 }
