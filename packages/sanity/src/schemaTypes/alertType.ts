@@ -11,12 +11,6 @@ import {
 	tagField,
 } from './common/commonSchemaTypes'
 
-const isInfoCardParent = (parent: unknown) =>
-	typeof parent === 'object' &&
-	parent !== null &&
-	'type' in parent &&
-	parent.type === 'info-card'
-
 export const alertType = defineType({
 	name: 'alert',
 	title: 'Alert',
@@ -60,7 +54,7 @@ export const alertType = defineType({
 			type: 'string',
 			title: 'Status',
 			description: 'Alvorlighetsgrad. For InfoCard styrer dette fargetemaet.',
-			hidden: ({ parent }) => isInfoCardParent(parent),
+			hidden: ({ document }) => document?.type === 'info-card',
 			initialValue: 'info',
 			options: {
 				list: [
@@ -78,7 +72,7 @@ export const alertType = defineType({
 			type: 'string',
 			title: 'Status',
 			description: 'Velg visningstype for InfoCard.',
-			hidden: ({ parent }) => !isInfoCardParent(parent),
+			hidden: ({ document }) => document?.type !== 'info-card',
 			initialValue: 'info',
 			options: {
 				list: [
