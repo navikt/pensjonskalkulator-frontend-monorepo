@@ -24,7 +24,6 @@ import styles from './SanityAlert.module.scss'
 
 type AlertType = 'global-alert' | 'local-alert' | 'info-card' | 'inline-message'
 type AlertStatus = 'info' | 'success' | 'warning' | 'error'
-type InfoCardStatus = AlertStatus | 'message' | 'attention' | 'tips'
 
 const infoCardColorMap = {
 	info: 'info',
@@ -40,11 +39,6 @@ const infoCardIconMap: Record<'message' | 'attention' | 'tips', ReactNode> = {
 	message: <InformationSquareIcon aria-hidden />,
 	attention: <ExclamationmarkTriangleIcon aria-hidden />,
 	tips: <LightBulbIcon aria-hidden />,
-}
-
-const infoCardTitleMap: Partial<Record<InfoCardStatus, string>> = {
-	attention: 'Pass på',
-	tips: 'Tips',
 }
 
 const alertStatusMap: Record<
@@ -132,7 +126,7 @@ export const SanityAlert = ({
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 				>
-					{(sanityContent.overskrift || infoCardTitleMap[infoCardStatus]) && (
+					{sanityContent.overskrift && (
 						<InfoCard.Header
 							icon={
 								infoCardStatus === 'attention' || infoCardStatus === 'tips'
@@ -140,9 +134,7 @@ export const SanityAlert = ({
 									: undefined
 							}
 						>
-							<InfoCard.Title>
-								{sanityContent.overskrift ?? infoCardTitleMap[infoCardStatus]}
-							</InfoCard.Title>
+							<InfoCard.Title>{sanityContent.overskrift}</InfoCard.Title>
 						</InfoCard.Header>
 					)}
 					<InfoCard.Content>{content}</InfoCard.Content>
