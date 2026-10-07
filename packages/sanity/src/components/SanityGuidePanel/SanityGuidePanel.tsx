@@ -46,11 +46,11 @@ export const SanityGuidePanel = ({
 
 			<PortableText
 				value={sanityContent.innhold}
-				components={getSanityPortableTextComponents(
+				components={getSanityPortableTextComponents({
 					intl,
 					onLinkClick,
-					dynamicValues
-				)}
+					dynamicValues,
+				})}
 			/>
 
 			{children}

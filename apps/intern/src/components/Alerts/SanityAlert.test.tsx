@@ -1,8 +1,10 @@
 import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import type { ContextType } from 'react'
 import { IntlProvider } from 'react-intl'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
+
+import { Button } from '@navikt/ds-react'
 
 import { SanityAlert } from './SanityAlert'
 
@@ -74,4 +76,119 @@ describe('SanityAlert InfoCard status', () => {
 			'warning'
 		)
 	})
+
+	test('provides the CMS button label to app-rendered children', () => {
+		const action = vi.fn()
+		const alert = {
+			name: 'test-action-alert',
+			type: 'local-alert',
+			status: 'error',
+			overskrift: 'Lagring feilet',
+			buttonLabel: 'Prøv på nytt',
+			innhold: [],
+		} as unknown as SanityContextValue['alertData'][string]
+		const contextValue = {
+			alertData: { 'test-action-alert': alert },
+			guidePanelData: {},
+			readMoreData: {},
+			forbeholdAvsnittData: [],
+			isSanityLoading: false,
+		} satisfies SanityContextValue
+
+		render(
+			<IntlProvider locale="nb" messages={{}}>
+				<SanityContext.Provider value={contextValue}>
+					<SanityAlert id="test-action-alert">
+						<Button data-testid="lagre-brev-feil-retry" onClick={action} />
+					</SanityAlert>
+				</SanityContext.Provider>
+			</IntlProvider>
+		)
+
+		const button = screen.getByRole('button', { name: 'Prøv på nytt' })
+		expect(screen.getAllByText('Prøv på nytt')).toHaveLength(1)
+		expect(button).toHaveAttribute('data-testid', 'lagre-brev-feil-retry')
+		fireEvent.click(button)
+		expect(action).toHaveBeenCalledOnce()
+	})
+
+	test('keeps explicit app button text over the Sanity label', () => {
+		const alert = {
+			name: 'test-action-alert',
+			type: 'local-alert',
+			status: 'error',
+			overskrift: 'Lagring feilet',
+			buttonLabel: 'CMS-tekst',
+			innhold: [],
+		} as unknown as SanityContextValue['alertData'][string]
+		const contextValue = {
+			alertData: { 'test-action-alert': alert },
+			guidePanelData: {},
+			readMoreData: {},
+			forbeholdAvsnittData: [],
+			isSanityLoading: false,
+		} satisfies SanityContextValue
+
+		render(
+			<IntlProvider locale="nb" messages={{}}>
+				<SanityContext.Provider value={contextValue}>
+					<SanityAlert id="test-action-alert">
+						<Button>App-tekst</Button>
+					</SanityAlert>
+				</SanityContext.Provider>
+			</IntlProvider>
+		)
+
+		expect(
+			screen.getByRole('button', { name: 'App-tekst' })
+		).toBeInTheDocument()
+		expect(screen.queryByRole('button', { name: 'CMS-tekst' })).toBeNull()
+	})
+
+	test.each(['1', '2', '3'])(
+		'renders %sG using the app-provided value',
+		(multiplier) => {
+			const alert = {
+				name: 'test-g-multiple',
+				type: 'local-alert',
+				status: 'info',
+				overskrift: null,
+				innhold: [
+					{
+						_type: 'block',
+						_key: 'g-multiple-block',
+						style: 'normal',
+						markDefs: [],
+						children: [
+							{
+								_type: 'dynamicValue',
+								_key: 'g-multiple-value',
+								valueType: 'gMultiple',
+								gMultiplier: multiplier,
+							},
+						],
+					},
+				],
+			} as unknown as SanityContextValue['alertData'][string]
+			const contextValue = {
+				alertData: { 'test-g-multiple': alert },
+				guidePanelData: {},
+				readMoreData: {},
+				forbeholdAvsnittData: [],
+				isSanityLoading: false,
+			} satisfies SanityContextValue
+
+			render(
+				<IntlProvider locale="nb" messages={{}}>
+					<SanityContext.Provider value={contextValue}>
+						<SanityAlert id="test-g-multiple" dynamicValues={{ G: 2 }} />
+					</SanityContext.Provider>
+				</IntlProvider>
+			)
+
+			expect(
+				screen.getByText(String(2 * Number(multiplier)))
+			).toBeInTheDocument()
+		}
+	)
 })

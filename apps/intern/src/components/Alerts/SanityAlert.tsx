@@ -5,7 +5,12 @@ import {
 } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { type ReactNode, useContext } from 'react'
+import {
+	type ReactElement,
+	type ReactNode,
+	cloneElement,
+	useContext,
+} from 'react'
 import { useIntl } from 'react-intl'
 
 import {
@@ -70,7 +75,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
-	children?: ReactNode
+	children?: ReactElement<{ children?: ReactNode }>
 }
 
 export const SanityAlert = ({
@@ -102,6 +107,16 @@ export const SanityAlert = ({
 		onLinkClick,
 		dynamicValues
 	)
+	const buttonLabel =
+		'buttonLabel' in sanityContent &&
+		typeof sanityContent.buttonLabel === 'string'
+			? sanityContent.buttonLabel
+			: null
+	const childLabel = children?.props.children ?? buttonLabel
+	const renderedChildren =
+		children && childLabel != null
+			? cloneElement(children, undefined, childLabel)
+			: null
 
 	const content = (
 		<>
@@ -109,7 +124,7 @@ export const SanityAlert = ({
 				value={sanityContent.innhold}
 				components={portableTextComponents}
 			/>
-			{children}
+			{renderedChildren}
 		</>
 	)
 
