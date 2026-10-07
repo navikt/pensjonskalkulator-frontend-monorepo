@@ -249,12 +249,12 @@ export const BeregningAvansert = () => {
             logger('button klikk', {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'
-                : 'Beregning avansert: Endre avanserte valg',
+                : 'Beregning avansert: Endre Flere valg',
             })
             logger('knapp klikket', {
               tekst: isEndring
                 ? 'Beregning avansert: Endre valgene dine'
-                : 'Beregning avansert: Endre avanserte valg',
+                : 'Beregning avansert: Endre Flere valg',
             })
             setAvansertSkjemaModus('redigering')
           }}

@@ -914,11 +914,11 @@ test.describe('Flere valg', () => {
       })
 
       // 26
-      test('forventer jeg en lenke for å "endre avanserte valg"', async ({
+      test('forventer jeg en lenke for å "Endre Flere valg"', async ({
         page,
       }) => {
         const endreValgLink = page.getByRole('link', {
-          name: 'Endre avanserte valg',
+          name: 'Endre Flere valg',
         })
         await expect(endreValgLink).toBeVisible()
         await endreValgLink.click()
@@ -987,7 +987,7 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
         await expect(page.getByTestId('beregning-heading')).toBeVisible()
-        await page.getByRole('link', { name: 'Endre avanserte valg' }).click()
+        await page.getByRole('link', { name: 'Endre Flere valg' }).click()
       })
 
       // 27
@@ -1122,7 +1122,7 @@ test.describe('Flere valg', () => {
       }) => {
         await page.getByRole('button', { name: /Avbryt endring/i }).click()
         await expect(
-          page.getByRole('link', { name: 'Endre avanserte valg' })
+          page.getByRole('link', { name: 'Endre Flere valg' })
         ).toBeVisible()
       })
 
