@@ -182,7 +182,7 @@ export const BeregningAvansert = () => {
       navigate(paths.uventetFeil)
       logger('info', {
         tekst: 'Redirect til /uventet-feil',
-        data: 'fra Beregning Avansert',
+        data: 'fra Beregning Flere valg',
       })
     }
   }, [error])

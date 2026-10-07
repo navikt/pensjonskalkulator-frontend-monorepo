@@ -226,7 +226,7 @@ This overview should help you navigate every file and understand how the fronten
 ### State ↔ API ↔ UI Loop
 
 - Headers for RTK Query calls are derived from Redux state: `apiSlice.prepareHeaders` injects the encrypted fnr so veileder requests are scoped to the selected borger; `userInput` reducers are the only place that can update those values.
-- Derived selectors layer RTK Query responses (`getPerson`, `getLoependeVedtak`, `getInntekt`) with user choices to build request bodies in `state/api/utils.ts`; those payloads power `Beregning{Enkel,Avansert}` and pensjonsavtaler/TP simulations.
+- Derived selectors layer RTK Query responses (`getPerson`, `getLoependeVedtak`, `getInntekt`) with user choices to build request bodies in `state/api/utils.ts`; those payloads power `Beregning{Enkel,Flere valg}` and pensjonsavtaler/TP simulations.
 - `keepUnusedDataFor: 3600` keeps fetched data hot across route transitions so loaders and components share cache instead of rerequesting; `directAccessGuard` relies on that cache existing to allow deep links.
 - `flush`/`flushCurrentSimulation` in `userInputSlice` reset only the parts of state needed when switching tabs or starting a new session, preventing stale advanced-form values from leaking into simple results.
 - `xAxis` in `userInputSlice` is written by chart helpers and reused when switching tabs so chart state stays aligned with the current simulation response.

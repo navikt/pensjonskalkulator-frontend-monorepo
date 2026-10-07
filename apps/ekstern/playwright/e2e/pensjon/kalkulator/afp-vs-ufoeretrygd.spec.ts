@@ -5,10 +5,10 @@ import { loependeVedtak, person, tidligsteUttaksalder } from 'utils/mocks'
 import { fillOutStegvisning } from 'utils/navigation'
 
 async function clickAvansert(page: Page) {
-  await test.step('Click Avansert toggle', async () => {
+  await test.step('Click Flere valg toggle', async () => {
     await page
       .getByTestId('toggle-avansert')
-      .getByRole('radio', { name: 'Avansert' })
+      .getByRole('radio', { name: 'Flere valg' })
       .click()
   })
 }

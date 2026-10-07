@@ -49,7 +49,7 @@ export function getTidligstMuligUttakIngress({
         nedreAldersgrense: formatertNedreAldersgrense,
         normertPensjonsalder: formatertNormertPensjonsalder,
         link: getPdfLink({
-          displayText: 'Avansert',
+          displayText: 'Flere valg',
         }),
       }
     )
