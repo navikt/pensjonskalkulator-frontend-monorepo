@@ -562,7 +562,7 @@ const translations = {
   'grunnlag.endring.title': 'Om pensjonen din',
   'maanedsbeloep.title': 'Månedlig pensjon',
   'beregning.avansert.avbryt_modal.title':
-    'Hvis du går ut av Flere valg, mister du alle valgene dine.',
+    'Hvis du går ut av Flere valg, mister du det du har fylt ut.',
   'beregning.avansert.avbryt_modal.endring.title':
     'Hvis du går ut av beregningen, mister du alle valgene dine og går tilbake til start.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Flere valg',
@@ -652,7 +652,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig.endring':
     'Du har AFP i offentlig sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd':
-    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert> beregning.',
+    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert>.',
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen. Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.ja_privat':
@@ -660,7 +660,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_privat.endring':
     'Du har AFP i privat sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
-    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert> beregning.',
+    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert>.',
   'grunnlag.afp.ingress.vet_ikke':
     'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon. Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.vet_ikke.ufoeretrygd':

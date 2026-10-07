@@ -416,7 +416,7 @@ test.describe('Flere valg', () => {
         const modal = page.getByRole('dialog')
         await expect(modal).toBeVisible()
         await expect(modal).toContainText(
-          'Hvis du går ut av Flere valg, mister du alle valgene dine.'
+          'Hvis du går ut av Flere valg, mister du det du har fylt ut.'
         )
         // Click the confirm button in modal
         await modal
@@ -1135,7 +1135,7 @@ test.describe('Flere valg', () => {
         const modal = page.getByRole('dialog')
         await expect(modal).toBeVisible()
         await expect(modal).toContainText(
-          'Hvis du går ut av Flere valg, mister du alle valgene dine.'
+          'Hvis du går ut av Flere valg, mister du det du har fylt ut.'
         )
         // Click the confirm button in modal
         await modal
