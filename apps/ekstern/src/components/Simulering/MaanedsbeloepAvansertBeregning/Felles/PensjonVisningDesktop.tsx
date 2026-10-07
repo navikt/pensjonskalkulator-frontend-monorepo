@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { Box, HStack, Heading, VStack } from '@navikt/ds-react'
+import { Box, HGrid, Heading, VStack } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import {
@@ -36,7 +36,11 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
   if (!pensjonsdata.length) return null
 
   return (
-    <HStack gap="4 12" width="100%">
+    <HGrid
+      gap="4 12"
+      width="100%"
+      columns="repeat(auto-fit, minmax(min(100%, 18rem), 1fr))"
+    >
       {pensjonsdata.map((data, index) => {
         const harPre2025OffentligAFP =
           data.pre2025OffentligAfp && data.alderspensjon
@@ -69,10 +73,9 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
           <Box
             key={`desktop-${index}`}
             borderRadius="medium"
-            paddingInline="0 6"
-            paddingBlock="6 0"
+            paddingInline={pensjonsdata.length < 3 ? '0 6' : undefined}
+            paddingBlock="space-12 0"
             maxWidth={{ sm: '27rem', md: '31rem' }}
-            flexGrow="1"
             height="fit-content"
           >
             <VStack>
@@ -112,6 +115,6 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
           </Box>
         )
       })}
-    </HStack>
+    </HGrid>
   )
 }

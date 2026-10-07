@@ -249,7 +249,7 @@ test.describe('Endring av alderspensjon', () => {
             await expect(
               page
                 .getByTestId('highcharts-aria-wrapper')
-                .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+                .getByText('Pensjon fra andre')
             ).not.toBeVisible()
             await expect(
               page
@@ -328,7 +328,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page
@@ -402,7 +402,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page
@@ -1113,7 +1113,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page
@@ -1742,7 +1742,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page
@@ -2112,7 +2112,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page
@@ -2501,7 +2501,7 @@ test.describe('Endring av alderspensjon', () => {
           await expect(
             page
               .getByTestId('highcharts-aria-wrapper')
-              .getByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+              .getByText('Pensjon fra andre')
           ).not.toBeVisible()
           await expect(
             page

@@ -658,6 +658,71 @@ describe('BeregningAvansert', () => {
         expect(initiateMock).toHaveBeenCalledTimes(7)
       })
 
+      it.each<SimuleringProblemKode>(['SERVERFEIL', 'ANNEN_KLIENTFEIL'])(
+        'Når simuleringen svarer med problemkode %s, logges det feil og vises feilmelding i stedet for redigeringsmodus',
+        async (kode) => {
+          const user = userEvent.setup()
+          const loggerSpy = vi.spyOn(loggerUtils, 'logger')
+          mockResponse('/v9/alderspensjon/simulering', {
+            status: 200,
+            method: 'post',
+            json: {
+              alderspensjon: [],
+              vilkaarsproeving: { vilkaarErOppfylt: false },
+              harForLiteTrygdetid: false,
+              problem: { kode, beskrivelse: 'Noe gikk galt' },
+            },
+          })
+
+          const initiateMock = vi.spyOn(
+            apiSliceUtils.apiSlice.endpoints.alderspensjon,
+            'initiate'
+          )
+
+          const setAvansertSkjemaModusMock = vi.fn()
+          render(
+            <BeregningContext.Provider
+              value={{
+                ...contextMockedValues,
+                setAvansertSkjemaModus: setAvansertSkjemaModusMock,
+              }}
+            >
+              <BeregningAvansert />
+            </BeregningContext.Provider>,
+            {
+              preloadedState: {
+                userInput: {
+                  ...preloadedState.userInput,
+                  currentSimulation: {
+                    beregningsvalg: null,
+                    uttaksalder: { aar: 67, maaneder: 6 },
+                    aarligInntektFoerUttakBeloep: null,
+                    gradertUttaksperiode: null,
+                  },
+                },
+              },
+              preloadedApiState: defaultApiState,
+            }
+          )
+
+          expect(await screen.findByText('beregning.error')).toBeVisible()
+          expect(setAvansertSkjemaModusMock).not.toHaveBeenCalled()
+          expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
+            tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
+            variant: 'error',
+          })
+          expect(loggerSpy).not.toHaveBeenCalledWith('alert vist', {
+            tekst: 'Beregning avansert: Ikke høy nok opptjening',
+            variant: 'warning',
+          })
+          expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
+
+          const kallFoerRetry = initiateMock.mock.calls.length
+          await user.click(await screen.findByText('application.global.retry'))
+          expect(initiateMock.mock.calls.length).toBeGreaterThan(kallFoerRetry)
+        }
+      )
+
       it('Når simulering svarer med errorcode 503, vises ErrorPageUnexpected ', async () => {
         // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
         mockResponse('/v9/alderspensjon/simulering', {

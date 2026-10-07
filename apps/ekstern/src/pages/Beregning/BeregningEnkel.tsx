@@ -26,6 +26,7 @@ import {
 import {
   generateAlderspensjonEnkelRequestBody,
   generateTidligstMuligHeltUttakRequestBody,
+  harTekniskSimuleringsfeil,
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -188,8 +189,11 @@ export const BeregningEnkel = () => {
     }
   )
 
+  const harTekniskFeil = harTekniskSimuleringsfeil(alderspensjon)
+  const harFeil = isError || harTekniskFeil
+
   useEffect(() => {
-    if (alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
+    if (!harTekniskFeil && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
       logger('resultat vist', { tekst: 'Beregning enkel' })
       logger('grunnlag for beregningen', {
         tekst: 'antall opphold',
@@ -200,15 +204,18 @@ export const BeregningEnkel = () => {
 
   useEffect(() => {
     if (uttaksalder !== null) {
-      if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
-        logger(ALERT_VIST, {
-          tekst: 'Beregning enkel: Ikke høy nok opptjening',
-          variant: 'warning',
-        })
-      } else if (isError) {
+      if (harFeil) {
         logger(ALERT_VIST, {
           tekst: 'Beregning enkel: Klarte ikke beregne pensjon',
           variant: 'error',
+        })
+      } else if (
+        alderspensjon &&
+        !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
+      ) {
+        logger(ALERT_VIST, {
+          tekst: 'Beregning enkel: Ikke høy nok opptjening',
+          variant: 'warning',
         })
       }
     }
@@ -330,7 +337,7 @@ export const BeregningEnkel = () => {
         <div
           className={clsx(styles.container, styles.container__hasMobilePadding)}
         >
-          {isError ||
+          {harFeil ||
           (alderspensjon &&
             !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt &&
             uttaksalder &&
@@ -340,8 +347,8 @@ export const BeregningEnkel = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
 
-              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {isError ? (
+              <AlertDashBorder onRetry={harFeil ? onRetry : undefined}>
+                {harFeil ? (
                   <FormattedMessage id="beregning.error" />
                 ) : (
                   <FormattedMessage
@@ -414,6 +421,7 @@ export const BeregningEnkel = () => {
       )}
 
       {uttaksalder !== null &&
+        !harTekniskFeil &&
         alderspensjon &&
         alderspensjon?.vilkaarsproeving.vilkaarErOppfylt && (
           <>

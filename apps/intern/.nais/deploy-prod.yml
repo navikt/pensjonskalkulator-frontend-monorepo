@@ -10,7 +10,10 @@ metadata:
 spec:
   image: '{{ image }}'
   ingresses:
-    - https://pensjonskalkulator-frontend-intern.ansatt.nav.no
+    - https://pensjonskalkulator.ansatt.nav.no
+  redirects:
+    - from: 'http://pensjonskalkulator-frontend-intern.ansatt.nav.no'
+      to: 'https://pensjonskalkulator.ansatt.nav.no'
   port: 8080
   replicas:
     min: 2

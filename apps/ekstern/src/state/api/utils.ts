@@ -5,6 +5,18 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
+const TEKNISKE_PROBLEMKODER: ReadonlySet<SimuleringProblemKode> = new Set([
+  'ANNEN_KLIENTFEIL',
+  'SERVERFEIL',
+])
+
+export const harTekniskSimuleringsfeil = (
+  alderspensjon?: Pick<AlderspensjonResponseBody, 'problem'>
+): boolean => {
+  const kode = alderspensjon?.problem?.kode
+  return kode !== undefined && TEKNISKE_PROBLEMKODER.has(kode)
+}
+
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
   afp: AfpRadio | null,

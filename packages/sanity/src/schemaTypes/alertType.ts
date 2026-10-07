@@ -11,6 +11,12 @@ import {
 	tagField,
 } from './common/commonSchemaTypes'
 
+const isInfoCardParent = (parent: unknown) =>
+	typeof parent === 'object' &&
+	parent !== null &&
+	'type' in parent &&
+	parent.type === 'info-card'
+
 export const alertType = defineType({
 	name: 'alert',
 	title: 'Alert',
@@ -54,6 +60,7 @@ export const alertType = defineType({
 			type: 'string',
 			title: 'Status',
 			description: 'Alvorlighetsgrad. For InfoCard styrer dette fargetemaet.',
+			hidden: ({ parent }) => isInfoCardParent(parent),
 			initialValue: 'info',
 			options: {
 				list: [
@@ -67,8 +74,29 @@ export const alertType = defineType({
 			validation: (rule) => rule.required().error('Påkrevd'),
 		}),
 		defineField({
+			name: 'infoCardStatus',
+			type: 'string',
+			title: 'Status',
+			description: 'Velg visningstype for InfoCard.',
+			hidden: ({ parent }) => !isInfoCardParent(parent),
+			initialValue: 'info',
+			options: {
+				list: [
+					{ title: 'Info', value: 'info' },
+					{ title: 'Success', value: 'success' },
+					{ title: 'Warning', value: 'warning' },
+					{ title: 'Error', value: 'error' },
+					{ title: 'Message', value: 'message' },
+					{ title: 'Attention', value: 'attention' },
+					{ title: 'Tips', value: 'tips' },
+				],
+				layout: 'radio',
+			},
+		}),
+		defineField({
 			...overskriftField,
-			description: 'Valgfri overskrift. Brukes ikke for InlineMessage.',
+			description:
+				'Valgfri overskrift. Brukes ikke for InlineMessage eller InfoCard med status Message.',
 		}),
 		defineField({
 			...innholdField,

@@ -18,6 +18,7 @@ import {
 	BodyShort,
 	Box,
 	Button,
+	Heading,
 	Loader,
 	Tabs,
 	VStack,
@@ -91,6 +92,8 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_offentlig' &&
 		erKap19EllerApoteker(person?.foedselsdato, erApoteker)
 	const erServiceberegning = aktivBeregning?.afp === 'serviceberegning'
+	const beregnesMedGjenlevenderett =
+		aktivBeregning?.beregnMedGjenlevenderett === true
 
 	const opptjening = beregning?.opptjeningListe
 
@@ -532,7 +535,10 @@ export const Beregning = () => {
 					</Tabs.Panel>
 					{opptjening && (
 						<Tabs.Panel value="opptjening" className={styles.tabPanel}>
-							<VStack gap="space-32">
+							<VStack gap="space-16">
+								<Heading level="3" size="small">
+									Inntekt og pensjonsopptjening
+								</Heading>
 								<OpptjeningTable
 									opptjening={opptjening}
 									erOvergangskull={erOvergangskull}
@@ -542,6 +548,7 @@ export const Beregning = () => {
 									erServiceberegning={erServiceberegning}
 									heltUttakAarstall={heltUttakAarstall}
 									inntektSlutterAarstall={inntektSlutterAarstall}
+									beregnesMedGjenlevenderett={beregnesMedGjenlevenderett}
 								/>
 
 								{aktivBeregning?.beregnMedGjenlevenderett &&

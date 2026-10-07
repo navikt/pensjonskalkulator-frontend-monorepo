@@ -874,9 +874,9 @@ export interface components {
       /** Format: int32 */
       pensjonstillegg?: number | null
       /** Format: int32 */
-      garantitillegg?: number | null
-      /** Format: int32 */
       skjermingstillegg?: number | null
+      /** Format: int32 */
+      garantitillegg?: number | null
       /** Format: int32 */
       kapittel19Gjenlevendetillegg?: number | null
     }
@@ -944,12 +944,35 @@ export interface components {
       opptjeningGrunnlagListe?:
         | components['schemas']['PersonligSimuleringAarligInntektResultV9'][]
         | null
+      problem?: components['schemas']['SimuleringProblem'] | null
     }
     PersonligSimuleringVilkaarsproevingResultV9: {
       vilkaarErOppfylt: boolean
       alternativ?:
         | components['schemas']['PersonligSimuleringAlternativResultV9']
         | null
+    }
+    SimuleringProblem: {
+      /** @enum {string} */
+      kode:
+        | 'UGYLDIG_UTTAKSDATO'
+        | 'UGYLDIG_UTTAKSGRAD'
+        | 'UGYLDIG_SIVILSTATUS'
+        | 'UGYLDIG_INNTEKT'
+        | 'UGYLDIG_ANTALL_AAR'
+        | 'UGYLDIG_PERSONIDENT'
+        | 'PERSON_IKKE_FUNNET'
+        | 'PERSON_FOR_LAV_ALDER'
+        | 'PERSON_FOR_HOEY_ALDER'
+        | 'UTILSTREKKELIG_INNTEKT'
+        | 'UTILSTREKKELIG_OPPTJENING'
+        | 'UTILSTREKKELIG_TRYGDETID'
+        | 'ANNEN_KLIENTFEIL'
+        | 'INTERN_DATA_INKONSISTENS'
+        | 'IMPLEMENTASJONSFEIL'
+        | 'TREDJEPARTSFEIL'
+        | 'SERVERFEIL'
+      beskrivelse: string
     }
     PersonligSimuleringInnvilgetLivsvarigOffentligAfpSpecV3: {
       /** Format: double */
