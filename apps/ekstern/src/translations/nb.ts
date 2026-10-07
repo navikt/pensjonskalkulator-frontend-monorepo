@@ -585,13 +585,13 @@ const translations = {
   'beregning.endring.rediger.vedtak_betaling_status':
     'I {maaned} var dette <strong><nowrap>{beloep} kr</nowrap></strong> før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
-  'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
+  'grunnlag.uttaksgrad.avansert_link': 'Gå til Flere valg',
   'grunnlag.uttaksgrad.ingress':
-    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I avansert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.',
+    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I Flere valg kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
   'grunnlag.inntekt.avansert_kalkulator':
     'Du kan legge til inntekt ved siden av pensjon i ',
-  'grunnlag.inntekt.avansert_link': 'avansert kalkulator',
+  'grunnlag.inntekt.avansert_link': 'Flere valg',
   'grunnlag.inntekt.ingress':
     'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>. Du kan legge til inntekt ved siden av pensjon i ',
   'grunnlag.inntekt.ingress.endring':
@@ -687,8 +687,7 @@ const translations = {
     'Årlig inntekt frem til uttak: <nowrap>{beloep} kr</nowrap>',
   'savnerdunoe.title': 'Savner du noe?',
   'savnerdunoe.title.endring': 'Klar til å søke om endring?',
-  'savnerdunoe.ingress':
-    'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Flere valg.',
+  'savnerdunoe.ingress': 'Flere valg for uttaksgrad, pensjonsalder og inntekt',
   'savnerdunoe.ingress.endring':
     'Send søknad om endring av alderspensjon i Din pensjon (åpner i en ny fane)',
   'pensjonsavtaler.fra_og_med_forklaring':
