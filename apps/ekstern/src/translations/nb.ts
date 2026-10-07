@@ -438,7 +438,7 @@ const translations = {
     'Beregningen din blir ikke lagret hos Nav. Hvis du har behov for å ta vare på eller skrive ut beregningen, kan du laste den ned.',
   'beregning.pdf.button': 'Last ned beregningen som PDF',
   'beregning.avansert.link.endre_valgene_dine': 'Endre valgene dine',
-  'beregning.avansert.link.endre_avanserte_valg': 'Endre Flere valg',
+  'beregning.avansert.link.endre_avanserte_valg': 'Endre valgene dine',
   'beregning.avansert.link.om_vilkaar_for_afp': 'Om vilkår for uttak av AFP',
   'beregning.avansert.endring_banner.title': 'Alderspensjon når du er ',
   'beregning.avansert.endring_banner.kr_md': 'kr/md.',

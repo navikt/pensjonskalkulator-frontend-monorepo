@@ -918,7 +918,7 @@ test.describe('Flere valg', () => {
         page,
       }) => {
         const endreValgLink = page.getByRole('link', {
-          name: 'Endre Flere valg',
+          name: 'Endre valgene dine',
         })
         await expect(endreValgLink).toBeVisible()
         await endreValgLink.click()
@@ -987,7 +987,7 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
         await expect(page.getByTestId('beregning-heading')).toBeVisible()
-        await page.getByRole('link', { name: 'Endre Flere valg' }).click()
+        await page.getByRole('link', { name: 'Endre valgene dine' }).click()
       })
 
       // 27
@@ -1122,7 +1122,7 @@ test.describe('Flere valg', () => {
       }) => {
         await page.getByRole('button', { name: /Avbryt endring/i }).click()
         await expect(
-          page.getByRole('link', { name: 'Endre Flere valg' })
+          page.getByRole('link', { name: 'Endre valgene dine' })
         ).toBeVisible()
       })
 
