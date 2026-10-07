@@ -524,7 +524,9 @@ export const Beregning = () => {
 									size="small"
 									onClick={handleLagreSimulering}
 									data-testid="lagre-brev-feil-retry"
-								/>
+								>
+									Prøv på nytt
+								</Button>
 							</SanityAlert>
 						)}
 					</Tabs.Panel>

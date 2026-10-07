@@ -99,8 +99,8 @@ export const getSanityPortableTextComponents = (
 							target={value.openInNewTab ? '_blank' : undefined}
 							inlineText
 						>
-							{isExternal ? value.url : value.anchorId}
-							{isExternal && (
+							{value.label?.trim() || (isExternal ? value.url : value.anchorId)}
+							{value.openInNewTab && (
 								<ExternalLinkIcon
 									title={resolvedIntl.formatMessage({
 										id: 'application.global.external_link',

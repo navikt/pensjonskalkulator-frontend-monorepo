@@ -2,6 +2,7 @@ import { type ObjectInputProps, PatchEvent, unset } from 'sanity'
 
 const typeSpecificFields = [
 	'key',
+	'label',
 	'anchorId',
 	'url',
 	'openInNewTab',

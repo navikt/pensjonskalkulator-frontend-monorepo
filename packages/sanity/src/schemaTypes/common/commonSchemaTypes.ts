@@ -154,6 +154,18 @@ export const innholdField = defineField({
 								),
 						}),
 						defineField({
+							name: 'label',
+							type: 'string',
+							title: 'Lenketekst',
+							hidden: ({ parent }) => !isLinkValueParent(parent),
+							validation: (rule) =>
+								rule.custom((value, context) =>
+									!isLinkValueParent(context.parent) || Boolean(value?.trim())
+										? true
+										: 'Lenketekst er påkrevd'
+								),
+						}),
+						defineField({
 							name: 'anchorId',
 							type: 'string',
 							title: 'ID på mål',

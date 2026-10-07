@@ -112,38 +112,114 @@ describe('SanityAlert InfoCard status', () => {
 		expect(action).toHaveBeenCalledOnce()
 	})
 
-	test('keeps explicit app button text over the Sanity label', () => {
-		const alert = {
-			name: 'test-action-alert',
-			type: 'local-alert',
-			status: 'error',
-			overskrift: 'Lagring feilet',
-			buttonLabel: 'CMS-tekst',
-			innhold: [],
-		} as unknown as SanityContextValue['alertData'][string]
-		const contextValue = {
-			alertData: { 'test-action-alert': alert },
-			guidePanelData: {},
-			readMoreData: {},
-			forbeholdAvsnittData: [],
-			isSanityLoading: false,
-		} satisfies SanityContextValue
+	test.each([undefined, null, '', '   ', 'CMS-tekst'])(
+		'preserves the action with CMS label %j and falls back to app text',
+		(buttonLabel) => {
+			const action = vi.fn()
+			const alert = {
+				name: 'test-action-alert',
+				type: 'local-alert',
+				status: 'error',
+				overskrift: 'Lagring feilet',
+				...(buttonLabel === undefined ? {} : { buttonLabel }),
+				innhold: [],
+			} as unknown as SanityContextValue['alertData'][string]
+			const contextValue = {
+				alertData: { 'test-action-alert': alert },
+				guidePanelData: {},
+				readMoreData: {},
+				forbeholdAvsnittData: [],
+				isSanityLoading: false,
+			} satisfies SanityContextValue
 
-		render(
-			<IntlProvider locale="nb" messages={{}}>
-				<SanityContext.Provider value={contextValue}>
-					<SanityAlert id="test-action-alert">
-						<Button>App-tekst</Button>
-					</SanityAlert>
-				</SanityContext.Provider>
-			</IntlProvider>
-		)
+			render(
+				<IntlProvider locale="nb" messages={{}}>
+					<SanityContext.Provider value={contextValue}>
+						<SanityAlert id="test-action-alert">
+							<Button onClick={action}>Prøv på nytt</Button>
+						</SanityAlert>
+					</SanityContext.Provider>
+				</IntlProvider>
+			)
 
-		expect(
-			screen.getByRole('button', { name: 'App-tekst' })
-		).toBeInTheDocument()
-		expect(screen.queryByRole('button', { name: 'CMS-tekst' })).toBeNull()
-	})
+			const expectedLabel = buttonLabel?.trim() || 'Prøv på nytt'
+			const button = screen.getByRole('button', { name: expectedLabel })
+			expect(button).toBeInTheDocument()
+			fireEvent.click(button)
+			expect(action).toHaveBeenCalledOnce()
+		}
+	)
+
+	test.each([
+		{ valueType: 'internalLink', openInNewTab: false, href: '#details' },
+		{ valueType: 'internalLink', openInNewTab: true, href: '#details' },
+		{ valueType: 'externalLink', openInNewTab: false, href: 'https://nav.no' },
+		{ valueType: 'externalLink', openInNewTab: true, href: 'https://nav.no' },
+	])(
+		'renders labeled $valueType with openInNewTab=$openInNewTab',
+		({ valueType, openInNewTab, href }) => {
+			const action = vi.fn()
+			const iconTitle = 'Opens in a new tab'
+			const alert = {
+				name: 'test-link',
+				type: 'local-alert',
+				innhold: [
+					{
+						_type: 'block',
+						_key: 'link-block',
+						style: 'normal',
+						markDefs: [],
+						children: [
+							{
+								_type: 'dynamicValue',
+								_key: 'link-value',
+								valueType,
+								label: 'Read more',
+								anchorId: 'details',
+								url: 'https://nav.no',
+								openInNewTab,
+							},
+						],
+					},
+				],
+			} as unknown as SanityContextValue['alertData'][string]
+			const contextValue = {
+				alertData: { 'test-link': alert },
+				guidePanelData: {},
+				readMoreData: {},
+				forbeholdAvsnittData: [],
+				isSanityLoading: false,
+			} satisfies SanityContextValue
+
+			render(
+				<IntlProvider
+					locale="nb"
+					messages={{ 'application.global.external_link': iconTitle }}
+				>
+					<SanityContext.Provider value={contextValue}>
+						<SanityAlert id="test-link" onLinkClick={action} />
+					</SanityContext.Provider>
+				</IntlProvider>
+			)
+
+			const link = screen.getByRole('link', { name: /Read more/ })
+			expect(link).toHaveAttribute('href', href)
+			expect(screen.getByText('Read more')).toBeInTheDocument()
+			expect(screen.queryByText('details')).not.toBeInTheDocument()
+			expect(screen.queryByText('https://nav.no')).not.toBeInTheDocument()
+			if (openInNewTab) {
+				expect(link).toHaveAttribute('target', '_blank')
+				expect(screen.getByTitle(iconTitle)).toBeInTheDocument()
+			} else {
+				expect(link).not.toHaveAttribute('target')
+				expect(screen.queryByTitle(iconTitle)).not.toBeInTheDocument()
+				expect(link).toHaveAccessibleName('Read more')
+			}
+			link.addEventListener('click', (event) => event.preventDefault())
+			fireEvent.click(link)
+			expect(action).toHaveBeenCalledOnce()
+		}
+	)
 
 	test.each(['1', '2', '3'])(
 		'renders %sG using the app-provided value',

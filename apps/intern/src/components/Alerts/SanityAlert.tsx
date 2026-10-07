@@ -110,13 +110,12 @@ export const SanityAlert = ({
 	const buttonLabel =
 		'buttonLabel' in sanityContent &&
 		typeof sanityContent.buttonLabel === 'string'
-			? sanityContent.buttonLabel
+			? sanityContent.buttonLabel.trim()
 			: null
-	const childLabel = children?.props.children ?? buttonLabel
 	const renderedChildren =
-		children && childLabel != null
-			? cloneElement(children, undefined, childLabel)
-			: null
+		children && buttonLabel
+			? cloneElement(children, undefined, buttonLabel)
+			: children
 
 	const content = (
 		<>
