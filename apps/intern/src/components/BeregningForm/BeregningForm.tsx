@@ -86,6 +86,9 @@ export const BeregningForm = () => {
 		erApoteker,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const dynamicGrunnbeloep: Record<string, string | number> = grunnbeloep
+		? { G: grunnbeloep.grunnbeløp }
+		: {}
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
@@ -507,6 +510,7 @@ export const BeregningForm = () => {
 								id="beregning.ugyldig-uttaksgrad"
 								className={styles.sanityAlert}
 								dynamicValues={{
+									...dynamicGrunnbeloep,
 									'tidligst-endring-uttaksgrad-dato':
 										forTidligEndringAvUttaksgradDato,
 								}}
@@ -524,12 +528,11 @@ export const BeregningForm = () => {
 										}
 										className={styles.sanityAlert}
 										dynamicValues={{
+											...dynamicGrunnbeloep,
 											grad: visGradert
-												? String(
-														beregning.vilkaarsproevingsresultat?.alternativ
-															?.uttaksgrad ?? 100
-													)
-												: '100',
+												? (beregning.vilkaarsproevingsresultat?.alternativ
+														?.uttaksgrad ?? 100)
+												: 100,
 											alder:
 												visGradert && vilkaarAlternativGradert
 													? formaterAlderString(
@@ -540,10 +543,9 @@ export const BeregningForm = () => {
 															vilkaarAlternativHelt.aar,
 															vilkaarAlternativHelt.maaneder
 														),
-											grad_gradert: String(
+											grad_gradert:
 												beregning.vilkaarsproevingsresultat?.alternativ
-													?.uttaksgrad ?? 100
-											),
+													?.uttaksgrad ?? 100,
 											gradert_alder: vilkaarAlternativGradert
 												? formaterAlderString(
 														vilkaarAlternativGradert.aar,
@@ -582,7 +584,8 @@ export const BeregningForm = () => {
 										id="beregning.fremtidigAlderspensjon"
 										className={styles.sanityAlert}
 										dynamicValues={{
-											grad: String(fremtidigAlderspensjon?.grad ?? 100),
+											...dynamicGrunnbeloep,
+											grad: fremtidigAlderspensjon?.grad ?? 100,
 											vedtakDato: fremtidigAlderspensjon
 												? format(
 														parseISO(fremtidigAlderspensjon.fom),

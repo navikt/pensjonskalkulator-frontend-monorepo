@@ -59,7 +59,7 @@ const readMoreQuery = defineQuery(
   `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
 )
 const alertQuery = defineQuery(
-  `*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,innhold}`
+  `*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
 )
 
 interface Props {

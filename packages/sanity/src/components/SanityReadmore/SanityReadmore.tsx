@@ -40,11 +40,11 @@ export const SanityReadmore = ({
 		>
 			<PortableText
 				value={sanityContent.innhold}
-				components={getSanityPortableTextComponents(
+				components={getSanityPortableTextComponents({
 					intl,
 					onLinkClick,
-					dynamicValues
-				)}
+					dynamicValues,
+				})}
 			/>
 		</ReadMore>
 	)
