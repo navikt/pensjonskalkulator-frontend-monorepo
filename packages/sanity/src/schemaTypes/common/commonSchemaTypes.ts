@@ -1,6 +1,11 @@
 import { defineField } from 'sanity'
 
-import { DynamicValueInput } from '../../components/DynamicValueInput'
+import {
+	DynamicValueInlineEditor,
+	DynamicValueInput,
+	DynamicValuePortableTextInput,
+	DynamicValueTypeInput,
+} from '../../components/DynamicValueInput'
 
 const isLinkValueParent = (parent: unknown) =>
 	typeof parent === 'object' &&
@@ -50,6 +55,7 @@ export const overskriftField = defineField({
 export const innholdField = defineField({
 	name: 'innhold',
 	type: 'array',
+	components: { input: DynamicValuePortableTextInput },
 	of: [
 		{
 			type: 'block',
@@ -69,12 +75,16 @@ export const innholdField = defineField({
 					type: 'object',
 					name: 'dynamicValue',
 					title: 'Dynamisk verdi',
-					components: { input: DynamicValueInput },
+					components: {
+						input: DynamicValueInput,
+						inlineBlock: DynamicValueInlineEditor,
+					},
 					fields: [
 						defineField({
 							name: 'valueType',
 							type: 'string',
 							title: 'Type verdi',
+							components: { input: DynamicValueTypeInput },
 							options: {
 								list: [
 									{ title: 'Intern lenke', value: 'internalLink' },
