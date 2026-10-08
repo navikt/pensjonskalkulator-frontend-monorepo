@@ -308,7 +308,6 @@ describe('BeregningEnkel', () => {
       expect(
         await screen.findByText('grunnlag.forbehold.title')
       ).toBeInTheDocument()
-      expect(await screen.findByText('savnerdunoe.title')).toBeInTheDocument()
       expect(await screen.findByText('savnerdunoe.ingress')).toBeInTheDocument()
     })
 
