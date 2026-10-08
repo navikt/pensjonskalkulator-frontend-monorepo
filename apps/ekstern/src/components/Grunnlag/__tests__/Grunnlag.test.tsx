@@ -72,7 +72,7 @@ describe('Grunnlag', () => {
     ).toBeVisible()
   })
 
-  it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
+  it('når grunnlag vises i Flere valg visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
     renderGrunnlagMedPreloadedState('2', 'avansert')
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
     expect(

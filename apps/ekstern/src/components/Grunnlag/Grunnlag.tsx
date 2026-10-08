@@ -200,7 +200,7 @@ export const Grunnlag: React.FC<Props> = ({
                     ...getFormatMessageValues(),
                     avansert: (
                       <Link href="#" onClick={goToAvansert}>
-                        avansert kalkulator
+                        Flere valg
                       </Link>
                     ),
                   }}

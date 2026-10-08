@@ -331,18 +331,18 @@ const translations = {
     ' Det kan bli senere fordi pensjonsalderen i Norge øker.',
   'tidligstmuliguttak.pre2025OffentligAfp.ingress':
     'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
-  'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Avansert',
+  'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Flere valg',
   'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
-    'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
+    'I Flere valg kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress.afp':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon og pensjonsavtaler fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}I {link} kan du beregne kombinasjoner av alderspensjon og uføretrygd før <nowrap>{normertPensjonsalder}</nowrap> eller alderspensjon og AFP fra {nedreAldersgrense}.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
-  'omufoeretrygd.avansert_link': 'Avansert',
+  'omufoeretrygd.avansert_link': 'Flere valg',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'velguttaksalder.endring.title': 'Når vil du endre alderspensjonen din?',
   'velguttaksalderafp.title': 'Når vil du ta ut AFP?',
@@ -358,7 +358,7 @@ const translations = {
   'beregning.intro.description_2.hel_UT':
     'Du har 100 % uføretrygd. Uføretrygd vises ikke i beregningen.',
   'beregning.toggle.enkel': 'Enkel',
-  'beregning.toggle.avansert': 'Avansert',
+  'beregning.toggle.avansert': 'Flere valg',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
@@ -438,7 +438,7 @@ const translations = {
     'Beregningen din blir ikke lagret hos Nav. Hvis du har behov for å ta vare på eller skrive ut beregningen, kan du laste den ned.',
   'beregning.pdf.button': 'Last ned beregningen som PDF',
   'beregning.avansert.link.endre_valgene_dine': 'Endre valgene dine',
-  'beregning.avansert.link.endre_avanserte_valg': 'Endre avanserte valg',
+  'beregning.avansert.link.endre_avanserte_valg': 'Endre valgene dine',
   'beregning.avansert.link.om_vilkaar_for_afp': 'Om vilkår for uttak av AFP',
   'beregning.avansert.endring_banner.title': 'Alderspensjon når du er ',
   'beregning.avansert.endring_banner.kr_md': 'kr/md.',
@@ -562,10 +562,10 @@ const translations = {
   'grunnlag.endring.title': 'Om pensjonen din',
   'maanedsbeloep.title': 'Månedlig pensjon',
   'beregning.avansert.avbryt_modal.title':
-    'Hvis du går ut av Avansert, mister du alle valgene dine.',
+    'Hvis du går ut av Flere valg, mister du det du har fylt ut.',
   'beregning.avansert.avbryt_modal.endring.title':
     'Hvis du går ut av beregningen, mister du alle valgene dine og går tilbake til start.',
-  'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Avansert',
+  'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Flere valg',
   'beregning.avansert.avbryt_modal.endring.button.avslutt':
     'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
@@ -585,13 +585,13 @@ const translations = {
   'beregning.endring.rediger.vedtak_betaling_status':
     'I {maaned} var dette <strong><nowrap>{beloep} kr</nowrap></strong> før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
-  'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
+  'grunnlag.uttaksgrad.avansert_link': 'Gå til Flere valg',
   'grunnlag.uttaksgrad.ingress':
-    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I avansert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.',
+    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I Flere valg kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
   'grunnlag.inntekt.avansert_kalkulator':
     'Du kan legge til inntekt ved siden av pensjon i ',
-  'grunnlag.inntekt.avansert_link': 'avansert kalkulator',
+  'grunnlag.inntekt.avansert_link': 'Flere valg',
   'grunnlag.inntekt.ingress':
     'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>. Du kan legge til inntekt ved siden av pensjon i ',
   'grunnlag.inntekt.ingress.endring':
@@ -652,7 +652,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig.endring':
     'Du har AFP i offentlig sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd':
-    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Avansert</goToAvansert> beregning.',
+    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert>.',
   'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
     'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at Nav beregner den. Derfor vises ikke AFP i beregningen. Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.ja_privat':
@@ -660,7 +660,7 @@ const translations = {
   'grunnlag.afp.ingress.ja_privat.endring':
     'Du har AFP i privat sektor. Din AFP er ikke påvirket av endringen din av alderspensjon. Den fortsetter som før.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
-    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Avansert</goToAvansert> beregning.',
+    'AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter at du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br} Vil du beregne hva du kan få i AFP, hvis du sier fra deg uføretrygden din? Da må du velge ‘Alderspensjon og AFP’ i <goToAvansert>Flere valg</goToAvansert>.',
   'grunnlag.afp.ingress.vet_ikke':
     'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon. Du kan endre valgene dine for AFP ved å gå tilbake til <goToAFP>AFP (avtalefestet pensjon)</goToAFP>.',
   'grunnlag.afp.ingress.vet_ikke.ufoeretrygd':
@@ -687,8 +687,7 @@ const translations = {
     'Årlig inntekt frem til uttak: <nowrap>{beloep} kr</nowrap>',
   'savnerdunoe.title': 'Savner du noe?',
   'savnerdunoe.title.endring': 'Klar til å søke om endring?',
-  'savnerdunoe.ingress':
-    'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
+  'savnerdunoe.ingress': 'Flere valg for uttaksgrad, pensjonsalder og inntekt',
   'savnerdunoe.ingress.endring':
     'Send søknad om endring av alderspensjon i Din pensjon (åpner i en ny fane)',
   'pensjonsavtaler.fra_og_med_forklaring':

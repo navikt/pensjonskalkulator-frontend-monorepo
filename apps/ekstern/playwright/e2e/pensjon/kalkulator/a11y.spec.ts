@@ -113,7 +113,7 @@ test.describe('Pensjonskalkulator a11y', () => {
 
     await page.getByTestId('toggle-avansert').waitFor({ state: 'visible' })
     const toggleAvansert = page.getByTestId('toggle-avansert')
-    await toggleAvansert.getByText('Avansert').click()
+    await toggleAvansert.getByText('Flere valg').click()
 
     await expect(
       page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
@@ -165,7 +165,7 @@ test.describe('Pensjonskalkulator a11y', () => {
 
     await page.getByTestId('toggle-avansert').waitFor({ state: 'visible' })
     const toggleAvansert = page.getByTestId('toggle-avansert')
-    await toggleAvansert.getByText('Avansert').click()
+    await toggleAvansert.getByText('Flere valg').click()
 
     await page
       .getByTestId('age-picker-uttaksalder-helt-uttak-aar')

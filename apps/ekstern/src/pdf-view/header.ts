@@ -14,7 +14,7 @@ export const getPdfHeader = ({
     ? ''
     : isEnkel
       ? ': Enkel beregning'
-      : ': Avansert beregning'
+      : ': Flere valg beregning'
   return `<table role='presentation' style='width: 100%; margin-bottom: 1em;'>
     <tr class="header-with-logo">
       <td style='width: 70%;'>
