@@ -2,11 +2,11 @@
 
 .container {
   composes: frame from '../../../scss/modules/frame.module.scss';
-  background-color: var(--a-white);
+  background-color: var(--ax-bg-default);
   display: flex;
   flex-direction: column;
-  padding-top: var(--a-spacing-6) !important;
-  padding-bottom: var(--a-spacing-6) !important;
+  padding-top: var(--ax-space-24) !important;
+  padding-bottom: var(--ax-space-24) !important;
 
   &__hasMobilePadding {
     composes: frame__hasMobilePadding from '../../../scss/modules/frame.module.scss';
@@ -17,7 +17,7 @@
   max-width: variables.$container-max-width;
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-8);
+  gap: var(--ax-space-32);
 
   :global {
     .nowrap {
@@ -40,14 +40,14 @@
 }
 
 .spacer {
-  height: var(--a-spacing-4);
+  height: var(--ax-space-16);
   width: 100%;
   background-color: transparent;
-  margin: 0 0 var(--a-spacing-4) 0;
+  margin: 0 0 var(--ax-space-16) 0;
 
   &__small {
-    height: var(--a-spacing-1);
-    margin: 0 0 var(--a-spacing-1) 0;
+    height: var(--ax-space-4);
+    margin: 0 0 var(--ax-space-4) 0;
   }
 }
 

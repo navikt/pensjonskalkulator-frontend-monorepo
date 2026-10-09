@@ -2,13 +2,13 @@
   /* stylelint-disable-next-line property-no-unknown  */
   interpolate-size: allow-keywords;
 
-  --ac-show-more-mask: linear-gradient(
+  --show-more-mask: linear-gradient(
     rgb(0 0 0 / 100%),
     rgb(0 0 0 / 0%) calc(100% - 0.5rem)
   );
 
   position: relative;
-  border-radius: var(--a-border-radius-large);
+  border-radius: var(--ax-radius-8);
   height: fit-content; /* in case the parent is stretching */
   display: flex;
   flex-direction: column;
@@ -17,26 +17,23 @@
 
 .navds-show-more__button-wrapper {
   display: inline-block;
-  background: var(--a-bg-default);
-  border-radius: var(
-    --ac-button-border-radius,
-    var(--a-border-radius-medium)
-  ); /* same as Button */
+  background: var(--ax-bg-default);
+  border-radius: var(--ax-radius-4);
 }
 
 .navds-show-more--default,
 .navds-show-more--default .navds-show-more__button-wrapper {
-  background: var(--a-surface-default);
+  background: var(--ax-bg-default);
 }
 
 .navds-show-more--subtle,
 .navds-show-more--subtle .navds-show-more__button-wrapper {
-  background: var(--a-surface-subtle);
+  background: var(--ax-bg-neutral-soft);
 }
 
 .navds-show-more--info,
 .navds-show-more--info .navds-show-more__button-wrapper {
-  background: var(--a-surface-info-subtle);
+  background: var(--ax-bg-info-soft);
 }
 
 .navds-show-more__content {
@@ -45,7 +42,7 @@
 }
 
 .navds-show-more--closed .navds-show-more__content {
-  mask-image: var(--ac-show-more-mask);
+  mask-image: var(--show-more-mask);
   overflow: hidden;
 }
 
@@ -53,8 +50,8 @@
   text-align: center;
   left: 0;
   right: 0;
-  bottom: var(--a-spacing-4);
-  margin-top: var(--a-spacing-4);
+  bottom: var(--ax-space-16);
+  margin-top: var(--ax-space-16);
   z-index: 1;
   order: 1;
 }

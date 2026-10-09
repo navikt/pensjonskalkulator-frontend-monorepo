@@ -19,7 +19,7 @@ export default function Navigation({
   const { pathname } = useLocation()
 
   return (
-    <HStack gap="4" marginBlock="4 0" className={className}>
+    <HStack gap="space-16" marginBlock="space-16 space-0" className={className}>
       <Button type="submit" form={form} data-testid="stegvisning-neste-button">
         <FormattedMessage id="stegvisning.neste" />
       </Button>

@@ -2,7 +2,7 @@
 
 .visListekomponenter {
   width: 100%;
-  margin-top: var(--a-spacing-1);
+  margin-top: var(--ax-space-4);
 
   :global {
     .navds-read-more__content {
@@ -23,15 +23,15 @@
       width: 100%;
       box-sizing: border-box;
 
-      @media (min-width: variables.$a-breakpoint-lg) {
-        width: calc(var(--a-spacing-32) * 8);
+      @media (min-width: variables.$ax-breakpoint-lg) {
+        width: calc(var(--ax-space-128) * 8);
       }
     }
   }
 }
 
 .alderspensjonDetaljer {
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     max-width: variables.$container-max-width;
   }
 }
@@ -39,9 +39,9 @@
 .section {
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--a-spacing-12);
+  margin-bottom: var(--ax-space-48);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     max-width: variables.$container-max-width;
   }
 

@@ -1,16 +1,16 @@
 @use '../../scss/variables';
 
 .section {
-  margin-bottom: var(--a-spacing-10);
+  margin-bottom: var(--ax-space-40);
 }
 
 .intro {
-  @media (min-width: variables.$a-breakpoint-lg) {
-    margin-bottom: var(--a-spacing-4);
+  @media (min-width: variables.$ax-breakpoint-lg) {
+    margin-bottom: var(--ax-space-16);
   }
 
   &Title {
-    margin-bottom: var(--a-spacing-1);
+    margin-bottom: var(--ax-space-4);
   }
 }
 
@@ -26,11 +26,11 @@
     position: absolute;
     width: 4rem;
     height: 4rem;
-    margin: var(--a-spacing-2);
-    border: var(--a-spacing-2) solid var(--a-gray-600);
+    margin: var(--ax-space-8);
+    border: var(--ax-space-8) solid var(--ax-neutral-700);
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: var(--a-gray-600) transparent transparent;
+    border-color: var(--ax-neutral-700) transparent transparent;
 
     &:nth-child(1) {
       animation-delay: -0.45s;
@@ -50,7 +50,7 @@
   display: none;
 }
 
-@media (min-width: variables.$a-breakpoint-lg) {
+@media (min-width: variables.$ax-breakpoint-lg) {
   .infoClick {
     display: flex;
     position: absolute;
@@ -72,30 +72,33 @@
 
 .tooltip {
   right: 0.375rem;
-  background-color: var(--a-white);
+  background-color: var(--ax-bg-default);
   min-height: 115px;
   z-index: 3;
   position: relative;
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     min-height: 0;
     right: unset;
   }
 
   & path {
-    filter: drop-shadow(0 0 5px var(--a-grayalpha-400));
+    filter: drop-shadow(
+      0 0 5px color-mix(in srgb, var(--ax-neutral-600) 34%, transparent)
+    );
   }
 
   & > span {
     position: relative !important;
     width: 100% !important;
     display: block;
-    box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
-    border-radius: var(--a-spacing-1);
-    padding: var(--a-spacing-3) var(--a-spacing-4);
+    box-shadow: 0 0 var(--ax-space-4)
+      color-mix(in srgb, var(--ax-neutral-600) 34%, transparent);
+    border-radius: var(--ax-space-4);
+    padding: var(--ax-space-12) var(--ax-space-16);
 
-    @media (min-width: variables.$a-breakpoint-lg) {
-      background-color: var(--a-white);
+    @media (min-width: variables.$ax-breakpoint-lg) {
+      background-color: var(--ax-bg-default);
       position: absolute !important;
       width: auto !important;
       box-shadow: none;
@@ -111,25 +114,25 @@
     border-spacing: 0;
     z-index: 4;
 
-    @media (min-width: variables.$a-breakpoint-lg) {
+    @media (min-width: variables.$ax-breakpoint-lg) {
       width: 22rem;
-      border-width: var(--a-spacing-3) var(--a-spacing-4);
+      border-width: var(--ax-space-12) var(--ax-space-16);
       border-style: solid;
-      border-color: var(--a-white);
+      border-color: white;
       border-radius: 0.25rem;
     }
 
     &HeaderCell {
-      font-family: var(--a-font-family) !important;
+      font-family: var(--ax-font-family) !important;
       padding: 0.25rem 0;
       line-height: 1;
 
       &__left {
         white-space: break-spaces;
-        font-weight: var(--a-font-weight-regular);
-        font-size: var(--a-font-size-medium) !important;
+        font-weight: var(--ax-font-weight-regular);
+        font-size: var(--ax-font-size-medium) !important;
         text-align: left;
-        padding-right: var(--a-spacing-3);
+        padding-right: var(--ax-space-12);
 
         @media (width >= 400px) {
           white-space: unset;
@@ -137,18 +140,18 @@
       }
 
       &__right {
-        font-size: var(--a-font-size-large) !important;
-        font-weight: var(--a-font-weight-bold);
+        font-size: var(--ax-font-size-large) !important;
+        font-weight: var(--ax-font-weight-bold);
         text-align: right;
         white-space: nowrap;
-        padding-left: var(--a-spacing-2);
+        padding-left: var(--ax-space-8);
       }
     }
 
     &Cell {
       white-space: break-spaces;
-      font-family: var(--a-font-family);
-      font-size: var(--a-font-size-small);
+      font-family: var(--ax-font-family);
+      font-size: var(--ax-font-size-small);
       vertical-align: middle;
       padding: 0.188rem 0;
       line-height: 1;
@@ -158,17 +161,17 @@
       }
 
       &__right {
-        font-weight: var(--a-font-weight-bold);
+        font-weight: var(--ax-font-weight-bold);
         text-align: right;
       }
 
       &Dot {
-        height: var(--a-spacing-3);
-        width: var(--a-spacing-3);
+        height: var(--ax-space-12);
+        width: var(--ax-space-12);
         border-radius: 50%;
         display: inline-block;
         vertical-align: middle;
-        margin-right: var(--a-spacing-1);
+        margin-right: var(--ax-space-4);
         margin-top: -2px;
       }
     }
@@ -177,10 +180,14 @@
   &Line {
     position: absolute;
     width: 1px;
-    border-right: 1px dashed var(--a-white);
-    background-color: var(--a-grayalpha-500);
+    border-right: 1px dashed white;
+    background-color: color-mix(
+      in srgb,
+      var(--ax-neutral-600) 49%,
+      transparent
+    );
 
-    @media (min-width: variables.$a-breakpoint-lg) {
+    @media (min-width: variables.$ax-breakpoint-lg) {
       display: none;
     }
   }
@@ -196,7 +203,7 @@
     display: block;
     width: 80vw;
 
-    @media (min-width: variables.$a-breakpoint-sm) {
+    @media (min-width: variables.$ax-breakpoint-sm) {
       width: 100%;
     }
   }
@@ -205,11 +212,11 @@
     left: 1.125rem !important;
     right: 1.125rem;
 
-    @media (min-width: variables.$a-breakpoint-xl) {
+    @media (min-width: variables.$ax-breakpoint-xl) {
       margin-left: auto;
       margin-right: auto;
       width: 100% !important;
-      max-width: calc(variables.$a-breakpoint-xl-down - 2rem);
+      max-width: calc(variables.$ax-breakpoint-xl-down - 2rem);
     }
 
     & > svg {
@@ -236,7 +243,7 @@
         0 0 1em #fff,
         0 0 0.2em #fff;
 
-      @media (min-width: variables.$a-breakpoint-lg) {
+      @media (min-width: variables.$ax-breakpoint-lg) {
         width: 70px;
       }
 
@@ -254,7 +261,7 @@
           rgb(255 255 255 / 0%) 80%
         );
 
-        @media (min-width: variables.$a-breakpoint-lg) {
+        @media (min-width: variables.$ax-breakpoint-lg) {
           bottom: 4rem;
         }
       }
@@ -279,7 +286,7 @@
   }
 
   .highcharts-legend-item:hover {
-    color: var(--a-text-default) !important;
+    color: var(--ax-text-neutral) !important;
   }
 }
 
@@ -297,13 +304,13 @@
 :future,
 :root .tooltip path {
   stroke-width: 1px;
-  stroke: var(--a-gray-500);
+  stroke: var(--ax-neutral-600);
 }
 
 ::-webkit-full-page-media,
 :future,
 :root .tooltipTable {
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     width: unset;
     border-width: 0;
   }
@@ -313,7 +320,7 @@
 :future,
 :root .tooltipTableHeaderCell,
 :root .tooltipTableCell {
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     padding: 0;
   }
 }

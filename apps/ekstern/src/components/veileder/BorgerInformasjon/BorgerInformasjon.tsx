@@ -31,23 +31,28 @@ export const BorgerInformasjon = ({ fnr }: Props) => {
 
   return (
     <Box
-      background="bg-default"
+      background="default"
       borderWidth="0 0 1 0"
-      borderColor="border-divider"
+      borderColor="neutral-subtle"
     >
-      <HStack align="center" gap="2" className={styles.wrapper} style={{}}>
+      <HStack
+        align="center"
+        gap="space-8"
+        className={styles.wrapper}
+        style={{}}
+      >
         <BodyLong weight="semibold">
           {isPersonFetching ? <Loader /> : person?.navn}
         </BodyLong>
         <span aria-hidden="true">/</span>
-        <HStack align="center" gap="1">
+        <HStack align="center" gap="space-4">
           <BodyShort data-testid="borger-fnr" size="small" weight="semibold">
             F.nr.: {formatFnr(fnr)}
           </BodyShort>
           <CopyButton size="small" copyText={fnr} />
         </HStack>
         <Spacer />
-        <HStack gap="2">
+        <HStack gap="space-8">
           <Button
             onClick={onNullstillClick}
             data-testid="borger-nullstill"

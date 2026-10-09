@@ -1,11 +1,11 @@
 @use '../../../scss/variables';
 
 .ingress {
-  margin-bottom: var(--a-spacing-6);
+  margin-bottom: var(--ax-space-24);
 }
 
 .navigation {
-  margin-top: var(--a-spacing-6);
+  margin-top: var(--ax-space-24);
 }
 
 .selectSivilstand :global(.navds-select__container) {

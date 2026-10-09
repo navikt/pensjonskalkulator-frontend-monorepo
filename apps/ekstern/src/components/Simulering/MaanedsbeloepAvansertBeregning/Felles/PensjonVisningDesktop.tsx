@@ -37,7 +37,7 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
 
   return (
     <HGrid
-      gap="4 12"
+      gap="space-16 space-48"
       width="100%"
       columns="repeat(auto-fit, minmax(min(100%, 18rem), 1fr))"
     >
@@ -72,9 +72,11 @@ export const PensjonVisningDesktop: React.FC<Props> = ({
         return (
           <Box
             key={`desktop-${index}`}
-            borderRadius="medium"
-            paddingInline={pensjonsdata.length < 3 ? '0 6' : undefined}
-            paddingBlock="space-12 0"
+            borderRadius="4"
+            paddingInline={
+              pensjonsdata.length < 3 ? 'space-0 space-6' : undefined
+            }
+            paddingBlock="space-12 space-0"
             maxWidth={{ sm: '27rem', md: '31rem' }}
             height="fit-content"
           >
