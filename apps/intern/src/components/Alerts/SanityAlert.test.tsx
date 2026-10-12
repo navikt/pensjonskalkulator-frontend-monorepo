@@ -267,4 +267,48 @@ describe('SanityAlert InfoCard status', () => {
 			).toBeInTheDocument()
 		}
 	)
+
+	test('renders a preformatted age dynamic value unchanged', () => {
+		const alert = {
+			name: 'test-age',
+			type: 'local-alert',
+			status: 'info',
+			overskrift: null,
+			innhold: [
+				{
+					_type: 'block',
+					_key: 'age-block',
+					style: 'normal',
+					markDefs: [],
+					children: [
+						{
+							_type: 'dynamicValue',
+							_key: 'age-value',
+							key: 'alder',
+						},
+					],
+				},
+			],
+		} as unknown as SanityContextValue['alertData'][string]
+		const contextValue = {
+			alertData: { 'test-age': alert },
+			guidePanelData: {},
+			readMoreData: {},
+			forbeholdAvsnittData: [],
+			isSanityLoading: false,
+		} satisfies SanityContextValue
+
+		render(
+			<IntlProvider locale="nb" messages={{}}>
+				<SanityContext.Provider value={contextValue}>
+					<SanityAlert
+						id="test-age"
+						dynamicValues={{ alder: '63 år og 2 måneder' }}
+					/>
+				</SanityContext.Provider>
+			</IntlProvider>
+		)
+
+		expect(screen.getByText('63 år og 2 måneder')).toBeInTheDocument()
+	})
 })

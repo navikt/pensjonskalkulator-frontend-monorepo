@@ -106,25 +106,33 @@ export const innholdField = defineField({
 								isLinkValueParent(parent) || isGMultipleParent(parent),
 							options: {
 								list: [
-									{ title: 'Alder', value: 'alder' },
-									{ title: 'Uttaksgrad', value: 'grad' },
+									{ title: 'Valgt alder for uttak', value: 'alder' },
+									{ title: 'Uttaksgrad fra vedtak', value: 'grad' },
 									{
-										title: 'Uttaksgrad ved gradert uttak',
+										title: 'Uttaksgrad ved gradert uttak - NAU',
 										value: 'grad_gradert',
 									},
-									{ title: 'Alder ved gradert uttak', value: 'gradert_alder' },
+									{
+										title: 'Alder ved gradert uttak - NAU',
+										value: 'gradert_alder',
+									},
+									{
+										title: 'Alder ved helt uttak - NAU',
+										value: 'helt_alder',
+									},
 									{ title: 'Dato for vedtak', value: 'vedtakDato' },
 									{
 										title: 'Tidligste endringsdato',
 										value: 'tidligstEndringDato',
 									},
 									{
-										title: 'Tidligste dato for endring av uttaksgrad',
+										title:
+											'Tidligste dato for endring av uttaksgrad - 12 måneders regel',
 										value: 'tidligst-endring-uttaksgrad-dato',
 									},
 									{ title: 'TP-ordning', value: 'tpOrdning' },
 									{
-										title: 'Minste månedsinntekt for AFP',
+										title: 'Minste månedsinntekt for AFP (1G/12)',
 										value: 'afpMinsteMaanedsinntekt',
 									},
 									{ title: 'Fornavn', value: 'fornavn' },
