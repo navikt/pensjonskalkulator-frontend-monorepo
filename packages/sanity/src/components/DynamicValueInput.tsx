@@ -161,14 +161,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 	)
 }
 
-const typeSpecificFields = [
-	'key',
-	'label',
-	'anchorId',
-	'url',
-	'openInNewTab',
-	'gMultiplier',
-] as const
+const typeSpecificFields = ['key', 'gMultiplier'] as const
 
 export const DynamicValueInput = (props: ObjectInputProps) => {
 	const onTypeChange = (value: string) => {
@@ -176,7 +169,7 @@ export const DynamicValueInput = (props: ObjectInputProps) => {
 			PatchEvent.from(set(value, ['valueType'])).append(
 				...typeSpecificFields
 					.filter((field) => props.value && Object.hasOwn(props.value, field))
-					.map((field) => set(field === 'openInNewTab' ? false : '', [field]))
+					.map((field) => set('', [field]))
 			)
 		)
 	}

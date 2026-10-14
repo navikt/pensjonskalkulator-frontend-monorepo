@@ -1,6 +1,6 @@
 import type { PortableTextReactComponents } from '@portabletext/react'
 import { createClient } from '@sanity/client'
-import { type ReactNode } from 'react'
+import { type MouseEvent, type ReactNode } from 'react'
 import type { IntlShape } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -12,6 +12,7 @@ type PortableTextComponentSize = 'small' | 'medium'
 interface SanityPortableTextComponentsParams {
 	intl: IntlShape
 	onLinkClick?: () => void
+	navigateToRoute?: (route: string) => void
 	dynamicValues?: DynamicValues
 	size?: PortableTextComponentSize
 }
@@ -43,11 +44,13 @@ export const getSanityPortableTextComponents = (
 	intlOrParams: IntlShape | SanityPortableTextComponentsParams,
 	onLinkClick?: () => void,
 	dynamicValues?: DynamicValues,
-	size?: PortableTextComponentSize
+	size?: PortableTextComponentSize,
+	navigateToRoute?: (route: string) => void
 ): Partial<PortableTextReactComponents> => {
 	const {
 		intl: resolvedIntl,
 		onLinkClick: resolvedOnLinkClick,
+		navigateToRoute: resolvedNavigateToRoute,
 		dynamicValues: resolvedDynamicValues,
 		size: resolvedSize,
 	} = isSanityPortableTextComponentsParams(intlOrParams)
@@ -55,6 +58,7 @@ export const getSanityPortableTextComponents = (
 		: {
 				intl: intlOrParams,
 				onLinkClick,
+				navigateToRoute,
 				dynamicValues,
 				size,
 			}
@@ -66,52 +70,12 @@ export const getSanityPortableTextComponents = (
 			}: {
 				value?: {
 					key?: string
-					label?: string
 					valueType?: string
 					gMultiplier?: string
-					anchorId?: string
-					url?: string
-					openInNewTab?: boolean
 				}
 			}) => {
 				const key = value?.valueType === 'gMultiple' ? 'G' : value?.key
 				const placeholder = `{${key ?? ''}}`
-
-				if (
-					value?.valueType === 'internalLink' ||
-					value?.valueType === 'externalLink'
-				) {
-					const isExternal = value.valueType === 'externalLink'
-					const href = isExternal
-						? value.url
-						: value.anchorId
-							? `#${value.anchorId}`
-							: undefined
-
-					if (!href) {
-						return <span>{placeholder}</span>
-					}
-
-					return (
-						<Link
-							onClick={resolvedOnLinkClick}
-							href={href}
-							target={value.openInNewTab ? '_blank' : undefined}
-							inlineText
-						>
-							{value.label?.trim() || (isExternal ? value.url : value.anchorId)}
-							{value.openInNewTab && (
-								<ExternalLinkIcon
-									title={resolvedIntl.formatMessage({
-										id: 'application.global.external_link',
-									})}
-									width="1.25rem"
-									height="1.25rem"
-								/>
-							)}
-						</Link>
-					)
-				}
 
 				if (!key) {
 					return <span>{placeholder}</span>
@@ -174,13 +138,69 @@ export const getSanityPortableTextComponents = (
 				value,
 				children,
 			}: {
-				value?: { blank: boolean; href: string; className?: string }
+				value?: {
+					linkType?: 'anchor' | 'route' | 'external'
+					href?: string
+					anchorId?: string
+					route?: string
+					blank?: boolean
+					className?: string
+				}
 				children?: ReactNode
 			}) => {
-				return value?.blank ? (
+				const linkType =
+					value?.linkType ??
+					(value?.href?.startsWith('#') ? 'anchor' : 'external')
+				const href =
+					linkType === 'anchor'
+						? value?.anchorId
+							? `#${value.anchorId}`
+							: value?.href
+						: linkType === 'route'
+							? value?.route
+							: value?.href
+
+				if ((linkType === 'anchor' || linkType === 'route') && !href) {
+					return children
+				}
+
+				const handleAnchorClick = (event: MouseEvent<HTMLAnchorElement>) => {
+					event.preventDefault()
+					resolvedOnLinkClick?.()
+
+					const targetId =
+						value?.anchorId ??
+						(value?.href?.startsWith('#') ? value.href.slice(1) : undefined)
+					const target = targetId ? document.getElementById(targetId) : null
+					if (target) {
+						const offsetTop =
+							target.getBoundingClientRect().top + window.scrollY
+						window.scrollTo({ top: offsetTop - 15, behavior: 'smooth' })
+					}
+				}
+
+				const handleRouteClick = (event: MouseEvent<HTMLAnchorElement>) => {
+					if (
+						!resolvedNavigateToRoute ||
+						!value?.route ||
+						event.defaultPrevented ||
+						event.button !== 0 ||
+						event.metaKey ||
+						event.ctrlKey ||
+						event.shiftKey ||
+						event.altKey
+					) {
+						return
+					}
+
+					event.preventDefault()
+					resolvedNavigateToRoute(value.route)
+				}
+
+				return linkType === 'external' && value?.blank ? (
 					<Link
 						onClick={resolvedOnLinkClick}
-						href={value?.href}
+						href={href}
 						target="_blank"
 						inlineText
 						className={value?.className}
@@ -196,8 +216,14 @@ export const getSanityPortableTextComponents = (
 					</Link>
 				) : (
 					<Link
-						onClick={resolvedOnLinkClick}
-						href={value?.href}
+						onClick={
+							linkType === 'route'
+								? handleRouteClick
+								: linkType === 'anchor'
+									? handleAnchorClick
+									: resolvedOnLinkClick
+						}
+						href={href}
 						inlineText
 						className={value?.className}
 					>

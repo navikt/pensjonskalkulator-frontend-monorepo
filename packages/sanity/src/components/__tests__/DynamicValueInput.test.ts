@@ -25,6 +25,7 @@ vi.mock('react', async (importOriginal) => ({
 	...(await importOriginal<typeof import('react')>()),
 	useContext: vi.fn(() => null),
 	useEffect: vi.fn(),
+	useEffectEvent: vi.fn((fn: () => void) => fn),
 	useId: vi.fn(() => 'dynamic-value-dialog'),
 	useState: vi.fn((initial: boolean) => [initial, vi.fn()]),
 }))
@@ -84,24 +85,16 @@ describe('DynamicValueInput', () => {
 		const { props, onTypeChange } = createObjectInput({
 			_type: 'dynamicValue',
 			_key: 'inline-value',
-			valueType: 'externalLink',
+			valueType: 'string',
 			key: 'alder',
-			label: 'Old label',
-			anchorId: 'old-anchor',
-			url: 'https://nav.no',
-			openInNewTab: true,
 			gMultiplier: '2',
 		})
-		onTypeChange('internalLink')
+		onTypeChange('gMultiple')
 
 		const event = PatchEvent.from(vi.mocked(props.onChange).mock.calls[0][0])
 		expect(event.patches).toEqual([
-			set('internalLink', ['valueType']),
+			set('gMultiple', ['valueType']),
 			set('', ['key']),
-			set('', ['label']),
-			set('', ['anchorId']),
-			set('', ['url']),
-			set(false, ['openInNewTab']),
 			set('', ['gMultiplier']),
 		])
 		expect(props.renderInput).not.toHaveBeenCalled()
@@ -118,7 +111,7 @@ describe('DynamicValueInput', () => {
 
 	it('preserves Sanitys default render props and callbacks', () => {
 		const { props } = createObjectInput({
-			valueType: 'internalLink',
+			valueType: 'string',
 		})
 
 		expect(vi.mocked(props.renderDefault).mock.calls[0][0]).toBe(props)
@@ -134,7 +127,7 @@ describe('DynamicValueInput', () => {
 				options: {
 					list: [
 						{ title: 'Tekst', value: 'string' },
-						{ title: 'Intern lenke', value: 'internalLink' },
+						{ title: 'Tall', value: 'number' },
 					],
 				},
 			},
@@ -150,12 +143,12 @@ describe('DynamicValueInput', () => {
 		expect(input.props.id).toBe(props.elementProps.id)
 		expect(choices.map((choice) => choice.props.text)).toEqual([
 			'Tekst',
-			'Intern lenke',
+			'Tall',
 		])
 		choices[0].props.onClick()
 		expect(props.onChange).not.toHaveBeenCalled()
 		choices[1].props.onClick()
-		expect(props.onChange).toHaveBeenCalledWith(set('internalLink'))
+		expect(props.onChange).toHaveBeenCalledWith(set('number'))
 
 		const onTypeChange = vi.fn()
 		vi.mocked(useContext).mockReturnValue(onTypeChange)
@@ -168,7 +161,7 @@ describe('DynamicValueInput', () => {
 		}>
 		const contextualChoices = contextualMenu.props.children
 		contextualChoices[1].props.onClick()
-		expect(onTypeChange).toHaveBeenCalledWith('internalLink')
+		expect(onTypeChange).toHaveBeenCalledWith('number')
 		expect(props.onChange).not.toHaveBeenCalled()
 	})
 })

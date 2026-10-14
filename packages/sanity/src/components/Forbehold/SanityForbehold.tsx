@@ -13,6 +13,7 @@ interface Props {
 	titleLevel?: '1' | '2' | '3' | '4' | '5' | '6'
 	avsnittTestId?: string
 	size?: 'small' | 'medium'
+	navigateToRoute?: (route: string) => void
 }
 
 /**
@@ -26,12 +27,13 @@ export const SanityForbehold = ({
 	titleLevel = '2',
 	avsnittTestId,
 	size = 'medium',
+	navigateToRoute,
 }: Props) => {
 	const intl = useIntl()
 
 	const portableTextComponents = React.useMemo(
-		() => getSanityPortableTextComponents({ intl, size }),
-		[intl, size]
+		() => getSanityPortableTextComponents({ intl, size, navigateToRoute }),
+		[intl, size, navigateToRoute]
 	)
 
 	return (
