@@ -138,16 +138,10 @@ export function renderWithProviders(
               alertData: Object.fromEntries(
                 (
                   sanityAlertDataResponse.result as Array<
-                    Omit<
-                      AlertQueryResult[number],
-                      'infoCardStatus' | 'buttonLabel'
-                    > &
-                      Partial<
-                        Pick<
-                          AlertQueryResult[number],
-                          'infoCardStatus' | 'buttonLabel'
-                        >
-                      >
+                    Omit<AlertQueryResult[number], 'infoCardStatus'> & {
+                      infoCardStatus?: AlertQueryResult[number]['infoCardStatus']
+                      buttonLabel?: string | null
+                    }
                   >
                 ).map((alert) => [
                   alert.name,
