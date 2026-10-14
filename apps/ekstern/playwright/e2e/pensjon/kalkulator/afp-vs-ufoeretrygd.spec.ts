@@ -5,10 +5,10 @@ import { loependeVedtak, person, tidligsteUttaksalder } from 'utils/mocks'
 import { fillOutStegvisning } from 'utils/navigation'
 
 async function clickAvansert(page: Page) {
-  await test.step('Click Avansert toggle', async () => {
+  await test.step('Click Flere valg toggle', async () => {
     await page
       .getByTestId('toggle-avansert')
-      .getByRole('radio', { name: 'Avansert' })
+      .getByRole('radio', { name: 'Flere valg' })
       .click()
   })
 }
@@ -665,9 +665,7 @@ test.describe('AFP vs uføretrygd', () => {
         })
 
         // 30
-        test('forventer jeg å kunne endre avanserte valg.', async ({
-          page,
-        }) => {
+        test('forventer jeg å kunne Endre Flere valg.', async ({ page }) => {
           await page.getByTestId('endre-valg').click()
           await selectUttaksgrad(page, '50 %')
           await page.getByRole('button', { name: 'Oppdater pensjon' }).click()
@@ -872,9 +870,7 @@ test.describe('AFP vs uføretrygd', () => {
         })
 
         // 42
-        test('forventer jeg å kunne endre avanserte valg.', async ({
-          page,
-        }) => {
+        test('forventer jeg å kunne Endre Flere valg.', async ({ page }) => {
           await page.getByTestId('endre-valg').click()
           await selectUttaksgrad(page, '50 %')
           await page.getByRole('button', { name: 'Oppdater pensjon' }).click()
