@@ -289,7 +289,7 @@ export default {
   'omufoeretrygd.hel.ingress':
     'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
-    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{skjulAvansertLenke, select, true {} other { If you want to calculate withdrawal before 67, you must go to {link}.}}{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
   'omufoeretrygd.avansert_link': 'Advanced',
   'velguttaksalder.title': 'When do you want to withdraw retirement pension?',

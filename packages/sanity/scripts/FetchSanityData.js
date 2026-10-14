@@ -27,7 +27,7 @@ const readMoreQuery =
 	'*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}'
 
 const alertQuery =
-	'*[_type == "alert" && (!defined(language) || language == $locale)] | {name,type,status,overskrift,innhold}'
+	'*[_type == "alert" && (!defined(language) || language == $locale)] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}'
 
 const kortForbeholdQuery =
 	'*[_type == "kortforbehold" && language == $locale] | {name,innhold}'

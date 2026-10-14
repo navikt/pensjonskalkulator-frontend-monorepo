@@ -75,11 +75,11 @@ export const SanityAlert = ({
 	const alertType = (sanityContent.type ?? 'local-alert') as AlertType
 	const status = (sanityContent.status ?? 'info') as AlertStatus
 	const infoCardStatus = sanityContent.infoCardStatus ?? status
-	const portableTextComponents = getSanityPortableTextComponents(
+	const portableTextComponents = getSanityPortableTextComponents({
 		intl,
 		onLinkClick,
-		dynamicValues
-	)
+		dynamicValues,
+	})
 
 	const content = (
 		<PortableText

@@ -55,6 +55,8 @@ export const TidligstMuligUttaksalder = ({
     intl,
     normertPensjonsalder
   )
+  const ufoeregradMellom80Og100 =
+    ufoeregrad && ufoeregrad >= 80 && ufoeregrad < 100
 
   const hasAFP =
     (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
@@ -128,9 +130,7 @@ export const TidligstMuligUttaksalder = ({
           <BodyLong size="medium" className={styles.ingress}>
             <FormattedMessage
               id={
-                ufoeregrad === 100
-                  ? 'omufoeretrygd.hel.ingress'
-                  : gradertIngress
+                ufoeregrad >= 80 ? 'omufoeretrygd.hel.ingress' : gradertIngress
               }
               values={{
                 ...getFormatMessageValues(),
@@ -142,6 +142,7 @@ export const TidligstMuligUttaksalder = ({
                 ),
                 nedreAldersgrense: formatertNedreAldersgrense,
                 normertPensjonsalder: formatertNormertPensjonsalder,
+                skjulAvansertLenke: ufoeregradMellom80Og100,
               }}
             />
           </BodyLong>
