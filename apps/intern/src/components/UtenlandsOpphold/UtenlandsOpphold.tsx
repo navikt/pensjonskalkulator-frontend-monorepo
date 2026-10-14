@@ -19,6 +19,7 @@ import { RHFRadio } from '../BeregningForm/rhf-adapters/RHFRadio'
 import { Divider } from '../Divider/Divider'
 import { OppholdListItem } from './OppholdListItem'
 import type { OppholdField, OppholdValues } from './types'
+import { useLiveAnnouncement } from './useLiveAnnouncement'
 import { useOppholdFokus } from './useOppholdFokus'
 import {
 	emptyOpphold,
@@ -63,7 +64,11 @@ export const UtenlandsOpphold = ({
 	})
 
 	const [activeIndex, setActiveIndex] = useState<number | null>(null)
-	const [bekreftelse, setBekreftelse] = useState('')
+	const {
+		message: bekreftelse,
+		announce: annonserBekreftelse,
+		clear: fjernBekreftelse,
+	} = useLiveAnnouncement()
 	const mode =
 		activeIndex === null
 			? 'closed'
@@ -267,7 +272,7 @@ export const UtenlandsOpphold = ({
 
 		if (mode === 'new') {
 			const land = getLandDetails(opphold.landkode)?.navn ?? opphold.landkode
-			setBekreftelse(`Opphold i ${land} er lagt til`)
+			annonserBekreftelse(`Opphold i ${land} er lagt til`)
 		}
 
 		closeOppholdEditor()
@@ -342,7 +347,7 @@ export const UtenlandsOpphold = ({
 	}
 
 	const handleEdit = (index: number) => {
-		setBekreftelse('')
+		fjernBekreftelse()
 		openOppholdEditor(index, getOppholdValues(index))
 	}
 
@@ -353,7 +358,7 @@ export const UtenlandsOpphold = ({
 
 		reopenEmptyOppholdRef.current = erSisteOpphold
 		remove(index)
-		setBekreftelse(`Opphold i ${land} er slettet`)
+		annonserBekreftelse(`Opphold i ${land} er slettet`)
 
 		// Uten flere opphold åpnes et tomt skjema i stedet for «Legg til nytt opphold»
 		if (erSisteOpphold) {
@@ -544,10 +549,9 @@ export const UtenlandsOpphold = ({
 								variant="secondary"
 								size="small"
 								onClick={() => {
-									setBekreftelse('')
+									fjernBekreftelse()
 									openNewOpphold()
 									fokuserLandSelect()
-									openNewOpphold()
 								}}
 								ref={leggTilNyttOppholdRef}
 								type="button"
