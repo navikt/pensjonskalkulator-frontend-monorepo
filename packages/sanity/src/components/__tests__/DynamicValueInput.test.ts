@@ -21,6 +21,7 @@ import {
 	createSchema,
 	set,
 	unset,
+	useFormValue,
 	validateDocument,
 } from 'sanity'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -33,7 +34,13 @@ import {
 	DynamicValueTypeInput,
 	LinkAnnotationEditor,
 	LinkAnnotationInput,
+	LinkAnnotationTypeInput,
 } from '../DynamicValueInput'
+
+vi.mock('sanity', async (importOriginal) => ({
+	...(await importOriginal<typeof import('sanity')>()),
+	useFormValue: vi.fn(),
+}))
 
 vi.mock('react', async (importOriginal) => ({
 	...(await importOriginal<typeof import('react')>()),
@@ -429,6 +436,67 @@ describe('DynamicValueInput', () => {
 		])
 		expect(props.renderInput).not.toHaveBeenCalled()
 	})
+
+	it.each([
+		{ href: 'https://nav.no', blank: true, inferredType: 'external' },
+		{ href: 'https://nav.no', blank: false, inferredType: 'external' },
+		{ href: '#details', blank: false, inferredType: 'anchor' },
+	])(
+		'normalizes a legacy $inferredType without clearing href or blank=$blank',
+		({ href, blank, inferredType }) => {
+			const parent = { href, blank, className: 'nowrap' }
+			const props = {
+				value: parent,
+				onChange: vi.fn(),
+				renderDefault: vi.fn(() => createElement('div')),
+			} as unknown as ObjectInputProps
+			const input = LinkAnnotationInput(props) as ReactElement<{
+				value: (value: string) => void
+			}>
+			vi.mocked(useContext).mockReturnValue(input.props.value)
+			vi.mocked(useFormValue).mockReturnValue(parent)
+			const fieldProps = {
+				path: [
+					'innhold',
+					{ _key: 'block' },
+					'markDefs',
+					{ _key: 'link' },
+					'linkType',
+				],
+				value: undefined,
+				elementProps: { id: 'linkType' },
+				schemaType: {
+					options: {
+						list: [
+							{ title: 'Ekstern lenke', value: 'external' },
+							{ title: 'Lenke til element på siden', value: 'anchor' },
+						],
+					},
+				},
+				onChange: vi.fn(),
+			} as unknown as StringInputProps
+			const inferred = LinkAnnotationTypeInput(fieldProps) as ReactElement<
+				StringInputProps & { fallbackValue: string }
+			>
+			expect(inferred.props.fallbackValue).toBe(inferredType)
+			expect(useFormValue).toHaveBeenLastCalledWith(
+				fieldProps.path.slice(0, -1)
+			)
+			const selector = DynamicValueTypeInput(
+				inferred.props
+			) as ReactElement<MenuButtonProps>
+			const menu = selector.props.menu as ReactElement<{
+				children: ReactElement<{ selected: boolean; onClick: () => void }>[]
+			}>
+			menu.props.children
+				.find((choice) => choice.props.selected)
+				?.props.onClick()
+			expect(
+				PatchEvent.from(vi.mocked(props.onChange).mock.calls[0][0]).patches
+			).toEqual([set(inferredType, ['linkType'])])
+			expect(parent).toEqual({ href, blank, className: 'nowrap' })
+		}
+	)
 
 	it('clears stale link fields when changing annotation type', () => {
 		const props = {

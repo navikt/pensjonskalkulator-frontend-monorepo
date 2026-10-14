@@ -1,10 +1,12 @@
 import type {
+	Alder,
 	EpsOpplysninger,
 	EpsSivilstatus,
 	PersonInternV1,
 	Sivilstatus,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { formaterAlderString } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	calculateUttaksalderAsDate,
 	getBrukerensAlderISluttenAvMaaneden,
@@ -25,6 +27,35 @@ import {
 } from 'date-fns'
 
 import { erKap19EllerApoteker } from '../../api/formConditions'
+
+export function getVilkaarsproevingDynamicValues({
+	heltUttakAlder,
+	gradertUttakAlder,
+	uttaksgrad,
+	visGradert,
+}: {
+	heltUttakAlder: Alder
+	gradertUttakAlder?: Alder | null
+	uttaksgrad?: number | null
+	visGradert: boolean
+}) {
+	const heltAlder = formaterAlderString(
+		heltUttakAlder.aar,
+		heltUttakAlder.maaneder
+	)
+	const gradertAlder = gradertUttakAlder
+		? formaterAlderString(gradertUttakAlder.aar, gradertUttakAlder.maaneder)
+		: ''
+	return {
+		// Retained for legacy Sanity content using the conditional grad value.
+		grad: visGradert ? (uttaksgrad ?? 100) : 100,
+		// Retained for legacy Sanity content using alder instead of explicit age keys.
+		alder: visGradert && gradertUttakAlder ? gradertAlder : heltAlder,
+		grad_gradert: uttaksgrad ?? 100,
+		gradert_alder: gradertAlder,
+		helt_alder: heltAlder,
+	}
+}
 
 export function isSivilstatusWithGjenlevenderett(
 	sivilstatus: EpsSivilstatus

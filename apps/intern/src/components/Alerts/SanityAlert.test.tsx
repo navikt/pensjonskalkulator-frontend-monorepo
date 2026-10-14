@@ -180,6 +180,7 @@ describe('SanityAlert InfoCard status', () => {
 	] as const)(
 		'renders default $linkType links and uses SPA navigation only for routes',
 		({ linkType, href, anchorId, route, blank }) => {
+			const onLinkClick = vi.fn()
 			const navigateToRoute = vi.fn()
 			const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
 			const initialHash = window.location.hash
@@ -240,7 +241,7 @@ describe('SanityAlert InfoCard status', () => {
 					}}
 				>
 					<SanityContext.Provider value={contextValue}>
-						<SanityAlert id="test-default-link" />
+						<SanityAlert id="test-default-link" onLinkClick={onLinkClick} />
 					</SanityContext.Provider>
 				</IntlProvider>
 			)
@@ -254,8 +255,20 @@ describe('SanityAlert InfoCard status', () => {
 			}
 
 			fireEvent.click(link, { button: 0 })
+			expect(onLinkClick).toHaveBeenCalledOnce()
 			if (linkType === 'route') {
 				expect(navigateToRoute).toHaveBeenCalledWith(route)
+				expect(onLinkClick.mock.invocationCallOrder[0]).toBeLessThan(
+					navigateToRoute.mock.invocationCallOrder[0]
+				)
+				onLinkClick.mockClear()
+				navigateToRoute.mockClear()
+				document.addEventListener('click', (event) => event.preventDefault(), {
+					once: true,
+				})
+				fireEvent.click(link, { button: 0, metaKey: true })
+				expect(onLinkClick).toHaveBeenCalledOnce()
+				expect(navigateToRoute).not.toHaveBeenCalled()
 			} else {
 				expect(navigateToRoute).not.toHaveBeenCalled()
 			}

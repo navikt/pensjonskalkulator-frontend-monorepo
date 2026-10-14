@@ -24,6 +24,7 @@ import {
 	type StringInputProps,
 	set,
 	unset,
+	useFormValue,
 } from 'sanity'
 
 interface TypeOption {
@@ -183,8 +184,11 @@ export const DynamicValueInlineEditor = (props: BlockProps) =>
 export const LinkAnnotationEditor = (props: BlockAnnotationProps) =>
 	props.renderDefault(useHostedEditor(props))
 
-export const DynamicValueTypeInput = (props: StringInputProps) => {
+export const DynamicValueTypeInput = (
+	props: StringInputProps & { fallbackValue?: string }
+) => {
 	const onTypeChange = useContext(TypeChangeContext)
+	const selectedValue = props.value ?? props.fallbackValue
 	const options: TypeOption[] = (props.schemaType.options?.list ?? []).flatMap(
 		(option) =>
 			typeof option === 'string'
@@ -205,7 +209,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 					iconRight={ChevronDownIcon}
 					disabled={props.readOnly}
 					text={
-						options.find((option) => option.value === props.value)?.text ??
+						options.find((option) => option.value === selectedValue)?.text ??
 						'Velg type'
 					}
 				/>
@@ -216,7 +220,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 						<MenuItem
 							key={option.value}
 							text={option.text}
-							selected={option.value === props.value}
+							selected={option.value === selectedValue}
 							onClick={() => {
 								if (option.value !== props.value) {
 									if (onTypeChange) {
@@ -237,12 +241,13 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 const renderTypeChangingInput = (
 	props: ObjectInputProps,
 	typeField: 'linkType' | 'valueType',
-	resetValues: Record<string, string | boolean | undefined>
+	resetValues: Record<string, string | boolean | undefined>,
+	currentType = props.value?.[typeField] as string | undefined
 ) => {
 	const onTypeChange = (value: string) => {
 		props.onChange(
 			PatchEvent.from(set(value, [typeField])).append(
-				...Object.entries(resetValues)
+				...Object.entries(value === currentType ? {} : resetValues)
 					.filter(([field]) => props.value && Object.hasOwn(props.value, field))
 					.map(([field, resetValue]) =>
 						resetValue === undefined ? unset([field]) : set(resetValue, [field])
@@ -255,6 +260,29 @@ const renderTypeChangingInput = (
 		<TypeChangeContext.Provider value={onTypeChange}>
 			{props.renderDefault(props)}
 		</TypeChangeContext.Provider>
+	)
+}
+
+const getLinkType = (value: unknown): string => {
+	if (typeof value === 'object' && value !== null) {
+		if ('linkType' in value && typeof value.linkType === 'string') {
+			return value.linkType
+		}
+		if (
+			'href' in value &&
+			typeof value.href === 'string' &&
+			value.href.startsWith('#')
+		) {
+			return 'anchor'
+		}
+	}
+	return 'external'
+}
+
+export const LinkAnnotationTypeInput = (props: StringInputProps) => {
+	const parent = useFormValue(props.path.slice(0, -1))
+	return (
+		<DynamicValueTypeInput {...props} fallbackValue={getLinkType(parent)} />
 	)
 }
 
@@ -277,12 +305,17 @@ const useClearEmptyFields = (
 
 export const LinkAnnotationInput = (props: ObjectInputProps) => {
 	useClearEmptyFields(props, linkValueFields)
-	return renderTypeChangingInput(props, 'linkType', {
-		href: undefined,
-		anchorId: undefined,
-		route: undefined,
-		blank: false,
-	})
+	return renderTypeChangingInput(
+		props,
+		'linkType',
+		{
+			href: undefined,
+			anchorId: undefined,
+			route: undefined,
+			blank: false,
+		},
+		getLinkType(props.value)
+	)
 }
 
 export const DynamicValueInput = (props: ObjectInputProps) => {

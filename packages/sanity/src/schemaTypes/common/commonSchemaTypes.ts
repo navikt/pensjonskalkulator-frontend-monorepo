@@ -7,6 +7,7 @@ import {
 	DynamicValueTypeInput,
 	LinkAnnotationEditor,
 	LinkAnnotationInput,
+	LinkAnnotationTypeInput,
 } from '../../components/DynamicValueInput'
 
 const isGMultipleParent = (parent: unknown) =>
@@ -209,7 +210,7 @@ export const innholdField = defineField({
 								name: 'linkType',
 								type: 'string',
 								title: 'Lenketype',
-								components: { input: DynamicValueTypeInput },
+								components: { input: LinkAnnotationTypeInput },
 								initialValue: 'external',
 								options: {
 									layout: 'dropdown',

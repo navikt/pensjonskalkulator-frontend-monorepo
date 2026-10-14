@@ -180,6 +180,7 @@ export const getSanityPortableTextComponents = (
 				}
 
 				const handleRouteClick = (event: MouseEvent<HTMLAnchorElement>) => {
+					resolvedOnLinkClick?.()
 					if (
 						!resolvedNavigateToRoute ||
 						!value?.route ||
