@@ -128,9 +128,7 @@ export const TidligstMuligUttaksalder = ({
           <BodyLong size="medium" className={styles.ingress}>
             <FormattedMessage
               id={
-                ufoeregrad === 100
-                  ? 'omufoeretrygd.hel.ingress'
-                  : gradertIngress
+                ufoeregrad >= 80 ? 'omufoeretrygd.hel.ingress' : gradertIngress
               }
               values={{
                 ...getFormatMessageValues(),

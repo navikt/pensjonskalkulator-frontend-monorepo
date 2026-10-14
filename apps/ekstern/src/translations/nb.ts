@@ -337,7 +337,7 @@ const translations = {
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
-    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
+    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra <nowrap>{normertPensjonsalder}</nowrap>. Vil du beregne uttak før <nowrap>{normertPensjonsalder}</nowrap>, må du gå til {link}.{br}{br}Kommende lovendringer vil gradvis øke pensjonsalderen.',
   'omufoeretrygd.gradert.ingress.afp':

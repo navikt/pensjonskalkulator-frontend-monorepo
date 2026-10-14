@@ -26,7 +26,7 @@ export const RedigerAvansertBeregning: React.FC<{
   return skalBeregneKap19Afp ? (
     <AvansertSkjemaForBrukereMedKap19Afp vilkaarsproeving={vilkaarsproeving} />
   ) : loependeVedtak.ufoeretrygd.grad &&
-    loependeVedtak.ufoeretrygd.grad !== 100 ? (
+    loependeVedtak.ufoeretrygd.grad < 80 ? (
     <AvansertSkjemaForBrukereMedGradertUfoeretrygd
       vilkaarsproeving={vilkaarsproeving}
     />
