@@ -5,6 +5,8 @@ import {
 	DynamicValueInput,
 	DynamicValuePortableTextInput,
 	DynamicValueTypeInput,
+	LinkAnnotationEditor,
+	LinkAnnotationInput,
 } from '../../components/DynamicValueInput'
 
 const isGMultipleParent = (parent: unknown) =>
@@ -195,6 +197,10 @@ export const innholdField = defineField({
 						name: 'link',
 						type: 'object',
 						title: 'Lenke',
+						components: {
+							input: LinkAnnotationInput,
+							annotation: LinkAnnotationEditor,
+						},
 						options: {
 							modal: { type: 'dialog', width: 1 },
 						},
@@ -203,6 +209,7 @@ export const innholdField = defineField({
 								name: 'linkType',
 								type: 'string',
 								title: 'Lenketype',
+								components: { input: DynamicValueTypeInput },
 								initialValue: 'external',
 								options: {
 									layout: 'dropdown',
@@ -243,6 +250,7 @@ export const innholdField = defineField({
 								name: 'route',
 								type: 'string',
 								title: 'Stegvisningsrute',
+								description: 'Velg hvilket steg lenken skal åpne.',
 								hidden: ({ parent }) =>
 									getPortableTextLinkType(parent) !== 'route',
 								options: { layout: 'dropdown', list: externalStepRoutes },
@@ -251,8 +259,8 @@ export const innholdField = defineField({
 										getPortableTextLinkType(context.parent) !== 'route' ||
 										Boolean(value)
 											? true
-											: 'Stegvisningsrute er påkrevd'
-									),
+											: 'Velg et steg fra listen.'
+									).error('Velg et steg fra listen.'),
 							},
 							{
 								name: 'blank',
