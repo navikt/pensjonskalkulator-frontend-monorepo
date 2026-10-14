@@ -40,7 +40,7 @@ export function getTidligstMuligUttakIngress({
     const ufoeregradMellom80Og100 = ufoeregrad >= 80 && ufoeregrad < 100
 
     const ingressId =
-      ufoeregrad >= 80 ? 'omufoeretrygd.hel.ingress' : gradertIngress
+      ufoeregrad === 100 ? 'omufoeretrygd.hel.ingress' : gradertIngress
 
     const formattedGradertIngress = intl.formatMessage(
       { id: ingressId },
