@@ -16,8 +16,34 @@ import {
   generatePensjonsavtalerRequestBody,
   generateTidligstMuligHeltUttakRequestBody,
   getSimuleringstypeFromRadioEllerVedtak,
+  harTekniskSimuleringsfeil,
   transformUtenlandsperioderArray,
 } from '../utils'
+
+describe('harTekniskSimuleringsfeil', () => {
+  it.each<SimuleringProblemKode>(['ANNEN_KLIENTFEIL', 'SERVERFEIL'])(
+    'returnerer true for %s',
+    (kode) => {
+      expect(
+        harTekniskSimuleringsfeil({ problem: { kode, beskrivelse: '' } })
+      ).toBe(true)
+    }
+  )
+
+  it('returnerer false for andre problemkoder', () => {
+    expect(
+      harTekniskSimuleringsfeil({
+        problem: { kode: 'UTILSTREKKELIG_OPPTJENING', beskrivelse: '' },
+      })
+    ).toBe(false)
+  })
+
+  it('returnerer false når problem mangler', () => {
+    expect(harTekniskSimuleringsfeil(undefined)).toBe(false)
+    expect(harTekniskSimuleringsfeil({})).toBe(false)
+    expect(harTekniskSimuleringsfeil({ problem: null })).toBe(false)
+  })
+})
 
 describe('apiSlice - utils', () => {
   const utenlandsperiode: Utenlandsperiode = {

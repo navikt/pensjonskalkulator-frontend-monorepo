@@ -56,6 +56,8 @@ spec:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
     inbound:
@@ -69,5 +71,7 @@ spec:
       value: 'dev-gcp:pensjonskalkulator:pensjonskalkulator-backend'
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://pensjon-pselv-q2-gcp.ansatt.dev.nav.no/pselv/simulering.jsf?simpleMode=true'
+    - name: 'DECORATOR_REDIRECT_URL'
+      value: 'https://{{ branch }}.ekstern.dev.nav.no/pensjon/kalkulator/start'
   envFrom:
     - secret: pensjonskalkulator-frontend-ekstern-unleash-api-token

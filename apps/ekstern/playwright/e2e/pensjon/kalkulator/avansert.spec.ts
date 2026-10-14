@@ -827,7 +827,7 @@ test.describe('Avansert', () => {
           'AFP (avtalefestet pensjon)'
         )
         await expect(page.getByTestId('highcharts-aria-wrapper')).toContainText(
-          'Pensjonsavtaler (arbeidsgivere m.m.)'
+          'Pensjon fra andre'
         )
         await expect(page.getByTestId('highcharts-aria-wrapper')).toContainText(
           'Alderspensjon (Nav)'
@@ -843,7 +843,7 @@ test.describe('Avansert', () => {
         )
 
         await expect(
-          page.getByRole('heading', { name: 'Pensjonsavtaler' })
+          page.getByRole('heading', { name: 'Pensjon fra andre' })
         ).toBeVisible()
         await page.getByTestId('showmore-button').click()
         await expect(

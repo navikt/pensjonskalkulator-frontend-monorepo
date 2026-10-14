@@ -8,6 +8,7 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 import {
+  REDUKSJON_AFP_PRIVAT_ALDER,
   UTTAKSALDER_FOR_AP_VED_PRE2025_OFFENTLIG_AFP,
   calculateUttaksalderAsDate,
   isAlderLikEllerOverAnnenAlder,
@@ -180,6 +181,35 @@ export const usePensjonBeregninger = ({
       pre2025OffentligAfp: pre2025OffentligAfp?.totaltAfpBeloep,
       uttaksgrad: 'helt',
     })
+  }
+
+  const simulererMedAfpPrivat = Boolean(afpPrivatListe?.length)
+  const indeksForKnekkpunktVed67 =
+    pensjonsdata.findLastIndex((data) =>
+      isAlderOverAnnenAlder(REDUKSJON_AFP_PRIVAT_ALDER, data.alder)
+    ) + 1
+  const harKnekkpunktFoer67 = indeksForKnekkpunktVed67 > 0
+  const harAlleredeKnekkpunktVed67 = pensjonsdata.some(
+    ({ alder }) =>
+      alder.aar === REDUKSJON_AFP_PRIVAT_ALDER.aar &&
+      alder.maaneder === REDUKSJON_AFP_PRIVAT_ALDER.maaneder
+  )
+  // AFP privat endres ved 67 år, så perioden må deles i et eget knekkpunkt
+  if (
+    simulererMedAfpPrivat &&
+    harKnekkpunktFoer67 &&
+    !harAlleredeKnekkpunktVed67
+  ) {
+    const forrigeKnekkpunkt = pensjonsdata[indeksForKnekkpunktVed67 - 1]
+    const ekstraKnekkpunktVed67: Pensjonsdata = {
+      ...forrigeKnekkpunkt,
+      alder: REDUKSJON_AFP_PRIVAT_ALDER,
+      afp: afpVedUttak('privat', REDUKSJON_AFP_PRIVAT_ALDER),
+      pensjonsavtale:
+        sumPensjonsavtaler(REDUKSJON_AFP_PRIVAT_ALDER) +
+        sumTjenestepensjon(REDUKSJON_AFP_PRIVAT_ALDER),
+    }
+    pensjonsdata.splice(indeksForKnekkpunktVed67, 0, ekstraKnekkpunktVed67)
   }
 
   return {

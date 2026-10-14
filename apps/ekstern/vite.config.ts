@@ -68,6 +68,17 @@ export default defineConfig({
         })
       },
     },
+
+    // Vite serves index.html locally, so the Express SSR injection never runs (see src/utils/decorator.ts)
+    {
+      name: 'decorator-client-side-in-dev',
+      apply: 'serve',
+      transformIndexHtml: (html: string) =>
+        html.replace(
+          '<!-- DECORATOR_HEAD_ASSETS -->',
+          '<meta name="decorator-render" content="client-side" />'
+        ),
+    },
   ].filter(Boolean),
   server: {
     port: 5173,
@@ -101,7 +112,7 @@ export default defineConfig({
   },
   test: {
     cache: false,
-    environment: 'jsdom',
+    environment: './scripts/vitest-environment-jsdom.ts',
     globals: true,
     setupFiles: 'src/test-setup.ts',
     testTimeout: 10000,

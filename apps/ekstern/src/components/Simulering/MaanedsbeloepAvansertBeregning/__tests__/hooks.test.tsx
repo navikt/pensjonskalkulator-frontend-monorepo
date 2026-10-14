@@ -451,4 +451,115 @@ describe('usePensjonBeregninger', () => {
     expect(result.current.pensjonsdata).toHaveLength(1)
     expect(result.current.harGradering).toBe(false)
   })
+
+  describe('ekstra knekkpunkt ved 67 år for AFP privat', () => {
+    const afpPrivatListe = [
+      { alder: 62, beloep: 120000, maanedligBeloep: 10000 },
+      { alder: 67, beloep: 60000, maanedligBeloep: 5000 },
+    ]
+    const alderspensjonMaanedligVedEndring = {
+      heltUttakMaanedligBeloep: 20000,
+      gradertUttakMaanedligBeloep: 8000,
+    }
+
+    const mockSimulering = (
+      uttaksalder: Alder,
+      gradertUttaksperiode: GradertUttak | null
+    ) => {
+      vi.mocked(useAppSelector).mockImplementation((selector) => {
+        if (selector === selectCurrentSimulation) {
+          return { uttaksalder, gradertUttaksperiode }
+        }
+        if (selector === selectFoedselsdato) {
+          return mockFoedselsdato
+        }
+        return undefined
+      })
+    }
+
+    it('setter inn knekkpunkt ved 67 mellom gradert uttak før 67 og helt uttak etter 67', () => {
+      mockSimulering(
+        { aar: 68, maaneder: 0 },
+        { uttaksalder: { aar: 62, maaneder: 6 }, grad: 40 }
+      )
+
+      const { result } = renderHook(() =>
+        usePensjonBeregninger({
+          afpPrivatListe,
+          alderspensjonMaanedligVedEndring,
+        })
+      )
+
+      expect(result.current.pensjonsdata).toMatchObject([
+        {
+          alder: { aar: 62, maaneder: 6 },
+          grad: 40,
+          afp: 10000,
+          alderspensjon: 8000,
+          uttaksgrad: 'gradert',
+        },
+        {
+          alder: { aar: 67, maaneder: 0 },
+          grad: 40,
+          afp: 5000,
+          alderspensjon: 8000,
+          uttaksgrad: 'gradert',
+        },
+        {
+          alder: { aar: 68, maaneder: 0 },
+          grad: 100,
+          afp: 5000,
+          alderspensjon: 20000,
+          uttaksgrad: 'helt',
+        },
+      ])
+    })
+
+    it('legger knekkpunkt ved 67 til sist når helt uttak er før 67', () => {
+      mockSimulering({ aar: 64, maaneder: 0 }, null)
+
+      const { result } = renderHook(() =>
+        usePensjonBeregninger({
+          afpPrivatListe,
+          alderspensjonMaanedligVedEndring,
+        })
+      )
+
+      expect(result.current.pensjonsdata).toMatchObject([
+        {
+          alder: { aar: 64, maaneder: 0 },
+          grad: 100,
+          afp: 10000,
+          alderspensjon: 20000,
+          uttaksgrad: 'helt',
+        },
+        {
+          alder: { aar: 67, maaneder: 0 },
+          grad: 100,
+          afp: 5000,
+          alderspensjon: 20000,
+          uttaksgrad: 'helt',
+        },
+      ])
+    })
+
+    it('legger ikke til knekkpunkt ved 67 når afpPrivatListe er tom', () => {
+      mockSimulering(
+        { aar: 68, maaneder: 0 },
+        { uttaksalder: { aar: 62, maaneder: 6 }, grad: 40 }
+      )
+
+      const { result } = renderHook(() =>
+        usePensjonBeregninger({
+          afpPrivatListe: [],
+          alderspensjonMaanedligVedEndring,
+        })
+      )
+
+      expect(result.current.pensjonsdata).toHaveLength(2)
+      expect(
+        result.current.pensjonsdata.map(({ alder }) => alder)
+      ).not.toContainEqual({ aar: 67, maaneder: 0 })
+    })
+  })
 })

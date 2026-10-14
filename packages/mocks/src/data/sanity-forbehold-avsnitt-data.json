@@ -250,7 +250,7 @@
 							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd eller jobbet i Norge fra fylte 16 år og frem til du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
@@ -372,7 +372,7 @@
 							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd eller jobbet i Norge fra fylte 16 år og frem til du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
@@ -494,7 +494,7 @@
 							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd eller jobbet i Norge fra fylte 16 år og frem til du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
@@ -1866,7 +1866,7 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Pensjonsavtaler",
+			"overskrift": "Pensjon fra andre",
 			"vilkaar": null,
 			"visEkstern": true,
 			"visIntern": false

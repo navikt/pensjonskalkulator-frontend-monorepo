@@ -54,7 +54,7 @@ test.describe('Uten samtykke', () => {
           ).toBeVisible()
           await expect(
             page.getByRole('columnheader', {
-              name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
+              name: 'Pensjon fra andre',
             })
           ).not.toBeVisible()
           await expect(

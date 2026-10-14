@@ -9,6 +9,10 @@
 	width: 100%;
 }
 
+.selectLand :global(.aksel-combobox__wrapper-inner.aksel-text-field__input) {
+	width: 100%;
+}
+
 .radioFieldWrapper {
 	flex-shrink: 1;
 	min-width: 11rem;

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:22-slim
+ARG NODE_DEPLOY_IMG=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24-slim
 
 FROM ${NODE_DEPLOY_IMG}
 

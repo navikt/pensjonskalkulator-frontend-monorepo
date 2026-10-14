@@ -23,7 +23,11 @@ declare global {
   }
 }
 
-if (process.env.NODE_ENV === 'development' && !window.__DISABLE_MSW__) {
+if (
+  process.env.NODE_ENV === 'development' &&
+  !window.__DISABLE_MSW__ &&
+  import.meta.env.VITE_DISABLE_MSW !== 'true'
+) {
   const msw = await import('./mocks/browser')
   await msw.worker.start({
     serviceWorker: {

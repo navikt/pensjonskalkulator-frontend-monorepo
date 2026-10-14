@@ -65,10 +65,13 @@ spec:
         - /pensjon/kalkulator/forbehold
         - /pensjon/kalkulator/src/*
         - /pensjon/kalkulator/v3/api-docs/current
+        - /pensjon/kalkulator/api/v1/land-liste
   accessPolicy:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: www.nav.no
         - host: pensjonskalkulator-unleash-api.nav.cloud.nais.io
@@ -79,5 +82,7 @@ spec:
       value: 'prod-gcp:pensjonskalkulator:pensjonskalkulator-backend'
     - name: 'DETALJERT_KALKULATOR_URL'
       value: 'https://www.nav.no/pselv/simulering.jsf?simpleMode=true'
+    - name: 'DECORATOR_REDIRECT_URL'
+      value: 'https://www.nav.no/pensjon/kalkulator/start'
   envFrom:
     - secret: pensjonskalkulator-frontend-unleash-api-token

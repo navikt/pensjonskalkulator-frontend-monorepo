@@ -3,6 +3,34 @@
 		{
 			"innhold": [
 				{
+					"_key": "84829762f054",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "09d94a3b290f",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under "
+						},
+						{
+							"_key": "4eeb022ae1b9",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "AFP: Offentlig."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.beloep-vises-ikke",
+			"overskrift": "(WIP) AFP beløp vises ikke",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "95419adcc4f3",
 					"_type": "block",
 					"children": [
@@ -148,6 +176,46 @@
 		{
 			"innhold": [
 				{
+					"_key": "dd7de6aa18a8",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "f754dee13785",
+							"_type": "span",
+							"marks": [],
+							"text": "Du kan bare beregne AFP hvis du har en inntekt på minst "
+						},
+						{
+							"_key": "26abe58ecad3",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "<12 924>"
+						},
+						{
+							"_key": "2f4d68fd7435",
+							"_type": "span",
+							"marks": [],
+							"text": " kr den siste måneden før du tar ut AFP. Beregn i stedet "
+						},
+						{
+							"_key": "d5eef42f72d4",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "alderspensjon uten AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.inntekt-siste-maaned",
+			"overskrift": "(WIP) Minimum inntekt siste måned før uttak",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "95419adcc4f3",
 					"_type": "block",
 					"children": [
@@ -263,6 +331,40 @@
 		{
 			"innhold": [
 				{
+					"_key": "84891dbad768",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a2c9efeb3f34",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din "
+						},
+						{
+							"_key": "c2e0fc9b2ea3",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "(<TP-ordning>)"
+						},
+						{
+							"_key": "282032604b77",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon",
+			"overskrift": "(WIP) Klarte ikke hente din offentlige tjenestepensjon",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "98f1518897f9",
 					"_type": "block",
 					"children": [
@@ -285,6 +387,122 @@
 		{
 			"innhold": [
 				{
+					"_key": "7abd3686033f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "3d001c479e7d",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du er medlem av Pensjonsordningen for apotekvirksomhet (POA) er beregning med AFP for øyeblikket feil. Prøv igjen senere."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "apoteker.beregning-med-afp-feil",
+			"overskrift": "Er du medlem av apotekerordningen?",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "62f4bdd223fc",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a89fff12a3e3",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under "
+						},
+						{
+							"_key": "6c7d2b5bae8e",
+							"_type": "span",
+							"marks": ["19f8d56b9568"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "12e1ea60667c",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{ "_key": "19f8d56b9568", "_type": "link", "className": "" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat",
+			"overskrift": "(WIP) Pensjon fra andre",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "36fa3024c6a7",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "02366ba7eefa",
+							"_type": "span",
+							"marks": [],
+							"text": "Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "9cadb2c7c7fb",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "02366ba7eefa",
+							"_type": "span",
+							"marks": [],
+							"text": "AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden)."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "ufoeretrygd-afp.kan-ikke-kombineres",
+			"overskrift": "Velge mellom AFP og UT",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "4e78c46c2334",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "694cec70d443",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi fant ingen pensjonsavtaler."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.fant-ingen-private",
+			"overskrift": "Fant ingen private pensjonsavtaler",
+			"status": "info",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "d0303e68018b",
 					"_type": "block",
 					"children": [
@@ -303,6 +521,94 @@
 			"overskrift": "Ingen tilgang",
 			"status": "warning",
 			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "cd797489627e",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "b88f5947abbd",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi fant ingen pensjonsavtaler."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.fant-ingen-offentlige",
+			"overskrift": "Fant ingen offentlige pensjonsavtaler",
+			"status": "info",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "436ed819703f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "55711ca5f349",
+							"_type": "span",
+							"marks": [],
+							"text": "Feil ved henting av person."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "veileder.alle-andre-feil",
+			"overskrift": "Noe gikk galt",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "bd4b14d8e7d9",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a179858c9547",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring)."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.klarte-ikke-sjekke-offentlige",
+			"overskrift": "Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "8352155ab169",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "b4d0daa8bcca",
+							"_type": "span",
+							"marks": [],
+							"text": "Du beregner nå uttak av alderspensjon før 67 år. AFP i offentlig sektor kan ikke kombineres med alderspensjon. Beregningen forutsetter derfor at du sier fra deg AFP. Kontakt tjenestepensjonsordningen din hvis du vurderer dette."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ap-kan-ikke-kombineres-med-afp",
+			"overskrift": "Du beregner nå uttak av alderspensjon før 67 år",
+			"status": "info",
+			"type": "info-card"
 		},
 		{
 			"innhold": [
@@ -401,6 +707,112 @@
 		{
 			"innhold": [
 				{
+					"_key": "6e1f91ad6054",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "ea0c9c31b198",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "samtykke-offentlig-afp.fortsett-uten-afp",
+			"overskrift": "Hvis du har startet uttak av AFP",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "b877908911b1",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "5ddcc5614b46",
+							"_type": "span",
+							"marks": [],
+							"text": "Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP. "
+						},
+						{
+							"_key": "009d89861b8a",
+							"_type": "span",
+							"marks": ["e3d57ebfe412"],
+							"text": "Om vilkår for uttak av AFP"
+						},
+						{
+							"_key": "82be07c82c7a",
+							"_type": "span",
+							"marks": [],
+							"text": ". Du kan også "
+						},
+						{
+							"_key": "fb0aa0148d13",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "beregne alderspensjon uten AFP."
+						}
+					],
+					"markDefs": [
+						{
+							"_key": "e3d57ebfe412",
+							"_type": "link",
+							"blank": true,
+							"className": "",
+							"href": "https://www.nav.no/afp-offentlig#hvem-kan-fa"
+						}
+					],
+					"style": "normal"
+				}
+			],
+			"name": "afp.vilkaarsproeving.vilkaar-ikke-oppfylt.ekstern",
+			"overskrift": "(WIP) Vilkår for AFP er ikke oppfylt",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "086934934ac5",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "2c2914251dca",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte dessverre ikke å beregne pensjonen din akkurat nå."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "6c3f6972670b",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "b43bdd786154",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "Prøv på nytt"
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.beregningen-feilet",
+			"overskrift": "(WIP) Beregningen feilet",
+			"status": "error",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "d52b2c432fd7",
 					"_type": "block",
 					"children": [
@@ -423,6 +835,164 @@
 		{
 			"innhold": [
 				{
+					"_key": "2b6b44dca301",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a799d9097e9c",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi fikk ikke svar fra din offentlige tjenestepensjonsordning."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.fikk-ikke-svar.offentlig",
+			"overskrift": "Fikk ikke svar fra offentlig tjenestepensjonsordning",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "4ff8488a652a",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "1ac040dd7ace",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under "
+						},
+						{
+							"_key": "6c32adbc5958",
+							"_type": "span",
+							"marks": ["d8a0b98d004e"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "a4110f1828c6",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{ "_key": "d8a0b98d004e", "_type": "link", "className": "" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig",
+			"overskrift": "(WIP) Pensjon fra andre",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "36f39acc1d73",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "6bb6d5a96ff7",
+							"_type": "span",
+							"marks": [],
+							"text": "Du er eller har vært ansatt i offentlig sektor. Vi kan dessverre ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger. Sjekk avtalene hos din tjenestepensjonsordning "
+						},
+						{
+							"_key": "f73e905cb2bc",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "(<TP-ordning>)"
+						},
+						{
+							"_key": "f75b4b870714",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.kan-ikke-hente-alle-offentlige",
+			"overskrift": "(WIP) Kan ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "98360f949b0d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "ff25075dad2e",
+							"_type": "span",
+							"marks": [],
+							"text": "Fødselsnummeret er ikke gyldig."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "veileder.ugyldig-foedselsnummer",
+			"overskrift": "Ugyldig fødselsnummer",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "dc6604530110",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "13cef66f1b09",
+							"_type": "span",
+							"marks": [],
+							"text": "Hvis du har vedtak om livsvarig AFP, kan beløpet for AFP og tidspunktet for når du kan ta ut alderspensjon være feil. Prøv igjen senere."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.klarte-ikke-sjekke-livsvarig",
+			"overskrift": "Vi klarte ikke å sjekke om du har AFP",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "36164b66c14d",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "96f214d098ae",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.klarte-ikke-hente-private",
+			"overskrift": "Vi klarte ikke å hente dine private pensjonsavtaler",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "4764ce85763a",
 					"_type": "block",
 					"children": [
@@ -441,6 +1011,156 @@
 			"overskrift": "Ingen tilgang",
 			"status": "warning",
 			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "a82c0d6df816",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "7aa9d0970c05",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har pensjonsavtaler som starter før valgt alder. Se perioder under "
+						},
+						{
+							"_key": "c5b88843cb99",
+							"_type": "span",
+							"marks": ["672c776c118e"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "ef27a342f4b4",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{ "_key": "672c776c118e", "_type": "link", "className": "" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.starter-foer-valgt-alder",
+			"overskrift": "(WIP) Pensjonsavtaler starter før valgt alder",
+			"status": "info",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "699e9754c111",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "948b5b71e9db",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har fått en foreløpig beregning av AFP fra Nav. Du må kontakte "
+						},
+						{
+							"_key": "9c69bbc78d92",
+							"_type": "span",
+							"marks": ["e606728cb655"],
+							"text": "SPK (Statens pensjonskasse)"
+						},
+						{
+							"_key": "22043de741c3",
+							"_type": "span",
+							"marks": [],
+							"text": " for mer informasjon om vilkårene for AFP."
+						}
+					],
+					"markDefs": [
+						{
+							"_key": "e606728cb655",
+							"_type": "link",
+							"blank": true,
+							"className": "",
+							"href": "https://www.spk.no/"
+						}
+					],
+					"style": "normal"
+				}
+			],
+			"name": "afp.fikk-ikke-hentet-beregning-fra-spk",
+			"overskrift": "Vi fikk ikke hentet beregning av AFP fra SPK",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "68e09216e357",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "85a0d53e9db7",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under "
+						},
+						{
+							"_key": "2a3721144ca5",
+							"_type": "span",
+							"marks": ["b302d5b748cd"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "abd7ab18217c",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{ "_key": "b302d5b748cd", "_type": "link", "className": "" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-privat",
+			"overskrift": "(WIP) Pensjon fra andre",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "ed4d4b0e4d2b",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "1197c15040c8",
+							"_type": "span",
+							"marks": [],
+							"text": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før 67 år, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
+						},
+						{
+							"_key": "f58315fd6973",
+							"_type": "span",
+							"marks": ["59508407dbd8"],
+							"text": "55 55 33 34"
+						},
+						{
+							"_key": "36115f9b195e",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					],
+					"markDefs": [
+						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.gjenlevende-eller-omstilling",
+			"overskrift": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad",
+			"status": "info",
+			"type": "info-card"
 		},
 		{
 			"innhold": [
@@ -489,6 +1209,72 @@
 		{
 			"innhold": [
 				{
+					"_key": "acacf8b62355",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a6e89e09d3f5",
+							"_type": "span",
+							"marks": [],
+							"text": "Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.avtaler-ikke-med-i-beregning",
+			"overskrift": "Pensjonsavtaler fra andre er ikke med i beregningen",
+			"status": "info",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "cfad53e52026",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "ef1d782d9ad2",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har startet uttak av livsvarig AFP. Fordi vi mangler beløpet kan tidspunktet for når du kan ta ut alderspensjon være feil. Prøv igjen senere."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.klarte-ikke-hente-beløp-livsvarig",
+			"overskrift": "Vi klarte ikke å hente beløpet for din AFP",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "45561af75c9f",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "9c743f15db07",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.klarte-ikke-hente-alle-private",
+			"overskrift": "Vi klarte ikke å hente alle dine private pensjonsavtaler",
+			"status": "warning",
+			"type": "inline-message"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "489b0f4238f6",
 					"_type": "block",
 					"children": [
@@ -511,6 +1297,28 @@
 		{
 			"innhold": [
 				{
+					"_key": "22419d100be7",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "db330848c149",
+							"_type": "span",
+							"marks": [],
+							"text": "Fordi du har endret inntekten din, endres pensjonsopptjeningen din."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.endret-inntekt",
+			"overskrift": "Endret inntekt",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
 					"_key": "bff9a081d558",
 					"_type": "block",
 					"children": [
@@ -529,6 +1337,184 @@
 			"overskrift": "Ingen tilgang",
 			"status": "warning",
 			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "5d70f28c5467",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "4043fb2c0faa",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen viser at du ikke kan starte uttak av alderspensjon ved "
+						},
+						{
+							"_key": "ffec0f7a491f",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "<63>"
+						},
+						{
+							"_key": "aaeab0c1c1bc",
+							"_type": "span",
+							"marks": [],
+							"text": " år. Prøv en høyere alder."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.enkel.ikke-nok-opptjening",
+			"overskrift": "(WIP) Du har ikke høy nok opptjening",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "3fa221ecd28c",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "b0a5ea309546",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har valgt AFP i offentlig sektor. Hvis du er medlem av Statens pensjonskasse (SPK), kan du få en mer fullstendig beregning hvis vi henter pensjonsavtalene dine."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				},
+				{
+					"_key": "18c502879ed2",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "b0a5ea309546",
+							"_type": "span",
+							"marks": [],
+							"text": "Du kan likevel fortsette uten å samtykke. Beregningen vil da bare vise folketrygdberegnet AFP."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "samtykke.nei.valgt-afp.spk",
+			"overskrift": "AFP i offentlig sektor uten samtykke til pensjonsavtaler",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "7abf3d3e2f64",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "662f095bac6c",
+							"_type": "span",
+							"marks": [],
+							"text": "Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. "
+						},
+						{
+							"_key": "09706f0258c0",
+							"_type": "span",
+							"marks": ["6d7f78ac092d"],
+							"text": "Les mer under pensjon fra andre."
+						}
+					],
+					"markDefs": [
+						{ "_key": "6d7f78ac092d", "_type": "link", "className": "" }
+					],
+					"style": "normal"
+				}
+			],
+			"name": "pensjonsavtaler.kan-ha-rett-til-offentlig-tp",
+			"overskrift": "(WIP) Kan ha rett til offentlig tjenestepensjon",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "fee93b94b444",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "879e2345d3b3",
+							"_type": "span",
+							"marks": [],
+							"text": "Er du usikker, bør du sjekke med arbeidsgiveren din."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "afp.vet-ikke",
+			"overskrift": "AFP vet ikke",
+			"status": "info",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "cda5509e2d1c",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "f59ffbf9294c",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har ikke tilgang til brukeren eller pensjonskalkulatoren. Hvis du mener du skal ha tilgang, kontakt din lokale IT-ansvarlig."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "veileder.ingen-tilgang",
+			"overskrift": "Ingen tilgang",
+			"status": "warning",
+			"type": "local-alert"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "976a51c65cc1",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "cb80b0bd0a23",
+							"_type": "span",
+							"marks": [],
+							"text": "Alderspensjon kan først endres til 20, 40, 50, 60 eller 80 % når det har gått 12 måneder siden du startet eller endret uttaket ditt. Du kan derfor tidligst endre uttaksgrad fra "
+						},
+						{
+							"_key": "82961b923935",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "<01.01.2026>"
+						},
+						{
+							"_key": "c7487c9e6f7d",
+							"_type": "span",
+							"marks": [],
+							"text": ". Du kan endre til 0 eller 100 % så ofte du vil."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "beregning.ugyldig-uttaksgrad.12-maaneder",
+			"overskrift": "(WIP) 12-månedersregel",
+			"status": "info",
+			"type": "info-card"
 		},
 		{
 			"innhold": [
@@ -561,6 +1547,52 @@
 			"name": "beregning.ugyldig-uttaksgrad",
 			"overskrift": "Ugyldig uttaksgrad",
 			"status": "warning",
+			"type": "info-card"
+		},
+		{
+			"innhold": [
+				{
+					"_key": "2701b2842c75",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "d6a5c9681d08",
+							"_type": "span",
+							"marks": [],
+							"text": "Du har vedtak om "
+						},
+						{
+							"_key": "4b17056ec7eb",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "50 %"
+						},
+						{
+							"_key": "4c62f8e0fe0e",
+							"_type": "span",
+							"marks": [],
+							"text": " alderspensjon fra "
+						},
+						{
+							"_key": "232ab87c021c",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": "01.09.2025"
+						},
+						{
+							"_key": "b09b5a2f128e",
+							"_type": "span",
+							"marks": [],
+							"text": ". Frem til denne datoen kan du gjøre en ny beregning av andre alternativer."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"name": "start.fremtidig-vedtak-uten-gjeldende",
+			"overskrift": "(WIP) Fremtidig vedtak",
+			"status": "info",
 			"type": "info-card"
 		}
 	]

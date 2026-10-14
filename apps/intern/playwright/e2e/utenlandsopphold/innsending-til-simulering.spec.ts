@@ -62,7 +62,7 @@ test.describe('Utenlandsopphold - Innsending med utenlandsopphold', () => {
 		])
 	})
 
-	test('Sender inn skjema med flere utenlandsopphold og beholder rekkefølgen', async ({
+	test('Sender inn skjema med flere utenlandsopphold i nyeste først-rekkefølge', async ({
 		page,
 	}) => {
 		const { getCapturedBody } = await setupForSimulation(page)
@@ -85,16 +85,16 @@ test.describe('Utenlandsopphold - Innsending med utenlandsopphold', () => {
 
 		await expectSimulationPeriods(getCapturedBody, [
 			{
-				landkode: LAND.AFG.kode,
-				arbeidetUtenlands: false,
-				fom: '2000-01-01',
-				tom: '2005-12-31',
-			},
-			{
 				landkode: LAND.AUS.kode,
 				arbeidetUtenlands: false,
 				fom: '2010-01-01',
 				tom: '2015-12-31',
+			},
+			{
+				landkode: LAND.AFG.kode,
+				arbeidetUtenlands: false,
+				fom: '2000-01-01',
+				tom: '2005-12-31',
 			},
 		])
 	})

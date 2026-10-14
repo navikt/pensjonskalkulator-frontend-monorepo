@@ -33,11 +33,24 @@ async function openAddUtenlandsoppholdModal(page: Page) {
   })
 }
 
+const LANDNAVN: Record<string, string> = {
+  AFG: 'Afghanistan',
+  ATA: 'Antarktis',
+  ESP: 'Spania',
+  FRA: 'Frankrike',
+}
+
 async function selectLand(page: Page, landkode: string) {
   await test.step(`Select land: ${landkode}`, async () => {
-    const landSelect = page.getByTestId('utenlandsopphold-land')
-    await landSelect.selectOption(landkode)
-    await expect(landSelect).toHaveValue(landkode)
+    const landnavn = LANDNAVN[landkode]
+    if (!landnavn) throw new Error(`Ukjent landkode i test: ${landkode}`)
+
+    const landCombobox = page.getByTestId('utenlandsopphold-land')
+    await landCombobox.fill(landnavn)
+    await page.getByRole('option', { name: landnavn, exact: true }).click()
+    await expect(
+      page.locator('input[name="utenlandsopphold-land"]')
+    ).toHaveValue(landkode)
   })
 }
 
@@ -130,27 +143,6 @@ async function selectUttaksalder(page: Page, alder: number) {
     const alderButton = page.getByRole('button', { name: `${alder} år` })
     await alderButton.click()
     await expect(page.getByTestId('highcharts-done-drawing')).toBeVisible()
-  })
-}
-
-async function selectAfpRadio(
-  page: Page,
-  value: 'ja_privat' | 'ja_offentlig' | 'nei' | 'vet_ikke'
-) {
-  await test.step(`Select AFP: ${value}`, async () => {
-    const radioValue = {
-      ja_privat: 'ja_privat',
-      ja_offentlig: 'ja_offentlig',
-      nei: 'nei',
-      vet_ikke: 'vet_ikke',
-    }[value]
-    await page.locator(`input[name="afp"][value="${radioValue}"]`).check()
-  })
-}
-
-async function selectSamtykkeRadio(page: Page, value: 'ja' | 'nei') {
-  await test.step(`Select samtykke: ${value}`, async () => {
-    await page.locator(`input[name="samtykke"][value="${value}"]`).check()
   })
 }
 
@@ -250,10 +242,10 @@ test.describe('Utland', () => {
         test('forventer jeg å kunne velge land fra liste/nedtrekksmeny.', async ({
           page,
         }) => {
-          const landSelect = page.getByTestId('utenlandsopphold-land')
-          await expect(landSelect).toBeVisible()
-          const options = landSelect.locator('option')
-          await expect(options).toHaveCount(255)
+          const landCombobox = page.getByTestId('utenlandsopphold-land')
+          await expect(landCombobox).toBeVisible()
+          await landCombobox.click()
+          await expect(page.getByRole('option')).toHaveCount(254)
         })
 
         test.describe('Når jeg har valgt land jeg har bodd eller jobbet i, og landet er ett avtaleland, unntatt nordiske land og Nederland,', () => {

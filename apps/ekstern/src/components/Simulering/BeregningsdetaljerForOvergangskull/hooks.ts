@@ -95,10 +95,13 @@ function getAlderspensjonDetaljerListe(
       ap.garantipensjonBeloep && ap.garantipensjonBeloep > 0
         ? Math.round(ap.garantipensjonBeloep / 12)
         : 0
-
     const gjenlevendetillegg =
       ap.kapittel19Gjenlevendetillegg && ap.kapittel19Gjenlevendetillegg > 0
         ? Math.round(ap.kapittel19Gjenlevendetillegg / 12)
+        : 0
+    const garantitillegg =
+      ap.garantitillegg && ap.garantitillegg > 0
+        ? Math.round(ap.garantitillegg / 12)
         : 0
 
     return [
@@ -145,6 +148,13 @@ function getAlderspensjonDetaljerListe(
         verdi: `${formatInntekt(garantipensjonBeloep)} kr`,
       },
       {
+        tekst: shouldShowParentheses
+          ? 'Garantitillegg (kap. 20)'
+          : 'Garantitillegg',
+        verdi: `${formatInntekt(garantitillegg)} kr`,
+      },
+
+      {
         tekst: 'Sum alderspensjon',
         verdi: `${formatInntekt(
           grunnpensjon +
@@ -153,7 +163,8 @@ function getAlderspensjonDetaljerListe(
             pensjonstillegg +
             inntektspensjonBeloep +
             garantipensjonBeloep +
-            gjenlevendetillegg
+            gjenlevendetillegg +
+            garantitillegg
         )} kr`,
       },
     ].filter((rad) => rad.verdi !== '0 kr')

@@ -32,6 +32,10 @@ runs:
       with:
         is-prod: ${{ inputs.is-prod }}
 
+    - name: Fetch land-liste
+      shell: bash
+      run: pnpm --filter=ekstern run fetch-land-liste ${{ inputs.is-prod == 'true' && 'production' || 'staging' }}
+
     - name: Build application
       shell: bash
       run: pnpm --filter=ekstern run ${{ inputs.is-prod == 'true' && 'build:production' || 'build' }}

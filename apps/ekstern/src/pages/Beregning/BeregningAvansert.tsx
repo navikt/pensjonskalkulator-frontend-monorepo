@@ -23,7 +23,10 @@ import {
   useGetAfpOffentligLivsvarigQuery,
   useGetPersonQuery,
 } from '@/state/api/apiSlice'
-import { generateAlderspensjonRequestBody } from '@/state/api/utils'
+import {
+  generateAlderspensjonRequestBody,
+  harTekniskSimuleringsfeil,
+} from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
@@ -145,20 +148,26 @@ export const BeregningAvansert = () => {
     { skip: !alderspensjonRequestBody }
   )
 
+  const harTekniskFeil = harTekniskSimuleringsfeil(alderspensjon)
+  const harFeil = isError || harTekniskFeil
+
   useEffect(() => {
     if (uttaksalder) {
-      if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
+      if (harFeil) {
+        logger(ALERT_VIST, {
+          tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
+          variant: 'error',
+        })
+      } else if (
+        alderspensjon &&
+        !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
+      ) {
         const tekst = skalBeregneAfpKap19
           ? 'Beregning AFP: Oppfyller ikke vilkår for AFP'
           : 'Beregning avansert: Ikke høy nok opptjening'
         logger(ALERT_VIST, {
           tekst,
           variant: 'warning',
-        })
-      } else if (isError) {
-        logger(ALERT_VIST, {
-          tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
-          variant: 'error',
         })
       }
     }
@@ -180,6 +189,9 @@ export const BeregningAvansert = () => {
 
   // Skal redigerer tilbake når alderspensjon er refetchet ferdig, og
   useEffect(() => {
+    if (harTekniskFeil) {
+      return
+    }
     if (alderspensjon && !alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
@@ -204,7 +216,9 @@ export const BeregningAvansert = () => {
   if (avansertSkjemaModus === 'redigering') {
     return (
       <RedigerAvansertBeregning
-        vilkaarsproeving={alderspensjon?.vilkaarsproeving}
+        vilkaarsproeving={
+          harTekniskFeil ? undefined : alderspensjon?.vilkaarsproeving
+        }
       />
     )
   }
@@ -255,14 +269,14 @@ export const BeregningAvansert = () => {
           />
         </Link>
 
-        {isError ? (
+        {harFeil ? (
           <>
             <Heading level="2" size="medium" data-testid="beregning-heading">
               <FormattedMessage id="beregning.title" />
             </Heading>
 
-            <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-              {isError && <FormattedMessage id="beregning.error" />}
+            <AlertDashBorder onRetry={onRetry}>
+              <FormattedMessage id="beregning.error" />
             </AlertDashBorder>
           </>
         ) : (
@@ -389,7 +403,7 @@ export const BeregningAvansert = () => {
         )}
       </div>
 
-      {!isError && (
+      {!harFeil && (
         <>
           {isEndring && (
             <div className={styles.container}>

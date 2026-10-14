@@ -51,7 +51,7 @@ export function getPensjonsavtaler({
     skalBeregneAfpKap19,
   })}</p>`
 
-  return `<h3>Pensjonsavtaler (arbeidsgivere m.m.)</h3>
+  return `<h3>Pensjon fra andre</h3>
         ${privatePensjonsAvtalerTable ?? ''}
         ${offentligTpTable ?? ''}
         ${offentligTpInfoIngress}

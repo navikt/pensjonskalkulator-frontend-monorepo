@@ -11,10 +11,10 @@ import {
 import { fillOutStegvisning } from 'utils/navigation'
 
 const alertTekstStart = 'Beregningen viser kanskje ikke alt.'
-const alertTekstAnnenTPO = `${alertTekstStart} Du kan ha rett til offentlig tjenestepensjon. Les mer under pensjonsavtaler.`
-const alertTekstNP = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under pensjonsavtaler.`
-const alertTekstTPO = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under pensjonsavtaler.`
-const alertTekstBegge = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under pensjonsavtaler.`
+const alertTekstAnnenTPO = `${alertTekstStart} Du kan ha rett til offentlig tjenestepensjon. Les mer under pensjon fra andre.`
+const alertTekstNP = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under pensjon fra andre.`
+const alertTekstTPO = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under pensjon fra andre.`
+const alertTekstBegge = `${alertTekstStart} Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under pensjon fra andre.`
 
 test.describe('Med samtykke', () => {
   test.describe('Som bruker som har samtykket til innhenting av avtaler og har TPO-forhold hos SPK,', () => {

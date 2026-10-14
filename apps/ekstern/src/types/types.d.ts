@@ -78,6 +78,8 @@ declare global {
     components['schemas']['PersonligSimuleringSpecV9']['simuleringstype']
   type AlderspensjonResponseBody =
     components['schemas']['PersonligSimuleringResultV9']
+  type SimuleringProblemKode =
+    components['schemas']['SimuleringProblem']['kode']
   type Vilkaarsproeving =
     components['schemas']['PersonligSimuleringVilkaarsproevingResultV9']
   type VilkaarsproevingAlternativ =

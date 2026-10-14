@@ -1,3 +1,8 @@
+import {
+  isAlder67MaanedenFylt,
+  isFoedtFoer1963,
+  isOvergangskull,
+} from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { useLoaderData } from 'react-router'
@@ -17,7 +22,6 @@ import {
   selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { isAlderOver67, isFoedtFoer1963, isOvergangskull } from '@/utils/alder'
 import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 
 export function StepAFP() {
@@ -51,7 +55,7 @@ export function StepAFP() {
 
   if (
     isFoedtFoer1963(person.foedselsdato) &&
-    (isAlderOver67(person.foedselsdato) ||
+    (isAlder67MaanedenFylt(person.foedselsdato) ||
       isLoependeVedtakEndring(loependeVedtak))
   ) {
     return (

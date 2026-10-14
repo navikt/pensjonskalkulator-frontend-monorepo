@@ -780,6 +780,60 @@ describe('BeregningEnkel', () => {
       expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
+
+    it.each<SimuleringProblemKode>(['SERVERFEIL', 'ANNEN_KLIENTFEIL'])(
+      'viser feilmelding i stedet for lav opptjening, gitt at simulering svarer med problemkode %s',
+      async (kode) => {
+        const user = userEvent.setup()
+        mockResponse('/v9/alderspensjon/simulering', {
+          status: 200,
+          method: 'post',
+          json: {
+            alderspensjon: [],
+            vilkaarsproeving: { vilkaarErOppfylt: false },
+            harForLiteTrygdetid: false,
+            problem: { kode, beskrivelse: 'Noe gikk galt' },
+          },
+        })
+        mockErrorResponse('/v3/tidligste-hel-uttaksalder', {
+          method: 'post',
+        })
+        render(<BeregningEnkel />, {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: {
+                beregningsvalg: null,
+                uttaksalder: { aar: 63, maaneder: 0 },
+                aarligInntektFoerUttakBeloep: '100 000',
+                gradertUttaksperiode: null,
+              },
+            },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getInntekt: inntektMock,
+            getLoependeVedtak: loependeVedtak0UfoeregradMock,
+          },
+        })
+
+        await user.click(await screen.findByText('63 alder.aar'))
+
+        expect(
+          await screen.findByText('application.global.retry')
+        ).toBeInTheDocument()
+        expect(
+          screen.queryByText('Du har ikke høy nok opptjening', {
+            exact: false,
+          })
+        ).not.toBeInTheDocument()
+        expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
+        expect(
+          screen.queryByText('beregning.tabell.vis')
+        ).not.toBeInTheDocument()
+      }
+    )
   })
 
   describe('Når brukeren har oppdatert inntekten sin og at uttaksalder er nullstilt', () => {
