@@ -99,6 +99,12 @@ export const alertType = defineType({
 				'Valgfri overskrift. Brukes ikke for InlineMessage eller InfoCard med status Message.',
 		}),
 		defineField({
+			name: 'buttonLabel',
+			type: 'string',
+			title: 'Knappetekst',
+			description: 'Teksten som vises på app-knappen under varselet.',
+		}),
+		defineField({
 			...innholdField,
 			description: 'Innholdet i varselet/meldingen',
 		}),

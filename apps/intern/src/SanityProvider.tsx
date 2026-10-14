@@ -20,7 +20,7 @@ const sanityClient = createSanityAppClient({
 	dataset,
 })
 
-const alertQuery = `*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,innhold}`
+const alertQuery = `*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
 const forbeholdAvsnittQuery = `*[_type == "forbeholdAvsnitt" && language == "nb" && visIntern == true] | order(order asc) | {_id,overskrift,"innhold":innholdIntern,alltidSynlig,vilkaar}`
 const kortforbeholdQuery = `*[_type == "kortforbehold" && language == "nb"]{name,innhold}`
 
