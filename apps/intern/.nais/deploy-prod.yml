@@ -14,7 +14,7 @@ spec:
     - https://pensjonskalkulator.intern.nav.no
   redirects:
     - from: 'https://pensjonskalkulator-frontend-intern.ansatt.nav.no'
-      to: 'https://pensjonskalkulator.ansatt.nav.no'
+      to: 'https://pensjonskalkulator.intern.nav.no'
   port: 8080
   replicas:
     min: 2
