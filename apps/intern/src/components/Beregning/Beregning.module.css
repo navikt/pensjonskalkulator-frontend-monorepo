@@ -2,7 +2,7 @@
 	flex: 1;
 	position: relative;
 	overflow: hidden;
-	background-color: var(--a-bg-subtle);
+	background-color: var(--ax-bg-neutral-soft);
 	padding: var(--ax-space-24) var(--ax-space-48) 0;
 	box-sizing: border-box;
 }

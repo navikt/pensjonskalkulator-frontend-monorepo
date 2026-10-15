@@ -4,7 +4,7 @@
   width: 100%;
 
   :global {
-    .navds-read-more__content {
+    .aksel-read-more__content {
       border-left: 0;
       margin-left: 0;
       padding-left: 0;
@@ -14,11 +14,11 @@
 
 .table {
   :global {
-    .navds-table__expanded-row-content {
+    .aksel-table__expanded-row-content {
       padding: var(--ax-space-16) var(--ax-space-12) var(--ax-space-16) 4.25rem;
     }
 
-    .navds-table__expandable-row--open td:last-child {
+    .aksel-table__expandable-row--open td:last-child {
       font-weight: var(--ax-font-weight-bold);
     }
   }

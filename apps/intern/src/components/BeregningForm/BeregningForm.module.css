@@ -25,12 +25,12 @@
 }
 
 .selectWrapper :global(.aksel-select__container select) {
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .section :global(.aksel-text-field__input) {
 	width: 12rem;
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .alderRow {
@@ -46,7 +46,7 @@
 
 .alderRow :global(.aksel-select__container select) {
 	width: 12rem;
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .fieldGroup {
@@ -70,12 +70,6 @@
 
 .alderRow > :last-child :global(.aksel-select__container) {
 	width: 144px;
-}
-
-.horizontalRadioGroup :global(.navds-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: 1.5rem;
 }
 
 .sanityAlert {
