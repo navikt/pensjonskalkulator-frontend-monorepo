@@ -65,7 +65,7 @@ export const SanityAlert = ({
 	onLinkClick,
 }: Props) => {
 	const intl = useIntl()
-	const { alertData } = useContext(SanityContext)
+	const { alertData, navigateToRoute } = useContext(SanityContext)
 	const sanityContent = alertData[id]
 
 	if (!sanityContent) {
@@ -78,6 +78,7 @@ export const SanityAlert = ({
 	const portableTextComponents = getSanityPortableTextComponents({
 		intl,
 		onLinkClick,
+		navigateToRoute,
 		dynamicValues,
 	})
 
