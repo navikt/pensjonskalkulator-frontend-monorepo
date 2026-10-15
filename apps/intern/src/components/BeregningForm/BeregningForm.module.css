@@ -3,7 +3,7 @@
 .beregningForm {
 	width: 496px;
 	flex-shrink: 0;
-	background-color: white;
+	background-color: var(--ax-bg-default);
 	box-sizing: border-box;
 	z-index: 1;
 	display: flex;
@@ -79,7 +79,7 @@
 .buttonBar {
 	gap: 24px;
 	padding: 0 48px 24px 48px;
-	background-color: white;
+	background-color: var(--ax-bg-default);
 	flex-shrink: 0;
 	border-top: 1px solid var(--ax-border-neutral-subtle);
 }
