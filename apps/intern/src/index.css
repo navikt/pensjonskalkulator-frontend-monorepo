@@ -1,5 +1,11 @@
 @import '@navikt/ds-css';
 
+.aksel-heading--medium,
+.aksel-heading--large,
+.aksel-heading--xlarge {
+	font-weight: var(--ax-font-weight-bold);
+}
+
 html {
 	color-scheme: light;
 }
