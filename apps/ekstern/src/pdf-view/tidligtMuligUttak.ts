@@ -51,7 +51,7 @@ export function getTidligstMuligUttakIngress({
         normertPensjonsalder: formatertNormertPensjonsalder,
         skjulAvansertLenke: ufoeregradMellom80Og100,
         link: getPdfLink({
-          displayText: 'Avansert',
+          displayText: 'Flere valg',
         }),
       }
     )

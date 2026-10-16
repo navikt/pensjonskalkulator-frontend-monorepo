@@ -2,10 +2,7 @@ import type {
 	Sivilstatus,
 	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import {
-	formatInntekt,
-	formaterAlderString,
-} from '@pensjonskalkulator-frontend-monorepo/utils'
+import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	calculateUttaksalderAsDate,
 	getAlderPlus1Maaned,
@@ -53,6 +50,7 @@ import {
 	getAlderForAfpEndring,
 	getForTidligEndringAvUttaksgradDato,
 	getUttaksGradArray,
+	getVilkaarsproevingDynamicValues,
 	showBeregnMedGjenlevenderett,
 	showSivilstatus,
 } from './utils'
@@ -529,29 +527,14 @@ export const BeregningForm = () => {
 										className={styles.sanityAlert}
 										dynamicValues={{
 											...dynamicGrunnbeloep,
-											grad: visGradert
-												? (beregning.vilkaarsproevingsresultat?.alternativ
-														?.uttaksgrad ?? 100)
-												: 100,
-											alder:
-												visGradert && vilkaarAlternativGradert
-													? formaterAlderString(
-															vilkaarAlternativGradert.aar,
-															vilkaarAlternativGradert.maaneder
-														)
-													: formaterAlderString(
-															vilkaarAlternativHelt.aar,
-															vilkaarAlternativHelt.maaneder
-														),
-											grad_gradert:
-												beregning.vilkaarsproevingsresultat?.alternativ
-													?.uttaksgrad ?? 100,
-											gradert_alder: vilkaarAlternativGradert
-												? formaterAlderString(
-														vilkaarAlternativGradert.aar,
-														vilkaarAlternativGradert.maaneder
-													)
-												: '',
+											...getVilkaarsproevingDynamicValues({
+												heltUttakAlder: vilkaarAlternativHelt,
+												gradertUttakAlder: vilkaarAlternativGradert,
+												uttaksgrad:
+													beregning.vilkaarsproevingsresultat?.alternativ
+														?.uttaksgrad,
+												visGradert: Boolean(visGradert),
+											}),
 										}}
 									/>
 								</div>

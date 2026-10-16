@@ -11,6 +11,7 @@ on:
       - intern/dreambox
       # ekstern test branches
       - ekstern/codebox
+      - ekstern/magicbox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'

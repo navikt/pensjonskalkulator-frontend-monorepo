@@ -35,7 +35,7 @@ const expectedMonthOptionText = (maaneder: number) => {
   return `${maaneder} md. (${nbMonthLabels[monthIndex]})`
 }
 
-test.describe('Avansert', () => {
+test.describe('Flere valg', () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.install({ time: MOCK_DATE })
   })
@@ -57,11 +57,11 @@ test.describe('Avansert', () => {
       })
 
       // 1
-      test('forventer jeg å kunne velge «Avansert fane» for å få flere valgmuligheter.', async ({
+      test('forventer jeg å kunne velge «Flere valg fane» for å få flere valgmuligheter.', async ({
         page,
       }) => {
         const toggleAvansert = page.getByTestId('toggle-avansert')
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         await expect(
           page.getByTestId(
@@ -71,15 +71,15 @@ test.describe('Avansert', () => {
       })
 
       // 2
-      test('forventer også å kunne gå til Avansert fra «Alderspensjon (Nav)» og «Pensjonsgivende inntekt frem til uttak» i Grunnlaget.', async ({
+      test('forventer også å kunne gå til Flere valg fra «Alderspensjon (Nav)» og «Pensjonsgivende inntekt frem til uttak» i Grunnlaget.', async ({
         page,
       }) => {
         // Click on age button "70" to trigger beregning
         await page.getByRole('button', { name: '70' }).click()
 
-        // Click on "avansert kalkulator" link in Alderspensjon section
+        // Click on "Flere valg" link in Alderspensjon section
         await page
-          .getByRole('link', { name: /avansert kalkulator/i })
+          .getByRole('link', { name: /Flere valg/i })
           .first()
           .click()
         await expect(
@@ -100,9 +100,9 @@ test.describe('Avansert', () => {
           page.getByTestId('grunnlag2.endre_inntekt.title')
         ).toBeVisible()
 
-        // Click on "avansert kalkulator" link in Inntekt section
+        // Click on "Flere valg" link in Inntekt section
         await page
-          .getByRole('link', { name: /avansert kalkulator/i })
+          .getByRole('link', { name: /Flere valg/i })
           .first()
           .click()
         await expect(
@@ -115,7 +115,7 @@ test.describe('Avansert', () => {
       // 3
       test('ønsker jeg å kunne starte ny beregning.', async ({ page }) => {
         const toggleAvansert = page.getByTestId('toggle-avansert')
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         await expect(
           page.getByTestId(
@@ -136,7 +136,7 @@ test.describe('Avansert', () => {
     })
   })
 
-  test.describe('Gitt at jeg som bruker har valgt "Avansert",', () => {
+  test.describe('Gitt at jeg som bruker har valgt "Flere valg",', () => {
     test.describe('Når jeg er kommet inn i avansert,', () => {
       test.use({ autoAuth: false })
 
@@ -148,10 +148,10 @@ test.describe('Avansert', () => {
           afp: 'vet_ikke',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
       })
 
       // 4
@@ -339,10 +339,10 @@ test.describe('Avansert', () => {
           afp: 'vet_ikke',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         // Select age 65 år 3 md and 100%
         await page
@@ -416,10 +416,12 @@ test.describe('Avansert', () => {
         const modal = page.getByRole('dialog')
         await expect(modal).toBeVisible()
         await expect(modal).toContainText(
-          'Hvis du går ut av Avansert, mister du alle valgene dine.'
+          'Hvis du går ut av Flere valg, mister du det du har fylt ut.'
         )
         // Click the confirm button in modal
-        await modal.getByRole('button', { name: /Gå ut av Avansert/i }).click()
+        await modal
+          .getByRole('button', { name: /Gå ut av Flere valg/i })
+          .click()
         await expect(
           page.getByTestId('tidligst-mulig-uttak-result')
         ).toContainText(
@@ -439,10 +441,10 @@ test.describe('Avansert', () => {
           afp: 'vet_ikke',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         // Select age 65 år 3 md and 40%
         await page
@@ -544,10 +546,10 @@ test.describe('Avansert', () => {
           afp: 'vet_ikke',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         // Select age 65 år 1 md and 100%
         await page
@@ -770,7 +772,7 @@ test.describe('Avansert', () => {
     })
   })
 
-  test.describe('Gitt at jeg som bruker har valgt "Avansert", fylt ut skjemaet og klikket på "Beregn Pensjon",', () => {
+  test.describe('Gitt at jeg som bruker har valgt "Flere valg", fylt ut skjemaet og klikket på "Beregn Pensjon",', () => {
     test.describe('Når jeg er kommet til beregningssiden i resultatmodus,', () => {
       test.use({ autoAuth: false })
 
@@ -782,10 +784,10 @@ test.describe('Avansert', () => {
           afp: 'ja_privat',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         // Fill out the form with gradert uttak
         await page
@@ -912,11 +914,11 @@ test.describe('Avansert', () => {
       })
 
       // 26
-      test('forventer jeg en lenke for å "endre avanserte valg"', async ({
+      test('forventer jeg en lenke for å "Endre Flere valg"', async ({
         page,
       }) => {
         const endreValgLink = page.getByRole('link', {
-          name: 'Endre avanserte valg',
+          name: 'Endre valgene dine',
         })
         await expect(endreValgLink).toBeVisible()
         await endreValgLink.click()
@@ -946,10 +948,10 @@ test.describe('Avansert', () => {
           afp: 'ja_privat',
           navigateTo: 'beregning',
         })
-        // Wait for the toggle to be visible and click Avansert
+        // Wait for the toggle to be visible and click Flere valg
         const toggleAvansert = page.getByTestId('toggle-avansert')
         await toggleAvansert.waitFor({ state: 'visible' })
-        await toggleAvansert.getByRole('radio', { name: 'Avansert' }).click()
+        await toggleAvansert.getByRole('radio', { name: 'Flere valg' }).click()
 
         // Change income first
         await page
@@ -985,7 +987,7 @@ test.describe('Avansert', () => {
 
         await page.getByTestId('beregn-pensjon').click()
         await expect(page.getByTestId('beregning-heading')).toBeVisible()
-        await page.getByRole('link', { name: 'Endre avanserte valg' }).click()
+        await page.getByRole('link', { name: 'Endre valgene dine' }).click()
       })
 
       // 27
@@ -1120,7 +1122,7 @@ test.describe('Avansert', () => {
       }) => {
         await page.getByRole('button', { name: /Avbryt endring/i }).click()
         await expect(
-          page.getByRole('link', { name: 'Endre avanserte valg' })
+          page.getByRole('link', { name: 'Endre valgene dine' })
         ).toBeVisible()
       })
 
@@ -1133,10 +1135,12 @@ test.describe('Avansert', () => {
         const modal = page.getByRole('dialog')
         await expect(modal).toBeVisible()
         await expect(modal).toContainText(
-          'Hvis du går ut av Avansert, mister du alle valgene dine.'
+          'Hvis du går ut av Flere valg, mister du det du har fylt ut.'
         )
         // Click the confirm button in modal
-        await modal.getByRole('button', { name: /Gå ut av Avansert/i }).click()
+        await modal
+          .getByRole('button', { name: /Gå ut av Flere valg/i })
+          .click()
         await expect(
           page.getByTestId('tidligst-mulig-uttak-result')
         ).toContainText(

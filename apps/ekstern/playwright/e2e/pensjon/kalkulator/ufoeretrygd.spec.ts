@@ -65,7 +65,7 @@ async function navigateToBeregning(page: Page, afp: AfpRadio = 'nei') {
 
 async function navigateToAvansertBeregning(page: Page) {
   await navigateToBeregning(page, 'nei')
-  await page.getByTestId('toggle-avansert').getByText('Avansert').click()
+  await page.getByTestId('toggle-avansert').getByText('Flere valg').click()
 }
 
 async function setApotekerErrorState(page: Page) {
