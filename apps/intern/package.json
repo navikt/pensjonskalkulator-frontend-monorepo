@@ -12,9 +12,9 @@
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"test:e2e": "playwright test --project=chromium",
-		"pw:open": "playwright test --ui --project=chromium",
-		"pw:test": "playwright test --project=chromium",
+		"test:e2e": "pnpm pw:test",
+		"pw:open": "pnpm build && playwright test --ui --project=chromium",
+		"pw:test": "pnpm build && playwright test --project=chromium",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
 	},

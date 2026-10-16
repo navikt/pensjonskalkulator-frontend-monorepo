@@ -256,7 +256,7 @@ test.describe('Hovedhistorie', () => {
         ])
 
         await expect(
-          page.locator('[data-intl="stegvisning.fremtidigvedtak.alert"]')
+          page.getByTestId('start.fremtidig-vedtak-uten-gjeldende')
         ).toBeVisible()
       })
     })
