@@ -371,7 +371,6 @@ export const BeregningEnkel = () => {
                   <Heading
                     level="2"
                     size="medium"
-                    className={styles.introTitle}
                     data-testid="beregning-heading"
                   >
                     <FormattedMessage id="beregning.intro.title" />
