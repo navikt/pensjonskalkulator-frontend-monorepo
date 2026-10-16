@@ -42,7 +42,7 @@ test.describe('Hovedhistorie', () => {
 
   const checkForValidationErrors = async (page: Page): Promise<string[]> => {
     const validationMessages = page.locator(
-      '[role="alert"], .navds-alert--error, [data-testid*="validation"], [data-testid*="error"]'
+      '[role="alert"], [data-testid*="validation"], [data-testid*="error"]'
     )
     const count = await validationMessages.count()
     const errors: string[] = []
@@ -256,7 +256,7 @@ test.describe('Hovedhistorie', () => {
         ])
 
         await expect(
-          page.locator('[data-intl="stegvisning.fremtidigvedtak.alert"]')
+          page.getByTestId('start.fremtidig-vedtak-uten-gjeldende')
         ).toBeVisible()
       })
     })

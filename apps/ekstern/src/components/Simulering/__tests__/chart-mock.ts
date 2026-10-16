@@ -10,51 +10,51 @@ export const getChartMock = (
   const data1 = [
     {
       index: 0,
-      color: 'var(--a-deepblue-500)',
+      color: 'var(--ax-brand-blue-600)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 1,
-      color: 'var(--a-deepblue-500)',
+      color: 'var(--ax-brand-blue-600)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 2,
-      color: 'var(--a-deepblue-200)',
+      color: 'var(--ax-brand-blue-300)',
       update: pointUpdateMock,
     } as unknown as Point,
   ]
   const data2 = [
     {
       index: 0,
-      color: 'var(--a-data-surface-5)',
+      color: 'var(--ax-success-500)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 1,
-      color: 'var(--a-data-surface-5)',
+      color: 'var(--ax-success-500)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 2,
-      color: 'var(--a-data-surface-5-subtle)',
+      color: 'var(--ax-success-300)',
       update: pointUpdateMock,
     } as unknown as Point,
   ]
   const data3 = [
     {
       index: 0,
-      color: 'var(--a-purple-400)',
+      color: 'var(--ax-meta-purple-500)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 1,
-      color: 'var(--a-purple-400)',
+      color: 'var(--ax-meta-purple-500)',
       update: pointUpdateMock,
     } as unknown as Point,
     {
       index: 2,
-      color: 'var(--a-purple-200)',
+      color: 'var(--ax-meta-purple-300)',
       update: pointUpdateMock,
     } as unknown as Point,
   ]

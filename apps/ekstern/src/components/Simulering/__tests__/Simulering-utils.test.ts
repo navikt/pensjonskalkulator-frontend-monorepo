@@ -1376,10 +1376,10 @@ describe('Simulering-utils', () => {
 
   describe('getHoverColor og getNormalColor', () => {
     test.each([
-      ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
-      ['var(--a-data-surface-5)', 'var(--a-data-surface-5-subtle)'],
-      ['var(--a-purple-400)', 'var(--a-purple-200)'],
-      ['var(--a-gray-500)', 'var(--a-gray-300)'],
+      ['var(--ax-brand-blue-600)', 'var(--ax-brand-blue-300)'],
+      ['var(--ax-success-500)', 'var(--ax-success-300)'],
+      ['var(--ax-meta-purple-500)', 'var(--ax-meta-purple-300)'],
+      ['var(--ax-neutral-600)', 'var(--ax-neutral-400)'],
       ['#FF0000', ''],
     ])('returnerer riktig hover farge for: %s', async (a, expected) => {
       const color = getHoverColor(a)
@@ -1387,14 +1387,14 @@ describe('Simulering-utils', () => {
     })
 
     test.each([
-      ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
-      ['var(--a-data-surface-5-subtle)', 'var(--a-data-surface-5)'],
-      ['var(--a-purple-200)', 'var(--a-purple-400)'],
-      ['var(--a-gray-300)', 'var(--a-gray-500)'],
-      ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
-      ['var(--a-data-surface-5)', 'var(--a-data-surface-5)'],
-      ['var(--a-purple-400)', 'var(--a-purple-400)'],
-      ['var(--a-gray-500)', 'var(--a-gray-500)'],
+      ['var(--ax-brand-blue-300)', 'var(--ax-brand-blue-600)'],
+      ['var(--ax-success-300)', 'var(--ax-success-500)'],
+      ['var(--ax-meta-purple-300)', 'var(--ax-meta-purple-500)'],
+      ['var(--ax-neutral-400)', 'var(--ax-neutral-600)'],
+      ['var(--ax-brand-blue-600)', 'var(--ax-brand-blue-600)'],
+      ['var(--ax-success-500)', 'var(--ax-success-500)'],
+      ['var(--ax-meta-purple-500)', 'var(--ax-meta-purple-500)'],
+      ['var(--ax-neutral-600)', 'var(--ax-neutral-600)'],
     ])('returnerer riktig normal farge for: %s', async (a, expected) => {
       const color = getNormalColor(a)
       expect(color).toEqual(expected)

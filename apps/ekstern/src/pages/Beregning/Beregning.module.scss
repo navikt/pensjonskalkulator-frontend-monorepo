@@ -16,9 +16,9 @@
 }
 
 .section {
-  padding: 0 var(--a-spacing-6) var(--a-spacing-12) var(--a-spacing-6);
+  padding: 0 var(--ax-space-24) var(--ax-space-48) var(--ax-space-24);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     max-width: variables.$container-max-width;
     padding-left: 0;
     padding-right: 0;
@@ -26,28 +26,28 @@
 }
 
 .text {
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--ax-space-8);
 }
 
 .alert {
   max-width: variables.$container-max-width;
-  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+  margin: 0 var(--ax-space-24) var(--ax-space-24) var(--ax-space-24);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
-    margin: 0 0 var(--a-spacing-6) 0;
+  @media (min-width: variables.$ax-breakpoint-lg) {
+    margin: 0 0 var(--ax-space-24) 0;
   }
 }
 
 .toggle {
-  padding: 0 var(--a-spacing-6) var(--a-spacing-4) var(--a-spacing-6);
-  background-color: var(--a-white);
+  padding: 0 var(--ax-space-24) var(--ax-space-16) var(--ax-space-24);
+  background-color: var(--ax-bg-default);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     padding-left: 0;
     padding-right: 0;
   }
 
-  @media (max-width: variables.$a-breakpoint-sm) {
+  @media (max-width: variables.$ax-breakpoint-sm) {
     div[role='radiogroup'] {
       width: 100%;
     }
@@ -61,6 +61,6 @@
   margin-top: auto;
 
   &__lightblue {
-    background-color: var(--a-deepblue-50);
+    background-color: var(--ax-brand-blue-100);
   }
 }

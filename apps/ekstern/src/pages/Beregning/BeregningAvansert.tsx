@@ -301,7 +301,7 @@ export const BeregningAvansert = () => {
                 />
               </Heading>
 
-              <VStack gap="2">
+              <VStack gap="space-8">
                 <BodyLong>
                   <FormattedMessage
                     id={

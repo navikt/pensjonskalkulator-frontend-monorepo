@@ -98,7 +98,7 @@ describe('AfpDetaljerGrunnlag', () => {
     // AfpDetaljerGrunnlag doesn't have desktop/mobile structure - that's handled by AfpDetaljer
     const wrapper = screen.getByTestId('beregningsdetaljer-for-overgangskull')
     expect(wrapper).toBeInTheDocument()
-    expect(wrapper).toHaveClass('navds-stack')
+    expect(wrapper).toHaveClass('aksel-stack')
   })
 
   it('rendrer VStack for mobil versjon', () => {
@@ -107,7 +107,7 @@ describe('AfpDetaljerGrunnlag', () => {
     // AfpDetaljerGrunnlag doesn't have desktop/mobile structure - that's handled by AfpDetaljer
     const wrapper = screen.getByTestId('beregningsdetaljer-for-overgangskull')
     expect(wrapper).toBeInTheDocument()
-    expect(wrapper).toHaveClass('navds-stack')
+    expect(wrapper).toHaveClass('aksel-stack')
   })
 
   it('rendrer AfpDetaljer komponenten', () => {
