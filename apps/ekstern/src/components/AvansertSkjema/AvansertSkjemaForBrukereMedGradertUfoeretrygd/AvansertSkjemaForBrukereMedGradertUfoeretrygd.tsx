@@ -92,10 +92,11 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     window.scrollTo(0, 0)
   }
 
-  const brukerensAlderPlus1Maaned = getBrukerensAlderISluttenAvMaaneden(
-    foedselsdato,
-    nedreAldersgrense
-  )
+  const harUfoeregradFra80 = loependeVedtak.ufoeretrygd.grad >= 80
+
+  const agePickerMinAlder = harUfoeregradFra80
+    ? normertPensjonsalder
+    : getBrukerensAlderISluttenAvMaaneden(foedselsdato, nedreAldersgrense)
 
   const {
     localInntektFremTilUttak,
@@ -191,6 +192,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
 
     // * Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal alle påfølgende felter nullstilles
     const shouldResetGradertUttak =
+      !harUfoeregradFra80 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
       alder?.aar >= normertPensjonsalder.aar
@@ -534,7 +536,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       value={localGradertUttak.uttaksalder}
                       onChange={handleGradertUttaksalderChange}
                       error={gradertUttakAgePickerError}
-                      minAlder={brukerensAlderPlus1Maaned}
+                      minAlder={agePickerMinAlder}
                     />
                   ) : (
                     <AgePicker
@@ -553,7 +555,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       value={localHeltUttak?.uttaksalder}
                       onChange={handleHeltUttaksalderChange}
                       error={heltUttakAgePickerError}
-                      minAlder={brukerensAlderPlus1Maaned}
+                      minAlder={agePickerMinAlder}
                     />
                   )}
 
