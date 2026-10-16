@@ -346,7 +346,6 @@ export default {
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
-  'beregning.highcharts.ingress': 'MANGLER_TEKST',
   'beregning.highcharts.alt_tekst':
     'Annual income and pension after withdrawal in kroner.',
   'beregning.highcharts.xaxis': 'Annual Income and Pension after Withdrawal',

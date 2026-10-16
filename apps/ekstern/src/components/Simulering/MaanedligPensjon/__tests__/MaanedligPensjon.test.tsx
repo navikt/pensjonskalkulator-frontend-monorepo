@@ -4,9 +4,9 @@ import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen } from '@/test-utils'
 
-import { MaanedsbeloepAvansertBeregning } from '../MaanedsbeloepAvansertBeregning'
+import { MaanedligPensjon } from '../MaanedligPensjon'
 
-describe('MaanedsbeloepAvansertBeregning', () => {
+describe('MaanedligPensjon', () => {
   const pensjonsavtale: Pensjonsavtale = {
     key: 0,
     produktbetegnelse: 'DNB',
@@ -52,7 +52,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
 
   it('rendrer riktig', () => {
     render(
-      <MaanedsbeloepAvansertBeregning
+      <MaanedligPensjon
         alderspensjonMaanedligVedEndring={{
           heltUttakMaanedligBeloep: 20000,
           gradertUttakMaanedligBeloep: 15000,
@@ -75,14 +75,12 @@ describe('MaanedsbeloepAvansertBeregning', () => {
       }
     )
 
-    expect(
-      screen.getByTestId('maanedsbloep-avansert-beregning')
-    ).toBeInTheDocument()
+    expect(screen.getByTestId('maanedlig-pensjon')).toBeInTheDocument()
   })
 
   it('returnerer null når uttaksalder ikke er definert', async () => {
     const { container } = render(
-      <MaanedsbeloepAvansertBeregning
+      <MaanedligPensjon
         alderspensjonMaanedligVedEndring={{
           heltUttakMaanedligBeloep: 20000,
           gradertUttakMaanedligBeloep: 15000,

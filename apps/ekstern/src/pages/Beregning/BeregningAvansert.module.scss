@@ -13,15 +13,11 @@
 }
 
 .intro {
-  margin-bottom: var(--a-spacing-10);
+  margin-bottom: var(--a-spacing-4);
   max-width: variables.$container-max-width;
 
   &__endring {
     margin-bottom: var(--a-spacing-3);
-  }
-
-  &Title {
-    margin-bottom: var(--a-spacing-1);
   }
 }
 

@@ -6,7 +6,7 @@ import { Box, Heading } from '@navikt/ds-react'
 import { PensjonVisningDesktop, PensjonVisningMobil } from './Felles'
 import { usePensjonBeregninger } from './hooks'
 
-import styles from './MaanedsbeloepAvansertBeregning.module.scss'
+import styles from './MaanedligPensjon.module.scss'
 
 interface Props {
   afpPrivatListe?: AfpPrivatPensjonsberegning[] | null
@@ -20,7 +20,7 @@ interface Props {
   erTpFoer1963?: boolean
 }
 
-export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
+export const MaanedligPensjon: React.FC<Props> = (props) => {
   const {
     pensjonsdata,
     summerYtelser,
@@ -34,7 +34,7 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
   }
 
   return (
-    <Box marginBlock="10 0" data-testid="maanedsbloep-avansert-beregning">
+    <Box marginBlock="10 0" data-testid="maanedlig-pensjon">
       <Heading size="small" level="3">
         <FormattedMessage id="maanedsbeloep.title" />
       </Heading>
