@@ -127,6 +127,134 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     expect(optionAarElementsGradert?.[12].value).toBe('75')
   })
 
+  describe('Gitt at brukeren har uføretrygd mellom 80 og 100 %', () => {
+    const loependeVedtak80UfoeregradMock = {
+      ...loependeVedtak75UfoeregradMock,
+      ufoeretrygd: { grad: 80 },
+    }
+
+    it('begrenses aldersvelgerne for gradert og helt uttak fra normert pensjonsalder', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak80UfoeregradMock,
+          },
+        }
+      )
+
+      const optionAarElements = screen
+        .getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        )
+        .querySelectorAll('option')
+      expect(optionAarElements[0].value).toBe('')
+      expect(optionAarElements[1].value).toBe('70')
+
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        { target: { value: '70' } }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        { target: { value: '0' } }
+      )
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        { target: { value: '50' } }
+      )
+
+      const optionAarElementsGradert = screen
+        .getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+        )
+        .querySelectorAll('option')
+      expect(optionAarElementsGradert[0].value).toBe('')
+      expect(optionAarElementsGradert[1].value).toBe('70')
+    })
+
+    it('nullstilles ikke gradert uttak når brukeren endrer uttaksalder for gradert uttak', async () => {
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <AvansertSkjemaForBrukereMedGradertUfoeretrygd />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+          preloadedApiState: {
+            getPerson: personMedOekteAldersgrenseMock,
+            getLoependeVedtak: loependeVedtak80UfoeregradMock,
+          },
+        }
+      )
+
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        { target: { value: '70' } }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        { target: { value: '0' } }
+      )
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        { target: { value: '50' } }
+      )
+
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        { target: { value: '71' } }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        ),
+        { target: { value: '0' } }
+      )
+
+      expect(screen.getByTestId(AVANSERT_FORM_NAMES.uttaksgrad)).toHaveValue(
+        '50'
+      )
+      expect(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+        )
+      ).toHaveValue('71')
+      expect(
+        screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio)
+      ).toBeVisible()
+    })
+  })
+
   it('feltene rendres riktig som default, og når brukeren legger til en gradert periode', async () => {
     vi.spyOn(alderUtils, 'getBrukerensAlderISluttenAvMaaneden').mockReturnValue(
       { aar: 64, maaneder: 5 }
