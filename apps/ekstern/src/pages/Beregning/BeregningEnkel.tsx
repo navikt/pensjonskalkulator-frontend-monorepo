@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { Alert, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
@@ -366,12 +366,31 @@ export const BeregningEnkel = () => {
             </>
           ) : (
             <>
+              {!isEndring && (
+                <div className={styles.intro}>
+                  <Heading
+                    level="2"
+                    size="medium"
+                    className={styles.introTitle}
+                    data-testid="beregning-heading"
+                  >
+                    <FormattedMessage id="beregning.intro.title" />
+                  </Heading>
+                  <BodyLong>
+                    <FormattedMessage id="beregning.intro.description_1" />
+                  </BodyLong>
+                </div>
+              )}
+
               <Simulering
                 visning="enkel"
                 isLoading={isFetching}
-                headingLevel="2"
+                headingLevel="3"
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
+                }
+                alderspensjonMaanedligVedEndring={
+                  alderspensjon?.alderspensjonMaanedligVedEndring
                 }
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 pre2025OffentligAfp={alderspensjon?.pre2025OffentligAfp}

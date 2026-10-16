@@ -1,11 +1,10 @@
-import clsx from 'clsx'
 import type { SeriesColumnOptions, SeriesOptionsType } from 'highcharts'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HandFingerIcon } from '@navikt/aksel-icons'
 import type { HeadingProps } from '@navikt/ds-react'
-import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { BodyShort, Heading } from '@navikt/ds-react'
 
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePdfView } from '@/pdf-view/hooks'
@@ -35,7 +34,7 @@ import { isAlderOver62 } from '@/utils/alder'
 import { formatInntektToNumber } from '@/utils/inntekt'
 
 import { Graph } from './Graph'
-import { MaanedsbeloepAvansertBeregning } from './MaanedsbeloepAvansertBeregning'
+import { MaanedligPensjon } from './MaanedligPensjon'
 import { SimuleringAfpOffentligAlert } from './SimuleringAfpOffentligAlert/SimuleringAfpOffentligAlert'
 import { SimuleringEndringBanner } from './SimuleringEndringBanner/SimuleringEndringBanner'
 import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
@@ -329,7 +328,6 @@ export const Simulering = ({
   ])
 
   // const { data: person } = useGetPersonQuery()
-  const isEnkel = visning === 'enkel'
 
   usePdfView({
     headingLevel,
@@ -365,22 +363,13 @@ export const Simulering = ({
   return (
     <section className={styles.section}>
       {!isEndring && (
-        <div className={clsx({ [styles.intro]: isEnkel })}>
-          <Heading
-            className={clsx({ [styles.introTitle]: isEnkel })}
-            level={headingLevel}
-            size={headingLevel === '2' ? 'medium' : 'small'}
-            data-testid="beregning-title"
-          >
-            <FormattedMessage id="beregning.highcharts.title" />
-          </Heading>
-
-          {isEnkel && (
-            <BodyLong>
-              <FormattedMessage id="beregning.highcharts.ingress" />
-            </BodyLong>
-          )}
-        </div>
+        <Heading
+          level={headingLevel}
+          size={headingLevel === '2' ? 'medium' : 'small'}
+          data-testid="beregning-title"
+        >
+          <FormattedMessage id="beregning.highcharts.title" />
+        </Heading>
       )}
 
       {showButtonsAndTable && (
@@ -475,9 +464,8 @@ export const Simulering = ({
       {!isOffentligTpLoading &&
         !isLoading &&
         !isPensjonsavtalerLoading &&
-        !isEndring &&
-        visning === 'avansert' && (
-          <MaanedsbeloepAvansertBeregning
+        !isEndring && (
+          <MaanedligPensjon
             alderspensjonMaanedligVedEndring={alderspensjonMaanedligVedEndring}
             afpPrivatListe={afpPrivatListe}
             afpOffentligListe={hideAFP ? undefined : afpOffentligListe}

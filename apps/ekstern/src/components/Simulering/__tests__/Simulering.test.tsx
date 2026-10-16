@@ -1081,7 +1081,7 @@ describe('Simulering', () => {
   })
 
   describe('Gitt at simuleringen er i enkel visning', () => {
-    it('viser tittel og riktig ingress', async () => {
+    it('viser tittel uten ingress', async () => {
       render(
         <Simulering
           visning="enkel"
@@ -1107,12 +1107,14 @@ describe('Simulering', () => {
         }
       )
       expect(screen.getByText('beregning.highcharts.title')).toBeVisible()
-      expect(screen.getByText('beregning.highcharts.ingress')).toBeVisible()
+      expect(
+        screen.queryByText('beregning.intro.description_1')
+      ).not.toBeInTheDocument()
     })
   })
 
   describe('Gitt at simuleringen er i avansert visning', () => {
-    it('viser MaanedsbeloepAvansertBeregning komponenten når alle betingelsene er oppfylt', async () => {
+    it('viser MaanedligPensjon komponenten når alle betingelsene er oppfylt', async () => {
       render(
         <Simulering
           visning="avansert"
@@ -1138,9 +1140,7 @@ describe('Simulering', () => {
         }
       )
 
-      expect(
-        await screen.findByTestId('maanedsbloep-avansert-beregning')
-      ).toBeVisible()
+      expect(await screen.findByTestId('maanedlig-pensjon')).toBeVisible()
     })
   })
 })

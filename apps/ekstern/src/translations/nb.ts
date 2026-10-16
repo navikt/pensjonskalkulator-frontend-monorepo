@@ -392,7 +392,6 @@ const translations = {
     'Du har startet uttak av livsvarig AFP. Vi klarte ikke å hente beløpet ditt for AFP. Tidspunktet for når du kan ta ut alderspensjon kan derfor være feil. Prøv igjen senere.',
   'beregning.highcharts.informasjon_klikk': 'Klikk på søylene for detaljer',
   'beregning.highcharts.title': 'Årlig inntekt og pensjon',
-  'beregning.highcharts.ingress': 'Estimerte beløp i dagens verdi før skatt',
   'beregning.highcharts.alt_tekst':
     'Årlig inntekt og pensjon etter uttak i kroner.',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
