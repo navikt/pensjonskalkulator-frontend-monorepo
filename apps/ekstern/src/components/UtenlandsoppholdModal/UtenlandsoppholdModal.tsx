@@ -114,7 +114,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
             )
           }}
         >
-          <VStack gap="6">
+          <VStack gap="space-24">
             <input
               type="hidden"
               form={UTENLANDSOPPHOLD_FORM_NAMES.form}

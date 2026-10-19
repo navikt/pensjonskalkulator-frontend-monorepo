@@ -165,7 +165,7 @@ export const EndreInntekt: React.FC<Props> = ({
           )}
 
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
-            <VStack gap="4">
+            <VStack gap="space-16">
               <TextField
                 ref={inntektInputRef}
                 data-testid="inntekt-textfield"

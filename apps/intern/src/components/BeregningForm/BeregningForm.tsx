@@ -389,7 +389,7 @@ export const BeregningForm = () => {
 				name="afp"
 				legend="Skal AFP inkluderes?"
 				options={afpOptions}
-				className={styles.horizontalRadioGroup}
+				gap="space-24"
 				testid="afp"
 				onChange={(value) => {
 					setAlertDismissed(true)
@@ -472,7 +472,7 @@ export const BeregningForm = () => {
 								name="epsHarPensjon"
 								testid="eps-har-pensjon"
 								legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
-								className={styles.horizontalRadioGroup}
+								gap="space-24"
 							/>
 						)}
 
@@ -487,7 +487,7 @@ export const BeregningForm = () => {
 								name="epsHarInntektOver2G"
 								testid="eps-har-inntekt-over-2g"
 								legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${formatInntekt(2 * grunnbeloep.grunnbeløp)} kr)` : ''} ved uttak?`}
-								className={styles.horizontalRadioGroup}
+								gap="space-24"
 							/>
 						)}
 
@@ -720,7 +720,7 @@ export const BeregningForm = () => {
 												name="harInntektVedSidenAvUttak"
 												testid="har-inntekt-vsa-helt-uttak"
 												legend="Har bruker inntekt ved siden av 100 % uttak?"
-												className={styles.horizontalRadioGroup}
+												gap="space-24"
 											/>
 										)}
 

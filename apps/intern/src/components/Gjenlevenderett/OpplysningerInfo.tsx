@@ -164,7 +164,7 @@ export const OpplysningerInfo = ({
 						<RHFRadio
 							name="epsMinstePensjonsgivendeInntektFoerDoedsfall"
 							legend={`Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`}
-							className={styles.horizontalRadioGroup}
+							gap="space-24"
 							testid="eps-minste-PGI-foer-doedsfall"
 						/>
 					)}
@@ -173,12 +173,12 @@ export const OpplysningerInfo = ({
 						<RHFRadio
 							name="epsMedlemAvFolketrygdenVedDoedsDato"
 							legend="Medlem av folketrygden de 5 siste årene før dødsdato"
-							className={styles.horizontalRadioGroup}
+							gap="space-24"
 						/>
 						<RHFRadio
 							name="epsRegistretSomFlykting"
 							legend="Registrert som flyktning"
-							className={styles.horizontalRadioGroup}
+							gap="space-24"
 						/>
 					</>
 				)}

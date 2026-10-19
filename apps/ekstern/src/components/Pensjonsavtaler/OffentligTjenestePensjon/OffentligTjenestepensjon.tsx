@@ -115,7 +115,7 @@ export const OffentligTjenestepensjon = (props: {
     offentligTp?.simuleringsresultatStatus === 'OK' && tpNummer !== undefined
 
   return (
-    <VStack gap="3">
+    <VStack gap="space-12">
       <Divider smallMargin />
       <Heading id="tpo-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
