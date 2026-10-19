@@ -79,9 +79,7 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
       page,
     }) => {
       await page.getByRole('radio').last().check()
-      await expect(
-        page.getByTestId('samtykke-pensjonsavtaler-alert')
-      ).toBeVisible()
+      await expect(page.getByTestId('samtykke.nei.valgt-afp.spk')).toBeVisible()
     })
   })
 

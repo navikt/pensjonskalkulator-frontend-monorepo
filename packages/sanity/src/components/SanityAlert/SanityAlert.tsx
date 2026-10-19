@@ -1,6 +1,6 @@
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { type ReactNode, useContext } from 'react'
+import { type AriaAttributes, type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import {
@@ -56,6 +56,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	'aria-live'?: AriaAttributes['aria-live']
 }
 
 export const SanityAlert = ({
@@ -63,6 +64,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	'aria-live': ariaLive,
 }: Props) => {
 	const intl = useIntl()
 	const { alertData, navigateToRoute } = useContext(SanityContext)
@@ -96,6 +98,7 @@ export const SanityAlert = ({
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
 				>
 					{sanityContent.overskrift && (
 						<GlobalAlert.Header>
@@ -113,10 +116,11 @@ export const SanityAlert = ({
 						data-color={infoCardColorMap[infoCardStatus]}
 						className={clsx(styles.wrapper, className)}
 						data-testid={sanityContent.name}
+						aria-live={ariaLive}
 					>
-						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
+						<InfoCard.Header icon={infoCardIconMap[infoCardStatus]}>
 							{content}
-						</InfoCard.Message>
+						</InfoCard.Header>
 					</InfoCard>
 				)
 			}
@@ -126,6 +130,7 @@ export const SanityAlert = ({
 					data-color={infoCardColorMap[infoCardStatus]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
 				>
 					{sanityContent.overskrift && (
 						<InfoCard.Header
@@ -149,6 +154,7 @@ export const SanityAlert = ({
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
 				>
 					{content}
 				</InlineMessage>

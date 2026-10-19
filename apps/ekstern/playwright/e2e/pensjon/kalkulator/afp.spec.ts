@@ -393,7 +393,9 @@ test.describe('AFP', () => {
 
       // 17
       test('forventer jeg apoteker-warning på AFP-steget', async ({ page }) => {
-        await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+        await expect(
+          page.getByTestId('apoteker.beregning-med-afp-feil')
+        ).toBeVisible()
       })
 
       // 18
@@ -401,7 +403,9 @@ test.describe('AFP', () => {
         page,
       }) => {
         await clickNeste(page)
-        await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+        await expect(
+          page.getByTestId('apoteker.beregning-med-afp-feil')
+        ).toBeVisible()
       })
 
       // 19
@@ -411,7 +415,9 @@ test.describe('AFP', () => {
         await clickNeste(page)
         await page.getByRole('radio').nth(0).check()
         await clickNeste(page)
-        await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+        await expect(
+          page.getByTestId('apoteker.beregning-med-afp-feil')
+        ).toBeVisible()
       })
 
       // 20
@@ -427,7 +433,9 @@ test.describe('AFP', () => {
         await page.getByRole('button', { name: '70' }).click()
 
         await expect(page).toHaveURL(/\/beregning/)
-        await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+        await expect(
+          page.getByTestId('apoteker.beregning-med-afp-feil')
+        ).toBeVisible()
       })
 
       // 21

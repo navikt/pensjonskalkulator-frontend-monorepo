@@ -87,33 +87,23 @@ describe('stegvisning - AFP - født etter 1963', () => {
       'stegvisning.afp.title'
     )
     const radioButtons = screen.getAllByRole('radio')
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByTestId('afp.vet-ikke')).not.toBeInTheDocument()
 
     await user.click(radioButtons[0])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByTestId('afp.vet-ikke')).not.toBeInTheDocument()
 
     await user.click(radioButtons[1])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByTestId('afp.vet-ikke')).not.toBeInTheDocument()
 
     await user.click(radioButtons[2])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).not.toBeInTheDocument()
+    expect(screen.queryByTestId('afp.vet-ikke')).not.toBeInTheDocument()
 
     await user.click(radioButtons[3])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_vet_ikke')
-    ).toBeInTheDocument()
+    expect(screen.queryByTestId('afp.vet-ikke')).toBeInTheDocument()
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {

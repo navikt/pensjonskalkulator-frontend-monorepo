@@ -1563,21 +1563,19 @@
 						},
 						{
 							"_key": "4b17056ec7eb",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "50 %"
+							"_type": "dynamicValue",
+							"key": "grad"
 						},
 						{
 							"_key": "4c62f8e0fe0e",
 							"_type": "span",
 							"marks": [],
-							"text": " alderspensjon fra "
+							"text": " % alderspensjon fra "
 						},
 						{
 							"_key": "232ab87c021c",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "01.09.2025"
+							"_type": "dynamicValue",
+							"key": "vedtakDato"
 						},
 						{
 							"_key": "b09b5a2f128e",

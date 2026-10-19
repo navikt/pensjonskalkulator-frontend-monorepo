@@ -1,8 +1,9 @@
 // src/components/common/AFPRadioGroup.tsx
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Alert, Radio, RadioGroup } from '@navikt/ds-react'
+import { Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
@@ -46,14 +47,10 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
         <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
       </Radio>
       {showApotekerAlert && (
-        <Alert
+        <SanityAlert
+          id="apoteker.beregning-med-afp-feil"
           className={styles.alert}
-          variant="warning"
-          aria-live="polite"
-          data-testid="apotekere-warning"
-        >
-          <FormattedMessage id="error.apoteker_warning" />
-        </Alert>
+        />
       )}
       <Radio value="ja_privat" data-testid="afp-radio-ja-privat">
         <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
@@ -65,9 +62,7 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
         <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
       </Radio>
       {showVetIkkeAlert && (
-        <Alert className={styles.alert} variant="info" aria-live="polite">
-          <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
-        </Alert>
+        <SanityAlert id="afp.vet-ikke" className={styles.alert} />
       )}
     </RadioGroup>
   )

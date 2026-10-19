@@ -1,5 +1,13 @@
+import {
+  type AlertQueryResult,
+  type DynamicValues,
+  getSanityPortableTextComponents,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { PortableText } from '@portabletext/react'
 import { format, parseISO } from 'date-fns'
-import { IntlShape } from 'react-intl/src/types'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { IntlShape, RawIntlProvider } from 'react-intl'
 
 import { formatLeverandoerList } from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
 import {
@@ -12,6 +20,70 @@ import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'
 import { getPdfLink, pdfFormatMessageValues } from './utils'
+
+type SanityAlertData = Record<string, AlertQueryResult[number]>
+
+function renderSanityAlertHtml({
+  alertData,
+  id,
+  intl,
+  dynamicValues,
+}: {
+  alertData: SanityAlertData
+  id: string
+  intl: IntlShape
+  dynamicValues?: DynamicValues
+}): string | null {
+  const alert = alertData[id]
+  if (!alert) return null
+
+  const infoCardStatus = alert.infoCardStatus ?? alert.status ?? 'info'
+  const tone =
+    infoCardStatus === 'error'
+      ? 'danger'
+      : infoCardStatus === 'warning' || infoCardStatus === 'attention'
+        ? 'warning'
+        : infoCardStatus === 'success'
+          ? 'success'
+          : 'info'
+  const icon =
+    infoCardStatus === 'message' ||
+    infoCardStatus === 'attention' ||
+    infoCardStatus === 'tips'
+      ? `<span class="pdf-sanity-alert__icon">${infoCardStatus === 'attention' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
+      : ''
+  const title = alert.overskrift
+    ? `<h3 class="pdf-sanity-alert__title">${escapeHtml(alert.overskrift)}</h3>`
+    : ''
+  const content = renderToStaticMarkup(
+    createElement(
+      RawIntlProvider,
+      { value: intl },
+      createElement(PortableText, {
+        value: alert.innhold,
+        components: getSanityPortableTextComponents({ intl, dynamicValues }),
+      })
+    )
+  )
+
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${infoCardStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
+  ${icon}
+  <div class="pdf-sanity-alert__body">${title}${content}</div>
+</section>`
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => {
+    const replacements: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }
+    return replacements[character]
+  })
+}
 
 export function getPensjonsavtalerAlertsText({
   pensjonsavtalerAlertsList,
@@ -144,15 +216,17 @@ export function getAfpOffentligAlertsText({
   return renderAlertTable({ alertIcon, alertMessage })
 }
 
-export function getApotekerAlert(intl: IntlShape): string {
-  const alertMessage = intl.formatMessage(
-    { id: 'error.apoteker_warning' },
-    {
-      ...pdfFormatMessageValues,
-    }
-  )
+export function getApotekerAlert(
+  intl: IntlShape,
+  alertData: SanityAlertData
+): string {
+  const alertMessage = renderSanityAlertHtml({
+    alertData,
+    id: 'apoteker.beregning-med-afp-feil',
+    intl,
+  })
 
-  return renderAlertTable({ alertIcon: ALERT_TRIANGLE_ICON, alertMessage })
+  return alertMessage ?? ''
 }
 
 export function getOmstillingsstoenadAlert(
@@ -181,26 +255,30 @@ export function getOmstillingsstoenadAlert(
 export const getFremtidigVedtakAlert = ({
   loependeVedtak,
   intl,
+  alertData,
 }: {
   loependeVedtak: LoependeVedtak
   intl: IntlShape
+  alertData: SanityAlertData
 }): string | null => {
   if (!loependeVedtak.fremtidigAlderspensjon || loependeVedtak.alderspensjon)
     return null
 
-  const alertMessage = intl.formatMessage(
-    { id: 'stegvisning.fremtidigvedtak.alert' },
-    {
-      ...pdfFormatMessageValues,
+  const alertMessage = renderSanityAlertHtml({
+    alertData,
+    id: 'start.fremtidig-vedtak-uten-gjeldende',
+    intl,
+    dynamicValues: {
       grad: loependeVedtak.fremtidigAlderspensjon.grad,
-      fom: format(
+      vedtakDato: format(
         parseISO(loependeVedtak.fremtidigAlderspensjon.fom),
         DATE_ENDUSER_FORMAT
       ),
-    }
-  )
+    },
+  })
+  if (!alertMessage) return null
 
-  return renderAlertTable({ alertMessage, alertIcon: INFO_SQUARE_ICON })
+  return alertMessage
 }
 
 function renderAlertTable({
