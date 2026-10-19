@@ -4,6 +4,10 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { App } from './App'
 
+const { darkModeToggle } = vi.hoisted(() => ({
+	darkModeToggle: { enabled: true },
+}))
+
 vi.mock('./SanityProvider.tsx', () => ({
 	SanityProvider: ({ children }: { children: ReactNode }) => children,
 }))
@@ -16,6 +20,7 @@ vi.mock('./api/queries.ts', () => ({
 	useDecryptPidQuery: () => ({}),
 	useEnheterQuery: () => ({}),
 	useErApotekerQuery: () => ({}),
+	useFeatureToggleQuery: () => ({ data: darkModeToggle }),
 	useInntektQuery: () => ({}),
 	useInternsimulatorLagreBrevButtonQuery: () => ({}),
 	useOmstillingsstoenadQuery: () => ({}),
@@ -25,6 +30,7 @@ vi.mock('./api/queries.ts', () => ({
 
 describe('App color theme', () => {
 	beforeEach(() => {
+		darkModeToggle.enabled = true
 		localStorage.clear()
 		window.history.replaceState({}, '', '/')
 		vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: false }))
@@ -96,5 +102,20 @@ describe('App color theme', () => {
 		fireEvent.click(screen.getByRole('checkbox', { name: 'Mørkt tema' }))
 
 		expect(document.documentElement).toHaveClass('dark')
+	})
+
+	test('forces light mode and hides the toggle while its feature flag is off', () => {
+		darkModeToggle.enabled = false
+		localStorage.setItem('intern-color-theme', 'dark')
+		vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: true }))
+
+		render(<App />)
+
+		expect(
+			screen.queryByRole('checkbox', { name: 'Mørkt tema' })
+		).not.toBeInTheDocument()
+		expect(document.documentElement).toHaveClass('light')
+		expect(document.documentElement).not.toHaveClass('dark')
+		expect(localStorage.getItem('intern-color-theme')).toBe('dark')
 	})
 })
