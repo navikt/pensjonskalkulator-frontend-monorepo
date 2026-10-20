@@ -1,5 +1,15 @@
 .wrapper {
-  p:first-child {
-    margin-top: 0;
-  }
+	p:first-child {
+		margin-top: 0;
+	}
+}
+
+.message {
+	:global(.aksel-base-alert__message) {
+		padding: var(--ax-space-16);
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
 }

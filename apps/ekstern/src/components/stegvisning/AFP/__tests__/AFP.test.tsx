@@ -103,7 +103,18 @@ describe('stegvisning - AFP - født etter 1963', () => {
 
     await user.click(radioButtons[3])
 
-    expect(screen.queryByTestId('afp.vet-ikke')).toBeInTheDocument()
+    const alert = screen.getByTestId('afp.vet-ikke')
+    expect(alert).toHaveAttribute('data-size', 'small')
+    expect(
+      alert.querySelector('.aksel-base-alert__message')
+    ).toBeInTheDocument()
+    expect(
+      alert.querySelector('.aksel-base-alert__header')
+    ).not.toBeInTheDocument()
+    expect(alert).toHaveTextContent(
+      'Er du usikker, bør du sjekke med arbeidsgiveren din.'
+    )
+    expect(alert).not.toHaveTextContent('AFP vet ikke')
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {

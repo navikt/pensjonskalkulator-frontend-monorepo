@@ -1458,6 +1458,7 @@
 			"name": "afp.vet-ikke",
 			"overskrift": "AFP vet ikke",
 			"status": "info",
+			"infoCardStatus": "message",
 			"type": "info-card"
 		},
 		{

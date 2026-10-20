@@ -4,9 +4,13 @@ import { type AriaAttributes, type ReactNode, useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import {
+	CheckmarkCircleFillIcon,
+	ExclamationmarkTriangleFillIcon,
 	ExclamationmarkTriangleIcon,
+	InformationSquareFillIcon,
 	InformationSquareIcon,
 	LightBulbIcon,
+	XMarkOctagonFillIcon,
 } from '@navikt/aksel-icons'
 import {
 	GlobalAlert,
@@ -24,6 +28,7 @@ import styles from './SanityAlert.module.scss'
 
 type AlertType = 'global-alert' | 'local-alert' | 'info-card' | 'inline-message'
 type AlertStatus = 'info' | 'success' | 'warning' | 'error'
+type InfoCardStatus = AlertStatus | 'message' | 'attention' | 'tips'
 
 const infoCardColorMap = {
 	info: 'info',
@@ -35,7 +40,11 @@ const infoCardColorMap = {
 	tips: 'info',
 } as const
 
-const infoCardIconMap: Record<'message' | 'attention' | 'tips', ReactNode> = {
+const infoCardIconMap: Record<InfoCardStatus, ReactNode> = {
+	info: <InformationSquareFillIcon aria-hidden />,
+	success: <CheckmarkCircleFillIcon aria-hidden />,
+	warning: <ExclamationmarkTriangleFillIcon aria-hidden />,
+	error: <XMarkOctagonFillIcon aria-hidden />,
 	message: <InformationSquareIcon aria-hidden />,
 	attention: <ExclamationmarkTriangleIcon aria-hidden />,
 	tips: <LightBulbIcon aria-hidden />,
@@ -95,6 +104,7 @@ export const SanityAlert = ({
 		case 'global-alert':
 			return (
 				<GlobalAlert
+					size="small"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -113,20 +123,22 @@ export const SanityAlert = ({
 			if (infoCardStatus === 'message') {
 				return (
 					<InfoCard
+						size="small"
 						data-color={infoCardColorMap[infoCardStatus]}
-						className={clsx(styles.wrapper, className)}
+						className={clsx(styles.wrapper, styles.message, className)}
 						data-testid={sanityContent.name}
 						aria-live={ariaLive}
 					>
-						<InfoCard.Header icon={infoCardIconMap[infoCardStatus]}>
+						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
 							{content}
-						</InfoCard.Header>
+						</InfoCard.Message>
 					</InfoCard>
 				)
 			}
 
 			return (
 				<InfoCard
+					size="small"
 					data-color={infoCardColorMap[infoCardStatus]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -151,6 +163,7 @@ export const SanityAlert = ({
 		case 'inline-message':
 			return (
 				<InlineMessage
+					size="small"
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -164,9 +177,11 @@ export const SanityAlert = ({
 		default:
 			return (
 				<LocalAlert
+					size="small"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
 				>
 					{sanityContent.overskrift && (
 						<LocalAlert.Header>
