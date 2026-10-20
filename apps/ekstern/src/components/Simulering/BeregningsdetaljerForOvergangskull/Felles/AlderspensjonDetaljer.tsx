@@ -47,7 +47,7 @@ export const AlderspensjonDetaljer: React.FC<AlderspensjonDetaljerProps> = ({
         }
       >
         <HStack
-          gap="12"
+          gap="space-48"
           className={styles.hstackRow}
           style={{ borderBottom: 'none' }}
         >
@@ -59,7 +59,11 @@ export const AlderspensjonDetaljer: React.FC<AlderspensjonDetaljerProps> = ({
           beregningsdetaljerStyles.beregningsdetaljerForOvergangskullMobileOnly
         }
       >
-        <VStack gap="4 8" width="100%" marginBlock="2 0">
+        <VStack
+          gap="space-16 space-32"
+          width="100%"
+          marginBlock="space-8 space-0"
+        >
           {renderDetaljer(alderspensjonDetaljForValgtUttak, getTitle)}
         </VStack>
       </div>

@@ -1,4 +1,4 @@
-import { add, endOfDay, parse } from 'date-fns'
+import { add, format, parse } from 'date-fns'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { describe, expect, it } from 'vitest'
@@ -32,19 +32,15 @@ describe('UtenlandsoppholdModal-hooks', () => {
     .slice(0, 10)
     .replace(/-/g, '')
 
-  const expectedHundredYearsBeforeNow = add(endOfDay(new Date()), {
-    years: -100,
-  })
-    .toISOString()
-    .slice(0, 10)
-    .replace(/-/g, '')
+  const expectedHundredYearsBeforeNow = format(
+    add(new Date(), { years: -100 }),
+    DATE_BACKEND_FORMAT
+  )
 
-  const expectedHundredYearsAfterNow = add(endOfDay(new Date()), {
-    years: 100,
-  })
-    .toISOString()
-    .slice(0, 10)
-    .replace(/-/g, '')
+  const expectedHundredYearsAfterNow = format(
+    add(new Date(), { years: 100 }),
+    DATE_BACKEND_FORMAT
+  )
 
   describe('useUtenlandsoppholdLocalState', () => {
     const closeMock = vi.fn()
@@ -155,31 +151,29 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
       expect(
-        result.current[2].datepickerProps.fromDate
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
+        format(
+          result.current[2].datepickerProps.fromDate as Date,
+          DATE_BACKEND_FORMAT
+        )
       ).toStrictEqual(expectedHundredYearsBeforeNow)
       expect(
-        result.current[2].datepickerProps.toDate
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
+        format(
+          result.current[2].datepickerProps.toDate as Date,
+          DATE_BACKEND_FORMAT
+        )
       ).toStrictEqual(expectedHundredYearsAfterNow)
       // datepickerSluttdato
       expect(
-        result.current[3].datepickerProps.fromDate
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      ).toStrictEqual(
-        endOfDay(new Date()).toISOString().slice(0, 10).replace(/-/g, '')
-      )
+        format(
+          result.current[3].datepickerProps.fromDate as Date,
+          DATE_BACKEND_FORMAT
+        )
+      ).toStrictEqual(format(new Date(), DATE_BACKEND_FORMAT))
       expect(
-        result.current[3].datepickerProps.toDate
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
+        format(
+          result.current[3].datepickerProps.toDate as Date,
+          DATE_BACKEND_FORMAT
+        )
       ).toStrictEqual(expectedHundredYearsAfterNow)
       // validationErrors
       expect(result.current[4]).toStrictEqual({
@@ -192,9 +186,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-overlappende-periodestart': '',
       })
       // maxDate
-      expect(
-        result.current[5]?.toISOString().slice(0, 10).replace(/-/g, '')
-      ).toStrictEqual(expectedHundredYearsAfterNow)
+      expect(format(result.current[5], DATE_BACKEND_FORMAT)).toStrictEqual(
+        expectedHundredYearsAfterNow
+      )
     })
 
     it('Når det gjelder en endring på en eksisterende utenlandsperiode, returnerer riktig initial values', async () => {

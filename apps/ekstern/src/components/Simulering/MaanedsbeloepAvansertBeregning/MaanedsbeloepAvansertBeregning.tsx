@@ -34,7 +34,10 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
   }
 
   return (
-    <Box marginBlock="10 0" data-testid="maanedsbloep-avansert-beregning">
+    <Box
+      marginBlock="space-40 space-0"
+      data-testid="maanedsbloep-avansert-beregning"
+    >
       <Heading size="small" level="3">
         <FormattedMessage id="maanedsbeloep.title" />
       </Heading>

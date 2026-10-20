@@ -1,21 +1,21 @@
 @use '../../../../scss/variables';
 
 .wrapper {
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--ax-space-8);
 }
 
 .separator {
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: var(--a-border-divider);
-  margin: 0 0 var(--a-spacing-4) 0;
+  background-color: var(--ax-border-neutral-subtle);
+  margin: 0 0 var(--ax-space-16) 0;
 }
 
 .button {
-  margin-top: var(--a-spacing-4);
+  margin-top: var(--ax-space-16);
 
   &Submit {
-    margin-right: var(--a-spacing-4);
+    margin-right: var(--ax-space-16);
   }
 }

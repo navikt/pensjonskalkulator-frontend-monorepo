@@ -1564,7 +1564,8 @@
 						{
 							"_key": "4b17056ec7eb",
 							"_type": "dynamicValue",
-							"key": "grad"
+							"key": "grad",
+							"valueType": "number"
 						},
 						{
 							"_key": "4c62f8e0fe0e",
@@ -1575,7 +1576,8 @@
 						{
 							"_key": "232ab87c021c",
 							"_type": "dynamicValue",
-							"key": "vedtakDato"
+							"key": "vedtakDato",
+							"valueType": "string"
 						},
 						{
 							"_key": "b09b5a2f128e",

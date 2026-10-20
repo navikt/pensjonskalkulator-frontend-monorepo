@@ -17,3 +17,10 @@
 	display: flex;
 	align-items: center;
 }
+
+.themeControl {
+	display: flex;
+	align-items: center;
+	padding-inline-start: var(--ax-space-16);
+	flex-shrink: 0;
+}

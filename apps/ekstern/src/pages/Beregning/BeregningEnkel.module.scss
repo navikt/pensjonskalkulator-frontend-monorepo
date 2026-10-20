@@ -9,10 +9,10 @@
 }
 
 .alert {
-  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+  margin: 0 var(--ax-space-24) var(--ax-space-24) var(--ax-space-24);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
-    margin: 0 0 var(--a-spacing-6) 0;
+  @media (min-width: variables.$ax-breakpoint-lg) {
+    margin: 0 0 var(--ax-space-24) 0;
     max-width: variables.$container-max-width;
   }
 }
@@ -24,6 +24,6 @@
   right: 0;
 
   &__lightgray {
-    background-color: var(--a-gray-100);
+    background-color: var(--ax-neutral-200);
   }
 }
