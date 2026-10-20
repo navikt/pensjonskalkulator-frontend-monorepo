@@ -216,7 +216,6 @@ export default {
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
     'MANGLER_TEKST',
-  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Do you want Nav to calculate AFP for you?',
   'stegvisning.samtykke_offentlig_afp.radio_description':

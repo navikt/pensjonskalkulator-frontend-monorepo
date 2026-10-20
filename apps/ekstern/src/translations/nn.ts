@@ -196,7 +196,6 @@ export default {
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
     'MANGLER_TEKST',
-  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'MANGLER_TEKST',

@@ -262,8 +262,6 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten AFP',
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
-  'stegvisning.samtykke_offentlig_afp.alert':
-    'Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke.',
   'stegvisning.sivilstand.title': 'Sivilstand',
   'stegvisning.sivilstand.ingress_ukjent':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon.',

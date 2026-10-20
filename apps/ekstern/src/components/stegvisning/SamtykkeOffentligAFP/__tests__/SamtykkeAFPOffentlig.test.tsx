@@ -96,6 +96,33 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
     expect(onNextMock).toHaveBeenCalled()
   })
 
+  it('viser Sanity-alert når brukeren fortsetter uten AFP-samtykke', async () => {
+    const user = userEvent.setup()
+    render(
+      <SamtykkeOffentligAFP
+        harSamtykket={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    const alertId = 'samtykke-offentlig-afp.fortsett-uten-afp'
+    const radioButtons = screen.getAllByRole('radio')
+
+    expect(screen.queryByTestId(alertId)).not.toBeInTheDocument()
+
+    await user.click(radioButtons[1])
+
+    const alert = screen.getByTestId(alertId)
+    expect(alert).toHaveAttribute('data-size', 'small')
+    expect(alert).toHaveTextContent(
+      'Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke.'
+    )
+
+    await user.click(radioButtons[0])
+    expect(screen.queryByTestId(alertId)).not.toBeInTheDocument()
+  })
+
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     render(
