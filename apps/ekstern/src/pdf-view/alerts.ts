@@ -15,7 +15,6 @@ import {
   privatePensjonsavtalerAlert,
 } from '@/components/Pensjonsavtaler/hooks'
 import { AlertVariant } from '@/components/Simulering/hooks'
-import { formatUttaksalder } from '@/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'
@@ -52,9 +51,12 @@ function renderSanityAlertHtml({
     infoCardStatus === 'tips'
       ? `<span class="pdf-sanity-alert__icon">${infoCardStatus === 'attention' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
       : ''
-  const title = alert.overskrift
-    ? `<h3 class="pdf-sanity-alert__title">${escapeHtml(alert.overskrift)}</h3>`
-    : ''
+  const title =
+    alert.type !== 'inline-message' &&
+    infoCardStatus !== 'message' &&
+    alert.overskrift
+      ? `<h3 class="pdf-sanity-alert__title">${escapeHtml(alert.overskrift)}</h3>`
+      : ''
   const content = renderToStaticMarkup(
     createElement(
       RawIntlProvider,
@@ -88,18 +90,33 @@ function escapeHtml(value: string): string {
 export function getPensjonsavtalerAlertsText({
   pensjonsavtalerAlertsList,
   intl,
+  alertData,
 }: {
   pensjonsavtalerAlertsList: {
     variant: AlertVariant
-    text: string
+    text?: string
+    sanityId?: string
   }[]
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!pensjonsavtalerAlertsList.length) {
     return ''
   }
 
   const html = pensjonsavtalerAlertsList.map((alert) => {
+    if (alert.sanityId) {
+      return (
+        renderSanityAlertHtml({
+          alertData,
+          id: alert.sanityId,
+          intl,
+        }) ?? ''
+      )
+    }
+
+    if (!alert.text) return ''
+
     const alertIcon =
       alert.variant === 'warning' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON
     const alertMessage = intl.formatMessage(
@@ -122,9 +139,11 @@ export function getPensjonsavtalerAlertsText({
 export function getPrivatePensjonsavtalerAlertsText({
   pensjonsavtalerAlertsList,
   intl,
+  alertData,
 }: {
   pensjonsavtalerAlertsList: privatePensjonsavtalerAlert[]
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!pensjonsavtalerAlertsList.length) {
     return ''
@@ -133,6 +152,17 @@ export function getPrivatePensjonsavtalerAlertsText({
     const heading = alert.headingId
       ? `<h4>${intl.formatMessage({ id: alert.headingId })}</h4>`
       : ''
+
+    if (alert.sanityId) {
+      const alertHtml = renderSanityAlertHtml({
+        alertData,
+        id: alert.sanityId,
+        intl,
+      })
+      return `${heading}${alertHtml ?? ''}`
+    }
+
+    if (!alert.alertTextId) return heading
 
     const alertMessage = intl.formatMessage(
       { id: alert.alertTextId },
@@ -155,10 +185,12 @@ export function getOffentligTjenestePensjonAlertsText({
   offentligTpAlertsList,
   offentligTp,
   intl,
+  alertData,
 }: {
   offentligTpAlertsList: OffentligTpAlert[]
   offentligTp?: OffentligTpResponse
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!offentligTpAlertsList.length) {
     return ''
@@ -171,6 +203,18 @@ export function getOffentligTjenestePensjonAlertsText({
         : undefined
 
     const heading = `<h4>${intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}</h4>`
+
+    if (alert.sanityId) {
+      const alertHtml = renderSanityAlertHtml({
+        alertData,
+        id: alert.sanityId,
+        intl,
+      })
+      return `${heading}${alertHtml ?? ''}`
+    }
+
+    if (!alert.alertTextId) return heading
+
     const alertIcon =
       alert.variant === 'info' ? INFO_SQUARE_ICON : ALERT_TRIANGLE_ICON
     const alertMessage = intl.formatMessage(
@@ -231,25 +275,15 @@ export function getApotekerAlert(
 
 export function getOmstillingsstoenadAlert(
   intl: IntlShape,
-  normertPensjonsalder: Alder
+  alertData: SanityAlertData
 ): string {
-  const formatertNormertPensjonsalder = formatUttaksalder(
-    intl,
-    normertPensjonsalder
+  return (
+    renderSanityAlertHtml({
+      alertData,
+      id: 'beregning.gjenlevende-eller-omstilling',
+      intl,
+    }) ?? ''
   )
-  const telefonNummer = intl.formatMessage({ id: 'link.telefon_pensjon' })
-  const linkHtml = `<span>${telefonNummer}</span>`
-
-  const alertMessage = intl.formatMessage(
-    { id: 'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende' },
-    {
-      ...pdfFormatMessageValues,
-      normertPensjonsalder: formatertNormertPensjonsalder,
-      link: linkHtml,
-    }
-  )
-
-  return renderAlertTable({ alertIcon: INFO_SQUARE_ICON, alertMessage })
 }
 
 export const getFremtidigVedtakAlert = ({

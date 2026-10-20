@@ -378,9 +378,13 @@ describe('Simulering', () => {
         }
       )
 
-      expect(
-        await screen.findByText('beregning.pensjonsavtaler.alert.endring')
-      ).toBeVisible()
+      const alert = await screen.findByTestId(
+        'pensjonsavtaler.avtaler-ikke-med-i-beregning'
+      )
+      expect(alert).toBeVisible()
+      expect(alert).toHaveTextContent(
+        'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.'
+      )
     })
   })
 

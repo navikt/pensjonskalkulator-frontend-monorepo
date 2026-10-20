@@ -330,8 +330,6 @@ const translations = {
   'tidligstmuliguttak.pre2025OffentligAfp.ingress':
     'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Flere valg',
-  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
-    'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'I Flere valg kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
@@ -365,23 +363,7 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.pensjonsavtaler.alert.endring':
-    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.afp_offentlig.error':
-    'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
-  'beregning.pensjonsavtaler.alert.offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
-  'beregning.alert.inntekt':
-    'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.alert.info.afp-offentlig-livsvarig':
     'Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under <scrollTo>AFP: Offentlig</scrollTo>.',
   'beregning.alert.feil.afp-offentlig-livsvarig':
@@ -702,7 +684,6 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'hvis du ønsker å få dette i beregningen.',
-  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
   'pensjonsavtaler_mobil.kr_pr_aar': 'kr/år',
   'alder.livsvarig': 'Livsvarig fra',

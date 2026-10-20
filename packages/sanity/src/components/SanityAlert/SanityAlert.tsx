@@ -1,6 +1,11 @@
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { type AriaAttributes, type ReactNode, useContext } from 'react'
+import {
+	type AriaAttributes,
+	type HTMLAttributes,
+	type ReactNode,
+	useContext,
+} from 'react'
 import { useIntl } from 'react-intl'
 
 import {
@@ -65,6 +70,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	role?: HTMLAttributes<HTMLDivElement>['role']
 	'aria-live'?: AriaAttributes['aria-live']
 }
 
@@ -73,6 +79,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	role,
 	'aria-live': ariaLive,
 }: Props) => {
 	const intl = useIntl()
@@ -109,6 +116,7 @@ export const SanityAlert = ({
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<GlobalAlert.Header>
@@ -128,6 +136,7 @@ export const SanityAlert = ({
 						className={clsx(styles.wrapper, styles.message, className)}
 						data-testid={sanityContent.name}
 						aria-live={ariaLive}
+						role={role}
 					>
 						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
 							{content}
@@ -143,6 +152,7 @@ export const SanityAlert = ({
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<InfoCard.Header
@@ -168,6 +178,7 @@ export const SanityAlert = ({
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 					aria-live={ariaLive}
+					role={role}
 				>
 					{content}
 				</InlineMessage>
@@ -182,6 +193,7 @@ export const SanityAlert = ({
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
 					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<LocalAlert.Header>

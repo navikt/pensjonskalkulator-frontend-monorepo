@@ -406,7 +406,7 @@ const generatePdfContent = (params: {
 
   // Omstillingsstoenad alert
   const omstillingsstoenadAlert = harOmstillingsstoenadLoependeSak
-    ? getOmstillingsstoenadAlert(intl, normertPensjonsalder)
+    ? getOmstillingsstoenadAlert(intl, alertData)
     : ''
 
   const apotekerError = showApotekerAlert
@@ -473,6 +473,7 @@ const generatePdfContent = (params: {
   const pensjonsavtalerAlertsMessage = getPensjonsavtalerAlertsText({
     intl,
     pensjonsavtalerAlertsList,
+    alertData,
   })
   // Alerts
 
@@ -480,6 +481,7 @@ const generatePdfContent = (params: {
     getPrivatePensjonsavtalerAlertsText({
       pensjonsavtalerAlertsList: privatPensjonsAvtalerAlertsList,
       intl,
+      alertData,
     })
 
   const offentligTjenestePensjonAlertsMessage =
@@ -487,6 +489,7 @@ const generatePdfContent = (params: {
       offentligTpAlertsList: offentligTjenestePensjonsAvtalerAlertsList,
       offentligTp,
       intl,
+      alertData,
     })
 
   const omDegIngress = `<h2>${intl.formatMessage({ id: 'om_deg.title' })}</h2>
