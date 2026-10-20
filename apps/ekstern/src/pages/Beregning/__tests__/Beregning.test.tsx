@@ -98,11 +98,13 @@ describe('Beregning', () => {
         },
       })
 
-      expect(
-        screen.getByText(
-          'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
-        )
-      ).toBeVisible()
+      const futureDecisionAlert = screen.getByTestId(
+        'start.fremtidig-vedtak-uten-gjeldende'
+      )
+      expect(futureDecisionAlert).toBeVisible()
+      expect(futureDecisionAlert).toHaveTextContent(
+        'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
+      )
     })
   })
 

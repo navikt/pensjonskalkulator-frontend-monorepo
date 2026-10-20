@@ -59,7 +59,7 @@ const readMoreQuery = defineQuery(
   `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
 )
 const alertQuery = defineQuery(
-  `*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
+  `*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
 )
 
 interface Props {
@@ -158,7 +158,7 @@ export function LanguageProvider({ children }: Props) {
       })
 
     const handleAlertFetch = sanityClient
-      .fetch<AlertQueryResult>(alertQuery, { locale })
+      .fetch<AlertQueryResult>(alertQuery)
       .then((sanityAlertResponse) => {
         const data = Object.fromEntries(
           (sanityAlertResponse || []).map((alert) => [alert.name, alert])
