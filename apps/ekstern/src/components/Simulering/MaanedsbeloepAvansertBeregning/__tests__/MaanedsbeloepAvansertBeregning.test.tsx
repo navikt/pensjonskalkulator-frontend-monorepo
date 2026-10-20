@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen } from '@/test-utils'
+import { fireEvent, render, screen } from '@/test-utils'
 
 import { MaanedsbeloepAvansertBeregning } from '../MaanedsbeloepAvansertBeregning'
 
@@ -78,6 +78,37 @@ describe('MaanedsbeloepAvansertBeregning', () => {
     expect(
       screen.getByTestId('maanedsbloep-avansert-beregning')
     ).toBeInTheDocument()
+
+    const table = screen
+      .getByTestId('maanedsbloep-avansert-beregning')
+      .querySelector('table')!
+    const range = document.createRange()
+    range.selectNodeContents(table)
+    window.getSelection()?.addRange(range)
+    const setData = vi.fn()
+    try {
+      expect(fireEvent.copy(table, { clipboardData: { setData } })).toBe(false)
+      const expected = Array.from(table.rows, (row) =>
+        Array.from(row.cells, (cell) => cell.textContent?.trim()).join(' ')
+      ).join('\n')
+      expect(setData).toHaveBeenCalledExactlyOnceWith('text/plain', expected)
+
+      const heading = table.parentElement!.querySelector('h4')!
+      heading.textContent = 'Ved \n              65 år\n              '
+      range.setStartBefore(heading)
+      range.setEndAfter(table)
+      window.getSelection()?.removeAllRanges()
+      window.getSelection()?.addRange(range)
+      setData.mockClear()
+
+      fireEvent.copy(heading, { clipboardData: { setData } })
+      expect(setData).toHaveBeenCalledExactlyOnceWith(
+        'text/plain',
+        `Ved 65 år\n${expected}`
+      )
+    } finally {
+      window.getSelection()?.removeAllRanges()
+    }
   })
 
   it('returnerer null når uttaksalder ikke er definert', async () => {
