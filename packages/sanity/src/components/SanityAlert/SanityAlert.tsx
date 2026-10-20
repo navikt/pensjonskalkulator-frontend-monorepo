@@ -104,7 +104,7 @@ export const SanityAlert = ({
 		case 'global-alert':
 			return (
 				<GlobalAlert
-					size="small"
+					size="medium"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -123,7 +123,7 @@ export const SanityAlert = ({
 			if (infoCardStatus === 'message') {
 				return (
 					<InfoCard
-						size="small"
+						size="medium"
 						data-color={infoCardColorMap[infoCardStatus]}
 						className={clsx(styles.wrapper, styles.message, className)}
 						data-testid={sanityContent.name}
@@ -138,7 +138,7 @@ export const SanityAlert = ({
 
 			return (
 				<InfoCard
-					size="small"
+					size="medium"
 					data-color={infoCardColorMap[infoCardStatus]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -163,7 +163,7 @@ export const SanityAlert = ({
 		case 'inline-message':
 			return (
 				<InlineMessage
-					size="small"
+					size="medium"
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
@@ -177,7 +177,7 @@ export const SanityAlert = ({
 		default:
 			return (
 				<LocalAlert
-					size="small"
+					size="medium"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}

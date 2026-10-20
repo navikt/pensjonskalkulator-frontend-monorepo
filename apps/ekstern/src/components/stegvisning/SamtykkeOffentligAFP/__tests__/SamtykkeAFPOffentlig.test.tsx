@@ -114,7 +114,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
     await user.click(radioButtons[1])
 
     const alert = screen.getByTestId(alertId)
-    expect(alert).toHaveAttribute('data-size', 'small')
+    expect(alert).toHaveAttribute('data-size', 'medium')
     expect(alert).toHaveTextContent(
       'Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke.'
     )

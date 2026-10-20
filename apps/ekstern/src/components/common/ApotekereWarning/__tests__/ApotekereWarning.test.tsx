@@ -13,7 +13,7 @@ describe('ApotekereWarning', () => {
 
     const alert = screen.getByTestId('apoteker.beregning-med-afp-feil')
     expect(alert).toBeInTheDocument()
-    expect(alert).toHaveAttribute('data-size', 'small')
+    expect(alert).toHaveAttribute('data-size', 'medium')
     expect(alert.querySelector('.aksel-base-alert__header')).toBeInTheDocument()
     expect(
       alert.querySelector('.aksel-base-alert__message')
@@ -75,7 +75,7 @@ describe('ApotekereWarning', () => {
       )
 
       const message = screen.getByTestId(alert.name)
-      expect(message).toHaveAttribute('data-size', 'small')
+      expect(message).toHaveAttribute('data-size', 'medium')
       expect(message).toHaveTextContent('Kort infomelding')
       if (infoCardStatus === 'message') {
         expect(
@@ -97,10 +97,10 @@ describe('ApotekereWarning', () => {
   )
 
   it.each(['global-alert', 'local-alert', 'inline-message'] as const)(
-    'renders %s in small size',
+    'renders %s in medium size',
     (type) => {
       const alert = {
-        name: 'test-small-alert',
+        name: 'test-medium-alert',
         type,
         status: 'info' as const,
         infoCardStatus: null,
@@ -125,7 +125,7 @@ describe('ApotekereWarning', () => {
 
       expect(screen.getByTestId(alert.name)).toHaveAttribute(
         'data-size',
-        'small'
+        'medium'
       )
       expect(screen.getByTestId(alert.name)).toHaveAttribute(
         'aria-live',

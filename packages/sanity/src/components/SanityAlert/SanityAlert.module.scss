@@ -1,6 +1,15 @@
 .wrapper {
 	p {
-		margin: 0;
+		font-size: var(--ax-font-size-large);
+		line-height: var(--ax-font-line-height-xlarge);
+	}
+
+	p:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
 	}
 }
 

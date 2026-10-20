@@ -104,7 +104,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
     await user.click(radioButtons[3])
 
     const alert = screen.getByTestId('afp.vet-ikke')
-    expect(alert).toHaveAttribute('data-size', 'small')
+    expect(alert).toHaveAttribute('data-size', 'medium')
     expect(
       alert.querySelector('.aksel-base-alert__message')
     ).toBeInTheDocument()
