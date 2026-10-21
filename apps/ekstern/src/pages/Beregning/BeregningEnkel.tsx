@@ -274,7 +274,11 @@ export const BeregningEnkel = () => {
     <>
       {showInntektAlert && (
         <div className={styles.container} role="alert">
-          <SanityAlert id="beregning.endret-inntekt" className={styles.alert} />
+          <SanityAlert
+            id="beregning.endret-inntekt"
+            className={styles.alert}
+            onClose={() => setShowInntektAlert(false)}
+          />
         </div>
       )}
 

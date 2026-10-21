@@ -19,7 +19,7 @@ import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor, within } from '@/test-utils'
 
 import { BeregningEnkel } from '../BeregningEnkel'
 
@@ -875,7 +875,8 @@ describe('BeregningEnkel', () => {
       expect(alertBoks).not.toBeVisible()
     })
 
-    it('viser info-Sanity-alerten uten lukke-knapp', async () => {
+    it('viser info-Sanity-alerten med lukke-knapp som skjuler alerten', async () => {
+      const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
           userInput: {
@@ -894,6 +895,13 @@ describe('BeregningEnkel', () => {
       })
       const alertBoks = await screen.findByTestId('beregning.endret-inntekt')
       expect(alertBoks).toBeVisible()
+
+      await user.click(
+        within(alertBoks).getByRole('button', { name: 'sanity.alert.lukk' })
+      )
+      expect(
+        screen.queryByTestId('beregning.endret-inntekt')
+      ).not.toBeInTheDocument()
     })
   })
 

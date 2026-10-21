@@ -15,9 +15,11 @@ import {
 	InformationSquareFillIcon,
 	InformationSquareIcon,
 	LightBulbIcon,
+	XMarkIcon,
 	XMarkOctagonFillIcon,
 } from '@navikt/aksel-icons'
 import {
+	Button,
 	GlobalAlert,
 	InfoCard,
 	InlineMessage,
@@ -70,6 +72,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	onClose?: () => void
 	role?: HTMLAttributes<HTMLDivElement>['role']
 	'aria-live'?: AriaAttributes['aria-live']
 }
@@ -79,6 +82,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	onClose,
 	role,
 	'aria-live': ariaLive,
 }: Props) => {
@@ -104,6 +108,16 @@ export const SanityAlert = ({
 		<PortableText
 			value={sanityContent.innhold}
 			components={portableTextComponents}
+		/>
+	)
+
+	const closeButton = onClose && (
+		<Button
+			size="small"
+			variant="tertiary-neutral"
+			icon={<XMarkIcon aria-hidden />}
+			onClick={onClose}
+			aria-label="Lukk"
 		/>
 	)
 
@@ -139,7 +153,14 @@ export const SanityAlert = ({
 						role={role}
 					>
 						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
-							{content}
+							{onClose ? (
+								<div className={styles.closableAlert}>
+									<div>{content}</div>
+									{closeButton}
+								</div>
+							) : (
+								content
+							)}
 						</InfoCard.Message>
 					</InfoCard>
 				)

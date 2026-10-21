@@ -18,3 +18,17 @@
 		padding: var(--ax-space-16);
 	}
 }
+
+.closableAlert {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--ax-space-12);
+
+	> :first-child {
+		flex: 1;
+	}
+
+	> button {
+		margin-block: calc(-1 * var(--ax-space-4));
+	}
+}
