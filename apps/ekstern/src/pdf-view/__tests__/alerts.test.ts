@@ -9,6 +9,7 @@ import {
   getPensjonsavtalerAlertsText,
   getPrivatePensjonsavtalerAlertsText,
 } from '../alerts'
+import { PRINT_STYLES } from '../printStyles'
 
 const alertData = Object.fromEntries(
   sanityAlertDataResponse.result.map((alert) => [alert.name, alert])
@@ -86,6 +87,12 @@ describe('PDF Sanity alerts', () => {
     expect(html).toContain('pdf-sanity-alert--warning')
     expect(html).toContain('Vi fikk ikke hentet beregning av AFP fra SPK')
     expect(html).toContain('https://www.spk.no/')
+    expect(PRINT_STYLES).toContain(
+      '.pdf-sanity-alert__body a { color: inherit; text-decoration: none; }'
+    )
+    expect(PRINT_STYLES).toContain(
+      '.pdf-sanity-alert__body a svg { display: none; }'
+    )
   })
 
   it.each([

@@ -55,7 +55,8 @@ export const PRINT_STYLES = `
   .pdf-sanity-alert__body p, .pdf-sanity-alert__body li { width: auto; font-size: 14px; line-height: 1.5; }
   .pdf-sanity-alert__body p { margin: 0; }
   .pdf-sanity-alert__body p + p { margin-top: 8px; }
-  .pdf-sanity-alert__body a { color: #005b82; text-decoration: underline; }
+  .pdf-sanity-alert__body a { color: inherit; text-decoration: none; }
+  .pdf-sanity-alert__body a svg { display: none; }
   div.pdf-metadata { margin-top: -1em; }
   div.utenlandsopphold-land-item { border: 1px solid rgb(2 20 49 / 49%); border-radius: 8px; padding: 8px; margin-bottom: 1em; }
   .display-inline { display: inline; }
