@@ -195,14 +195,19 @@ describe('stegvisning - Start', () => {
       />
     )
 
-    expect(
-      screen.getByText(
-        'Du har vedtak om 100 % alderspensjon fra 01.12.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
-      )
-    ).toBeVisible()
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.start.title Ola!'
+    const futureDecisionAlert = screen.getByTestId(
+      'start.fremtidig-vedtak-uten-gjeldende'
     )
+    expect(futureDecisionAlert).toBeVisible()
+    expect(futureDecisionAlert).toHaveTextContent(
+      'Du har vedtak om 100 % alderspensjon fra 01.12.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
+    )
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'stegvisning.start.title Ola!',
+      })
+    ).toBeVisible()
     expect(screen.getByText('stegvisning.start.button')).toBeVisible()
   })
 

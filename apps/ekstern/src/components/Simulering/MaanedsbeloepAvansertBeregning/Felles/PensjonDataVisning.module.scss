@@ -5,23 +5,23 @@
   border-spacing: 0;
   width: 100%;
 
-  @media screen and (min-width: variables.$a-breakpoint-sm) {
-    border-spacing: 0 var(--a-spacing-2);
+  @media screen and (min-width: variables.$ax-breakpoint-sm) {
+    border-spacing: 0 var(--ax-space-8);
   }
 }
 
 .row {
   th,
   td {
-    padding: 0 0 0 var(--a-spacing-3);
+    padding: 0 0 0 var(--ax-space-12);
     text-align: left;
-    font-size: var(--a-font-size-large);
+    font-size: var(--ax-font-size-large);
   }
 
-  @media screen and (max-width: variables.$a-breakpoint-sm) {
+  @media screen and (max-width: variables.$ax-breakpoint-sm) {
     th > p,
     td {
-      font-size: var(--a-font-size-medium);
+      font-size: var(--ax-font-size-medium);
     }
 
     th.noGradering {
@@ -35,30 +35,30 @@
   }
 }
 
-@media screen and (min-width: variables.$a-breakpoint-sm) {
+@media screen and (min-width: variables.$ax-breakpoint-sm) {
   .monthlyPayoutElement {
     box-sizing: border-box;
-    border-left: var(--a-spacing-1-alt) solid transparent;
+    border-left: var(--ax-space-6) solid transparent;
 
     &__blue {
-      border-color: var(--a-deepblue-500);
+      border-color: var(--ax-brand-blue-600);
     }
 
     &__purple {
-      border-color: var(--a-purple-400);
+      border-color: var(--ax-meta-purple-500);
     }
 
     &__green {
-      border-color: var(--a-data-surface-5);
+      border-color: var(--ax-success-500);
     }
   }
 }
 
 .sum {
-  font-weight: var(--a-font-weight-bold);
+  font-weight: var(--ax-font-weight-bold);
 
   * {
-    font-weight: var(--a-font-weight-bold);
+    font-weight: var(--ax-font-weight-bold);
   }
 
   th,

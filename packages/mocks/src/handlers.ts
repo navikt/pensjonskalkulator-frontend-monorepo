@@ -27,6 +27,7 @@ import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' 
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import forbeholdInternSynligToggleResponse from './data/unleash-forbehold-intern-synlig.json' with { type: 'json' }
 import hentPersonInternToggleResponse from './data/unleash-hent-person-intern.json' with { type: 'json' }
+import darkModeToggleResponse from './data/unleash-intern-dark-mode.json' with { type: 'json' }
 import showDownloadPdfToggleResponse from './data/unleash-show-download-pdf.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 import enableVedlikeholdsmodusToggleResponse from './data/unleash-vedlikeholdmodus.json' with { type: 'json' }
@@ -531,6 +532,11 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		http.get(`${baseUrl}/feature/forbehold-intern-synlig`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(forbeholdInternSynligToggleResponse)
+		}),
+
+		http.get(`${baseUrl}/feature/internsimulator.dark-mode`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json(darkModeToggleResponse)
 		}),
 
 		http.get(

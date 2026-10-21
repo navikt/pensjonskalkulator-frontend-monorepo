@@ -5,7 +5,7 @@
 }
 
 .alert {
-  background: var(--a-gray-100);
+  background: var(--ax-neutral-200);
 }
 
 .alert > * {
@@ -13,10 +13,10 @@
   padding: 0.5em 0 0;
   max-width: variables.$container-max-width;
 
-  @media (min-width: variables.$a-breakpoint-lg) {
-    max-width: variables.$a-breakpoint-lg;
+  @media (min-width: variables.$ax-breakpoint-lg) {
+    max-width: variables.$ax-breakpoint-lg;
     padding-right: calc(
-      variables.$a-breakpoint-lg - variables.$container-max-width
+      variables.$ax-breakpoint-lg - variables.$container-max-width
     );
   }
 }

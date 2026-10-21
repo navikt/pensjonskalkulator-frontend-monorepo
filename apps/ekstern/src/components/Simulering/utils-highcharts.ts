@@ -38,11 +38,11 @@ export const clearPendingRenderTimeouts = () => {
 }
 
 // CSS Custom Property Constants
-const CSS_VAR_TEXT_DEFAULT = 'var(--a-text-default)'
-const CSS_VAR_TEXT_SUBTLE = 'var(--a-text-subtle)'
-const CSS_VAR_FONT_FAMILY = 'var(--a-font-family)'
-const CSS_VAR_FONT_SIZE_MEDIUM = 'var(--a-font-size-medium)'
-const CSS_VAR_FONT_SIZE_SMALL = 'var(--a-font-size-small)'
+const CSS_VAR_TEXT_DEFAULT = 'var(--ax-text-neutral)'
+const CSS_VAR_TEXT_SUBTLE = 'var(--ax-text-neutral-subtle)'
+const CSS_VAR_FONT_FAMILY = 'var(--ax-font-family)'
+const CSS_VAR_FONT_SIZE_MEDIUM = 'var(--ax-font-size-medium)'
+const CSS_VAR_FONT_SIZE_SMALL = 'var(--ax-font-size-small)'
 
 export type ExtendedAxis = Axis & {
   height: number
@@ -343,11 +343,11 @@ export const getChartOptions = (
           fontFamily: CSS_VAR_FONT_FAMILY,
           fontSize: CSS_VAR_FONT_SIZE_MEDIUM,
           color: CSS_VAR_TEXT_SUBTLE,
-          paddingRight: 'var(--a-spacing-3)',
+          paddingRight: 'var(--ax-space-12)',
         },
         x: -55,
       },
-      gridLineColor: 'var(--a-gray-400)',
+      gridLineColor: 'var(--ax-neutral-500)',
       gridLineWidth: 1,
       minorGridLineWidth: 0,
     },
