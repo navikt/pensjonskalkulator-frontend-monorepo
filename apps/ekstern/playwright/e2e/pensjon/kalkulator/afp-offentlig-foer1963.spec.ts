@@ -447,11 +447,16 @@ test.describe('AFP offentlig - født før 1963 uten vedtak', () => {
       test('forventer jeg en warning-alert om at vi fikk ikke hentet beregning av AFP fra SPK.', async ({
         page,
       }) => {
+        const alert = page.getByTestId('afp.fikk-ikke-hentet-beregning-fra-spk')
+        await expect(alert).toBeVisible()
         await expect(
-          page.getByText(
-            /Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse/i
-          )
+          alert.getByRole('heading', {
+            name: 'Vi fikk ikke hentet beregning av AFP fra SPK',
+          })
         ).toBeVisible()
+        await expect(
+          alert.getByRole('link', { name: 'SPK (Statens pensjonskasse)' })
+        ).toHaveAttribute('href', 'https://www.spk.no/')
       })
     })
 
