@@ -18,6 +18,7 @@ export const ApotekereWarning = ({ showWarning }: { showWarning: boolean }) => {
     <SanityAlert
       id="apoteker.beregning-med-afp-feil"
       className={styles.alertWrapper}
+      role="alert"
     />
   )
 }

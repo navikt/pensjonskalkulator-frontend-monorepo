@@ -36,25 +36,28 @@ function renderSanityAlertHtml({
   const alert = alertData[id]
   if (!alert) return null
 
-  const infoCardStatus = alert.infoCardStatus ?? alert.status ?? 'info'
+  const alertStatus =
+    alert.type === 'info-card'
+      ? (alert.infoCardStatus ?? alert.status ?? 'info')
+      : (alert.status ?? 'info')
   const tone =
-    infoCardStatus === 'error'
+    alertStatus === 'error'
       ? 'danger'
-      : infoCardStatus === 'warning' || infoCardStatus === 'attention'
+      : alertStatus === 'warning' || alertStatus === 'attention'
         ? 'warning'
-        : infoCardStatus === 'success'
+        : alertStatus === 'success'
           ? 'success'
           : 'info'
   const icon =
     alert.type === 'inline-message' ||
-    infoCardStatus === 'message' ||
-    infoCardStatus === 'attention' ||
-    infoCardStatus === 'tips'
+    alertStatus === 'message' ||
+    alertStatus === 'attention' ||
+    alertStatus === 'tips'
       ? `<span class="pdf-sanity-alert__icon">${tone === 'warning' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
       : ''
   const title =
     alert.type !== 'inline-message' &&
-    infoCardStatus !== 'message' &&
+    alertStatus !== 'message' &&
     alert.overskrift
       ? `<h3 class="pdf-sanity-alert__title">${escapeHtml(alert.overskrift)}</h3>`
       : ''
@@ -69,7 +72,7 @@ function renderSanityAlertHtml({
     )
   )
 
-  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${infoCardStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${alert.type === 'info-card' && alertStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
   ${icon}
   <div class="pdf-sanity-alert__body">${title}${content}</div>
 </section>`

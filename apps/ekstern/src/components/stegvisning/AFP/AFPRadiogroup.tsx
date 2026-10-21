@@ -50,6 +50,7 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
         <SanityAlert
           id="apoteker.beregning-med-afp-feil"
           className={styles.alert}
+          aria-live="polite"
         />
       )}
       <Radio value="ja_privat" data-testid="afp-radio-ja-privat">
@@ -62,7 +63,11 @@ const AFPRadioGroup: React.FC<AFPRadioGroupProps> = ({
         <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
       </Radio>
       {showVetIkkeAlert && (
-        <SanityAlert id="afp.vet-ikke" className={styles.alert} />
+        <SanityAlert
+          id="afp.vet-ikke"
+          className={styles.alert}
+          aria-live="polite"
+        />
       )}
     </RadioGroup>
   )

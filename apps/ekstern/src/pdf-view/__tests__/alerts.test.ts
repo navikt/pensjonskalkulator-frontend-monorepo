@@ -67,6 +67,34 @@ describe('PDF Sanity alerts', () => {
     )
   })
 
+  it('uses the status and heading for non-InfoCard Sanity alerts', () => {
+    const html = getPensjonsavtalerAlertsText({
+      alertData: {
+        ...alertData,
+        'afp.fikk-ikke-hentet-beregning-fra-spk': {
+          ...alertData['afp.fikk-ikke-hentet-beregning-fra-spk'],
+          infoCardStatus: 'message',
+        },
+      },
+      intl: createIntl({
+        locale: 'nb',
+        messages: {
+          'application.global.external_link': 'åpner i en ny fane',
+        },
+      }),
+      pensjonsavtalerAlertsList: [
+        {
+          variant: 'warning',
+          sanityId: 'afp.fikk-ikke-hentet-beregning-fra-spk',
+        },
+      ],
+    })
+
+    expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).not.toContain('pdf-sanity-alert--message')
+    expect(html).toContain('Vi fikk ikke hentet beregning av AFP fra SPK')
+  })
+
   it('renders the pre-1963 AFP calculation failure from Sanity', () => {
     const html = getPensjonsavtalerAlertsText({
       alertData,

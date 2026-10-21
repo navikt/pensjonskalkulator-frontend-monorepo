@@ -13,6 +13,7 @@ describe('ApotekereWarning', () => {
 
     const alert = screen.getByTestId('apoteker.beregning-med-afp-feil')
     expect(alert).toBeInTheDocument()
+    expect(alert.querySelector('[role="alert"]')).toBeInTheDocument()
     expect(alert).toHaveAttribute('data-size', 'medium')
     expect(alert.querySelector('.aksel-base-alert__header')).toBeInTheDocument()
     expect(

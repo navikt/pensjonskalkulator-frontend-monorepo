@@ -1,5 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
+import { personMock } from '@/mocks'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { AFP } from '..'
@@ -105,6 +106,7 @@ describe('stegvisning - AFP - født etter 1963', () => {
 
     const alert = screen.getByTestId('afp.vet-ikke')
     expect(alert).toHaveAttribute('data-size', 'medium')
+    expect(alert.closest('[aria-live="polite"]')).toBeInTheDocument()
     expect(
       alert.querySelector('.aksel-base-alert__message')
     ).toBeInTheDocument()
@@ -115,6 +117,30 @@ describe('stegvisning - AFP - født etter 1963', () => {
       'Er du usikker, bør du sjekke med arbeidsgiveren din.'
     )
     expect(alert).not.toHaveTextContent('AFP vet ikke')
+  })
+
+  it('announces the apoteker warning when public AFP is selected', async () => {
+    const user = userEvent.setup()
+    render(
+      <AFP
+        previousAfp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />,
+      {
+        preloadedState: {
+          session: { isLoggedIn: true, hasErApotekerError: true },
+        },
+        preloadedApiState: { getPerson: personMock },
+      }
+    )
+
+    await user.click(screen.getByTestId('afp-radio-ja-offentlig'))
+
+    expect(
+      screen.getByTestId('apoteker.beregning-med-afp-feil')
+    ).toHaveAttribute('aria-live', 'polite')
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
