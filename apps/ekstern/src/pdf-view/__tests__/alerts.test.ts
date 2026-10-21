@@ -173,6 +173,7 @@ describe('PDF Sanity alerts', () => {
     })
 
     expect(html).toContain(content)
+    expect(html).toContain('pdf-sanity-alert__icon')
     expect(html).not.toContain('pdf-sanity-alert__title')
   })
 })

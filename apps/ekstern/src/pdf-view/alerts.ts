@@ -46,10 +46,11 @@ function renderSanityAlertHtml({
           ? 'success'
           : 'info'
   const icon =
+    alert.type === 'inline-message' ||
     infoCardStatus === 'message' ||
     infoCardStatus === 'attention' ||
     infoCardStatus === 'tips'
-      ? `<span class="pdf-sanity-alert__icon">${infoCardStatus === 'attention' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
+      ? `<span class="pdf-sanity-alert__icon">${tone === 'warning' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
       : ''
   const title =
     alert.type !== 'inline-message' &&
