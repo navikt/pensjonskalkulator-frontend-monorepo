@@ -2,7 +2,7 @@
 	"result": [
 		{
 			"buttonLabel": null,
-			"infoCardStatus": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "84829762f054",
@@ -15,18 +15,32 @@
 							"text": "Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under "
 						},
 						{
-							"_key": "4eeb022ae1b9",
+							"_key": "d3a823411c5c",
+							"_type": "span",
+							"marks": ["ba8970fb192e"],
+							"text": "AFP: Offentlig"
+						},
+						{
+							"_key": "5abdc13522e3",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "AFP: Offentlig."
+							"text": "."
 						}
 					],
-					"markDefs": [],
+					"markDefs": [
+						{
+							"_key": "ba8970fb192e",
+							"_type": "link",
+							"anchorId": "afp-offentlig-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
+					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.beloep-vises-ikke",
-			"overskrift": "(WIP) AFP beløp vises ikke",
+			"overskrift": "AFP beløp vises ikke",
 			"status": "info",
 			"type": "info-card"
 		},
@@ -230,16 +244,30 @@
 						{
 							"_key": "d5eef42f72d4",
 							"_type": "span",
-							"marks": ["strong"],
-							"text": "alderspensjon uten AFP."
+							"marks": ["3f630032541a"],
+							"text": "alderspensjon uten AFP"
+						},
+						{
+							"_key": "c987558656f6",
+							"_type": "span",
+							"marks": [],
+							"text": "."
 						}
 					],
-					"markDefs": [],
+					"markDefs": [
+						{
+							"_key": "3f630032541a",
+							"_type": "link",
+							"className": "",
+							"linkType": "route",
+							"route": "/pensjon/kalkulator/afp"
+						}
+					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.inntekt-siste-maaned",
-			"overskrift": "(WIP) Minimum inntekt siste måned før uttak",
+			"overskrift": "Minimum inntekt siste måned før uttak",
 			"status": "info",
 			"type": "info-card"
 		},
@@ -271,33 +299,21 @@
 							"marks": [],
 							"text": "Et alternativ er at du ved "
 						},
-						{
-							"_key": "a67fb01c3509",
-							"_type": "dynamicValue",
-							"key": "alder"
-						},
+						{ "_key": "a67fb01c3509", "_type": "dynamicValue", "key": "alder" },
 						{
 							"_key": "0b06160edd8a",
 							"_type": "span",
 							"marks": [],
 							"text": " kan ta ut "
 						},
-						{
-							"_key": "1928d78fd867",
-							"_type": "dynamicValue",
-							"key": "grad"
-						},
+						{ "_key": "1928d78fd867", "_type": "dynamicValue", "key": "grad" },
 						{
 							"_key": "4a9ae79c00af",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{
-							"_key": "d0f60d22eb93",
-							"_type": "dynamicValue",
-							"key": "nbsp"
-						},
+						{ "_key": "d0f60d22eb93", "_type": "dynamicValue", "key": "nbsp" },
 						{
 							"_key": "6600f1d4ff4d",
 							"_type": "span",
@@ -328,22 +344,14 @@
 							"marks": [],
 							"text": "Bruker har vedtak om "
 						},
-						{
-							"_key": "88538180a852",
-							"_type": "dynamicValue",
-							"key": "grad"
-						},
+						{ "_key": "88538180a852", "_type": "dynamicValue", "key": "grad" },
 						{
 							"_key": "7d9e7af7b151",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{
-							"_key": "e9b47300a048",
-							"_type": "dynamicValue",
-							"key": "nbsp"
-						},
+						{ "_key": "e9b47300a048", "_type": "dynamicValue", "key": "nbsp" },
 						{
 							"_key": "e41a9942c5c4",
 							"_type": "span",
@@ -498,14 +506,16 @@
 						{
 							"_key": "19f8d56b9568",
 							"_type": "link",
-							"className": ""
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
@@ -528,7 +538,7 @@
 					"style": "normal"
 				},
 				{
-					"_key": "9cadb2c7c7fb",
+					"_key": "e6d7ebd9b82f",
 					"_type": "block",
 					"children": [
 						{
@@ -840,10 +850,16 @@
 							"text": ". Du kan også "
 						},
 						{
-							"_key": "fb0aa0148d13",
+							"_key": "e271277a177b",
+							"_type": "span",
+							"marks": ["5d6c991921ce"],
+							"text": "beregne alderspensjon uten AFP"
+						},
+						{
+							"_key": "f5bb9ac223cc",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "beregne alderspensjon uten AFP."
+							"text": "."
 						}
 					],
 					"markDefs": [
@@ -853,13 +869,20 @@
 							"blank": true,
 							"className": "",
 							"href": "https://www.nav.no/afp-offentlig#hvem-kan-fa"
+						},
+						{
+							"_key": "5d6c991921ce",
+							"_type": "link",
+							"className": "",
+							"linkType": "route",
+							"route": "/pensjon/kalkulator/afp"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.vilkaarsproeving.vilkaar-ikke-oppfylt.ekstern",
-			"overskrift": "(WIP) Vilkår for AFP er ikke oppfylt",
+			"overskrift": "Vilkår for AFP er ikke oppfylt",
 			"status": "warning",
 			"type": "local-alert"
 		},
@@ -966,14 +989,16 @@
 						{
 							"_key": "d8a0b98d004e",
 							"_type": "link",
-							"className": ""
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
@@ -1141,14 +1166,16 @@
 						{
 							"_key": "672c776c118e",
 							"_type": "link",
-							"className": ""
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.starter-foer-valgt-alder",
-			"overskrift": "(WIP) Pensjonsavtaler starter før valgt alder",
+			"overskrift": "Pensjonsavtaler starter før valgt alder",
 			"status": "info",
 			"type": "inline-message"
 		},
@@ -1227,14 +1254,16 @@
 						{
 							"_key": "b302d5b748cd",
 							"_type": "link",
-							"className": ""
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-privat",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
@@ -1266,11 +1295,7 @@
 						}
 					],
 					"markDefs": [
-						{
-							"_key": "59508407dbd8",
-							"_type": "link",
-							"className": "nowrap"
-						}
+						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
 					],
 					"style": "normal"
 				}
@@ -1559,27 +1584,35 @@
 							"_key": "662f095bac6c",
 							"_type": "span",
 							"marks": [],
-							"text": "Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. "
+							"text": "Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under "
 						},
 						{
-							"_key": "09706f0258c0",
+							"_key": "cde6a160eee9",
 							"_type": "span",
-							"marks": ["6d7f78ac092d"],
-							"text": "Les mer under pensjon fra andre."
+							"marks": ["50d500144715"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "10382bd3f6ba",
+							"_type": "span",
+							"marks": [],
+							"text": "."
 						}
 					],
 					"markDefs": [
 						{
-							"_key": "6d7f78ac092d",
+							"_key": "50d500144715",
 							"_type": "link",
-							"className": ""
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.kan-ha-rett-til-offentlig-tp",
-			"overskrift": "(WIP) Kan ha rett til offentlig tjenestepensjon",
+			"overskrift": "Kan ha rett til offentlig tjenestepensjon",
 			"status": "info",
 			"type": "info-card"
 		},
@@ -1670,7 +1703,7 @@
 		},
 		{
 			"buttonLabel": null,
-			"infoCardStatus": null,
+			"infoCardStatus": "warning",
 			"innhold": [
 				{
 					"_key": "4ffce15d72e3",
@@ -1685,7 +1718,8 @@
 						{
 							"_key": "bf06f56e44e2",
 							"_type": "dynamicValue",
-							"key": "tidligst-endring-uttaksgrad-dato"
+							"key": "tidligst-endring-uttaksgrad-dato",
+							"valueType": "number"
 						},
 						{
 							"_key": "08179098684e",
@@ -1726,20 +1760,21 @@
 						},
 						{
 							"_key": "4b17056ec7eb",
-							"_type": "dynamicValue",
-							"key": "grad",
-							"valueType": "number"
+							"_type": "span",
+							"marks": ["strong"],
+							"text": " %"
 						},
 						{
 							"_key": "4c62f8e0fe0e",
 							"_type": "span",
 							"marks": [],
-							"text": " % alderspensjon fra "
+							"text": " alderspensjon fra "
 						},
 						{
-							"_key": "232ab87c021c",
+							"_key": "5bd9ddb3751f",
 							"_type": "dynamicValue",
 							"key": "vedtakDato",
+							"openInNewTab": false,
 							"valueType": "string"
 						},
 						{
