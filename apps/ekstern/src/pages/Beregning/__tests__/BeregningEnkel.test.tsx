@@ -896,9 +896,7 @@ describe('BeregningEnkel', () => {
       const alertBoks = await screen.findByTestId('beregning.endret-inntekt')
       expect(alertBoks).toBeVisible()
 
-      await user.click(
-        within(alertBoks).getByRole('button', { name: 'sanity.alert.lukk' })
-      )
+      await user.click(within(alertBoks).getByRole('button', { name: 'Lukk' }))
       expect(
         screen.queryByTestId('beregning.endret-inntekt')
       ).not.toBeInTheDocument()
