@@ -40,7 +40,8 @@ export function getAfpIngress(
           getPdfLink({
             displayText: chunks.join('') || 'AFP (avtalefestet pensjon)',
           }),
-        goToAvansert: () => '',
+        goToAvansert: (chunks: string[]) =>
+          getPdfLink({ displayText: chunks.join('') || 'Flere valg' }),
       }
     )}
   </p>`
