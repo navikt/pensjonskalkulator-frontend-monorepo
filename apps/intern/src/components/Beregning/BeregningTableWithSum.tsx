@@ -74,14 +74,15 @@ export const BeregningTableWithSum = ({
 				size="small"
 				className={styles.table}
 			>
+				<caption className="srOnly">{title}</caption>
 				<Table.Header>
 					<Table.Row className={styles.headerRow}>
-						<Table.HeaderCell>
+						<Table.HeaderCell scope="col">
 							<Label style={{ whiteSpace: 'nowrap' }} size="small">
 								{title}
 							</Label>
 						</Table.HeaderCell>
-						<Table.HeaderCell align="right">
+						<Table.HeaderCell scope="col" align="right">
 							<Label style={{ whiteSpace: 'nowrap' }} size="small">
 								{valueHeader}
 							</Label>
@@ -91,7 +92,7 @@ export const BeregningTableWithSum = ({
 				<Table.Body>
 					{validRows.map((row) => (
 						<Table.Row key={row.label + title}>
-							<Table.DataCell>
+							<Table.HeaderCell scope="row">
 								<BodyShort size="small" className={styles.labelCell}>
 									{row.label}
 									{row.formula && (
@@ -101,7 +102,7 @@ export const BeregningTableWithSum = ({
 										/>
 									)}
 								</BodyShort>
-							</Table.DataCell>
+							</Table.HeaderCell>
 							<Table.DataCell align="right">
 								<BodyShort size="small">
 									{row.unit
@@ -112,9 +113,9 @@ export const BeregningTableWithSum = ({
 						</Table.Row>
 					))}
 					<Table.Row>
-						<Table.DataCell>
+						<Table.HeaderCell scope="row">
 							<Label size="small">{sumLabel}</Label>
-						</Table.DataCell>
+						</Table.HeaderCell>
 						<Table.DataCell align="right">
 							<Label size="small">{formatKroner(sum)}</Label>
 						</Table.DataCell>

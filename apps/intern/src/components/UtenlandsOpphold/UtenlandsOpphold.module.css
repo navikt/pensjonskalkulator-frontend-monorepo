@@ -31,7 +31,7 @@
 }
 
 .dateFieldsHStack {
-	margin-bottom: -20px;
+	align-items: flex-start;
 }
 
 .actionButtonsHStack {

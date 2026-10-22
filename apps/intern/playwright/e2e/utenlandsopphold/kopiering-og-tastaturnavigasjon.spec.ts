@@ -89,14 +89,14 @@ test.describe('Utenlandsopphold - Kopiering og tastaturnavigasjon', () => {
 			for (let i = 0; i < 2; i++) {
 				await page.keyboard.press('Tab')
 			}
+			await expect(page.getByLabel('Bruk fødselsdato')).toBeFocused()
+
+			await page.keyboard.press('Tab')
 			await expect(page.getByLabel('Sluttdato (valgfritt)')).toBeFocused()
 
 			for (let i = 0; i < 2; i++) {
 				await page.keyboard.press('Tab')
 			}
-			await expect(page.getByLabel('Bruk fødselsdato')).toBeFocused()
-
-			await page.keyboard.press('Tab')
 			await expect(page.getByRole('button', { name: 'Legg til' })).toBeFocused()
 		})
 	})

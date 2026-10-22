@@ -30,21 +30,17 @@ export const BeregningDetailTable = ({
 			<Table
 				zebraStripes={validRows.length > 3}
 				size="small"
-				className={styles.table}
+				className={`${styles.table} ${styles.captionTable}`}
 			>
-				<Table.Header>
-					<Table.Row className={styles.headerRow}>
-						<Table.HeaderCell colSpan={2}>
-							<Label style={{ whiteSpace: 'nowrap' }} size="small">
-								{title}
-							</Label>
-						</Table.HeaderCell>
-					</Table.Row>
-				</Table.Header>
+				<caption className={styles.tableCaption}>
+					<Label as="span" style={{ whiteSpace: 'nowrap' }} size="small">
+						{title}
+					</Label>
+				</caption>
 				<Table.Body>
 					{validRows.map((row) => (
 						<Table.Row key={row.label}>
-							<Table.DataCell>
+							<Table.HeaderCell scope="row">
 								<BodyShort size="small" className={styles.labelCell}>
 									{row.label}
 									{row.formula && (
@@ -54,7 +50,7 @@ export const BeregningDetailTable = ({
 										/>
 									)}
 								</BodyShort>
-							</Table.DataCell>
+							</Table.HeaderCell>
 							<Table.DataCell align="right">
 								<BodyShort size="small">{row.value}</BodyShort>
 							</Table.DataCell>
