@@ -144,7 +144,10 @@ export const OffentligTjenestepensjon = (props: {
                 key={`offentligtp-alert-${index}`}
                 data-testid={alert.testId}
               >
-                <SanityAlert id={alert.sanityId} />
+                <SanityAlert
+                  id={alert.sanityId}
+                  dynamicValues={chunk ? { tpOrdning: chunk } : undefined}
+                />
               </div>
             )
           }

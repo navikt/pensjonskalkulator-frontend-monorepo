@@ -510,10 +510,6 @@ export default {
   'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start ei ny utrekning',
@@ -524,10 +520,6 @@ export default {
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
   'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon frå Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp':

@@ -214,6 +214,7 @@ export function getOffentligTjenestePensjonAlertsText({
         alertData,
         id: alert.sanityId,
         intl,
+        dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
       })
       return `${heading}${alertHtml ?? ''}`
     }

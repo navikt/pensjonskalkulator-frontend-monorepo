@@ -196,6 +196,79 @@ describe('PDF Sanity alerts', () => {
     expect(html).not.toContain('pdf-sanity-alert__title')
   })
 
+  it('renders the missing public TP response alert with a warning icon', () => {
+    const html = getOffentligTjenestePensjonAlertsText({
+      alertData,
+      intl: createIntl({
+        locale: 'nb',
+        messages: {
+          'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+        },
+      }),
+      offentligTp: {
+        simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+        muligeTpLeverandoerListe: [],
+      },
+      offentligTpAlertsList: [
+        {
+          status: 'TOM_SIMULERING_FRA_TP_ORDNING',
+          variant: 'warning',
+          sanityId: 'pensjonsavtaler.fikk-ikke-svar.offentlig',
+          hasLeverandoerList: false,
+          logTekst: '',
+        },
+      ],
+    })
+
+    expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
+    expect(html).toContain(
+      'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.'
+    )
+  })
+
+  it.each([
+    {
+      status: 'TP_ORDNING_STOETTES_IKKE',
+      sanityId: 'pensjonsavtaler.kan-ikke-hente-alle-offentlige',
+    },
+    {
+      status: 'TEKNISK_FEIL',
+      sanityId: 'pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon',
+    },
+  ] as const)(
+    'renders TP scheme dynamic value in $sanityId',
+    ({ status, sanityId }) => {
+      const html = getOffentligTjenestePensjonAlertsText({
+        alertData,
+        intl: createIntl({
+          locale: 'nb',
+          messages: {
+            'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+          },
+        }),
+        offentligTp: {
+          simuleringsresultatStatus: status,
+          muligeTpLeverandoerListe: ['KLP'],
+        },
+        offentligTpAlertsList: [
+          {
+            status,
+            variant: 'warning',
+            sanityId,
+            hasLeverandoerList: true,
+            logTekst: '',
+          },
+        ],
+      })
+
+      expect(html).toContain('KLP')
+      expect(html).not.toContain('<TP-ordning>')
+    }
+  )
+
   it.each([
     {
       sanityId: 'pensjonsavtaler.starter-foer-valgt-alder',

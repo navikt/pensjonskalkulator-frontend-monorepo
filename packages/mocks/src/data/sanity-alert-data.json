@@ -344,7 +344,18 @@
 							"_key": "c2e0fc9b2ea3",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "(<TP-ordning>)"
+							"text": "("
+						},
+						{
+							"_key": "a9bb8c31d7e2",
+							"_type": "dynamicValue",
+							"key": "tpOrdning"
+						},
+						{
+							"_key": "a9bb8c31d7e3",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": ")"
 						},
 						{
 							"_key": "282032604b77",
@@ -906,7 +917,18 @@
 							"_key": "f73e905cb2bc",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "(<TP-ordning>)"
+							"text": "("
+						},
+						{
+							"_key": "a9bb8c31d7e4",
+							"_type": "dynamicValue",
+							"key": "tpOrdning"
+						},
+						{
+							"_key": "a9bb8c31d7e5",
+							"_type": "span",
+							"marks": ["strong"],
+							"text": ")"
 						},
 						{
 							"_key": "f75b4b870714",
