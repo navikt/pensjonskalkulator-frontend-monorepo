@@ -1,3 +1,7 @@
+import {
+  type AlertQueryResult,
+  SanityContext,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { SeriesColumnOptions } from 'highcharts'
 import React, { useCallback, useContext, useEffect } from 'react'
 import { IntlShape, useIntl } from 'react-intl'
@@ -274,6 +278,7 @@ const useApiData = (
 
 const generatePdfContent = (params: {
   intl: IntlShape
+  alertData: Record<string, AlertQueryResult[number]>
   isEnkel: boolean
   isEndring: boolean
   uttaksGradEndring: number | undefined
@@ -326,6 +331,7 @@ const generatePdfContent = (params: {
 }): string => {
   const {
     intl,
+    alertData,
     isEnkel,
     isEndring,
     uttaksGradEndring: uttaksGradForBrukerMedAP,
@@ -371,7 +377,11 @@ const generatePdfContent = (params: {
 
   // Header & Forbehold
   const pdfHeader = getPdfHeader({ isEnkel, person, isEndring })
-  const loependeVedtakAlert = getFremtidigVedtakAlert({ loependeVedtak, intl })
+  const loependeVedtakAlert = getFremtidigVedtakAlert({
+    loependeVedtak,
+    intl,
+    alertData,
+  })
   const forbeholdAvsnitt = getForbeholdAvsnitt(intl)
 
   const uttaksGradEndringIngress =
@@ -396,10 +406,12 @@ const generatePdfContent = (params: {
 
   // Omstillingsstoenad alert
   const omstillingsstoenadAlert = harOmstillingsstoenadLoependeSak
-    ? getOmstillingsstoenadAlert(intl, normertPensjonsalder)
+    ? getOmstillingsstoenadAlert(intl, alertData)
     : ''
 
-  const apotekerError = showApotekerAlert ? getApotekerAlert(intl) : ''
+  const apotekerError = showApotekerAlert
+    ? getApotekerAlert(intl, alertData)
+    : ''
   // Uttaksalder heading (only for enkel view)
   const uttakstidspunkt = uttaksalder && formatUttaksalder(intl, uttaksalder)
   const helUttaksAlder = isEnkel
@@ -461,6 +473,7 @@ const generatePdfContent = (params: {
   const pensjonsavtalerAlertsMessage = getPensjonsavtalerAlertsText({
     intl,
     pensjonsavtalerAlertsList,
+    alertData,
   })
   // Alerts
 
@@ -468,6 +481,7 @@ const generatePdfContent = (params: {
     getPrivatePensjonsavtalerAlertsText({
       pensjonsavtalerAlertsList: privatPensjonsAvtalerAlertsList,
       intl,
+      alertData,
     })
 
   const offentligTjenestePensjonAlertsMessage =
@@ -475,6 +489,7 @@ const generatePdfContent = (params: {
       offentligTpAlertsList: offentligTjenestePensjonsAvtalerAlertsList,
       offentligTp,
       intl,
+      alertData,
     })
 
   const omDegIngress = `<h2>${intl.formatMessage({ id: 'om_deg.title' })}</h2>
@@ -522,6 +537,7 @@ export const usePdfView = ({
 }: UsePdfViewProps) => {
   const intl = useIntl()
   const { showPDFRef, setIsPdfReady } = useContext(BeregningContext)
+  const { alertData } = useContext(SanityContext)
   const isEnkel = visning === 'enkel'
 
   // #region Redux State
@@ -692,6 +708,7 @@ export const usePdfView = ({
     () =>
       generatePdfContent({
         intl,
+        alertData,
         isEnkel,
         uttaksGradEndring: uttaksGradForBrukerMedAP,
         person,
@@ -737,6 +754,7 @@ export const usePdfView = ({
       }),
     [
       intl,
+      alertData,
       isEnkel,
       uttaksGradForBrukerMedAP,
       person,

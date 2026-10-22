@@ -1,8 +1,9 @@
 import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+import { BodyLong, Heading } from '@navikt/ds-react'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -55,17 +56,11 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.ufoere.title" />
         </Heading>
 
-        <Alert
-          data-testid="ufoere-info"
+        <SanityAlert
+          id="ufoeretrygd-afp.kan-ikke-kombineres"
           className={styles.alert}
-          variant="info"
           aria-live="polite"
-        >
-          <FormattedMessage
-            id="stegvisning.ufoere.info"
-            values={{ ...getFormatMessageValues() }}
-          />
-        </Alert>
+        />
 
         <SanityReadmore id="om_UT_AFP" className={styles.readmore1} />
 

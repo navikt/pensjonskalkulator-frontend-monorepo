@@ -6,7 +6,8 @@ import { PrivatePensjonsavtalerProps } from './utils'
 
 export interface OffentligTpAlert {
   status: string
-  alertTextId: string
+  alertTextId?: string
+  sanityId?: string
   variant: 'info' | 'warning'
   logTekst: string
   testId?: string
@@ -14,7 +15,8 @@ export interface OffentligTpAlert {
 }
 
 export interface privatePensjonsavtalerAlert {
-  alertTextId: string
+  alertTextId?: string
+  sanityId?: string
   variant: 'info' | 'warning'
   logText?: string
   headingId?: string
@@ -56,7 +58,7 @@ export const usePrivatePensjonsAvtalerAlertList = (
 
   if (noPrivatePensjonsavtaler) {
     alerts.push({
-      alertTextId: 'pensjonsavtaler.ingress.ingen',
+      sanityId: 'pensjonsavtaler.fant-ingen-private',
       variant: 'info',
       logText: 'Fant ingen private pensjonsavtaler',
       headingId: 'pensjonsavtaler.private.title.ingen',
@@ -99,7 +101,7 @@ export const useOffentligTjenestePensjonAlertList = ({
     case 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING':
       alerts.push({
         status,
-        alertTextId: 'pensjonsavtaler.ingress.ingen',
+        sanityId: 'pensjonsavtaler.fant-ingen-offentlige',
         variant: 'info',
         testId: 'ingen-pensjonsavtaler-alert',
         hasLeverandoerList: false,

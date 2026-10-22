@@ -105,7 +105,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 			<>
 				{devInputSection}
 
-				<InfoCard data-color="info" size="medium" className={styles.infoCard}>
+				<InfoCard data-color="info" size="small" className={styles.infoCard}>
 					<InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
 						<InfoCard.Title>Brukerinformasjon mangler</InfoCard.Title>
 					</InfoCard.Header>

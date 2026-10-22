@@ -1,3 +1,4 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -136,6 +137,19 @@ export const OffentligTjenestepensjon = (props: {
             alert.hasLeverandoerList && leverandoerList?.length
               ? formatLeverandoerList(intl.locale, leverandoerList)
               : undefined
+
+          if (alert.sanityId) {
+            return (
+              <div
+                key={`offentligtp-alert-${index}`}
+                data-testid={alert.testId}
+              >
+                <SanityAlert id={alert.sanityId} />
+              </div>
+            )
+          }
+
+          if (!alert.alertTextId) return null
 
           return (
             <Alert

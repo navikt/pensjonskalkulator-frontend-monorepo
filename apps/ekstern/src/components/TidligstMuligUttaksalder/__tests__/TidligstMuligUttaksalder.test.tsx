@@ -50,9 +50,7 @@ describe('TidligstMuligUttaksalder', () => {
         expect(screen.getByTestId('om_TMU')).toBeVisible()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -92,9 +90,7 @@ describe('TidligstMuligUttaksalder', () => {
         ).toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -134,9 +130,7 @@ describe('TidligstMuligUttaksalder', () => {
         ).not.toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -202,9 +196,7 @@ describe('TidligstMuligUttaksalder', () => {
         ).not.toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -227,14 +219,24 @@ describe('TidligstMuligUttaksalder', () => {
         }
       )
 
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad.',
-            { exact: false }
-          )
-        ).toBeInTheDocument()
-      })
+      const alert = await screen.findByTestId(
+        'beregning.gjenlevende-eller-omstilling'
+      )
+      expect(alert).toHaveAttribute('data-size', 'medium')
+      expect(
+        alert.querySelector('.aksel-base-alert__message')
+      ).toBeInTheDocument()
+      expect(
+        alert.querySelector('.aksel-base-alert__header')
+      ).not.toBeInTheDocument()
+      expect(alert).toHaveTextContent(
+        'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
+      )
+      expect(alert).toHaveTextContent('55 55 33 34')
+      expect(alert.querySelector('a')).toHaveAttribute(
+        'href',
+        expect.stringMatching(/^tel:/)
+      )
     })
   })
 
@@ -264,9 +266,7 @@ describe('TidligstMuligUttaksalder', () => {
         expect(screen.getByTestId('om_pensjonsalder_UT_hel')).toBeVisible()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -335,14 +335,12 @@ describe('TidligstMuligUttaksalder', () => {
         }
       )
 
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad',
-            { exact: false }
-          )
-        ).toBeInTheDocument()
-      })
+      const alert = await screen.findByTestId(
+        'beregning.gjenlevende-eller-omstilling'
+      )
+      expect(alert).toHaveTextContent(
+        'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
+      )
     })
 
     it('viser riktig ingress med gradert ufoeretrygd når AFP er valgt.', async () => {

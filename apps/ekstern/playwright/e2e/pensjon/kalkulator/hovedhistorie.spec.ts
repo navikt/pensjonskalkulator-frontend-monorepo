@@ -1408,7 +1408,8 @@ test.describe('Hovedhistorie', () => {
         await page.getByTestId('inntekt-textfield').fill('100000')
         await page.getByTestId('inntekt.endre_inntekt_modal.button').click()
 
-        await expect(page.getByTestId('alert-inntekt')).toBeVisible()
+        const alert = page.getByTestId('beregning.endret-inntekt')
+        await expect(alert).toBeVisible()
       })
 
       test('ønsker jeg å kunne starte på nytt og at inntekt da er tilbake til siste årsinntekt', async ({

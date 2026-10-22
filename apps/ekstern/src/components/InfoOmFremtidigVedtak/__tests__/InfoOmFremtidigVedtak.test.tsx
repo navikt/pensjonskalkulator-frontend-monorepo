@@ -28,13 +28,13 @@ describe('InfoOmFremtidigVedtak', () => {
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
-  it('Ved fremtidig vedtak, returnerer riktig tekst', () => {
+  it('Ved fremtidig vedtak, viser Sanity-varselet med dynamisk grad og dato', () => {
     render(
       <InfoOmFremtidigVedtak loependeVedtak={loependeVedtakFremtidigMock} />
     )
-    expect(
-      screen.getByTestId('start.fremtidig-vedtak-uten-gjeldende')
-    ).toHaveTextContent(
+    const alert = screen.getByTestId('start.fremtidig-vedtak-uten-gjeldende')
+    expect(alert).toBeVisible()
+    expect(alert).toHaveTextContent(
       'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
     )
   })

@@ -187,8 +187,7 @@ describe('LanguageProvider', () => {
         { locale: 'nb' },
       ])
       expect(sanityClientFetchMock.mock.calls[3]).toStrictEqual([
-        '*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}',
-        { locale: 'nb' },
+        '*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}',
       ])
       expect(sanityClientFetchMock.mock.calls[4]).toStrictEqual([
         '*[_type == "forbeholdAvsnitt" && language == $locale && visEkstern == true] | order(order asc) | {_id,overskrift,"innhold":innholdEkstern}',
@@ -203,8 +202,7 @@ describe('LanguageProvider', () => {
         { locale: 'en' },
       ])
       expect(sanityClientFetchMock.mock.calls[7]).toStrictEqual([
-        '*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}',
-        { locale: 'en' },
+        '*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}',
       ])
     })
 

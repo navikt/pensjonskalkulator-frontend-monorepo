@@ -833,7 +833,10 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
           page,
         }) => {
           await expect(
-            page.getByRole('heading', { name: /Offentlig tjenestepensjon/i })
+            page.getByRole('heading', {
+              name: 'Offentlig tjenestepensjon',
+              exact: true,
+            })
           ).toBeVisible()
           await expect(
             page.getByText(

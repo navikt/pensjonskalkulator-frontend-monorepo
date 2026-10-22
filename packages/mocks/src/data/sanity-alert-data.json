@@ -1152,7 +1152,14 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
+						{
+							"_key": "59508407dbd8",
+							"_type": "link",
+							"linkType": "external",
+							"href": "tel:55 55 33 34",
+							"blank": false,
+							"className": "nowrap"
+						}
 					],
 					"style": "normal"
 				}
@@ -1160,6 +1167,7 @@
 			"name": "beregning.gjenlevende-eller-omstilling",
 			"overskrift": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad",
 			"status": "info",
+			"infoCardStatus": "message",
 			"type": "info-card"
 		},
 		{
@@ -1314,6 +1322,7 @@
 			"name": "beregning.endret-inntekt",
 			"overskrift": "Endret inntekt",
 			"status": "info",
+			"infoCardStatus": "message",
 			"type": "info-card"
 		},
 		{
@@ -1458,6 +1467,7 @@
 			"name": "afp.vet-ikke",
 			"overskrift": "AFP vet ikke",
 			"status": "info",
+			"infoCardStatus": "message",
 			"type": "info-card"
 		},
 		{
