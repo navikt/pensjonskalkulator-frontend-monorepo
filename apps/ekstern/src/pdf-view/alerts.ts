@@ -49,6 +49,7 @@ function renderSanityAlertHtml({
           ? 'success'
           : 'info'
   const icon =
+    alert.type === 'local-alert' ||
     alert.type === 'inline-message' ||
     alertStatus === 'message' ||
     alertStatus === 'attention' ||

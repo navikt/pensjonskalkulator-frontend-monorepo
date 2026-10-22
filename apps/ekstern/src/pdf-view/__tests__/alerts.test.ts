@@ -61,6 +61,9 @@ describe('PDF Sanity alerts', () => {
     })
 
     expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
     expect(html).toContain('(WIP) Pensjon fra andre')
     expect(html).toContain(
       'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor'
@@ -141,6 +144,9 @@ describe('PDF Sanity alerts', () => {
     })
 
     expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
     expect(html).toContain(content)
   })
 
