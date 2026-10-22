@@ -317,11 +317,7 @@ export default {
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',
-  'beregning.error':
-    'Unfortunately, we could not calculate your pension right now.',
   'beregning.livsvarig': 'lifelong',
-  'beregning.lav_opptjening.aar':
-    'You do not have enough accrual to start withdrawing at {startAar} years{startMaaned}. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
   'beregning.title': 'MANGLER_TEKST',

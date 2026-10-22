@@ -648,7 +648,9 @@ describe('BeregningAvansert', () => {
           expect(
             screen.getByText('beregning.avansert.link.endre_avanserte_valg')
           ).toBeVisible()
-          expect(screen.getByText('beregning.error')).toBeVisible()
+          expect(
+            screen.getByTestId('beregning.beregningen-feilet')
+          ).toBeVisible()
         })
         expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
@@ -705,7 +707,9 @@ describe('BeregningAvansert', () => {
             }
           )
 
-          expect(await screen.findByText('beregning.error')).toBeVisible()
+          expect(
+            await screen.findByTestId('beregning.beregningen-feilet')
+          ).toBeVisible()
           expect(setAvansertSkjemaModusMock).not.toHaveBeenCalled()
           expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
             tekst: 'Beregning avansert: Klarte ikke beregne pensjon',

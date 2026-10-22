@@ -284,11 +284,7 @@ export default {
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',
-  'beregning.error':
-    'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening.aar':
-    'Du har ikkje høg nok opptening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.title': 'MANGLER_TEKST',

@@ -679,7 +679,9 @@ describe('BeregningEnkel', () => {
 
       expect(screen.queryByTestId('uttaksalder-loader')).not.toBeInTheDocument()
       expect(initiateMock).toHaveBeenCalledTimes(5)
-      expect(await screen.findByText('beregning.error')).toBeInTheDocument()
+      expect(
+        await screen.findByTestId('beregning.beregningen-feilet')
+      ).toBeInTheDocument()
       await waitFor(async () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
@@ -771,11 +773,13 @@ describe('BeregningEnkel', () => {
       await user.click(await screen.findByText('63 alder.aar'))
 
       expect(
-        await screen.findByText(
-          'Du har ikke høy nok opptjening til å kunne starte uttak ved 63 år. Prøv en høyere alder.',
-          { exact: false }
-        )
+        await screen.findByTestId('beregning.enkel.ikke-nok-opptjening')
       ).toBeVisible()
+      expect(
+        screen.getByTestId('beregning.enkel.ikke-nok-opptjening')
+      ).toHaveTextContent(
+        'Du har ikke høy nok opptjening til å kunne starte uttak ved 63 år. Prøv en høyere alder.'
+      )
       expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })

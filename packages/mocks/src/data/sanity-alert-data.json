@@ -1379,19 +1379,19 @@
 							"_key": "4043fb2c0faa",
 							"_type": "span",
 							"marks": [],
-							"text": "Beregningen viser at du ikke kan starte uttak av alderspensjon ved "
+							"text": "Du har ikke høy nok opptjening til å kunne starte uttak ved "
 						},
 						{
 							"_key": "ffec0f7a491f",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "<63>"
+							"_type": "dynamicValue",
+							"key": "alder",
+							"valueType": "string"
 						},
 						{
 							"_key": "aaeab0c1c1bc",
 							"_type": "span",
 							"marks": [],
-							"text": " år. Prøv en høyere alder."
+							"text": ". Prøv en høyere alder."
 						}
 					],
 					"markDefs": [],

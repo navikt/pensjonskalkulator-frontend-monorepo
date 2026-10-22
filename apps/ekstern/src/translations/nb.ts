@@ -356,11 +356,7 @@ const translations = {
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Flere valg',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
-  'beregning.error':
-    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.livsvarig': 'livsvarig',
-  'beregning.lav_opptjening.aar':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.title': 'Årlig inntekt og pensjon',

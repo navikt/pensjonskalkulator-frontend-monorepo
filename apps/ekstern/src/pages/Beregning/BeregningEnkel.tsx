@@ -341,16 +341,16 @@ export const BeregningEnkel = () => {
 
               <AlertDashBorder onRetry={harFeil ? onRetry : undefined}>
                 {harFeil ? (
-                  <FormattedMessage id="beregning.error" />
+                  <SanityAlert id="beregning.beregningen-feilet" />
                 ) : (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening.aar"
-                    values={{
-                      startAar: uttaksalder.aar,
-                      startMaaned:
+                  <SanityAlert
+                    id="beregning.enkel.ikke-nok-opptjening"
+                    dynamicValues={{
+                      alder: `${uttaksalder.aar} år${
                         uttaksalder.maaneder > 0
                           ? ` og ${uttaksalder.maaneder} måneder`
-                          : '',
+                          : ''
+                      }`,
                     }}
                   />
                 )}

@@ -1,4 +1,5 @@
 import { SanityGuidePanel } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 import { useContext, useEffect, useMemo } from 'react'
@@ -276,7 +277,7 @@ export const BeregningAvansert = () => {
             </Heading>
 
             <AlertDashBorder onRetry={onRetry}>
-              <FormattedMessage id="beregning.error" />
+              <SanityAlert id="beregning.beregningen-feilet" />
             </AlertDashBorder>
           </>
         ) : (
