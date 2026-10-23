@@ -15,11 +15,19 @@
 						{
 							"_key": "4eeb022ae1b9",
 							"_type": "span",
-							"marks": ["strong"],
+							"marks": ["strong", "afp-offentlig-anchor"],
 							"text": "AFP: Offentlig."
 						}
 					],
-					"markDefs": [],
+					"markDefs": [
+						{
+							"_key": "afp-offentlig-anchor",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "afp-offentlig-heading",
+							"className": ""
+						}
+					],
 					"style": "normal"
 				}
 			],
@@ -443,7 +451,13 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "19f8d56b9568", "_type": "link", "className": "" }
+						{
+							"_key": "19f8d56b9568",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": ""
+						}
 					],
 					"style": "normal"
 				}
@@ -800,24 +814,11 @@
 					],
 					"markDefs": [],
 					"style": "normal"
-				},
-				{
-					"_key": "6c3f6972670b",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "b43bdd786154",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "Prøv på nytt"
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
 				}
 			],
 			"name": "beregning.beregningen-feilet",
 			"overskrift": "(WIP) Beregningen feilet",
+			"buttonLabel": "Prøv på nytt",
 			"status": "error",
 			"type": "local-alert"
 		},
@@ -891,7 +892,13 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "d8a0b98d004e", "_type": "link", "className": "" }
+						{
+							"_key": "d8a0b98d004e",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": ""
+						}
 					],
 					"style": "normal"
 				}
@@ -1060,7 +1067,13 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "672c776c118e", "_type": "link", "className": "" }
+						{
+							"_key": "672c776c118e",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": ""
+						}
 					],
 					"style": "normal"
 				}
@@ -1138,7 +1151,13 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "b302d5b748cd", "_type": "link", "className": "" }
+						{
+							"_key": "b302d5b748cd",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": ""
+						}
 					],
 					"style": "normal"
 				}
@@ -1459,7 +1478,13 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "6d7f78ac092d", "_type": "link", "className": "" }
+						{
+							"_key": "6d7f78ac092d",
+							"_type": "link",
+							"linkType": "anchor",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": ""
+						}
 					],
 					"style": "normal"
 				}

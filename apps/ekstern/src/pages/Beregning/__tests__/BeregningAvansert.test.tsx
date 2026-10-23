@@ -25,7 +25,14 @@ import {
   UserInputState,
   userInputInitialState,
 } from '@/state/userInput/userInputSlice'
-import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  fireEvent,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
 import { BeregningAvansert } from '../BeregningAvansert'
@@ -656,7 +663,12 @@ describe('BeregningAvansert', () => {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
           variant: 'error',
         })
-        await user.click(await screen.findByText('application.global.retry'))
+        const failureAlert = screen.getByTestId('beregning.beregningen-feilet')
+        const retryButton = within(failureAlert).getByRole('button', {
+          name: 'Prøv på nytt',
+        })
+        expect(retryButton).toBeInTheDocument()
+        await user.click(retryButton)
         expect(initiateMock).toHaveBeenCalledTimes(7)
       })
 
@@ -722,7 +734,14 @@ describe('BeregningAvansert', () => {
           expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
 
           const kallFoerRetry = initiateMock.mock.calls.length
-          await user.click(await screen.findByText('application.global.retry'))
+          const failureAlert = screen.getByTestId(
+            'beregning.beregningen-feilet'
+          )
+          const retryButton = within(failureAlert).getByRole('button', {
+            name: 'Prøv på nytt',
+          })
+          expect(retryButton).toBeInTheDocument()
+          await user.click(retryButton)
           expect(initiateMock.mock.calls.length).toBeGreaterThan(kallFoerRetry)
         }
       )

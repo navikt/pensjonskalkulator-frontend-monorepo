@@ -9,6 +9,7 @@ import {
 import { useIntl } from 'react-intl'
 
 import {
+	ArrowCirclepathIcon,
 	CheckmarkCircleFillIcon,
 	ExclamationmarkTriangleFillIcon,
 	ExclamationmarkTriangleIcon,
@@ -73,6 +74,7 @@ interface Props {
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
 	onClose?: () => void
+	onButtonClick?: () => void
 	role?: HTMLAttributes<HTMLDivElement>['role']
 	'aria-live'?: AriaAttributes['aria-live']
 }
@@ -83,6 +85,7 @@ export const SanityAlert = ({
 	dynamicValues,
 	onLinkClick,
 	onClose,
+	onButtonClick,
 	role,
 	'aria-live': ariaLive,
 }: Props) => {
@@ -104,11 +107,31 @@ export const SanityAlert = ({
 		dynamicValues,
 	})
 
+	const buttonLabel =
+		typeof sanityContent.buttonLabel === 'string'
+			? sanityContent.buttonLabel.trim()
+			: ''
+	const actionButton =
+		buttonLabel && onButtonClick ? (
+			<Button
+				className={styles.actionButton}
+				size="small"
+				iconPosition="right"
+				variant="tertiary"
+				onClick={onButtonClick}
+				icon={<ArrowCirclepathIcon aria-hidden />}
+			>
+				{buttonLabel}
+			</Button>
+		) : null
 	const content = (
-		<PortableText
-			value={sanityContent.innhold}
-			components={portableTextComponents}
-		/>
+		<>
+			<PortableText
+				value={sanityContent.innhold}
+				components={portableTextComponents}
+			/>
+			{actionButton}
+		</>
 	)
 
 	const closeButton = onClose && (

@@ -15,7 +15,6 @@ import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
 import {
@@ -276,9 +275,10 @@ export const BeregningAvansert = () => {
               <FormattedMessage id="beregning.title" />
             </Heading>
 
-            <AlertDashBorder onRetry={onRetry}>
-              <SanityAlert id="beregning.beregningen-feilet" />
-            </AlertDashBorder>
+            <SanityAlert
+              id="beregning.beregningen-feilet"
+              onButtonClick={onRetry}
+            />
           </>
         ) : (
           <>

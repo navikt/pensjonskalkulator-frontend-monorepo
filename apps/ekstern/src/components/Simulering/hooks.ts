@@ -673,6 +673,7 @@ export const useAfpOffentligAlerts = ({
     return {
       variant: 'info' as AlertVariant,
       text: alertText,
+      sanityId: 'afp.beloep-vises-ikke',
     }
   }
 
@@ -692,6 +693,7 @@ export const useAfpOffentligAlerts = ({
     return {
       variant: 'warning' as AlertVariant,
       text: alertText,
+      sanityId: 'afp.klarte-ikke-sjekke-livsvarig',
     }
   }
 
@@ -709,7 +711,7 @@ export const useAfpOffentligAlerts = ({
     return {
       variant: 'warning' as AlertVariant,
       text: alertText,
-      dataTestId: 'alert-afp-offentlig-livsvarig-success',
+      sanityId: 'afp.klarte-ikke-hente-beløp-livsvarig',
     }
   }
 }

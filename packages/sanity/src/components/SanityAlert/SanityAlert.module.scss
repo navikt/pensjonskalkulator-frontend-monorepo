@@ -13,10 +13,19 @@
 	}
 }
 
+.wrapper[data-testid='beregning.enkel.ikke-nok-opptjening']
+	:global(.aksel-base-alert__content) {
+	color: var(--ax-text-danger-subtle);
+}
+
 .message {
 	:global(.aksel-base-alert__message) {
 		padding: var(--ax-space-16);
 	}
+}
+
+.actionButton {
+	margin-top: var(--ax-space-8);
 }
 
 .closableAlert {

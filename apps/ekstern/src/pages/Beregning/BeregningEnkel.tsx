@@ -14,7 +14,6 @@ import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { paths } from '@/router/constants'
 import {
@@ -339,22 +338,23 @@ export const BeregningEnkel = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
 
-              <AlertDashBorder onRetry={harFeil ? onRetry : undefined}>
-                {harFeil ? (
-                  <SanityAlert id="beregning.beregningen-feilet" />
-                ) : (
-                  <SanityAlert
-                    id="beregning.enkel.ikke-nok-opptjening"
-                    dynamicValues={{
-                      alder: `${uttaksalder.aar} år${
-                        uttaksalder.maaneder > 0
-                          ? ` og ${uttaksalder.maaneder} måneder`
-                          : ''
-                      }`,
-                    }}
-                  />
-                )}
-              </AlertDashBorder>
+              {harFeil ? (
+                <SanityAlert
+                  id="beregning.beregningen-feilet"
+                  onButtonClick={onRetry}
+                />
+              ) : (
+                <SanityAlert
+                  id="beregning.enkel.ikke-nok-opptjening"
+                  dynamicValues={{
+                    alder: `${uttaksalder.aar} år${
+                      uttaksalder.maaneder > 0
+                        ? ` og ${uttaksalder.maaneder} måneder`
+                        : ''
+                    }`,
+                  }}
+                />
+              )}
             </>
           ) : (
             <>

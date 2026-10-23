@@ -26,7 +26,7 @@ export type ShowMoreRef = {
   isOpen: boolean
   toggleOpen: () => void
   scrollTo: () => void
-  focus: () => void
+  focus: (options?: { scroll?: boolean }) => void
 }
 
 export interface ShowMoreProps extends Omit<
@@ -131,9 +131,11 @@ export const ShowMore = forwardRef<ShowMoreRef, ShowMoreProps>(
         behavior: 'smooth',
       })
     }
-    const focus = () => {
+    const focus = ({ scroll = true }: { scroll?: boolean } = {}) => {
       localRef.current?.focus()
-      scrollTo()
+      if (scroll) {
+        scrollTo()
+      }
       if (!isOpen) {
         toggleOpen()
       }
