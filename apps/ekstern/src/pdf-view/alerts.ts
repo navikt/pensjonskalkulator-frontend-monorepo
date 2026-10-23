@@ -240,19 +240,26 @@ export function getOffentligTjenestePensjonAlertsText({
 export function getAfpOffentligAlertsText({
   afpOffentligAlertsList,
   intl,
+  alertData,
 }: {
   afpOffentligAlertsList: {
     variant: AlertVariant
     text: string
+    sanityId?: string
   }
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
-  if (
-    afpOffentligAlertsList.text ===
-    'beregning.alert.info.afp-offentlig-livsvarig'
-  ) {
-    return ''
+  if (afpOffentligAlertsList.sanityId) {
+    return (
+      renderSanityAlertHtml({
+        alertData,
+        id: afpOffentligAlertsList.sanityId,
+        intl,
+      }) ?? ''
+    )
   }
+
   const alertIcon =
     afpOffentligAlertsList.variant === 'info'
       ? INFO_SQUARE_ICON

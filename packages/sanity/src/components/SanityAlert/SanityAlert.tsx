@@ -117,7 +117,7 @@ export const SanityAlert = ({
 				className={styles.actionButton}
 				size="small"
 				iconPosition="right"
-				variant="tertiary"
+				variant="secondary"
 				onClick={onButtonClick}
 				icon={<ArrowCirclepathIcon aria-hidden />}
 			>

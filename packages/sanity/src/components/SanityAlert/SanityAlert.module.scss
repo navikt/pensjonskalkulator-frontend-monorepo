@@ -18,6 +18,14 @@
 	color: var(--ax-text-danger-subtle);
 }
 
+.wrapper[data-testid='beregning.beregningen-feilet'] {
+	margin: var(--ax-space-16) 0 var(--ax-space-24);
+
+	:global(.aksel-base-alert__content) {
+		padding: var(--ax-space-20);
+	}
+}
+
 .message {
 	:global(.aksel-base-alert__message) {
 		padding: var(--ax-space-16);
@@ -25,7 +33,7 @@
 }
 
 .actionButton {
-	margin-top: var(--ax-space-8);
+	margin-top: var(--ax-space-16);
 }
 
 .closableAlert {

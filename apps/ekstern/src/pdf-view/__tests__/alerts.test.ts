@@ -4,6 +4,7 @@ import { createIntl } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
 import {
+  getAfpOffentligAlertsText,
   getOffentligTjenestePensjonAlertsText,
   getOmstillingsstoenadAlert,
   getPensjonsavtalerAlertsText,
@@ -16,6 +17,44 @@ const alertData = Object.fromEntries(
 ) as unknown as Record<string, AlertQueryResult[number]>
 
 describe('PDF Sanity alerts', () => {
+  it.each([
+    {
+      sanityId: 'afp.klarte-ikke-hente-beløp-livsvarig',
+      text: 'beregning.alert.success.afp-offentlig-livsvarig',
+      content: 'Prøv igjen senere.',
+    },
+    {
+      sanityId: 'afp.klarte-ikke-sjekke-livsvarig',
+      text: 'beregning.alert.feil.afp-offentlig-livsvarig',
+      content: 'Vi klarte ikke å sjekke om du har AFP',
+    },
+    {
+      sanityId: 'afp.beloep-vises-ikke',
+      text: 'beregning.alert.info.afp-offentlig-livsvarig',
+      content: 'AFP beløp vises ikke',
+    },
+  ])(
+    'renders AFP alert $sanityId from Sanity',
+    ({ sanityId, text, content }) => {
+      const html = getAfpOffentligAlertsText({
+        afpOffentligAlertsList: {
+          variant: 'warning',
+          text,
+          sanityId,
+        },
+        intl: createIntl({ locale: 'nb', messages: {} }),
+        alertData,
+      })
+
+      expect(html).toContain(content)
+      expect(html).toContain(
+        sanityId === 'afp.beloep-vises-ikke'
+          ? 'pdf-sanity-alert--info'
+          : 'pdf-sanity-alert--warning'
+      )
+    }
+  )
+
   it('renders the omstillingsstønad alert from Sanity', () => {
     const html = getOmstillingsstoenadAlert(
       createIntl({ locale: 'nb', messages: {} }),
