@@ -13,11 +13,6 @@
 	}
 }
 
-.wrapper[data-testid='beregning.enkel.ikke-nok-opptjening']
-	:global(.aksel-base-alert__content) {
-	color: var(--ax-text-danger-subtle);
-}
-
 .wrapper[data-testid='beregning.beregningen-feilet'] {
 	margin: var(--ax-space-16) 0 var(--ax-space-24);
 

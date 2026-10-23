@@ -1,5 +1,5 @@
 import sanityAlertDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-alert-data.json' with { type: 'json' }
-import type { AlertQueryResult } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { type AlertQueryResult } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { createIntl } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 

@@ -72,8 +72,12 @@ function renderSanityAlertHtml({
       })
     )
   )
+  const messageClass =
+    alert.type === 'info-card' && alertStatus === 'message'
+      ? ' pdf-sanity-alert--message'
+      : ''
 
-  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${alert.type === 'info-card' && alertStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${messageClass}">
   ${icon}
   <div class="pdf-sanity-alert__body">${title}${content}</div>
 </section>`
