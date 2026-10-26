@@ -55,6 +55,7 @@ import {
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
+import beregningStyles from './Beregning.module.scss'
 import styles from './BeregningEnkel.module.scss'
 
 export const BeregningEnkel = () => {
@@ -341,11 +342,16 @@ export const BeregningEnkel = () => {
               {harFeil ? (
                 <SanityAlert
                   id="beregning.beregningen-feilet"
+                  className={clsx(
+                    beregningStyles.beregningAlert,
+                    beregningStyles.beregningErrorAlert
+                  )}
                   onButtonClick={onRetry}
                 />
               ) : (
                 <SanityAlert
                   id="beregning.enkel.ikke-nok-opptjening"
+                  className={beregningStyles.beregningAlert}
                   dynamicValues={{
                     alder: `${uttaksalder.aar} år${
                       uttaksalder.maaneder > 0

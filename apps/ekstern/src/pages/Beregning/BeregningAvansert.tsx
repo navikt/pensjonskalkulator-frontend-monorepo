@@ -49,6 +49,7 @@ import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import beregningStyles from './Beregning.module.scss'
 import styles from './BeregningAvansert.module.scss'
 
 export const BeregningAvansert = () => {
@@ -277,6 +278,10 @@ export const BeregningAvansert = () => {
 
             <SanityAlert
               id="beregning.beregningen-feilet"
+              className={clsx(
+                beregningStyles.beregningAlert,
+                beregningStyles.beregningErrorAlert
+              )}
               onButtonClick={onRetry}
             />
           </>

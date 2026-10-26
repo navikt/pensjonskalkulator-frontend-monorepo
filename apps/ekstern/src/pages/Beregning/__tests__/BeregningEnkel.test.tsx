@@ -683,15 +683,14 @@ describe('BeregningEnkel', () => {
         'beregning.beregningen-feilet'
       )
       expect(failureAlert).toBeInTheDocument()
-      expect(
-        within(failureAlert).getByRole('button', { name: 'Prøv på nytt' })
-      ).toBeInTheDocument()
+      const retryButton = within(failureAlert).getByRole('button', {
+        name: 'Prøv på nytt',
+      })
+      expect(retryButton).toBeInTheDocument()
       await waitFor(async () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
-      await user.click(
-        within(failureAlert).getByRole('button', { name: 'Prøv på nytt' })
-      )
+      await user.click(retryButton)
       expect(initiateMock).toHaveBeenCalledTimes(7)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })

@@ -13,18 +13,6 @@
 	}
 }
 
-.wrapper[data-testid='beregning.beregningen-feilet'] {
-	margin: var(--ax-space-16) 0 var(--ax-space-24);
-
-	:global(.aksel-base-alert__content) {
-		padding: var(--ax-space-20);
-
-		p:last-of-type {
-			margin-bottom: 0;
-		}
-	}
-}
-
 .message {
 	:global(.aksel-base-alert__message) {
 		padding: var(--ax-space-16);

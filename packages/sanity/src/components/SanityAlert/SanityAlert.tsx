@@ -9,7 +9,6 @@ import {
 import { useIntl } from 'react-intl'
 
 import {
-	ArrowCirclepathIcon,
 	CheckmarkCircleFillIcon,
 	ExclamationmarkTriangleFillIcon,
 	ExclamationmarkTriangleIcon,
@@ -116,10 +115,8 @@ export const SanityAlert = ({
 			<Button
 				className={styles.actionButton}
 				size="small"
-				iconPosition="right"
 				variant="secondary"
 				onClick={onButtonClick}
-				icon={<ArrowCirclepathIcon aria-hidden />}
 			>
 				{buttonLabel}
 			</Button>
