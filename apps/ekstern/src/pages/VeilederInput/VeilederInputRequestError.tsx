@@ -1,7 +1,6 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { SerializedError } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-
-import { Alert } from '@navikt/ds-react'
 
 interface Props {
   personError: FetchBaseQueryError | SerializedError | undefined
@@ -10,37 +9,13 @@ interface Props {
 export const VeilederInputRequestError = ({ personError }: Props) => {
   if (!personError) return null
 
-  if ('status' in personError) {
-    switch (personError.status) {
-      case 403:
-        return (
-          <Alert
-            variant="warning"
-            data-testid="alert-ikke-tilgang"
-            role="alert"
-          >
-            Du har ikke tilgang til brukeren eller pensjonskalkulatoren. Hvis du
-            mener du skal ha tilgang, kontakt din lokale IT-ansvarlig.
-          </Alert>
-        )
-      case 404:
-        return (
-          <Alert variant="warning" data-testid="alert-ikke-gyldig" role="alert">
-            Fødselsnummeret er ikke gyldig.
-          </Alert>
-        )
-      default:
-        return (
-          <Alert variant="warning" data-testid="alert-annet" role="alert">
-            Feil ved henting av person.
-          </Alert>
-        )
-    }
-  } else {
-    return (
-      <Alert variant="warning" data-testid="alert-annet" role="alert">
-        Feil ved henting av person.
-      </Alert>
-    )
-  }
+  const status = 'status' in personError ? personError.status : undefined
+  const sanityId =
+    status === 403
+      ? 'veileder.ingen-tilgang'
+      : status === 404
+        ? 'veileder.ugyldig-foedselsnummer'
+        : 'veileder.alle-andre-feil'
+
+  return <SanityAlert id={sanityId} role="alert" />
 }
