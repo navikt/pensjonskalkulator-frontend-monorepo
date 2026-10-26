@@ -55,6 +55,8 @@ export const TidligstMuligUttaksalder = ({
     intl,
     normertPensjonsalder
   )
+  const ufoeregradMellom80Og100 =
+    ufoeregrad && ufoeregrad >= 80 && ufoeregrad < 100
 
   const hasAFP =
     (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
@@ -142,6 +144,7 @@ export const TidligstMuligUttaksalder = ({
                 ),
                 nedreAldersgrense: formatertNedreAldersgrense,
                 normertPensjonsalder: formatertNormertPensjonsalder,
+                skjulAvansertLenke: ufoeregradMellom80Og100,
               }}
             />
           </BodyLong>
