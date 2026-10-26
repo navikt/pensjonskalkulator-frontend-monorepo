@@ -785,7 +785,7 @@ describe('BeregningEnkel', () => {
         within(ikkeNokOpptjeningAlert).queryByRole('button')
       ).not.toBeInTheDocument()
       expect(ikkeNokOpptjeningAlert).toHaveTextContent(
-        'Du har ikke høy nok opptjening til å kunne starte uttak ved 63 år. Prøv en høyere alder.'
+        'Beregningen viser at du ikke kan starte uttak av alderspensjon ved 63 år. Prøv en høyere alder.'
       )
       expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()

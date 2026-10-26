@@ -1294,7 +1294,12 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
+						{
+							"_key": "59508407dbd8",
+							"_type": "link",
+							"className": "nowrap",
+							"href": "tel:55553334"
+						}
 					],
 					"style": "normal"
 				}

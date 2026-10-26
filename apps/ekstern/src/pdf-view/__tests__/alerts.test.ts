@@ -31,7 +31,8 @@ describe('PDF Sanity alerts', () => {
     {
       sanityId: 'afp.beloep-vises-ikke',
       text: 'beregning.alert.info.afp-offentlig-livsvarig',
-      content: 'AFP beløp vises ikke',
+      content:
+        'Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell.',
     },
   ])(
     'renders AFP alert $sanityId from Sanity',
@@ -83,8 +84,12 @@ describe('PDF Sanity alerts', () => {
       ],
     })
 
-    expect(html).toContain('(WIP) Kan ha rett til offentlig tjenestepensjon')
-    expect(html).toContain('Les mer under pensjon fra andre.')
+    expect(html).toContain(
+      'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.'
+    )
+    expect(html).not.toContain('pdf-sanity-alert__title')
+    expect(html).toContain('href="#pensjonsavtaler-heading"')
+    expect(html).toContain('>pensjon fra andre</a>')
   })
 
   it('renders the public pension retrieval error from Sanity', () => {
@@ -103,7 +108,9 @@ describe('PDF Sanity alerts', () => {
     expect(html).toContain(
       '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
     )
-    expect(html).toContain('(WIP) Pensjon fra andre')
+    expect(html).toContain(
+      '<h3 class="pdf-sanity-alert__title">Pensjon fra andre</h3>'
+    )
     expect(html).toContain(
       'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor'
     )
