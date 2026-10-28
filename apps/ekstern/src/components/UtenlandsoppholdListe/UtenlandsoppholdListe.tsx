@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
+import { PencilIcon, PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons'
 import {
+  BodyLong,
   BodyShort,
   Button,
   ErrorMessage,
@@ -10,7 +11,7 @@ import {
   Modal,
 } from '@navikt/ds-react'
 
-import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
+import { UtenlandsoppholdSkjema } from '@/components/UtenlandsoppholdSkjema'
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -26,7 +27,6 @@ import {
   BUTTON_KLIKK,
   GRUNNLAG_FOR_BEREGNINGEN,
   KNAPP_KLIKKET,
-  MODAL_AAPNET,
 } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
@@ -37,53 +37,49 @@ import styles from './UtenlandsoppholdListe.module.scss'
 interface Props {
   erVisningIGrunnlag?: boolean
   validationError?: string
+  onSkjemaOpenChange?: (erApent: boolean) => void
 }
 
 export function UtenlandsoppholdListe({
   erVisningIGrunnlag,
   validationError,
+  onSkjemaOpenChange,
 }: Props) {
   const intl = useIntl()
   const avbrytModalRef = useRef<HTMLDialogElement>(null)
-  const utenlandsoppholdModalRef = useRef<HTMLDialogElement>(null)
+  const leggTilNyttOppholdRef = useRef<HTMLButtonElement>(null)
+  const skalFokusereLeggTilNyttRef = useRef(false)
   const utenlandsperioder = useAppSelector(selectUtenlandsperioder)
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const dispatch = useAppDispatch()
-  const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
+  const [slettUtenlandsperiodeId, setSlettUtenlandsperiodeId] =
     useState<string>('')
+  const [redigerUtenlandsperiodeId, setRedigerUtenlandsperiodeId] =
+    useState<string>('')
+  const [erLeggTilNyttOppholdAapnet, setErLeggTilNyttOppholdAapnet] =
+    useState<boolean>(false)
 
   const locale = getSelectedLanguage()
 
-  const openUtenlandsoppholdModal = () => {
-    // TODO: fjern når amplitude er ikke i bruk lenger
-    logger(MODAL_AAPNET, {
-      tekst: `Modal: Om oppholdet ditt`,
-    })
-    logger(MODAL_AAPNET, {
-      modalId: 'utenlandsopphold-modal',
-      tittel: 'Modal: Om oppholdet ditt',
-    })
-    utenlandsoppholdModalRef.current?.showModal()
-  }
-
-  const onEditClick = (id: string) => {
-    setValgtUtenlandsperiodeId(id)
-    logger(MODAL_AAPNET, {
-      tekst: 'Modal: Om oppholdet ditt',
-    })
-    logger(MODAL_AAPNET, {
-      modalId: 'edit-utenlandsopphold-modal',
-      tittel: 'Modal: Om oppholdet ditt (rediger)',
-    })
-    utenlandsoppholdModalRef.current?.showModal()
-  }
-
-  const onDeleteClick = (id: string) => {
-    setValgtUtenlandsperiodeId(id)
-    avbrytModalRef.current?.showModal()
-  }
-
   const sortedUtenlandsperioder = useSortedUtenlandsperioder(utenlandsperioder)
+
+  // Når det ikke finnes noen opphold, vises skjemaet for første opphold direkte
+  const visSkjemaForNyttOpphold =
+    !erVisningIGrunnlag &&
+    !redigerUtenlandsperiodeId &&
+    (erLeggTilNyttOppholdAapnet || sortedUtenlandsperioder.length === 0)
+  const erSkjemaAapent = visSkjemaForNyttOpphold || !!redigerUtenlandsperiodeId
+
+  useEffect(() => {
+    onSkjemaOpenChange?.(erSkjemaAapent)
+  }, [erSkjemaAapent])
+
+  useEffect(() => {
+    if (!erSkjemaAapent && skalFokusereLeggTilNyttRef.current) {
+      skalFokusereLeggTilNyttRef.current = false
+      leggTilNyttOppholdRef.current?.focus()
+    }
+  }, [erSkjemaAapent])
 
   useEffect(() => {
     if (erVisningIGrunnlag) {
@@ -97,6 +93,45 @@ export function UtenlandsoppholdListe({
     }
   }, [uttaksalder?.aar, uttaksalder?.maaneder, utenlandsperioder])
 
+  const onLeggTilNyttOpphold = () => {
+    setRedigerUtenlandsperiodeId('')
+    setErLeggTilNyttOppholdAapnet(true)
+  }
+
+  const onEditClick = (id: string) => {
+    setErLeggTilNyttOppholdAapnet(false)
+    setRedigerUtenlandsperiodeId(id)
+  }
+
+  const onDeleteClick = (id: string) => {
+    setSlettUtenlandsperiodeId(id)
+    avbrytModalRef.current?.showModal()
+  }
+
+  const onSkjemaClose = () => {
+    skalFokusereLeggTilNyttRef.current = true
+    setRedigerUtenlandsperiodeId('')
+    setErLeggTilNyttOppholdAapnet(false)
+  }
+
+  const getPeriodeBeskrivelse = (utenlandsperiode: Utenlandsperiode) => {
+    const periode = utenlandsperiode.sluttdato
+      ? `${utenlandsperiode.startdato}–${utenlandsperiode.sluttdato}`
+      : utenlandsperiode.startdato
+    const erVarig = !utenlandsperiode.sluttdato
+    const harJobbet = utenlandsperiode.arbeidetUtenlands
+
+    if (!erVarig && !harJobbet) {
+      return periode
+    }
+    const suffixId = erVarig
+      ? harJobbet
+        ? 'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet'
+        : 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold'
+      : 'stegvisning.utenlandsopphold.oppholdene.periode.jobbet'
+    return `${periode} ${intl.formatMessage({ id: suffixId })}`
+  }
+
   return (
     <section className={styles.section}>
       <Modal
@@ -108,7 +143,7 @@ export function UtenlandsoppholdListe({
         }}
         width="medium"
         onClose={() => {
-          setValgtUtenlandsperiodeId('')
+          setSlettUtenlandsperiodeId('')
         }}
       >
         <Modal.Footer>
@@ -116,8 +151,11 @@ export function UtenlandsoppholdListe({
             type="button"
             onClick={() => {
               dispatch(
-                userInputActions.deleteUtenlandsperiode(valgtUtenlandsperiodeId)
+                userInputActions.deleteUtenlandsperiode(slettUtenlandsperiodeId)
               )
+              if (slettUtenlandsperiodeId === redigerUtenlandsperiodeId) {
+                setRedigerUtenlandsperiodeId('')
+              }
               logger(KNAPP_KLIKKET, {
                 tekst: `sletter utenlandsopphold`,
               })
@@ -150,118 +188,156 @@ export function UtenlandsoppholdListe({
       </Heading>
 
       {!erVisningIGrunnlag && (
-        <BodyShort size="medium" className={styles.bodyshort}>
+        <BodyLong size="medium" className={styles.bodylong}>
           <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
-        </BodyShort>
+        </BodyLong>
       )}
 
-      <UtenlandsoppholdModal
-        modalRef={utenlandsoppholdModalRef}
-        utenlandsperiode={
-          valgtUtenlandsperiodeId
-            ? utenlandsperioder.find(
-                (utenlandsperiode) =>
-                  utenlandsperiode.id === valgtUtenlandsperiodeId
-              )
-            : undefined
-        }
-        onSubmitCallback={() => {
-          setValgtUtenlandsperiodeId('')
-        }}
-      />
-      <dl
-        data-testid="utenlandsperiode-liste"
-        className={styles.utenlandsperioder}
-      >
-        {sortedUtenlandsperioder.length > 0 &&
-          sortedUtenlandsperioder.map((utenlandsperiode, index) => {
-            const harLocalLandKravOmArbeid = harKravOmArbeidFromLandkode(
-              utenlandsperiode.landkode
-            )
-            return (
-              <div key={index} className={styles.utenlandsperioderItem}>
-                <div className={styles.utenlandsperioderText}>
+      {erVisningIGrunnlag ? (
+        <dl
+          data-testid="utenlandsperiode-liste"
+          className={styles.utenlandsperioder}
+        >
+          {sortedUtenlandsperioder.map((utenlandsperiode) => (
+            <div
+              key={utenlandsperiode.id}
+              className={styles.utenlandsperioderItem}
+            >
+              <div className={styles.utenlandsperioderText}>
+                <dd>
+                  <b>
+                    {getTranslatedLandFromLandkode(
+                      utenlandsperiode.landkode,
+                      locale
+                    )}
+                  </b>
+                </dd>
+                <dd>
+                  <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode" />
+                  {utenlandsperiode.startdato}
+                  {utenlandsperiode.sluttdato
+                    ? `–${utenlandsperiode.sluttdato}`
+                    : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold' })}`}
+                </dd>
+                {harKravOmArbeidFromLandkode(utenlandsperiode.landkode) && (
                   <dd>
-                    <b>
-                      {getTranslatedLandFromLandkode(
-                        utenlandsperiode.landkode,
-                        locale
-                      )}
-                    </b>
-                  </dd>
-                  <dd>
-                    <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode" />
-                    {utenlandsperiode.startdato}
-                    {utenlandsperiode.sluttdato
-                      ? `–${utenlandsperiode.sluttdato}`
-                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold' })}`}
-                  </dd>
-                  {harLocalLandKravOmArbeid && (
-                    <dd>
-                      <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
-                      <FormattedMessage
-                        id={
-                          utenlandsperiode.arbeidetUtenlands
-                            ? 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja'
-                            : 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei'
-                        }
-                      />
-                    </dd>
-                  )}
-                </div>
-
-                {!erVisningIGrunnlag && (
-                  <dd className={styles.utenlandsperioderButtons}>
-                    <Button
-                      variant="tertiary"
-                      size="small"
-                      data-testid="endre-utenlandsopphold"
-                      icon={<PencilIcon aria-hidden />}
-                      className={styles.utenlandsperioderButtons__endre}
-                      onClick={() => {
-                        onEditClick(utenlandsperiode.id)
-                      }}
-                    >
-                      {intl.formatMessage({
-                        id: 'stegvisning.utenlandsopphold.oppholdene.button.endre',
-                      })}
-                    </Button>
-
-                    <Button
-                      variant="tertiary"
-                      size="small"
-                      data-testid="slett-utenlandsopphold"
-                      className={styles.utenlandsperioderButtons__slette}
-                      onClick={() => {
-                        onDeleteClick(utenlandsperiode.id)
-                      }}
-                    >
-                      {intl.formatMessage({
-                        id: 'stegvisning.utenlandsopphold.oppholdene.button.slette',
-                      })}
-                    </Button>
+                    <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
+                    <FormattedMessage
+                      id={
+                        utenlandsperiode.arbeidetUtenlands
+                          ? 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja'
+                          : 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei'
+                      }
+                    />
                   </dd>
                 )}
               </div>
-            )
-          })}
-      </dl>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <>
+          {sortedUtenlandsperioder.length > 0 && (
+            <ul data-testid="utenlandsperiode-liste" className={styles.liste}>
+              {sortedUtenlandsperioder.map((utenlandsperiode) => {
+                const landnavn = getTranslatedLandFromLandkode(
+                  utenlandsperiode.landkode,
+                  locale
+                )
 
-      {!erVisningIGrunnlag && (
-        <Button
-          data-testid="legg-til-utenlandsopphold"
-          type="button"
-          variant="secondary"
-          icon={<PlusCircleIcon aria-hidden />}
-          onClick={openUtenlandsoppholdModal}
-        >
-          {intl.formatMessage({
-            id:
-              utenlandsperioder.length > 0
-                ? 'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt'
-                : 'stegvisning.utenlandsopphold.oppholdene.button.legg_til',
-          })}
-        </Button>
+                if (utenlandsperiode.id === redigerUtenlandsperiodeId) {
+                  return (
+                    <li key={utenlandsperiode.id} className={styles.listeItem}>
+                      <UtenlandsoppholdSkjema
+                        utenlandsperiode={utenlandsperiode}
+                        autoFocus
+                        onSubmitCallback={onSkjemaClose}
+                      />
+                    </li>
+                  )
+                }
+
+                return (
+                  <li key={utenlandsperiode.id} className={styles.listeItem}>
+                    <div className={styles.listeItemInnhold}>
+                      <BodyShort weight="semibold">{landnavn}</BodyShort>
+                      <BodyShort>
+                        {getPeriodeBeskrivelse(utenlandsperiode)}
+                      </BodyShort>
+                    </div>
+                    <div className={styles.listeItemKnapper}>
+                      <Button
+                        type="button"
+                        variant="tertiary"
+                        size="small"
+                        data-testid="endre-utenlandsopphold"
+                        icon={<PencilIcon aria-hidden />}
+                        aria-label={intl.formatMessage(
+                          {
+                            id: 'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label',
+                          },
+                          { land: landnavn }
+                        )}
+                        onClick={() => {
+                          onEditClick(utenlandsperiode.id)
+                        }}
+                      >
+                        {intl.formatMessage({
+                          id: 'stegvisning.utenlandsopphold.oppholdene.button.endre',
+                        })}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="tertiary"
+                        size="small"
+                        data-testid="slett-utenlandsopphold"
+                        icon={<TrashIcon aria-hidden />}
+                        aria-label={intl.formatMessage(
+                          {
+                            id: 'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label',
+                          },
+                          { land: landnavn }
+                        )}
+                        onClick={() => {
+                          onDeleteClick(utenlandsperiode.id)
+                        }}
+                      >
+                        {intl.formatMessage({
+                          id: 'stegvisning.utenlandsopphold.oppholdene.button.slette',
+                        })}
+                      </Button>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
+          {visSkjemaForNyttOpphold && (
+            <div className={styles.nyttOppholdSkjema}>
+              <UtenlandsoppholdSkjema
+                autoFocus={erLeggTilNyttOppholdAapnet}
+                showCancelButton={sortedUtenlandsperioder.length > 0}
+                onSubmitCallback={onSkjemaClose}
+              />
+            </div>
+          )}
+
+          {!erSkjemaAapent && (
+            <Button
+              ref={leggTilNyttOppholdRef}
+              data-testid="legg-til-utenlandsopphold"
+              type="button"
+              variant="secondary"
+              icon={<PlusCircleIcon aria-hidden />}
+              onClick={onLeggTilNyttOpphold}
+            >
+              {intl.formatMessage({
+                id: 'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt',
+              })}
+            </Button>
+          )}
+        </>
       )}
 
       {validationError && (

@@ -131,26 +131,29 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.title':
     'Oppholdene dine utenfor Norge',
   'stegvisning.utenlandsopphold.oppholdene.description':
-    'Legg til gjennomførte og planlagte opphold',
+    'Opphold utenfor Norge kan påvirke størrelsen og tidspunktet du kan ta ut alderspensjon. Du bør derfor legge inn alle periodene du har vært eller planlegger å være i andre land.',
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
   'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     '(Varig opphold)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.jobbet': '(Jobbet)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet':
+    '(Varig opphold, jobbet)',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
-  'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'Legg til opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'Legg til nytt opphold',
-  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre opphold',
-  'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett opphold',
-  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Rediger',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
+    'Rediger opphold i {land}',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
+    'Slett opphold i {land}',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til':
     'Legg til opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
     'Oppdater opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Avbryt',
-  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
-    'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Jobbet du i {land}?',
@@ -161,7 +164,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label': 'Oppgi startdato',
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
-  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label':
+    'Oppgi sluttdato (valgfritt)',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
     'Ved varig opphold, lar du feltet stå tomt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':

@@ -1,10 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { RootState } from '@/state/store'
-import {
-  userInputActions,
-  userInputInitialState,
-} from '@/state/userInput/userInputSlice'
+import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 import { Utenlandsopphold } from '..'
@@ -96,20 +93,112 @@ describe('stegvisning - Utenlandsopphold', () => {
             'stegvisning.utenlandsopphold.oppholdene.description'
           )
         ).toBeVisible()
+        expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
         expect(
-          await screen.findByText(
-            'stegvisning.utenlandsopphold.oppholdene.button.legg_til'
-          )
-        ).toBeVisible()
-        expect(
-          await screen.findByText('stegvisning.utenlandsopphold.ingress.bottom')
-        ).toBeVisible()
+          screen.queryByText('stegvisning.utenlandsopphold.ingress.bottom')
+        ).not.toBeInTheDocument()
       })
+    })
+
+    it('Når harUtenlandsopphold er true og det finnes opphold, vises ingress.bottom og listen', async () => {
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              utenlandsperioder: [
+                {
+                  id: '1',
+                  landkode: 'AFG',
+                  arbeidetUtenlands: false,
+                  startdato: '20.01.2021',
+                },
+              ],
+            },
+          },
+        }
+      )
+
+      expect(
+        await screen.findByText('stegvisning.utenlandsopphold.ingress.bottom')
+      ).toBeVisible()
+      expect(
+        screen.getByText(
+          'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt'
+        )
+      ).toBeVisible()
     })
   })
 
   describe('Når brukeren vil legge til en ny utenlandsperiode', async () => {
-    it('åpner modalen ved å trykke på knappen', async () => {
+    const registrertePerioder = [
+      {
+        id: '1',
+        landkode: 'AFG',
+        arbeidetUtenlands: false,
+        startdato: '20.01.2021',
+      },
+    ]
+
+    it('deaktiverer Neste når skjemaet for første opphold er åpent', async () => {
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />
+      )
+
+      expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeDisabled()
+    })
+
+    it('åpner skjemaet inline ved å trykke på knappen, deaktiverer Neste og aktiverer den igjen ved avbryt', async () => {
+      const user = userEvent.setup()
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              utenlandsperioder: registrertePerioder,
+            },
+          },
+        }
+      )
+
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeEnabled()
+
+      await user.click(
+        await screen.findByText(
+          'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt'
+        )
+      )
+
+      expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeDisabled()
+
+      await user.click(screen.getByTestId('legg-til-utenlandsopphold-avbryt'))
+
+      expect(
+        screen.queryByTestId('utenlandsopphold-land')
+      ).not.toBeInTheDocument()
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeEnabled()
+    })
+
+    it('aktiverer ikke Neste igjen når brukeren velger Nei', async () => {
       const user = userEvent.setup()
       render(
         <Utenlandsopphold
@@ -120,16 +209,12 @@ describe('stegvisning - Utenlandsopphold', () => {
         />
       )
 
-      await user.click(
-        await screen.findByText(
-          'stegvisning.utenlandsopphold.oppholdene.button.legg_til'
-        )
-      )
-      expect(
-        await screen.findByText(
-          'utenlandsopphold.om_oppholdet_ditt_modal.title'
-        )
-      ).toBeVisible()
+      expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeDisabled()
+
+      await user.click(screen.getAllByRole('radio')[1])
+
+      expect(screen.getByTestId('stegvisning-neste-button')).toBeEnabled()
     })
   })
 
@@ -163,88 +248,6 @@ describe('stegvisning - Utenlandsopphold', () => {
       await user.click(screen.getByText('stegvisning.neste'))
 
       expect(onNextMock).toHaveBeenCalled()
-    })
-
-    it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren setter harUtenlandsopphold til false', async () => {
-      const user = userEvent.setup()
-      render(
-        <Utenlandsopphold
-          harUtenlandsopphold={true}
-          onCancel={onCancelMock}
-          onPrevious={onPreviousMock}
-          onNext={onNextMock}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      await user.click(screen.getByText('stegvisning.neste'))
-
-      expect(
-        await screen.findByText(
-          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
-        )
-      ).toBeInTheDocument()
-
-      const radioButtons = await screen.findAllByRole('radio')
-      await user.click(radioButtons[1])
-
-      expect(
-        screen.queryByText(
-          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
-        )
-      ).not.toBeInTheDocument()
-    })
-
-    it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren legger til en periode', async () => {
-      const user = userEvent.setup()
-      const { store } = render(
-        <Utenlandsopphold
-          harUtenlandsopphold={true}
-          onCancel={onCancelMock}
-          onPrevious={onPreviousMock}
-          onNext={onNextMock}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-            },
-          },
-        }
-      )
-
-      await user.click(screen.getByText('stegvisning.neste'))
-
-      expect(
-        await screen.findByText(
-          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
-        )
-      ).toBeInTheDocument()
-
-      store.dispatch(
-        userInputActions.setUtenlandsperiode({
-          id: '1',
-          landkode: 'AFG',
-          arbeidetUtenlands: true,
-          startdato: '20-01-2021',
-        })
-      )
-
-      expect(
-        await screen.findByText('stegvisning.utenlandsopphold.oppholdene.title')
-      ).toBeVisible()
-
-      expect(
-        screen.queryByText(
-          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
-        )
-      ).not.toBeInTheDocument()
     })
   })
 

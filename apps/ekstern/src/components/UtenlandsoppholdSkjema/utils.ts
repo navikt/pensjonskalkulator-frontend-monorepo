@@ -509,7 +509,6 @@ export const onUtenlandsoppholdSubmit = (
   setValidationErrors: React.Dispatch<
     React.SetStateAction<Record<UtenlandsoppholdFormNames, string>>
   >,
-  modalRef: React.RefObject<HTMLDialogElement | null>,
   onSubmitCallback: () => void,
   locale: Locales,
   previousData: {
@@ -569,8 +568,5 @@ export const onUtenlandsoppholdSubmit = (
         : `legger til utenlandsopphold`,
     })
     onSubmitCallback()
-    if (modalRef.current?.open) {
-      modalRef.current?.close()
-    }
   }
 }

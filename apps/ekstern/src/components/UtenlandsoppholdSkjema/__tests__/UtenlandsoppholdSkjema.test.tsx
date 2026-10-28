@@ -1,10 +1,9 @@
-import React from 'react'
 import { describe, it } from 'vitest'
 
 import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
-import { UtenlandsoppholdModal } from '..'
-import * as utenlandsoppholdModalUtils from '../utils'
+import { UtenlandsoppholdSkjema } from '..'
+import * as utenlandsoppholdSkjemaUtils from '../utils'
 
 const velgLand = async (
   user: ReturnType<typeof userEvent.setup>,
@@ -12,26 +11,16 @@ const velgLand = async (
 ) => {
   await user.click(
     await screen.findByTestId(
-      utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
+      utenlandsoppholdSkjemaUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
     )
   )
   await user.click(await screen.findByRole('option', { name: landnavn }))
 }
 
-describe('UtenlandsoppholdModal', () => {
+describe('UtenlandsoppholdSkjema', () => {
   describe('Gitt at det skal registreres et nytt opphold', () => {
     it('rendrer slik den skal', async () => {
-      const modalRef = React.createRef<HTMLDialogElement>()
-
-      render(
-        <UtenlandsoppholdModal modalRef={modalRef} onSubmitCallback={vi.fn()} />
-      )
-      modalRef.current?.showModal()
-      expect(
-        await screen.findByText(
-          'utenlandsopphold.om_oppholdet_ditt_modal.title'
-        )
-      ).toBeVisible()
+      render(<UtenlandsoppholdSkjema onSubmitCallback={vi.fn()} />)
       expect(
         await screen.findByText(
           'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til'
@@ -44,18 +33,39 @@ describe('UtenlandsoppholdModal', () => {
       ).toBeVisible()
     })
 
+    it('skjuler avbryt-knappen når showCancelButton er false', async () => {
+      render(
+        <UtenlandsoppholdSkjema
+          showCancelButton={false}
+          onSubmitCallback={vi.fn()}
+        />
+      )
+
+      expect(
+        await screen.findByTestId('legg-til-utenlandsopphold-submit')
+      ).toBeVisible()
+      expect(
+        screen.queryByTestId('legg-til-utenlandsopphold-avbryt')
+      ).not.toBeInTheDocument()
+    })
+
+    it('når brukeren klikker på avbryt, kalles onSubmitCallback', async () => {
+      const onSubmitCallbackMock = vi.fn()
+      const user = userEvent.setup()
+      render(<UtenlandsoppholdSkjema onSubmitCallback={onSubmitCallbackMock} />)
+
+      await user.click(
+        await screen.findByTestId('legg-til-utenlandsopphold-avbryt')
+      )
+
+      expect(onSubmitCallbackMock).toHaveBeenCalledTimes(1)
+    })
+
     it('når brukeren klikker på legg til før noe er fylt ut, kaller onValidate, viser feilmeldinger og submitter ikke skjemaet', async () => {
       const onSubmitCallbackMock = vi.fn()
 
       const user = userEvent.setup()
-      const modalRef = React.createRef<HTMLDialogElement>()
-      render(
-        <UtenlandsoppholdModal
-          modalRef={modalRef}
-          onSubmitCallback={onSubmitCallbackMock}
-        />
-      )
-      modalRef.current?.showModal()
+      render(<UtenlandsoppholdSkjema onSubmitCallback={onSubmitCallbackMock} />)
 
       await act(async () => {
         await user.click(
@@ -76,12 +86,8 @@ describe('UtenlandsoppholdModal', () => {
 
     it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet har krav om arbeid', async () => {
       const user = userEvent.setup()
-      const modalRef = React.createRef<HTMLDialogElement>()
 
-      render(
-        <UtenlandsoppholdModal modalRef={modalRef} onSubmitCallback={vi.fn()} />
-      )
-      modalRef.current?.showModal()
+      render(<UtenlandsoppholdSkjema onSubmitCallback={vi.fn()} />)
 
       expect(
         screen.queryByText(
@@ -131,14 +137,7 @@ describe('UtenlandsoppholdModal', () => {
       const onSubmitCallbackMock = vi.fn()
 
       const user = userEvent.setup()
-      const modalRef = React.createRef<HTMLDialogElement>()
-      render(
-        <UtenlandsoppholdModal
-          modalRef={modalRef}
-          onSubmitCallback={onSubmitCallbackMock}
-        />
-      )
-      modalRef.current?.showModal()
+      render(<UtenlandsoppholdSkjema onSubmitCallback={onSubmitCallbackMock} />)
 
       await velgLand(user, 'Frankrike')
       await waitFor(() => {
@@ -180,11 +179,8 @@ describe('UtenlandsoppholdModal', () => {
 
   describe('Gitt at det skal endres et eksisterende opphold', () => {
     it('rendrer slik den skal med riktig forhåndsfylte verdier', async () => {
-      const modalRef = React.createRef<HTMLDialogElement>()
-
       render(
-        <UtenlandsoppholdModal
-          modalRef={modalRef}
+        <UtenlandsoppholdSkjema
           onSubmitCallback={vi.fn()}
           utenlandsperiode={{
             id: '1',
@@ -195,16 +191,10 @@ describe('UtenlandsoppholdModal', () => {
           }}
         />
       )
-      modalRef.current?.showModal()
 
-      expect(
-        await screen.findByText(
-          'utenlandsopphold.om_oppholdet_ditt_modal.title'
-        )
-      ).toBeVisible()
       expect(screen.getByDisplayValue('FRA')).toHaveAttribute(
         'name',
-        utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
+        utenlandsoppholdSkjemaUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
       )
       expect(
         await screen.findByText(
@@ -223,7 +213,7 @@ describe('UtenlandsoppholdModal', () => {
       expect(
         (
           await screen.findByTestId<HTMLSelectElement>(
-            utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.startdato
+            utenlandsoppholdSkjemaUtils.UTENLANDSOPPHOLD_FORM_NAMES.startdato
           )
         ).value
       ).toBe('20.01.2001')
@@ -235,7 +225,7 @@ describe('UtenlandsoppholdModal', () => {
       expect(
         (
           await screen.findByTestId<HTMLSelectElement>(
-            utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.sluttdato
+            utenlandsoppholdSkjemaUtils.UTENLANDSOPPHOLD_FORM_NAMES.sluttdato
           )
         ).value
       ).toBe('20.01.2011')
@@ -246,7 +236,7 @@ describe('UtenlandsoppholdModal', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
+          'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt'
         )
       ).toBeVisible()
     })
@@ -255,11 +245,9 @@ describe('UtenlandsoppholdModal', () => {
       const onSubmitCallbackMock = vi.fn()
 
       const user = userEvent.setup()
-      const modalRef = React.createRef<HTMLDialogElement>()
 
       render(
-        <UtenlandsoppholdModal
-          modalRef={modalRef}
+        <UtenlandsoppholdSkjema
           onSubmitCallback={onSubmitCallbackMock}
           utenlandsperiode={{
             id: '1',
@@ -271,10 +259,8 @@ describe('UtenlandsoppholdModal', () => {
         />
       )
 
-      modalRef.current?.showModal()
-
       const sluttdatoInput = await screen.findByTestId(
-        utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.startdato
+        utenlandsoppholdSkjemaUtils.UTENLANDSOPPHOLD_FORM_NAMES.startdato
       )
       await act(async () => {
         await user.clear(sluttdatoInput)
