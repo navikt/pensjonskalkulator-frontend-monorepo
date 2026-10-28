@@ -17,27 +17,44 @@
 
 .listeItem {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--ax-space-8) var(--ax-space-16);
-  padding-block: var(--ax-space-16);
+  padding-block: var(--ax-space-12);
   border-bottom: 1px solid var(--ax-border-neutral-subtle);
 
   > form {
     flex: 1;
+    min-width: 0;
+  }
+
+  @media (min-width: variables.$ax-breakpoint-md) {
+    flex-wrap: wrap;
+    padding-block: var(--ax-space-16);
   }
 }
 
 .listeItemInnhold {
   flex: 1;
   min-width: 0;
+  padding-inline-start: var(--ax-space-8);
+
+  @media (min-width: variables.$ax-breakpoint-md) {
+    padding-inline-start: 0;
+  }
 }
 
 .listeItemKnapper {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   flex-shrink: 0;
   gap: var(--ax-space-8);
+
+  @media (min-width: variables.$ax-breakpoint-md) {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .nyttOppholdSkjema {
