@@ -1919,6 +1919,11 @@ export interface components {
 			 */
 			skjermingstillegg?: number | null
 			/**
+			 * Format: int32
+			 * @description Individuelt minstenivåtillegg (beløp i norske kroner)
+			 */
+			minstenivaatilleggIndividuelt?: number | null
+			/**
 			 * Format: double
 			 * @description Andel av pensjonen som er beregnet i henhold til kapittel 19 i Folketrygdloven
 			 */
