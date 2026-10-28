@@ -146,7 +146,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       },
     ]
 
-    it('deaktiverer Neste når skjemaet for første opphold er åpent', async () => {
+    it('deaktiverer Neste og Tilbake når skjemaet for første opphold er åpent', async () => {
       render(
         <Utenlandsopphold
           harUtenlandsopphold={true}
@@ -158,6 +158,7 @@ describe('stegvisning - Utenlandsopphold', () => {
 
       expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
       expect(screen.getByTestId('stegvisning-neste-button')).toBeDisabled()
+      expect(screen.getByTestId('stegvisning-tilbake-button')).toBeDisabled()
     })
 
     it('åpner skjemaet inline ved å trykke på knappen, deaktiverer Neste og aktiverer den igjen ved avbryt', async () => {
@@ -180,6 +181,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       )
 
       expect(screen.getByTestId('stegvisning-neste-button')).toBeEnabled()
+      expect(screen.getByTestId('stegvisning-tilbake-button')).toBeEnabled()
 
       await user.click(
         await screen.findByText(
@@ -189,6 +191,7 @@ describe('stegvisning - Utenlandsopphold', () => {
 
       expect(await screen.findByTestId('utenlandsopphold-land')).toBeVisible()
       expect(screen.getByTestId('stegvisning-neste-button')).toBeDisabled()
+      expect(screen.getByTestId('stegvisning-tilbake-button')).toBeDisabled()
 
       await user.click(screen.getByTestId('legg-til-utenlandsopphold-avbryt'))
 
@@ -196,6 +199,7 @@ describe('stegvisning - Utenlandsopphold', () => {
         screen.queryByTestId('utenlandsopphold-land')
       ).not.toBeInTheDocument()
       expect(screen.getByTestId('stegvisning-neste-button')).toBeEnabled()
+      expect(screen.getByTestId('stegvisning-tilbake-button')).toBeEnabled()
     })
 
     it('aktiverer ikke Neste igjen når brukeren velger Nei', async () => {

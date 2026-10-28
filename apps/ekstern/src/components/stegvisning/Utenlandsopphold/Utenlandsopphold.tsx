@@ -145,6 +145,7 @@ export function Utenlandsopphold({
         onCancel={onCancel}
         form="har-utenlandsopphold"
         isNextDisabled={showUtenlandsperioder && erOppholdSkjemaAapent}
+        isPreviousDisabled={showUtenlandsperioder && erOppholdSkjemaAapent}
       />
     </Card>
   )
