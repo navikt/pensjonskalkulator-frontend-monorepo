@@ -10,7 +10,7 @@ export const API_URLS = {
 		'**/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
 	INNTEKT: '**/api/inntekt',
 	GRUNNBELOEP: '**/api/v1/grunnbel*',
-	SIMULERING: '**/api/intern/v1/pensjon/simulering',
+	SIMULERING: '**/api/intern/v2/pensjon/simulering',
 	EPS: '**/api/intern/v1/eps',
 	OPPTJENING: '**/api/intern/v1/opptjening',
 	SANITY: '**/g2by7q6m**/data/query/**',

@@ -97,14 +97,14 @@ describe('mapOpptjeningToTableRows', () => {
 					pensjonsgivendeInntektBeloep: 0,
 					pensjonspoeng: 0,
 					pensjonsbeholdningBeloep: 0,
-					merknadListe: ['INGEN_OPPTJENING'],
+					merknadListe: [{ kode: 'INGEN_OPPTJENING' }],
 				},
 				{
 					aarstall: 2017,
 					pensjonsgivendeInntektBeloep: 0,
 					pensjonspoeng: 0,
 					pensjonsbeholdningBeloep: 0,
-					merknadListe: ['INGEN_OPPTJENING', 'DAGPENGER'],
+					merknadListe: [{ kode: 'INGEN_OPPTJENING' }, { kode: 'DAGPENGER' }],
 				},
 			],
 			false
@@ -122,6 +122,47 @@ describe('mapOpptjeningToTableRows', () => {
 			'Pensjonsbeholdningen din ble etablert med virkning 1. januar 2010 i forbindelse med at pensjonsreformen trådte i kraft. Da ble den opptjeningen du hadde i kalenderår frem til og med 2008 (siste år med ferdig skattemelding) summert til en beholdningsstørrelse., Mottak av dagpenger'
 		)
 	})
+
+	test.each([
+		{
+			kode: 'GRADERT_UTTAK' as const,
+			uttaksgrad: { grad: 20, kalendermaanedFom: 2 },
+			forventet: 'Gradert uttak: 20 % fra februar',
+		},
+		{
+			kode: 'HELT_UTTAK' as const,
+			uttaksgrad: { grad: 100, kalendermaanedFom: 12 },
+			forventet: 'Alderspensjon: 100 % fra desember',
+		},
+		{
+			kode: 'UTTAK_STOPPET' as const,
+			uttaksgrad: { grad: 0, kalendermaanedFom: 4 },
+			forventet: 'Uttak stoppet fra april',
+		},
+		{
+			kode: 'UTTAK_STOPPET' as const,
+			uttaksgrad: null,
+			forventet: 'Uttak stoppet',
+		},
+	])(
+		'mapper $kode med uttaksgrad $uttaksgrad til "$forventet"',
+		({ kode, uttaksgrad, forventet }) => {
+			const rows = mapOpptjeningToTableRows(
+				[
+					{
+						aarstall: 2030,
+						pensjonsgivendeInntektBeloep: 0,
+						pensjonspoeng: 0,
+						pensjonsbeholdningBeloep: 0,
+						merknadListe: [{ kode, uttaksgrad }],
+					},
+				],
+				false
+			)
+
+			expect(rows[0].merknad).toBe(forventet)
+		}
+	)
 
 	test('mapper UFOEREGRAD merknad med ufoeretrygdgrad', () => {
 		const rows = mapOpptjeningToTableRows(mockOpptjeningMedUfoeregrad, true, 75)
