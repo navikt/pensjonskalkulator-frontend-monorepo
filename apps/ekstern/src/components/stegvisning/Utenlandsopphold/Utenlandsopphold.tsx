@@ -131,7 +131,11 @@ export function Utenlandsopphold({
           />
 
           {utenlandsperioder.length > 0 && (
-            <BodyLong size="medium" className={styles.ingressBottom}>
+            <BodyLong
+              size="medium"
+              textColor="subtle"
+              className={styles.ingressBottom}
+            >
               <FormattedMessage id="stegvisning.utenlandsopphold.ingress.bottom" />
             </BodyLong>
           )}
