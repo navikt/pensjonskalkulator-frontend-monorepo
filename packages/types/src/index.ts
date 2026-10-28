@@ -87,42 +87,40 @@ export type Vilkaarsliste =
 	components['schemas']['LagreSimuleringsinformasjonDto']['forbeholdVisningsvilkaar']
 
 // Simulering Intern
-export type SimuleringRequestBody = components['schemas']['SimuleringV1Spec']
+export type SimuleringRequestBody = components['schemas']['SimuleringV2Spec']
 export type SimuleringsType =
-	components['schemas']['SimuleringV1Spec']['simuleringstype']
-export type SimuleringResponseBody = components['schemas']['SimuleringV1Result']
+	components['schemas']['SimuleringV2Spec']['simuleringstype']
+export type SimuleringResponseBody = components['schemas']['SimuleringV2Result']
 export type SimuleringVilkaarsproevingResultat =
-	components['schemas']['SimuleringV1Vilkaarsproevingsresultat']
+	components['schemas']['SimuleringV2Vilkaarsproevingsresultat']
 export type SimuleringUttaksparametre =
-	components['schemas']['SimuleringV1Uttaksparametre']
+	components['schemas']['SimuleringV2Uttaksparametre']
 export type TidsbegrensetOffentligAFP =
-	components['schemas']['SimuleringV1TidsbegrensetOffentligAfp']
+	components['schemas']['SimuleringV2TidsbegrensetOffentligAfp']
 export type SimuleringAlderspensjon =
-	components['schemas']['SimuleringV1Alderspensjon']
+	components['schemas']['SimuleringV2Alderspensjon']
 export type SimuleringMaanedligAlderspensjon =
-	components['schemas']['SimuleringV1MaanedligAlderspensjon']
-export type SimuleringAfpPrivat = components['schemas']['SimuleringV1PrivatAfp']
+	components['schemas']['SimuleringV2MaanedligAlderspensjon']
+export type SimuleringAfpPrivat = components['schemas']['SimuleringV2PrivatAfp']
 export type ServiceberegnetAfp =
-	components['schemas']['SimuleringV1ServiceberegnetAfp']
-export type BeregnetAfp = components['schemas']['SimuleringV1BeregnetAfp']
+	components['schemas']['SimuleringV2ServiceberegnetAfp']
+export type BeregnetAfp = components['schemas']['SimuleringV2BeregnetAfp']
 export type SimuleringAfpOffentlig =
-	components['schemas']['SimuleringV1OffentligAfpSpec']
+	components['schemas']['SimuleringV2OffentligAfpSpec']
 export type SimuleringGradertUttak =
-	components['schemas']['SimuleringV1GradertUttakSpec']
+	components['schemas']['SimuleringV2GradertUttakSpec']
 export type SimuleringHeltUttak =
-	components['schemas']['SimuleringV1HeltUttakSpec']
-export type SimuleringAarligInntekt =
-	components['schemas']['SimuleringV1AarligBeloep']
+	components['schemas']['SimuleringV2HeltUttakSpec']
 export type SimuleringUtenlandsperiode =
-	components['schemas']['SimuleringV1UtenlandsperiodeSpec']
+	components['schemas']['SimuleringV2UtenlandsperiodeSpec']
 export type SimuleringAldersbestemtUtbetaling =
-	components['schemas']['SimuleringV1AldersbestemtUtbetaling']
+	components['schemas']['SimuleringV2AldersbestemtUtbetaling']
 export type SimuleringMaanedligVedEndring =
-	components['schemas']['SimuleringV1Uttaksbeloep']
-export type Eps = components['schemas']['SimuleringV1EpsSpec']
-export type LevendeEps = components['schemas']['SimuleringV1LevendeEps']
-export type AvdoedEps = components['schemas']['SimuleringV1AvdoedEps']
-export type Opptjening = components['schemas']['SimuleringV1Opptjening'][]
+	components['schemas']['SimuleringV2Uttaksbeloep']
+export type Eps = components['schemas']['SimuleringV2EpsSpec']
+export type LevendeEps = components['schemas']['SimuleringV2LevendeEpsSpec']
+export type AvdoedEps = components['schemas']['SimuleringV2AvdoedEpsSpec']
+export type Opptjening = components['schemas']['SimuleringV2Opptjening'][]
 
 // Pensjonsavtaler
 export type PensjonsavtalerRequestBody =

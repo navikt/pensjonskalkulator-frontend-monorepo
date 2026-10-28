@@ -56,7 +56,7 @@ test.describe('Utenlandsopphold - API-feil, tilstand og knappetilstander', () =>
 
 			const responsePromise = page.waitForResponse(
 				(response) =>
-					response.url().includes('/api/intern/v1/pensjon/simulering') &&
+					response.url().includes('/api/intern/v2/pensjon/simulering') &&
 					response.status() === 500
 			)
 			await beregnPensjonButton(page).click()

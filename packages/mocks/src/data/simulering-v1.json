@@ -438,202 +438,365 @@
 		"antallAar": 40,
 		"erUtilstrekkelig": false
 	},
-	"pensjonsgivendeInntektListe": [
+	"opptjeningListe": [
 		{
 			"aarstall": 1982,
-			"beloep": 96789
+			"pensjonsgivendeInntektBeloep": 96789,
+			"pensjonspoeng": 0.97,
+			"pensjonsbeholdningBeloep": 17422,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1983,
-			"beloep": 104591
+			"pensjonsgivendeInntektBeloep": 104591,
+			"pensjonspoeng": 1.05,
+			"pensjonsbeholdningBeloep": 36248,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1984,
-			"beloep": 110839
+			"pensjonsgivendeInntektBeloep": 110839,
+			"pensjonspoeng": 1.11,
+			"pensjonsbeholdningBeloep": 56199,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1985,
-			"beloep": 118641
+			"pensjonsgivendeInntektBeloep": 118641,
+			"pensjonspoeng": 1.19,
+			"pensjonsbeholdningBeloep": 77554,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1986,
-			"beloep": 128476
+			"pensjonsgivendeInntektBeloep": 128476,
+			"pensjonspoeng": 1.28,
+			"pensjonsbeholdningBeloep": 100680,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1987,
-			"beloep": 137065
+			"pensjonsgivendeInntektBeloep": 137065,
+			"pensjonspoeng": 1.37,
+			"pensjonsbeholdningBeloep": 125352,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1988,
-			"beloep": 144478
+			"pensjonsgivendeInntektBeloep": 144478,
+			"pensjonspoeng": 1.44,
+			"pensjonsbeholdningBeloep": 151358,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1989,
-			"beloep": 151152
+			"pensjonsgivendeInntektBeloep": 151152,
+			"pensjonspoeng": 1.51,
+			"pensjonsbeholdningBeloep": 178565,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1990,
-			"beloep": 157240
+			"pensjonsgivendeInntektBeloep": 157240,
+			"pensjonspoeng": 1.57,
+			"pensjonsbeholdningBeloep": 206868,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1991,
-			"beloep": 164069
+			"pensjonsgivendeInntektBeloep": 164069,
+			"pensjonspoeng": 1.64,
+			"pensjonsbeholdningBeloep": 236400,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1992,
-			"beloep": 169379
+			"pensjonsgivendeInntektBeloep": 169379,
+			"pensjonspoeng": 1.69,
+			"pensjonsbeholdningBeloep": 266888,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1993,
-			"beloep": 173435
+			"pensjonsgivendeInntektBeloep": 173435,
+			"pensjonspoeng": 1.73,
+			"pensjonsbeholdningBeloep": 298106,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1994,
-			"beloep": 177121
+			"pensjonsgivendeInntektBeloep": 177121,
+			"pensjonspoeng": 1.77,
+			"pensjonsbeholdningBeloep": 329988,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1995,
-			"beloep": 181930
+			"pensjonsgivendeInntektBeloep": 181930,
+			"pensjonspoeng": 1.82,
+			"pensjonsbeholdningBeloep": 362735,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1996,
-			"beloep": 189250
+			"pensjonsgivendeInntektBeloep": 189250,
+			"pensjonspoeng": 1.89,
+			"pensjonsbeholdningBeloep": 396800,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1997,
-			"beloep": 196697
+			"pensjonsgivendeInntektBeloep": 196697,
+			"pensjonspoeng": 1.97,
+			"pensjonsbeholdningBeloep": 432205,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1998,
-			"beloep": 207997
+			"pensjonsgivendeInntektBeloep": 207997,
+			"pensjonspoeng": 2.08,
+			"pensjonsbeholdningBeloep": 469644,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 1999,
-			"beloep": 217411
+			"pensjonsgivendeInntektBeloep": 217411,
+			"pensjonspoeng": 2.17,
+			"pensjonsbeholdningBeloep": 508778,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2000,
-			"beloep": 226562
+			"pensjonsgivendeInntektBeloep": 226562,
+			"pensjonspoeng": 2.27,
+			"pensjonsbeholdningBeloep": 549559,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2001,
-			"beloep": 236987
+			"pensjonsgivendeInntektBeloep": 236987,
+			"pensjonspoeng": 2.37,
+			"pensjonsbeholdningBeloep": 592217,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2002,
-			"beloep": 249304
+			"pensjonsgivendeInntektBeloep": 249304,
+			"pensjonspoeng": 2.49,
+			"pensjonsbeholdningBeloep": 637092,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2003,
-			"beloep": 262094
+			"pensjonsgivendeInntektBeloep": 262094,
+			"pensjonspoeng": 2.62,
+			"pensjonsbeholdningBeloep": 684269,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2004,
-			"beloep": 272280
+			"pensjonsgivendeInntektBeloep": 272280,
+			"pensjonspoeng": 2.72,
+			"pensjonsbeholdningBeloep": 733279,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2005,
-			"beloep": 281272
+			"pensjonsgivendeInntektBeloep": 281272,
+			"pensjonspoeng": 2.81,
+			"pensjonsbeholdningBeloep": 783908,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2006,
-			"beloep": 291116
+			"pensjonsgivendeInntektBeloep": 291116,
+			"pensjonspoeng": 2.91,
+			"pensjonsbeholdningBeloep": 836309,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2007,
-			"beloep": 306777
+			"pensjonsgivendeInntektBeloep": 306777,
+			"pensjonspoeng": 3.07,
+			"pensjonsbeholdningBeloep": 891529,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2008,
-			"beloep": 323650
+			"pensjonsgivendeInntektBeloep": 323650,
+			"pensjonspoeng": 3.24,
+			"pensjonsbeholdningBeloep": 949786,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2009,
-			"beloep": 337223
+			"pensjonsgivendeInntektBeloep": 337223,
+			"pensjonspoeng": 3.37,
+			"pensjonsbeholdningBeloep": 1010486,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2010,
-			"beloep": 349938
+			"pensjonsgivendeInntektBeloep": 349938,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1073475,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2011,
-			"beloep": 365406
+			"pensjonsgivendeInntektBeloep": 365406,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1139248,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2012,
-			"beloep": 380060
+			"pensjonsgivendeInntektBeloep": 380060,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1207659,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2013,
-			"beloep": 394349
+			"pensjonsgivendeInntektBeloep": 394349,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1278642,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2014,
-			"beloep": 408979
+			"pensjonsgivendeInntektBeloep": 408979,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1352258,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2015,
-			"beloep": 419161
+			"pensjonsgivendeInntektBeloep": 419161,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1427707,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2016,
-			"beloep": 798799
+			"pensjonsgivendeInntektBeloep": 798799,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1571491,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2017,
-			"beloep": 436859
+			"pensjonsgivendeInntektBeloep": 436859,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1650126,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2018,
-			"beloep": 448656
+			"pensjonsgivendeInntektBeloep": 448656,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1730884,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2019,
-			"beloep": 463015
+			"pensjonsgivendeInntektBeloep": 463015,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1814227,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2020,
-			"beloep": 472320
+			"pensjonsgivendeInntektBeloep": 472320,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1899245,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2021,
-			"beloep": 490412
+			"pensjonsgivendeInntektBeloep": 490412,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 1987519,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2022,
-			"beloep": 514147
+			"pensjonsgivendeInntektBeloep": 514147,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2080065,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2023,
-			"beloep": 544377
+			"pensjonsgivendeInntektBeloep": 544377,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2178053,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2024,
-			"beloep": 572411
+			"pensjonsgivendeInntektBeloep": 572411,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2281087,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2025,
-			"beloep": 572411
+			"pensjonsgivendeInntektBeloep": 572411,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2384121,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2026,
-			"beloep": 572411
+			"pensjonsgivendeInntektBeloep": 572411,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2487155,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2027,
-			"beloep": 750572
+			"pensjonsgivendeInntektBeloep": 750572,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2622258,
+			"merknadListe": []
 		},
 		{
 			"aarstall": 2028,
-			"beloep": 1000000
+			"pensjonsgivendeInntektBeloep": 1000000,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2802258,
+			"merknadListe": [
+				{
+					"kode": "GRADERT_UTTAK",
+					"uttaksgrad": {
+						"grad": 50,
+						"kalendermaanedFom": 7
+					}
+				}
+			]
 		},
 		{
 			"aarstall": 2029,
-			"beloep": 1000000
+			"pensjonsgivendeInntektBeloep": 1000000,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 2982258,
+			"merknadListe": [
+				{
+					"kode": "HELT_UTTAK",
+					"uttaksgrad": {
+						"grad": 100,
+						"kalendermaanedFom": 3
+					}
+				}
+			]
 		},
 		{
 			"aarstall": 2030,
-			"beloep": 583333
+			"pensjonsgivendeInntektBeloep": 583333,
+			"pensjonspoeng": 0.0,
+			"pensjonsbeholdningBeloep": 3087258,
+			"merknadListe": []
 		}
 	]
 }
