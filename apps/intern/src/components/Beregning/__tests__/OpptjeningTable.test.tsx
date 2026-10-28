@@ -129,17 +129,17 @@ describe('mapOpptjeningToTableRows', () => {
 		{
 			kode: 'GRADERT_UTTAK' as const,
 			uttaksgrad: { grad: 20, kalendermaanedFom: 2 },
-			forventet: 'Gradert uttak: 20 % fra februar',
+			forventet: 'Alderspensjon: 20 % (februar)',
 		},
 		{
 			kode: 'HELT_UTTAK' as const,
-			uttaksgrad: { grad: 100, kalendermaanedFom: 12 },
-			forventet: 'Alderspensjon: 100 % fra desember',
+			uttaksgrad: { grad: 100, kalendermaanedFom: 5 },
+			forventet: 'Alderspensjon: 100 % (mai)',
 		},
 		{
 			kode: 'UTTAK_STOPPET' as const,
 			uttaksgrad: { grad: 0, kalendermaanedFom: 4 },
-			forventet: 'Uttak stoppet fra april',
+			forventet: 'Alderspensjon: 0 % (april)',
 		},
 		{
 			kode: 'UTTAK_STOPPET' as const,

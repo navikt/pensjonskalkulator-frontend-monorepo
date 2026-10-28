@@ -2,6 +2,7 @@ import type {
 	Opptjening,
 	OpptjeningAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { getMaanedNavn } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { useEffect, useState } from 'react'
 
 import { BodyShort, Box, Heading, ReadMore, Table } from '@navikt/ds-react'
@@ -24,21 +25,6 @@ const merknadTextMap: Record<string, string> = {
 	UTTAK_STOPPET: 'Uttak stoppet',
 }
 
-const maanedNavn = [
-	'januar',
-	'februar',
-	'mars',
-	'april',
-	'mai',
-	'juni',
-	'juli',
-	'august',
-	'september',
-	'oktober',
-	'november',
-	'desember',
-]
-
 type OpptjeningMerknad =
 	| Opptjening[number]['merknadListe'][number]
 	| OpptjeningAvdoed[number]['merknadListe'][number]
@@ -49,21 +35,14 @@ type Uttaksgrad = NonNullable<
 
 function formatUttaksmerknad(kode: string, uttaksgrad?: Uttaksgrad | null) {
 	const tekst = merknadTextMap[kode] ?? ''
-	if (!uttaksgrad) return tekst
+	const erUttaksmerknad =
+		kode === 'GRADERT_UTTAK' ||
+		kode === 'HELT_UTTAK' ||
+		kode === 'UTTAK_STOPPET'
+	if (!uttaksgrad || !erUttaksmerknad) return tekst
 
-	const maaned = maanedNavn[uttaksgrad.kalendermaanedFom - 1]
-	const fra = maaned ? ` fra ${maaned}` : ''
-
-	switch (kode) {
-		case 'GRADERT_UTTAK':
-			return `${tekst}: ${uttaksgrad.grad} %${fra}`
-		case 'HELT_UTTAK':
-			return `${tekst}${fra}`
-		case 'UTTAK_STOPPET':
-			return `${tekst}${fra}`
-		default:
-			return tekst
-	}
+	const maaned = getMaanedNavn(uttaksgrad.kalendermaanedFom)
+	return `Alderspensjon: ${uttaksgrad.grad} %${maaned ? ` (${maaned})` : ''}`
 }
 
 function getMerknadKode(merknad: OpptjeningMerknad): string {
