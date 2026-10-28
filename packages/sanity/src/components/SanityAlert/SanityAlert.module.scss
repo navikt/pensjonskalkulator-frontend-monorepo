@@ -1,5 +1,34 @@
 .wrapper {
-  p:first-child {
-    margin-top: 0;
-  }
+	p {
+		font-size: var(--ax-font-size-large);
+		line-height: var(--ax-font-line-height-xlarge);
+	}
+
+	p:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.message {
+	:global(.aksel-base-alert__message) {
+		padding: var(--ax-space-16);
+	}
+}
+
+.closableAlert {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--ax-space-12);
+
+	> :first-child {
+		flex: 1;
+	}
+
+	> button {
+		margin-block: calc(-1 * var(--ax-space-4));
+	}
 }

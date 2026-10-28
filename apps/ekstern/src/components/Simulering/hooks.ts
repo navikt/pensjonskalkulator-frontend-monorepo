@@ -467,7 +467,6 @@ export const usePensjonsavtalerAlerts = ({
   isPensjonsavtaleFlagVisible,
   erOffentligTpFoer1963,
 }: PensjonsAvtalerAlertProps) => {
-  const intl = useIntl()
   const isEndring = useAppSelector(selectIsEndring)
   const {
     isLoading: isPensjonsavtalerLoading,
@@ -477,10 +476,12 @@ export const usePensjonsavtalerAlerts = ({
   } = pensjonsavtaler
   const { isError: isOffentligTpError, data: offentligTpData } = offentligTp
 
-  const alertsList: Array<{
+  type PensjonsavtalerAlert = {
     variant: AlertVariant
-    text: string
-  }> = []
+    sanityId: string
+  }
+
+  const alertsList: PensjonsavtalerAlert[] = []
 
   if (
     offentligTpData &&
@@ -488,34 +489,33 @@ export const usePensjonsavtalerAlerts = ({
     isOffentligTpFoer1963(offentligTpData) &&
     offentligTpData.feilkode === 'OPPFYLLER_IKKE_INNGANGSVILKAAR'
   ) {
-    const text = 'beregning.pensjonsavtaler.alert.afp_offentlig.error'
     const variant = ALERT_VARIANTS.WARNING
     logger(ALERT_VIST, {
-      tekst: `Pensjonsavtaler:`,
+      tekst:
+        'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK).',
       variant,
     })
     alertsList.push({
       variant,
-      text,
+      sanityId: 'afp.fikk-ikke-hentet-beregning-fra-spk',
     })
   }
 
   // Varselet om at avtaler starter tidligere enn uttakstidspunkt skal være øverst av varslene
   if (!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible) {
-    const text = 'beregning.pensjonsavtaler.alert.avtaler_foer_alder'
     const variant = ALERT_VARIANTS.INLINE_INFO
     logger(ALERT_VIST, {
-      tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+      tekst: 'Pensjonsavtaler starter før valgt uttaksalder',
       variant,
     })
     alertsList.push({
       variant,
-      text,
+      sanityId: 'pensjonsavtaler.starter-foer-valgt-alder',
     })
   }
 
   const pensjonsavtaleAlert = React.useMemo(():
-    | { variant: AlertVariant; text: string }
+    | PensjonsavtalerAlert
     | undefined => {
     const isPartialWith0Avtaler =
       pensjonsavtalerData?.partialResponse &&
@@ -533,25 +533,23 @@ export const usePensjonsavtalerAlerts = ({
           'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING')
 
     if (isEndring) {
-      const text = 'beregning.pensjonsavtaler.alert.endring'
       const variant = ALERT_VARIANTS.INLINE_INFO
       return {
         variant,
-        text,
+        sanityId: 'pensjonsavtaler.avtaler-ikke-med-i-beregning',
       }
     }
 
     // Offentlig-TP OK + Private pensjonsavtaler FEIL/UKOMPLETT
     if (isOffentligTpOK && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
-      const text = 'beregning.pensjonsavtaler.alert.privat.error'
       const variant = ALERT_VARIANTS.WARNING
       logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        tekst: 'Pensjonsavtaler: feil ved henting av private pensjonsavtaler',
         variant,
       })
       return {
         variant,
-        text,
+        sanityId: 'pensjonsavtaler.noe-gikk-galt-ved-henting-privat',
       }
     }
 
@@ -563,15 +561,16 @@ export const usePensjonsavtalerAlerts = ({
           'TP_ORDNING_STOETTES_IKKE') &&
       (isPensjonsavtalerError || isPartialWith0Avtaler)
     ) {
-      const text = 'beregning.pensjonsavtaler.alert.privat_og_offentlig.error'
       const variant = ALERT_VARIANTS.WARNING
       logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        tekst:
+          'Pensjonsavtaler: feil ved henting av offentlige og private pensjonsavtaler',
         variant,
       })
       return {
         variant,
-        text,
+        sanityId:
+          'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat',
       }
     }
 
@@ -580,15 +579,15 @@ export const usePensjonsavtalerAlerts = ({
       (isOffentligTpError || isOffentligTpUkomplett) &&
       isPensjonsavtalerSuccess
     ) {
-      const text = 'beregning.pensjonsavtaler.alert.offentlig.error'
       const variant = ALERT_VARIANTS.WARNING
       logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        tekst:
+          'Pensjonsavtaler: feil ved henting av offentlige pensjonsavtaler',
         variant,
       })
       return {
         variant,
-        text,
+        sanityId: 'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig',
       }
     }
 
@@ -597,15 +596,14 @@ export const usePensjonsavtalerAlerts = ({
       offentligTpData &&
       offentligTpData.simuleringsresultatStatus === 'TP_ORDNING_STOETTES_IKKE'
     ) {
-      const text = 'beregning.pensjonsavtaler.alert.stoettes_ikke'
       const variant = ALERT_VARIANTS.INFO
       logger(ALERT_VIST, {
-        tekst: `Pensjonsavtaler: ${intl.formatMessage({ id: text })}`,
+        tekst: 'Pensjonsavtaler: offentlig tjenestepensjon støttes ikke',
         variant,
       })
       return {
         variant,
-        text,
+        sanityId: 'pensjonsavtaler.kan-ha-rett-til-offentlig-tp',
       }
     }
   }, [

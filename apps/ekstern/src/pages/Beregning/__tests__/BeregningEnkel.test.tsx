@@ -19,7 +19,7 @@ import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor, within } from '@/test-utils'
 
 import { BeregningEnkel } from '../BeregningEnkel'
 
@@ -860,14 +860,22 @@ describe('BeregningEnkel', () => {
         ).not.toBeInTheDocument()
       })
 
-      const alertBoks = await screen.findByTestId('alert-inntekt')
+      const alertBoks = await screen.findByTestId('beregning.endret-inntekt')
       expect(alertBoks).toBeVisible()
+      expect(alertBoks).toHaveAttribute('data-size', 'medium')
+      expect(
+        alertBoks.querySelector('.aksel-base-alert__message')
+      ).toBeInTheDocument()
+      expect(
+        alertBoks.querySelector('.aksel-base-alert__header')
+      ).not.toBeInTheDocument()
+      expect(alertBoks).not.toHaveTextContent('Endret inntekt')
 
       await user.click(await screen.findByText('70 alder.aar'))
       expect(alertBoks).not.toBeVisible()
     })
 
-    it('viser det en info-alertboks som forsvinner ved å klikke på lukke knappen', async () => {
+    it('viser info-Sanity-alerten med lukke-knapp som skjuler alerten', async () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
@@ -885,12 +893,13 @@ describe('BeregningEnkel', () => {
           getLoependeVedtak: loependeVedtak0UfoeregradMock,
         },
       })
-      const alertBoks = await screen.findByTestId('alert-inntekt')
-      const alertButtonBoks = alertBoks.querySelector('button')
+      const alertBoks = await screen.findByTestId('beregning.endret-inntekt')
       expect(alertBoks).toBeVisible()
-      expect(alertButtonBoks).toBeInTheDocument()
-      await user.click(alertButtonBoks as HTMLButtonElement)
-      expect(alertBoks).not.toBeVisible()
+
+      await user.click(within(alertBoks).getByRole('button', { name: 'Lukk' }))
+      expect(
+        screen.queryByTestId('beregning.endret-inntekt')
+      ).not.toBeInTheDocument()
     })
   })
 

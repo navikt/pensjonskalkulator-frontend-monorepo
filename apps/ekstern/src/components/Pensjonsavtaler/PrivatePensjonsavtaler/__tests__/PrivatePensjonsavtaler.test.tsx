@@ -160,8 +160,9 @@ describe('PrivatePensjonsavtaler', () => {
       await screen.findByText('pensjonsavtaler.private.title.ingen')
     ).toBeVisible()
     expect(
-      await screen.findByText('pensjonsavtaler.ingress.ingen')
+      await screen.findByTestId('pensjonsavtaler.fant-ingen-private')
     ).toBeVisible()
+    expect(screen.getByText('Vi fant ingen pensjonsavtaler.')).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler-desktop')
     ).not.toBeInTheDocument()

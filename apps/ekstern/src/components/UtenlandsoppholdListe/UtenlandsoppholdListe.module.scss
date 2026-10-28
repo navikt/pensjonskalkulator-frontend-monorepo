@@ -4,9 +4,44 @@
   margin-top: var(--ax-space-16);
 }
 
-.bodyshort {
-  color: var(--ax-text-neutral-subtle);
+.bodylong {
   margin-bottom: var(--ax-space-16);
+}
+
+.liste {
+  list-style: none;
+  margin: var(--ax-space-16) 0 var(--ax-space-24);
+  padding: 0;
+  border-top: 1px solid var(--ax-border-neutral-subtle);
+}
+
+.listeItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ax-space-8) var(--ax-space-16);
+  padding-block: var(--ax-space-16);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+
+  > form {
+    flex: 1;
+  }
+}
+
+.listeItemInnhold {
+  flex: 1;
+  min-width: 0;
+}
+
+.listeItemKnapper {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--ax-space-8);
+}
+
+.nyttOppholdSkjema {
+  margin-block: var(--ax-space-24);
 }
 
 .utenlandsperioder {
@@ -29,21 +64,6 @@
     line-height: var(--ax-font-line-height-xlarge);
   }
 
-  &Buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    &__endre {
-      margin: 0;
-    }
-
-    &__slette {
-      margin-top: 0;
-      align-self: end;
-    }
-  }
-
   @media (min-width: variables.$ax-breakpoint-md) {
     &Item {
       flex-direction: row;
@@ -53,13 +73,6 @@
       flex-grow: 1;
       min-height: 5.25rem;
       align-content: center;
-    }
-
-    &Buttons {
-      flex-direction: column;
-      flex-basis: 0;
-      justify-content: space-between;
-      text-wrap: nowrap;
     }
   }
 }

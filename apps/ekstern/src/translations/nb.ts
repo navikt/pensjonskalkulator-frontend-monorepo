@@ -131,26 +131,29 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.title':
     'Oppholdene dine utenfor Norge',
   'stegvisning.utenlandsopphold.oppholdene.description':
-    'Legg til gjennomførte og planlagte opphold',
+    'Opphold utenfor Norge kan påvirke størrelsen og tidspunktet du kan ta ut alderspensjon. Du bør derfor legge inn alle periodene du har vært eller planlegger å være i andre land.',
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
   'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     '(Varig opphold)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.jobbet': '(Jobbet)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet':
+    '(Varig opphold, jobbet)',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
-  'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'Legg til opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'Legg til nytt opphold',
-  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre opphold',
-  'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett opphold',
-  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Rediger',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
+    'Rediger opphold i {land}',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
+    'Slett opphold i {land}',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til':
     'Legg til opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
     'Oppdater opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Avbryt',
-  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
-    'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Jobbet du i {land}?',
@@ -161,7 +164,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label': 'Oppgi startdato',
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
-  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label':
+    'Oppgi sluttdato (valgfritt)',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
     'Ved varig opphold, lar du feltet stå tomt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
@@ -262,8 +266,6 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten AFP',
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
-  'stegvisning.samtykke_offentlig_afp.alert':
-    'Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke.',
   'stegvisning.sivilstand.title': 'Sivilstand',
   'stegvisning.sivilstand.ingress_ukjent':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon.',
@@ -332,8 +334,6 @@ const translations = {
   'tidligstmuliguttak.pre2025OffentligAfp.ingress':
     'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Flere valg',
-  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
-    'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'I Flere valg kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
@@ -367,23 +367,7 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.pensjonsavtaler.alert.endring':
-    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.afp_offentlig.error':
-    'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
-  'beregning.pensjonsavtaler.alert.offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
-  'beregning.alert.inntekt':
-    'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.alert.info.afp-offentlig-livsvarig':
     'Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under <scrollTo>AFP: Offentlig</scrollTo>.',
   'beregning.alert.feil.afp-offentlig-livsvarig':
@@ -704,7 +688,6 @@ const translations = {
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'hvis du ønsker å få dette i beregningen.',
-  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
   'pensjonsavtaler_mobil.kr_pr_aar': 'kr/år',
   'alder.livsvarig': 'Livsvarig fra',

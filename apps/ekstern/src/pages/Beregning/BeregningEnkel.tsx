@@ -1,10 +1,11 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 import { useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { Alert, Heading } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
@@ -247,10 +248,6 @@ export const BeregningEnkel = () => {
       )
     }
   }
-  const dismissAlert = () => {
-    setShowInntektAlert(false)
-  }
-
   if (isTidligstMuligUttakLoading) {
     return (
       <Loader
@@ -276,17 +273,12 @@ export const BeregningEnkel = () => {
   return (
     <>
       {showInntektAlert && (
-        <div className={styles.container}>
-          <Alert
-            data-testid="alert-inntekt"
+        <div className={styles.container} role="alert">
+          <SanityAlert
+            id="beregning.endret-inntekt"
             className={styles.alert}
-            variant="info"
-            closeButton={true}
-            onClose={dismissAlert}
-            role="alert"
-          >
-            <FormattedMessage id="beregning.alert.inntekt" />
-          </Alert>
+            onClose={() => setShowInntektAlert(false)}
+          />
         </div>
       )}
 

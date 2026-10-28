@@ -1,1 +1,0 @@
-export { UtenlandsoppholdModal } from './UtenlandsoppholdModal'

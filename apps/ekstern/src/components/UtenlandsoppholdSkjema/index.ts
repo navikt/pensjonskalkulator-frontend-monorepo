@@ -1,0 +1,1 @@
+export { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema'

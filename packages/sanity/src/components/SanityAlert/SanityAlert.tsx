@@ -1,14 +1,25 @@
 import { PortableText } from '@portabletext/react'
 import clsx from 'clsx'
-import { type ReactNode, useContext } from 'react'
+import {
+	type AriaAttributes,
+	type HTMLAttributes,
+	type ReactNode,
+	useContext,
+} from 'react'
 import { useIntl } from 'react-intl'
 
 import {
+	CheckmarkCircleFillIcon,
+	ExclamationmarkTriangleFillIcon,
 	ExclamationmarkTriangleIcon,
+	InformationSquareFillIcon,
 	InformationSquareIcon,
 	LightBulbIcon,
+	XMarkIcon,
+	XMarkOctagonFillIcon,
 } from '@navikt/aksel-icons'
 import {
+	Button,
 	GlobalAlert,
 	InfoCard,
 	InlineMessage,
@@ -24,6 +35,7 @@ import styles from './SanityAlert.module.scss'
 
 type AlertType = 'global-alert' | 'local-alert' | 'info-card' | 'inline-message'
 type AlertStatus = 'info' | 'success' | 'warning' | 'error'
+type InfoCardStatus = AlertStatus | 'message' | 'attention' | 'tips'
 
 const infoCardColorMap = {
 	info: 'info',
@@ -35,7 +47,11 @@ const infoCardColorMap = {
 	tips: 'info',
 } as const
 
-const infoCardIconMap: Record<'message' | 'attention' | 'tips', ReactNode> = {
+const infoCardIconMap: Record<InfoCardStatus, ReactNode> = {
+	info: <InformationSquareFillIcon aria-hidden />,
+	success: <CheckmarkCircleFillIcon aria-hidden />,
+	warning: <ExclamationmarkTriangleFillIcon aria-hidden />,
+	error: <XMarkOctagonFillIcon aria-hidden />,
 	message: <InformationSquareIcon aria-hidden />,
 	attention: <ExclamationmarkTriangleIcon aria-hidden />,
 	tips: <LightBulbIcon aria-hidden />,
@@ -56,6 +72,9 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	onClose?: () => void
+	role?: HTMLAttributes<HTMLDivElement>['role']
+	'aria-live'?: AriaAttributes['aria-live']
 }
 
 export const SanityAlert = ({
@@ -63,6 +82,9 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	onClose,
+	role,
+	'aria-live': ariaLive,
 }: Props) => {
 	const intl = useIntl()
 	const { alertData, navigateToRoute } = useContext(SanityContext)
@@ -89,13 +111,26 @@ export const SanityAlert = ({
 		/>
 	)
 
+	const closeButton = onClose && (
+		<Button
+			size="small"
+			variant="tertiary-neutral"
+			icon={<XMarkIcon aria-hidden />}
+			onClick={onClose}
+			aria-label="Lukk"
+		/>
+	)
+
 	switch (alertType) {
 		case 'global-alert':
 			return (
 				<GlobalAlert
+					size="medium"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<GlobalAlert.Header>
@@ -110,12 +145,22 @@ export const SanityAlert = ({
 			if (infoCardStatus === 'message') {
 				return (
 					<InfoCard
+						size="medium"
 						data-color={infoCardColorMap[infoCardStatus]}
-						className={clsx(styles.wrapper, className)}
+						className={clsx(styles.wrapper, styles.message, className)}
 						data-testid={sanityContent.name}
+						aria-live={ariaLive}
+						role={role}
 					>
 						<InfoCard.Message icon={infoCardIconMap[infoCardStatus]}>
-							{content}
+							{onClose ? (
+								<div className={styles.closableAlert}>
+									<div>{content}</div>
+									{closeButton}
+								</div>
+							) : (
+								content
+							)}
 						</InfoCard.Message>
 					</InfoCard>
 				)
@@ -123,9 +168,12 @@ export const SanityAlert = ({
 
 			return (
 				<InfoCard
+					size="medium"
 					data-color={infoCardColorMap[infoCardStatus]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<InfoCard.Header
@@ -146,9 +194,12 @@ export const SanityAlert = ({
 		case 'inline-message':
 			return (
 				<InlineMessage
+					size="medium"
 					status={status}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
+					role={role}
 				>
 					{content}
 				</InlineMessage>
@@ -158,9 +209,12 @@ export const SanityAlert = ({
 		default:
 			return (
 				<LocalAlert
+					size="medium"
 					status={alertStatusMap[status]}
 					className={clsx(styles.wrapper, className)}
 					data-testid={sanityContent.name}
+					aria-live={ariaLive}
+					role={role}
 				>
 					{sanityContent.overskrift && (
 						<LocalAlert.Header>
