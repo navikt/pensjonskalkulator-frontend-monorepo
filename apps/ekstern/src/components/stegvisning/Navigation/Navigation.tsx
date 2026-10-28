@@ -11,12 +11,14 @@ export default function Navigation({
   form,
   className,
   isNextDisabled,
+  isPreviousDisabled,
 }: {
   onPrevious: () => void
   onCancel: (() => void) | undefined
   form?: string
   className?: string
   isNextDisabled?: boolean
+  isPreviousDisabled?: boolean
 }) {
   const { pathname } = useLocation()
 
@@ -34,6 +36,7 @@ export default function Navigation({
       <Button
         type="button"
         variant="secondary"
+        disabled={isPreviousDisabled}
         data-testid="stegvisning-tilbake-button"
         onClick={wrapLogger('knapp klikket', {
           tekst: `Tilbake fra ${pathname}`,

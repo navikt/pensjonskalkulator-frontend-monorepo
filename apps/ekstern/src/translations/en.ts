@@ -123,20 +123,23 @@ export default {
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Period: ',
   'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     '(Permanent Stay)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.jobbet': '(Worked)',
+  'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet':
+    '(Permanent Stay, worked)',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Worked: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Yes',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'No',
-  'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'Add Stay',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'Add New Stay',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Edit Stay',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
+    'Edit stay in {land}',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Delete Stay',
-  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'About Your Stay',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
+    'Delete stay in {land}',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'Add Stay',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'Update Stay',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Cancel',
-  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
-    'Cancel Change',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Select Country',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Did you work in {land}?',
