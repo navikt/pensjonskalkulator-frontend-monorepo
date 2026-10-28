@@ -28,7 +28,7 @@
     min-width: 0;
   }
 
-  @media (min-width: variables.$ax-breakpoint-md) {
+  @media (min-width: variables.$ax-breakpoint-sm) {
     flex-wrap: wrap;
     padding-block: var(--ax-space-16);
   }
@@ -39,7 +39,7 @@
   min-width: 0;
   padding-inline-start: var(--ax-space-8);
 
-  @media (min-width: variables.$ax-breakpoint-md) {
+  @media (min-width: variables.$ax-breakpoint-sm) {
     padding-inline-start: 0;
   }
 }
@@ -51,7 +51,7 @@
   flex-shrink: 0;
   gap: var(--ax-space-8);
 
-  @media (min-width: variables.$ax-breakpoint-md) {
+  @media (min-width: variables.$ax-breakpoint-sm) {
     flex-direction: row;
     align-items: center;
   }
