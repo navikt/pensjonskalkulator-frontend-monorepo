@@ -1020,7 +1020,6 @@
 							"_key": "00be198a9624",
 							"_type": "dynamicValue",
 							"key": "tpOrdning",
-							"openInNewTab": false,
 							"valueType": "string"
 						},
 						{
@@ -1719,7 +1718,7 @@
 							"_key": "bf06f56e44e2",
 							"_type": "dynamicValue",
 							"key": "tidligst-endring-uttaksgrad-dato",
-							"valueType": "number"
+							"valueType": "string"
 						},
 						{
 							"_key": "08179098684e",
