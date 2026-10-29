@@ -102,7 +102,7 @@ export const alertType = defineType({
 			name: 'buttonLabel',
 			type: 'string',
 			title: 'Knappetekst',
-			description: 'Teksten som vises på app-knappen under varselet.',
+			description: 'Teksten som vises på app-knappen i varselet.',
 		}),
 		defineField({
 			...innholdField,

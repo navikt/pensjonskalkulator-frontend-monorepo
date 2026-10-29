@@ -19,6 +19,10 @@
 	}
 }
 
+.actionButton {
+	margin-top: var(--ax-space-16);
+}
+
 .closableAlert {
 	display: flex;
 	align-items: flex-start;
