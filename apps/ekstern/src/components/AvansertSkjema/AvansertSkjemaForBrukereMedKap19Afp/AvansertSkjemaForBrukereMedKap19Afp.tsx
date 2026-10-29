@@ -1,23 +1,14 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router'
 
-import {
-  Alert,
-  Heading,
-  Link,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
-} from '@navikt/ds-react'
+import { Heading, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
 
 import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
 import { BeregningContext } from '@/pages/Beregning/context'
-import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
@@ -59,7 +50,6 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
 }> = ({ vilkaarsproeving }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
   const { setAvansertSkjemaModus } = React.useContext(BeregningContext)
 
@@ -400,56 +390,26 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
               </Radio>
 
               {localHarAfpInntektMaanedFoerUttakRadio === false && (
-                <Alert
-                  variant="info"
-                  data-testid="afp-etterfulgt-ap-informasjon"
+                <SanityAlert
+                  id="afp.inntekt-siste-maaned"
                   role="alert"
-                >
-                  <FormattedMessage
-                    id="beregning.avansert.alert.afp_inntekt_maaned_foer_uttak"
-                    values={{
-                      ...getFormatMessageValues(),
-                      grunnbeloepstekst: grunnbeloep
-                        ? `på minst ${formatInntekt(Math.ceil(grunnbeloep / 12))} kr den siste måneden før du tar ut AFP`
-                        : 'den siste måneden før du tar ut AFP som tilsvarer en årsinntekt på minst 1G',
-                      alderspensjonUtenAFP: (
-                        <Link
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            dispatch(
-                              userInputActions.setAfpInntektMaanedFoerUttak(
-                                null
-                              )
-                            )
-                            dispatch(
-                              userInputActions.setCurrentSimulationGradertUttaksperiode(
-                                null
-                              )
-                            )
-                            dispatch(
-                              userInputActions.setCurrentSimulationUttaksalder(
-                                null
-                              )
-                            )
-                            // TODO: fjern når amplitude er ikke i bruk lenger
-                            logger('button klikk', {
-                              tekst: 'Grunnlag AFP: Gå til AFP',
-                            })
-                            logger('knapp klikket', {
-                              tekst: 'Grunnlag AFP: Gå til AFP',
-                            })
-                            navigate(paths.afp)
-                          }}
-                        >
-                          {intl.formatMessage({
-                            id: 'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text',
-                          })}
-                        </Link>
-                      ),
-                    }}
-                  />
-                </Alert>
+                  onLinkClick={() => {
+                    dispatch(
+                      userInputActions.setAfpInntektMaanedFoerUttak(null)
+                    )
+                    dispatch(
+                      userInputActions.setCurrentSimulationGradertUttaksperiode(
+                        null
+                      )
+                    )
+                    dispatch(
+                      userInputActions.setCurrentSimulationUttaksalder(null)
+                    )
+                    logger('knapp klikket', {
+                      tekst: 'Grunnlag AFP: Gå til AFP',
+                    })
+                  }}
+                />
               )}
             </RadioGroup>
           </div>

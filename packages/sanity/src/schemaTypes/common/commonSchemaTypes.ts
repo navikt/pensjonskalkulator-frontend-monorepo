@@ -138,7 +138,7 @@ export const innholdField = defineField({
 									{ title: 'Dato for vedtak', value: 'vedtakDato' },
 									{
 										title: 'Tidligste endringsdato',
-										value: 'tidligstEndringDato',
+										value: 'tidligst-endring-ved-fremtidig-vedtak',
 									},
 									{
 										title:

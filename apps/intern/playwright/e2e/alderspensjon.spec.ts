@@ -338,12 +338,15 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('beregn-button').click()
 
-			await expect(page.getByText('Ugyldig uttaksgrad')).toBeVisible()
-			await expect(
-				page.getByText(
-					'Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra 01.01.2032.'
-				)
-			).toBeVisible()
+			const alert = page.getByTestId('beregning.ugyldig-uttaksgrad.12-maaneder')
+			await expect(alert).toBeVisible()
+			await expect(alert).toContainText('12-månedersregel')
+			await expect(alert).toContainText(
+				'Du kan derfor tidligst endre uttaksgrad fra 01.01.2032.'
+			)
+			await expect(alert).toContainText(
+				'Du kan endre til 0 eller 100 % så ofte du vil.'
+			)
 			expect(getSimuleringRequestCount()).toBe(0)
 		})
 

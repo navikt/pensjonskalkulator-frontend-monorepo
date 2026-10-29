@@ -1,3 +1,4 @@
+import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
@@ -32,6 +33,7 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
     harAvansertSkjemaUnsavedChanges: false,
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
+
   it('Rendrer komponenten med riktig overskrift og innhold', () => {
     render(
       <BeregningContext.Provider value={contextMockedValues}>
@@ -381,39 +383,78 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
     })
 
     describe('Ved klikk på radioknapper', () => {
-      it('Skal alert vises når bruker velger "Nei" på afpInntektMaanedFoerUttak', async () => {
-        const user = userEvent.setup()
-        render(
-          <BeregningContext.Provider value={contextMockedValues}>
-            <AvansertSkjemaForBrukereMedKap19Afp />
-          </BeregningContext.Provider>,
-          {
-            preloadedState: {
-              userInput: {
-                ...userInputInitialState,
+      it.each([true, false])(
+        'Viser fast AFP-varsel når bruker velger "Nei", med grunnbeløp tilgjengelig: %s',
+        async (harGrunnbeloep) => {
+          const user = userEvent.setup()
+          const navigateToRoute = vi.fn()
+          const { store } = render(
+            <SanityContext.Consumer>
+              {(sanityContext) => (
+                <SanityContext.Provider
+                  value={{ ...sanityContext, navigateToRoute }}
+                >
+                  <BeregningContext.Provider value={contextMockedValues}>
+                    <AvansertSkjemaForBrukereMedKap19Afp />
+                  </BeregningContext.Provider>
+                </SanityContext.Provider>
+              )}
+            </SanityContext.Consumer>,
+            {
+              preloadedState: {
+                userInput: {
+                  ...userInputInitialState,
+                  afpInntektMaanedFoerUttak: true,
+                  currentSimulation: {
+                    ...userInputInitialState.currentSimulation,
+                    uttaksalder: { aar: 67, maaneder: 0 },
+                    gradertUttaksperiode: {
+                      grad: 100,
+                      uttaksalder: { aar: 65, maaneder: 0 },
+                    },
+                  },
+                },
               },
-            },
-            preloadedApiState: {
-              getPerson: personMock,
-              getGrunnbeloep: grunnbeloepMock,
-              getLoependeVedtak: loependeVedtak0UfoeregradMock,
-            },
-          }
-        )
-        expect(
-          screen.getByTestId(AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio)
-        ).toBeVisible()
-
-        await user.click(
-          screen.getByTestId(
-            `${AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio}-nei`
+              preloadedApiState: {
+                getPerson: personMock,
+                ...(harGrunnbeloep ? { getGrunnbeloep: grunnbeloepMock } : {}),
+                getLoependeVedtak: loependeVedtak0UfoeregradMock,
+              },
+            }
           )
-        )
 
-        expect(
-          screen.getByTestId('afp-etterfulgt-ap-informasjon')
-        ).toBeVisible()
-      })
+          await user.click(
+            screen.getByTestId(
+              `${AVANSERT_FORM_NAMES.afpInntektMaanedFoerUttakRadio}-nei`
+            )
+          )
+
+          const alert = screen.getByTestId('afp.inntekt-siste-maaned')
+          expect(alert).toBeVisible()
+          const link = screen.getByRole('link', {
+            name: 'alderspensjon uten AFP',
+          })
+          expect(alert).toContainElement(link)
+          expect(alert.querySelectorAll('a')).toHaveLength(1)
+          expect(alert).toHaveTextContent(
+            'Du kan bare beregne AFP hvis du har en inntekt den siste måneden før du tar ut AFP som tilsvarer en årsinntekt på minst 1G. Beregn i stedet alderspensjon uten AFP.'
+          )
+          expect(link).toHaveAttribute('href', '/pensjon/kalkulator/afp')
+
+          await user.click(link)
+
+          expect(store.getState().userInput).toMatchObject({
+            afpInntektMaanedFoerUttak: null,
+            currentSimulation: {
+              gradertUttaksperiode: null,
+              uttaksalder: null,
+            },
+          })
+          expect(navigateToRoute).toHaveBeenCalledExactlyOnceWith(
+            '/pensjon/kalkulator/afp'
+          )
+        }
+      )
 
       it('Skal inputfield vises når bruker velger "Ja" på inntektVsaAfp', async () => {
         const user = userEvent.setup()

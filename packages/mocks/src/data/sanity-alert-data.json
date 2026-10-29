@@ -226,20 +226,7 @@
 							"_key": "f754dee13785",
 							"_type": "span",
 							"marks": [],
-							"text": "Du kan bare beregne AFP hvis du har en inntekt på minst "
-						},
-						{
-							"_key": "280a30a60655",
-							"_type": "dynamicValue",
-							"key": "afpMinsteMaanedsinntekt",
-							"openInNewTab": false,
-							"valueType": "number"
-						},
-						{
-							"_key": "2f4d68fd7435",
-							"_type": "span",
-							"marks": [],
-							"text": " kr den siste måneden før du tar ut AFP. Beregn i stedet "
+							"text": "Du kan bare beregne AFP hvis du har en inntekt den siste måneden før du tar ut AFP som tilsvarer en årsinntekt på minst 1G. Beregn i stedet "
 						},
 						{
 							"_key": "d5eef42f72d4",
@@ -372,7 +359,7 @@
 						{
 							"_key": "98c3ac13aadb",
 							"_type": "dynamicValue",
-							"key": "tidligstEndringDato"
+							"key": "tidligst-endring-ved-fremtidig-vedtak"
 						},
 						{
 							"_key": "622fd068561a",

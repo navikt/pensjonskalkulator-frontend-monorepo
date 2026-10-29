@@ -1,4 +1,5 @@
 import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -171,7 +172,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
     if (validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato]) {
       logger(ALERT_VIST, {
         tekst: '12 måneders regel, du kan tidligst endre uttaksgrad',
-        variant: 'warning',
+        variant: 'info',
       })
     }
   }, [validationErrors])
@@ -473,17 +474,16 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
 
           {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
             <div className={styles.alertWrapper}>
-              <Alert variant="warning" role="alert">
-                <FormattedMessage
-                  id="beregning.endring.alert.uttaksdato"
-                  values={{
-                    ...getFormatMessageValues(),
-                    dato: validationErrors[
+              <SanityAlert
+                id="beregning.ugyldig-uttaksgrad.12-maaneder"
+                role="alert"
+                dynamicValues={{
+                  'tidligst-endring-uttaksgrad-dato':
+                    validationErrors[
                       AVANSERT_FORM_NAMES.endringAlertFremtidigDato
                     ],
-                  }}
-                />
-              </Alert>
+                }}
+              />
             </div>
           )}
 

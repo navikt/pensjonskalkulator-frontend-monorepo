@@ -2249,14 +2249,15 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
         screen.getByText('beregning.avansert.button.beregn.endring')
       )
 
-      expect(
-        screen.getByText(
-          'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra',
-          {
-            exact: false,
-          }
-        )
-      ).toBeVisible()
+      const alert = screen.getByTestId(
+        'beregning.ugyldig-uttaksgrad.12-maaneder'
+      )
+      expect(alert).toBeVisible()
+      expect(alert).toHaveTextContent('12-månedersregel')
+      const forventetDato = `01.${String(new Date().getMonth() + 1).padStart(2, '0')}.${new Date().getFullYear() + 1}`
+      expect(alert).toHaveTextContent(
+        `Du kan derfor tidligst endre uttaksgrad fra ${forventetDato}.`
+      )
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
   })

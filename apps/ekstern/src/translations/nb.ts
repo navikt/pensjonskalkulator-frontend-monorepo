@@ -547,8 +547,6 @@ const translations = {
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
     'Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP. {vilkaarForUttakAvAfp}. Du kan også beregne {alderspensjonUtenAFP}.',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak':
-    'Du kan bare beregne AFP hvis du har en inntekt {grunnbeloepstekst}. Beregn i stedet {alderspensjonUtenAFP}.',
   'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
     'alderspensjon uten AFP',
   'beregning.endring.alert.uttaksdato':

@@ -471,7 +471,6 @@ export default {
   'beregning.avansert.avbryt_modal.button.avbryt': 'Cancel',
   'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
     'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak': 'MANGLER_TEKST',
   'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
     'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato':
