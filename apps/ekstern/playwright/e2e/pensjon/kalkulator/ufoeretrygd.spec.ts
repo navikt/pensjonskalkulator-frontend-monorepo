@@ -272,7 +272,9 @@ test.describe('Med ufoeretrygd', () => {
           page,
         }) => {
           await expect(page).toHaveURL(/\/beregning/)
-          await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+          await expect(
+            page.getByTestId('apoteker.beregning-med-afp-feil')
+          ).toBeVisible()
         })
 
         test('forventer jeg ingen informasjon om AFP på beregningssiden', async ({

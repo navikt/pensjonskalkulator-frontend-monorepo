@@ -80,10 +80,12 @@ test.describe('AFP vs uføretrygd', () => {
       test('forventer jeg informasjon om at AFP og uføretrygd ikke kan kombineres.', async ({
         page,
       }) => {
-        await expect(page.getByTestId('ufoere-info')).toBeVisible()
-        await expect(page.getByTestId('ufoere-info')).toContainText(
-          'AFP og uføretrygd kan ikke kombineres'
-        )
+        await expect(
+          page.getByTestId('ufoeretrygd-afp.kan-ikke-kombineres')
+        ).toBeVisible()
+        await expect(
+          page.getByTestId('ufoeretrygd-afp.kan-ikke-kombineres')
+        ).toContainText('AFP og uføretrygd kan ikke kombineres')
       })
 
       // 2
@@ -132,10 +134,12 @@ test.describe('AFP vs uføretrygd', () => {
       test('forventer jeg informasjon om at AFP og uføretrygd ikke kan kombineres.', async ({
         page,
       }) => {
-        await expect(page.getByTestId('ufoere-info')).toBeVisible()
-        await expect(page.getByTestId('ufoere-info')).toContainText(
-          'AFP og uføretrygd kan ikke kombineres'
-        )
+        await expect(
+          page.getByTestId('ufoeretrygd-afp.kan-ikke-kombineres')
+        ).toBeVisible()
+        await expect(
+          page.getByTestId('ufoeretrygd-afp.kan-ikke-kombineres')
+        ).toContainText('AFP og uføretrygd kan ikke kombineres')
       })
 
       // 5

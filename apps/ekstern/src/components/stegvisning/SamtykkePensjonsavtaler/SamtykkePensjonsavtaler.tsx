@@ -1,8 +1,9 @@
 import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ApotekereWarning } from '@/components/common/ApotekereWarning/ApotekereWarning'
 import { Card } from '@/components/common/Card'
@@ -183,19 +184,10 @@ export function SamtykkePensjonsavtaler({
         {!loependeVedtak?.harLoependeVedtak &&
           skalBeregneAfpKap19 &&
           jaPensjonsavtaler === false && (
-            <Alert
-              data-testid="samtykke-pensjonsavtaler-alert"
+            <SanityAlert
+              id="samtykke.nei.valgt-afp.spk"
               className={styles.pensjonsavtaleAlert}
-              variant="info"
-              size="medium"
-            >
-              <FormattedMessage
-                id="stegvisning.samtykke_pensjonsavtaler.alert"
-                values={{
-                  ...getFormatMessageValues(),
-                }}
-              />
-            </Alert>
+            />
           )}
 
         <Navigation onPrevious={onPrevious} onCancel={onCancel} />

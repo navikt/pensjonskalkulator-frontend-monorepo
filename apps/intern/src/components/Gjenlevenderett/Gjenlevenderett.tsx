@@ -332,7 +332,11 @@ export const Gjenlevenderett = () => {
 							</ErrorMessage>
 						)}
 						{isEPSInfoEmpty && !tilgangsbegrensningAlertId && (
-							<LocalAlert status="warning" data-testid="EPS-ikke-funnet">
+							<LocalAlert
+								status="warning"
+								size="small"
+								data-testid="EPS-ikke-funnet"
+							>
 								<LocalAlert.Header>
 									<LocalAlert.Title>Fant ikke opplysninger</LocalAlert.Title>
 								</LocalAlert.Header>

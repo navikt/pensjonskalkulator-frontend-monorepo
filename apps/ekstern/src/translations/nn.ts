@@ -196,7 +196,6 @@ export default {
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
     'MANGLER_TEKST',
-  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_description': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'MANGLER_TEKST',
@@ -253,7 +252,6 @@ export default {
   'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',
   'tidligstmuliguttak.pre2025OffentligAfp.ingress': 'MANGLER_TEKST',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'MANGLER_TEKST',
-  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende': 'MANGLER_TEKST',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',
@@ -286,22 +284,10 @@ export default {
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',
-  'beregning.error':
-    'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening.aar':
-    'Du har ikkje høg nok opptening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
-  'beregning.pensjonsavtaler.alert.endring': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.privat.error': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.offentlig.error': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error': 'MANGLER_TEKST',
-  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'MANGLER_TEKST',
-  'beregning.alert.inntekt': 'MANGLER_TEKST',
   'beregning.alert.feil.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
@@ -520,25 +506,16 @@ export default {
   'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start ei ny utrekning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'viss du ynskjer å få dette i utrekninga.',
-  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
   'alder.livsvarig': 'Livsvarig frå og med',
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
   'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon frå Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp':

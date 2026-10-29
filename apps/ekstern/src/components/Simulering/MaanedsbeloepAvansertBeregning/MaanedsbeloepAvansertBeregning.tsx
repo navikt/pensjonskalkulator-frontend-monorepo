@@ -37,6 +37,36 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
     <Box
       marginBlock="space-40 space-0"
       data-testid="maanedsbloep-avansert-beregning"
+      onCopy={(event) => {
+        // Behold etikett og beløp på samme linje, med linjeskift mellom rader og overskrifter ved innliming.
+        // Skjult innhold (f.eks. desktop-visningen på mobil) tas ikke med.
+        const selection = window.getSelection()
+        if (!selection || selection.isCollapsed) return
+
+        event.currentTarget
+          .querySelectorAll('*')
+          .forEach((element) =>
+            element.toggleAttribute(
+              'data-copy-hidden',
+              getComputedStyle(element).display === 'none'
+            )
+          )
+        const content = selection.getRangeAt(0).cloneContents()
+        content
+          .querySelectorAll('[data-copy-hidden]')
+          .forEach((element) => element.remove())
+        content.querySelectorAll('th, td').forEach((cell) => cell.append(' '))
+        content.querySelectorAll('tr, h3, h4, button').forEach((line) => {
+          const text = line.textContent ?? ''
+          const singleLineText = text.replace(/[ \t\r\n]+/g, ' ').trim()
+          line.replaceWith(`${singleLineText}\n`)
+        })
+        event.clipboardData.setData(
+          'text/plain',
+          (content.textContent ?? '').trim()
+        )
+        event.preventDefault()
+      }}
     >
       <Heading size="small" level="3">
         <FormattedMessage id="maanedsbeloep.title" />

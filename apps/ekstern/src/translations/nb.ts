@@ -262,8 +262,6 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten AFP',
   'stegvisning.samtykke_offentlig_afp.validation_error':
     'Du må svare på om du vil at Nav skal beregne AFP for deg.',
-  'stegvisning.samtykke_offentlig_afp.alert':
-    'Hvis du har startet uttak av AFP, kan Nav bruke opplysningene til å gi en mer presis beregning av alderspensjon i kalkulatoren. Du kan likevel fortsette uten å samtykke.',
   'stegvisning.sivilstand.title': 'Sivilstand',
   'stegvisning.sivilstand.ingress_ukjent':
     'Bor du sammen med noen? Det kan ha betydning for hva du får i pensjon.',
@@ -332,8 +330,6 @@ const translations = {
   'tidligstmuliguttak.pre2025OffentligAfp.ingress':
     'Du har AFP i offentlig sektor. Her kan du beregne 100 % alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'Flere valg',
-  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
-    'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før <nowrap>{normertPensjonsalder}</nowrap>, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'I Flere valg kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
@@ -360,30 +356,10 @@ const translations = {
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Flere valg',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
-  'beregning.error':
-    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.livsvarig': 'livsvarig',
-  'beregning.lav_opptjening.aar':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
-  'beregning.pensjonsavtaler.alert.endring':
-    'Pensjonsavtaler fra arbeidsgivere og egen sparing er ikke med i beregningen.',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.afp_offentlig.error':
-    'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK). Du må kontakte <spkLink>SPK</spkLink> for mer informasjon om vilkårene for AFP.',
-  'beregning.pensjonsavtaler.alert.offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor. Les mer under <scrollTo>pensjon fra andre</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>pensjon fra andre</scrollTo>.',
   'beregning.title': 'Årlig inntekt og pensjon',
-  'beregning.alert.inntekt':
-    'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.alert.info.afp-offentlig-livsvarig':
     'Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under <scrollTo>AFP: Offentlig</scrollTo>.',
   'beregning.alert.feil.afp-offentlig-livsvarig':
@@ -695,16 +671,11 @@ const translations = {
   'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Avtaler fra privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'hvis du ønsker å få dette i beregningen.',
-  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
   'pensjonsavtaler_mobil.kr_pr_aar': 'kr/år',
   'alder.livsvarig': 'Livsvarig fra',
@@ -715,14 +686,6 @@ const translations = {
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjon fra andre',
   'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
-    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning {chunk}.',
-  'pensjonsavtaler.offentligtp.error':
-    'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.teknisk_feil':
-    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din {chunk}.',
-  'pensjonsavtaler.offentligtp.empty':
-    'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.afp_fra_spk':

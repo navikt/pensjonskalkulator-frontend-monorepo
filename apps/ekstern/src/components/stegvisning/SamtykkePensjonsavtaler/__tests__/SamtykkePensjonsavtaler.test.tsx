@@ -200,7 +200,7 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
     await user.click(radioButtons[1])
     await waitFor(() => {
       expect(
-        screen.getByTestId('samtykke-pensjonsavtaler-alert')
+        screen.getByTestId('samtykke.nei.valgt-afp.spk')
       ).toBeInTheDocument()
     })
   })
@@ -227,7 +227,7 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
     const radioButtons = screen.getAllByRole('radio')
     await user.click(radioButtons[0])
     expect(
-      screen.queryByTestId('samtykke-pensjonsavtaler-alert')
+      screen.queryByTestId('samtykke.nei.valgt-afp.spk')
     ).not.toBeInTheDocument()
   })
 

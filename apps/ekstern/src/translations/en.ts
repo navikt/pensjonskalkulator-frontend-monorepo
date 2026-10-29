@@ -216,7 +216,6 @@ export default {
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.tpo_info.readmore.ingress':
     'MANGLER_TEKST',
-  'stegvisning.samtykke_offentlig_afp.alert': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Do you want Nav to calculate AFP for you?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
@@ -282,8 +281,6 @@ export default {
     ' It may be later due to the increased retirement age.',
   'tidligstmuliguttak.pre2025OffentligAfp.ingress': 'MANGLER_TEKST',
   'tidligstmuliguttak.pre2025OffentligAfp.avansert_link': 'MANGLER_TEKST',
-  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
-    'retirement pension cannot be combined with a survivor´s pension or adjustment benefits. If you wish to withdraw retirement pension before 67, you must forfeit the survivor´s pension or adjustment benefit when you withdraw your retirement pension. If you have questions, you can contact us at <nowrap>{link}</nowrap>.',
   'tidligstmuliguttak.error':
     'In Advanced, you can choose a more accurate pension age.',
   'omufoeretrygd.hel.ingress':
@@ -320,28 +317,10 @@ export default {
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',
-  'beregning.error':
-    'Unfortunately, we could not calculate your pension right now.',
   'beregning.livsvarig': 'lifelong',
-  'beregning.lav_opptjening.aar':
-    'You do not have enough accrual to start withdrawing at {startAar} years{startMaaned}. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
-  'beregning.pensjonsavtaler.alert.endring':
-    'Pension agreements from employers and personal savings are not included in the calculation.',
-  'beregning.pensjonsavtaler.alert.stoettes_ikke':
-    'The calculation may not show everything. You may be entitled to a public sector occupational pension. Read more under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat.error':
-    'This calculation may not show everything. We could not retrieve your private pension agreements. You may also be entitled to public occupational pension. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.offentlig.error':
-    'This calculation may not show everything. We could not check whether you have pension agreements in the public sector. See why under <scrollTo>pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.privat_og_offentlig.error':
-    'This calculation may not show everything. We could not check whether you have pension agreements in the public sector and we could not retrieve <scrollTo>your private pension agreements</scrollTo>.',
-  'beregning.pensjonsavtaler.alert.avtaler_foer_alder':
-    'You have pension agreements that start before the age you selected. See periods under <scrollTo>Pension Agreements</scrollTo>.',
   'beregning.title': 'MANGLER_TEKST',
-  'beregning.alert.inntekt':
-    'Because you have changed your income, your pension accrual changes.',
   'beregning.alert.feil.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
@@ -597,16 +576,11 @@ export default {
   'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'We could not retrieve your private pension agreements. Please try again later.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'We could not retrieve all your private pension agreements. Please try again later.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'You have not consented to retrieve pension agreements.',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start a new calculation',
   'pensjonsavtaler.ingress.error.samtykke_link_2':
     'if you want to include this in the calculation.',
-  'pensjonsavtaler.ingress.ingen': 'We found no pension agreements.',
   'pensjonsavtaler.kr_pr_aar': 'kr per year',
   'alder.livsvarig': 'Lifelong from',
   'pensjonsavtaler.md': 'mo.',
@@ -616,13 +590,6 @@ export default {
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
   'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
-    'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
-  'pensjonsavtaler.offentligtp.error':
-    'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.empty':
-    'We did not receive a response regarding your public service pension.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp': 'MANGLER_TEKST',

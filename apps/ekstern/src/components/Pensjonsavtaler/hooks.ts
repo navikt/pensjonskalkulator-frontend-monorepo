@@ -6,7 +6,8 @@ import { PrivatePensjonsavtalerProps } from './utils'
 
 export interface OffentligTpAlert {
   status: string
-  alertTextId: string
+  alertTextId?: string
+  sanityId?: string
   variant: 'info' | 'warning'
   logTekst: string
   testId?: string
@@ -14,7 +15,8 @@ export interface OffentligTpAlert {
 }
 
 export interface privatePensjonsavtalerAlert {
-  alertTextId: string
+  alertTextId?: string
+  sanityId?: string
   variant: 'info' | 'warning'
   logText?: string
   headingId?: string
@@ -56,7 +58,7 @@ export const usePrivatePensjonsAvtalerAlertList = (
 
   if (noPrivatePensjonsavtaler) {
     alerts.push({
-      alertTextId: 'pensjonsavtaler.ingress.ingen',
+      sanityId: 'pensjonsavtaler.fant-ingen-private',
       variant: 'info',
       logText: 'Fant ingen private pensjonsavtaler',
       headingId: 'pensjonsavtaler.private.title.ingen',
@@ -65,7 +67,7 @@ export const usePrivatePensjonsAvtalerAlertList = (
 
   if (errorOrNoPrivatePensjonsavtaler) {
     alerts.push({
-      alertTextId: 'pensjonsavtaler.private.ingress.error.pensjonsavtaler',
+      sanityId: 'pensjonsavtaler.klarte-ikke-hente-private',
       variant: 'warning',
       logText: 'Klarte ikke å hente private pensjonsavtaler',
       headingId: 'pensjonsavtaler.private.title.ingen',
@@ -74,8 +76,7 @@ export const usePrivatePensjonsAvtalerAlertList = (
 
   if (partialPrivatePensjonsavtaler) {
     alerts.push({
-      alertTextId:
-        'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial',
+      sanityId: 'pensjonsavtaler.klarte-ikke-hente-alle-private',
       variant: 'warning',
       logText: 'Klarte ikke å hente alle private pensjonsavtaler',
       className: 'alert__margin',
@@ -99,7 +100,7 @@ export const useOffentligTjenestePensjonAlertList = ({
     case 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING':
       alerts.push({
         status,
-        alertTextId: 'pensjonsavtaler.ingress.ingen',
+        sanityId: 'pensjonsavtaler.fant-ingen-offentlige',
         variant: 'info',
         testId: 'ingen-pensjonsavtaler-alert',
         hasLeverandoerList: false,
@@ -109,7 +110,7 @@ export const useOffentligTjenestePensjonAlertList = ({
     case 'TP_ORDNING_STOETTES_IKKE':
       alerts.push({
         status,
-        alertTextId: 'pensjonsavtaler.offentligtp.er_medlem_annen_ordning',
+        sanityId: 'pensjonsavtaler.kan-ikke-hente-alle-offentlige',
         variant: 'warning',
         hasLeverandoerList: true,
         logTekst: 'Kan ikke hente offentlige pensjonsavtaler',
@@ -118,7 +119,7 @@ export const useOffentligTjenestePensjonAlertList = ({
     case 'TEKNISK_FEIL':
       alerts.push({
         status,
-        alertTextId: 'pensjonsavtaler.offentligtp.teknisk_feil',
+        sanityId: 'pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon',
         variant: 'warning',
         hasLeverandoerList: true,
         logTekst: 'Klarte ikke å hente offentlig tjenestepensjon',
@@ -127,7 +128,7 @@ export const useOffentligTjenestePensjonAlertList = ({
     case 'TOM_SIMULERING_FRA_TP_ORDNING':
       alerts.push({
         status,
-        alertTextId: 'pensjonsavtaler.offentligtp.empty',
+        sanityId: 'pensjonsavtaler.fikk-ikke-svar.offentlig',
         variant: 'warning',
         hasLeverandoerList: false,
         logTekst: 'Fikk ikke svar fra offentlig tjenestepensjonsordning',
@@ -138,7 +139,7 @@ export const useOffentligTjenestePensjonAlertList = ({
   if (isError) {
     alerts.push({
       status: 'ERROR',
-      alertTextId: 'pensjonsavtaler.offentligtp.error',
+      sanityId: 'pensjonsavtaler.klarte-ikke-sjekke-offentlige',
       variant: 'warning',
       hasLeverandoerList: false,
       logTekst: 'Klarte ikke å hente offentlige pensjonsavtaler',
