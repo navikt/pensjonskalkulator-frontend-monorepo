@@ -12,7 +12,7 @@ import {
 async function submitAndExpectSimulering(page: Page) {
 	const simuleringResponse = page.waitForResponse(
 		(response) =>
-			response.url().includes('/api/intern/v1/pensjon/simulering') &&
+			response.url().includes('/api/intern/v2/pensjon/simulering') &&
 			response.request().method() === 'POST'
 	)
 
@@ -55,7 +55,7 @@ function trackSimuleringRequests(page: Page) {
 	page.on('request', (request) => {
 		if (
 			request.method() === 'POST' &&
-			request.url().includes('/api/intern/v1/pensjon/simulering')
+			request.url().includes('/api/intern/v2/pensjon/simulering')
 		) {
 			simuleringRequests += 1
 		}
