@@ -71,10 +71,10 @@ export const VilkaarsproevingAlert = ({
       isAlderOverAnnenAlder(altHeltUttaksalder, uttaksalder)
     )
     const alertId = !alternativ
-      ? 'beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening'
+      ? 'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
       : erKombinertUttak
-        ? 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak'
-        : 'beregning.vilkaarsproeving.medAFP.gradertUttak'
+        ? 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
+        : 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
 
     logger(ALERT_VIST, {
       tekst: alertId,

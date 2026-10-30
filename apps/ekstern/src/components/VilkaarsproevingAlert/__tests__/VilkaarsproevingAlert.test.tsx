@@ -145,7 +145,8 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: uttaksalder,
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 60,
-        alertId: 'beregning.vilkaarsproeving.medAFP.gradertUttak',
+        alertId:
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
         forslag:
@@ -156,7 +157,7 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 60,
-        alertId: 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
@@ -167,7 +168,7 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: null,
         grad: 40,
-        alertId: 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
@@ -178,7 +179,8 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 80,
-        alertId: 'beregning.vilkaarsproeving.medAFP.gradertUttak',
+        alertId:
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
         forslag:
@@ -189,7 +191,8 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 67, maaneder: 2 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 60,
-        alertId: 'beregning.vilkaarsproeving.medAFP.gradertUttak',
+        alertId:
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
         forslag:
@@ -200,7 +203,7 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 67, maaneder: 4 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 60,
-        alertId: 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
@@ -211,7 +214,7 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: normertPensjoneringsalder,
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 20,
-        alertId: 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
@@ -290,7 +293,7 @@ describe('VilkaarsproevingAlert', () => {
         )
 
         const alert = screen.getByTestId(
-          'beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening'
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
         )
         expect(alert).toHaveTextContent(
           'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 64 år og 2 måneder.'

@@ -1,7 +1,7 @@
 {
 	"result": [
 		{
-			"name": "beregning.vilkaarsproeving.medAFP.gradertUttak",
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp",
 			"type": "local-alert",
 			"status": "warning",
 			"infoCardStatus": null,
@@ -63,7 +63,7 @@
 			]
 		},
 		{
-			"name": "beregning.vilkaarsproeving.medAFP.heltOgGradertUttak",
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp",
 			"type": "local-alert",
 			"status": "warning",
 			"infoCardStatus": null,
@@ -137,7 +137,7 @@
 			]
 		},
 		{
-			"name": "beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening",
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp",
 			"type": "local-alert",
 			"status": "warning",
 			"infoCardStatus": null,

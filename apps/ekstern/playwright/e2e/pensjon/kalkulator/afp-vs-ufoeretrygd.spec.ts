@@ -483,7 +483,7 @@ test.describe('AFP vs uføretrygd', () => {
             page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
           ).toBeVisible()
           const alert = page.getByTestId(
-            'beregning.vilkaarsproeving.medAFP.gradertUttak'
+            'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
           )
           await expect(alert).toContainText(
             'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
@@ -533,7 +533,7 @@ test.describe('AFP vs uføretrygd', () => {
           ).toBeVisible()
 
           const alert = page.getByTestId(
-            'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak'
+            'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
           )
           await expect(alert).toContainText(
             'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.'
@@ -578,7 +578,7 @@ test.describe('AFP vs uføretrygd', () => {
             page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
           ).toBeVisible()
           const alert = page.getByTestId(
-            'beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening'
+            'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
           )
           await expect(alert).toContainText(
             'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 62 år.'
