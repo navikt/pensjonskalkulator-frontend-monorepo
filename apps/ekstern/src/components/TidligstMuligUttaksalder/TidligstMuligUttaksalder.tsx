@@ -189,6 +189,9 @@ export const TidligstMuligUttaksalder = ({
             id="beregning.gjenlevende-eller-omstilling"
             className={styles.alert}
             aria-live="polite"
+            dynamicValues={{
+              normertPensjoneringsalder: formatertNormertPensjonsalder,
+            }}
           />
         )}
 

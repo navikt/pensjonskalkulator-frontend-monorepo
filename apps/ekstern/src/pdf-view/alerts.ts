@@ -15,6 +15,7 @@ import {
   privatePensjonsavtalerAlert,
 } from '@/components/Pensjonsavtaler/hooks'
 import { AlertVariant } from '@/components/Simulering/hooks'
+import { formatUttaksalder } from '@/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'
@@ -292,13 +293,20 @@ export function getApotekerAlert(
 
 export function getOmstillingsstoenadAlert(
   intl: IntlShape,
-  alertData: SanityAlertData
+  alertData: SanityAlertData,
+  normertPensjonsalder: Alder
 ): string {
   return (
     renderSanityAlertHtml({
       alertData,
       id: 'beregning.gjenlevende-eller-omstilling',
       intl,
+      dynamicValues: {
+        normertPensjoneringsalder: formatUttaksalder(
+          intl,
+          normertPensjonsalder
+        ),
+      },
     }) ?? ''
   )
 }

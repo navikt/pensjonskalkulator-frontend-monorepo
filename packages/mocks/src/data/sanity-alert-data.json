@@ -1477,7 +1477,19 @@
 							"_key": "1197c15040c8",
 							"_type": "span",
 							"marks": [],
-							"text": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før 67 år, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
+							"text": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før "
+						},
+						{
+							"_key": "normert-pensjonsalder",
+							"_type": "dynamicValue",
+							"key": "normertPensjoneringsalder",
+							"valueType": "string"
+						},
+						{
+							"_key": "etter-normert-pensjonsalder",
+							"_type": "span",
+							"marks": [],
+							"text": ", må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
 						},
 						{
 							"_key": "f58315fd6973",
