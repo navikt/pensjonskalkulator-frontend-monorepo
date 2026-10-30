@@ -57,10 +57,7 @@ export function mapMerknadListe(
 	return merknadListe
 		.filter((merknad) => {
 			const kode = getMerknadKode(merknad)
-			// Midlertidig: backend skal slutte å returnere INGEN_OPPTJENING
-			return (
-				kode !== 'NONE' && kode !== 'UNKNOWN' && kode !== 'INGEN_OPPTJENING'
-			)
+			return kode !== 'NONE' && kode !== 'UNKNOWN'
 		})
 		.map((merknad) => {
 			const kode = getMerknadKode(merknad)

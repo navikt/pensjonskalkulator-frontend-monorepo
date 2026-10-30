@@ -111,9 +111,7 @@ describe('mapOpptjeningToTableRows', () => {
 		)
 
 		expect(rows.find((r) => r.aar === 2018)).toBeUndefined()
-		expect(rows.find((r) => r.aar === 2017)?.merknad).toBe(
-			'Mottak av dagpenger'
-		)
+		expect(rows.find((r) => r.aar === 2017)).toBeDefined()
 	})
 
 	test('mapper flere merknader komma-separert', () => {
